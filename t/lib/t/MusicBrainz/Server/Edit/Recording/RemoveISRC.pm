@@ -29,12 +29,12 @@ my $isrc = $c->model('ISRC')->get_by_id(1);
     my $recording = $c->model('Recording')->get_by_id(1);
     is($recording->edits_pending, 1);
 
-    my @isrcs = $c->model('ISRC')->find_by_recording(1);
+    my @isrcs = $c->model('ISRC')->find_by_recordings(1);
     is(scalar @isrcs, 1);
 
     reject_edit($c, $edit);
 
-    @isrcs = $c->model('ISRC')->find_by_recording(1);
+    @isrcs = $c->model('ISRC')->find_by_recordings(1);
     is(scalar @isrcs, 1);
 
     $recording = $c->model('Recording')->get_by_id(1);
@@ -51,12 +51,12 @@ my $isrc = $c->model('ISRC')->get_by_id(1);
     my $recording = $c->model('Recording')->get_by_id(1);
     is($recording->edits_pending, 1);
 
-    my @isrcs = $c->model('ISRC')->find_by_recording(1);
+    my @isrcs = $c->model('ISRC')->find_by_recordings(1);
     is(scalar @isrcs, 1);
 
     accept_edit($c, $edit);
 
-    @isrcs = $c->model('ISRC')->find_by_recording(1);
+    @isrcs = $c->model('ISRC')->find_by_recordings(1);
     is(scalar @isrcs, 0);
 
     $recording = $c->model('Recording')->get_by_id(1);

@@ -41,7 +41,7 @@ use constant MAX_TOP_LANGUAGES => 20;
 # Always include the six official UN languages and the "Multiple languages"
 # pseudo language.
 #
-use constant PRESELECTED_LANGUAGES => qw (
+use constant PRESELECTED_LANGUAGES => qw(
     ara eng fra spa rus zho mul
 );
 

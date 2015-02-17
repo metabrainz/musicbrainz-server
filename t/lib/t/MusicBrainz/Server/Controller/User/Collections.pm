@@ -21,13 +21,22 @@ test 'Viewing your own collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor1/collections');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->is('count(//html:div[@id="page"]//html:table//html:th)',
-            4, 'your collection list has 4 cols');
+    $tx->is('count(//div[@id="page"]//table)',
+            2, 'two collection lists are present');
 
-    $tx->is('//html:div[@id="page"]//html:table/html:tbody/html:tr[1]/html:td[2]',
-            2, 'number of collections is correct');
+    $tx->is('count(//div[@id="page"]//table[1]//th)',
+            6, 'release collection list has 6 cols');
+
+    $tx->is('count(//div[@id="page"]//table[2]//th)',
+            6, 'event collection list has 6 cols');
+
+    $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
+            2, 'number of releases is correct');
+
+    $tx->is('//div[@id="page"]//table[2]/tbody/tr[1]/td[3]',
+            2, 'number of releases is correct');
 };
 
 test 'No collections' => sub {
@@ -35,9 +44,9 @@ test 'No collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor3/collections');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->is('//html:div[@id="page"]/html:p', 'editor3 has no public collections.',
+    $tx->is('//div[@id="page"]/p', 'editor3 has no public collections.',
             'editor has no collections');
 };
 
@@ -46,10 +55,10 @@ test 'Viewing someone elses collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor2/collections');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->is('count(//html:div[@id="page"]//html:table//html:th)',
-            2, 'other collection list has 2 cols');
+    $tx->is('count(//div[@id="page"]//table//th)',
+            3, 'other collection list has 3 cols');
 };
 
 test 'Invalid user' => sub {

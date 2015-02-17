@@ -1,47 +1,47 @@
-[%- BLOCK layout_head -%]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-save');
-    });
-  //]]></script>
-[%- END -%]
+<div id="form">
+  <!-- ko if: validation.errorsExist -->
+    <div class="warning">
+      <p>[% l('Some errors were detected in the data you’ve entered. Click on the tabs shaded red and correct any visible errors.') %]</p>
+    </div>
+  <!-- /ko -->
 
-[%- WRAPPER 'release/edit/layout.tt' -%]
-   [%- USE r = FormRenderer(form) -%]
-   [% r.hidden('id') %]
+  <!-- ko if: allEdits().length === 0 && !validation.errorsExist() && !submissionInProgress() -->
+    <div class="warning">
+      <p>[% l('You haven’t made any changes!') %]</p>
+    </div>
+  <!-- /ko -->
 
-   [%# Do not display new entities as 'deleted'. See common-macros.tt
-       (link_entity) for more information. -%]
-   [% allow_new = 1 %]
+  <!-- ko if: loadingEditPreviews -->
+    <div class="loading-message">[% l('Loading edit previews...') %]</div>
+  <!-- /ko -->
 
-   <div id="form">
+  <div data-bind="loop: { items: editPreviews, id: 'editHash' }">
+    <div class="edit-list">
+      <h2 data-bind="text: editName"></h2>
+      <div class="edit-details" data-bind="html: preview"></div>
+    </div>
+  </div>
 
-       [%- FOREACH edit=edits -%]
-         <div class="edit-list">
-           <h2>[% edit.l_edit_name | html %]</h2>
+  <div class="half-width">
+    <fieldset class="editnote">
+      <legend>[%- l('Edit Note') -%]</legend>
+      <!-- ko with: rootField -->
+        [% edit_note(0, 1) %]
 
-           <div class="edit-details">
-           [% IF edit.data.defined %]
-             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
-           [% ELSE %]
-             <p>[% l('An error occured while loading this edit') %]</p>
-           [% END %]
-           </div>
+        <p class="error field-error" data-bind="showErrorRightAway: missingEditNote">
+          [% l('You must provide an edit note when adding a release.') %]
+        </p>
 
-         </div>
-       [%- END -%]
+        [% make_votable(1) %]
+      <!-- /ko -->
+    </fieldset>
 
-       <div class="half-width editnote">
-         [%- INCLUDE 'forms/edit-note.tt' -%]
-         [%- as_auto_editor() -%]
-       </div>
+    <div data-bind="if: submissionInProgress" class="loading-message">
+      [% l('Submitting edits...') %]
+    </div>
 
-       <div class="row buttons ui-helper-clearfix">
-         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-         [% r.submit ('previous', l('« Previous')) %]
-         [% r.submit ('save', l('Enter edit'), class => 'positive') %]
-       </div>
-
-   </div>
-
-[%- END -%]
+    <!-- ko if: submissionError -->
+      <p class="error" data-bind="text: submissionError"></p>
+    <!-- /ko -->
+  </div>
+</div>

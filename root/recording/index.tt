@@ -1,44 +1,41 @@
 [%- WRAPPER 'recording/layout.tt' page='index' %]
-    [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
+
     <h2 class="appears-on-releases">[%- l('Appears on releases') -%]</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF tracks.size -%]
             <table class="tbl">
                 <thead>
                     <tr>
-                        <th class="t pos" [% 'colspan="2"' IF clock %]>[% l('#') %]</th>
+                        <th class="t pos">[% l('#') %]</th>
                         <th>[% l('Title') %]</th>
                         <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
-                        <th>[% l('Release Date') %]</th>
+                        <th>[% l('Date') %]</th>
                         <th>[% l('Country') %]</th>
                         <th>[% l('Label') %]</th>
                         <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
-                <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
+                <tbody>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
-                    <th colspan="9">[% group.0.tracklist.medium.release.l_status_name || l('(unknown)') %]</th>
+                    <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
                   </tr>
                   [%- FOREACH track=group %]
-                    [%- release=track.tracklist.medium.release -%]
-                    [% rdfa_recording_hidden_published_as(track) %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
-		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
-                      <td>[%- rdfa_label_title(track.name) -%]</td>
-                      <td>[%- rdfa_recording_duration(track) -%]</td>
-                      <td>[%- rdfa_link_release_track(release, track) -%]</td>
+                    [%- release=track.medium.release -%]
+                    <tr class="[% loop.parity %]">
+                      <td>[%- simple_link(c.uri_for_action('/track/show', [ track.gid ]),
+                                          track.medium.position _ '.' _ track.position) -%]</td>
+                      <td>[%- isolate_text(track.name) -%]</td>
+                      <td>[%- format_length(track.length) -%]</td>
+                      <td>[%- link_release(release) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
-                      <td>[%- rdfa_release_event_date(release) -%]</td>
-                      <td>
-                        [%- IF release.country -%]
-                          [% rdfa_release_country_abbr(release) %]
-                        [%- END -%]
-                      </td>
-                      <td>[% rdfa_release_label_list(release.labels) %]</td>
-                      <td>[% rdfa_release_catno_list(release.labels) %]</td>
+                      <td>[% release_dates(release.events) %]</td>
+                      <td>[% release_countries(release.events) %]</td>
+                      <td>[% release_label_list(release.labels) %]</td>
+                      <td>[% release_catno_list(release.labels) %]</td>
                     </tr>
                     [%- END -%]
                   [% END %]
@@ -49,14 +46,5 @@
         [%- END -%]
     [%- END -%]
 
-    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=recording -%]
-
-    [% IF recording.related_works.size %]
-    <h2 class="related-works">[% l('Related works') %]</h2>
-    [% FOR work=recording.related_works %]
-      <h3>[% link_entity(work) %]</h3>
-      [%- INCLUDE "components/relationships.tt" source=work -%]
-    [% END %]
-    [% END %]
 [%- END -%]

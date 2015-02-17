@@ -37,22 +37,22 @@ sub _do_direct_search {
         $where->{artist} = $artist;
     }
 
-    return $c->model ('Search')->search ('recording', $query, $limit, $offset, $where);
+    return $c->model('Search')->search('recording', $query, $limit, $offset, $where);
 }
 
 after _load_entities => sub {
     my ($self, $c, @recordings) = @_;
-    $c->model('ISRC')->load_for_recordings (@recordings);
+    $c->model('ISRC')->load_for_recordings(@recordings);
 };
 
 sub _format_output {
     my ($self, $c, @entities) = @_;
-    my %appears_on = $c->model('Recording')->appears_on (\@entities, 3);
+    my %appears_on = $c->model('Recording')->appears_on(\@entities, 3);
 
     return map {
         {
             recording => $_,
-            appears_on => $appears_on{$_->id}
+            appearsOn => $appears_on{$_->id}
         }
     } @entities;
 }

@@ -1,15 +1,18 @@
 package MusicBrainz::Server::Data::Link;
 
+use List::AllUtils qw( any );
 use Moose;
 use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
     placeholders
+    non_empty
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -51,31 +54,52 @@ sub _load_attributes
             SELECT
                 link,
                 attr.id,
+                attr.gid,
                 attr.name AS name,
+                attr_credit.credited_as,
                 root_attr.id AS root_id,
-                root_attr.name AS root_name
+                root_attr.gid AS root_gid,
+                root_attr.name AS root_name,
+                COALESCE(text_value, '') AS text_value,
+                COALESCE((SELECT true FROM link_text_attribute_type ltat
+                          WHERE ltat.attribute_type = attr.id), false) AS free_text,
+                COALESCE((SELECT true FROM link_creditable_attribute_type lcat
+                          WHERE lcat.attribute_type = attr.id), false) AS creditable
             FROM link_attribute
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
+                LEFT OUTER JOIN link_attribute_text_value USING (link, attribute_type)
+                LEFT OUTER JOIN link_attribute_credit attr_credit USING (link, attribute_type)
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
-        $self->sql->select($query, @ids);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
-            my $id = $row->{link};
-            if (exists $data->{$id}) {
-                my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
+
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
+            if (my $link = $data->{ $row->{link} }) {
+                my $attr_type = MusicBrainz::Server::Entity::LinkAttributeType->new(
                     id => $row->{id},
+                    gid => $row->{gid},
                     name => $row->{name},
+                    free_text => $row->{free_text},
+                    creditable => $row->{creditable},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         id => $row->{root_id},
+                        gid => $row->{root_gid},
                         name => $row->{root_name},
                     ),
                 );
-                $data->{$id}->add_attribute($attr);
+
+                my $attr = MusicBrainz::Server::Entity::LinkAttribute->new(
+                    type => $attr_type,
+                    type_id => $attr_type->id,
+                    credited_as => $row->{credited_as},
+                    text_value => $row->{text_value},
+                );
+
+                $link->add_attribute($attr) unless any {
+                    $attr_type->id == $_->type->id
+                } $link->all_attributes;
             }
         }
-        $self->sql->finish;
     }
 }
 
@@ -101,6 +125,9 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'link', @objs);
+
+    my $links = { map { $_->link->id => $_->link } @objs };
+    $self->_load_attributes($links, keys %$links);
 }
 
 sub find
@@ -117,23 +144,24 @@ sub find
          $values->{end_date}->{month} ||
          $values->{end_date}->{day});
 
+    $values->{ended} //= 0;
+
     push @conditions, "ended = ?";
     push @args, $values->{ended};
 
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
         foreach my $key (qw( year month day )) {
-            if (defined $values->{$date_key}->{$key}) {
+            if (non_empty($values->{$date_key}->{$key})) {
                 push @conditions, "${column_prefix}_${key} = ?";
                 push @args, $values->{$date_key}->{$key};
-            }
-            else {
+            } else {
                 push @conditions, "${column_prefix}_${key} IS NULL";
             }
         }
     }
 
-    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
+    my @attrs = @{ $values->{attributes} // [] };
 
     push @conditions, "attribute_count = ?";
     push @args, scalar(@attrs);
@@ -141,12 +169,38 @@ sub find
     my $i = 1;
     foreach my $attr (@attrs) {
         push @joins, "JOIN link_attribute a$i ON a$i.link = link.id";
-        push @conditions, "a$i.attribute_type = ?";
-        push @args, $attr;
+
+        if (non_empty($attr->{type}{id})) {
+            push @conditions, "a$i.attribute_type = ?";
+            push @args, $attr->{type}{id};
+        } else {
+            push @joins, "JOIN link_attribute_type lat$i ON lat$i.id = a$i.attribute_type";
+            push @conditions, "lat$i.gid = ?";
+            push @args, $attr->{type}{gid};
+        }
+
+        push @joins,
+            "LEFT JOIN link_attribute_credit ac$i ON
+               (a$i.attribute_type = ac$i.attribute_type
+                  AND a$i.link = ac$i.link)";
+
+        if (non_empty($attr->{credited_as})) {
+            push @conditions, "ac$i.credited_as = ?";
+            push @args, $attr->{credited_as};
+        } else {
+            push @conditions, "ac$i.credited_as IS NULL";
+        }
+
+        if (non_empty($attr->{text_value})) {
+            push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
+            push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+            push @args, $attr->{type}{id}, $attr->{text_value};
+        }
+
         $i += 1;
     }
 
-    my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+    my $query = "SELECT link.id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
     return $self->sql->select_single_value($query, @args);
 }
 
@@ -157,10 +211,10 @@ sub find_or_insert
     my $id = $self->find($values);
     return $id if defined $id;
 
-    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
+    my @attrs = @{ $values->{attributes} // [] };
 
     my $row = {
-        link_type      => $values->{link_type_id},
+        link_type => $values->{link_type_id},
         attribute_count => scalar(@attrs),
         ended => $values->{ended}
     };
@@ -169,10 +223,28 @@ sub find_or_insert
     $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
+        my $attribute_type = $attr->{type}{id};
+
         $self->sql->insert_row("link_attribute", {
             link           => $id,
-            attribute_type => $attr,
+            attribute_type => $attribute_type,
         });
+
+        if (non_empty($attr->{credited_as})) {
+            $self->sql->insert_row("link_attribute_credit", {
+                attribute_type => $attribute_type,
+                link => $id,
+                credited_as => $attr->{credited_as}
+            });
+        }
+
+        if (non_empty($attr->{text_value})) {
+            $self->sql->insert_row("link_attribute_text_value", {
+                link           => $id,
+                attribute_type => $attribute_type,
+                text_value     => $attr->{text_value}
+            });
+        }
     }
 
     return $id;

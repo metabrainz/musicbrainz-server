@@ -2,6 +2,9 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
+use DateTime;
+use Scalar::Util qw( looks_like_number );
+use Try::Tiny;
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -12,35 +15,34 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
+    merge_boolean_attributes
     merge_table_attributes
     placeholders
     load_subobjects
     query_to_list_limited
+    query_to_list
 );
 use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    return 'recording JOIN track_name name ON recording.name=name.id';
-}
+sub _type { 'recording' }
 
 sub _columns
 {
-    return 'recording.id, recording.gid, name.name,
+    return 'recording.id, recording.gid, recording.name,
             recording.artist_credit AS artist_credit_id,
-            recording.length, recording.comment,
+            recording.length, recording.comment, recording.video,
             recording.edits_pending, recording.last_updated';
 }
 sub _column_mapping
@@ -52,6 +54,7 @@ sub _column_mapping
         artist_credit_id => 'artist_credit_id',
         length           => 'length',
         comment          => 'comment',
+        video            => 'video',
         edits_pending    => 'edits_pending',
         last_updated     => 'last_updated',
     };
@@ -60,16 +63,6 @@ sub _column_mapping
 sub _id_column
 {
     return 'recording.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'recording_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Recording';
 }
 
 sub find_artist_credits_by_artist
@@ -90,14 +83,14 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
     my (@where_query, @where_args);
-   
+
     push @where_query, "acn.artist = ?";
     push @where_args, $artist_id;
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
         if (exists $filter{name}) {
-            push @where_query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @where_query, "(to_tsvector('mb_simple', recording.name) @@ plainto_tsquery('mb_simple', ?) OR recording.name = ?)";
             push @where_args, $filter{name}, $filter{name};
         }
         if (exists $filter{artist_credit_id}) {
@@ -107,18 +100,46 @@ sub find_by_artist
     }
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(name.name) AS name_collate,
+                        musicbrainz_collate(recording.name) AS name_collate,
                         musicbrainz_collate(comment) AS comment_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE " . join(" AND ", @where_query) . "
-                 ORDER BY musicbrainz_collate(name.name),
+                 ORDER BY musicbrainz_collate(recording.name),
                           musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @where_args, $offset || 0);
+}
+
+sub find_by_instrument {
+    my ($self, $instrument_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . ", array_agg(lac.credited_as) AS instrument_credits
+                 FROM " . $self->_table . "
+                     JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
+                     JOIN link_attribute ON link_attribute.link = l_artist_recording.link
+                     JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
+                     JOIN instrument ON instrument.gid = link_attribute_type.gid
+                     LEFT JOIN link_attribute_credit lac ON (
+                         lac.link = link_attribute.link AND
+                         lac.attribute_type = link_attribute.attribute_type
+                     )
+                 WHERE instrument.id = ?
+                 GROUP BY recording.id
+                 ORDER BY musicbrainz_collate(recording.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit,
+        sub {
+            my ($row) = @_;
+            my $credits = delete $row->{instrument_credits};
+            return { recording => $self->_new_from_row($row), instrument_credits => $credits };
+        },
+        $query, $instrument_id, $offset || 0);
 }
 
 sub find_by_release
@@ -128,10 +149,10 @@ sub find_by_release
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN track ON track.recording = recording.id
-                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(recording.name)
                  OFFSET ?";
 
     return query_to_list_limited(
@@ -153,31 +174,10 @@ sub load
     return load_subobjects($self, 'recording', @objs);
 }
 
-sub insert
-{
-    my ($self, @recordings) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $recording (@recordings)
-    {
-        my $row = $self->_hash_to_row($recording, \%names);
-        $row->{gid} = $recording->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('recording', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @recordings > 1 ? @created : $created[0];
-}
-
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
@@ -194,7 +194,6 @@ sub delete
     my ($self, @recording_ids) = @_;
 
     $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
-    $self->c->model('RecordingPUID')->delete_recordings(@recording_ids);
     $self->c->model('ISRC')->delete_recordings(@recording_ids);
     $self->annotation->delete(@recording_ids);
     $self->tags->delete(@recording_ids);
@@ -209,13 +208,11 @@ sub delete
 
 sub _hash_to_row
 {
-    my ($self, $recording, $names) = @_;
+    my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
-        map { $_ => $_ } qw( artist_credit length comment )
+        video => 'video',
+        map { $_ => $_ } qw( artist_credit length comment name )
     });
-
-    $row->{name} = $names->{$recording->{name}}
-        if (exists $recording->{name});
 
     return $row;
 }
@@ -237,7 +234,6 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
-    $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
@@ -250,6 +246,15 @@ sub _merge_impl
         $self->sql => (
             table => 'recording',
             columns => [ qw( length ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
+    merge_boolean_attributes(
+        $self->sql => (
+            table => 'recording',
+            columns => [ qw( video ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -270,13 +275,29 @@ sub find_standalone
             ON acn.artist_credit = recording.artist_credit
          WHERE t.id IS NULL
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(name.name)
+      ORDER BY musicbrainz_collate(recording.name)
         OFFSET ?';
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 
+sub find_video
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query ='
+        SELECT ' . $self->_columns . '
+          FROM ' . $self->_table . '
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = recording.artist_credit
+         WHERE video IS TRUE
+           AND acn.artist = ?
+      ORDER BY musicbrainz_collate(recording.name)
+        OFFSET ?';
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
+}
 =method appears_on
 
 This method will return a list of release groups the recordings appear
@@ -294,24 +315,21 @@ sub appears_on
     my @ids = map { $_->id } @$recordings;
 
     my $query =
-        "SELECT DISTINCT ON (recording.id, name.name, type)
-             rg.id, rg.gid, type AS primary_type_id, name.name,
+        "SELECT DISTINCT ON (recording.id, rg.name, type)
+             rg.id, rg.gid, type AS primary_type_id, rg.name,
              rg.artist_credit AS artist_credit_id, recording.id AS recording
          FROM release_group rg
-           JOIN release_name name ON rg.name=name.id
            JOIN release ON release.release_group = rg.id
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN track ON track.medium = medium.id
            JOIN recording ON recording.id = track.recording
          WHERE recording.id IN (" . placeholders (@ids) . ")";
 
     my %map;
-    $self->sql->select ($query, @ids);
-
-    while (my $row = $self->sql->next_row_hash_ref) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $recording_id = delete $row->{recording};
         $map{$recording_id} ||= [];
-        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row ($row);
+        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($row);
     }
 
     for my $rec_id (keys %map)
@@ -364,25 +382,66 @@ sub find_tracklist_offsets {
       r (id) AS ( SELECT ?::int ),
       bef AS (
         SELECT container.id AS container,
-               sum(tracklist.track_count)
+               sum(container.track_count)
         FROM medium container
-        JOIN track ON track.tracklist = container.tracklist
+        JOIN track ON track.medium = container.id
         JOIN medium bef ON (
           container.release = bef.release AND
           container.position > bef.position
         )
-        JOIN tracklist ON bef.tracklist = tracklist.id
         JOIN r ON r.id = track.recording
         GROUP BY container.id, track.id
       )
       SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
       FROM track
       JOIN r ON r.id = track.recording
-      JOIN medium ON track.tracklist = medium.tracklist
+      JOIN medium ON track.medium = medium.id
       LEFT JOIN bef ON bef.container = medium.id;
 EOSQL
 
     return $offsets;
+}
+
+sub find_recent_by_artists
+{
+    my ($self, $artist_ids) = @_;
+
+    my $search_url = sprintf("http://%s/ws/2/recording/?query=title:\"\"",
+                              DBDefs->LUCENE_SERVER);
+
+    my $ua = LWP::UserAgent->new;
+
+    $ua->timeout(3);
+    $ua->env_proxy;
+
+    my $last_updated;
+
+    try {
+        my $response = get_chunked_with_retry($ua, $search_url);
+        my $data = JSON->new->utf8->decode($response->content);
+
+        $last_updated = DateTime::Format::ISO8601->parse_datetime($data->{created});
+    }
+    catch {
+        $last_updated = DateTime->now;
+        $last_updated->subtract( hours => 3 );
+    };
+
+    my @artist_ids = grep { looks_like_number($_) } @$artist_ids;
+    return @artist_ids unless scalar @artist_ids;
+
+    my $query = "SELECT DISTINCT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN track t ON t.recording = recording.id
+                     JOIN artist_credit_name acn
+                         ON (acn.artist_credit = recording.artist_credit
+                         OR  acn.artist_credit = t.artist_credit)
+                 WHERE acn.artist IN (" . placeholders(@artist_ids) . ")
+                   AND recording.last_updated >= ?";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) }, $query, @artist_ids,
+        $last_updated->iso8601
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

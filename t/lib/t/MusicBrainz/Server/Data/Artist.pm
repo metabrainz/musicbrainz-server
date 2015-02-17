@@ -21,26 +21,23 @@ with 't::Context';
 test 'Test find_by_work' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
 INSERT INTO work (id, gid, name)
-    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1);
+    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen');
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
-           (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other test artist');
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', ''),
+           (2, '145c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', 'Other test artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, '');
+    VALUES (1, 0, 1, 'Test Artist', '');
 
-INSERT INTO track_name (id, name) VALUES (1, 'Recording');
 INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Recording', 1);
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase,
-     reverse_link_phrase, short_link_phrase, description)
+     reverse_link_phrase, long_link_phrase, description)
   VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
           '', '', '', '', ''),
          (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
@@ -123,11 +120,12 @@ $annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
 $annotation = $artist_data->annotation->get_latest(4);
-like ( $annotation->text, qr/Test annotation 2/ );
-
 
 like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
 like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
+
+like($annotation->text, qr/annotation 2.*annotation 1/s,
+     'annotation from merge target is first (MBS-3452)');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);
@@ -151,31 +149,20 @@ is( $results->[0]->entity->sort_name, "Artist, Test" );
 $sql->begin;
 
 # ---
-# Find/insert artist names
-my %names = $artist_data->find_or_insert_names('Test Artist', 'Minimal Artist',
-                                               'Massive Attack');
-is(keys %names, 3);
-is($names{'Test Artist'}, 1);
-is($names{'Minimal Artist'}, 3);
-ok($names{'Massive Attack'} > 3);
-
-
-# ---
 # Creating new artists
 $artist = $artist_data->insert({
         name => 'New Artist',
         sort_name => 'Artist, New',
         comment => 'Artist comment',
-        country_id => 1,
+        area_id => 221,
         type_id => 1,
         gender_id => 1,
         begin_date => { year => 2000, month => 1, day => 2 },
         end_date => { year => 1999, month => 3, day => 4 },
     });
-isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
-ok($artist->id > 4);
+ok($artist->{id} > 4);
 
-$artist = $artist_data->get_by_id($artist->id);
+$artist = $artist_data->get_by_id($artist->{id});
 is($artist->name, 'New Artist');
 is($artist->sort_name, 'Artist, New');
 is($artist->begin_date->year, 2000);
@@ -186,7 +173,7 @@ is($artist->end_date->month, 3);
 is($artist->end_date->day, 4);
 is($artist->type_id, 1);
 is($artist->gender_id, 1);
-is($artist->country_id, 1);
+is($artist->area_id, 221);
 is($artist->comment, 'Artist comment');
 ok(defined $artist->gid);
 
@@ -199,7 +186,7 @@ $artist_data->update($artist->id, {
         end_date => { year => 1990, month => 6, day => 17 },
         type_id => undef,
         gender_id => 2,
-        country_id => 2,
+        area_id => 222,
         comment => 'Updated comment',
     });
 
@@ -215,7 +202,7 @@ is($artist->end_date->month, 6);
 is($artist->end_date->day, 17);
 is($artist->type_id, undef);
 is($artist->gender_id, 2);
-is($artist->country_id, 2);
+is($artist->area_id, 222);
 is($artist->comment, 'Updated comment');
 
 $artist_data->update($artist->id, {
@@ -289,14 +276,13 @@ ok(!$artist_data->can_delete(3));
         name => 'Test Artist',
         sort_name => 'Artist, Test',
         comment => 'J-Pop artist',
-        country_id => 1,
+        area_id => 221,
         type_id => 1,
         gender_id => 1,
     });
-    isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 
     my $found = $artist_data->search_by_names('Test Artist', 'Minimal Artist');
-    is (scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
+    is(scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
     my @testartists = sort_by { $_->comment } @{ $found->{'Test Artist'} };
     is($testartists[0]->comment, 'J-Pop artist');
     is($testartists[1]->comment, 'Yet Another Test Artist');
@@ -352,7 +338,7 @@ test 'Deny delete "Various Artists" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $VARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $VARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
@@ -361,25 +347,24 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $DARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
 test 'Merging attributes' => sub {
     my $c = shift->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'artist name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name');
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
     end_date_day, comment)
-  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12,
+  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
           'Artist 4');
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year,
     begin_date_month, comment)
-  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06,
+  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 06,
           'Artist 5');
 EOSQL
 
@@ -398,19 +383,18 @@ test 'Merging attributes for VA' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
     MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+country');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (4, 'artist name');
 INSERT INTO artist (id, gid, name, sort_name, gender) VALUES
-  (4, '745c079d-374e-4436-9448-da92dedef3ce', 4, 4, 3);
+  (4, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 3);
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
     end_date_day, comment)
-  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2000, 2005, 12,
+  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
           'Artist 4');
 
-INSERT INTO artist (id, gid, name, sort_name, country, type, comment)
-  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2, 2,
+INSERT INTO artist (id, gid, name, sort_name, area, type, comment)
+  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 222, 2,
           'Artist 5');
 EOSQL
 
@@ -423,7 +407,7 @@ EOSQL
     is($artist->end_date->year, undef, "end date...");
     is($artist->end_date->month, undef);
     is($artist->end_date->day, undef);
-    is($artist->country_id, undef, "country is undef");
+    is($artist->area_id, undef, "area is undef");
     is($artist->gender_id, undef, "gender is undef");
     is($artist->type_id, 3, "type is unchanged");
 };
@@ -431,10 +415,9 @@ EOSQL
 test 'Cannot edit an artist into something that would violate uniqueness' => sub {
     my $c = shift->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'A'), (2, 'B');
 INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, ''),
-  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 2, 1, 'Comment');
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'A', 'A', ''),
+  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 'B', 'A', 'Comment');
 EOSQL
 
     my $conflicts_exception_ok = sub {

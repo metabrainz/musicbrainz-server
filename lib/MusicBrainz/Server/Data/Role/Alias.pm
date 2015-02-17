@@ -20,7 +20,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class', '_table_join_name';
+    requires 'c', '_entity_class';
 
     has 'alias' => (
         is => 'ro',
@@ -62,33 +62,25 @@ role
         my ($orig, $self, @names) = @_;
         return {} unless scalar @names;
 
-        my $nametable = $self->name_table;
         my $type = $params->type;
-        my $id = $self->_id_column;
         my $query =
             "WITH search (term) AS (".
-            "    VALUES " . join (",", ("(?)") x scalar @names) . "), ".
-            "    matching_names (term, name) AS (" .
-            "        SELECT term, $nametable.id FROM $nametable, search" .
-            "        WHERE musicbrainz_unaccent(lower(term)) = musicbrainz_unaccent(lower($nametable.name))" .
-            "    ), ".
+            "    VALUES " . join (",", ("(?)") x scalar @names) . "), " .
             "    entity_matches (term, entity) AS (" .
             "        SELECT term, $type FROM ${type}_alias".
-            "        JOIN matching_names ON matching_names.name = ${type}_alias.name" .
-            "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.name " .
-            "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.sort_name " .
-            "    ) SELECT term AS search_term, ".$self->_columns.
-            "      FROM ".$self->_table ("JOIN entity_matches ON entity_matches.entity = $type.id");
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}_alias.name)) = musicbrainz_unaccent(lower(term))" .
+            "        UNION SELECT term, id FROM $type " .
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term)))" .
+            "      SELECT term AS search_term, ".$self->_columns.
+            "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 
-        $self->c->sql->select($query, @names);
         my %ret;
-        while (my $row = $self->c->sql->next_row_hash_ref) {
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @names) }) {
             my $search_term = delete $row->{search_term};
 
             $ret{$search_term} ||= [];
-            push @{ $ret{$search_term} }, $self->_new_from_row ($row);
+            push @{ $ret{$search_term} }, $self->_new_from_row($row);
         }
-        $self->c->sql->finish;
 
         return \%ret;
     };

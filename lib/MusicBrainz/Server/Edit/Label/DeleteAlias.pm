@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Label::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE_ALIAS );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Label';
@@ -12,6 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 sub _alias_model { shift->c->model('Label')->alias }
 
 sub edit_name { N_l('Remove label alias') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_LABEL_DELETE_ALIAS }
 
 sub _build_related_entities { { label => [ shift->label_id ] } }

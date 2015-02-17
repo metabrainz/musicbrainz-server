@@ -5,6 +5,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
 use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_TAG
     $ACCESS_SCOPE_RATING
+    entities_with
 );
 use Class::MOP;
 use Readonly;
@@ -28,6 +29,7 @@ parameter defs => (
 our (%types, %statuses);
 our %relation_types = (
     1 => {
+        "area-rels" => 1,
         "artist-rels" => 1,
         "release-rels" => 1,
         "track-rels" => 1,
@@ -35,15 +37,12 @@ our %relation_types = (
         "work-rels" => 1,
         "url-rels" => 1,
     },
-    2 => {
-        "artist-rels" => 1,
-        "release-rels" => 1,
-        "release-group-rels" => 1,
-        "recording-rels" => 1,
-        "label-rels" => 1,
-        "work-rels" => 1,
-        "url-rels" => 1,
-    },
+    2 => { entities_with(['mbid', 'relatable'],
+        take => sub {
+            my ($type, $info) = @_;
+            return (($info->{url} // $type) . '-rels' => 1)
+        })
+    }
 );
 
 
@@ -221,7 +220,7 @@ sub validate_inc
 
         $i =~ s/mediums/media/;
 
-        if ($version == 1)
+        if ($version eq '1')
         {
             $i = lc($i);
 
@@ -235,7 +234,7 @@ sub validate_inc
                     return;
                 }
                 $type_used = $types{$i};
-                $various_artists = substr ($i, 0, 3) eq 'va-' ? 1 : 0;
+                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
                 next;
             }
             if ($allow_status && exists $statuses{$i})
@@ -246,7 +245,7 @@ sub validate_inc
                     return;
                 }
                 $status_used = $statuses{$i};
-                $various_artists = substr ($i, 0, 3) eq 'va-' ? 1 : 0;
+                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
                 next;
             }
         }
@@ -278,7 +277,7 @@ sub validate_inc
         push @filtered, $i;
     }
 
-    if ($version == 1)
+    if ($version eq '1')
     {
         return WebServiceIncV1->new(inc => \@filtered, rg_type => $type_used,
                                     rel_status => $status_used, relations => \@relations_used,
@@ -298,10 +297,10 @@ role {
     {
         my ($self, $c) = @_;
 
-        $c->stash->{serializer} = $self->get_serialization ($c);
+        $c->stash->{serializer} = $self->get_serialization($c);
 
         my $resource = $c->req->path;
-        my $version = quotemeta ($r->version);
+        my $version = quotemeta($r->version);
         $resource =~ s,ws/$version/([\w-]+?)(/.*)?$,$1,;
 
         foreach my $def (@{ $r->defs })
@@ -311,12 +310,12 @@ role {
             next if ($c->req->method ne $def->[1]->{method});
 
             # Check to make sure that required arguments are present
-            next unless validate_required ($c, $def->[1]->{required});
+            next unless validate_required($c, $def->[1]->{required});
 
             my $linked;
             if ($def->[1]->{linked})
             {
-                $linked = validate_linked ($c, $resource, $def->[1]->{linked});
+                $linked = validate_linked($c, $resource, $def->[1]->{linked});
                 next unless ($linked);
             }
 
@@ -330,7 +329,10 @@ role {
             }
 
             # Check to make sure that only appropriate inc values have been requested
-            my $inc;
+            my $inc = do {
+                my $class = $version eq '2' ? WebServiceInc : WebServiceIncV1;
+                $class->new;
+            };
 
             if ($def->[1]->{inc})
             {
@@ -340,8 +342,8 @@ role {
             }
 
             if ($inc && $version eq '2') {
-                $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
-                $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
+                $c->stash->{type} = validate_type($c, $resource, $c->req->params->{type}, $inc);
+                $c->stash->{status} = validate_status($c, $resource, $c->req->params->{status}, $inc);
             }
 
             # Check if authorization is required.

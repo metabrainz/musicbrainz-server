@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Recording::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -30,8 +30,8 @@ has '+data' => (
         name          => Optional[Str],
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
-        comment       => Nullable[Str]
-    ]
+        comment       => Nullable[Str],
+        video         => Optional[Bool]    ]
 );
 
 sub foreign_keys
@@ -52,6 +52,7 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         length        => $self->data->{length},
+        video         => $self->data->{video},
         recording => $loaded->{Recording}{ $self->entity_id } ||
             Recording->new( name => $self->data->{name} )
     };
@@ -62,6 +63,7 @@ sub _insert_hash
 {
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
+    $data->{comment} //= '';
     return $data
 }
 

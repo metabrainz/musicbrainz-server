@@ -2,32 +2,36 @@ package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
 use Clone 'clone';
+use Data::Compare;
+use List::UtilsBy qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
+use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
-  partial_date_to_hash
-  type_to_model
+    partial_date_to_hash
+    type_to_model
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
-
-sub _xml_arguments { ForceArray => ['attributes'] }
+sub edit_kind { 'edit' }
 
 subtype 'LinkHash'
     => as Dict[
@@ -36,9 +40,9 @@ subtype 'LinkHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            short_link_phrase => Str
+            long_link_phrase => Str
         ],
-        attributes => Nullable[ArrayRef[Int]],
+        attributes => Nullable[LinkAttributesArray],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
         ended => Optional[Bool],
@@ -49,7 +53,7 @@ subtype 'LinkHash'
         entity1 => Nullable[Dict[
             id => Int,
             name => Str,
-        ]]
+        ]],
     ];
 
 subtype 'RelationshipHash'
@@ -59,20 +63,20 @@ subtype 'RelationshipHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            short_link_phrase => Str
+            long_link_phrase => Str
         ]],
-        attributes => Nullable[ArrayRef[Int]],
+        attributes => Nullable[LinkAttributesArray],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
         ended => Optional[Bool],
         entity0 => Nullable[Dict[
-            id => Int,
+            id => NullableOnPreview[Int],
             name => Str,
         ]],
         entity1 => Nullable[Dict[
-            id => Int,
+            id => NullableOnPreview[Int],
             name => Str,
-        ]]
+        ]],
     ];
 
 has '+data' => (
@@ -83,6 +87,7 @@ has '+data' => (
         link => find_type_constraint('LinkHash'),
         new => find_type_constraint('RelationshipHash'),
         old => find_type_constraint('RelationshipHash'),
+        edit_version => Optional[Int],
     ]
 );
 
@@ -105,11 +110,13 @@ sub foreign_keys
         $self->data->{new}{link_type} ? $self->data->{new}{link_type}{id} : (),
         $self->data->{old}{link_type} ? $self->data->{old}{link_type}{id} : (),
     ];
-    $load{LinkAttributeType} = [
-        @{ $self->data->{link}->{attributes} },
-        @{ $self->data->{new}->{attributes} || [] },
-        @{ $self->data->{old}->{attributes} || [] }
-    ];
+    $load{LinkAttributeType} = {
+        map { $_->{type}{id} => ['LinkAttributeType'] } (
+            @{ $self->data->{link}->{attributes} },
+            @{ $self->data->{new}->{attributes} || [] },
+            @{ $self->data->{old}->{attributes} || [] },
+        )
+    };
 
     my $old = $self->data->{old};
     my $new = $self->data->{new};
@@ -148,17 +155,25 @@ sub _build_relationship
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
-            begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $begin ),
-            end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $end ),
+            begin_date => PartialDate->new_from_row( $begin ),
+            end_date   => PartialDate->new_from_row( $end ),
             ended      => $ended,
             attributes => [
                 map {
-                    my $attr    = $loaded->{LinkAttributeType}{ $_ };
-                    my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                    $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                    $attr;
+                    my $attr = $loaded->{LinkAttributeType}{ $_->{type}{id} };
+
+                    if ($attr) {
+                        MusicBrainz::Server::Entity::LinkAttribute->new(
+                            type => $attr,
+                            credited_as => $_->{credited_as},
+                            text_value => $_->{text_value},
+                        );
+                    }
+                    else {
+                        ();
+                    }
                 } @$attributes
-            ]
+            ],
         ),
         entity0 => $loaded->{$model0}{ $entity0->{id} } ||
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
@@ -175,8 +190,14 @@ sub build_display_data
     my $new = $self->data->{new};
 
     return {
-        old => $self->_build_relationship ($loaded, $self->data, $old),
-        new => $self->_build_relationship ($loaded, $self->data, $new),
+        old => $self->_build_relationship($loaded, $self->data, $old),
+        new => $self->_build_relationship($loaded, $self->data, $new),
+        unknown_attributes => scalar(
+            grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
+                @{ $old->{attributes} // [] },
+                @{ $new->{attributes} // [] },
+                @{ $self->data->{link}{attributes} // [] }
+        )
     };
 }
 
@@ -215,11 +236,13 @@ sub adjust_edit_pending
 
 sub _mapping
 {
+    my ($self) = @_;
+
     return (
-        begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
-        end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
+        end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
-        attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
+        attributes => sub { $self->serialize_link_attributes(shift->link->all_attributes) },
         link_type => sub {
             my $rel = shift;
             my $lt = $rel->link->type;
@@ -228,7 +251,7 @@ sub _mapping
                 name => $lt->name,
                 link_phrase => $lt->link_phrase,
                 reverse_link_phrase => $lt->reverse_link_phrase,
-                short_link_phrase => $lt->short_link_phrase,
+                long_link_phrase => $lt->long_link_phrase,
             };
         },
         entity0 => sub {
@@ -238,17 +261,65 @@ sub _mapping
         entity1 => sub {
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
-        }
+        },
     );
 }
+
+around _changes => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+
+    my %data = $self->$orig(@_);
+    my ($new, $old) = @data{qw( new old )};
+
+    # MBS-7282: Handle the case where the name of an entity changes, but the
+    # entity itself does not.
+
+    for my $prop (qw( entity0 entity1 )) {
+        if (defined $new->{$prop} &&
+            defined $old->{$prop} &&
+            $new->{$prop}->{id} == $old->{$prop}->{id}) {
+
+            delete $new->{$prop};
+            delete $old->{$prop};
+        }
+    }
+
+    my @old_attributes = sort_by { $_->{type}{id} } @{ $old->{attributes} // [] };
+    my @new_attributes = sort_by { $_->{type}{id} } @{ $new->{attributes} // [] };
+
+    $old->{attributes} = \@old_attributes;
+    $new->{attributes} = \@new_attributes;
+
+    if (@old_attributes != @new_attributes) {
+        return %data;
+    }
+
+    for (my $i = 0; $i < @old_attributes; $i++) {
+        return %data unless Compare($old_attributes[$i], $new_attributes[$i]);
+    }
+
+    delete $old->{attributes};
+    delete $new->{attributes};
+
+    return %data;
+};
 
 sub initialize
 {
     my ($self, %opts) = @_;
 
     my $relationship = delete $opts{relationship};
-    my $type0 = delete $opts{type0};
-    my $type1 = delete $opts{type1};
+    my $link = $relationship->link;
+    my $type0 = $link->type->entity0_type;
+    my $type1 = $link->type->entity1_type;
+
+    my $new_link_type = $opts{link_type} // $link->type;
+    my $current_attributes = $self->serialize_link_attributes($link->all_attributes);
+    my $new_attributes = $opts{attributes} // $current_attributes;
+
+    $self->check_attributes($new_link_type, $new_attributes);
+
+    delete $opts{link_order}; # Not supported by this edit type.
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -269,10 +340,10 @@ sub initialize
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
-        short_link_phrase => $opts{link_type}->short_link_phrase
+        long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
-    my $link = $relationship->link;
+    normalize_date_period(\%opts);
 
     $self->relationship($relationship);
     $self->data({
@@ -280,16 +351,16 @@ sub initialize
         type1 => $type1,
         relationship_id => $relationship->id,
         link => {
-            begin_date => partial_date_to_hash ($link->begin_date),
+            begin_date => partial_date_to_hash($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             ended => $link->ended,
-            attributes => [ map { $_->id } $link->all_attributes ],
+            attributes => $current_attributes,
             link_type => {
                 id => $link->type_id,
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
                 reverse_link_phrase => $link->type->reverse_link_phrase,
-                short_link_phrase => $link->type->short_link_phrase
+                long_link_phrase => $link->type->long_link_phrase
             },
             entity0 => {
                 id => $relationship->entity0_id,
@@ -300,6 +371,7 @@ sub initialize
                 name => $relationship->entity1->name
             },
         },
+        edit_version => 2,
         $self->_change_data($relationship, %opts)
     });
 }
@@ -321,19 +393,23 @@ sub accept
 
     $self->c->model('Link')->load($relationship);
 
+    # If the relationship type has changed, then it doesn't make sense to
+    # perform further edits as the entire context has changed.
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship has changed type since this edit was entered'
+    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;;
+
     # Because we're using a "find_or_insert" instead of an update, this link
-    # dict should be complete.  If a value isn't defined in $values in doesn't
+    # dict should be complete.  If a value isn't defined in $values it doesn't
     # change, so take the original value as it was stored in $link.
     my $values = {
         entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
         entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
-        attributes   => $data->{new}{attributes}    // [
-            map { $_->id } $relationship->link->all_attributes
-        ],
+        attributes   => $data->{new}{attributes}    // $self->serialize_link_attributes($relationship->link->all_attributes),
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended
+        ended        => $data->{new}{ended}         // $relationship->link->ended,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -411,6 +487,24 @@ sub accept
         $self->c->model('CoverArt')->cache_cover_art($old_release);
     }
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{link}{link_type}{long_link_phrase} =
+        delete $data->{link}{link_type}{short_link_phrase}
+            if exists $data->{link}{link_type}{short_link_phrase};
+
+    for my $side (qw( old new )) {
+        next unless exists $data->{$side}{link_type};
+        $data->{$side}{link_type}{long_link_phrase} =
+            delete $data->{$side}{link_type}{short_link_phrase}
+                if exists $data->{$side}{link_type}{short_link_phrase};
+    }
+
+    unless (defined $data->{edit_version}) {
+        $self->restore_int_attributes($data->{$_}) for qw( link old new );
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 

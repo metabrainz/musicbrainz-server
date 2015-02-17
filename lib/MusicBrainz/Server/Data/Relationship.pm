@@ -1,17 +1,22 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
-use namespace::autoclean -also => [qw( _generate_table_list )];
+use namespace::autoclean;
 use Readonly;
 use Sql;
 use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Event;
+use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
+use MusicBrainz::Server::Data::Place;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
+use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::Utils qw(
@@ -19,19 +24,14 @@ use MusicBrainz::Server::Data::Utils qw(
     ref_to_type
     type_to_model
 );
+use MusicBrainz::Server::Constants qw( entities_with );
 use Scalar::Util 'weaken';
+
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-Readonly my @TYPES => qw(
-    artist
-    label
-    recording
-    release
-    release_group
-    url
-    work
-);
+Readonly my @TYPES => entities_with(['mbid', 'relatable']);
 
 my %TYPES = map { $_ => 1} @TYPES;
 
@@ -56,7 +56,8 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
-        last_updated => $row->{last_updated}
+        last_updated => $row->{last_updated},
+        link_order => $row->{link_order},
     );
 
     my $weaken;
@@ -103,9 +104,20 @@ sub get_by_id
     return $self->_new_from_row($row);
 }
 
+sub get_by_ids
+{
+    my ($self, $type0, $type1, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ")";
+    my $rows = $self->sql->select_list_of_hashes($query, @ids) or return undef;
+
+    return { map { $_->{id} => $self->_new_from_row($_) } @$rows };
+}
+
 sub _load
 {
-    my ($self, $type, $target_types, @objs) = @_;
+    my ($self, $type, $target_types, $use_cardinality, @objs) = @_;
     my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
@@ -118,48 +130,44 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target, $target_id, $query);
+        my (@cond, @params, $target, $target_id, $source_id, $query);
+
         if ($type eq $type0) {
             push @cond, "entity0 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
             $target = $type1;
             $target_id = 'entity1';
+            $source_id = 'entity0';
         }
         if ($type eq $type1) {
             push @cond, "entity1 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
             $target = $type0;
             $target_id = 'entity0';
+            $source_id = 'entity1';
         }
 
+        # If the source and target types are the same, two possible conditions
+        # will have been added above, so join them with an OR.
+        @cond = ("(" . join(" OR ", @cond) . ")");
+        push @cond, "${source_id}_cardinality = 0" if $use_cardinality;
+
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
-                      JOIN link l ON link = l.id";
+                      JOIN link l ON link = l.id
+                      JOIN link_type lt ON lt.id = l.link_type";
+
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        if ($target eq 'url') {
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, url";
-        } else {
-            my $name_table =
-                $target eq 'recording'     ? 'track_name'   :
-                $target eq 'release_group' ? 'release_name' :
-                                             "${target}_name";
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-              JOIN $name_table name ON name.id = ${target}.name
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, musicbrainz_collate(name.name)";
-        }
+        $order .= $target eq 'url' ? ', url' : ", musicbrainz_collate(${target}.name)";
 
-        $self->sql->select($query, @params);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        $query = "SELECT $select
+                    JOIN $target ON $target_id = ${target}.id
+                   WHERE " . join(" AND ", @cond) . "
+                   ORDER BY $order";
+
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -175,7 +183,6 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $self->sql->finish;
     }
     return @rels;
 }
@@ -185,7 +192,6 @@ sub load_entities
     my ($self, @rels) = @_;
     my %ids_by_type;
     foreach my $rel (@rels) {
-        my $linktype = $rel->link->type->name;
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
@@ -220,11 +226,18 @@ sub load_entities
 
     my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
     $self->c->model('ArtistCredit')->load(@load_ac);
+
+    my @places = values %{$data_by_type{'place'}};
+    my @areas = values %{$data_by_type{'area'}};
+    $self->c->model('Area')->load(@places);
+    $self->c->model('Area')->load_containment(@areas, map { $_->area } @places);
+
+    my @series = values %{$data_by_type{'series'}};
+    $self->c->model('SeriesType')->load(@series);
 }
 
-sub load_subset
-{
-    my ($self, $types, @objs) = @_;
+sub _load_subset {
+    my ($self, $types, $use_cardinality, @objs) = @_;
     my %objs_by_type;
     return unless @objs; # nothing to do
     foreach my $obj (@objs) {
@@ -236,7 +249,7 @@ sub load_subset
 
     my @rels;
     foreach my $type (keys %objs_by_type) {
-        push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
+        push @rels, $self->_load($type, $types, $use_cardinality, @{$objs_by_type{$type}});
     }
 
     $self->c->model('Link')->load(@rels);
@@ -246,10 +259,19 @@ sub load_subset
     return @rels;
 }
 
-sub load
-{
+sub load_subset {
+    my ($self, $types, @objs) = @_;
+    return $self->_load_subset($types, 0, @objs);
+}
+
+sub load {
     my ($self, @objs) = @_;
-    return $self->load_subset(\@TYPES, @objs);
+    return $self->_load_subset(\@TYPES, 0, @objs);
+}
+
+sub load_cardinal {
+    my ($self, @objs) = @_;
+    return $self->_load_subset(\@TYPES, 1, @objs);
 }
 
 sub _generate_table_list
@@ -299,6 +321,44 @@ sub merge_entities
 
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
+
+        # First, MBS-3669:
+        # Delete relationships where:
+        # a.) there is no date set (no begin or end date, and the ended flag is off), and
+        # b.) there is no relationship on the same pre-merge entity which
+        #     *does* have a date, since this indicates the quasi-duplication
+        #     may be intentional
+        $self->sql->do("
+        DELETE FROM $table WHERE id IN (
+            SELECT id
+            FROM (
+              SELECT
+                a.id, $entity0, rank()
+                  OVER (
+                    PARTITION BY $entity1, link_type, attributes, text_values
+                    ORDER BY (begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+                              end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND NOT ended) ASC
+                  ) > 1 AS redundant
+              FROM (
+                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes,
+                       array_agg(row(attribute_type, text_value) ORDER BY attribute_type, text_value) text_values
+                FROM $table
+                LEFT JOIN link_attribute la USING (link)
+                LEFT JOIN link_attribute_text_value USING (link, attribute_type)
+                WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
+                GROUP BY id, link, entity0, entity1
+              ) a
+              JOIN link ON (link.id = a.link)
+            ) b
+            WHERE redundant
+              AND NOT EXISTS (SELECT TRUE FROM $table same_entity_dated JOIN link ON same_entity_dated.link = link.id
+                                         WHERE (begin_date_year IS NOT NULL OR begin_date_month IS NOT NULL OR begin_date_day IS NOT NULL OR
+                                                end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL OR
+                                                ended)
+                                           AND same_entity_dated.$entity0 = b.$entity0
+                                           AND same_entity_dated.id <> b.id)
+        )", $target_id, @source_ids);
+        # Having deleted those duplicates, continue with merging by link ID
 
         # We want to keep a single row for each link type, and foreign entity.
         $self->sql->do(
@@ -351,10 +411,27 @@ sub exists
     );
 }
 
+sub _check_series_type {
+    my ($self, $series_id, $link_type_id, $entity_type) = @_;
+
+    my $link_type = $self->c->model('LinkType')->get_by_id($link_type_id);
+    return if $link_type->orderable_direction == 0;
+
+    my $series = $self->c->model('Series')->get_by_id($series_id);
+    $self->c->model('SeriesType')->load($series);
+
+    if ($series->type->entity_type ne $entity_type) {
+        die "Incorrect entity type for part of series relationship";
+    }
+}
+
 sub insert
 {
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
+
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq "series";
+    $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq "series";
 
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
@@ -366,8 +443,17 @@ sub insert
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
+        link_order => $values->{link_order} // 0,
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
+
+    if ($type0 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity0_id});
+    }
+
+    if ($type1 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity1_id});
+    }
 
     return $self->_entity_class->new( id => $id );
 }
@@ -381,12 +467,33 @@ sub update
         $_ => $values->{$_};
     } qw( link_type_id begin_date end_date attributes ended );
 
-    my $row = {};
-    $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
-    $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+    my $old = $self->sql->select_single_row_hash(
+        "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
+    );
 
-    $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
+    my $new = {};
+    $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+
+    my $series0 = $type0 eq "series";
+    my $series1 = $type1 eq "series";
+    my $series0_changed = $series0 && $new->{entity0} && $old->{entity0} != $new->{entity0};
+    my $series1_changed = $series1 && $new->{entity1} && $old->{entity1} != $new->{entity1};
+
+    $self->_check_series_type($new->{entity0}, $link{link_type_id}, $type1) if $series0_changed;
+    $self->_check_series_type($new->{entity1}, $link{link_type_id}, $type0) if $series1_changed;
+
+    $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
+    $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
+
+    $self->c->model('Series')->automatically_reorder($old->{entity0}) if $series0_changed;
+    $self->c->model('Series')->automatically_reorder($old->{entity1}) if $series1_changed;
+
+    $self->c->model('Series')->automatically_reorder($new->{entity0})
+        if $series0_changed || ($series0 && $old->{link} != $new->{link});
+
+    $self->c->model('Series')->automatically_reorder($new->{entity1})
+        if $series1_changed || ($series1 && $old->{link} != $new->{link});
 }
 
 sub delete
@@ -394,8 +501,21 @@ sub delete
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
+    my $series_col;
+    $series_col = "entity0" if $type0 eq "series";
+    $series_col = "entity1" if $type1 eq "series";
+
+    my $series_ids = $self->sql->select_list_of_hashes(
+        "SELECT $series_col FROM l_${type0}_${type1} WHERE id = any(?)", \@ids
+    ) if $series_col;
+
     $self->sql->do("DELETE FROM l_${type0}_${type1}
-              WHERE id IN (" . placeholders(@ids) . ")", @ids);
+                    WHERE id IN (" . placeholders(@ids) . ")", @ids);
+
+    if ($series_ids) {
+        $self->c->model('Series')->automatically_reorder($_)
+            for map { $_->{$series_col} } @$series_ids;
+    }
 }
 
 sub adjust_edit_pending
@@ -409,6 +529,46 @@ sub adjust_edit_pending
     $self->sql->do($query, $adjust, @ids);
 }
 
+sub reorder {
+    my ($self, $type0, $type1, %ordering) = @_;
+
+    my @ids = keys %ordering;
+
+    # Given a list of relationship ids, extract their unordered entities
+    # (i.e. a series is unordered, its releases are), plus the link_type ids
+    # they use.
+    #
+    # Then select *all* relationships that use any of those (entity, link_type)
+    # pairs in a relationship, which gives us are orderable groups.
+    #
+    # If more than one group is returned, something is wrong, since this
+    # function is only intended to be able to order one group.
+
+    my $groups = $self->sql->select_list_of_hashes(
+        "SELECT DISTINCT (CASE WHEN olt.direction = 1
+                               THEN r.entity0
+                               ELSE r.entity1 END) AS source,
+                         lt.id AS link_type
+         FROM l_${type0}_${type1} r
+         JOIN link l ON l.id = r.link
+         JOIN link_type lt ON lt.id = l.link_type
+         JOIN orderable_link_type olt ON olt.link_type = lt.id
+         WHERE r.id = any(?)",
+        \@ids
+    );
+
+    die "Can only reorder one group of relationships" if @$groups != 1;
+
+    $self->sql->do(
+        "WITH pos (relationship, link_order) AS (
+            VALUES " . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
+        )
+        UPDATE l_${type0}_${type1} SET link_order = pos.link_order
+        FROM pos WHERE pos.relationship = id",
+        %ordering
+    );
+}
+
 =method lock_and_do
 
 Lock the corresponding relationship table for $type0-$type in ROW EXCLUSIVE
@@ -419,10 +579,32 @@ mode, and run a block of code.
 sub lock_and_do {
     my ($self, $type0, $type1, $code) = @_;
 
-    my ($t0, $t1) = sort ($type0, $type1);
+    my ($t0, $t1) = sort($type0, $type1);
     Sql::run_in_transaction(sub {
         $code->();
     }, $self->c->sql);
+}
+
+=method editor_can_edit
+
+Returns true if the editor is allowed to edit a $type0-$type1 rel
+
+=cut
+
+sub editor_can_edit
+{
+    my ($self, $editor, $type0, $type1) = @_;
+
+    return 0 unless $editor;
+
+    my $type = join "_", sort($type0, $type1);
+    if ($type ~~ [qw(area_area area_url)]) {
+        return $editor->is_location_editor;
+    } elsif ($type ~~ [qw(area_instrument instrument_instrument instrument_url)]) {
+        return $editor->is_relationship_editor;
+    } else {
+        return 1;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

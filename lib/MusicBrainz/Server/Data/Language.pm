@@ -4,11 +4,13 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Language;
 
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'lng' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
@@ -19,6 +21,18 @@ sub _columns
 {
     return 'id, iso_code_3, iso_code_2t, iso_code_2b, ' .
            'iso_code_1, name, frequency';
+}
+
+sub _column_mapping {
+    return {
+        id              => 'id',
+        name            => 'name',
+        iso_code_1      => 'iso_code_1',
+        iso_code_2b     => 'iso_code_2b',
+        iso_code_2t     => 'iso_code_2t',
+        iso_code_3      => 'iso_code_3',
+        frequency       => 'frequency',
+    };
 }
 
 sub _entity_class
@@ -32,10 +46,28 @@ sub load
     load_subobjects($self, 'language', @objs);
 }
 
+sub load_for_works {
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'language', @objs);
+
+    for my $work (@objs) {
+        if ($work->language && $work->language->iso_code_3 eq "zxx") {
+            $work->language->name(l("[No lyrics]"));
+        }
+    }
+}
+
 sub find_by_code
 {
     my ($self, $code) = @_;
     return $self->_get_by_key('iso_code_3' => $code, transform => 'lower');
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ? LIMIT 1',
+        $id, $id, $id);
 }
 
 __PACKAGE__->meta->make_immutable;

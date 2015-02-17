@@ -15,7 +15,7 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
 html_ok($mech->content);
-$mech->content_like(qr{This release group has no tags});
+$mech->content_like(qr{Nobody has tagged this yet});
 
 };
 

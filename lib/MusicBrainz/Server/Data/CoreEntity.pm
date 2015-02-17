@@ -2,15 +2,29 @@ package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders query_to_list query_to_list_limited object_to_ids );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 
-sub _gid_redirect_table
-{
-    return undef;
+sub _main_table {
+    my $type = shift->_type;
+    return $ENTITIES{$type}{table} // $type;
+}
+
+# Override this for joins etc. if necessary.
+sub _table { shift->_main_table }
+
+sub _entity_class { 'MusicBrainz::Server::Entity::' . $ENTITIES{shift->_type}{model} }
+
+sub _gid_redirect_table {
+    my $self = shift;
+
+    return $self->_main_table . '_gid_redirect'
+        if $ENTITIES{$self->_type}{mbid}{multiple};
 }
 
 around get_by_gids => sub
@@ -22,7 +36,7 @@ around get_by_gids => sub
     return \%gid_map
         unless defined $table;
     my @missing_gids;
-    for my $gid (@gids) {
+    for my $gid (grep { is_guid($_) } @gids) {
         unless (exists $gid_map{$gid}) {
             push @missing_gids, $gid;
         }
@@ -47,6 +61,7 @@ around get_by_gid => sub
 {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($gid) = @_;
+    return unless is_guid($gid);
     if (my $obj = $self->$orig(@_)) {
         return $obj;
     }
@@ -62,11 +77,47 @@ around get_by_gid => sub
     }
 };
 
+sub insert {
+    my ($self, @entities) = @_;
+    my $class = $self->_entity_class;
+
+    my $extra_data = $self->_insert_hook_prepare(\@entities);
+
+    my @created;
+    for my $entity (@entities) {
+        my $row = $self->_insert_hook_make_row($entity, $extra_data);
+        $row->{gid} = $entity->{gid} || generate_gid();
+
+        my $created = {
+            id => $self->sql->insert_row($self->_main_table, $row, 'id'),
+            gid => $row->{gid},
+        };
+
+        $self->_insert_hook_after_each($created, $entity, $extra_data);
+
+        push @created, $created;
+    }
+
+    $self->_insert_hook_after(\@created, $extra_data);
+    return @entities > 1 ? @created : $created[0];
+}
+
+sub _insert_hook_prepare { {} }
+
+sub _insert_hook_make_row {
+    my ($self, $entity) = @_;
+    return $self->_hash_to_row($entity);
+}
+
+sub _insert_hook_after_each { }
+
+sub _insert_hook_after { }
+
 sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE musicbrainz_unaccent(lower(name.name)) = musicbrainz_unaccent(lower(?))";
+                  WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))";
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
@@ -80,16 +131,13 @@ sub get_by_ids_sorted_by_name
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
-                " ORDER BY musicbrainz_collate(name.name)";
-    my $sql = $self->sql;
-    $self->sql->select($query, @ids);
+                " ORDER BY musicbrainz_collate(name)";
+
     my @result;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $obj = $self->_new_from_row($row);
         push @result, $obj;
     }
-    $self->sql->finish;
     return \@result;
 }
 
@@ -105,10 +153,10 @@ sub find_by_names
         . ", (VALUES "
         .     join (",", ("(?)") x scalar(@names))
         .    ") search_terms (term)"
-        ." WHERE musicbrainz_unaccent(lower(name.name)) = "
+        ." WHERE musicbrainz_unaccent(lower(name)) = "
         ." musicbrainz_unaccent(lower(search_terms.term));";
 
-    my $results = $self->c->sql->select_list_of_hashes ($query, @names);
+    my $results = $self->c->sql->select_list_of_hashes($query, @names);
 
     my %mapped;
     for my $row (@$results)
@@ -117,10 +165,26 @@ sub find_by_names
 
         $mapped{$key} //= [];
 
-        push @{ $mapped{$key} }, $self->_new_from_row ($row);
+        push @{ $mapped{$key} }, $self->_new_from_row($row);
     }
 
     return %mapped;
+}
+
+sub load_gid_redirects {
+    my ($self, @entities) = @_;
+    my $table = $self->_gid_redirect_table;
+
+    my %entities_by_id = object_to_ids(@entities);
+
+    my $query = "SELECT new_id, array_agg(gid) AS gid_redirects FROM $table WHERE new_id = any(?) GROUP BY new_id";
+    my $results = $self->c->sql->select_list_of_hashes($query, [map { $_->id } @entities]);
+
+    for my $row (@$results) {
+        for my $entity (@{ $entities_by_id{$row->{new_id}} }) {
+            $entity->gid_redirects($row->{gid_redirects});
+        }
+    }
 }
 
 sub remove_gid_redirects
@@ -156,10 +220,7 @@ sub _delete_and_redirect_gids
     $self->update_gid_redirects($new_id, @old_ids);
 
     # Delete the recording and select current GIDs
-    my $old_gids = $self->sql->select_single_column_array('
-        DELETE FROM '.$table.'
-        WHERE id IN ('.placeholders(@old_ids).')
-        RETURNING gid', @old_ids);
+    my $old_gids = $self->delete_returning_gids($table, @old_ids);
 
     # Add redirects from GIDs of the deleted recordings to $new_id
     $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
@@ -170,6 +231,14 @@ sub _delete_and_redirect_gids
             @$old_gids
         );
     }
+}
+
+sub delete_returning_gids {
+    my ($self, $table, @ids) = @_;
+    return $self->sql->select_single_column_array('
+        DELETE FROM '.$table.'
+        WHERE id IN ('.placeholders(@ids).')
+        RETURNING gid', @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

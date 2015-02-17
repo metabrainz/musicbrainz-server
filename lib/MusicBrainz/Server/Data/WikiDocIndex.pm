@@ -4,66 +4,25 @@ use Moose;
 use namespace::autoclean;
 use Readonly;
 use List::UtilsBy qw( sort_by );
-use List::MoreUtils qw ( natatime);
+use List::MoreUtils qw( natatime);
 use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
 use Encode qw( decode );
 use MusicBrainz::Server::Replication ':replication_type';
 
-has 'c' => (
-    is => 'ro',
-    isa => 'Object'
-);
+with 'MusicBrainz::Server::Data::Role::Sql';
 
 Readonly my $CACHE_PREFIX => "wikidoc";
 Readonly my $CACHE_KEY => "wikidoc-index";
 
-has _index_file => (
-    is => 'ro',
-    default => sub { DBDefs->WIKITRANS_INDEX_FILE }
-);
-
-sub _master_index_url { DBDefs->WIKITRANS_INDEX_URL }
-
-sub _parse_index
-{
-    my ($self, $data) = @_;
-
-    my %index;
-    foreach my $line (split(/\n/, $data)) {
-        my ($page, $version) = split(/=/, $line);
-        $index{$page} = $version;
-    }
-    return \%index;
-}
-
-sub _load_index_from_disk
-{
-    my ($self) = @_;
-
-    my $index_file = $self->_index_file;
-    if (!open(FILE, "<" . $index_file)) {
-        warn "Could not open wikitrans index file '$index_file': $!.";
-        return {};
-    }
-    my $data = do { local $/; <FILE> };
-    close(FILE);
-
-    return $self->_parse_index($data);
-}
-
-sub _load_index_from_master
-{
-    my ($self) = @_;
-
-    my $data = LWP::Simple::get($self->_master_index_url);
-    unless (defined $data) {
-        warn "Could not fetch wikitrans index file.";
-        return {};
-    }
-
-    return $self->_parse_index($data);
+sub _load_index_from_db {
+    my $self = shift;
+    return {
+        map { @$_ } @{
+            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index')
+        }
+    };
 }
 
 sub _load_index
@@ -75,33 +34,10 @@ sub _load_index
     return $index
         if defined $index;
 
-    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
-        $index = $self->_load_index_from_master;
-    }
-    else {
-        $index = $self->_load_index_from_disk;
-    }
+    $index = $self->_load_index_from_db;
 
     $cache->set($CACHE_KEY, $index);
     return $index;
-}
-
-sub _save_index
-{
-    my ($self, $index) = @_;
-
-    if (!open(FILE, ">" . $self->_index_file)) {
-        warn "Could not open wikitrans index file: $!.";
-        return;
-    }
-    foreach my $page (sort { lc $a cmp lc $b } keys %$index) {
-        my $version = $index->{$page};
-        print FILE "$page=$version\n";
-    }
-    close(FILE);
-
-    my $cache = $self->c->cache($CACHE_PREFIX);
-    $cache->set($CACHE_KEY, $index);
 }
 
 sub get_index
@@ -124,13 +60,36 @@ sub set_page_version
 
     my $index = $self->_load_index;
     if (defined $version) {
-        $index->{$page} = $version;
+        my $query;
+        # NOTE: There is a race condition in the following code.
+        # It is ignored, however, because the set of transclusion editors
+        # is small, making the likelihood of triggering the condition
+        # small. It could be fixed by way of a PL/pgsql function for error
+        # trapping, as described in the postgresql docs.
+        #
+        # It is my (ianmcorvidae) opinion that the clarity of the following
+        # code, with the race condition, is preferable to the potential
+        # confusion of writing such an error-trapping function.
+        if (exists $index->{$page}) {
+            $query = "UPDATE wikidocs.wikidocs_index SET revision = ? where page_name = ?";
+        } else {
+            $query = "INSERT INTO wikidocs.wikidocs_index (revision, page_name) VALUES (?, ?)";
+        }
+        $self->sql->do($query, $version, $page);
     }
     else {
-        delete $index->{$page};
+        my $query = "DELETE FROM wikidocs.wikidocs_index WHERE page_name = ?";
+        $self->sql->do($query, $page);
     }
 
-    $self->_save_index($index);
+    $self->_delete_from_cache;
+}
+
+sub _delete_from_cache
+{
+    my ($self) = @_;
+    my $cache = $self->c->cache($CACHE_PREFIX);
+    $cache->delete($CACHE_KEY);
 }
 
 sub get_wiki_versions

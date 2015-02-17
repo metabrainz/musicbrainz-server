@@ -1,15 +1,14 @@
 # 
 # Translators:
-# Gioele  <email address hidden>, 2012.
-#   <email address hidden>, 2012.
-#  <email address hidden>, 2013.
-#   <email address hidden>, 2012.
+# Gioele <email address hidden>, 2012
+# leofiore <email address hidden>, 2012
+# salorock <email address hidden>, 2013-2014
+# salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-03-02 17:46+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2014-08-25 05:13+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -362,6 +361,11 @@ msgstr "Lingue caucasiche"
 msgid "Cebuano"
 msgstr "Cebuano"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr "Celtiberico"
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -371,6 +375,11 @@ msgstr "Lingue celtiche"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Lingue native centroamericane"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "Lingua di Okinawa centrale"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -577,7 +586,7 @@ msgstr "Duala"
 msgid "Dutch"
 msgstr "Olandese"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Olandese medio (ca. 1050-1350)"
@@ -782,7 +791,7 @@ msgstr "Tedesco"
 msgid "German, Low"
 msgstr "Tedesco, basso"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Tedesco, alto medio (ca. 1050-1500)"
@@ -972,6 +981,11 @@ msgstr "Lingue indoeuropee"
 msgid "Indonesian"
 msgstr "Indonesiano"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "Ingrico"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1127,6 +1141,11 @@ msgstr "Kawi"
 msgid "Kazakh"
 msgstr "Kazako"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "Khanty"
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1187,7 +1206,7 @@ msgstr "Kongo"
 msgid "Konkani"
 msgstr "Konkani"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Coreano"
@@ -1422,6 +1441,11 @@ msgstr "Manipuri"
 msgid "Manobo languages"
 msgstr "Lingue manobo"
 
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "Mansi"
+
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
@@ -1627,7 +1651,7 @@ msgstr "Norreno antico"
 msgid "North American Indian languages"
 msgstr "Lingue native nordamericane"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvegese"

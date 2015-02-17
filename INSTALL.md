@@ -1,8 +1,10 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server is to download the 
-[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
+The easiest method of installing a local MusicBrainz Server may be to download the
+[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup),
+if there is a current image available. In case you only need a replicated
+database, you should consider using [mbslave](https://bitbucket.org/lalinsky/mbslave).
 
 If you want to manually set up MusicBrainz Server from source, read on!
 
@@ -11,8 +13,8 @@ Prerequisites
 
 1.  A Unix based operating system
 
-    The MusicBrainz development team uses a variety of Linux distributions, but 
-    Mac OS X will work just fine, if you're prepared to potentially jump through 
+    The MusicBrainz development team uses a variety of Linux distributions, but
+    Mac OS X will work just fine, if you're prepared to potentially jump through
     some hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
@@ -25,15 +27,12 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 8.4)
+3.  PostgreSQL (at least version 9.1)
 
     PostgreSQL is required, along with its development libraries. To install
-    using packages run the following, replacing 8.x with the latest version.
+    using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib-8.x
-
-    Since Ubuntu 11.10, you can also install postgresql 9.x; replace '8.x' by the
-    most recent 9.x version to do so.
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
@@ -69,8 +68,18 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
+7.  Node.js
 
-7.  Standard Development Tools
+    Node.js is required to build (and optionally minify) our JavaScript and CSS.
+    If you plan on accessing musicbrainz-server inside a web browser, you should
+    install Node and its package manager, npm. Do this by running:
+
+        sudo apt-get install nodejs npm nodejs-legacy
+
+    The latter package is only necessary where it exists, so a warning about the
+    package not being found is not a problem.
+
+8.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -84,7 +93,7 @@ Server configuration
 
 1.  Download the source code.
 
-        git clone git://git.musicbrainz.org/musicbrainz-server.git
+        git clone --recursive git://github.com/metabrainz/musicbrainz-server.git
         cd musicbrainz-server
 
 2.  Modify the server configuration file.
@@ -92,6 +101,9 @@ Server configuration
         cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
     Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
+    If you are using a reverse proxy, you should set the environment variable
+    MUSICBRAINZ_USE_PROXY=1 when starting the server.
+    This makes the server aware of it when checking for the canonical uri.
 
     Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 
@@ -119,14 +131,12 @@ Server configuration
         date with the master database. Local editing is available, but keep in
         mind that none of your changes will be pushed up to http://musicbrainz.org.
 
-        Stand alone servers will need to manually download and update their
-        WikiDoc transclusion table:
+    3. `RT_MASTER`
 
-            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
-
-    If you chose RT_SLAVE, please ensure that there is a configuration for
-    both READONLY and READWRITE, or the server will not function correctly.
-    (Both can be configured the same in a simple setup).
+        Almost certainly not what you want, this is what the main musicbrainz.org
+        site runs on. It's different from standalone in that it's able to *produce*
+        replication packets to be applied on slaves. For more details, see
+        INSTALL-MASTER.md
 
 
 Installing Perl dependencies
@@ -135,50 +145,70 @@ Installing Perl dependencies
 The fundamental thing that needs to happen here is all the dependency Perl
 modules get installed, somewhere where your server can find them. There are many
 ways to make this happen, and the best choice will be very
-site-dependent. MusicBrainz ships with support for Carton, a Perl package
-manager, which will allow you to have the exact same dependencies as our
-production servers. Carton also manages everything for you, and lets you avoid
-polluting your system installation with these dependencies.
+site-dependent. MusicBrainz recommends the use of local::lib, which will install
+Perl libraries into your home directory, and does not require root permissions
+and avoids modifying the rest of your system.
 
-Below outlines how to setup MusicBrainz server with Carton.
+Below outlines how to setup MusicBrainz server with local::lib.
 
 
 1.  Prerequisites
 
-    Before you get started you will actually need to have Carton installed as
-    MusicBrainz does not yet ship with an executable. There are also a few
-    development headers that will be needed when installing dependencies. Run
-    the following steps as a normal user on your system.
+    Before you get started you will actually need to have local::lib installed.
+    There are also a few development headers that will be needed when installing
+    dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached
-        sudo cpan Carton
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
 
-    NOTE: This installs Carton at the system level, if you prefer to install
-    this in your home directory, use [local::lib](http://search.cpan.org/perldoc?local::lib).
+2.  Enable local::lib
 
-2.  Install dependencies
+    local::lib requires a few environment variables are set. The easiest way to
+    do this is via .bashrc, assuming you use bash as your shell. Simply run the
+    following to append local::lib configuration to your bash configuration:
 
-    To install the dependencies for MusicBrainz server, first make sure you are
+        echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
+
+    Next, to reload your configuration, either close and open your shell again,
+    or run:
+
+        source ~/.bashrc
+
+3.  Install dependencies
+
+    First install one module as a system package (it is used by a database
+    function):
+
+        sudo apt-get install libjson-xs-perl
+
+    To install the other dependencies for MusicBrainz Server, make sure you are
     in the MusicBrainz source code directory and run the following:
 
-        carton install --deployment
+        cpanm --installdeps --notest .
 
-    Note that if you've previously used this command in the musicbrainz folder it
-    will not always upgrade all packages to their correct version.  If you're
-    having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
-    directory to remove all packages previously installed by carton, and then run
-    the above step again.
+    (Do not overlook the dot at the end of that command.) This may install an
+    incompatible version of MooseX::Role::Parameterized; to downgrade to a
+    suitable version, run:
 
-    If carton complains about a missing "cpanfile", you can create it with:
-
-        cat Makefile.PL | grep ^requires > cpanfile
+        cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
 
 
-    If you still see errors, you can install individual packages manually by running:
+Installing Node.js dependencies
+-------------------------------
 
-        carton install {module name}
+    Node dependencies are managed using `npm`. To install these dependencies, run
+    the following inside the musicbrainz-server/ checkout:
 
-    Where {module name} is something like Function::Parameters or Locale::TextDomain.
+        npm install
+
+    Node dependencies are installed under ./node_modules.
+
+    We use Gulp as our JavaScript/CSS build system. This will be installed after
+    running the above. Calling `gulp` on its own will build everything necessary
+    to access the server in a web browser. It can be invoked by:
+
+        ./node_modules/.bin/gulp
+
+    If you'd like, you can add ./node_modules/.bin to your $PATH.
 
 
 Creating the database
@@ -208,21 +238,11 @@ Creating the database
         sudo make install
         cd ..
 
-    Note: If you are using Ubuntu 11.10, the collate extension currently does
-    not work with gcc 4.6 and needs to be built with an older version such as
-    gcc 4.4. To do this, run the following:
-
-        sudo apt-get install gcc-4.4
-        cd postgresql-musicbrainz-collate
-        CC=gcc-4.4 make -e
-        sudo make install
-        cd ..
-
 
 2.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
-    users (whoever your web server / crontabs run as), to one database (the
+    users (whoever your web server/crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
     and user name are given in DBDefs.pm (look for the `READWRITE` key).  For
     example, if you run your web server and crontabs as "www-user", the
@@ -241,6 +261,9 @@ Creating the database
 
         local   all    all    trust
 
+    Note that a running PostgreSQL will pick up changes to configuration files
+    only when being told so via a `HUP` signal.
+
 
 3.  Create the database
 
@@ -252,12 +275,14 @@ Creating the database
 
         To use a clean database, all you need to do is run:
 
-            carton exec ./admin/InitDb.pl -- --createdb --clean
+            ./admin/InitDb.pl --createdb --clean
 
     2.  Import a database dump
 
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        or the European mirror server at
+        ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
@@ -276,11 +301,15 @@ Creating the database
 
         If this is OK and you wish to continue, you can import them with:
 
-            carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         `--echo` just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
+
+        By default, the archives will be extracted into the `/tmp` directory as
+        an intermediate step. You may specify a different location with the
+        `--tmp-dir` option.
 
 
     NOTE: on a fresh postgresql install you may see the following error:
@@ -303,14 +332,14 @@ The development server is a lightweight HTTP server that gives good debug
 output and is much more convenient than having to set up a standalone
 server. Just run:
 
-    carton exec -- plackup -Ilib -r
+    plackup -Ilib -r
 
-Visiting http://your.machines.ip.address:5000 should now present you with
+Visiting http://your.machines.ip.address:5000/ should now present you with
 your own running instance of the MusicBrainz Server.
 
-If you'd like a more permanent setup, 
-[the plackup documentation](https://metacpan.org/module/plackup) may prove
-useful in setting up a server such as nginx, using FastCGI.
+If you'd like a more permanent setup,
+[the plackup documentation](https://metacpan.org/pod/plackup) may prove useful
+in setting up a server such as nginx, using FastCGI.
 
 Translations
 ------------
@@ -320,12 +349,12 @@ If you intend to run a server with translations, there are a few steps to follow
 1. Prerequisites
 
    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-   and the transifex client 'tx' 
+   and the transifex client 'tx'
    (http://help.transifex.com/features/client/index.html):
 
          sudo apt-get install gettext transifex-client
 
-   Configure a username and password in ~/.transifexrc using the format listed 
+   Configure a username and password in ~/.transifexrc using the format listed
    on the above page.
 
 2. Change to the po directory
@@ -336,14 +365,14 @@ If you intend to run a server with translations, there are a few steps to follow
 
          tx pull -l {a list of languages you want to pull}
 
-   This will download the .po files for your language(s) of choice to the po/ 
+   This will download the .po files for your language(s) of choice to the po/
    folder with the correct filenames.
 
 4. Install translations
 
          make install
 
-   This will compile and install the files to 
+   This will compile and install the files to
    lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
 
 5. Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
@@ -352,25 +381,25 @@ If you intend to run a server with translations, there are a few steps to follow
 6. Ensure you have a system locale for any languages you want to use, and for
    some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
 
-   For many languages, this will suffice: 
+   For many languages, this will suffice:
 
          sudo apt-get install language-pack-{language code}
 
    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-   (if you've installed with carton, local/lib/perl5/Locale/Util.pm) to add entries
-   to LANG2COUNTRY. Suggested ones include: 
+   to add entries to LANG2COUNTRY. Suggested ones include:
+
    * es => 'ES'
    * et => 'EE'
    * el => 'GR'
    * sl => 'SI' (this one is there in 1.20, but needs amendment)
 
+
 Troubleshooting
 ---------------
 
-If you have any difficulties, please feel free to contact ocharles or warp
-in #musicbrainz-devel on irc.freenode.net, or email the developer mailing
-list at musicbrainz-devel [at] lists.musicbrainz.org.
+If you have any difficulties, feel free to ask in #musicbrainz-devel on
+irc.freenode.net, or email the [developer mailing list](http://lists.musicbrainz.org/mailman/listinfo/musicbrainz-devel).
 
-Please report any issues on our [bug tracker](http://tickets.musicbrainz.org).
+Please report any issues on our [bug tracker](http://tickets.musicbrainz.org/).
 
 Good luck, and happy hacking!

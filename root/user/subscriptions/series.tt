@@ -1,0 +1,1 @@
+[% INCLUDE "user/subscriptions/subscriptions.tt" title=l('Series Subscriptions') type='series' %]

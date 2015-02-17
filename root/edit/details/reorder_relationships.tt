@@ -1,0 +1,23 @@
+<table class="details reorder-relationships">
+  <tr>
+    <th>
+      [%- l('Relationship') -%]
+    </th>
+    <th>
+      [%- l('Old Order') -%]
+    </th>
+    <th>
+      [%- l('New Order') -%]
+    </th>
+  </tr>
+  [%- FOR reorder_edit = edit.display_data.relationships -%]
+  <tr>
+    <td>
+      [% descriptive_link(reorder_edit.relationship.source) %]
+      [% display_relationship(reorder_edit.relationship, 'verbose_phrase') %]
+    </td>
+    <td class="old">[% reorder_edit.old_order %]</td>
+    <td class="new">[% reorder_edit.new_order %]</td>
+  </tr>
+  [% END %]
+</table>

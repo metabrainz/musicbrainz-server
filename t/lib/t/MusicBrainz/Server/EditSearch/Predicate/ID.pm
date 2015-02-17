@@ -24,7 +24,6 @@ test 'operator =' => sub {
     my $query = Query->new( fields => [ $field ] );
     $field->combine_with_query($query);
 
-    is_deeply([$query->join], [], 'doesnt add any new joins');
     is_deeply([$query->where], [ [ 'edit.id = ?' => [59] ] ], 'adds a single WHERE clause');
 };
 

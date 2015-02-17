@@ -42,6 +42,11 @@ has 'comment' => (
     isa => 'Str'
 );
 
+has 'video' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 has 'isrcs' => (
     isa     => 'ArrayRef',
     is      => 'ro',
@@ -50,16 +55,6 @@ has 'isrcs' => (
     handles => {
         add_isrc => 'push',
         all_isrcs => 'elements'
-    }
-);
-
-has 'puids' => (
-    isa     => 'ArrayRef',
-    is      => 'ro',
-    traits  => [ 'Array' ],
-    default => sub { [] },
-    handles => {
-        add_puid => 'push',
     }
 );
 

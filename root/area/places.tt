@@ -1,0 +1,9 @@
+[%- WRAPPER 'area/layout.tt' title=l('Places') page='places' -%]
+    <h2>[% l('Places') %]</h2>
+
+    [% IF places.size %]
+      [% INCLUDE 'components/places-list.tt' WRAPPER 'components/with-pager.tt' %]
+    [% ELSE %]
+      [% l('This area is not currently associated with any places.') %]
+    [% END %]
+[%- END -%]

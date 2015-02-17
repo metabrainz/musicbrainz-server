@@ -6,6 +6,7 @@ use Test::More;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 use DBDefs;
+use MusicBrainz::Server::Constants qw( $EDIT_MINIMUM_RESPONSE_PERIOD );
 
 with 't::Context';
 
@@ -232,24 +233,33 @@ test all => sub {
     is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
     like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
-    compare_body($e->get_body,
-                 "'Editor 2' has voted against your edit #1234.\n".
-                 "-------------------------------------------------------------------------\n".
-                 "To respond, please add your note at:\n".
-                 "\n".
-                 "    http://localhost/edit/1234\n".
-                 "\n".
-                 "Please do not respond to this email.\n".
-                 "\n".
-                 "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                 "new browser window instead.\n".
-                 "\n".
-                 "Please note, this email will only be sent for the first vote against your edit,\n".
-                 "not for each one, and that you can disable this notification by modifying your\n".
-                 "preferences at http://localhost/account/preferences.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
+    my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
+    $close_time = $close_time->strftime('%F %H:%M %Z');
 
+    my $body = <<EOS;
+'Editor 2' has voted against your edit #1234.
+-------------------------------------------------------------------------
+To respond, please add your note at:
+
+    http://localhost/edit/1234
+
+Please do not respond to this email.
+
+If clicking the link above doesn't work, please copy and paste the URL in a
+new browser window instead.
+
+Please note that this email will not be sent for every vote against an edit.
+
+You can disable this notification by changing your preferences at
+http://localhost/account/preferences.
+
+To ensure time for you and other editors to respond, the soonest this edit will
+be rejected, if applicable, is $close_time, 72 hours from the time of
+this email.
+
+-- The MusicBrainz Team
+EOS
+    compare_body($e->get_body, $body);
     };
 
     subtest 'send_edit_note' => sub {

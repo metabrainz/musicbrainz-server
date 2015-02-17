@@ -12,24 +12,20 @@ around run_test => sub {
 
     $test->c->sql->do(<<'EOSQL');
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 1, 0, '');
+    VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO release_name (id, name) VALUES (1, 'Arrival');
 INSERT INTO release_group (id, gid, name, artist_credit)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1);
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1);
 
-INSERT INTO tracklist (id) VALUES (1);
-
-INSERT INTO medium (id, release, tracklist, position)
+INSERT INTO medium (id, release, track_count, position)
     VALUES (101, 1, 1, 1),
            (102, 1, 1, 2),
            (103, 1, 1, 3),
@@ -81,23 +77,10 @@ has medium_positions => (
     }
 );
 
-test 'Pending edits' => sub {
-    my $test = shift;
-    my $edit = $test->edit;
-
-    $test->clear_release;
-
-    is($test->release_to_edit->edits_pending, 1);
-    is($test->release_to_edit->mediums->[0]->edits_pending, 1); # XXX this one doesn't need to be highlighted
-    is($test->release_to_edit->mediums->[1]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[2]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[3]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[4]->edits_pending, 1); # XXX this one doesn't need to be highlighted
-};
-
 test 'Accept edit' => sub {
     my $test = shift;
-    accept_edit($test->c, $test->edit);
+    # Edit should already be accepted, since it is an autoedit
+    ok(!$test->edit->is_open, "Edit should be automatically accepted.");
 
     $test->clear_release;
 
@@ -105,18 +88,6 @@ test 'Accept edit' => sub {
     position_ok($test->release_to_edit, 102, 3);
     position_ok($test->release_to_edit, 103, 4);
     position_ok($test->release_to_edit, 104, 2);
-    position_ok($test->release_to_edit, 105, 5);
-};
-
-test 'Reject edit' => sub {
-    my $test = shift;
-
-    $test->clear_release;
-
-    position_ok($test->release_to_edit, 101, 1);
-    position_ok($test->release_to_edit, 102, 2);
-    position_ok($test->release_to_edit, 103, 3);
-    position_ok($test->release_to_edit, 104, 4);
     position_ok($test->release_to_edit, 105, 5);
 };
 

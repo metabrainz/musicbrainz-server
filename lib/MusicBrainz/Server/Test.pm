@@ -4,11 +4,12 @@ binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
 use DBDefs;
-use Encode qw( encode );
+use Encode qw( decode encode );
 use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
+use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
@@ -98,7 +99,7 @@ sub _load_query
     # comment PostgreSQL interactive terminal commands.
     $query =~ s/^(\\.*)$/-- $1/mg;
 
-    return $query;
+    return decode("utf-8", $query);
 }
 
 sub prepare_test_database
@@ -154,7 +155,7 @@ sub capture_edits (&$)
     $code->();
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     return () if $new_max <= $current_max;
-    return values %{ $c->model('Edit')->get_by_ids(
+    return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
         ($current_max + 1)..$new_max
     ) };
 }
@@ -197,8 +198,8 @@ sub html_ok
 {
     my ($content, $message) = @_;
 
-    xhtml_ok ($Test, $content, $message);
-    html5_ok ($Test, $content, $message);
+    xhtml_ok($Test, $content, $message);
+    html5_ok($Test, $content, $message);
 }
 
 sub xml_ok
@@ -274,27 +275,6 @@ sub evaluate_template
     return $out;
 }
 
-sub mock_search_server
-{
-    my ($type) = @_;
-
-    $type =~ s/-/_/g;
-
-    local $/;
-    my $searchresults = "t/json/search_".lc($type).".json";
-    open(JSON, $searchresults) or die ("Could not open $searchresults");
-    my $json = <JSON>;
-    close(JSON);
-
-    my $mock = mock_class 'LWP::UserAgent' => 'LWP::UserAgent::Mock';
-    my $mock_server = $mock->new_object;
-    $mock_server->mock_return(
-        'get' => sub {
-            HTTP::Response->new(200, undef, undef, $json);
-        }
-    );
-}
-
 sub old_edit_row
 {
     my ($self, %args) = @_;
@@ -351,7 +331,7 @@ sub schema_validator
 
         $message ||= "Validate against schema";
 
-        xml_ok ($xml, "$message (xml_ok)");
+        xml_ok($xml, "$message (xml_ok)");
 
       SKIP: {
 
@@ -379,7 +359,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-        $mech->default_header ("Accept" => "application/xml");
+        $mech->default_header("Accept" => "application/xml");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -391,7 +371,7 @@ sub _build_ws_test_xml {
             $validator->($mech->content, 'validating');
 
             is_xml_same($expected, $mech->content);
-            $Test->note(encode('utf-8', $mech->content));
+            $Test->note($mech->content);
         });
     }
 }
@@ -403,7 +383,7 @@ sub _build_ws_test_json {
     my $end_point = '/ws/' . $args->{version};
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
@@ -420,9 +400,9 @@ sub _build_ws_test_json {
             $Test->plan(tests => 3);
 
             $mech->get_ok($end_point . $url, 'fetching');
-            is_valid_json ($mech->content, "validating (is_valid_json)");
+            is_valid_json($mech->content, "validating (is_valid_json)");
 
-            is_json ($mech->content, $expected);
+            is_json($mech->content, $expected);
             $Test->note($mech->content);
         });
     };
@@ -431,7 +411,7 @@ sub _build_ws_test_json {
 sub _build_ws_test {
     my ($class, $name, $args) = @_;
 
-    return $args->{version} eq 'js' ? _build_ws_test_json (@_) : _build_ws_test_xml (@_);
+    return $args->{version} eq 'js' ? _build_ws_test_json(@_) : _build_ws_test_xml(@_);
 }
 
 sub xml_post
@@ -441,13 +421,13 @@ sub xml_post
     # $mech->post_ok seems intent on destroying the POST body by trying to
     # encode it as "application/x-www-form-urlencoded".  So create a request
     # by hand, to make sure the body is submitted verbatim.
-    my $request = HTTP::Request->new (
+    my $request = HTTP::Request->new(
         POST => $url,
-        HTTP::Headers->new ('Content-Type' => 'application/xml; charset=UTF-8',
-                            'Content-Length', length ($content)),
+        HTTP::Headers->new('Content-Type' => 'application/xml; charset=UTF-8',
+                            'Content-Length', length($content)),
     );
 
-    $request->content ($content);
+    $request->content($content);
 
     return $request;
 }
@@ -481,7 +461,7 @@ sub commandline_override
     my ($prefix, @default_tests) = @_;
 
     my $test_re = '';
-    GetOptions ("tests=s" => \$test_re);
+    GetOptions("tests=s" => \$test_re);
 
     return grep { $_ =~ /$test_re/ } @default_tests;
 }

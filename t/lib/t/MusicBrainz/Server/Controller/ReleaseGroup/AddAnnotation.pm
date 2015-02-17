@@ -39,8 +39,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Arrival', '..has release group name');
 $mech->content_like(qr{release-group/234c079d-374e-4436-9448-da92dedef3ce/?"}, '..has a link to the release group');
-$mech->content_contains('release-group/234c079d-374e-4436-9448-da92dedef3ce/annotation/' . $edit->annotation_id,
-                        '..has a link to the annotation');
 
 };
 

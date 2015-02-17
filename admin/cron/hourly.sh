@@ -5,8 +5,7 @@ export PATH=/usr/local/bin:$PATH
 mb_server=`dirname $0`/../..
 cd $mb_server
 
-eval `carton exec -- ./admin/ShowDBDefs`
-source ./admin/config.sh
+eval `./admin/ShowDBDefs`
 
 # Only run one "hourly.sh" at a time
 if [ "${1:-}" != "gotlock" ]
@@ -25,15 +24,15 @@ fi
 . ./admin/functions.sh
 
 OUTPUT=`
-    carton exec -- ./admin/CheckVotes.pl --verbose --summary 2>&1
+    ./admin/CheckVotes.pl --verbose --summary 2>&1
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
 OUTPUT=`
-    carton exec -- ./admin/CheckElectionVotes.pl 2>&1
+    ./admin/CheckElectionVotes.pl 2>&1
 ` || echo "$OUTPUT"
 
 OUTPUT=`
-    carton exec -- ./admin/RunExport 2>&1
+    ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
 # eof

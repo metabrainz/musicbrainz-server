@@ -11,16 +11,12 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'g' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
-with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
     return 'gender';
-}
-
-sub _columns
-{
-    return 'id, name';
 }
 
 sub _entity_class
@@ -32,6 +28,13 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'gender', @objs);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM artist WHERE gender = ? LIMIT 1',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

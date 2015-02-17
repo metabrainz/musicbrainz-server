@@ -5,29 +5,49 @@ use MusicBrainz::Server::PagedReport;
 
 @all = qw(
     ASINsWithMultipleReleases
+    AnnotationsArtists
+    AnnotationsLabels
+    AnnotationsPlaces
+    AnnotationsRecordings
+    AnnotationsReleases
+    AnnotationsReleaseGroups
+    AnnotationsSeries
+    AnnotationsWorks
     ArtistsContainingDisambiguationComments
+    ArtistsWithMultipleOccurancesInArtistCredits
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
+    ArtistsWithNoSubscribers
     BadAmazonURLs
     CatNoLooksLikeASIN
     CollaborationRelationships
     CoverArtRelationships
-    CreativeCommonsRelationships
+    DeprecatedRelationshipArtists
+    DeprecatedRelationshipLabels
+    DeprecatedRelationshipPlaces
+    DeprecatedRelationshipRecordings
+    DeprecatedRelationshipReleases
+    DeprecatedRelationshipReleaseGroups
+    DeprecatedRelationshipURLs
+    DeprecatedRelationshipWorks
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
     DuplicateArtists
+    DuplicateEvents
     DuplicateRelationshipsArtists
     DuplicateRelationshipsReleaseGroups
     DuplicateRelationshipsReleases
     DuplicateRelationshipsRecordings
     DuplicateRelationshipsWorks
     DuplicateRelationshipsLabels
+    DuplicateReleaseGroups
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
     ISRCsWithManyRecordings
+    ISWCsWithManyWorks
     MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
@@ -36,12 +56,15 @@ use MusicBrainz::Server::PagedReport;
     PartOfSetRelationships
     PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
+    RecordingsWithVaryingTrackLengths
     ReleasedTooEarly
     ReleasesInCAAWithCoverArtRelationships
     ReleasesToConvert
+    ReleasesWithDownloadRelationships
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
+    SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
@@ -51,29 +74,42 @@ use MusicBrainz::Server::PagedReport;
 );
 
 use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
+use MusicBrainz::Server::Report::AnnotationReports;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
+use MusicBrainz::Server::Report::ArtistsWithMultipleOccurancesInArtistCredits;
+use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CoverArtRelationships;
-use MusicBrainz::Server::Report::CreativeCommonsRelationships;
+use MusicBrainz::Server::Report::DeprecatedRelationshipArtists;
+use MusicBrainz::Server::Report::DeprecatedRelationshipLabels;
+use MusicBrainz::Server::Report::DeprecatedRelationshipPlaces;
+use MusicBrainz::Server::Report::DeprecatedRelationshipRecordings;
+use MusicBrainz::Server::Report::DeprecatedRelationshipReleases;
+use MusicBrainz::Server::Report::DeprecatedRelationshipReleaseGroups;
+use MusicBrainz::Server::Report::DeprecatedRelationshipURLs;
+use MusicBrainz::Server::Report::DeprecatedRelationshipWorks;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::DuplicateArtists;
+use MusicBrainz::Server::Report::DuplicateEvents;
 use MusicBrainz::Server::Report::DuplicateRelationshipsArtists;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleaseGroups;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleases;
 use MusicBrainz::Server::Report::DuplicateRelationshipsRecordings;
 use MusicBrainz::Server::Report::DuplicateRelationshipsWorks;
 use MusicBrainz::Server::Report::DuplicateRelationshipsLabels;
+use MusicBrainz::Server::Report::DuplicateReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
+use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
@@ -82,12 +118,15 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
+use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleasesToConvert;
+use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;

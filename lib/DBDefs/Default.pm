@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
@@ -61,8 +62,25 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 #               choose RT_SLAVE, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
-use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
+
+################################################################################
+# GPG Signature
+################################################################################
+
+# Location of the public key file to use for verifying packets.
+sub GPG_PUB_KEY { "" }
+
+# Define how validation deals with the missing signature file:
+#   FAIL    - validation fails if signature file is missing
+#   PASS    - validation passes if signature file is missing
+sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets. Should
+# only be required on the master server.
+sub GPG_SIGN_KEY { "" }
+sub GPG_ENCRYPT_KEY { "" }
 
 ################################################################################
 # HTTP Server Names
@@ -70,13 +88,27 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
+# Additionally you should set the environment variable
+# MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
+# aware of it when generating things like the canonical url in catalyst.
 sub WEB_SERVER                { "localhost:5000" }
+# Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
+# Whether to use x-accel-redirect for webservice searches,
+# using /internal/search as the internal redirect
+sub LUCENE_X_ACCEL_REDIRECT   { 0 }
+# Used, for example, to have emails sent from the beta server list the
+# main server
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
+# Used for automatic beta redirection. Enabled if BETA_REDIRECT_HOSTNAME
+# is truthy.
 sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
+
+# The server to use for rel="canonical" links. Includes scheme.
+sub CANONICAL_SERVER          { "https://musicbrainz.org" }
 
 ################################################################################
 # Mail Settings
@@ -105,7 +137,8 @@ sub DB_STAGING_SERVER { 1 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
-# Default: "This is a MusicBrainz development server."
+# Several predefined constants can be used (set to e.g. shift->NAME_OF_CONSTANT
+# Defaults to DB_STAGING_SERVER_DESCRIPTION_DEFAULT
 sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
 sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
 sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
@@ -137,9 +170,6 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # transclusion table.
 sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
-sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
-sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
-
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
 # Alternatively, if you're okay with the search results pointing to
@@ -150,7 +180,7 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 
@@ -183,39 +213,31 @@ sub PLUGIN_CACHE_OPTIONS {
 # The caching options here relate to object caching - such as caching artists,
 # releases, etc in order to speed up queries. If you are using Memcached
 # to store sessions as well this should be a *different* memcached server.
-our %CACHE_MANAGER_OPTIONS = (
-    profiles => {
-        memory => {
-            class => 'Cache::Memory',
-            wrapped => 1,
-            keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
-            options => {
-                default_expires => '1 hour',
+sub CACHE_MANAGER_OPTIONS {
+    my $self = shift;
+    my %CACHE_MANAGER_OPTIONS = (
+        profiles => {
+            memory => {
+                class => 'Cache::Memory',
+                wrapped => 1,
+                keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
+                options => {
+                    default_expires => '1 hour',
+                },
+            },
+            external => {
+                class => 'Cache::Memcached::Fast',
+                options => {
+                    servers => $self->MEMCACHED_SERVERS(),
+                    namespace => $self->MEMCACHED_NAMESPACE()
+                },
             },
         },
-        external => {
-            class => 'Cache::Memcached::Fast',
-            options => {
-                servers => MEMCACHED_SERVERS(),
-                namespace => MEMCACHED_NAMESPACE()
-            },
-        },
-    },
-    default_profile => 'external',
-);
+        default_profile => 'external',
+    );
 
-# No caching
-#our %CACHE_MANAGER_OPTIONS = (
-#    profiles => {
-#        null => {
-#            class => 'Cache::Null',
-#            wrapped => 1,
-#        },
-#    },
-#    default_profile => 'null',
-#);
-
-sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
+    return \%CACHE_MANAGER_OPTIONS
+}
 
 ################################################################################
 # Rate-Limiting
@@ -227,21 +249,6 @@ sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
 # Just like the memcached server settings, there is NO SECURITY built into the
 # ratelimit protocol, so be careful about enabling it.
 sub RATELIMIT_SERVER { undef }
-
-################################################################################
-# Minify settings
-################################################################################
-
-# The following two values determine how scripts and styles are minified. By
-# default, a dummy minifier is used:
-sub MINIFY_DUMMY { shift; my %args = @_; return $args{input}; }
-sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
-sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
-
-# If you wish to minify either javascript or css, uncomment the following lines
-# and install the neccesary CPAN packages.
-# sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-# sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
 # Sessions (advanced)
@@ -353,11 +360,13 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 # internet archive private/public keys (for coverartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { };
 sub COVER_ART_ARCHIVE_SECRET_KEY { };
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/", shift) };
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
+
+sub MAPBOX_MAP_ID { 'musicbrainz.iplg7e52' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
@@ -370,6 +379,10 @@ sub CATALYST_DEBUG { 1 }
 # This will turn off some optimizations (such as CSS/JS compression) to make
 # developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
+
+# How long to wait before rechecking template files (undef uses the
+# Template::Toolkit default)
+sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
 
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
@@ -389,7 +402,7 @@ sub EMAIL_BUGS { undef }
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
 # http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.nu?out=json' }
+sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################
@@ -426,6 +439,27 @@ sub LOGGER_ARGUMENTS {
         ],
     )
 }
+
+sub ADMIN_EMAILS { "root" }
+
+# Were to put database exports, and replication data, for public consumption;
+# who should own them, and what mode they should have.
+sub FTP_DATA_DIR { "/var/ftp/pub/musicbrainz/data" }
+sub FTP_USER { "musicbrainz" }
+sub FTP_GROUP { "musicbrainz" }
+sub FTP_DIR_MODE { 755 }
+sub FTP_FILE_MODE { 644 }
+
+# Where to back things up to, who should own the backup files, and what mode
+# those files should have.
+# The backups include a full database export, and all replication data.
+sub BACKUP_DIR { "/home/musicbrainz/backup" }
+sub BACKUP_USER { "musicbrainz" }
+sub BACKUP_GROUP { "musicbrainz" }
+sub BACKUP_DIR_MODE { 700 }
+sub BACKUP_FILE_MODE { 600 }
+
+sub RSYNC_REPLICATION_SERVER { 'ftpowner@scooby.localdomain' }
 
 1;
 # eof DBDefs.pm

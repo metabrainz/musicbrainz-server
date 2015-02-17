@@ -41,9 +41,11 @@ my $period = my $defperiod = 'daily';
 my $outputdir;
 my $start;
 my $limit;
+my $require_previous_packet = 0;
 
 GetOptions(
     "help"                              => \$fHelp,
+    "require-previous"                  => \$require_previous_packet,
     "period=s"                          => \$period,
     "start=s"                           => \$start,
     "limit=s"                           => \$limit,
@@ -65,15 +67,18 @@ Usage: BundleReplicationPackets root-directory [options]
 
     root-directory is the base directory where packets reside
 
-    --help            show this help
-    --period          name for the period,
-                      default '$defperiod'
-    --start           where to start (default: inspect
-                      previous packet)
-    --limit           how many packets to include (default:
-                      include all packets until present
-    --output          output directory for finished packet
-                      (default: root-directory/period)
+    --help              show this help
+    --period            name for the period,
+                        default '$defperiod'
+    --start             where to start (default: inspect
+                        previous packet)
+    --require-previous  when using no specific start, require
+                        a previous packet, rather than starting
+                        at the earliest available
+    --limit             how many packets to include (default:
+                        include all packets until present
+    --output            output directory for finished packet
+                        (default: root-directory/period)
 EOF
 }
 
@@ -117,6 +122,9 @@ if (!$start) {
         print localtime() . " : Previous '$period' packet ended $last_val, starting $start\n";
     } else {
         # Otherwise, assume they want all the packets
+        if ($require_previous_packet) {
+            die("Previous packet required due to --require-previous, but none exists for '$period'");
+        }
         $start = $sequences[scalar @sequences - 1];
         print localtime() . " : No previous '$period' packet, using all packets (starting $start)\n";
     }
@@ -139,7 +147,7 @@ mkdir "$newpacketdir/mbdump" or die $!;
 my $schema_sequence;
 my $last_replication_sequence = $start - 1;
 for my $sequence (@seq_to_use) {
-    die ("Replication sequence $sequence is too far from $last_replication_sequence")
+    die("Replication sequence $sequence is too far from $last_replication_sequence")
         if $last_replication_sequence + 1 != $sequence;
     my $individual_packet_dir = tempdir("replication-bundle-XXXXXX", DIR => $tmpdir);
 

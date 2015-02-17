@@ -50,11 +50,11 @@ sub nominate
 {
     my ($self, $candidate, $proposer) = @_;
 
-    die 'Forbidden' unless $proposer->is_auto_editor && !$candidate->is_auto_editor;
+    die 'Forbidden' unless $proposer->can_nominate($candidate);
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
 
         my $id = $sql->select_single_value("
@@ -88,7 +88,7 @@ sub second
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die "Forbidden" unless $election->can_second($seconder);
@@ -123,7 +123,7 @@ sub cancel
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die 'Forbidden' unless $election->can_cancel($proposer);
@@ -149,7 +149,7 @@ sub vote
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die 'Forbidden' unless $election->can_vote($voter);
@@ -203,7 +203,7 @@ sub try_to_close
 
     my $sql = $self->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
 
         $self->_try_to_close_timeout();
@@ -299,9 +299,7 @@ sub load_votes
     my $sql = $self->c->sql;
     my $query = "SELECT * FROM autoeditor_election_vote
                  WHERE autoeditor_election = ? ORDER BY vote_time";
-    $sql->select($query, $election->id);
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, $election->id) }) {
         my $vote = MusicBrainz::Server::Entity::AutoEditorElectionVote->new({
             election_id => $election->id,
             election    => $election,
@@ -311,7 +309,6 @@ sub load_votes
         });
         $election->add_vote($vote);
     }
-    $sql->finish;
 }
 
 sub get_all

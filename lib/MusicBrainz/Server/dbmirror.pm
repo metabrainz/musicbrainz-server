@@ -109,7 +109,7 @@ sub make_where_clause
 
 sub unpack_data
 {
-    my $packed = $_[0];
+    my ($packed, $seqid) = @_;
     my %answer;
 
     while (length($packed))
@@ -151,6 +151,10 @@ sub unpack_data
 
         #print "Found $k = $v\n";
         $answer{$k} = $v;
+    }
+
+    if ($seqid == 111117378 || $seqid == 111117379 || $seqid == 111117380 || $seqid == 111404809) {
+        $answer{name} = substr($answer{name}, 0, 1000) . "...";
     }
 
     return \%answer;

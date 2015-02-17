@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::Role::WikipediaExtract;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( rev_nsort_by );
 use namespace::autoclean;
 
 after show => sub {
@@ -15,6 +15,7 @@ sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
 
     $self->_get_extract($c, 0);
 
+    $c->res->headers->header('X-Robots-Tag' => 'noindex');
     $c->stash->{template} = 'components/wikipedia_extract.tt';
 }
 
@@ -27,17 +28,27 @@ sub _get_extract
     # Remove country codes, at least for now
     $wanted_lang =~ s/[_-][A-Za-z]+$//;
 
-    my ($wp_link) = map {
+    # Choose an AR to use:
+    #  * find all Wikipedia and Wikidata relationships
+    #  * prefer wikidata relationships
+    #  * except, if we have a matching-language wikipedia link, use it instead,
+    #    since then we don't have to do a query for languages
+    my @links = map {
             $_->target;
-        } reverse sort_by {
-            $_->target->language eq $wanted_lang
+        } rev_nsort_by {
+            if ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
+                $_->target->language eq $wanted_lang) { 2; }
+            elsif ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')) { 1; }
+            else { 0; }
         } grep {
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia')
-        } @{ $entity->relationships_by_link_type_names('wikipedia') };
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ||
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
+        } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
-    if ($wp_link) {
-
-        my $wp_extract = $c->model('WikipediaExtract')->get_extract($wp_link->page_name, $wanted_lang, $wp_link->language, cache_only => $cache_only);
+    if (scalar @links) {
+        my $wp_extract = $c->model('WikipediaExtract')->get_extract(\@links,
+            $wanted_lang,
+            cache_only => $cache_only);
         if ($wp_extract) {
             $c->stash->{wikipedia_extract} = $wp_extract;
         } else {

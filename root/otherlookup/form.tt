@@ -2,13 +2,15 @@
 <div class="searchform">
     [% FOR field = [ [ 'catno', l('Catalog number:') ]
                    , [ 'barcode', l('Barcode:') ]
+                   , [ 'url', l('URL:') ]
                    , [ 'isrc', l('ISRC:') ]
                    , [ 'iswc', l('ISWC:') ]
                    , [ 'artist-ipi', l('Artist IPI:') ]
+                   , [ 'artist-isni', l('Artist ISNI:') ]
                    , [ 'label-ipi', l('Label IPI:') ]
+                   , [ 'label-isni', l('Label ISNI:') ]
                    , [ 'freedbid', l('FreeDB ID:') ]
                    , [ 'mbid', l('MBID:') ]
-                   , [ 'puid', l('PUID:') ]
                    , [ 'discid', l('Disc ID:') ]
                    ] %]
       <form action="[% c.uri_for_action('/otherlookup/' _ field.0) %]">

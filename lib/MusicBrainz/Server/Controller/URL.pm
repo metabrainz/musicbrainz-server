@@ -6,12 +6,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'URL',
-    entity_name => 'url'
+    model           => 'URL',
+    entity_name     => 'url',
+    relationships   => { all => ['show', 'edit'] }
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 =head1 NAME
 
@@ -31,10 +32,8 @@ relationships).
 
 sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
-    $self->relationships($c);
     $c->stash->{template} = 'url/index.tt';
 }
 

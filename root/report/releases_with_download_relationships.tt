@@ -1,0 +1,17 @@
+[%- WRAPPER 'layout.tt' title=l('Non-digital releases with download relationships') full_width=1 -%]
+
+<h1>[% l('Non-digital releases with download relationships') %]</h1>
+
+<ul>
+  <li>[% l('This report shows releases that have download relationships, but
+            have media who\'s format is not "Digital Media".') %]</li>
+  <li>[% l('Total releases
+    found: {count}', { count => pager.total_entries }) %]</li>
+  <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+  [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]
+

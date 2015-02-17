@@ -3,16 +3,15 @@ package MusicBrainz::Server;
 use Moose;
 BEGIN { extends 'Catalyst' }
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
-
-use aliased 'MusicBrainz::Server::Translation';
-
-use Try::Tiny;
 use Sys::Hostname;
+use Try::Tiny;
+use List::Util qw( max );
+use aliased 'MusicBrainz::Server::Translation';
 
 # Set flags and add plugins for the application
 #
@@ -50,12 +49,11 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-	    'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
-	    'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
+            'format_setlist' => \&MusicBrainz::Server::Filters::format_setlist,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
@@ -68,9 +66,11 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
-	    'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
+        EVAL_PERL => 1,
+        COMPILE_EXT => '.ttc',
+        COMPILE_DIR => '/tmp/ttc'
     },
     'Plugin::Session' => {
         expires => DBDefs->SESSION_EXPIRE
@@ -89,14 +89,15 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
 if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
         enable => 1,
-        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
+        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email',
+        user_identified_by => 'identity_string'
     };
 
     __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
         to => DBDefs->EMAIL_BUGS(),
         from => 'bug-reporter@' . DBDefs->WEB_SERVER(),
         use_tags => 1,
-        subject => 'Unhandled error in %f (line %l)'
+        subject => '%h: Unhandled error in %f (line %l)'
     };
 
     push @args, "ErrorCatcher";
@@ -104,6 +105,9 @@ if (DBDefs->EMAIL_BUGS) {
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
 
+require MusicBrainz::Server::Authentication::WS::Credential;
+require MusicBrainz::Server::Authentication::WS::Store;
+require MusicBrainz::Server::Authentication::Store;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
@@ -111,9 +115,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
         moderators => {
             use_session => 1,
             credential => {
-                class => 'Password',
-                password_field => 'password',
-                password_type => 'clear'
+                class => '+MusicBrainz::Server::Authentication::Credential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store'
@@ -124,7 +126,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             credential => {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
-                password_field => 'password',
+                password_field => 'ha1',
                 password_type => 'clear'
             },
             store => {
@@ -170,6 +172,10 @@ if (DBDefs->_RUNNING_TESTS) {
 else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
+}
+
+if (DBDefs->STAT_TTL) {
+    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = DBDefs->STAT_TTL;
 }
 
 if (DBDefs->CATALYST_DEBUG) {
@@ -228,7 +234,7 @@ sub form
     my ($c, $stash, $form_name, %args) = @_;
     die '$c->form required $stash => $form_name as arguments' unless $stash && $form_name;
     $form_name = "MusicBrainz::Server::Form::$form_name";
-    Class::MOP::load_class($form_name);
+    load_class($form_name);
     my $form = $form_name->new(%args, ctx => $c);
     $c->stash( $stash => $form );
     return $form;
@@ -247,23 +253,24 @@ sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
 
+sub get_collator
+{
+    my ($self) = @_;
+    return MusicBrainz::Server::Translation::get_collator(
+        $self->stash->{current_language} // 'en'
+    );
+}
+
 sub set_language_cookie {
     my ($c, $lang) = @_;
     $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
 }
 
-sub _handle_param_unicode_decoding {
-    my ( $self, $value ) = @_;
-    my $enc = $self->encoding;
-    return try {
-        Encode::is_utf8( $value ) ?
-            $value
-        : $enc->decode( $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
-    }
-    catch {
-        $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
-        $self->res->status(400);
-    };
+sub handle_unicode_encoding_exception {
+    my $self = shift;
+
+    $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as UTF-8 and try again.');
+    $self->res->status(400);
 }
 
 # Set and unset translation language
@@ -313,11 +320,11 @@ around dispatch => sub {
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
             $beta_redirect && !$unset_beta &&
-            $c->req->method == 'GET') {
+            !($c->req->uri =~ /set-beta-preference$/)) {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
-        $c->res->redirect($new_url);
+        $c->res->redirect($new_url, 307);
     } else {
         $c->with_translations(sub {
             $c->$orig(@args)
@@ -356,10 +363,11 @@ around dispatch => sub {
     if (defined($max_request_time) && $max_request_time > 0) {
         my $context = $c->model('MB')->context;
 
-        if ($context->connector->conn->connected) {
-            $context->sql->do("SET statement_timeout = " .
-                                  ($max_request_time * 1000));
-        }
+        my $max_statement_time = max $max_request_time * 0.7, $max_request_time - 5;
+            # give the controller some time to deal with an aborted statement
+        $max_statement_time *= 1000; # database expects milliseconds
+        $context->sql->auto_commit;
+        $context->sql->do("SET statement_timeout = $max_statement_time");
 
         alarm($max_request_time);
         POSIX::sigaction(
@@ -399,12 +407,22 @@ around 'finalize_error' => sub {
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
-            $c->res->{body} = 'clear';
-            $c->view('Default')->process($c);
-            $c->res->{body} = encode('utf-8', $c->res->{body});
+            if ($c->stash->{error_body_in_stash}) {
+                $c->res->{body} = $c->stash->{body};
+                $c->res->{status} = $c->stash->{status};
+            } else {
+                $c->res->{body} = 'clear';
+                $c->view('Default')->process($c);
+                $c->res->{body} = encode('utf-8', $c->res->{body});
+            }
         }
     });
 };
+
+sub try_get_session {
+    my ($c, $key) = @_;
+    return $c->sessionid ? $c->session->{$key} : undef;
+}
 
 =head1 NAME
 

@@ -10,8 +10,8 @@ with 't::Context';
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
+use MusicBrainz::Server::Validation qw( is_guid );
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
 
@@ -56,8 +56,8 @@ $edit = create_edit($c, $medium);
 accept_edit($c, $edit);
 
 $medium = $medium = $c->model('Medium')->get_by_id(1);
-$c->model('Track')->load_for_tracklists($medium->tracklist);
-is($medium->tracklist->tracks->[0]->name => 'Fluffles');
+$c->model('Track')->load_for_mediums($medium);
+is($medium->tracks->[0]->name => 'Fluffles');
 is($medium->format_id, 1);
 is($medium->release_id, 1);
 is($medium->position, 2);
@@ -65,6 +65,88 @@ is($medium->edits_pending, 0);
 $release = $c->model('Release')->get_by_id(1);
 is($release->edits_pending, 0);
 
+};
+
+test 'Unused tracks are correctly deleted after tracklist changes' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $new_artist_credit = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                name => 'Warp Industries',
+                artist => Artist->new(
+                    id => 2,
+                    name => 'Artist',
+                ))
+        ]);
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $edit1 = create_edit(
+        $c, $medium,
+        [
+         Track->new(name => 'CONCRETE JUNGLE', position => 1, number => "A1",
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
+         Track->new(name => 'THUNDER TORNADO', position => 2, number => "A2",
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
+        ]);
+
+    accept_edit($c, $edit1);
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $concrete_jungle_id = $medium->tracks->[0]->id;
+    my $thunder_tornado_id = $medium->tracks->[1]->id;
+    my $concrete_jungle_mbid = $medium->tracks->[0]->gid;
+    my $thunder_tornado_mbid = $medium->tracks->[1]->gid;
+
+    ok(is_guid($concrete_jungle_mbid), 'First track has a valid MBID');
+    ok(is_guid($thunder_tornado_mbid), 'Second track has a valid MBID');
+    isnt($concrete_jungle_mbid, $thunder_tornado_mbid, 'First and second tracks have different MBIDs');
+
+    is($medium->tracks->[0]->name, 'CONCRETE JUNGLE', 'First track is CONCRETE JUNGLE');
+    is($medium->tracks->[1]->name, 'THUNDER TORNADO', 'Second track is THUNDER TORNADO');
+    is(scalar $medium->all_tracks, 2, "Medium has two tracks");
+
+    # All of the above has established a medium with two tracks, the
+    # following edit will change track 1 and replace track 2.
+
+    my $edit2 = create_edit(
+        $c, $medium,
+        [
+         Track->new(name => 'CONCRETE JUNGLE (CONCRETE MAN STAGE)',
+                    id => $concrete_jungle_id, position => 1, number => "A1",
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
+         Track->new(name => 'PLUG ELECTRIC', position => 2, number => "A2",
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
+        ]);
+
+    accept_edit($c, $edit2);
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+
+    is($medium->tracks->[0]->name, 'CONCRETE JUNGLE (CONCRETE MAN STAGE)', 'First track is CONCRETE JUNGLE (CONCRETE MAN STAGE)');
+    is($medium->tracks->[1]->name, 'PLUG ELECTRIC', 'Second track is PLUG ELECTRIC');
+    is(scalar $medium->all_tracks, 2, "Medium has two tracks");
+
+    is   ($medium->tracks->[0]->id, $concrete_jungle_id, 'First track row id unchanged');
+    isnt($medium->tracks->[1]->id, $thunder_tornado_id, 'Second track row id changed');
+
+    is   ($medium->tracks->[0]->gid, $concrete_jungle_mbid, 'First track mbid unchanged');
+    isnt($medium->tracks->[1]->gid, $thunder_tornado_mbid, 'Second track mbid changed');
+
+    my $plug_electric_id = $medium->tracks->[1]->id;
+
+    isa_ok($c->model('Track')->get_by_id($concrete_jungle_id), 'MusicBrainz::Server::Entity::Track', 'CONCRETE JUNGLE');
+    isa_ok($c->model('Track')->get_by_id($plug_electric_id), 'MusicBrainz::Server::Entity::Track', 'PLUG ELECTRIC');
+    is($c->model('Track')->get_by_id($thunder_tornado_id), undef, 'THUNDER TORNADO no longer exists');
+
+    isa_ok($c->model('Track')->get_by_gid($concrete_jungle_mbid), 'MusicBrainz::Server::Entity::Track', 'CONCRETE JUNGLE (mbid)');
+    is($c->model('Track')->get_by_gid($thunder_tornado_mbid), undef, 'THUNDER TORNADO (mbid) no longer exists');
 };
 
 test 'Edits are rejected if they conflict' => sub {
@@ -86,7 +168,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
     my $edit2 = create_edit($c, $medium, [
@@ -102,7 +185,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
 
@@ -129,7 +213,11 @@ test 'Ignore edits that dont change the tracklist' => sub {
 
     {
         my $medium = $c->model('Medium')->get_by_id(1);
-        isa_ok exception { create_edit($c, $medium) }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
+        isa_ok exception {
+            create_edit($c, $medium, [ $medium->all_tracks ])
+        }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
     }
 };
 
@@ -142,8 +230,8 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Adding a new recording is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
@@ -162,7 +250,8 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 1,
-                    length => undef
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -179,10 +268,10 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Can change the recording to another existing recording' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
-        my $track = $medium->tracklist->tracks->[0];
+        my $track = $medium->tracks->[0];
         my $old_recording_id = $track->recording_id;
 
         my $edit = $c->model('Edit')->create(
@@ -225,22 +314,22 @@ test 'Accept/failure conditions regarding links' => sub {
     # XXX TODO You should be able to do this!
     subtest 'Cannot change to a recording if its merged away (yet)' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
-        my $track = $medium->tracklist->tracks->[0];
+        my $track = $medium->tracks->[0];
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
             edit_type => $EDIT_MEDIUM_EDIT,
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => $merge_me->id
+                    recording_id => $merge_me->{id}
                 )
             ]
         );
 
-        $c->model('Recording')->merge($merge_target->id, $merge_me->id);
+        $c->model('Recording')->merge($merge_target->{id}, $merge_me->{id});
 
         isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
     };
@@ -252,15 +341,15 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Adding a new recording with an existing ID is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
             edit_type => $EDIT_MEDIUM_EDIT,
             to_edit   => $medium,
             tracklist => [
-                $medium->tracklist->all_tracks,
+                $medium->all_tracks,
                 Track->new(
                     name => 'New track 2',
                     artist_credit => ArtistCredit->new(
@@ -273,8 +362,9 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 2,
-                    recording_id => $new_rec->id,
-                    length => undef
+                    recording_id => $new_rec->{id},
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -291,8 +381,8 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Changes that dont touch recording IDs can pass merges' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
@@ -301,7 +391,7 @@ test 'Accept/failure conditions regarding links' => sub {
             tracklist => [
                 map {
                     Track->meta->clone_object($_, name => 'Renamed track')
-                } $medium->tracklist->all_tracks,
+                } $medium->all_tracks,
             ]
         );
 
@@ -310,7 +400,7 @@ test 'Accept/failure conditions regarding links' => sub {
             name => 'New recording'
         });
 
-        $c->model('Recording')->merge($recording->id, $new_rec->id);
+        $c->model('Recording')->merge($recording->{id}, $new_rec->{id});
 
         $edit->accept;
 
@@ -332,8 +422,8 @@ test 'Auto-editing edit medium' => sub {
 
     subtest 'Adding a new recording is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
         ok !exception {
             $c->model('Edit')->create(
@@ -354,7 +444,8 @@ test 'Auto-editing edit medium' => sub {
                                     )
                                 )]),
                         position => 1,
-                        length => undef
+                        length => undef,
+                        is_data_track => 0
                     )
                 ]
             )
@@ -363,10 +454,10 @@ test 'Auto-editing edit medium' => sub {
 
     subtest 'Can change the recording to another existing recording' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_tracklists($medium->tracklist);
-        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+        $c->model('Track')->load_for_mediums($medium);
+        $c->model('ArtistCredit')->load($medium->all_tracks);
 
-        my $track = $medium->tracklist->tracks->[0];
+        my $track = $medium->tracks->[0];
         my $old_recording_id = $track->recording_id;
 
         ok !exception {
@@ -381,6 +472,58 @@ test 'Auto-editing edit medium' => sub {
             )
         };
     };
+
+};
+
+test 'Can build display data for removed mediums' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $edit = create_edit($c, $medium);
+    $c->model('Medium')->delete(1);
+
+    ok !exception { $edit->build_display_data };
+};
+
+test 'Pregap tracks can be added' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+
+    my $ac = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                name => 'Warp Industries',
+                artist => Artist->new(
+                    id => 2,
+                    name => 'Artist',
+                ))]);
+
+    my $edit = create_edit($c, $medium, [
+        Track->new(
+            name => 'Pregap',
+            artist_credit => $ac,
+            recording_id => 2,
+            position => 0,
+            number => 0
+        )
+    ]);
+
+    $edit->accept;
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+    my @tracks = $medium->all_tracks;
+
+    ok(@tracks == 1);
+    is($tracks[0]->position, 0);
+    ok(!$tracks[0]->is_data_track); # MBS-7988
 };
 
 sub create_edit {
@@ -400,7 +543,8 @@ sub create_edit {
                     )]),
             recording_id => 1,
             position => 1,
-            number => 1
+            number => 1,
+            is_data_track => 0
         )
     ];
 
@@ -411,14 +555,13 @@ sub create_edit {
         format_id => 1,
         name => 'Edited name',
         tracklist => $tracklist,
-        separate_tracklists => 1,
         position => 2,
     );
 }
 
 sub is_unchanged {
     my $medium = shift;
-    is($medium->tracklist_id, 1);
+    is($medium->track_count, 0);
     is($medium->format_id, undef);
     is($medium->release_id, 1);
     is($medium->position, 1);

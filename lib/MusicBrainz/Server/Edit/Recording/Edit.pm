@@ -2,27 +2,31 @@ package MusicBrainz::Server::Edit::Recording::Edit;
 use Moose;
 use 5.10.0;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
-    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
     verify_artist_credits
     merge_artist_credit
+    boolean_to_json
+    boolean_from_json
 );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
+
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
@@ -51,7 +55,8 @@ sub change_fields
         name          => Optional[Str],
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
-        comment       => Nullable[Str]
+        comment       => Nullable[Str],
+        video         => Optional[Bool]
     ];
 }
 
@@ -59,12 +64,33 @@ has '+data' => (
     isa => Dict[
         entity => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ],
         old => change_fields(),
         new => change_fields(),
     ]
 );
+
+sub to_hash {
+    my $data = shift->data;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_to_json($_->{video}) if exists $_->{video};
+    }
+
+    return $data;
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_from_json($_->{video}) if exists $_->{video};
+    }
+
+    $self->data($data);
+}
 
 sub current_instance {
     my $self = shift;
@@ -98,6 +124,7 @@ sub build_display_data
         name    => 'name',
         comment => 'comment',
         length  => 'length',
+        video   => 'video',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -119,18 +146,11 @@ around 'initialize' => sub
 {
     my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
-    if (exists $opts{artist_credit} && !$recording->artist_credit) {
-        $self->c->model('ArtistCredit')->load($recording);
-    }
 
-    if (exists $opts{length}) {
-        delete $opts{length}
-            if MusicBrainz::Server::Track::FormatTrackLength($opts{length}) eq
-                MusicBrainz::Server::Track::FormatTrackLength($recording->length);
-    }
+    delete $opts{length} if exists $opts{length} &&
+        $self->c->model('Recording')->usage_count($recording->id);
 
-    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
-        if exists($opts{artist_credit});
+    $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
 
     $self->$orig(%opts);
 };
@@ -139,7 +159,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, [])
+            artist_credit_to_ref(shift->artist_credit)
         },
     );
 }
@@ -152,6 +172,9 @@ sub _edit_hash
 
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+
+    $data->{comment} //= '' if exists $data->{comment};
+
     return $data;
 }
 
@@ -186,6 +209,9 @@ sub allow_auto_edit
     my ($old_comment, $new_comment) = normalise_strings(
         $self->data->{old}{comment}, $self->data->{new}{comment});
     return 0 if $old_comment ne $new_comment;
+
+    return 0 if exists $self->data->{old}{video}
+        and $self->data->{old}{video} != $self->data->{new}{video};
 
     return 0 if $self->data->{old}{length};
     return 0 if exists $self->data->{new}{artist_credit};

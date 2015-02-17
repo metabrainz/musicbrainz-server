@@ -5,11 +5,12 @@ use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MAC_TO_SAC );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 sub edit_name     { N_l('Convert release to single artist (historic)') }
+sub edit_kind     { 'other' }
 sub edit_template { 'historic/mac_to_sac' }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }
 sub historic_type { 13 }

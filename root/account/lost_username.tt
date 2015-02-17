@@ -8,7 +8,7 @@
 MusicBrainz account information.') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
-        [% form_row_text_long(r, 'email', l('Email:')) %]
+        [% form_row_email_long(r, 'email', l('Email:')) %]
 
         <div class="row no-label">
         [% form_submit(l('Send Email')) %]

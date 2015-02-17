@@ -1,0 +1,652 @@
+@form-half-width: 540px;
+@form-margin: 12px;
+@form-label-width: 150px;
+@form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
+@form-input-width-short: 220px;
+@form-icon-size: 16px;
+@form-bubble-label-width: @form-label-width;
+@form-bubble-input-width: 176px;
+
+.border-radius (@radius) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+
+input { background: #fff; color: @text-black; }
+input:-ms-input-placeholder, // IE10
+input::-moz-placeholder, // ff 19+
+input:-moz-placeholder, // ff 4-18
+input::-webkit-input-placeholder { // webkit
+    color: @dark-text;
+}
+input[disabled].lookup-performed,
+input[disabled] { background: @medium-bg; cursor: default; }
+
+/* this is to ensure input/select/textarea elements are all the same
+   width if you set the same width on them. (without this a <select>
+   is a few pixels narrower than an <input type="text> in at least
+   firefox and chrome) */
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+button.nobutton:focus,
+button.nobutton:hover,
+button.nobutton {
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+button.nobutton::-moz-focus-inner { margin: -1px; padding: 0; };
+
+div.various-artists.warning { width: 50em; }
+
+fieldset {
+    margin-top: @form-margin;
+    margin-bottom: @form-margin;
+    border: none;
+    padding: 0;
+}
+
+fieldset legend { margin-top: 0; }
+
+form div.row {
+    clear: left;
+    margin: 6px 0;
+}
+
+form div.row label,
+form div.row div.label {
+    float: left;
+    text-align: right;
+    min-width: @form-label-width;
+    margin-right: @form-margin;
+}
+
+form div.row.no-label label {
+    float: none;
+}
+
+/* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
+div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
+div.form-row-text-list button > img { vertical-align: middle; }
+
+div.form-row-add {
+    text-align: right;
+    width: @form-input-width + 2;
+    margin: (@form-margin / 2) 0;
+}
+
+div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
+/* these rows are missing a <label> on the left and use a margin instead. */
+div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
+
+.bubble {
+    display: none;
+    position: absolute;
+    min-height: 64px;
+    margin: 0;
+    padding: @form-margin;
+    background: @very-light-bg;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.bubble-tail {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.bubble.left-tail:before {
+    .bubble-tail;
+    right: 100%;
+    top: 16px;
+    border-top: 12px solid transparent;
+    border-right: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble.right-tail:after {
+    .bubble-tail;
+    left: 100%;
+    top: 50%;
+    top: calc(50% - 6px);
+    border-top: 12px solid transparent;
+    border-left: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble div.row input[type=text],
+.bubble div.row input[type=email],
+.bubble div.row input[type=number],
+.bubble div.row input[type=url] {
+    width: @form-bubble-input-width;
+    font-size: 1em;
+}
+
+.bubble div.row label,
+.bubble div.row div.label { width: @form-bubble-label-width; }
+
+form div.row p { float: none; clear: none; }
+form div.row ul { overflow: auto; }
+
+form div.no-label,
+form p.no-label,
+form ul.errors {
+    margin-left: @form-label-width + @form-margin;
+}
+
+ul.errors {
+    margin-top: 4px;
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+ul.errors li, .error { color: @negative-text; }
+span.success { color: @positive-text; }
+
+input.error,
+select.error {
+    color: @text-black;
+    background: @negative-bg ! important;
+}
+
+input.success,
+input.lookup-performed { background: @positive-bg; }
+
+form .input-note {
+    font-style: italic;
+    font-size: 85%;
+}
+
+div.enter-edit input.submit {
+    font-size: 18pt;
+}
+
+ul.radio-list {
+    list-style-type: none;
+    list-style-image: none;
+    padding: 0;
+}
+
+label.required,
+div.required {
+    font-weight: bold;
+}
+
+textarea {
+    font-family: sans-serif;
+    font-size: 12.5px;
+}
+
+label.inline {
+    float: none !important;
+    width: auto !important;
+}
+
+dl.properties label {
+    float: none;
+    width: auto;
+}
+
+div.ar-descr {
+    background: @effectively-white-bg;
+    padding: 4px;
+    border: dotted 1px @medium-border;
+    margin: 6px;
+}
+
+div.searchform {
+    margin-top: 24px;
+}
+
+/* <table>-based forms to replace div.row-based stuff. */
+
+table.row-form {
+    width: 100%;
+
+    label { display: inline-block; text-align: right; }
+
+    input[type=text], input[type=email], input[type=number], input[type=url], select, span.autocomplete {
+        width: 100% !important;
+    }
+
+    td:first-child, th:first-child {
+        min-width: @form-label-width;
+        padding: @form-margin / 2;
+        padding-bottom: 9px;
+        box-sizing: border-box;
+        vertical-align: top;
+
+        label { width: 100% !important; }
+    }
+
+    td {
+        &.partial-date { min-width: @form-label-width; }
+        &.add-item { text-align: right; }
+        &.error { padding-bottom: @form-margin; }
+    }
+
+    tr.error td:first-child { padding: 0; }
+
+    ul.errors { margin: 0; }
+}
+
+div.checkbox {
+    display: table;
+    > div {
+        display: table-row;
+        > input { display: table-cell; }
+        > label { display: table-cell; text-align: left; }
+    }
+}
+
+/* __________________________________
+
+          Guess Case
+   __________________________________ */
+
+#guesscase-options {
+    display: none;
+}
+
+button.guesscase-title, button.guesscase-sortname {
+    background-image: data-uri('../images/icons/guesscase.png');
+}
+
+button.sortname-copy {
+    background-image: data-uri('../images/icons/copy.png');
+}
+
+button.guesscase-options {
+    background-image: data-uri('../images/icons/cog.png');
+}
+
+/* __________________________________
+
+          MB.Control.Autocomplete
+   __________________________________ */
+
+span.autocomplete { display: inline-block; position: relative; }
+span.autocomplete img.search { position: absolute; right: 2px; top: 3px; }
+span.autocomplete.disabled img.search { display: none; }
+span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
+
+.ui-autocomplete-loading {
+    background: white data-uri('../images/icons/loading.gif') right center no-repeat;
+}
+
+button.autocomplete-pager {
+    position: absolute;
+    display: block;
+    border: 0;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+}
+
+span.autocomplete-isrcs,
+span.autocomplete-appears,
+span.autocomplete-comment,
+span.autocomplete-video {
+    margin-left: @form-margin;
+    color: @dark-text;
+}
+
+span.autocomplete-length {
+    color: @very-dark-text;
+    float: right;
+    margin-left: 2em;
+}
+
+/* __________________________________
+
+         Half-width edit forms
+   __________________________________ */
+
+div.half-width {
+    clear: both;
+    float: left;
+    margin: @form-margin 0 0 0;
+    width: @form-half-width;
+}
+
+div.half-width p,
+fieldset > p {
+    margin: 1em;
+}
+
+div.documentation {
+    margin-left: @form-half-width + 20;
+}
+
+div.half-width fieldset {
+    border: 1px solid @light-border;
+    margin-top: 0;
+    .border-radius(6px);
+}
+
+div.half-width fieldset.editnote {
+    background-color: inherit;
+    border-color: transparent; /* this preserves the spacing below the legend, but keeps the border hidden */
+}
+
+div.half-width fieldset legend {
+    color: @text-orange;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+div.half-width fieldset label.row {
+    float: left;
+    margin-right: @form-margin;
+    text-align: right;
+    width: @form-label-width;
+}
+
+div.half-width fieldset label.required {
+    font-weight: bold;
+}
+
+div.half-width fieldset input,
+div.half-width fieldset select {
+    font-size: 1em;
+    width: @form-input-width;
+}
+
+div.half-width fieldset input.short,
+div.half-width fieldset select.short {
+    width: @form-input-width-short;
+    font-weight: bold;
+}
+
+div.half-width fieldset {
+    input.with-button, select.with-button {
+        width: @form-input-width - @form-icon-size - 2;
+    }
+
+    input.with-guesscase {
+        width: @form-input-width - (@form-icon-size * 2) - 6 !important;
+    }
+}
+
+div.half-width fieldset input[type=checkbox] {
+    width: auto;
+}
+
+div.half-width fieldset span.partial-date {
+    white-space: nowrap;
+
+    input {
+        width: auto;
+        &.partial-date-year { width: 4em; }
+        &.partial-date-month { width: 2.5em; }
+        &.partial-date-day { width: 2.5em; }
+    }
+}
+
+div.half-width fieldset textarea {
+    width: @form-input-width;
+}
+
+div.half-width fieldset input.label-code {
+    width: 100px;
+}
+
+div.half-width fieldset input.time {
+    width: 4em;
+}
+
+div.half-width fieldset h3 {
+    margin: 24px 10px 0;
+}
+
+div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
+
+table.form th,
+table.form td{
+    vertical-align: top;
+}
+
+table.form th {
+    text-align: right;
+    padding-bottom: 8pt;
+    width: 100pt;
+}
+
+table.form {
+    padding: 10pt 0;
+}
+
+ul.conditions button.remove {
+    display: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+}
+
+ul.conditions button.remove,
+button.nobutton {
+    cursor: pointer;
+}
+
+ul.conditions button.remove img {
+    vertical-align: middle;
+}
+
+#filter {
+    margin-top: 0.75em;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
+    .border-radius(3px);
+    padding: 0.5em;
+    display: none;
+}
+
+input.icon, div.icon.img, button.icon {
+    width: @form-icon-size;
+    height: @form-icon-size;
+    border: 0 !important;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+div.img, button.icon { display: inline-block; }
+
+button.with-label {
+    border: none;
+    background-color: transparent;
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: @form-icon-size + 4;
+    cursor: pointer;
+}
+
+button.add-item,
+div.add-item {
+    background-image: data-uri('../images/icons/add_row.png');
+}
+
+.remove-artist-credit,
+button.remove-item,
+div.remove-item {
+    background-image: data-uri('../images/icons/delete_row.png');
+}
+
+.edit-item {
+    background: data-uri('../images/icons/edit.png');
+
+    &[disabled] {
+        cursor: default;
+        opacity: 0.3;
+    }
+}
+
+.file-down, .track-down, .move-down {
+    background-image: data-uri('../images/icons/track-down.png');
+}
+
+.file-up, .track-up, .move-up {
+    background-image: data-uri('../images/icons/track-up.png');
+}
+
+/*
+  Artist credits
+  ================================================
+*/
+
+@form-open-ac-width: 70px;
+
+#open-ac {
+    width: @form-open-ac-width;
+    height: 22px;
+    margin-left: 3px;
+    padding: 0;
+}
+
+.artist-credit-input {
+    width: @form-input-width - @form-open-ac-width - 7px !important;
+}
+
+.add-artist-credit {
+    margin-left: @form-bubble-label-width - @form-margin !important;
+    width: @form-bubble-input-width;
+    text-align: right;
+}
+
+#artist-credit-bubble .buttons, #track-ac-bubble .buttons { margin-top: 1em; }
+#artist-credit-bubble .buttons { width: 100%; }
+
+/*
+  External links editor
+*/
+
+#external-links-editor, #work-attributes {
+    width: 100%;
+    padding: @form-margin / 2;
+
+    td:first-child select {
+        max-width: @form-label-width - @form-margin;
+    }
+
+    td:nth-child(2) { width: 100%; }
+
+    td.errors ul { margin: 0; }
+
+    input[type=text], input[type=email], input[type=number], input[type=url] { width: 100%; }
+}
+
+#external-links-editor span.favicon {
+    display: inline-block;
+    width: @form-icon-size;
+    height: @form-icon-size;
+    vertical-align: middle;
+}
+
+/* Relationship editor */
+
+.remove-button { cursor: pointer; color: @button-text; padding: 0 0.5em; }
+.remove-button:hover { color: @negative-bg; text-decoration: none; }
+.remove-button:visited { color: @button-text; }
+
+.rel-add { background: @positive-bg; }
+.rel-edit { background: @rel-edit; }
+.rel-remove { background: @negative-bg !important; cursor: default !important; }
+
+div.rel-editor-dialog {
+    display: none;
+    max-width: 500px;
+
+    span.autocomplete { width: 100%; }
+    p.msg { margin: 0.5em; margin-bottom: 1em; }
+    span.error, div.error { color: @negative-text; }
+
+    table { border-spacing: 0; width: 100%; }
+
+    table td { padding: 0.25em 0; }
+
+    table td.section {
+        font-weight: bold;
+        vertical-align: top;
+        text-align: right;
+        white-space: nowrap;
+        padding-right: 1em !important;
+    }
+
+    input[type=text], textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    textarea { margin-top: 0.5em; }
+    .buttons { display: block !important; }
+
+    div.ar-descr {
+        box-sizing: border-box;
+        margin: 6px 0;
+    }
+
+    #attrs button {
+        background-color: @very-light-bg;
+        border: 1px solid @dark-button-border;
+        border-top: 1px solid @light-button-border;
+        border-left: 1px solid @light-button-border;
+        font-weight: bold;
+        color: @button-text;
+        cursor: pointer;
+    }
+
+    .change-direction { padding: 2px !important; }
+
+    .attribute-container {
+        margin-bottom: @form-margin / 2;
+    }
+
+    .attribute-credit {
+        width: 40% !important;
+    }
+
+    .instrument-selection-credit {
+        span.autocomplete {
+            width: 50%;
+            input { width: 100%; }
+        }
+    }
+}
+
+#relationship-editor {
+    display: none;
+    margin-top: 1em;
+
+    button.add-item {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-top: -4px;
+        margin-bottom: 4px;
+        margin-left: 40px;
+    }
+
+    legend button.add-item {
+        margin-left: 0;
+    }
+
+    .relationship-list {
+        width: 100%;
+        & > div { padding: 6px; }
+    }
+}

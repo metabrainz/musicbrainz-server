@@ -1,10 +1,15 @@
 package MusicBrainz::Server::WebService::Entity::1::ReleaseEvent;
 use Moose;
 
-# This class is used to for the serializer to serialize a release as
-# a release event (the serializer dispatches on the type of the object).
+has release => (
+    is => 'ro',
+    required => 1
+);
 
-extends 'MusicBrainz::Server::Entity::Release';
+has event => (
+    is => 'ro',
+    required => 1
+);
 
 __PACKAGE__->meta->make_immutable;
 1;

@@ -1,0 +1,18 @@
+[%~ WRAPPER "layout.tt" title=title ? series.name _ " - ${title}" : series.name canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE "series/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+
+    [%~ IF !full_width ~%]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=series ~%]
+            <h2 class="series-information">[%~ l('Series information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(series.type.l_name) class="type" ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Ordering Type:')
+                     content=html_escape(series.ordering_type.l_name) class="type" ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
+[%~ END ~%]

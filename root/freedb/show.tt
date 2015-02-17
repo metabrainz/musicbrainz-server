@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     [% FOR track=entity.tracks %]
-    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+    <tr class="[% loop.parity %]">
       <td class="pos t">[% loop.count %]</td>
       <td>
         [% track.freedb_title | html %]
@@ -30,7 +30,6 @@
 [% IF c.user_exists %]
   <form action="[% c.uri_for('/release/add') %]" method="post">
     <input type="hidden" name="name" value="[% entity.title %]" />
-    <input type="hidden" name="artist" value="[% entity.title %]" />
     <input type="hidden" name="mediums.0.format" value="CD" />
     <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
     [% FOR track=entity.tracks %]
@@ -38,7 +37,7 @@
              value="[% track.freedb_title | html %]" />
       <input type="hidden"
              name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
-             value="[% release.artist | html %]" />
+             value="[% track.artist OR entity.artist | html %]" />
       <input type="hidden" name="mediums.0.track.[% loop.index %].length"
                value="[% track.length %]" />
     [% END %]
@@ -67,7 +66,7 @@
   </thead>
   <tbody>
     [% FOR track=entity.tracks %]
-    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+    <tr class="[% loop.parity %]">
       <td class="pos t">[% loop.count %]</td>
       <td>
         [% track.title | html %]
@@ -86,7 +85,6 @@
 [% IF c.user_exists %]
   <form action="[% c.uri_for('/release/add') %]" method="post">
     <input type="hidden" name="name" value="[% entity.title %]" />
-    <input type="hidden" name="artist" value="[% entity.title %]" />
     <input type="hidden" name="mediums.0.format" value="CD" />
     <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
 

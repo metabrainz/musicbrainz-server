@@ -1,0 +1,315 @@
+#release-editor {
+
+/* __________________________________
+
+       GLOBAL
+   __________________________________ */
+
+margin-top: 1em;
+
+.documentation p { margin-top: 0; }
+.documentation div.warning p { margin-top: 1em; }
+
+table { border-spacing: 0; width: 100%; }
+
+fieldset {
+    margin-top: 0;
+    border: 1px solid @light-border;
+    border-radius: 6px;
+
+    legend {
+        color: @text-orange;
+        font-size: 120%;
+        font-weight: bold;
+        margin: 0 @form-margin;
+    }
+
+    div {
+        &.recordings-loading, &.tracklist-loading {
+            padding: 1em;
+            text-align: center;
+        }
+        &.guesscase-options select { width: 100px; }
+    }
+}
+
+.warning { border-radius: 6px; }
+.error-tab { background: @negative-light-bg; }
+.page-error { .error; padding: 1em 0.5em; }
+
+/* __________________________________
+
+       INFORMATION TAB
+   __________________________________ */
+
+div.half-width {
+    margin: 0;
+    float: none;
+};
+
+#information div.half-width {
+    fieldset { padding: @form-margin; }
+
+    button { margin: 0; }
+
+    td.release-artist { width: 100%; }
+
+    #annotation {
+        width: @form-input-width;
+        max-width: @form-input-width;
+    }
+}
+
+/* __________________________________
+
+       TRACKLIST TAB
+   __________________________________ */
+
+fieldset.advanced-disc {
+    &.expanded div.icon { display: block; }
+
+    button {
+        &.collapse-disc {
+            background-image: data-uri('../images/icons/collapse.png');
+        }
+
+        &.expand-disc {
+            background-image: data-uri('../images/icons/expand.png');
+        }
+
+        &.disc-down {
+            background-image: data-uri('../images/icons/down.png');
+        }
+
+        &.disc-up {
+            background-image: data-uri('../images/icons/up.png');
+        }
+    }
+}
+
+.medium.tbl {
+    margin-top: 1em;
+
+    th {
+        background: data-uri("../images/layout/table-header-2.gif") repeat-x scroll 0 50% transparent;
+        border-bottom: 1px solid @dark-border;
+        border-left: 1px solid @medium-border;
+        font-size: 95%;
+        padding: 3px 5px;
+        text-align: left;
+    }
+
+    tr.track td {
+        background: @text-white;
+        border: 1px dotted @very-light-border;
+        padding: 0 5px;
+        vertical-align: inherit !important;
+
+        &.position { width: 2em; }
+        &.position input { text-align: right; }
+
+        &.reorder { width: 38px; }
+
+        &.artist {
+            padding: 0;
+            span.autocomplete { height: 2em; }
+            input { padding: 4px; }
+        }
+
+        &.credits-button {
+            width: 90px;
+            padding: 0 !important;
+            text-align: center;
+            button { width: 100%; height: 2em; margin: 0; padding: 2px; }
+        }
+
+        &.length {
+            width: 5em;
+            input { text-align: right; }
+        }
+
+        &.icon { width: 38px; text-align: right; }
+
+        &.guesscase a { color: @light-grey; font-weight: bolder; }
+
+        input[type=text] {
+            width: 100%;
+            height: 2em;
+            border: 0;
+
+            &[disabled] {
+                background: inherit;
+                color: @dark-text;
+                &.lookup-performed { background: @positive-bg; }
+            }
+        }
+    }
+}
+
+table.advanced-format {
+    td.icon { padding: 0 @form-margin; }
+    label { margin: 0 @form-margin; }
+}
+
+.disabled-hint {
+    cursor: help !important;
+    &.icon { background-color: transparent !important; }
+}
+
+#discid-attachment {
+    padding: @form-margin;
+}
+
+#tracklist-tools {
+    float: left;
+    width: 100%;
+    padding: @form-margin;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+
+    div.buttons { float: left; }
+
+    div.add-tracks {
+        float: right;
+
+        input {
+            position: relative;
+            width: 3em;
+            border: 1px solid @medium-border;
+            text-align: right;
+        }
+    }
+}
+
+#track-ac-bubble {
+    width: 60%;
+    box-shadow: 2px 2px 16px @very-dark-grey;
+
+    input[type=text], span.autocomplete { width: 100%; }
+
+    div.buttons {
+        float: right;
+        button.positive { margin-left: 2em; }
+    }
+}
+
+/* __________________________________
+
+            RECORDINGS TAB
+   __________________________________ */
+
+div.changes div.warning { margin: 1em auto; }
+
+#recordings {
+    div.half-width { width: 580px; }
+    div.documentation { margin-left: 600px; }
+
+    fieldset table {
+        tr.even td { background-color: @even-table-row; }
+
+        tr.artist td { font-size: 90%; padding-bottom: 1em; }
+
+        td {
+            &.position {
+                text-align: right;
+                padding: 0 0.5em;
+                font-size: 200%;
+                width: 1em;
+            }
+
+            &.name, &.length, { padding-top: 1em; }
+            &.name span.comment { display: block; }
+            &.name.add-new { color: @dark-text; }
+
+            &.length {
+                vertical-align: top;
+                padding-right: 1em;
+            }
+
+            &.buttons {
+                width: 7em;
+                button { width: 6em; }
+            }
+
+            &.checkbox { padding-bottom: 1em; }
+        }
+    }
+
+    .edit-recording {
+        margin: 1em;
+        margin-bottom: 2em;
+
+        span {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 0.5em;
+        }
+    }
+}
+
+#recording-assoc-bubble {
+    td.suggested-recording { padding: 1em; }
+    td.appears-on { padding-bottom: 1em; }
+
+    span.autocomplete input { width: 22em; }
+}
+
+/* __________________________________
+
+        EDIT PREVIEW / EDIT NOTE
+   __________________________________ */
+
+#edit-note {
+    .edit-list {
+        margin: 1em !important;
+        background: transparent !important;
+    }
+
+    fieldset {
+        border: 0;
+        background: inherit;
+
+        div.row {
+            margin: 2em 1em;
+            label { vertical-align: top; }
+            textarea { width: 300px; }
+        }
+    }
+}
+
+} /* end of #release-editor */
+
+
+/* __________________________________
+
+    TRACK PARSER/ADD DISC DIALOG
+   __________________________________ */
+
+#track-parser-dialog, #add-disc-dialog {
+    textarea { width: 100%; height: 250px; }
+
+    #track-parser-options {
+        margin-top: 1em;
+        border-spacing: 0;
+
+        td:nth-child(1) {
+            padding-right: 0.5em;
+            border-right: 1px @medium-grey solid;
+        }
+
+        td:nth-child(2) {
+            padding-left: 0.5em;
+        }
+    }
+
+    div.buttons { margin: 1em 0; float: left; width: 100%; }
+}
+
+#add-disc-dialog {
+    .search-result .ui-icon {
+        display: inline-block;
+        vertical-align: bottom;
+    }
+
+    table.medium { margin-bottom: 1em; }
+}

@@ -1,3 +1,0 @@
-[% WRAPPER 'work/layout.tt' title=l('Annotation comparison') full_width=1 %]
-    [% INCLUDE 'annotation/diff.tt' %]
-[% END %]

@@ -6,7 +6,6 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -35,6 +34,7 @@ sub build_display_data
 {
     my $self = shift;
     return {
+        entity_type => $self->_alias_model->type,
         alias => $self->data->{name},
         locale => $self->data->{locale},
         sort_name => $self->data->{sort_name},
@@ -44,11 +44,6 @@ sub build_display_data
         primary_for_locale => $self->data->{primary_for_locale}
     };
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 has 'alias_id' => (
     isa => 'Int',
@@ -89,6 +84,8 @@ sub initialize
         primary_for_locale => $alias->primary_for_locale
     });
 }
+
+sub edit_template { "remove_alias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

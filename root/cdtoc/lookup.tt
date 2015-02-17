@@ -40,7 +40,7 @@
       </thead>
       <tbody>
         [% FOR medium=possible_mediums %]
-        <tr class="[% 'ev' IF loop.count % 2 == 0 %]">
+        <tr class="[% loop.parity %]">
           <td><input type="radio" name="medium" value="[% medium.id %]" /></td>
           <td>[% link_entity(medium.release) %]</td>
           <td>[% medium.position %]</td>

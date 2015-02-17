@@ -52,7 +52,7 @@ if (!defined $prefix || $prefix eq '') {
 $prefix .= "%";
 
 my $editors = $c->sql->select_list_of_hashes("SELECT id, name FROM editor WHERE name ILIKE ?", $prefix);
-foreach my $ed (@{$editors}) { 
+foreach my $ed (@{$editors}) {
 
     my $id = $ed->{id};
     my $edit_count = $c->sql->select_single_value("SELECT count(*) FROM edit WHERE editor = ?", $id);
@@ -61,7 +61,7 @@ foreach my $ed (@{$editors}) {
         print "Not removing account " . $ed->{name} . " because it has edits.\n";
         next;
     }
-   
+
     if ($dry_run) {
         print "removing account '" . $ed->{name} . "' (dry run)\n";
     }

@@ -52,6 +52,9 @@ sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
+    if ($field->required && $type !~ /^hidden|image|submit|reset|button$/) {
+        $attrs{required} = "required";
+    }
     my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
@@ -68,6 +71,24 @@ sub text
     my ($self, $field_name, $attrs) = @_;
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'text', %$attrs);
+}
+
+sub email {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'email', %$attrs);
+}
+
+sub url {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'url', %$attrs);
+}
+
+sub number {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'number', %$attrs);
 }
 
 sub hidden
@@ -107,12 +128,14 @@ sub textarea
             name => $field->html_name,
             id => $self->_id($field),
             %{ $attrs || {} },
-        }, $field->fif);
+        }, $self->h->entity_encode($field->fif));
 }
 
 sub label
 {
     my ($self, $field_name, $label, $attrs) = @_;
+    $attrs = (ref $attrs eq 'HASH') ? clone ($attrs) : {};
+
     my $fake_label = delete $attrs->{fake};
 
     my $field = $self->_lookup_field($field_name) or return;
@@ -150,6 +173,8 @@ sub inline_label
 sub select
 {
     my ($self, $field_name, $attrs) = @_;
+    $attrs = (ref $attrs eq 'HASH') ? clone ($attrs) : {};
+
     my $field = $self->_lookup_field($field_name) or return;
 
     my @selected = $field->multiple ? @{ $field->value || [] } : ( $field->value );
@@ -170,7 +195,7 @@ sub select
         my $option_html = $self->h->option(
             {
                 %$option, selected => $selected ? "selected" : undef,
-            }, $label);
+            }, $self->h->entity_encode($label));
 
         if ($grp)
         {
@@ -192,7 +217,6 @@ sub select
         }
     }
 
-    $attrs ||= {};
     if (!$field->required || delete $attrs->{no_default})
     {
         unshift @options, $self->h->option({
@@ -205,6 +229,7 @@ sub select
         name => $field->html_name,
         multiple => $field->multiple ? "multiple" : undef,
         disabled => $field->disabled ? "disabled" : undef,
+        class => $attrs->{class},
         %{ $attrs || {} }
     }, \@options);
 }

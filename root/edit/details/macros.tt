@@ -15,6 +15,16 @@
        display_diff(label, old, new, '\s+');
     END -%]
 
+[%- MACRO display_html_diff(label, old, new) BLOCK -%]
+  [%- IF old != new -%]
+    <tr>
+      <th>[% label %]</th>
+      <td class="old">[% Diff.diff_html_side(old, new, '-') %]</td>
+      <td class="new">[% Diff.diff_html_side(old, new, '+') %]</td>
+    </tr>
+  [%- END -%]
+[%- END -%]
+
 [%- MACRO display_full_change(label, old, new) BLOCK -%]
   [%- IF old != new -%]
     <tr>
@@ -52,6 +62,12 @@
      END;
    END; -%]
 
+[%- MACRO relationship_extra_attributes(relationship) BLOCK -%]
+[%- IF relationship.extra_verbose_phrase_attributes -%]
+([% relationship.extra_verbose_phrase_attributes %])
+[%- END -%]
+[%- END -%]
+
 [%- MACRO display_relationship_differences(label, old_rel, new_rel) BLOCK -%]
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
@@ -60,11 +76,12 @@
       <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
         [% descriptive_link(old_rel.source); %]
       </span>
-      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
+      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
       <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
         [% descriptive_link(old_rel.target); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
+      [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '-') %]
     </td>
   </tr>
   <tr>
@@ -72,19 +89,20 @@
       <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
         [% descriptive_link(new_rel.source); %]
       </span>
-      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
+      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
       <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
         [% descriptive_link(new_rel.target); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
+      [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '+') %]
     </td>
   </tr>
 [%- END -%]
 
-[%- MACRO display_edit_artwork(artwork, release) BLOCK -%]
+[%- MACRO display_edit_artwork(artwork, release, colspan) BLOCK -%]
   <tr>
     <th>[% l('Cover art:') %]</th>
-    <td class="edit-cover-art">
+    <td class="edit-cover-art"[% IF colspan %] colspan="[% colspan %]"[% END %]>
       [%- history_message = '';
           IF release.gid;
             history_message = l('We are unable to display history for this cover
@@ -96,17 +114,13 @@
           END;
       -%]
 
-      [% IF edit.is_open || !no_javascript %]
-        [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
-      [% ELSE %]
-        [%- history_message -%]
-      [% END %]
+      [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
     </td>
   </tr>
 [%- END -%]
 
 [%- MACRO ac_row(row_counter, startnum, endnum, thisac) BLOCK -%]
-  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+  <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
     <td class="pos t">
       [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
     </td>
@@ -137,7 +151,7 @@
 END -%]
 
 [%- MACRO ac_diff_row(row_counter, startnum, endnum, oldac, newac) BLOCK -%]
-  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+  <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
     <td class="pos t">
       [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
     </td>

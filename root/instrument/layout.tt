@@ -1,0 +1,25 @@
+[%~ main_title = l('{type} “{instrument}”', {
+        type => instrument.l_type_name or l('Instrument'),
+        instrument => instrument.l_name
+}) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE 'instrument/header.tt' ~%]
+        [%~ content ~%]
+    </div>
+
+    [%~ IF !full_width ~%]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=instrument ~%]
+            [%~ show_image() ~%]
+
+            [%~ IF instrument.type ~%]
+                <h2 class="instrument-information">[%~ l('Instrument information') ~%]</h2>
+                [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                         content=html_escape(instrument.type.l_name) class="type"
+                             IF instrument.type ~%]
+                [%~ END ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
+[%~ END ~%]

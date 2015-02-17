@@ -12,12 +12,12 @@ has 'label_id' => (
 
 has 'label' => (
     is => 'rw',
-    isa => 'Label'
+    isa => 'Maybe[Label]'
 );
 
 has 'catalog_number' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Maybe[Str]'
 );
 
 has 'release_id' => (

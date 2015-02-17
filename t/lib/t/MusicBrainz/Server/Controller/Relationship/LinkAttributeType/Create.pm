@@ -6,8 +6,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, privs)
-  VALUES (1, 'editor1', 'pass', 'editor1@example.com', 255)
+INSERT INTO editor (id, name, password, email, privs, ha1, email_confirm_date) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', 255, '16a4862191803cb596ee4b16802bb7ee', now())
 EOSQL
 
     $test->mech->get('/login');
@@ -25,6 +24,7 @@ test 'Can create new relationship attribute' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/relationship-attributes/create');
+    html_ok($mech->content);
 
     my ($name, $child_order) = (
         'Additional additional', 1
@@ -40,7 +40,7 @@ test 'Can create new relationship attribute' => sub {
         ok($mech->success);
 
         my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes\?msg=created}, "Redirect contains link to main relationship-attributes page.");
+        like($redir[0]->content, qr{http://localhost/relationship-attributes}, "Redirect contains link to main relationship-attributes page.");
     } $test->c;
 
     is(@edits, 1);
@@ -61,6 +61,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 EOSQL
 
     $mech->get_ok('/relationship-attributes/create?parent=' . $gid);
+    html_ok($mech->content);
 
     my $parent = $test->c->model('LinkAttributeType')->get_by_gid($gid);
     my ($parent_id, $parent_name, $name, $child_order) = (
@@ -71,21 +72,12 @@ EOSQL
         my $response = $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $name,
-                'linkattrtype.child_order' => $child_order
+                'linkattrtype.child_order' => $child_order,
+                'linkattrtype.parent_id' => $parent_id
             }
         );
-        ok($mech->success);
-
-        my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes/instruments\?msg=created}, "Redirect contains link to instrument tree page.");
     } $test->c;
-
-    is(@edits, 1);
-    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::AddLinkAttribute');
-    is($edits[0]->data->{parent_id}, $parent_id, "Sets the parent to $parent_name");
-    is($edits[0]->data->{name}, $name, "Sets the name to $name");
-    is($edits[0]->data->{child_order}, $child_order,
-       "Sets the child order to $child_order");
+    is(@edits, 0, 'no edits created for an instrument attempt');
 };
 
 1;

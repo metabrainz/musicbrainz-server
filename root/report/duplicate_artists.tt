@@ -23,7 +23,7 @@
       <tr>
         <th class="check"></th>
         <th>[% l('Artist') %]</th>
-        <th>[% l('Sort name') %]<?th>
+        <th>[% l('Sort name') %]</th>
         <th class="atype">[% l('Type') %]</th>
       </tr>
     </thead>
@@ -32,13 +32,13 @@
       [% IF !lastkey.defined || lastkey != item.key %]
         <tr class="subh"><td colspan="4"></td></tr>
       [% END %]
-      <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+      <tr class="[% loop.parity %]">
         <td>
           <input type="checkbox" name="add-to-merge"
                  value="[% item.artist.id %]" />
         </td>
         <td>
-          [% link_entity(item.artist) %][% IF item.alias %] (alias: [% item.alias %])[% END %]
+          [% link_entity(item.artist) %][% IF item.alias %] ([% l('alias:') %] [% item.alias %])[% END %]
         </td>
         <td>[% item.artist.sort_name | html %]</td>
         <td>[% item.artist.type_name %]</td>

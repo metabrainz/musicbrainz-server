@@ -1,0 +1,8 @@
+<div class="eventheader">
+    <h1>[%- link_entity(event) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [% html_escape(event.l_type_name) or l('Event') %]
+    </p>
+</div>
+
+[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]

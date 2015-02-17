@@ -14,26 +14,37 @@
                     <th>[% l('End Date') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Locale') %]</th>
-                    [% IF c.user_exists %]
+                    [% IF c.user_exists AND !disallow_editing %]
                         <th class="actions-header">
                             [% l('Actions') %]
                         </th>
                     [% END %]
                 </tr>
             </thead>
-            <tbody about="[% rdfa_entity_curi(entity) %]">
+            <tbody>
             [%- FOREACH alias IN aliases -%]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td>
-                        [% '<span class="mp">' IF alias.edits_pending %]
-                        [% rdfa_alias(alias.name, entity) %]
-                        [% '</span>' IF alias.edits_pending %]
+                <tr class="[% loop.parity %]">
+                    [%- show_sort_name = alias.name != alias.sort_name -%]
+                    <td [% 'colspan="2"' IF !show_sort_name %]>
+                      [% '<span class="mp">' IF alias.edits_pending %]
+                      [% alias.name %]
+                      [% '</span>' IF alias.edits_pending %]
                     </td>
+
+                    [%- IF show_sort_name -%]
                     <td>
-                      [% alias.sort_name | html %]
+                      [%- alias.sort_name | html -%]
                     </td>
+                    [%- END -%]
+
                     <td>[% alias.begin_date.format %]</td>
-                    <td>[% alias.end_date.format %]</td>
+                    <td>
+                      [% IF !alias.end_date.is_empty;
+                           alias.end_date.format;
+                         ELSIF alias.ended;
+                           l('[unknown]');
+                        END; -%]
+                    </td>
                     <td>[% alias.type_name %]</td>
                     <td>
                       [% IF alias.locale %]
@@ -43,7 +54,7 @@
                         [% l('(<span class="comment">primary</span>)') %]
                       [% END %]
                     </td>
-                    [% IF c.user_exists %]
+                    [% IF c.user_exists AND !disallow_editing %]
                         <td>
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
                               [%- l('Edit') -%]
@@ -62,13 +73,10 @@
             [%- l('{entity} has no aliases.', {entity => link_entity(entity)}) -%]
         </p>
     [%- END -%]
-    [% IF c.user_exists %]
+    [% IF c.user_exists AND !disallow_editing %]
        <p>
          <a href="[% c.uri_for_action(add_path, [ entity.gid ]) %]">
            [% l('Add a new alias') %]
          </a>
        </p>
-    [% ELSE %]
-       <p>[% l('Please {log_in|log in} to add or edit aliases',
-               { log_in => login_url() }) %]</p>
     [% END %]

@@ -3,11 +3,15 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use aliased 'MusicBrainz::Server::Entity::Medium';
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_name     { N_l('Set track lengths') }
+sub edit_kind     { 'other' }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
 sub edit_template { 'set_track_lengths' }
@@ -35,7 +39,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        releases => [ map { $loaded->{Release}->{$_} } @{ $self->data->{release_ids} } ],
+        mediums => [ map { Medium->new( release => $loaded->{Release}->{$_} // Release->new() ) } @{ $self->data->{release_ids} } ],
         cdtoc => $loaded->{CDTOC}->{$self->data->{cdtoc}},
         length => {
             map {
@@ -50,7 +54,7 @@ sub upgrade
 {
     my $self = shift;
 
-    my ($cdtoc, $lengths) = split (/\n/, $self->new_value);
+    my ($cdtoc, $lengths) = split(/\n/, $self->new_value);
     $cdtoc =~ s/CDTOCId=//;
     $lengths =~ s/NewDurs=//;
 

@@ -125,7 +125,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $url = $c->model('URL')->get_by_id(1);
-    is ($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
+    is($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
 };
 
 sub _build_edit {

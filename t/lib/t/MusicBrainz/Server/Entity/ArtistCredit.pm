@@ -97,6 +97,15 @@ ok(
     'can test artist credits for truth'
 );
 
+my $zero_ac = ArtistCredit->from_array([
+    { name => '0', artist_id => 1, join_phrase => '0' },
+]);
+
+my @zero_ac_names = $zero_ac->all_names;
+
+is($zero_ac_names[0]->name, '0', 'from_array accepts 0 as credited name');
+is($zero_ac_names[0]->join_phrase, '0', 'from_array accepts 0 as join phrase');
+
 };
 
 1;

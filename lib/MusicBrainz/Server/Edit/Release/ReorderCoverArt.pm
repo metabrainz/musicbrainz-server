@@ -5,12 +5,13 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use List::UtilsBy 'nsort_by';
+use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -18,8 +19,10 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Reorder cover art') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 
@@ -45,6 +48,10 @@ sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare( [ nsort_by { $_->{position} } @{$opts{old}} ],
+                    [ nsort_by { $_->{position} } @{$opts{new}} ] );
+
     $self->data({
         entity => {
             id => $release->id,
@@ -56,21 +63,6 @@ sub initialize {
     });
 }
 
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
-}
-
 sub accept {
     my $self = shift;
 
@@ -79,11 +71,10 @@ sub accept {
             'This release no longer exists'
         );
 
+    my $current = $self->c->model('Artwork')->find_by_release($release);
 
-    my $current = $self->c->model ('CoverArtArchive')->find_available_artwork ($release->gid);
-
-    my @current_ids = sort (map { $_->id } @$current);
-    my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });
+    my @current_ids = sort(map { $_->id } @$current);
+    my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
 
     if (join(",", @current_ids) ne join (",", @edit_ids))
     {
@@ -122,7 +113,7 @@ sub build_display_data {
     my $artwork;
     if ($data{release}) {
         $artwork = $self->c->model('Artwork')->find_by_release($data{release});
-        $self->c->model ('CoverArtType')->load_for(@$artwork);
+        $self->c->model('CoverArtType')->load_for(@$artwork);
     } else {
         $data{release} = Release->new( name => $self->data->{entity}{name},
                                        id => $self->data->{entity}{id},

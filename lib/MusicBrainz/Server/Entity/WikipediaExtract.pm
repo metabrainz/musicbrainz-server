@@ -2,6 +2,8 @@ package MusicBrainz::Server::Entity::WikipediaExtract;
 
 use Moose;
 
+use URI::Escape qw( uri_escape_utf8 );
+
 has 'title' => (
     is => 'rw',
     isa => 'Str',
@@ -25,7 +27,9 @@ has 'language' => (
 sub url
 {
     my $self = shift;
-    return sprintf "//%s.wikipedia.org/wiki/%s", $self->language, $self->title;
+    my $title = $self->title;
+    $title =~ tr/ /_/;
+    return sprintf "//%s.wikipedia.org/wiki/%s", $self->language, uri_escape_utf8($title);
 }
 
 __PACKAGE__->meta->make_immutable;

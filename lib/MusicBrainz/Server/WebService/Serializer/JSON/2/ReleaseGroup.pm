@@ -22,10 +22,10 @@ sub serialize
     $body{"first-release-date"} = $entity->first_release_date->format;
     $body{disambiguation} = $entity->comment // "";
 
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
+    $body{"artist-credit"} = serialize_entity($entity->artist_credit)
         if $inc && ($inc->artist_credits || $inc->artists);
 
-    $body{releases} = list_of ($entity, $inc, $stash, "releases")
+    $body{releases} = list_of($entity, $inc, $stash, "releases")
         if $inc && $inc->releases;
 
     return \%body;

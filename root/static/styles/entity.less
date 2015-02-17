@@ -1,0 +1,93 @@
+/*
+ * Stuff common to most entity types
+ */
+
+div.tabs {
+    border-bottom: solid 1px @dark-border;
+    padding-top: 1em;
+    font-size: 95%;
+
+    ul {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        list-style-image: none;
+        width: 100%;
+        position: relative;
+        top: 1px;
+
+        li {
+            float: left;
+
+            a {
+                display: block;
+                padding: 0.1em 0.5em;
+                margin-left: 4px;
+                text-decoration: none;
+                background: @very-light-bg;
+                color: @text-black;
+                border: solid 1px @dark-border;
+                border-bottom: solid 1px @dark-border;
+            }
+
+            &.sel a, a:hover {
+                background: #fff;
+                color: @text-black;
+            }
+
+            &.sel a {
+                font-weight: bold;
+                border-bottom: solid 1px #fff;
+            }
+        }
+    }
+}
+
+span.comment, span.historical {
+    font-weight: normal;
+    color: @dark-text;
+
+    h1 & {
+        font-size: 12px;
+    }
+}
+
+span.cancelled {
+    font-weight: normal;
+    color: @negative-text;
+
+    h1 & {
+        font-size: 12px;
+    }
+}
+
+p.subheader {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0.0em;
+    font-size: 96%;
+
+    span {
+        color: @dark-text;
+    }
+}
+
+.tagger-icon {
+    img {
+        border: 0;
+    }
+
+    .releaseheader &, .recordingheader & {
+        margin-top: 1em;
+        float: right;
+    }
+}
+
+.annotation {
+    margin-top: 1em;
+}
+
+.annotation-diff {
+    margin: 1em 0;
+}

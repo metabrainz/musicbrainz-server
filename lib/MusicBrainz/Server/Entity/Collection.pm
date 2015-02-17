@@ -20,11 +20,36 @@ has 'public' => (
     isa => 'Bool'
 );
 
-has release_count => (
+has 'description' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has entity_count => (
     is => 'rw',
     isa => 'Int',
-    predicate => 'loaded_release_count'
+    predicate => 'loaded_entity_count'
 );
+
+has 'type_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'type' => (
+    is => 'rw',
+    isa => 'CollectionType',
+);
+
+sub type_name {
+    my ($self) = @_;
+    return $self->type ? $self->type->name : undef;
+}
+
+sub l_type_name {
+    my ($self) = @_;
+    return $self->type ? $self->type->l_name : undef;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

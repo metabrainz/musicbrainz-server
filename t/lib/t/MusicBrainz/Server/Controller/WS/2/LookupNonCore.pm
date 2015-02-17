@@ -27,6 +27,21 @@ ws_test 'discid lookup with artist-credits',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-">
         <sectors>256486</sectors>
+        <offset-list count="13">
+          <offset position="1">150</offset>
+          <offset position="2">19383</offset>
+          <offset position="3">42431</offset>
+          <offset position="4">63091</offset>
+          <offset position="5">84429</offset>
+          <offset position="6">104202</offset>
+          <offset position="7">121393</offset>
+          <offset position="8">141045</offset>
+          <offset position="9">167408</offset>
+          <offset position="10">189301</offset>
+          <offset position="11">205078</offset>
+          <offset position="12">227368</offset>
+          <offset position="13">241484</offset>
+        </offset-list>
         <release-list count="1">
             <release id="757a1723-3769-4298-89cd-48d31177852a">
                 <title>LOVE &amp; HONESTY</title><status>Pseudo-Release</status>
@@ -42,7 +57,20 @@ ws_test 'discid lookup with artist-credits',
                         </artist>
                     </name-credit>
                 </artist-credit>
-                <date>2004-01-15</date><country>JP</country>
+                <date>2004-01-15</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2004-01-15</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                            <name>Japan</name>
+                            <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
                 <asin>B0000YGBSG</asin>
                 <cover-art-archive>
                     <artwork>false</artwork>
@@ -54,8 +82,42 @@ ws_test 'discid lookup with artist-credits',
                   <medium>
                     <position>1</position>
                     <disc-list count="2">
-                      <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-"><sectors>256486</sectors></disc>
-                      <disc id="afhq1hAs2MoqPcU9JENE5i_mACM-"><sectors>254650</sectors></disc>
+                      <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-">
+                        <sectors>256486</sectors>
+                        <offset-list count="13">
+                          <offset position="1">150</offset>
+                          <offset position="2">19383</offset>
+                          <offset position="3">42431</offset>
+                          <offset position="4">63091</offset>
+                          <offset position="5">84429</offset>
+                          <offset position="6">104202</offset>
+                          <offset position="7">121393</offset>
+                          <offset position="8">141045</offset>
+                          <offset position="9">167408</offset>
+                          <offset position="10">189301</offset>
+                          <offset position="11">205078</offset>
+                          <offset position="12">227368</offset>
+                          <offset position="13">241484</offset>
+                        </offset-list>
+                      </disc>
+                      <disc id="afhq1hAs2MoqPcU9JENE5i_mACM-">
+                        <sectors>254650</sectors>
+                        <offset-list count="13">
+                          <offset position="1">150</offset>
+                          <offset position="2">19230</offset>
+                          <offset position="3">42125</offset>
+                          <offset position="4">62632</offset>
+                          <offset position="5">83817</offset>
+                          <offset position="6">103437</offset>
+                          <offset position="7">120475</offset>
+                          <offset position="8">139975</offset>
+                          <offset position="9">166185</offset>
+                          <offset position="10">187925</offset>
+                          <offset position="11">203550</offset>
+                          <offset position="12">225687</offset>
+                          <offset position="13">239650</offset>
+                        </offset-list>
+                      </disc>
                     </disc-list>
                     <track-list count="13" />
                   </medium>
@@ -63,22 +125,6 @@ ws_test 'discid lookup with artist-credits',
             </release>
         </release-list>
     </disc>
-</metadata>';
-
-ws_test 'basic puid lookup',
-    '/puid/138f0487-85eb-5fe9-355d-9b94a60ff1dc' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <puid id="138f0487-85eb-5fe9-355d-9b94a60ff1dc">
-        <recording-list count="2">
-            <recording id="44704dda-b877-4551-a2a8-c1f764476e65">
-                <title>On My Bus</title><length>267560</length>
-            </recording>
-            <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
-                <title>Plock</title><length>237133</length>
-            </recording>
-        </recording-list>
-    </puid>
 </metadata>';
 
 ws_test 'isrc lookup with releases',
@@ -96,7 +142,21 @@ ws_test 'isrc lookup with releases',
                             <text-representation>
                                 <language>jpn</language><script>Jpan</script>
                             </text-representation>
-                            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                            <date>2001-07-04</date>
+                            <country>JP</country>
+                            <release-event-list count="1">
+                                <release-event>
+                                    <date>2001-07-04</date>
+                                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                                        <name>Japan</name>
+                                        <sort-name>Japan</sort-name>
+                                        <iso-3166-1-code-list>
+                                            <iso-3166-1-code>JP</iso-3166-1-code>
+                                        </iso-3166-1-code-list>
+                                    </area>
+                                </release-event>
+                            </release-event-list>
+                            <barcode>4942463511227</barcode>
                         </release>
                         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                             <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
@@ -104,7 +164,21 @@ ws_test 'isrc lookup with releases',
                             <text-representation>
                                 <language>jpn</language><script>Latn</script>
                             </text-representation>
-                            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                            <date>2001-07-04</date>
+                            <country>JP</country>
+                            <release-event-list count="1">
+                                <release-event>
+                                    <date>2001-07-04</date>
+                                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                                        <name>Japan</name>
+                                        <sort-name>Japan</sort-name>
+                                        <iso-3166-1-code-list>
+                                            <iso-3166-1-code>JP</iso-3166-1-code>
+                                        </iso-3166-1-code-list>
+                                    </area>
+                                </release-event>
+                            </release-event-list>
+                            <barcode>4942463511227</barcode>
                         </release>
                     </release-list>
                 </recording>

@@ -10,16 +10,26 @@
                 <th>[% lp('Status', 'election status') %]</th>
                 <th>[% l('Start date') %]</th>
                 <th>[% l('End date') %]</th>
+                <th>[% l('Proposer') %]</th>
+                <th>[% l('Seconder 1') %]</th>
+                <th>[% l('Seconder 2') %]</th>
+                <th>[% l('Votes for') %]</th>
+                <th>[% l('Votes against') %]</th>
                 <th>&#xa0;</th>
             </tr>
         </thead>
         <tbody>
         [%- FOR election IN elections -%]
-            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
                 <td>[% link_editor(election.candidate) %]</td>
                 <td>[% lp(election.status_name_short, 'autoeditor election status (short)') %]</td>
                 <td>[% UserDate.format(election.propose_time) %]</td>
                 <td>[% IF election.close_time %][% UserDate.format(election.close_time) %][% ELSE %]-[% END %]</td>
+                <td>[% link_editor(election.proposer) %]</td>
+                <td>[% link_editor(election.seconder_1) %]</td>
+                <td>[% link_editor(election.seconder_2) %]</td>
+                <td>[% IF election.can_see_vote_count(c.user) == "yes" %][% election.yes_votes %][% ELSE %]-[% END %]</td>
+                <td>[% IF election.can_see_vote_count(c.user) == "yes" %][% election.no_votes %][% ELSE %]-[% END %]</td>
                 <td><a href="[% c.uri_for_action("/elections/show", [ election.id ]) %]">[% l('View details') %]</a></td>
             </tr>
         [%- END -%]

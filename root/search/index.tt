@@ -1,20 +1,12 @@
 [%- WRAPPER 'layout.tt' title=l('Search') full_width=1 -%]
     <div id="content">
         <h1>[% l("Search") %]</h1>
-        <div id="search-right" style="margin-left: 2em; float: right;">
-            [% INCLUDE "browse/page_selector.tt" browse_action="artist" browse_title=l("Browse artists") %]
-            [% INCLUDE "browse/page_selector.tt" browse_action="label" browse_title=l("Browse labels") %]
-            [% INCLUDE "browse/page_selector.tt" browse_action="release" browse_title=l("Browse releases") %]
-            [% INCLUDE "browse/page_selector.tt" browse_action="release_group" browse_title=l("Browse release groups") %]
-            [% INCLUDE "browse/page_selector.tt" browse_action="work" browse_title=l("Browse works") %]
-
-        </div>
-        <div id="search-left">
-            [%- INCLUDE 'search/form.tt' -%]
-            <h2>[% l("Tag lookup") %]</h2>
-            [%- INCLUDE 'taglookup/form.tt' -%]
-            <h2>[% l("Other lookups") %]</h2>
-            [%- INCLUDE 'otherlookup/form.tt' -%]
-        </div>
+        [%- INCLUDE 'search/form.tt' -%]
+        <h2>[% l("Tag lookup") %]</h2>
+        [%- INCLUDE 'taglookup/form.tt' -%]
+        <h2>[% l("Other lookups") %]</h2>
+        [%- INCLUDE 'otherlookup/form.tt' -%]
+        <h2>[% l("Browse") %]</h2>
+        <p>[% l("A simple list of all entities is available from our {url|browse} pages.", { url => c.uri_for('/browse') }) %]</p>
     </div>
 [%- END -%]

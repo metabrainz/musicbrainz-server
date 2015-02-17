@@ -22,8 +22,7 @@ sub assert_uniqueness_conserved {
             push @params, $update->{name};
         }
         else {
-            $new_name = "(SELECT name.name FROM $table
-                          JOIN ${table}_name name ON $table.name = name.id
+            $new_name = "(SELECT $table.name FROM $table
                           WHERE $table.id = ?)";
             push @params, $id;
         }
@@ -40,7 +39,7 @@ sub assert_uniqueness_conserved {
         my $query =
             "SELECT " . $model->_columns .
             ' FROM ' . $model->_table .
-            " WHERE (name.name, comment) IN (SELECT $new_name, $new_comment)".
+            " WHERE (name, comment) IN (SELECT $new_name, $new_comment)".
             " AND " . $model->_id_column . " != ?";
 
         my ($conflict) = query_to_list(

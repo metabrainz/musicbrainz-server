@@ -9,7 +9,7 @@ around serialize => sub {
 
     return $ret unless defined $inc && $inc->annotation;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
 
     $ret->{annotation} = $entity->latest_annotation

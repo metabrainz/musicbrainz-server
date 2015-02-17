@@ -1,4 +1,0 @@
-[%- WRAPPER 'work/layout.tt' title=l('Remove Work Alias') full_width=1 -%]
-    <h2>[% l('Remove work alias') %]</h2>
-    [% INCLUDE 'alias/delete.tt' %]
-[%- END -%]

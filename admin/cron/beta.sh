@@ -3,8 +3,7 @@
 mb_server=`dirname $0`/../..
 cd $mb_server
 
-eval `carton exec -- ./admin/ShowDBDefs`
-source ./admin/config.sh
+eval `./admin/ShowDBDefs`
 
 # Only run one "daily.sh" at a time
 if [ "${1:-}" != "gotlock" ]

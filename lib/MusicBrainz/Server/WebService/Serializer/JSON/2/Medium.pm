@@ -13,52 +13,64 @@ sub serialize
 
     $body{title} = $entity->name;
     $body{format} = $entity->format ? $entity->format->name : JSON::null;
+    $body{position} = $entity->position;
 
     if (defined $inc && $inc->discids)
     {
         $body{discs} = [ map {
-            serialize_entity ($_->cdtoc, $inc, $stash)
+            serialize_entity($_->cdtoc, $inc, $stash)
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
-    $body{"track-count"} = $entity->tracklist->track_count;
+    $body{"track-count"} = number($entity->cdtoc_track_count);
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
     # therefore can be represented as if a query had been performed with
     # limit = 1 and offset = track->position.
 
-    my @tracks = nsort_by { $_->position } @{$entity->tracklist->tracks};
+    my @tracks = nsort_by { $_->position } $entity->all_tracks;
     my $min = scalar @tracks ? $tracks[0]->position : 0;
 
-    my @list;
-    foreach my $track_entity (@tracks)
-    {
-        my %track_output = (
-            length => $track_entity->length,
-            number => $track_entity->number,
-            title => $track_entity->name
-        );
-
-        $track_output{recording} = serialize_entity (
-            $track_entity->recording, $inc, $stash)
-            if $inc->recordings;
-
-        $track_output{"artist-credit"} = serialize_entity (
-            $track_entity->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-
-        push @list, \%track_output;
+    if (@tracks && $entity->has_pregap) {
+        $body{pregap} = $self->serialize_track($tracks[0], $inc, $stash);
     }
 
-    if (scalar @list)
-    {
+    my @list;
+    foreach my $track_entity (@{ $entity->cdtoc_tracks }) {
+        push @list, $self->serialize_track($track_entity, $inc, $stash);
+    }
+
+    if (scalar @list) {
         $body{tracks} = \@list ;
-        $body{"track-offset"} = number ($min - 1);
+        $body{"track-offset"} = number($entity->has_pregap ? 0 : $min - 1);
+    }
+
+    if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
+        $body{"data-tracks"} = [ map { $self->serialize_track($_, $inc, $stash) } @data_tracks ];
     }
 
     return \%body;
 };
+
+sub serialize_track {
+    my ($self, $entity, $inc, $stash) = @_;
+
+    my %track_output = (
+        id => $entity->gid,
+        length => $entity->length,
+        number => $entity->number,
+        title => $entity->name
+    );
+
+    $track_output{recording} = serialize_entity($entity->recording, $inc, $stash)
+        if $inc->recordings;
+
+    $track_output{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
+        if $inc->artist_credits;
+
+    return \%track_output;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

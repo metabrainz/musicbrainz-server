@@ -5,16 +5,25 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'ReleasePackaging',
+};
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'description' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
 );
 
 sub l_name {
     my $self = shift;
     return lp($self->name, 'release_packaging')
 }
- 
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

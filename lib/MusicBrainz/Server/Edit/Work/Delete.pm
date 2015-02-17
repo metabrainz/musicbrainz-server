@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE $EDITOR_MODBOT );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Work';
@@ -18,7 +18,7 @@ override 'foreign_keys' => sub {
     my $data = super();
 
     $data->{Work} = {
-        $self->work_id => [ 'ArtistCredit' ]
+        $self->work_id => [ ]
     };
     return $data;
 };

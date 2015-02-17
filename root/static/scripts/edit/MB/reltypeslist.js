@@ -1,9 +1,8 @@
-
-$(document).ready (function () {
+$(function () {
 
     $(".reldetails").hide();
 
-    $(".toggle").click(function() {
+    $(".toggle").click(function () {
 
         $(this).parent().next(".reldetails").toggle();
 
@@ -15,17 +14,16 @@ $(document).ready (function () {
 
     });
 
-    $("#showAll,").click(function () {
+    $("#showAll").click(function () {
         $(".reldetails, #hideAll").show();
         $("#showAll").hide();
         $(".toggle").text("less");
     });
 
-    $("#hideAll,").click(function () {
+    $("#hideAll").click(function () {
         $(".reldetails, #hideAll").hide();
         $("#showAll").show();
         $(".toggle").text("more");
     });
 
 });
-

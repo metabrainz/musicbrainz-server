@@ -111,23 +111,22 @@ test 'Editing a relationship refreshes existing cover art' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO release_name (id, name) VALUES (1, 'Release');
 INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 1, 1);
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 1);
+  VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 'Artist', 'Artist');
+INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+
 INSERT INTO release_group (id, name, artist_credit, gid)
-  VALUES (1, 1, 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
+  VALUES (1, 'Release', 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
 INSERT INTO release (id, gid, artist_credit, name, release_group)
-  VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 1, 1),
-         (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 1, 1);
+  VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 'Release', 1),
+         (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 'Release', 1);
 UPDATE release_coverart
-SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
+  SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
 INSERT INTO url (id, gid, url)
   VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
-    reverse_link_phrase, short_link_phrase)
+    reverse_link_phrase, long_link_phrase)
   VALUES (1, '46687254-01e8-41a9-833f-183f1f25e487', 'release', 'url',
     'cover art link', 'cover art link', 'cover art link', 'cover art link');
 INSERT INTO link (id, link_type) VALUES (1, 1);
@@ -141,8 +140,6 @@ EOSQL
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'release',
-        type1 => 'url',
         relationship => $rel,
         entity0 => $c->model('Release')->get_by_id(2)
     );
@@ -158,6 +155,160 @@ EOSQL
     is($r2->cover_art_url, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 };
 
+test 'Editing relationships fails if the underlying link type changes' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        begin_date => { year => 1994 },
+    );
+
+    my $edit2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(2),
+    );
+
+    is(exception { $edit2->accept }, undef);
+    is(exception { $edit1->accept },
+        'This relationship has changed type since this edit was entered');
+};
+
+test 'Relationship link_order values are ignored' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
+        link_order => 5,
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+
+    is($rel->link_order, 0);
+};
+
+test 'Text attributes with undef values raise exceptions' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 2);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    like(exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELATIONSHIP_EDIT,
+            editor_id => 1,
+            relationship => $rel,
+            attributes => [
+                {
+                    type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' },
+                },
+                {
+                    type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
+                    text_value => undef
+                }
+            ],
+        );
+    }, qr/Attribute e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66 requires a text value/);
+};
+
+test 'Attributes are validated against the new link type, not old one (MBS-7614)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(1),
+        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    is($rel->link->type_id, 1);
+    is_deeply([ map { $_->type_id } $rel->link->all_attributes ], [2]);
+
+    # Make sure unchanged attributes are also validated against the new link type.
+    like exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELATIONSHIP_EDIT,
+            editor_id => 1,
+            relationship => $rel,
+            link_type => $c->model('LinkType')->get_by_id(3),
+        );
+    }, qr/Attribute 2 is unsupported for link type 3/;
+};
+
+test 'Instrument credits can be added to an existing relationship' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(1),
+        attributes => [
+            {
+                type => {
+                    gid => '63021302-86cd-4aee-80df-2270d54f4978'
+                },
+                credited_as => 'crazy guitar'
+            }
+        ],
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    is($rel->link->attributes->[0]->credited_as, 'crazy guitar');
+};
+
 sub _create_edit {
     my $c = shift;
 
@@ -168,8 +319,6 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
@@ -188,8 +337,6 @@ sub _create_edit_change_direction {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         change_direction => 1,
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(1),

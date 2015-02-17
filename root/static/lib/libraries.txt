@@ -2,24 +2,29 @@
 -- jquery/jquery.js --
 
 library:     jQuery
-license:     MIT/GPLv2
-version:     1.7.2
-author:      John Resig
+license:     MIT
+version:     1.9.1
+author:      jQuery Foundation and other contributors
+             (https://github.com/jquery/jquery/blob/master/AUTHORS.txt)
 url:         http://jquery.com
 
 -- jquery.ui/ --
 
 library:     jQuery UI
-license:     MIT/GPLv2
-version:     1.8.16
+license:     MIT
+version:     1.10.3
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
-components:  Autocomplete, Draggable
+components:  Autocomplete, Dialog, Sortable, Tabs, Tooltip
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
-             the resulting jquery-1.8.16-custom.zip is included here as
-             "jquery.ui".
+             the resulting jquery-1.10.3-custom.zip is included here as
+             "jquery.ui", minus the minified and component JS/CSS files,
+             demos, documentation, and grunt-related files.
+             The CSS file and images from themes/base are in
+             root/static/styles/jquery-ui, with some modifications (see
+             .orig file there).
 
 -- json/json2.js --
 
@@ -28,21 +33,13 @@ license:     Public Domain
 author:      Douglas Crockford
 url:         http://www.json.org/json2.js
 
--- qunit/ --
+-- filesize.js --
 
-library:     QUnit
-license:     MIT/GPLv2
-version:     (commit e34ffb61488459f6823ded82e19865ba4b46e2ed)
-authors:     Jörn Zaefferer, John Resig
-url:         http://qunitjs.com, http://github.com/jquery/qunit
-
--- qunit-tap/ --
-
-library:     QUnit-TAP
-license:     MIT/GPLv2
-version:     (commit 3faf29a93d1c060d8eaf5f4e104623d15cbb6f78)
-authors:     Takuto Wada
-url:         https://github.com/twada/qunit-tap
+library:     filesize.js
+license:     BSD (3 clause)
+version:     1.9.3
+author:      Jason Mulligan
+url:         http://filesizejs.com, http://github.com/avoidwork/filesize.js
 
 -- sha1/sha1.js --
 
@@ -51,6 +48,7 @@ license:     BSD
 version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
+note:        Modifications were made to add browserify support; see git log.
 
 -- flot/jquery.flot.* --
 
@@ -59,14 +57,6 @@ license:     MIT
 version:     v0.7
 author:      IOLA and Ole Laursen
 url:         http://code.google.com/p/flot/
-
--- jquery/jquery.ba-hashchange.js --
-
-library:     jquery hashchange
-license:     MIT/GPL
-version:     v1.3
-author:      "Cowboy" Ben Alman
-url:         http://benalman.com/projects/jquery-hashchange-plugin/
 
 -- flot/canvas.text.js --
 library:     canvas-text
@@ -94,22 +84,86 @@ url:         http://tablesorter.com
 
 library:     Knockout
 license:     MIT
-version:     2.2.0
+version:     3.1.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
--- underscore/underscore.js --
+-- knockout/knockout-delegatedEvents.js --
 
-library:     Underscore
+library:     Knockout Delegated Events
 license:     MIT
-version:     1.4.0
-author:      Jeremy Ashkenas, DocumentCloud
-url:         http://underscorejs.org
+version:     0.1.3
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
--- underscore/underscore.string.js --
+-- knockout/knockout-postbox.js --
+
+library:     knockout-postbox
+license:     MIT
+version:     0.4.2
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-postbox
+
+-- underscore.string/underscore.string.js --
 
 library:     Underscore.string
 license:     MIT
 version:     2.3.0
 author:      Esa-Matti Suuronen
 url:         http://epeli.github.com/underscore.string
+
+-- jquery/jquery.browser.js --
+
+library:     jquery-browser-plugin
+license:     MIT
+version:     0.0.6
+author:      Gabriel Cebrian. Initial implementation by the jQuery Team
+url:         https://github.com/gabceb/jquery-browser-plugin
+
+-- jquery/jquery.cookie.js --
+
+library:     jquery.cookie
+license:     MIT
+version:     1.3.1
+author:      Klaus Hartl
+url:         https://github.com/carhartl/jquery-cookie
+
+-- less/* --
+
+library:     less
+license:     Apache 2.0
+version:     1.3.3
+author:      Alexis Sellier & The Core LESS Team
+url:         https://github.com/cloudhead/less.js
+
+-- aclass/aclass.js --
+
+library:     aclass
+license:     MIT
+version:     0.5.0
+author:      Michael Wiencek
+url:         https://github.com/mwiencek/aclass
+
+-- lodash/lodash.compat.js
+
+library:    Lo-Dash
+license:    MIT
+version:    2.4.1
+author:     John-David Dalton
+url:        http://lodash.com/
+
+-- leaflet/
+
+library:    Leaflet
+license:    2-clause BSD
+version:    0.7.3
+author:     Vladimir Agafonkin, CloudMade
+url:        http://leafletjs.com/
+
+-- knockout/knockout-arrayTransforms.js
+
+library:    knockout-arrayTransforms
+license:    MIT (X11)
+version:    0.5.1
+author:     Michael Wiencek
+url:        https://github.com/mwiencek/knockout-arrayTransforms

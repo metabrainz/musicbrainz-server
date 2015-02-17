@@ -3,19 +3,31 @@ use Moose;
 use namespace::autoclean;
 
 use Carp qw( carp croak confess );
+use Data::Dumper::Concise;
 use Data::OptList;
 use DateTime;
+use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG $VOTE_APPROVE );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $VOTE_YES
+    $AUTO_EDITOR_FLAG
+    $UNTRUSTED_FLAG
+    $VOTE_APPROVE
+    $EDIT_MINIMUM_RESPONSE_PERIOD
+    $EDIT_COUNT_LIMIT
+    $QUALITY_UNKNOWN_MAPPED
+    $EDITOR_MODBOT
+    entities_with );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
+use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
@@ -52,8 +64,8 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        raw_data => $row->{data},
         quality => $row->{quality},
-        c => $self->c,
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
@@ -95,8 +107,7 @@ sub get_max_id
 {
     my ($self) = @_;
 
-    return $self->sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
-                                    LIMIT 1");
+    return $self->sql->select_single_value("SELECT max(id) FROM edit");
 }
 
 sub find
@@ -104,7 +115,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( artist label release release_group recording work url)) {
+    for my $type (entities_with('edit_table')) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -136,7 +147,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -151,22 +162,29 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' JOIN edit_release er ON edit.id = er.edit
-                  JOIN editor_collection_release ecr ON er.release = ecr.release
-                  WHERE collection = ? ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table . '
+                  WHERE edit.id IN (SELECT er.edit
+                                      FROM edit_release er JOIN editor_collection_release ecr
+                                           ON er.release = ecr.release
+                                     WHERE ecr.collection = ?
+                                    UNION
+                                    SELECT ee.edit
+                                      FROM edit_event ee JOIN editor_collection_event ece
+                                           ON ee.event = ece.event
+                                     WHERE ece.collection = ?)
+                  ' . $status_cond . '
+                  ORDER BY edit.id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $offset);
+        }, $query, $collection_id, $collection_id, $offset);
 }
 
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
-        my $query = 'SELECT ' . $self->_columns . ' FROM edit 
+    if ($subscription->isa(EditorSubscription)) {
+        my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
         return query_to_list(
@@ -177,22 +195,29 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                    ' JOIN edit_release er ON edit.id = er.edit
-                      JOIN editor_collection_release ecr ON er.release = ecr.release
-                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+                      WHERE edit.id IN (SELECT er.edit
+                                          FROM edit_release er JOIN editor_collection_release ecr
+                                               ON er.release = ecr.release
+                                         WHERE ecr.collection = ?
+                                        UNION
+                                        SELECT ee.edit
+                                          FROM edit_event ee JOIN editor_collection_event ece
+                                               ON ee.event = ece.event
+                                         WHERE ece.collection = ?)
+                       AND id > ? AND status IN (?, ?)';
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent,
-            $STATUS_OPEN, $STATUS_APPLIED
+            $query,  $subscription->target_id, $subscription->target_id,
+            $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    else {
+    elsif ($subscription->does(ActiveSubscription)) {
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
@@ -204,6 +229,9 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
+    else {
+        return ();
+    }
 }
 
 sub find_by_voter
@@ -214,8 +242,8 @@ sub find_by_voter
            FROM ' . $self->_table . '
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
-       ORDER BY id DESC
-         OFFSET ? LIMIT 500';
+       ORDER BY vote_time DESC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -237,14 +265,32 @@ sub find_open_for_editor
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
-         OFFSET ? LIMIT 500';
+       ORDER BY id ASC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub { $self->_new_from_row(shift) },
         $query, $STATUS_OPEN, $editor_id, $offset
     );
+}
+
+sub find_creation_edit {
+   my ($self, $create_edit_type, $entity_id, %args) = @_;
+   $args{id_field} ||= 'entity_id';
+   my $query =
+       "SELECT " . $self->_columns . "
+          FROM " . $self->_table . "
+        WHERE edit.status = ?
+          AND edit.type = ?
+          AND extract_path_value(data, ?::text) = ?
+        ORDER BY edit.id ASC LIMIT 1";
+   my ($edit) = query_to_list(
+       $self->c->sql,
+       sub { $self->_new_from_row(shift) },
+       $query,
+       $STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id);
+   return $edit;
 }
 
 sub subscribed_entity_edits
@@ -263,11 +309,23 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM edit_release er
-    RIGHT JOIN editor_collection_release ec ON er.release = ec.release
-    JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
-    JOIN edit ON er.edit = edit.id
-    WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    SELECT edit FROM
+      (SELECT edit, esc.editor FROM edit_release er
+        JOIN editor_collection_release ecr ON er.release = ecr.release
+        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
+        WHERE esc.available
+      UNION
+      SELECT edit, esc.editor FROM edit_event ee
+        JOIN editor_collection_event ece ON ee.event = ece.event
+        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
+        WHERE esc.available) ce
+      JOIN edit ON ce.edit = edit.id
+    WHERE edit.status = ? AND ce.editor = ?
+    UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    JOIN edit ON es.edit = edit.id
+    WHERE edit.status = ? AND ess.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -277,46 +335,44 @@ AND NOT EXISTS (
     WHERE vote.edit = edit.id
     AND vote.editor = ?
 )
-ORDER BY open_time ASC
-OFFSET ?";
+ORDER BY id ASC
+OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query,
+        ($STATUS_OPEN, $editor_id) x scalar (entities_with(['subscriptions', 'entity'])),
+                                        # Above will fail if SQL is not updated
+        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
+        $editor_id, $offset             # Editor has not voted, offset
+    );
 }
 
 sub subscribed_editor_edits {
     my ($self, $editor_id, $limit, $offset) = @_;
 
-    my @editor_ids = @{
-        $self->c->sql->select_single_column_array(
-            'SELECT subscribed_editor FROM editor_subscribe_editor
-              WHERE editor = ?',
-            $editor_id)
-    } or return;
-
     my $query =
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE status = ?
-            AND editor IN (' . placeholders(@editor_ids) . ')
+            AND editor IN (SELECT subscribed_editor FROM editor_subscribe_editor WHERE editor = ?)
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
-         OFFSET ?';
+       ORDER BY id ASC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
+        $query, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub merge_entities
@@ -354,7 +410,7 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
     {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
@@ -369,7 +425,6 @@ sub preview
             confess $_;
         }
         else {
-            use Data::Dumper;
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
@@ -396,13 +451,12 @@ sub create
             confess $_;
         }
         else {
-            use Data::Dumper;
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
 
     my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
-    my $conditions = $edit->edit_conditions->{$quality};
+    my $conditions = $edit->edit_conditions;
 
     # Edit conditions allow auto edit and the edit requires no votes
     $edit->auto_edit(1)
@@ -459,7 +513,7 @@ sub create
 
     $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
-    $edit->adjust_edit_pending(+1);
+    $edit->adjust_edit_pending(+1) unless $edit->auto_edit;
 
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
@@ -489,7 +543,7 @@ sub load_all
     @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
-    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+    my $post_load_models = {}; # Objects loaded with ->load(after get_by_id)
 
     for my $edit (@edits) {
         my $edit_references = $edit->foreign_keys;
@@ -515,6 +569,8 @@ sub load_all
         }
     }
 
+    default_includes($objects_to_load, $post_load_models);
+
     my $loaded = {};
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
@@ -530,8 +586,29 @@ sub load_all
         }
     }
 
-    while (my ($model, $objs) = each %$load_arguments) {
-        $self->c->model($model)->load(@$objs);
+    while (my ($models, $objs) = each %$load_arguments) {
+        # $models may be a list of space-separated models to be chain-loaded;
+        # i.e. "ModelA ModelB" means to first load via ModelA for the current
+        # set of objects, then via ModelB for the result of the first load.
+        my @objects = @$objs;
+        foreach my $model (split / /, $models) {
+            @objects = grep { defined $_ } @objects;
+            # ArtistMeta, ReleaseMeta, etc are special models that indicate
+            # loading via Artist->load_meta, Release->load_meta, and so on.
+            # AreaContainment is another special model for loading via
+            # Area->load_containment.
+            if ($model =~ /^(.*)Meta$/) {
+                $self->c->model($1)->load_meta(@objects);
+                @objects = (); # returns no objects
+            }
+            elsif ($model eq 'AreaContainment') {
+                $self->c->model('Area')->load_containment(@objects);
+                @objects = (); # returns no objects
+            }
+            else {
+                @objects = $self->c->model($model)->load(@objects);
+            }
+        }
     }
 
     for my $edit (@edits) {
@@ -539,7 +616,35 @@ sub load_all
     }
 }
 
-# Runs it's own transaction
+sub default_includes {
+    # Additional models that should automatically be included with a model.
+    # NB: A list, not a hash, because order may be important.
+    my @includes = (
+        'Place' => 'Area',
+        'Area' => 'AreaContainment',
+    );
+
+    my ($objects_to_load, $post_load_models) = @_;
+    while (my ($to, $add) = splice @includes, 0, 2) {
+        # Add as a post-load model to top-level models
+        for my $id (@{ $objects_to_load->{$to} // [] }) {
+            $post_load_models->{$to}->{$id} ||= [];
+            push @{ $post_load_models->{$to}->{$id} }, $add
+              unless (any { $_ =~ /^$add(?: .*|)$/ } @{ $post_load_models->{$to}->{$id} });
+        }
+
+        # Add to existing post-load models
+        for my $id (values %$post_load_models) {
+            for my $models (values %$id) {
+                for my $entry (@$models) {
+                    $entry .= ' ' . $add if $entry =~ /^(?:.* |)$to$/;
+                }
+            }
+        }
+    }
+}
+
+# Runs its own transaction
 sub approve
 {
     my ($self, $edit, $editor_id) = @_;
@@ -576,6 +681,15 @@ sub _do_accept
             return $STATUS_FAILEDDEP;
         }
         elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::GeneralError') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err->message
+                }
+            );
+            return $STATUS_ERROR;
+        }
+        elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable') {
             $self->c->model('EditNote')->add_note(
                 $edit->id => {
                     editor_id => $EDITOR_MODBOT,
@@ -652,7 +766,7 @@ sub _close
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
-    $edit->adjust_edit_pending(-1);
+    $edit->adjust_edit_pending(-1) unless $edit->auto_edit;
     $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
@@ -675,9 +789,26 @@ sub insert_votes_and_notes {
     }, $self->c->sql);
 }
 
+sub get_related_entities {
+    my ($self, $edit) = @_;
+    my %result;
+    for my $type (entities_with('edit_table')) {
+        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
+        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+    }
+    return \%result;
+}
+
 sub add_link {
     my ($self, $type, $id, $edit) = @_;
     $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);
+}
+
+sub extend_expiration_time {
+    my ($self, @ids) = @_;
+    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
+        WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }
 
 __PACKAGE__->meta->make_immutable;

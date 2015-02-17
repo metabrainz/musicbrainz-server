@@ -4,8 +4,14 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Label',
-    entity_name => 'label',
+    model           => 'Label',
+    entity_name     => 'label',
+    relationships   => {
+        all => ['relationships'],
+        cardinal => ['edit'],
+        default => ['url'],
+        subset => { show => ['artist', 'url'] }
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -14,17 +20,20 @@ with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::IPI';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::ISNI';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]},
+                  aliases => {copy_stash => ['aliases']}}
+};
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
 
-use MusicBrainz::Server::Form::Confirm;
-use MusicBrainz::Server::Form::Label;
 use Sql;
 
 =head1 NAME
@@ -66,20 +75,9 @@ after 'load' => sub
     }
 
     $c->model('LabelType')->load($label);
-    $c->model('Country')->load($c->stash->{label});
+    $c->model('Area')->load($c->stash->{label});
+    $c->model('Area')->load_containment($label->area);
 };
-
-=head2 relations
-
-Show all relations to this label
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
 
 =head2 show
 
@@ -97,15 +95,25 @@ sub show : PathPart('') Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Country')->load(@$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->stash(
         template => 'label/index.tt',
         releases => $releases,
+        releases_jsonld => {items => $releases},
     );
 }
+
+sub relationships : Chained('load') PathPart('relationships') {}
+
+sub _merge_load_entities
+{
+    my ($self, $c, @labels) = @_;
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+};
 
 =head2 WRITE METHODS
 
@@ -113,13 +121,12 @@ sub show : PathPart('') Chained('load')
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
-    confirmation_template => 'label/merge_confirm.tt',
-    search_template       => 'label/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Label',
     edit_type => $EDIT_LABEL_CREATE,
+    dialog_template => 'label/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

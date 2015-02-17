@@ -8,7 +8,7 @@ END -%]
 
 [%- MACRO rating_rate_url(entity, rating) BLOCK;
     c.uri_for_action("/rating/rate", {
-        entity_type => entity_type(entity),
+        entity_type => get_entity_type(entity),
         entity_id   => entity.id,
         rating      => rating * 20,
     });
@@ -16,7 +16,7 @@ END -%]
 
 [%- MACRO rating_stars(entity, prevent_rating) BLOCK -%]
 <span class="inline-rating">
-    <span class="star-rating small-star">
+    <span class="star-rating">
         [%- current_star_rating = entity.user_rating ? 5 * entity.user_rating / 100 : 0 -%]
         [%- IF entity.user_rating -%]
         <span class="current-user-rating" style="width:[% entity.user_rating %]%;">[% current_star_rating %]</span>
@@ -27,10 +27,10 @@ END -%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
                 [%- IF rating == current_star_rating -%]
                 <a href="[% rating_rate_url(entity, 0) | html %]" class="stars-[% rating %] remove-rating"
-                   title="[% rating_tooltip (0) %]">[% rating %]</a>
+                   title="[% rating_tooltip(0) %]">[% rating %]</a>
                 [%- ELSE -%]
                 <a href="[% rating_rate_url(entity, rating) | html %]" class="stars-[% rating %] set-rating"
-                   title="[% rating_tooltip (rating) %]">[% rating %]</a>
+                   title="[% rating_tooltip(rating) %]">[% rating %]</a>
                 [%- END -%]
             [%- END -%]
         [%- END -%]
@@ -40,7 +40,7 @@ END -%]
 
 [%- MACRO show_rating(rating) BLOCK -%]
 <span class="inline-rating">
-    <span class="star-rating small-star">
+    <span class="star-rating">
         <span class="current-rating" style="width:[% rating.rating %]%;">[% 5 * rating.rating / 100 %]</span>
     </span>
 </span>

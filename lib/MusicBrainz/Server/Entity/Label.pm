@@ -12,11 +12,7 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
-
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
+with 'MusicBrainz::Server::Entity::Role::ISNI';
 
 has 'type_id' => (
     is => 'rw',
@@ -54,20 +50,22 @@ sub format_label_code
     return "";
 }
 
-has 'country_id' => (
+has 'area_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'country' => (
+has 'area' => (
     is => 'rw',
-    isa => 'Country'
+    isa => 'Area'
 );
 
 has 'comment' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub _appearances_table_types { ("release", "release_group", "work", "recording") }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

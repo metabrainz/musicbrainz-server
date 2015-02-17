@@ -41,13 +41,13 @@ sub lookup : Chained('load') PathPart('')
 
         # load the label country and type, as /ws/1 always included that for labels.
         my @labels = grep { $_->target_type eq 'label' } @{$c->stash->{data}->{rels}};
-        $c->model('Country')->load(map { $_->target } @labels);
+        $c->model('Area')->load(map { $_->target } @labels);
         $c->model('LabelType')->load(map { $_->target } @labels);
 
         my @releases = grep { $_->target_type eq 'release' } @{$c->stash->{data}->{rels}};
         for (@releases)
         {
-            $_->target->release_group (
+            $_->target->release_group(
                 $c->model('ReleaseGroup')->get_by_id($_->target->release_group_id));
         }
         $c->model('ReleaseStatus')->load(map { $_->target } @releases);
@@ -56,7 +56,7 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Language')->load(map { $_->target } @releases);
     }
 
-    $c->model('Country')->load($label);
+    $c->model('Area')->load($label);
     $c->model('LabelType')->load($label);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

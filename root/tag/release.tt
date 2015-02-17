@@ -1,3 +1,3 @@
-[%- INCLUDE 'tag/entity-list.tt' page='release', show_artist_credits=1
+[%- INCLUDE 'tag/entity-list.tt' page='release'
     no_entities_text=l('No releases with this tag were found.')
     heading=ln('{num} release found', '{num} releases found', pager.total_entries, { num => add_commas(pager.total_entries) }) -%]

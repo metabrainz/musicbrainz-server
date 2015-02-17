@@ -1,3 +1,4 @@
+[% WRAPPER "$entity_type/layout.tt" title=l('Annotation comparison') full_width=1 %]
 [% USE Diff %]
 <h2>[% l('Annotation comparison') %]</h2>
 
@@ -21,3 +22,4 @@
         [% END %]
     </div>
 </div>
+[% END %]

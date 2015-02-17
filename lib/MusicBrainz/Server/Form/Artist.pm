@@ -1,10 +1,13 @@
 package MusicBrainz::Server::Form::Artist;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
+with 'MusicBrainz::Server::Form::Role::ISNI';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -26,12 +29,23 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'country_id' => (
-    type => 'Select',
+has_field 'area_id' => ( type => 'Hidden' );
+has_field 'area' => (
+    type => '+MusicBrainz::Server::Form::Field::Area'
 );
 
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',
+);
+
+has_field 'begin_area_id' => ( type => 'Hidden' );
+has_field 'begin_area' => (
+    type => '+MusicBrainz::Server::Form::Field::Area'
+);
+
+has_field 'end_area_id' => ( type => 'Hidden' );
+has_field 'end_area' => (
+    type => '+MusicBrainz::Server::Form::Field::Area'
 );
 
 has_field 'period' => (
@@ -41,13 +55,13 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name type_id gender_id country_id period.begin_date
-               period.end_date period.ended comment ipi_codes );
+    return qw( name sort_name type_id gender_id area_id begin_area_id end_area_id
+               period.begin_date period.end_date period.ended comment
+               ipi_codes isni_codes );
 }
 
-sub options_gender_id   { shift->_select_all('Gender') }
-sub options_type_id     { shift->_select_all('ArtistType') }
-sub options_country_id  { shift->_select_all('Country', sort_by_accessor => 1) }
+sub options_gender_id   { select_options_tree(shift->ctx, 'Gender') }
+sub options_type_id     { select_options_tree(shift->ctx, 'ArtistType') }
 
 sub dupe_model { shift->ctx->model('Artist') }
 
@@ -58,6 +72,20 @@ sub validate {
         $self->field('type_id')->value == 2) {
         if ($self->field('gender_id')->value) {
             $self->field('gender_id')->add_error('Group artists cannot have a gender');
+        }
+    }
+
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 5) {
+        if ($self->field('gender_id')->value) {
+            $self->field('gender_id')->add_error('Orchestras cannot have a gender');
+        }
+    }
+
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 6) {
+        if ($self->field('gender_id')->value) {
+            $self->field('gender_id')->add_error('Choirs cannot have a gender');
         }
     }
 }

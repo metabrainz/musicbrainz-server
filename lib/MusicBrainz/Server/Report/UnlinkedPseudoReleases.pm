@@ -7,9 +7,8 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     "
 SELECT r.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+  row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
 FROM release r
-        JOIN release_name rn ON r.name = rn.id
         JOIN release_status rs ON r.status = rs.id
         LEFT JOIN l_release_release lrr ON r.id = lrr.entity1
         LEFT JOIN link l ON lrr.link = l.id AND l.link_type IN (
@@ -18,7 +17,6 @@ FROM release r
                 WHERE lt.name='transl-tracklisting'
         )
         JOIN artist_credit ac ON r.artist_credit = ac.id
-        JOIN artist_name an ON ac.name = an.id
 WHERE r.status IN (
         SELECT rs.id
         FROM release_status rs

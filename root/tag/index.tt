@@ -1,25 +1,34 @@
 [%- WRAPPER 'tag/layout.tt' page='index' full_width=1 -%]
 
+[%# The below use N_ln so languages with non-Germanic pluralization rules
+    (i.e., any that make number distinctions above the threshold where we'll
+    actually show the string) can translate properly. However, the strings are
+    the same in English because we do not make a distinction other than for 1,
+    which will never show in this case. %]
 [% FOR section=[
-    [l('Artists'), artist_tags, artist_count, '/tag/artist'],
-    [l('Release Groups'), release_group_tags, release_group_count, '/tag/release_group'],
-    [l('Releases'), release_tags, release_count, '/tag/release'],
-    [l('Recordings'), recording_tags, recording_count, '/tag/recording'],
-    [l('Works'), work_tags, work_count, '/tag/work'],
-    [l('Labels'), label_tags, label_count, '/tag/label'],
+    [l('Areas'), area_tags, area_count, '/tag/area', 'areas', N_ln('See all {num} areas', 'See all {num} areas')],
+    [l('Artists'), artist_tags, artist_count, '/tag/artist', 'artists', N_ln('See all {num} artists', 'See all {num} artists')],
+    [l('Events'), event_tags, event_count, '/tag/event', 'events', N_ln('See all {num} events', 'See all {num} events')],
+    [l('Instruments'), instrument_tags, instrument_count, '/tag/instrument', 'instruments', N_ln('See all {num} instruments', 'See all {num} instruments')],
+    [l('Labels'), label_tags, label_count, '/tag/label', 'labels', N_ln('See all {num} labels', 'See all {num} labels')],
+    [l('Places'), place_tags, place_count, '/tag/place', 'places', N_ln('See all {num} places', 'See all {num} places')],
+    [l('Release Groups'), release_group_tags, release_group_count, '/tag/release_group', 'release groups', N_ln('See all {num} release groups', 'See all {num} release groups')],
+    [l('Releases'), release_tags, release_count, '/tag/release', 'releases', N_ln('See all {num} releases', 'See all {num} releases')],
+    [l('Recordings'), recording_tags, recording_count, '/tag/recording', 'recordings', N_ln('See all {num} recordings', 'See all {num} recordings')],
+    [l('Series'), series_tags, series_count, '/tag/series', 'series', N_ln('See all {num} series', 'See all {num} series')],
+    [l('Works'), work_tags, work_count, '/tag/work', 'works', N_ln('See all {num} works', 'See all {num} works')]
 ] %]
     [% IF section.1.size %]
         <h2>[% section.0 %]</h2>
         <ul>
             [% FOR entity=section.1 %]
-            <li>[% link_entity(entity.entity) %]</li>
+            <li>[% descriptive_link(entity.entity) %]</li>
             [% END %]
             [% IF section.2 > section.1.size %]
             <li>
               <em><a href="[% c.uri_for_action(section.3, [ tag.name ]) %]">
-                [%- l('See all {num} {entity}',
-                     { num => section.2,
-                       entity => make_lower(section.0) }) -%]
+                [%- ln('See all {num} ' _ section.4, 'See all {num} ' _ section.4,
+                       section.2, { num => section.2 }) -%]
               </a></em>
             </li>
             [% END %]

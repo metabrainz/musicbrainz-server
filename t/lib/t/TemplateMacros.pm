@@ -61,14 +61,14 @@ test all => sub {
 
             like($out, qr{href="/$type/$gid"}, 'links to the entity');
             like($out, qr/$name/, 'has entity name');
-            unlike($out, qr/class="mp"/, 'doesnt show edits pending');
+            unlike($out, qr/class="mp"/, 'doesn\'t show edits pending');
 
             $entity->edits_pending(1);
             $out = MusicBrainz::Server::Test->evaluate_template($template, entity => $entity);
 
             like($out, qr{href="/$type/$gid"}, 'links to the entity');
             like($out, qr/$name/, 'has entity name');
-            like($out, qr/class="mp"/, 'doesnt show edits pending');
+            like($out, qr/class="mp"/, 'does show edits pending');
 
             done_testing;
         };

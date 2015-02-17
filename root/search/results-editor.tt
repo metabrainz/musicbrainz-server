@@ -10,7 +10,7 @@
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                        <tr class="[% loop.parity %]">
                             <td class="pos">[% result.score %]</td>
                             <td>[% link_editor(result.entity) %]</td>
                         </tr>

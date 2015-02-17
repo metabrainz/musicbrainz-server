@@ -1,66 +1,134 @@
-<table class="details merge-releases">
-[% IF edit.data.merge_strategy == 1 %]
+[%~ MACRO release_row(release) BLOCK; ~%]
   <tr>
-    <th>[% l('Releases:') %]</th>
-    <td>
-      <table class="tbl">
-        [% FOR change=edit.display_data.changes %]
-        <thead>
-          <tr>
-            <th>[% descriptive_link(change.release) %]<?th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR medium=change.mediums %]
-          <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
-            [% IF edit.data.item('_edit_version') == 3 && (medium.old_name || medium.new_name) %]
-              [% IF medium.old_name %]
-                [% IF medium.new_name %]
-                  <td>[% l('Medium {position}: {name} is now medium {new_position}: {new_name}', {
-                         position => medium.old_position, name => medium.old_name,
-                         new_position => medium.new_position, new_name => medium.new_name
-                         }) | html %]</td>
-                [% ELSE %]
-                  <td>[% l('Medium {position}: {name} is now medium {new_position}', {
-                         position => medium.old_position, name => medium.old_name,
-                         new_position => medium.new_position, new_name => medium.new_name
-                         }) | html %]</td>
-                [% END %]
-              [% ELSIF medium.new_name %]
-                <td>[% l('Medium {position} is now medium {new_position}: {new_name}', {
-                       position => medium.old_position,
-                       new_position => medium.new_position, new_name => medium.new_name
-                       }) | html %]</td>
-              [% END %]
-            [% ELSE %]
-            <td>[% l('Medium {position} is now medium {new_position}', {
-                position => medium.old_position,
-                new_position => medium.new_position,
-                }) | html %]</td>
-            [% END %]
-          </tr>
-          [% END %]
-        </tbody>
-        [% END %]
-      </table>
-    </td>
+    <td>[% link_entity(release) %]</td>
+    <td>[% artist_credit(release.artist_credit) %]</td>
+    <td>[% html_escape(release.combined_format_name) %]</td>
+    <td>[% release.combined_track_count %]</td>
+    <td>[% release_dates(release.events) %]</td>
+    <td>[% release_countries(release.events) %]</td>
+    <td>[% release_label_list(release.labels) %]</td>
+    <td>[% release_catno_list(release.labels) %]</td>
+    <td>[% release.barcode.format %]</td>
   </tr>
-  [% IF edit.data.item('_edit_version') == 1 %]
-    [% INCLUDE 'edit/details/merge_common.tt' %]
+[%~ END ~%]
+
+<table class="tbl merge-releases">
+  <thead>
     <tr>
-      <th>Note:</th>
-      <td>[% l('The data in this edit originally came from an older version of this edit,
-                and may not display correctly') %]</td>
+      <th>[% l('Release') %]</th>
+      <th>[% l('Artist') %]</th>
+      <th>[% l('Format') %]</th>
+      <th>[% l('Tracks') %]</th>
+      <th>[% l('Date') %]</th>
+      <th>[% l('Country') %]</th>
+      <th>[% l('Label') %]</th>
+      <th>[% l('Catalog#') %]</th>
+      <th>[% l('Barcode') %]</th>
     </tr>
-  [% ELSE %]
-  <tr>
-    <th>[% l('Into:') %]</th>
-    <td>[% descriptive_link(edit.display_data.new) %]</td>
-  </tr>
-  [% END%]
-[% ELSIF edit.data.merge_strategy == 2 %]
-  [% INCLUDE 'edit/details/merge_common.tt' %]
-[% END %]
+  </thead>
+  <tbody>
+  [% IF edit.data.merge_strategy == 1 %]
+    [% FOR change=edit.display_data.changes %]
+      [% release_row(change.release) %]
+      [% FOR medium=change.mediums %]
+        <tr class="[% loop.parity %]">
+          <td colspan="9">
+            [% IF edit.data.item('_edit_version') == 3 && (medium.old_name || medium.new_name);
+                IF medium.old_name;
+                  IF medium.new_name;
+                    l('Medium {position}: {name} is now medium {new_position}: {new_name}', {
+                        position => medium.old_position, name => medium.old_name,
+                        new_position => medium.new_position, new_name => medium.new_name
+                        }) | html;
+                  ELSE;
+                    l('Medium {position}: {name} is now medium {new_position}', {
+                        position => medium.old_position, name => medium.old_name,
+                        new_position => medium.new_position, new_name => medium.new_name
+                        }) | html;
+                  END;
+                ELSIF medium.new_name;
+                  l('Medium {position} is now medium {new_position}: {new_name}', {
+                      position => medium.old_position,
+                      new_position => medium.new_position, new_name => medium.new_name
+                      }) | html;
+                END;
+              ELSE;
+                l('Medium {position} is now medium {new_position}', {
+                    position => medium.old_position,
+                    new_position => medium.new_position,
+                    }) | html;
+              END; %]
+          </td>
+        </tr>
+      [% END %]
+    [% END %]
+    [% IF edit.data.item('_edit_version') == 1 %]
+      [% FOR release = edit.display_data.old;
+          release_row(release);
+        END %]
+      <tr class="subh">
+        <th colspan="9">[% l('Into:') %]</th>
+      </tr>
+      [% release_row(edit.display_data.new) %]
+    [% ELSE %]
+      <tr class="subh">
+        <th colspan="9">[% l('Into:') %]</th>
+      </tr>
+      [% release_row(edit.display_data.new) %]
+    [% END%]
+  [% ELSIF edit.data.merge_strategy == 2 %]
+    [% FOR release = edit.display_data.old;
+         release_row(release);
+       END %]
+    <tr class="subh">
+      <th colspan="9">[% l('Into:') %]</th>
+    </tr>
+    [% release_row(edit.display_data.new) %]
+  [% END %]
+  </tbody>
+</table>
+
+[%~ IF edit.data.merge_strategy == 2 ~%]
+[%~ IF edit.display_data.recording_merges.size ~%]
+    <table class="tbl">
+    <thead>
+        <tr>
+          <th colspan=5>[% l('Recording Merges') %]</th>
+        <tr>
+        <tr>
+          <th>[% l('Track #') %]</th>
+          <th colspan=2>[% l('Recording') %]</th>
+          <th colspan=2>[% l('Into:') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+    [%~ FOR merge = edit.display_data.recording_merges ~%]
+        [%~ SET rowspan = merge.sources.size ~%]
+        [%~ SET zebra = loop.parity ~%]
+        <tr class="[% zebra %]">
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.medium %].[% merge.track %]</td>
+            <td>[% link_entity(merge.sources.0) %]</td>
+            <td[% ' class="warn-lengths"' IF merge.large_spread %]>[% merge.sources.0.length | format_length %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% link_entity(merge.destination) %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %][% ' class="warn-lengths"' IF merge.large_spread %]>[% merge.destination.length | format_length %]</td>
+        </tr>
+        [% FOR source = merge.sources ~%]
+        [%~ UNLESS loop.first ~%]
+        <tr class="[% zebra %]">
+            <td>[% link_entity(source) %]</td>
+            <td[% ' class="warn-lengths"' IF merge.large_spread %]>[% source.length | format_length %]</td>
+        </tr>
+        [%~ END; END %]
+    [%~ END ~%]
+    </tbody></table>
+[%~ ELSIF edit.display_data.merges_are_calculated && !edit.is_open ~%]
+    <p><strong>[% l('This edit does not store recording merge information and is closed, so no recording merge information can be shown.') %]</strong></p>
+[%~ ELSE  ~%]
+    <p><strong>[% l('All recordings for these releases are already merged.') %]</strong></p>
+[%~ END ~%]
+[%~ END ~%]
+
+<table class="details">
   <tr>
     <th>[% l('Merge strategy:') %]</th>
     <td>
@@ -70,4 +138,12 @@
     END %]
     </td>
   </tr>
+
+  [% IF edit.data.item('_edit_version') == 1 %]
+    <tr>
+      <th>[%~ add_colon(l('Note')) ~%]</th>
+      <td>[% l('The data in this edit originally came from an older version of this edit,
+                and may not display correctly') %]</td>
+    </tr>
+  [% END %]
 </table>

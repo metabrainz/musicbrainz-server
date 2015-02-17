@@ -47,7 +47,7 @@ sub tag : Path('/ws/1/tag')
         else {
             my @batch;
 
-            for(my $count = 0;; $count++) {
+            for (my $count = 0;; $count++) {
                 my $entity = $c->req->params->{"entity.$count"};
                 my $id = $c->req->params->{"id.$count"};
                 my $tags = $c->req->params->{"tags.$count"};

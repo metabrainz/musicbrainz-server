@@ -2,9 +2,17 @@
 
 unset SSH_AUTH_SOCK
 
-LOCAL_DIR=/var/ftp/pub/musicbrainz/data/fullexport
+mb_server=`dirname $0`/..
+cd $mb_server
 
-rsync -e "ssh -i $HOME/.ssh/rysnc-data-fullexport" -av --delete --exclude='latest-is*' $LOCAL_DIR/ ftpowner@scooby.localdomain:dummy
-rsync -e "ssh -i $HOME/.ssh/rysnc-data-latest" -av $LOCAL_DIR/latest* ftpowner@scooby.localdomain:dummy
+eval `./admin/ShowDBDefs`
+
+LOCAL_DIR=$FTP_DATA_DIR/fullexport
+
+if [ "$RSYNC_REPLICATION_SERVER" ]
+then
+    rsync -e "ssh -i $HOME/.ssh/rysnc-data-fullexport" -av --delete --exclude='latest-is*' $LOCAL_DIR/ $RSYNC_REPLICATION_SERVER:dummy
+    rsync -e "ssh -i $HOME/.ssh/rysnc-data-latest" -av $LOCAL_DIR/latest* $RSYNC_REPLICATION_SERVER:dummy
+fi
 
 # eof rsync-fullexport-files

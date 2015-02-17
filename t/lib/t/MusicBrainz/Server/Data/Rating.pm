@@ -20,20 +20,15 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
 
     TRUNCATE artist CASCADE;
     TRUNCATE artist_meta CASCADE;
-    TRUNCATE artist_name CASCADE;
 
-    INSERT INTO artist_name (id, name) VALUES (1, 'Test');
     INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 1'),
-        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 2');
+        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
+        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
 
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'password'),
-                                                   (2, 'editor2', 'password'),
-                                                   (3, 'editor3', 'password'),
-                                                   (4, 'editor4', 'password');
+    INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (2, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'), (3, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'), (4, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 1, 50), (2, 2, 50), (1, 3, 40), (1, 4, 10);
@@ -144,16 +139,14 @@ test 'Test find_editor_ratings' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, "
-    INSERT INTO artist_name (id, name) VALUES (1, 'Test');
     INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 1'),
-        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 2');
+        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
+        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
 
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'password'),
-                                                   (2, 'editor2', 'password');
+    INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (2, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 1, 50), (2, 1, 60), (1, 2, 40);

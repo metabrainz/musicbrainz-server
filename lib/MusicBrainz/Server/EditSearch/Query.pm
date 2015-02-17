@@ -5,16 +5,18 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
+use MusicBrainz::Server::Constants qw( $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
+use MusicBrainz::Server::EditSearch::Predicate::EditorFlag;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
-use MusicBrainz::Server::EditSearch::Predicate::ArtistCountry;
-use MusicBrainz::Server::EditSearch::Predicate::LabelCountry;
+use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
+use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::Log 'log_warning';
@@ -34,14 +36,15 @@ my %field_map = (
     vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
-    artist_country => 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry',
-    label_country => 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry',
+    artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
+    label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
     release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
+    editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
 
     map {
-        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 
-    } qw( artist label recording release release_group work )
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_)
+    } qw( area artist instrument label place recording release release_group series work )
 );
 
 has negate => (
@@ -70,27 +73,6 @@ has auto_edit_filter => (
     default => undef
 );
 
-has join => (
-    isa => ArrayRef[Str],
-    is => 'bare',
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        join => 'elements',
-        add_join => 'push',
-    }
-);
-
-has join_counter => (
-    isa => Int,
-    is => 'ro',
-    default => 0,
-    traits => [ 'Counter' ],
-    handles => {
-        inc_joins => 'inc',
-    }
-);
-
 has where => (
     isa => ArrayRef[ Tuple[ Str, ArrayRef[Any] ] ],
     is => 'bare',
@@ -113,7 +95,7 @@ has fields => (
 );
 
 sub new_from_user_input {
-    my ($class, $user_input) = @_;
+    my ($class, $user_input, $user_id) = @_;
     my $input = expand_hash($user_input);
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
@@ -124,19 +106,20 @@ sub new_from_user_input {
         auto_edit_filter => $ae,
         fields => [
             map {
-                $class->_construct_predicate($_)
+                $class->_construct_predicate($_, $user_id)
             } grep { defined } @{ $input->{conditions} }
         ]
     );
 }
 
 sub _construct_predicate {
-    my ($class, $input) = @_;
+    my ($class, $input, $user_id) = @_;
     return try {
         my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
         $predicate_class->new_from_input(
             $input->{field},
-            $input
+            $input,
+            $user_id,
         )
     } catch {
         my $err = $_;
@@ -160,17 +143,15 @@ sub as_string {
         'autoedit = ? AND ' : '';
 
     my $order = '';
-    $order = 'ORDER BY ' . join(', ', map { "$_ " . $self->order }
-                                        qw( edit.open_time edit.id ))
+    $order = 'ORDER BY edit.id ' . $self->order
         unless $self->order eq 'rand';
 
-    return 'SELECT DISTINCT edit.* FROM edit ' .
-        join(' ', $self->join) .
-        ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
+    return 'SELECT edit.* FROM edit ' .
+        'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT 500 OFFSET ?";
+         LIMIT $EDIT_COUNT_LIMIT OFFSET ?";
 }
 
 sub arguments {

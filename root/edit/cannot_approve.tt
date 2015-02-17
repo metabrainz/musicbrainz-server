@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' full_width=1 title=l('Error Approving Edit') %]
     <h1>[% l('Error Approving Edit') %]</h1>
     <p>[% l('There was a problem approving {edit}.',
-           { edit => link_edit(edit, show, html_escape('edit #' _ edit.id)) }) %]</p>
+           { edit => link_edit(edit, show, 'edit #' _ edit.id) }) %]</p>
     [% IF !edit.is_open %]
         <p>[% l('The edit has already been closed.') %]</p>
     [% ELSIF edit.status == 8 %]

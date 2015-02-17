@@ -1,15 +1,19 @@
 package MusicBrainz::Server::Controller::Root;
 use Moose;
+use Try::Tiny;
 BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
+use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
+use MusicBrainz::Server::Translation 'l';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -182,64 +186,43 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub _ssl_redirect
-{
-    my ($self, $c) = @_;
-
-    return unless DBDefs->SSL_REDIRECTS_ENABLED;
-
-    if (exists $c->action->attributes->{RequireSSL} && !$c->request->secure)
-    {
-        $c->response->cookies->{return_to_http} = { value => 1 };
-        $c->response->redirect(
-            "https://".DBDefs->WEB_SERVER_SSL.$c->request->env->{REQUEST_URI});
-        return 1;
-    }
-
-    if (!exists $c->action->attributes->{RequireSSL}
-        && $c->request->secure
-        && $c->request->cookie ('return_to_http'))
-    {
-        # expire in the past == delete cookie
-        $c->response->cookies->{return_to_http} = { value => 1, expires => '-1m' };
-        $c->response->redirect(
-            "http://".DBDefs->WEB_SERVER.$c->request->env->{REQUEST_URI});
-        return 1;
-    }
-
-    return 0;
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
 
     return if exists $c->action->attributes->{Minimal};
 
-    return if $self->_ssl_redirect ($c);
+    ensure_ssl($c) if $c->action->attributes->{RequireSSL};
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
-    # if no javascript cookie is set we don't know if javascript is enabled or not.
-    my $jscookie = $c->request->cookie('javascript');
-    my $js = $jscookie ? $jscookie->value : "unknown";
-    $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
-
+    my $alert = '';
+    try {
+        $alert = $c->model('MB')->context->redis->get('alert');
+    } catch {
+        $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
+        warn "Redis connection to get alert failed: $_";
+    };
     $c->stash(
-        javascript => $js,
-        no_javascript => $js eq "false",
         wiki_server => DBDefs->WIKITRANS_SERVER,
         server_languages => Translation->instance->all_languages(),
         server_details => {
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
             is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
-            read_only      => DBDefs->DB_READ_ONLY
+            read_only      => DBDefs->DB_READ_ONLY,
+            alert => $alert
         },
+        favicon_css_classes => FAVICON_CLASSES,
     );
 
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
+
+    # Edit implies RequireAuth
+    if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
+        $c->action->attributes->{RequireAuth} = 1;
+    }
 
     # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
     if (exists $c->action->attributes->{HiddenOnSlaves}) {
@@ -271,7 +254,8 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
+    if (exists $c->action->attributes->{Edit} && $c->user_exists &&
+        !$c->user->has_confirmed_email_address)
     {
         $c->forward('/error_401');
     }
@@ -282,13 +266,6 @@ sub begin : Private
         $c->forward('/error_400');
     }
 
-    # Load current relationship
-    my $rel = $c->session->{current_relationship};
-    if ($rel)
-    {
-    $c->stash->{current_relationship} = $c->model(ucfirst $rel->{type})->load($rel->{id});
-    }
-
     # Update the tagger port
     if (exists $c->req->query_params->{tport})
     {
@@ -296,12 +273,17 @@ sub begin : Private
     }
 
     # Merging
-    if (my $merger = $c->session->{merger}) {
+    if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model($merger->type);
         my @merge = values %{
             $model->get_by_ids($merger->all_entities)
         };
         $c->model('ArtistCredit')->load(@merge);
+
+        my @areas = ();
+        push @areas, @merge if $merger->type eq 'Area';
+        push @areas, $c->model('Area')->load(@merge) if $merger->type eq 'Place';
+        $c->model('Area')->load_containment(@areas);
 
         $c->stash(
             to_merge => [ @merge ],
@@ -324,6 +306,10 @@ sub begin : Private
         );
         $c->detach;
     }
+
+    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
+        $c->stash( last_replication_date => $c->model('Replication')->last_replication_date );
+    }
 }
 
 =head2 end
@@ -341,10 +327,8 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     $c->stash->{server_details} = {
-        staging_server             => DBDefs->DB_STAGING_SERVER,
+        %{ $c->stash->{server_details} // {} },
         staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,
-        testing_features           => DBDefs->DB_STAGING_TESTING_FEATURES,
-        is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         developement_server        => DBDefs->DEVELOPMENT_SERVER,
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
@@ -381,6 +365,8 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
+
+    $c->stash->{mapbox_map_id} = DBDefs->MAPBOX_MAP_ID;
 }
 
 =head1 LICENSE

@@ -2,10 +2,15 @@ package MusicBrainz::Server::Entity::Editor;
 use Moose;
 use namespace::autoclean;
 
+use Authen::Passphrase;
 use DateTime;
+use Encode;
 use MusicBrainz::Server::Entity::Preferences;
+use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
+
+my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -73,6 +78,18 @@ sub is_account_admin
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_location_editor
+{
+    my $mask = $LOCATION_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
+sub is_banner_editor
+{
+    my $mask = $BANNER_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -131,7 +148,8 @@ sub is_newbie
 sub is_admin
 {
     my $self = shift;
-    return $self->is_relationship_editor || $self->is_wiki_transcluder;
+    return $self->is_relationship_editor || $self->is_wiki_transcluder ||
+           $self->is_location_editor || $self->is_banner_editor;
 }
 
 has 'preferences' => (
@@ -145,6 +163,7 @@ sub is_limited
     my $self = shift;
     return
         !($self->id == $EDITOR_MODBOT) &&
+        !$self->deleted &&
         ( !$self->email_confirmation_date ||
           $self->is_newbie ||
           $self->accepted_edits < 10
@@ -166,19 +185,26 @@ has gender => (
     is => 'rw',
 );
 
-has country_id => (
+has area_id => (
     is => 'rw',
     isa => 'Int',
 );
 
-has country => (
+has area => (
     is => 'rw',
+    isa => 'Area'
 );
 
 sub age {
     my $self = shift;
     return unless $self->birth_date;
     return (DateTime->now - $self->birth_date)->in_units('years');
+}
+
+sub can_nominate {
+    my ($self, $candidate) = @_;
+    return unless $candidate;
+    return $self->is_auto_editor && !$candidate->is_auto_editor && !$candidate->deleted;
 }
 
 has languages => (
@@ -190,6 +216,32 @@ has languages => (
         add_language => 'push',
     }
 );
+
+sub requires_password_reset {
+    my $self = shift;
+    return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY
+};
+
+has ha1 => (
+    isa => 'Str',
+    is => 'rw',
+);
+
+sub match_password {
+    my ($self, $password) = @_;
+    Authen::Passphrase->from_rfc2307($self->password)->match(
+        encode('utf-8', $password));
+}
+
+has deleted => (
+    isa => 'Bool',
+    is => 'rw',
+);
+
+sub identity_string {
+    my ($self) = @_;
+    return join(', ', $self->name, $self->id);
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -292,6 +344,10 @@ The editor is able to select wiki pages for transclusion
 =head2 is_account_admin
 
 The editor is able to administer the accounts of other editors
+
+=head2 is_banner_editor
+
+The editor is able to change the banner message
 
 =head1 COPYRIGHT
 

@@ -8,7 +8,8 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -17,8 +18,10 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::CoverArt';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit cover art') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{id} }
@@ -65,7 +68,7 @@ sub initialize {
             mbid => $release->gid
         },
         id => $opts{artwork_id},
-        $self->_change_data (\%old, %new)
+        $self->_change_data(\%old, %new)
     });
 }
 
@@ -90,6 +93,16 @@ sub accept {
     );
 }
 
+sub allow_auto_edit {
+    my $self = shift;
+    return 0 if $self->data->{old}{types}
+        && @{ $self->data->{old}{types} };
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
+    return 1;
+}
+
 sub foreign_keys {
     my ($self) = @_;
 
@@ -97,6 +110,10 @@ sub foreign_keys {
 
     $fk{Release} = {
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
+    };
+
+    $fk{Artwork} = {
+        $self->data->{id} => [ 'Release' ]
     };
 
     $fk{CoverArtType} = [
@@ -113,7 +130,7 @@ sub display_cover_art_types
 
     # FIXME: sort these.
     # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join (", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
+    return join(", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
 }
 
 sub build_display_data {
@@ -124,16 +141,21 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    $data{artwork} = Artwork->new(release => $data{release},
-                               id => $self->data->{id},
-                               comment => $self->data->{new}{comment} // '',
-                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{new}{types} }]);
+    $data{artwork} = $loaded->{Artwork}{ $self->data->{id} } ||
+        Artwork->new(release => $data{release},
+                     id => $self->data->{id},
+                     comment => $self->data->{new}->{comment} // '',
+                     cover_art_types => [ map {
+                         $loaded->{CoverArtType}{$_}
+                     } @{ $self->data->{new}->{types} // [] }]
+        );
+
 
     if ($self->data->{old}->{types})
     {
         $data{types} = {
-            old => display_cover_art_types ($loaded, $self->data->{old}->{types}),
-            new => display_cover_art_types ($loaded, $self->data->{new}->{types}),
+            old => display_cover_art_types($loaded, $self->data->{old}->{types}),
+            new => display_cover_art_types($loaded, $self->data->{new}->{types}),
         }
     }
 

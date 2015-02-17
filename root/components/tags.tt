@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         [%- FOREACH tag IN tags -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
           <td>[% PROCESS tag_link_block %]</td>
           <td>[% tag.count %]</td>
         </tr>

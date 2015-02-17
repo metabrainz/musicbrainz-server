@@ -39,10 +39,10 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
 
     for (@works)
     {
-        $c->controller('WS::2::Work')->work_toplevel ($c, $stash, $_);
+        $c->controller('WS::2::Work')->work_toplevel($c, $stash, $_);
     }
 
-    my $work_list = $self->make_list (\@works);
+    my $work_list = $self->make_list(\@works);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('work-list', $work_list, $c->stash->{inc}, $stash));
 }

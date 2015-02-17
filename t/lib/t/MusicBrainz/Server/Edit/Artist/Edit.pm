@@ -49,7 +49,7 @@ is($artist->name, 'New Name');
 is($artist->sort_name, 'New Sort');
 is($artist->comment, 'New comment');
 is($artist->type_id, 1);
-is($artist->country_id, 1);
+is($artist->area_id, 221);
 is($artist->gender_id, 1);
 is($artist->begin_date->year, 1990);
 is($artist->begin_date->month, 5);
@@ -63,6 +63,11 @@ is(scalar @$ipi_codes, 2, "Artist has two ipi codes after accepting edit");
 isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::ArtistIPI");
 isa_ok($ipi_codes->[1], "MusicBrainz::Server::Entity::ArtistIPI");
 
+my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($artist->id);
+is(scalar @$isni_codes, 2, "Artist has two isni codes after accepting edit");
+isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::ArtistISNI");
+isa_ok($isni_codes->[1], "MusicBrainz::Server::Entity::ArtistISNI");
+
 # load the edit and test if it provides a populated ->display_data
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
@@ -75,8 +80,8 @@ is($edit->display_data->{type}->{old}, undef);
 is($edit->display_data->{type}->{new}->name, 'Group');
 is($edit->display_data->{gender}->{old}, undef);
 is($edit->display_data->{gender}->{new}->{name}, 'Male');
-is($edit->display_data->{country}->{old}, undef);
-is($edit->display_data->{country}->{new}->{name}, 'United Kingdom');
+is($edit->display_data->{area}->{old}, undef);
+is($edit->display_data->{area}->{new}->{name}, 'United Kingdom');
 is($edit->display_data->{comment}->{old}, '');
 is($edit->display_data->{comment}->{new}, 'New comment');
 is($edit->display_data->{begin_date}->{old}->format, '');
@@ -85,6 +90,8 @@ is($edit->display_data->{end_date}->{old}->format, '');
 is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
 cmp_set($edit->display_data->{ipi_codes}->{old}, []);
 cmp_set($edit->display_data->{ipi_codes}->{new}, [ '00145958831', '00151894163' ]);
+cmp_set($edit->display_data->{isni_codes}->{old}, []);
+cmp_set($edit->display_data->{isni_codes}->{new}, [ '0000000106750994', '0000000106750995' ]);
 
 # Make sure we can use NULL values where possible
 $edit = $c->model('Edit')->create(
@@ -94,15 +101,16 @@ $edit = $c->model('Edit')->create(
 
     type_id => undef,
     gender_id => undef,
-    country_id => undef,
+    area_id => undef,
     begin_date => { year => undef, month => undef, day => undef },
     end_date => { year => undef, month => undef, day => undef },
     ipi_codes => [],
+    isni_codes => [],
 );
 
 accept_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(2);
-is($artist->country_id, undef);
+is($artist->area_id, undef);
 is($artist->gender_id, undef);
 is($artist->type_id, undef);
 ok($artist->begin_date->is_empty);
@@ -126,6 +134,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         to_edit   => $c->model('Artist')->get_by_id(2),
         name => 'Renamed artist',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -134,14 +143,15 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         to_edit   => $c->model('Artist')->get_by_id(2),
         comment   => 'Comment change',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->comment, 'Comment change', 'comment changed');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->comment, 'Comment change', 'comment changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -156,6 +166,7 @@ test 'Check conflicts (conflicting edits)' => sub {
         name      => 'Renamed artist',
         sort_name => 'Sort FOO',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -165,15 +176,16 @@ test 'Check conflicts (conflicting edits)' => sub {
         comment   => 'Comment change',
         sort_name => 'Sort BAR',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->sort_name, 'Sort FOO', 'comment changed');
-    is ($artist->comment, '');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->sort_name, 'Sort FOO', 'comment changed');
+    is($artist->comment, '');
 };
 
 test 'Check IPI changes' => sub {
@@ -186,6 +198,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(2),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '33333333333', '44444444444' ],
     );
@@ -200,6 +213,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(2),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '33333333333',
                        '55555555555', '66666666666' ],
     );
@@ -210,6 +224,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(2),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '55555555555', '77777777777' ],
     );
@@ -239,7 +254,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(3),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -248,7 +264,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(4),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
@@ -271,6 +288,7 @@ test 'Edits are idempotent' => sub {
         name      => 'Renamed artist',
         sort_name => 'Sort FOO',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_1 = $c->model('Edit')->create(%edit);
@@ -280,9 +298,9 @@ test 'Edits are idempotent' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->sort_name, 'Sort FOO', 'comment changed');
-    is ($artist->comment, '');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->sort_name, 'Sort FOO', 'comment changed');
+    is($artist->comment, '');
 };
 
 sub _create_full_edit {
@@ -299,8 +317,9 @@ sub _create_full_edit {
         end_date => { year => 2000, month => 3, day => 20 },
         type_id => 1,
         gender_id => 1,
-        country_id => 1,
+        area_id => 221,
         ipi_codes => [ '00151894163', '00145958831' ],
+        isni_codes => [ '0000000106750994', '0000000106750995' ],
     );
 }
 
@@ -308,7 +327,7 @@ sub is_unchanged {
     my $artist = shift;
     is($artist->name, 'Artist Name');
     is($artist->sort_name, 'Artist Name');
-    is($artist->$_, undef) for qw( type_id country_id gender_id );
+    is($artist->$_, undef) for qw( type_id area_id gender_id );
     is($artist->comment, '');
     ok($artist->begin_date->is_empty);
     ok($artist->end_date->is_empty);

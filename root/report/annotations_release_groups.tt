@@ -1,0 +1,17 @@
+[%- WRAPPER 'layout.tt' title=l('Release group annotations') full_width=1 -%]
+
+<h1>[% l('Release group annotations') %]</h1>
+
+<ul>
+    <li>[% l('This report lists release groups with annotations.') -%]
+    </li>
+    <li>[% l('Total release groups found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[% BLOCK extra_header_end %]<th>[% l('Annotation') %]</th><th style="width:10em">[% l('Last edited') %]</th>[% END %]
+[% BLOCK extra_row_end %]<td>[% item.text | format_wikitext %]</td><td>[% item.created %]</td>[% END %]
+[%- INCLUDE 'report/release_group_list.tt' -%]
+
+[%- END -%]

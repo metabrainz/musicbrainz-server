@@ -5,6 +5,10 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'MediumFormat',
+};
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'
@@ -17,22 +21,7 @@ sub l_name {
 
 has 'year' => (
     is => 'rw',
-    isa => 'Int'
-);
-
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'MediumFormat',
+    isa => 'Maybe[Int]'
 );
 
 has 'has_discids' => (
@@ -40,17 +29,9 @@ has 'has_discids' => (
     isa => 'Bool'
 );
 
-has 'children' => (
+has 'description' => (
     is => 'rw',
-    isa => 'ArrayRef[MediumFormat]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
+    isa => 'Maybe[Str]',
 );
 
 __PACKAGE__->meta->make_immutable;

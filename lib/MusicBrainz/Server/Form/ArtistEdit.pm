@@ -9,20 +9,9 @@ has 'artist_credits' => (
     required => 1,
 );
 
-has 'default_artist_credits' => (
-    isa => 'ArrayRef[Int]',
-    is => 'ro',
-    required => 1,
-);
-
 has_field 'rename_artist_credit' => (
     type => 'Multiple'
 );
-
-sub default_rename_artist_credit {
-    my ($self, $field) = @_;
-    return $self->default_artist_credits;
-}
 
 sub options_rename_artist_credit {
     my ($self, $field) = @_;

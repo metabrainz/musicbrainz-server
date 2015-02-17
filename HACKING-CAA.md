@@ -44,6 +44,10 @@ Now that you're running this script, mb_server should be able to
 upload images and indexes to http://localhost/caa/$BUCKET, where
 $BUCKET is the bucket name.
 
+To simulate a 503 Slow Down error, run slowdown.psgi instead of ssssss.psgi:
+
+    $ plackup --port 5050 contrib/slowdown.psgi
+
 
 CAA-indexer
 ===========
@@ -69,13 +73,13 @@ And then editing `postgresql.conf` to have:
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
-    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
+    $ ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
     $ cd -
 
 Install the dependancies for the CAA-indexer and create a
 configuration file for the CAA-indexer itself:
 
-    $ carton install
+    $ cpanm --installdeps --notest .
     $ cp config.ini.example config.ini
     $ vim config.ini
 
@@ -88,7 +92,7 @@ source, edit lib/CoverArtArchive/IAS3Request.pm and change line 21.
 
 And finally run the indexer:
 
-    $ carton exec -Ilib -- ./caa-indexer
+    $ ./caa-indexer
 
 
 coverart_redirect

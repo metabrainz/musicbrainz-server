@@ -12,6 +12,7 @@ my @classes = (
     't::TemplateMacros',
     't::Sql',
     't::MusicBrainz::DataStore::Redis',
+    't::MusicBrainz::Script::RebuildCoverArt',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (
@@ -19,7 +20,9 @@ my @classes = (
     )
 );
 
-@classes = commandline_override ("t::MusicBrainz::Server::", @classes);
+MusicBrainz::Server::Test->prepare_test_server;
+
+@classes = commandline_override("t::MusicBrainz::Server::", @classes);
 
 # XXX Filter out WatchArtist for now as the tests are broken
 @classes = grep { $_ !~ /WatchArtist/ } @classes;

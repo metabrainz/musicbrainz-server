@@ -42,6 +42,21 @@
             [% END %]
         </p>
         [% END %]
+
+        [% IF edit.defined; edits = [ edit ]; END %]
+        [% IF edits.size %]
+        <p><strong>[% l('Edits loaded for the page:') %]</strong></p>
+        <ul>
+            [% FOR e = edits %]
+                  <li>[% link_edit(e) %] ([% link_edit(e, 'data', l('raw edit data')) %])[% '; ' _ l('fully loaded') IF e.is_loaded %]</li>
+            [% END %]
+        </ul>
+        [% END %]
+
+        <p>
+            <strong>[% l('Time:') %]</strong> [% USE date; date.format(date.now, format => '%Y-%m-%d %H:%M:%S', gmt => 1) %] UTC
+        </p>
+
         [% IF hostname %]
         <p>
             <strong>[% l('Host:') %]</strong> [% hostname %]
@@ -62,7 +77,7 @@
             [%- l("We're terribly sorry for this problem. Please wait a few minutes and repeat your request &#x2014; the problem may go away.") %]
         </p>
         <p>
-            [%- l('If the problem persists, please {report|report a bug} and include any error message that is shown above.', 
+            [%- l('If the problem persists, please {report|report a bug} and include any error message that is shown above.',
                  { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1&description=Broken+link:" _ url_escape(c.req.uri) _ "+Referer:" _ url_escape(c.req.referer)) })-%]
         </p>
 

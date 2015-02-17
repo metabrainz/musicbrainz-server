@@ -1,0 +1,26 @@
+[%- WRAPPER 'event/layout.tt' title=l('Attendance') page='attendance' -%]
+    <h2>[% l('Attendance') %]</h2>
+    [% IF public_collections.size || private_collections > 0 %]
+        <p>[% ln('{num} user might attend:',
+                 '{num} users might attend:',
+                 public_collections.size + private_collections,
+                 { event => html_escape(event.name), num => public_collections.size + private_collections }) %]</p>
+        <ul>
+            [% FOR col=public_collections %]
+                <li>[% l('{owner} (in list {collection})', { collection => link_collection(col),
+                                                      owner => link_editor(col.editor) } ) %]</li>
+            [% END %]
+
+            [% IF public_collections.size && private_collections %]
+                <li>[% ln('plus {n} other hidden user', 'plus {n} other hidden user',
+                           private_collections, { n => private_collections }) %]</li>
+            [% ELSIF private_collections %]
+                <li>[% ln('A hidden user', '{n} hidden users',
+                           private_collections, { n => private_collections }) %]</li>
+            [% END %]
+        </ul>
+    [% ELSE %]
+        <p>[% l('Nobody is attending {event}.',
+                { event => html_escape(event.name) }) %]</p>
+    [% END %]
+[%- END -%]

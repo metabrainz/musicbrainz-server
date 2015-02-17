@@ -15,11 +15,9 @@ test 'merge_artists with renaming works if theres nothing to rename' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Queen');
-INSERT INTO artist_name (id, name) VALUES (2, 'David Bowie');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 2, 2);
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
+           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie');
 EOSQL
 
     ok !exception {
@@ -53,6 +51,32 @@ test 'Can have artist credits with no join phrase' => sub {
     is($ac->name, 'Ed RushOptical');
 };
 
+test 'Merging should combine ACs which are string-identical before merge (MBS-7482)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Queen', 'Queen'),
+           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'David Bowie'),
+           (3, '427c72ff-516a-4a4c-8ce4-828811324dd7', 'Merge', 'Merge');
+
+INSERT INTO artist_credit (id, name, artist_count)
+    VALUES (1, 'Queen & David Bowie', 2),
+           (2, 'Queen & David Bowie', 2);
+
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 'Queen', ' & '),
+           (1, 1, 2, 'David Bowie', ''),
+           (2, 0, 1, 'Queen', ' & '),
+           (2, 1, 3, 'David Bowie', '');
+EOSQL
+
+    is($c->sql->select_single_value('SELECT count(*) from artist_credit'), 2, 'Two artist credits before merge');
+    $c->model('ArtistCredit')->merge_artists(2, [ 3 ]);
+    is($c->sql->select_single_value('SELECT count(*) from artist_credit'), 1, 'One artist credit after merge');
+    is($c->sql->select_single_value('SELECT count(*) from artist_credit_name'), 2, 'AC after merge has two artists');
+};
+
 test 'Merging updates the complete name' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -64,8 +88,13 @@ test 'Merging updates the complete name' => sub {
     $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
     $c->sql->commit;
 
-    my $ac = $artist_credit_data->get_by_id(1);
-    is( $ac->id, 1 );
+    my $artist_credit_id =
+        $c->sql->select_single_value(
+            'SELECT artist_credit FROM artist_credit_name WHERE artist = ?',
+            3
+        );
+    my $ac = $artist_credit_data->get_by_id($artist_credit_id);
+
     is( $ac->artist_count, 2, "2 artists in artist credit");
     is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
     is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
@@ -82,8 +111,7 @@ test 'Merging updates the complete name' => sub {
     is( $ac->names->[1]->join_phrase, '' );
 
     my $name = $c->sql->select_single_value("
-        SELECT an.name FROM artist_credit ac JOIN artist_name an ON ac.name=an.id
-        WHERE ac.id=1");
+        SELECT name FROM artist_credit ac WHERE id=?", $artist_credit_id);
     is( $name, "Queen & Merge", "Name is Queen & Merge" );
 };
 
@@ -186,6 +214,17 @@ test 'Replace artist credit identity' => sub {
        'artist credit still exists');
 };
 
+test 'related_entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $artist_credit_data = $c->model('ArtistCredit');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    my $ac = $artist_credit_data->get_by_id(135345);
+    is_deeply( $artist_credit_data->related_entities($ac), {recording => [], release => [ 59662 ], release_group => [ 403214 ]} );
+};
+
 test all => sub {
 
 my $test = shift;
@@ -247,15 +286,15 @@ ok(defined $ac);
 ok($ac > 1);
 
 my $name = $test->c->sql->select_single_value('
-    SELECT name FROM artist_name
-    WHERE id=(SELECT name FROM artist_credit WHERE id=?)', $ac);
-is($name, "Massive Attack and Portishead", "Artist Credit name correctly saved in artist_name table");
+    SELECT name FROM artist_credit WHERE id=?', $ac);
+is($name, "Massive Attack and Portishead", "Artist Credit name correctly saved in artist_credit table");
 
 $test->c->sql->begin;
 $artist_credit_data->merge_artists(3, [ 2 ]);
 $test->c->sql->commit;
 
-$ac = $artist_credit_data->get_by_id(1);
+$ac = $artist_credit_data->get_by_id($test->c->sql->select_single_value("SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie'"));
+
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
 
@@ -275,6 +314,22 @@ ok($ac > 1);
 
 $ac = $artist_credit_data->get_by_id($ac);
 is(scalar $ac->all_names, 2);
+
+my $normalized_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => ' & ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+my $messy_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => '      &   ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+is($normalized_ac, $messy_ac);
 
 };
 

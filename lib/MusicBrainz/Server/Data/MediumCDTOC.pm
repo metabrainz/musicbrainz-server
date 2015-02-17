@@ -7,6 +7,11 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     hash_to_row
 );
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_MODBOT
+    $EDIT_SET_TRACK_LENGTHS
+    $AUTO_EDITOR_FLAG
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium_cdtoc' };
@@ -89,27 +94,36 @@ sub insert
 {
     my ($self, $hash) = @_;
     my $id = $self->sql->insert_row('medium_cdtoc', $hash, 'id');
-    $self->c->model('CDStub')->delete(
-        $self->sql->select_single_value(
-            'SELECT discid FROM cdtoc WHERE id = ?',
-            $hash->{cdtoc}
-        )
+    my $discid = $self->sql->select_single_value(
+        'SELECT discid FROM cdtoc WHERE id = ?',
+        $hash->{cdtoc}
     );
+    $self->c->model('CDStub')->delete($discid);
 
     # If all track times are undefined, then set them to the CDTOC
-    my ($tracklist_id, $set_track_lengths) = @{ $self->sql->select_single_row_array(
-        'SELECT track.tracklist, bool_and(track.length IS NULL)
+    my ($medium_id, $set_track_lengths) = @{ $self->sql->select_single_row_array(
+        'SELECT track.medium, bool_and(track.length IS NULL)
            FROM track
-           JOIN medium ON track.tracklist = medium.tracklist
-          WHERE medium.id = ?
-       GROUP BY track.tracklist',
+          WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
+       GROUP BY track.medium',
         $hash->{medium}
     ) || [ undef, 0 ] };
 
     if ($set_track_lengths) {
-        $self->c->model('Tracklist')->set_lengths_to_cdtoc(
-            $tracklist_id,
-            $hash->{cdtoc}
+        my $edit = $self->c->model('Edit')->create(
+            editor_id => $EDITOR_MODBOT,
+            privileges => $AUTO_EDITOR_FLAG,
+            edit_type => $EDIT_SET_TRACK_LENGTHS,
+            medium_id => $medium_id,
+            cdtoc_id => $hash->{cdtoc}
+        );
+
+        $self->c->model('EditNote')->add_note(
+            $edit->id,
+            {
+                editor_id => $EDITOR_MODBOT,
+                text => "Times set automatically by adding discid $discid"
+            }
         );
     }
 

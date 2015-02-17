@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Maurits Meulenbelt <email address hidden>, 2012.
-# Nikolai Prokoschenko <email address hidden>, 2011.
+# Maurits Meulenbelt <email address hidden>, 2012
+# Maurits Meulenbelt <email address hidden>, 2013-2014
+# Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-13 13:15+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -360,6 +360,11 @@ msgstr "Kaukasische talen"
 msgid "Cebuano"
 msgstr "Cebuano"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr "Keltiberisch"
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -369,6 +374,11 @@ msgstr "Keltische talen"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Meso-Amerikaanse talen"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "Centraal-Okinawaans"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -575,7 +585,7 @@ msgstr "Duala"
 msgid "Dutch"
 msgstr "Nederlands"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Middelnederlands (ca. 1050 - 1350)"
@@ -763,7 +773,7 @@ msgstr "Gbaya"
 #. frequency:1 iso_code_3:gez
 #: DB:language/name:146
 msgid "Geez"
-msgstr "Ge'ez (Gi'iz of Ethiopisch)"
+msgstr "Ge’ez (Gi’iz of Ethiopisch)"
 
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
@@ -780,7 +790,7 @@ msgstr "Duits"
 msgid "German, Low"
 msgstr "Nederduits"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Middelhoogduits (ca. 1050 - 1500)"
@@ -853,7 +863,7 @@ msgstr "Gujarati"
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
 msgid "Gwich'in"
-msgstr "Gwich'in"
+msgstr "Gwich’in"
 
 #. frequency:1 iso_code_3:hai
 #: DB:language/name:163
@@ -970,6 +980,11 @@ msgstr "Indo-Europese talen"
 msgid "Indonesian"
 msgstr "Indonesisch"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "Ingrisch"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1028,7 +1043,7 @@ msgstr "Italiaans"
 #. frequency:1 iso_code_3:jam
 #: DB:language/name:2980
 msgid "Jamaican Creole English"
-msgstr ""
+msgstr "Jamaicaans Creools"
 
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
@@ -1125,6 +1140,11 @@ msgstr "Kawi"
 msgid "Kazakh"
 msgstr "Kazachs"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "Ostjaaks (ook Chantisch of Chanti)"
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1185,7 +1205,7 @@ msgstr "Kongo"
 msgid "Konkani"
 msgstr "Konkani"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Koreaans"
@@ -1248,7 +1268,7 @@ msgstr "Lahnda"
 #. frequency:1 iso_code_3:lkt
 #: DB:language/name:3880
 msgid "Lakota"
-msgstr ""
+msgstr "Lakota"
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
@@ -1420,6 +1440,11 @@ msgstr "Manipuri (Meitei)"
 msgid "Manobo languages"
 msgstr "Manobo-talen"
 
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "Wogoels (Wogoels: маньси; mansi of моаньсь; moans, Russisch: мансийский; mansiiski)"
+
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
@@ -1473,7 +1498,7 @@ msgstr "Mende"
 #. frequency:1 iso_code_3:mic
 #: DB:language/name:271
 msgid "Mi'kmaq"
-msgstr "Mi'kmaq"
+msgstr "Mi’kmaq"
 
 #. frequency:1 iso_code_3:nan
 #: DB:language/name:4663
@@ -1538,7 +1563,7 @@ msgstr "Munda-talen"
 #. frequency:1 iso_code_3:nqo
 #: DB:language/name:478
 msgid "N'Ko"
-msgstr "N'Ko"
+msgstr "N’Ko"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:291
@@ -1625,7 +1650,7 @@ msgstr "Oudnoors"
 msgid "North American Indian languages"
 msgstr "Noord-Amerikaanse Indiaanse talen"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Noors"
@@ -1823,7 +1848,7 @@ msgstr "Rapanui (Rapa Nui)"
 #. frequency:1 iso_code_3:rar
 #: DB:language/name:347
 msgid "Rarotongan"
-msgstr "Cookeiland Maori (Kūki 'Āirani)"
+msgstr "Cookeiland Maori (Kūki ’Āirani)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:348

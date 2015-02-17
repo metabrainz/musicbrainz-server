@@ -55,13 +55,6 @@ around run_test => sub {
     $self->c->sql->begin;
     $self->_clear_cache_aware_c;
 
-    my (undef, $index_filename) = File::Temp::tempfile();
-    {
-        no warnings 'redefine';
-        use DBDefs;
-        *DBDefs::WIKITRANS_INDEX_FILE = sub { $index_filename };
-    }
-
     $self->$orig(@_);
 
     if ($self->c->sql->transaction_depth > 1 ||
@@ -70,7 +63,6 @@ around run_test => sub {
     }
 
     $self->c->sql->rollback;
-    unlink $index_filename;
 };
 
 1;

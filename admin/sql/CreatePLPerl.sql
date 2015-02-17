@@ -10,7 +10,7 @@ AS $$
     use JSON::XS;
     my @path = split '/', $_[1];
     my $obj = decode_json(encode('utf-8', $_[0]));
-    while(@path) {
+    while (@path) {
         my $comp = shift(@path);
         if (!exists $obj->{$comp}) {
             return undef;
@@ -33,5 +33,6 @@ CREATE INDEX edit_add_relationship_link_type on EDIT (extract_path_value(data, '
 CREATE INDEX edit_edit_relationship_link_type_link on EDIT (extract_path_value(data, 'link/link_type/id')) WHERE type = 91;
 CREATE INDEX edit_edit_relationship_link_type_new on EDIT (extract_path_value(data, 'new/link_type/id')) WHERE type = 91;
 CREATE INDEX edit_edit_relationship_link_type_old on EDIT (extract_path_value(data, 'old/link_type/id')) WHERE type = 91;
+CREATE INDEX edit_remove_relationship_link_type on EDIT (extract_path_value(data, 'relationship/link/type/id')) WHERE type = 92;
 
 COMMIT;

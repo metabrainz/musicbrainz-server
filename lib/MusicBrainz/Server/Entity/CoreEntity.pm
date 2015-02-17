@@ -10,6 +10,18 @@ has 'gid' => (
     isa => 'Str'
 );
 
+has 'gid_redirects' => (
+    is => 'rw',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_gid_redirect => 'push',
+        clear_gid_redirects => 'clear',
+        all_gid_redirects => 'elements',
+    }
+);
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'

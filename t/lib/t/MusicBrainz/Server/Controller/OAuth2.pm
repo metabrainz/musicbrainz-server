@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::OAuth2;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_set );
 use utf8;
 
 use URI;
@@ -290,7 +291,7 @@ test 'Exchange authorization code' => sub {
     # Missing client_secret
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
-        grant_type => 'authorization_code', 
+        grant_type => 'authorization_code',
         redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
         code => $code,
     });
@@ -414,7 +415,7 @@ test 'Exchange refresh code' => sub {
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
-        grant_type => 'refresh_token', 
+        grant_type => 'refresh_token',
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
@@ -445,6 +446,90 @@ test 'Exchange refresh code' => sub {
     ok($response->{access_token});
     ok($response->{refresh_token});
     ok($response->{expires_in});
+};
+
+test 'Token info' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my ($code, $response);
+
+    # Unknown token
+    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 400);
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_token');
+
+    # Expired token
+    $code = "3fxf40Z5r6K78D9b031xaw";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 400);
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_token');
+
+    # Valid token
+    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    ok($response->{expires_in});
+    delete $response->{expires_in};
+    is($response->{audience}, 'id-desktop');
+    is($response->{issued_to}, 'id-desktop');
+    is($response->{access_type}, 'offline');
+    is($response->{token_type}, 'Bearer');
+    cmp_set(
+        [ split /\s+/, $response->{scope} ],
+        [ qw( profile collection rating email tag submit_barcode submit_isrc ) ]
+    );
+};
+
+test 'User info' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my ($code, $response);
+
+    # Unknown token
+    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 401);
+
+    # Expired token
+    $code = "3fxf40Z5r6K78D9b031xaw";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 401);
+
+    # Valid token with email
+    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    is_deeply($response, {
+        sub => 'editor1',
+        profile => 'http://localhost/user/editor1',
+        website => 'http://www.mysite.com/',
+        gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
+        email => 'me@mysite.com',
+        email_verified => JSON::true,
+    });
+
+    # Valid token without email
+    $code = "7Fjfp0ZBr1KtDRbnfVdmIw";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    is_deeply($response, {
+        sub => 'editor1',
+        profile => 'http://localhost/user/editor1',
+        website => 'http://www.mysite.com/',
+        gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
+    });
 };
 
 1;

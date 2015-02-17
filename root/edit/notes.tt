@@ -1,3 +1,7 @@
+[%- MACRO note_anchor(edit, loop) BLOCK -%]
+note-[%- edit.id -%]-[%- loop.count() -%]
+[%- END -%]
+
 [% BLOCK votename %]
     [%- FOR vote=edit.votes -%]
         [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
@@ -14,16 +18,16 @@
 <div class="edit-notes">
     [% IF edit.edit_notes.size %]
         [% FOR note=edit.edit_notes %]
-            <div class="edit-note">
+            <div class="edit-note" id="[% note_anchor(edit, loop) %]">
                 <h3 class="[%- PROCESS votename -%]">
                     [%- link_entity(note.editor) -%]
-                    [%- FOR vote=edit.votes; 
-                        IF (vote.editor_id == note.editor_id) && 
-                           !vote.superseded && 
-                           (vote.vote_name == 'No' || vote.vote_name == 'Yes'); 
-                        '<div class="voting-icon"></div>'; LAST; 
+                    [%- FOR vote=edit.votes;
+                        IF (vote.editor_id == note.editor_id) &&
+                           !vote.superseded &&
+                           (vote.vote_name == 'No' || vote.vote_name == 'Yes');
+                        '<div class="voting-icon"></div>'; LAST;
                     END; END; -%]
-                    <span class="date">[%- UserDate.format(note.post_time) -%]</span>
+                    <a href="#[% note_anchor(edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
                     [%- editor_type_info(note.editor) -%]
                 </h3>
                 <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
@@ -40,7 +44,7 @@
     [% IF !server_details.read_only %]
       [% IF edit.editor_may_add_note(c.user)  %]
           <div class="add-edit-note edit-note"
-              [%- 'style="display: none"' IF hide -%]>
+              [% 'style="display: none"' IF hide -%]>
               <h3 class="owner">[% link_entity(c.user) %]</h3>
               <div class="edit-note-text">
                   <textarea class="edit-note" rows="5" placeholder="[% l('Add an edit note') %]"

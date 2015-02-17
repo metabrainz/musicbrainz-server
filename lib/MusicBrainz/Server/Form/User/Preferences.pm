@@ -20,6 +20,7 @@ has_field 'email_on_vote' => ( type => 'Boolean' );
 
 has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );
+has_field 'subscribe_to_created_series' => ( type => 'Boolean' );
 
 has_field 'show_gravatar' => ( type => 'Boolean' );
 
@@ -40,6 +41,7 @@ has_field 'timezone' => (
 
 sub options_datetime_format
 {
+    my $c = shift->ctx;
     my @allowed_datetime_formats = (
         '%Y-%m-%d %H:%M %Z',
         '%c',
@@ -55,7 +57,8 @@ sub options_datetime_format
         '%m.%d.%Y %H:%M',
     );
 
-    my $now = DateTime->now;
+    my $now = DateTime->now();
+    $now->set_locale($c->stash->{current_language} // 'en');
 
     my @options;
     foreach my $format (@allowed_datetime_formats) {

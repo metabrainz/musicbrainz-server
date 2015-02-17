@@ -16,7 +16,7 @@
           </thead>
           <tbody>
             [% FOR artist=watching %]
-              <tr class="[% loop.count % 2 == 0 ? 'ev' : '' %]">
+              <tr class="[% loop.parity %]">
                 <td>
                   <input name="remove" value="[% artist.id %]" type="checkbox" />
                 </td>

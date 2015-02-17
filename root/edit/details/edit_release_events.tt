@@ -21,7 +21,7 @@
     <tr>
       <td>[% link_entity(re.release) %]</td>
       <td>[% re.date.format %]</td>
-      <td>[% re.country.name %]</td>
+      <td>[% link_entity(re.country) IF re.country %]</td>
       <td>[% link_entity(re.label) IF re.label_id %]</td>
       <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
@@ -42,7 +42,7 @@
     <tr>
       <td>[% link_entity(re.release) %]</td>
       <td>[% re.date.format %]</td>
-      <td>[% re.country.name %]</td>
+      <td>[% link_entity(re.country) IF re.country %]</td>
       <td>[% link_entity(re.label) IF re.label_id %]</td>
       <td>[% re.catalog_number | html %]</td>
       <td>[% re.barcode %]</td>
@@ -69,8 +69,8 @@
         [% re.date.new.format %]
       </td>
       <td>
-        [% re.country.old.name %]<br />
-        [% re.country.new.name %]<br />
+        [% link_entity(re.country.old) IF re.country.old %]<br />
+        [% link_entity(re.country.new) IF re.country.new %]<br />
       </td>
       <td>
         [% link_entity(re.label.old) IF re.label_id.old %]<br />

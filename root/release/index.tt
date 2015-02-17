@@ -1,128 +1,73 @@
+[% BLOCK layout_head %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(release.comment)) IF release.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(release.release_group.type_name)) IF release.release_group.type_name ~%]
+    [%~ meta_desc.push(l('Format:') _ ' ' _ html_escape(release.combined_format_name)) IF release.combined_format_name ~%]
+    [%~ year = release.events.slice(0,0).0.date.year IF release.events ~%]
+    [%~ IF year ~%]
+        [% meta_desc.push(l('Year:') _ ' ' _ html_escape(year)) ~%]
+    [%~ END ~%]
+    [%~ IF release.labels ~%]
+        [%~ labels = [] ~%]
+        [%~ FOR i=release.labels ~%]
+            [%~ labels.push( (i.label.name ? i.label.name : "[unknown]") _ ( i.catalog_number ? (' (' _ i.catalog_number _ ')') : "")) ~%]
+        [%~ END ~%]
+        [%~ meta_desc.push((labels.size > 1 ? l('Labels:') : l('Label:')) _ ' ' _ html_escape(comma_only_list(labels))) ~%]
+    [%~ END ~%]
+    [%~ meta_desc.push(l('Barcode:') _ ' ' _ html_escape(release.barcode.format)) IF release.barcode ~%]
+    [%~ meta_desc.push(l('Length:') _ ' ' _ html_escape(format_length(release.length))) IF release.length ~%]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
+[% END %]
+
 [%- WRAPPER 'release/layout.tt' page='index' -%]
-    [%- INCLUDE 'release/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
-    <table class="tbl">
+    <button type="button" id="toggle-credits" class="btn-link"></button>
+
+    [%~ PROCESS 'components/medium.tt' ~%]
+
+    [% FOR medium IN release.all_mediums %]
+      <table class="tbl medium">
         <thead>
-            <tr>
-                <th class="pos t">#</th>
-                <th>
-                  <span style="float: right; font-weight: normal; padding-right: 1em;">
-                    <a style="display: none;" class="bottom-credits" href="">[% l('Display Credits at Bottom') %]</a>
-                    <a style="display: none;" class="inline-credits" href="">[% l('Display Credits Inline') %]</a>
-                    <input style="display: none;" type="checkbox" id="bottom-credits" />
-                  </span>
-                  [% l('Title') %]
-                </th>
-                [%- IF show_artists -%]
-                    <th>[% l('Artist') %]</th>
-                [%- END -%]
-                <th class="rating c">[% l('Rating') %]</th>
-                <th class="treleases">[% l('Length') %]</th>
-            </tr>
+          <tr[% ' class="mp"' IF medium.edits_pending %]>
+            <th colspan="[% 4 + (medium.includes_video ? 1 : 0) + (medium.has_multiple_artists ? 1 : 0) %]">
+              <a class="expand-medium" id="disc[% medium.position %]" data-medium-id="[% medium.id %]"
+                 href="[% c.uri_for_action('/release/show', [medium.release.gid]) _
+                          '/disc/' _ medium.position _ '#disc' _ medium.position %]">
+                <span class="expand-triangle">
+                  [% medium.tracks.size ? '&#x25BC;' : '&#x25B6;' %]
+                </span>
+                [% medium.position_and_name %]
+              </a>
+            </th>
+          </tr>
         </thead>
-        <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
-        [%- FOR medium=release.mediums -%]
-            <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
-                    [% rdfa_medium_in_release(medium) %]
-                </td>
-            </tr>
-            <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-                <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-            -->
-                [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
-        [%- END -%]
-        </tbody>
-    </table>
-    <script type="text/javascript">
-    $(function() {
-        MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
-
-        var $bottom_tables = $("table.details");
-        var $inline_ars = $("table.tbl div.ars");
-
-        function switchToInlineCredits() {
-            $bottom_tables.each(function(i, table) {
-                var $table = $(table);
-                var $trs = $table.find("tr");
-
-                $trs.each(function(j, tr) {
-                    var $tr = $(tr);
-
-                    $tr.find("div.release-rel").length == 0
-                        ? $tr.hide() : $tr.find("div.track-rel").hide();
-                });
-
-                if ($trs.filter(":visible").length == 0)
-                    $table.hide();
-            });
-            $inline_ars.show();
-        }
-
-        function switchToBottomCredits() {
-            $bottom_tables.show().find("tr, div.track-rel").show();
-            $inline_ars.hide();
-        }
-
-        $("a.bottom-credits, a.inline-credits").bind("click.mb", function(event) {
-            $("#bottom-credits")
-                .prop("checked", !$("#bottom-credits").is(":checked"))
-                .trigger("change");
-            event.preventDefault();
-            return false;
-        });
-
-        $("#bottom-credits").change(function() {
-            $("a.bottom-credits").toggle(!this.checked);
-            $("a.inline-credits").toggle(this.checked);
-            this.checked ? switchToBottomCredits() : switchToInlineCredits();
-            $("#no-relationships")
-                .toggle($bottom_tables.filter(":visible").length == 0);
-        }).trigger("change");
-    });
-    </script>
-
-    <h2 class="relationships">[% l("Relationships") %]</h2>
-
-    [% FOR group=combined_rels.pairs %]
-        <table class="details" style="width: 100%; margin-bottom: 1em;">
-        [%- FOREACH key IN group.value -%]
-            <tr>
-                <th>[% key.phrase %]:</th>
-                <td>
-                    [% release_rels = 0 %]
-                    [% FOREACH item IN key.items %]
-                        [% release_rels = 1 IF item.release %]
-                        [% IF item.tracks.size %]
-                          <div class="track-rel">
-                          [% relationship_target_links(item.rel) %]
-                            <span class="comment">
-                              ([% ln('track {tracks}', 'tracks {tracks}',
-                                    item.track_count, { tracks => item.tracks })
-                                %])
-                            </span>
-                          </div>
-                        [% END %]
-                    [% END %]
-                    [% IF release_rels %]
-                      [% FOREACH item IN key.items %]
-                          [% IF item.release %]
-                          <div class="release-rel">
-                            [% relationship_target_links(item.rel) %]
-                            [% relationship_edit_links(item.rel) -%]
-                          </div>
-                          [% END %]
-                      [% END %]
-                    [% END %]
-                </td>
-            </tr>
-        [%- END -%]
-        </table>
+        [% medium_body(medium) IF medium.tracks.size %]
+      </table>
     [% END %]
 
-    <p id="no-relationships" style="display: none;">
-        [% l('{link} has no relationships.', { link => link_entity(release) }) -%]
-    </p>
+    <div id="bottom-credits">
+      <h2>[% l('Credits') %]</h2>
 
+      [% FOR medium IN release.all_mediums %]
+        [% IF medium.combined_track_relationships.size %]
+          [% medium_credits(medium) %]
+        [% END %]
+      [% END %]
+
+      [%- IF release.relationships.size -%]
+        <div id="release-relationships">
+          <h3>[% l('Release') %]</h3>
+          [%- INCLUDE "components/relationships.tt" source=release no_relationships_heading=1 -%]
+        </div>
+      [%- END -%]
+
+      [%- IF release.release_group.relationships.size -%]
+        <div id="release-group-relationships">
+          <h3>[% l('Release Group') %]</h3>
+          [%- INCLUDE "components/relationships.tt" source=release.release_group no_relationships_heading=1 -%]
+        </div>
+      [%- END -%]
+    </div>
 [%- END -%]

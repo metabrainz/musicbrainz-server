@@ -14,7 +14,7 @@ test 'basic label lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic label lookup',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -28,6 +28,14 @@ test 'basic label lookup' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                disambiguation => '',
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             ipis => [],
         });
 
@@ -40,7 +48,7 @@ test 'basic label lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic label lookup, inc=annotation',
-    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json (
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json(
         {
             id => "46f0f4cd-8aab-4b33-b698-f459faf64190",
             name => "Warp Records",
@@ -55,6 +63,14 @@ test 'basic label lookup, inc=annotation' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                disambiguation => '',
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             ipis => [],
         });
 
@@ -65,7 +81,7 @@ test 'label lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup, inc=aliases',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -79,6 +95,14 @@ test 'label lookup, inc=aliases' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                disambiguation => '',
+                "id"  => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             aliases => [
                 { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
             ],
@@ -92,7 +116,7 @@ test 'label lookup with releases, inc=media' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup with releases, inc=media',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -106,6 +130,14 @@ test 'label lookup with releases, inc=media' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                disambiguation => '',
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
@@ -115,13 +147,33 @@ test 'label lookup with releases, inc=media' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116822123",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [
-                        { format => "CD", "track-count" => 9, title => JSON::null },
-                        { format => "CD", "track-count" => 9, title => "Chestplate Singles" },
+                        {
+                            format => "CD",
+                            "track-count" => 9,
+                            position => 1,
+                            title => JSON::null
+                        },
+                        {
+                            format => "CD",
+                            "track-count" => 9,
+                            position => 2,
+                            title => "Chestplate Singles"
+                        },
                     ],
                 },
                 {
@@ -132,11 +184,27 @@ test 'label lookup with releases, inc=media' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2007-01-29",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116817020",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
-                    media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]
+                    media => [
+                        {
+                            format => "CD",
+                            "track-count" => 12,
+                            position => 1,
+                            title => JSON::null
+                        } ]
                 }
             ],
             ipis => [],

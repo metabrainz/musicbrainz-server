@@ -2,6 +2,8 @@ package MusicBrainz::Server::Data::CDStub;
 
 use Moose;
 use namespace::autoclean;
+
+use DBDefs;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
     load_subobjects
@@ -12,10 +14,10 @@ use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
+use Readonly;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-use Readonly;
 Readonly my $LIMIT_TOP_CDSTUBS => 1000;
 
 sub _table
@@ -32,14 +34,14 @@ sub _column_mapping
 {
     return {
         id => 'id',
-        title => 'title',  
+        title => 'title',
         artist => 'artist',
         date_added=> 'added',
         last_modified => 'last_modified',
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };
@@ -60,9 +62,9 @@ sub load_top_cdstubs
 {
     my ($self, $limit, $offset) = @_;
     my $query = "SELECT release_raw." . $self->_columns . ", discid
-                 FROM " . $self->_table . ", cdtoc_raw 
+                 FROM " . $self->_table . ", cdtoc_raw
                  WHERE release_raw.id = cdtoc_raw.release
-                 ORDER BY lookup_count desc, modify_count DESC 
+                 ORDER BY lookup_count desc, modify_count DESC
                  OFFSET ?
                  LIMIT  ?";
     return query_to_list_limited(
@@ -73,6 +75,8 @@ sub load_top_cdstubs
 sub increment_lookup_count
 {
     my ($self, $cdstub_id) = @_;
+    return if DBDefs->DB_READ_ONLY;
+
     $self->sql->auto_commit(1);
     $self->sql->do('UPDATE release_raw SET lookup_count = lookup_count + 1 WHERE id = ?', $cdstub_id);
 }
@@ -145,14 +149,14 @@ sub insert
 
     delete $cdstub_hash->{artist} if ($track_artists);
 
-    if(my @releases = $self->c->model('Release')->find_by_disc_id($cdtoc->discid)) {
+    if (my @releases = $self->c->model('Release')->find_by_disc_id($cdtoc->discid)) {
         MusicBrainz::Server::Exceptions::Duplicate->throw(
             message    => l('There are already MusicBrainz releases with this disc ID'),
             duplicates => \@releases
         );
     }
 
-    if(my $stub = $self->c->model('CDStub')->get_by_discid($cdtoc->discid)) {
+    if (my $stub = $self->c->model('CDStub')->get_by_discid($cdtoc->discid)) {
         MusicBrainz::Server::Exceptions::Duplicate->throw(
             message    => l('There is already a CD stub with this disc ID'),
             duplicates => [ $stub ]

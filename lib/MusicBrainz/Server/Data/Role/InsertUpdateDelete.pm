@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Data::Role::InsertUpdateDelete;
 use Moose::Role;
+use Class::Load qw( load_class );
+use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use namespace::autoclean;
 
 requires '_entity_class';
@@ -15,15 +17,14 @@ around 'insert' => sub {
     my ($orig, $self, @objs) = @_;
 
     my $class = $self->_entity_class;
-    Class::MOP::load_class($class);
+    load_class($class);
 
-    my %map = %{ $self->_column_mapping };
+    my $map = { reverse %{ $self->_column_mapping } };
     my @ret;
-    for my $obj (@objs)
-    {
-        my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-        my $id = $self->sql->insert_row($self->_table, \%row, $self->_id_column);
-        push @ret, $class->new( $self->_id_column => $id, %$obj);
+    for my $obj (@objs) {
+        my $row = hash_to_row($obj, $map);
+        my $id = $self->sql->insert_row($self->_table, $row, $self->_id_column);
+        push @ret, $class->new($self->_id_column => $id, %$obj);
     }
 
     return wantarray ? @ret : $ret[0];
@@ -33,9 +34,10 @@ sub update {}
 around 'update' => sub {
     my ($orig, $self, $id, $obj) = @_;
 
-    my %map = %{ $self->_column_mapping };
-    my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-    $self->sql->update_row($self->_table, \%row, { $self->_id_column => $id });
+    my $row = hash_to_row($obj, { reverse %{ $self->_column_mapping } });
+    if (%$row) {
+        $self->sql->update_row($self->_table, $row, { $self->_id_column => $id });
+    }
 };
 
 sub delete {}

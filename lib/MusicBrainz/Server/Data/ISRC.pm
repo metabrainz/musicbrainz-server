@@ -38,7 +38,7 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::ISRC';
 }
 
-sub find_by_recording
+sub find_by_recordings
 {
     my $self = shift;
 
@@ -56,10 +56,10 @@ sub find_by_recording
 sub load_for_recordings
 {
     my ($self, @recordings) = @_;
-    my %id_to_recordings = object_to_ids (uniq @recordings);
+    my %id_to_recordings = object_to_ids(uniq @recordings);
     my @ids = keys %id_to_recordings;
     return unless @ids; # nothing to do
-    my @isrcs = $self->find_by_recording(@ids);
+    my @isrcs = $self->find_by_recordings(@ids);
 
     foreach my $isrc (@isrcs) {
         foreach my $recording (@{ $id_to_recordings{$isrc->recording_id} }) {

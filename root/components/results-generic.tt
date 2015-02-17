@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         [%- FOR entity=results -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             <td>[% link_entity(entity) %]</td>
             <td>[% artist_credit(entity.artist_credit) %]</td>
         </tr>

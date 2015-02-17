@@ -20,7 +20,7 @@ sub escape_query
 }
 
 # construct a lucene search query based on the args given and then pass it to a search server.
-# Return the complete XML document.
+# Return the complete XML document, or a redirect for x-accel-redirect handling.
 sub xml_search
 {
     my ($self, $resource, $args) = @_;
@@ -75,11 +75,11 @@ sub xml_search
             $query = "(" . join(" AND ", split /\s+/, $term) . ")";
         }
         if ($args->{artistid})
-        { 
+        {
             $query .= " AND arid:" . escape_query($args->{artistid});
         }
         else
-        { 
+        {
             my $term = escape_query($args->{artist});
             $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
@@ -143,7 +143,7 @@ sub xml_search
             }
         }
         if ($args->{releaseid})
-        { 
+        {
             $query .= " AND reid:" . escape_query($args->{releaseid});
         }
         else
@@ -184,8 +184,8 @@ sub xml_search
     }
     else
     {
-        return { 
-            error => "Invalid resource $resource.", 
+        return {
+            error => "Invalid resource $resource.",
             code  => HTTP_BAD_REQUEST
         };
     }
@@ -194,35 +194,41 @@ sub xml_search
     # In case we have a blank query
     if ($query =~ /^\s*$/)
     {
-        return { 
-            error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.", 
+        return {
+            error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.",
             code  => HTTP_BAD_REQUEST
         };
     }
 
     my $format = ($args->{fmt} // "") eq "json" ? "jsonnew" : "xml";
 
-    my $url = 'http://' . DBDefs->LUCENE_SERVER . "/ws/2/$resource/?" .
+    my $url_ext = "/ws/2/$resource/?" .
               "max=$limit&type=$resource&fmt=$format&offset=$offset&query=". uri_escape_utf8($query);
-    my $response = $self->c->lwp->get($url);
-    if ( $response->is_success )
-    {
-        return { xml => $response->decoded_content };
-    }
-    else
-    {
-        if ($response->code == HTTP_BAD_REQUEST)
+
+    if (DBDefs->LUCENE_X_ACCEL_REDIRECT) {
+        return { redirect_url => '/internal/search/' . DBDefs->LUCENE_SERVER . $url_ext }
+    } else {
+        my $url = 'http://' . DBDefs->LUCENE_SERVER . $url_ext;
+        my $response = $self->c->lwp->get($url);
+        if ( $response->is_success )
         {
-            return {
-                error => "Search server could not complete query: Bad request",
-                code  => HTTP_BAD_REQUEST
-            }
+            return { xml => $response->decoded_content };
         }
         else
         {
-            return {
-                error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
-                code  => HTTP_BAD_REQUEST
+            if ($response->code == HTTP_BAD_REQUEST)
+            {
+                return {
+                    error => "Search server could not complete query: Bad request",
+                    code  => HTTP_BAD_REQUEST
+                }
+            }
+            else
+            {
+                return {
+                    error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
+                    code  => HTTP_SERVICE_UNAVAILABLE
+                }
             }
         }
     }

@@ -6,19 +6,14 @@ use MusicBrainz::Server::Translation::Relationships qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'LinkType',
+    sort_criterion => 'name',
+};
+
 has 'gid' => (
     is => 'rw',
     isa => 'Str',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'LinkType',
 );
 
 has 'entity0_type' => (
@@ -56,14 +51,14 @@ sub l_reverse_link_phrase {
     return l($self->reverse_link_phrase);
 }
 
-has 'short_link_phrase' => (
+has 'long_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
 
-sub l_short_link_phrase {
+sub l_long_link_phrase {
     my $self = shift;
-    return l($self->short_link_phrase);
+    return l($self->long_link_phrase);
 }
 
 has 'description' => (
@@ -76,27 +71,9 @@ sub l_description {
     return l($self->description);
 }
 
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
 has 'priority' => (
     is => 'rw',
     isa => 'Int',
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[LinkType]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
 );
 
 has 'attributes' => (
@@ -112,10 +89,48 @@ has 'attributes' => (
     }
 );
 
-sub sorted_children {
+has 'documentation' => (
+    is => 'rw'
+);
+
+has 'examples' => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        all_examples => 'elements',
+    }
+);
+
+sub published_examples {
     my $self = shift;
-    return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
+    return grep { $_->published } $self->all_examples;
 }
+
+has 'is_deprecated' => (
+    is => 'rw',
+    isa => 'Bool'
+);
+
+has 'has_dates' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
+has 'entity0_cardinality' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'entity1_cardinality' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'orderable_direction' => (
+    is => 'rw',
+    isa => 'Int',
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

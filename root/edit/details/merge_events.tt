@@ -1,0 +1,14 @@
+<table class="details merge-events">
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.old checkboxes='' no_ratings=1 ~%]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.new checkboxes='' no_ratings=1 ~%]
+    </td>
+  </tr>
+</table>

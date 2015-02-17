@@ -2,10 +2,11 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
+use MusicBrainz::DataStore::Redis;
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
-use Class::MOP;
+use Class::Load qw( load_class );
 use LWP::UserAgent;
 
 has 'cache_manager' => (
@@ -43,6 +44,8 @@ has lwp => (
         my $lwp = LWP::UserAgent->new;
         $lwp->env_proxy;
         $lwp->timeout(5);
+        # Space at end causes LWP to append the default libwww-perl/X.X bits
+        $lwp->agent('musicbrainz-server/'. DBDefs->DB_SCHEMA_SEQUENCE .' ('. DBDefs->WEB_SERVER .') ');
         return $lwp;
     }
 );
@@ -51,6 +54,13 @@ has data_prefix => (
     isa => 'Str',
     is => 'ro',
     default => 'MusicBrainz::Server::Data'
+);
+
+has redis => (
+    is => 'ro',
+    does => 'MusicBrainz::DataStore',
+    lazy => 1,
+    default => sub { MusicBrainz::DataStore::Redis->new }
 );
 
 sub model
@@ -62,7 +72,7 @@ sub model
         if ($name eq "Email") {
             $class_name =~ s/Data::Email/Email/;
         }
-        Class::MOP::load_class($class_name);
+        load_class($class_name);
         $model = $class_name->new(c => $self);
         $self->models->{$name} = $model;
     }

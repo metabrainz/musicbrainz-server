@@ -1,47 +1,52 @@
-[%- WRAPPER 'layout/guidelines.tt' -%]
-    [%- IF new -%]
-        [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
-        [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('Style_Guideline')})) -%]
-        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a disambiguation comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('Artist_Comment')})) -%]
-    [%- END -%]
-[%- END -%]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Artist'), doc_styleguide => doc_link('Style/Artist')}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-artist">
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
 
-       [% IF form.has_duplicates %]
+      [% IF form.has_duplicates %]
       <fieldset>
           <legend>[% l('Possible Duplicate Artists') %]</legend>
           <p>
-              <strong class='warning'>[% l('Warning:') %]</strong>
-              [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
-              <ul>
-                  [% FOREACH dupe=form.duplicates %]
-                  <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
-                  [% END %]
-              </ul>
+              [% l('We found the following artists with very similar names:') %]
           </p>
-
-          [%- WRAPPER 'layout/guidelines.tt' -%]
-              [%- create_guideline(l('You are required to enter a disambiguation comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
-              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish artists with the same name, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
-          [%- END -%]
-
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this artist is not duplicate, and I know what I am doing.')) %]
+          <ul>
+              [% FOREACH dupe=form.duplicates %]
+              <li>[% link_entity(dupe) %]</li>
+              [% END %]
+          </ul>
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new artist.')) %]
+          <p>
+              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this artist from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
+          </p>
       </fieldset>
       [% END %]
 
       <fieldset>
         <legend>[% l('Artist Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
-        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
+        [%- form_row_sortname_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
-        [%- form_row_select(r, 'country_id', l('Country:')) -%]
+        [% WRAPPER form_row %]
+          [% area_field = form.field('area.name') %]
+          <label for="id-edit-artist.area.name">[% l('Area:') %]</label>
+          <span id="area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+
+            [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
+            [% r.hidden('area_id', class => 'id') %]
+            [% r.text(area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'area.name') %]
+        [% END %]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
+        [%- form_row_text_list(r, 'isni_codes', l('ISNI codes:'), l('ISNI code')) -%]
       </fieldset>
 
       <fieldset>
@@ -50,11 +55,40 @@
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% WRAPPER form_row %]
+          [% begin_area_field = form.field('begin_area.name') %]
+          <label id="label-id-edit-artist.begin_area.name" for="id-edit-artist.begin_area.name">[% l('Begin Area:') %]</label>
+          <span id="begin_area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+            [% r.hidden(form.field('begin_area').field('gid'), { class => 'gid' }) %]
+            [% r.hidden('begin_area_id', class => 'id') %]
+            [% r.text(begin_area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'begin_area.name') %]
+        [% END %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
         [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
+        [% WRAPPER form_row %]
+          [% end_area_field = form.field('end_area.name') %]
+          <label id="label-id-edit-artist.end_area.name" for="id-edit-artist.end_area.name">[% l('End Area:') %]</label>
+          <span id="end_area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+            [% r.hidden(form.field('end_area').field('gid'), { class => 'gid' }) %]
+            [% r.hidden('end_area_id', class => 'id') %]
+            [% r.text(end_area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'end_area.name') %]
+        [% END %]
       </fieldset>
 
-      [% IF edit_artist_credits && artist_credits %]
+      [% PROCESS 'forms/relationship-editor.tt' %]
+
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'artist') %]
+      </fieldset>
+
+      [% IF artist_credits.size %]
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>
         <p>
@@ -75,12 +109,22 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
-    [%- sortname_bubble() -%]
+    [%- area_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-artist', 'button.submit.positive');
-</script>
+[%- guesscase_options() -%]
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    var edit = MB.Control.ArtistEdit();
+
+    [% IF artist -%]
+      edit.initializeArtistCreditPreviews("[% artist.gid %]");
+    [%- END %]
+
+    MB.utility.setDefaultAction("form.edit-artist", "button.submit.positive");
+  }());
+//]]></script>

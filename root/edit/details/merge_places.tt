@@ -1,0 +1,16 @@
+<table class="details merge-places">
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      [% INCLUDE 'components/places-list.tt' places=edit.display_data.old
+           no_checkboxes=1 %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      [% INCLUDE 'components/places-list.tt' places=edit.display_data.new
+           no_checkboxes=1 %]
+    </td>
+  </tr>
+</table>

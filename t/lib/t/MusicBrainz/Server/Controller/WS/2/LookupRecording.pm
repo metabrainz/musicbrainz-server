@@ -38,22 +38,52 @@ ws_test 'recording lookup with releases',
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="2">
-            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language><script>Jpan</script>
-                </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
-            </release>
-            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language><script>Latn</script>
-                </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
-            </release>
+          <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+            <title>サマーれげぇ!レインボー</title>
+            <status>Official</status>
+            <quality>normal</quality>
+            <text-representation>
+              <language>jpn</language><script>Jpan</script>
+            </text-representation>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
+          </release>
+          <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+            <title>Summer Reggae! Rainbow</title>
+            <status>Pseudo-Release</status>
+            <quality>normal</quality>
+            <text-representation>
+              <language>jpn</language><script>Latn</script>
+            </text-representation>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
+          </release>
         </release-list>
     </recording>
 </metadata>';
@@ -77,13 +107,28 @@ ws_test 'lookup recording with official singles',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>jpn</language><script>Jpan</script>
-                </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
-            </release>
+            <title>サマーれげぇ!レインボー</title>
+            <status>Official</status>
+            <quality>normal</quality>
+            <text-representation>
+              <language>jpn</language><script>Jpan</script>
+            </text-representation>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
+          </release>
         </release-list>
     </recording>
 </metadata>';
@@ -96,13 +141,33 @@ ws_test 'lookup recording with official singles (+media)',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>Official</status><date>2001-07-04</date><country>JP</country>
+                <title>サマーれげぇ!レインボー</title>
+                <status>Official</status>
                 <quality>normal</quality>
+                <date>2001-07-04</date>
+                <text-representation>
+                  <language>jpn</language>
+                  <script>Jpan</script>
+                </text-representation>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2001-07-04</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                            <name>Japan</name>
+                            <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4942463511227</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format>
                         <track-list count="3" offset="0">
-                            <track>
+                            <track id="4a7c2f1e-cf40-383c-a1c1-d1272d8234cd">
                                 <position>1</position><number>1</number>
                                 <title>サマーれげぇ!レインボー</title>
                                 <length>296026</length>
@@ -120,7 +185,7 @@ ws_test 'recording lookup with artists',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-        <title>the Love Bug</title><length>242226</length>
+        <title>the Love Bug</title><length>243000</length>
         <artist-credit>
             <name-credit joinphrase="♥">
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -142,9 +207,6 @@ ws_test 'recording lookup with puids and isrcs',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
-        <puid-list count="1">
-            <puid id="cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" />
-        </puid-list>
         <isrc-list count="1">
             <isrc id="JPA600102450" />
         </isrc-list>
@@ -166,6 +228,16 @@ ws_test 'recording lookup with release relationships',
                     <title>An Inextricable Tale Audiobook</title>
                     <quality>normal</quality>
                     <date>2007-11-08</date>
+                    <country>US</country>
+                    <release-event-list count="1">
+                      <release-event>
+                        <date>2007-11-08</date>
+                        <area id="489ce91b-6658-3307-9877-795b68554c98">
+                          <name>United States</name><sort-name>United States</sort-name>
+                          <iso-3166-1-code-list><iso-3166-1-code>US</iso-3166-1-code></iso-3166-1-code-list>
+                        </area>
+                      </release-event>
+                    </release-event-list>
                     <barcode>634479663338</barcode>
                 </release>
             </relation>

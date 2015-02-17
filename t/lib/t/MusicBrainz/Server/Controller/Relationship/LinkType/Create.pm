@@ -6,8 +6,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, privs)
-  VALUES (1, 'editor1', 'pass', 'editor1@example.com', 255)
+INSERT INTO editor (id, name, password, email, privs, ha1, email_confirm_date) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', 255, '16a4862191803cb596ee4b16802bb7ee', now())
 EOSQL
 
     $test->mech->get('/login');
@@ -22,10 +21,11 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
     my $test = shift;
     my $mech = $test->mech;
 
-    my ($child_order, $name, $forward_lp, $reverse_lp, $short_lp, $priority) =
-        (1, 'Link type', 'Forward', 'Reverse', 'Short', 1);
+    my ($child_order, $name, $forward_lp, $reverse_lp, $long_lp, $priority, $entity0_cardinality, $entity1_cardinality) =
+        (1, 'Link type', 'Forward', 'Reverse', 'Short', 1, 0, 0);
 
     $mech->get_ok('/relationships/artist-artist/create');
+    html_ok($mech->content);
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
@@ -33,8 +33,10 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
                 'linktype.name' => $child_order,
                 'linktype.link_phrase' => $forward_lp,
                 'linktype.reverse_link_phrase' => $reverse_lp,
-                'linktype.short_link_phrase' => $short_lp,
-                'linktype.priority' => $priority
+                'linktype.long_link_phrase' => $long_lp,
+                'linktype.priority' => $priority,
+                'linktype.entity0_cardinality' => $entity0_cardinality,
+                'linktype.entity1_cardinality' => $entity1_cardinality,
             }
         );
         ok($mech->success);
@@ -48,9 +50,11 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
         for ( [ entity0_type => 'artist' ],
               [ entity1_type => 'artist' ],
               [ link_phrase => $forward_lp ],
-              [ short_link_phrase => $short_lp ],
+              [ long_link_phrase => $long_lp ],
               [ reverse_link_phrase => $reverse_lp ],
               [ child_order => $child_order ],
+              [ entity0_cardinality => $entity0_cardinality ],
+              [ entity1_cardinality => $entity1_cardinality ],
               [ priority => $priority ] );
 };
 

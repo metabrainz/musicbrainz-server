@@ -12,6 +12,10 @@ has_field 'barcode'  => (
     type => '+MusicBrainz::Server::Form::Field::Barcode',
 );
 
+has_field 'url'  => (
+    type => '+MusicBrainz::Server::Form::Field::URL',
+);
+
 has_field 'mbid'     => (
     type => '+MusicBrainz::Server::Form::Field::GID',
 );
@@ -28,12 +32,16 @@ has_field 'artist-ipi'     => (
     type => '+MusicBrainz::Server::Form::Field::IPI',
 );
 
+has_field 'artist-isni'     => (
+    type => '+MusicBrainz::Server::Form::Field::ISNI',
+);
+
 has_field 'label-ipi'     => (
     type => '+MusicBrainz::Server::Form::Field::IPI',
 );
 
-has_field 'puid' => (
-    type => '+MusicBrainz::Server::Form::Field::GID',
+has_field 'label-isni'     => (
+    type => '+MusicBrainz::Server::Form::Field::ISNI',
 );
 
 has_field 'discid' => (

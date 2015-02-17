@@ -1,13 +1,42 @@
-<form action="[% c.req.uri %]" method="post">
+[%~ javascript_required() ~%]
+
+<div class="various-artists warning" style="display: none;">
+    [%- warning_icon %]
+    <p>
+        [% l('<strong>Warning</strong>:') %]
+        [% l('You have used the {valink|Various Artists} special purpose artist on this recording.', { valink => va_doc_link }) %]
+    </p>
+    <p>
+        [% l('{valink|Various Artists} should very rarely be used on recordings, make sure that the artist has been entered correctly.', { valink => va_doc_link }) %]
+    </p>
+</div>
+
+[% script_manifest('edit.js') %]
+[% script_manifest('guess-case.js') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Recording'), doc_styleguide => doc_link('Style/Recording')}) -%]</p>
+
+<form action="[% c.req.uri %]" method="post" class="edit-recording">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
+      [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_artist_credit(form) -%]
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-      [%- form_row_text_long(r, 'length', l('Length:')) -%]
+      [%- IF !form.used_by_tracks || form.field('length').has_errors;
+            form_row_text_long(r, 'length', l('Length:'));
+          END -%]
+      [%- form_row_checkbox(r, 'video', l('Video')) -%]
+      [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
+    </fieldset>
+
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'recording') %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -16,8 +45,27 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form, 1) -%]
-    [%- guesscase_bubble() -%]
+    [%- artist_credit_table() -%]
+    [%- isrc_bubble(link_entity(recording)) -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    var artistCredit = MB.Control.initialize_artist_credit();
+
+    MB.Control.initialize_guess_case("recording", "id-edit-recording");
+
+    ko.computed(function () {
+        $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
+    });
+
+    MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
+
+    MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
+  }());
+//]]></script>

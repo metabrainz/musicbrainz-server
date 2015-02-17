@@ -8,14 +8,12 @@ sub query {
     "
         SELECT
             r.id AS release_id, rl.catalog_number,
-            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
         FROM
             release_label rl
             JOIN release r
             ON r.id = rl.release
-            JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
         WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}\$'
     "
 }

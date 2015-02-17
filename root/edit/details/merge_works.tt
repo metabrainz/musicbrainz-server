@@ -2,15 +2,15 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [% INCLUDE 'artist/works-list.tt' works=edit.display_data.old
-           no_prefix=1 no_ratings=1 %]
+      [% INCLUDE 'components/works-list.tt' works=edit.display_data.old
+           no_checkboxes=1 no_ratings=1 %]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [% INCLUDE 'artist/works-list.tt' works=[edit.display_data.new]
-            no_prefix=1 no_ratings=1 %]
+      [% INCLUDE 'components/works-list.tt' works=[edit.display_data.new]
+            no_checkboxes=1 no_ratings=1 %]
     </td>
   </tr>
 </table>

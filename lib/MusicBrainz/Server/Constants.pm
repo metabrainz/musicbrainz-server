@@ -6,6 +6,7 @@ use warnings;
 use base 'Exporter';
 
 use Readonly;
+use DateTime::Duration;
 
 sub _get
 {
@@ -21,6 +22,7 @@ our %EXPORT_TAGS = (
     edit_type       => _get(qr/^EDIT_/),
     expire_action   => _get(qr/^EXPIRE_/),
     quality         => _get(qr/^QUALITY_/),
+    alias           => _get(qr/^EDIT_.*_ALIAS/),
     annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic        => _get(qr/^EDIT_HISTORIC/),
     editor          => _get(qr/^EDITOR_/),
@@ -30,7 +32,8 @@ our %EXPORT_TAGS = (
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG
+            $BANNER_EDITOR_FLAG )
     ],
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
@@ -49,12 +52,18 @@ our %EXPORT_TAGS = (
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
-        $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
-        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $REQUIRED_VOTES ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
+        $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
+        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
+        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
+        $BANNER_EDITOR_FLAG
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
+        $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
+        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
+        $EDIT_COUNT_LIMIT
+        %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
+        @FULL_TABLE_LIST          %ENTITIES            entities_with
+    ),
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -139,6 +148,15 @@ Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
+Readonly our $EDIT_PLACE_CREATE => 61;
+Readonly our $EDIT_PLACE_EDIT => 62;
+Readonly our $EDIT_PLACE_DELETE => 63;
+Readonly our $EDIT_PLACE_MERGE => 64;
+Readonly our $EDIT_PLACE_ADD_ANNOTATION => 65;
+Readonly our $EDIT_PLACE_ADD_ALIAS => 66;
+Readonly our $EDIT_PLACE_DELETE_ALIAS => 67;
+Readonly our $EDIT_PLACE_EDIT_ALIAS => 68;
+
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_DELETE => 73;
@@ -147,6 +165,15 @@ Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
 Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
+
+Readonly our $EDIT_AREA_CREATE => 81;
+Readonly our $EDIT_AREA_EDIT => 82;
+Readonly our $EDIT_AREA_DELETE => 83;
+Readonly our $EDIT_AREA_MERGE => 84;
+Readonly our $EDIT_AREA_ADD_ANNOTATION => 85;
+Readonly our $EDIT_AREA_ADD_ALIAS => 86;
+Readonly our $EDIT_AREA_DELETE_ALIAS => 87;
+Readonly our $EDIT_AREA_EDIT_ALIAS => 88;
 
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
@@ -157,6 +184,34 @@ Readonly our $EDIT_RELATIONSHIP_EDIT_LINK_TYPE => 95;
 Readonly our $EDIT_RELATIONSHIP_ADD_TYPE => 96;
 Readonly our $EDIT_RELATIONSHIP_ATTRIBUTE => 97;
 Readonly our $EDIT_RELATIONSHIP_ADD_ATTRIBUTE => 98;
+Readonly our $EDIT_RELATIONSHIPS_REORDER => 99;
+
+Readonly our $EDIT_SERIES_CREATE => 140;
+Readonly our $EDIT_SERIES_EDIT => 141;
+Readonly our $EDIT_SERIES_DELETE => 142;
+Readonly our $EDIT_SERIES_MERGE => 143;
+Readonly our $EDIT_SERIES_ADD_ANNOTATION => 144;
+Readonly our $EDIT_SERIES_ADD_ALIAS => 145;
+Readonly our $EDIT_SERIES_DELETE_ALIAS => 146;
+Readonly our $EDIT_SERIES_EDIT_ALIAS => 147;
+
+Readonly our $EDIT_INSTRUMENT_CREATE => 131;
+Readonly our $EDIT_INSTRUMENT_EDIT => 132;
+Readonly our $EDIT_INSTRUMENT_DELETE => 133;
+Readonly our $EDIT_INSTRUMENT_MERGE => 134;
+Readonly our $EDIT_INSTRUMENT_ADD_ANNOTATION => 135;
+Readonly our $EDIT_INSTRUMENT_ADD_ALIAS => 136;
+Readonly our $EDIT_INSTRUMENT_DELETE_ALIAS => 137;
+Readonly our $EDIT_INSTRUMENT_EDIT_ALIAS => 138;
+
+Readonly our $EDIT_EVENT_CREATE => 150;
+Readonly our $EDIT_EVENT_EDIT => 151;
+Readonly our $EDIT_EVENT_DELETE => 152;
+Readonly our $EDIT_EVENT_MERGE => 153;
+Readonly our $EDIT_EVENT_ADD_ANNOTATION => 154;
+Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
+Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
+Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
 
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
@@ -236,6 +291,8 @@ Readonly our $DONT_NAG_FLAG            => 16;
 Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
+Readonly our $LOCATION_EDITOR_FLAG     => 256;
+Readonly our $BANNER_EDITOR_FLAG       => 512;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
@@ -245,17 +302,646 @@ Readonly our $COVERART_FRONT_TYPE   => 1;
 Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
+Readonly our $VOCAL_ROOT_ID => 3;
+
+Readonly our $AREA_TYPE_COUNTRY => 1;
+Readonly our $AREA_TYPE_CITY => 3;
 
 Readonly our $REQUIRED_VOTES => 3;
+Readonly our $OPEN_EDIT_DURATION => 7;
+Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $EDIT_COUNT_LIMIT => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;
 Readonly our $ACCESS_SCOPE_TAG            => 4;
 Readonly our $ACCESS_SCOPE_RATING         => 8;
 Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
-Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
+
+Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
+
+Readonly our $SERIES_ORDERING_TYPE_AUTOMATIC => 1;
+Readonly our $SERIES_ORDERING_TYPE_MANUAL => 2;
+
+Readonly our %PART_OF_SERIES => (
+    event           => '707d947d-9563-328a-9a7d-0c5b9c3a9791',
+    recording       => 'ea6f0698-6782-30d6-b16d-293081b66774',
+    release         => '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
+    release_group   => '01018437-91d8-36b9-bf89-3f885d53b5bd',
+    work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
+);
+
+Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+
+Readonly our %ENTITIES => (
+    area => {
+        mbid => { relatable => 'overview', multiple => 1 },
+        custom_tabs => ['artists', 'labels', 'releases', 'places'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Area',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_AREA_ADD_ALIAS,
+            edit_edit_type => $EDIT_AREA_EDIT_ALIAS,
+            delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
+            search_hint_type => 3
+        },
+        removal     => { manual => 1 },
+        tags        => 1
+    },
+    artist => {
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
+        custom_tabs => ['releases', 'recordings', 'works', 'events'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Artist',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_ARTIST_ADD_ALIAS,
+            edit_edit_type => $EDIT_ARTIST_EDIT_ALIAS,
+            delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
+            search_hint_type => 3
+        },
+        ratings    => 1,
+        tags       => 1,
+        subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
+        removal     => { automatic => 1 }
+    },
+    event => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Event',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_EVENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_EVENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_EVENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        ratings    => 1,
+        tags       => 1,
+        removal     => { automatic => 1 },
+        collections => 1
+    },
+    instrument => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['releases', 'recordings'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Instrument',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_INSTRUMENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_INSTRUMENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        removal     => { manual => 1 },
+        tags        => 1
+    },
+    label => {
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Label',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_LABEL_ADD_ALIAS,
+            edit_edit_type => $EDIT_LABEL_EDIT_ALIAS,
+            delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        ratings    => 1,
+        tags       => 1,
+        subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
+        removal     => { manual => 1, automatic => 1 }
+    },
+    place => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['events', 'performances', 'map'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Place',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_PLACE_ADD_ALIAS,
+            edit_edit_type => $EDIT_PLACE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        tags       => 1,
+        removal     => { automatic => 1 }
+    },
+    recording => {
+        mbid => { relatable => 'overview', multiple => 1 },
+        custom_tabs => ['fingerprints'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Recording',
+        annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        artist_credits => 1,
+        report_filter => 1,
+        removal     => { manual => 1 }
+    },
+    release => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['discids', 'cover_art'],
+        edit_table => 1,
+        merging => 1,
+        model      => 'Release',
+        annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        tags       => 1,
+        artist_credits => 1,
+        removal     => { manual => 1 },
+        report_filter => 1,
+        collections => 1
+    },
+    release_group => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'ReleaseGroup',
+        type => { complex => 1 },
+        url        => 'release-group',
+        annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        artist_credits => 1,
+        report_filter => 1,
+        removal     => { automatic => 1 }
+    },
+    series => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Series',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_SERIES_ADD_ALIAS,
+            edit_edit_type => $EDIT_SERIES_EDIT_ALIAS,
+            delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
+        removal     => { automatic => 1 },
+        tags        => 1
+    },
+    url => {
+        mbid => { relatable => 'overview', multiple => 1, no_details => 1 },
+        edit_table => 1,
+        model => 'URL'
+    },
+    work => {
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Work',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_WORK_ADD_ALIAS,
+            edit_edit_type => $EDIT_WORK_EDIT_ALIAS,
+            delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        ratings    => 1,
+        tags       => 1,
+        report_filter => 1,
+        removal     => { automatic => 1 }
+    },
+    track => {
+        mbid => { multiple => 1 },
+        model      => 'Track',
+        artist_credits => 1
+    },
+    editor => {
+        model      => 'Editor',
+        subscriptions => { entity => 0 }
+    },
+    collection => {
+        mbid => { relatable => 0 },
+        table => 'editor_collection',
+        model      => 'Collection',
+        subscriptions => { entity => 1 }
+    },
+    cdstub => {
+        model => 'CDStub',
+    },
+    annotation => {
+        model => 'Annotation'
+    },
+    isrc => {
+        model => 'ISRC'
+    },
+    iswc => {
+        model => 'ISWC'
+    },
+    freedb => {
+        model => 'FreeDB'
+    },
+    tag => {
+        model => 'Tag'
+    }
+);
+
+sub entities_with {
+    my ($props, %opts) = @_;
+    if (ref($props) ne 'ARRAY') {
+        $props = [[$props]];
+    }
+    if (ref($props->[0]) ne 'ARRAY') {
+        $props = [$props];
+    }
+    my $extract_path = sub {
+        my ($entity, $path) = @_;
+        my $final = $entity;
+        for my $prop (@$path) {
+            if (exists $final->{$prop}) {
+                $final = $final->{$prop};
+            } else {
+                return;
+            }
+        }
+        return $final;
+    };
+
+    my @entity_types;
+    ENTITY: for my $entity_type (keys %ENTITIES) {
+        for my $prop (@$props) {
+            $extract_path->($ENTITIES{$entity_type}, $prop) or next ENTITY;
+        }
+        push @entity_types, $entity_type;
+    }
+
+    if (my $take = $opts{take}) {
+        if (ref($take) eq 'CODE') {
+            return map { $take->($_, $ENTITIES{$_}) } @entity_types;
+        }
+
+        if (ref($take) ne 'ARRAY') {
+            $take = [$take];
+        }
+        return map { $extract_path->($ENTITIES{$_}, $take) } @entity_types;
+    } else {
+        return @entity_types;
+    }
+}
+
+Readonly our @FULL_TABLE_LIST => qw(
+    artist_rating_raw
+    artist_tag_raw
+    cdtoc_raw
+    edit
+    edit_area
+    edit_artist
+    edit_event
+    edit_instrument
+    edit_label
+    edit_note
+    edit_place
+    edit_recording
+    edit_release
+    edit_release_group
+    edit_series
+    edit_url
+    edit_work
+    event_tag_raw
+    label_rating_raw
+    label_tag_raw
+    place_tag_raw
+    recording_rating_raw
+    recording_tag_raw
+    release_group_rating_raw
+    release_group_tag_raw
+    release_tag_raw
+    release_raw
+    series
+    series_alias
+    series_alias_type
+    series_annotation
+    series_gid_redirect
+    series_ordering_type
+    series_type
+    series_tag
+    series_tag_raw
+    track_raw
+    vote
+    work_rating_raw
+    work_tag_raw
+    annotation
+    application
+    area
+    area_type
+    area_alias
+    area_alias_type
+    area_annotation
+    area_gid_redirect
+    area_tag
+    area_tag_raw
+    country_area
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
+    artist
+    artist_alias
+    artist_alias_type
+    artist_annotation
+    artist_credit
+    artist_credit_name
+    artist_gid_redirect
+    artist_ipi
+    artist_isni
+    artist_meta
+    artist_tag
+    artist_type
+    autoeditor_election
+    autoeditor_election_vote
+    cdtoc
+    editor
+    editor_oauth_token
+    editor_preference
+    editor_language
+    editor_sanitised
+    editor_subscribe_artist
+    editor_subscribe_collection
+    editor_subscribe_editor
+    editor_subscribe_label
+    editor_subscribe_series
+    editor_watch_artist
+    editor_watch_preferences
+    editor_watch_release_group_type
+    editor_watch_release_status
+    event
+    event_alias
+    event_alias_type
+    event_annotation
+    event_gid_redirect
+    event_tag
+    event_type
+    gender
+    instrument
+    instrument_alias
+    instrument_alias_type
+    instrument_annotation
+    instrument_gid_redirect
+    instrument_type
+    instrument_tag
+    instrument_tag_raw
+    isrc
+    iswc
+    l_area_area
+    l_area_artist
+    l_area_event
+    l_area_instrument
+    l_area_label
+    l_area_place
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_series
+    l_area_url
+    l_area_work
+    l_artist_artist
+    l_artist_event
+    l_artist_instrument
+    l_artist_label
+    l_artist_place
+    l_artist_recording
+    l_artist_release
+    l_artist_release_group
+    l_artist_series
+    l_artist_url
+    l_artist_work
+    l_event_event
+    l_event_instrument
+    l_event_label
+    l_event_place
+    l_event_recording
+    l_event_release
+    l_event_release_group
+    l_event_series
+    l_event_url
+    l_event_work
+    l_instrument_instrument
+    l_instrument_label
+    l_instrument_place
+    l_instrument_recording
+    l_instrument_release
+    l_instrument_release_group
+    l_instrument_series
+    l_instrument_url
+    l_instrument_work
+    l_label_label
+    l_label_place
+    l_label_recording
+    l_label_release
+    l_label_release_group
+    l_label_series
+    l_label_url
+    l_label_work
+    l_place_place
+    l_place_recording
+    l_place_release
+    l_place_release_group
+    l_place_series
+    l_place_url
+    l_place_work
+    l_recording_recording
+    l_recording_release
+    l_recording_release_group
+    l_recording_series
+    l_recording_url
+    l_recording_work
+    l_release_group_release_group
+    l_release_group_series
+    l_release_group_url
+    l_release_group_work
+    l_release_release
+    l_release_release_group
+    l_release_series
+    l_release_url
+    l_release_work
+    l_series_series
+    l_series_url
+    l_series_work
+    l_url_url
+    l_url_work
+    l_work_work
+    label
+    label_alias
+    label_alias_type
+    label_annotation
+    label_gid_redirect
+    label_ipi
+    label_isni
+    label_meta
+    label_tag
+    label_type
+    language
+    link
+    link_attribute
+    link_attribute_credit
+    link_attribute_text_value
+    link_attribute_type
+    link_creditable_attribute_type
+    link_text_attribute_type
+    link_type
+    link_type_attribute_type
+    editor_collection
+    editor_collection_event
+    editor_collection_release
+    editor_collection_type
+    medium
+    medium_cdtoc
+    medium_format
+    orderable_link_type
+    place
+    place_alias
+    place_alias_type
+    place_annotation
+    place_gid_redirect
+    place_tag
+    place_type
+    recording
+    recording_annotation
+    recording_gid_redirect
+    recording_meta
+    recording_tag
+    release
+    release_annotation
+    release_country
+    release_gid_redirect
+    release_group
+    release_group_annotation
+    release_group_gid_redirect
+    release_group_meta
+    release_group_tag
+    release_group_primary_type
+    release_group_secondary_type
+    release_group_secondary_type_join
+    release_label
+    release_meta
+    release_coverart
+    release_packaging
+    release_status
+    release_tag
+    release_unknown_country
+    replication_control
+    script
+    tag
+    tag_relation
+    track
+    track_gid_redirect
+    medium_index
+    url
+    url_gid_redirect
+    work
+    work_alias
+    work_alias_type
+    work_annotation
+    work_attribute
+    work_attribute_type
+    work_attribute_type_allowed_value
+    work_gid_redirect
+    work_meta
+    work_tag
+    work_type
+
+    cover_art_archive.art_type
+    cover_art_archive.image_type
+    cover_art_archive.cover_art
+    cover_art_archive.cover_art_type
+    cover_art_archive.release_group_cover_art
+
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_instrument_example
+    documentation.l_area_label_example
+    documentation.l_area_place_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_series_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
+    documentation.l_artist_artist_example
+    documentation.l_artist_instrument_example
+    documentation.l_artist_label_example
+    documentation.l_artist_recording_example
+    documentation.l_artist_release_example
+    documentation.l_artist_release_group_example
+    documentation.l_artist_place_example
+    documentation.l_artist_series_example
+    documentation.l_artist_url_example
+    documentation.l_artist_work_example
+    documentation.l_instrument_instrument_example
+    documentation.l_instrument_label_example
+    documentation.l_instrument_place_example
+    documentation.l_instrument_recording_example
+    documentation.l_instrument_release_example
+    documentation.l_instrument_release_group_example
+    documentation.l_instrument_series_example
+    documentation.l_instrument_url_example
+    documentation.l_instrument_work_example
+    documentation.l_label_label_example
+    documentation.l_label_recording_example
+    documentation.l_label_release_example
+    documentation.l_label_release_group_example
+    documentation.l_label_place_example
+    documentation.l_label_series_example
+    documentation.l_label_url_example
+    documentation.l_label_work_example
+    documentation.l_place_place_example
+    documentation.l_place_recording_example
+    documentation.l_place_release_example
+    documentation.l_place_release_group_example
+    documentation.l_place_series_example
+    documentation.l_place_url_example
+    documentation.l_place_work_example
+    documentation.l_recording_recording_example
+    documentation.l_recording_release_example
+    documentation.l_recording_release_group_example
+    documentation.l_recording_series_example
+    documentation.l_recording_url_example
+    documentation.l_recording_work_example
+    documentation.l_release_group_release_group_example
+    documentation.l_release_group_series_example
+    documentation.l_release_group_url_example
+    documentation.l_release_group_work_example
+    documentation.l_release_release_example
+    documentation.l_release_release_group_example
+    documentation.l_release_series_example
+    documentation.l_release_url_example
+    documentation.l_release_work_example
+    documentation.l_series_series_example
+    documentation.l_series_url_example
+    documentation.l_series_work_example
+    documentation.l_url_url_example
+    documentation.l_url_work_example
+    documentation.l_work_work_example
+    documentation.link_type_documentation
+
+    statistics.statistic
+    statistics.statistic_event
+
+    wikidocs.wikidocs_index
+);
 
 =head1 NAME
 

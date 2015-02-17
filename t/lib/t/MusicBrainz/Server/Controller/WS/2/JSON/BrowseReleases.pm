@@ -17,12 +17,12 @@ test 'errors' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
     my $mech = $test->mech;
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
-    is ($mech->status, 404, 'browse releases via non-existent recording');
+    is($mech->status, 404, 'browse releases via non-existent recording');
 
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({ error => "Not Found" }));
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({ error => "Not Found" }));
 };
 
 test 'browse releases via artist (paging)' => sub {
@@ -30,7 +30,7 @@ test 'browse releases via artist (paging)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via artist (paging)',
-    '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' => encode_json (
+    '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' => encode_json(
         {
             "release-count" => 3,
             "release-offset" => 2,
@@ -50,6 +50,17 @@ test 'browse releases via artist (paging)' => sub {
                     },
                     date => "1999-09-23",
                     country => "US",
+                    "release-events" => [{
+                        date => "1999-09-23",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "489ce91b-6658-3307-9877-795b68554c98",
+                            "name" => "United States",
+                            "sort-name" => "United States",
+                            "iso_3166_1_codes" => ["US"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     asin => "B00001IVAI",
                     barcode => JSON::null,
                     disambiguation => "",
@@ -63,7 +74,7 @@ test 'browse releases via label' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via label',
-    '/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json (
+    '/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -83,10 +94,31 @@ test 'browse releases via label' => sub {
                     },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116822123",
                     media => [
-                        { format => "CD", "track-count" => 9, title => JSON::null },
-                        { format => "CD", "track-count" => 9, title => "Chestplate Singles" }],
+                        {
+                            format => "CD",
+                            position => 1,
+                            "track-count" => 9,
+                            title => JSON::null
+                        },
+                        {
+                            format => "CD",
+                            position => 2,
+                            "track-count" => 9,
+                            title => "Chestplate Singles"
+                        }],
                     asin => "B001IKWNCE",
                     disambiguation => "",
                     packaging => JSON::null,
@@ -106,8 +138,25 @@ test 'browse releases via label' => sub {
                     },
                     date => "2007-01-29",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116817020",
-                    media => [ { format => "CD", "track-count" => 12, title => JSON::null } ],
+                    media => [
+                        {
+                            format => "CD",
+                            position => 1,
+                            "track-count" => 12,
+                            title => JSON::null
+                        } ],
                     asin => "B000KJTG6K",
                     disambiguation => "",
                     packaging => JSON::null,
@@ -120,7 +169,7 @@ test  'browse releases via release group' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via release group',
-    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016' => encode_json (
+    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -140,6 +189,17 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -160,6 +220,17 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -173,7 +244,7 @@ test 'browse releases via recording' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via recording',
-    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' => encode_json (
+    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -193,6 +264,17 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064173891",
                     asin => "B0000YGBSG",
                     "label-info" => [
@@ -224,6 +306,17 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064173907",
                     asin => "B0000YG9NS",
                     "label-info" => [
@@ -248,7 +341,7 @@ test 'browse releases via track artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via track artist',
-    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55' => encode_json (
+    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55' => encode_json(
         {
             "release-count" => 1,
             "release-offset" => 0,
@@ -268,6 +361,17 @@ test 'browse releases via track artist' => sub {
                     },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            disambiguation => "",
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064451180",
                     asin => "B0001FAD2O",
                     disambiguation => "",

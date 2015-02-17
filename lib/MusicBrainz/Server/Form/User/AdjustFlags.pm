@@ -26,11 +26,19 @@ has_field 'link_editor' => (
     type => 'Boolean',
 );
 
+has_field 'location_editor' => (
+    type => 'Boolean',
+);
+
 has_field 'no_nag' => (
     type => 'Boolean',
 );
 
 has_field 'wiki_transcluder' => (
+    type => 'Boolean',
+);
+
+has_field 'banner_editor' => (
     type => 'Boolean',
 );
 

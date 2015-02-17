@@ -4,23 +4,21 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
-use Encode qw( decode encode );
+use JSON qw( encode_json decode_json );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
-    hash_structure
-);
+use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-    "tracklist" => {
+    "medium" => {
         method => 'GET',
+        inc => [ qw(recordings) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
     "cdstub" => {
@@ -31,7 +29,7 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
-    "associations" => {
+    "cover-art-upload" => {
         method => 'GET',
     },
     "entity" => {
@@ -40,6 +38,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "events" => {
         method => 'GET'
+    },
+    "error" => {
+        method => 'POST'
     }
 ]);
 
@@ -49,45 +50,44 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      version => 'js',
 };
 
-sub entities {
-    return {
-        'Artist' => 'artist',
-        'Work' => 'work',
-        'Recording' => 'recording',
-        'ReleaseGroup' => 'release-group',
-        'Release' => 'release',
-        'Label' => 'label',
-        'URL' => 'url'
-    };
-}
-
-sub tracklist : Chained('root') PathPart Args(1) {
+sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('MediumFormat')->load($medium);
+    $c->model('MediumCDTOC')->load_for_mediums($medium);
+    $c->model('CDTOC')->load($medium->all_cdtocs);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+                              $medium->all_tracks);
 
-    my $ret = { toc => "" };
-    $ret->{tracks} = [ map {
-        length => $_->length,
-        number => $_->number,
-        name => $_->name,
-        artist_credit => artist_credit_to_ref (
-            $_->artist_credit, [ "comment", "gid", "sortname" ]),
-    }, sort { $a->position <=> $b->position }
-    $tracklist->all_tracks ];
+    my $inc_recordings = $c->stash->{inc}->recordings;
+
+    if ($inc_recordings) {
+        $c->model('Recording')->load($medium->all_tracks);
+        $c->model('ArtistCredit')->load(map $_->recording, $medium->all_tracks);
+    }
+
+    my $ret = $c->stash->{serializer}->_medium($medium, $inc_recordings);
+
+    $ret->{tracks} = [
+        map $c->stash->{serializer}->_track($_), $medium->all_tracks
+    ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub freedb : Chained('root') PathPart Args(2) {
     my ($self, $c, $category, $id) = @_;
 
-    my $response = $c->model ('FreeDB')->lookup ($category, $id);
+    my $response = $c->model('FreeDB')->lookup($category, $id);
+
+    unless (defined $response) {
+        $c->stash->{error} = "$category/$id not found";
+        $c->detach('not_found');
+    }
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
@@ -99,7 +99,7 @@ sub freedb : Chained('root') PathPart Args(2) {
     } @{ $response->tracks } ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 };
 
 sub cdstub : Chained('root') PathPart Args(1) {
@@ -113,8 +113,8 @@ sub cdstub : Chained('root') PathPart Args(1) {
 
     if ($cdstub_toc)
     {
-        $c->model('CDStub')->load ($cdstub_toc);
-        $c->model('CDStubTrack')->load_for_cdstub ($cdstub_toc->cdstub);
+        $c->model('CDStub')->load($cdstub_toc);
+        $c->model('CDStubTrack')->load_for_cdstub($cdstub_toc->cdstub);
         $cdstub_toc->update_track_lengths;
 
         $ret->{toc} = $cdstub_toc->toc;
@@ -129,7 +129,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub tracklist_results {
@@ -139,10 +139,10 @@ sub tracklist_results {
 
     my @gids = map { $_->entity->gid } @$results;
 
-    my @releases = values %{ $c->model ('Release')->get_by_gids (@gids) };
-    $c->model ('Medium')->load_for_releases (@releases);
-    $c->model ('MediumFormat')->load (map { $_->all_mediums } @releases);
-    $c->model ('ArtistCredit')->load (@releases);
+    my @releases = values %{ $c->model('Release')->get_by_gids(@gids) };
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(@releases);
 
     for my $release ( @releases )
     {
@@ -161,12 +161,12 @@ sub tracklist_results {
                 medium => $medium->name,
                 comment => $release->comment,
                 artist => $release->artist_credit->name,
-                tracklist_id => $medium->tracklist_id,
+                medium_id => $medium->id,
             };
         }
     }
 
-    return uniq_by { $_->{tracklist_id} } @output;
+    return uniq_by { $_->{medium_id} } @output;
 };
 
 sub disc_results {
@@ -196,9 +196,9 @@ sub disc_results {
 sub disc_search {
     my ($self, $c, $type) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
-    my $artist = escape_query ($c->stash->{args}->{artist});
-    my $tracks = escape_query ($c->stash->{args}->{tracks});
+    my $query = escape_query(trim $c->stash->{args}->{q});
+    my $artist = escape_query($c->stash->{args}->{artist});
+    my $tracks = escape_query($c->stash->{args}->{tracks});
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
@@ -208,14 +208,12 @@ sub disc_search {
 
     push @query, $title if $query;
     push @query, "artist:($artist)" if $artist;
-    push @query, "tracks:($tracks)" if $tracks;
+    push @query, ($type eq 'release' ? "tracksmedium:($tracks)" : "tracks:($tracks)") if $tracks;
 
-    $query = join (" AND ", @query);
+    $query = join(" AND ", @query);
 
     my $no_redirect = 1;
-    my $response = $c->model ('Search')->external_search (
-        $type, $query, $limit, $page, 1, undef);
-
+    my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
     my @output;
 
     if ($response->{pager})
@@ -223,8 +221,8 @@ sub disc_search {
         my $pager = $response->{pager};
 
         @output = $type eq 'release' ?
-            $self->tracklist_results ($c, $response->{results}) :
-            $self->disc_results ($type, $response->{results});
+            $self->tracklist_results($c, $response->{results}) :
+            $self->disc_results($type, $response->{results});
 
         push @output, {
             pages => $pager->last_page,
@@ -240,79 +238,48 @@ sub disc_search {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+    $c->res->body(encode_json(\@output));
 };
 
-sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
+sub medium_search : Chained('root') PathPart('medium') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'release');
+    return $self->disc_search($c, 'release');
 }
 
 sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'cdstub');
+    return $self->disc_search($c, 'cdstub');
 };
 
 sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'freedb');
+    return $self->disc_search($c, 'freedb');
 };
 
+sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
+{
+    my ($self, $c, $gid) = @_;
 
-# recording associations
-sub associations : Chained('root') PathPart Args(1) {
-    my ($self, $c, $id) = @_;
+    my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
+    my $bucket = 'mbid-' . $gid;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('Recording')->load ($tracklist->all_tracks);
+    my %s3_policy;
+    $s3_policy{mime_type} = $c->request->params->{mime_type};
+    $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string()
+        if $c->request->params->{redirect};
 
-    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
-    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+    my $data = {
+        action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        image_id => "$id",
+        formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy)
+    };
 
-    my %appears_on = $c->model('Recording')->appears_on (
-        [ map { $_->recording } $tracklist->all_tracks ], 3);
-
-    my @structure;
-    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
-    {
-        my $track = {
-            name => $_->name,
-            length => $_->length,
-            artist_credit => artist_credit_to_ref ($_->artist_credit, [ "gid" ]),
-        };
-
-        my $data = {
-            length => $_->length,
-            name => $_->name,
-            artist_credit => { preview => $_->artist_credit->name },
-            edit_sha1 => hash_structure ($track)
-        };
-
-        $data->{recording} = {
-            gid => $_->recording->gid,
-            name => $_->recording->name,
-            comment => $_->recording->comment,
-            length => $_->recording->length,
-            artist_credit => { preview => $_->recording->artist_credit->name },
-            appears_on => {
-                hits => $appears_on{$_->recording->id}{hits},
-                results => [ map { {
-                    'name' => $_->name,
-                    'gid' => $_->gid
-                    } } @{ $appears_on{$_->recording->id}{results} } ],
-            }
-        };
-
-        push @structure, $data;
-    }
-
+    $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
+    $c->res->body(encode_json($data));
 }
 
 sub entity : Chained('root') PathPart('entity') Args(1)
@@ -327,7 +294,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 
     my $entity;
     my $type;
-    for (keys %{ $self->entities }) {
+    for (entities_with(['mbid', 'relatable'], take => 'model')) {
         $type = $_;
         $entity = $c->model($type)->get_by_gid($gid);
         last if defined $entity;
@@ -339,28 +306,25 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    $c->model('Relationship')->load($entity) if $c->stash->{inc}->rels;
-    $c->model('ArtistCredit')->load($entity);
+    my $js_class = "MusicBrainz::Server::Controller::WS::js::$type";
 
-    my $serialization_routine = '_' . $self->entities->{$type};
-    $serialization_routine =~ s/\-/_/g;
+    $js_class->_load_entities($c, $entity);
+
+    my $serialization_routine = $js_class->serialization_routine;
     my $data = $c->stash->{serializer}->$serialization_routine($entity);
-    $data->{'type'} = $self->entities->{$type};
 
-    my $relationships = $c->stash->{serializer}->serialize_relationships(
-        @{ $entity->relationships } );
-
-    $data->{relationships} = $relationships if keys %$relationships;
+    my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
+    $data->{relationships} = $relationships if @$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($data));
+    $c->res->body(encode_json($data));
 }
 
 sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $self->get_serialization ($c);
+    $c->stash->{serializer} = $self->get_serialization($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }
@@ -371,7 +335,56 @@ sub events : Chained('root') PathPart('events') {
     my $events = $c->model('Statistics')->all_events;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($events));
+    $c->res->body(encode_json($events));
+}
+
+sub error : Chained('root') PathPart('error') {
+    my ($self, $c) = @_;
+
+    $self->check_login($c, 'not logged in');
+
+    my $body = $self->get_json_request_body($c);
+    $self->detach_with_error($c, 'missing parameters') unless $body->{error};
+    $self->critical_error($c, $body->{error}, encode_json({ message => "OK" }), 200);
+}
+
+sub detach_with_error : Private {
+    my ($self, $c, $error) = @_;
+
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->body(encode_json({ error => $error }));
+    $c->res->status(400);
+    $c->detach;
+}
+
+sub critical_error : Private {
+    my ($self, $c, $error, $response_body, $status) = @_;
+
+    $c->error($error);
+    $c->stash->{error_body_in_stash} = 1;
+    $c->stash->{body} = $response_body;
+    $c->stash->{status} = $status;
+}
+
+sub get_json_request_body : Private {
+    my ($self, $c) = @_;
+
+    my $body = $c->req->body;
+    $self->detach_with_error($c, 'empty request') unless $body;
+
+    my $json_string = <$body>;
+    my $decoded_object = eval { decode_json($json_string) };
+
+    $self->detach_with_error($c, "$@") if $@;
+
+    return $decoded_object;
+}
+
+sub check_login : Private {
+    my ($self, $c, $error) = @_;
+
+    $c->forward('/user/cookie_login') unless $c->user_exists;
+    $self->detach_with_error($c, $error) unless $c->user_exists;
 }
 
 no Moose;

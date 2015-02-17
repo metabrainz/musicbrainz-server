@@ -8,14 +8,16 @@
         <th>[% l('Sort Name') %]</th>
         <th>[% l('Type') %]</th>
         <th>[% l('Gender') %]</th>
-        <th>[% l('Country') %]</th>
+        <th>[% l('Area') %]</th>
         <th>[% l('Begin') %]</th>
+        <th>[% l('Begin Area') %]</th>
         <th>[% l('End') %]</th>
+        <th>[% l('End Area') %]</th>
       </tr>
     </thead>
     <tbody>
       [%- FOR result=results -%]
-      <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+      <tr class="[% loop.parity %]">
         <td>[% result.score %]</td>
         <td>
           [% link_entity(result.entity) %]
@@ -23,10 +25,9 @@
         <td>[% result.entity.sort_name %]</td>
         <td>[% result.entity.l_type_name  %]</td>
         <td>[% result.entity.l_gender_name  %]</td>
-        <td>
-            <abbr title="[% result.entity.country.l_name %]">[% result.entity.country.iso_code %]</abbr>
-        </td>
+        <td>[% link_entity(result.entity.area) IF result.entity.area %]</td>
         <td>[% result.entity.begin_date.format %]</td>
+        <td>[% link_entity(result.entity.begin_area) IF result.entity.begin_area %]</td>
         <td>
           [% IF !result.entity.end_date.is_empty;
                result.entity.end_date.format;
@@ -34,6 +35,7 @@
                l('[unknown]');
              END; -%]
         </td>
+        <td>[% link_entity(result.entity.end_area) IF result.entity.end_area %]</td>
       </tr>
       [%- END -%]
     </tbody>

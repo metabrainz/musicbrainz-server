@@ -11,6 +11,15 @@ has_field 'url' => (
     required  => 1,
 );
 
+# XXX Can't use Form::Role::Relationships because it conflicts with the url field.
+has_field 'rel' => (
+    type => 'Repeatable',
+);
+
+has_field 'rel.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::Relationship',
+);
+
 sub edit_field_names { qw( url ) }
 
 __PACKAGE__->meta->make_immutable;

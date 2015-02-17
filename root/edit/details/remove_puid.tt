@@ -5,8 +5,6 @@
   </tr>
   <tr>
     <th>[% l('PUID:') %]</th>
-    <td>
-      [% edit.display_data.puid ? link_puid(edit.display_data.puid) : edit.display_data.puid_name %]
-    </td>
+    <td>[% edit.display_data.puid_name %]</td>
   </tr>
 </table>

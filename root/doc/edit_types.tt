@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" full_width=1 title=l('Edit Types') -%]
+[% WRAPPER "layout.tt" full_width=1 title=l('Edit Types') no_icons=1 -%]
     <div id="content" class="wikicontent">
         <h1>[%- l('Edit Types') -%]</h1>
           [% FOR category=by_category.pairs %]

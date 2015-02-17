@@ -20,7 +20,7 @@ $mech->content_like(qr/Warp Records/, 'content has label name');
 $mech->content_like(qr/Sheffield based electronica label/, 'disambiguation comments');
 $mech->content_like(qr/1989-02-03/, 'has start date');
 $mech->content_like(qr/2008-05-19/, 'has end date');
-$mech->content_like(qr/United Kingdom/, 'has country');
+$mech->content_like(qr/United Kingdom/, 'has area');
 $mech->content_like(qr/Production/, 'has label type');
 $mech->content_like(qr/Test annotation 2/, 'has annotation');
 

@@ -15,5 +15,5 @@
 
 <p>
     [%- l('Found a broken link on our site? Please let us know by {report|reporting a bug}.',
-	 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1&description=Broken+link:" _ url_escape(c.req.uri) _ "+Referer:" _ url_escape(c.req.referer)) })-%]
+         { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1&description=Broken+link:" _ url_escape(c.req.uri) _ "+Referer:" _ url_escape(c.req.referer)) })-%]
 </p>

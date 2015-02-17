@@ -1,5 +1,13 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
-    [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
+    [% IF eligible_for_cleanup %]
+      <p class="cleanup">
+          [% l('This release group has no relationships or releases associated,
+                and will be removed automatically in the next few days. If this
+                is not intended, please add more data to this release group.') %]
+      </p>
+    [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 
@@ -20,52 +28,36 @@
                 <th>[% l('Label') %]</th>
                 <th>[% l('Catalog#') %]</th>
                 <th>[% l('Barcode') %]</th>
-                [%- IF c.session.tport -%]
+                [%- IF c.try_get_session('tport') -%]
                   <th>[% l('Tagger') %]</th>
                 [%- END -%]
               </tr>
             </thead>
-            [% IF rdfa_made %]
-              <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-            [% ELSE %]
-              <tbody>
-            [% END %]
+            <tbody>
             [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th colspan="[% c.session.tport ? 9 : 8 %]">[% group.0.l_status_name || l('(unknown)') %]</th>
+                <th colspan="[% (c.try_get_session('tport') ? 9 : 8) %]">[% group.0.l_status_name || l('(unknown)') %]</th>
               </tr>
               [% FOR release=group %]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+              <tr class="[% loop.parity %]">
                 [% IF c.user_exists %]
                 <td>
                   <input type="checkbox" name="add-to-merge"
                          value="[% release.id %]" />
                 </td>
                 [% END %]
-                [% IF rdfa_made %]
-	            <td>
-                  [% rdfa_made_release_link(release) %]
-                  [% disambiguation(release) %]
-                </td>
-	            [% ELSE %]
-	            <td>
-                  [% rdfa_event_product_release_link(release) %]
-                  [% disambiguation(release) %]
-                </td>
-	            [% END %]
-                <td>[% rdfa_release_format(release) or "-" %]</td>
-                <td>[% release.combined_track_count or "-" %]</td>
-                <td>[% rdfa_release_event_date(release) %]</td>
                 <td>
-                  [%- IF release.country -%]
-		          [% rdfa_release_country_abbr(release) %]
-                  [%- END -%]
+                  [%~ link_entity(release) ~%]
                 </td>
-                <td>[% rdfa_release_label_list(release.labels) %]</td>
-                <td>[% rdfa_release_catno_list(release.labels) %]</td>
-                <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
-                [%- IF c.session.tport -%]
+                <td>[% html_escape(release.combined_format_name) or "-" %]</td>
+                <td>[% release.combined_track_count or "-" %]</td>
+                <td>[% release_dates(release.events) %]</td>
+                <td>[% release_countries(release.events) %]</td>
+                <td>[% release_label_list(release.labels) %]</td>
+                <td>[% release_catno_list(release.labels) %]</td>
+                <td>[% release.barcode.format %]</td>
+                [%- IF c.try_get_session('tport') -%]
                   <td>[% tagger_icon(release) %]</td>
                 [%- END -%]
               </tr>
@@ -80,6 +72,5 @@
     [%- ELSE -%]
         <p>[% l('No releases found.') -%]</p>
     [%- END -%]
-    <h2>[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=rg -%]
 [%- END -%]

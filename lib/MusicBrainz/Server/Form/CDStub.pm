@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::CDStub;
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( N_l l );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
 
 extends 'MusicBrainz::Server::Form';
@@ -28,17 +28,31 @@ has_field 'artist' => (
     maxlength => 255
 );
 
-has_field 'tracks' => (
-    type => 'Repeatable'
-);
-
 has_field 'multiple_artists' => (
     type => 'Checkbox'
 );
 
+has_field 'tracks' => (
+    type => 'Repeatable',
+    required => 1,
+    required_message => N_l('You must provide at least one track'),
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
+    init_contains => {
+        required_message => N_l('You must provide a title for track {0}'),
+        localize_meth => sub {
+            my ($self, $message, @params) = @_;
+            my $count = 0;
+            my %params = map { $count++ => $_ } @params;
+            # hack
+            $params{0}++ if ($message == 'You must provide a title for track {0}');
+            return l($message, \%params);
+        }
+    }
+);
+
 has_field 'tracks.title' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1,
+    required => 1, # messages, stupidly, must be in field 'tracks' above
     maxlength => 255
 );
 

@@ -70,7 +70,7 @@ test 'Inserting just a catalog number' => sub {
 
         my $release = $c->model('Release')->get_by_id(1);
         $c->model('ReleaseLabel')->load($release);
-        is($release->label_count, 1, "Release has two labels after accepting edit");
+        is($release->label_count, 1, "Release has one label after rejecting edit");
         is($release->labels->[0]->id, 1, "First release label is unchanged");
     };
 
@@ -88,7 +88,7 @@ test 'Inserting just a catalog number' => sub {
         $c->model('ReleaseLabel')->load($release);
         is($release->label_count, 2, "Release has two labels after accepting edit");
         is($release->labels->[0]->id, 1, "First release label is unchanged");
-        is($release->labels->[1]->label_id, undef, "Second release label no label id");
+        is($release->labels->[1]->label_id, undef, "Second release label has no label id");
         is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
     }
 };

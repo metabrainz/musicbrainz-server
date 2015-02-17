@@ -11,12 +11,16 @@ use Algorithm::Diff qw( sdiff traverse_sequences );
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
+use HTML::TreeBuilder;
+use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( trim_in_place );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 sub html_filter {
     my $text = shift;
-    return unless $text;
+    return unless defined $text;
     for ($text) {
         s/&/&amp;/g;
         s/</&lt;/g;
@@ -49,17 +53,45 @@ sub diff_side {
     my ($self, $old, $new, $filter, $split) = @_;
     $split //= '';
 
-    $old //= '';
-    $new //= '';
+    my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
 
-    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
-    $old =~ s/($split)/$old_hex$1/g;
-    $new =~ s/($split)/$new_hex$1/g;
+    return $self->_render_side_diff($filter, @diffs);
+}
 
-    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+sub diff_html_side {
+    my ($self, $old, $new, $filter) = @_;
+
+    my $old_root = HTML::TreeBuilder->new_from_content('<body>'.($old // '').'</body>');
+    my @old_tokens = map {
+        _html_token($_)
+    } $old_root->content_array_ref->[1]->content_list;
+
+    my $new_root = HTML::TreeBuilder->new_from_content('<body>'.($new // '').'</body>');
+    my @new_tokens = map {
+        _html_token($_)
+    } $new_root->content_array_ref->[1]->content_list;
+
+    my @diffs = sdiff(\@old_tokens, \@new_tokens);
+
+    return $self->_render_side_diff($filter, @diffs);
+}
+
+sub _html_token {
+    my ($item) = @_;
+    return blessed($item) ? $item->as_HTML : _split_text($item, '\s+');
+}
+
+sub _split_text {
+    my ($text, $split) = @_;
+    my $hex = md5_hex(encode('utf-8', $text));
+    $text =~ s/($split)/$hex$1/g;
+    return split($hex,$text);
+}
+
+sub _render_side_diff {
+    my ($self, $filter, @diffs) = @_;
 
     my @stack;
-    my $output;
     for my $diff (@diffs) {
         my ($change_type, $old, $new) = @$diff;
 
@@ -109,7 +141,7 @@ sub _link_artist_credit_name {
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => html_filter($acn->artist->sort_name . $comment)
+            title => $acn->artist->sort_name . $comment
         }, $name || html_filter($acn->name));
     }
     else {
@@ -146,14 +178,14 @@ sub diff_artist_credits {
     for my $diff (@diffs) {
         my ($change_type, $old_name, $new_name) = @$diff;
 
-        given($change_type) {
-            when('u') {
+        given ($change_type) {
+            when ('u') {
                 my $html = $self->_link_joined($old_name);
                 $sides{old} .= $html;
                 $sides{new} .= $html;
             };
 
-            when('c') {
+            when ('c') {
                 # Diff the credited names
                 $sides{old} .= $self->_link_artist_credit_name(
                     $old_name,
@@ -165,18 +197,18 @@ sub diff_artist_credits {
                 );
 
                 # Diff the join phrases
-                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-');
-                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+');
+                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-', '\s+');
+                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+', '\s+');
             }
 
-            when('-') {
+            when ('-') {
                 $sides{old} .= $h->span(
                     { class => $class_map{'-'} },
                     $self->_link_joined($old_name)
                 );
             }
 
-            when('+') {
+            when ('+') {
                 $sides{new} .= $h->span(
                     { class => $class_map{'+'} },
                     $self->_link_joined($new_name)

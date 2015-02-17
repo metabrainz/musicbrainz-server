@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::JS;
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( generate_gid );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 use DBDefs;
 
@@ -21,15 +20,10 @@ sub js_text_setup : Chained('/') PathPart('scripts') CaptureArgs(2) {
     }
 }
 
-sub js_text_strings : Chained('js_text_setup') PathPart('text.js') {
-    my ($self, $c) = @_;
-    $c->res->content_type('text/javascript');
-    $c->stash->{template} = 'scripts/text_strings.tt';
-}
-
 sub statistics_js_text_strings : Chained('js_text_setup') PathPart('statistics/view.js') {
     my ($self, $c) = @_;
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    my @countries = $c->model('CountryArea')->get_all();
+    my %countries = map { $_->country_code => $_ } @countries;
     my %languages = map { $_->iso_code_3 => $_ }
         grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
     my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
@@ -44,11 +38,6 @@ sub statistics_js_text_strings : Chained('js_text_setup') PathPart('statistics/v
         relationships => \@rel_pairs,
     );
     $c->res->content_type('text/javascript');
-}
-
-sub js_unit_tests : Path('/unit_tests') {
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/unit_tests.tt';
 }
 
 1;

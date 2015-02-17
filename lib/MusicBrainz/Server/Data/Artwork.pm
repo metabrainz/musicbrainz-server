@@ -15,7 +15,8 @@ with 'MusicBrainz::Server::Data::Role::Editable' => {
 
 sub _table
 {
-    return 'cover_art_archive.cover_art';
+    return 'cover_art_archive.cover_art ' .
+        'JOIN cover_art_archive.image_type USING (mime_type)';
 }
 
 sub _columns
@@ -25,7 +26,9 @@ sub _columns
             cover_art_archive.cover_art.comment,
             cover_art_archive.cover_art.edit,
             cover_art_archive.cover_art.ordering,
-            cover_art_archive.cover_art.edits_pending';
+            cover_art_archive.cover_art.edits_pending,
+            cover_art_archive.cover_art.mime_type,
+            cover_art_archive.image_type.suffix';
 }
 
 sub _id_column
@@ -45,18 +48,25 @@ sub _column_mapping
         is_front => 'is_front',
         is_back => 'is_back',
         approved => 'approved',
+        suffix => 'suffix',
+        mime_type => 'mime_type',
     };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Artwork';
+    my ($self, $row) = @_;
+    if (exists $row->{release_group}) {
+        return 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup';
+    } else {
+        return 'MusicBrainz::Server::Entity::Artwork';
+    }
 }
 
 sub find_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
@@ -69,10 +79,14 @@ sub find_by_release
             cover_art_archive.cover_art.edits_pending,
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back
+            cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix
         FROM cover_art_archive.index_listing
         JOIN cover_art_archive.cover_art
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
         ORDER BY cover_art_archive.index_listing.ordering";
@@ -80,7 +94,7 @@ sub find_by_release
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     for my $image (@artwork) {
-        $image->release ($id_to_release{$image->release_id}->[0]);
+        $image->release($id_to_release{$image->release_id}->[0]);
     }
 
     return \@artwork;
@@ -89,7 +103,7 @@ sub find_by_release
 sub find_front_cover_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
@@ -102,26 +116,26 @@ sub find_front_cover_by_release
             cover_art_archive.cover_art.edits_pending,
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back
+            cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix
         FROM cover_art_archive.index_listing
         JOIN cover_art_archive.cover_art
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
         JOIN musicbrainz.release
         ON cover_art_archive.index_listing.release = musicbrainz.release.id
-        LEFT JOIN country ON release.country = country.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
-        AND is_front = true
-        ORDER BY
-            release.date_year, release.date_month, release.date_day,
-            country.name, release.barcode";
+        AND is_front = true";
 
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $image (@artwork) {
         foreach my $release (@{ $id_to_release{$image->release_id} })
         {
-            $image->release ($release);
+            $image->release($release);
         }
     }
 
@@ -131,7 +145,7 @@ sub find_front_cover_by_release
 sub load_for_release_groups
 {
     my ($self, @release_groups) = @_;
-    my %id_to_rg = object_to_ids (@release_groups);
+    my %id_to_rg = object_to_ids(@release_groups);
     my @ids = keys %id_to_rg;
 
     return unless @ids; # nothing to do
@@ -145,30 +159,42 @@ sub load_for_release_groups
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
             cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix,
             musicbrainz.release.release_group,
             musicbrainz.release.gid AS release_gid
         FROM cover_art_archive.index_listing
         JOIN musicbrainz.release
-        ON musicbrainz.release.id = cover_art_archive.index_listing.release
+          ON musicbrainz.release.id = cover_art_archive.index_listing.release
+        LEFT JOIN (
+          SELECT release, date_year, date_month, date_day
+          FROM release_country
+          UNION ALL
+          SELECT release, date_year, date_month, date_day
+          FROM release_unknown_country
+        ) release_event ON (release_event.release = release.id)
         FULL OUTER JOIN cover_art_archive.release_group_cover_art
         ON release_group_cover_art.release = musicbrainz.release.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE release.release_group IN (" . placeholders(@ids) . ")
         AND is_front = true
         ORDER BY release.release_group, release_group_cover_art.release,
-                 release.date_year, release.date_month, release.date_day";
+          release_event.date_year, release_event.date_month,
+          release_event.date_day";
 
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
+        my $artwork = $self->_new_from_row($row);
 
-        my $artwork = $self->_new_from_row ($row);
-        $artwork->release (
-            MusicBrainz::Server::Entity::Release->new (
+        $artwork->release(
+            MusicBrainz::Server::Entity::Release->new(
                 id => $row->{release},
                 gid => $row->{release_gid},
                 release_group_id => $row->{release_group}));
+        $artwork->release_group($id_to_rg{ $row->{release_group} }->[0]);
 
-        $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);
-    };
+        $id_to_rg{ $row->{release_group} }->[0]->cover_art($artwork);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -177,7 +203,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012,2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

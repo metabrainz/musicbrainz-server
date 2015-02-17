@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Label::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::Role::DeleteSubscription';

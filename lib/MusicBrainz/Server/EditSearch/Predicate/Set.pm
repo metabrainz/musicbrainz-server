@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::Set;
 use Moose;
 use namespace::autoclean;
-use feature 'switch';
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 

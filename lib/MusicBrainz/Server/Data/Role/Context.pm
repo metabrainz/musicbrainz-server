@@ -4,7 +4,8 @@ use Moose::Role;
 has 'c' => (
     is => 'rw',
     isa => 'Object',
-    weak_ref => 1
+    weak_ref => 1,
+    handles => [ 'redis' ]
 );
 
 no Moose::Role;

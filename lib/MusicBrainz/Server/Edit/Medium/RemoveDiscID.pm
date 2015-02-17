@@ -4,21 +4,23 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
+use MusicBrainz::Server::Translation qw( N_l );
 
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
+sub edit_kind { 'remove' }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub medium_id { shift->data->{medium}{id} }
+sub release_id { shift->data->{medium}{release}{id} }
 
 has '+data' => (
     isa => Dict[
@@ -38,17 +40,6 @@ has '+data' => (
         ]
     ]
 );
-
-has 'release_id' => (
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{medium}{release}{id} }
-);
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 method initialize (%opts) {
     my $medium = delete $opts{medium} or die 'Missing "medium" parameter';
@@ -86,11 +77,9 @@ method alter_edit_pending
 
 method foreign_keys
 {
-    my $release_id =
-
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
-        Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release' ] },
+        Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] },
         CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ]
     }
 }
@@ -98,11 +87,10 @@ method foreign_keys
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->release_id } ||
-            Release->new(
-                $self->data->{medium}{release}
-            ),
-        medium  => $loaded->{Medium}{ $self->data->{medium}{id} },
+        medium  => $loaded->{Medium}{ $self->data->{medium}{id} } //
+                   Medium->new( release => $loaded->{Release}{ $self->release_id } //
+                                           Release->new( name => $self->data->{medium}{release}{name} )
+                   ),
         cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
             || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
     }

@@ -1,17 +1,19 @@
 # 
 # Translators:
-# Jaakko Perttilä <email address hidden>, 2012.
-# ListMyCDs.com Martikainen <>, 2012.
-# ListMyCDs.com Martikainen <email address hidden>, 2012.
-# Timo Martikainen <>, 2012.
-#   Tommi Vainikainen <email address hidden>, 2008.
-# Tommi Vainikainen <email address hidden>, 2005.
+# Jaakko Perttilä <email address hidden>, 2012-2013
+# ListMyCDs.com Martikainen <>, 2012
+# Timo Martikainen <email address hidden>, 2012
+# phonebox, 2014
+# phonebox, 2014
+# Timo Martikainen <>, 2012
+# Timo Martikainen <email address hidden>, 2012-2014
+#   Tommi Vainikainen <email address hidden>, 2008
+# Tommi Vainikainen <email address hidden>, 2005
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-08 15:14+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -364,6 +366,11 @@ msgstr "kaukasialaiset kielet"
 msgid "Cebuano"
 msgstr "cebuano"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr "keltibeeri"
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -373,6 +380,11 @@ msgstr "kelttiläiset kielet"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "keskiamerikkalaiset intiaanikielet"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "keskiokinawa"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -579,7 +591,7 @@ msgstr "duala"
 msgid "Dutch"
 msgstr "hollanti"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "hollanti, keskihollanti (n. 1050-1350)"
@@ -784,7 +796,7 @@ msgstr "saksa"
 msgid "German, Low"
 msgstr "saksa, alasaksa"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "saksa, keskiyläsaksa (n. 1050-1500)"
@@ -974,6 +986,11 @@ msgstr "indoeurooppalaiset kielet"
 msgid "Indonesian"
 msgstr "indonesia"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "inkeroinen"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1032,7 +1049,7 @@ msgstr "italia"
 #. frequency:1 iso_code_3:jam
 #: DB:language/name:2980
 msgid "Jamaican Creole English"
-msgstr ""
+msgstr "jamaikan kreoli"
 
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
@@ -1129,6 +1146,11 @@ msgstr "kavi"
 msgid "Kazakh"
 msgstr "kazakki"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "hanti"
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1189,7 +1211,7 @@ msgstr "kongo"
 msgid "Konkani"
 msgstr "konkani"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "korea"
@@ -1252,7 +1274,7 @@ msgstr "lahnda"
 #. frequency:1 iso_code_3:lkt
 #: DB:language/name:3880
 msgid "Lakota"
-msgstr ""
+msgstr "lakota"
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
@@ -1423,6 +1445,11 @@ msgstr "manipuri"
 #: DB:language/name:279
 msgid "Manobo languages"
 msgstr "manobokielet"
+
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "mansi"
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
@@ -1629,7 +1656,7 @@ msgstr "muinaisnorja"
 msgid "North American Indian languages"
 msgstr "pohjoisamerikkalaiset intiaanikielet"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "norja"

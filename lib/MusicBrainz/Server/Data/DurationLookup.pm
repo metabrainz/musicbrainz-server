@@ -56,26 +56,28 @@ sub lookup
     push @offsets, $toc_info{leadoutoffset};
 
     my (@durations, $i);
-    for($i = 0; $i < $toc_info{tracks}; $i++)
+    for ($i = 0; $i < $toc_info{tracks}; $i++)
     {
-        push @durations, int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
+        my $duration = int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
+        # Max size for an int in postgresql:
+        # http://www.postgresql.org/docs/current/static/datatype-numeric.html
+        return if $duration > 2147483647;
+        push @durations, $duration;
     }
 
     my $dur_string = "'{" . join(",", @durations) . "}'";
 
     my $list = $self->sql->select_list_of_hashes(
-            "SELECT ti.tracklist AS tracklist,
+            "SELECT medium_index.medium AS medium,
                     cube_distance(toc, create_cube_from_durations($dur_string)) AS distance,
-                    m.id as medium,
                     release,
                     position,
                     format,
                     name,
                     edits_pending
-               FROM tracklist_index ti
-               JOIN tracklist t ON t.id = ti.tracklist
-               JOIN medium m ON m.tracklist = ti.tracklist
-             WHERE  t.track_count = ?
+               FROM medium_index
+               JOIN medium m ON medium_index.medium = m.id
+             WHERE  track_count_matches_cdtoc(m, ?)
                 AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
@@ -88,7 +90,6 @@ sub lookup
         my $medium = MusicBrainz::Server::Entity::Medium->new();
         $medium->id($item->{medium});
         $medium->release_id($item->{release});
-        $medium->tracklist_id($item->{tracklist});
         $medium->position($item->{position});
         $medium->format_id($item->{format}) if $item->{format};
         $medium->name($item->{name} or '');
@@ -101,38 +102,60 @@ sub lookup
 
 sub update
 {
-    my ($self, $tracklist_id) = @_;
+    my ($self, $medium_id) = @_;
 
-    return unless $self->sql->select_single_value(
-        'SELECT 1 FROM tracklist
-           JOIN track ON track.tracklist = tracklist.id
-          WHERE tracklist.id = ?
-         HAVING count(track.id) <= 99
-            AND sum(track.length) < 4800000',
-        $tracklist_id
+    # Disc should have an index if:
+    #    1. the length of the disc is < 4800000
+    #    2. all tracks on the disc have a length
+    #    3. there are at most 99 tracks on the disc
+
+    my $results = $self->sql->select_list_of_hashes(
+        "SELECT (sum(track.length) < 4800000 AND
+                 bool_and(track.length IS NOT NULL) AND
+                 count(track.id) <= 99) AS should_have_index,
+                medium_index.medium IS NOT NULL AS has_index
+           FROM track
+      LEFT JOIN medium_index ON medium_index.medium = track.medium
+          WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
+       GROUP BY track.medium, medium_index.medium;", $medium_id);
+
+    return unless @$results;
+
+    my %disc = %{ $results->[0] };
+
+    # get track count, excluding any pregap or data track
+    my $track_count = $self->sql->select_single_value(
+        "SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false",
+        $medium_id
     );
 
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
                         SELECT t.length
                           FROM track t
-                         WHERE tracklist = ?
+                         WHERE medium = ? AND t.position > 0 AND t.is_data_track = false
                       ORDER BY t.position
                     )
             ))';
 
-    if ($self->sql->select_single_value(
-        'SELECT 1 FROM tracklist_index WHERE tracklist = ?', $tracklist_id
-    )) {
-        $self->sql->do(
-            "UPDATE tracklist_index SET toc = $create_cube
-              WHERE tracklist = ?", $tracklist_id, $tracklist_id);
+    if ($disc{has_index} && ! $disc{should_have_index})
+    {
+        $self->sql->delete_row("medium_index", { medium => $medium_id });
     }
-    else {
+
+    if ($disc{has_index} && $disc{should_have_index})
+    {
         $self->sql->do(
-            "INSERT INTO tracklist_index (tracklist, toc)
+            "UPDATE medium_index SET toc = $create_cube
+              WHERE medium = ?", $medium_id, $medium_id);
+    }
+
+    if (! $disc{has_index} && $disc{should_have_index})
+    {
+        $self->sql->do(
+            "INSERT INTO medium_index (medium, toc)
              VALUES (?, $create_cube)",
-            $tracklist_id, $tracklist_id);
+            $medium_id, $medium_id);
     }
 }
 

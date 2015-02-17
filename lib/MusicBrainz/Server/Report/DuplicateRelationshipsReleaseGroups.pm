@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
 sub query {
     "
 
-SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_collate(release_name.name)) FROM (
+SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_collate(release_group.name)) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_release_group lxx
@@ -20,7 +20,7 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_col
     FROM l_label_release_group lxx
     JOIN link ON link.id = lxx.link
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
-    
+
     UNION
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
@@ -50,14 +50,14 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_col
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
-    
+
     SELECT link.link_type, lxx.entity1, lxx.entity0 AS entity
     FROM l_release_group_work lxx
     JOIN link ON link.id = lxx.link
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
-    
+
     SELECT link.link_type, lxx.entity1, lxx.entity0 AS entity
     FROM l_release_group_url lxx
     JOIN link ON link.id = lxx.link
@@ -65,8 +65,7 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_col
 
 ) AS q
 JOIN release_group on q.entity = release_group.id
-JOIN release_name on release_name.id = release_group.name
-GROUP BY q.entity, release_name.name
+GROUP BY q.entity, release_group.name
 
     ";
 }

@@ -40,15 +40,12 @@ sub _get_by_keys_append_sql
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
                 $extra_sql;
-    my $sql = $self->sql;
-    $self->sql->select($query, @ids);
+
     my %result;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $obj = $self->_new_from_row($row);
         $result{$obj->id} = $obj;
     }
-    $self->sql->finish;
     return \%result;
 }
 
@@ -74,7 +71,10 @@ sub _id_column
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    @ids = grep defined, @ids;
+
+    # Max size for an int in postgresql:
+    # http://www.postgresql.org/docs/current/static/datatype-numeric.html
+    @ids = grep { defined($_) && $_ <= 2147483647 } @ids;
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));

@@ -1,13 +1,15 @@
 package MusicBrainz::Server::Form::Admin::LinkType;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
-        short_link_phrase description priority attributes
+        long_link_phrase description priority attributes documentation
+        is_deprecated has_dates entity0_cardinality entity1_cardinality
   ) }
 
 has '+name' => ( default => 'linktype' );
@@ -19,6 +21,7 @@ has_field 'parent_id' => (
 has_field 'child_order' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
+    default => 0
 );
 
 has_field 'name' => (
@@ -39,7 +42,7 @@ has_field 'reverse_link_phrase' => (
     maxlength => 255
 );
 
-has_field 'short_link_phrase' => (
+has_field 'long_link_phrase' => (
     type      => 'Text',
     required  => 1,
     maxlength => 255
@@ -47,11 +50,13 @@ has_field 'short_link_phrase' => (
 
 has_field 'description' => (
     type => 'Text',
+    not_nullable => 1
 );
 
 has_field 'priority' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
+    default => 0
 );
 
 has_field 'attributes' => (
@@ -75,30 +80,40 @@ has_field 'attributes.max' => (
     type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
+has_field 'documentation' => (
+    type => 'TextArea',
+    not_nullable => 1
+);
+
 has root => (
     is => 'ro',
     required => 1
 );
 
-sub _build_parent_id_options
-{
-    my ($self, $root, $indent) = @_;
+has_field is_deprecated => (
+    type => 'Boolean'
+);
 
-    my @options;
-    if ($root->id) {
-        push @options, $root->id, $indent . $root->name if $root->id;
-        $indent .= '&#xa0;&#xa0;&#xa0;';
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_parent_id_options($child, $indent);
-    }
-    return @options;
-}
+has_field has_dates => (
+    type => 'Boolean'
+);
+
+has_field 'entity0_cardinality' => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
+    required => 1,
+    default => 0
+);
+
+has_field 'entity1_cardinality' => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
+    required => 1,
+    default => 0
+);
 
 sub options_parent_id
 {
     my ($self) = @_;
-    return [ $self->_build_parent_id_options($self->root, '') ];
+    return select_options_tree($self->ctx, $self->root, accessor => 'name');
 }
 
 1;

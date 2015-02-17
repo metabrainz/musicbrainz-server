@@ -67,7 +67,7 @@ sub add_remove : Private
     my ($self, $c) = @_;
 
     $self->deny_readonly($c);
-    if(my $collection_id = $c->model('Collection')->get_first_collection($c->user->id)) {
+    if (my $collection_id = $c->model('Collection')->get_first_collection($c->user->id)) {
         my $add    = $c->req->params->{add}    || $c->req->params->{addAlbums}    || '';
         my $remove = $c->req->params->{remove} || $c->req->params->{removeAlbums} || '';
 

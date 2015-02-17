@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
     query_to_list_limited
+    trim
 );
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
@@ -29,7 +30,6 @@ has [qw( tag_table type )] => (
 sub find_tags
 {
     my ($self, $entity_id, $limit, $offset) = @_;
-    $limit ||= -1;
     $offset ||= 0;
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
@@ -101,7 +101,7 @@ sub find_user_tags_for_entities
         );
     }, $query, $user_id, @ids);
 
-    $self->c->model ('Tag')->load (@tags);
+    $self->c->model('Tag')->load(@tags);
 
     return sort { $a->tag->name cmp $b->tag->name } @tags;
 }
@@ -165,7 +165,7 @@ sub merge
         @ids
     );
 
-    if(@tags) {
+    if (@tags) {
         $self->c->sql->do(
             "INSERT INTO $assoc_table ($entity_type, tag, count)
              VALUES " . join(',', ("(?, ?, ?)") x @tags),
@@ -201,12 +201,7 @@ sub parse_tags
     my ($self, $input) = @_;
 
     my @tags = grep {
-        # remove non-printable characters
-        $_ =~ s/[^[:print:]]//g;
-        # combine multiple spaces into one
-        $_ =~ s/\s+/ /sg;
-        # remove leading and trailing whitespace
-        $_ =~ s/^\s*(.*?)\s*$/$1/;
+        $_ = trim($_);
         $_ = lc($_);
     } split ',', $input;
 
@@ -257,15 +252,15 @@ sub update
         if (scalar(@$old_tag_ids)) {
             # Load the corresponding tag strings from the main server
             #
-            @old_tags = $self->sql->select("SELECT id, name FROM tag
-                                      WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
-                                      @$old_tag_ids);
-            # Create a lookup friendly hash from the old tags
-            if (@old_tags) {
-                while (my $row = $self->sql->next_row_ref()) {
-                    $old_tag_info{$row->[1]} = $row->[0];
-                }
-                $self->sql->finish();
+            for my $row (@{
+                $self->sql->select_list_of_lists(
+                    "SELECT id, name FROM tag
+                     WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
+                    @$old_tag_ids
+                )
+            }) {
+                # Create a lookup friendly hash from the old tags
+                $old_tag_info{$row->[1]} = $row->[0];
             }
         }
 
@@ -377,7 +372,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
+                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {

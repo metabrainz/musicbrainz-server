@@ -1,0 +1,17 @@
+[%- WRAPPER 'series/layout.tt' title=l('Remove') full_width=1 -%]
+    <h2>[% l('Remove Series') %]</h2>
+    [%- IF can_delete -%]
+        <p>
+            [%- l('Are you sure you wish to remove the series {series} from MusicBrainz?', { series => link_entity(series) }) -%]
+        </p>
+        <form action="[% c.req.uri %]" method="post">
+            [%- USE r = FormRenderer(form) -%]
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [% enter_edit() %]
+        </form>
+    [%- ELSE -%]
+    <p>
+       [% l('This series cannot be removed because there are still relationships using it.') -%]
+    </p>
+    [%- END -%]
+[%- END -%]

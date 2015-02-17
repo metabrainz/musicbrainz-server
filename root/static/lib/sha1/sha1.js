@@ -328,3 +328,8 @@ function bit_rol(num, cnt)
 {
   return (num << cnt) | (num >>> (32 - cnt));
 }
+
+if (typeof exports !== 'undefined') {
+  exports.hex_sha1 = hex_sha1;
+  exports.rstr_sha1 = rstr_sha1;
+}

@@ -7,9 +7,9 @@ with 'MusicBrainz::Server::Report::QueryReport',
 sub query {
     "
         SELECT
-            artist0.id AS id0, name0.name AS name0, artist1.id AS id1, name1.name AS name1,
+            artist0.id AS id0, artist0.name AS name0, artist1.id AS id1, artist1.name AS name1,
             row_number() OVER (
-              ORDER BY musicbrainz_collate(name1.name), artist1.id, musicbrainz_collate(name0.name), artist0.id
+              ORDER BY musicbrainz_collate(artist1.name), artist1.id, musicbrainz_collate(artist0.name), artist0.id
             )
         FROM
             l_artist_artist
@@ -17,8 +17,6 @@ sub query {
             JOIN link_type ON link_type.id=link.link_type
             JOIN artist AS artist0 ON l_artist_artist.entity0=artist0.id
             JOIN artist AS artist1 ON l_artist_artist.entity1=artist1.id
-            JOIN artist_name AS name0 ON artist0.name=name0.id
-            JOIN artist_name AS name1 ON artist1.name=name1.id
             LEFT JOIN l_artist_url ON l_artist_artist.entity1=l_artist_url.entity0
         WHERE
             link_type.name = 'collaboration' AND

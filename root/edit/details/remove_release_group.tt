@@ -1,6 +1,0 @@
-<table class="details remove-release-group">
-  <tr>
-    <th>[% l('Release group:') %]</th>
-    <td>[% descriptive_link(edit.display_data.entity) %]</td>
-  </tr>
-</table>

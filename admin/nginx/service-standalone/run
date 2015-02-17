@@ -1,0 +1,11 @@
+#!/bin/bash
+echo starting
+exec 2>&1
+set -e
+cd mb_server
+umask 022
+exec \
+    setuidgid musicbrainz \
+        plackup -Ilib \
+            --port 5000
+

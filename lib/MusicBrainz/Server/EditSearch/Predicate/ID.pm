@@ -5,6 +5,8 @@ use feature 'switch';
 
 use Scalar::Util qw( looks_like_number );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {
@@ -18,9 +20,9 @@ sub combine_with_query {
     my ($self, $query) = @_;
 
     my $sql;
-    given($self->operator) {
-        when('BETWEEN') {
-            $sql = $self->field_name . ' BETWEEN ? AND ?';
+    given ($self->operator) {
+        when ('BETWEEN') {
+            $sql = 'edit.' . $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
         }
         default {
            $sql = join(' ', 'edit.'.$self->field_name, $self->operator, '?')
@@ -36,7 +38,7 @@ sub valid {
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
         my $arg = $self->argument($arg_index - 1);
-        looks_like_number($arg) or return;
+        looks_like_number($arg) && $arg <= 2147483647 or return;
     }
 
     return 1;

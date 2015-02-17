@@ -3,14 +3,16 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_ATTRIBUTE );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add relationship attribute') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
 
 has '+data' => (
@@ -38,27 +40,20 @@ sub build_display_data
     }
 }
 
-sub accept {
+sub insert {
     my $self = shift;
-    $self->c->model('LinkAttributeType')->insert($self->data)
+
+    my $entity = $self->c->model('LinkAttributeType')->insert($self->data);
+    $self->entity_id($entity->id);
+    $self->entity_gid($entity->gid);
 };
 
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
+sub reject {
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'Edits of this type cannot be rejected'
+    );
 }
 
-sub allow_auto_edit { 1 }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

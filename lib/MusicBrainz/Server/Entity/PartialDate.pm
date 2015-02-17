@@ -30,11 +30,12 @@ around BUILDARGS => sub {
     return $class->$orig( @_ ) unless @_ == 1;
 
     my $info = shift;
-    if (!ref($info) && $info && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
+    if (!ref($info) && defined($info)
+        && $info =~ /^ (?: (-?\d{1,4} | \?\?\?\?) (?: -? (\d{1,2} | \?\?) (?: -? (\d{1,2}) )? )? )? $/x)
     {
         $info = {};
-        $info->{year} = $1 if ($1 && $1 > 0);
-        $info->{month} = $2 if ($2 && $2 > 0);
+        $info->{year} = $1 if (defined $1 && $1 ne '????');
+        $info->{month} = $2 if ($2 && $2 ne '??' && $2 > 0);
         $info->{day} = $3 if ($3 && $3 > 0);
         return $class->$orig( $info );
     }
@@ -99,9 +100,22 @@ sub _cmp
     return  1 if ( defined($a->year) && !defined($b->year));
     return -1 if (!defined($a->year) &&  defined($b->year));
 
+    # Date::Calc can't understand years <= 0, so we special case this sorting
+    if ($a->year <= 0 || $b->year <= 0) {
+        return
+            $a->year <=> $b->year ||
+            (($a->month // 1) <=> ($b->month // 12)) ||
+            (($a->day // 1)   <=> ($b->day // 31));
+    }
+
     # We have years for both dates, we can now assume real sorting
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
     my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
+
+    # Sort invalid dates first. Should make it obvious something is broken :)
+    return  0 if (!Date::Calc::check_date(@begin) && !Date::Calc::check_date(@end));
+    return  1 if (!Date::Calc::check_date(@end));
+    return -1 if (!Date::Calc::check_date(@begin));
 
     my ($days) = Date::Calc::Delta_Days(@begin, @end);
 

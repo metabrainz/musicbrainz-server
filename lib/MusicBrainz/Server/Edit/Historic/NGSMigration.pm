@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Base;
+use Class::Load qw( load_class );
 
 sub ngs_class {  }
 sub edit_type {
@@ -15,7 +16,7 @@ sub _create_edit
 {
     my ($self, $data) = @_;
     my $class = $self->ngs_class;
-    Class::MOP::load_class($class);
+    load_class($class);
 
     return $class->new(
         c            => $self->c,

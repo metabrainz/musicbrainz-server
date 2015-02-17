@@ -30,10 +30,10 @@ sub search : Chained('root') PathPart('editor')
     my $offset = ($page - 1) * $limit;  # page is not zero based.
     my ($editors, $hits) = $c->model('Search')->search('editor', $query, $limit, $offset);
 
-    my $pager = Data::Page->new ();
-    $pager->entries_per_page ($limit);
-    $pager->current_page ($page);
-    $pager->total_entries ($hits);
+    my $pager = Data::Page->new();
+    $pager->entries_per_page($limit);
+    $pager->current_page($page);
+    $pager->total_entries($hits);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize(

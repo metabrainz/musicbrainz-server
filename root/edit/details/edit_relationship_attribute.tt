@@ -3,11 +3,13 @@
 <table class="details edit-relationship-attribute">
   [%- display_word_diff(l('Name:'),
                         edit.display_data.name.old,
-                        edit.display_data.name.new) -%]
+                        edit.display_data.name.new) ||
+      '<tr><th>' _ l('Name:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.name) _ '</td></tr>' -%]
 
   [%- display_word_diff(l('Description:'),
                         edit.display_data.description.old,
-                        edit.display_data.description.new) -%]
+                        edit.display_data.description.new) ||
+      '<tr><th>' _ l('Description:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.description) _ '</td></tr>' -%]
 
   [%- display_word_diff(l('Parent:'),
                         edit.display_data.parent.old.name,

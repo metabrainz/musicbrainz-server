@@ -26,22 +26,13 @@ MB.utility.keys = function (obj) {
     else {
         var ret = [];
         for (var key in obj) {
-            if (obj.hasOwnProperty (key))
+            if (obj.hasOwnProperty(key))
             {
-                ret.push (key);
+                ret.push(key);
             }
         }
 
         return ret;
-    }
-};
-
-MB.utility.displayedValue = function(element) {
-    if(element.is('select')) {
-        return element.find(':selected').text();
-    }
-    else if (element.is('input[type=text]')) {
-        return element.val();
     }
 };
 
@@ -55,110 +46,27 @@ MB.utility.fullWidthConverter = function (inputString) {
     newString = [];
 
     do {
-        newString.push (
-            inputString[i-1].replace (/([\uFF01-\uFF5E])/g, function (str, p1) {
-                return String.fromCharCode (p1.charCodeAt(0) - 65248);
+        newString.push(
+            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
+                return String.fromCharCode(p1.charCodeAt(0) - 65248);
             })
         );
     } while (--i);
 
-    return newString.reverse ().join("");
+    return newString.reverse().join("");
 };
 
-MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
-MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
-MB.utility.isNumber = function(o) { return (o instanceof Number  || typeof o == "number"); };
-MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
-MB.utility.is_ascii = function (str) { return ! /[^\u0000-\u00ff]/.test(str); };
+MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
+MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
-MB.utility.template = function(str) {
-    var self = MB.Object();
-
-    var draw = function (o) {
-        return str.replace(/#{([^{}]*)}/g,
-            function (a, b) {
-                var r = o[b];
-                return typeof r === 'string' || typeof r === 'number' ? r : a;
-            });
-    };
-
-    self.draw = draw;
-
-    return self;
-};
-
-MB.utility.load_data = function (files, loaded, callback) {
-    var uri = files.pop ();
-
-    if (uri)
-    {
-        jQuery.get (uri, function (data) {
-            loaded[uri] = data;
-
-            MB.utility.load_data (files, loaded, callback);
-        });
-    }
-    else
-    {
-        callback (loaded);
-    }
-};
-
-MB.utility.exception = function (name, message) {
-    var e = function () { this.name = name,  this.message = message };
-    e.prototype = new Error ();
-
-    return new e ();
-};
-
-MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
-
-MB.utility.escapeHTML = function (str) {
-    if (!str) return '';
-
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-/* structureToString renders a structure to a string.  It is similar to
-   serializing a structure, but intended as input to a hash function.
-
-   The output string is not easily deserialized.
-*/
-MB.utility.structureToString = function (obj) {
-    if (MB.utility.isString (obj) || MB.utility.isNumber (obj))
-    {
-        return obj;
-    }
-    else if (MB.utility.isArray (obj))
-    {
-        var ret = [];
-        $.each (obj, function (idx, item) {
-            ret.push (MB.utility.structureToString (item));
-        });
-
-        return '[' + ret.join (",") + ']';
-    }
-    else
-    {
-        var keys = MB.utility.keys (obj);
-        keys.sort ();
-
-        var ret = [];
-        $.each (keys, function (idx, key) {
-            ret.push (key + ":" + MB.utility.structureToString (obj[key]));
-        });
-
-        return '{' + ret.join (",") + '}';
-    }
-};
-
+MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
     var withDataAndEvents = true;
-    $(form).prepend (
-        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
+    $(form).prepend(
+        $(button).clone(withDataAndEvents).removeAttr('id').css({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -170,26 +78,26 @@ MB.utility.rememberCheckbox = function (id, name) {
 
     /* only change the checkbox if the cookie is set, otherwise use the default
        value from the html. */
-    if ($.cookie (name) === "1")
+    if ($.cookie(name) === "1")
     {
-        $(id).attr ('checked', 'checked');
+        $(id).prop('checked', true);
     }
-    else if ($.cookie (name) === "0")
+    else if ($.cookie(name) === "0")
     {
-        $(id).removeAttr ('checked');
+        $(id).prop('checked', false);
     }
 
-    $(id).bind ('change.mb', function () {
-        $.cookie (name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
+    $(id).bind('change.mb', function () {
+        $.cookie(name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
     });
 
 };
 
 MB.utility.formatTrackLength = function (duration)
 {
-    if (duration === null)
+    if (!duration)
     {
-        return '?:??';
+        return '';
     }
 
     if (duration < 1000)
@@ -224,60 +132,330 @@ MB.utility.formatTrackLength = function (duration)
 
 MB.utility.unformatTrackLength = function (duration)
 {
-    if (duration.slice (-2) == 'ms')
-    {
-        return parseInt (duration, 10);
+    if (!duration) {
+        return null;
     }
 
-    var parts = duration.replace(/[:\.]/, ':').split (':');
-    if (parts[0] == '?' || parts[0] == '??')
+    if (duration.slice(-2) == 'ms')
+    {
+        return parseInt(duration, 10);
+    }
+
+    var parts = duration.replace(/[:\.]/, ':').split(':');
+    if (parts[0] == '?' || parts[0] == '??' || duration === '')
     {
         return null;
     }
 
-    var seconds = parseInt (parts.pop (), 10);
-    var minutes = parseInt (parts.pop () || 0, 10) * 60;
-    var hours = parseInt (parts.pop () || 0, 10) * 3600;
+    var seconds = parseInt(parts.pop(), 10);
+    var minutes = parseInt(parts.pop() || 0, 10) * 60;
+    var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
     return (hours + minutes + seconds) * 1000;
 };
 
-MB.utility.renderArtistCredit = function (ac) {
-    var html = '';
-    $.each(ac.names, function(name) {
-        html += this.name + this.join_phrase
-    });
+/* This takes a list of asynchronous functions (i.e. functions which
+   return a jquery promise) and runs them in sequence.  It in turn
+   returns a promise which is only resolved when all promises in the
+   queue have been resolved.  If one of the promises is rejected, the
+   rest of the queue is still processed (but the returned promise will
+   be rejected).
 
-    return html;
-}
+   Note that any results are currently ignored, it is assumed you are
+   interested in the side effects of the functions executed.
+*/
+MB.utility.iteratePromises = function (promises) {
+    var deferred = $.Deferred();
+    var queue = promises;
+    var iterate = null;
+    var failed = false;
 
-// Based on http://javascript.crockford.com/prototypal.html
-MB.utility.beget = function(o) {
-    function F() {};
-    F.prototype = o;
-    return new F;
+    iterate = function () {
+        if (queue.length > 0)
+        {
+            queue.shift()().then(iterate, function () {
+                failed = true;
+                iterate();
+            });
+        }
+        else
+        {
+            if (failed)
+            {
+                deferred.reject();
+            }
+            else
+            {
+                deferred.resolve();
+            }
+        }
+    };
+
+    iterate();
+    return deferred.promise();
 };
 
-MB.utility.validDate = (function() {
+function empty(value) {
+    return value === null || value === undefined || value === "";
+}
+
+MB.utility.validDate = (function () {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
-    return function(y, m, d) {
-        y = parseInt(y, 10) || null;
-        m = parseInt(m, 10) || null;
-        d = parseInt(d, 10) || null;
+    function empty(value) {
+        return value === null || value === undefined || value === "";
+    }
 
-        if (y === null && m === null && d === null)
-            return false;
+    var numberRegex = /^[0-9]+$/;
 
-        var leapYear = (y % 400 ? (y % 100 ? !Boolean(y % 4) : false) : true).toString();
+    function parseNumber(num) {
+        return numberRegex.test(num) ? parseInt(num, 10) : NaN;
+    }
 
-        if (y === null || (d !== null && m === null) || y < 1 || (m !== null &&
-            (m < 1 || m > 12 || (d !== null && (d < 1 || d > daysInMonth[leapYear][m]))))) {
-            return false;
-        }
+    return function (y, m, d) {
+        y = empty(y) ? null : parseNumber(y);
+        m = empty(m) ? null : parseNumber(m);
+        d = empty(d) ? null : parseNumber(d);
+
+        // We couldn't parse one of the fields as a number.
+        if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
+
+        // The year is a number less than 1.
+        if (y !== null && y < 1) return false;
+
+        // The month is a number less than 1 or greater than 12.
+        if (m !== null && (m < 1 || m > 12)) return false;
+
+        // The day is empty. There's no further validation we can do.
+        if (d === null) return true;
+
+        var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
+
+        // Invalid number of days based on the year.
+        if (d < 1 || d > 31 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+
+        // The date is assumed to be valid.
         return true;
     };
 }());
+
+MB.utility.validDatePeriod = function (a, b) {
+    var y1 = a.year, m1 = a.month, d1 = a.day;
+    var y2 = b.year, m2 = b.month, d2 = b.day;
+
+    if (!MB.utility.validDate(y1, m1, d1) || !MB.utility.validDate(y2, m2, d2)) {
+        return false;
+    }
+
+    if (!y1 || !y2 || +y1 < +y2) return true; else if (+y2 < +y1) return false;
+    if (!m1 || !m2 || +m1 < +m2) return true; else if (+m2 < +m1) return false;
+    if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
+
+    return true;
+};
+
+MB.utility.parseDate = (function () {
+    var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
+
+    return function (str) {
+        var match = str.match(dateRegex) || [];
+        return {
+            year:  parseInt(match[1], 10) || null,
+            month: parseInt(match[2], 10) || null,
+            day:   parseInt(match[3], 10) || null
+        };
+    };
+}());
+
+MB.utility.filesize = function (size) {
+    /* 1 decimal place.  false disables bit sizes. */
+    return filesize(size, 1, false);
+};
+
+MB.utility.percentOf = function (x, y) {
+    return x * y / 100;
+};
+
+// Compares two names, considers them equivalent if there are only case
+// changes, changes in punctuation and/or changes in whitespace between
+// the two strings.
+
+MB.utility.similarity = (function () {
+    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
+
+    function clean(str) {
+        return (str || "").replace(punctuation, "").toLowerCase();
+    }
+
+    return function (a, b) {
+        // If a track title is all punctuation, we'll end up with an empty
+        // string, so just fall back to the original for comparison.
+        a = clean(a) || a || "";
+        b = clean(b) || b || "";
+
+        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
+    };
+}());
+
+MB.utility.optionCookie = function (name, defaultValue) {
+    var existingValue = $.cookie(name);
+
+    var observable = ko.observable(
+        defaultValue ? existingValue !== "false" : existingValue === "true"
+    );
+
+    observable.subscribe(function (newValue) {
+        $.cookie(name, newValue, { path: "/", expires: 365 });
+    });
+
+    return observable;
+};
+
+MB.utility.request = (function () {
+    var nextAvailableTime = new Date().getTime(),
+        prevDeferred = null,
+        timeout = 1000;
+
+    function makeRequest(args, context, deferred) {
+        deferred.jqXHR = $.ajax(_.extend({ dataType: "json" }, args))
+            .done(function () { deferred.resolveWith(context, arguments) })
+            .fail(function () { deferred.rejectWith(context, arguments) });
+
+        deferred.jqXHR.sentData = args.data;
+    }
+
+    return function (args, context) {
+        var deferred = $.Deferred(),
+            now = new Date().getTime();
+
+        if (nextAvailableTime - now <= 0) {
+            makeRequest(args, context, deferred);
+
+            // nextAvailableTime is in the past.
+            nextAvailableTime = now + timeout;
+        } else {
+            var later = function () {
+                if (!deferred.aborted && !deferred.complete) {
+                    makeRequest(args, context, deferred);
+
+                } else if (deferred.next) {
+                    deferred.next();
+                }
+                deferred.complete = true;
+            };
+
+            prevDeferred && (prevDeferred.next = later);
+            prevDeferred = deferred;
+
+            _.delay(later, nextAvailableTime - now);
+
+            // nextAvailableTime is in the future.
+            nextAvailableTime += timeout;
+        }
+
+        var promise = deferred.promise();
+
+        promise.abort = function () {
+            if (deferred.jqXHR) {
+                deferred.jqXHR.abort();
+            } else {
+                deferred.aborted = true;
+            }
+        };
+        return promise;
+    }
+}());
+
+MB.utility.formatDate = function (date) {
+    var y = ko.unwrap(date.year);
+    var m = ko.unwrap(date.month);
+    var d = ko.unwrap(date.day);
+
+    return (
+        (!empty(y) ? ( y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
+                   : (m || d ? "????" : "")) +
+        (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
+        (d ? "-" + _.str.pad(d, 2, "0") : "")
+    );
+};
+
+MB.utility.formatDatePeriod = function (period) {
+    var beginDate = MB.utility.formatDate(period.beginDate);
+    var endDate = MB.utility.formatDate(period.endDate);
+    var ended = ko.unwrap(period.ended);
+
+    if (!beginDate && !endDate) return "";
+    if (beginDate === endDate) return beginDate;
+
+    return beginDate + " \u2013 " + (endDate || (ended ? "????" : ""));
+};
+
+MB.utility.deferFocus = function () {
+    var selectorArguments = arguments;
+    _.defer(function () { $.apply(null, selectorArguments).focus() });
+};
+
+MB.utility.computedWith = function (callback, observable, defaultValue) {
+    return ko.computed(function () {
+        var result = observable();
+
+        return result ? callback(result) : defaultValue;
+    });
+};
+
+
+MB.utility.isValidURL = (function () {
+    var protocolRegex = /^(https?|ftp):$/;
+    var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+    return function (url) {
+        var a = document.createElement("a");
+        a.href = url;
+
+        var hostname = a.hostname;
+
+        if (url.indexOf(hostname) < 0) {
+            return false;
+        }
+
+        if (!hostnameRegex.test(hostname)) {
+            return false;
+        }
+
+        if (hostname.indexOf(".") < 0) {
+            return false;
+        }
+
+        if (!protocolRegex.test(a.protocol)) {
+            return false;
+        }
+
+        return true;
+    };
+}());
+
+
+MB.utility.mergeDates = function (a, b) {
+    var ay = a.year(), am = a.month(), ad = a.day();
+    var by = b.year(), bm = b.month(), bd = b.day();
+
+    var yConflict = ay && by && ay !== by;
+    var mConflict = am && bm && am !== bm;
+    var dConflict = ad && bd && ad !== bd;
+
+    if (yConflict || mConflict || dConflict) return null;
+
+    return { year: ay || by, month: am || bm, day: ad || bd };
+};
+
+MB.utility.debounce = function (value, delay) {
+    if (!ko.isObservable(value)) {
+        value = ko.computed(value);
+    }
+    return value.extend({
+        rateLimit: { method: "notifyWhenChangesStop", timeout: delay || 500 }
+    });
+};

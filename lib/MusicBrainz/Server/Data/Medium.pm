@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
-use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     object_to_ids
@@ -12,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
@@ -20,13 +20,15 @@ use Scalar::Util qw( weaken );
 
 sub _table
 {
-    return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
+    return 'medium';
 }
 
 sub _columns
 {
-    return 'medium.id, tracklist, release, position, format, medium.name,
-            medium.edits_pending, track_count';
+    return 'medium.id, release, position, format, medium.name,
+            medium.edits_pending, track_count,
+            COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
+            (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
 }
 
 sub _id_column
@@ -37,23 +39,15 @@ sub _id_column
 sub _column_mapping
 {
     return {
-        id            => 'id',
-        tracklist_id  => 'tracklist',
-        tracklist     => sub {
-            my ($row, $prefix) = @_;
-            my $id = $row->{$prefix . 'tracklist'};
-            my $track_count = $row->{$prefix . 'track_count'};
-            return unless defined($id) && defined($track_count);
-            return MusicBrainz::Server::Entity::Tracklist->new(
-                id          => $id,
-                track_count => $track_count,
-            );
-        },
-        release_id    => 'release',
-        position      => 'position',
-        name          => 'name',
-        format_id     => 'format',
-        edits_pending => 'edits_pending',
+        id                  => 'id',
+        track_count         => 'track_count',
+        release_id          => 'release',
+        position            => 'position',
+        name                => 'name',
+        format_id           => 'format',
+        edits_pending       => 'edits_pending',
+        has_pregap          => 'has_pregap',
+        cdtoc_track_count   => 'cdtoc_track_count',
     };
 }
 
@@ -71,7 +65,7 @@ sub load
 sub load_for_releases
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
 
@@ -92,46 +86,20 @@ sub load_for_releases
     }
 }
 
-sub find_by_tracklist
-{
-    my ($self, $tracklist_id, $limit, $offset) = @_;
-    my $query = "
-        SELECT
-            medium.id AS m_id, medium.format AS m_format,
-                medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit_id,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
-                release.packaging AS r_packaging,
-                release.release_group AS r_release_group
-        FROM
-            medium
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-        WHERE medium.tracklist = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
-        OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = shift;
-            my $medium = $self->_new_from_row($row, 'm_');
-            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
-            $medium->release($release);
-            return $medium;
-        },
-        $query, $tracklist_id, $offset || 0);
-}
-
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
+    die "update cannot update tracklist" if exists $medium_hash->{tracklist};
+
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
+
     $self->sql->update_row('medium', $row, { id => $medium_id });
+
+    if ($row->{format}) {
+        my $has_discids = $self->sql->select_single_value('SELECT has_discids FROM medium_format WHERE id = ?', $row->{format});
+        $self->sql->do('UPDATE track SET is_data_track = false WHERE medium = ?', $medium_id) unless $has_discids;
+    }
 }
 
 sub insert
@@ -140,13 +108,25 @@ sub insert
     my $class = $self->_entity_class;
     my @created;
     for my $medium_hash (@medium_hashes) {
+        my $tracklist = delete $medium_hash->{tracklist};
         my $row = $self->_create_row($medium_hash);
 
-        push @created, $class->new(
+        my $medium_created = {
             id => $self->sql->insert_row('medium', $row, 'id'),
-            %{ $medium_hash }
-        );
+        };
+
+        for my $track (@$tracklist) {
+            $track->{medium_id} = $medium_created->{id};
+            $track->{artist_credit_id} =
+                $self->c->model('ArtistCredit')->find_or_insert(
+                    delete $track->{artist_credit});
+        };
+
+        $self->c->model('Track')->insert(@$tracklist);
+
+        push @created, $medium_created;
     }
+
     return @medium_hashes > 1 ? @created : $created[0];
 }
 
@@ -161,8 +141,9 @@ sub delete
     };
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
+    $self->sql->do('DELETE FROM track_gid_redirect WHERE new_id IN (SELECT id FROM track WHERE medium IN (' . placeholders(@ids) . '))', @ids);
+    $self->sql->do('DELETE FROM track WHERE medium IN (' . placeholders(@ids) . ')', @ids);
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
-    $self->c->model('Tracklist')->garbage_collect;
 }
 
 sub _create_row
@@ -170,7 +151,7 @@ sub _create_row
     my ($self, $medium_hash) = @_;
     my %row;
     my $mapping = $self->_column_mapping;
-    for my $col (qw( name format_id position tracklist_id release_id ))
+    for my $col (qw( name format_id position release_id ))
     {
         next unless exists $medium_hash->{$col};
         my $mapped = $mapping->{$col} || $col;
@@ -184,21 +165,21 @@ sub find_for_cdstub {
     my $query =
         'SELECT ' . join(', ', $self->c->model('Release')->_columns,
                          map { "medium.$_ AS m_$_" } qw(
-                             id name tracklist release position format edits_pending
+                             id name track_count release position format edits_pending
                          )) . "
            FROM (
                     SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
                            name
-                    FROM release_name, plainto_tsquery('mb_simple', ?) AS query
+                    FROM release, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS name
-           JOIN release ON name.id = release.name
+           JOIN release ON name.id = release.id
            JOIN medium ON medium.release = release.id
       LEFT JOIN medium_format ON medium.format = medium_format.id
-           JOIN tracklist ON medium.tracklist = tracklist.id
-          WHERE track_count = ? AND (medium_format.id IS NULL OR medium_format.has_discids)
+          WHERE track_count_matches_cdtoc(medium, ?)
+          AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";
 
@@ -213,6 +194,66 @@ sub find_for_cdstub {
         $query, $cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count
     );
 }
+
+sub set_lengths_to_cdtoc
+{
+    my ($self, $medium_id, $cdtoc_id) = @_;
+    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
+        or die "Could not load CDTOC";
+
+    my $medium = $self->get_by_id($medium_id)
+        or die "Could not load tracklist";
+
+    $self->c->model('Track')->load_for_mediums($medium);
+    $self->c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my @recording_ids;
+    my @info = @{ $cdtoc->track_details };
+    my @medium_tracks = @{ $medium->cdtoc_tracks };
+
+    for my $i (0..$#info) {
+        my $track = $medium_tracks[$i];
+
+        $self->c->model('Track')->update(
+            $track->id, { length => $info[$i]->{length_time} }
+        );
+
+        push @recording_ids, $track->recording_id;
+        $i++;
+    }
+
+    $self->c->model('Recording')->_delete_from_cache(@recording_ids);
+}
+
+sub merge
+{
+    my ($self, $new_medium_id, $old_medium_id) = @_;
+    my @recording_merges = @{
+        $self->sql->select_list_of_lists(
+            'SELECT DISTINCT newt.recording AS new, oldt.recording AS old
+               FROM track oldt
+               JOIN track newt ON newt.position = oldt.position
+              WHERE newt.medium = ? AND oldt.medium = ?
+                AND newt.recording != oldt.recording',
+            $new_medium_id, $old_medium_id
+        )
+    };
+
+    # We need to make sure that for each old recording, there is only 1 new recording
+    # to merge into. If there is > 1, then it's not clear what we should merge into.
+    my %target_count;
+    $target_count{ $_->[1] }++ for @recording_merges;
+
+    for my $recording_merge (@recording_merges) {
+        my ($new, $old) = @$recording_merge;
+        next if $target_count{$old} > 1;
+
+        $self->c->model('Recording')->merge(@$recording_merge);
+    }
+
+    $self->c->model('Track')->merge_mediums($new_medium_id, $old_medium_id);
+}
+
 
 =method reorder
 
@@ -244,6 +285,27 @@ sub reorder {
           WHERE id IN (' . placeholders(@medium_ids) . ')',
         %ordering, @medium_ids
     )
+}
+
+sub load_related_info {
+    my ($self, $user_id, @mediums) = @_;
+
+    $self->c->model('MediumFormat')->load(@mediums);
+    $self->c->model('Release')->load(@mediums);
+    $self->c->model('Track')->load_for_mediums(@mediums);
+
+    my @tracks = map { $_->all_tracks } @mediums;
+    $self->c->model('ArtistCredit')->load(@tracks);
+
+    my @recordings = $self->c->model('Recording')->load(@tracks);
+    $self->c->model('Recording')->load_meta(@recordings);
+    $self->c->model('Recording')->load_gid_redirects(@recordings);
+    $self->c->model('Recording')->rating->load_user_ratings($user_id, @recordings) if $user_id;
+
+    $self->c->model('Relationship')->load_cardinal(@recordings);
+    $self->c->model('Relationship')->load_cardinal(grep { $_->isa(Work) } map { $_->target } map { $_->all_relationships } @recordings);
+
+    $self->c->model('ISRC')->load_for_recordings(@recordings);
 }
 
 __PACKAGE__->meta->make_immutable;

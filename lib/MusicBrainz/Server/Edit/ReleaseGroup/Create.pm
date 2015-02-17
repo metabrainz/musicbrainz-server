@@ -9,14 +9,16 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_preview
     verify_artist_credits
+    clean_submitted_artist_credits
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
@@ -53,7 +55,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
@@ -72,6 +74,8 @@ sub initialize {
     delete $opts{secondary_type_ids}
         unless grep { looks_like_number($_) } @{ $opts{secondary_type_ids} // [] };
 
+    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
+
     $self->data(\%opts);
 }
 
@@ -80,10 +84,9 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{primary_type_id} = delete $data->{type_id};
+    $data->{comment} = '' unless defined $data->{comment};
     return $data;
 }
-
-sub allow_auto_edit { 1 }
 
 before accept => sub {
     my ($self) = @_;

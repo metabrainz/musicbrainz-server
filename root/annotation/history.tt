@@ -1,3 +1,6 @@
+[% WRAPPER "$entity_type/layout.tt" full_width=1 title=l('Annotation history') %]
+  <h2>[% l('Annotation history') %]</h2>
+
 [% WRAPPER 'components/with-pager.tt' %]
 <form action="[% c.uri_for_action(c.namespace _ '/annotation_diff', [ entity.gid ]) %]">
   <table class="tbl" id="annotation-history">
@@ -39,3 +42,30 @@
   </p>
 </form>
 [% END %]
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    var $table = $("#annotation-history");
+
+    function reset() {
+        var seenOld = false, seenNew = false;
+
+        $table.find("tr").each(function (tr) {
+            var $tr = $(this),
+                $old = $tr.find("input.old"),
+                $new = $tr.find("input.new");
+
+            seenOld = seenOld || !!$old.prop("checked");
+
+            $old.toggle(seenNew);
+            $new.toggle(!seenOld);
+
+            seenNew = seenNew || !!$new.prop("checked");
+        });
+    }
+
+    reset();
+    $table.find("input.old, input.new").change(reset);
+  }());
+//]]></script>
+[%~ END ~%]

@@ -1,1 +1,20 @@
-[% INCLUDE "user/subscriptions/subscriptions.tt" title=l('Collection Subscriptions') type='collection' %]
+[% WRAPPER "user/subscriptions/layout.tt" title=l('Collection Subscriptions') %]
+    [% INCLUDE "user/subscriptions/table.tt" type='collection'
+        entities=public_subscriptions %]
+
+    [% IF private_collection_count %]
+      [% IF viewing_own_profile %]
+      <p>[% ln('You are subscribed to {n} private collection.',
+               'You are subscribed to {n} private collections.',
+               private_collection_count,
+               { n => private_collection_count }) %]
+      </p>
+      [% ELSE %]
+      <p>[% ln('{editor} is subscribed to {n} private collection.',
+               '{editor} is subscribed to {n} private collections.',
+               private_collection_count
+               { editor => link_editor(user), n => private_collection_count }) %]
+      </p>
+      [% END %]
+    [% END %]
+[% END %]

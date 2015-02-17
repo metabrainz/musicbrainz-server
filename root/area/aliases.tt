@@ -1,0 +1,7 @@
+[%- WRAPPER "area/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=area
+        delete_path='/area/delete_alias'
+        add_path='/area/add_alias'
+        edit_path='/area/edit_alias'
+        disallow_editing=c.user_exists ? !c.user.is_location_editor : 1 -%]
+[%- END -%]

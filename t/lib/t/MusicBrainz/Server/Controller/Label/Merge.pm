@@ -21,7 +21,8 @@ test all => sub {
     $mech->get_ok('/label/merge');
     $mech->submit_form(
         with_fields => {
-            'merge.target' => 3
+            'merge.target' => 3,
+            'merge.edit_note' => 'Required'
         }
     );
 
@@ -30,7 +31,7 @@ test all => sub {
 
     is_deeply($edit->data, {
         old_entities => [ { name => 'Warp Records', id => '2' } ],
-        new_entity => { name => 'Another Label', id => '3' }, 
+        new_entity => { name => 'Another Label', id => '3' },
     });
 
     $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

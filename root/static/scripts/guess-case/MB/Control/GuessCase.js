@@ -15,98 +15,97 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 */
 
-MB.Control.GuessCase = function (type, $name) {
-    var self = MB.Object ();
+MB.Control.initialize_guess_case = function (type, formPrefix) {
+    formPrefix = formPrefix ? (formPrefix + "\\.") : "";
 
-    self.type = type;
-    self.$name = $name;
-    self.$guesscase = $('a[href=#guesscase]');
+    var $name = $("#" + formPrefix + "name");
+    var $options = $("#guesscase-options");
 
-    self.guesscase = function (event) {
-        self.$name.val (MB.GuessCase[self.type].guess (self.$name.val ()));
+    if ($options.length && !$options.data("ui-dialog")) {
+        $options.dialog({ title: MB.i18n.l('Guess Case Options'), autoOpen: false });
+        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
+    }
 
-        event.preventDefault ();
-    };
+    var guess = MB.GuessCase[type];
 
-    self.$guesscase.bind ('click.mb', self.guesscase);
+    function setVal($input, value) {
+        $input.val(value).trigger('change');
+    }
 
-    return self;
+    $name.parent()
+        .find("button.guesscase-title").on("click", function () { setVal($name, guess.guess($name.val())) })
+        .end()
+        .find("button.guesscase-options").on("click", function () { $options.dialog("open") });
+
+    var $sortname = $("#" + formPrefix + "sort_name");
+    var $artistType = $('#id-edit-artist\\.type_id');
+
+    $sortname.parent()
+        .find("button.guesscase-sortname").on("click", function () {
+            var args = [$name.val()];
+
+            if (type === "artist") {
+                args.push($artistType.val() != 2 /* person */);
+            }
+
+            setVal($sortname, guess.sortname.apply(guess, args));
+        })
+        .end()
+        .find("button.sortname-copy").on("click", function () {
+            setVal($sortname, $name.val());
+        });
 };
 
+ko.bindingHandlers.guessCase = {
 
-MB.Control.SortName = function (type, $name, $sortname, $cont) {
-    var self = MB.Object ();
+    init: function (element, valueAccessor, allBindingsAccessor,
+                    viewModel, bindingContext) {
 
-    self.type = type;
-    self.$name = $name;
-    self.$sortname = $sortname;
+        var gc = window.gc;
+        var callback = valueAccessor();
+        var cookieSettings = { path: "/", expires: 365 };
 
-    self.$sortname_button = $cont.find('a[href=#sortname]');
-    self.$copy_button = $cont.find('a[href=#copy]');
+        var bindings = {
+            modeName: ko.observable(gc.modeName).syncWith("gcModeName"),
+            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED).syncWith("gcKeepUpperCase"),
+            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS).syncWith("gcUpperCaseRoman"),
+            guessCase: _.bind(callback, bindings)
+        };
 
-    self.sortname = function (event) {
-        self.$sortname.val (MB.GuessCase[self.type].sortname (self.$name.val ()));
+        var mode = ko.computed(function () {
+            var modeName = bindings.modeName()
 
-        event.preventDefault ();
-    };
+            if (modeName !== gc.modeName) {
+                gc.modeName = modeName;
+                gc.mode = MB.GuessCase.Mode[modeName];
+                $.cookie("guesscase_mode", modeName, cookieSettings);
+            }
+            return gc.mode;
+        });
 
-    self.copy = function (event) {
-        self.$sortname.val (self.$name.val ());
+        bindings.help = ko.computed(function () {
+            return mode().getDescription();
+        });
 
-        event.preventDefault ();
-    };
+        bindings.keepUpperCase.subscribe(function (value) {
+            gc.CFG_UC_UPPERCASED = value;
 
-    self.initialize = function () {
-        self.$sortname_button.bind ('click.mb', self.sortname);
-        self.$copy_button.bind ('click.mb', self.copy);
-    };
+            $.cookie("guesscase_keepuppercase", value, cookieSettings);
+        });
 
-    return self;
-};
+        bindings.upperCaseRoman.subscribe(function (value) {
+            gc.CFG_UC_ROMANNUMERALS = value;
 
-MB.Control.ArtistSortName = function (type, $name, $sortname) {
-    var self = MB.Control.SortName (type, $name, $sortname, $('body'));
+            $.cookie("guesscase_roman", value, cookieSettings);
+        });
 
-    self.$type   = $('#id-edit-artist\\.type_id');
+        var context = bindingContext.createChildContext(bindings);
+        ko.applyBindingsToDescendants(context, element);
 
-    self.sortname = function (event) {
-        var person = self.$type.val () !== '2';
-
-        self.$sortname.val (MB.GuessCase.artist.sortname (self.$name.val (), person));
-
-        event.preventDefault ();
-    };
-
-    return self;
-};
-
-
-/* A generic guess case initialize function for use outside the
-   release editor. */
-MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
-
-    var $name = $('input#' + form_prefix + '\\.name');
-    var $gcdoc = $('div.guess-case.bubble');
-
-    bubbles.add ($name, $gcdoc);
-    MB.Control.GuessCase (type, $name);
-
-    if (type === 'label' || type === 'artist' || type === 'work')
-    {
-        var $sortname = $('input#' + form_prefix + '\\.sort_name');
-        var $sortdoc = $('div.sortname.bubble');
-
-        bubbles.add ($sortname, $sortdoc);
-        if (type === 'artist')
-        {
-            MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
-        }
-        else
-        {
-            MB.Control.SortName (type, $name, $sortname, $('body')).initialize ();
-        }
+        return { controlsDescendantBindings: true };
     }
 };
+
+ko.virtualElements.allowedBindings.guessCase = true;

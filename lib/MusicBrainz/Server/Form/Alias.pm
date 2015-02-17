@@ -4,6 +4,7 @@ use HTML::FormHandler::Moose;
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree indentation );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -63,19 +64,20 @@ has search_hint_type_id => (
 
 sub edit_field_names {
     qw( name locale sort_name period.begin_date period.end_date
-        type_id primary_for_locale )
+        period.ended type_id primary_for_locale )
 }
 
 sub _locale_name_special_cases {
+    # Special-case some locales that have a non-descriptive name
     my $locale = shift;
     if ($locale->id eq 'el_POLYTON') {
         return 'Greek Polytonic';
     } elsif ($locale->id eq 'sr_Cyrl_YU') {
-	return 'Serbian Cyrillic Yugoslavia';
+        return 'Serbian Cyrillic Yugoslavia';
     } elsif ($locale->id eq 'sr_Latn_YU') {
-	return 'Serbian Latin Yugoslavia';
+        return 'Serbian Latin Yugoslavia';
     } else {
-	return $locale->name;
+        return $locale->name;
     }
 }
 
@@ -83,8 +85,7 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            # Special-case el_POLYTON, because it has a stupid non-descriptive name
-            $_->id => ($_->id =~ /_/ ? "&#xa0;&#xa0;&#xa0;" : '') . _locale_name_special_cases($_)
+            $_->id => indentation($_->id =~ /_/ ? 1 : 0) . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
             sort_by { $_->id }
@@ -94,7 +95,7 @@ sub options_locale {
 
 sub options_type_id {
     my $self = shift;
-    $self->_select_all($self->alias_model->parent->alias_type);
+    select_options_tree($self->ctx, $self->alias_model->parent->alias_type);
 }
 
 sub validate_primary_for_locale {
@@ -108,12 +109,6 @@ sub validate_primary_for_locale {
 after validate => sub {
     my $self = shift;
     my $type_id = $self->field('type_id')->value;
-
-    if (!$type_id || $type_id != $self->search_hint_type_id) {
-        my $sort_name_field = $self->field('sort_name');
-        $sort_name_field->required(1);
-        $sort_name_field->validate_field;
-    }
 
     if ($self->alias_model->exists({ name => $self->field('name')->value,
                                      locale => $self->field('locale')->value,

@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::EditAlias;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
@@ -46,6 +46,19 @@ html_ok($mech->content, '..valid xml');
 $mech->content_contains('Test Artist', '..has artist name');
 $mech->content_contains('Test Alias', '..has old alias name');
 $mech->content_contains('Edited alias', '..has new alias name');
+
+# A sortname isn't required (MBS-6896)
+($edit) = capture_edits {
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/alias/1/edit');
+    my $response = $mech->submit_form(
+        with_fields => {
+            'edit-alias.name' => 'Edit #2',
+            'edit-alias.sort_name' => '',
+        });
+} $c;
+
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::EditAlias');
+is($edit->data->{new}{sort_name}, 'Edit #2', 'sort_name defaults to name');
 
 };
 

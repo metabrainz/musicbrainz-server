@@ -7,7 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::CoverArt';
 
 sub edit_name { N_l('Add cover art') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{cover_art_id} }
@@ -33,6 +34,7 @@ has '+data' => (
         cover_art_position => Int,
         cover_art_id   => Int,
         cover_art_comment => Str,
+        cover_art_mime_type => Str,
     ]
 );
 
@@ -49,7 +51,8 @@ sub initialize {
         cover_art_types => $opts{cover_art_types},
         cover_art_position => $opts{cover_art_position},
         cover_art_id => $opts{cover_art_id},
-        cover_art_comment => $opts{cover_art_comment}
+        cover_art_comment => $opts{cover_art_comment},
+        cover_art_mime_type => $opts{cover_art_mime_type},
     });
 }
 
@@ -74,7 +77,8 @@ sub post_insert {
         $self->data->{cover_art_id},
         $self->data->{cover_art_position},
         $self->data->{cover_art_types},
-        $self->data->{cover_art_comment}
+        $self->data->{cover_art_comment},
+        $self->data->{cover_art_mime_type}
     );
 }
 
@@ -101,23 +105,38 @@ sub build_display_data {
     my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
+    my $suffix = $self->data->{cover_art_mime_type}
+        ? $self->c->model('CoverArt')->image_type_suffix($self->data->{cover_art_mime_type})
+        : "jpg";
+
     my $artwork = Artwork->new(release => $release,
                                id => $self->data->{cover_art_id},
                                comment => $self->data->{cover_art_comment},
+                               mime_type => $self->data->{cover_art_mime_type},
+                               suffix => $suffix,
                                cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{cover_art_types} }]);
 
     return {
         release => $release,
         artwork => $artwork,
-        position => $self->data->{cover_art_position}
+        position => $self->data->{cover_art_position},
     };
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    $data->{cover_art_mime_type} = 'image/jpeg'
+        unless exists $data->{cover_art_mime_type};
+
+    $self->data($data);
 }
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012,2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

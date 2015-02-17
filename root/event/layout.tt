@@ -1,0 +1,39 @@
+[%~ WRAPPER "layout.tt" title=title ? event.name _ " - ${title}" : event.name canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE 'event/header.tt' ~%]
+        [%~ content ~%]
+    </div>
+
+    [%~ IF !full_width ~%]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=event ~%]
+            <h2 class="event-information">[%~ l('Event information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(event.l_type_name) class="type"
+                         IF event.type ~%]
+
+                [%- UNLESS event.begin_date.is_empty AND event.end_date.is_empty -%]
+                    [%- IF event.begin_date.format == event.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Date:") class="date" %]
+                            [% event.begin_date.format %]
+                        [% END %]
+                    [% ELSE %]
+                        [% IF event.begin_date.format %]
+                            [% WRAPPER 'layout/sidebar/property.tt' label=l("Start Date:") class="start-date" %]
+                                [% event.begin_date.format %]
+                            [% END %]
+                        [% END %]
+                        [% IF event.end_date.format %]
+                            [% WRAPPER 'layout/sidebar/property.tt' label=l("End Date:") class="end-date" %]
+                                [% event.end_date.format %]
+                            [% END %]
+                        [% END %]
+                    [% END %]
+                [%- END -%]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('Time:')
+                   content=html_escape(event.formatted_time) class="time"
+                       IF event.time -%]
+            [% END %]
+        [%~ END ~%]
+    [%~ END ~%]
+[%~ END ~%]

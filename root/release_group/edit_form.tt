@@ -1,14 +1,28 @@
+[%~ javascript_required() ~%]
+
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Release_Group'), doc_styleguide => doc_link('Style/Release_Group')}) -%]</p>
+
 <form action="[% c.req.uri %]" method="post">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
     <fieldset>
       <legend>[% l('Release Group Details') %]</legend>
+      [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_artist_credit(form) -%]
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'primary_type_id', l('Primary Type:')) -%]
       [%- form_row_select(r, 'secondary_type_ids', l('Secondary Types:')) -%]
+    </fieldset>
+
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'release_group') %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -17,8 +31,17 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form, 1) -%]
-    [%- guesscase_bubble() -%]
+    [%- artist_credit_table() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_artist_credit();
+    MB.Control.initialize_guess_case("release-group", "id-edit-release-group");
+  }());
+//]]></script>

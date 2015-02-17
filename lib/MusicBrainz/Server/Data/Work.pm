@@ -2,11 +2,10 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use namespace::autoclean;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -16,48 +15,46 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkAttribute;
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    my $self = shift;
-    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON work.name = $join_on");
-}
+sub _type { 'work' }
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
-            name.name, work.comment, work.edits_pending, work.last_updated';
+    return 'work.id, work.gid, work.type, work.language,
+            work.name, work.comment, work.edits_pending, work.last_updated';
+}
+
+sub _column_mapping
+{
+    return {
+        id => 'id',
+        gid => 'gid',
+        name => 'name',
+        type_id => 'type',
+        comment => 'comment',
+        language_id => 'language',
+        last_updated => 'last_updated',
+        edits_pending => 'edits_pending',
+    };
 }
 
 sub _id_column
 {
     return 'work.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'work_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Work';
 }
 
 sub find_by_artist
@@ -83,7 +80,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(work.name)
          OFFSET ?';
 
     # We actually use this for the side effect in the closure
@@ -110,7 +107,7 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY musicbrainz_collate(name.name)";
+                 ORDER BY musicbrainz_collate(work.name)";
 
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
@@ -123,31 +120,12 @@ sub load
     load_subobjects($self, 'work', @objs);
 }
 
-sub insert
-{
-    my ($self, @works) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $work (@works)
-    {
-        my $row = $self->_hash_to_row($work, \%names);
-        $row->{gid} = $work->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('work', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @works > 1 ? @created : $created[0];
-}
-
 sub update
 {
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('work', $row, { id => $work_id });
+    my $row = $self->_hash_to_row($update);
+    $self->sql->update_row('work', $row, { id => $work_id }) if %$row;
 }
 
 # Works can be unconditionally removed
@@ -163,6 +141,7 @@ sub delete
     $self->rating->delete($work_id);
     $self->c->model('ISWC')->delete_works($work_id);
     $self->remove_gid_redirects($work_id);
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
     $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
@@ -179,6 +158,24 @@ sub _merge_impl
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('ISWC')->merge_works($new_id, @old_ids);
 
+    $self->sql->do(
+        'WITH all_attributes AS (
+           DELETE FROM work_attribute WHERE work = any(?)
+           RETURNING work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         )
+         INSERT INTO work_attribute
+           (work, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value)
+         SELECT DISTINCT ON
+           (work_attribute_type,
+            coalesce(work_attribute_text, work_attribute_type_allowed_value::text))
+           ?, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         FROM all_attributes',
+      [ $new_id, @old_ids ], $new_id
+    );
+
     merge_table_attributes(
         $self->sql => (
             table => 'work',
@@ -194,15 +191,12 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $work, $names) = @_;
+    my ($self, $work) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
         language => 'language_id',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment name )
     });
-
-    $row->{name} = $names->{$work->{name}}
-        if (exists $work->{name});
 
     return $row;
 }
@@ -216,6 +210,18 @@ sub load_meta
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
+}
+
+sub load_related_info {
+    my ($self, @works) = @_;
+
+    my $c = $self->c;
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
+    $c->model('WorkAttribute')->load_for_works(@works);
+    $c->model('ISWC')->load_for_works(@works);
+    $c->model('WorkType')->load(@works);
+    $c->model('Language')->load_for_works(@works);
 }
 
 =method load_ids
@@ -259,18 +265,37 @@ sub find_artists
     my @ids = map { $_->id } @$works;
     return () unless @ids;
 
-    my %map;
-    $self->_find_writers(\@ids, \%map);
-    $self->_find_recording_artists(\@ids, \%map);
+    my (%writers, %artists);
+    $self->_find_writers(\@ids, \%writers);
+    $self->_find_recording_artists(\@ids, \%artists);
 
-    for my $work_id (keys %map)
-    {
-        my @artists = uniq map { $_->{entity}->name } @{ $map{$work_id} };
+    my %map = map +{
+        $_ => {
+            writers => { hits => 0, results => [] },
+            artists => { hits => 0, results => [] }
+        }
+    }, @ids;
+
+    for my $work_id (@ids) {
+        my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
+        my @writers = uniq map { $_->{entity}->name } @{ $writers{$work_id} };
+
         $map{$work_id} = {
-            hits => scalar @artists,
-            results => $limit && scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
+            writers => {
+                hits => scalar @writers,
+                results => $limit && scalar @writers > $limit
+                    ? [ @writers[ 0 .. ($limit-1) ] ]
+                    : \@writers,
+            },
+            artists => {
+                hits => scalar @artists,
+                results => $limit && scalar @artists > $limit
+                    ? [ @artists[ 0 .. ($limit-1) ] ]
+                    : \@artists,
+            },
         }
     }
+
     return %map;
 }
 
@@ -312,7 +337,7 @@ sub _find_writers
         ORDER BY count(*) DESC, artist
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
@@ -365,7 +390,7 @@ sub _find_recording_artists
         ORDER BY count(*) DESC, artist_credit
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
 
     my @artist_credit_ids = map { $_->[1] } @$rows;
     my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);
@@ -404,6 +429,23 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub set_attributes {
+    my ($self, $work_id, @attributes) = @_;
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
+    $self->sql->insert_many(
+        'work_attribute',
+        map +{
+            work => $work_id,
+            work_attribute_type => $_->{attribute_type_id},
+            work_attribute_text =>
+                exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
+            work_attribute_type_allowed_value =>
+                exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
+                    undef
+        }, @attributes
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

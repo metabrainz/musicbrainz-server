@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Utils;
 
 use base 'Exporter';
 use Readonly;
+use Class::Load qw( load_class );
 
 use String::CamelCase qw(camelize);
 
@@ -25,8 +26,6 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Label',
     'MusicBrainz::Server::Entity::MediumCDTOC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDTOC',
     'MusicBrainz::Server::Entity::LabelAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
-    'MusicBrainz::Server::Entity::PUID' => 'MusicBrainz::Server::WebService::Serializer::XML::1::PUID',
-    'MusicBrainz::Server::Entity::RecordingPUID' => 'MusicBrainz::Server::WebService::Serializer::XML::1::RecordingPUID',
     'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Recording',
     'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Relation',
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Release',
@@ -43,7 +42,7 @@ sub serializer
 
     my $class = $ENTITY_TO_SERIALIZER{$entity->meta->name};
 
-    Class::MOP::load_class($class);
+    load_class($class);
 
     $serializers{$class} ||= $class->new;
     return $serializers{$class};

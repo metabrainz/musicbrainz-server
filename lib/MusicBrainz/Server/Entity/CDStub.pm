@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::CDStub;
 
 use Moose;
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( DateTime );
 

@@ -213,7 +213,7 @@ sub output_xml
 
     my $first_xid = $xml_frags[0][0];
 
-    print '<?xml version="1.0" encoding="UTF-8"?>' . 
+    print '<?xml version="1.0" encoding="UTF-8"?>' .
         "\n<changes xid_start=\"$first_xid\">\n";
 
     seek($xmlfh, 0, 0);
@@ -260,12 +260,12 @@ sub decode_row
 }
 
 # Decode a value in dbmirror "data" format into a hash reference
-sub extractData 
+sub extractData
 {
   my $dataField = shift;
   my %valuesHash;
 
-  while(length($dataField)>0) 
+  while (length($dataField)>0)
   {
     # Extract the field name that is surronded by double quotes
     $dataField =~ m/(\".*?\")/s;
@@ -273,49 +273,49 @@ sub extractData
     $dataField = substr $dataField ,length($fieldName);
     $fieldName =~ s/\"//g; #Remove the surronding " signs.
 
-    if($dataField =~ m/(^= )/s) 
+    if ($dataField =~ m/(^= )/s)
     {
       #Matched null
       $dataField = substr $dataField , length($1);
       $valuesHash{$fieldName}=undef;
     }
-    elsif ($dataField =~ m/(^=\')/s) 
+    elsif ($dataField =~ m/(^=\')/s)
     {
       #Has data.
       my $value;
       $dataField = substr $dataField ,2; #Skip the ='
 
-      LOOP: 
+      LOOP:
       {  #This is to allow us to use last from a do loop.
          #Recommended in perlsyn manpage.
-          do 
+          do
           {
               my $matchString;
- 
+
               #Find the substring ending with the first ' or first \
-              $dataField =~ m/(.*?[\'\\])?/s; 
+              $dataField =~ m/(.*?[\'\\])?/s;
               $matchString = $1;
               $value .= substr $matchString,0,length($matchString)-1;
 
-              if($matchString =~ m/(\'$)/s) 
+              if ($matchString =~ m/(\'$)/s)
               {
                    # $1 runs to the end of the field value.
                   $dataField = substr $dataField,length($matchString)+1;
                   last;
               }
-              else 
+              else
               {
                   #deal with the escape character.
                   #It The character following the escape gets appended.
-                  $dataField = substr $dataField,length($matchString);        
-                  $dataField =~ s/(^.)//s;        
+                  $dataField = substr $dataField,length($matchString);
+                  $dataField =~ s/(^.)//s;
                   $value .=  $1;
               }
           } until(length($dataField)==0);
       }
       $valuesHash{$fieldName} = $value;
     }
-    else 
+    else
     {
       print STDERR "Error in PendingData";
       die;

@@ -30,15 +30,16 @@
 [%- ELSE -%]
     [%- WRAPPER "layout.tt" title=html_title -%]
         [%- PROCESS "statistics/macros-header.tt" -%]
-        <div id="sidebar">
-            [%- sidebar -%]
-        </div>
         <div id="content">
             <div class="statisticsheader">
                 <h1>[%- l('Database Statistics') -%]</h1>
             </div>
             [% INCLUDE 'components/tabs.tt' list=info_links %]
             [%- content -%]
+        </div>
+
+        <div id="sidebar">
+            [%- sidebar -%]
         </div>
         [%- PROCESS "statistics/macros-footer.tt" -%]
     [%- END -%]

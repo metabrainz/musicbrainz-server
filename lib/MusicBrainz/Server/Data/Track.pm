@@ -3,44 +3,44 @@ package MusicBrainz::Server::Data::Track;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Track;
-use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
+    object_to_ids
+    placeholders
     query_to_list
     query_to_list_limited
-    placeholders
 );
 use Scalar::Util 'weaken';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
-sub _table
-{
-    return 'track JOIN track_name name ON track.name=name.id';
-}
+sub _type { 'track' }
 
 sub _columns
 {
-    return 'track.id, name.name, recording, tracklist, number, position, length,
-            artist_credit, edits_pending';
+    return 'track.id, track.gid, track.name, track.medium, track.recording,
+            track.number, track.position, track.length, track.artist_credit,
+            track.edits_pending, track.is_data_track';
 }
 
-sub _column_mapping
-{
+sub _column_mapping {
     return {
         id               => 'id',
+        gid              => 'gid',
         name             => 'name',
         recording_id     => 'recording',
-        tracklist_id     => 'tracklist',
+        medium_id        => 'medium',
         number           => 'number',
         position         => 'position',
         length           => 'length',
         artist_credit_id => 'artist_credit',
         edits_pending    => 'edits_pending',
+        is_data_track    => 'is_data_track',
     };
 }
 
@@ -49,9 +49,13 @@ sub _id_column
     return 'track.id';
 }
 
-sub _entity_class
+sub _medium_ids
 {
-    return 'MusicBrainz::Server::Entity::Track';
+    my ($self, @track_ids) = @_;
+    return $self->sql->select_single_column_array(
+        "SELECT distinct(medium)
+           FROM track
+          WHERE id IN (" . placeholders(@track_ids) . ")", @track_ids);
 }
 
 sub load
@@ -60,25 +64,25 @@ sub load
     load_subobjects($self, 'track', @objs);
 }
 
-sub load_for_tracklists
+sub load_for_mediums
 {
-    my ($self, @tracklists) = @_;
-    my %id_to_tracklist;
-    for my $tracklist (@tracklists) {
-        $id_to_tracklist{$tracklist->id} ||= [];
-        push @{ $id_to_tracklist{$tracklist->id} }, $tracklist;
-    }
-    my @ids = keys %id_to_tracklist;
+    my ($self, @media) = @_;
+
+    $_->clear_tracks for @media;
+
+    my %id_to_medium = object_to_ids(@media);
+    my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE tracklist IN (" . placeholders(@ids) . ")
-                 ORDER BY tracklist, position";
+                 WHERE medium IN (" . placeholders(@ids) . ")
+                 ORDER BY medium, position";
     my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
+
     foreach my $track (@tracks) {
-        my @tracklists = @{ $id_to_tracklist{$track->tracklist_id} };
-        $_->add_track($track) for @tracklists;
+        my @media = @{ $id_to_medium{$track->medium_id} };
+        $_->add_track($track) for @media;
     }
 }
 
@@ -86,96 +90,148 @@ sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;
     my $query = "
-        SELECT
-            track.id, track_name.name, track.tracklist, track.position,
-                track.length, track.artist_credit, track.edits_pending,
-                medium.id AS m_id, medium.format AS m_format,
+        SELECT *
+        FROM (
+          SELECT DISTINCT ON (track.id, medium.id)
+            " . $self->_columns . ",
+            medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
                 medium.release AS m_release,
-                tracklist.track_count AS m_track_count,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                medium.track_count AS m_track_count,
+            release.id AS r_id, release.gid AS r_gid, release.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
+                release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.edits_pending AS r_edits_pending,
-                release.comment AS r_comment
-        FROM
-            track
-            JOIN tracklist ON tracklist.id = track.tracklist
-            JOIN medium ON medium.tracklist = tracklist.id
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-            JOIN track_name ON track.name = track_name.id
-        WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+                release.comment AS r_comment,
+            date_year, date_month, date_day
+          FROM track
+          JOIN medium ON medium.id = track.medium
+          JOIN release ON release.id = medium.release
+          LEFT JOIN (
+            SELECT release, country, date_year, date_month, date_day
+            FROM release_country
+            UNION ALL
+            SELECT release, NULL, date_year, date_month, date_day
+            FROM release_unknown_country
+          ) release_event ON release_event.release = release.id
+          WHERE track.recording = ?
+          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release.name)
+        ) s
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
         OFFSET ?";
+
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             my $row       = shift;
             my $track     = $self->_new_from_row($row);
             my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
-            my $tracklist = $medium->tracklist;
             my $release   = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
             $medium->release($release);
-            $tracklist->medium($medium);
-            $track->tracklist($tracklist);
-
-            # XXX HACK!!
-            weaken($medium->{tracklist});
+            $track->medium($medium);
 
             return $track;
         },
         $query, $recording_id, $offset || 0);
 }
 
-sub insert
-{
-    my ($self, @track_hashes) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @track_hashes);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $track_hash (@track_hashes) {
-        delete $track_hash->{id};
-        my $row = $self->_create_row($track_hash, \%names);
-        push @created, $class->new(
-            id => $self->sql->insert_row('track', $row, 'id')
-        );
-    }
-    return @created > 1 ? @created : $created[0];
+sub _insert_hook_prepare {
+    return { recording_ids => [] };
 }
 
+sub _insert_hook_make_row {
+    my ($self, $track_hash, $extra_data) = @_;
 
+    delete $track_hash->{id};
+    $track_hash->{number} //= '';
+    $track_hash->{is_data_track} //= 0;
+    my $row = $self->_create_row($track_hash);
+
+    push @{ $extra_data->{recording_ids} }, $row->{recording};
+
+    return $row;
+}
+
+sub _insert_hook_after_each {
+    my ($self, $created, $track_hash) = @_;
+
+    $self->c->model('DurationLookup')->update($track_hash->{medium_id});
+}
+
+sub _insert_hook_after {
+    my ($self, $created_entities, $extra_data) = @_;
+
+    $self->c->model('Recording')->_delete_from_cache(@{ $extra_data->{recording_ids} });
+}
+
+sub update
+{
+    my ($self, $track_id, $update) = @_;
+    my $old_recording = $self->sql->select_single_value('SELECT recording FROM track WHERE id = ? FOR UPDATE', $track_id);
+
+    my $row = $self->_create_row($update);
+    $self->sql->update_row('track', $row, { id => $track_id });
+
+    my $mediums = $self->_medium_ids($track_id);
+    $self->c->model('DurationLookup')->update($mediums->[0]);
+    $self->c->model('Recording')->_delete_from_cache($row->{recording}, $old_recording);
+}
 
 sub delete
 {
     my ($self, @track_ids) = @_;
-    my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
-    $self->sql->do($query, @track_ids);
+
+    my $recording_query = 'SELECT recording FROM track ' .
+        'WHERE id IN (' . placeholders(@track_ids) . ')';
+
+    my $recording_ids = $self->sql->select_single_column_array(
+        $recording_query, @track_ids
+    );
+
+    $self->remove_gid_redirects(@track_ids);
+
+    my $query = 'DELETE FROM track ' .
+        'WHERE id IN (' . placeholders(@track_ids) . ') RETURNING medium';
+
+    my $mediums = $self->sql->select_single_column_array($query, @track_ids);
+
+    $self->c->model('DurationLookup')->update($_) for @$mediums;
+    $self->c->model('Recording')->_delete_from_cache(@$recording_ids);
     return 1;
 }
 
-sub _create_row
+sub merge_mediums
 {
-    my ($self, $track_hash, $names) = @_;
+    my ($self, $new_medium, $old_medium) = @_;
 
-    my $mapping = $self->_column_mapping;
-    my %row = map {
-        my $mapped = $mapping->{$_} || $_;
-        $mapped => $track_hash->{$_}
-    } keys %$track_hash;
+    my @track_merges = @{
+        $self->sql->select_list_of_lists(
+            'SELECT DISTINCT newt.id AS new, oldt.id AS old
+               FROM track oldt
+               JOIN track newt ON newt.position = oldt.position
+              WHERE newt.medium = ? AND oldt.medium = ?',
+            $new_medium, $old_medium
+        )
+    };
 
-    $row{name} = $names->{ $track_hash->{name} } if exists $track_hash->{name};
+    for my $track_merge (@track_merges) {
+        my ($new, $old) = @$track_merge;
 
-    if (exists $row{length} && defined($row{length})) {
-        $row{length} = undef if $row{length} == 0;
+        $self->_delete_and_redirect_gids('track', $new, $old);
+    }
+}
+
+sub _create_row {
+    my ($self, $track_hash) = @_;
+
+    my $row = hash_to_row($track_hash, { reverse %{ $self->_column_mapping } });
+
+    if (exists $row->{length} && defined($row->{length})) {
+        $row->{length} = undef if $row->{length} == 0;
     }
 
-    return { %row };
+    return $row;
 }
 
 __PACKAGE__->meta->make_immutable;

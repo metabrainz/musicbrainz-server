@@ -66,15 +66,13 @@ EXECUTE PROCEDURE reindex_release_via_catno();
 
 CREATE OR REPLACE FUNCTION reindex_caa() RETURNS trigger AS $$
     BEGIN
-        IF TG_OP = 'DELETE' THEN
-            PERFORM amqp.publish(1, 'cover-art-archive', 'index',
-                     (SELECT gid FROM musicbrainz.release
-                      WHERE id = coalesce(OLD.release))::text);
-        ELSE
-            PERFORM amqp.publish(1, 'cover-art-archive', 'index',
-                     (SELECT gid FROM musicbrainz.release
-                      WHERE id = coalesce(NEW.release))::text);
-        END IF;
+        PERFORM amqp.publish(1, 'cover-art-archive', 'index', gid::text)
+        FROM musicbrainz.release
+        WHERE id = coalesce((
+                     CASE TG_OP
+                         WHEN 'DELETE' THEN OLD.release
+                         ELSE NEW.release
+                     END));
         RETURN NULL;
     END;
 $$ LANGUAGE 'plpgsql';
@@ -89,8 +87,10 @@ CREATE OR REPLACE FUNCTION caa_move() RETURNS trigger AS $$
             PERFORM amqp.publish(1, 'cover-art-archive', 'move',
                       (SELECT ca.id || E'\n' ||
                               old_release.gid || E'\n' ||
-                              new_release.gid || E'\n'
-                       FROM cover_art_archive.cover_art ca,
+                              new_release.gid || E'\n' ||
+                              it.suffix || E'\n'
+                       FROM cover_art_archive.cover_art ca
+                       JOIN cover_art_archive.image_type it ON it.mime_type = ca.mime_type,
                          musicbrainz.release old_release,
                          musicbrainz.release new_release
                        WHERE ca.id = OLD.id
@@ -109,8 +109,9 @@ CREATE OR REPLACE FUNCTION delete_release() RETURNS trigger AS $$
     BEGIN
         PERFORM
           amqp.publish(1, 'cover-art-archive', 'delete',
-            (cover_art.id || E'\n' || OLD.gid)::text)
+            (cover_art.id || E'\n' || OLD.gid || E'\n' || image_type.suffix)::text)
         FROM cover_art_archive.cover_art
+        JOIN cover_art_archive.image_type ON image_type.mime_type = cover_art.mime_type
         WHERE release = OLD.id;
 
         PERFORM amqp.publish('cover-art-archive', 'delete',

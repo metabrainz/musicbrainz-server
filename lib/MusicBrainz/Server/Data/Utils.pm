@@ -4,29 +4,40 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use Carp 'confess';
+use Carp qw( confess croak );
+use Try::Tiny;
 use Class::MOP;
+use Clone qw( clone );
 use Data::Compare;
 use Data::UUID::MT;
 use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
-use Digest::SHA1 qw( sha1_base64 );
+use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Constants qw(
+    $DARTIST_ID
+    $VARTIST_ID
+    $DLABEL_ID
+    $INSTRUMENT_ROOT_ID
+    $VOCAL_ROOT_ID
+    %ENTITIES
+);
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim qw ();
+use Text::Trim qw();
+use Unicode::Normalize qw( NFC );
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
+    add_coordinates_to_row
     artist_credit_to_ref
     check_data
     check_in_use
-    collapse_whitespace
     copy_escape
+    coordinates_to_hash
     defined_hash
     generate_gid
     generate_token
@@ -34,10 +45,13 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    load_everything_for_edits
     load_meta
     load_subobjects
     map_query
     merge_table_attributes
+    merge_string_attributes
+    merge_boolean_attributes
     merge_partial_date
     model_to_type
     object_to_ids
@@ -48,26 +62,15 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     ref_to_type
     remove_equal
-    remove_invalid_characters
+    sanitize
     take_while
     trim
     type_to_model
+    split_relationship_by_attributes
+    non_empty
 );
 
-Readonly my %TYPE_TO_MODEL => (
-    'annotation'    => 'Annotation',
-    'artist'        => 'Artist',
-    'cdstub'        => 'CDStub',
-    'collection'    => 'Collection',
-    'editor'        => 'Editor',
-    'freedb'        => 'FreeDB',
-    'label'         => 'Label',
-    'recording'     => 'Recording',
-    'release'       => 'Release',
-    'release_group' => 'ReleaseGroup',
-    'url'           => 'URL',
-    'work'          => 'Work',
-);
+Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
 
 sub copy_escape {
     my $str = shift;
@@ -92,7 +95,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $extra_keys) = @_;
+    my ($artist_credit) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -109,18 +112,6 @@ sub artist_credit_to_ref
             }
         );
 
-        for my $key (@$extra_keys)
-        {
-            if ($key eq "sortname")
-            {
-                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
-            }
-            else
-            {
-                $ac_name{artist}->{$key} = $ac->artist->{$key};
-            }
-        }
-
         push @{ $ret{names} }, \%ac_name;
     }
 
@@ -134,17 +125,34 @@ sub load_subobjects
     @objs = grep { defined } @objs;
     return unless @objs;
 
-    my $attr_id = $attr_obj . "_id";
-    @objs = grep { $_->meta->find_attribute_by_name($attr_id) } grep { defined } @objs;
-    my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @objs;
-    my @ids = grep { $_ } keys %ids;
+    my @ids;
+    my %attr_ids;
+    my %objs;
+    if (ref($attr_obj) ne 'ARRAY') {
+        $attr_obj = [ $attr_obj ];
+    }
+
+    for my $obj_type (@$attr_obj) {
+        my $attr_id = $obj_type . "_id";
+        $attr_ids{$attr_id} = $obj_type;
+
+        $objs{$attr_id} = [ grep { $_->meta->find_attribute_by_name($attr_id) } @objs ];
+        my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @{ $objs{$attr_id} };
+
+        @ids = grep { !($ids{$_}) } @ids if scalar @ids;
+        push @ids, grep { $_ } keys %ids;
+    }
+
     my $data;
     if (@ids) {
         $data = $data_access->get_by_ids(@ids);
-        foreach my $obj (@objs) {
-            my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
-            if (defined $id && exists $data->{$id}) {
-                $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
+        for my $attr_id (keys %attr_ids) {
+            my $attr_obj = $attr_ids{$attr_id};
+            for my $obj (@{ $objs{$attr_id} }) {
+                my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
+                if (defined $id && exists $data->{$id}) {
+                    $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
+                }
             }
         }
     }
@@ -157,14 +165,16 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    $c->sql->select("SELECT * FROM $table
-                  WHERE id IN (" . placeholders(@ids) . ")", @ids);
-    while (1) {
-        my $row = $c->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $c->sql->select_list_of_hashes(
+            "SELECT * FROM $table
+             WHERE id IN (" . placeholders(@ids) . ")",
+            @ids
+        )
+    }) {
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $c->sql->finish;
 }
 
 sub check_in_use
@@ -187,77 +197,71 @@ sub partial_date_to_hash
     };
 }
 
+sub coordinates_to_hash
+{
+    my ($coordinates) = @_;
+    return undef unless defined $coordinates;
+    return {
+        latitude => $coordinates->latitude,
+        longitude => $coordinates->longitude
+    };
+}
+
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
 }
 
+sub load_everything_for_edits
+{
+    my ($c, $edits) = @_;
+
+    try {
+        $c->model('Edit')->load_all(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
+    } catch {
+        use Data::Dumper;
+        croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
+              "Exception:\n" . Dumper($_) . "\n";
+    };
+}
+
 sub query_to_list
 {
     my ($sql, $builder, $query, @args) = @_;
-    $sql->select($query, @args);
     my @result;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $sql->select_list_of_hashes($query, @args) }) {
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    $sql->finish;
     return @result;
 }
 
 sub query_to_list_limited
 {
     my ($sql, $offset, $limit, $builder, $query, @args) = @_;
-    $sql->select($query, @args);
+    my $wrapping_query = "
+        WITH x AS ($query)
+        SELECT x.*, c.count AS total_row_count
+        FROM x, (SELECT count(*) from x) c";
+    if (defined $limit) {
+        die "Query limit must be positive" if $limit < 0;
+        $wrapping_query = $wrapping_query . " LIMIT $limit";
+    }
+
     my @result;
-    while (!defined($limit) || $limit--) {
-        my $row = $sql->next_row_hash_ref or last;
+    my $hits = 0;
+    for my $row (@{ $sql->select_list_of_hashes($wrapping_query, @args) }) {
+        $hits = $row->{total_row_count};
         my $obj = $builder->($row);
         push @result, $obj;
     }
 
-    my $hits = $sql->row_count + ($offset || 0);
-    $sql->finish;
+    $hits = $hits + ($offset || 0);
+
     return (\@result, $hits);
-}
-
-=func hash_structure
-
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
-
-=cut
-
-sub hash_structure
-{
-    sub structure_to_string {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structure_to_string ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structure_to_string ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub generate_gid
@@ -303,6 +307,15 @@ sub add_partial_date_to_row
     }
 }
 
+sub add_coordinates_to_row
+{
+    my ($row, $coordinates, $prefix) = @_;
+
+    $row->{$prefix} = defined $coordinates ?
+        ($coordinates->{latitude} . ', ' . $coordinates->{longitude}) :
+        undef;
+}
+
 sub collapse_whitespace {
     my $t = shift;
 
@@ -315,13 +328,52 @@ sub collapse_whitespace {
     return $t;
 }
 
-sub trim {
-    # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+sub sanitize {
+    my $t = shift;
 
+    $t = NFC($t);
     $t = remove_invalid_characters($t);
+    $t = remove_direction_marks($t);
+    $t = collapse_whitespace($t);
 
-    return collapse_whitespace ($t);
+    return $t;
+}
+
+sub trim {
+    my $t = shift;
+
+    $t = sanitize($t);
+
+    # Remove leading and trailing space
+    $t = Text::Trim::trim($t);
+
+    return $t;
+}
+
+sub remove_direction_marks {
+    my $t = shift;
+
+    # Remove LRM/RLM between strong characters
+    #   (start/end of string are treated like strong characters, too)
+    $t =~ s {
+                 (
+                     \A | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+                 [\x{200E}\x{200F}]+
+                 (?= # look-ahead, so that the character is not consumed and can match on the next iteration
+                     \z | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+            } {$1}gx;
+
+    # Remove LRM/RLM from strings without RTL characters
+    my $stripped = $t; $stripped =~ s/[\x{200E}\x{200F}]//g;
+    unless ($stripped =~ /[\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]/)
+        # The test must be done on $stripped because RLM is in Right_To_Left itself.
+    {
+        return $stripped;
+    } else {
+        return $t;
+    }
 }
 
 sub remove_invalid_characters {
@@ -349,7 +401,7 @@ sub object_to_ids
 {
     my @objects = @_;
     my %ret;
-    foreach my $object (@objects)
+    foreach my $object (grep defined, @objects)
     {
         $ret{$object->id} = [] unless $ret{$object->id};
         push @{ $ret{$object->id} }, $object;
@@ -362,24 +414,30 @@ sub order_by
 {
     my ($order, $default, $map) = @_;
 
+    my $desc = 0;
     my $order_by = $map->{$default};
     if ($order) {
-        my $desc = 0;
-        if ($order =~ /-(.*)/) {
-            $desc = 1;
-            $order = $1;
+        if ($order =~ /^-(.*)/) {
+           $desc = 1;
+           $order = $1;
         }
         if (exists $map->{$order}) {
             $order_by = $map->{$order};
-            if (ref($order_by) eq 'CODE') {
-                $order_by = $order_by->();
-            }
-            if ($desc) {
-                my @list = map { "$_ DESC" } split ',', $order_by;
-                $order_by = join ',', @list;
-            }
+        }
+        else {
+            $desc = 0;
         }
     }
+
+    if (ref($order_by) eq 'CODE') {
+        $order_by = $order_by->();
+    }
+
+    if ($desc) {
+        my @list = map { "$_ DESC" } split ',', $order_by;
+        $order_by = join ',', @list;
+    }
+
     return $order_by;
 }
 
@@ -418,63 +476,100 @@ sub check_data
     }
 }
 
-sub merge_table_attributes {
-    my ($sql, %named_params) = @_;
+sub _merge_attributes {
+    my ($sql, $query_generator, %named_params) = @_;
     my $table = $named_params{table} or confess 'Missing parameter $table';
-    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
-    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
-    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
-    my @all_ids = ($new_id, @old_ids);
 
-    $sql->do(
-        "UPDATE $table SET " .
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my $old_ids = $named_params{old_ids} or confess 'Missing parameter \@old_ids';
+    my $all_ids = [$new_id, @$old_ids];
+
+    $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
+}
+
+
+sub _conditional_merge {
+    my ($condition, %opts) = @_;
+
+    my $wrap_coalesce = sub {
+        my ($inner, $wrap) = @_;
+        if ($wrap) { return "coalesce(" . $inner . ",?)" }
+        else { return $inner }
+    };
+
+    return sub {
+            my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+            my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+            ("UPDATE $table SET " .
+             join(',', map {
+                 "$_ = " . $wrap_coalesce->("(SELECT new_val FROM (
+                      SELECT (id = ?) AS first, $_ AS new_val
+                        FROM $table
+                       WHERE $_ $condition
+                         AND id IN (" . placeholders(@$all_ids) . ")
+                    ORDER BY first DESC
+                       LIMIT 1
+                       ) s)", exists $opts{default});
+             } @$columns) . '
+             WHERE id = ?',
+             (@$all_ids, $new_id) x @$columns, (exists $opts{default} ? $opts{default} : ()), $new_id)}
+}
+
+sub merge_table_attributes {
+    _merge_attributes(shift, _conditional_merge('IS NOT NULL'), @_);
+}
+
+sub merge_string_attributes {
+    _merge_attributes(shift, _conditional_merge("!= ''", default => ''), @_);
+}
+
+sub merge_boolean_attributes {
+    _merge_attributes(shift, sub {
+        my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+        my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+
+        return ("UPDATE $table SET " .
             join(',', map {
-                "$_ = (SELECT new_val FROM (
-                     SELECT (id = ?) AS first, $_ AS new_val
-                       FROM $table
-                      WHERE $_ IS NOT NULL
-                        AND id IN (" . placeholders(@all_ids) . ")
-                   ORDER BY first DESC
-                      LIMIT 1
-                      ) s)";
-            } @columns) . '
+                "$_ = (
+                        SELECT bool_or($_)
+                        FROM $table
+                        WHERE id IN (" . placeholders(@$all_ids) . ")
+                      )";
+            } @$columns) . '
             WHERE id = ?',
-        (@all_ids, $new_id) x @columns, $new_id
-    );
+           (@$all_ids) x @$columns, $new_id)
+    }, @_);
 }
 
 sub merge_partial_date {
-    my ($sql, %named_params) = @_;
-    my $table = $named_params{table} or confess 'Missing parameter $table';
-    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
-    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
-    my ($year, $month, $day) = map { join('_', $named_params{field}, $_) } qw( year month day );
-
-    $sql->do("
-    UPDATE $table SET $day = most_complete.$day,
-                      $month = most_complete.$month,
-                      $year = most_complete.$year
-    FROM (
-        SELECT $day, $month, $year,
-               (CASE WHEN $year IS NOT NULL THEN 100
-                    ELSE 0
-               END +
-               CASE WHEN $month IS NOT NULL THEN 10
-                    ELSE 0
-               END +
-               CASE WHEN $day IS NOT NULL THEN 1
-                    ELSE 0
-               END) AS weight
-        FROM $table
-        WHERE id = any(?)
-        ORDER BY weight DESC
-        LIMIT 1
-    ) most_complete
-    WHERE id = ?
-      AND $table.$day IS NULL
-      AND $table.$month IS NULL
-      AND $table.$year IS NULL",
-             \@old_ids, $new_id);
+    _merge_attributes(shift, sub {
+        my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+        my ($year, $month, $day) = map { join('_', $named_params->{field}, $_) } qw( year month day );
+        return ("UPDATE $table SET $day = most_complete.$day,
+                              $month = most_complete.$month,
+                              $year = most_complete.$year
+            FROM (
+                SELECT $day, $month, $year,
+                       (CASE WHEN $year IS NOT NULL THEN 100
+                            ELSE 0
+                       END +
+                       CASE WHEN $month IS NOT NULL THEN 10
+                            ELSE 0
+                       END +
+                       CASE WHEN $day IS NOT NULL THEN 1
+                            ELSE 0
+                       END) AS weight
+                FROM $table
+                WHERE id = any(?)
+                ORDER BY weight DESC
+                LIMIT 1
+            ) most_complete
+            WHERE id = ?
+              AND $table.$day IS NULL
+              AND $table.$month IS NULL
+              AND $table.$year IS NULL",
+                     $old_ids, $new_id)
+    }, @_);
 }
 
 sub is_special_artist {
@@ -502,11 +597,42 @@ sub take_while (&@) {
     return @r;
 }
 
+sub split_relationship_by_attributes {
+    my ($attributes_by_gid, $data) = @_;
+
+    my @attributes = @{ $data->{attributes} // [] };
+    my (@to_split, @others, @new_data);
+
+    for (@attributes) {
+        my $root = $attributes_by_gid->{$_->{type}{gid}}->root_id;
+
+        if ($root == $INSTRUMENT_ROOT_ID || $root == $VOCAL_ROOT_ID) {
+            push @to_split, $_;
+        } else {
+            push @others, $_;
+        }
+    }
+
+    for my $id (@to_split) {
+        my $cloned_data = clone($data);
+        $cloned_data->{attributes} = [@others, $id];
+        push @new_data, $cloned_data;
+    }
+
+    push @new_data, $data unless scalar(@new_data);
+    return @new_data;
+}
+
+sub non_empty {
+    my $value = shift;
+    return defined($value) && $value ne "";
+}
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009 Lukas Lalinsky, 2009-2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

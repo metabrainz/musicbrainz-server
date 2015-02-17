@@ -20,7 +20,7 @@ has 'emailer' => (
     lazy_build => 1
 );
 
-sub _build_emailer { 
+sub _build_emailer {
     my $self = shift;
     return Email->new(c => $self->c);
 }

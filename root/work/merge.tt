@@ -14,15 +14,16 @@
                     <th>[% l('ISWC') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Language') %]</th>
-                    <th class="rating c">[% l('Rating') %]</th>
+                    <th>[% l('Attributes') %]</th>
                 </tr>
             </thead>
             <tbody>
             [% FOR entity=to_merge %]
-                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                 <tr class="[% loop.parity %]">
                     <td>
                         <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
-                        <input type="radio" name="merge.target" value="[% entity.id %]" />
+                        <input type="radio" name="merge.target" value="[% entity.id %]"
+                            [% 'checked="checked"' IF entity.id == form.field('target').value %] />
                     </td>
                     <td>
                         [% descriptive_link(entity) %]
@@ -46,13 +47,15 @@
                     <td class="iswc">
                       <ul>
                         [% FOR iswc=entity.iswcs %]
-                          <li>[% rdfa_work_iswc(entity, iswc) %]</li>
+                          <li>[% link_iswc(iswc) %]</li>
                         [% END %]
                       </ul>
                     </td>
                     <td>[% entity.l_type_name %]</td>
                     <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
-                    <td class="c">[% rating_stars(entity) %]</td>
+                    <td>
+                      [% work_attributes_list(entity) %]
+                    </td>
                   </tr>
                 </tr>
             [%- END -%]

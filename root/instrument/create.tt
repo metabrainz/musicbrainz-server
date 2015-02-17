@@ -1,0 +1,6 @@
+[%- WRAPPER 'layout.tt' title=l('Add Instrument') full_width=1 -%]
+    <div id="content">
+        <h1>[%- l('Add Instrument') -%]</h1>
+        [%- INCLUDE 'instrument/edit_form.tt' new=1 -%]
+    </div>
+[%- END -%]

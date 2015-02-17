@@ -1,0 +1,98 @@
+package t::MusicBrainz::Server::Entity::Medium;
+use Test::Routine;
+use Test::Moose;
+use Test::More;
+use Test::Deep qw( cmp_deeply ignore );
+
+use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Link';
+use aliased 'MusicBrainz::Server::Entity::LinkType';
+use aliased 'MusicBrainz::Server::Entity::Medium';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use aliased 'MusicBrainz::Server::Entity::Recording';
+use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::Track';
+
+test 'length' => sub {
+
+    my $medium = Medium->new();
+
+    ok(!defined $medium->length, "empty medium has no length");
+
+    $medium->add_track(Track->new(name => 'Courtesy', length => 193000));
+    $medium->add_track(Track->new(name => 'Otis',     length => 156000));
+    $medium->add_track(Track->new(name => 'Focus',    length => 162000));
+
+    is($medium->length, 511000, "medium has correct length from tracks");
+};
+
+test 'combined_track_relationships' => sub {
+    my $medium = Medium->new();
+
+    for my $i (1..6) {
+        $medium->add_track(Track->new(
+            id => $i,
+            number => $i,
+            position => $i,
+            recording => Recording->new(id => $i),
+            recording_id => $i
+        ));
+    }
+
+    my $link_type = LinkType->new(
+        id => 1,
+        link_phrase => 'performed by',
+        reverse_link_phrase => 'performed',
+        entity0_type => 'artist',
+        entity1_type => 'recording'
+    );
+
+    my $link = Link->new(
+        type => $link_type,
+        attributes => [],
+        begin_date => PartialDate->new(),
+        end_date => PartialDate->new()
+    );
+
+    my $artist = Artist->new(id => 1, name => 'Person', sort_name => 'Person');
+
+    for my $i (0, 2, 3, 5) {
+        $medium->tracks->[$i]->recording->add_relationship(
+            Relationship->new(
+                direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD,
+                link => $link,
+                entity0 => $artist,
+                entity1 => $medium->tracks->[$i]->recording
+            )
+        );
+    }
+
+    cmp_deeply($medium->combined_track_relationships, {
+        artist => [
+            {
+                phrase => 'performed',
+                items => [
+                    {
+                        relationship => ignore(),
+                        track_count => 4,
+                        tracks => '1, 3&#x2013;4, 6'
+                    }
+                ]
+            }
+        ]
+    });
+};
+
+test 'has_multiple_artists' => sub {
+    my $medium = Medium->new(
+        release => MusicBrainz::Server::Entity::Release->new(artist_credit_id => 1)
+    );
+
+    $medium->add_track(Track->new(artist_credit_id => 1));
+    is($medium->has_multiple_artists, 0, 'Medium does not have multiple artists');
+
+    $medium->add_track(Track->new(artist_credit_id => 2));
+    is($medium->has_multiple_artists, 1, 'Medium has multiple artists');
+};
+
+1;

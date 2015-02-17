@@ -18,7 +18,7 @@ around serialize => sub {
 
     return $ret unless $toplevel;
 
-    $ret->{"life-span"} = date_period ($entity);
+    $ret->{"life-span"} = date_period($entity);
 
     return $ret;
 };

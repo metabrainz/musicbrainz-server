@@ -1,0 +1,61 @@
+div.multiselect {
+    position: relative;
+}
+
+div.multiselect > input {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+div.multiselect > div.menu {
+    position: absolute;
+    background: @very-light-bg;
+    border: 1px @medium-border solid;
+    max-height: 300px;
+    overflow-y: scroll;
+    cursor: pointer;
+    width: 100%;
+    z-index: 100;
+}
+
+div.multiselect > div.menu > a {
+    display: block;
+    color: black;
+    border: 1px transparent dotted;
+    text-decoration: none !important;
+}
+
+div.multiselect > div.menu > a:focus,
+div.multiselect > div.items > a:focus {
+    background: @highlight-table-row;
+    border: 1px @musicbrainz-purple dotted !important;
+}
+
+div.multiselect > div.menu > a:hover {
+    background: @text-orange;
+    color: @text-white;
+    border: 1px transparent dotted;
+}
+
+div.multiselect > div.menu > a > em {
+    background: @multiselect-highlight;
+    font-style: normal;
+}
+
+div.multiselect > div.menu > a:hover > em {
+    background: inherit;
+}
+
+div.multiselect > div.items a {
+    display: inline-block;
+    padding: 1px;
+    background: @very-light-bg;
+    border: 1px @medium-border solid;
+    cursor: pointer;
+    text-decoration: none !important;
+    width: 50%;
+    margin-bottom: 1px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}

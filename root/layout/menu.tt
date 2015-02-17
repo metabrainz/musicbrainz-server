@@ -80,17 +80,32 @@
             <li class="admin">
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
+                    [% IF c.user.is_location_editor %]
+                        <li>
+                            <a href="[% c.uri_for('/area/create') %]">[% lp('Add Area', 'button/menu') %]</a>
+                        </li>
+                    [% END %]
                     [% IF c.user.is_relationship_editor %]
                         <li>
-                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                            <a href="[% c.uri_for('/instrument/create') %]">[% lp('Add Instrument', 'button/menu') %]</a>
                         </li>
                         <li>
-                            <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Edit Instrument Tree') %]</a>
+                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
                         <li>
                             <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_banner_editor %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_account_admin %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Edit Attributes') %]</a>
                         </li>
                     [% END %]
                 </ul>
@@ -148,19 +163,13 @@
         <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a>
-            </li>
-            <li>
-                <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a>
+                <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a>
-            </li>
-            <li>
-                <a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('MusicBrainz_for_Android') %]">[% l('MusicBrainz for Android') %]</a>
@@ -194,9 +203,6 @@
                 </li>
             [% END %]
             <li>
-                <a href="[% c.uri_for('/browse') %]">[% l('Browse') %]</a>
-            </li>
-            <li>
                 <a href="[% c.uri_for('/tags') %]">[% l('Tags') %]</a>
             </li>
             <li>
@@ -229,6 +235,15 @@
                 <li>
                     <a href="[% c.uri_for_action('/work/create') %]">[% lp('Add Work', 'button/menu') %]</a>
                 </li>
+                <li>
+                    <a href="[% c.uri_for_action('/place/create') %]">[% lp('Add Place', 'button/menu') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/series/create') %]">[% lp('Add Series', 'button/menu') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/event/create') %]">[% lp('Add Event', 'button/menu') %]</a>
+                </li>
                 <li class="separator">
                     <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
@@ -248,6 +263,9 @@
                 <a href="[% doc_link('Style') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
+                <a href="[% doc_link('How_To') %]">[% l('How Tos') %]</a>
+            </li>
+            <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
             </li>
             <li class="separator">
@@ -255,9 +273,6 @@
             </li>
             <li>
                 <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
-            </li>
-            <li>
-                <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('Development') %]">[% l('Development') %]</a>
@@ -268,7 +283,7 @@
         <a href="[% doc_link('Contact_Us') %]">[% l('Contact Us') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
+                <a href="[% doc_link('Communication/Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org" class="internal">

@@ -1,1 +1,0 @@
-[%- INCLUDE 'annotation/common.tt' annotation = recording.latest_annotation -%]

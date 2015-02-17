@@ -1,11 +1,19 @@
 [% main_title = l("Collection “{collection}”", { collection => collection.name }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+  <div id="content">
+    [%- INCLUDE "collection/header.tt" -%]
+    [%- content -%]
+  </div>
+
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="collection-information">[% l('Collection information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
                content=link_entity(collection.editor) %]
+            [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(collection.l_type_name) class="type"
+                         IF collection.type ~%]
         [%- END -%]
 
         <h2 class="editing">[% l('Editing') %]</h2>
@@ -31,9 +39,4 @@
         [% END %]
     [% END %]
   [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE "collection/header.tt" -%]
-    [%- content -%]
-  </div>
 [%- END -%]

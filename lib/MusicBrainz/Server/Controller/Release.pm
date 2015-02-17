@@ -5,24 +5,37 @@ use MusicBrainz::Server::Track;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'release',
-    model       => 'Release',
+    entity_name     => 'release',
+    model           => 'Release',
+    relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}, cover_art => {copy_stash => ['cover_art']}}
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::Form::Utils qw(
+    build_grouped_options
+    select_options
+    language_options
+    build_attr_info
+    build_type_info
+);
 use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
-use aliased 'MusicBrainz::Server::Entity::Work';
+use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
@@ -58,18 +71,13 @@ after 'load' => sub
     # Load release group
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
-    $c->model('Relationship')->load_subset([ 'url' ], $release->release_group);
+    $c->model('Relationship')->load($release->release_group);
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
-    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
-    $c->stash->{release_artwork} = {
-        image => $prefix.'/front',
-        large_thumbnail => $prefix.'/front-500',
-        small_thumbnail => $prefix.'/front-250'
-    };
+    my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
+    $c->stash->{release_artwork} = $artwork->[0];
 
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
@@ -80,7 +88,6 @@ after 'load' => sub
     if ($c->action->name ne 'edit') {
         $c->model('ReleaseStatus')->load($release);
         $c->model('ReleasePackaging')->load($release);
-        $c->model('Country')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
         $c->model('ReleaseLabel')->load($release);
@@ -88,12 +95,31 @@ after 'load' => sub
         $c->model('ReleaseGroupType')->load($release->release_group);
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
+        $c->model('Release')->load_release_events($release);
+    }
+};
+
+before show => sub {
+    my ($self, $c, @args) = @_;
+
+    if (@args && $args[0] eq 'disc') {
+        my $position = $args[1];
+        my @mediums = $c->stash->{release}->all_mediums;
+
+        if (@mediums > 10) {
+            my $medium = $mediums[$position - 1] if looks_like_number($position);
+
+            if ($medium) {
+                my $user_id = $c->user->id if $c->user_exists;
+                $c->model('Medium')->load_related_info($user_id, $medium);
+            }
+        }
     }
 };
 
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
-           show collections details discids tags relationships )] => sub {
+           show collections details discids tags )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -102,7 +128,7 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
     my %containment;
     if ($c->user_exists) {
         # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
                 if ($c->model('Collection')->check_release($collection->id, $release->id));
@@ -118,13 +144,6 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
     );
 };
 
-after 'relationships' => sub
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-    $c->model('Relationship')->load($release->release_group);
-};
-
 sub discids : Chained('load')
 {
     my ($self, $c) = @_;
@@ -133,18 +152,6 @@ sub discids : Chained('load')
     my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
     $c->model('CDTOC')->load(@medium_cdtocs);
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
-}
-
-=head2 relations
-
-Show all relationships attached to this release
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
 }
 
 =head2 show
@@ -157,35 +164,19 @@ tags, tracklisting, release events, etc.
 
 =cut
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-
     my @mediums = $release->all_mediums;
-    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-    $c->model('Track')->load_for_tracklists(@tracklists);
 
-    my @tracks = map { $_->all_tracks } @tracklists;
-    my @recordings = $c->model('Recording')->load(@tracks);
-    $c->model('Recording')->load_meta(@recordings);
-    if ($c->user_exists) {
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
+    if (@mediums <= 10) {
+        my $user_id = $c->user->id if $c->user_exists;
+        $c->model('Medium')->load_related_info($user_id, @mediums);
     }
-    $c->model('ArtistCredit')->load($release, @tracks);
 
-    $c->model('Relationship')->load(@recordings);
-    $c->model('Relationship')->load(
-        $release,
-        grep { $_->isa(Work) } map { $_->target }
-            map { $_->all_relationships } @recordings);
-
-    $c->stash(
-        template      => 'release/index.tt',
-        show_artists  => $release->has_multiple_artists,
-        combined_rels => $release->combined_track_relationships,
-    );
+    $c->model('ArtistCredit')->load($release);
+    $c->stash->{template} = 'release/index.tt';
 }
 
 =head2 show
@@ -283,7 +274,7 @@ sub rating : Chained('load') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-sub change_quality : Chained('load') PathPart('change-quality') RequireAuth
+sub change_quality : Chained('load') PathPart('change-quality') Edit
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
@@ -298,53 +289,6 @@ sub change_quality : Chained('load') PathPart('change-quality') RequireAuth
             $c->response->redirect($uri);
         }
     );
-}
-
-sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    if ($c->req->query_params->{dest}) {
-        my $release_group = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
-        $c->model('ArtistCredit')->load($release_group);
-        if ($release->release_group_id == $release_group->id) {
-            $c->stash( message => l('This release is already in the selected release group') );
-            $c->detach('/error_400');
-        }
-
-        $c->stash(
-            template => 'release/move_confirm.tt',
-            release_group => $release_group
-        );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_RELEASE_MOVE,
-            edit_args => {
-                release => $release,
-                new_release_group => $release_group
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $release->gid ]));
-            }
-        );
-    }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        $query->field('query')->input($release->release_group->name);
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                $c->model('Search')->search('release_group',
-                                            $query->field('query')->value, shift, shift)
-            });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-            $results = [ grep { $release->release_group_id != $_->entity->id } @$results ];
-            $c->stash( search_results => $results );
-        }
-        $c->stash( template => 'release/move_search.tt' );
-    }
 }
 
 =head2 collections
@@ -364,7 +308,7 @@ sub collections : Chained('load') RequireAuth
     # Keep public collections;
     # count private collection
     foreach my $collection (@all_collections) {
-        push (@public_collections, $collection)
+        push(@public_collections, $collection)
             if ($collection->{'public'} == 1);
         $private_collections++
             if ($collection->{'public'} == 0);
@@ -385,26 +329,26 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit
 {
     my ($self, $c) = @_;
 
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $id = $c->req->query_params->{id} or die "Need destination ID";
+    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
+    $c->stash->{mime_types} = \@mime_types;
 
+    my $entity = $c->stash->{$self->{entity_name}};
     my $bucket = 'mbid-' . $entity->gid;
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ],
-                                      { id => $id })->as_string ();
+                                      [ $entity->gid ])->as_string();
 
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
-    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
-sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
+sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
+    my $json = JSON::Any->new( utf8 => 1 );
 
     $c->model('Release')->load_meta($entity);
 
@@ -413,7 +357,9 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         $c->detach;
     }
 
-    my @artwork = @{ $c->model ('CoverArtArchive')->find_available_artwork($entity->gid) };
+    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
+
+    my @artwork = @{ $c->model('Artwork')->find_by_release($entity) };
 
     my $count = 1;
     my @positions = map {
@@ -424,7 +370,13 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     $c->stash({
         id => $id,
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
-        images => \@artwork
+        images => \@artwork,
+        mime_types => \@mime_types,
+        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY // '',
+        cover_art_types_json => $json->encode(
+            [ map {
+                { name => $_->name, l_name => $_->l_name, id => $_->id }
+            } $c->model('CoverArtType')->get_all() ]),
     });
 
     my $form = $c->form(
@@ -434,6 +386,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             position => $count
         }
     );
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
@@ -442,11 +395,12 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
                 release => $entity,
                 cover_art_types => [
                     grep { defined $_ && looks_like_number($_) }
-                        @{ $form->field ("type_id")->value }
+                        @{ $form->field("type_id")->value }
                     ],
-                cover_art_position => $form->field ("position")->value,
+                cover_art_position => $form->field("position")->value,
                 cover_art_id => $form->field('id')->value,
-                cover_art_comment => $form->field('comment')->value || ''
+                cover_art_comment => $form->field('comment')->value || '',
+                cover_art_mime_type => $form->field('mime_type')->value,
             );
         });
 
@@ -455,7 +409,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     }
 }
 
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
@@ -467,8 +421,8 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
         $c->detach;
     }
 
-    my $artwork = $c->model ('Artwork')->find_by_release ($entity);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_by_release($entity);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     $c->stash( images => $artwork );
 
@@ -488,7 +442,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
                 edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
                 release => $entity,
                 old => \@positions,
-                new => $form->field ("artwork")->value
+                new => $form->field("artwork")->value
             );
         });
 
@@ -499,17 +453,14 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
-    confirmation_template => 'release/merge_confirm.tt',
-    search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
 };
 
 sub _merge_form_arguments {
     my ($self, $c, @releases) = @_;
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Track')->load_for_tracklists(map { $_->tracklist } map { $_->all_mediums } @releases);
-    $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
-    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
+    $c->model('Recording')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
 
     my @mediums;
     my %medium_by_id;
@@ -592,11 +543,44 @@ sub _merge_parameters {
                     mediums => $medium_changes{$_}
                 }, keys %medium_changes
             ]
-        )
+        );
+    } elsif ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        my %release_map = map { $_->id => $_ } @$releases;
+
+        my $new_id = $form->field('target')->value;
+        my $new = $release_map{$new_id};
+        my $old = [map { $release_map{$_} } grep { $_ != $new_id } @{ $form->field('merging')->value }];
+
+        my $recording_merges = [map +{
+            medium => $_->{medium},
+            track => $_->{track},
+            destination => {
+                id => $_->{destination}->id,
+                name => $_->{destination}->name,
+                length => $_->{destination}->length
+            },
+            sources => [map +{
+                id => $_->id,
+                name => $_->name,
+                length => $_->length
+            }, @{ $_->{sources} }]
+        }, @{ calculate_recording_merges($new, $old) } ];
+
+        return (recording_merges => $recording_merges);
+    } else {
+        return ()
     }
-    else {
-        return ();
-    }
+}
+
+sub _extra_entity_data {
+    my ($self, $c, $form, $release) = @_;
+    my @args;
+    push(@args, barcode => $release->barcode->code) if $release->barcode;
+    push(@args, artist_credit => artist_credit_to_ref($release->artist_credit));
+    push(@args, events => [map +{ country_id => $_->country_id, date => partial_date_to_hash($_->date) }, $release->all_events]);
+    push(@args, mediums => [map +{ track_count => $_->track_count, format_name => $_->format_name }, $release->all_mediums]);
+    push(@args, labels => [map +{ label => ($_->label ? { id => $_->label->id, name => $_->label->name } : undef), catalog_number => $_->catalog_number }, $release->all_labels]);
+    return @args;
 }
 
 around _merge_submit => sub {
@@ -631,29 +615,32 @@ around _merge_submit => sub {
     }
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
-    $c->model('Country')->load(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
-    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
+    my ($self, $c, @releases) = @_;
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_release_events(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_RELEASE_DELETE,
+    edit_type        => $EDIT_RELEASE_DELETE,
+    create_edit_type => $EDIT_RELEASE_CREATE,
 };
 
-sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit RequireAuth
+sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
 {
     my ($self, $c, $id) = @_;
 
     my $entity = $c->stash->{entity};
 
     my @artwork = @{
-        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
+        $c->model('Artwork')->find_by_release($entity)
     } or $c->detach('/error_404');
+    $c->model('CoverArtType')->load_for(@artwork);
 
     my $artwork = first { $_->id == $id } @artwork;
 
@@ -663,7 +650,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
     });
 
-    my @type_ids = map { $_->id } $c->model ('CoverArtType')->get_by_name (@{ $artwork->types });
+    my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->types });
 
     my $form = $c->form(
         form => 'Release::EditCoverArt',
@@ -682,7 +669,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
                 artwork_id => $artwork->id,
                 old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
                 old_comment => $artwork->comment,
-                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
+                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field("type_id")->value } ],
                 new_comment => $form->field('comment')->value || '',
             );
         });
@@ -692,27 +679,32 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     }
 }
 
-sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit RequireAuth {
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit {
     my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
     my $artwork = first { $_->id == $id }
-        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
+        @{ $c->model('Artwork')->find_by_release($release) }
             or $c->detach('/error_404');
+    $c->model('CoverArtType')->load_for($artwork);
 
     $c->stash( artwork => $artwork );
 
-    $self->edit_action($c,
-        form        => 'Confirm',
-        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
-        edit_args   => {
-            release   => $release,
-            to_delete => $artwork
-        },
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-        }
-    )
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
+    cancel_or_action($c, $edit, $c->uri_for_action('/release/cover_art', [ $release->gid ]), sub {
+        $self->edit_action($c,
+            form        => 'Confirm',
+            form_args   => { requires_edit_note => 1 },
+            type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+            edit_args   => {
+                release   => $release,
+                to_delete => $artwork
+            },
+            on_creation => sub {
+                $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            }
+        );
+    });
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {
@@ -720,21 +712,33 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my $artwork = $c->model ('Artwork')->find_by_release ($release);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_by_release($release);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     $c->stash(cover_art => $artwork);
 }
 
-sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
     $c->model('Release')->load_meta($release);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
+    $c->model('Relationship')->load_cardinal($release->release_group);
 
-    $c->forward('/relationship_editor/load', $c);
+    my $json = JSON->new;
+    my @link_type_tree = $c->model('LinkType')->get_full_tree;
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+
+    $c->stash(
+        work_types      => select_options($c, 'WorkType'),
+        work_languages  => build_grouped_options($c, language_options($c, 'work')),
+        source_entity   => $json->encode(JSONSerializer->_release($release, 0, 0, 1)),
+        attr_info       => $json->encode(build_attr_info($attr_tree)),
+        type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

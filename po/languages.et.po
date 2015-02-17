@@ -1,11 +1,10 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012.
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012,2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-03-12 06:34+0000\n"
+"PO-Revision-Date: 2014-09-07 15:27+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -359,6 +358,11 @@ msgstr "kaukaasia hõimkond"
 msgid "Cebuano"
 msgstr "sebu"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr "keltibeeri"
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -368,6 +372,11 @@ msgstr "keldi keeled"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Kesk-Ameerika indiaanikeeled"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "Kesk-Okinawa"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -574,7 +583,7 @@ msgstr "duala"
 msgid "Dutch"
 msgstr "hollandi"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "keskhollandi (u 1050–1350)"
@@ -779,7 +788,7 @@ msgstr "saksa"
 msgid "German, Low"
 msgstr "alamsaksa"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "keskülemsaksa (u 1050–1500)"
@@ -969,6 +978,11 @@ msgstr "Indoeuroopa keelkond"
 msgid "Indonesian"
 msgstr "indoneesia"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "isuri"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1124,6 +1138,11 @@ msgstr "kaavi"
 msgid "Kazakh"
 msgstr "kasahhi"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "handi"
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1184,7 +1203,7 @@ msgstr "kongo"
 msgid "Konkani"
 msgstr "konkani"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "korea"
@@ -1419,6 +1438,11 @@ msgstr "manipuri"
 msgid "Manobo languages"
 msgstr "manobo keeled"
 
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "mansi"
+
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
@@ -1624,7 +1648,7 @@ msgstr "vanapõhja"
 msgid "North American Indian languages"
 msgstr "Põhja-Ameerika indiaanikeeled"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "norra"

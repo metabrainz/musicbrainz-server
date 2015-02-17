@@ -3,7 +3,7 @@ use 5.10.0;
 use Moose;
 
 use Clone qw( clone );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
@@ -12,6 +12,8 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
+
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL';
@@ -36,10 +38,13 @@ has '+data' => (
     isa => Dict[
         entity => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ],
         old => change_fields(),
         new => change_fields(),
+        affects => Optional[Int],
+        is_merge => Optional[Bool],
     ]
 );
 
@@ -64,20 +69,18 @@ sub build_display_data
     return $data;
 }
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    return 0 if exists $self->data->{old}{url};
-
-    return 1;
-}
+after initialize => sub {
+    my ($self) = @_;
+    my $entity = $self->current_instance;
+    $self->c->model('Relationship')->load($entity);
+    $self->data->{affects} = scalar @{ $entity->relationships };
+};
 
 around accept => sub {
     my ($orig, $self) = @_;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        l('This URL has already been merged into another URL')
+        'This URL has already been merged into another URL'
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
 
     my $new_id = $self->c->model( $self->_edit_model )->update(
@@ -96,8 +99,10 @@ after insert => sub {
 
     # If the target URL exists, then this edit must not be an auto edit (as it
     # would produce a merge).
+    $self->data->{is_merge} = 0;
     if (my $new_url = $self->data->{new}{url}) {
         if ($self->c->model('URL')->find_by_url($new_url)) {
+            $self->data->{is_merge} = 1;
             $self->auto_edit(0);
         }
     }
@@ -125,16 +130,6 @@ around extract_property => sub {
         }
     }
 };
-
-sub _edit_hash
-{
-    my ($self, $data) = @_;
-    # Descriptions no longer exist, so remove them before trying to apply edits
-    if (exists $data->{description}) {
-       delete $data->{description};
-    }
-    return $data;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -1,6 +1,6 @@
 package MusicBrainz::Server::EditRegistry;
 
-use Class::MOP;
+use Class::Load qw( load_class );
 
 our %_types;
 our $_registered = 0;
@@ -15,6 +15,30 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::EditAlias
     MusicBrainz::Server::Edit::Artist::Merge
     MusicBrainz::Server::Edit::Artist::EditArtistCredit
+    MusicBrainz::Server::Edit::Area::AddAlias
+    MusicBrainz::Server::Edit::Area::AddAnnotation
+    MusicBrainz::Server::Edit::Area::Create
+    MusicBrainz::Server::Edit::Area::Delete
+    MusicBrainz::Server::Edit::Area::DeleteAlias
+    MusicBrainz::Server::Edit::Area::Edit
+    MusicBrainz::Server::Edit::Area::EditAlias
+    MusicBrainz::Server::Edit::Area::Merge
+    MusicBrainz::Server::Edit::Event::AddAlias
+    MusicBrainz::Server::Edit::Event::DeleteAlias
+    MusicBrainz::Server::Edit::Event::AddAnnotation
+    MusicBrainz::Server::Edit::Event::Create
+    MusicBrainz::Server::Edit::Event::Delete
+    MusicBrainz::Server::Edit::Event::Edit
+    MusicBrainz::Server::Edit::Event::EditAlias
+    MusicBrainz::Server::Edit::Event::Merge
+    MusicBrainz::Server::Edit::Instrument::AddAlias
+    MusicBrainz::Server::Edit::Instrument::DeleteAlias
+    MusicBrainz::Server::Edit::Instrument::AddAnnotation
+    MusicBrainz::Server::Edit::Instrument::Create
+    MusicBrainz::Server::Edit::Instrument::Delete
+    MusicBrainz::Server::Edit::Instrument::Edit
+    MusicBrainz::Server::Edit::Instrument::EditAlias
+    MusicBrainz::Server::Edit::Instrument::Merge
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation
@@ -30,6 +54,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::MoveDiscID
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
     MusicBrainz::Server::Edit::Medium::SetTrackLengths
+    MusicBrainz::Server::Edit::Place::AddAlias
+    MusicBrainz::Server::Edit::Place::DeleteAlias
+    MusicBrainz::Server::Edit::Place::AddAnnotation
+    MusicBrainz::Server::Edit::Place::Create
+    MusicBrainz::Server::Edit::Place::Delete
+    MusicBrainz::Server::Edit::Place::Edit
+    MusicBrainz::Server::Edit::Place::EditAlias
+    MusicBrainz::Server::Edit::Place::Merge
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::AddPUIDs
@@ -48,6 +80,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::EditLinkType
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
+    MusicBrainz::Server::Edit::Relationship::Reorder
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::AddCoverArt
     MusicBrainz::Server::Edit::Release::AddReleaseLabel
@@ -61,7 +94,6 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::EditCoverArt
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
-    MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::Release::RemoveCoverArt
     MusicBrainz::Server::Edit::Release::ReorderCoverArt
     MusicBrainz::Server::Edit::Release::ReorderMediums
@@ -71,6 +103,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
     MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
+    MusicBrainz::Server::Edit::Series::AddAlias
+    MusicBrainz::Server::Edit::Series::DeleteAlias
+    MusicBrainz::Server::Edit::Series::AddAnnotation
+    MusicBrainz::Server::Edit::Series::Create
+    MusicBrainz::Server::Edit::Series::Delete
+    MusicBrainz::Server::Edit::Series::Edit
+    MusicBrainz::Server::Edit::Series::EditAlias
+    MusicBrainz::Server::Edit::Series::Merge
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
@@ -109,6 +149,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MergeReleaseMAC
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
+    MusicBrainz::Server::Edit::Historic::MoveReleaseToRG
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
     MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink
@@ -157,7 +198,7 @@ sub _register_type
 sub _register_default_types
 {
     foreach my $class (@CLASSES) {
-        Class::MOP::load_class($class) or die $@;
+        load_class($class) or die $@;
         _register_type(undef, $class);
     }
     $_registered = 1;

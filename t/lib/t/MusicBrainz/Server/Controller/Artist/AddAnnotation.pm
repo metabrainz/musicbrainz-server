@@ -45,8 +45,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Test Artist', '..has artist name');
 $mech->content_like(qr{artist/745c079d-374e-4436-9448-da92dedef3ce/?"}, '..has a link to the artist');
-$mech->content_contains('artist/745c079d-374e-4436-9448-da92dedef3ce/annotation/' . $edit->annotation_id,
-                        '..has a link to the annotation');
 
 };
 

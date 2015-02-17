@@ -21,7 +21,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         linked   => [ qw(track_artist artist label recording release-group) ],
+                         linked   => [ qw(area track_artist artist label recording release-group track) ],
                          inc      => [ qw(artist-credits labels recordings discids
                                           release-groups media _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
@@ -58,7 +58,8 @@ sub release_toplevel
     my ($self, $c, $stash, $release) = @_;
 
     $c->model('Release')->load_meta($release);
-    $self->linked_releases ($c, $stash, [ $release ]);
+    $c->model('Release')->load_release_events($release);
+    $self->linked_releases($c, $stash, [ $release ]);
 
     if ($release->cover_art_presence eq 'present') {
         $stash->store($release)->{'cover-art-archive'} = $c->model('CoverArtArchive')->get_stats_for_release($release->id);
@@ -75,9 +76,9 @@ sub release_toplevel
     {
         $c->model('ArtistCredit')->load($release);
 
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $release->artist_credit->names };
+        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $release->artist_credit->names };
 
-        $self->linked_artists ($c, $stash, \@artists);
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     if ($c->stash->{inc}->labels)
@@ -87,7 +88,7 @@ sub release_toplevel
 
         my @labels = grep { defined } map { $_->label } $release->all_labels;
 
-        $self->linked_labels ($c, $stash, \@labels);
+        $self->linked_labels($c, $stash, \@labels);
     }
 
     if ($c->stash->{inc}->release_groups)
@@ -97,7 +98,7 @@ sub release_toplevel
 
          my $rg = $release->release_group;
 
-         $self->linked_release_groups ($c, $stash, [ $rg ]);
+         $self->linked_release_groups($c, $stash, [ $rg ]);
     }
 
     if ($c->stash->{inc}->recordings)
@@ -113,15 +114,14 @@ sub release_toplevel
         if (!$c->stash->{inc}->discids)
         {
             my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
-            $c->model('CDTOC')->load (@medium_cdtocs);
+            $c->model('CDTOC')->load(@medium_cdtocs);
         }
 
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+        $c->model('Track')->load_for_mediums(@mediums);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if ($c->stash->{inc}->artist_credits);
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @mediums);
         $c->model('Recording')->load_meta(@recordings);
 
         if ($c->stash->{inc}->recording_level_rels)
@@ -129,7 +129,7 @@ sub release_toplevel
             push @rels_entities, @recordings;
         }
 
-        $self->linked_recordings ($c, $stash, \@recordings);
+        $self->linked_recordings($c, $stash, \@recordings);
     }
 
     $self->load_relationships($c, $stash, @rels_entities);
@@ -141,9 +141,10 @@ sub release_toplevel
             $c->model('Collection')->find_all_by_release($release->id);
 
         $c->model('Editor')->load(@collections);
-        $c->model('Collection')->load_release_count(@collections);
+        $c->model('Collection')->load_entity_count(@collections);
+        $c->model('CollectionType')->load(@collections);
 
-        $stash->store ($release)->{collections} = \@collections;
+        $stash->store($release)->{collections} = \@collections;
     }
 }
 
@@ -164,7 +165,7 @@ sub release: Chained('root') PathPart('release') Args(1)
 
     my $stash = WebServiceStash->new;
 
-    $self->release_toplevel ($c, $stash, $release);
+    $self->release_toplevel($c, $stash, $release);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $stash));
@@ -175,7 +176,7 @@ sub release_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -185,57 +186,63 @@ sub release_browse : Private
 
     my $releases;
     my $total;
-    if ($resource eq 'artist')
-    {
+    if ($resource eq 'area') {
+        my $area = $c->model('Area')->get_by_gid($id);
+        $c->detach('not_found') unless ($area);
+
+        my @tmp = $c->model('Release')->find_by_area($area->id, $limit, $offset);
+        $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('Release')->find_by_artist (
+        my @tmp = $c->model('Release')->find_by_artist(
             $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $releases = $self->make_list (@tmp, $offset);
-    }
-    elsif ($resource eq 'track_artist')
-    {
+        $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'track_artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('Release')->find_by_track_artist (
+        my @tmp = $c->model('Release')->find_by_track_artist(
             $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $releases = $self->make_list (@tmp, $offset);
-    }
-    elsif ($resource eq 'label')
-    {
+        $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'track') {
+        my $track = $c->model('Track')->get_by_gid($id);
+        $c->detach('not_found') unless ($track);
+
+        $c->model('Medium')->load($track);
+        $c->model('Release')->load($track->medium);
+
+        $c->stash->{inc}->recordings(1);
+        $releases = $self->make_list([ $track->medium->release ], 1, 0);
+    } elsif ($resource eq 'label') {
         my $label = $c->model('Label')->get_by_gid($id);
         $c->detach('not_found') unless ($label);
 
-        my @tmp = $c->model('Release')->find_by_label (
+        my @tmp = $c->model('Release')->find_by_label(
             $label->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $releases = $self->make_list (@tmp, $offset);
-    }
-    elsif ($resource eq 'release-group')
-    {
+        $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'release-group') {
         my $rg = $c->model('ReleaseGroup')->get_by_gid($id);
         $c->detach('not_found') unless ($rg);
 
-        my @tmp = $c->model('Release')->find_by_release_group (
+        my @tmp = $c->model('Release')->find_by_release_group(
             $rg->id, $limit, $offset, filter => { status => $c->stash->{status} });
-        $releases = $self->make_list (@tmp, $offset);
-    }
-    elsif ($resource eq 'recording')
-    {
+        $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'recording') {
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 
-        my @tmp = $c->model('Release')->find_by_recording (
+        my @tmp = $c->model('Release')->find_by_recording(
             $recording->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $releases = $self->make_list (@tmp, $offset);
+        $releases = $self->make_list(@tmp, $offset);
     }
 
     my $stash = WebServiceStash->new;
 
     for (@{ $releases->{items} })
     {
-        $self->release_toplevel ($c, $stash, $_);
+        $self->release_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -248,7 +255,7 @@ sub release_search : Chained('root') PathPart('release') Args(0)
 
     $c->detach('release_submit') if $c->request->method eq 'POST';
     $c->detach('release_browse') if ($c->stash->{linked});
-    $self->_search ($c, 'release');
+    $self->_search($c, 'release');
 }
 
 sub release_submit : Private
@@ -263,7 +270,7 @@ sub release_submit : Private
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
         my $id = $xp->find('@mb:id', $node)->string_value or
-            $self->_error ($c, "All releases must have an MBID present");
+            $self->_error($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless is_guid($id);

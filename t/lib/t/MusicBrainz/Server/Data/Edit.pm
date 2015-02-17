@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
+use Clone qw( clone );
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 
@@ -60,8 +61,7 @@ test 'Test locks on edits' => sub {
         fresh => 1
     );
 
-    $foreign_connection->dbh->do("INSERT INTO editor (id, name, password)
-                                      VALUES (50, 'editor', 'password')");
+    $foreign_connection->dbh->do('INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (50, $$editor$$, $${CLEARTEXT}password$$, $$3a115bc4f05ea9856bd4611b75c80bca$$, $$foo@example.com$$, now())');
     $foreign_connection->dbh->do(
         q{INSERT INTO edit (id, editor, type, status, data, expire_time)
              VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())}
@@ -199,8 +199,8 @@ is ($editor_cancelled->$_, $editor->$_,
 };
 
 test 'Find edits by subscription' => sub {
-    use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
-    use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
     my $test = shift;
@@ -260,6 +260,61 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     $editor = $c->model('Editor')->get_by_id(1);
     is $editor->accepted_auto_edits, $old_ae_count + 1;
     is $editor->accepted_edits, $old_e_count;
+};
+
+test 'default_includes function' => sub {
+    my $test = shift;
+
+    my $objects_to_load = {
+        Area    => [ 3, 14, 159, 265 ],
+        Artist  => [ 3, 5, 8, 9, 79 ],
+        Place   => [ 3, 23, 84, 626, 4338 ],
+    };
+    my $post_load_models = {
+        Area => {
+              14 => [],
+             159 => [ 'ModelOne', 'AreaContainment' ],
+             265 => [ 'ModelOne', 'AreaContainment ModelTwo' ],
+        },
+        Artist => {
+               5 => [ 'Place' ],
+               9 => [ 'ModelThree' ],
+              79 => [ 'Area' ],
+        },
+        Place => {
+               3 => [ 'Area AreaContainment' ],
+              84 => [ 'Area' ],
+             626 => [ 'ModelFour AreaContainment' ],
+            4338 => [ 'ModelFive' ],
+        },
+    };
+
+    my $expected_objects_to_load = clone($objects_to_load);
+    my $expected_post_load_models = {
+        Area => {
+               3 => [ 'AreaContainment' ],
+              14 => [ 'AreaContainment' ],
+             159 => [ 'ModelOne', 'AreaContainment' ],
+             265 => [ 'ModelOne', 'AreaContainment ModelTwo' ],
+        },
+        Artist => {
+               5 => [ 'Place Area AreaContainment' ],
+               9 => [ 'ModelThree' ],
+              79 => [ 'Area AreaContainment' ],
+        },
+        Place => {
+               3 => [ 'Area AreaContainment' ],
+              23 => [ 'Area AreaContainment' ],
+              84 => [ 'Area AreaContainment' ],
+             626 => [ 'ModelFour AreaContainment', 'Area AreaContainment' ],
+            4338 => [ 'ModelFive', 'Area AreaContainment' ],
+        },
+    };
+
+    MusicBrainz::Server::Data::Edit::default_includes($objects_to_load, $post_load_models);
+
+    is_deeply($objects_to_load, $expected_objects_to_load, 'objects_to_load unchanged');
+    is_deeply($post_load_models, $expected_post_load_models, 'post_load_models correctly modified');
 };
 
 1;

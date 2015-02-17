@@ -4,12 +4,13 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
@@ -17,6 +18,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_name { N_l('Move disc ID') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (
@@ -63,7 +65,7 @@ sub alter_edit_pending
 sub _build_related_entities
 {
     my $self = shift;
-    return { 
+    return {
         release => [ $self->release_ids ],
     }
 }
@@ -74,37 +76,24 @@ sub foreign_keys
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } $self->release_ids },
         MediumCDTOC => { $self->data->{medium_cdtoc}{id} => [ 'CDTOC' ] },
-        Medium => {
-            $self->data->{new_medium}{id} => [ 'MediumFormat', 'Release' ],
-            $self->data->{old_medium}{id} => [ 'MediumFormat', 'Release' ]
-        }
+        Medium => { map { $self->data->{$_}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] }
+                    qw( new_medium old_medium ) },
     }
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $old_release = $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
-            || Release->new( name => $self->data->{old_medium}{release}{name} );
-    my $old_medium = $loaded->{Medium}->{ $self->data->{old_medium}{id} }
-            || Medium->new( id => $self->data->{old_medium}{id} );
-    $old_medium->release($old_release);
-
-    my $new_release = $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
-            || Release->new( name => $self->data->{new_medium}{release}{name} );
-    my $new_medium = $loaded->{Medium}->{ $self->data->{new_medium}{id} }
-            || Medium->new( id => $self->data->{new_medium}{id} );
-    $new_medium->release($new_release);
-
     return {
         medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} }
             || MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
             ),
-        old_release => $old_release,
-        new_release => $new_release,
-        new_medium  => $new_medium,
-        old_medium  => $old_medium
+        map { $_ => $loaded->{Medium}->{ $self->data->{$_}{id} } //
+                    Medium->new( release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
+                                            Release->new( name => $self->data->{$_}{release}{name} )
+                    )
+        } qw( new_medium old_medium ),
     }
 }
 
@@ -117,6 +106,9 @@ sub initialize
     unless ($medium_cdtoc->cdtoc) {
         $self->c->model('CDTOC')->load($medium_cdtoc);
     }
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if $medium_cdtoc->medium->id == $new->id;
 
     $self->data({
         medium_cdtoc => {
@@ -157,9 +149,10 @@ sub accept
         )
     }
 
-    if ($self->c->model('MediumCDTOC')->medium_has_cdtoc(
-        $medium->id,
-        $medium_cdtoc->cdtoc
+    if ($self->data->{old_medium}{id} != $self->data->{new_medium}{id} &&
+        $self->c->model('MediumCDTOC')->medium_has_cdtoc(
+            $medium->id,
+            $medium_cdtoc->cdtoc
     )) {
         $self->c->model('MediumCDTOC')->delete(
             $self->data->{medium_cdtoc}{id}

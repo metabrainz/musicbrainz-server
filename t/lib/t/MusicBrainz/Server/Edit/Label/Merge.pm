@@ -50,6 +50,40 @@ is($l2->edits_pending, 0);
 my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($l2->id);
 is(scalar @$ipi_codes, 1, "Merged Label has all ipi codes after accepting edit");
 
+my $isni_codes = $c->model('Label')->isni->find_by_entity_id($l2->id);
+is(scalar @$isni_codes, 1, "Merged Label has all isni codes after accepting edit");
+
+};
+
+test 'Can merge labels with editors subscribed at both ends' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_merge');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+VALUES (10, 'Fred', '{CLEARTEXT}mb', '', '', now());
+
+INSERT INTO edit (id, editor, type, status, data, expire_time)
+VALUES (1, 10, 1, 1, '', now());
+
+INSERT INTO editor_subscribe_label (editor, label, last_edit_sent)
+VALUES (10, 2, 1), (10, 3, 1);
+
+ALTER SEQUENCE edit_id_seq RESTART 2;
+EOSQL
+
+    my $edit = create_edit($c);
+    $edit->accept;
+
+    my $label = $c->model('Label')->get_by_id(3);
+    my @editors = $c->model('Label')->subscription->find_subscribed_editors(3);
+
+    is(@editors, 1, '1 subscribed editor');
+    is($editors[0]->id, 10, 'Editor #10 is subscribed');
+
+    @editors = $c->model('Label')->subscription->find_subscribed_editors(2);
+    is(@editors, 0, 'No editors subscribed to label #2 (now merged)');
 };
 
 sub create_edit {

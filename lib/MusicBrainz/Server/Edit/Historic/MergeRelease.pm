@@ -3,13 +3,14 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MERGE_RELEASE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name     { N_l('Merge releases') }
+sub edit_kind     { 'merge' }
 sub historic_type { 23 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE }
 sub edit_template { 'historic/merge_releases' }

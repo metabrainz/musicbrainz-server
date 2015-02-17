@@ -32,7 +32,8 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
-use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
+use MusicBrainz::Server::Replication qw( :replication_type );
+use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
@@ -42,6 +43,7 @@ my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
 my $update_replication_control = 1;
+my $delete_first = 0;
 
 GetOptions(
     "help|h"                    => \$fHelp,
@@ -49,7 +51,8 @@ GetOptions(
     "tmp-dir|t=s"               => \$tmpdir,
     "fix-broken-utf8"   => \$fFixUTF8,
     "skip-editor!" => \$skip_ensure_editor,
-    "update-replication-control!" => \$update_replication_control
+    "update-replication-control!" => \$update_replication_control,
+    "delete-first!" => \$delete_first
 );
 
 sub usage
@@ -67,6 +70,8 @@ Usage: MBImport.pl [options] FILE ...
         --update-replication-control whether or not this import should
                           alter the replication control table. This flag is
                           internal and is only be set by MusicBrainz scripts
+        --delete-first    If set, will delete from non-empty tables immediately
+                          before importing
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -84,10 +89,10 @@ is identified, by considering each named argument in turn to see if it
 provides a file for this table; if no file is available, processing of this
 table ends.
 
-Then, if the database table is not empty, a warning is generated, and
-processing of this table ends.  Otherwise, the file is loaded into the table.
-(Exception: the "moderator_santised" file, if present, is loaded into the
-"moderator" table).
+Then, if the database table is not empty and delete-first is not set, a warning
+is generated, and processing of this table ends.  Otherwise, the file is loaded
+into the table.  (Exception: the "moderator_santised" file, if present, is
+loaded into the "moderator" table).
 
 Note: The --fix-broken-utf8 is usefull when upgrading a database to
       Postgres 8.1.x and your old database includes byte sequences that are
@@ -135,7 +140,7 @@ for (@tar_to_extract)
     my ($tar, $dir, $decompress) = @$_;
     print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
     system "tar -C $dir $decompress -xvf $tar";
-    exit $? if $?;
+    exit($? >> 8) if $?;
 }
 
 print localtime() . " : Validating snapshot\n";
@@ -265,8 +270,9 @@ sub ImportTable
         # code, as described in the INSTALL file.
 
         $sql->begin;
+        $sql->do("DELETE FROM $table") if $delete_first;
+        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->dbh;
 
         $p->("", "") if $fProgress;
         my $t;
@@ -332,158 +338,7 @@ sub empty
 
 sub ImportAllTables
 {
-    for my $table (qw(
-        artist_rating_raw
-        artist_tag_raw
-        cdtoc_raw
-        edit
-        edit_artist
-        edit_label
-        edit_note
-        edit_recording
-        edit_release
-        edit_release_group
-        edit_work
-        label_rating_raw
-        label_tag_raw
-        recording_rating_raw
-        recording_tag_raw
-        release_group_rating_raw
-        release_group_tag_raw
-        release_raw
-        track_raw
-        vote
-        work_rating_raw
-        work_tag_raw
-        annotation
-        artist
-        artist_alias
-        artist_alias_type
-        artist_annotation
-        artist_credit
-        artist_credit_name
-        artist_gid_redirect
-        artist_ipi
-        artist_meta
-        artist_name
-        artist_tag
-        artist_type
-        cdtoc
-        clientversion
-        country
-        editor
-        editor_language
-        editor_preference
-        editor_sanitised
-        editor_subscribe_artist
-        editor_subscribe_editor
-        editor_subscribe_label
-        gender
-        isrc
-        iswc
-        l_artist_artist
-        l_artist_label
-        l_artist_recording
-        l_artist_release
-        l_artist_release_group
-        l_artist_url
-        l_artist_work
-        l_label_label
-        l_label_recording
-        l_label_release
-        l_label_release_group
-        l_label_url
-        l_label_work
-        l_recording_recording
-        l_recording_release
-        l_recording_release_group
-        l_recording_url
-        l_recording_work
-        l_release_group_release_group
-        l_release_group_url
-        l_release_group_work
-        l_release_release
-        l_release_release_group
-        l_release_url
-        l_release_work
-        l_url_url
-        l_url_work
-        l_work_work
-        label
-        label_alias
-        label_alias_type
-        label_annotation
-        label_gid_redirect
-        label_ipi
-        label_meta
-        label_name
-        label_tag
-        label_type
-        language
-        link
-        link_attribute
-        link_attribute_type
-        link_type
-        link_type_attribute_type
-        editor_collection
-        editor_collection_release
-        medium
-        medium_cdtoc
-        medium_format
-        puid
-        recording
-        recording_annotation
-        recording_gid_redirect
-        recording_meta
-        recording_puid
-        recording_tag
-        release
-        release_annotation
-        release_gid_redirect
-        release_group
-        release_group_annotation
-        release_group_gid_redirect
-        release_group_meta
-        release_group_tag
-        release_group_primary_type
-        release_group_secondary_type
-        release_group_secondary_type_join
-        release_label
-        release_meta
-        release_coverart
-        release_name
-        release_packaging
-        release_status
-        release_tag
-        replication_control
-        script
-        script_language
-        tag
-        tag_relation
-        track
-        track_name
-        tracklist
-        tracklist_index
-        url
-        url_gid_redirect
-        work
-        work_alias
-        work_alias_type
-        work_annotation
-        work_gid_redirect
-        work_meta
-        work_name
-        work_tag
-        work_type
-
-        cover_art_archive.art_type
-        cover_art_archive.cover_art
-        cover_art_archive.cover_art_type
-        cover_art_archive.release_group_cover_art
-
-        statistics.statistic
-        statistics.statistic_event
-    )) {
+    for my $table (@FULL_TABLE_LIST) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
@@ -492,19 +347,13 @@ sub ImportAllTables
         {
                 my $basetable = $table;
                 $basetable =~ s/_sanitised$//;
-
-                if (grep { $basetable eq $_ } NON_REPLICATED_TABLES)
-                {
-                        warn "Skipping non-replicated table $basetable\n";
-                        next;
-                }
         }
 
         if ($table =~ /^(.*)_sanitised$/)
         {
                 my $basetable = $1;
 
-                if (not empty($basetable))
+                if (not empty($basetable) and not $delete_first)
                 {
                         warn "$basetable table already contains data; skipping $table\n";
                         next;
@@ -514,7 +363,7 @@ sub ImportAllTables
                 ImportTable($basetable, $file) or next;
 
         } else {
-                if (not empty($table))
+                if (not empty($table) and not $delete_first)
                 {
                         warn "$table already contains data; skipping\n";
                         next;
@@ -616,8 +465,8 @@ sub validate_tar
 sub EnsureEditorTable {
     $sql->begin;
     $sql->do(
-        "INSERT INTO editor (id, name, password)
-             SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, ''
+        "INSERT INTO editor (id, name, password, ha1)
+             SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, '', ''
              FROM (
                  SELECT editor FROM annotation
              UNION ALL

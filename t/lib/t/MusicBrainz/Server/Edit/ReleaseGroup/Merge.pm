@@ -44,7 +44,7 @@ test all => sub {
     my %types = map { $_->name => 1 } @{ $rgs->{1}->secondary_types };
 
     ok($types{"DJ-Mix"}, "Release group has type DJ-Mix");
-    ok($types{"Live"}, "Release group has type Live");
+    ok($types{"Demo"}, "Release group has type Demo");
 };
 
 sub create_edit {

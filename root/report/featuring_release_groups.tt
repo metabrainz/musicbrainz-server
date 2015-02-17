@@ -3,11 +3,12 @@
 <h1>[% l('Release groups with titles containing featuring artists') %]</h1>
 
 <ul>
-    <li>[% l('This report shows release groups with (feat. Artist) in the title.
-              For classical releases, don\'t change anything. For non-classical releases,
-              this is inherited from an older version of MusicBrainz and should be fixed.
-              Consult the {featured_artists|page about featured artists} to know more.',
-              { featured_artists => doc_link('Style/Titles/Featured_artists') }) %]</li>
+    <li>[% l('This report shows release groups with (feat. Artist) in the title. For classical
+              release groups, consult the {CSG|classical style guidelines}. For non-classical
+              release groups, this is inherited from an older version of MusicBrainz and should
+              be fixed. Consult the {featured_artists|page about featured artists} to know more.',
+              { CSG => doc_link('Style/Classical'),
+              featured_artists => doc_link('Style/Titles/Featured artists') }) %]</li>
     <li>[% l('Total release groups found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
     [%- INCLUDE 'report/filter_link.tt' -%]

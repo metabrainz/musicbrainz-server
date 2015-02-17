@@ -55,7 +55,7 @@ sub rating : Path('/ws/1/rating')
         else {
             my @batch;
 
-            for(my $count = 0;; $count++) {
+            for (my $count = 0;; $count++) {
                 my $entity = $c->req->params->{"entity.$count"};
                 my $id = $c->req->params->{"id.$count"};
                 my $rating = $c->req->params->{"rating.$count"};

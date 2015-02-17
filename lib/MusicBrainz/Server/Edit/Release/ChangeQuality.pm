@@ -3,18 +3,19 @@ use Moose;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_l('Change release quality') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
 
@@ -87,11 +88,6 @@ method accept
         { quality => $self->data->{new}{quality} }
     );
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

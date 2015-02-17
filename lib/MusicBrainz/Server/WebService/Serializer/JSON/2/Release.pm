@@ -30,15 +30,33 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{country} = $entity->country
-        ? $entity->country->iso_code : JSON::null;
 
-    $body{asin} = $entity->amazon_asin;
+    if (my ($earliest_event) = $entity->all_events) {
+        my $add_release_event = sub {
+            my ($release_event, $target, $include_country) = @_;
+            $target->{date} = $release_event->date->format;
+            if ($include_country) {
+                $target->{country} = $release_event->country && $release_event->country->country_code
+                    ? $release_event->country->country_code : JSON::null;
+            } else {
+                $target->{area} = $release_event->country
+                    ? serialize_entity($release_event->country) : JSON::null;
+            }
+            return $target;
+        };
+
+        $add_release_event->($earliest_event, \%body, 1);
+
+        $body{'release-events'} = [
+            map { $add_release_event->($_, {}) } $entity->all_events
+        ]
+    }
+
+    $body{asin} = $entity->amazon_asin if ($toplevel);
     $body{barcode} = $entity->barcode->code;
-    $body{date} = $entity->date->format;
     $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
-    $body{quality} = _quality ($entity->quality);
+    $body{quality} = _quality($entity->quality);
     $body{packaging} = $entity->packaging
         ? $entity->packaging->name : JSON::null;
 
@@ -59,20 +77,20 @@ sub serialize
         language => $entity->language ? $entity->language->iso_code_3 : JSON::null
     };
 
-    $body{collections} = list_of ($entity, $inc, $stash, "collections")
+    $body{collections} = list_of($entity, $inc, $stash, "collections")
         if $inc && $inc->collections;
 
-    $body{"release-group"} = serialize_entity ($entity->release_group, $inc, $stash)
+    $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash)
         if $inc && $inc->release_groups;
 
     if ($toplevel)
     {
-        $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash, $inc->artists)
+        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
     }
     else
     {
-        $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash)
+        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
             if $inc && $inc->artist_credits;
     }
 
@@ -80,7 +98,7 @@ sub serialize
         map {
             {
                 "catalog-number" => $_->catalog_number,
-                label => serialize_entity ($_->label, $inc, $stash)
+                label => serialize_entity($_->label, $inc, $stash)
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;
 

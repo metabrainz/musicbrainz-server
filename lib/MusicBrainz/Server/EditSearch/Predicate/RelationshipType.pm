@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
+    $EDIT_RELATIONSHIP_DELETE
 );
 
 sub operator_cardinality_map {
@@ -23,10 +24,12 @@ sub combine_with_query {
             "(edit.type = ? AND (extract_path_value(edit.data, 'link/link_type/id') = any(?) OR
                                  extract_path_value(edit.data, 'old/link_type/id') = any(?) OR
                                  extract_path_value(edit.data, 'new/link_type/id') = any(?)))",
+            "(edit.type = ? AND  extract_path_value(edit.data, 'relationship/link/type/id') = any(?))",
         ),
         [
             $EDIT_RELATIONSHIP_CREATE => $self->sql_arguments,
             $EDIT_RELATIONSHIP_EDIT => ($self->sql_arguments) x 3,
+            $EDIT_RELATIONSHIP_DELETE => $self->sql_arguments,
         ]
     ]);
 }

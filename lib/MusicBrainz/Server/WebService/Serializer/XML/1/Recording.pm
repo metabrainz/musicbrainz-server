@@ -29,7 +29,7 @@ sub serialize
     push @body, ( list_of($entity->isrcs) )
         if $inc && $inc->isrcs;
 
-    push @body, ( list_of([ map { $_->puid } @{ $entity->puids} ]) )
+    push @body, ( list_of([ ]) )
         if $inc && $inc->puids;
 
     # FIXME This is hackish

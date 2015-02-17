@@ -11,13 +11,17 @@ use Sub::Exporter -setup => {
         },
         unformat_track_length => sub {
             sub { UnformatTrackLength(shift) }
-        }
+        },
+        format_iso_duration => sub {
+            sub { FormatTrackLength(shift, print_formats => {hms => "PT%dH%02dM%02dS", ms => "PT%02dM%02dS"}) }
+        },
     ]
 };
 
 sub FormatTrackLength
 {
-    my $ms = shift;
+    my ($ms, %opts) = @_;
+    my $print_formats = $opts{print_formats} // {hms => "%d:%02d:%02d", ms => "%d:%02d"};
 
     return "?:??" unless $ms;
     return $ms unless looks_like_number($ms);
@@ -35,21 +39,8 @@ sub FormatTrackLength
     ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
 
     return $hours > 0 ?
-        sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
-        sprintf ("%d:%02d", $minutes, $seconds);
-}
-
-sub FormatXSDTrackLength
-{
-    my $ms = shift;
-    return undef unless $ms;
-
-    my $length_in_secs = ($ms / 1000.0 + 0.5);
-    sprintf "PT%dM%dS",
-        int($length_in_secs / 60),
-        ($length_in_secs % 60),
-    ;
-
+        sprintf($print_formats->{hms}, $hours, $minutes, $seconds) :
+        sprintf($print_formats->{ms}, $minutes, $seconds);
 }
 
 sub UnformatTrackLength
@@ -64,9 +55,9 @@ sub UnformatTrackLength
     {
         return ($1 * 60 + $2) * 1000;
     }
-    elsif ($length =~ /^\s*(\d+)\s+ms\s*$/)
+    elsif ($length =~ /^\s*(\d+(\.\d+)?)?\s+ms\s*$/)
     {
-        return $1;
+        return int($1);
     }
     elsif ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
     {

@@ -3,8 +3,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
-use Digest::SHA1 qw(sha1_base64);
-use MusicBrainz::Server::Translation qw (l ln );
+use Digest::SHA qw(sha1_base64);
+use MusicBrainz::Server::Translation qw(l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
 use Captcha::reCAPTCHA;
@@ -31,7 +31,7 @@ address" emails)
 
 =cut
 
-sub verify_email : Path('/verify-email') ForbiddenOnSlaves
+sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -154,12 +154,17 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         my $email = $form->field('email')->value;
 
         my $editor = $c->model('Editor')->get_by_name($username);
+
         if (!defined $editor) {
             $form->field('username')->add_error(l('There is no user with this username'));
         }
         else {
-            if ($editor->email && $editor->email ne $email) {
+            # HTML::FormHandler::Field::Email lowercases the email, so we should compare the lowercase version (MBS-6158)
+            if ($editor->email && lc($editor->email) ne lc($email)) {
                 $form->field('email')->add_error(l('There is no user with this username and email'));
+            }
+            elsif (!$editor->email) {
+                $form->field('email')->add_error(l('We can\'t send a password reset email, because we have no email on record for this user.'));
             }
             else {
                 $self->_send_password_reset_email($c, $editor);
@@ -173,7 +178,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     $c->stash->{form} = $form;
 }
 
-sub reset_password : Path('/reset-password') ForbiddenOnSlaves
+sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -225,7 +230,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor, $password);
+        $c->model('Editor')->update_password($editor->name, $password);
 
         $c->model('Editor')->load_preferences($editor);
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
@@ -276,7 +281,7 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local RequireAuth
+sub edit : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -290,6 +295,7 @@ sub edit : Local RequireAuth
     }
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
 
     my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
@@ -332,21 +338,32 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireAuth
+sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/change_password_ok.tt');
+        $c->flash->{message} = l('Your password has been changed.');
+        $c->response->redirect($c->uri_for_action('/user/login'));
+
         $c->detach;
     }
 
-    my $form = $c->form( form => 'User::ChangePassword' );
+    $c->stash( mandatory => $c->req->query_params->{mandatory} );
+
+    my $form = $c->form(
+        form => 'User::ChangePassword',
+        init_object => {
+            username => $c->user_exists
+                ? $c->user->name
+                : ($c->req->query_parameters->{username} // '')
+        }
+    );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($c->user, $password);
+        $c->model('Editor')->update_password(
+            $form->field('username')->value, $password);
 
         $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
         $c->detach;
@@ -359,7 +376,7 @@ Change the users preferences
 
 =cut
 
-sub preferences : Path('/account/preferences') RequireAuth
+sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -393,9 +410,15 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves RequireSSL
+sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
+
+    if ($c->user_exists) {
+        $c->response->redirect($c->uri_for_action('/user/profile',
+                                                 [ $c->user->name ]));
+        $c->detach;
+    }
 
     my $form = $c->form(register_form => 'User::Register');
 
@@ -413,7 +436,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL
             my $challenge = $c->req->params->{recaptcha_challenge_field};
             my $response = $c->req->params->{recaptcha_response_field};
 
-            $captcha_result = $captcha->check_answer (
+            $captcha_result = $captcha->check_answer(
                 DBDefs->RECAPTCHA_PRIVATE_KEY,
                 $c->req->address, $challenge, $response);
 
@@ -448,12 +471,12 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL
         }
         else
         {
-            $c->stash (invalid_captcha_response => 1);
+            $c->stash(invalid_captcha_response => 1);
         }
     }
 
     my $captcha_html = "";
-    $captcha_html = $captcha->get_html (
+    $captcha_html = $captcha->get_html(
         DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result, $c->req->secure) if $use_captcha;
 
     $c->stash(
@@ -510,9 +533,10 @@ sub _send_confirmation_email
         $c->flash->{message} = l(
             '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid
              address by editing your {settings|account settings}. If the problem still persists, please contact us at
-             <a href="mailto:support@musicbrainz.org">support@musicbrainz.org</a>.',
+             {mail|support@musicbrainz.org}.',
             {
-                settings => $c->uri_for_action('/account/edit')
+                settings => $c->uri_for_action('/account/edit'),
+                mail => 'mailto:support@musicbrainz.org'
             }
         );
     };
@@ -533,11 +557,11 @@ sub donation : Local RequireAuth HiddenOnSlaves
 
     $c->stash(
         nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
+        days => sprintf("%.0f", $result->{days}),
     );
 }
 
-sub applications : Path('/account/applications') RequireAuth
+sub applications : Path('/account/applications') RequireAuth RequireSSL
 {
     my ($self, $c) = @_;
 
@@ -555,7 +579,7 @@ sub applications : Path('/account/applications') RequireAuth
     $c->stash( tokens => $tokens, applications => $applications );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $application_id, $scope) = @_;
 
@@ -569,7 +593,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     }
 }
 
-sub register_application : Path('/account/applications/register') RequireAuth
+sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -587,7 +611,7 @@ sub register_application : Path('/account/applications/register') RequireAuth
     }
 }
 
-sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 
@@ -610,7 +634,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
     }
 }
 
-sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 

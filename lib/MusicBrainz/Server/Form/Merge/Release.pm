@@ -52,9 +52,10 @@ sub options_merge_strategy {
     ]
 }
 
-sub validate {
+after validate => sub {
     my ($self) = @_;
-    if($self->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+
+    if ($self->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
         my (%seen_pos, %positions);
         for my $field ($self->field('medium_positions.map')->fields) {
             my $pos_field = $field->field('position');
@@ -68,6 +69,6 @@ sub validate {
             $positions{$field->field('id')->value} = $pos_field->value;
         }
     }
-}
+};
 
 1;

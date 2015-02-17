@@ -2,8 +2,9 @@ package MusicBrainz::Server::Entity::Track;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Track qw( format_track_length );
 
-extends 'MusicBrainz::Server::Entity';
+extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'recording_id' => (
@@ -18,14 +19,14 @@ has 'recording' => (
     clearer => 'clear_recording'
 );
 
-has 'tracklist_id' => (
+has 'medium_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'tracklist' => (
+has 'medium' => (
     is => 'rw',
-    isa => 'Tracklist'
+    isa => 'Medium'
 );
 
 has 'position' => (
@@ -50,12 +51,22 @@ has 'artist_credit_id' => (
 
 has 'length' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
+    clearer => 'clear_length'
 );
+
+sub formatted_length {
+    format_track_length(shift->length);
+}
 
 has 'artist_credit' => (
     is => 'rw',
     isa => 'ArtistCredit'
+);
+
+has 'is_data_track' => (
+    is => 'rw',
+    isa => 'Bool',
 );
 
 __PACKAGE__->meta->make_immutable;

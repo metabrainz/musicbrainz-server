@@ -6,13 +6,13 @@ use List::MoreUtils qw( part );
 
 sub subscribers : Chained('load') RequireAuth {
     my ($self, $c) = @_;
-    
+
     my $model = $self->{model};
     my $entity = $c->stash->{ $self->{entity_name} };
-    
+
     my @all_editors = $c->model($model)->subscription->find_subscribed_editors($entity->id);
     $c->model('Editor')->load_preferences(@all_editors);
-    my ($public, $private) = part { $_->preferences->public_subscriptions ? 0 : 1 } @all_editors; 
+    my ($public, $private) = part { $_->preferences->public_subscriptions ? 0 : 1 } @all_editors;
 
     $public ||= [];
     $private ||= [];

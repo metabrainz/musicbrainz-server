@@ -8,13 +8,14 @@ use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote format_wikitext )]
+    exports => [qw( format_editnote format_setlist format_wikitext )]
 };
 
 sub release_date
@@ -33,32 +34,10 @@ sub release_date
 
 }
 
-# get the xsd type for a date (rdfa stuff)
-sub date_xsd_type
-{
-    my $date = shift;
-    if($date =~ /^[\d-]+$/){
-
-	my ($y, $m, $d) = split /-/, $date;
-
-	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
-	return 'xsd:gYearMonth' if ($y && 0 + $y && $m && 0 + $m);
-	return 'xsd:gYear' if ($y);
-    }
-
-}
-
 sub format_length
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
-}
-
-# format duration as xsd:duration (rdfa stuff)
-sub format_length_xsd
-{
-    my $ms = shift;
-    return MusicBrainz::Server::Track::FormatXSDTrackLength($ms);
 }
 
 sub format_distance
@@ -66,6 +45,60 @@ sub format_distance
     my $ms = shift;
     return "0 s" if (!$ms);
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
+sub format_setlist {
+    my ($text) = @_;
+
+    # Encode < and >
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+
+    # Lines starting with @ are artists
+    $text =~ s/^@ ([^\r\n]*)/format_setlist_artist($1)/meg;
+
+    # Lines starting with * are works
+    $text =~ s/^\* ([^\r\n]*)/format_setlist_work($1)/meg;
+
+    # Lines starting with # are comments
+    $text =~ s/^# ([^\r\n]*)/<span class=\"comment\">$1<\/span>/mg;
+
+    # Fix newlines
+    $text =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
+
+    return $text;
+}
+
+sub format_setlist_artist {
+    my ($line) = @_;
+
+    $line =~ s/
+      \[
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link("artist",$1,$2)/eixg;
+
+    $line = "<b>Artist: $line</b>";
+
+    return $line;
+}
+
+sub format_setlist_work {
+    my ($line) = @_;
+
+    $line =~ s/
+      \[
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link("work",$1,$2)/eixg;
+
+    return $line;
 }
 
 sub format_wikitext
@@ -77,10 +110,11 @@ sub format_wikitext
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
 
+    my $entity_names = join('|', entities_with('mbid', take => sub { my $type = shift; return shift->{url} // $type } ));
     # MBS-2437: Expand MBID entity links
     $text =~ s/
       \[
-      (artist|label|recording|release|release-group|url|work):
+      ($entity_names):
       ([0-9a-f]{8} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
@@ -94,6 +128,7 @@ sub format_wikitext
             encode('utf-8' => $text), {}, {
                 prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
+                nofollow_extended => 1,
                 absolute_links => 1,
                 implicit_links => 0
             })
@@ -104,23 +139,31 @@ sub _make_link
 {
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
-    my $ws = DBDefs->WEB_SERVER;
-    return "<a href=\"/$type/$mbid/\">$content</a>"
+    return "<a href=\"/$type/$mbid\">$content</a>"
+}
+
+sub encode_square_brackets
+{
+    my $t = $_[0];
+    my %ent = ( '[' =>  '&#91;', ']' => '&#93;' );
+    $t =~ s/([\[\]])/$ent{$1}/g;
+    $t;
 }
 
 sub _display_trimmed {
     my $url = shift;
 
+    my $encoded_url = encode_square_brackets(encode_entities($url));
+
     # shorten url's that are longer 50 characters
-    my $encoded_url = encode_entities($url);
-    my $display_url = length($encoded_url) > 50
-        ? substr($encoded_url, 0, 48) . "&#8230;"
+    my $display_url = length($url) > 50
+        ? encode_square_brackets(encode_entities(substr($url, 0, 48))) . "&#8230;"
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
         unless $encoded_url =~ m{^(?:https?:)?//};
 
-    return qq{<a href="$encoded_url">$display_url</a>};
+    return qq{<a href="$encoded_url" rel="nofollow">$display_url</a>};
 }
 
 sub normalise_url {
@@ -234,14 +277,14 @@ sub gravatar {
 
 sub _amazon_https {
     my $url = shift;
-    $url =~ s,http://ecx\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
+    $url =~ s,http://ec[x4]\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
     return $url;
 }
 
 sub _generic_https {
     my $url = shift;
     # list only those sites that support https
-    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|www\.archive\.org)/,https://$1/,;
+    $url =~ s,http://(www\.ozon\.ru|(?:[^.\/]+\.)?archive\.org)/,https://$1/,;
     return $url;
 }
 

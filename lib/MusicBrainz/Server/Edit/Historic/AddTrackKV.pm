@@ -4,11 +4,12 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Add track') }
+sub edit_kind     { 'add' }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
 sub edit_template { 'historic/add_track_kv' }

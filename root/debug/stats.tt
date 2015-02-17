@@ -9,7 +9,7 @@
     <span class="date">
       <small>
         [% USE Date %]
-        [%- c.request.hostname -%], [% Date.format (Date.now, format = "%Y-%m-%d %H:%M:%S") -%]
+        [%- c.request.hostname -%], [% Date.format(Date.now, format = "%Y-%m-%d %H:%M:%S") -%]
       </small>
     </span>
   </p>
@@ -28,23 +28,23 @@
     </tbody>
   </table>
   <script type="text/javascript">//<![CDATA[
-    if ($.cookie ('catalyst-stats-open') === "1")
+    if ($.cookie('catalyst-stats-open') === "1")
     {
-        $('#catalyst-stats').show ();
+        $('#catalyst-stats').show();
     }
 
-    $('#catalyst-stats-summary').bind ('click.mb', function () {
-        $('#catalyst-stats').toggle ();
-        $.cookie ('catalyst-stats-open',
+    $('#catalyst-stats-summary').bind('click.mb', function () {
+        $('#catalyst-stats').toggle();
+        $.cookie('catalyst-stats-open',
             $('#catalyst-stats').is(':visible') ? "1" : "0",
             { path: '/', expires: 365 });
     });
 
-    $('#catalyst-stats table td.duration').each (function (idx, cell) {
-        parts = $(cell).text ().split ('.');
+    $('#catalyst-stats table td.duration').each(function (idx, cell) {
+        parts = $(cell).text().split('.');
         if (parts.length === 2)
         {
-            $(cell).html (parts[0] + '.<span class="fractional">' + parts[1] + '<\/span>');
+            $(cell).html(parts[0] + '.<span class="fractional">' + parts[1] + '<\/span>');
         }
     });
   //]]></script>

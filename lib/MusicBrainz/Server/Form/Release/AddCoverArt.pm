@@ -19,6 +19,23 @@ has_field 'position' => (
     default => 1,
 );
 
+has_field 'mime_type' => (
+    type      => 'Select',
+    required  => 1,
+);
+
+sub options_mime_type {
+    my @types = map {
+        {
+            'value' => $_->{mime_type},
+            'label' => $_->{suffix},
+        }
+    } @{ shift->ctx->model('CoverArt')->mime_types };
+
+    return \@types;
+}
+
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

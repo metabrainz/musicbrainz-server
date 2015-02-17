@@ -1,0 +1,25 @@
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            [% BLOCK extra_header_start %][% END %]
+            [%- PROCESS extra_header_start -%]
+            <th>[% l('Series') %]</th>
+            [% BLOCK extra_header_end %][% END %]
+            [%- PROCESS extra_header_end -%]
+        </tr>
+    </thead>
+    <tbody>
+        [%- lastgid = 0 -%]
+        [%- FOR item IN items -%]
+            <tr class="[% loop.parity %]">
+                [% BLOCK extra_row_start %][% END %]
+                [%- PROCESS extra_row_start -%]
+                <td>[% link_entity(item.series) %]</td>
+                [% BLOCK extra_row_end %][% END %]
+                [%- PROCESS extra_row_end -%]
+            </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]

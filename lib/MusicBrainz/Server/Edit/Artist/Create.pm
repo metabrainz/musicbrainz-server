@@ -3,23 +3,28 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+    editor_subscription_preference => sub { shift->subscribe_to_created_artists }
+};
+with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
-
 
 has '+data' => (
     isa => Dict[
@@ -28,12 +33,14 @@ has '+data' => (
         sort_name  => Optional[Str],
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
-        country_id => Nullable[Int],
+        area_id    => Nullable[Int],
+        begin_area_id => Nullable[Int],
+        end_area_id => Nullable[Int],
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
+        isni_codes => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
     ]
 );
@@ -41,6 +48,7 @@ has '+data' => (
 before initialize => sub {
     my ($self, %opts) = @_;
     die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+    die "You must specify isni_codes" unless defined $opts{isni_codes};
 };
 
 sub foreign_keys
@@ -50,7 +58,8 @@ sub foreign_keys
         Artist     => [ $self->entity_id ],
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
-        Country    => [ $self->data->{country_id} ]
+        Area       => [ $self->data->{area_id},
+                        $self->data->{begin_area_id}, $self->data->{end_area_id} ]
     };
 }
 
@@ -60,18 +69,18 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
-    my $country = $self->data->{country_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
+        ( map { $_ => $self->data->{$_} // '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
-        country    => $country ? $loaded->{Country}->{$country} : '',
+        ( map { $_ => $self->data->{$_ . '_id'} && ($loaded->{Area}->{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
-        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        ipi_codes  => $self->data->{ipi_codes},
+        isni_codes   => $self->data->{isni_codes},
         ended      => $self->data->{ended} // 0
     };
 }
@@ -83,17 +92,17 @@ sub _insert_hash
     return $data;
 };
 
-after insert => sub {
-    my ($self) = @_;
-    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
-    $self->c->model('Editor')->load_preferences($editor);
+sub restore {
+    my ($self, $data) = @_;
 
-    if ($editor->preferences->subscribe_to_created_artists) {
-        $self->c->model('Artist')->subscription->subscribe($editor->id, $self->entity_id);
-    }
-};
+    $data->{area_id} = delete $data->{country_id}
+        if exists $data->{country_id};
 
-sub allow_auto_edit { 1 }
+    $data->{ipi_codes} = [ delete $data->{ipi_code} // () ]
+        if exists $data->{ipi_code};
+
+    $self->data($data);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

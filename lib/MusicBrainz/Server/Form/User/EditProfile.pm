@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::User::EditProfile;
 
 use HTML::FormHandler::Moose;
 use List::MoreUtils qw( any all );
-use MusicBrainz::Server::Form::Utils qw( language_options );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_url );
 
@@ -31,9 +31,10 @@ has_field 'gender_id' => (
     type => 'Select',
 );
 
-has_field 'country_id' => (
-    type => 'Select',
-);
+has_field 'area_id'   => ( type => 'Hidden' );
+
+has_field 'area'      => ( type => 'Compound' );
+has_field 'area.name' => ( type => 'Text' );
 
 has_field 'birth_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
@@ -53,8 +54,7 @@ has_field 'languages.fluency' => (
     required => 1
 );
 
-sub options_gender_id { shift->_select_all('Gender') }
-sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
+sub options_gender_id { select_options_tree(shift->ctx, 'Gender') }
 sub options_languages_language_id { return language_options(shift->ctx) }
 sub options_languages_fluency {
     return [
@@ -78,8 +78,20 @@ sub validate_birth_date {
         return $field->add_error(l('You must supply a complete birth date for us to display your age.'));
     }
 
-    return $field->add_error("invalid date") unless Date::Calc::check_date ($year, $month, $day);
+    if ($field->field('year')->value < 1900) {
+        $field->field('year')->add_error(l('Birth year must be after 1900'));
+    }
+
+    return $field->add_error("invalid date") unless Date::Calc::check_date($year, $month, $day);
 }
+
+sub _requires_email {
+    my ($self, $field) = @_;
+    return $field->add_error(l('Biography and website fields may not be edited until your email address is confirmed.')) unless $self->ctx->user->has_confirmed_email_address;
+}
+
+sub validate_biography { return _requires_email(@_); }
+sub validate_website { return _requires_email(@_); }
 
 1;
 

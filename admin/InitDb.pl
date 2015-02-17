@@ -41,7 +41,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
-my $databaseName;
+my $databaseName = 'READWRITE';
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -57,15 +57,17 @@ my $fVerbose = 0;
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
 
-sub GetPostgreSQLVersion
+sub RequireMinimumPostgreSQLVersion
 {
-    my $mb = Databases->get_connection('READWRITE');
+    my $mb = Databases->get_connection('SYSTEM');
     my $sql = Sql->new( $mb->conn );
 
-    my $version = $sql->select_single_value ("SELECT version();");
+    my $version = $sql->select_single_value("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
-    return version->parse ("v".$version);
+    if (version->parse("v".$version) < version->parse('v9.1')) {
+        die 'MusicBrainz requires PostgreSQL 9.1 on later';
+    }
 }
 
 sub RunSQLScript
@@ -111,8 +113,16 @@ sub RunSQLScript
 sub HasPLPerlSupport
 {
     my $mb = Databases->get_connection('READWRITE');
-    my $sql = Sql->new( $mb->conn );
+    my $mb_no_schema = $mb->meta->clone_object($mb, database => $mb->database->meta->clone_object($mb->database, schema => ''));
+    my $sql = Sql->new( $mb_no_schema->conn );
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
+}
+
+sub HasEditData
+{
+    my $mb = Databases->get_connection('READWRITE');
+    my $sql = Sql->new( $mb->conn );
+    return $sql->select_single_value('SELECT TRUE FROM edit LIMIT 1');
 }
 
 sub InstallExtension
@@ -220,8 +230,9 @@ sub Create
     splice(@opts, -1, 0, "-d");
     $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts, "plpgsql";
-    system "createlang", @opts, "plperlu" if HasPLPerlSupport();
-    print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
+    print "\nFailed to create language plpgsql -- it's likely to be already installed, continuing.\n" if ($? >> 8);
+    system "createlang", @opts, "plperlu";
+    print "\nFailed to create language plperlu -- it's likely to be already installed, continuing.\n" if ($? >> 8);
 
     # Set the default search path for the READWRITE and READONLY users
     my $search_path = $db->schema . ", public";
@@ -252,24 +263,17 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $DB->password;
 
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
-        for ($DB->schema, 'cover_art_archive', 'report', 'statistics');
+        for ($DB->schema, 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
-    {
-        RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions for PostgreSQL 9.1 or newer");
-    }
-    else
-    {
-        InstallExtension($SYSMB, "cube.sql", $DB->schema);
-    }
-
-    InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
+    RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
     RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
+    RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
 
     if ($import)
     {
@@ -285,7 +289,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
     RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating CAA primary keys ...");
+    RunSQLScript($DB, "documentation/CreatePrimaryKeys.sql", "Creating documentation primary keys ...");
     RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
+    RunSQLScript($DB, "wikidocs/CreatePrimaryKeys.sql", "Creating wikidocs primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
@@ -303,6 +309,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateEditFKConstraints.sql", "Adding CAA foreign key constraint to edit table...")
+        unless ($REPTYPE == RT_SLAVE || !HasEditData());
 
     RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
@@ -325,11 +334,13 @@ sub CreateRelations
     {
         CreateReplicationFunction();
         RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
-        RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
         RunSQLScript($DB, "caa/CreateReplicationTriggers.sql", "Creating CAA replication triggers ...");
+        RunSQLScript($DB, "documentation/CreateReplicationTriggers.sql", "Creating documentation replication triggers ...");
+        RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
+        RunSQLScript($DB, "wikidocs/CreateReplicationTriggers.sql", "Creating wikidocs replication triggers ...");
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
-	{
+    {
         RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
@@ -418,7 +429,8 @@ Options are:
   -c --clean             Prepare a ready to use empty database
      --[no]echo          When running the various SQL scripts, echo the commands
                          as they are run
-  -q, --quiet            Don't show the output of any SQL scripts
+  -t --tmp-dir DIR       Use DIR for temporary storage
+  -q --quiet             Don't show the output of any SQL scripts
   -h --help              This help
   --with-pending=PATH    For use only if this is a master replication server
                          (DBDefs->REPLICATION_TYPE==RT_MASTER).  PATH specifies
@@ -441,7 +453,7 @@ without errors, the database will be ready to use. Or it *should* at least.
 Since all non-option arguments are passed directly to MBImport.pl, you can
 pass additional options to that script by using "--".  For example:
 
-  InitDb.pl --createdb --echo --import -- --tmp-dir=/var/tmp *.tar.bz2
+  InitDb.pl --createdb --echo --import -- --skip-editor *.tar.bz2
 
 EOF
 }
@@ -466,7 +478,6 @@ GetOptions(
     "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
 
-$databaseName = "READWRITE" if $databaseName eq '';
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
 # database
@@ -492,6 +503,7 @@ if ($fInstallExtension)
 }
 
 SanityCheck();
+RequireMinimumPostgreSQLVersion();
 
 print localtime() . " : InitDb.pl starting\n" unless $fQuiet;
 my $started = 1;

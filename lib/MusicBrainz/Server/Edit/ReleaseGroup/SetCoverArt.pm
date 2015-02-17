@@ -8,15 +8,17 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Set cover art') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }
 
@@ -42,8 +44,8 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        old => change_fields (),
-        new => change_fields (),
+        old => change_fields(),
+        new => change_fields(),
     ]
 );
 
@@ -56,7 +58,7 @@ sub initialize {
     my %new = ( release_id => $opts{release}->id );
 
     if ($rg->cover_art && $rg->cover_art->release
-        && $self->c->model('ReleaseGroup')->has_cover_art_set ($rg->id))
+        && $self->c->model('ReleaseGroup')->has_cover_art_set($rg->id))
     {
         $old{release_id} = $rg->cover_art->release->id;
     }
@@ -67,7 +69,7 @@ sub initialize {
             name => $rg->name,
             mbid => $rg->gid
         },
-        $self->_change_data (\%old, %new)
+        $self->_change_data(\%old, %new)
     });
 }
 
@@ -84,7 +86,7 @@ sub accept {
             'This release group no longer exists'
         );
 
-    $self->c->model ('ReleaseGroup')->set_cover_art ($rg->id, $release->id);
+    $self->c->model('ReleaseGroup')->set_cover_art($rg->id, $release->id);
 }
 
 sub foreign_keys {
@@ -104,9 +106,9 @@ sub build_display_data {
     my %data;
 
     my @releases = values %{ $loaded->{Release} };
-    my $artwork = $self->c->model ('Artwork')->find_front_cover_by_release (
+    my $artwork = $self->c->model('Artwork')->find_front_cover_by_release(
         @releases);
-    $self->c->model ('CoverArtType')->load_for (@$artwork);
+    $self->c->model('CoverArtType')->load_for(@$artwork);
 
     my %artwork_by_release_id;
     for my $image (@$artwork)

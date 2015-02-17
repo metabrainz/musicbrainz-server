@@ -2,6 +2,11 @@
 [% WRAPPER 'layout.tt' title=l('CD stub “{title}” by {artist}',
                                { title => cdstubtoc.cdstub.title,
                                  artist => cdstubtoc.cdstub.artist || l('Various Artists') }) %]
+  <div id="content">
+    [% INCLUDE 'cdstub/header.tt' %]
+    [% content %]
+  </div>
+
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -25,7 +30,7 @@
           <li>
             [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
             [% release = 'release:(' _ cdstubtoc.cdstub.title _ ')' %]
-            [% tracks = 'tracks:(' _ cdstubtoc.track_count _ ')' %]
+            [% tracks = 'tracksmedium:(' _ cdstubtoc.track_count _ ')' %]
             [% barcode = 'barcode:(' _ cdstubtoc.cdstub.barcode _ ')' IF cdstubtoc.cdstub.barcode %]
             <a href="[% html_escape(c.uri_for_action('/search/search', {
                         query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
@@ -36,9 +41,4 @@
         </ul>
     [% END %]
   [%- END -%]
-
-  <div id="content">
-    [% INCLUDE 'cdstub/header.tt' %]
-    [% content %]
-  </div>
 [% END %]

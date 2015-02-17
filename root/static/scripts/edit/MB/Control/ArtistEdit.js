@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010, 2013 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,20 +19,27 @@
 */
 
 MB.Control.ArtistEdit = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.$name   = $('#id-edit-artist\\.name');
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
     self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
     self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
+    self.$beginarea    = $('#label-id-edit-artist\\.begin_area\\.name');
+    self.$endarea    = $('#label-id-edit-artist\\.end_area\\.name');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
 
-    self.changeDateText = function (text) {
-        self.$begin.text(text[0]);
-        self.$end.text(text[1]);
-        self.$ended.text(text[2]);
+    self.changeDateText = function (begin, end, ended) {
+        self.$begin.text(begin);
+        self.$end.text(end);
+        self.$ended.text(ended);
+    };
+
+    self.changeAreaText = function (begin, end) {
+        self.$beginarea.text(begin);
+        self.$endarea.text(end);
     };
 
     /* Sets the label descriptions depending upon the artist type:
@@ -40,53 +47,60 @@ MB.Control.ArtistEdit = function () {
            Unknown: 0
            Person: 1
            Group: 2
+           Orchestra: 5
+           Choir: 6
     */
-    self.typeChanged = function() {
+    self.typeChanged = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(MB.text.ArtistDate.Unknown);
+                self.changeDateText(MB.i18n.l("Began:"), MB.i18n.l("Ended:"), MB.i18n.l("This artist has ended."));
+                self.changeAreaText(MB.i18n.l("Begin area:"), MB.i18n.l("End area:"));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(MB.text.ArtistDate.Person);
+                self.changeDateText(MB.i18n.l("Born:"), MB.i18n.l("Died:"), MB.i18n.l("This person is deceased."));
+                self.changeAreaText(MB.i18n.l("Born in:"), MB.i18n.l("Died in:"));
                 self.enableGender();
                 break;
 
             case '2':
-                self.changeDateText(MB.text.ArtistDate.Founded);
+            case '5':
+            case '6':
+                self.changeDateText(MB.i18n.l("Founded:"), MB.i18n.l("Dissolved:"), MB.i18n.l("This group has dissolved."));
+                self.changeAreaText(MB.i18n.l("Founded in:"), MB.i18n.l("Dissolved in:"));
                 self.disableGender();
                 break;
         }
     };
 
-    self.enableGender = function() {
-        if (self.$gender.attr('disabled')) {
+    self.enableGender = function () {
+        if (self.$gender.prop('disabled')) {
             self.$gender
-               .attr("disabled", null)
+               .prop("disabled", false)
                .val(self.old_gender);
         }
     };
 
-    self.disableGender = function() {
-        self.$gender.attr("disabled", "disabled");
+    self.disableGender = function () {
+        self.$gender.prop("disabled", true);
         self.old_gender = self.$gender.val();
         self.$gender.val('');
     };
 
     self.typeChanged();
-    self.$type.bind ('change.mb', self.typeChanged);
+    self.$type.bind('change.mb', self.typeChanged);
 
-    self.initializeArtistCreditPreviews = function(gid) {
+    self.initializeArtistCreditPreviews = function (gid) {
         var artist_re = new RegExp("/artist/" + gid + "$");
-        $('span.rename-artist-credit').each(function() {
+        $('span.rename-artist-credit').each(function () {
             var $ac = $(this);
-            $ac.find('input').change(function() {
+            $ac.find('input').change(function () {
                 var checked = this.checked;
                 var new_name = self.$name.val();
                 $ac.find('span.ac-preview')[checked ? 'show' : 'hide']();
-                $ac.find('span.ac-preview a').each(function() {
+                $ac.find('span.ac-preview a').each(function () {
                     var $link = $(this);
                     if ($link.data('old_name')) {
                         $link.text(checked ? new_name : $link.data('old_name'));
@@ -96,19 +110,19 @@ MB.Control.ArtistEdit = function () {
             $ac.find('input').each(function () {
                 $ac.find('span.ac-preview')[this.checked ? 'show' : 'hide']();
             });
-            $ac.find('span.ac-preview a').each(function() {
+            $ac.find('span.ac-preview a').each(function () {
                 var $link = $(this);
                 if (artist_re.test($link.attr('href'))) {
                     $link.data('old_name', $link.text());
                 }
             });
         });
-        self.$name.change(function() {
+        self.$name.change(function () {
             var new_name = self.$name.val();
-            $('span.rename-artist-credit').each(function() {
+            $('span.rename-artist-credit').each(function () {
                 var $ac = $(this);
                 if ($ac.find('input:checked').length) {
-                    $ac.find('span.ac-preview a').each(function() {
+                    $ac.find('span.ac-preview a').each(function () {
                         var $link = $(this);
                         if ($link.data('old_name')) {
                             $link.text(new_name);
@@ -119,7 +133,9 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
+    MB.Control.initialize_guess_case('artist', 'id-edit-artist');
+
+    MB.Control.Area("#area", "#begin_area", "#end_area");
 
     return self;
 };
-

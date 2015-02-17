@@ -53,12 +53,12 @@ sub get_cloud
     my $query = "SELECT " . $self->_columns . ", ref_count
                  FROM " . $self->_table . "
                  ORDER BY ref_count DESC";
-    return query_to_list_limited (
+    return query_to_list_limited(
         $self->c->sql, 0, $limit, sub {
             my $row = shift;
             return {
                 count => $row->{ref_count},
-                tag => $self->_new_from_row ($row),
+                tag => $self->_new_from_row($row),
             };
         }, $query);
 }

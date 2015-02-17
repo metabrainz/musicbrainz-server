@@ -37,7 +37,8 @@ test 'Do not rename artist credits' => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.rename' => 0
+            'merge.rename' => 0,
+            'merge.edit_note' => 'Some Edit Note'
         }
     );
     ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
@@ -52,11 +53,11 @@ test 'Do not rename artist credits' => sub {
     });
 
     $mech->get_ok('/edit/' . $edit->id);
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->ok(selector_to_xpath('table.merge-artists', prefix => "html"), sub {
-        $_->ok(selector_to_xpath('.rename-artist-credits', prefix => "html"), sub {
-            $_->like('./html:td', qr/No/, 'correct display of rename data');
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/No/, 'correct display of rename data');
         }, 'has information about renaming artist credits');
     }, 'should have edit data');
 };
@@ -69,7 +70,8 @@ test 'Rename artist credits' => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.rename' => 1
+            'merge.rename' => 1,
+            'merge.edit_note' => 'Some Edit Note'
         }
     );
     ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
@@ -84,11 +86,11 @@ test 'Rename artist credits' => sub {
     });
 
     $mech->get_ok('/edit/' . $edit->id);
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->ok(selector_to_xpath('table.merge-artists', prefix => "html"), sub {
-        $_->ok(selector_to_xpath('.rename-artist-credits', prefix => "html"), sub {
-            $_->like('./html:td', qr/Yes/, 'correct display of rename data');
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/Yes/, 'correct display of rename data');
         }, 'has information about renaming artist credits');
     }, 'should have edit data');
 };

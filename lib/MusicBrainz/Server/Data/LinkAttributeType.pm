@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Data::LinkAttributeType;
 
+use JSON;
 use Moose;
 use namespace::autoclean;
 use Sql;
 use Encode;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
@@ -15,6 +17,8 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::GetByGID';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -23,7 +27,19 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent, child_order, gid, name, description, root';
+    return 'id, parent, child_order, gid, name, description, root, ' .
+           '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_name, ' .
+           '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_gid, ' .
+           'COALESCE(
+                (SELECT true FROM link_text_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS free_text, ' .
+           'COALESCE(
+                (SELECT true FROM link_creditable_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS creditable';
 }
 
 sub _column_mapping
@@ -36,6 +52,16 @@ sub _column_mapping
         child_order => 'child_order',
         name        => 'name',
         description => 'description',
+        free_text   => 'free_text',
+        creditable  => 'creditable',
+        root => sub {
+            my ($row) = @_;
+            MusicBrainz::Server::Entity::LinkAttributeType->new({
+                id => $row->{root},
+                gid => $row->{root_gid},
+                name => $row->{root_name}
+            });
+        }
     };
 }
 
@@ -44,35 +70,10 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
 }
 
-sub load
-{
+sub load {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
-}
 
-sub get_tree
-{
-    my ($self) = @_;
-
-    $self->sql->select('SELECT ' .$self->_columns . ' FROM ' . $self->_table . '
-                  ORDER BY child_order, id');
-    my %id_to_obj;
-    my @objs;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
-        my $obj = $self->_new_from_row($row);
-        $id_to_obj{$obj->id} = $obj;
-        push @objs, $obj;
-    }
-    $self->sql->finish;
-
-    my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
-    foreach my $obj (@objs) {
-        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
-        $parent->add_child($obj);
-    }
-
-    return $root;
+    load_subobjects($self, ['type', 'root'], @objs);
 }
 
 sub find_root
@@ -158,10 +159,90 @@ sub in_use
 {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ?',
+        'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ? LIMIT 1',
         $id);
 }
 
+sub merge_instrument_attributes {
+    my ($self, $target_id, @source_ids) = @_;
+
+    my ($target, @sources) = @{
+        $self->sql->select_single_column_array(
+            'WITH id_mapping AS (
+                SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id
+                  FROM instrument
+                  JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+            )
+            SELECT attribute_id FROM id_mapping WHERE entity_id = ? OR entity_id = any(?)
+            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id
+        );
+    };
+    my $new_links = $self->sql->select_list_of_hashes('
+        SELECT link.id AS id, link_type AS link_type_id,
+               begin_date_year, begin_date_month, begin_date_day,
+               end_date_year, end_date_month, end_date_day, ended,
+               array_agg(CASE WHEN la.attribute_type = any(?) THEN ? ELSE la.attribute_type END) attributes,
+               array_agg(latv.text_value) attribute_text_values,
+               array_agg(lac.credited_as) attribute_credits,
+               link_type.entity_type0, link_type.entity_type1
+          FROM link
+          JOIN link_attribute la ON la.link = link.id
+          LEFT JOIN link_attribute_text_value latv ON (latv.link = la.link AND latv.attribute_type = la.attribute_type)
+          LEFT JOIN link_attribute_credit lac ON (lac.link = la.link AND lac.attribute_type = la.attribute_type)
+          JOIN link_type ON link.link_type = link_type.id
+          WHERE link.id IN (
+              SELECT link from link_attribute where attribute_type = any(?)
+          )
+      GROUP BY link.id, link_type,
+               begin_date_year, begin_date_month, begin_date_day,
+               end_date_year, end_date_month, end_date_day, ended,
+               entity_type0, entity_type1',
+        \@sources, $target, \@sources);
+
+    my @old_link_ids;
+    for my $new_link (@$new_links) {
+        my $old_link_id = delete $new_link->{id};
+        push(@old_link_ids, $old_link_id);
+        my $entity_type0 = delete $new_link->{entity_type0};
+        my $entity_type1 = delete $new_link->{entity_type1};
+        for my $date_type (qw( begin_date end_date )) {
+            $new_link->{$date_type} = {
+                year => delete $new_link->{$date_type . '_year'},
+                month => delete $new_link->{$date_type . '_month'},
+                day => delete $new_link->{$date_type . '_day'},
+            };
+        }
+
+        my @attributes = @{ delete $new_link->{attributes} };
+        my @attribute_text_values = @{ delete $new_link->{attribute_text_values} };
+        my @attribute_credits = @{ delete $new_link->{attribute_credits} };
+        my %new_attributes;
+
+        for (my $i = 0; $i < @attributes; $i++) {
+            my $link_attribute = {
+                type => {
+                    id => $attributes[$i],
+                },
+                text_value => $attribute_text_values[$i],
+                credited_as => $attribute_credits[$i]
+            };
+            $new_attributes{JSON->new->canonical->encode($link_attribute)} = $link_attribute;
+        }
+
+        $new_link->{attributes} = [values %new_attributes];
+
+        my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
+        $self->sql->do("UPDATE l_${entity_type0}_${entity_type1} SET link = ? WHERE link = ?",
+                       $new_link_id, $old_link_id);
+    }
+
+    # Constraint triggers run at the end of the transaction, so these must be done manually.
+    $self->sql->do('DELETE FROM link_attribute_credit WHERE link = any(?)', \@old_link_ids);
+    $self->sql->do('DELETE FROM link_attribute WHERE link = any(?)', \@old_link_ids);
+    $self->sql->do('DELETE FROM link WHERE id = any(?)', \@old_link_ids);
+
+    $self->c->model('Link')->_delete_from_cache(@old_link_ids);
+}
 
 # The entries in the memcached store for 'Link' objects also have all attributes
 # loaded. Thus changing an attribute should clear all of these link objects.
@@ -178,7 +259,6 @@ for my $method (qw( delete update )) {
         );
     };
 }
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

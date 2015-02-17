@@ -1,3 +1,0 @@
-[%- MACRO last_updated(entity) BLOCK;
-     UserDate.format(entity.last_updated) || l('(unknown)');
-   END -%]

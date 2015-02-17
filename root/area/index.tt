@@ -1,0 +1,7 @@
+[%- WRAPPER "area/layout.tt" page='index' -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
+
+    [%- show_wikipedia_extract() -%]
+
+    [%- INCLUDE "components/relationships.tt" source=area -%]
+[% END %]

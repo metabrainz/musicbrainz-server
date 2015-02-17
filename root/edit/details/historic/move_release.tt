@@ -12,7 +12,7 @@
 
   <tr>
     <th>[% l('Move tracks:') %]</th>
-    <td colspan="2">[% edit.display_data.move_tracks ? l('Yes') : l('No') %]</td>
+    <td colspan="2">[% yesno(edit.display_data.move_tracks) %]</td>
   </tr>
 
   <tr>

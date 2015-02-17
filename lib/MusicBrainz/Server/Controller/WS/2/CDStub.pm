@@ -27,7 +27,7 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('cdstub_submit') if $c->req->method eq 'POST';
-    $self->_search ($c, 'cdstub');
+    $self->_search($c, 'cdstub');
 }
 
 sub cdstub_submit : Private

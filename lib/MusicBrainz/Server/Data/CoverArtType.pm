@@ -9,6 +9,8 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'cat' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
@@ -17,7 +19,7 @@ sub _table
 
 sub _columns
 {
-    return 'art_type.id, art_type.name';
+    return 'art_type.id, art_type.name, art_type.parent AS parent_id, art_type.child_order, art_type.description';
 }
 
 sub _entity_class
@@ -35,7 +37,7 @@ sub get_by_name
 {
     my ($self, @names) = @_;
 
-    my %types_by_name = map { $_->name => $_ } $self->get_all ();
+    my %types_by_name = map { $_->name => $_ } $self->get_all();
 
     return map { $types_by_name{$_} } @names;
 }
@@ -52,11 +54,9 @@ sub find_by_cover_art_ids
         "WHERE cover_art_type.id IN (" . placeholders(@ids) . ")";
 
     my %map;
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
-
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{cover_art_id} } ||= [];
-        push @{ $map{ $row->{cover_art_id} } }, $self->_new_from_row ($row);
+        push @{ $map{ $row->{cover_art_id} } }, $self->_new_from_row($row);
     }
 
     return %map;
@@ -67,12 +67,19 @@ sub load_for
     my ($self, @objects) = @_;
     my %obj_id_map = object_to_ids(@objects);
 
-    my %id_types_map = $self->find_by_cover_art_ids (keys %obj_id_map);
+    my %id_types_map = $self->find_by_cover_art_ids(keys %obj_id_map);
 
     while (my ($cover_art_id, $types) = each %id_types_map)
     {
-        $obj_id_map{$cover_art_id}[0]->cover_art_types ($types);
+        $obj_id_map{$cover_art_id}[0]->cover_art_types($types);
     }
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.cover_art_type WHERE type_id = ? LIMIT 1',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

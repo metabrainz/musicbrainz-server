@@ -5,9 +5,18 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'AliasType',
+};
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'description' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
 );
 
 sub l_name {

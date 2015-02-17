@@ -1,6 +1,8 @@
 package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
+use Test::Fatal;
 use Test::More;
+use Test::Deep qw( cmp_deeply methods noclass set );
 
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::WorkType;
@@ -77,11 +79,6 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Dancing Queen" );
 
 
-my %names = $work_data->find_or_insert_names('Dancing Queen', 'Traits');
-is(keys %names, 2);
-is($names{'Dancing Queen'}, 1);
-ok($names{'Traits'} > 1);
-
 $test->c->sql->begin;
 
 $work = $work_data->insert({
@@ -90,10 +87,9 @@ $work = $work_data->insert({
         comment => 'Drum & bass track',
     });
 
-isa_ok($work, 'MusicBrainz::Server::Entity::Work');
-ok($work->id > 1);
+ok($work->{id} > 1);
 
-$work = $work_data->get_by_id($work->id);
+$work = $work_data->get_by_id($work->{id});
 is($work->name, 'Traits');
 is($work->comment, 'Drum & bass track');
 is($work->type_id, 1);
@@ -136,20 +132,17 @@ test 'Merge with funky relationships' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
-INSERT INTO work_name (id, name)
-    VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
 INSERT INTO work (id, gid, name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3);
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'Target'),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 'Merge 1'),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 'Merge 2');
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
-     short_link_phrase)
+     long_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
             'performed',
             'performed by',
@@ -172,6 +165,206 @@ EOSQL
        'Points to artist 1');
     is($final_work->relationships->[0]->entity1_id => 1,
        'Originates from work 1');
+};
+
+test 'Loading work attributes for works with no attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
+
+    is($work->all_attributes, 0, 'work has no attributes')
+};
+
+test 'Loading work attributes for works with free text attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', true);
+EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_text => 'Value'
+        }
+    );
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
+
+    is($work->all_attributes, 1, 'work has 1 attribute');
+    is($work->attributes->[0]->type->name, 'Attribute',
+        'has correct attribute name');
+    is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
+};
+
+test 'Loading work attributes for works with finite values' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
+EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_value_id => 1
+        }
+    );
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
+
+    is($work->all_attributes, 1, 'work has 1 attribute');
+    is($work->attributes->[0]->type->name, 'Attribute',
+        'has correct attribute name');
+    is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
+};
+
+test 'Multiple attributes for a work' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', false), (2, 'Type two', true);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
+EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_value_id => 2
+        },
+        {
+            attribute_type_id => 2,
+            attribute_text => 'Anything you want'
+        }
+    );
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
+
+    is($work->all_attributes, 2, 'work has 2 attributes');
+};
+
+test 'Determining allowed values for work attributes' => sub {
+    my $test = shift;
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES
+  (1, 'Attribute', false),
+  (2, 'Free attribute', true),
+  (3, 'Attribute 3', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2'), (3, 3, 'Value 3');
+EOSQL
+
+    my $types = $test->c->model('WorkAttributeType')->get_by_ids(1..3);
+    $test->c->model('WorkAttributeTypeAllowedValue')->load_for_work_attribute_types(values %$types);
+
+    ok($types->{1}->allows_value(1), 'Attribute #1 allows value #1');
+    ok($types->{1}->allows_value(2), 'Attribute #1 allows value #2');
+    ok(!$types->{1}->allows_value(3), 'Attribute #1 disallows value #3');
+
+    ok($types->{2}->allows_value('Anything you want'),
+        'Attribute #2 allows arbitrary text');
+
+    ok($types->{3}->allows_value(3), 'Attribute #3 allows value #3');
+};
+
+test 'Merge attributes for works' => sub {
+    my $test = shift;
+
+    my $work_data = $test->c->model('Work');
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES
+  (1, 'Attribute', false),
+  (2, 'Free attribute', true),
+  (3, 'Attribute 3', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2'), (3, 3, 'Value 3');
+EOSQL
+
+    my $a = $work_data->insert({ name => 'Traits' });
+    my $b = $work_data->insert({ name => 'Tru Beat' });
+
+    $work_data->set_attributes(
+        $a->{id},
+        { attribute_type_id => 1, attribute_value_id => 1 },
+        { attribute_type_id => 2, attribute_text => 'Free Text' }
+    );
+
+    $work_data->set_attributes(
+        $b->{id},
+        { attribute_type_id => 1, attribute_value_id => 1 },
+        { attribute_type_id => 1, attribute_value_id => 2 },
+        { attribute_type_id => 3, attribute_value_id => 3 },
+        { attribute_type_id => 2, attribute_text => 'Free Text' }
+    );
+
+    $work_data->merge($a->{id}, $b->{id});
+
+    my $final_work = $work_data->get_by_gid($a->{gid});
+    $test->c->model('WorkAttribute')->load_for_works($final_work);
+
+    cmp_deeply(
+        $final_work->attributes,
+        set(
+            methods(
+                type => methods(id => 1),
+                value_id => 1
+            ),
+            methods(
+                type => methods(id => 1),
+                value_id => 2
+            ),
+            methods(
+                type => methods(id => 2),
+                value => "Free Text"
+            ),
+            methods(
+                type => methods(id => 3),
+                value_id => 3
+            )
+        )
+    )
+};
+
+test 'Deleting a work with work attributes' => sub {
+    my $test = shift;
+
+    my $work_data = $test->c->model('Work');
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text) VALUES (1, 'Attribute', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value) VALUES (1, 1, 'Value');
+EOSQL
+
+    my $a = $work_data->insert({ name => 'Foo' });
+
+    $work_data->set_attributes(
+        $a->{id},
+        { attribute_type_id => 1, attribute_value_id => 1 },
+    );
+
+    ok !exception { $work_data->delete($a->{id}); }
 };
 
 1;

@@ -17,7 +17,7 @@ sub text
 
     return strip tt <<EOF;
 A new candidate has been put forward for autoeditor status:
- 
+
 Candidate: [% self.election.candidate.name %]
            [% self.server %]/user/[% escape(self.election.candidate.name) %]
 Proposer:  [% self.election.proposer.name %]

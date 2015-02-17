@@ -10,10 +10,6 @@
                         html_escape(edit.display_data.name.old),
                         html_escape(edit.display_data.name.new)) -%]
 
-  [%- display_word_diff(l('Disambiguation:'),
-                        html_escape(edit.display_data.comment.old),
-                        html_escape(edit.display_data.comment.new)) -%]
-
   [% IF edit.display_data.artist_credit %]
   <tr>
     <th>[% l('Artist:') %]</th>
@@ -22,37 +18,61 @@
   </tr>
   [% END %]
 
-  [%- display_diff(l('Date:'),
-                     html_escape(edit.display_data.date.old.format),
-                     html_escape(edit.display_data.date.new.format),
-                     '-') -%]
+  [%- display_full_change(l('Release Group:'),
+                          descriptive_link(edit.display_data.group.old),
+                          descriptive_link(edit.display_data.group.new)) -%]
 
-  [%- display_full_change(l('Packaging:'),
-                          edit.display_data.packaging.old.l_name,
-                          edit.display_data.packaging.new.l_name) -%]
-
-  [%- display_full_change(l('Script:'),
-                          edit.display_data.script.old.l_name,
-                          edit.display_data.script.new.l_name) -%]
-
-  [%- display_full_change(l('Language:'),
-                          edit.display_data.language.old.l_name,
-                          edit.display_data.language.new.l_name) -%]
-
-  [%- display_full_change(l('Country:'),
-                          edit.display_data.country.old.l_name,
-                          edit.display_data.country.new.l_name) -%]
+  [%- display_word_diff(l('Disambiguation:'),
+                        html_escape(edit.display_data.comment.old),
+                        html_escape(edit.display_data.comment.new)) -%]
 
   [%- display_full_change(lp('Status:', 'release status'),
                           edit.display_data.status.old.l_name,
                           edit.display_data.status.new.l_name) -%]
 
-  [%- display_full_change(l('Release Group:'),
-                          descriptive_link(edit.display_data.group.old),
-                          descriptive_link(edit.display_data.group.new)) -%]
+  [%- display_full_change(l('Language:'),
+                          edit.display_data.language.old.l_name,
+                          edit.display_data.language.new.l_name) -%]
+
+  [%- display_full_change(l('Script:'),
+                          edit.display_data.script.old.l_name,
+                          edit.display_data.script.new.l_name) -%]
+
+
+  [%- IF edit.display_data.events -%]
+    [%- MACRO diff_side(side) BLOCK;
+        '<td class="' _ side _ '">';
+          '<ul>';
+          FOR common_event=edit.display_data.events.unchanged_countries;
+            event =
+              edit.display_data.events.unchanged_countries.${common_event.key};
+            '<li>';
+            Diff.diff_side(release_event(event.old),
+                           release_event(event.new),
+                           side == 'old' ? '-' : '+',
+                           '');
+            '</li>';
+          END;
+          FOR event=edit.display_data.events.changed_countries.${side};
+            '<li>' _ release_event(event) _ '</li>';
+          END;
+          '</ul>';
+        '</td>';
+    END -%]
+
+    <tr>
+      <th>[% l('Release events:') %]</th>
+      [%- diff_side('old') -%]
+      [%- diff_side('new') -%]
+    </tr>
+  [%- END -%]
+
+  [%- display_full_change(l('Packaging:'),
+                          edit.display_data.packaging.old.l_name,
+                          edit.display_data.packaging.new.l_name) -%]
 
   [%- display_diff(l('Barcode:'),
-          html_escape (edit.display_data.barcode.old.format),
-          html_escape (edit.display_data.barcode.new.format)) -%]
+          html_escape(edit.display_data.barcode.old.format),
+          html_escape(edit.display_data.barcode.new.format)) -%]
 
 </table>

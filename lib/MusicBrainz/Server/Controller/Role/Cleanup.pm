@@ -6,7 +6,7 @@ after show => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
     $c->stash(
-        eligble_for_cleanup => $c->model( $self->config->{model} )->is_empty($entity->id)
+        eligible_for_cleanup => $c->model( $self->config->{model} )->is_empty($entity->id)
     )
 };
 

@@ -19,7 +19,7 @@ server {
         gzip_buffers 16 8k;
     }
 
-    location ~* ^/static/(.*\.js|styles/[0-9a-f]*\.css)$ {
+    location ~* /static/build/ {
         root /home/musicbrainz/musicbrainz-server/root;
         expires max;
         gzip  on;
@@ -86,6 +86,21 @@ server {
         # make sure gzip does not lose large gzipped js or css files
         # see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
         gzip_buffers 16 8k;
+    }
+
+    location ~* ^/internal/search/(.*?)/(.*) {
+        internal;
+
+        # Extract url from the request
+        set $search_uri $2;
+        set $search_host $1;
+
+        # Compose url
+        set $search_url http://$search_host/$search_uri?$args;
+
+        proxy_pass $search_url;
+
+        add_header Access-Control-Allow-Origin * always;
     }
 
     include /etc/nginx/mbserver-rewrites.conf;

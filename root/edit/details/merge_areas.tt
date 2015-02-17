@@ -1,0 +1,3 @@
+<table class="details merge-labels">
+  [% INCLUDE 'edit/details/merge_common.tt' %]
+</table>

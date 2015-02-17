@@ -10,10 +10,13 @@
     <th>[% l('Name:') %]</th>
     <td>[% edit.display_data.name | html %]</td>
   </tr>
+
+  [% IF edit.display_data.sort_name %]
   <tr>
     <th>[% l('Sort name:') %]</th>
     <td>[% edit.display_data.sort_name | html %]</td>
   </tr>
+  [% END %]
 
   [% IF edit.display_data.comment %]
   <tr>
@@ -28,7 +31,7 @@
     <td>[% edit.display_data.begin_date.format %]</td>
   </tr>
   [% END %]
-  
+
   [% IF !edit.display_data.end_date.is_empty %]
   <tr>
     <th>[% l('End date:') %]</th>
@@ -38,13 +41,13 @@
 
   <tr>
     <th>[% l('Ended:') %]</th>
-    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+    <td>[% yesno(edit.display_data.ended) %]</td>
   </tr>
 
-  [% IF edit.display_data.country %]
+  [% IF edit.display_data.area %]
   <tr>
-    <th>[% l('Country:') %]</th>
-    <td>[% edit.display_data.country.name %]</td>
+    <th>[% l('Area:') %]</th>
+    <td>[% descriptive_link(edit.display_data.area) %]</td>
   </tr>
   [% END %]
 
@@ -67,6 +70,15 @@
       <tr>
         <th>[% l('IPI code:') %]</th>
         <td>[% ipi_code %]</td>
+      </tr>
+    [% END %]
+  [% END %]
+
+  [% IF edit.display_data.isni_codes.size %]
+    [%- FOR isni_code IN edit.display_data.isni_codes -%]
+      <tr>
+        <th>[% l('ISNI code:') %]</th>
+        <td>[% format_isni(isni_code) %]</td>
       </tr>
     [% END %]
   [% END %]

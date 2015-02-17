@@ -265,10 +265,10 @@ test 'Cant vote' => sub {
     $test->c->model('AutoEditorElection')->second($election, $seconder1);
     $test->c->model('AutoEditorElection')->second($election, $seconder2);
 
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $proposer, $ELECTION_VOTE_YES); }; 
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder1, $ELECTION_VOTE_YES); }; 
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder2, $ELECTION_VOTE_YES); }; 
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $not_autoeditor, $ELECTION_VOTE_YES); }; 
+    ok exception { $test->c->model('AutoEditorElection')->vote($election, $proposer, $ELECTION_VOTE_YES); };
+    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder1, $ELECTION_VOTE_YES); };
+    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder2, $ELECTION_VOTE_YES); };
+    ok exception { $test->c->model('AutoEditorElection')->vote($election, $not_autoeditor, $ELECTION_VOTE_YES); };
 };
 
 test 'Timeout' => sub {

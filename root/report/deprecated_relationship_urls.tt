@@ -1,0 +1,17 @@
+[%- WRAPPER 'layout.tt' title=l('URLs with deprecated relationships') full_width=1 -%]
+
+<h1>[% l('URLs with deprecated relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report lists URLs which have relationships using deprecated and grouping-only relationship types') -%]
+    </li>
+    <li>[% l('Total URLs found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[% BLOCK extra_header_start %]<th>[% l('Relationship Type') %]</th>[% END %]
+[% BLOCK extra_row_start %]<td><a href="[% c.uri_for_action('/doc/relationship_type', item.link_gid) %]">[% item.link_name %]</a></td>[% END %]
+[%- INCLUDE 'report/url_list.tt' -%]
+
+[%- END -%]

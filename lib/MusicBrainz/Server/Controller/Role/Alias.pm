@@ -1,36 +1,37 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 requires 'load';
 
-use MusicBrainz::Server::Constants qw(
-    $EDIT_ARTIST_ADD_ALIAS $EDIT_ARTIST_DELETE_ALIAS $EDIT_ARTIST_EDIT_ALIAS
-    $EDIT_LABEL_ADD_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
-    $EDIT_WORK_ADD_ALIAS $EDIT_WORK_DELETE_ALIAS $EDIT_WORK_EDIT_ALIAS
-);
+use MusicBrainz::Server::Constants qw( :alias entities_with );
 
 my %model_to_edit_type = (
-    add => {
-        Artist => $EDIT_ARTIST_ADD_ALIAS,
-        Label  => $EDIT_LABEL_ADD_ALIAS,
-        Work   => $EDIT_WORK_ADD_ALIAS,
-    },
-    delete => {
-        Artist => $EDIT_ARTIST_DELETE_ALIAS,
-        Label  => $EDIT_LABEL_DELETE_ALIAS,
-        Work   => $EDIT_WORK_DELETE_ALIAS,
-    },
-    edit => {
-        Artist => $EDIT_ARTIST_EDIT_ALIAS,
-        Label  => $EDIT_LABEL_EDIT_ALIAS,
-        Work   => $EDIT_WORK_EDIT_ALIAS,
-    }
+    add => { entities_with('aliases',
+        take => sub {
+            my (undef, $info) = @_;
+            return ($info->{model} => $info->{aliases}{add_edit_type} )
+        }
+    ) },
+    delete => { entities_with('aliases',
+        take => sub {
+            my (undef, $info) = @_;
+            return ($info->{model} => $info->{aliases}{delete_edit_type} )
+        }
+    ) },
+    edit => { entities_with('aliases',
+        take => sub {
+            my (undef, $info) = @_;
+            return ($info->{model} => $info->{aliases}{edit_edit_type} )
+        }
+    ) }
 );
 
-my %model_to_search_hint_type_id = (
-    Artist => 3,
-    Label => 2,
-    Work => 2
+my %model_to_search_hint_type_id = entities_with('aliases',
+    take => sub {
+        my (undef, $info) = @_;
+        return ($info->{model} => $info->{aliases}{search_hint_type} )
+    }
 );
 
 sub aliases : Chained('load') PathPart('aliases')
@@ -54,12 +55,13 @@ sub alias : Chained('load') PathPart('alias') CaptureArgs(1)
     $c->stash( alias => $alias );
 }
 
-sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
+sub add_alias : Chained('load') PathPart('add-alias') Edit
 {
     my ($self, $c) = @_;
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
     my $alias_model = $c->model( $self->{model} )->alias;
+    $c->stash( template => 'entity/alias/add.tt' );
     $self->edit_action($c,
         form => 'Alias',
         form_args => {
@@ -79,28 +81,34 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
     );
 }
 
-sub delete_alias : Chained('alias') PathPart('delete') RequireAuth Edit
+sub delete_alias : Chained('alias') PathPart('delete') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
-    $self->edit_action($c,
-        form => 'Confirm',
-        type => $model_to_edit_type{delete}->{ $self->{model} },
-        edit_args => {
-            alias  => $alias,
-            entity => $c->stash->{ $self->{entity_name} }
-        },
-        on_creation => sub { $self->_redir_to_aliases($c) }
-    );
+    my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
+    $c->stash( template => 'entity/alias/delete.tt' );
+    cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
+        $self->edit_action($c,
+            form => 'Confirm',
+            form_args => { requires_edit_note => 1 },
+            type => $model_to_edit_type{delete}->{ $self->{model} },
+            edit_args => {
+                alias  => $alias,
+                entity => $c->stash->{ $self->{entity_name} }
+            },
+            on_creation => sub { $self->_redir_to_aliases($c) }
+        );
+    });
 }
 
-sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
+sub edit_alias : Chained('alias') PathPart('edit') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
     my $alias_model = $c->model( $self->{model} )->alias;
+    $c->stash( template => 'entity/alias/edit.tt' );
     $self->edit_action($c,
         form => 'Alias',
         form_args => {
@@ -119,12 +127,20 @@ sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
     );
 }
 
+sub _aliases_url
+{
+    my ($self, $c) = @_;
+    my $action = $c->controller->action_for('aliases');
+    my $entity = $c->stash->{ $self->{entity_name} };
+    return $c->uri_for($action, [ $entity->gid ]);
+}
+
 sub _redir_to_aliases
 {
     my ($self, $c) = @_;
     my $action = $c->controller->action_for('aliases');
     my $entity = $c->stash->{ $self->{entity_name} };
-    $c->response->redirect($c->uri_for($action, [ $entity->gid ]));
+    $c->response->redirect($self->_aliases_url($c));
 }
 
 no Moose::Role;

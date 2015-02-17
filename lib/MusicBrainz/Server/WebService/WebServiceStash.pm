@@ -4,7 +4,7 @@ use Moose;
 
 has '_data' => (
     is => 'rw',
-    isa => 'HashRef', 
+    isa => 'HashRef',
     default => sub { {} }
 );
 

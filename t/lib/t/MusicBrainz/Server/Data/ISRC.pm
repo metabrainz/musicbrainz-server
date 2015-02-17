@@ -22,7 +22,7 @@ EOSQL
 
     $c->model('ISRC')->merge_recordings(1, 2, 3);
 
-    my @isrcs = $c->model('ISRC')->find_by_recording(1);
+    my @isrcs = $c->model('ISRC')->find_by_recordings(1);
     is(scalar @isrcs, 2);
 };
 
@@ -36,17 +36,17 @@ is($isrc->id, 1);
 is($isrc->isrc, 'DEE250800230');
 
 
-my @isrcs = $test->c->model('ISRC')->find_by_recording(1);
+my @isrcs = $test->c->model('ISRC')->find_by_recordings(1);
 is(scalar @isrcs, 1);
 is($isrcs[0]->isrc, 'DEE250800230');
 
 
-@isrcs = $test->c->model('ISRC')->find_by_recording(2);
+@isrcs = $test->c->model('ISRC')->find_by_recordings(2);
 is(scalar @isrcs, 2);
 is($isrcs[0]->isrc, 'DEE250800230');
 is($isrcs[1]->isrc, 'DEE250800231');
 
-@isrcs = $test->c->model('ISRC')->find_by_recording([1, 2]);
+@isrcs = $test->c->model('ISRC')->find_by_recordings([1, 2]);
 is(scalar @isrcs, 3);
 
 my $sql = $test->c->sql;
@@ -54,19 +54,19 @@ $sql->begin;
 $test->c->model('ISRC')->merge_recordings(1, 2);
 $sql->commit;
 
-@isrcs = $test->c->model('ISRC')->find_by_recording(1);
+@isrcs = $test->c->model('ISRC')->find_by_recordings(1);
 is(scalar @isrcs, 2);
 is($isrcs[0]->isrc, 'DEE250800230');
 is($isrcs[1]->isrc, 'DEE250800231');
 
-@isrcs = $test->c->model('ISRC')->find_by_recording(2);
+@isrcs = $test->c->model('ISRC')->find_by_recordings(2);
 is(scalar @isrcs, 0);
 
 $sql->begin;
 $test->c->model('ISRC')->delete_recordings(1);
 $sql->commit;
 
-@isrcs = $test->c->model('ISRC')->find_by_recording(1);
+@isrcs = $test->c->model('ISRC')->find_by_recordings(1);
 is(scalar @isrcs, 0);
 
 $sql->begin;
@@ -75,7 +75,7 @@ $test->c->model('ISRC')->insert(
 );
 $sql->commit;
 
-@isrcs = $test->c->model('ISRC')->find_by_recording(2);
+@isrcs = $test->c->model('ISRC')->find_by_recordings(2);
 is(scalar @isrcs, 1);
 is($isrcs[0]->isrc, 'DEE250800232');
 

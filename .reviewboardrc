@@ -1,2 +1,0 @@
-REVIEWBOARD_URL = "http://codereview.musicbrainz.org"
-REPOSITORY = '/var/cache/reviewboard/git.musicbrainz.org.git'

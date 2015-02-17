@@ -4,7 +4,6 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
 use overload
     '==' => \&is_equal,
@@ -30,8 +29,6 @@ has 'artist_count' => (
     is => 'rw',
     isa => 'Int'
 );
-
-sub to_ref { artist_credit_to_ref(@_) }
 
 sub is_equal {
     my ($a, $b) = @_;
@@ -110,11 +107,11 @@ sub from_array
     {
         my $artist = shift @ac;
 
-        next unless $artist && $artist->{name};
+        next unless $artist && defined $artist->{name};
 
         my %initname = ( name => $artist->{name} );
 
-        $initname{join_phrase} = $artist->{join_phrase} if $artist->{join_phrase};
+        $initname{join_phrase} = $artist->{join_phrase} if defined $artist->{join_phrase};
         if ($artist->{artist})
         {
             if (blessed ($artist->{artist}))

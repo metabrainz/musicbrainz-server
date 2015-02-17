@@ -14,7 +14,7 @@ test 'browse release group via release' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via release',
-    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings' => encode_json (
+    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings' => encode_json(
         {
             "release-group-offset" => 0,
             "release-group-count" => 1,
@@ -51,7 +51,7 @@ test 'browse release group via artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via artist',
-    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+ratings' => encode_json (
+    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+ratings' => encode_json(
         {
             "release-group-count" => 2,
             "release-group-offset" => 0,
@@ -109,7 +109,7 @@ test 'browse singles via artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse singles via artist',
-    '/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single' => encode_json (
+    '/release-group?artist=a16d1433-ba89-4f72-a47b-a370add0bb55&type=single' => encode_json(
         {
             "release-group-count" => 0,
             "release-group-offset" => 0,

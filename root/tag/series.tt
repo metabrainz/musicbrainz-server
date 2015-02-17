@@ -1,0 +1,3 @@
+[%- INCLUDE 'tag/entity-list.tt' page='series',
+    no_entities_text=l('No series with this tag were found.')
+    heading=ln('{num} series found', '{num} series found', pager.total_entries, { num => add_commas(pager.total_entries) }) -%]

@@ -9,7 +9,7 @@ sub query {
     "
         SELECT
             r.id AS release_id, q.id AS url_id,
-            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
         FROM
             (
                 SELECT
@@ -17,15 +17,13 @@ sub query {
                 FROM
                     url JOIN l_release_url lru ON lru.entity1 = url.id
                 WHERE
-                    url ~ '^http://www.discogs.com/'
+                    url ~ E'^http://www\\\\.discogs\\\\.com/'
                 GROUP BY
                     url.id, url.gid, url HAVING COUNT(url) > 1
             ) AS q
             JOIN l_release_url lru ON lru.entity1 = q.id
             JOIN release r ON r.id = lru.entity0
-            JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
     ";
 }
 

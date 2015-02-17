@@ -1,0 +1,47 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>[% l('Label') %]</th>
+      <th>[% l('Type') %]</th>
+      <th>[% l('Code') %]</th>
+      [%~ UNLESS no_areas ~%]
+      <th>[% l('Area') %]</th>
+      [%~ END ~%]
+      <th>[% l('Begin') %]</th>
+      <th>[% l('End') %]</th>
+      [% UNLESS no_ratings %]
+      <th>[% l('Rating') %]</th>
+      [% END %]
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR label IN labels %]
+    <tr class="[% loop.parity %]">
+      <td>
+        [% descriptive_link(label) %]
+      </td>
+      <td>
+        [% label.l_type_name %]
+      </td>
+      <td>
+        [% label.format_label_code %]
+      </td>
+      [%~ UNLESS no_areas ~%]
+      <td>[% descriptive_link(label.area) IF label.area %]</td>
+      [%~ END ~%]
+      <td>[% label.begin_date.format %]</td>
+      <td>
+        [%~ IF !label.end_date.is_empty;
+            label.end_date.format;
+           ELSIF label.ended;
+            l('[unknown]');
+           END
+        ~%]
+      </td>
+      [% UNLESS no_ratings %]
+      <td>[% rating_stars(label) %]</td>
+      [% END %]
+    </tr>
+    [% END %]
+  </tbody>
+</table>

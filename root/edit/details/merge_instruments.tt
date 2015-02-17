@@ -1,0 +1,14 @@
+<table class="details merge-instruments">
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.old ~%]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.new ~%]
+    </td>
+  </tr>
+</table>

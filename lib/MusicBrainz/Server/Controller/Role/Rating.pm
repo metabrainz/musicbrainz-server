@@ -13,6 +13,7 @@ sub ratings : Chained('load') PathPart('ratings')
     $c->model('Editor')->load_preferences(map { $_->editor } @ratings);
 
     $c->stash(
+        template => 'entity/ratings.tt',
         ratings => \@ratings,
     );
 }

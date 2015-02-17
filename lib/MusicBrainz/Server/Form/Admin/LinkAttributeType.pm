@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Form::Admin::LinkAttributeType;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -28,28 +30,24 @@ has_field 'description' => (
     type => 'Text',
 );
 
-sub _build_parent_id_options
-{
-    my ($self, $root, $indent) = @_;
-
-    my @options;
-    if ($root->id) {
-        push @options, $root->id, $indent . $root->name if $root->id;
-        $indent .= '&#xa0;&#xa0;&#xa0;';
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_parent_id_options($child, $indent);
-    }
-    return @options;
-}
-
 sub options_parent_id
 {
     my ($self) = @_;
-
-    my $root = $self->ctx->stash->{root};
-    return [ $self->_build_parent_id_options($root, '') ];
+    return select_options_tree($self->ctx, $self->ctx->stash->{root}, accessor => 'name');
 }
+
+after validate => sub {
+    my ($self) = @_;
+
+    my $parent = $self->field('parent_id')->value ?
+       $self->ctx->model('LinkAttributeType')->get_by_id($self->field('parent_id')->value) :
+       undef;
+
+    my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
+    if ($root == $INSTRUMENT_ROOT_ID) {
+        $self->field('parent_id')->add_error('Cannot add or edit instruments here; use the instrument editing forms instead');
+    }
+};
 
 1;
 

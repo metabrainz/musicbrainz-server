@@ -63,11 +63,9 @@ sub prepare {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'artist');
 INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 1, 1);
-INSERT INTO editor (id, name, password, email)
-  VALUES (1, 'editor1', 'pass', 'editor1@example.com')
+  VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 'artist', 'artist');
+INSERT INTO editor (id, name, password, email, ha1, email_confirm_date) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', '16a4862191803cb596ee4b16802bb7ee', now())
 EOSQL
 
     my $edit = $test->c->model('Edit')->create(
@@ -75,7 +73,8 @@ EOSQL
         edit_type => $EDIT_ARTIST_EDIT,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'Changed comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => [],
     );
 
     $mech->get_ok('/login');

@@ -18,29 +18,29 @@
 
 */
 
-MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
+MB.Control.TagEditor = function (container, endpoint, viewTag, moreHtml)
 {
-    var self = MB.Object();
-    var tagTemplate = MB.utility.template('<a href="' + viewTag + '#{tagLink}">#{tag}</a>');
+    var self = {};
+    var tagTemplate = _.template('<a href="' + viewTag + '<%- tagLink %>"><%- tag %></a>');
 
     self.$container = $(container);
     self.$tagList = self.$container.find('span.tags');
     self.$apply = self.$container.find('button[type="submit"]');
     self.$tagInput = self.$container.find('.tag-input');
 
-    self.submitTags = function(tags) {
-        $.post(endpoint, { tags: tags }, function(data) {
+    self.submitTags = function (tags) {
+        $.post(endpoint, { tags: tags }, function (data) {
             self.updateTagDisplay(data.tags, data.more);
         }, 'json');
     };
 
-    self.updateTagDisplay = function(tags, more) {
-        var html = tags.length ? tags.map(function(tag) {
-                return tagTemplate.draw({
+    self.updateTagDisplay = function (tags, more) {
+        var html = tags.length ? tags.map(function (tag) {
+                return tagTemplate({
                     tag: tag,
                     tagLink: encodeURIComponent(tag)
                 });
-            }).join(', ') : MB.text.TagNone;
+            }).join(', ') : MB.i18n.lp("(none)", "tag");
 
         if (more) {
             html += ', ' + moreHtml;
@@ -49,7 +49,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
         self.$tagList.html(html);
     };
 
-    self.$apply.click(function(ev) {
+    self.$apply.click(function (ev) {
         ev.preventDefault();
         self.submitTags(self.$tagInput.val());
     });

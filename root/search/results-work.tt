@@ -9,14 +9,15 @@
                             <th>[%- l('Writers') -%]</th>
                             <th>[%- l('Artists') -%]</th>
                             <th>[%- l('ISWC') -%]</th>
+                            <th>[%- l('Type') -%]</th>
                             <th>[%- l('Language') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr[%- ' class="ev"' IF loop.count % 2 == 0 -%]>
+                        <tr class="[% loop.parity %]">
                             <td>[%- result.score -%]</td>
-                            <td>[%- descriptive_link(result.entity) -%]</td>
+                            <td>[%- link_entity(result.entity) -%]</td>
                             <td>
                               <ul>
                                 [% FOR rel_artist=result.entity.writers %]
@@ -36,9 +37,12 @@
                             <td>
                               <ul>
                                 [% FOR iswc=result.entity.iswcs %]
-                                  <li>[%- link_iswc(iswc.iswc) -%]</li>
+                                  <li>[%- link_iswc(iswc) -%]</li>
                                 [% END %]
                               </ul>
+                            </td>
+                            <td>
+                                [% result.entity.type.l_name %]
                             </td>
                             <td>
                               <abbr title="[% result.entity.language.l_name %]">

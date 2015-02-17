@@ -10,5 +10,5 @@
             <button type="submit" name="confirm.submit" value="1">[% l('Yes, I am sure') %]</button>
         </span>
     </form>
-	
+
 [% END %]

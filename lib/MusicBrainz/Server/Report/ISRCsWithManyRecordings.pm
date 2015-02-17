@@ -8,11 +8,10 @@ sub table { 'isrc_with_many_recordings' }
 
 sub query {
     "
-        SELECT i.isrc, recordingcount, r.id as recording_id, tn.name, r.length,
+        SELECT i.isrc, recordingcount, r.id as recording_id, r.name, r.length,
           row_number() OVER (ORDER BY i.isrc)
         FROM isrc i
           JOIN recording r ON (r.id = i.recording)
-          JOIN track_name tn ON (r.name = tn.id)
           JOIN (
            SELECT isrc, count(*) AS recordingcount
             FROM isrc

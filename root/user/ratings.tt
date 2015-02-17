@@ -1,5 +1,6 @@
 [%-
   titles = { 'artist' => l('Artist ratings'),
+             'event' => l('Event ratings'),
              'label' => l('Label ratings'),
              'recording' => l('Recording ratings'),
              'release_group' => l('Release group ratings'),
@@ -15,7 +16,7 @@
       <ul>
         [% FOR entity IN ratings %]
           <li>[% rating_stars(entity, !viewing_own_profile) %] -
-            [% link_entity(entity) %]</li>
+            [% descriptive_link(entity) %]</li>
         [% END %]
       </ul>
     [% END %]

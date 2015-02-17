@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::1::Artist;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $VARTIST_ID );
+
 __PACKAGE__->config(
     model => 'Artist',
 );
@@ -36,9 +38,14 @@ sub lookup : Chained('load') PathPart('')
     my $artist = $c->stash->{entity};
 
     $c->model('ArtistType')->load($artist);
+    $c->model('Area')->load($artist);
 
     my @rg;
     if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
+        if ($artist->id == $VARTIST_ID) {
+            $self->forbidden($c);
+        }
+
         if ($c->stash->{inc}->various_artists)
         {
             @rg = $c->model('ReleaseGroup')->filter_by_track_artist($artist->id, filter => { type => $c->stash->{inc}->rg_type });
@@ -94,7 +101,8 @@ sub lookup : Chained('load') PathPart('')
 
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             $c->model('ReleaseLabel')->load(@releases);
-            $c->model('Country')->load(@releases);
+
+            $c->model('Release')->load_release_events(@releases);
 
             $c->model('Label')->load(map { $_->labels->[0] } @releases)
                 if $c->stash->{inc}->labels;

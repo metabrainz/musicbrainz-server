@@ -4,9 +4,8 @@ use Moose;
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -15,8 +14,10 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::CoverArt';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Remove cover art') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub cover_art_id { shift->data->{cover_art_id} }
@@ -34,18 +35,13 @@ has '+data' => (
     ]
 );
 
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
-
 sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
     my $cover_art = $opts{to_delete} or die "Required 'to_delete' object";
 
     my %type_map = map { $_->name => $_ }
-        $self->c->model ('CoverArtType')->get_by_name(@{ $cover_art->types });
+        $self->c->model('CoverArtType')->get_by_name(@{ $cover_art->types });
 
     $self->data({
         entity => {
@@ -78,6 +74,9 @@ sub foreign_keys {
         Release => {
             $self->data->{entity}{id} => [ 'ArtistCredit' ]
         },
+        Artwork => {
+            $self->data->{cover_art_id} => [ 'Release' ]
+        },
         CoverArtType => $self->data->{cover_art_types}
     };
 }
@@ -88,10 +87,18 @@ sub build_display_data {
     my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    my $artwork = Artwork->new(release => $release,
-                               id => $self->data->{cover_art_id},
-                               comment => $self->data->{cover_art_comment},
-                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{cover_art_types} }]);
+    my $artwork = $loaded->{Artwork}{ $self->data->{cover_art_id} } ||
+        Artwork->new(
+            release => $release,
+            id => $self->data->{cover_art_id},
+            comment => $self->data->{cover_art_comment}
+        );
+
+    $artwork->cover_art_types([
+        map { $loaded->{CoverArtType}{$_} }
+            @{ $self->data->{cover_art_types} }
+    ]);
+
     return {
         release => $release,
         artwork => $artwork,

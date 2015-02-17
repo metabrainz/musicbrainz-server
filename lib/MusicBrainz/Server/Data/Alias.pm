@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Alias;
 use Moose;
 use namespace::autoclean;
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
@@ -31,17 +31,16 @@ has [qw( table type entity )] => (
 sub _table
 {
     my $self = shift;
-    return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
-        $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
+    return $self->table;
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale,
+    return sprintf '%s.id, name, sort_name, %s, locale,
                     edits_pending, begin_date_year, begin_date_month,
                     begin_date_day, end_date_year, end_date_month,
-                    end_date_day, type AS type_id, primary_for_locale',
+                    end_date_day, type AS type_id, primary_for_locale, ended',
         $self->table, $self->type;
 }
 
@@ -58,7 +57,8 @@ sub _column_mapping
         type_id             => 'type_id',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
-        primary_for_locale  => 'primary_for_locale'
+        primary_for_locale  => 'primary_for_locale',
+        ended                => 'ended'
     };
 }
 
@@ -72,21 +72,42 @@ sub _entity_class
     return shift->entity;
 }
 
-sub find_by_entity_id
+sub find_by_entity_ids
 {
     my ($self, @ids) = @_;
-    return [] unless @ids;
+    return {} unless @ids;
 
     my $key = $self->type;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT $key parent_id, " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name.name), musicbrainz_collate(name.name)";
+                 ORDER BY locale NULLS LAST,
+                   begin_date_year NULLS LAST,
+                   begin_date_month NULLS LAST,
+                   begin_date_day NULLS LAST,
+                   end_date_year NULLS LAST,
+                   end_date_month NULLS LAST,
+                   end_date_day NULLS LAST,
+                   musicbrainz_collate(sort_name),
+                   musicbrainz_collate(name)";
 
-    return [ query_to_list($self->c->sql, sub {
-        $self->_new_from_row(@_)
-    }, $query, @ids) ];
+    my %ret = map { $_ => [] } @ids;
+
+    my $rows = $self->sql->select_list_of_hashes($query, @ids);
+    while (my $row = shift(@$rows)) {
+        push @{ $ret{$row->{parent_id}} },
+            $self->_new_from_row($row);
+    }
+
+    return \%ret;
+}
+
+sub find_by_entity_id
+{
+    my ($self, @ids) = @_;
+    my $alias_map = $self->find_by_entity_ids(@ids);
+    return [ map { @{ $alias_map->{$_} } } @ids ];
 }
 
 sub has_locale
@@ -132,17 +153,17 @@ sub insert
 {
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    my %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
     my @created;
-    Class::MOP::load_class($class);
+    load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},
-            name => $names{ $hash->{name} },
+            name => $hash->{name},
             locale => $hash->{locale},
-            sort_name => $names{ $hash->{sort_name} },
+            sort_name => $hash->{sort_name},
             primary_for_locale => $hash->{primary_for_locale},
             type => $hash->{type_id},
+            ended => $hash->{ended},
         };
 
         add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");
@@ -159,38 +180,49 @@ sub merge
     my $table = $self->table;
     my $type = $self->type;
 
-    # Keep locales in the target merge, as there can only be one alias per locale
+    # Fix primary_for_locale:
+    # turn off primary_for_locale on all but one per locale, preferring the target entity
+    # therefore, partition by locale only
     $self->sql->do(
-        "DELETE FROM $table WHERE $type = any(?) AND locale IS NOT NULL
-         AND (locale) IN (
-             SELECT locale FROM $table WHERE $type = ? AND locale IS NOT NULL
-         )",
-        \@old_ids, $new_id
+        "UPDATE $table SET primary_for_locale = FALSE
+          WHERE id IN (
+             SELECT a.id FROM (
+                 SELECT id, rank() OVER (PARTITION BY locale
+                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
+                   FROM $table WHERE $type = any(?)
+             ) a WHERE redundant
+         )", $new_id, [ $new_id, @old_ids ]
     );
 
+    # Merge based on all properties of each alias, other than primary_for_locale,
+    # preferring primary_for_locale and the target entity
+    # therefore, partition by everything except primary_by_locale
     $self->sql->do(
-        "DELETE FROM $table
-         WHERE $type = any(?) AND
-           (name, locale, $type) NOT IN (
-             SELECT DISTINCT ON (name, locale) name, locale, $type
-             FROM $table WHERE $type = any(?)
-           )",
-        [ $new_id, @old_ids ],
-        [ $new_id, @old_ids ]);
+        "DELETE FROM $table WHERE id in (
+             SELECT a.id FROM (
+                 SELECT id, rank() OVER (PARTITION BY $type, name, locale, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day
+                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
+                   FROM $table WHERE $type = any(?)
+             ) a WHERE redundant
+        )", $new_id, [ $new_id, @old_ids ]
+    );
 
+    # Update all aliases to the new entity
     $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
+    # Insert any aliases from old entity names
+    my $sortnamecol = ($type eq 'artist') ? 'sort_name' : 'name';
     $self->sql->do(
         "INSERT INTO $table (name, $type, sort_name)
-            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.name -- TODO: Use old_entity.sort_name, but works don't have this...
+            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol
               FROM $type old_entity
          LEFT JOIN $table alias ON alias.name = old_entity.name
               JOIN $type new_entity ON (new_entity.id = ?)
-             WHERE old_entity.id IN (" . placeholders(@old_ids) . ")
+             WHERE old_entity.id = any(?)
                AND alias.id IS NULL
                AND old_entity.name != new_entity.name",
-        $new_id, @old_ids
+        $new_id, [ @old_ids ]
     );
 }
 
@@ -201,17 +233,7 @@ sub update
     my $type = $self->type;
 
     my %row = %$alias_hash;
-    delete @row{qw( name begin_date end_date )};
-
-    if (exists $alias_hash->{name}) {
-        my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-        $row{name} = $names{ $alias_hash->{name} };
-    }
-
-    if (exists $alias_hash->{sort_name}) {
-        my %names = $self->parent->find_or_insert_names($alias_hash->{sort_name});
-        $row{sort_name} = $names{ $alias_hash->{sort_name} };
-    }
+    delete @row{qw( begin_date end_date )};
 
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
         if exists $alias_hash->{begin_date};
@@ -225,18 +247,16 @@ sub update
 
 sub exists {
     my ($self, $alias) = @_;
-    my $name_table = $self->parent->name_table;
     my $table = $self->table;
     my $type = $self->type;
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
-             FROM $table alias
-             JOIN $name_table n ON alias.name = n.id
-             WHERE n.name IS NOT DISTINCT FROM ?
+             FROM $table " .
+             "WHERE name IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
-               AND alias.id IS DISTINCT FROM ?
+               AND $table.id IS DISTINCT FROM ?
                AND $type = ?
          )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity}
     );

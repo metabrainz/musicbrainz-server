@@ -28,44 +28,9 @@ sub _build_providers {
 
     return [
         RegularExpressionProvider->new(
-            name                 => "CD Baby",
-            domain               => 'cdbaby.com',
-            uri_expression       => 'http://(www\.)?cdbaby\.com/cd/(\w)(\w)(\w*)',
-            image_uri_template   => 'http://cdbaby.name/$2/$3/$2$3$4.jpg',
-            info_uri_template    => 'http://www.cdbaby.com/cd/$2$3$4/from/musicbrainz',
-        ),
-        RegularExpressionProvider->new(
-            name                 => "CD Baby",
-            domain               => 'cdbaby.name',
-            uri_expression       => "http://(www\.)?cdbaby\.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
-            image_uri_template   => 'http://cdbaby.name/$2/$3/$4.jpg',
-            info_uri_template    => 'http://www.cdbaby.com/cd/$4/from/musicbrainz',
-        ),
-        RegularExpressionProvider->new(
             name               => 'archive.org',
             domain             => 'archive.org',
-            uri_expression     => '^(.*(\.jpg|\.jpeg|\.png|\.gif|))$',
-            image_uri_template => '$1',
-        ),
-        # XXX Can the following be merged somehow?
-        RegularExpressionProvider->new(
-            name                 => "Jamendo",
-            domain               => 'www.jamendo.com',
-            uri_expression       => 'http://www\.jamendo\.com/(\w\w/)?album/(\d{1,3})\W?$',
-            image_uri_template   => 'http://imgjam.com/albums/s0/$2/covers/1.200.jpg',
-            info_uri_template    => 'http://www.jamendo.com/album/$2',
-        ),
-        RegularExpressionProvider->new(
-            name                 => "Jamendo",
-            domain               => 'www.jamendo.com',
-            uri_expression       => 'http://www\.jamendo\.com/(\w\w/)?album/(\d+)(\d{3})',
-            image_uri_template   => 'http://imgjam.com/albums/s$2/$2$3/covers/1.200.jpg',
-            info_uri_template    => 'http://www.jamendo.com/album/$2$3',
-        ),
-        RegularExpressionProvider->new(
-            name               => '8bitpeoples.com',
-            domain             => '8bitpeoples.com',
-            uri_expression     => '^(.*)$',
+            uri_expression     => '^(https?://.*archive\.org/.*(\.jpg|\.jpeg|\.png|\.gif|))$',
             image_uri_template => '$1',
         ),
         RegularExpressionProvider->new(
@@ -73,38 +38,6 @@ sub _build_providers {
             domain               => 'www.ozon.ru',
             uri_expression       => 'http://(?:www|mmedia).ozon\.ru/multimedia/(.*)',
             image_uri_template   => 'http://mmedia.ozon.ru/multimedia/$1',
-        ),
-        RegularExpressionProvider->new(
-            name                 => 'Encyclopédisque',
-            domain               => 'encyclopedisque.fr',
-            uri_expression       => 'http://www.encyclopedisque.fr/images/imgdb/(thumb250|main)/(\d+).jpg',
-            image_uri_template   => 'http://www.encyclopedisque.fr/images/imgdb/thumb250/$2.jpg',
-            info_uri_template    => 'http://www.encyclopedisque.fr/',
-        ),
-        RegularExpressionProvider->new(
-            name                 => 'Manj\'Disc',
-            domain               => 'www.mange-disque.tv',
-            uri_expression       => 'http://(www\.)?mange-disque\.tv/(fstb/tn_md_|fs/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?',
-            image_uri_template   => 'http://www.mange-disque.tv/fs/md_$3.jpg',
-            info_uri_template    => 'http://www.mange-disque.tv/info_disque.php3?dis_code=$3',
-        ),
-        RegularExpressionProvider->new(
-            name               => 'Thastrom',
-            domain             => 'www.thastrom.se',
-            uri_expression     => '^(.*)$',
-            image_uri_template => '$1',
-        ),
-        RegularExpressionProvider->new(
-            name               => 'Universal Poplab',
-            domain             => 'www.universalpoplab.com',
-            uri_expression     => '^(.*)$',
-            image_uri_template => '$1',
-        ),
-        RegularExpressionProvider->new(
-            name               => 'Magnatune',
-            domain             => 'magnatune.com',
-            uri_expression     => '^(.*)$',
-            image_uri_template => '$1',
         ),
         AmazonProvider->new(
             name => 'Amazon',
@@ -227,13 +160,31 @@ sub find_outdated_releases
 sub cache_cover_art
 {
     my ($self, $release) = @_;
+    my @ordered_relationships =
+        rev_sort_by { $_->last_updated } $release->all_relationships;
+
     my $cover_art;
-    for my $relationship (rev_sort_by { $_->last_updated } $release->all_relationships) {
-        last if defined($cover_art);
+    for my $relationship (@ordered_relationships) {
         $cover_art = $self->parse_from_type_url(
             $relationship->link->type->name,
             $relationship->entity1->url
-        );
+        ) and last;
+    }
+
+    my $meta_update = { info_url => undef, amazon_asin => undef };
+    if ($cover_art) {
+        $meta_update = $cover_art->cache_data;
+    }
+    else {
+        for my $relationship (@ordered_relationships) {
+            if (my $meta = $self->fallback_meta(
+                $relationship->link->type->name,
+                $relationship->entity1->url
+            )) {
+                $meta_update = $meta;
+                last;
+            }
+        }
     }
 
     my $cover_update = {
@@ -242,11 +193,8 @@ sub cache_cover_art
     };
     $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 
-    if ($cover_art) {
-        my $meta_update  = $cover_art->cache_data;
-        $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
-            if keys %$meta_update;
-    }
+    $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
+        if keys %$meta_update;
 
     return $cover_art;
 }
@@ -260,10 +208,21 @@ sub parse_from_type_url
     for my $provider (@{ $self->get_providers($type) }) {
         next unless $provider->handles($url);
         $cover_art = $provider->lookup_cover_art($url, undef)
-            and last;
+            and return $cover_art;
     }
+}
 
-    return $cover_art;
+sub fallback_meta
+{
+    my ($self, $type, $url) = @_;
+    return unless $self->can_parse($type);
+
+    my $meta;
+    for my $provider (@{ $self->get_providers($type) }) {
+        next unless $provider->handles($url);
+        $meta = $provider->fallback_meta($url)
+            and return $meta;
+    }
 }
 
 sub url_updated {
@@ -279,6 +238,21 @@ sub url_updated {
     my @releases = values %{ $self->c->model('Release')->get_by_ids(@release_ids) };
     $self->c->model('Relationship')->load_subset([ 'url' ], @releases);
     $self->cache_cover_art($_) for @releases;
+}
+
+sub mime_types {
+    my $self = shift;
+
+    return $self->c->sql->select_list_of_hashes(
+        'SELECT mime_type, suffix FROM cover_art_archive.image_type');
+}
+
+sub image_type_suffix {
+    my ($self, $mime_type) = @_;
+
+    return $self->c->sql->select_single_value(
+        'SELECT suffix FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type);
 }
 
 1;

@@ -73,7 +73,7 @@ sub find_or_insert
 
     my $id =
         $self->sql->select_single_value(
-            'SELECT id FROM cdtoc 
+            'SELECT id FROM cdtoc
               WHERE discid = ?
               AND   track_count = ?
               AND   leadout_offset = ?

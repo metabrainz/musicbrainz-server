@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -14,14 +15,15 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
     load_artist_credit_definitions
     verify_artist_credits
-    conditions_without_autoedit
 );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Edit artist credit') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
 sub new_artist_ids {
@@ -41,7 +43,7 @@ sub alter_edit_pending {
 
 sub _build_related_entities {
     my ($self) = @_;
-    my $related = { };
+    my $related = $self->c->model('ArtistCredit')->related_entities($self->data->{old}{artist_credit});
 
     my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
     my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
@@ -97,7 +99,7 @@ sub initialize {
             artist_credit => clean_submitted_artist_credits($opts{artist_credit})
         },
         old => {
-            artist_credit => clean_submitted_artist_credits($old_ac)
+            artist_credit => artist_credit_to_ref($old_ac)
         }
     };
 
@@ -118,10 +120,5 @@ sub accept {
         $self->data->{new}{artist_credit}
     );
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 1;

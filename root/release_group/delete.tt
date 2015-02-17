@@ -1,20 +1,6 @@
 [%- WRAPPER 'release_group/layout.tt' title=l('Remove Release Group') full_width=1 -%]
     <h2>[% l('Remove Release Group ') %]</h2>
-    [%- IF can_delete -%]
-        <p>
-            [%- l('Are you sure you wish to remove the release group {rg} by {artist} from MusicBrainz?', { rg => link_entity(rg), artist => artist_credit(rg.artist_credit) }) -%]
-        </p>
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Please review the documentation about the {doc_remove|remove release group edit-type}, before entering this edit', {doc_remove => doc_link('Remove_Release_Group_Edit')})) -%]
-        [%- END -%]
-        <form action="[% c.req.uri %]" method="post">
-            [%- USE r = FormRenderer(form) -%]
-            [%- INCLUDE 'forms/edit-note.tt' -%]
-            [% enter_edit() %]
-        </form>
-    [%- ELSE -%]
     <p>
-       [% l('This release group cannot be removed, because there are still releases, tracks and/or relationships attributed to it.') -%]
+       [% l('This release group will be removed automatically once it has no releases nor relationships.') -%]
     </p>
-    [%- END -%]
 [%- END -%]

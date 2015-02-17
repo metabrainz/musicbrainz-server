@@ -1,4 +1,0 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-   [% l('Please first navigate to the page of the artist who you wish to relate 
-         to recordings on this release and select "use in relationship"') %]
-[% END %]

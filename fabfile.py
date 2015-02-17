@@ -1,9 +1,59 @@
 from fabric.api import *
 from time import sleep
 from fabric.colors import red
+from datetime import date
+import re
 
 env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
+
+def translations():
+    """
+    Update translations
+    """
+    with lcd("po/"):
+        local("./update_translations.sh")
+        diff = local('git diff', capture=True)
+        if not re.match('^\s*$', diff, re.MULTILINE):
+            print diff
+            local("git add *.po")
+            commit_message = prompt("Commit message", default='Update translations from transifex.')
+            local("git commit -m '%s'" % (commit_message))
+
+def pot():
+    """
+    Update .pot files
+    """
+    env.host_string = "beta"
+    with lcd("po/"):
+        with cd("~/musicbrainz-server/po"):
+            run("touch extract_pot_db")
+            run("eval $(perl -Mlocal::lib) && make attributes.pot instruments.pot instrument_descriptions.pot relationships.pot statistics.pot languages.pot languages_notrim.pot scripts.pot countries.pot")
+            get("~/musicbrainz-server/po/*.pot", "./%(path)s")
+            run("git checkout HEAD *.pot")
+        stats_diff = local("git diff statistics.pot", capture=True)
+        local("touch extract_pot_templates")
+        local("make mb_server.pot statistics.pot")
+        stats_diff = stats_diff + local("git diff statistics.pot", capture=True)
+
+        if not re.match('^\s*$', stats_diff, re.MULTILINE):
+            puts("Please ensure that statistics.pot is correct and then commit manually, since it depends on both the database and templates.")
+        else:
+            local("git add *.pot")
+            commit_message = prompt("Commit message", default='Update pot files using current code and production database.')
+            local("git commit -m '%s'" % (commit_message))
+
+def prepare_release():
+    """
+    Prepare for a new release.
+    """
+    no_local_changes()
+    local("git checkout beta")
+    local("git pull --ff-only origin beta")
+    local("git checkout master")
+    local("git pull --ff-only origin master")
+    local("git merge beta")
+    local("git push origin master")
 
 def socket_deploy():
     """
@@ -14,6 +64,8 @@ def socket_deploy():
     with cd("~/musicbrainz-server"):
         run("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git")
         run("git pull --ff-only")
+        run("git submodule init")
+        run("git submodule update")
         run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def no_local_changes():
@@ -83,11 +135,7 @@ def production():
             abort('User does not wish to proceed')
 
     with cd('/home/musicbrainz/musicbrainz-server'):
-        # Carton has a tendency to change this file when it does update
-        # It's important that we discard these
         sudo("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git", user="musicbrainz")
-        sudo("git checkout -- carton.lock", user="musicbrainz")
-        sudo("git reset HEAD -- carton.lock", user="musicbrainz")
 
         # If there's anything uncommited this must be fixed
         sudo("git diff --exit-code", user="musicbrainz")
@@ -95,6 +143,8 @@ def production():
 
         old_rev = sudo("git rev-parse HEAD", user="musicbrainz")
         sudo("git pull --ff-only", user="musicbrainz")
+        sudo("git submodule init", user="musicbrainz")
+        sudo("git submodule update", user="musicbrainz")
         new_rev = sudo("git rev-parse HEAD", user="musicbrainz")
 
         sql_updates = sudo("git diff --name-only %s %s -- admin/sql/updates" % (old_rev, new_rev), user="musicbrainz")
@@ -134,3 +184,10 @@ def reset_test():
 
 def shutdown():
     sudo("svc -d /etc/service/mb_server-fastcgi")
+
+def tag():
+    tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
+    blog_url = prompt("Blog post URL", validate=r'^http.*')
+    no_local_changes()
+    local("git tag -u 'CE33CF04' %s -m '%s' master" % (tag, blog_url))
+    local("git push origin %s" % (tag))

@@ -8,22 +8,27 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_MERGE
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_SET_COVER_ART
+    %ENTITIES
 );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
-use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'ReleaseGroup',
-    entity_name => 'rg',
+    model           => 'ReleaseGroup',
+    entity_name     => 'rg',
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]}}
+};
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -33,8 +38,7 @@ __PACKAGE__->config(
 
 sub base : Chained('/') PathPart('release-group') CaptureArgs(0) { }
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $rg = $c->stash->{rg};
@@ -44,12 +48,11 @@ after 'load' => sub
     }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
-    $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Artwork')->load_for_release_groups($rg);
     $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $rg = $c->stash->{rg};
@@ -60,14 +63,14 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Country')->load(@$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('Relationship')->load($rg);
 
     $c->stash(
         template => 'release_group/index.tt',
+        releases_jsonld => {items => $releases},
         releases => group_by_release_status(@$releases),
     );
 }
@@ -87,13 +90,19 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 artist_credit => ArtistCredit->from_artist($artist)
             );
-            $c->stash( initial_artist => $artist );
+            $c->stash(
+                initial_artist => $artist,
+                # These added so the entity tabs will appear properly
+                entity => $artist,
+                entity_properties => $ENTITIES{artist}
+            );
             return ( item => $rg );
         }
         else {
             return ();
         }
-    }
+    },
+    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -103,44 +112,34 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASEGROUP_MERGE,
-    confirmation_template => 'release_group/merge_confirm.tt',
-    search_template       => 'release_group/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
+    my ($self, $c, @rgs) = @_;
 
-    $c->model('ReleaseGroup')->load_meta(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseGroupType')->load(@{ $c->stash->{to_merge} });
-    $c->model('ArtistCredit')->load(
-        $c->stash->{old}, $c->stash->{new}
-    );
+    $c->model('ArtistCredit')->load(@rgs);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
+    $c->model('ReleaseGroupType')->load(@rgs);
 };
 
-around '_merge_search' => sub
-{
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-
-    return $results;
-};
-
-sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit RequireAuth
+sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 {
     my ($self, $c, $id) = @_;
 
     my $entity = $c->stash->{entity};
     return unless $entity->can_set_cover_art;
 
-    my ($releases, $hits) = $c->model ('Release')->find_by_release_group (
+    my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
+    $c->model('Medium')->load_for_releases(@$releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
+    $c->model('Release')->load_release_events(@$releases);
+    $c->model('ReleaseLabel')->load(@$releases);
+    $c->model('Label')->load(map { $_->all_labels } @$releases);
 
-    my $artwork = $c->model ('Artwork')->find_front_cover_by_release (@$releases);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     my $cover_art_release = $entity->cover_art ? $entity->cover_art->release : undef;
     my $form = $c->form(form => 'ReleaseGroup::SetCoverArt', init_object => {
@@ -149,7 +148,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit Requi
     my $form_valid = $c->form_posted && $form->submitted_and_valid($c->req->params);
 
     my $release = $form_valid
-        ? $c->model ('Release')->get_by_gid ($form->field('release')->value)
+        ? $c->model('Release')->get_by_gid($form->field('release')->value)
         : $cover_art_release;
 
     $c->stash({ form => $form, artwork => $artwork, release => $release });

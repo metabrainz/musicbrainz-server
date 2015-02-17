@@ -1,31 +1,23 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
-[%- BLOCK layout_head -%]
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-    MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' }}, sortList: [[5,1]] }
-    MB.Control.Tablesorter();
-});
-//]]></script>
-[%- END -%]
 
 [%- MACRO country_entry(country) BLOCK -%]
-<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+<tr class="[% loop.parity %]">
     <td class="t">[% loop.count %]</td>
-    [%- IF country.entity.iso_code != '' -%]
-    <td>[% country.entity.l_name %]</td>
+    [%- IF country.entity.country_code != '' -%]
+    <td>[% link_entity(country.entity) %]</td>
     [%- ELSE -%]
     <td>[% l('Unknown Country') %]</td>
     [%- END -%]
-    <td class="t">[% link_searchable_property('country', country.entity.iso_code || 'unknown', 'artist', add_commas(country.artist_count)) %]</td>
-    <td class="t">[% link_searchable_property('country', country.entity.iso_code || 'unknown', 'release', add_commas(country.release_count)) %]</td>
-    <td class="t">[% link_searchable_property('country', country.entity.iso_code || 'unknown', 'label', add_commas(country.label_count)) %]</td>
+    <td class="t">[% link_entity(country.entity, 'artists', add_commas(country.artist_count)) %]</td>
+    <td class="t">[% link_entity(country.entity, 'releases', add_commas(country.release_count)) %]</td>
+    <td class="t">[% link_entity(country.entity, 'labels', add_commas(country.label_count)) %]</td>
     <td class="t">[% add_commas(country.artist_count + country.release_count + country.label_count) %]</td>
 </tr>
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Countries') full_width=1 page='countries' %]
 
-<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => date_collected }) -%]</p>
 
 <table class="tbl">
 <thead>
@@ -45,4 +37,13 @@ $(document).ready(function() {
 </tbody>
 </table>
 [%- PROCESS "statistics/macros-footer.tt" -%]
+
+<script type="text/javascript">//<![CDATA[
+  MB.Control.Tablesorter($('table.tbl'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' } },
+      sortList: [ [5,1], [1,0] ] // order by descending number of entities, then name
+     });
+//]]></script>
+
 [% END %]

@@ -18,7 +18,7 @@
      <td>
        <table class="tbl">
          <tbody>
-         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.tracklist
+         [% INCLUDE 'medium/tracklist.tt' tracks=edit.display_data.tracks
             hide_rating=1 show_artists=1 %]
          </tbody>
        </table>

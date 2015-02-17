@@ -1,0 +1,900 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: @very-light-bg;
+    color: @text-black;
+    font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
+    font-size: 12px;
+    min-width: @min-width;
+    margin: auto;
+
+    @media @wide {
+        padding: 0 10px;
+    }
+}
+
+a {
+    color:@link-default;
+    text-decoration: none;
+
+    &:visited {
+        color:@link-visited;
+    }
+
+    &:hover {
+        color: @text-orange;
+        text-decoration: underline;
+    }
+    &.icon:hover {
+        text-decoration: none;
+    }
+
+
+    &:active, &:focus {
+        outline-style: none;
+    }
+
+    > img { border: 0; }
+
+    /* TODO:
+    ** When we start using relative links for internal links, add:
+    ** a[href^="http://"], a[href^="https://"], */
+    &.external {
+        background: data-uri('../images/icons/external.png') no-repeat right;
+        padding-right: 13px;
+    }
+
+    &.internal {
+        background: none;
+        padding-right: 0;
+    }
+}
+
+p {
+    margin: 1em 0;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 150%;
+}
+
+h1 a { color: @text-black !important; }
+
+h2,
+fieldset legend {
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: 120%;
+    color: @text-orange;
+    font-weight: bold;
+}
+
+#sidebar h2, .sidebar h2 {
+    font-size: 100%;
+    margin-left: -5px;
+}
+
+h3 {
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 40px;
+    list-style-image: data-uri('../images/icons/bullet.gif');
+    list-style-type: square;
+}
+
+ol {
+    margin-left: 0;
+    padding-left: 40px;
+}
+
+ul ul, ul ol,
+ol ol, ol ul {
+    padding-left: 20px;
+}
+
+ul.inline {
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
+    margin: 0;
+}
+
+/* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
+pre code {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* width: 99%; */
+    word-wrap: break-word;
+}
+
+.deleted { color: @dark-text; }
+
+/*
+** Header
+*/
+#header {
+    width: 100%;
+}
+
+img.gravatar {
+    display: inline;
+    max-height: 1em;
+    vertical-align: middle;
+    border: 1px solid @light-border;
+    padding: 1px;
+    background: #fff;
+    margin-right: 0.35em;
+
+    #header & {
+        display: none;
+    }
+
+    h1 & {
+        max-height: 3em;
+    }
+}
+
+#header-logo {
+    background: @musicbrainz-purple url('../images/layout/header-logo.png') no-repeat top left;
+    height: 58px;
+    color: @text-white;
+}
+
+#header-logo div {
+    position: relative;
+    top: 17px;
+    float: right;
+    padding-right: 1em;
+}
+
+#header-logo a {
+    color: @text-white;
+}
+
+#header-logo a.logo {
+    display: block;
+    height: 58px;
+    width: 483px;
+    position: absolute;
+}
+
+#header-logo a.logo strong {
+    position: absolute;
+    left: -10000px;
+}
+
+#header-menu {
+    background: @musicbrainz-orange;
+    position: relative;
+    font-size: 95%;
+    font-weight: bold;
+    z-index: 9;
+
+    @media @wide {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+}
+
+#header-menu div {
+    padding: 0 1em;
+    overflow: hidden;
+}
+
+#header-menu ul.r {
+    float: right;
+}
+
+#header-menu ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+#header-menu li {
+    float: left;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+#header-menu ul a {
+    color: @effectively-black-text;
+    display: block;
+    padding: 0.4em 0.5em;
+    height: 100%;
+    text-decoration: none;
+}
+
+#header-menu ul li:hover a,
+#header-menu ul li:hover li a:hover,
+#header-menu ul a:hover {
+    background-color: @text-orange;
+    color: @text-white;
+}
+
+#header-menu ul li li a {
+    height: auto;
+}
+
+#header-menu ul li:hover li a {
+    background-color: @medium-bg;
+    color: @text-black;
+}
+
+#header-menu li ul {
+    position: absolute;
+    left: -10000px;
+    z-index: 9;
+}
+
+#header-menu li ul li {
+    text-align: left;
+    float: none;
+    font-weight: normal;
+    margin: 0;
+    background-color: @medium-bg;
+}
+
+#header-menu .separator {
+    border-top: 1px dotted;
+}
+
+/*
+** Main content
+*/
+#page,
+#current-editing {
+    margin-top: 1em;
+    padding: 16px;
+    background: #FFF;
+    overflow: visible;
+    position: relative;
+    display: table;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+
+    @media @wide {
+        border-radius: 6px;
+    }
+}
+
+#current-editing h2 {
+    margin-top: 0; /* Remove the space above the merge-helper H2 */
+}
+
+.warning-header,
+.flash,
+.server-details {
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    background: #FFFFFF;
+    padding: 10px;
+    border: 0;
+    color: @text-orange;
+    position: relative;
+
+    @media @wide {
+        border-radius: 6px;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+.flash {
+    color: @text-black;
+    font-weight: normal;
+}
+
+.warning-header {
+    color: @text-black;
+}
+
+div.caa-warning,
+div.warning {
+    margin: 2em auto;
+    border: 1px solid @dark-border;
+    min-height: 54px;
+    width: 60em;
+    background: @warning-background;
+
+    p {
+        margin: 1em;
+    }
+}
+
+div.warning img.warning {
+    float: left;
+    margin: 12px 10px 8px 10px;
+    width: 32px;
+    height: 32px;
+}
+
+#content,
+#sidebar {
+    display: table-cell;
+    vertical-align: top;
+}
+
+#content {
+    padding-right: 16px;
+}
+
+#sidebar {
+    padding-left: 16px;
+    width: 218px;
+    font-size: 95%;
+    border-left: 1px solid @light-border;
+}
+
+#sidebar p {
+    margin-top: 0;
+}
+
+#sidebar ul.links {
+    margin: 0;
+    padding-left: 1.5em;
+}
+
+#sidebar ul.links hr {
+    padding: 0;
+    margin: 3px;
+    height: 1px;
+    width: 75%;
+    border: 0;
+    color: @hr-color;
+    background-color: @hr-color;
+}
+
+#sidebar ul.external_links {
+    margin: 5px 0;
+    padding-left: 0;
+    list-style-image: none;
+    list-style-type: none;
+}
+
+#sidebar ul.external_links li {
+    background-position: 0 2px;
+    background-repeat: no-repeat;
+    margin-bottom: 2px;
+    padding: 4px 0 0 22px;
+    min-height: 14px;
+}
+
+#sidebar ul.external_links li.all-relationships {
+    background-image: none;
+}
+
+#sidebar ul.licenses {
+    margin: 5px 0;
+    padding-left: 0;
+    list-style-image: none;
+    list-style-type: none;
+}
+
+#sidebar ul.licenses li{
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+#sidebar .cover-art, #sidebar .picture {
+    text-align: center;
+}
+
+#sidebar .cover-art img, #sidebar .picture img {
+    max-height: 300px;
+    max-width: 218px; /* references #sidebar's width */
+}
+
+#sidebar .cover-art-note, #sidebar .picture-note {
+    color: @very-dark-text;
+    display: block;
+}
+
+/*
+** Footer
+*/
+#footer {
+    height: 1em;
+    margin: 1em 0;
+    padding: 0 1em;
+    font-size: 90%;
+    color: @very-dark-text;
+}
+
+#footer a { color: @link-default; }
+#footer a:hover { color: @text-orange; }
+
+#footer p {
+    display: inline-block;
+    margin: 0;
+}
+
+#footer p.left {
+    float: left;
+    margin: 0;
+}
+
+#footer p.right {
+    float: right;
+}
+
+/*
+** Misc
+*/
+.c, table.tbl .c { text-align: center; }
+
+.noborder { border: none !important; }
+
+.nowrap { white-space: nowrap; } /* Used to keep "action links" on one line, e.g. [ Update | Remove ] */
+
+.tooltip { border-bottom: 1px dotted; } /* Useful when adding title attributes to elements */
+
+table.tbl tr.mp td,
+span.mp,
+div.mp,
+tr.diff-changes {
+    background: @edit-orange !important;
+}
+
+.lastupdate,
+.annotation-details,
+.small {
+    font-size: 90%;
+    color: @very-dark-text;
+    font-style: italic;
+}
+
+.lastupdate {
+    padding-top: 1em;
+    margin-left: -5px;
+}
+
+/* The release information table */
+table.tbl {
+    margin-top: 1em;
+    border-collapse: collapse;
+    width: 100%;
+    border-top: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
+
+    th {
+        font-size: 95%;
+        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
+        padding: 0.2em 0.4em;
+        text-align: left;
+        border-bottom: solid 1px @dark-border;
+        border-left: solid 1px @medium-border;
+        word-break: keep-all;
+        white-space: nowrap;
+
+        a {
+            color: @text-black;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+    }
+
+    td {
+        padding: 0.2em 0.4em;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    tr.subh {
+        td, th {
+            font-size: 95%;
+            background: data-uri('../images/layout/table-header-2.gif') repeat-x 0 50%;
+            font-weight: bold;
+            border-top: solid 1px @dark-border;
+            border-bottom: solid 1px @dark-border;
+        }
+    }
+
+    tbody th {
+        border-right: 1px solid @dark-border;
+        background: none;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    /* Striping */
+    tr.even td,
+    tr.even th {
+        padding: 0.2em 0.4em;
+        background: @even-table-row;
+    }
+    tr:target td { background-color: @highlight-table-row; }
+
+    /* Fixed widths and other custom styles */
+    .pos { width: 1em; white-space: nowrap; }
+    .year { width: 4em; }
+    .count { width: 2em; }
+    .rating { width: 50px; }
+    .treleases { width: 3em; }
+    .t { text-align: right; }
+
+    .video {
+        width: 15px;
+
+        &.is-video {
+            background-repeat: no-repeat;
+            background-position: 50% 2px;
+            background-image: data-uri('../images/icons/video.png');
+        }
+    }
+
+    .data-track.icon {
+        background: data-uri('../images/icons/page_white_cd.png');
+        cursor: help !important;
+    }
+
+    /* Sortable table headers/images */
+    thead tr .header {
+        cursor: pointer;
+    }
+    thead tr .header .arrow {
+        background: data-uri('../images/layout/bg.gif') no-repeat center right;
+        display: inline-block;
+        height: 9px;
+        width: 21px;
+    }
+    thead tr .headerSortUp .arrow {
+        background-image: data-uri('../images/layout/asc.gif');
+    }
+    thead tr .headerSortDown .arrow {
+        background-image: data-uri('../images/layout/desc.gif');
+    }
+}
+
+#toggle-credits { float: right; }
+
+table.tbl.medium {
+    /* Kills the 2px borders between collapsed discs on release pages. */
+    margin-top: -1px;
+
+    .expand-triangle {
+        color: @musicbrainz-purple;
+    }
+
+    /* Visibly apparent for tracks with inline credits. */
+    td { vertical-align: top; }
+}
+
+/* Nesting of different table types */
+table.details table.tbl {
+    margin-top: 0;
+}
+
+table.details table.tbl th {
+    /* Override the table.details declarations
+    /* inside an edit details template */
+    padding: 0.2em 0.4em;
+    text-align: left;
+    width: auto;
+}
+
+/* Paginator */
+.pageselector {
+    a, span {
+        font-size: 90%;
+        padding: 0.05em 0.4em;
+    }
+
+    a {
+        border: solid 1px @text-black;
+        text-decoration: none;
+        background-color: #FFF;
+        color: @text-black;
+
+        &:hover {
+            background-color: @musicbrainz-orange;
+        }
+
+        &.sel {
+            background-color: @musicbrainz-orange;
+            font-weight: bold;
+        }
+    }
+
+    span {
+        border: solid 1px @dark-border;
+        background-color: @very-light-bg;
+        color: @dark-text;
+    }
+
+    em {
+        font-style: normal;
+        margin-left: 0.5em;
+    }
+
+    + .tbl {
+        margin-top: 0px !important;
+    }
+
+    &-results {
+        margin-bottom: 0;
+    }
+}
+
+/* Browse Entity pages */
+.browse-entities {
+    -moz-column-count: 2; /* Firefox 9+ */
+    -webkit-column-count: 2; /* Chrome, Opera 15+, Safari 3+ */
+    column-count: 2; /* IE 10+, Opera 11-12 */
+
+    ol {
+        margin: 0;
+    }
+}
+
+/* Entity details & edit details */
+table.details {
+    th {
+        text-align: right;
+        padding-left: 10pt;
+        width: 240px;
+        vertical-align: top;
+    }
+
+    td {
+        vertical-align: top;
+
+        span.new, span.old,
+        &.new, &.old {
+            border: 1px solid @medium-border;
+        }
+
+        span.new, &.new {
+            background: @positive-light-bg;
+        }
+
+        span.old, &.old {
+            background: @negative-light-bg;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        list-style-image: none;
+    }
+}
+
+div.diff .diff-only-b,
+span.diff-only-b,
+tr.diff-addition {
+    background: @positive-bg;
+}
+
+div.diff .diff-only-a,
+span.diff-only-a,
+tr.diff-removal {
+    background: @negative-bg;
+}
+
+/* Statistics pages */
+table.timeline-controls, table.database-statistics {
+    border-collapse: collapse;
+    border: 1px solid @light-border-blue;
+    margin: 1em 1em 1em 0;
+}
+
+table.database-statistics {
+    white-space: nowrap;
+}
+
+table.database-statistics th, table.timeline-controls th {
+    text-align: left;
+    padding: 3px 5px;
+}
+
+table.database-statistics tr.thead th {
+    text-align: center;
+    border: 1px solid @light-border-blue;
+    background: @light-border-background;
+}
+
+table.database-statistics td, table.timeline-controls td {
+    text-align: right;
+    padding: 3px 5px 3px 10px;
+}
+
+table.timeline-controls td {
+    border: 1px solid @light-border-blue;
+}
+
+
+/* Sidebar properties */
+dl.properties {
+    margin: 0;
+}
+
+dl.properties dt {
+    clear: left;
+    float: left;
+    font-weight: bold;
+    padding-right: 2pt;
+}
+
+table.properties tr,
+dl.properties dd,
+dl.properties dt {
+    line-height: 175%;
+}
+
+table.properties th {
+    text-align: right;
+}
+
+.nagpanel {
+    background-color: @effectively-white-bg;
+    border: 2px dashed @musicbrainz-purple;
+    padding: 0 1em;
+    margin: 1em 0;
+
+    .naglinkpanel {
+        text-align: center;
+    }
+
+    .naglink {
+        font-size: 200%;
+    }
+}
+
+p.cleanup {
+    text-align: center;
+    background: @edit-orange !important;
+    padding: 1em;
+}
+
+.iswc { white-space: nowrap; }
+
+/*
+  Cover Art
+  ================================================
+*/
+
+div.artwork-cont {
+    border-radius: 2px;
+    background: @very-light-bg;
+    border: 1px solid @light-border;
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+div.artwork-cont p {
+    width: 250px;
+}
+
+div.artwork { position: relative; width: 250px; }
+/* don't include 'div' since this should apply to 'p' as well */
+.artwork img { max-width: 250px; max-height: 250px; }
+
+.homepage div.artwork-cont {
+    width: 125px;
+    height: 125px;
+    position: relative;
+    vertical-align: middle;
+}
+.homepage div.artwork {
+    width: 125px;
+    height: 125px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.homepage div.artwork img {
+    max-width: 125px;
+    max-height: 125px;
+}
+
+.artwork-image, .artwork-pdf {
+    position: relative;
+    display: block;
+}
+
+.artwork-pdf .file-format-tag {
+    cursor: help;
+    color: darken(@musicbrainz-purple, 20%);
+    background-color: @effectively-white;
+    border: 1px solid darken(@musicbrainz-purple, 20%);
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.annotation-toggle {
+    display: block;
+}
+
+.annotation-body {
+    position: relative;
+    overflow: auto;
+}
+
+.annotation-collapsed {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.annotation-collapsed:after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    content: "  ";
+    height: 20px;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+    background: linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.annotation-collapse {
+    max-height: none;
+}
+
+a.tagger-icon {
+    width: 41px;
+    height: 16px;
+    display: block;
+}
+
+.actions-header {
+    min-width: 10em;
+}
+
+dl.ars, dl.ars dd, dl.ars dt {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+}
+
+dl.ars { margin-left: 2em; line-height: 2.2ex; }
+dl.ars dd { margin: 0.2em 0; }
+
+dl.ars dt {
+    margin-right: 0.5em;
+    clear: left;
+    float: left;
+    color: @very-dark-text;
+}
+
+#largemap {
+    margin: 10px;
+    min-height: 600px;
+}

@@ -6,11 +6,13 @@ use warnings;
 use base 'Template::Plugin';
 
 sub preferences { shift->{preferences}; }
+sub locale { shift->{locale}; }
 
 sub new {
-    my ($class, $context, $preferences) = @_;
+    my ($class, $context, $preferences, $locale) = @_;
     return bless {
         preferences => $preferences,
+        locale => $locale,
     }, $class;
 }
 
@@ -27,6 +29,10 @@ sub format {
     }
     else {
         $format = '%Y-%m-%d %H:%M %Z';
+    }
+
+    if ($self->locale) {
+        $dt->set_locale($self->locale);
     }
 
     return $dt->strftime($format);

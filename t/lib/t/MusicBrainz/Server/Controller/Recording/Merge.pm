@@ -21,18 +21,21 @@ test all => sub {
     my $mech = $test->mech;
     my $c    = $test->c;
 
+    $c->sql->do("DELETE FROM isrc WHERE recording = 1");
+
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');
 
     $mech->get_ok('/recording/merge');
     html_ok($mech->content);
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
     $tx->not_ok(selector_to_xpath('.warning-isrcs-differ'),
                 'Does not have a warning about differing ISRCs');
 
     my $response = $mech->submit_form(
         with_fields => {
             'merge.target' => '2',
+            'merge.edit_note' => 'Destructive edits require an edit note',
         }
     );
     ok($mech->uri =~ qr{/recording/54b9d183-7dab-42ba-94a3-7388a66604b8});
@@ -51,12 +54,27 @@ test all => sub {
     $mech->content_contains('King of the Mountain', '..contains new name');
 };
 
-test 'Warn the user when merging recordings with different ISRCs' => sub {
+test 'Edit note required' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
 
-    $c->sql->do("INSERT INTO isrc (isrc, recording) VALUES ('XXX250800230', 1)");
+    $mech->get_ok('/recording/merge_queue?add-to-merge=1');
+    $mech->get_ok('/recording/merge_queue?add-to-merge=2');
+
+    $mech->get_ok('/recording/merge');
+    my $response = $mech->submit_form(
+        with_fields => {
+            'merge.target' => '2',
+        }
+    );
+    $mech->content_contains('You must provide an edit note', 'contains warning about edit note being required');
+};
+
+test 'Warn the user when merging recordings with different ISRCs' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');
@@ -64,7 +82,7 @@ test 'Warn the user when merging recordings with different ISRCs' => sub {
     $mech->get_ok('/recording/merge');
     html_ok($mech->content);
 
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
     $tx->ok(selector_to_xpath('.warning-isrcs-differ'),
             'Has a warning about differing ISRCs');
 };

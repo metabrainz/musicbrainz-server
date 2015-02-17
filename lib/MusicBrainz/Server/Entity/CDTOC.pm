@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Entity::CDTOC;
 
 use Moose;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA qw(sha1_base64);
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -88,7 +88,7 @@ sub new_from_toc
     $toc =~ s/\A\s+//;
     $toc =~ s/\s+\z//;
     $toc =~ /\A\d+(?: \d+)*\z/ or return;
-    
+
     my ($first_track, $last_track, $leadout_offset, @track_offsets) = split ' ', $toc;
 
     return unless $first_track == 1;

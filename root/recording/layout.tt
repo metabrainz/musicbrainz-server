@@ -1,70 +1,27 @@
-[% main_title = l('Recording “{name}” by {artist}', {
-    artist => artist_credit(recording.artist_credit, plain => 1),
-    name => html_escape(recording.name)
-}) %]
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
-        <h2 class="recording-information">[% l('Recording information') %]</h2>
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(recording.artist_credit) class="artist" %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-               content=rdfa_recording_duration(recording) class="length"
-                   IF recording.length -%]
-            [%- FOR isrc IN isrcs -%]
-                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]
-                [% rdfa_recording_isrc(recording, isrc) %]
-                [% IF c.user_exists %]
-                [% l('({delete_uri|remove})', {
-                       delete_uri => c.uri_for_action('/isrc/delete', { isrc_id => isrc.id }) }) %]
-                [% END %]
-                [% END %]
-            [%- END -%]
-        [% END %]
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags
-            more=more_tags tag_this_text=l('Tag this recording')
-            async = c.uri_for_action('/recording/tag_async', [ recording.gid ])
-            -%]
+[%~ title_args = { artist => artist_credit(recording.artist_credit, plain => 1), name => html_escape(recording.name) } ~%]
 
-        <h2 class="editing">[% l('Editing') %]</h2>
-        <ul class="links">
-          [% IF c.user_exists %]
-          <li>[% link_entity(recording, 'add_isrc', lp('Add ISRC', 'button/menu')) %]</li>
-          [% annotation_links(recording) %]
-          <li>
-            <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
-              [% l('Merge recording') %]
-            </a>
-          </li>
-          <li>[% link_entity(recording, 'delete', l('Remove recording')) %]</li>
+[%~ main_title = recording.video ? l('Video “{name}” by {artist}', title_args) : l('Recording “{name}” by {artist}', title_args) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE 'recording/header.tt' ~%]
+        [%~ content ~%]
+    </div>
 
-          <hr/>
-
-          [%# Adds <li> itself %]
-          [% use_in_relationship(recording) %]
-          <li>[% relate_to_ellipsis(recording) %]</li>
-          <li>[% relate_to_url(recording) %]</li>
-
-          <hr/>
-
-          <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
-          <li>[% link_entity(recording, 'edits', l('Editing history')) %]</li>
-          [% ELSE %]
-          <li>[% request_login(l('Log in to edit')) %]</li>
-          [% END %]
-        </ul>
-
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=recording -%]
-
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
-    [% END %]
-  [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE 'recording/header.tt' %]
-    [%- content -%]
-  </div>
-
-[%- END -%]
+    [%~ IF !full_width ~%]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=recording ~%]
+            <h2 class="recording-information">[%~ l('Recording information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+                    content=artist_credit(recording.artist_credit) class="artist" ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
+                    content=format_length(recording.length) class="length"
+                        IF recording.length ~%]
+                [%~ FOR isrc IN recording.isrcs ~%]
+                    [%~ WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" ~%]
+                        [%~ link_isrc(isrc) ~%]
+                    [%~ END ~%]
+                [%~ END ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
+[%~ END ~%]

@@ -1,10 +1,4 @@
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-      [%- INCLUDE "edit/info.tt" -%]
-    [% END %]
-  [%- END -%]
-
     <div id="content">
 
         [% INCLUDE 'edit/edit_header.tt' %]
@@ -13,7 +7,8 @@
         [% IF edit.data.defined %]
           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
         [% ELSE %]
-          <p>[% l('An error occured while loading this edit') %]</p>
+          <p>[% l('An error occured while loading this edit.') %]</p>
+          <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
         [% END %]
 
         <h2>[% l('Votes') %]</h2>
@@ -30,9 +25,7 @@
                 <tr class="noborder">
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
-                          <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
-                          </div>
                         </td>
                 </tr>
             [% END %]
@@ -40,7 +33,7 @@
                 <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
                     <th>[% link_entity(vote.editor) %]</th>
                     <td class="vote">
-                        [% l(vote.vote_name) %]
+                        [% lp(vote.vote_name, 'vote') %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>
                     </td>
                 </tr>
@@ -75,11 +68,17 @@
             <h2>[% l('Edit notes') %]</h2>
             [% INCLUDE 'edit/notes.tt' %]
             [%- IF edit.editor_may_vote(c.user) -%]
-                    [%- form_submit(l('Add note and vote')) -%]
+                    [%- form_submit(l('Submit vote and note')) -%]
             [%- ELSIF edit.editor_may_add_note(c.user) -%]
-                    [%- form_submit(l('Add note')) -%]
+                    [%- form_submit(l('Submit note')) -%]
             [%- END -%]
         </form>
     </div>
+
+  [%- IF !full_width -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+      [%- INCLUDE "edit/info.tt" -%]
+    [% END %]
+  [%- END -%]
 [%- END -%]
 

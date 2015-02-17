@@ -14,7 +14,7 @@ test 'browse artists via release group' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via release group',
-    '/artist?release-group=22b54315-6e51-350b-bb34-e6e16f7688bd' => encode_json (
+    '/artist?release-group=22b54315-6e51-350b-bb34-e6e16f7688bd' => encode_json(
         {
             "artist-offset" => 0,
             "artist-count" => 1,
@@ -24,6 +24,9 @@ test 'browse artists via release group' => sub {
                     name => "Distance",
                     "sort-name" => "Distance",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "UK dubstep artist Greg Sanders",
                     "life-span" => {
                         begin => JSON::null,
@@ -32,6 +35,7 @@ test 'browse artists via release group' => sub {
                     },
                     type => "Person",
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };
@@ -41,7 +45,7 @@ test 'browse artists via recording' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via recording',
-    '/artist?inc=aliases&recording=0cf3008f-e246-428f-abc1-35f87d584d60' => encode_json (
+    '/artist?inc=aliases&recording=0cf3008f-e246-428f-abc1-35f87d584d60' => encode_json(
         {
             "artist-offset" => 0,
             "artist-count" => 2,
@@ -51,6 +55,9 @@ test 'browse artists via recording' => sub {
                     name => "m-flo",
                     "sort-name" => "m-flo",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "",
                     "life-span" => {
                         begin => "1998",
@@ -67,12 +74,16 @@ test 'browse artists via recording' => sub {
                         { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                     name => "BoA",
                     "sort-name" => "BoA",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "",
                     "life-span" => {
                         begin => "1986-11-05",
@@ -88,6 +99,7 @@ test 'browse artists via recording' => sub {
                         { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };
@@ -97,7 +109,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via release, inc=tags+ratings',
-    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+ratings' => encode_json (
+    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+ratings' => encode_json(
         {
             "artist-offset" => 0,
             "artist-count" => 3,
@@ -107,6 +119,9 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     name => "m-flo",
                     "sort-name" => "m-flo",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "",
                     "life-span" => {
                         begin => "1998",
@@ -117,12 +132,16 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "97fa3f6e-557c-4227-bc0e-95a7f9f3285d",
                     name => "BAGDAD CAFE THE trench town",
                     "sort-name" => "BAGDAD CAFE THE trench town",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "",
                     "life-span" => {
                         begin => JSON::null,
@@ -133,12 +152,16 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                     name => "BoA",
                     "sort-name" => "BoA",
                     country => JSON::null,
+                    area => JSON::null,
+                    begin_area => JSON::null,
+                    end_area => JSON::null,
                     disambiguation => "",
                     type => "Person",
                     "life-span" => {
@@ -157,6 +180,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'pop' },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };

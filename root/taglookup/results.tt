@@ -7,10 +7,8 @@
 
         [%- INCLUDE 'taglookup/form.tt' -%]
 
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-
-            [%- create_guideline(l('Search indexes are updated every 3 hours. If you just added the content you\'re looking for and you can\'t find it here, go to {url|the search page} and select the "direct database search" option.', {url => c.uri_for('/search')})) %]
-
-        [%- END -%]
+        <p>
+            [%- l('Search indexes are updated every 3 hours. If you just added the content you\'re looking for and you can\'t find it here, go to {url|the search page} and select the "direct database search" option.', {url => c.uri_for('/search')}) %]
+        </p>
     </div>
 [% END %]

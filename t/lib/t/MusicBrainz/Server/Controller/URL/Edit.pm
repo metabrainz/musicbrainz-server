@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::URL::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_deeply re );
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
@@ -26,9 +27,10 @@ my $response = $mech->submit_form(
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::URL::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     entity => {
         id => 1,
+        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
         name => 'http://musicbrainz.org/'
     },
     new => {
@@ -36,7 +38,9 @@ is_deeply($edit->data, {
     },
     old => {
         url => 'http://musicbrainz.org/',
-    }
+    },
+    affects => 0, # not realistic, but true for the test data (unused URL entity)
+    is_merge => 0,
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

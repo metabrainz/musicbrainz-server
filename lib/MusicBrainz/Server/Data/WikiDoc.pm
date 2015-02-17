@@ -6,6 +6,7 @@ use Carp;
 use Readonly;
 use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use URI::Escape qw( uri_unescape );
 use Encode qw( decode );
 
@@ -18,7 +19,6 @@ sub _fix_html_links
 {
     my ($self, $node, $index) = @_;
 
-    my $server      = DBDefs->WEB_SERVER;
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
 
     my $class = $node->attr('class') || "";
@@ -32,14 +32,14 @@ sub _fix_html_links
     my $href = $node->attr('href') || "";
 
     # Remove broken links & links to images in the wiki
-    if ($href =~ m,^https?://$wiki_server/(File|Image):, || $class =~ m/new/)
+    if ($href =~ m,^(?:https?:)?//$wiki_server/(File|Image):, || $class =~ m/new/)
     {
-        $node->replace_with ($node->content_list);
+        $node->replace_with($node->content_list);
     }
     # if this is not a link to the wikidocs server, don't mess with it.
-    elsif ($href =~ m,^https?://$wiki_server,)
+    elsif ($href =~ m,^(?:https?:)?//$wiki_server,)
     {
-        $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
+        $href =~ s,^(?:https?:)?//$wiki_server/?,/doc/,;
         $node->attr('href', $href);
     }
     elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
@@ -55,25 +55,25 @@ sub _fix_html_markup
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
     my $tree = HTML::TreeBuilder::XPath->new;
 
-    $tree->parse_content ("<html><body>".$content."</body></html>");
-    for my $node ($tree->findnodes (
+    $tree->parse_content("<html><body>".$content."</body></html>");
+    for my $node ($tree->findnodes(
                       '//span[contains(@class, "editsection")]')->get_nodelist)
     {
         $node->delete();
     }
 
-    for my $node ($tree->findnodes ('//a')->get_nodelist)
+    for my $node ($tree->findnodes('//a')->get_nodelist)
     {
-        $self->_fix_html_links ($node, $index);
+        $self->_fix_html_links($node, $index);
     }
 
-    for my $node ($tree->findnodes ('//img')->get_nodelist)
+    for my $node ($tree->findnodes('//img')->get_nodelist)
     {
         my $src = $node->attr('src') || "";
         $node->attr('src', $src) if ($src =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,);
     }
 
-    for my $node ($tree->findnodes ('//table')->get_nodelist)
+    for my $node ($tree->findnodes('//table')->get_nodelist)
     {
         my $class = $node->attr('class') || "";
 
@@ -125,7 +125,9 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $response = $self->c->lwp->get($doc_url);
+    my $response = get_chunked_with_retry($self->c->lwp, $doc_url);
+
+    return undef unless $response;
 
     if (!$response->is_success) {
         if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {
@@ -143,7 +145,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="https?:\/\/.*?\/(.*?)"/) {
+    if ($content =~ /<span class="redirectText"><a href="(?:https?:)?\/\/.*?\/(.*?)"/) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 

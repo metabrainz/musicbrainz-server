@@ -3,7 +3,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
-use MusicBrainz::Server::Translation qw ( l );
+use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -34,7 +35,7 @@ lookup_handler 'catno' => sub {
     my ($self, $c, $cat_no) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'catno:' . $cat_no,
             type => 'release',
             advanced => '1',
@@ -47,7 +48,7 @@ lookup_handler 'barcode' => sub {
     my ($self, $c, $barcode) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'barcode:' . $barcode,
             type => 'release',
             advanced => '1',
@@ -59,7 +60,7 @@ lookup_handler 'barcode' => sub {
 lookup_handler 'mbid' => sub {
     my ($self, $c, $gid) = @_;
 
-    for my $model (qw(Artist Label Recording Release ReleaseGroup URL Work)) {
+    for my $model (entities_with('mbid', take => 'model')) {
         my $entity = $c->model($model)->get_by_gid($gid) or next;
         $c->response->redirect(
             $c->uri_for_action(
@@ -69,6 +70,21 @@ lookup_handler 'mbid' => sub {
     }
 
     $self->not_found($c);
+};
+
+lookup_handler 'url' => sub {
+    my ($self, $c, $url) = @_;
+
+    my ($entity) = $c->model('URL')->find_by_url($url);
+    if (defined $entity) {
+        $c->response->redirect(
+            $c->uri_for_action(
+                $c->controller('URL')->action_for('show'),
+                [ $entity->gid ]));
+        $c->detach;
+    } else {
+        $self->not_found($c);
+    }
 };
 
 lookup_handler 'isrc' => sub {
@@ -99,7 +115,7 @@ lookup_handler 'iswc' => sub {
         );
     }
     else {
-        $c->detach('not_found');
+        $self->not_found($c);
     }
 };
 
@@ -107,8 +123,21 @@ lookup_handler 'artist-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'ipi:' . $ipi,
+            type => 'artist',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
+lookup_handler 'artist-isni' => sub {
+    my ($self, $c, $isni) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action('/search/search', {
+            query => 'isni:' . $isni,
             type => 'artist',
             advanced => '1',
         }));
@@ -120,7 +149,7 @@ lookup_handler 'label-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'ipi:' . $ipi,
             type => 'label',
             advanced => '1',
@@ -129,10 +158,16 @@ lookup_handler 'label-ipi' => sub {
     $c->detach;
 };
 
-lookup_handler 'puid' => sub {
-    my ($self, $c, $puid) = @_;
+lookup_handler 'label-isni' => sub {
+    my ($self, $c, $isni) = @_;
 
-    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
+    $c->response->redirect(
+        $c->uri_for_action('/search/search', {
+            query => 'isni:' . $isni,
+            type => 'label',
+            advanced => '1',
+        }));
+
     $c->detach;
 };
 
@@ -146,7 +181,7 @@ lookup_handler 'discid' => sub {
 lookup_handler 'freedbid' => sub {
     my ($self, $c, $freedbid) = @_;
 
-    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid (lc($freedbid));
+    my @cdtocs = $c->model('CDTOC')->find_by_freedbid(lc($freedbid));
 
     my @medium_cdtocs = map {
         $c->model('MediumCDTOC')->find_by_discid($_->discid);
@@ -155,14 +190,21 @@ lookup_handler 'freedbid' => sub {
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
 
-    $c->model('ArtistCredit')->load (@releases);
-    $c->model('Country')->load(@releases);
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_release_events(@releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);
     $c->model('Medium')->load_for_releases(@releases);
 
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseStatus')->load(@releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels} @releases);
+    $c->model('ReleaseGroup')->load(@releases);
+    $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+
     $c->stash(
-        releases => \@releases,
+        results => \@releases,
         template => 'otherlookup/results-release.tt'
     )
 };

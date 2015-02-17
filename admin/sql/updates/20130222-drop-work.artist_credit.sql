@@ -1,0 +1,7 @@
+\set ON_ERROR_STOP 1
+
+BEGIN;
+
+ALTER TABLE work DROP COLUMN artist_credit;
+
+COMMIT;

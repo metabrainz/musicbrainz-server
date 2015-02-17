@@ -1,0 +1,20 @@
+#!/bin/bash
+mkdir -p ./main ./oddlog ./errors
+exec multilog t \
+    +'*' s1000000 n50 ./main \
+    +'*' \
+    -'* Process memory information:*' \
+    -'* [warning] Found size is *' \
+    -'* [warning] Checking Memory Size*' \
+    -'* [warning] Process Info:*' \
+    -'* .------*' \
+    -'* | PID    | VIRT *' \
+    -'* +--------+------*' \
+    -'* |*|*|*| perl-fcgi       |' \
+    -"* '--------+---*" \
+    -'* FastCGI: *' \
+    -'* [warning] wizard session, *' \
+    -'* [error] wizard session, *' \
+    -'* [warning] * is bigger than: *' \
+    -'*$msgid in substitution*' \
+    ./oddlog \

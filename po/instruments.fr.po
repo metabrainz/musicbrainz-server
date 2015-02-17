@@ -1,0 +1,2741 @@
+# 
+# Translators:
+# nikki, 2014
+# yahoe.001, 2013
+# Lotheric <email address hidden>, 2012
+# Paul Tremberth <email address hidden>, 2013
+# Paul Tremberth <email address hidden>, 2013
+# yahoe.001, 2013-2014
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"PO-Revision-Date: 2014-10-30 10:08+0000\n"
+"Last-Translator: yahoe.001\n"
+"Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: DB:instrument/name:438
+msgid "12 string guitar"
+msgstr "guitare à 12 cordes"
+
+#: DB:instrument/name:516
+msgid "17-string koto"
+msgstr "koto à 17 cordes"
+
+#: DB:instrument/name:66
+msgid "Appalachian dulcimer"
+msgstr "Dulcimer des Appalaches"
+
+#: DB:instrument/name:421
+msgid "Baltic psalteries"
+msgstr "Psaltérions baltes"
+
+#: DB:instrument/name:457
+msgid "Batá drum"
+msgstr "Batá"
+
+#: DB:instrument/name:260
+msgid "Chamberlin"
+msgstr "Chamberlin"
+
+#: DB:instrument/name:183
+msgid "Chapman stick"
+msgstr "Chapman stick"
+
+#: DB:instrument/name:482
+msgid "Cretan lyra"
+msgstr "Lyra crétoise"
+
+#: DB:instrument/name:118
+msgid "Denis d'or"
+msgstr "Denis d'or"
+
+#: DB:instrument/name:602
+msgid "Disk Drive"
+msgstr "Lecteur de disque"
+
+#: DB:instrument/name:119
+msgid "Dubreq Stylophone"
+msgstr "Stylophone Dubreq"
+
+#: DB:instrument/name:574
+msgid "E-flat clarinet"
+msgstr "Requinto"
+
+#: DB:instrument/name:441
+msgid "EWI"
+msgstr "EWI instrument à vent électronique"
+
+#: DB:instrument/name:7
+msgid "English horn"
+msgstr "Cor anglais"
+
+#: DB:instrument/name:604
+msgid "Floppy Drive"
+msgstr "Lecteur de disquette"
+
+#: DB:instrument/name:30
+msgid "French horn"
+msgstr "Cor d'harmonie"
+
+#: DB:instrument/name:356
+msgid "German harp"
+msgstr "Harpe à simple mouvement"
+
+#: DB:instrument/name:236
+msgid "Greek baglama"
+msgstr "Baglama grec"
+
+#: DB:instrument/name:134
+msgid "Hammond organ"
+msgstr "Orgue Hammond"
+
+#: DB:instrument/name:603
+msgid "Harddisk"
+msgstr "Disque dur"
+
+#: DB:instrument/name:323
+msgid "Hawaiian guitar"
+msgstr "Guitare hawaïenne"
+
+#: DB:instrument/name:417
+msgid "Indian bamboo flutes"
+msgstr "Flûtes indiennes en bambou"
+
+#: DB:instrument/name:406
+msgid "Irish bouzouki"
+msgstr "Bouzouki irlandais"
+
+#: DB:instrument/name:355
+msgid "Irish harp / clàrsach"
+msgstr "Harpe celtique"
+
+#: DB:instrument/name:561
+msgid "Lyricon"
+msgstr "Lyricon"
+
+#: DB:instrument/name:132
+msgid "Mellotron"
+msgstr "Mellotron"
+
+#: DB:instrument/name:92
+msgid "Mexican vihuela"
+msgstr "Vihuela mexicaine"
+
+#: DB:instrument/name:278
+msgid "Minimoog"
+msgstr "Minimoog"
+
+#: DB:instrument/name:277
+msgid "Moog"
+msgstr "Moog"
+
+#: DB:instrument/name:358
+msgid "Northumbrian pipes"
+msgstr "Northumbrian pipes"
+
+#: DB:instrument/name:664
+msgid "Paraguayan harp"
+msgstr "Harpe paraguayenne"
+
+#: DB:instrument/name:647
+msgid "Portuguese guitar"
+msgstr "Guitare portugaise"
+
+#: DB:instrument/name:576
+msgid "Reactable"
+msgstr "reactable"
+
+#: DB:instrument/name:139
+msgid "Rhodes piano"
+msgstr "Piano électrique Rhodes"
+
+#: DB:instrument/name:476
+msgid "Saraswati veena"
+msgstr "Sarasvati vînâ"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr "Accordéon schwyzois"
+
+#: DB:instrument/name:427
+msgid "Scottish smallpipes"
+msgstr "Petite cornemuse écossaise"
+
+#: DB:instrument/name:157
+msgid "Spanish acoustic guitar"
+msgstr "Guitare acoustique espagnole"
+
+#: DB:instrument/name:262
+msgid "Spanish vihuela"
+msgstr "Vihuela espagnole"
+
+#: DB:instrument/name:451
+msgid "Stroh violin"
+msgstr "Violon à pavillon"
+
+#: DB:instrument/name:279
+msgid "Tibetan water drum"
+msgstr "Tambour à eau tibétain"
+
+#: DB:instrument/name:235
+msgid "Turkish baglama"
+msgstr "Saz"
+
+#: DB:instrument/name:562
+msgid "Vienna horn"
+msgstr "cors viennois"
+
+#: DB:instrument/name:322
+msgid "Vietnamese guitar"
+msgstr "Guitare vietnamienne"
+
+#: DB:instrument/name:152
+msgid "Wagner tuba"
+msgstr "Tuba wagnérien"
+
+#: DB:instrument/name:253
+msgid "Warr guitar"
+msgstr "Warr guitar"
+
+#: DB:instrument/name:468
+msgid "Wurlitzer electric piano"
+msgstr "Piano électrique Wurlitzer"
+
+#: DB:instrument/name:563
+msgid "Xaphoon"
+msgstr "Xaphoon"
+
+#: DB:instrument/name:41
+msgid "accordion"
+msgstr "Accordéon"
+
+#: DB:instrument/name:50
+msgid "acoustic bass guitar"
+msgstr "guitare basse acoustique"
+
+#: DB:instrument/name:539
+msgid "acoustic fretless guitar"
+msgstr "guitare acoustique fretless"
+
+#: DB:instrument/name:53
+msgid "acoustic guitar"
+msgstr "guitare acoustique"
+
+#: DB:instrument/name:65
+msgid "aeolian harp"
+msgstr "Harpe éolienne"
+
+#: DB:instrument/name:108
+msgid "afuche / cabasa"
+msgstr "cabasa"
+
+#: DB:instrument/name:487
+msgid "agogô"
+msgstr "agogô"
+
+#: DB:instrument/name:642
+msgid "ajaeng"
+msgstr "ajaeng"
+
+#: DB:instrument/name:508
+msgid "algozey"
+msgstr "alghoza"
+
+#: DB:instrument/name:27
+msgid "alphorn"
+msgstr "Cor des Alpes"
+
+#: DB:instrument/name:10
+msgid "alto clarinet"
+msgstr "clarinette alto"
+
+#: DB:instrument/name:346
+msgid "alto flute"
+msgstr "flûte en sol"
+
+#: DB:instrument/name:21
+msgid "alto saxophone"
+msgstr "saxophone alto"
+
+#: DB:instrument/name:174
+msgid "alto violin"
+msgstr "Alto"
+
+#: DB:instrument/name:363
+msgid "amadinda"
+msgstr "amadinda"
+
+#: DB:instrument/name:373
+msgid "ankle rattlers"
+msgstr "ankle rattlers"
+
+#: DB:instrument/name:226
+msgid "archaic and other bowed string-instruments"
+msgstr "Instrument à cordes frottées"
+
+#: DB:instrument/name:507
+msgid "archlute"
+msgstr "archiluth"
+
+#: DB:instrument/name:654
+msgid "archtop guitar"
+msgstr "guitare Archtop"
+
+#: DB:instrument/name:634
+msgid "arghul"
+msgstr "arghul"
+
+#: DB:instrument/name:565
+msgid "atarigane"
+msgstr "atarigane"
+
+#: DB:instrument/name:409
+msgid "autoharp"
+msgstr "Autoharpe"
+
+#: DB:instrument/name:426
+msgid "baglama"
+msgstr "Saz"
+
+#: DB:instrument/name:4
+msgid "bagpipe"
+msgstr "Cornemuse"
+
+#: DB:instrument/name:364
+msgid "balafon"
+msgstr "balafon"
+
+#: DB:instrument/name:67
+msgid "balalaika"
+msgstr "Balalaïka"
+
+#: DB:instrument/name:371
+msgid "bamboo angklung"
+msgstr "Angklung"
+
+#: DB:instrument/name:193
+msgid "bandoneón"
+msgstr "Bandonéon"
+
+#: DB:instrument/name:488
+msgid "bandora"
+msgstr "bandore"
+
+#: DB:instrument/name:394 DB:instrument/name:393
+msgid "bandura"
+msgstr "bandura"
+
+#: DB:instrument/name:581
+msgid "bangu"
+msgstr "bangu"
+
+#: DB:instrument/name:221
+msgid "banhu"
+msgstr "banhu"
+
+#: DB:instrument/name:396
+msgid "banjitar"
+msgstr "guitare banjo"
+
+#: DB:instrument/name:68
+msgid "banjo"
+msgstr "banjo"
+
+#: DB:instrument/name:190
+msgid "bansuri"
+msgstr "Bansurî"
+
+#: DB:instrument/name:301
+msgid "baritone guitar"
+msgstr "guitare baryton"
+
+#: DB:instrument/name:28
+msgid "baritone horn"
+msgstr "saxhorn"
+
+#: DB:instrument/name:23
+msgid "baritone saxophone"
+msgstr "Saxophone baryton"
+
+#: DB:instrument/name:521
+msgid "baroque trumpet"
+msgstr "trompette baroque"
+
+#: DB:instrument/name:587
+msgid "barrel drum"
+msgstr "tambour tonneau"
+
+#: DB:instrument/name:490
+msgid "barrel organ"
+msgstr "Orgue de Barbarie"
+
+#: DB:instrument/name:605
+msgid "baryton"
+msgstr "baryton"
+
+#: DB:instrument/name:47
+msgid "bass"
+msgstr "basses"
+
+#: DB:instrument/name:11
+msgid "bass clarinet"
+msgstr "clarinette basse"
+
+#: DB:instrument/name:430
+msgid "bass drum"
+msgstr "grosse caisse"
+
+#: DB:instrument/name:416
+msgid "bass flute"
+msgstr "flûte basse"
+
+#: DB:instrument/name:207
+msgid "bass guitar"
+msgstr "guitare basse"
+
+#: DB:instrument/name:465
+msgid "bass harmonica"
+msgstr "harmonica basse"
+
+#: DB:instrument/name:400
+msgid "bass pedals"
+msgstr "Pédales basses"
+
+#: DB:instrument/name:293
+msgid "bass recorder / f-bass recorder"
+msgstr "flûte à bec basse"
+
+#: DB:instrument/name:444
+msgid "bass saxophone"
+msgstr "Saxophone basse"
+
+#: DB:instrument/name:456
+msgid "bass synthesizer"
+msgstr "synthétiseur basse"
+
+#: DB:instrument/name:176
+msgid "bass trombone"
+msgstr "trombone basse"
+
+#: DB:instrument/name:404
+msgid "basset clarinet"
+msgstr "clarinette de basset"
+
+#: DB:instrument/name:405
+msgid "basset horn"
+msgstr "cor de basset"
+
+#: DB:instrument/name:5
+msgid "bassoon"
+msgstr "basson"
+
+#: DB:instrument/name:483
+msgid "bawu"
+msgstr "bawu"
+
+#: DB:instrument/name:432
+msgid "bayan"
+msgstr "bayan"
+
+#: DB:instrument/name:479
+msgid "bell tree"
+msgstr "bell tree"
+
+#: DB:instrument/name:428
+msgid "bellow-blown bagpipes"
+msgstr "cornemuses à soufflet"
+
+#: DB:instrument/name:116
+msgid "bells"
+msgstr "cloche"
+
+#: DB:instrument/name:343
+msgid "bendir"
+msgstr "bendir"
+
+#: DB:instrument/name:69
+msgid "berimbau"
+msgstr "berimbau"
+
+#: DB:instrument/name:380
+msgid "bin-sasara"
+msgstr "binzasara"
+
+#: DB:instrument/name:70
+msgid "biwa"
+msgstr "biwa"
+
+#: DB:instrument/name:419
+msgid "boatswain's pipe"
+msgstr "Sifflet bosun"
+
+#: DB:instrument/name:188
+msgid "bodhrán"
+msgstr "bodhrán"
+
+#: DB:instrument/name:500
+msgid "body percussion"
+msgstr "percussions corporelles"
+
+#: DB:instrument/name:431
+msgid "bombarde"
+msgstr "bombarde"
+
+#: DB:instrument/name:357
+msgid "bones"
+msgstr "os"
+
+#: DB:instrument/name:103
+msgid "bongos"
+msgstr "bongos"
+
+#: DB:instrument/name:71
+msgid "bouzouki"
+msgstr "bouzouki"
+
+#: DB:instrument/name:504
+msgid "bowed piano"
+msgstr "piano à cordes frottées"
+
+#: DB:instrument/name:229
+msgid "bowed psaltery"
+msgstr "Psaltérion à archet"
+
+#: DB:instrument/name:205
+msgid "bowed string instruments"
+msgstr "instruments à cordes frottées"
+
+#: DB:instrument/name:24
+msgid "brass"
+msgstr "cuivres"
+
+#: DB:instrument/name:320
+msgid "brushes"
+msgstr "balais"
+
+#: DB:instrument/name:36
+msgid "bugle"
+msgstr "clairon"
+
+#: DB:instrument/name:577
+msgid "buk"
+msgstr "buk"
+
+#: DB:instrument/name:528
+msgid "bulbul tarang"
+msgstr "bulbul tarang"
+
+#: DB:instrument/name:153
+msgid "bullroarer"
+msgstr "rhombe"
+
+#: DB:instrument/name:360
+msgid "button accordion"
+msgstr "accordéon clavier « boutons »"
+
+#: DB:instrument/name:655
+msgid "buzuq"
+msgstr "buzuq"
+
+#: DB:instrument/name:336
+msgid "cajón"
+msgstr "cajón"
+
+#: DB:instrument/name:127
+msgid "calliope"
+msgstr "calliope"
+
+#: DB:instrument/name:128
+msgid "carillon"
+msgstr "carillon"
+
+#: DB:instrument/name:109
+msgid "castanets"
+msgstr "castagnettes"
+
+#: DB:instrument/name:524
+msgid "cavaquinho"
+msgstr "cavaquinho"
+
+#: DB:instrument/name:489
+msgid "caxixi"
+msgstr "caxixi"
+
+#: DB:instrument/name:129
+msgid "celesta"
+msgstr "célesta"
+
+#: DB:instrument/name:60
+msgid "cello"
+msgstr "violoncelle"
+
+#: DB:instrument/name:335
+msgid "chacha"
+msgstr "chacha"
+
+#: DB:instrument/name:627
+msgid "chakhe"
+msgstr "chakhe"
+
+#: DB:instrument/name:436
+msgid "chalumeau"
+msgstr "chalumeau"
+
+#: DB:instrument/name:471
+msgid "chamber organ"
+msgstr "orgue de chambre"
+
+#: DB:instrument/name:536
+msgid "chande"
+msgstr "chande"
+
+#: DB:instrument/name:619
+msgid "chap"
+msgstr "chap"
+
+#: DB:instrument/name:466
+msgid "charango"
+msgstr "charango"
+
+#: DB:instrument/name:640
+msgid "chau gong"
+msgstr "chau gong"
+
+#: DB:instrument/name:578
+msgid "chikuzen biwa"
+msgstr "chikuzen biwa"
+
+#: DB:instrument/name:638
+msgid "chime bar"
+msgstr "lame sur résonateur"
+
+#: DB:instrument/name:338
+msgid "chimes"
+msgstr "carillon tubulaire"
+
+#: DB:instrument/name:618
+msgid "ching"
+msgstr "ching"
+
+#: DB:instrument/name:433
+msgid "chromatic button accordion"
+msgstr "accordéon chromatique à clavier « boutons »"
+
+#: DB:instrument/name:300
+msgid "chromatic harmonica"
+msgstr "harmonica chromatique"
+
+#: DB:instrument/name:237
+msgid "cittern"
+msgstr "cistre"
+
+#: DB:instrument/name:218
+msgid "cizhonghu"
+msgstr "dahu"
+
+#: DB:instrument/name:9
+msgid "clarinet"
+msgstr "clarinette"
+
+#: DB:instrument/name:54
+msgid "classical guitar"
+msgstr "guitare classique"
+
+#: DB:instrument/name:542
+msgid "classical kemençe"
+msgstr "kemençe classique"
+
+#: DB:instrument/name:110
+msgid "claves"
+msgstr "claves"
+
+#: DB:instrument/name:130
+msgid "clavichord"
+msgstr "clavicorde"
+
+#: DB:instrument/name:175
+msgid "clavinet"
+msgstr "clavinet"
+
+#: DB:instrument/name:414
+msgid "concert flute"
+msgstr "flûte traversière"
+
+#: DB:instrument/name:351
+msgid "concert harp"
+msgstr "harpe diatonique"
+
+#: DB:instrument/name:42
+msgid "concertina"
+msgstr "concertina"
+
+#: DB:instrument/name:156
+msgid "conch"
+msgstr "conque"
+
+#: DB:instrument/name:102
+msgid "congas"
+msgstr "congas"
+
+#: DB:instrument/name:390
+msgid "continuum"
+msgstr "continuum"
+
+#: DB:instrument/name:12
+msgid "contrabass clarinet"
+msgstr "clarinette contrebasse"
+
+#: DB:instrument/name:295
+msgid "contrabass recorder"
+msgstr "flûte à bec contrebasse"
+
+#: DB:instrument/name:446
+msgid "contrabass saxophone"
+msgstr "saxophone contrebasse"
+
+#: DB:instrument/name:6
+msgid "contrabassoon"
+msgstr "contrebasson"
+
+#: DB:instrument/name:510
+msgid "cornamuse"
+msgstr "cornamuse"
+
+#: DB:instrument/name:25
+msgid "cornet"
+msgstr "cornet à pistons"
+
+#: DB:instrument/name:203
+msgid "cornett"
+msgstr "cornet à bouquin"
+
+#: DB:instrument/name:158
+msgid "cowbell"
+msgstr "clarine"
+
+#: DB:instrument/name:164
+msgid "crotales"
+msgstr "crotales"
+
+#: DB:instrument/name:348
+msgid "crumhorn"
+msgstr "tournebout"
+
+#: DB:instrument/name:74
+msgid "crwth"
+msgstr "crwth"
+
+#: DB:instrument/name:439
+msgid "cuatro"
+msgstr "cuatro"
+
+#: DB:instrument/name:491
+msgid "cuíca"
+msgstr "cuica"
+
+#: DB:instrument/name:658
+msgid "cylindrical drum"
+msgstr "tambour cylindrique"
+
+#: DB:instrument/name:271
+msgid "cymbals"
+msgstr "cymbales"
+
+#: DB:instrument/name:256
+msgid "cymbalum"
+msgstr "cymbalum"
+
+#: DB:instrument/name:309
+msgid "cò ke"
+msgstr "cò ke"
+
+#: DB:instrument/name:410
+msgid "cümbüş"
+msgstr "cümbüş"
+
+#: DB:instrument/name:492
+msgid "daegeum"
+msgstr "taegum"
+
+#: DB:instrument/name:326
+msgid "daf"
+msgstr "daf"
+
+#: DB:instrument/name:532
+msgid "daire"
+msgstr "doyre"
+
+#: DB:instrument/name:551
+msgid "daluo"
+msgstr "daluo"
+
+#: DB:instrument/name:342
+msgid "darbuka"
+msgstr "darbouka"
+
+#: DB:instrument/name:546
+msgid "daruan"
+msgstr "daruan"
+
+#: DB:instrument/name:411
+msgid "davul"
+msgstr "davul"
+
+#: DB:instrument/name:469
+msgid "descant recorder / soprano recorder"
+msgstr "flûte à bec soprano"
+
+#: DB:instrument/name:535
+msgid "dhol"
+msgstr "dhôl"
+
+#: DB:instrument/name:382
+msgid "dholak"
+msgstr "dholak"
+
+#: DB:instrument/name:361
+msgid "diatonic accordion / melodeon"
+msgstr "mélodéon"
+
+#: DB:instrument/name:635
+msgid "diddley bow"
+msgstr "diddley bow"
+
+#: DB:instrument/name:155
+msgid "didgeridoo"
+msgstr "didgeridoo"
+
+#: DB:instrument/name:530
+msgid "dilruba"
+msgstr "dilruba"
+
+#: DB:instrument/name:317
+msgid "ding tac ta"
+msgstr "ding tac ta"
+
+#: DB:instrument/name:220
+msgid "diyingehu"
+msgstr "diyingehu"
+
+#: DB:instrument/name:460
+msgid "dizi"
+msgstr "dizi"
+
+#: DB:instrument/name:265
+msgid "djembe"
+msgstr "djembé"
+
+#: DB:instrument/name:184
+msgid "dobro"
+msgstr "dobro"
+
+#: DB:instrument/name:399
+msgid "dohol"
+msgstr "dohol"
+
+#: DB:instrument/name:598
+msgid "dombra"
+msgstr "dombra"
+
+#: DB:instrument/name:485
+msgid "domra"
+msgstr "domra"
+
+#: DB:instrument/name:48
+msgid "double bass / contrabass / acoustic upright bass"
+msgstr "contrebasse"
+
+#: DB:instrument/name:3
+msgid "double reed"
+msgstr "instrument à anche double"
+
+#: DB:instrument/name:111
+msgid "doyra"
+msgstr "doyre"
+
+#: DB:instrument/name:120
+msgid "drum machine"
+msgstr "boîte à rythmes"
+
+#: DB:instrument/name:100
+msgid "drums"
+msgstr "batterie/tambours"
+
+#: DB:instrument/name:101
+msgid "drumset"
+msgstr "batterie"
+
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr "appeau"
+
+#: DB:instrument/name:194
+msgid "duct flute"
+msgstr "flûte à embouchure"
+
+#: DB:instrument/name:397
+msgid "duduk"
+msgstr "duduk"
+
+#: DB:instrument/name:496
+msgid "dulcian"
+msgstr "douçaine"
+
+#: DB:instrument/name:659
+msgid "dunun"
+msgstr "dum dum"
+
+#: DB:instrument/name:629
+msgid "dutar"
+msgstr "dotâr"
+
+#: DB:instrument/name:596
+msgid "duxianqin"
+msgstr "duxianqin"
+
+#: DB:instrument/name:327
+msgid "ebow"
+msgstr "ebow"
+
+#: DB:instrument/name:677
+msgid "effects"
+msgstr "effets"
+
+#: DB:instrument/name:643
+msgid "ektara"
+msgstr "ektara"
+
+#: DB:instrument/name:51
+msgid "electric bass guitar"
+msgstr "guitare basse"
+
+#: DB:instrument/name:208
+msgid "electric cello"
+msgstr "violoncelle électrique"
+
+#: DB:instrument/name:538
+msgid "electric fretless guitar"
+msgstr "guitare électrique fretless"
+
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr "piano à queue électrique"
+
+#: DB:instrument/name:55
+msgid "electric guitar"
+msgstr "guitare électrique"
+
+#: DB:instrument/name:352
+msgid "electric harp"
+msgstr "harpe électrique"
+
+#: DB:instrument/name:389
+msgid "electric lap steel guitar"
+msgstr "lap steel guitar électrique"
+
+#: DB:instrument/name:259
+msgid "electric piano"
+msgstr "piano électrique"
+
+#: DB:instrument/name:246
+msgid "electric sitar"
+msgstr "sitar électrique"
+
+#: DB:instrument/name:49
+msgid "electric upright bass"
+msgstr "contrebasse électrique"
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr "alto électrique"
+
+#: DB:instrument/name:212
+msgid "electric violin"
+msgstr "violon électrique"
+
+#: DB:instrument/name:402
+msgid "electronic drum set"
+msgstr "batterie électronique"
+
+#: DB:instrument/name:117
+msgid "electronic instruments"
+msgstr "instruments électroniques"
+
+#: DB:instrument/name:447
+msgid "electronic organ"
+msgstr "orgue électronique"
+
+#: DB:instrument/name:560
+msgid "electronic wind instrument"
+msgstr "instrument à vent électronique"
+
+#: DB:instrument/name:14
+msgid "end-blown flute"
+msgstr "flûte à embouchure"
+
+#: DB:instrument/name:215
+msgid "erhu"
+msgstr "erhu"
+
+#: DB:instrument/name:529
+msgid "esraj"
+msgstr "esraj"
+
+#: DB:instrument/name:150
+msgid "euphonium"
+msgstr "euphonium"
+
+#: DB:instrument/name:448
+msgid "farfisa"
+msgstr "orgue farfisa"
+
+#: DB:instrument/name:61
+msgid "fiddle"
+msgstr "fiddle"
+
+#: DB:instrument/name:514
+msgid "fife"
+msgstr "fifre"
+
+#: DB:instrument/name:461
+msgid "finger cymbals"
+msgstr "sagattes"
+
+#: DB:instrument/name:449
+msgid "finger snaps"
+msgstr "claquements de doigts"
+
+#: DB:instrument/name:523
+msgid "five-string banjo"
+msgstr "banjo à 5 cordes"
+
+#: DB:instrument/name:29
+msgid "flugelhorn"
+msgstr "bugle"
+
+#: DB:instrument/name:13
+msgid "flute"
+msgstr "flûte"
+
+#: DB:instrument/name:415
+msgid "flûte d'amour"
+msgstr "flûte d'amour"
+
+#: DB:instrument/name:353
+msgid "folk harp"
+msgstr "harpe folklorique"
+
+#: DB:instrument/name:478
+msgid "foot percussion"
+msgstr "podorythmie"
+
+#: DB:instrument/name:384
+msgid "fortepiano"
+msgstr "piano forte"
+
+#: DB:instrument/name:656
+msgid "four-string banjo"
+msgstr "banjo à quatre cordes"
+
+#: DB:instrument/name:570
+msgid "fourth flute"
+msgstr "flûte de quatre"
+
+#: DB:instrument/name:344
+msgid "frame drum"
+msgstr "tambour sur cadre"
+
+#: DB:instrument/name:40
+msgid "free reed"
+msgstr "instrument à anche libre"
+
+#: DB:instrument/name:435
+msgid "fretless bass"
+msgstr "basse fretless"
+
+#: DB:instrument/name:586
+msgid "friction drum"
+msgstr "tambour à friction"
+
+#: DB:instrument/name:368
+msgid "frottoir"
+msgstr "frottoir"
+
+#: DB:instrument/name:571
+msgid "fujara"
+msgstr "fujara"
+
+#: DB:instrument/name:231
+msgid "gadulka"
+msgstr "gadoulka"
+
+#: DB:instrument/name:365
+msgid "gamelan"
+msgstr "gamelan"
+
+#: DB:instrument/name:383
+msgid "gankogui"
+msgstr "gankogui"
+
+#: DB:instrument/name:644
+msgid "ganzá"
+msgstr "ganzá"
+
+#: DB:instrument/name:216
+msgid "gaohu"
+msgstr "gaohu"
+
+#: DB:instrument/name:289
+msgid "garklein recorder"
+msgstr "flûte à bec Exilent"
+
+#: DB:instrument/name:75
+msgid "gayageum"
+msgstr "kayagum"
+
+#: DB:instrument/name:219
+msgid "gehu"
+msgstr "gehu"
+
+#: DB:instrument/name:76
+msgid "geomungo"
+msgstr "geomungo"
+
+#: DB:instrument/name:331
+msgid "ghatam"
+msgstr "ghatam"
+
+#: DB:instrument/name:285
+msgid "glass harmonica"
+msgstr "armonica de verre"
+
+#: DB:instrument/name:165
+msgid "glockenspiel"
+msgstr "glockenspiel"
+
+#: DB:instrument/name:268
+msgid "goblet drum"
+msgstr "darbouka"
+
+#: DB:instrument/name:270
+msgid "gong"
+msgstr "gong"
+
+#: DB:instrument/name:639
+msgid "gong bass drum"
+msgstr "tambour gong"
+
+#: DB:instrument/name:269
+msgid "gongs"
+msgstr "gongs"
+
+#: DB:instrument/name:582
+msgid "gralla"
+msgstr "gralla"
+
+#: DB:instrument/name:138
+msgid "grand piano"
+msgstr "piano à queue"
+
+#: DB:instrument/name:294
+msgid "great bass recorder / c-bass recorder"
+msgstr "flûte à bec grande basse"
+
+#: DB:instrument/name:683
+msgid "guan"
+msgstr "guan"
+
+#: DB:instrument/name:230
+msgid "gudok"
+msgstr "gudok"
+
+#: DB:instrument/name:645
+msgid "guitalele"
+msgstr "guitalele"
+
+#: DB:instrument/name:177
+msgid "guitar"
+msgstr "guitare"
+
+#: DB:instrument/name:52
+msgid "guitars"
+msgstr "guitares"
+
+#: DB:instrument/name:325
+msgid "gumbri"
+msgstr "gumbri"
+
+#: DB:instrument/name:506
+msgid "guqin"
+msgstr "guqin"
+
+#: DB:instrument/name:423
+msgid "gusli"
+msgstr "gousli"
+
+#: DB:instrument/name:567
+msgid "gut guitar"
+msgstr "guitare classique"
+
+#: DB:instrument/name:452
+msgid "guzheng"
+msgstr "guzheng"
+
+#: DB:instrument/name:112
+msgid "güiro"
+msgstr "güiro"
+
+#: DB:instrument/name:486
+msgid "haegeum"
+msgstr "haegeum"
+
+#: DB:instrument/name:77
+msgid "hammered dulcimer"
+msgstr "hammered dulcimer"
+
+#: DB:instrument/name:275
+msgid "handbells"
+msgstr "cloches à main"
+
+#: DB:instrument/name:321
+msgid "handclaps"
+msgstr "battements de mains"
+
+#: DB:instrument/name:512
+msgid "hang"
+msgstr "hang"
+
+#: DB:instrument/name:142
+msgid "hardart"
+msgstr "hardart"
+
+#: DB:instrument/name:78
+msgid "hardingfele"
+msgstr "violon Hardanger"
+
+#: DB:instrument/name:43
+msgid "harmonica"
+msgstr "harmonica"
+
+#: DB:instrument/name:135
+msgid "harmonium"
+msgstr "harmonium"
+
+#: DB:instrument/name:58
+msgid "harp"
+msgstr "harpe"
+
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr "guitare-harpe"
+
+#: DB:instrument/name:131
+msgid "harpsichord"
+msgstr "clavecin"
+
+#: DB:instrument/name:191
+msgid "heckelphone"
+msgstr "heckelphone"
+
+#: DB:instrument/name:579
+msgid "heike biwa"
+msgstr "heike biwa"
+
+#: DB:instrument/name:678
+msgid "helicon"
+msgstr "hélicon"
+
+#: DB:instrument/name:454
+msgid "hi-hat"
+msgstr "charleston"
+
+#: DB:instrument/name:616
+msgid "hichiriki"
+msgstr "hichiriki"
+
+#: DB:instrument/name:312
+msgid "hmông flute"
+msgstr "flûte hmông"
+
+#: DB:instrument/name:26
+msgid "horn"
+msgstr "cor"
+
+#: DB:instrument/name:585
+msgid "hourglass drum"
+msgstr "tambour en forme de sablier"
+
+#: DB:instrument/name:547
+msgid "hulusi"
+msgstr "hulusi"
+
+#: DB:instrument/name:213
+msgid "huqin"
+msgstr "húqín"
+
+#: DB:instrument/name:79
+msgid "hurdy gurdy"
+msgstr "vielle à roue"
+
+#: DB:instrument/name:674
+msgid "idiophone"
+msgstr "idiophone"
+
+#: DB:instrument/name:495
+msgid "janggu"
+msgstr "janggo"
+
+#: DB:instrument/name:80
+msgid "jew's harp"
+msgstr "guimbarde"
+
+#: DB:instrument/name:552
+msgid "jing"
+msgstr "jing"
+
+#: DB:instrument/name:549
+msgid "jing'erhu"
+msgstr "jing'erhu"
+
+#: DB:instrument/name:214
+msgid "jinghu"
+msgstr "jinghu"
+
+#: DB:instrument/name:505
+msgid "jug"
+msgstr "cruche"
+
+#: DB:instrument/name:283
+msgid "k'lông pút"
+msgstr "k'lông pút"
+
+#: DB:instrument/name:503
+msgid "kamancheh"
+msgstr "kamânche"
+
+#: DB:instrument/name:474
+msgid "kanjira"
+msgstr "kanjira"
+
+#: DB:instrument/name:422
+msgid "kanklės"
+msgstr "kanklės"
+
+#: DB:instrument/name:424
+msgid "kantele"
+msgstr "kantele"
+
+#: DB:instrument/name:288
+msgid "kanun"
+msgstr "Qanun"
+
+#: DB:instrument/name:534
+msgid "kartal"
+msgstr "kartal"
+
+#: DB:instrument/name:458
+msgid "kaval"
+msgstr "kaval"
+
+#: DB:instrument/name:143
+msgid "kazoo"
+msgstr "kazoo"
+
+#: DB:instrument/name:211
+msgid "kemenche"
+msgstr "lyra"
+
+#: DB:instrument/name:541
+msgid "kemençe of the Black Sea"
+msgstr "kemençe de la mer noire"
+
+#: DB:instrument/name:178
+msgid "keyboard"
+msgstr "clavier"
+
+#: DB:instrument/name:362
+msgid "keyboard bass"
+msgstr "clavier basse"
+
+#: DB:instrument/name:154
+msgid "keyed brass instruments"
+msgstr "instruments à vent à clefs"
+
+#: DB:instrument/name:611
+msgid "khene"
+msgstr "khên"
+
+#: DB:instrument/name:287
+msgid "khim"
+msgstr "khim"
+
+#: DB:instrument/name:666
+msgid "khlui"
+msgstr "khlui"
+
+#: DB:instrument/name:621
+msgid "khong wong"
+msgstr "khong wong"
+
+#: DB:instrument/name:622
+msgid "khong wong lek"
+msgstr "khong wong lek"
+
+#: DB:instrument/name:623
+msgid "khong wong yai"
+msgstr "khong wong yai"
+
+#: DB:instrument/name:318
+msgid "khèn Mèo"
+msgstr "khèn Mèo"
+
+#: DB:instrument/name:307
+msgid "ki pah"
+msgstr "ki pah"
+
+#: DB:instrument/name:247
+msgid "kinnor"
+msgstr "kinnor"
+
+#: DB:instrument/name:248
+msgid "kithara"
+msgstr "cithare"
+
+#: DB:instrument/name:498
+msgid "kkwaenggwari"
+msgstr "kkwaenggwari"
+
+#: DB:instrument/name:671
+msgid "klong khaek"
+msgstr "klong khaek"
+
+#: DB:instrument/name:672
+msgid "klong song na"
+msgstr "klong song na"
+
+#: DB:instrument/name:673
+msgid "klong that"
+msgstr "klong that"
+
+#: DB:instrument/name:670
+msgid "klong yao"
+msgstr "klong yao"
+
+#: DB:instrument/name:223
+msgid "kokyu"
+msgstr "Kokyū"
+
+#: DB:instrument/name:543
+msgid "komuz"
+msgstr "komuz"
+
+#: DB:instrument/name:81
+msgid "kora"
+msgstr "kora"
+
+#: DB:instrument/name:264
+msgid "kortholt"
+msgstr "kortholt"
+
+#: DB:instrument/name:82
+msgid "koto"
+msgstr "koto"
+
+#: DB:instrument/name:557
+msgid "kotsuzumi"
+msgstr "kotsuzumi"
+
+#: DB:instrument/name:652
+msgid "krakebs"
+msgstr "qraqeb"
+
+#: DB:instrument/name:525
+msgid "kudüm"
+msgstr "kudüm"
+
+#: DB:instrument/name:303
+msgid "kèn bầu"
+msgstr "kèn bầu"
+
+#: DB:instrument/name:311
+msgid "kèn lá"
+msgstr "kèn lá"
+
+#: DB:instrument/name:556
+msgid "kōauau"
+msgstr "kōauau"
+
+#: DB:instrument/name:632
+msgid "lamellophone"
+msgstr "lamellophone"
+
+#: DB:instrument/name:249
+msgid "langeleik"
+msgstr "langeleik"
+
+#: DB:instrument/name:385
+msgid "lap steel guitar"
+msgstr "lap steel guitar"
+
+#: DB:instrument/name:515
+msgid "laser harp"
+msgstr "harpe laser"
+
+#: DB:instrument/name:144
+msgid "lasso d'amore"
+msgstr "lasso d'amour"
+
+#: DB:instrument/name:518
+msgid "launeddas"
+msgstr "launeddas"
+
+#: DB:instrument/name:573
+msgid "limbe"
+msgstr "limbe"
+
+#: DB:instrument/name:609
+msgid "liuqin"
+msgstr "liuqin"
+
+#: DB:instrument/name:398
+msgid "low whistle"
+msgstr "whistle de concert"
+
+#: DB:instrument/name:83
+msgid "lute"
+msgstr "luth"
+
+#: DB:instrument/name:84
+msgid "lyre"
+msgstr "lyre"
+
+#: DB:instrument/name:186
+msgid "madal"
+msgstr "madal"
+
+#: DB:instrument/name:537
+msgid "maddale"
+msgstr "maddale"
+
+#: DB:instrument/name:600
+msgid "mandocello"
+msgstr "mandoloncelle"
+
+#: DB:instrument/name:238
+msgid "mandola"
+msgstr "mandola"
+
+#: DB:instrument/name:72
+msgid "mandolin"
+msgstr "mandoline"
+
+#: DB:instrument/name:113
+msgid "maracas"
+msgstr "maracas"
+
+#: DB:instrument/name:166
+msgid "marimba"
+msgstr "marimbaphone"
+
+#: DB:instrument/name:637
+msgid "mark tree"
+msgstr "rivière"
+
+#: DB:instrument/name:442
+msgid "marxophone"
+msgstr "marxophone"
+
+#: DB:instrument/name:633
+msgid "marímbula"
+msgstr "marimbula"
+
+#: DB:instrument/name:85
+msgid "mbira"
+msgstr "mbira"
+
+#: DB:instrument/name:37
+msgid "mellophone"
+msgstr "mellophone"
+
+#: DB:instrument/name:44
+msgid "melodica"
+msgstr "Mélodica"
+
+#: DB:instrument/name:114
+msgid "mendoza"
+msgstr "mendoza"
+
+#: DB:instrument/name:372
+msgid "metal angklung"
+msgstr "angklung en métal"
+
+#: DB:instrument/name:349
+msgid "metallophone"
+msgstr "métallophone"
+
+#: DB:instrument/name:591
+msgid "mirliton"
+msgstr "mirliton"
+
+#: DB:instrument/name:224
+msgid "morin khuur / matouqin"
+msgstr "morin khuur"
+
+#: DB:instrument/name:533
+msgid "morsing"
+msgstr "môrsing"
+
+#: DB:instrument/name:610
+msgid "mouth organ"
+msgstr "orgue à bouche"
+
+#: DB:instrument/name:475
+msgid "mridangam"
+msgstr "mridangam"
+
+#: DB:instrument/name:73
+msgid "musical bow"
+msgstr "arc musical"
+
+#: DB:instrument/name:464
+msgid "musical box"
+msgstr "boîte à musique"
+
+#: DB:instrument/name:145
+msgid "musical saw"
+msgstr "scie musicale"
+
+#: DB:instrument/name:267
+msgid "mõ"
+msgstr "mõ"
+
+#: DB:instrument/name:553
+msgid "nagadou-daiko"
+msgstr "nagadou-daiko"
+
+#: DB:instrument/name:297
+msgid "nai"
+msgstr "naÏ"
+
+#: DB:instrument/name:599
+msgid "naobo"
+msgstr "naobo"
+
+#: DB:instrument/name:35
+msgid "natural brass instruments"
+msgstr "instruments à vent naturels"
+
+#: DB:instrument/name:522
+msgid "natural horn"
+msgstr "cor naturel"
+
+#: DB:instrument/name:540
+msgid "ney"
+msgstr "ney"
+
+#: DB:instrument/name:493
+msgid "nohkan"
+msgstr "Nōkan"
+
+#: DB:instrument/name:200
+msgid "nose flute"
+msgstr "flûte à nez"
+
+#: DB:instrument/name:594
+msgid "nose whistle"
+msgstr "sifflet à nez"
+
+#: DB:instrument/name:228
+msgid "nyckelharpa"
+msgstr "nyckelharpa"
+
+#: DB:instrument/name:566
+msgid "nylon guitar"
+msgstr "guitare à cordes en nylon"
+
+#: DB:instrument/name:272
+msgid "não bạt / chập chõa"
+msgstr "não bạt / chập chõa"
+
+#: DB:instrument/name:8
+msgid "oboe"
+msgstr "hautbois"
+
+#: DB:instrument/name:473
+msgid "oboe d'amore"
+msgstr "hautbois d'amour"
+
+#: DB:instrument/name:572
+msgid "oboe da caccia"
+msgstr "hautbois de caccia"
+
+#: DB:instrument/name:15
+msgid "ocarina"
+msgstr "ocarina"
+
+#: DB:instrument/name:376
+msgid "ocean drum"
+msgstr "tambour d'océan"
+
+#: DB:instrument/name:601
+msgid "octave mandolin"
+msgstr "mandole ténor"
+
+#: DB:instrument/name:281
+msgid "omnichord"
+msgstr "omnichord"
+
+#: DB:instrument/name:121
+msgid "ondes Martenot"
+msgstr "ondes Martenot"
+
+#: DB:instrument/name:38
+msgid "ophicleide"
+msgstr "Ophicléide"
+
+#: DB:instrument/name:133
+msgid "organ"
+msgstr "orgue"
+
+#: DB:instrument/name:519
+msgid "orpharion"
+msgstr "orpharion"
+
+#: DB:instrument/name:588
+msgid "other drums"
+msgstr "autres tambours"
+
+#: DB:instrument/name:141
+msgid "other instruments"
+msgstr "autres instruments"
+
+#: DB:instrument/name:171
+msgid "other percussion"
+msgstr "autres percussions"
+
+#: DB:instrument/name:64
+msgid "other string instruments"
+msgstr "autres instruments à cordes"
+
+#: DB:instrument/name:234
+msgid "oud"
+msgstr "oud"
+
+#: DB:instrument/name:502
+msgid "pakhavaj"
+msgstr "pakhâwaj"
+
+#: DB:instrument/name:16
+msgid "pan flute"
+msgstr "Flûte de Pan"
+
+#: DB:instrument/name:315
+msgid "pang gu ly hu hmông"
+msgstr "pang gu ly hu hmông"
+
+#: DB:instrument/name:606
+msgid "pedal piano"
+msgstr "piano-pédalier"
+
+#: DB:instrument/name:388
+msgid "pedal steel guitar"
+msgstr "pedal steel guitar"
+
+#: DB:instrument/name:99
+msgid "percussion"
+msgstr "percussions"
+
+#: DB:instrument/name:302
+msgid "phách"
+msgstr "phách"
+
+#: DB:instrument/name:667
+msgid "pi"
+msgstr "pi"
+
+#: DB:instrument/name:668
+msgid "pi nai"
+msgstr "pi nai"
+
+#: DB:instrument/name:137
+msgid "piano"
+msgstr "piano"
+
+#: DB:instrument/name:359
+msgid "piano accordion"
+msgstr "accordéon-piano"
+
+#: DB:instrument/name:17
+msgid "piccolo"
+msgstr "piccolo"
+
+#: DB:instrument/name:401
+msgid "piccolo trumpet"
+msgstr "trompette piccolo"
+
+#: DB:instrument/name:350
+msgid "pipa"
+msgstr "pipa"
+
+#: DB:instrument/name:136
+msgid "pipe organ"
+msgstr "orgue à tuyaux"
+
+#: DB:instrument/name:499
+msgid "piri"
+msgstr "piri"
+
+#: DB:instrument/name:232
+msgid "plucked string instruments"
+msgstr "instrument à cordes pincées"
+
+#: DB:instrument/name:626
+msgid "post horn"
+msgstr "cor postal"
+
+#: DB:instrument/name:429
+msgid "practice chanter"
+msgstr "chanterelle de pratique"
+
+#: DB:instrument/name:481
+msgid "prepared piano"
+msgstr "piano préparé"
+
+#: DB:instrument/name:86
+msgid "psaltery"
+msgstr "psaltérion"
+
+#: DB:instrument/name:339
+msgid "pí thiu"
+msgstr "pí thiu"
+
+#: DB:instrument/name:613
+msgid "qilaut"
+msgstr "kilaut"
+
+#: DB:instrument/name:437
+msgid "quena"
+msgstr "quena"
+
+#: DB:instrument/name:375
+msgid "rainstick"
+msgstr "bâton de pluie"
+
+#: DB:instrument/name:628
+msgid "rammana"
+msgstr "rammana"
+
+#: DB:instrument/name:614
+msgid "ranat ek"
+msgstr "ranat ek"
+
+#: DB:instrument/name:665
+msgid "ranat kaeo"
+msgstr "ranat kaeo"
+
+#: DB:instrument/name:620
+msgid "ranat thum"
+msgstr "ranat thum"
+
+#: DB:instrument/name:161
+msgid "ratchet"
+msgstr "crécelle"
+
+#: DB:instrument/name:334
+msgid "rattle"
+msgstr "hochet"
+
+#: DB:instrument/name:595
+msgid "rauschpfeife"
+msgstr "rauschpfeife"
+
+#: DB:instrument/name:239
+msgid "rebab"
+msgstr "Rabâb"
+
+#: DB:instrument/name:206
+msgid "rebec"
+msgstr "rebec"
+
+#: DB:instrument/name:18
+msgid "recorder"
+msgstr "flûte à bec"
+
+#: DB:instrument/name:204
+msgid "reed organ"
+msgstr "harmonium"
+
+#: DB:instrument/name:179
+msgid "reeds"
+msgstr "anches"
+
+#: DB:instrument/name:386
+msgid "resonator guitar"
+msgstr "guitare à résonateur"
+
+#: DB:instrument/name:369
+msgid "rhythm sticks"
+msgstr "bâtons de rythmes"
+
+#: DB:instrument/name:329
+msgid "riq"
+msgstr "riqq"
+
+#: DB:instrument/name:568
+msgid "rondador"
+msgstr "rondador"
+
+#: DB:instrument/name:545
+msgid "ruan"
+msgstr "ruan"
+
+#: DB:instrument/name:501
+msgid "rudra veena"
+msgstr "rudra vina"
+
+#: DB:instrument/name:617
+msgid "ryuteki"
+msgstr "ryuteki"
+
+#: DB:instrument/name:646
+msgid "sabar"
+msgstr "sabar"
+
+#: DB:instrument/name:149
+msgid "sackbut"
+msgstr "sacqueboute"
+
+#: DB:instrument/name:583
+msgid "samba whistle"
+msgstr "apito de samba"
+
+#: DB:instrument/name:122
+msgid "sampler"
+msgstr "échantillonneur"
+
+#: DB:instrument/name:245
+msgid "sanshin"
+msgstr "sanshin"
+
+#: DB:instrument/name:286
+msgid "santoor"
+msgstr "santour"
+
+#: DB:instrument/name:255
+msgid "santur"
+msgstr "santour"
+
+#: DB:instrument/name:244
+msgid "sanxian"
+msgstr "sanxian"
+
+#: DB:instrument/name:341
+msgid "sapek clappers"
+msgstr "cliquettes sapek"
+
+#: DB:instrument/name:459
+msgid "sarangi"
+msgstr "sarangi"
+
+#: DB:instrument/name:189
+msgid "sarod"
+msgstr "sarod"
+
+#: DB:instrument/name:597
+msgid "saron"
+msgstr "saron"
+
+#: DB:instrument/name:580
+msgid "satsuma biwa"
+msgstr "satsuma biwa"
+
+#: DB:instrument/name:624
+msgid "saw duang"
+msgstr "saw duang"
+
+#: DB:instrument/name:625
+msgid "saw u"
+msgstr "saw u"
+
+#: DB:instrument/name:19
+msgid "saxophone"
+msgstr "saxophone"
+
+#: DB:instrument/name:472
+msgid "saz"
+msgstr "saz"
+
+#: DB:instrument/name:310
+msgid "saó ôi flute"
+msgstr "flûte saó ôi"
+
+#: DB:instrument/name:148
+msgid "serpent"
+msgstr "serpent"
+
+#: DB:instrument/name:630
+msgid "setar"
+msgstr "setâr"
+
+#: DB:instrument/name:340
+msgid "shakers"
+msgstr "idiophones secoués"
+
+#: DB:instrument/name:173
+msgid "shakuhachi"
+msgstr "shakuhachi"
+
+#: DB:instrument/name:87
+msgid "shamisen"
+msgstr "shamisen"
+
+#: DB:instrument/name:408
+msgid "shawm"
+msgstr "chalemie"
+
+#: DB:instrument/name:494
+msgid "shehnai"
+msgstr "shehnai"
+
+#: DB:instrument/name:381
+msgid "shekere"
+msgstr "chekeré"
+
+#: DB:instrument/name:45
+msgid "sheng"
+msgstr "sheng"
+
+#: DB:instrument/name:554
+msgid "shime-daiko"
+msgstr "shime-daiko"
+
+#: DB:instrument/name:470
+msgid "shinobue"
+msgstr "shinobue"
+
+#: DB:instrument/name:192
+msgid "sho"
+msgstr "shō"
+
+#: DB:instrument/name:39
+msgid "shofar"
+msgstr "chophar"
+
+#: DB:instrument/name:443
+msgid "shruti box"
+msgstr "surpeti"
+
+#: DB:instrument/name:593
+msgid "shudraga"
+msgstr "shudraga"
+
+#: DB:instrument/name:569
+msgid "siku"
+msgstr "siku"
+
+#: DB:instrument/name:146
+msgid "singing bowl"
+msgstr "bol chantant"
+
+#: DB:instrument/name:180
+msgid "singular reed"
+msgstr "anche simple"
+
+#: DB:instrument/name:370
+msgid "sistrum"
+msgstr "sistre"
+
+#: DB:instrument/name:88
+msgid "sitar"
+msgstr "cithare"
+
+#: DB:instrument/name:202
+msgid "slide brass instruments"
+msgstr "cuivres à coulisse"
+
+#: DB:instrument/name:56
+msgid "slide guitar"
+msgstr "guitare en glissando"
+
+#: DB:instrument/name:198
+msgid "slide whistle"
+msgstr "pipeau à coulisse"
+
+#: DB:instrument/name:366
+msgid "slit drum"
+msgstr "tambour à fente"
+
+#: DB:instrument/name:104
+msgid "snare drum"
+msgstr "caisse claire"
+
+#: DB:instrument/name:284
+msgid "song loan"
+msgstr "song loan"
+
+#: DB:instrument/name:290
+msgid "sopranino recorder"
+msgstr "flûte à bec sopranino"
+
+#: DB:instrument/name:445
+msgid "sopranino saxophone"
+msgstr "saxophone sopranino"
+
+#: DB:instrument/name:403
+msgid "soprano clarinet"
+msgstr "clarinette soprano"
+
+#: DB:instrument/name:413
+msgid "soprano flute"
+msgstr "flûte soprano"
+
+#: DB:instrument/name:20
+msgid "soprano saxophone"
+msgstr "saxophone soprano"
+
+#: DB:instrument/name:210
+msgid "soprano violin"
+msgstr "violon soprano"
+
+#: DB:instrument/name:151
+msgid "sousaphone"
+msgstr "soubassophone"
+
+#: DB:instrument/name:513
+msgid "spilåpipa"
+msgstr "spilåpipa"
+
+#: DB:instrument/name:160
+msgid "spoons"
+msgstr "cuillères"
+
+#: DB:instrument/name:57
+msgid "steel guitar"
+msgstr "steel guitar"
+
+#: DB:instrument/name:653
+msgid "steel-string guitar"
+msgstr "guitare folk"
+
+#: DB:instrument/name:273
+msgid "steelpan"
+msgstr "steelpan"
+
+#: DB:instrument/name:46
+msgid "strings"
+msgstr "cordes"
+
+#: DB:instrument/name:675
+msgid "struck idiophone"
+msgstr "idiophone frappé"
+
+#: DB:instrument/name:252
+msgid "struck string instruments"
+msgstr "instruments à cordes frappées"
+
+#: DB:instrument/name:296
+msgid "subcontrabass recorder"
+msgstr "flûte à bec soucontrebasse"
+
+#: DB:instrument/name:147
+msgid "suikinkutsu"
+msgstr "suikinkutsu"
+
+#: DB:instrument/name:548
+msgid "suona"
+msgstr "suona"
+
+#: DB:instrument/name:379
+msgid "surdo"
+msgstr "surdo"
+
+#: DB:instrument/name:123
+msgid "synclavier"
+msgstr "synclavier"
+
+#: DB:instrument/name:124
+msgid "synthesizer"
+msgstr "syntétiseur"
+
+#: DB:instrument/name:298
+msgid "syrinx"
+msgstr "syrinx"
+
+#: DB:instrument/name:316
+msgid "sáo meò"
+msgstr "sáo meò"
+
+#: DB:instrument/name:199
+msgid "sáo trúc"
+msgstr "sáo trúc"
+
+#: DB:instrument/name:276
+msgid "sênh tiền"
+msgstr "sênh tiền"
+
+#: DB:instrument/name:304
+msgid "t'rưng"
+msgstr "t'rưng"
+
+#: DB:instrument/name:185
+msgid "tabla"
+msgstr "tabla"
+
+#: DB:instrument/name:387
+msgid "table steel guitar"
+msgstr "table steel guitar"
+
+#: DB:instrument/name:636
+msgid "tack piano"
+msgstr "piano honky tonk"
+
+#: DB:instrument/name:641
+msgid "taepyeongso"
+msgstr "taepyeongso"
+
+#: DB:instrument/name:378
+msgid "taiko"
+msgstr "taiko"
+
+#: DB:instrument/name:555
+msgid "taishogoto"
+msgstr "taishogoto"
+
+#: DB:instrument/name:544
+msgid "talharpa / hiiu kannel"
+msgstr "talharpa / hiiu kannel"
+
+#: DB:instrument/name:453
+msgid "talkbox"
+msgstr "talkbox"
+
+#: DB:instrument/name:377
+msgid "talking drum"
+msgstr "tama"
+
+#: DB:instrument/name:263
+msgid "tambourine"
+msgstr "tambourin"
+
+#: DB:instrument/name:391
+msgid "tambura"
+msgstr "tamboura"
+
+#: DB:instrument/name:392
+msgid "tamburitza"
+msgstr "tamburitza"
+
+#: DB:instrument/name:333
+msgid "tanbou ka"
+msgstr "tanbou ka"
+
+#: DB:instrument/name:477
+msgid "tanbur"
+msgstr "tanbur"
+
+#: DB:instrument/name:425
+msgid "tangent piano"
+msgstr "piano à tangentes"
+
+#: DB:instrument/name:559
+msgid "tap dancing"
+msgstr "claquettes"
+
+#: DB:instrument/name:520
+msgid "tape"
+msgstr "ruban"
+
+#: DB:instrument/name:669
+msgid "taphon"
+msgstr "taphon"
+
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
+msgstr "tar"
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr "tar"
+
+#: DB:instrument/name:440
+msgid "taragot"
+msgstr "tárogató"
+
+#: DB:instrument/name:531
+msgid "tef"
+msgstr "tef"
+
+#: DB:instrument/name:125
+msgid "teleharmonium"
+msgstr "telharmonium"
+
+#: DB:instrument/name:172
+msgid "temple blocks"
+msgstr "blocs chinois"
+
+#: DB:instrument/name:657
+msgid "tenor banjo"
+msgstr "banjo ténor"
+
+#: DB:instrument/name:434
+msgid "tenor guitar"
+msgstr "guitare ténor"
+
+#: DB:instrument/name:31
+msgid "tenor horn / alto horn"
+msgstr "saxhorn alto"
+
+#: DB:instrument/name:292
+msgid "tenor recorder"
+msgstr "flûte à bec tenor"
+
+#: DB:instrument/name:22
+msgid "tenor saxophone"
+msgstr "saxophone ténor"
+
+#: DB:instrument/name:662
+msgid "tenor trombone"
+msgstr "trombone ténor"
+
+#: DB:instrument/name:615
+msgid "tenor violin"
+msgstr "alto"
+
+#: DB:instrument/name:480
+msgid "thavil"
+msgstr "thavil"
+
+#: DB:instrument/name:347
+msgid "theatre organ"
+msgstr "orgue de cinéma"
+
+#: DB:instrument/name:395
+msgid "theorbo"
+msgstr "théorbe"
+
+#: DB:instrument/name:126
+msgid "theremin"
+msgstr "thérémine"
+
+#: DB:instrument/name:584
+msgid "thon"
+msgstr "thon"
+
+#: DB:instrument/name:332
+msgid "ti bwa"
+msgstr "ti bwa"
+
+#: DB:instrument/name:105
+msgid "timbales"
+msgstr "timbales"
+
+#: DB:instrument/name:167
+msgid "timpani"
+msgstr "timbale classique"
+
+#: DB:instrument/name:197
+msgid "tin whistle"
+msgstr "flûte irlandaise"
+
+#: DB:instrument/name:261
+msgid "tiple"
+msgstr "tiple"
+
+#: DB:instrument/name:324
+msgid "tiêu"
+msgstr "tiêu"
+
+#: DB:instrument/name:462
+msgid "tom-tom"
+msgstr "tom"
+
+#: DB:instrument/name:575
+msgid "tonkori"
+msgstr "tonkori"
+
+#: DB:instrument/name:258
+msgid "toy piano"
+msgstr "piano jouet"
+
+#: DB:instrument/name:345
+msgid "transverse flute"
+msgstr "flûte traversière"
+
+#: DB:instrument/name:412
+msgid "treble flute"
+msgstr "flûte en sol"
+
+#: DB:instrument/name:291
+msgid "treble recorder / alto recorder"
+msgstr "flûte à bec alto"
+
+#: DB:instrument/name:209
+msgid "treble violin"
+msgstr "violon alto"
+
+#: DB:instrument/name:90
+msgid "tres"
+msgstr "tres"
+
+#: DB:instrument/name:106
+msgid "triangle"
+msgstr "triangle"
+
+#: DB:instrument/name:32
+msgid "trombone"
+msgstr "trombone"
+
+#: DB:instrument/name:663
+msgid "tromboon"
+msgstr "trombon"
+
+#: DB:instrument/name:33
+msgid "trumpet"
+msgstr "trompette"
+
+#: DB:instrument/name:308
+msgid "tràm plè"
+msgstr "tràm plè"
+
+#: DB:instrument/name:314
+msgid "trắng jâu"
+msgstr "trắng jâu"
+
+#: DB:instrument/name:313
+msgid "trắng lu"
+msgstr "trắng lu"
+
+#: DB:instrument/name:305
+msgid "trống bông"
+msgstr "trống bông"
+
+#: DB:instrument/name:34
+msgid "tuba"
+msgstr "tuba"
+
+#: DB:instrument/name:168
+msgid "tubular bells"
+msgstr "carillon tubulaire"
+
+#: DB:instrument/name:511
+msgid "tumbi"
+msgstr "tumbi"
+
+#: DB:instrument/name:115
+msgid "tuned percussion"
+msgstr "percussion accordée"
+
+#: DB:instrument/name:181
+msgid "turntable(s)"
+msgstr "électrophone(s)"
+
+#: DB:instrument/name:526
+msgid "typewriter"
+msgstr "machine à écrire"
+
+#: DB:instrument/name:463
+msgid "tzoura"
+msgstr "tzoura"
+
+#: DB:instrument/name:330
+msgid "udu"
+msgstr "udu"
+
+#: DB:instrument/name:187
+msgid "uilleann pipes"
+msgstr "cornemuse irlandaise"
+
+#: DB:instrument/name:631
+msgid "ukeke"
+msgstr "ukeke"
+
+#: DB:instrument/name:89
+msgid "ukulele"
+msgstr "Ukulélé"
+
+#: DB:instrument/name:140
+msgid "upright piano"
+msgstr "piano droit"
+
+#: DB:instrument/name:299
+msgid "vacuum cleaner"
+msgstr "aspirateur"
+
+#: DB:instrument/name:517
+msgid "valiha"
+msgstr "valiha"
+
+#: DB:instrument/name:182
+msgid "valve trombone"
+msgstr "trombone à pistons"
+
+#: DB:instrument/name:201
+msgid "valved brass instruments"
+msgstr "cuivres à pistons"
+
+#: DB:instrument/name:418
+msgid "venu"
+msgstr "venu"
+
+#: DB:instrument/name:367
+msgid "vessel drum"
+msgstr "timbale classique"
+
+#: DB:instrument/name:650
+msgid "vessel flute"
+msgstr "flûte globulaire"
+
+#: DB:instrument/name:169
+msgid "vibraphone"
+msgstr "vibraphone"
+
+#: DB:instrument/name:162
+msgid "vibraslap"
+msgstr "vibraslap"
+
+#: DB:instrument/name:612
+msgid "vichitra veena"
+msgstr "vichitra vînâ"
+
+#: DB:instrument/name:91
+msgid "vielle"
+msgstr "vièle"
+
+#: DB:instrument/name:63
+msgid "viola"
+msgstr "alto"
+
+#: DB:instrument/name:660
+msgid "viola caipira"
+msgstr "viola caipira"
+
+#: DB:instrument/name:94
+msgid "viola d'amore"
+msgstr "viole d'amour"
+
+#: DB:instrument/name:93
+msgid "viola da gamba"
+msgstr "viole de gambe"
+
+#: DB:instrument/name:227
+msgid "viola organista"
+msgstr "viola organista"
+
+#: DB:instrument/name:62
+msgid "violin"
+msgstr "violon"
+
+#: DB:instrument/name:661
+msgid "violino piccolo"
+msgstr "violino piccolo"
+
+#: DB:instrument/name:59
+msgid "violins"
+msgstr "violons"
+
+#: DB:instrument/name:420
+msgid "violone"
+msgstr "violone"
+
+#: DB:instrument/name:95
+msgid "violotta"
+msgstr "violotta"
+
+#: DB:instrument/name:509
+msgid "virginal"
+msgstr "virginal"
+
+#: DB:instrument/name:282
+msgid "vocoder"
+msgstr "vocodeur"
+
+#: DB:instrument/name:450
+msgid "voice synthesizer"
+msgstr "synthétiseur vocal"
+
+#: DB:instrument/name:159
+msgid "washboard"
+msgstr "planche à laver"
+
+#: DB:instrument/name:96
+msgid "washtub bass"
+msgstr "Contrebassine"
+
+#: DB:instrument/name:280
+msgid "waterphone"
+msgstr "waterphone"
+
+#: DB:instrument/name:374
+msgid "wavedrum"
+msgstr "wavedrum"
+
+#: DB:instrument/name:107
+msgid "whip"
+msgstr "fouet"
+
+#: DB:instrument/name:274
+msgid "whistle"
+msgstr "sifflet"
+
+#: DB:instrument/name:196
+msgid "willow flute"
+msgstr "seljefløyte"
+
+#: DB:instrument/name:497
+msgid "wind chime"
+msgstr "carillon éolien"
+
+#: DB:instrument/name:1
+msgid "wind instruments"
+msgstr "instruments à vent"
+
+#: DB:instrument/name:354
+msgid "wire-strung harp"
+msgstr "harpe celtique"
+
+#: DB:instrument/name:163
+msgid "wood block"
+msgstr "bloc de bois"
+
+#: DB:instrument/name:2
+msgid "woodwind"
+msgstr "les bois"
+
+#: DB:instrument/name:97
+msgid "xalam / khalam"
+msgstr "xalam"
+
+#: DB:instrument/name:484
+msgid "xiao"
+msgstr "xiao"
+
+#: DB:instrument/name:550
+msgid "xiaoluo"
+msgstr "xiaoluo"
+
+#: DB:instrument/name:651
+msgid "xun"
+msgstr "xun"
+
+#: DB:instrument/name:170
+msgid "xylophone"
+msgstr "xylophone"
+
+#: DB:instrument/name:254
+msgid "yangqin"
+msgstr "yangqin"
+
+#: DB:instrument/name:564
+msgid "yatga"
+msgstr "yatga"
+
+#: DB:instrument/name:527
+msgid "yaylı tanbur"
+msgstr "yaylı tanbur"
+
+#: DB:instrument/name:222
+msgid "yehu"
+msgstr "yēhú"
+
+#: DB:instrument/name:240
+msgid "yueqin"
+msgstr "yueqin"
+
+#: DB:instrument/name:328
+msgid "zarb"
+msgstr "tombak"
+
+#: DB:instrument/name:217
+msgid "zhonghu"
+msgstr "zhonghu"
+
+#: DB:instrument/name:241
+msgid "zhongruan"
+msgstr "zhongruan"
+
+#: DB:instrument/name:455
+msgid "zill"
+msgstr "sagattes"
+
+#: DB:instrument/name:98
+msgid "zither"
+msgstr "cithare"
+
+#: DB:instrument/name:407
+msgid "zurna"
+msgstr "zurna"
+
+#: DB:instrument/name:306
+msgid "đing buốt"
+msgstr "đing buốt"
+
+#: DB:instrument/name:319
+msgid "đing năm"
+msgstr "đing năm"
+
+#: DB:instrument/name:251
+msgid "đàn bầu"
+msgstr "đàn bầu"
+
+#: DB:instrument/name:242
+msgid "đàn nguyệt"
+msgstr "đàn nguyệt"
+
+#: DB:instrument/name:225
+msgid "đàn nhị"
+msgstr "đàn nhị"
+
+#: DB:instrument/name:337
+msgid "đàn tam"
+msgstr "đàn tam"
+
+#: DB:instrument/name:257
+msgid "đàn tam thập lục"
+msgstr "đàn tam thập lục"
+
+#: DB:instrument/name:250
+msgid "đàn tranh"
+msgstr "đàn tranh"
+
+#: DB:instrument/name:608
+msgid "đàn tứ"
+msgstr "đàn tứ"
+
+#: DB:instrument/name:233
+msgid "đàn tứ dây"
+msgstr "đàn tứ dây"
+
+#: DB:instrument/name:243
+msgid "đàn tỳ bà"
+msgstr "đàn tỳ bà"
+
+#: DB:instrument/name:266
+msgid "đại cô/tiểu cô"
+msgstr "đại cô/tiểu cô"
+
+#: DB:instrument/name:558
+msgid "ōtsuzumi"
+msgstr "ōtsuzumi"
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr "šargija"
+
+#: DB:instrument/name:589
+msgid "żafżafa"
+msgstr "żafżafa"
+
+#: DB:instrument/name:590
+msgid "żaqq"
+msgstr "żaqq"
+
+#: DB:instrument/name:592
+msgid "żummara"
+msgstr "żummara"

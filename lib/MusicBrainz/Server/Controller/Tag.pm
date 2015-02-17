@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Controller::Tag;
 use Moose;
+use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
@@ -42,78 +44,34 @@ sub show : Chained('load') PathPart('')
         map {
             my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
                 $tag->id, 10, 0);
+            $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
 
             ($_ . '_tags' => $entities,
              $_ . '_count' => $total)
-        } qw( artist label recording release release_group work )
+        } entities_with('tags')
     );
 }
 
-sub artist : Chained('load')
-{
-    my ($self, $c) = @_;
+map {
+    my $entity_properties = $ENTITIES{$_};
+    my $url = $entity_properties->{url} // $_;
 
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('Artist')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->stash( entity_tags => $entity_tags );
-}
+    my $method = sub {
+        my ($self, $c) = @_;
 
-sub label : Chained('load')
-{
-    my ($self, $c) = @_;
+        my $entity_tags = $self->_load_paged($c, sub {
+            $c->model($entity_properties->{model})->tags->find_entities($c->stash->{tag}->id, shift, shift);
+        });
 
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('Label')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->stash( entity_tags => $entity_tags );
-}
+        $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
+        $c->stash(entity_tags => $entity_tags);
+    };
 
-sub recording : Chained('load')
-{
-    my ($self, $c) = @_;
+    find_meta(__PACKAGE__)->add_method($_ => $method);
+    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$url')"]);
+} entities_with('tags');
 
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('Recording')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
-    $c->stash( entity_tags => $entity_tags );
-}
-
-sub release : Chained('load') PathPart('release')
-{
-    my ($self, $c) = @_;
-
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('Release')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
-    $c->stash( entity_tags => $entity_tags );
-}
-
-sub release_group : Chained('load') PathPart('release-group')
-{
-    my ($self, $c) = @_;
-
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('ReleaseGroup')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
-    $c->stash( entity_tags => $entity_tags );
-}
-
-sub work : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    my $entity_tags = $self->_load_paged($c, sub {
-        $c->model('Work')->tags->find_entities($c->stash->{tag}->id, shift, shift);
-    });
-    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
-    $c->stash( entity_tags => $entity_tags );
-}
-
-sub not_found
+sub not_found : Private
 {
     my ($self, $c, $tagname) = @_;
     $c->response->status(404);

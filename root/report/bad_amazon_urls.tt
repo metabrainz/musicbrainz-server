@@ -23,7 +23,7 @@
     </thead>
     <tbody>
         [%- FOR item IN items -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             <td>[% artist_credit(item.release.artist_credit) %]</td>
             <td>[% link_entity(item.release) %]</td>
             <td>[% link_entity(item.url, 'show', item.url.url) %]</td>

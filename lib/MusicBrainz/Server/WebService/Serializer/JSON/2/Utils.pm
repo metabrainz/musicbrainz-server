@@ -1,11 +1,15 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
 
+use warnings;
+use strict;
+
 use base 'Exporter';
-use Readonly;
-use List::UtilsBy 'sort_by';
+use Class::Load qw( load_class );
+use List::UtilsBy qw( sort_by );
 
 our @EXPORT_OK = qw(
     boolean
+    count_of
     list_of
     number
     date_period
@@ -13,22 +17,31 @@ our @EXPORT_OK = qw(
     serialize_entity
 );
 
-my %serializers;
-
-Readonly my %ENTITY_TO_SERIALIZER => (
-    'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
-    'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit',
-    'MusicBrainz::Server::Entity::Collection' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Collection',
-    'MusicBrainz::Server::Entity::CDTOC' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::CDTOC',
-    'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Label',
-    'MusicBrainz::Server::Entity::Medium' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Medium',
-    'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Recording',
-    'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Relation',
-    'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
-    'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
-    'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
-    'MusicBrainz::Server::Entity::URL' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::URL',
-);
+my %serializers =
+    map {
+        my $class = "MusicBrainz::Server::WebService::Serializer::JSON::2::$_";
+        load_class($class);
+        "MusicBrainz::Server::Entity::$_" => $class->new
+    } qw(
+        Area
+        Artist
+        ArtistCredit
+        CDStubTOC
+        CDTOC
+        Collection
+        Event
+        Instrument
+        Label
+        Place
+        Medium
+        Recording
+        Relationship
+        Release
+        ReleaseGroup
+        Series
+        URL
+        Work
+    );
 
 sub boolean { return (shift) ? JSON::true : JSON::false; }
 
@@ -43,7 +56,7 @@ sub date_period {
     my %lifespan = (
         begin => JSON::null,
         end => JSON::null,
-        ended => boolean ($entity->ended),
+        ended => boolean($entity->ended),
         );
 
     $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
@@ -58,17 +71,13 @@ sub serializer
 
     my $serializer;
 
-    for my $class (keys %ENTITY_TO_SERIALIZER) {
+    for my $class (keys %serializers) {
         if ($entity->isa($class)) {
-            $serializer = $ENTITY_TO_SERIALIZER{$class};
-            last;
+            return $serializers{$class};
         }
     }
 
-    Class::MOP::load_class($serializer);
-
-    $serializers{$serializer} ||= $serializer->new;
-    return $serializers{$serializer};
+    die 'No serializer found for ' . ref($entity);
 }
 
 sub serialize_entity
@@ -79,15 +88,26 @@ sub serialize_entity
 
 sub list_of
 {
-    my ($entity, $inc, $stash, $type) = @_;
+    my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return [
-        map { serialize_entity($_, $inc, $stash) }
+        map { serialize_entity($_, $inc, $stash, $toplevel) }
         sort_by { $_->gid } @$items ];
+}
+
+sub count_of
+{
+    my ($entity, $inc, $stash, $type, $toplevel) = @_;
+
+    my $opts = $stash->store($entity);
+    my $list = $opts->{$type};
+    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
+
+    return number(scalar @$items);
 }
 
 1;

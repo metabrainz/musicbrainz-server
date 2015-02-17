@@ -1,12 +1,11 @@
 # 
 # Translators:
-# Bouklis Panos <email address hidden>, 2012.
-# Dimitris  <email address hidden>, 2012.
+# Panos Bouklis <email address hidden>, 2012
+# Dimitris <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"PO-Revision-Date: 2014-08-21 15:12+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -360,6 +359,11 @@ msgstr "Καυκάσιες γλώσσες"
 msgid "Cebuano"
 msgstr "Σεμπουάνο"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -369,6 +373,11 @@ msgstr "Κέλτικες γλώσσες"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Ινδιάνικες γλώσσες Κεντρικής Αμερικής"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr ""
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -575,7 +584,7 @@ msgstr ""
 msgid "Dutch"
 msgstr "Ολλανδικά"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Ολλανδικά, Μεσαιωνικά (περίπου 1050-1350)"
@@ -780,7 +789,7 @@ msgstr "Γερμανικά"
 msgid "German, Low"
 msgstr "Γερμανικά, Κάτω"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Γερμανικά, Άνω Μεσαιωνικά (περίπου 1050-1500)"
@@ -970,6 +979,11 @@ msgstr "Ινδοευρωπαϊκές γλώσσες"
 msgid "Indonesian"
 msgstr "Ινδονησιανά"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr ""
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1125,6 +1139,11 @@ msgstr "Καβυλικά"
 msgid "Kazakh"
 msgstr "Καζακικά"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr ""
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1185,7 +1204,7 @@ msgstr "Κογκό"
 msgid "Konkani"
 msgstr ""
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Κορεάτικα"
@@ -1420,6 +1439,11 @@ msgstr ""
 msgid "Manobo languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr ""
+
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
@@ -1625,7 +1649,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr "Ινδιάνικες γλώσσες Βόρειας Αμερικής"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Νορβηγικά"

@@ -29,7 +29,7 @@ sub serialize
     push @body, ($self->gen->sort_name($entity->sort_name));
     push @body, ($self->gen->disambiguation($entity->comment)) if $entity->comment;
 
-    push @body, ( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
+    push @body, ( $self->lifespan($entity) ) if $self->has_lifespan($entity);
 
     push @body, ( list_of($opts->{aliases}) )
         if ($inc && $inc->aliases);

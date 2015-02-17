@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 [% FOR page IN pages %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <tr class="[% loop.parity %]">
                         <td class="title"><a href="[% doc_link(page.id) %]">[% page.id | html %]</a></td>
                         <td class="c transcluded-version"[% ' style="text-align:right"' IF updates_required && c.user.is_wiki_transcluder %]>
                             [% page.version %]
@@ -50,7 +50,7 @@
                               [%~ page.wiki_version || l('Error!') ~%]
                             </span>
                             [% IF page.wiki_version && (page.wiki_version != page.version) %]
-                              (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
+                              (<a href="//[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
                             [% END %]
                           [% END %]
                         </td>
@@ -58,9 +58,9 @@
                         [% IF c.user.is_wiki_transcluder %]
                           <td class="c nowrap">
                               [
-                              <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                              <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id, new_version => page.wiki_version }) | html %]">[% l('Update') %]</a> |
                               <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
-                              <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
+                              <a href="//[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                               ]
                           </td>
                         [% END %]

@@ -3,6 +3,7 @@ package MusicBrainz::Server::WebService::Format;
 use HTTP::Status qw( HTTP_NOT_ACCEPTABLE );
 use MooseX::Role::Parameterized;
 use REST::Utils qw( best_match );
+use Class::Load qw( load_class );
 
 parameter serializers => (
     is => 'ro',
@@ -12,7 +13,7 @@ parameter serializers => (
 sub _instance
 {
     my $cls = shift;
-    Class::MOP::load_class ($cls);
+    load_class($cls);
     $cls->new;
 }
 
@@ -30,17 +31,17 @@ role {
 
         if (defined $fmt)
         {
-            return _instance ($formats{$fmt}) if $formats{$fmt};
+            return _instance($formats{$fmt}) if $formats{$fmt};
         }
         else
         {
             # Default to application/xml when no accept header is specified.
             # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
-            my $accept = $c->req->header ('Accept') // "application/xml";
+            my $accept = $c->req->header('Accept') // "application/xml";
 
-            my $match = best_match ([ keys %accepted ], $accept);
+            my $match = best_match([ keys %accepted ], $accept);
 
-            return _instance ($accepted{$match}) if $match;
+            return _instance($accepted{$match}) if $match;
         }
 
         $c->stash->{error} = 'Invalid format. Either set an Accept header'

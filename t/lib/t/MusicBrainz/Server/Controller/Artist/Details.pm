@@ -18,7 +18,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 $mech->get_ok("/artist/745c079d-374e-4436-9448-da92dedef3ce/details",
               'fetch artist details page');
 html_ok($mech->content);
-$mech->content_contains('http://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
+$mech->content_contains('https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
                         '..has permanent link');
 $mech->content_contains('>745c079d-374e-4436-9448-da92dedef3ce</',
                         '..has mbid in plain text');

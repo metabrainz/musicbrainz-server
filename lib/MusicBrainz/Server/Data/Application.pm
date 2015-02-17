@@ -83,6 +83,11 @@ before 'delete' => sub
     $self->c->model('EditorOAuthToken')->delete_application($id);
 };
 
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    $self->sql->do("DELETE FROM " . $self->_table . " WHERE owner = ?", $editor_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

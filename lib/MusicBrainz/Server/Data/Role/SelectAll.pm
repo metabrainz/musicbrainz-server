@@ -24,7 +24,7 @@ role
 
     method '_delete_all_from_cache' => sub {
         my $self = shift;
-        $self->c->cache->delete ($self->_id_cache_prefix . ":all");
+        $self->c->cache->delete($self->_id_cache_prefix . ":all");
     };
 
     # Clear cached data if the list of all entities has changed.
@@ -38,16 +38,18 @@ role
         my $self = shift;
         my $key = $self->_id_cache_prefix . ":all";
 
-        my $cache = $self->c->cache;
-        my $all = $cache->get ($key);
+        my $cache = $self->c->cache($self->_id_cache_prefix);
+        my $all = $cache->get($key);
 
         return @$all if $all;
 
-        my @all = $self->_get_all_from_db ($params);
-        $cache->set ($key, \@all);
+        my @all = $self->_get_all_from_db($params);
+        $cache->set($key, \@all);
 
         return @all;
     };
+
+    method 'sort_in_forms' => sub { 0 };
 };
 
 no Moose::Role;

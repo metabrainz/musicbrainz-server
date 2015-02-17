@@ -17,10 +17,12 @@
     </td>
   </tr>
 
+  [%- IF edit.display_data.artwork.filename -%]
   <tr>
     <th>[% l('Filename:') %]</th>
-    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.cover_art_id %].jpg</code></td>
+    <td><code>[% edit.display_data.artwork.filename | html %]</code></td>
   </tr>
+  [%- END -%]
 
   <tr>
     <th>[% l('Comment:') %]</th>

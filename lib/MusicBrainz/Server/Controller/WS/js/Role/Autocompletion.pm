@@ -3,6 +3,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use Encode;
+use JSON;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Text::Trim;
 
@@ -40,13 +41,13 @@ sub _load_entities {
     my ($self, $c, @entities) = @_;
 
     if ($c->stash->{inc}->{rels}) {
-        $c->model('Relationship')->load (@entities);
+        $c->model('Relationship')->load_cardinal(@entities);
     }
 }
 
 sub _do_direct_search {
     my ($self, $c, $query, $offset, $limit) = @_;
-    return $c->model ('Search')->search (
+    return $c->model('Search')->search(
         $self->type, $query, $limit, $offset);
 }
 
@@ -61,10 +62,10 @@ sub _direct_search {
 
     my @output = $self->_format_output($c, @entities);
 
-    my $pager = Data::Page->new ();
-    $pager->entries_per_page ($limit);
-    $pager->current_page ($page);
-    $pager->total_entries ($hits);
+    my $pager = Data::Page->new();
+    $pager->entries_per_page($limit);
+    $pager->current_page($page);
+    $pager->total_entries($hits);
 
     return (\@output, $pager);
 }
@@ -80,35 +81,26 @@ sub _indexed_search {
     my $model = $self->model($c);
 
     my $no_redirect = 1;
-    my $response = $c->model ('Search')->external_search (
-        $self->type, $query, $limit, $page, 0, undef);
-
+    my $response = $c->model('Search')->external_search($self->type, $query, $limit, $page, 0);
     my (@output, $pager);
 
-    if ($response->{pager})
-    {
+    if ($response->{error}) {
+        my $json = JSON->new;
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($json->encode($response));
+        $c->res->status($response->{code});
+        $c->detach;
+    } else {
         $pager = $response->{pager};
 
         for my $result (@{ $response->{results} })
         {
-            my $entity = $model->get_by_gid ($result->{entity}->gid) if $result->entity->{gid};
+            my $entity = $model->get_by_gid($result->{entity}->gid) if $result->entity->{gid};
             next unless $entity;
             push @output, $entity;
         }
 
         $self->_load_entities($c, @output);
-    }
-    else
-    {
-        # If an error occurred just ignore it for now and return an
-        # empty list.  The javascript code for autocomplete doesn't
-        # have any way to gracefully report or deal with
-        # errors. --warp.
-
-        $pager = Data::Page->new;
-        $pager->entries_per_page ($limit);
-        $pager->current_page ($page);
-        $pager->total_entries (0);
     }
 
     return ([ $self->_format_output($c, @output) ], $pager);

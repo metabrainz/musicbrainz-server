@@ -9,6 +9,7 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
+    non_empty
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -19,8 +20,11 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub _alias_model { die 'Not implemented' }
 
@@ -32,7 +36,8 @@ subtype 'AliasHash'
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         type_id => Nullable[Int],
-        primary_for_locale => Nullable[Bool]
+        primary_for_locale => Nullable[Bool],
+        ended      => Optional[Bool]
     ];
 
 has '+data' => (
@@ -77,6 +82,7 @@ sub build_display_data
     my $model = type_to_model($type);
 
     return {
+        entity_type => $type,
         alias => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name}
@@ -108,6 +114,10 @@ sub build_display_data
         primary_for_locale => {
             new => $self->data->{new}{primary_for_locale},
             old => $self->data->{old}{primary_for_locale},
+        },
+        ended => {
+            new => $self->data->{new}{ended},
+            old => $self->data->{old}{ended}
         }
     };
 }
@@ -156,6 +166,12 @@ sub initialize
     my $alias = delete $opts{alias};
     die "You must specify the alias object to edit" unless defined $alias;
     my $entity = delete $opts{entity} or die 'Missing "entity" argument';
+
+    unless (non_empty($opts{sort_name})) {
+        delete $opts{sort_name};
+        $opts{sort_name} = $opts{name} if non_empty($opts{name});
+    }
+
     $self->data({
         alias_id => $alias->id,
         entity => {
@@ -189,6 +205,9 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{end_date}
         and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
 
+    return 0 if exists $self->data->{old}{ended}
+        and $self->data->{old}{ended} != $self->data->{new}{ended};
+
     return 0 if $self->data->{old}{locale};
 
     return 0 if exists $self->data->{new}{primary_for_locale};
@@ -200,6 +219,8 @@ sub current_instance {
     my $self = shift;
     $self->_load_alias;
 }
+
+sub edit_template { "edit_alias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

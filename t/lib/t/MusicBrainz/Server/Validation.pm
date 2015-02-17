@@ -2,8 +2,29 @@ package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
 use Test::Warn;
+use utf8;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
+use MusicBrainz::Server::Validation qw(
+    is_positive_integer
+    is_guid
+    trim_in_place
+    is_valid_url
+    is_valid_isrc
+    format_isrc
+    is_valid_discid
+    is_freedb_id
+    is_valid_iswc
+    format_iswc
+    is_valid_ipi
+    format_ipi
+    is_valid_isni
+    format_isni
+    encode_entities
+    normalise_strings
+    is_valid_barcode
+    is_valid_ean
+    is_valid_partial_date
+);
 
 test 'Test trim_in_place' => sub {
     my $a = '  ';
@@ -25,6 +46,8 @@ test 'Test trim_in_place' => sub {
 
 test 'Test is_positive_integer' => sub {
     ok(is_positive_integer(1), "Actual positive integer");
+    ok(!is_positive_integer(0), 'Zero');
+    ok(!is_positive_integer('123 is a nice number'), 'Number plus letters');
     ok(!is_positive_integer(-1), "Negative integer");
     ok(!is_positive_integer(undef), "Passing undef to is_positive_integer");
     ok(!is_positive_integer([1, 2, 3, 4]), "Passing arrayref to is_positive_integer");
@@ -53,15 +76,10 @@ test 'Test is_valid_url' => sub {
 
 test 'Test is_valid_isrc' => sub {
     ok(is_valid_isrc('USPR37300012'));
+    ok(!is_valid_isrc('USPR373000128'));
     ok(!is_valid_isrc('12PR37300012'));
     ok(!is_valid_isrc(''));
     ok(!is_valid_isrc('123'));
-};
-
-test 'Test is_tunecore' => sub {
-    ok(!MusicBrainz::Server::Validation::is_tunecore('USPR37300012'), "Non-TuneCore ID doesn't pass 'is_tunecore'.");
-    ok(!MusicBrainz::Server::Validation::is_tunecore('FITCR1000075'), "Non-TuneCore ID including string 'TC' doesn't pass 'is_tunecore'. (MBS-5346)");
-    ok(MusicBrainz::Server::Validation::is_tunecore('TCABF1283419'), "TuneCore ID passes 'is_tunecore'.");
 };
 
 test 'Test is_valid_discid' => sub {
@@ -89,6 +107,11 @@ test 'Test format_iswc' => sub {
     is(format_iswc('T- 101.914.232-4'), 'T-101.914.232-4');
 };
 
+test 'Test format_isrc' => sub {
+    is(format_isrc('GB-XWZ-08-00015'), 'GBXWZ0800015', 'format_isrc removes hyphens (MBS-6394)');
+    is(format_isrc('gbxwz0800015'), 'GBXWZ0800015', 'format_isrc uppercases letters (MBS-6554)');
+};
+
 test 'Test is_valid_ipi' => sub {
     ok(is_valid_ipi('00014107338'));
     ok(!is_valid_ipi(''));
@@ -103,6 +126,13 @@ test 'Test format_ipi' => sub {
     is(format_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
        'MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)',
        'Regression test #MBS-5066');
+};
+
+test 'Test is_valid_isni' => sub {
+    ok(is_valid_isni('0000000106750994'));
+    ok(is_valid_isni('000000010675099X'));
+    ok(!is_valid_isni('000000010675099Y'));
+    ok(!is_valid_isni('106750994'));
 };
 
 test 'Test is_freedb_id' => sub {
@@ -132,16 +162,80 @@ test 'Test is_valid_ean' => sub {
     ok(!is_valid_ean('123456789123456787'), "Invalid SSCC (18 chars)");
 };
 
+test 'Test is_valid_partial_date' => sub {
+    ok(is_valid_partial_date(2014, 10, 16), 'normal complete date');
+    ok(is_valid_partial_date(2014, undef, 16), 'incomplete date');
+    ok(is_valid_partial_date(undef, undef, undef), 'empty date');
+
+    ok(!is_valid_partial_date('2014a', undef, 16), 'non-number');
+
+    ok(!is_valid_partial_date(undef, 13, undef), 'invalid month');
+    ok(!is_valid_partial_date(undef, undef, 32), 'invalid day-of-month');
+    ok(!is_valid_partial_date(undef, 6, 31), 'invalid month/day combination');
+
+    ok(is_valid_partial_date(1980, 7, 31), 'last of July');
+
+    subtest 'February 29th (leap years)' => sub {
+        my $run = sub { is_valid_partial_date(shift, 2, 29); };
+
+        ok(!$run->(2014), 'regular non-leap year');
+        ok($run->(2012), 'regular leap year');
+        ok($run->(2000), '2000 was a leap year');
+        ok($run->(1600), '1600 was a leap year');
+        ok(!$run->(1900), '1900 was no leap year');
+        ok($run->(undef), 'unknown year may be a leap year');
+    };
+};
+
 test 'Test encode_entities' => sub {
     is(encode_entities('ãñ><"\'&Å'), 'ãñ&gt;&lt;&quot;&#39;&amp;Å');
 };
 
 test 'Test normalise_strings' => sub {
-    my ($alice, $bob) = normalise_strings ('alice', 'bob');
-    my $alice2 = normalise_strings ('alice');
-    is ($alice, 'alice');
-    is ($alice2, 'alice');
-    is ($bob, 'bob');
+    my ($alice, $bob) = normalise_strings('alice', 'bob');
+    my $alice2 = normalise_strings('alice');
+    is($alice, 'alice');
+    is($alice2, 'alice');
+    is($bob, 'bob');
+
+    is(normalise_strings('"'), "'", 'Double quote to single quote');
+
+    is(normalise_strings('`'), "'", 'U+0060 GRAVE ACCENT');
+    is(normalise_strings('´'), "'", 'U+00B4 ACUTE ACCENT');
+    is(normalise_strings('«'), "'", 'U+00AB LEFT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('»'), "'", 'U+00BB RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('ʻ'), "'", 'U+02BB MODIFIER LETTER TURNED COMMA');
+    is(normalise_strings('׳'), "'", 'U+05F3 HEBREW PUNCTUATION GERESH');
+    is(normalise_strings('״'), "'", 'U+05F4 HEBREW PUNCTUATION GERSHAYIM');
+    is(normalise_strings('‘'), "'", 'U+2018 LEFT SINGLE QUOTATION MARK');
+    is(normalise_strings('’'), "'", 'U+2019 RIGHT SINGLE QUOTATION MARK');
+    is(normalise_strings('‚'), "'", 'U+201A SINGLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‛'), "'", 'U+201B SINGLE HIGH-REVERSED-9 QUOTATION MARK');
+    is(normalise_strings('“'), "'", 'U+201C LEFT DOUBLE QUOTATION MARK');
+    is(normalise_strings('”'), "'", 'U+201D RIGHT DOUBLE QUOTATION MARK');
+    is(normalise_strings('„'), "'", 'U+201E DOUBLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‟'), "'", 'U+201F DOUBLE HIGH-REVERSED-9 QUOTAITON MARK');
+    is(normalise_strings('′'), "'", 'U+2032 PRIME');
+    is(normalise_strings('″'), "'", 'U+2033 DOUBLE PRIME');
+    is(normalise_strings('‹'), "'", 'U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK');
+    is(normalise_strings('›'), "'", 'U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK');
+
+    is(normalise_strings('־'), '-', 'U+05BE HEBREW PUNCTUATION MAQAF');
+    is(normalise_strings('‐'), '-', 'U+2010 HYPHEN');
+    is(normalise_strings('‒'), '-', 'U+2012 FIGURE DASH');
+    is(normalise_strings('–'), '-', 'U+2013 EN DASH');
+    is(normalise_strings('−'), '-', 'U+2212 MINUS SIGN');
+
+    is(normalise_strings('ı'), 'i', 'U+0131 LATIN SMALL LETTER DOTLESS I -> i');
+
+    is(normalise_strings('ABCDE'), 'abcde', 'ASCII lc');
+    is(normalise_strings('ÀÉÎÕÜ'), 'aeiou', 'Latin-1 lc/unaccent');
+    is(normalise_strings('ĀĖİŐŮ'), 'aeiou', 'Latin-A lc/unaccent');
+    is(normalise_strings('ǍƠȘȚǙ'), 'aostu', 'Latin-B lc/unaccent');
+    is(normalise_strings('ẨẸỊỖṤṸẂỶẔ'), 'aeiosuwyz', 'Latin Additional lc/unaccent');
+    is(normalise_strings('！＄０５ＡＺｂｙ'), '!$05azby', 'Fullwidth Latin to ASCII');
+    is(normalise_strings('｡｢･ｱﾝ'), '。「・アン', 'Halfwidth Katakana/punctuation to fullwidth');
+
 };
 
 1;

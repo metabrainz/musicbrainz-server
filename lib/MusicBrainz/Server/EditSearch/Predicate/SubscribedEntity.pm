@@ -3,6 +3,8 @@ use 5.10.0;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 parameter type => (
     required => 1
 );
@@ -28,23 +30,16 @@ role {
         my ($orig, $self) = splice(@_, 0, 2);
         my ($query) = @_;
 
-        given($self->operator) {
-            when('subscribed') {
+        given ($self->operator) {
+            when ('subscribed') {
                 my $column = $params->type;
 
-                my $entity_join_idx = $query->inc_joins;
                 my $entity_table    = join('_', 'edit', $params->type);
-                my $entity_alias    = $entity_table . $entity_join_idx;
-
-                my $sub_join_idx = $query->inc_joins;
                 my $sub_table    = join('_', 'editor_subscribe', $params->type);
-                my $sub_alias    = $sub_table . $sub_join_idx;
-
-                $query->add_join("JOIN $entity_table $entity_alias ON $entity_alias.edit = edit.id");
-                $query->add_join("JOIN $sub_table $sub_alias ON $sub_alias.$column = $entity_alias.$column");
 
                 $query->add_where([
-                    "$sub_alias.editor = ?", [ $self->user_id ]
+                    "EXISTS (SELECT 1 FROM $entity_table A JOIN $sub_table B USING ($column) WHERE A.edit = edit.id AND B.editor = ?)",
+                    [ $self->user_id ]
                 ]);
             }
 

@@ -1,9 +1,14 @@
 package MusicBrainz::Server::Edit::Medium::Create;
 use Carp;
+use Clone qw( clone );
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_CREATE
+    $STATUS_OPEN
+);
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -12,7 +17,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -71,15 +76,21 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $tracklist = delete $opts{tracklist};
-    $opts{tracklist} = tracks_to_hash($tracklist);
+    $tracklist = tracks_to_hash($tracklist);
+    check_track_hash($tracklist);
+    die 'Tracklist specifies track IDs'
+        if grep { defined $_ } map { $_->{id} } @$tracklist;
+    $opts{tracklist} = $tracklist;
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $self->check_tracks_against_format($tracklist, $opts{format_id});
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $self->data(\%opts);
 }
@@ -115,7 +126,7 @@ sub build_display_data
         name         => $self->data->{name} || '',
         format       => $format ? $loaded->{MediumFormat}->{ $format } : '',
         position     => $self->data->{position},
-        tracklist    => display_tracklist($loaded, $self->data->{tracklist}),
+        tracks       => display_tracklist($loaded, $self->data->{tracklist}),
         release      => $medium ? $medium->release : undef,
     };
 
@@ -131,7 +142,7 @@ sub _insert_hash {
     my ($self, $data) = @_;
 
     # Create related data (artist credits and recordings)
-    my $tracklist = delete $data->{tracklist};
+    my $tracklist = $data->{tracklist};
 
     verify_artist_credits($self->c, map {
         $_->{artist_credit}
@@ -141,12 +152,11 @@ sub _insert_hash {
         $track->{recording_id} ||= $self->c->model('Recording')->insert({
             %$track,
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-        })->id;
+        })->{id};
+        delete $track->{medium_id};
     }
 
-    $self->tracklist($tracklist);
-
-    $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;
+    $self->tracklist(clone($tracklist));
 
     my $release = delete $data->{release};
     $data->{release_id} = $release->{id};
@@ -164,6 +174,27 @@ override 'to_hash' => sub
 
     return $hash;
 };
+
+sub allow_auto_edit {
+    my $self = shift;
+
+    # Allow being an auto-edit if the release-add edit was opened by the same
+    # editor less than an hour ago, and it's still open.
+
+    my $release_id = $self->data->{release}->{id};
+
+    my $open_release_edit = $self->c->sql->select_single_value("
+        SELECT id FROM edit
+          JOIN edit_release ON edit.id = edit_release.edit
+         WHERE edit_release.release = ?
+           AND edit.editor = ?
+           AND edit.type = ?
+           AND edit.status = ?
+           AND edit.open_time - now() < interval '1 hour'
+    ", $release_id, $self->editor_id, $EDIT_RELEASE_CREATE, $STATUS_OPEN);
+
+    return defined $open_release_edit;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

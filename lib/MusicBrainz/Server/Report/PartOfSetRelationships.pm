@@ -8,7 +8,7 @@ sub query {
     "
         SELECT
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
         FROM (
             SELECT DISTINCT r.*
             FROM (
@@ -27,9 +27,7 @@ sub query {
             JOIN release r ON lrr.entity = r.id
             WHERE link_type.name = 'part of set'
         ) r
-        JOIN release_name rn ON r.name = rn.id
         JOIN artist_credit ac ON r.artist_credit = ac.id
-        JOIN artist_name an ON ac.name = an.id
     ";
 }
 

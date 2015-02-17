@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
@@ -18,16 +18,17 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{"sort-name"} = $entity->sort_name;
-    $body{"label-code"} = number ($entity->label_code);
+    $body{"sort-name"} = $entity->name;
+    $body{"label-code"} = number($entity->label_code);
     $body{disambiguation} = $entity->comment // "";
 
     if ($toplevel)
     {
         $body{type} = $entity->type_name;
-        $body{country} = $entity->country ? $entity->country->iso_code : JSON::null;
+        $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
+        $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 
-        $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        $body{releases} = list_of($entity, $inc, $stash, "releases")
             if ($inc && $inc->releases);
     }
 

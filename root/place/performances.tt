@@ -1,0 +1,7 @@
+[%- WRAPPER "place/layout.tt" title=l('Performances') page='performances' -%]
+    [%- INCLUDE "components/relationships-table.tt" heading=l('Performances') entity=place -%]
+
+    [% IF !place.appearances.size %]
+        <p>[% l('No recordings, releases or release groups are linked to this place') %]</p>
+    [% END %]
+[%- END -%]

@@ -1,6 +1,6 @@
 [% PROCESS 'relationship/linkattributetype/common.tt' %]
 
-[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 no_icons=1 %]
     <div id="content">
         [%- INCLUDE 'relationship/header.tt' page='attributes' %]
 
@@ -9,7 +9,8 @@
         [%- END -%]
 
         [% IF root.children.size %]
-            [% FOR obj IN root.sorted_children %]
+            [% coll = c.get_collator %]
+            [% FOR obj IN root.sorted_children(coll) %]
                 <h2 id="[% obj.name %]">[% obj.l_name FILTER ucfirst | html %]</h2>
                 [% PROCESS attribute_details obj=obj toplevel=1 %]
 
@@ -17,13 +18,9 @@
                 <br/><br/>
                 [% l('Possible values:') %]
                 <ul>
-                [%- IF obj.name == 'instrument' -%]
-                    <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for_action('/relationship/linkattributetype/instruments') }) %]</li>
-                [%- ELSE -%]
-                    [% FOR child IN obj.sorted_children %]
+                    [% FOR child IN obj.sorted_children(coll) %]
                     [% PROCESS attribute_tree obj=child %]
                     [% END %]
-                [%- END -%]
                 </ul>
 
                 [%- END -%]

@@ -154,9 +154,35 @@ sub insert_row
     }
 }
 
+sub insert_many {
+    my ($self, $table, @insertions) = @_;
+    return unless @insertions;
+
+    my %pivot;
+    for my $insertion (@insertions) {
+        my %row = %$insertion;
+        for my $key (keys %row) {
+            push @{ $pivot{$key} //= [] }, $row{$key};
+        }
+    }
+
+    my @keys = keys %pivot or return;
+    scalar(@{$pivot{$_}}) == scalar(@{$pivot{$keys[0]}}) or die "Inconsist row list"
+        for @keys ;
+
+    my $query = "INSERT INTO $table (" . join(', ', @keys) . ') VALUES ' .
+        join(', ', map { '(' . join(', ', ('?') x @keys) . ')' } @insertions);
+
+    $self->do($query,
+             map {
+                 my $i = $_;
+                 map { $pivot{$_}->[$i] } @keys
+             } (0..$#insertions));
+}
+
 sub update_row
 {
-    my ($self, $table, $update, $conditions) = @_;
+    my ($self, $table, $update, $conditions, $returning) = @_;
     my @update_columns = keys %$update;
     my @condition_columns = keys %$conditions;
 
@@ -165,22 +191,32 @@ sub update_row
 
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
+    my @args = ((map { $update->{$_} } @update_columns), (map { $conditions->{$_} } @condition_columns));
 
-    $self->do($query,
-        (map { $update->{$_} } @update_columns),
-        (map { $conditions->{$_} } @condition_columns));
+    if ($returning) {
+        $query .= " RETURNING $returning";
+        return $self->select_single_value($query, @args);
+    } else {
+        $self->do($query, @args);
+    }
 }
 
 sub delete_row
 {
-    my ($self, $table, $conditions) = @_;
+    my ($self, $table, $conditions, $returning) = @_;
     my @condition_columns = keys %$conditions;
 
     croak 'delete_row called with no where clause' unless @condition_columns;
 
     my $query = "DELETE FROM $table WHERE " . join(' AND ', map { "$_ = ?" } @condition_columns);
+    my @args = map { $conditions->{$_} } @condition_columns;
 
-    $self->do($query, (map { $conditions->{$_} } @condition_columns));
+    if ($returning) {
+        $query .= " RETURNING $returning";
+        return $self->select_single_value($query, @args);
+    } else {
+        $self->do($query, @args);
+    }
 }
 
 has 'transaction_depth' => (
@@ -318,12 +354,11 @@ sub run_in_transaction
     }
 }
 
-# Given an error message possibly thrown by DBI, does it represent a query
-# timeout?
+# Given an error possibly thrown by DBI, does it represent a query timeout?
 sub is_timeout
 {
     my ($self, $error) = @_;
-    return $error =~ /(?:Query was cancelled|canceling query|statement timeout)/i;
+    return $error =~ /^57014 /;
 }
 
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
@@ -337,16 +372,15 @@ sub _select_single_row
     my $method = "fetchrow_$type";
     my @params = @$params;
 
+    my $sth;
     return try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        $self->sth( $self->dbh->prepare_cached($query) );
-        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
+        $sth = $self->dbh->prepare_cached($query);
+        my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
-        my $first_row = $self->sth->$method;
-        my $next_row  = $self->sth->$method if $first_row;
-
-        $self->finish;
+        my $first_row = $sth->$method;
+        my $next_row  = $sth->$method if $first_row;
 
         croak 'Query returned more than one row (expected 1 row)' if $next_row;
 
@@ -356,6 +390,9 @@ sub _select_single_row
         my $err = $_;
         confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
+    }
+    finally {
+        $sth->finish if $sth;
     };
 }
 
@@ -407,18 +444,17 @@ sub _select_list
     my $method = "fetchrow_$type";
     my @params = @$params;
 
+    my $sth;
     try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        $self->sth( $self->dbh->prepare_cached($query) );
-        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
+        $sth = $self->dbh->prepare_cached($query);
+        my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
-        while(my $row = $self->sth->$method) {
+        while (my $row = $sth->$method) {
             push @vals, $form_row->($row);
         }
-
-        $self->finish;
 
         return \@vals;
     }
@@ -427,6 +463,9 @@ sub _select_list
         cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
         confess $err;
+    }
+    finally {
+        $sth->finish if $sth;
     };
 }
 
@@ -495,7 +534,7 @@ sub BUILDARGS
 
     my $i = 0;
     my $c;
-    while($i < 10) {
+    while ($i < 10) {
         $c = [ (caller(++$i)) ];
         last unless $c->[1] eq __FILE__;
     }

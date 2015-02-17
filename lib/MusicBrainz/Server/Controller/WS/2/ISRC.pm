@@ -38,16 +38,16 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
     my $stash = WebServiceStash->new;
 
     my @recordings = $c->model('Recording')->load(@isrcs);
-    my $recordings = $self->make_list (\@recordings);
+    my $recordings = $self->make_list(\@recordings);
 
     for (@recordings)
     {
-        $c->controller('WS::2::Recording')->recording_toplevel ($c, $stash, $_);
+        $c->controller('WS::2::Recording')->recording_toplevel($c, $stash, $_);
     }
 
     for (@isrcs)
     {
-        $stash->store ($_)->{recordings} = $recordings;
+        $stash->store($_)->{recordings} = $recordings;
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

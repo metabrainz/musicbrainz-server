@@ -4,8 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::ISRC';
@@ -15,12 +14,8 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_name { N_l('Remove ISRC') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 sub recording_id { shift->data->{recording}{id} }
 

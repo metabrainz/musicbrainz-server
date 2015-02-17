@@ -1,0 +1,46 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details edit-event">
+  <tr>
+    <th>[% l('Event:') %]</th>
+    <td colspan="2">[% link_entity(edit.display_data.event) %]</td>
+  </tr>
+
+  [% display_diff(l('Name:'),
+                  html_escape(edit.display_data.name.old),
+                  html_escape(edit.display_data.name.new),
+                  '\s+') %]
+
+  [% display_diff(l('Disambiguation:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
+
+  [% display_diff(l('Cancelled:'),
+                  yesno(edit.display_data.cancelled.old),
+                  yesno(edit.display_data.cancelled.new),
+                  '-') %]
+
+  [% display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) %]
+
+  [% display_diff(l('Begin date:'),
+                  edit.display_data.begin_date.old.format,
+                  edit.display_data.begin_date.new.format,
+                  '-') %]
+
+  [% display_diff(l('End date:'),
+                  edit.display_data.end_date.old.format,
+                  edit.display_data.end_date.new.format,
+                  '-') %]
+
+  [% display_full_change(l('Time:'),
+                         html_escape(edit.display_data.time.old),
+                         html_escape(edit.display_data.time.new)) %]
+
+  [% display_diff(l('Setlist:'),
+                  html_escape(edit.display_data.setlist.old),
+                  html_escape(edit.display_data.setlist.new),
+                  '\s+') %]
+</table>

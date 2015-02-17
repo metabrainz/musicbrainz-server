@@ -1,0 +1,72 @@
+#page.homepage #maincontent {
+    display: table;
+    width: 100%;
+
+    .sidebar {
+        display: table-cell;
+        vertical-align: top;
+        font-size: 95%;
+        padding-left: 1em;
+        width: 218px;
+
+        ul {
+            padding-left: 85px;
+            min-height: 65px;
+        }
+    }
+}
+
+#triple {
+    display: table;
+    width: 100%;
+
+    .feature-column {
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 2em;
+        width: 32%;
+
+        p {
+            padding-left: 70px;
+            min-height: 65px;
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+.feature-column h2 {
+    color: @text-purple;
+    padding: 5px 0 5px 0;
+    margin: 0;
+    border-bottom: 2px solid @musicbrainz-orange;
+}
+
+.linkbar {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#taggers ul {
+    background: url(/static/images/logos/musicbrainz-picard.png) no-repeat top left;
+}
+
+#quick-start ul {
+    background: url(/static/images/layout/quick-start.png) no-repeat top left;
+}
+
+#community p {
+    background: url(/static/images/layout/community.png) no-repeat top left;
+}
+
+#products p {
+    background: url(/static/images/layout/download.png) no-repeat top left;
+}
+
+#developers p {
+    background: url(/static/images/layout/developer.png) no-repeat top left;
+}
+

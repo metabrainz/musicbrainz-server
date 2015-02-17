@@ -17,19 +17,19 @@ test 'errors' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
     my $mech = $test->mech;
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
-    is ($mech->status, 400);
+    is($mech->status, 400);
 
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({
         error => "coffee is not a valid inc parameter for the artist resource."
     }));
 
     $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
-    is ($mech->status, 404);
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({ error => "Not Found" }));
+    is($mech->status, 404);
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({ error => "Not Found" }));
 };
 
 test 'basic artist lookup' => sub {
@@ -37,12 +37,15 @@ test 'basic artist lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -51,6 +54,7 @@ test 'basic artist lookup' => sub {
             },
             type => "Person",
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -61,7 +65,7 @@ test 'basic artist lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic artist lookup, inc=annotation',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -69,6 +73,9 @@ test 'basic artist lookup, inc=annotation' => sub {
             type => "Person",
             annotation => "this is an artist annotation",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -76,6 +83,7 @@ test 'basic artist lookup, inc=annotation' => sub {
                 ended => JSON::false,
             },
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -84,12 +92,15 @@ test 'basic artist lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=aliases',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -105,6 +116,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 
 };
@@ -114,12 +126,15 @@ test 'basic artist lookup, inc=url-rels' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=url-rels',
-    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json (
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json(
         {
             id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
             name => "Paul Allgood",
             "sort-name" => "Allgood, Paul",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -129,8 +144,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
                         resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
                     },
@@ -141,8 +159,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
                         resource => 'http://members.boardhost.com/wedlock/'
                     },
@@ -153,8 +174,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
                         resource => 'http://www.discogs.com/artist/Paul+Allgood'
                     },
@@ -165,8 +189,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
                         resource => 'http://www.imdb.com/name/nm4057169/'
                     },
@@ -177,8 +204,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
                         resource => 'http://www.paulallgood.com/'
                     },
@@ -189,6 +219,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 
 };
@@ -198,12 +229,15 @@ test 'artist lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json (
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json(
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -222,8 +256,18 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 },
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
@@ -235,11 +279,22 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 }
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -248,12 +303,15 @@ test 'artist lookup with pseudo-releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with pseudo-releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json (
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json(
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -272,11 +330,22 @@ test 'artist lookup with pseudo-releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 }
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -292,6 +361,9 @@ test 'artist lookup with releases and discids' => sub {
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -310,21 +382,67 @@ test 'artist lookup with releases and discids' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
-                    asin => JSON::null,
                     barcode => "600116822123",
                     media => [
                         {
                             title => JSON::null,
                             format => "CD",
-                            discs => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
+                            position => 1,
+                            discs => [
+                                {
+                                    id => "93K4ogyxWlv522XF0BG8fZOuay4-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                        150,
+                                        23303,
+                                        48850,
+                                        73305,
+                                        98815,
+                                        125348,
+                                        147548,
+                                        172225,
+                                        194409
+                                    ],
+                                    sectors => 215137
+                                }
+                            ],
                             "track-count" => 9,
                         },
                         {
                             title => "Chestplate Singles",
                             format => "CD",
-                            discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
+                            position => 2,
+                            discs => [
+                                {
+                                    id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                        150,
+                                        26801,
+                                        42538,
+                                        64421,
+                                        90680,
+                                        114510,
+                                        138939,
+                                        164009,
+                                        186929
+                                    ],
+                                    sectors => 208393
+                                }
+                            ],
                             "track-count" => 9,
-                        }]
+                        }],
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }]
                 },
                 {
                     id => "adcf7b48-086e-48ee-b420-1001f88d672f",
@@ -336,17 +454,49 @@ test 'artist lookup with releases and discids' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
-                    asin => JSON::null,
                     barcode => "600116817020",
                     media => [
                         {
                             title => JSON::null,
                             format => "CD",
-                            discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
+                            position => 1,
+                            discs => [
+                                {
+                                    id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-",
+                                    'offset-count' => 12,
+                                    offsets => [
+                                        150,
+                                        27852,
+                                        49751,
+                                        75876,
+                                        99845,
+                                        120876,
+                                        140765,
+                                        165856,
+                                        188422,
+                                        211757,
+                                        232229,
+                                        255810
+                                    ],
+                                    sectors => 281289
+                                }
+                            ],
                             "track-count" => 12,
-                        }]
+                        }],
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -355,13 +505,16 @@ test 'artist lookup with recordings and artist credits' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with recordings and artist credits',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -372,7 +525,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                     title => "the Love Bug",
-                    length => 242226,
+                    length => 243000,
                     disambiguation => "",
                     "artist-credit" => [
                         {
@@ -395,7 +548,8 @@ test 'artist lookup with recordings and artist credits' => sub {
                             },
                             joinphrase => ""
                         }
-                    ]
+                    ],
+                    video => 0
                 },
                 {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
@@ -423,10 +577,12 @@ test 'artist lookup with recordings and artist credits' => sub {
                             },
                             joinphrase => ""
                         }
-                    ]
+                    ],
+                    video => 0
                 },
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -435,13 +591,16 @@ test 'artist lookup with release groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with release groups',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -459,6 +618,7 @@ test 'artist lookup with release groups' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -467,13 +627,16 @@ test 'single artist release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'single artist release lookup',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -492,10 +655,21 @@ test 'single artist release lookup' => sub {
                     quality => "normal",
                     status => "Official",
                     barcode => "4988064451180",
-                    asin => JSON::null,
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }]
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -504,12 +678,15 @@ test 'various artists release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'various artists release lookup',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -527,12 +704,23 @@ test 'various artists release lookup' => sub {
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064451180",
-                    asin => JSON::null,
                     disambiguation => "",
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -541,12 +729,15 @@ test 'artist lookup with works (using l_artist_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_artist_work)',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -556,6 +747,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             type => "Person",
             works => [
                 {
+                    attributes => [],
                     id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
                     title => "Asseswaving",
                     disambiguation => "",
@@ -565,6 +757,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -573,12 +766,15 @@ test 'artist lookup with works (using l_recording_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_recording_work)',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -588,6 +784,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             type => "Person",
             works => [
                 {
+                    attributes => [],
                     id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
                     title => "Easy To Be Hard",
                     disambiguation => "",
@@ -596,6 +793,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
                     title => "心の手紙",
                     disambiguation => "",
@@ -604,6 +802,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
                     title => "DOUBLE",
                     disambiguation => "",
@@ -612,6 +811,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
                     title => "the Love Bug",
                     disambiguation => "",
@@ -620,6 +820,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
                     title => "SOME DAY ONE DAY )",
                     disambiguation => "",
@@ -628,6 +829,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
                     title => "Milky Way 〜君の歌〜",
                     disambiguation => "",
@@ -636,6 +838,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "511f5124-c0ae-3386-bb76-4b6521498a68",
                     title => "Milky Way-君の歌-",
                     disambiguation => "",
@@ -644,6 +847,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
                     title => "Be the one",
                     disambiguation => "",
@@ -652,6 +856,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
                     title => "Rock With You",
                     disambiguation => "",
@@ -660,6 +865,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
                     title => "Midnight Parade",
                     disambiguation => "",
@@ -668,6 +874,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "7981d409-8e76-33df-be27-ef625d81c501",
                     title => "Shine We Are!",
                     disambiguation => "",
@@ -676,6 +883,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
                     title => "EXPECT",
                     disambiguation => "",
@@ -684,6 +892,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
                     title => "Song With No Name～名前のない歌～",
                     disambiguation => "",
@@ -692,6 +901,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
                     title => "OVER～across the time～",
                     disambiguation => "",
@@ -700,6 +910,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "f23ae726-0300-3830-b1ca-634f4362f78c",
                     title => "LOVE & HONESTY",
                     disambiguation => "",
@@ -708,6 +919,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -717,12 +929,22 @@ test 'artist lookup with artist relations' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with artist relations',
-    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json (
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json(
         {
             id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
             name => "後藤真希",
             "sort-name" => "Goto, Maki",
             country => "JP",
+            "area" => {
+            disambiguation => '',
+            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+            "name" => "Japan",
+            "sort-name" => "Japan",
+            "iso_3166_1_codes" => ["JP"],
+            "iso_3166_2_codes" => [],
+            "iso_3166_3_codes" => []},
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1985-09-23",
@@ -732,6 +954,8 @@ test 'artist lookup with artist relations' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
+                    "attribute-values" => {},
                     type => 'member of band',
                     'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
                     direction => 'forward',
@@ -740,6 +964,7 @@ test 'artist lookup with artist relations' => sub {
                         name => "7人祭",
                         "sort-name" => "7nin Matsuri",
                         disambiguation => "",
+                        relations => []
                     },
                     begin => '2001',
                     end => JSON::null,
@@ -747,6 +972,7 @@ test 'artist lookup with artist relations' => sub {
                 }
             ],
             ipis => [],
+            gender => 'Female',
         });
 };
 

@@ -1,19 +1,19 @@
 # 
 # Translators:
-# Daniel Schury <email address hidden>, 2011.
-# Mineo <email address hidden>, 2011.
-# Nikolai Prokoschenko <email address hidden>, 2011.
-#  <email address hidden>, 2013.
-#   <email address hidden>, 2013.
-# Shepard <email address hidden>, 2011.
-#   <email address hidden>, 2012-2013.
-# Tobias Quathamer <email address hidden>, 2007.
+# nikki, 2014
+# Daniel Schury <email address hidden>, 2011
+# Wieland Hoffmann <email address hidden>, 2011
+# Nikolai Prokoschenko <email address hidden>, 2011
+# nikki, 2013
+# nikki, 2013
+# Shepard, 2011
+# Shepard, 2012-2013
+# Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:28+0000\n"
-"Last-Translator: nikki <email address hidden>\n"
+"PO-Revision-Date: 2014-08-22 13:14+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,6 +366,11 @@ msgstr "Kaukasische Sprachen"
 msgid "Cebuano"
 msgstr "Cebuano"
 
+#. frequency:1 iso_code_3:xce
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr "Keltiberisch"
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -375,6 +380,11 @@ msgstr "Keltische Sprachen"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Indianersprachen, Zentralamerika"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "Okinawanisch"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -581,7 +591,7 @@ msgstr "Duala-Sprachen"
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Mittelniederländisch (ca. 1050-1350)"
@@ -786,7 +796,7 @@ msgstr "Deutsch"
 msgid "German, Low"
 msgstr "Niederdeutsch"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "Mittelhochdeutsch (ca. 1050-1500)"
@@ -976,6 +986,11 @@ msgstr "Indogermanische Sprachen"
 msgid "Indonesian"
 msgstr "Indonesisch"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "Ingrisch"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1131,6 +1146,11 @@ msgstr "Kawi"
 msgid "Kazakh"
 msgstr "Kasachisch"
 
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "Chantisch"
+
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
@@ -1191,7 +1211,7 @@ msgstr "Kongo"
 msgid "Konkani"
 msgstr "Konkani"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Koreanisch"
@@ -1426,6 +1446,11 @@ msgstr "Meithei-Sprache"
 msgid "Manobo languages"
 msgstr "Manobo-Sprache"
 
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "Mansisch"
+
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
@@ -1631,7 +1656,7 @@ msgstr "Altnorwegisch"
 msgid "North American Indian languages"
 msgstr "Indianersprachen, Nordamerika"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norwegisch"

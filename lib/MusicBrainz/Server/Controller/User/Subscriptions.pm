@@ -19,6 +19,24 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'label',
 };
 
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'series',
+};
+
+after collection => sub {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        entities => [],
+        public_subscriptions => [
+            grep { $_->public } @{ $c->stash->{entities} }
+        ],
+        private_collection_count => scalar(
+            grep { !$_->public } @{ $c->stash->{entities} }
+        )
+    );
+};
+
 sub subscriptions : Chained('/user/load') {
     my ($self, $c) = @_;
     my $user = $c->stash->{user};

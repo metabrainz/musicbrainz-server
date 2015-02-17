@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
 use Scalar::Util qw( looks_like_number );
+use Storable qw( dclone );
 use Text::Trim qw( );
+use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
 
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
-
-has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
 has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');
@@ -18,14 +18,14 @@ has_field 'names.join_phrase' => (
     # Can't use MusicBrainz::Server::Form::Field::Text as we need whitespace on the left
     # and right.
     type => 'Text',
-    trim => { transform => sub { shift } }
+    trim => { transform => sub { MusicBrainz::Server::Data::Utils::sanitize(shift) } }
 );
 
 around 'validate_field' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig (@_);
+    my $ret = $self->$orig(@_);
 
     my $input = $self->result->input;
 
@@ -44,24 +44,21 @@ around 'validate_field' => sub {
         }
         elsif (! $artist_id && ! $artist_name && $name)
         {
-            $self->add_error (
+            $self->add_error(
                 l('Please add an artist name for {credit}',
                   { credit => $name }));
         }
         elsif (! $artist_id && ( $name || $artist_name ))
         {
-            if ($self->allow_unlinked)
-            {
-                $artists++;
-            }
-            else
-            {
-                # FIXME: better error message.
-                $self->add_error (
-                    l('Artist "{artist}" is unlinked, please select an existing artist.
-                       You may need to add a new artist to MusicBrainz first.',
-                      { artist => ($name || $artist_name) }));
-            }
+            # FIXME: better error message.
+            $self->add_error(
+                l('Artist "{artist}" is unlinked, please select an existing artist.
+                   You may need to add a new artist to MusicBrainz first.',
+                  { artist => ($name || $artist_name) }));
+        }
+        elsif (!$artist_id)
+        {
+            $self->add_error(l('Please add an artist name for each credit.'));
         }
     }
 
@@ -69,29 +66,24 @@ around 'validate_field' => sub {
     # errors which already invalidate the field.
     return 0 if $self->has_errors;
 
-    if ($self->required && ! $artists)
+    # If the form is editing an existing entity and the AC field is entirely
+    # missing (as opposed to existing but being empty, which is handled above),
+    # the field will *not* be required. The form will see this is as no changes
+    # being made. This behavior allows bots and browser scripts to function
+    # properly (i.e. environments where AC fields aren't generated).
+    unless ($artists || $self->form->init_object)
     {
-        $self->add_error (l("Artist credit field is required"));
+        $self->add_error(l("Artist credit field is required"));
     }
 
     return !$self->has_errors;
 };
 
-=method value
-
-An artist credit which has the same value as the artist name is
-displayed as a placeholder.  These will not be submitted by the
-browser.  When requesting the value of an ArtistCredit field using
-this method these 'undef' artist credits will be replaced with the
-artist name.
-
-=cut
-
 around 'value' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig (@_);
+    my $ret = $self->$orig(@_);
 
     return $ret unless $ret && $ret->{names};
 
@@ -107,6 +99,35 @@ around 'value' => sub {
 
     return clean_submitted_artist_credits($ret);
 };
+
+sub json {
+    my $self = shift;
+    my $result = $self->result;
+    my $names = [];
+
+    if (defined $result) {
+        if ($result->input) {
+            $names = dclone($result->input->{names});
+
+        } elsif ($result->value) {
+            $names = dclone($result->value->{names});
+        }
+    }
+
+    if (!$names || scalar @$names == 0) {
+        $names = [{}];
+    }
+
+    my $c = $self->form->ctx;
+
+    my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
+    for my $name (@$names) {
+        $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
+        $name->{joinPhrase} = delete $name->{join_phrase};
+    }
+
+    return to_json($names);
+}
 
 =head1 LICENSE
 

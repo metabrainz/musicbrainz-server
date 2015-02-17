@@ -5,9 +5,14 @@ use warnings;
 use DBDefs;
 use Moose::Util qw( ensure_all_roles );
 use Plack::Builder;
-use Plack::Middleware::Debug::DAOLogger;
-use Plack::Middleware::Debug::ExclusiveTime;
-use Plack::Middleware::Debug::TemplateToolkit;
+
+BEGIN {
+    if (DBDefs->CATALYST_DEBUG) {
+        require Plack::Middleware::Debug::DAOLogger;
+        require Plack::Middleware::Debug::ExclusiveTime;
+        require Plack::Middleware::Debug::TemplateToolkit;
+    }
+}
 
 # Has to come before requiring MusicBrainz::Server
 BEGIN {

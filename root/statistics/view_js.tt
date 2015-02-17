@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         Timeline: {
            RateTooltipCloser: '[% l('/day') | js %]',
@@ -39,7 +39,12 @@
 
                 "other": { Label: '[% l('Other') | js %]' }
             },
-            Stat: function(stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
+            Stat: function (stat) {
+                if (!MB.text.Timeline[stat]) {
+                    MB.text.Timeline[stat] = { Label: stat, Color: '#'+Math.random().toString(16).substr(-6), Description: stat, Category: "other" };
+                }
+                return MB.text.Timeline[stat]
+            },
             "count.artist": { Label: '[% l('Artists') | js %]', Color: '#ff8a00', Description: '[% l('Count of all artists') | js %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') | js %]', Color: "#4800ff", Description: '[% l('Count of all recordings') | js %]', Category: "core-entities"  },
             "count.work": { Label: '[% l('Works') | js %]', Color: "#00ffa8", Description: '[% l('Count of all works') | js %]', Category: "core-entities"  },
@@ -47,6 +52,11 @@
             "count.release": { Label: '[% l('Releases') | js %]', Color: "#a8ff00", Description: '[% l('Count of all releases') | js %]', Category: "core-entities"  },
             "count.releasegroup": { Label: '[% l('Release Groups') | js %]', Color: "#ae00ff", Description: '[% l('Count of all release groups') | js %]', Category: "core-entities"  },
             "count.label": { Label: '[% l('Labels') | js %]', Color: "#ff0096", Description: '[% l('Count of all labels') | js %]', Category: "core-entities"  },
+            "count.area": { Label: '[% l('Areas') | js %]', Color: "#ff0000", Description: '[% l('Count of all areas') | js %]', Category: "core-entities"  },
+            "count.place": { Label: '[% l('Places') | js %]', Color: "#bc0a0a", Description: '[% l('Count of all places') | js %]', Category: "core-entities"  },
+            "count.series": { Label: '[% lp('Series', 'plural') | js %]', Color: "#1a6756", Description: '[% l('Count of all series') | js %]', Category: "core-entities"  },
+            "count.instrument": { Label: '[% l('Instruments') | js %]', Color: "#8fddc9", Description: '[% l('Count of all instruments') | js %]', Category: "core-entities"  },
+            "count.event": { Label: '[% l('Events') | js %]', Color: "#e8ab08", Description: '[% l('Count of all events') | js %]', Category: "core-entities"  },
 
             "count.edit": { Label: '[% l('Edits') | js %]', Color: '#ff00ff', Description: '[% l('Count of all edits') | js %]', Category: "edit-information", Hide: true },
             "count.edit.open": { Label: '[% l('Open Edits') | js %]', Color: '#ffe400', Description: '[% l('Count of open edits') | js %]', Category: "edit-information" },
@@ -70,9 +80,12 @@
             "count.vote.no": { Label: '[% l('No Votes') | js %]', Color: '#00ffff', Description: '[% l('Count of all No votes') | js %]', Category: "edit-information" },
             "count.vote.abstain": { Label: '[% l('Abstentions') | js %]', Color: '#00ffff', Description: '[% l('Count of all Abstain votes') | js %]', Category: "edit-information" },
 
-            "count.editor": { Label: '[% l('Editors') | js %]', Color: '#ff0000', Description: '[% l('Count of all editors') | js %]', Category: "edit-information", Hide: true },
-            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') | js %]', Category: "edit-information" },
-            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') | js %]', Category: "edit-information" },
+            "count.editor": { Label: '[% l('Editors (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all editors') | js %]', Category: "edit-information", Hide: true },
+            "count.editor.valid": { Label: '[% l('Editors (valid)') | js %]', Color: '#ff3333', Description: '[% l('Count of non-deleted editors') | js %]', Category: "edit-information", Hide: true },
+            "count.editor.valid.active": { Label: '[% l('Editors (valid & active ever)') | js %]', Color: '#ff3333', Description: '[% l('Count of active editors') | js %]', Category: "edit-information", Hide: true },
+            "count.editor.deleted": { Label: '[% l('Editors (deleted)') | js %]', Color: '#ffaaaa', Description: '[% l('Count of deleted editors') | js %]', Category: "edit-information", Hide: true },
+            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last 7 days') | js %]', Category: "edit-information" },
+            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last 7 days') | js %]', Category: "edit-information" },
             "count.editor.activelastweek": { Label: '[% l('Active Users') | js %]', Color: '#ff00cc', Description: '[% l('Count of active editors (editing or voting) during the last week') | js %]', Category: "edit-information" },
 
             "count.artist.country.null": { Label: '[% l('Unknown Country') | js %]', Color: '#ff0000', Description: '[% l('Artists with no country set') | js %]', Category: "artist-countries" },
@@ -109,6 +122,9 @@
             "count.artist.type.person": { Label: '[% l('Persons') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') | js %]', Category: 'artist-other' },
             "count.artist.type.group": { Label: '[% l('Groups') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') | js %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') | js %]', Category: 'artist-other' },
+            "count.artist.type.character": { Label: '[% l('Characters') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to character') | js %]', Category: 'artist-other' },
+            "count.artist.type.orchestra": { Label: '[% l('Orchestras') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to orchestra') | js %]', Category: 'artist-other' },
+            "count.artist.type.choir": { Label: '[% l('Choirs') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to choir') | js %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type unset') | js %]', Category: 'artist-other' },
 
             "count.artist.has_credits": { Label: '[% l('Artists in ACs') | js %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') | js %]', Category: 'artist-other' },
@@ -126,23 +142,21 @@
             "count.ipi": { Label: '[% l('IPIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all IPIs') | js %]', Category: 'other'},
             "count.ipi.artist": { Label: '[% l('Artist IPIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all IPIs for Artists') | js %]', Category: 'other'},
             "count.ipi.label": { Label: '[% l('Label IPIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all IPIs for Labels') | js %]', Category: 'other'},
+            "count.isni": { Label: '[% l('ISNIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISNIs') | js %]', Category: 'other'},
+            "count.isni.artist": { Label: '[% l('Artist ISNIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISNIs for Artists') | js %]', Category: 'other'},
+            "count.isni.label": { Label: '[% l('Label ISNIs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISNIs for Labels') | js %]', Category: 'other'},
             "count.isrc": { Label: '[% l('ISRCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') | js %]', Category: 'other'},
             "count.isrc.all": { Label: '[% l('ISRCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') | js %]', Category: 'other'},
             "count.iswc": { Label: '[% l('ISWCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
             "count.iswc.all": { Label: '[% l('ISWCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
-            "count.puid": { Label: '[% l('PUIDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs') | js %]', Category: 'other'},
-            "count.puid.ids": { Label: '[% l('PUIDs (IDs)') | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs') | js %]', Category: 'other'},
-      
+
             "count.release.has_discid": { Label: '[% l('Releases with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with Disc IDs') | js %]', Category: 'other'},
             "count.medium.has_discid": { Label: '[% l('Mediums with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with Disc IDs') | js %]', Category: 'other'},
-            "count.recording.has_puid": { Label: '[% l('Recordings with PUIDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with PUIDs') | js %]', Category: 'other'},
             "count.recording.has_isrc": { Label: '[% l('Recordings with ISRCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with ISRCs') | js %]', Category: 'other'},
             [% count = 0 %]
             [% WHILE count < 11 %]
                 "count.release.[% count %]discids": { Label: '[% ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with {n} Disc IDs', {n => count}) | js %]', Category: 'other'},
                 "count.medium.[% count %]discids": { Label: '[% ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with {n} Disc IDs', {n => count}) | js %]', Category: 'other'},
-                "count.puid.[% count %]recordings": { Label: '[% ln('PUIDs with 1 Recording', 'PUIDs with {n} Recordings', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs with {n} Recordings', {n => count}) | js %]', Category: 'other'},
-                "count.recording.[% count %]puids": { Label: '[% ln('Recordings with 1 PUID', 'Recordings with {n} PUIDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with {n} PUIDs', {n => count}) | js %]', Category: 'other'},
                 "count.recording.[% count %]releases": { Label: '[% ln('Recordings with 1 Release', 'Recordings with {n} Releases', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with {n} Releases', {n => count}) | js %]', Category: 'other'},
                 "count.releasegroup.[% count %]releases": { Label: '[% ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Groups with {n} Releases', {n => count}) | js %]', Category: 'other'},
                 [% count = count + 1 %]
@@ -169,22 +183,30 @@
 
             "count.tag": { Label: '[% l('Tags') | js %]', Color: '#ff0000', Description: '[% l('Count of all Tags') | js %]', Category: 'ratings-tags'},
             "count.tag.raw": { Label: '[% l('Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Tags (raw)') | js %]', Category: 'ratings-tags'},
-            "count.tag.raw.artist": { Label: '[% l('Artist Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Artist Tags (raw)') | js %]', Category: 'tags-tags'},
-            "count.tag.raw.label": { Label: '[% l('Label Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Label Tags (raw)') | js %]', Category: 'tags-tags'},
-            "count.tag.raw.recording": { Label: '[% l('Recording Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recording Tags (raw)') | js %]', Category: 'tags-tags'},
-            "count.tag.raw.release": { Label: '[% l('Release Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Tags (raw)') | js %]', Category: 'tags-tags'},
-            "count.tag.raw.releasegroup": { Label: '[% l('Release Group Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Group Tags (raw)') | js %]', Category: 'tags-tags'},
+            "count.tag.raw.area": { Label: '[% l('Area Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Area Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.artist": { Label: '[% l('Artist Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Artist Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.instrument": { Label: '[% l('Instrument Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Instrument Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.label": { Label: '[% l('Label Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Label Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.recording": { Label: '[% l('Recording Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recording Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.release": { Label: '[% l('Release Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.releasegroup": { Label: '[% l('Release Group Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Group Tags (raw)') | js %]', Category: 'ratings-tags'},
+            "count.tag.raw.series": { Label: '[% l('Series Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Series Tags (raw)') | js %]', Category: 'ratings-tags'},
             "count.tag.raw.work": { Label: '[% l('Work Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Work Tags (raw)') | js %]', Category: 'ratings-tags'},
 
             "count.ar.links": { Label: '[% l('Relationships') | js %]', Color: '#ff0000', Description: '[% l('Count of all Relationships') | js %]', Category: 'relationships'},
-            
+
             [% FOREACH rel IN relationships %]
                 [% USE String(loop.count() * 3 ) %]
                 "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Color: '#5[% String.format('%02d') %]F[% String.format('%02d') %]', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Category: 'relationships' },
             [% END %]
 
             "count.coverart": { Label: '[% l('Pieces of Cover Art') | js %]', Color: '#0022dd', Description: '[% l('Pieces of Cover Art') | js %]', Category: 'cover-art' },
-            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' }
+            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' },
+
+            "count.release.coverart.amazon": { Label: '[% l('Releases with Amazon Cover Art') | js %]', Color: '#dd22dd', Description: '[% l('Releases with Amazon Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.caa": { Label: '[% l('Releases with CAA Cover Art') | js %]', Color: '#dd0022', Description: '[% l('Releases with CAA Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.relationship": { Label: '[% l('Releases with Cover Art from Relationships') | js %]', Color: '#2200dd', Description: '[% l('Releases with Amazon Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.none": { Label: '[% l('Releases with No Cover Art') | js %]', Color: '#00dd22', Description: '[% l('Releases with No Cover Art') | js %]', Category: 'cover-art' }
         }
     });
 })(MB);

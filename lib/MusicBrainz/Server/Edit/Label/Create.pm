@@ -8,13 +8,19 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Label';
+with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+    editor_subscription_preference => sub { shift->subscribe_to_created_labels }
+};
+with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 sub edit_name { N_l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
@@ -24,15 +30,15 @@ sub label_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name         => Str,
-        sort_name    => Str,
+        sort_name    => Optional[Str],
         type_id      => Nullable[Int],
         label_code   => Nullable[Int],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
-        country_id   => Nullable[Int],
+        area_id      => Nullable[Int],
         comment      => Nullable[Str],
-        ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
+        isni_codes    => Optional[ArrayRef[Str]],
         ended        => Optional[Bool]
     ]
 );
@@ -40,6 +46,7 @@ has '+data' => (
 before initialize => sub {
     my ($self, %opts) = @_;
     die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+    die "You must specify isni_codes" unless defined $opts{isni_codes};
 };
 
 sub foreign_keys
@@ -49,7 +56,7 @@ sub foreign_keys
     return {
         Label     => [ $self->entity_id ],
         LabelType => [ $self->data->{type_id} ],
-        Country   => [ $self->data->{country_id} ],
+        Area      => [ $self->data->{area_id} ],
     };
 }
 
@@ -65,28 +72,28 @@ sub build_display_data
         type       => defined($self->data->{type_id}) &&
                         $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
-        country    => defined($self->data->{country_id}) &&
-                        $loaded->{Country}->{ $self->data->{country_id} },
+        area       => defined($self->data->{area_id}) &&
+                      ($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment},
-        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        ipi_codes  => $self->data->{ipi_codes},
+        isni_codes => $self->data->{isni_codes},
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
         end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
         ended      => $self->data->{ended}
     };
 }
 
-after insert => sub {
-    my ($self) = @_;
-    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
+sub restore {
+    my ($self, $data) = @_;
 
-    $self->c->model('Editor')->load_preferences($editor);
-    if ($editor->preferences->subscribe_to_created_labels) {
-        $self->c->model('Label')->subscription->subscribe($editor->id, $self->entity_id);
-    }
-};
+    $data->{area_id} = delete $data->{country_id}
+        if exists $data->{country_id};
 
+    $data->{ipi_codes} = [ delete $data->{ipi_code} // () ]
+        if exists $data->{ipi_code};
 
-sub allow_auto_edit { 1 }
+    $self->data($data);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

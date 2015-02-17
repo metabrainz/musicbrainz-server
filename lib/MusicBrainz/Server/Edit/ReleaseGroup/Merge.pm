@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::ReleaseGroup::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities' => {
@@ -20,9 +20,10 @@ override 'foreign_keys' => sub {
     my $data = super();
 
     $data->{ReleaseGroup} = {
-        map { $_ => [ 'ArtistCredit' ] }
+        map { $_ => [ 'ArtistCredit', 'ReleaseGroupType', 'ReleaseGroupMeta' ] }
             $self->release_group_ids
     };
+
     return $data;
 };
 

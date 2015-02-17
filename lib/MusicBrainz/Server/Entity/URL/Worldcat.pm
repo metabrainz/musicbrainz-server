@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "Worldcat";
+    return "WorldCat";
 }
 
 __PACKAGE__->meta->make_immutable;

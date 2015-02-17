@@ -1,18 +1,20 @@
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-relationship">
     [%- USE r = FormRenderer(form) -%]
 
     [% form_row_select(r, 'parent_id', l('Parent:')) %]
 
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
-        [% r.text('child_order', { size => 5 }) %]
+        [% r.number('child_order') %]
         [% form_field_errors(form, 'child_order') %]
     [% END %]
 
     [% form_row_text_long(r, 'name', l('Name:')) %]
     [% form_row_text_long(r, 'link_phrase', l('Forward link phrase:')) %]
     [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
-    [% form_row_text_long(r, 'short_link_phrase', l('Short link phrase:')) %]
+    [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
+    [% form_row_checkbox(r, 'is_deprecated', l('This relationship is deprecated')) %]
+    [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
 
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
@@ -21,13 +23,24 @@
     [% END %]
 
     [% WRAPPER form_row %]
+        [% r.label('entity0_cardinality', l('entity0 cardinality:')) %]
+        [% r.number('entity0_cardinality') %]
+        [% form_field_errors(form, 'entity0_cardinality') %]
+    [% END %]
+    [% WRAPPER form_row %]
+        [% r.label('entity1_cardinality', l('entity1 cardinality:')) %]
+        [% r.number('entity1_cardinality') %]
+        [% form_field_errors(form, 'entity1_cardinality') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
         [% r.label('priority', l('Priority:')) %]
-        [% r.text('priority', { size => 5 }) %]
+        [% r.number('priority') %]
         [% form_field_errors(form, 'priority') %]
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('attributes', l('Attributes:')) %]
+        <label>[% l('Attributes:') %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
@@ -39,7 +52,151 @@
         [% END %]
     [% END %]
 
+    [% WRAPPER form_row %]
+      [% r.label('documentation', l('Documentation:')) %]
+      [% r.textarea('documentation', { cols => 80, rows => 10 }) %]
+    [% END %]
+
+    [% IF form.isa('MusicBrainz::Server::Form::Admin::LinkType::Edit') %]
+    <fieldset>
+        <legend>[% l('Examples') %]</legend>
+        <span data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length > 0">
+            <span data-bind="foreach: MB.ExampleRelationshipsEditor.viewModel.examples">
+                [% WRAPPER form_row %]
+                    <label class="required"
+                           data-bind="attr: { for: examplePrefix($index(), 'name') }">
+                        [%- l('Name:') -%]
+                    </label>
+                    <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
+                    <button data-bind="click: removeExample">
+                        [% l('Remove Example') %]
+                    </button>
+                [% END %]
+
+                [% WRAPPER form_row %]
+                <div class="no-label" data-bind="with: relationship">
+                    <input type="hidden" data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id" />
+
+                    <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
+                    <span data-bind="html: phrase"></span>
+                    <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
+                </div>
+                [% END %]
+            </span>
+        </span>
+
+        <span data-bind="if: MB.ExampleRelationshipsEditor.viewModel.examples().length == 0">
+            [% WRAPPER form_row %]
+                <div class="no-label">
+                    [% l('This relationship type does not have any examples.') %]
+                </div>
+            [% END %]
+        </span>
+
+        <h3>[% l('Add a New Example') %]</h3>
+        [% WRAPPER form_row %]
+            <label>[% l('Name:') %]</label>
+            <input type="text" data-bind="value: currentExample.name" />
+        [% END %]
+
+        [%- WRAPPER form_row -%]
+          <label class="required">[% l('Endpoint:') %]</label>
+          <select style="width: 130px; margin-right: 4px;"
+              data-bind="options: availableEntityTypes, value: selectedEntityType,
+                         optionsText: 'text', optionsValue: 'value'">
+          </select>
+          <span class="autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+            <input type="text" class="name" value="" style="width: 170px;" />
+            <input type="hidden" class="id" value=""  />
+            <input type="hidden" class="gid" value=""
+                data-bind="value: currentExample.possibleRelationships.query"  />
+          </span>
+          <button data-bind="click: currentExample.possibleRelationships.search,
+                             enable: currentExample.possibleRelationships.query">
+                [% l('Find Relationships') %]</button>
+        [%- END -%]
+
+        <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
+            <label>&#xa0;</label>
+            <span class="error" data-bind="text: currentExample.possibleRelationships.error"></span>
+        </div>
+
+        <span data-bind="if: currentExample.possibleRelationships.results().length">
+        [% WRAPPER form_row %]
+            <div class="no-label">
+                <ul data-bind="foreach: currentExample.possibleRelationships.results">
+                    <li>
+                        <input type="radio"
+                               name="current-example.relationship"
+                               data-bind="checkObject: $root.currentExample.relationship" />
+                        <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
+                        <span data-bind="html: phrase"></span>
+                        <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
+                    </li>
+                </ul>
+            </div>
+        [% END %]
+        </span>
+
+        [% WRAPPER form_row %]
+            <div class="no-label">
+                <button data-bind="click: currentExample.add, enable: currentExample.relationship()">
+                    [% l('Add Example') %]
+                </button>
+            </div>
+        [% END %]
+
+        <script type="text/javascript"
+            src="[% c.uri_for('/static/scripts/edit/ExampleRelationships.js') %]">
+        </script>
+        <script type="text/javascript">
+var editor = MB.ExampleRelationshipsEditor.init({
+    type0: '[% link_type.entity0_type %]',
+    type1: '[% link_type.entity1_type %]',
+    linkTypeName: '[% link_type.name %]',
+    linkTypeID: '[% link_type.id %]',
+    jsRoot: '[% c.uri_for("/ws/js/entity/") %]'
+});
+
+[% FOREACH example=form.field('examples').fields %]
+    [%- relationship_id = example.field('relationship').field('id').value;
+        relationship = relationship_map.$relationship_id -%]
+MB.ExampleRelationshipsEditor.viewModel.examples.push(
+    new MB.ExampleRelationshipsEditor.Example(
+        '[% example.field('name').value | js %]',
+        {
+            id: [% relationship_id %],
+            phrase: '[% relationship.verbose_phrase | js %]',
+            source: {
+                name: '[% relationship.source.name | js %]',
+                mbid: '[% relationship.source.gid %]'
+            },
+            target: {
+                name: '[% relationship.target.name | js%]',
+                mbid: '[% relationship.target.gid %]'
+            }
+        }
+    )
+);
+[% END %]
+
+// A helper for generating form field names
+function examplePrefix(i, s) {
+    return '[% form.name %].examples.' + i + '.' + s;
+}
+        </script>
+    </fieldset>
+    [% END %]
+
     <div class="row no-label">
         [% form_submit(l('Save')) %]
     </div>
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction(
+        'form.edit-relationship',
+        'form.edit-relationship button[type="submit"]'
+    );
+</script>

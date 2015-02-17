@@ -21,7 +21,7 @@ sub _parse_filename
        $data->{tracknum} = $1;
    }
 
-   for(;;)
+   for (;;)
    {
        if ($filename =~ s/^([^-]*)-//)
        {
@@ -99,7 +99,7 @@ sub nag_check
 
     if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
     {
-        my $result = $c->model('Editor')->donation_check ($c->user);
+        my $result = $c->model('Editor')->donation_check($c->user);
         my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
 
         $session->{nag} = -1 unless $nag;
@@ -112,28 +112,6 @@ sub nag_check
 
     $session->{nag} = 0;
     return 1; # nag this user.
-}
-
-
-sub puid : Private
-{
-    my ($self, $c, $form) = @_;
-
-    my $puid = $form->field('puid')->value();
-    my @releases = $c->model('Release')->find_by_puid($puid);
-
-    $c->model('ArtistCredit')->load(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Script')->load(@releases);
-    $c->model('Language')->load(@releases);
-
-    my @results = map { { entity => $_ } } @releases;
-
-    $c->stash(
-        # A PUID search displays releases as results
-        type    => 'release',
-        results => \@results
-    );
 }
 
 sub external : Private
@@ -166,11 +144,12 @@ sub external : Private
 
     my @search_modifiers;
     for my $term (keys %terms) {
+        my $value = escape_query($terms{$term});
         if ($term eq 'artist') {
-            push @search_modifiers, alias_query('artist', $terms{$term});
+            push @search_modifiers, alias_query('artist', $value);
         }
         else {
-            push @search_modifiers, "$term:" . q{"} . escape_query($terms{$term}) . q{"};
+            push @search_modifiers, "$term:" . q{"} . $value . q{"};
         }
     }
 
@@ -214,7 +193,7 @@ sub index : Path('')
         map {
             ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
                                 $c->req->query_params->{$_})
-        } qw( artist release tracknum track duration filename puid )
+        } qw( artist release tracknum track duration filename )
     };
 
     # All the fields are optional, but we shouldn't do anything unless at
@@ -222,13 +201,7 @@ sub index : Path('')
     return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
 
-    if ($form->field('puid')->value()) {
-        $self->puid($c, $form);
-    }
-    else {
-        $self->external($c, $form);
-    }
-
+    $self->external($c, $form);
     $c->stash( template => 'taglookup/results.tt' );
 }
 

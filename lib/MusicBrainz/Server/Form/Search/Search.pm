@@ -36,11 +36,16 @@ sub options_type
         'recording'     => l('Recording'),
         'work'          => l('Work'),
         'label'         => l('Label'),
+        'area'          => l('Area'),
+        'place'         => l('Place'),
         'annotation'    => l('Annotation'),
         'cdstub'        => l('CD Stub'),
         'editor'        => l('Editor'),
         'freedb'        => l('FreeDB'),
         'tag'           => lp('Tag', 'noun'),
+        'instrument'    => l('Instrument'),
+        'series'        => lp('Series', 'singular'),
+        'event'         => l('Event'),
     );
 
     push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;

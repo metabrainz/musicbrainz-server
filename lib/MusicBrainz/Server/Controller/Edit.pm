@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -7,10 +8,12 @@ use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality $REQUIRED_VOTES $OPEN_EDIT_DURATION );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
+use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
+use List::UtilsBy qw( sort_by );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -56,16 +59,28 @@ sub show : Chained('load') PathPart('') RequireAuth
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
 
-    $c->model('Edit')->load_all($edit);
-    $c->model('Vote')->load_for_edits($edit);
-    $c->model('EditNote')->load_for_edits($edit);
-    $c->model('Editor')->load($edit, @{ $edit->votes }, @{ $edit->edit_notes });
+    load_everything_for_edits($c, [ $edit ]);
     $c->form(add_edit_note => 'EditNote');
 
     $c->stash->{template} = 'edit/index.tt';
 }
 
-sub enter_votes : Local RequireAuth
+sub data : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $edit = $c->stash->{edit};
+    my $related = $c->model('Edit')->get_related_entities($edit);
+    my %entities;
+    while (my ($type, $ids) = each %$related) {
+        $entities{$type} = $c->model(type_to_model($type))->get_by_ids(@$ids) if @$ids;
+    }
+
+    $c->stash( related_entities => \%entities,
+               template => 'edit/data.tt' );
+}
+
+sub enter_votes : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -84,7 +99,7 @@ sub enter_votes : Local RequireAuth
     $c->detach;
 }
 
-sub approve : Chained('load') RequireAuth(auto_editor)
+sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -97,7 +112,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
             return;
         }
         else {
-            if($edit->approval_requires_comment($c->user)) {
+            if ($edit->approval_requires_comment($c->user)) {
                 $c->model('EditNote')->load_for_edits($edit);
                 my $left_note;
                 for my $note (@{ $edit->edit_notes }) {
@@ -106,7 +121,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
                     last;
                 }
 
-                unless($left_note) {
+                unless ($left_note) {
                     $c->stash( template => 'edit/require_note.tt' );
                     return;
                 };
@@ -114,12 +129,12 @@ sub approve : Chained('load') RequireAuth(auto_editor)
 
             $c->model('Edit')->approve($edit, $c->user->id);
             $c->response->redirect(
-                $c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
+                $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         }
     });
 }
 
-sub cancel : Chained('load') RequireAuth
+sub cancel : Chained('load') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
@@ -146,7 +161,7 @@ sub cancel : Chained('load') RequireAuth
             }
         });
 
-        $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
+        $c->response->redirect($c->stash->{cancel_redirect} || $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         $c->detach;
     }
 }
@@ -165,51 +180,58 @@ sub open : Local RequireAuth
          $c->model('Edit')->find_open_for_editor($c->user->id, shift, shift);
     });
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-    $c->form(add_edit_note => 'EditNote');
+    $c->stash( edits => $edits ); # stash early in case an ISE occurs
 
-    $c->stash( edits => $edits );
+    load_everything_for_edits($c, $edits);
+    $c->form(add_edit_note => 'EditNote');
 }
 
 sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
+    my $coll = $c->get_collator();
     my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
     $c->stash(
         edit_types => [
             map [
                 join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
-            ], sort keys %grouped
+            ], sort_by { $coll->getSortKey($_) } keys %grouped
         ],
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
-        countries => [ $c->model('Country')->get_all ],
+        countries => [ $c->model('CountryArea')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
     return unless %{ $c->req->query_params };
 
-    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user->id);
     $c->stash( query => $query );
 
-    if ($query->valid) {
-        my $edits = $self->_load_paged($c, sub {
-            return $c->model('Edit')->run_query($query, shift, shift);
-        });
+    if ($query->valid && !$c->req->query_params->{'form_only'}) {
+        my $edits;
+        my $timed_out = 0;
 
-        $c->model('Edit')->load_all(@$edits);
-        $c->model('Vote')->load_for_edits(@$edits);
-        $c->model('EditNote')->load_for_edits(@$edits);
-        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-        $c->form(add_edit_note => 'EditNote');
+        try {
+            $edits = $self->_load_paged($c, sub {
+                return $c->model('Edit')->run_query($query, shift, shift);
+            });
+        } catch {
+            if ($c->model('MB')->context->sql->is_timeout($_)) { $timed_out = 1; }
+            else { die $_; }
+        };
+        if ($timed_out) {
+            $c->stash( timed_out => 1 );
+            return;
+        }
 
         $c->stash(
-            edits    => $edits,
-            template => 'edit/search_results.tt'
+            edits => $edits, # stash early in case an ISE occurs
+            template => 'edit/search_results.tt',
         );
+
+        load_everything_for_edits($c, $edits);
+        $c->form(add_edit_note => 'EditNote');
     }
 }
 
@@ -219,15 +241,13 @@ sub subscribed : Local RequireAuth
     my $edits = $self->_load_paged($c, sub {
         $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
     });
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 
     $c->stash(
-        edits    => $edits,
-        template => 'edit/subscribed.tt'
+        edits => $edits, # stash early in case an ISE occurs
+        template => 'edit/subscribed.tt',
     );
+
+    load_everything_for_edits($c, $edits);
 }
 
 sub subscribed_editors : Local RequireAuth
@@ -236,15 +256,13 @@ sub subscribed_editors : Local RequireAuth
     my $edits = $self->_load_paged($c, sub {
         $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
     });
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 
     $c->stash(
-        edits    => $edits,
-        template => 'edit/subscribed-editors.tt'
+        edits => $edits, # stash early in case an ISE occurs
+        template => 'edit/subscribed-editors.tt',
     );
+
+    load_everything_for_edits($c, $edits);
 }
 
 =head2 conditions
@@ -272,6 +290,8 @@ sub edit_types : Path('/doc/Edit_Types')
     }
 
     $c->stash(
+        open_edit_duration => $OPEN_EDIT_DURATION,
+        required_votes => $REQUIRED_VOTES,
         by_category => \%by_category,
         template => 'doc/edit_types.tt'
     );

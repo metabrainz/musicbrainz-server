@@ -43,9 +43,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Dancing Queen', '..has work name');
 $mech->content_like(qr{work/745c079d-374e-4436-9448-da92dedef3ce/?"}, '..has a link to the work');
-$mech->content_contains('work/745c079d-374e-4436-9448-da92dedef3ce/annotation/' . $edit->annotation_id,
-                        '..has a link to the annotation');
-
 };
 
 1;

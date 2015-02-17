@@ -4,7 +4,6 @@ extends 'HTML::FormHandler';
 
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -13,23 +12,6 @@ sub submitted_and_valid
 {
     my ($self, $params) = @_;
     return $self->process( params => $params) && $self->has_params if values %$params;
-}
-
-sub _select_all
-{
-    my ($self, $model, %opts) = @_;
-    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
-    my $accessor = $opts{accessor} // 'l_name';
-    my $coll = Unicode::ICU::Collator->new($self->ctx->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-
-    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
-    return [ map {
-        $_->id => l($_->$accessor)
-    } sort_by {
-        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
-    } $model_ref->get_all ];
 }
 
 # Modified copy from HTML/FormHandler.pm (including a bug fix for
@@ -82,9 +64,9 @@ sub serialize
 
     # to serialize a form we save both the values and attributes of each field.
     # ->fif provides convenient access to all values.
-    my $fif = $self->_fix_fif ($self->fif);
+    my $fif = $self->_fix_fif($self->fif);
 
-    my @attribute_names = qw/ label title style css_class id disabled readonly order /;
+    my @attribute_names = qw/ label title style id disabled readonly order /;
     my $name = $self->name;
     my $attributes = {};
 
@@ -133,7 +115,7 @@ sub unserialize
         # copy the values previously rendered.
         if ($self->field($field)->disabled)
         {
-            $self->field($field)->value ($data->{'values'}->{$full_name});
+            $self->field($field)->value($data->{'values'}->{$full_name});
         }
     }
 }
@@ -156,7 +138,7 @@ sub _fix_fif
         {
             $fieldname .= $sep . shift @segments;
 
-            my $f = $self->field ($fieldname);
+            my $f = $self->field($fieldname);
             $repeatables{$fieldname} = 1 if ($f && $f->is_repeatable);
 
             $sep = '.';
@@ -169,7 +151,7 @@ sub _fix_fif
     {
         for my $prefix (keys %repeatables)
         {
-            delete ($fif->{$_}) if (m/^\Q$prefix\E\.[^0-9]+/);
+            delete($fif->{$_}) if (m/^\Q$prefix\E\.[^0-9]+/);
         }
     }
 
@@ -181,7 +163,7 @@ sub clear_errors {
 
     if (!$field)
     {
-        map { $self->clear_errors ($_) } $self->fields;
+        map { $self->clear_errors($_) } $self->fields;
         return;
     }
 
@@ -189,12 +171,12 @@ sub clear_errors {
 
     if ($field->is_repeatable)
     {
-        map { $self->clear_errors ($_) } $field->fields;
+        map { $self->clear_errors($_) } $field->fields;
     }
 
-    if ($field->can ('is_compound') && $field->is_compound)
+    if ($field->can('is_compound') && $field->is_compound)
     {
-        map { $self->clear_errors ($_) } $field->fields;
+        map { $self->clear_errors($_) } $field->fields;
     }
 }
 

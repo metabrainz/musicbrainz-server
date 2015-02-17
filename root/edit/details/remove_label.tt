@@ -1,6 +1,0 @@
-<table class="details remove-label">
-  <tr>
-    <th>[% l('Label:') %]</th>
-    <td>[% descriptive_link(edit.display_data.entity) %]</td>
-  </tr>
-</table>

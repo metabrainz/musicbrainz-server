@@ -15,7 +15,7 @@ sub attributes {
     push @types, "NotNaggable" if $entity->is_nag_free;
 
     return (
-        type => join (' ', @types) || ''
+        type => join(' ', @types) || ''
     )
 }
 

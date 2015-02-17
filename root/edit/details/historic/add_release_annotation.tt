@@ -1,24 +1,31 @@
-<table class="details">
+<table class="details add-release-annotation">
     <tr>
-        <th>[% l('Releases:') %]</th>
+        <th>[%~ add_colon(l('Releases')) ~%]</th>
         <td>
             <ul>
-            [% FOR release=edit.display_data.releases %]
-                <li>[% descriptive_link(release) %]</li>
-            [% END %]
+            [%~ FOR release=edit.display_data.releases ~%]
+                <li>[%~ descriptive_link(release) ~%]</li>
+            [%~ END %]
             </ul>
         </td>
     </tr>
+
     <tr>
-        <th>[% l('Annotation') %]</th>
+        <th>[%~ add_colon(l('Text')) ~%]</th>
         <td>
-            [% edit.display_data.annotation | format_wikitext %]
+            [%~ IF edit.display_data.text ~%]
+                [%~ edit.display_data.text | format_wikitext ~%]
+            [%~ ELSE ~%]
+                <p><span class="comment">[%~ l('This annotation is empty.') ~%]</span></p>
+            [%~ END ~%]
         </td>
     </tr>
+    [%~ IF edit.display_data.changelog ~%]
     <tr>
-        <th>[% l('Changelog:') %]</th>
+        <th>[%~ add_colon(l('Summary')) ~%]</th>
         <td>
-            [% edit.display_data.changelog || lp('(none)', 'annotation changes') %]
+            [%~ edit.display_data.changelog ~%]
         </td>
     </tr>
+    [%~ END ~%]
 </table>

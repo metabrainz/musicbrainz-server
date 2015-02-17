@@ -19,54 +19,32 @@
 
 */
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-
 /**
  * Main class of the GC functionality
  **/
-MB.GuessCase.Main = function () {
-    if (window.gc)
-    {
-        return window.gc; /* yay. we're a singleton now. */
-    }
+(function () {
+    var self = {};
 
-    var self = MB.Object ();
-
-    // ----------------------------------------------------------------------------
-    // placeholders for stuff which used to be inherited from the edit suite.
-    // ---------------------------------------------------------------------------
-    self.isConfigTrue = function (cfg) { return cfg (); };
+    self.modeName = $.cookie("guesscase_mode") || "English";
+    self.mode = MB.GuessCase.Mode[self.modeName];
 
     /* config. */
-    self.CFG_AUTOFIX = function () { return false; };
-    self.CFG_UC_ROMANNUMERALS = function () { return $('#gc-roman').is(':checked'); };
-    self.CFG_UC_UPPERCASED = function () { return $('#gc-keepuppercase').is(':checked'); };
-
-    /* Remember config. */
-    MB.utility.rememberCheckbox ('#gc-roman', 'guesscase_roman');
-    MB.utility.rememberCheckbox ('#gc-keepuppercase', 'guesscase_keepuppercase');
+    self.CFG_UC_ROMANNUMERALS = $.cookie("guesscase_roman") !== "false";
+    self.CFG_UC_UPPERCASED = $.cookie("guesscase_keepuppercase") !== "false";
 
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils ();
-    self.f = MB.GuessCase.Flags ();
-    self.i = MB.GuessCase.Input ();
-    self.o = MB.GuessCase.Output ();
-    self.artistHandler = null;
-    self.labelHandler = null;
-    self.releaseHandler = null;
-    self.trackHandler = null;
+    self.u = MB.GuessCase.Utils();
+    self.f = MB.GuessCase.Flags();
+    self.i = MB.GuessCase.Input();
+    self.o = MB.GuessCase.Output();
+
     self.re = {
-	// define commonly used RE's
-	SPACES_DOTS 	: /\s|\./i,
-	SERIES_NUMBER 	: /^(\d+|[ivx]+)$/i
+        // define commonly used RE's
+        SPACES_DOTS: /\s|\./i,
+        SERIES_NUMBER: /^(\d+|[ivx]+)$/i
     }; // holder for the regular expressions
-
-    self.modes = MB.GuessCase.Modes ();
-
-    /* FIXME: inconsistent. */
-    self.artistmode = self.modes.artist_mode;
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -75,328 +53,88 @@ MB.GuessCase.Main = function () {
     /**
      * Initialise the GuessCase object for another run
      **/
-    self.init = function() {
-	self.f.init(); // init flags object
+    self.init = function () {
+        self.f.init(); // init flags object
     };
 
-    /**
-     * Guess the capitalization of an artist name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessArtist = function(is) {
-	var os, handler;
-	gc.init();
+    function guess(handlerName, method) {
+        var handler;
 
-        var mode_backup = self.mode;
-        self.mode = self.artistmode;
+        /**
+         * Guesses the name (e.g. capitalization) or sort name (for aliases)
+         * of a given entity.
+         * @param {string} is The unprocessed input string.
+         * @return {string} The processed string.
+         **/
+        return function (is) {
+            gc.init();
 
-	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
-	}
-	handler = self.artistHandler;
+            handler = handler || MB.GuessCase.Handler[handlerName]();
 
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.process(is);
-	}
-
-        self.mode = mode_backup;
-
-	return os;
-    };
-
-    /**
-     * Guess the sortname of a given artist name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessArtistSortname = function(is, person) {
-	var os, handler;
-	gc.init();
-
-	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
-	}
-	handler = self.artistHandler;
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.guessSortName(is, person);
-	}
-
-	return os;
-    };
-
-    /**
-     * Guess the capitalization of a label name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessLabel = function(is) {
-	var os, handler;
-	gc.init();
-
-	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
-	}
-	handler = self.labelHandler;
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.process(is);
-	}
-
-	return os;
-    };
-
-    /**
-     * Guess the sortname of a given label name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessLabelSortname = function(is) {
-	var os, handler;
-	gc.init();
-
-	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
-	}
-	handler = self.labelHandler;
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.guessSortName(is);
-	}
-
-	return os;
-    };
-
-    /**
-     * Guess the capitalization of a work name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessWork = function(is, mode) {
-	var os, handler;
-	gc.init();
-
-	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
-	}
-	handler = self.workHandler;
-
-	self.useSelectedMode(mode);
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.process(is);
-	}
-
-	return os;
-    };
-
-    /**
-     * Guess the sortname of a given work name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessWorkSortname = function(is) {
-	var os, handler;
-	gc.init();
-
-	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
-	}
-	handler = self.workHandler;
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.guessSortName(is);
-	}
-
-	return os;
-    };
-
-
-    /**
-     * Guess the capitalization of n release name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessRelease = function(is, mode) {
-	var os, handler;
-	gc.init();
-
-	if (!self.releaseHandler) {
-	    self.releaseHandler = MB.GuessCase.Handler.Release ();
-	}
-	handler = self.releaseHandler;
-
-	self.useSelectedMode(mode);
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.process(is);
-
-	}
-	return os;
-    };
-
-    /**
-     * Guess the capitalization of an track name
-     * @param	 is		the un-processed input string
-     * @returns			the processed string
-     **/
-    self.guessTrack = function(is, mode) {
-	var os, handler;
-	self.init();
-
-	if (!self.trackHandler) {
-	    self.trackHandler = MB.GuessCase.Handler.Track ();
-	}
-	handler = self.trackHandler;
-
-	self.useSelectedMode(mode);
-
-	// we need to query the handler if the input string is
-	// a special case, fetch the correct format, if the
-	// returned case is indeed a special case.
-	var num = handler.checkSpecialCase(is);
-	if (handler.isSpecialCase(num)) {
-	    os = handler.getSpecialCaseFormatted(is, num);
-
-	} else {
-	    // if it was not a special case, start Guessing
-	    os = handler.process(is);
-
-	}
-	return os;
-    };
-
-    /**
-     * Selects the current value from the DropDown.
-     **/
-    self.useSelectedMode = function () {
-        self.mode = self.modes.getMode ();
-    };
-
-    self.getMode = function () {
-        return self.modes.getMode ();
-    };
-
-    self.setMode = function (value) {
-        self.mode = self.modes.setMode (value);
-        return self.mode;
-    };
-
-    self.setOptions = function (options) {
-        if (options.mode)
-        {
-            self.setMode (options.mode);
-        }
-
-        $.each (options, function (key, value) {
-            var $checkbox = $('#gc-' + key);
-            if ($checkbox.length)
-            {
-                if (value)
-                {
-                    $checkbox.attr ('checked', 'checked');
-                }
-                else
-                {
-                    $checkbox.removeAttr ('checked');
-                }
+            // we need to query the handler if the input string is
+            // a special case, fetch the correct format, if the
+            // returned case is indeed a special case.
+            var num = handler.checkSpecialCase(is);
+            if (handler.isSpecialCase(num)) {
+                var os = handler.getSpecialCaseFormatted(is, num);
+            } else {
+                // if it was not a special case, start Guessing
+                var os = handler[method].apply(handler, arguments);
             }
-        });
+
+            return os;
+        };
+    }
+
+    MB.GuessCase.area = {
+        guess: guess("Area", "process"),
+        sortname: guess("Area", "guessSortName")
     };
 
-    /**
-     * Accessor function: Returns the current word of
-     * the input object
-     *
-     * @see Log#logMessage
-     **/
-    self.getCurrentWord = function() {
-	return gc.i.getCurrentWord();
+    MB.GuessCase.artist = {
+        guess: guess("Artist", "process"),
+        sortname: guess("Artist", "guessSortName")
     };
 
-    /**
-     * Accessor function: Returns the GcOutput object
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getInput = function() {
-	return gc.i;
+    MB.GuessCase.label = {
+        guess: guess("Label", "process"),
+        sortname: guess("Label", "guessSortName")
     };
 
-    /**
-     * Accessor function: Returns the GcOutput object
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getOutput = function() {
-	return gc.o;
+    MB.GuessCase.place = {
+        guess: guess("Place", "process"),
+        sortname: guess("Place", "guessSortName")
     };
 
-    /**
-     * Accessor function: Returns the GcUtils object.
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getUtils = function() {
-	return gc.u;
+    MB.GuessCase.release = {
+        guess: guess("Release", "process")
+    };
+
+    MB.GuessCase["release_group"] = MB.GuessCase.release;
+    MB.GuessCase["release-group"] = MB.GuessCase.release;
+
+    MB.GuessCase.track = {
+        guess: guess("Track", "process")
+    };
+
+    MB.GuessCase.recording = MB.GuessCase.track;
+
+    MB.GuessCase.work = {
+        guess: guess("Work", "process"),
+        sortname: guess("Work", "guessSortName")
+    };
+
+    // Series doesn't have it's own handler, and just uses the work handler
+    // because additional behavior isn't needed.
+    MB.GuessCase.series = MB.GuessCase.work;
+
+    // lol
+    MB.GuessCase.instrument = {
+        guess: function (string) {
+            return string.toLowerCase();
+        }
     };
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;
-
-    self.useSelectedMode ();
-
-    return self;
-};
-
+}());

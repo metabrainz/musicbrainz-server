@@ -1,0 +1,7 @@
+[%- WRAPPER "instrument/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=instrument
+        delete_path='/instrument/delete_alias'
+        add_path='/instrument/add_alias'
+        edit_path='/instrument/edit_alias'
+        disallow_editing=c.user_exists ? !c.user.is_relationship_editor : 1 -%]
+[%- END -%]

@@ -44,7 +44,16 @@ ws_test 'label lookup with tags and ratings',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
-        <name>Planet Mu</name><sort-name>Planet Mu</sort-name><country>GB</country>
+        <name>Planet Mu</name>
+        <sort-name>Planet Mu</sort-name>
+        <country>GB</country>
+        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+            <name>United Kingdom</name>
+            <sort-name>United Kingdom</sort-name>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
         <life-span>
             <begin>1995</begin>
         </life-span>
@@ -108,11 +117,13 @@ ws_test 'release lookup with release-groups, tags and ratings',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-        <title>My Demons</title><status>Official</status>
-        <quality>normal</quality>
-        <text-representation>
-            <language>eng</language><script>Latn</script>
-        </text-representation>
+                <title>My Demons</title>
+                <status>Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language>
+                    <script>Latn</script>
+                </text-representation>
         <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
@@ -120,7 +131,21 @@ ws_test 'release lookup with release-groups, tags and ratings',
             <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
             <rating votes-count="1">4</rating>
         </release-group>
-        <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+        <date>2007-01-29</date>
+        <country>GB</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2007-01-29</date>
+                <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                    <name>United Kingdom</name>
+                    <sort-name>United Kingdom</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>GB</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
         <cover-art-archive>
             <artwork>false</artwork>

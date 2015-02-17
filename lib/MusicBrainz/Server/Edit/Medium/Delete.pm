@@ -4,19 +4,20 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { N_l('Remove medium') }
+sub edit_kind { 'remove' }
 sub medium_id { shift->data->{medium_id} }
 
 has '+data' => (
@@ -47,7 +48,7 @@ sub foreign_keys
     $fk{MediumFormat} = { $self->data->{format_id} => [] };
     $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
 
-    tracklist_foreign_keys (\%fk, $self->data->{tracklist});
+    tracklist_foreign_keys(\%fk, $self->data->{tracklist});
 
     return \%fk;
 }
@@ -59,7 +60,7 @@ sub build_display_data
     return {
         format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         release => $loaded->{Release}->{ $self->data->{release_id} },
-        tracklist => display_tracklist ($loaded, $self->data->{tracklist}),
+        tracks => display_tracklist($loaded, $self->data->{tracklist}),
         name => $self->data->{name},
         position => $self->data->{position},
     }
@@ -71,14 +72,13 @@ sub initialize
 
     my $medium = $args{medium} or die 'Missing required medium object';
 
-    $self->c->model('Tracklist')->load ($medium);
-    $self->c->model('Track')->load_for_tracklists ($medium->tracklist);
-    $self->c->model('ArtistCredit')->load ($medium->tracklist->all_tracks);
+    $self->c->model('Track')->load_for_mediums($medium);
+    $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
     $self->data({
         medium_id => $medium->id,
         format_id => $medium->format_id,
-        tracklist => tracks_to_hash($medium->tracklist->tracks),
+        tracklist => tracks_to_hash($medium->tracks),
         name => $medium->name,
         position => $medium->position,
         release_id => $medium->release_id,
@@ -98,11 +98,6 @@ sub accept
 
     $self->c->model('Medium')->delete($self->medium_id);
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

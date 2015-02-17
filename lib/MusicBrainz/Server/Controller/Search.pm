@@ -9,6 +9,8 @@ use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
 use feature 'switch';
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 sub search : Path('')
 {
     my ($self, $c) = @_;
@@ -43,8 +45,7 @@ sub search : Path('')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag' ||
-               $form->field('type')->value eq 'editor')
+        elsif ($form->field('type')->value eq 'tag')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');
@@ -89,10 +90,10 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    given($type) {
+    given ($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
-            $c->model('Country')->load(@entities);
+            $c->model('Area')->load(@entities);
             $c->model('Gender')->load(@entities);
         }
         when ('editor') {
@@ -102,13 +103,21 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         when ('release') {
-            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
+            $c->model('Release')->load_release_events(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
+            $c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
+            $c->model('ReleaseStatus')->load(@entities);
+            $c->model('ReleaseLabel')->load(@entities);
+            $c->model('Label')->load(map { $_->all_labels} @entities);
+            $c->model('ReleaseGroup')->load(@entities);
+            $c->model('ReleaseGroupType')->load(map { $_->release_group }
+                @entities);
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
@@ -124,11 +133,9 @@ sub direct : Private
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);
-            $c->model('Tracklist')->load(map { $_->all_mediums } @releases);
-            $c->model('Track')->load_for_tracklists(map { $_->tracklist }
-                                                    map { $_->all_mediums } @releases);
-            $c->model('Recording')->load(map { $_->tracklist->all_tracks }
-                                         map { $_->all_mediums } @releases);
+            $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
+            $c->model('Recording')->load(
+                map { $_->all_tracks } map { $_->all_mediums } @releases);
             $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
         }
         when ('work') {
@@ -136,6 +143,26 @@ sub direct : Private
             $c->model('Work')->load_recording_artists(@entities);
             $c->model('ISWC')->load_for_works(@entities);
             $c->model('Language')->load(@entities);
+            $c->model('WorkType')->load(@entities);
+        }
+        when ('area') {
+            $c->model('AreaType')->load(@entities);
+            $c->model('Area')->load_containment(@entities);
+        }
+        when ('place') {
+            $c->model('PlaceType')->load(@entities);
+            $c->model('Area')->load(@entities);
+        }
+        when ('instrument') {
+            $c->model('InstrumentType')->load(@entities);
+        }
+        when ('series') {
+            $c->model('SeriesType')->load(@entities);
+            $c->model('SeriesOrderingType')->load(@entities);
+        }
+        when ('event') {
+            $c->model('Event')->load_related_info(@entities);
+            $c->model('Event')->load_areas(@entities);
         }
     }
 
@@ -145,7 +172,7 @@ sub direct : Private
     }
 
     $c->stash(
-        template => sprintf ('search/results-%s.tt', $type),
+        template => sprintf('search/results-%s.tt', $type),
         query    => $query,
         results  => $results,
         type     => $type,
@@ -165,8 +192,6 @@ sub external : Private
     my $query  = $form->field('query')->value;
 
     $c->stash->{query} = $query;
-
-    $c->detach('/search/editor') if $type eq 'editor';
 
     $self->do_external_search($c,
                               query    => $query,
@@ -206,7 +231,7 @@ sub do_external_search {
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        given($ret->{code})
+        given ($ret->{code})
         {
             when (404) { $template .= 'no-results.tt'; }
             when (403) { $template .= 'no-info.tt'; };

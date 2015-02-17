@@ -5,9 +5,9 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
 
 __PACKAGE__->config(
@@ -15,7 +15,7 @@ __PACKAGE__->config(
     paging_limit => 50,
 );
 
-sub not_found
+sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->response->status(404);
@@ -55,7 +55,7 @@ auto-editing, for example).
 sub submit_and_validate
 {
     my ($self, $c) = @_;
-    if($c->form_posted && $self->form->validate($c->req->body_params))
+    if ($c->form_posted && $self->form->validate($c->req->body_params))
     {
         if ($self->form->isa('MusicBrainz::Server::Form'))
         {
@@ -73,11 +73,14 @@ sub submit_and_validate
 sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
-    my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor &&
-        $form->field('as_auto_editor') &&
-        !$form->field('as_auto_editor')->value) {
-        $privs &= ~$AUTO_EDITOR_FLAG;
+    if (!$c->user->has_confirmed_email_address) {
+        $c->detach('/error_401');
+    }
+
+    my $privs = $c->user->privileges;
+    if ($form->field('make_votable') &&
+        $form->field('make_votable')->value) {
+        $privs |= $UNTRUSTED_FLAG;
     }
 
     my $edit;
@@ -111,9 +114,50 @@ sub _insert_edit {
 
     if (defined $edit)
     {
-        $c->flash->{message} = $edit->is_open
-            ? l('Thank you, your edit has been entered into the edit queue for peer review.')
-            : l('Thank you, your edit has been accepted and applied');
+      if (not defined $c->stash->{edit_ids}) {
+        $c->stash->{edit_ids} = [ $edit->id ];
+        $c->stash->{num_open_edits} = $edit->is_open;
+      } else {
+        push(@{$c->stash->{edit_ids}}, $edit->id );
+        $c->stash->{num_open_edits}++ if $edit->is_open;
+      }
+
+      my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
+                   num_open_edits => $c->stash->{num_open_edits} );
+      my $first_edit_id = $c->stash->{edit_ids}->[0];
+      my @edit_ids = @{$c->stash->{edit_ids}};
+      $args{edit_ids} = "#" . join(", #", @edit_ids[0.. ($#edit_ids > 2 ? 2 : $#edit_ids)]) . ($#edit_ids>2?", ...":"");
+      $args{edit_url} =
+        (($args{num_edits} == 1)
+         ? $c->uri_for_action('/edit/show', [ $first_edit_id ])
+         : $c->uri_for_action('/edit/search',
+                              { 'conditions.0.field'=>'id',
+                                'conditions.0.operator'=>'BETWEEN',
+                                'conditions.0.args.0'=>$first_edit_id,
+                                'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
+                              }));
+
+      if ($args{num_open_edits} == 0) {
+        # All autoedits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      } elsif ($args{num_open_edits} == $args{num_edits}) {
+        # All open edits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit queue for peer review.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered into the edit queue for peer review.',
+             $args{num_edits}, \%args);
+      } else {
+        # Mixture of both
+        # Even though the singular case is impossible (since 1 edit must be either an autoedit or open),
+        # it is included since gettext uses the singular case as a key.
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      }
     }
 
     return $edit;
@@ -123,11 +167,17 @@ sub edit_action
 {
     my ($self, $c, %opts) = @_;
 
+    if (!$c->user->has_confirmed_email_address) {
+        $c->detach('/error_401');
+    }
+
     my %form_args = %{ $opts{form_args} || {}};
     $form_args{init_object} = $opts{item} if exists $opts{item};
     my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
+        return if exists $opts{pre_creation} && !$opts{pre_creation}->($form);
+
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
@@ -142,23 +192,27 @@ sub edit_action
 
             # the on_creation hook is only called when an edit was entered.
             # the post_creation hook is always called.
-            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+            my $post_creation_changes = $opts{post_creation}->($edit, $form)
+                if exists $opts{post_creation};
+
             $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+
+            if ($post_creation_changes && $c->stash->{makes_no_changes}) {
+                $c->stash( makes_no_changes => 0 );
+            }
         });
 
-        # `post_creation` and `on_creation` often perform a redirection.
-        # If they have called $c->res->redirect, $c->res->location will be a
-        # true value, and we can detach early. `post_creation` and `on_creation`
-        # can't do this, as $c->detach is implemented by throwing an exception,
-        # which causes the above transaction to rollback.
-        if ($c->res->location) {
+        if ($opts{redirect} && !$opts{no_redirect} &&
+                ($edit || !$c->stash->{makes_no_changes})) {
+            $opts{redirect}->();
             $c->detach;
         }
 
         return $edit;
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 }
@@ -194,8 +248,8 @@ sub _load_paged
     my ($self, $c, $loader, %opts) = @_;
 
     my $prefix = $opts{prefix} || '';
-    my $page = $c->request->query_params->{$prefix . "page"} || 1;
-    $page = 1 if $page < 1;
+    my $page = $c->request->query_params->{$prefix . "page"};
+    $page = 1 unless is_positive_integer($page);
 
     my $LIMIT = $opts{limit} || $self->{paging_limit};
 
@@ -204,14 +258,8 @@ sub _load_paged
 
     if ($page > 1 && scalar @$data == 0)
     {
-        my $page = $self->_search_final_page ($loader, $LIMIT, $page);
-        my $uri = $c->request->uri;
-        my %params = $uri->query_form;
-
-        $params{$prefix . "page"} = $page;
-        $uri->query_form (\%params);
-
-        $c->response->redirect ($uri);
+        my $page = $self->_search_final_page($loader, $LIMIT, $page);
+        $c->response->redirect($c->request->uri_with({ ($prefix . 'page') => $page }));
         $c->detach;
     }
 
@@ -219,7 +267,8 @@ sub _load_paged
     $pager->total_entries($total || 0);
     $pager->current_page($page);
 
-    $c->stash( $prefix . "pager" => $pager );
+    $c->stash( $prefix . "pager" => $pager,
+               edit_count_limit => $EDIT_COUNT_LIMIT );
     return $data;
 }
 

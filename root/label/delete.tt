@@ -1,9 +1,6 @@
 [%- WRAPPER 'label/layout.tt' title=l('Remove') full_width=1 -%]
     <h2>[% l('Remove Label') %]</h2>
     [%- IF can_delete -%]
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Please review the {doc_remove|remove label edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Label_Edit')})) -%]
-        [%- END -%]
         <p>
             [%- l('Are you sure you wish to remove the label {label} from MusicBrainz?', { label => link_entity(label) }) -%]
         </p>

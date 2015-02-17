@@ -353,6 +353,11 @@ msgstr ""
 msgid "Cebuano"
 msgstr ""
 
+#. frequency:1 iso_code_3:xce 
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr ""
+
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:71
 msgid "Celtic languages"
@@ -361,6 +366,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:66
 msgid "Central American Indian languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:ryu 
+#: DB:language/name:5809
+msgid "Central Okinawan"
 msgstr ""
 
 #. frequency:1 iso_code_3:chg 
@@ -568,7 +578,7 @@ msgstr ""
 msgid "Dutch"
 msgstr ""
 
-#. frequency:0 iso_code_3:dum 
+#. frequency:1 iso_code_3:dum 
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr ""
@@ -773,7 +783,7 @@ msgstr ""
 msgid "German, Low"
 msgstr ""
 
-#. frequency:0 iso_code_3:gmh 
+#. frequency:1 iso_code_3:gmh 
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr ""
@@ -963,6 +973,11 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
+#. frequency:1 iso_code_3:izh 
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr ""
+
 #. frequency:1 iso_code_3:inh 
 #: DB:language/name:191
 msgid "Ingush"
@@ -1118,6 +1133,11 @@ msgstr ""
 msgid "Kazakh"
 msgstr ""
 
+#. frequency:1 iso_code_3:kca 
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr ""
+
 #. frequency:1 iso_code_3:kha 
 #: DB:language/name:213
 msgid "Khasi"
@@ -1178,7 +1198,7 @@ msgstr ""
 msgid "Konkani"
 msgstr ""
 
-#. frequency:1 iso_code_3:kor 
+#. frequency:2 iso_code_3:kor 
 #: DB:language/name:224
 msgid "Korean"
 msgstr ""
@@ -1413,6 +1433,11 @@ msgstr ""
 msgid "Manobo languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:mns 
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr ""
+
 #. frequency:1 iso_code_3:glv 
 #: DB:language/name:151
 msgid "Manx"
@@ -1618,7 +1643,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr ""
 
-#. frequency:2 iso_code_3:nor 
+#. frequency:1 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""
