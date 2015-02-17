@@ -65,7 +65,7 @@ sub create_bucket
         catfile(glob ($ENV{SSSSSS_STORAGE}), $bucket) :
         catfile($FindBin::Bin, 'caa', $bucket);
 
-    `mkdir --parents $storage` unless -d $storage;
+    `mkdir -p $storage` unless -d $storage;
 
     return $storage;
 }
