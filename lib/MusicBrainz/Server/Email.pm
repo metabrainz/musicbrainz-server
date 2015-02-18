@@ -27,6 +27,8 @@ has 'c' => (
     isa => 'Object'
 );
 
+Readonly our $url_prefix => 'http://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+
 sub _user_address
 {
     my ($user, $hidden) = @_;
@@ -94,9 +96,8 @@ sub _create_message_to_editor_email
     }
 
     my $from_name = $from->name;
-    my $contact_url = sprintf "http://%s/user/%s/contact",
-                        DBDefs->WEB_SERVER_USED_IN_EMAIL,
-                        uri_escape_utf8($from->name);
+    my $contact_url = $url_prefix .
+        sprintf '/user/%s/contact', uri_escape_utf8($from->name);
 
     my $body = <<EOS;
 MusicBrainz user '$from_name' has sent you the following message:
@@ -172,7 +173,7 @@ sub _create_lost_username_email
     );
 
     my $user_name = $opts{user}->name;
-    my $lost_password_url = sprintf "http://%s/lost-password", DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $lost_password_url = $url_prefix . '/lost-password';
 
     my $body = <<EOS;
 Someone, probably you, asked to look up the username of the
@@ -211,8 +212,8 @@ sub _create_no_vote_email
         'Subject'     => "Someone has voted against your edit #$edit_id",
     );
 
-    my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
-    my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $url = $url_prefix . sprintf '/edit/%d', $edit_id;
+    my $prefs_url = $url_prefix . '/account/preferences';
 
     my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
     if ($editor->preferences) {
@@ -260,7 +261,7 @@ sub _create_password_reset_request_email
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = sprintf "http://%s/doc/Contact_Us", DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $contact_url = $url_prefix . '/doc/Contact_Us';
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
@@ -305,7 +306,7 @@ sub _create_edit_note_email
     );
 
     my $from = $from_editor->name;
-    my $respond = sprintf "http://%s/edit/%d", DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
+    my $respond = $url_prefix . sprintf '/edit/%d', $edit_id;
     my $body;
 
     if ($own_edit) {
