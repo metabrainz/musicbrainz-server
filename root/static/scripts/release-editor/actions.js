@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var fixFeat = require('../edit/utility/fix-feat.js');
+
 (function (releaseEditor) {
 
     _.extend(releaseEditor, {
@@ -261,6 +263,10 @@
             _.times(addTrackCount, function () {
                 medium.pushTrack({ artistCredit: defaultAC });
             });
+        },
+
+        guessFeatArtists: function (entity) {
+            fixFeat(entity);
         },
 
         // Recordings tab
