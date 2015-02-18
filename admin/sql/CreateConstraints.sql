@@ -170,6 +170,6 @@ ALTER TABLE medium ADD CONSTRAINT medium_uniq
     UNIQUE (release, position) DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE track ADD CONSTRAINT track_uniq_medium_position
-    UNIQUE (medium, position) DEFERRABLE INITIALLY DEFERRED;
+    UNIQUE (medium, position) DEFERRABLE INITIALLY IMMEDIATE;
 
 COMMIT;
