@@ -27,7 +27,7 @@ has 'c' => (
     isa => 'Object'
 );
 
-Readonly our $url_prefix => 'http://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
 sub _user_address
 {

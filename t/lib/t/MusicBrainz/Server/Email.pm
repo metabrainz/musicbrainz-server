@@ -31,7 +31,7 @@ test all => sub {
     my $addr = MusicBrainz::Server::Email::_user_address($user1);
     is($addr, '"Editor 1" <foo@example.com>', 'User address is foo@example.com');
 
-    my $server = 'http://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
     subtest 'send_message_to_editor' => sub {
 
