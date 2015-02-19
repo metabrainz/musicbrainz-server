@@ -28,7 +28,8 @@ with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'},
-                                          {from => 'recordings_jsonld', to => 'recordings'}]},
+                                          {from => 'recordings_jsonld', to => 'recordings'},
+                                          {from => 'identities', to => 'identities'}]},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
@@ -225,12 +226,14 @@ sub show : PathPart('') Chained('load')
     );
 
     my $coll = $c->get_collator();
+    my @identities;
     my ($legal_name) = map { $_->target }
                        grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
     if (defined $legal_name) {
         $c->model('Relationship')->load_subset(['artist'], $legal_name);
         $c->stash( legal_name => $legal_name );
+        push(@identities, $legal_name);
     } else {
         my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);
         $c->model('Artist')->alias_type->load(@$aliases);
@@ -247,7 +250,9 @@ sub show : PathPart('') Chained('load')
                            map { $_->target }
                            grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
                            grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $legal_name->relationships };
-    $c->stash(other_identities => \@other_identities);
+    push(@identities, @other_identities);
+    $c->stash(other_identities => \@other_identities,
+              identities => \@identities);
 }
 
 sub relationships : Chained('load') PathPart('relationships') {}

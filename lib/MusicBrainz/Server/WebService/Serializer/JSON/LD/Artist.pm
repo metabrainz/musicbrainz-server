@@ -45,6 +45,10 @@ around serialize => sub {
             my @recordings = map { serialize_entity($_, $inc, $stash) } @$items;
             $ret->{track} = list_or_single(@recordings) if @recordings;
         }
+
+        if ($stash->store($entity)->{identities}) {
+            $ret->{alternateName} = [uniq map { $_->name } @{ $stash->store($entity)->{identities} }];
+        }
     }
 
     return $ret;
