@@ -305,6 +305,8 @@ sub load_related_info {
     $self->c->model('Relationship')->load_cardinal(@recordings);
     $self->c->model('Relationship')->load_cardinal(grep { $_->isa(Work) } map { $_->target } map { $_->all_relationships } @recordings);
 
+    $self->c->model('ArtistType')->load(map { $_->target } map { @{ $_->relationships_by_type('artist') } } @recordings);
+
     $self->c->model('ISRC')->load_for_recordings(@recordings);
 }
 
