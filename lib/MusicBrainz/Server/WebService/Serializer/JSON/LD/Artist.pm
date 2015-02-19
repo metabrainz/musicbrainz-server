@@ -54,7 +54,10 @@ sub member_relationship {
     my ($relationship, $inc, $stash, $ret) = @_;
     my $is_new = 0;
     if (!$ret) {
-        $ret = { member => serialize_entity($relationship->target, $inc, $stash) };
+        $ret = {
+            '@type' => 'OrganizationRole',
+            member => serialize_entity($relationship->target, $inc, $stash)
+        };
         $is_new = 1;
     }
 
