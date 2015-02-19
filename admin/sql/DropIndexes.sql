@@ -339,7 +339,6 @@ DROP INDEX track_idx_gid;
 DROP INDEX track_idx_musicbrainz_collate;
 DROP INDEX track_idx_name;
 DROP INDEX track_idx_recording;
-DROP INDEX track_idx_uniq_medium_position;
 DROP INDEX track_raw_idx_release;
 DROP INDEX url_idx_gid;
 DROP INDEX url_idx_url;
