@@ -19,8 +19,8 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
     $VOTE_APPROVE
-    $EDIT_MINIMUM_RESPONSE_PERIOD
-    $EDIT_COUNT_LIMIT
+    $MINIMUM_RESPONSE_PERIOD
+    $LIMIT_FOR_EDIT_LISTING
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
@@ -147,7 +147,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -174,7 +174,7 @@ sub find_by_collection
                                      WHERE ece.collection = ?)
                   ' . $status_cond . '
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+                  OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -256,7 +256,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY vote_time DESC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -279,7 +279,7 @@ sub find_open_for_editor
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -349,7 +349,7 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY id ASC
-OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
+OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -378,7 +378,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -831,7 +831,7 @@ sub add_link {
 
 sub extend_expiration_time {
     my ($self, @ids) = @_;
-    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
     $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
         WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }
