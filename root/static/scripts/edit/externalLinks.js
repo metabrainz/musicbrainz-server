@@ -95,10 +95,16 @@ var ExternalLinksEditor = React.createClass({
 
   render: function () {
     this.props.errorObservable(false);
+
+    var linksArray = this.state.links.toArray();
+
+    var linksByTypeAndUrl = _(this.props.initialLinks.toArray().concat(linksArray))
+          .uniq((link) => link.relationship).groupBy(linkTypeAndUrlString).value();
+
     return (
       <table id="external-links-editor" className="row-form">
         <tbody>
-          {this.state.links.toArray().map((link, index) => {
+          {linksArray.map((link, index) => {
             return (
               <ExternalLink
                 key={link.relationship}
@@ -108,15 +114,7 @@ var ExternalLinksEditor = React.createClass({
                 isOnlyLink={this.state.links.size === 1}
                 errorCallback={hasError => hasError && this.props.errorObservable(true)}
                 removeCallback={_.bind(this.removeLink, this, index)}
-                duplicateCallback={(target) =>
-                  this.props.initialLinks.concat(this.state.links).some(function (other) {
-                    return (
-                      link.relationship !== other.relationship &&
-                      link.url === other.url &&
-                      link.type === other.type
-                    );
-                  })
-                }
+                duplicateCallback={() => (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1}
                 getLinkState={() => this.state.links.get(index)}
                 setLinkState={(linkState, callback) =>
                   this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
@@ -322,6 +320,10 @@ var ExternalLink = React.createClass({
     );
   }
 });
+
+function linkTypeAndUrlString(link) {
+  return link.type + '\0' + link.url;
+}
 
 function isEmpty(link) {
   return !(link.type || link.url);
