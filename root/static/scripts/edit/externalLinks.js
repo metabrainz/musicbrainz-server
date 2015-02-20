@@ -42,10 +42,10 @@ var ExternalLinksEditor = React.createClass({
   },
 
   removeLink: function (index) {
-    var nextIndex = index === this.state.links.size - 1 ? index - 1 : index;
-
     this.setState({ links: this.state.links.remove(index) }, () => {
-      $(this.getDOMNode()).find('tr:eq(' + nextIndex + ') :input:visible:first').focus();
+      $(this.getDOMNode()).find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
+                                'tr:lt(' + (index + 1) + ') button.remove:last')
+                          .eq(0).focus();
     });
   },
 
