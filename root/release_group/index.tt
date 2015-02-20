@@ -89,8 +89,5 @@
       [%~ IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id ~%]
         [% critiquebrainz_review(rg.most_popular_review, l('Most Popular')) %]
       [%~ END ~%]
-      [%~ IF rg.review_count == 0 ~%]
-        <p>[% l('No one has reviewed this release group yet.') | html %]</p>
-      [%~ END ~%]
     </div>
 [%- END -%]

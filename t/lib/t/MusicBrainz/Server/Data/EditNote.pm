@@ -70,7 +70,9 @@ MusicBrainz::Server::EditRegistry->register_type("MockEdit");
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 my $en_data = MusicBrainz::Server::Data::EditNote->new(c => $test->c);
+my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
 
+my $editor2 = $editor_data->get_by_id(2);
 
 # Multiple edit edit_notes
 my $edit = $edit_data->get_by_id(1);
@@ -125,7 +127,7 @@ lives_ok {
 $test->c->sql->commit;
 
 # Test adding edit notes with email sending
-$test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
+$test->c->model('Vote')->enter_votes($editor2, { edit_id => $edit->id, vote => 1 });
 
 $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 

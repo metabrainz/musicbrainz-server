@@ -45,11 +45,11 @@ MB.constants.LINK_TYPES = {
         artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
         label: "dfd36bc7-0c06-49fa-8b79-96978778c716",
         place: "815bc5ca-c2fb-4dc6-a89b-9150888b0d4d",
-        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af"
-    },
-    imdbsamples: {
+        // recording and release are the "samples from" version of the IMDb rel
+        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2",
         release: "7387c5a2-9abe-4515-b667-9eb5ed4dd4ce",
-        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2"
+        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af",
+        work: "e5c75559-4dda-452e-a900-ae375935164c"
     },
     myspace: {
         artist: "bac47923-ecde-4b59-822e-d08f0cd10156",
@@ -267,13 +267,6 @@ MB.constants.CLEANUPS = {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
-    imdbsamples: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
-        type: MB.constants.LINK_TYPES.imdbsamples,
-        clean: function (url) {
-            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
-        }
-    },
     mora: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i") ],
         type: MB.constants.LINK_TYPES.downloadpurchase,
@@ -307,7 +300,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i") ],
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br)|amzn\\.com)","i") ],
         type: MB.constants.LINK_TYPES.amazon,
         clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
@@ -463,6 +456,14 @@ MB.constants.CLEANUPS = {
         ],
         type: MB.constants.LINK_TYPES.discographyentry
     },
+    cdjapan: {
+        match: [ new RegExp("^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(product|person)/", "i") ],
+        type: MB.constants.LINK_TYPES.mailorder,
+        clean: function (url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, "http://www.cdjapan.co.jp/$1/$2");
+            return url;
+        }
+    },
     ozonru: {
         match: [ new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i") ],
         type: MB.constants.LINK_TYPES.mailorder
@@ -500,7 +501,8 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")
+            new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i")
         ],
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function (url) {
@@ -523,6 +525,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+            url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://weibo.com/$1");
             return url;
         }
     },
@@ -647,6 +650,7 @@ MB.constants.CLEANUPS = {
     },
     otherdatabases: {
         match: [
+            new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|composer|work)/", "i"),
             new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
             new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
             new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
@@ -698,6 +702,8 @@ MB.constants.CLEANUPS = {
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
+            // Standardising ClassicalArchives.com
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|composer|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
             //Removing cruft from Worldcat URLs
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
             //Standardising IBDb not to use www
@@ -890,7 +896,7 @@ MB.Control.URLCleanup = function (options) {
 
     // allow only Amazon pages with the Amazon rel
     validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function (url) {
-        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
+        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br)\//) != null;
     }
 
     // allow only IMDb pages with the IMDb rels
@@ -903,10 +909,10 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function (url) {
         return url.match(/imdb\.com\/title/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.recording ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.release ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
 

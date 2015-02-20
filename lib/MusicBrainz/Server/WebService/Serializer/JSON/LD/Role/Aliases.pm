@@ -9,18 +9,19 @@ around serialize => sub {
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
     return $ret unless $toplevel;
 
+    my $alternateNames = $ret->{alternateName} // [];
+
     my $entity_type = ref_to_type($entity);
     my $entity_search_hint_type = $ENTITIES{$entity_type}{aliases}{search_hint_type};
 
     my $opts = $stash->store($entity);
 
-    my @aliases;
     for my $alias (grep { ($_->type_id // 0) != $entity_search_hint_type } @{ $opts->{aliases} // [] })
     {
-        push @aliases, $alias->name;
+        push @$alternateNames, $alias->name;
     }
 
-    $ret->{alternateName} = [uniq @aliases] if @aliases;
+    $ret->{alternateName} = [uniq @$alternateNames] if @$alternateNames;
 
     return $ret;
 };

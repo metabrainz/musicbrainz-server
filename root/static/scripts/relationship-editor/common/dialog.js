@@ -90,11 +90,10 @@
                 instruments.push(observable);
 
                 observable.subscribe(function (instrument) {
-                    var gid = instrument.gid;
-                    if (gid) {
-                        observable.linkAttribute(relationship.addAttribute(gid));
+                    relationship.attributes.remove(observable.linkAttribute.peek())
+                    if (instrument.gid) {
+                        observable.linkAttribute(relationship.addAttribute(instrument.gid));
                     } else {
-                        relationship.attributes.remove(observable.linkAttribute.peek());
                         observable.linkAttribute(null);
                     }
                 });

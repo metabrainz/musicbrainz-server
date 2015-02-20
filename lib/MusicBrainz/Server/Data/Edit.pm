@@ -660,13 +660,13 @@ sub default_includes {
     }
 }
 
-# Runs its own transaction
+# Must be called in a transaction
 sub approve
 {
-    my ($self, $edit, $editor_id) = @_;
+    my ($self, $edit, $editor) = @_;
 
     $self->c->model('Vote')->enter_votes(
-        $editor_id,
+        $editor,
         {
             vote    => $VOTE_APPROVE,
             edit_id => $edit->id
@@ -788,17 +788,26 @@ sub _close
 }
 
 sub insert_votes_and_notes {
-    my ($self, $user_id, %data) = @_;
+    my ($self, $editor, %data) = @_;
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
+    # Filter out approvals, they can only be entered via the approve method
+    @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
+
     Sql::run_in_transaction(sub {
-        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        $self->c->model('Vote')->enter_votes($editor, @votes);
+
+        my $edits = $self->get_by_ids(map { $_->{edit_id} } @notes);
         for my $note (@notes) {
+            my $edit_id = $note->{edit_id};
+            my $edit = $edits->{$edit_id};
+            defined $edit && $edit->editor_may_add_note($editor)
+                or next;
             $self->c->model('EditNote')->add_note(
-                $note->{edit_id},
+                $edit_id,
                 {
-                    editor_id => $user_id,
+                    editor_id => $editor->id,
                     text => $note->{edit_note},
                 });
         }
