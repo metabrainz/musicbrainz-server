@@ -115,7 +115,6 @@ var ExternalLinksEditor = React.createClass({
                 errorCallback={hasError => hasError && this.props.errorObservable(true)}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 duplicateCallback={() => (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1}
-                getLinkState={() => this.state.links.get(index)}
                 setLinkState={(linkState, callback) =>
                   this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
                 }
@@ -207,7 +206,6 @@ var ExternalLink = React.createClass({
     errorCallback: PropTypes.func.isRequired,
     removeCallback: PropTypes.func.isRequired,
     duplicateCallback: PropTypes.func.isRequired,
-    getLinkState: PropTypes.func.isRequired,
     setLinkState: PropTypes.func.isRequired,
     cleanup: PropTypes.object.isRequired,
     typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
@@ -269,7 +267,7 @@ var ExternalLink = React.createClass({
       if (type) {
         var typeID = MB.typeInfoByID[type].id;
 
-        if (typeID !== this.props.getLinkState().type) {
+        if (typeID !== this.props.type) {
           this.props.setLinkState({ type: typeID });
         }
       }
