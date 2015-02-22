@@ -46,9 +46,13 @@
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
-            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
-            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
+
+            this.updateRecordingTitle = ko.observable(releaseEditor.copyTrackTitlesToRecordings());
+            this.updateRecordingArtist = ko.observable(releaseEditor.copyTrackArtistsToRecordings());
+
+            releaseEditor.copyTrackTitlesToRecordings.subscribe(this.updateRecordingTitle);
+            releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
             this.recordingValue = ko.observable(
                 MB.entity.Recording({ name: data.name })
@@ -802,13 +806,6 @@
                 }
             });
         }
-    });
-
-
-    fields.Root = aclass(function () {
-        this.release = ko.observable().syncWith("releaseField", true, true);
-        this.makeVotable = ko.observable(false);
-        this.editNote = ko.observable("");
     });
 
 

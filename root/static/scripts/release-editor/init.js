@@ -166,8 +166,6 @@ MB.releaseEditor.init = function (options) {
 
     // Intialize release data/view model.
 
-    this.rootField = this.fields.Root();
-
     this.rootField.missingEditNote = function () {
         return self.action === "add" && !self.rootField.editNote();
     };

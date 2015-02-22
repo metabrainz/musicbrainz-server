@@ -58,48 +58,62 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
         });
 };
 
+var guessCaseOptions = {
+    modeName: ko.observable(),
+    keepUpperCase: ko.observable(),
+    upperCaseRoman: ko.observable()
+};
+
+var cookieSettings = { path: '/', expires: 365 };
+
+var mode = ko.computed({
+    read: function () {
+        var modeName = guessCaseOptions.modeName()
+
+        if (modeName !== gc.modeName) {
+            gc.modeName = modeName;
+            gc.mode = MB.GuessCase.Mode[modeName];
+            $.cookie("guesscase_mode", modeName, cookieSettings);
+        }
+        return gc.mode;
+    },
+    deferEvaluation: true
+});
+
+guessCaseOptions.help = ko.computed({
+    read: function () {
+        return mode().getDescription();
+    },
+    deferEvaluation: true
+});
+
+guessCaseOptions.keepUpperCase.subscribe(function (value) {
+    gc.CFG_UC_UPPERCASED = value;
+    $.cookie("guesscase_keepuppercase", value, cookieSettings);
+});
+
+guessCaseOptions.upperCaseRoman.subscribe(function (value) {
+    gc.CFG_UC_ROMANNUMERALS = value;
+    $.cookie("guesscase_roman", value, cookieSettings);
+});
+
 ko.bindingHandlers.guessCase = {
 
-    init: function (element, valueAccessor, allBindingsAccessor,
-                    viewModel, bindingContext) {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        if (!guessCaseOptions.modeName.peek()) {
+            guessCaseOptions.modeName(window.gc.modeName);
+        }
 
-        var gc = window.gc;
-        var callback = valueAccessor();
-        var cookieSettings = { path: "/", expires: 365 };
+        if (!guessCaseOptions.keepUpperCase.peek()) {
+            guessCaseOptions.keepUpperCase(window.gc.CFG_UC_UPPERCASED);
+        }
 
-        var bindings = {
-            modeName: ko.observable(gc.modeName).syncWith("gcModeName"),
-            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED).syncWith("gcKeepUpperCase"),
-            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS).syncWith("gcUpperCaseRoman"),
-            guessCase: _.bind(callback, bindings)
-        };
+        if (!guessCaseOptions.upperCaseRoman.peek()) {
+            guessCaseOptions.upperCaseRoman(window.gc.CFG_UC_ROMANNUMERALS);
+        }
 
-        var mode = ko.computed(function () {
-            var modeName = bindings.modeName()
-
-            if (modeName !== gc.modeName) {
-                gc.modeName = modeName;
-                gc.mode = MB.GuessCase.Mode[modeName];
-                $.cookie("guesscase_mode", modeName, cookieSettings);
-            }
-            return gc.mode;
-        });
-
-        bindings.help = ko.computed(function () {
-            return mode().getDescription();
-        });
-
-        bindings.keepUpperCase.subscribe(function (value) {
-            gc.CFG_UC_UPPERCASED = value;
-
-            $.cookie("guesscase_keepuppercase", value, cookieSettings);
-        });
-
-        bindings.upperCaseRoman.subscribe(function (value) {
-            gc.CFG_UC_ROMANNUMERALS = value;
-
-            $.cookie("guesscase_roman", value, cookieSettings);
-        });
+        var bindings = _.assign({}, guessCaseOptions);
+        bindings.guessCase = _.bind(valueAccessor(), bindings);
 
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);
