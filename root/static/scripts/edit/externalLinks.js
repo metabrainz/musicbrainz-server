@@ -47,9 +47,10 @@ var ExternalLinksEditor = React.createClass({
 
   handleUrlChange: function (index, event) {
     var url = event.target.value;
+    var link = this.state.links.get(index);
 
     // Allow adding spaces while typing, they'll be trimmed on blur
-    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
+    if (_.str.trim(url) !== _.str.trim(link.url)) {
       if (url.match(/^\w+\./)) {
           url = 'http://' + url;
       }
@@ -57,8 +58,6 @@ var ExternalLinksEditor = React.createClass({
     }
 
     this.setLinkState(index, { url: url }, () => {
-      var link = this.state.links.get(index);
-
       if (!link.type) {
         var type = URLCleanup.guessType(this.props.sourceType, url);
 
@@ -74,7 +73,7 @@ var ExternalLinksEditor = React.createClass({
     var trimmed = _.str.trim(url);
 
     if (url !== trimmed) {
-      this.setLinkState(index, trimmed);
+      this.setLinkState(index, { url: trimmed });
     }
   },
 
