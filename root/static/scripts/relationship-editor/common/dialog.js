@@ -416,7 +416,9 @@
         },
 
         targetEntityError: function () {
-            var target = this.relationship().target(this.source);
+            var relationship = this.relationship();
+            var target = relationship.target(this.source);
+            var typeInfo = relationship.linkTypeInfo() || {};
 
             if (!target.gid) {
                 return MB.i18n.l("Required field.");
@@ -425,6 +427,7 @@
             }
 
             if (target.entityType === "series" &&
+                    _.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, typeInfo.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
