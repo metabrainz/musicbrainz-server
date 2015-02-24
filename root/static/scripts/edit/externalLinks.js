@@ -143,7 +143,7 @@ var ExternalLinksEditor = React.createClass({
 
     var linksArray = this.state.links.toArray();
 
-    var linksByTypeAndUrl = _(this.props.initialLinks.toArray().concat(linksArray))
+    var linksByTypeAndUrl = _(linksArray).concat(this.props.initialLinks.toArray())
           .uniq((link) => link.relationship).groupBy(linkTypeAndUrlString).value();
 
     return (
