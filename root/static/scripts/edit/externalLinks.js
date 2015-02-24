@@ -8,13 +8,13 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
+var URLCleanup = require('./MB/Control/URLCleanup.js');
 
 require('react/addons');
 
 var validation = require('./validation.js');
 
 var l = MB.i18n.l;
-var selectLinkTypeText = l("Please select a link type for the URL you’ve entered.");
 
 var LinkState = Immutable.Record({
   url: '',
@@ -27,7 +27,7 @@ var ExternalLinksEditor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
-    cleanup: PropTypes.object.isRequired,
+    sourceType: PropTypes.string.isRequired,
     typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
     initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
     errorObservable: function (props, propName) {
@@ -39,6 +39,51 @@ var ExternalLinksEditor = React.createClass({
 
   getInitialState: function () {
     return { links: withOneEmptyLink(this.props.initialLinks) };
+  },
+
+  setLinkState: function (index, state, callback) {
+    this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], state), index) }, callback);
+  },
+
+  handleUrlChange: function (index, event) {
+    var url = event.target.value;
+
+    // Allow adding spaces while typing, they'll be trimmed on blur
+    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
+      if (url.match(/^\w+\./)) {
+          url = 'http://' + url;
+      }
+      url = URLCleanup.cleanUrl(url) || url;
+    }
+
+    this.setLinkState(index, { url: url }, () => {
+      var link = this.state.links.get(index);
+
+      if (!link.type) {
+        var type = URLCleanup.guessType(this.props.sourceType, url);
+
+        if (type) {
+          this.setLinkState(index, { type: MB.typeInfoByID[type].id });
+        }
+      }
+    });
+  },
+
+  handleUrlBlur: function (index, event) {
+    var url = event.target.value;
+    var trimmed = _.str.trim(url);
+
+    if (url !== trimmed) {
+      this.setLinkState(index, trimmed);
+    }
+  },
+
+  handleTypeChange: function (index, event) {
+    this.setLinkState(index, { type: +event.target.value || null });
+  },
+
+  handleVideoChange: function (index, event) {
+    this.setLinkState(index, { video: event.target.checked });
   },
 
   removeLink: function (index) {
@@ -61,7 +106,7 @@ var ExternalLinksEditor = React.createClass({
 
   getFormData: function (startingPrefix, startingIndex, pushInput) {
     var index = 0;
-    var backward = this.props.cleanup.sourceType > 'url';
+    var backward = this.props.sourceType > 'url';
     var { newLinks, allLinks } = this.getEditData();
 
     _.each(allLinks, function (link, relationship) {
@@ -105,20 +150,44 @@ var ExternalLinksEditor = React.createClass({
       <table id="external-links-editor" className="row-form">
         <tbody>
           {linksArray.map((link, index) => {
+            var error;
+            var typeInfo = MB.typeInfoByID[link.type] || {};
+            var checker = URLCleanup.validationRules[typeInfo.gid];
+
+            if (isEmpty(link)) {
+              error = '';
+            } else if (!link.url) {
+              error = l('Required field.');
+            } else if (!MB.utility.isValidURL(link.url)) {
+              error = l('Enter a valid url e.g. "http://google.com/"');
+            } else if (!link.type) {
+              error = l('Please select a link type for the URL you’ve entered.');
+            } else if (typeInfo.deprecated && !this.id) {
+              error = l('This relationship type is deprecated and should not be used.');
+            } else if (checker && !checker(link.url)) {
+              error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
+            } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
+              error = l('This relationship already exists.');
+            }
+
+            if (error) {
+              this.props.errorObservable(true);
+            }
+
             return (
               <ExternalLink
                 key={link.relationship}
                 url={link.url}
                 type={link.type}
                 video={link.video}
+                errorMessage={error || ''}
                 isOnlyLink={this.state.links.size === 1}
-                errorCallback={hasError => hasError && this.props.errorObservable(true)}
+                urlMatchesType={typeInfo.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
                 removeCallback={_.bind(this.removeLink, this, index)}
-                duplicateCallback={() => (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1}
-                setLinkState={(linkState, callback) =>
-                  this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
-                }
-                cleanup={this.props.cleanup}
+                urlChangeCallback={_.bind(this.handleUrlChange, this, index)}
+                urlBlurCallback={_.bind(this.handleUrlBlur, this, index)}
+                typeChangeCallback={_.bind(this.handleTypeChange, this, index)}
+                videoChangeCallback={_.bind(this.handleVideoChange, this, index)}
                 typeOptions={this.props.typeOptions}
               />
             );
@@ -130,67 +199,19 @@ var ExternalLinksEditor = React.createClass({
 });
 
 var LinkTypeSelect = React.createClass({
-
-  propTypes: {
-    type: PropTypes.number,
-    setLinkState: PropTypes.func.isRequired
-  },
-
-  typeChanged: function (event) {
-    this.props.setLinkState({ type: +event.target.value || null });
-  },
-
-  render: function () {
-    return (
-      <select value={this.props.type} onChange={this.typeChanged} className="link-type">
-        <option value=""></option>
-        {this.props.children}
-      </select>
-    );
-  }
-});
-
-var URLInput = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
-    url: PropTypes.string.isRequired,
-    cleanup: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired
-  },
-
-  handleChange: function (event) {
-    var url = event.target.value;
-    var cleanup = this.props.cleanup;
-
-    // Allow adding spaces while typing, they'll be trimmed on blur
-    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
-      if (url.match(/^\w+\./)) {
-          url = 'http://' + url;
-      }
-      // FIXME: why does cleanup.cleanUrl need to be passed its own cleanup.sourceType???
-      url = cleanup.cleanUrl(cleanup.sourceType, url) || url;
-    }
-
-    this.props.onChange(url);
-  },
-
-  handleBlur: function (event) {
-    var url = event.target.value;
-    var trimmed = _.str.trim(url);
-
-    if (url !== trimmed) {
-      this.props.onChange(trimmed);
-    }
+    type: PropTypes.number,
+    typeChangeCallback: PropTypes.func.isRequired
   },
 
   render: function () {
     return (
-      <input type="url"
-             className="value with-button"
-             value={this.props.url}
-             onChange={this.handleChange}
-             onBlur={this.handleBlur} />
+      <select value={this.props.type} onChange={this.props.typeChangeCallback} className="link-type">
+        <option value=""></option>
+        {this.props.children}
+      </select>
     );
   }
 });
@@ -202,89 +223,34 @@ var ExternalLink = React.createClass({
     url: PropTypes.string.isRequired,
     type: PropTypes.number,
     video: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
     isOnlyLink: PropTypes.bool.isRequired,
-    errorCallback: PropTypes.func.isRequired,
+    urlMatchesType: PropTypes.bool.isRequired,
     removeCallback: PropTypes.func.isRequired,
-    duplicateCallback: PropTypes.func.isRequired,
-    setLinkState: PropTypes.func.isRequired,
-    cleanup: PropTypes.object.isRequired,
+    urlChangeCallback: PropTypes.func.isRequired,
+    urlBlurCallback: PropTypes.func.isRequired,
+    typeChangeCallback: PropTypes.func.isRequired,
+    videoChangeCallback: PropTypes.func.isRequired,
     typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
-  },
-
-  typeDescription: function () {
-    var typeInfo = MB.typeInfoByID[this.props.type];
-
-    if (typeInfo) {
-      return l('{description} ({url|more documentation})', {
-        description: typeInfo.description,
-        url: '/relationship/' + typeInfo.gid
-      })
-    }
-
-    return '';
-  },
-
-  errorMessage: function () {
-    var props = this.props;
-
-    if (isEmpty(props)) {
-      return '';
-    }
-
-    var url = props.url;
-    var type = props.type;
-
-    if (!url) {
-      return l('Required field.');
-    } else if (!MB.utility.isValidURL(url)) {
-      return l('Enter a valid url e.g. "http://google.com/"');
-    }
-
-    var typeInfo = MB.typeInfoByID[type] || {};
-    var checker = props.cleanup.validationRules[typeInfo.gid];
-
-    if (!type) {
-      return selectLinkTypeText;
-    } else if (typeInfo.deprecated && !this.id) {
-      return l('This relationship type is deprecated and should not be used.');
-    } else if (checker && !checker(url)) {
-      return l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
-    }
-
-    if (props.duplicateCallback()) {
-      return l('This relationship already exists.');
-    }
-
-    return '';
-  },
-
-  urlDidChange: function (url) {
-    var errorMessage = this.errorMessage();
-
-    if (!errorMessage || errorMessage === selectLinkTypeText) {
-      var type = this.props.cleanup.guessType(this.props.cleanup.sourceType, url);
-
-      if (type) {
-        var typeID = MB.typeInfoByID[type].id;
-
-        if (typeID !== this.props.type) {
-          this.props.setLinkState({ type: typeID });
-        }
-      }
-    }
   },
 
   render: function () {
     var props = this.props;
-    var typeInfo = props.type && MB.typeInfoByID[props.type];
-    var matchesType = ((typeInfo && typeInfo.gid) === props.cleanup.guessType(props.cleanup.sourceType, props.url));
-    var supportsVideoAttribute= !!((MB.typeInfoByID[props.type] || {}).attributes || {})[MB.constants.VIDEO_ATTRIBUTE_ID];
+    var typeInfo = MB.typeInfoByID[props.type] || {};
+    var typeDescription;
+    var faviconClass;
 
-    var errorMessage = this.errorMessage();
-    var showTypeSelection = !!errorMessage || !(matchesType || isEmpty(props));
-    var faviconClass = _.find(MB.faviconClasses, (value, key) => props.url.indexOf(key) > 0);
+    if (typeInfo.description) {
+      typeDescription = l('{description} ({url|more documentation})', {
+        description: typeInfo.description,
+        url: '/relationship/' + typeInfo.gid
+      });
+    }
 
-    props.errorCallback(!!errorMessage);
+    var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
+    if (!showTypeSelection && props.urlMatchesType) {
+      faviconClass = _.find(MB.faviconClasses, (value, key) => props.url.indexOf(key) > 0);
+    }
 
     return (
       <tr>
@@ -292,26 +258,30 @@ var ExternalLink = React.createClass({
           {/* If the URL matches its type or is just empty, display either a
               favicon or a prompt for a new link as appropriate. */
            showTypeSelection
-            ? <LinkTypeSelect type={props.type} setLinkState={props.setLinkState}>{props.typeOptions}</LinkTypeSelect>
+            ? <LinkTypeSelect type={props.type} typeChangeCallback={props.typeChangeCallback}>
+                {props.typeOptions}
+              </LinkTypeSelect>
             : <label>
-                {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-                {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+                {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
+                {typeInfo.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
               </label>}
         </td>
         <td>
-          <URLInput url={props.url}
-                    cleanup={props.cleanup}
-                    onChange={url => this.props.setLinkState({ url: url }, () => this.urlDidChange(url))} />
-          {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
-          {supportsVideoAttribute &&
+          <input type="url"
+                 className="value with-button"
+                 value={props.url}
+                 onChange={props.urlChangeCallback}
+                 onBlur={props.urlBlurCallback} />
+          {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
+          {_.has(typeInfo.attributes, MB.constants.VIDEO_ATTRIBUTE_ID) &&
             <div className="attribute-container">
               <label>
-                <input type="checkbox" checked={props.video} onChange={_.partial(props.setLinkState, { video: !props.video }, null)} /> {l('video')}
+                <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}
               </label>
             </div>}
         </td>
         <td style={{minWidth: '34px'}}>
-          {props.type && <HelpIcon html={this.typeDescription()} />}
+          {typeDescription && <HelpIcon html={typeDescription} />}
           {isEmpty(props) || <RemoveButton title={l('Remove Link')} callback={props.removeCallback} />}
         </td>
       </tr>
@@ -398,7 +368,7 @@ MB.createExternalLinksEditor = function (options) {
 
   return React.render(
     <ExternalLinksEditor
-      cleanup={MB.Control.URLCleanup({ sourceType: sourceData.entityType, typeInfoByID: MB.typeInfoByID })}
+      sourceType={sourceData.entityType}
       typeOptions={typeOptions}
       initialLinks={Immutable.List(initialLinks)}
       errorObservable={errorObservable} />,

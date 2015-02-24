@@ -15,10 +15,7 @@
 $(function () {
     var $urlControl = $("#id-edit-url\\.url");
 
-    MB.editURLCleanup = MB.Control.URLCleanup({
-        urlControl: $urlControl,
-        typeInfoByID: MB.typeInfoByID
-    });
+    MB.Control.URLCleanup.registerEvents($urlControl);
 
     var vm = MB.sourceRelationshipEditor;
     var source = vm.source;

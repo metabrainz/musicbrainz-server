@@ -19,8 +19,6 @@
 
 */
 
-var validation = require('../../validation.js');
-
 MB.constants.LINK_TYPES = {
     wikipedia: {
         area: "9228621d-9720-35c3-ad3f-327d789464ec",
@@ -746,19 +744,8 @@ function test_all(tests, text) {
     }
 }
 
-MB.Control.URLCleanup = function (options) {
-    options = options || {};
-
+MB.Control.URLCleanup = (function () {
     var self = {};
-
-    self.typeInfoByID = options.typeInfoByID || {};
-    self.typeControl = $(options.typeControl);
-    self.urlControl = $(options.urlControl);
-    self.sourceType = options.sourceType;
-
-    if (options.errorCallback) {
-        validation.errorField(options.errorCallback);
-    }
 
     var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -1036,7 +1023,7 @@ MB.Control.URLCleanup = function (options) {
         return cleanup && cleanup.type[sourceType];
     };
 
-    self.cleanUrl = function (sourceType, dirtyURL) {
+    self.cleanUrl = function (dirtyURL) {
         dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
@@ -1046,32 +1033,28 @@ MB.Control.URLCleanup = function (options) {
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    var urlChanged = function (event) {
-        var url = self.urlControl.val(),
-            clean = self.cleanUrl(self.sourceType, url) || url;
+    return self;
+}());
+
+MB.Control.URLCleanup.registerEvents = function ($url) {
+    function urlChanged(event) {
+        var url = $url.val();
+        var clean = MB.Control.URLCleanup.cleanUrl(url) || url;
 
         if (url.match(/^\w+\./)) {
-            self.urlControl.val('http://' + url);
+            $url.val('http://' + url);
             return;
         }
 
         // Allow adding spaces while typing; they'll be trimmed later onblur.
         if (_.str.trim(url) !== clean) {
-            self.urlControl.val(clean);
+            $url.val(clean);
         }
-    };
-
-    function trimInputValue() {
-        this.value = _.str.trim(this.value);
     }
 
-    self.toggleEvents = function (prop) {
-        self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
-        self.urlControl[prop]("blur", trimInputValue);
-        self.urlControl.parents('form')[prop]("submit", urlChanged);
-    };
-
-    self.toggleEvents("on");
-
-    return self;
+    $url.on('input', urlChanged)
+        .on('blur', function () { this.value = _.str.trim(this.value) })
+        .parents('form').on('submit', urlChanged);
 };
+
+module.exports = MB.Control.URLCleanup;
