@@ -663,11 +663,14 @@
             relationships.push(newRelationship);
         }
 
-        _(creditable).groupBy(linkAttributeTypeID).each(function (attributes) {
-            var extra = _.rest(attributes);
-            relationship.attributes.removeAll(extra);
-            _.each(extra, split);
-        });
+        _(creditable)
+            .groupBy(linkAttributeTypeID)
+            .each(function (attributes) {
+                var extra = _.rest(attributes);
+                relationship.attributes.removeAll(extra);
+                _.each(extra, split);
+            })
+            .value();
 
         return relationships;
     }

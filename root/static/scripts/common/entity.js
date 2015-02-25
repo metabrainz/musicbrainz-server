@@ -107,7 +107,6 @@
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
-            null,
             {variable: "data"}
         ),
 
@@ -155,7 +154,6 @@
         template: _.template(
             "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
             "<bdi><%- data.name %></bdi></a>",
-            null,
             {variable: "data"}
         )
     });
@@ -311,7 +309,6 @@
             "<% if (data.nameVariation) print('</span>'); %>" +
             "<% if (data.editsPending > 0) print('</span>'); %>" +
             "<%- data.join %>",
-            null,
             {variable: "data"}
         ),
 

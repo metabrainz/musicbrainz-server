@@ -100,7 +100,8 @@ MB.releaseEditor.trackParser = {
                     data.matchedTrack = track;
                     matchedTracks[track.uniqueID] = 1;
                 }
-            });
+            })
+            .value();
 
         var newTracks = _.map(newTracksData, function (data) {
             var matchedTrack = data.matchedTrack;
@@ -255,7 +256,7 @@ MB.releaseEditor.trackParser = {
 
             if (options.useTrackNames) {
                 // Use whatever's left as the name, including any separators.
-                var withoutArtist = _.first(parts, _.lastIndexOf(parts, artist));
+                var withoutArtist = _.take(parts, _.lastIndexOf(parts, artist));
 
                 data.name = _.str.trim(withoutArtist.join(""), this.separators);
             }

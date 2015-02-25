@@ -694,7 +694,7 @@
             ko.computed(function () {
                 _(self.events()).groupBy(countryID).each(function (events) {
                     _.invoke(events, "isDuplicate", _.filter(events, nonEmptyEvent).length > 1);
-                });
+                }).value();
             });
 
             this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));

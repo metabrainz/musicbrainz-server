@@ -93,7 +93,7 @@
                 if (type0 !== type1 && self.typesAreAccepted(type1, type0)) {
                     (relations[type1] = relations[type1] || []).push(type0);
                 }
-            });
+            }).value();
 
             return relations;
         },

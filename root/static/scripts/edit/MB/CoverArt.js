@@ -284,7 +284,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         formdata.append('add-cover-art.make_votable', 'on');
     }
 
-    _(file_upload.types()).each(function (checkbox) {
+    _.each(file_upload.types(), function (checkbox) {
         if (checkbox.checked())
         {
             formdata.append('add-cover-art.type_id', checkbox.id);

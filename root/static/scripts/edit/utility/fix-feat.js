@@ -26,9 +26,12 @@ module.exports = function (entity) {
     _.last(credits).joinPhrase = ' feat. ';
 
     var collabs = match[2].split(collabRegex);
-    for (var i = 0, len = collabs.length; i < len; i += 2) {
-        credits.push({ name: _.str.clean(collabs[i]), joinPhrase: collabs[i + 1] || '' });
-    }
 
-    entity.artistCredit.setNames(credits);
+    entity.artistCredit.setNames(
+        credits.concat(
+            _(collabs).chunk(2).map(function (pair) {
+                return {name: _.str.clean(pair[0]), joinPhrase: pair[1] || ''};
+            }).value()
+        )
+    );
 };

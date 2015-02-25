@@ -173,7 +173,7 @@
                             }
                         }
                     }
-                });
+                }).value();
 
                 // The medium already exists
                 newMediumData = _.cloneDeep(newMediumData);
@@ -289,7 +289,7 @@
                         "new":      newPosition
                     });
                 }
-            });
+            }).value();
 
             if (newOrder.length) {
                 edits.push(
@@ -320,14 +320,15 @@
                         })
                     );
                 }
-            });
+            }).value();
+
             return edits;
         },
 
         externalLinks: function (release) {
             var edits = [];
 
-            _(release.externalLinks.links()).each(function (link) {
+            _.each(release.externalLinks.links(), function (link) {
                 if (!link.linkTypeID() || !link.url() || link.error()) {
                     return;
                 }
@@ -575,7 +576,7 @@
 
                         medium.original(currentData);
                     }
-                });
+                }).value();
 
                 release.mediums.original(release.existingMediumData());
 
@@ -589,7 +590,7 @@
             edits: releaseEditor.edits.discID,
 
             callback: function (release) {
-                newMediums().invoke("toc", null);
+                newMediums().invoke("toc", null).value();
             }
         },
         {
