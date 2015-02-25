@@ -126,7 +126,7 @@ var ExternalLinksEditor = React.createClass({
       pushInput(prefix, 'text', link.url);
 
       if (link.video) {
-        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
+        pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
       }
 
       if (backward) {
