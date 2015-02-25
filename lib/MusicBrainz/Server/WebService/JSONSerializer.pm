@@ -181,11 +181,10 @@ sub autocomplete_release
     return encode_json(\@output);
 }
 
-sub _release
-{
-    my ($self, $release, $inc_media, $inc_recordings, $inc_rels) = @_;
+sub _release {
+    my ($self, $release) = @_;
 
-    my $data = {
+    my $data = $self->_with_relationships($release, {
         entityType   => "release",
         name         => $release->name,
         id           => $release->id,
@@ -196,19 +195,10 @@ sub _release
         scriptID     => $release->script_id,
         packagingID  => $release->packaging_id,
         barcode      => $release->barcode->code
-    };
+    });
 
     if ($release->release_group) {
         $data->{releaseGroup} = $self->_release_group($release->release_group);
-    }
-
-    if ($inc_rels) {
-        $data->{relationships} =
-            $self->serialize_relationships($release->all_relationships);
-
-        $data->{releaseGroup}->{relationships} =
-            $self->serialize_relationships($release->release_group->all_relationships)
-                if $release->release_group;
     }
 
     if ($release->artist_credit) {
@@ -238,11 +228,8 @@ sub _release
     }
 
     if (scalar($release->all_mediums)) {
-        if ($inc_media) {
-            $data->{mediums} = [
-                map $self->_medium($_, $inc_recordings, $inc_rels),
-                        $release->all_mediums
-            ];
+        if ($release->all_mediums) {
+            $data->{mediums} = [map $self->_medium($_), $release->all_mediums];
         }
 
         $data->{trackCounts} = $release->combined_track_count;
@@ -252,9 +239,8 @@ sub _release
     return $data;
 }
 
-sub _medium
-{
-    my ($self, $medium, $inc_recordings, $inc_rels) = @_;
+sub _medium {
+    my ($self, $medium) = @_;
 
     my $data = {
         entityType => "medium",
@@ -266,19 +252,10 @@ sub _medium
         cdtocs    => [ map { $_->cdtoc->toc } $medium->all_cdtocs ],
     };
 
-    if ($inc_recordings) {
-        my $tracks_data = $data->{tracks} = [];
-
-        for my $track ($medium->all_tracks) {
-            my $track_data = $self->_track($track);
-
-            if ($inc_rels) {
-                $track_data->{recording}->{relationships} =
-                    $self->serialize_relationships($track->recording->all_relationships);
-            }
-            push @{ $data->{tracks} }, $track_data;
-        }
+    if ($medium->all_tracks) {
+        $data->{tracks} = [map { $self->_track($_) } $medium->all_tracks];
     }
+
     return $data;
 }
 
@@ -401,7 +378,7 @@ sub _release_group
 {
     my ($self, $item) = @_;
 
-    my $output = {
+    my $output = $self->_with_relationships($item, {
         entityType => "release_group",
         name    => $item->name,
         id      => $item->id,
@@ -411,7 +388,7 @@ sub _release_group
         typeName => $item->type_name,
         firstReleaseDate => $item->first_release_date->format,
         secondaryTypeIDs => [ map { $_->id } $item->all_secondary_types ],
-    };
+    });
 
     if ($item->artist_credit) {
         $output->{artist} = $item->artist_credit->name;
@@ -453,7 +430,7 @@ sub _recording
 {
     my ($self, $recording, $hide_ac) = @_;
 
-    my $output = {
+    my $output = $self->_with_relationships($recording, {
         entityType  => "recording",
         name        => $recording->name,
         id          => $recording->id,
@@ -462,7 +439,7 @@ sub _recording
         length      => $recording->length,
         isrcs       => [ map { $_->isrc } $recording->all_isrcs ],
         video       => $recording->video ? \1 : \0
-    };
+    });
 
     # Relationship target entities in Controller::Role::EditRelationships
     # don't have/need any additional information like artist credits loaded,
@@ -730,6 +707,17 @@ sub autocomplete_series {
     } if $pager;
 
     return encode_json($output);
+}
+
+sub _with_relationships {
+    my ($self, $entity, $data) = @_;
+
+    # FIXME: Need a way to distinguish between relationships not being loaded vs. not existing.
+    if ($entity->all_relationships) {
+        $data->{relationships} = $self->serialize_relationships($entity->all_relationships);
+    }
+
+    return $data;
 }
 
 __PACKAGE__->meta->make_immutable;
