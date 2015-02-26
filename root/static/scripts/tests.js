@@ -96,6 +96,7 @@ require('./tests/edit.js');
 require('./tests/entity.js');
 require('./tests/externalLinks.js');
 require('./tests/GuessCase.js');
+require('./tests/guess-feat.js');
 require('./tests/i18n.js');
 require('./tests/relationship-editor.js');
 require('./tests/release-editor/actions.js');
