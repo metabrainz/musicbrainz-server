@@ -12,10 +12,6 @@
 
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
-    var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums());
-    }, []);
-
     var newReleaseLabels = utils.withRelease(function (release) {
         return _.filter(release.labels(), function (releaseLabel) {
             var label = releaseLabel.label();
@@ -140,10 +136,10 @@
             var oldPositions = _.map(release.mediums.original(), function (m) {
                 return m.original().position;
             });
-            var newPositions = newMediums().invoke("position").value();
+            var newPositions = _.invoke(release.mediums(), "position");
             var tmpPositions = [];
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original();
 
@@ -173,7 +169,7 @@
                             }
                         }
                     }
-                }).value();
+                });
 
                 // The medium already exists
                 newMediumData = _.cloneDeep(newMediumData);
@@ -215,7 +211,8 @@
                                 // position we want. Avoid this *unless* we're
                                 // swapping with that medium.
 
-                                var possibleSwap = newMediums().find(
+                                var possibleSwap = _.find(
+                                    release.mediums(),
                                     function (other) {
                                         return other.position() === attempt;
                                     }
@@ -264,7 +261,7 @@
                 }
             });
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var newPosition = medium.position();
 
                 var oldPosition = medium.tmpPosition || (
@@ -289,7 +286,7 @@
                         "new":      newPosition
                     });
                 }
-            }).value();
+            });
 
             if (newOrder.length) {
                 edits.push(
@@ -306,7 +303,7 @@
         discID: function (release) {
             var edits = [];
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var toc = medium.toc();
 
                 if (toc && medium.canHaveDiscID()) {
@@ -320,7 +317,7 @@
                         })
                     );
                 }
-            }).value();
+            });
 
             return edits;
         },
@@ -561,7 +558,7 @@
                 var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
-                newMediums().reject("id").each(function (medium) {
+                _(release.mediums()).reject("id").each(function (medium) {
                     var addedData = added[medium.tmpPosition || medium.position()];
 
                     if (addedData) {
@@ -579,8 +576,7 @@
                 }).value();
 
                 release.mediums.original(release.existingMediumData());
-
-                newMediums.notifySubscribers(newMediums());
+                release.mediums.notifySubscribers(release.mediums());
             }
         },
         {
@@ -590,7 +586,7 @@
             edits: releaseEditor.edits.discID,
 
             callback: function (release) {
-                newMediums().invoke("toc", null).value();
+                _.invoke(release.mediums(), "toc", null);
             }
         },
         {
