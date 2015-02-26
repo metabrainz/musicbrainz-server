@@ -265,6 +265,10 @@ var fixFeat = require('../edit/utility/fix-feat.js');
             });
         },
 
+        guessReleaseFeatArtists: function (release) {
+            fixFeat(release);
+        },
+
         guessTrackFeatArtists: function (track) {
             fixFeat(track);
         },

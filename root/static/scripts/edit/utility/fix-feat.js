@@ -44,3 +44,30 @@ module.exports = function (entity) {
         )
     );
 };
+
+// For use outside of the release editor.
+MB.Control.initGuessFeatButton = function (formName) {
+    var nameInput = document.getElementById('id-' + formName + '.name');
+
+    var augmentedEntity = _.assign(
+        Object.create(MB.sourceRelationshipEditor.source),
+        {
+            // Emulate an observable that just reads/writes to the name input directly.
+            name: function () {
+                if (arguments.length) {
+                    nameInput.value = arguments[0];
+                } else {
+                    return nameInput.value;
+                }
+            },
+            // Confusingly, the artistCredit object used to generated hidden input
+            // fields is also different from MB.sourceRelationshipEditor.source's,
+            // so we have to replace this field too.
+            artistCredit: ko.dataFor(document.getElementById('entity-artist'))
+        }
+    );
+
+    $(document).on('click', 'button.guessfeat.icon', function () {
+        module.exports(augmentedEntity);
+    });
+};

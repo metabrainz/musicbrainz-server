@@ -212,8 +212,11 @@
 [%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
   [% WRAPPER form_row %]
     [% r.label('name', options.label || l('Name:')) %]
-    [% r.text('name', { class => 'with-guesscase' }) %]
+    [% r.text('name', { class => 'with-guesscase' _ (options.guessfeat ? '-guessfeat' : '') }) %]
     <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+    [%- IF options.guessfeat -%]
+      <button type="button" class="guessfeat icon" title="[% l('Guess feat. artists') %]"></button>
+    [%- END -%]
     <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
     [% field_errors(r.form, 'name') %]
   [% END %]
