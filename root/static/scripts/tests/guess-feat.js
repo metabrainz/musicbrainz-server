@@ -8,7 +8,7 @@ var _ = require('lodash');
 var guessFeat = require('../edit/utility/guess-feat.js');
 
 test('guessing feat. artists', function (t) {
-    t.plan(12);
+    t.plan(13);
 
     var tests = [
         {
@@ -144,7 +144,7 @@ test('guessing feat. artists', function (t) {
         },
         {
             input: {
-                name: 'The Bell (Paranoia Network Remix), featuring Pete Seeger & DJ Spooky)',
+                name: 'The Bell (Paranoia Network Remix), featuring Pete Seeger & DJ Spooky',
                 artistCredit: [{name: 'Stephan Smith', joinPhrase: ''}]
             },
             output: {
@@ -159,7 +159,7 @@ test('guessing feat. artists', function (t) {
         {
             input: {
                 name: 'Mothership Reconnection (Feat Parliament/Funkadelic) (Daft Punk Remix)',
-                artistCredit: [{name: 'Stephan Smith', joinPhrase: ''}]
+                artistCredit: [{name: 'Daft Punk', joinPhrase: ''}]
             },
             output: {
                 name: 'Mothership Reconnection (Daft Punk Remix)',
@@ -167,6 +167,19 @@ test('guessing feat. artists', function (t) {
                     {name: 'Daft Punk', joinPhrase: ' feat. '},
                     {name: 'Parliament', joinPhrase: '/'},
                     {name: 'Funkadelic', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'Yes my lord (dub version - feat. Rubén Rada)',
+                artistCredit: [{name: 'Kameleba', joinPhrase: ''}]
+            },
+            output: {
+                name: 'Yes my lord (dub version)',
+                artistCredit: [
+                    {name: 'Kameleba', joinPhrase: ' feat. '},
+                    {name: 'Rubén Rada', joinPhrase: ''}
                 ]
             }
         }
