@@ -120,10 +120,12 @@ catch
     print $_;
     $sql->rollback();
     exit 1;
-}
+};
 
 #
-# TODO: Invalidate memcached entries to use the new values sooner.
+# Invalidate memcached entries to use the new values sooner.
 #
+
+$c->model('Language')->_delete_all_from_cache;
 
 # eof SetLanguageFrequencies
