@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var namesAreSimilar = require('../edit/utility/names-are-similar.js');
+
 (function (releaseEditor) {
 
     var recordingAssociation = releaseEditor.recordingAssociation = {};
@@ -266,7 +268,7 @@
         if (!name || !completeAC) return;
 
         var similarTo = function (prop) {
-            return (utils.similarNames(track.name[prop], name) &&
+            return (namesAreSimilar(track.name[prop], name) &&
                     utils.similarLengths(track.length[prop], length));
         };
 
@@ -350,12 +352,12 @@
                 if (!utils.similarLengths(trackLength, recording.length)) {
                     return false;
                 }
-                if (utils.similarNames(trackName, recording.name)) {
+                if (namesAreSimilar(trackName, recording.name)) {
                     return true;
                 }
                 var recordingWithoutETI = recording.name.replace(etiRegex, "");
 
-                if (utils.similarNames(trackName, recordingWithoutETI)) {
+                if (namesAreSimilar(trackName, recordingWithoutETI)) {
                     return true;
                 }
             })

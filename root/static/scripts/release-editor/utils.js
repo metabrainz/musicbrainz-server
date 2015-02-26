@@ -8,7 +8,6 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
-
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils = {};
@@ -113,14 +112,6 @@
     function lengthsAreWithin10s(a, b) {
         return Math.abs(a - b) <= MB.constants.MAX_LENGTH_DIFFERENCE;
     }
-
-    function namesAreSimilar(a, b) {
-        return MB.utility.similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
-    }
-
-    utils.similarNames = function (oldName, newName) {
-        return oldName == newName || namesAreSimilar(oldName, newName);
-    };
 
     utils.similarLengths = function (oldLength, newLength) {
         // If either of the lengths are empty, we can't compare them, so we

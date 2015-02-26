@@ -437,7 +437,7 @@
 
             var args = {
                 url: "/ws/js/medium/" + id,
-                data: { inc: "recordings" }
+                data: { inc: "recordings+rels" }
             };
 
             MB.utility.request(args, this).done(this.tracksLoaded);

@@ -187,6 +187,11 @@
                     return MB.entity(appearance, appearsOnType);
                 });
             }
+
+            this.performers = _(data.relationships)
+                .filter({ linkTypeID: MB.constants.RECORDING_PERFORMER_LINK_TYPE })
+                .pluck('target')
+                .value();
         },
 
         around$html: function (supr, params) {
@@ -211,6 +216,11 @@
             if (data.mediums) {
                 this.mediums = _.map(data.mediums, MB.entity.Medium);
             }
+
+            this.performers = _(data.relationships)
+                .filter({ linkTypeID: MB.constants.RELEASE_PERFORMER_LINK_TYPE })
+                .pluck('target')
+                .value();
         }
     });
 

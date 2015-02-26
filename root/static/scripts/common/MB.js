@@ -53,6 +53,9 @@ MB.constants.PART_OF_SERIES_LINK_TYPES = _.values(MB.constants.PART_OF_SERIES_LI
 
 MB.constants.SERIES_ORDERING_ATTRIBUTE = "a59c5830-5ec7-38fe-9a21-c7ea54f6650a";
 
+MB.constants.RELEASE_PERFORMER_LINK_TYPE = 51;
+MB.constants.RECORDING_PERFORMER_LINK_TYPE = 156;
+
 MB.constants.ENTITIES = [
   'area',
   'artist',

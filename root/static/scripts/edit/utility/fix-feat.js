@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var namesAreSimilar = require('./names-are-similar.js');
+
 var featRegex = /(.+?)\(?(?:feat\.|featuring |ft\.)([^\(\)]+)\)?(.*)/i;
 var collabRegex = /(,? (?:&|and|et) |, | vs\. )/i;
 
@@ -20,17 +22,24 @@ module.exports = function (entity) {
         name += ' ' + match[3]; // suffix
     }
 
-    entity.name(name);
+    entity.name(_.str.clean(name));
 
     var credits = entity.artistCredit.toJSON();
-    _.last(credits).joinPhrase = ' feat. ';
-
     var collabs = match[2].split(collabRegex);
+    var performers = entity.recording ? entity.recording().performers : entity.performers;
+
+    _.last(credits).joinPhrase = ' feat. ';
 
     entity.artistCredit.setNames(
         credits.concat(
             _(collabs).chunk(2).map(function (pair) {
-                return {name: _.str.clean(pair[0]), joinPhrase: pair[1] || ''};
+                var name = _.str.clean(pair[0]);
+
+                return {
+                    artist: _.find(performers, function (p) { return namesAreSimilar(name, p.name) }),
+                    name: name,
+                    joinPhrase: pair[1] || ''
+                };
             }).value()
         )
     );

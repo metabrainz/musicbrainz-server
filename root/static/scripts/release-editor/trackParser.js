@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var namesAreSimilar = require('../edit/utility/names-are-similar.js');
+
 MB.releaseEditor = MB.releaseEditor || {};
 
 
@@ -114,8 +116,7 @@ MB.releaseEditor.trackParser = {
 
                     var names = ac.names();
 
-                    return ac.isComplete() && (!data.artist ||
-                        MB.releaseEditor.utils.similarNames(data.artist, ac.text()));
+                    return ac.isComplete() && (!data.artist || namesAreSimilar(data.artist, ac.text()));
                 }
             );
 
