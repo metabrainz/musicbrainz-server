@@ -88,7 +88,7 @@ sub run {
             @{ $self->c->sql->select_single_column_array($query) }
         )
     };
-    my $modbot = $c->model('Editor')->get_by_id($EDITOR_MODBOT);
+    my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
     for my $e (@entities) {
         next if any { $e->id == $_ } @{ $skip_ids{$entity} // [] };
