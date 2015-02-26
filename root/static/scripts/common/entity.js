@@ -361,9 +361,13 @@
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
-        around$toJSON: function (supr) {
+        toJSON: function (supr) {
             var artist = ko.unwrap(this.artist);
-            return _.assign(supr(), { artist: artist ? artist.toJSON() : null });
+            return {
+                artist: artist ? artist.toJSON() : null,
+                name: ko.unwrap(this.name) || '',
+                joinPhrase: ko.unwrap(this.joinPhrase) || ''
+            };
         },
 
         text: function () {
