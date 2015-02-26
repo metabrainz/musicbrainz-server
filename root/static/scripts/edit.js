@@ -22,7 +22,7 @@ require("./edit/ExampleRelationships.js");
 require("./edit/externalLinks.js");
 require("./edit/forms.js");
 require("./edit/validation.js");
-require("./edit/utility/fix-feat.js");
+require("./edit/utility/guess-feat.js");
 require("./edit/MB/Control/Area.js");
 require("./edit/MB/Control/ArtistCredit.js");
 require("./edit/MB/Control/ArtistEdit.js");

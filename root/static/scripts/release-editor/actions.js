@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var fixFeat = require('../edit/utility/fix-feat.js');
+var guessFeat = require('../edit/utility/guess-feat.js');
 
 (function (releaseEditor) {
 
@@ -266,15 +266,15 @@ var fixFeat = require('../edit/utility/fix-feat.js');
         },
 
         guessReleaseFeatArtists: function (release) {
-            fixFeat(release);
+            guessFeat(release);
         },
 
         guessTrackFeatArtists: function (track) {
-            fixFeat(track);
+            guessFeat(track);
         },
 
         guessMediumFeatArtists: function (medium) {
-            _.each(medium.tracks(), fixFeat);
+            _.each(medium.tracks(), guessFeat);
         },
 
         // Recordings tab
