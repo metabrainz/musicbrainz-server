@@ -7,6 +7,11 @@
       "from": "aclass@0.5.1",
       "resolved": "https://registry.npmjs.org/aclass/-/aclass-0.5.1.tgz"
     },
+    "balanced-match": {
+      "version": "0.2.0",
+      "from": "balanced-match@*",
+      "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-0.2.0.tgz"
+    },
     "browserify": {
       "version": "7.1.0",
       "from": "browserify@>=7.1.0 <8.0.0",
