@@ -265,8 +265,12 @@ var fixFeat = require('../edit/utility/fix-feat.js');
             });
         },
 
-        guessFeatArtists: function (entity) {
-            fixFeat(entity);
+        guessTrackFeatArtists: function (track) {
+            fixFeat(track);
+        },
+
+        guessMediumFeatArtists: function (medium) {
+            _.each(medium.tracks(), fixFeat);
         },
 
         // Recordings tab
