@@ -188,10 +188,7 @@
                 });
             }
 
-            this.performers = _(data.relationships)
-                .filter({ linkTypeID: MB.constants.RECORDING_PERFORMER_LINK_TYPE })
-                .pluck('target')
-                .value();
+            this.relatedArtists = relatedArtists(data.relationships);
         },
 
         around$html: function (supr, params) {
@@ -217,10 +214,7 @@
                 this.mediums = _.map(data.mediums, MB.entity.Medium);
             }
 
-            this.performers = _(data.relationships)
-                .filter({ linkTypeID: MB.constants.RELEASE_PERFORMER_LINK_TYPE })
-                .pluck('target')
-                .value();
+            this.relatedArtists = relatedArtists(data.relationships);
         }
     });
 
@@ -483,6 +477,9 @@
         }
     });
 
+    function relatedArtists(relationships) {
+        return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
+    }
 
     // Used by MB.entity() to look up classes. JSON from the web service
     // usually includes a lower-case type name, which is used as the key.

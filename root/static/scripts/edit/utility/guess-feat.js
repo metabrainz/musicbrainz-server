@@ -70,7 +70,7 @@ module.exports = function (entity) {
     entity.name(match.name);
 
     var credits = entity.artistCredit.toJSON();
-    var performers = entity.recording ? entity.recording().performers : entity.performers;
+    var relatedArtists = entity.recording ? entity.recording().relatedArtists : entity.relatedArtists;
 
     _.last(credits).joinPhrase = ' feat. ';
 
@@ -80,7 +80,7 @@ module.exports = function (entity) {
                 var name = _.str.clean(pair[0]);
 
                 return {
-                    artist: _.find(performers, function (p) { return namesAreSimilar(name, p.name) }),
+                    artist: _.find(relatedArtists, function (p) { return namesAreSimilar(name, p.name) }),
                     name: name,
                     joinPhrase: pair[1] || ''
                 };
