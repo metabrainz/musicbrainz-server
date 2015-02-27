@@ -195,6 +195,8 @@ gulp.task("tests", function () {
     return bundleScripts(
         runBrowserify('tests.js', false, function (b) {
             b.transform('reactify', { es6: true });
+
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
         }),
         'tests.js'
     ).pipe(gulp.dest("./root/static/build/"));
