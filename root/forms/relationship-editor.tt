@@ -1,6 +1,6 @@
 [% PROCESS 'components/relationship-editor.tt' %]
 
-<fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
+<fieldset id="relationship-editor" data-form-name="[% form.name | html %]" data-bind="with: source, delegatedHandler: 'click'">
   <legend>
     [% l('Relationships') %]
     <button type="button" class="add-item with-label" data-click="openAddDialog">

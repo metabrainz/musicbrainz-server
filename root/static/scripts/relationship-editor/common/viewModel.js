@@ -62,10 +62,6 @@
             this.source = options.source;
             this.uniqueID = _.uniqueId("relationship-editor-");
             this.cache = {};
-
-            if (options.formName) {
-                this.formName = options.formName;
-            }
         },
 
         getRelationship: function (data, source) {
@@ -102,14 +98,19 @@ MB.initRelationshipEditors = function (args) {
     // XXX used by series edit form
     sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
     MB.sourceEntityGID = sourceData.gid;
+    MB.sourceEntity = MB.entity(sourceData);
 
-    var source = MB.entity(sourceData);
+    var source = MB.sourceEntity;
     var vmArgs = { source: source, formName: args.formName };
 
     MB.relationshipEditor.GenericEntityViewModel(vmArgs);
 
-    if ($('#external-links-editor').length) {
-        MB.Control.externalLinks.applyBindings(vmArgs);
+    var externalLinksEditor = $('#external-links-editor-container')[0];
+    if (externalLinksEditor) {
+      MB.sourceExternalLinksEditor = MB.createExternalLinksEditor({
+        sourceData: sourceData,
+        mountPoint: externalLinksEditor
+      });
     }
 
     source.parseRelationships(sourceData.relationships);
@@ -157,14 +158,6 @@ MB.getRelationship = function (data, source) {
 function getRelationshipEditor(data, source) {
     if (MB.releaseRelationshipEditor) {
         return MB.releaseRelationshipEditor;
-    }
-
-    var target = data.target;
-    var typeInfo = MB.typeInfoByID[data.linkTypeID];
-
-    if ((target && target.entityType === 'url') ||
-        (typeInfo && (typeInfo.type0 === 'url' || typeInfo.type1 === 'url'))) {
-        return MB.sourceExternalLinksEditor;
     }
 
     if (source === MB.sourceRelationshipEditor.source) {
@@ -245,13 +238,6 @@ function addRelationshipsFromQueryString(source) {
                   addSubmittedRelationship(data, source);
               });
         }
-    });
-
-    _.each(fields.url, function (data) {
-        addSubmittedRelationship({
-            linkTypeID: data.link_type_id,
-            target: { name: data.text || '', entityType: 'url' },
-        }, source);
     });
 }
 

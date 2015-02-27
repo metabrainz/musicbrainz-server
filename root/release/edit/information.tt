@@ -270,12 +270,9 @@
     </table>
   </fieldset>
 
-  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+  <fieldset class="information">
     <legend>[% l('External Links') %]</legend>
-
-    <!-- ko with: externalLinks -->
-      [% external_links_editor(0, 'release') %]
-    <!-- /ko -->
+    [% external_links_editor() %]
   </fieldset>
 </div>
 
@@ -371,8 +368,4 @@
       -%]
     </p>
   </div>
-
-  <!-- ko with: externalLinks -->
-    [% external_link_bubble() %]
-  <!-- /ko -->
 </div>

@@ -69,6 +69,7 @@ exports.testArtistCredit = [
 ];
 
 exports.testRelease = {
+  entityType: "release",
   releaseGroup: {
     typeName: null,
     name: "Vision Creation Newsun",

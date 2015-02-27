@@ -19,8 +19,6 @@
 
 */
 
-var validation = require('../../validation.js');
-
 MB.constants.LINK_TYPES = {
     wikipedia: {
         area: "9228621d-9720-35c3-ad3f-327d789464ec",
@@ -233,6 +231,7 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
+            var m;
             if ((m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/)) != null)
                 url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
             return url;
@@ -246,6 +245,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]*$/, "$1/$2"); // URLs containing Discogs IDs
+            var m;
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
@@ -308,6 +308,7 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
+            var m;
             if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
                 if (tld == "jp") tld = "co.jp";
@@ -347,6 +348,7 @@ MB.constants.CLEANUPS = {
     cdbaby: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i") ],
         clean: function (url) {
+            var m;
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
             url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
@@ -742,19 +744,8 @@ function test_all(tests, text) {
     }
 }
 
-MB.Control.URLCleanup = function (options) {
-    options = options || {};
-
+MB.Control.URLCleanup = (function () {
     var self = {};
-
-    self.typeInfoByID = options.typeInfoByID || {};
-    self.typeControl = $(options.typeControl);
-    self.urlControl = $(options.urlControl);
-    self.sourceType = options.sourceType;
-
-    if (options.errorCallback) {
-        validation.errorField(options.errorCallback);
-    }
 
     var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -1032,7 +1023,7 @@ MB.Control.URLCleanup = function (options) {
         return cleanup && cleanup.type[sourceType];
     };
 
-    self.cleanUrl = function (sourceType, dirtyURL) {
+    self.cleanUrl = function (dirtyURL) {
         dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
@@ -1042,32 +1033,28 @@ MB.Control.URLCleanup = function (options) {
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    var urlChanged = function (event) {
-        var url = self.urlControl.val(),
-            clean = self.cleanUrl(self.sourceType, url) || url;
+    return self;
+}());
+
+MB.Control.URLCleanup.registerEvents = function ($url) {
+    function urlChanged(event) {
+        var url = $url.val();
+        var clean = MB.Control.URLCleanup.cleanUrl(url) || url;
 
         if (url.match(/^\w+\./)) {
-            self.urlControl.val('http://' + url);
+            $url.val('http://' + url);
             return;
         }
 
         // Allow adding spaces while typing; they'll be trimmed later onblur.
         if (_.str.trim(url) !== clean) {
-            self.urlControl.val(clean);
+            $url.val(clean);
         }
-    };
-
-    function trimInputValue() {
-        this.value = _.str.trim(this.value);
     }
 
-    self.toggleEvents = function (prop) {
-        self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
-        self.urlControl[prop]("blur", trimInputValue);
-        self.urlControl.parents('form')[prop]("submit", urlChanged);
-    };
-
-    self.toggleEvents("on");
-
-    return self;
+    $url.on('input', urlChanged)
+        .on('blur', function () { this.value = _.str.trim(this.value) })
+        .parents('form').on('submit', urlChanged);
 };
+
+module.exports = MB.Control.URLCleanup;

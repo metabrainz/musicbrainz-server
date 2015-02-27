@@ -505,6 +505,11 @@ div.remove-item {
     background-image: data-uri('../images/icons/track-up.png');
 }
 
+.help {
+    background-image: data-uri('../images/icons/help.png');
+    cursor: help !important;
+}
+
 /*
   Artist credits
   ================================================
@@ -536,6 +541,13 @@ div.remove-item {
   External links editor
 */
 
+#external-links-editor {
+    td {
+        vertical-align: top;
+        padding-top: @form-margin / 2;
+    }
+}
+
 #external-links-editor, #work-attributes {
     width: 100%;
     padding: @form-margin / 2;
@@ -556,6 +568,7 @@ div.remove-item {
     width: @form-icon-size;
     height: @form-icon-size;
     vertical-align: middle;
+    margin-right: 4px;
 }
 
 /* Relationship editor */

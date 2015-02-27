@@ -405,7 +405,7 @@
             } else if (typeInfo.deprecated) {
                 return MB.i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
-                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
+                var checker = MB.Control.URLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
@@ -467,6 +467,7 @@
 
     function addRelationships(source, relationships) {
         var linkType = relationships[0].linkTypeInfo();
+        var relationship;
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             relationship = relationships[i];

@@ -53,6 +53,9 @@ MB.constants.PART_OF_SERIES_LINK_TYPES = _.values(MB.constants.PART_OF_SERIES_LI
 
 MB.constants.SERIES_ORDERING_ATTRIBUTE = "a59c5830-5ec7-38fe-9a21-c7ea54f6650a";
 
+MB.constants.VIDEO_ATTRIBUTE_ID = 582;
+MB.constants.VIDEO_ATTRIBUTE_GID = "112054d5-e706-4dd8-99ea-09aabee36cd6";
+
 MB.constants.ENTITIES = [
   'area',
   'artist',
