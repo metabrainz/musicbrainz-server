@@ -156,16 +156,16 @@ MB.getRelationship = function (data, source) {
 };
 
 function getRelationshipEditor(data, source) {
-    if (MB.releaseRelationshipEditor) {
-        return MB.releaseRelationshipEditor;
-    }
-
     var target = data.target;
     var typeInfo = MB.typeInfoByID[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
         (typeInfo && (typeInfo.type0 === 'url' || typeInfo.type1 === 'url'))) {
         return; // handled by the external links editor
+    }
+
+    if (MB.releaseRelationshipEditor) {
+        return MB.releaseRelationshipEditor;
     }
 
     if (source === MB.sourceRelationshipEditor.source) {
