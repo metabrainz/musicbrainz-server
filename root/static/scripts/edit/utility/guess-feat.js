@@ -7,31 +7,36 @@ var balanced = require('balanced-match');
 var namesAreSimilar = require('./names-are-similar.js');
 
 var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
-var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|\s*\/\s*|\s+vs\.\s+)/i;
+var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
 var bracketPairs = [['(', ')'], ['[', ']']];
-
-function joinCredits(credits) {
-    return _(credits).compact().join(' & ');
-}
 
 function extractNonBracketedFeatCredits(str) {
     var wrapped = _(str.split(featRegex)).map(_.str.clean);
-    return {name: wrapped.first(), credits: joinCredits(wrapped.rest())};
+    return {name: _.str.clean(wrapped.first()), credits: wrapped.rest().compact().value()};
 }
 
-function extractBracketedFeatCredits(str) {
+function extractBracketedFeatCredits(str, relatedArtists, isProbablyClassical) {
     return _.reduce(bracketPairs, function (accum, pair) {
         var name = '';
-        var credits = [accum.credits];
+        var credits = accum.credits;
         var remainder = accum.name;
         var b, m;
 
         while (true) {
             b = balanced(pair[0], pair[1], remainder);
             if (b) {
-                m = extractFeatCredits(b.body, true);
-                name += (b.pre + (m.name ? (pair[0] + m.name + pair[1]) : ''));
-                credits.push(m.credits);
+                m = extractFeatCredits(b.body, relatedArtists, isProbablyClassical, true);
+                name += b.pre;
+
+                if (m.name) {
+                    if (findSimilarArtist(relatedArtists, m.name)) {
+                        credits.push(m.name);
+                    } else {
+                        name += pair[0] + m.name + pair[1];
+                    }
+                }
+
+                credits = credits.concat(m.credits);
                 remainder = b.post;
             } else {
                 name += remainder;
@@ -39,15 +44,15 @@ function extractBracketedFeatCredits(str) {
             }
         }
 
-        return {name: _.str.clean(name), credits: joinCredits(credits)};
-    }, {name: str, credits: ''});
+        return {name: _.str.clean(name), credits: credits};
+    }, {name: str, credits: []});
 }
 
-function extractFeatCredits(str, allowEmptyName) {
-    var m1 = extractBracketedFeatCredits(str);
+function extractFeatCredits(str, relatedArtists, isProbablyClassical, allowEmptyName) {
+    var m1 = extractBracketedFeatCredits(str, relatedArtists, isProbablyClassical);
 
     if (!m1.name && !allowEmptyName) {
-        return {name: str, credits: ''};
+        return {name: str, credits: []};
     }
 
     var m2 = extractNonBracketedFeatCredits(m1.name);
@@ -56,37 +61,55 @@ function extractFeatCredits(str, allowEmptyName) {
         return m1;
     }
 
-    return {name: m2.name, credits: joinCredits([m2.credits, m1.credits])}
+    return {name: m2.name, credits: m2.credits.concat(m1.credits)}
+}
+
+function findSimilarArtist(artists, name) {
+    return _.find(artists, function (a) { return namesAreSimilar(name, a.name) });
 }
 
 module.exports = function (entity) {
-    var name = entity.name();
-    var match = extractFeatCredits(name, false);
+    var relatedArtists = _.result(entity, 'relatedArtists');
+    var isProbablyClassical = _.result(entity, 'isProbablyClassical');
 
-    if (!match.name || !match.credits) {
+    var name = entity.name();
+    var match = extractFeatCredits(name, relatedArtists, isProbablyClassical, false);
+
+    if (!match.name || !match.credits.length) {
         return;
     }
 
     entity.name(match.name);
 
-    var credits = entity.artistCredit.toJSON();
-    var relatedArtists = entity.recording ? entity.recording().relatedArtists : entity.relatedArtists;
+    var oldCredits = entity.artistCredit.toJSON();
+    _.last(oldCredits).joinPhrase = isProbablyClassical ? '; ' : ' feat. ';
 
-    _.last(credits).joinPhrase = ' feat. ';
+    var fixName = function (name) {
+        // remove classical roles
+        return isProbablyClassical ? name.replace(/^[a-z]+: (.+)$/, '$1') : name;
+    };
 
-    entity.artistCredit.setNames(
-        credits.concat(
-            _(match.credits.split(collabRegex)).chunk(2).map(function (pair) {
-                var name = _.str.clean(pair[0]);
+    var newCredit = function (artist, name, joinPhrase) {
+        return {artist: artist, name: name, joinPhrase: isProbablyClassical ? ', ' : (joinPhrase || ' & ')};
+    };
 
-                return {
-                    artist: _.find(relatedArtists, function (p) { return namesAreSimilar(name, p.name) }),
-                    name: name,
-                    joinPhrase: pair[1] || ''
-                };
-            }).value()
-        )
+    var newCredits = oldCredits.concat(
+        _(match.credits).map(fixName).map(function (name) {
+            var artist = findSimilarArtist(relatedArtists, name);
+
+            if (artist) {
+                return newCredit(artist, name);
+            } else {
+                return _.map(_.chunk(name.split(collabRegex), 2), function (pair) {
+                    var name = fixName(pair[0]);
+                    return newCredit(findSimilarArtist(relatedArtists, name), name, pair[1]);
+                });
+            }
+        }).flatten().value()
     );
+
+    _.last(newCredits).joinPhrase = '';
+    entity.artistCredit.setNames(newCredits);
 };
 
 // For use outside of the release editor.

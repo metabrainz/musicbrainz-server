@@ -8,9 +8,9 @@ var _ = require('lodash');
 var guessFeat = require('../edit/utility/guess-feat.js');
 
 test('guessing feat. artists', function (t) {
-    t.plan(13);
+    t.plan(17);
 
-    var tests = [
+    var trackTests = [
         {
             input: {
                 name: 'мыльныйопус (feat.813)',
@@ -185,20 +185,96 @@ test('guessing feat. artists', function (t) {
         }
     ];
 
-    _.each(tests, function (x) {
-        var recording = {
-            name: ko.observable(x.input.name),
-            artistCredit: MB.Control.ArtistCredit({ initialData: x.input.artistCredit }),
-            toJSON: function () {
-                return {
-                    name: this.name(),
-                    artistCredit: _.map(this.artistCredit.toJSON(), _.partialRight(_.omit, 'artist'))
-                };
+    var releaseTests = [
+        {
+            input: {
+                name: 'The Nutcracker: Suite, Op. 71 (London Symphony Orchestra feat. conductor: André Previn) (disc 2)',
+                artistCredit: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],
+                relationships: [
+                    {
+                        target: {name: 'London Symphony Orchestra', entityType: 'artist'},
+                        direction: 'backward',
+                        linkTypeID: 45
+                    }
+                ]
+            },
+            output: {
+                name: 'The Nutcracker: Suite, Op. 71 (disc 2)',
+                artistCredit: [
+                    {name: 'Пётр Ильич Чайковский', joinPhrase: '; '},
+                    {name: 'London Symphony Orchestra', joinPhrase: ', '},
+                    {name: 'André Previn', joinPhrase: ''}
+                ]
             }
+        },
+        {
+            input: {
+                name: 'Intermezzi from Palandrana and Zambrano (feat. Fortuna Ensemble; conductor: Roberto Cascio; soprano: Barbara di Castri; tenor: Gastone Sarti)',
+                artistCredit: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],
+                relationships: [
+                    {
+                        target: {name: 'Roberto Cascio', entityType: 'artist'},
+                        direction: 'backward',
+                        linkTypeID: 46
+                    }
+                ]
+            },
+            output: {
+                name: 'Intermezzi from Palandrana and Zambrano',
+                artistCredit: [
+                    {name: 'Alessandro Scarlatti', joinPhrase: '; '},
+                    {name: 'Fortuna Ensemble', joinPhrase: ', '},
+                    {name: 'Roberto Cascio', joinPhrase: ', '},
+                    {name: 'Barbara di Castri', joinPhrase: ', '},
+                    {name: 'Gastone Sarti', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'Le nozze di Figaro - highlights (The Drottningholm Court Theatre Orchestra & Chorus, feat. conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
+                artistCredit: [{name: 'Mozart', joinPhrase: ''}],
+                relationships: [
+                    {
+                        target: {name: 'The Drottningholm Court Theatre Orchestra & Chorus', entityType: 'artist'},
+                        direction: 'backward',
+                        linkTypeID: 45
+                    }
+                ]
+            },
+            output: {
+                name: 'Le nozze di Figaro - highlights',
+                artistCredit: [
+                    {name: 'Mozart', joinPhrase: '; '},
+                    {name: 'The Drottningholm Court Theatre Orchestra & Chorus', joinPhrase: ', '},
+                    {name: 'Arnold Östman', joinPhrase: ', '},
+                    {name: 'Salomaa', joinPhrase: ', '},
+                    {name: 'Bonney', joinPhrase: ', '},
+                    {name: 'Hagagård', joinPhrase: ''}
+                ]
+            }
+        }
+    ];
+
+    function toJS(track) {
+        return {
+            name: track.name(),
+            artistCredit: _.map(track.artistCredit.toJSON(), _.partialRight(_.omit, 'artist'))
         };
+    }
 
-        guessFeat(recording);
+    function runTest(x, entity) {
+        guessFeat(entity);
+        t.deepEqual(toJS(entity), x.output, x.input.name + ' -> ' + x.output.name);
+    }
 
-        t.deepEqual(recording.toJSON(), x.output, x.input.name + ' -> ' + x.output.name);
+    _.each(trackTests, function (x) {
+        var release = MB.releaseEditor.fields.Release({mediums: [{tracks: [x.input]}]});
+
+        runTest(x, release.mediums()[0].tracks()[0]);
+    });
+
+    _.each(releaseTests, function (x) {
+        runTest(x, MB.releaseEditor.fields.Release(x.input));
     });
 });

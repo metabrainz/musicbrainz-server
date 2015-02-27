@@ -223,6 +223,13 @@
                 }
             }
 
+            // Hints for guess-feat. functionality.
+            var release = this.medium.release;
+            if (release) {
+                release.relatedArtists = _.union(release.relatedArtists, value.relatedArtists);
+                release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
+            }
+
             this.recordingValue(value);
         },
 
@@ -232,6 +239,14 @@
 
         hasVariousArtists: function () {
             return this.artistCredit.isVariousArtists();
+        },
+
+        relatedArtists: function () {
+            return this.medium.release.relatedArtists;
+        },
+
+        isProbablyClassical: function () {
+            return this.medium.release.isProbablyClassical;
         }
     });
 

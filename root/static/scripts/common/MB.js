@@ -53,6 +53,9 @@ MB.constants.PART_OF_SERIES_LINK_TYPES = _.values(MB.constants.PART_OF_SERIES_LI
 
 MB.constants.SERIES_ORDERING_ATTRIBUTE = "a59c5830-5ec7-38fe-9a21-c7ea54f6650a";
 
+// orchestrator, orchestra performed, conductor, concertmaster
+MB.constants.PROBABLY_CLASSICAL_LINK_TYPES = [40, 45, 46, 150, 151, 300, 759, 760]
+
 MB.constants.ENTITIES = [
   'area',
   'artist',

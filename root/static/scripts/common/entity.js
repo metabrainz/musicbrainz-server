@@ -189,6 +189,7 @@
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
         },
 
         around$html: function (supr, params) {
@@ -215,6 +216,7 @@
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
         }
     });
 
@@ -479,6 +481,14 @@
 
     function relatedArtists(relationships) {
         return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
+    }
+
+    var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
+
+    function isProbablyClassical(entity) {
+        return classicalRoles.test(entity.name) || _.any(entity.relationships, function (r) {
+            return _.contains(MB.constants.PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+        });
     }
 
     // Used by MB.entity() to look up classes. JSON from the web service
