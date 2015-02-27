@@ -332,7 +332,7 @@
 
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
-            var targetTypes = this.viewModel.allowedRelations[sourceType];
+            var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
 
             if (sourceType === "series") {
                 var self = this;

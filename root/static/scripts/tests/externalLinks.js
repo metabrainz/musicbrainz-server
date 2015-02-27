@@ -7,6 +7,15 @@ var test = require('tape');
 
 MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
+function addURL(name) {
+    var vm = MB.sourceExternalLinksEditor;
+
+    var url = vm.getRelationship({ target: MB.entity.URL({ name: name }) }, vm.source);
+    vm.source.relationships.push(url);
+
+    return url;
+}
+
 function externalLinksTest(name, callback) {
     test(name, function (t) {
         var $fixture = $('<div>').appendTo('body');
@@ -37,43 +46,32 @@ function externalLinksTest(name, callback) {
             <div id="relationship-editor"></div>\
         '));
 
-        function addURL(name) {
-            var source = viewModel.source;
-            var target = MB.entity.URL({ name: name });
-            var url = viewModel.getRelationship({ target: target }, source);
-
-            source.relationships.push(url);
-
-            return url;
-        };
-
-        var viewModel = MB.Control.externalLinks.applyBindings({
+        MB.initRelationshipEditors({
             sourceData: { entityType: "artist", relationships: [] },
             formName: "edit-artist"
         });
 
-        MB.sourceExternalLinksEditor = viewModel;
-
-        callback(t, viewModel, addURL);
+        callback(t);
 
         $fixture.remove();
-        delete MB.sourceExternalLinksEditor;
+        MB.entityCache = {};
+        MB.sourceExternalLinksEditor = null;
     });
 }
 
-externalLinksTest("automatic link type detection for URL", function (t, viewModel, addURL) {
+externalLinksTest("automatic link type detection for URL", function (t) {
     t.plan(5);
 
     var url = addURL("http://en.wikipedia.org/wiki/No_Age");
 
     t.ok(url.matchesType(), "wikipedia page is detected");
     t.equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
-    t.equal(url.linkPhrase(viewModel.source), "Wikipedia", "wikipedia label is used");
+    t.equal(url.linkPhrase(MB.sourceExternalLinksEditor.source), "Wikipedia", "wikipedia label is used");
     t.equal(url.linkTypeID(), 179, "internal link type is set to 179");
     t.equal(+url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
 });
 
-externalLinksTest("invalid URL detection", function (t, viewModel, addURL) {
+externalLinksTest("invalid URL detection", function (t) {
     t.plan(2);
 
     var url = addURL("foo");
@@ -84,7 +82,7 @@ externalLinksTest("invalid URL detection", function (t, viewModel, addURL) {
     t.ok(!url.error(), "error is removed after valid URL is entered");
 });
 
-externalLinksTest("deprecated link type detection", function (t, viewModel, addURL) {
+externalLinksTest("deprecated link type detection", function (t) {
     t.plan(2);
 
     var url = addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
@@ -103,9 +101,10 @@ externalLinksTest("deprecated link type detection", function (t, viewModel, addU
     t.ok(!url.error(), "error is removed after valid link type is selected");
 });
 
-externalLinksTest("hidden input data for form submission", function (t, viewModel, addedURL) {
+externalLinksTest("hidden input data for form submission", function (t) {
     t.plan(12);
 
+    var viewModel = MB.sourceExternalLinksEditor;
     var source = viewModel.source;
     var $re = $("#relationship-editor");
 

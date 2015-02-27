@@ -543,7 +543,6 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
 editReleaseTest("relationshipEdit edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    MB.typeInfo = {};
     MB.faviconClasses = {};
 
     var release = release;

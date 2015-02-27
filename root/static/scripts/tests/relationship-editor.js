@@ -89,9 +89,8 @@ function setupReleaseRelationshipEditor() {
 }
 
 function setupGenericRelationshipEditor(options) {
-    var vm = MB.relationshipEditor.GenericEntityViewModel(options);
-    MB.sourceRelationshipEditor = vm;
-    return vm;
+    MB.initRelationshipEditors(options);
+    return MB.sourceRelationshipEditor;
 }
 
 function formData() {
@@ -121,7 +120,9 @@ function relationshipEditorTest(name, callback) {
         _.defer = _defer;
 
         MB.entityCache = {};
-        delete MB.sourceRelationshipEditor;
+        MB.sourceRelationshipEditor = null;
+        MB.sourceExternalLinksEditor = null;
+        MB.releaseRelationshipEditor = null;
         delete sessionStorage.submittedRelationships;
 
         $fixture.remove();
@@ -502,11 +503,7 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
 
     // Pretend the form was posted.
     MB.formWasPosted = true;
-
-    var vm = MB.relationshipEditor.GenericEntityViewModel({
-        sourceData: source
-    });
-
+    var vm = setupGenericRelationshipEditor({ sourceData: source });
     MB.formWasPosted = false;
 
     var entities = vm.source.relationships()[0].entities();
@@ -808,7 +805,7 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
         }
     }, artist);
 
-    t.equal(newRelationship, null);
+    t.ok(!newRelationship);
     t.equal(artist.relationships().length, 0);
 });
 
