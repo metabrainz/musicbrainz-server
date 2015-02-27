@@ -268,6 +268,7 @@ no Moose;
 
 Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2010 Sean Burke
+Copyright (C) 2015 Jesse Weinstein
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
