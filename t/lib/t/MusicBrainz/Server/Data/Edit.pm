@@ -183,7 +183,6 @@ test 'Collections' => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+collection');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
-    #Find edits by collection
     are_edits_as_expected([3], "collection", $edit_data->find_by_collection(1, 10, 0));
 };
 
@@ -240,11 +239,11 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     my $old_ae_count = $editor->accepted_auto_edits;
     my $old_e_count = $editor->accepted_edits;
 
-    my $edit = $c->model('Edit')->create\
-      (edit_type => 123,
-       editor_id => 1,
-       privileges => 1
-      );
+    my $edit = $c->model('Edit')->create(
+        edit_type => 123,
+        editor_id => 1,
+        privileges => 1
+    );
 
     $editor = $c->model('Editor')->get_by_id(1);
     is $editor->accepted_auto_edits, $old_ae_count + 1, "One more accepted auto-edit";
