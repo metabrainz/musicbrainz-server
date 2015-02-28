@@ -83,6 +83,7 @@ sub delete
 {
     my ($self, @event_ids) = @_;
 
+    $self->c->model('Collection')->delete_entities('event', @event_ids);
     $self->c->model('Relationship')->delete_entities('event', @event_ids);
     $self->annotation->delete(@event_ids);
     $self->alias->delete_entities(@event_ids);
@@ -103,6 +104,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('event', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('event', $new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('event', $new_id, @old_ids);
 
     my @merge_options = ($self->sql => (
                            table => 'event',
