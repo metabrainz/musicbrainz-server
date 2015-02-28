@@ -431,6 +431,16 @@ ALTER TABLE editor_collection_release
    FOREIGN KEY (release)
    REFERENCES release(id);
 
+ALTER TABLE editor_collection_work
+   ADD CONSTRAINT editor_collection_work_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_work
+   ADD CONSTRAINT editor_collection_work_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
 ALTER TABLE editor_collection_type
    ADD CONSTRAINT editor_collection_type_fk_parent
    FOREIGN KEY (parent)

@@ -1886,6 +1886,12 @@ CREATE TABLE editor_collection_release
     release             INTEGER NOT NULL -- PK, references release.id
 );
 
+CREATE TABLE editor_collection_work
+(
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
+    work             INTEGER NOT NULL -- PK, references work.id
+);
+
 CREATE TABLE editor_oauth_token
 (
     id                  SERIAL,
