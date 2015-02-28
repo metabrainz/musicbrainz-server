@@ -236,7 +236,7 @@ var ExternalLink = React.createClass({
   render: function () {
     var props = this.props;
     var typeInfo = MB.typeInfoByID[props.type] || {};
-    var typeDescription;
+    var typeDescription = '';
     var faviconClass;
 
     if (typeInfo.description) {
@@ -244,6 +244,11 @@ var ExternalLink = React.createClass({
         description: typeInfo.description,
         url: '/relationship/' + typeInfo.gid
       });
+    }
+
+    if (props.url && !props.errorMessage) {
+      var escapedURL = _.escape(props.url);
+      typeDescription = '<a href="' + escapedURL + '" target="_blank">' + escapedURL + '</a><br><br>' + typeDescription;
     }
 
     var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
