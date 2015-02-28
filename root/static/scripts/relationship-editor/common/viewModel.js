@@ -36,7 +36,7 @@
             var type0 = types[0];
             var type1 = types[1];
 
-            if (typesAreRestricted(type0, type1)) {
+            if (!editorMayEditTypes(type0, type1)) {
                 return;
             }
 
@@ -286,9 +286,14 @@ function parseDateString(string) {
     return null;
 }
 
-function typesAreRestricted(type0, type1) {
-    return (
-        (!MB.userIsLocationEditor && (type0 === 'area' || type1 === 'area')) ||
-        (!MB.userIsRelationshipEditor && (type0 === 'instrument' || type1 === 'instrument'))
-    );
+function editorMayEditTypes(type0, type1) {
+    var types = [type0, type1].sort().join('-');
+
+    if (/^area-area|area-url$/.test(types)) {
+        return !!MB.userIsLocationEditor;
+    } else if (/^area-instrument|instrument-instrument|instrument-url$/.test(types)) {
+        return !!MB.userIsRelationshipEditor;
+    }
+
+    return true;
 }
