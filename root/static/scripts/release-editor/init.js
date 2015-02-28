@@ -177,6 +177,11 @@ MB.releaseEditor.init = function (options) {
 
     if (this.action === "edit") {
         this.loadRelease(options.gid);
+    } else {
+        MB.releaseEditor.createExternalLinksEditor(
+            { entityType: 'release' },
+            $('#external-links-editor-container')[0]
+        );
     }
 
     this.getEditPreviews();
@@ -219,11 +224,6 @@ MB.releaseEditor.releaseLoaded = function (data) {
     this.loadError("");
 
     var seed = this.seededReleaseData;
-    delete this.seededReleaseData;
-
-    if (seed && seed.relationships) {
-        data.relationships = (data.relationships || []).concat(seed.relationships);
-    }
 
     // Setup the external links editor
     _.defer(function () {
@@ -247,6 +247,12 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     }
 
     var self = this;
+    var seed = this.seededReleaseData;
+    delete this.seededReleaseData;
+
+    if (seed && seed.relationships) {
+        data.relationships = (data.relationships || []).concat(seed.relationships);
+    }
 
     this.externalLinks = externalLinks.createExternalLinksEditor({
         sourceData: data,
