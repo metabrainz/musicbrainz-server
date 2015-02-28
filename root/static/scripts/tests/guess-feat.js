@@ -8,7 +8,7 @@ var _ = require('lodash');
 var guessFeat = require('../edit/utility/guess-feat.js');
 
 test('guessing feat. artists', function (t) {
-    t.plan(17);
+    t.plan(18);
 
     var trackTests = [
         {
@@ -180,6 +180,33 @@ test('guessing feat. artists', function (t) {
                 artistCredit: [
                     {name: 'Kameleba', joinPhrase: ' feat. '},
                     {name: 'Rubén Rada', joinPhrase: ''}
+                ]
+            }
+        },
+        // "Slash & Ol' Dirty Bastard" should be split even though it's above
+        // the similarity threshold to "Ol' Dirty Bastard" alone.
+        {
+            input: {
+                name: 'Fix (Main Mix) (feat. Slash & Ol\' Dirty Bastard)',
+                artistCredit: [{name: 'Blackstreet', joinPhrase: ''}],
+                recording: {
+                    name: 'Fix (main mix) (feat. Slash & Ol\' Dirty Bastard)',
+                    gid: '8c6920a2-130c-4028-add9-684325a3fa8a',
+                    relationships: [
+                        {
+                            target: {name: 'Ol’ Dirty Bastard', gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819', entityType: 'artist'},
+                            direction: 'backward',
+                            linkTypeID: 156
+                        }
+                    ]
+                }
+            },
+            output: {
+                name: 'Fix (Main Mix)',
+                artistCredit: [
+                    {name: 'Blackstreet', joinPhrase: ' feat. '},
+                    {name: 'Slash', joinPhrase: ' & '},
+                    {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
                 ]
             }
         }
