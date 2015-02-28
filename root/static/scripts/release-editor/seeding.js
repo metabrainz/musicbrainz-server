@@ -15,6 +15,7 @@
         data = data || { seed: {}, errors: [] };
 
         var seed = data.seed;
+        this.seededReleaseData = seed;
 
         if (data.errors && data.errors.length) {
             this.seedErrors(data.errors);
@@ -38,8 +39,6 @@
             var release = this.fields.Release(releaseData);
             this.seedRelease(release, seed);
             this.rootField.release(release);
-        } else {
-            this.seededReleaseData = seed;
         }
     };
 

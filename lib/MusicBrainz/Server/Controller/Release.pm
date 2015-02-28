@@ -72,6 +72,7 @@ after 'load' => sub
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load($release->release_group);
+    $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
@@ -134,11 +135,11 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
         @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_release($collection->id, $release->id));
+                if ($c->model('Collection')->contains_entity('release', $collection->id, $release->id));
         }
     }
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $release->id);
 
     $c->stash(
         collections => \@collections,
@@ -304,7 +305,7 @@ sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{release}->id);
     my @public_collections;
     my $private_collections = 0;
 

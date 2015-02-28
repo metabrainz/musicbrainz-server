@@ -6,7 +6,5 @@
         [%- INCLUDE 'taglookup/form.tt' -%]
         <h2>[% l("Other lookups") %]</h2>
         [%- INCLUDE 'otherlookup/form.tt' -%]
-        <h2>[% l("Browse") %]</h2>
-        <p>[% l("A simple list of all entities is available from our {url|browse} pages.", { url => c.uri_for('/browse') }) %]</p>
     </div>
 [%- END -%]

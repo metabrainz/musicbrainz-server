@@ -52,7 +52,7 @@ sub add : Chained('own_collection') RequireAuth
 
         my $release = $c->model('Release')->get_by_id($release_id);
 
-        $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
+        $c->model('Collection')->add_entities_to_collection("release", $collection->id, $release_id);
 
         $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
         $c->detach;
@@ -62,7 +62,7 @@ sub add : Chained('own_collection') RequireAuth
 
         my $event = $c->model('Event')->get_by_id($event_id);
 
-        $c->model('Collection')->add_events_to_collection($collection->id, $event_id);
+        $c->model('Collection')->add_entities_to_collection("event", $collection->id, $event_id);
 
         $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
         $c->detach;
@@ -83,7 +83,7 @@ sub remove : Chained('own_collection') RequireAuth
 
         my $release = $c->model('Release')->get_by_id($release_id);
 
-        $c->model('Collection')->remove_releases_from_collection($collection->id, $release_id);
+        $c->model('Collection')->remove_entities_from_collection("release", $collection->id, $release_id);
 
         $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
         $c->detach;
@@ -93,7 +93,7 @@ sub remove : Chained('own_collection') RequireAuth
 
         my $event = $c->model('Event')->get_by_id($event_id);
 
-        $c->model('Collection')->remove_events_from_collection($collection->id, $event_id);
+        $c->model('Collection')->remove_entities_from_collection('event', $collection->id, $event_id);
 
         $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
         $c->detach;
@@ -110,11 +110,10 @@ sub show : Chained('load') PathPart('')
     my $collection = $c->stash->{collection};
 
     my $entity_type = $collection->type->entity_type;
-    my $removal_method = "remove_${entity_type}s_from_collection";
 
     if ($c->form_posted && $c->stash->{my_collection}) {
         my $remove_params = $c->req->params->{remove};
-        $c->model('Collection')->$removal_method(
+        $c->model('Collection')->remove_entities_from_collection($entity_type,
             $collection->id,
             grep { looks_like_number($_) }
                 ref($remove_params) ? @$remove_params : ($remove_params)
@@ -222,11 +221,11 @@ sub create : Local RequireAuth
         my $params = $c->req->params;
         if (exists $params->{"release"}) {
             my $release_id = $params->{"release"};
-            $c->model('Collection')->add_releases_to_collection($collection->{id}, $release_id);
+            $c->model('Collection')->add_entities_to_collection("release", $collection->{id}, $release_id);
         }
         if (exists $params->{"event"}) {
             my $event_id = $params->{"event"};
-            $c->model('Collection')->add_events_to_collection($collection->{id}, $event_id);
+            $c->model('Collection')->add_entities_to_collection("event", $collection->{id}, $event_id);
         }
 
         $c->response->redirect(

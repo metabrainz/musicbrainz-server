@@ -20,8 +20,9 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
+    $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
+
     if ($toplevel) {
-        $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
         $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
 
         my @members = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('member of band') };
@@ -44,6 +45,10 @@ around serialize => sub {
             my @recordings = map { serialize_entity($_, $inc, $stash) } @$items;
             $ret->{track} = list_or_single(@recordings) if @recordings;
         }
+
+        if ($stash->store($entity)->{identities}) {
+            $ret->{alternateName} = [uniq map { $_->name } @{ $stash->store($entity)->{identities} }];
+        }
     }
 
     return $ret;
@@ -53,7 +58,10 @@ sub member_relationship {
     my ($relationship, $inc, $stash, $ret) = @_;
     my $is_new = 0;
     if (!$ret) {
-        $ret = { member => serialize_entity($relationship->target, $inc, $stash) };
+        $ret = {
+            '@type' => 'OrganizationRole',
+            member => serialize_entity($relationship->target, $inc, $stash)
+        };
         $is_new = 1;
     }
 
