@@ -57,8 +57,7 @@ test 'Test locks on edits' => sub {
     my $test = shift;
 
     # We have to have some data present outside transactions.
-    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection\
-      ('TEST', fresh => 1);
+    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection('TEST', fresh => 1);
 
     $foreign_connection->dbh->do('INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
              VALUES (50, $$editor$$, $${CLEARTEXT}password$$, $$3a115bc4f05ea9856bd4611b75c80bca$$, $$foo@example.com$$, now())');
@@ -80,16 +79,15 @@ test 'Test locks on edits' => sub {
     $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
 
-sub are_edits_as_expected {
-    my ($expected_edit_ids, $prefix, $edits, $hits) = @_;
-    is($hits, scalar @$expected_edit_ids, "Found expected number for ${prefix} edits");
-    is(scalar @$edits, scalar @$expected_edit_ids, "Found expected size of ${prefix} edits array");
-    pairwise { is($a->id, $b, "Found ${prefix} edit #".$a->id) } @$edits, @$expected_edit_ids;
+sub is_expected_edit_ids {
+    my ($expected_edit_ids, $description_prefix, $edits, $hits) = @_;
+    #$hits is the count of edits returned. This does not check it.
+    pairwise { is($a->id, $b, "Found ${description_prefix} edit #".$a->id) } @$edits, @$expected_edit_ids;
 }
 
-sub check_edits {
-    my ($find_hash, $expected_edit_ids, $prefix, $edit_data) = @_;
-    are_edits_as_expected($expected_edit_ids, $prefix, $edit_data->find($find_hash, 10, 0));
+sub test_find_edits {
+    my ($find_hash, $expected_edit_ids, $description_prefix, $edit_data) = @_;
+    is_expected_edit_ids($expected_edit_ids, $description_prefix, $edit_data->find($find_hash, 10, 0));
 }
 
 test all => sub {
@@ -97,31 +95,34 @@ test all => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-
     my $sql = $test->c->sql;
+    my ($hits, $edits);
 
-    # Find all edits
-    check_edits({}, [5, 4, 3, 2, 1], "every", $edit_data);
+    # Find all edits (and check $hits return)
+    ($edits, $hits) = $edit_data->find({}, 10, 0);
+    is($hits, 5, "Expected number of hits returned");
+    is(scalar @$edits, 5, "Expected array size");
+    is_expected_edit_ids([5, 4, 3, 2, 1], "every", $edits, $hits);
 
     # Find edits with a certain status
-    check_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], "open", $edit_data);
+    test_find_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], "open", $edit_data);
 
     # Find edits by a specific editor
-    check_edits({ editor => 1 }, [3, 1], "editor-1", $edit_data);
+    test_find_edits({ editor => 1 }, [3, 1], "editor-1", $edit_data);
 
     # Find edits by a specific editor with a certain status
-    check_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], "open-editor-1", $edit_data);
+    test_find_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], "open-editor-1", $edit_data);
 
     # Find edits with 0 results
-    check_edits({ editor => 122 }, [], "none-found", $edit_data);
+    test_find_edits({ editor => 122 }, [], "none-found", $edit_data);
 
     # Find edits by a certain artist
-    check_edits({ artist => 1 }, [4,1], "artist-1", $edit_data);
+    test_find_edits({ artist => 1 }, [4,1], "artist-1", $edit_data);
 
-    check_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], "applied-artist-1", $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], "applied-artist-1", $edit_data);
 
     # Find edits over multiple entities
-    check_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], "artists-1-and-2", $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], "artists-1-and-2", $edit_data);
 
     # Test accepting edits
     my $edit = $edit_data->get_by_id(1);
@@ -183,7 +184,7 @@ test 'Collections' => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+collection');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
-    are_edits_as_expected([3], "collection", $edit_data->find_by_collection(1, 10, 0));
+    is_expected_edit_ids([3], "collection", $edit_data->find_by_collection(1, 10, 0));
 };
 
 test 'Find edits by subscription' => sub {
