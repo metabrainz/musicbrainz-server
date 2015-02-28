@@ -6,7 +6,7 @@ use Test::More;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $EDIT_MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw( $MINIMUM_RESPONSE_PERIOD );
 
 with 't::Context';
 
@@ -233,7 +233,7 @@ test all => sub {
     is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
     like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
-    my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
+    my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
     $close_time = $close_time->strftime('%F %H:%M %Z');
 
     my $body = <<EOS;

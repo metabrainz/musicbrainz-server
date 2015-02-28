@@ -13,7 +13,7 @@ use DBDefs;
 use Try::Tiny;
 use List::UtilsBy qw( sort_by );
 
-use MusicBrainz::Server::Constants qw( :edit_status :email_addresses $EDIT_MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw( :edit_status :email_addresses $MINIMUM_RESPONSE_PERIOD );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -214,7 +214,7 @@ sub _create_no_vote_email
     my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
-    my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
+    my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
     if ($editor->preferences) {
         $close_time->set_time_zone($editor->preferences->timezone);
     }
