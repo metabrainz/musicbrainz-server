@@ -385,6 +385,11 @@
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 
             this.relationship(newRelationship);
+
+            // XXX knockout is stupid and unsets the linkTypeID for no apparent
+            // reason, so do it again...
+            newRelationship.linkTypeID(data.linkTypeID);
+
             currentRelationship.remove();
 
             var ac = this.autocomplete;
