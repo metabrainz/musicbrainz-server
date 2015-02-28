@@ -541,7 +541,8 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal     => { automatic => 1 },
+        collections => 1
     },
     track => {
         mbid => { multiple => 1 },
