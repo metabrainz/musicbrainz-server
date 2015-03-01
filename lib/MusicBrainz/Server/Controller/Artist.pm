@@ -240,7 +240,7 @@ sub show : PathPart('') Chained('load')
         my @aliases = map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       uniq
-                      grep { $_->type_name eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_aliases => \@aliases );
     }
     $legal_name //= $artist;
