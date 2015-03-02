@@ -156,6 +156,10 @@ MB.getRelationship = function (data, source) {
 };
 
 function getRelationshipEditor(data, source) {
+    if (source.entityType === 'url') {
+        return MB.sourceRelationshipEditor;
+    }
+
     var target = data.target;
     var typeInfo = MB.typeInfoByID[data.linkTypeID];
 
