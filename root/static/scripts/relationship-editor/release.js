@@ -37,6 +37,7 @@
             };
 
             this.source = MB.entity(options.sourceData);
+            this.source.parseRelationships(options.sourceData.relationships);
 
             this.source.releaseGroup.parseRelationships(
                 options.sourceData.releaseGroup.relationships
