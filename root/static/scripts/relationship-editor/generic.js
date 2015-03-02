@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var validation = require('../edit/validation.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -16,9 +18,11 @@
 
             var source = this.source;
 
-            this.incompleteRelationships = source.displayableRelationships(this).any(function (r) {
-                return !r.linkTypeID() || !r.target(source).gid;
-            });
+            this.incompleteRelationships = validation.errorField(
+                source.displayableRelationships(this).any(function (r) {
+                    return !r.linkTypeID() || !r.target(source).gid;
+                })
+            );
         },
 
         openAddDialog: function (source, event) {
