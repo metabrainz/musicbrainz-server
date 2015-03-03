@@ -230,6 +230,20 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, rg))
          ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_releases
+             (artist  INTEGER,
+              release INTEGER,
+
+              PRIMARY KEY (artist, release))
+         ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_releases
+             (artist  INTEGER,
+              release INTEGER,
+
+              PRIMARY KEY (artist, release))
+         ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -256,6 +270,21 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
                    WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_rgs WHERE artist = artist_credit_name.artist AND rg = release_group.id)) q");
     $sql->do("ANALYZE tmp_sitemaps_artist_va_rgs");
+
+    # Releases that will appear in the non-VA part of the artist releases tab, per artist
+    $sql->do("INSERT INTO tmp_sitemaps_artist_direct_releases (artist, release)
+                  SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
+                    FROM release JOIN artist_credit_name ON release.artist_credit = artist_credit_name.artist_credit");
+    $sql->do("ANALYZE tmp_sitemaps_artist_direct_releases");
+    # Releases that will appear in the VA listings instead. Uses above table to exclude non-VA appearances.
+    $sql->do("INSERT INTO tmp_sitemaps_artist_va_releases (artist, release)
+                  SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
+                    FROM release
+                    JOIN medium ON medium.release = release.id
+                    JOIN track ON track.medium = medium.id
+                    JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
+                   WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_releases WHERE artist = artist_credit_name.artist AND release = release.id)");
+    $sql->do("ANALYZE tmp_sitemaps_artist_va_releases");
 }
 
 sub drop_temporary_tables {
@@ -263,6 +292,8 @@ sub drop_temporary_tables {
     $sql->begin;
     $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
     $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
+    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_releases");
+    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_releases");
     $sql->commit;
 }
 
@@ -359,6 +390,27 @@ sub build_suffix_info {
                 return $EMPTY_PAGE_PRIORITY;
             }
         };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_direct_releases tsadre WHERE tsadre.artist = artist.id) direct_release_count"},
+            paginated => "direct_release_count",
+            suffix => 'releases',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{direct_release_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
+        $suffix_info->{releases_va} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_va_releases tsavre WHERE tsavre.artist = artist.id) va_release_count"},
+            paginated => "va_release_count",
+            suffix => 'releases?va=1',
+            filename_suffix => 'releases-va',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{va_release_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
     }
 
     if ($entity_properties->{aliases}) {
@@ -402,7 +454,7 @@ sub build_suffix_info {
         for my $tab (qw( events releases recordings works performances map discids )) {
             # XXX: discids, performances should have extra sql for priority
             # XXX: pagination, priority based on counts for paginated things
-            if ($tabs{$tab}) {
+            if ($tabs{$tab} && !$suffix_info->{$tab}) {
                 $suffix_info->{$tab} = {
                     suffix => $tab,
                     priority => sub { return $SECONDARY_PAGE_PRIORITY }
@@ -502,7 +554,8 @@ sub build_one_suffix {
 	        # Start from page 2, and add one to the count for the last page
 	        # (since the count was one less due to the exclusion of the first
 	        # page)
-                my @new_paginated_urls = map { $url . ($opts{suffix_delimiter} // '/' eq '?' ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+                my $use_amp = $url =~ m/\?/;
+                my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
 
                 # Expand these all to full specifications for build_one_sitemap.
                 push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
