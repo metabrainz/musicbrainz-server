@@ -68,8 +68,9 @@
 
         getEdits: function (addChanged) {
             var self = this;
+            var release = this.source;
 
-            _.each(this.source.mediums(), function (medium) {
+            _.each(release.mediums(), function (medium) {
                 _.each(medium.tracks, function (track) {
                     var recording = track.recording;
 
@@ -87,7 +88,11 @@
                 });
             });
 
-            var rg = this.source.releaseGroup;
+            _.each(release.relationships(), function (r) {
+                addChanged(r, release);
+            });
+
+            var rg = release.releaseGroup;
             _.each(rg.relationships(), function (r) {
                 addChanged(r, rg);
             });
