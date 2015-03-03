@@ -42,7 +42,8 @@ ALTER TABLE editor_collection_type ADD CONSTRAINT allowed_collection_entity_type
   CHECK (
     entity_type IN (
       'event',
-      'release'
+      'release',
+      'work'
     )
   );
 
