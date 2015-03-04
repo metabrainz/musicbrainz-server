@@ -21,7 +21,7 @@
     "jquery": "1.11.2",
     "jquery.browser": "gabceb/jquery-browser-plugin#e4a01fd",
     "jquery.cookie": "1.4.1",
-    "knockout-arraytransforms": "0.6.0",
+    "knockout-arraytransforms": "1.0.0",
     "less-plugin-clean-css": "^1.4.0",
     "lodash": "2.4.1",
     "po2json": "^0.3.2",

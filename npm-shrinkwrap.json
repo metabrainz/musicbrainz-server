@@ -3203,9 +3203,9 @@
       "resolved": "https://registry.npmjs.org/jquery.cookie/-/jquery.cookie-1.4.1.tgz"
     },
     "knockout-arraytransforms": {
-      "version": "0.6.0",
-      "from": "knockout-arraytransforms@0.6.0",
-      "resolved": "https://registry.npmjs.org/knockout-arraytransforms/-/knockout-arraytransforms-0.6.0.tgz",
+      "version": "1.0.0",
+      "from": "knockout-arraytransforms@1.0.0",
+      "resolved": "https://registry.npmjs.org/knockout-arraytransforms/-/knockout-arraytransforms-1.0.0.tgz",
       "dependencies": {
         "knockout": {
           "version": "3.3.0",
