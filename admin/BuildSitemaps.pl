@@ -563,6 +563,13 @@ sub build_one_suffix {
         }
     }
 
+    # If we can fit all the paginated stuff into the main sitemap file, why not do it?
+    if (@paginated_urls && scalar @base_urls + scalar @paginated_urls < 50000) {
+        print localtime() . " paginated plus base urls are fewer than 50k for $base_filename, combining into one...\n";
+        push(@base_urls, @paginated_urls);
+        @paginated_urls = ();
+    }
+
     my $filename = $base_filename . $ext;
     build_one_sitemap($filename, $index, @base_urls);
 
