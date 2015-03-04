@@ -470,6 +470,13 @@ sub build_suffix_info {
             suffix => 'works',
             priority => $priority_by_count->('work_count')
         };
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_artist_event directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity1) FROM l_artist_event WHERE entity0 = artist.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
     }
 
     if ($entity_properties->{aliases}) {
