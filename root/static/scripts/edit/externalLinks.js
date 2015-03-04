@@ -363,6 +363,14 @@ MB.createExternalLinksEditor = function (options) {
     });
   }
 
+  initialLinks.sort(function (a, b) {
+    var typeA = MB.typeInfoByID[a.type];
+    var typeB = MB.typeInfoByID[b.type];
+
+    return MB.i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
+                           typeB ? typeB.phrase.toLowerCase() : '');
+  });
+
   var typeOptions = (
     MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
