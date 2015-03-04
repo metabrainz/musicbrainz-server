@@ -443,6 +443,28 @@ sub build_suffix_info {
                 return $EMPTY_PAGE_PRIORITY;
             }
         };
+        $suffix_info->{recordings_video} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_video) video_count"},
+            paginated => "video_count",
+            suffix => 'recordings?video=1',
+            filename_suffix => 'recordings-video',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{video_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
+        $suffix_info->{recordings_standalone} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_standalone) standalone_count"},
+            paginated => "standalone_count",
+            suffix => 'recordings?standalone=1',
+            filename_suffix => 'recordings-standalone',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{standalone_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
     }
 
     if ($entity_properties->{aliases}) {
