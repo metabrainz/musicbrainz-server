@@ -58,7 +58,33 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-before qw( show aliases tags details ) => sub {
+# Stuff that has the side bar and thus needs to display collection information
+after [qw(show aliases collections details tags )] => sub {
+    my ($self, $c) = @_;
+
+    my $entity = $c->stash->{work};
+
+    my @collections;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of collections and whether this release is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'work');
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->contains_entity('release', $collection->id, $entity->id)); # TODO: Change to work once table is added
+        }
+    }
+
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $entity->id); # TODO: Change to work once table is added
+
+    $c->stash(
+        collections => \@collections,
+        containment => \%containment,
+        all_collections => \@all_collections,
+    );
+};
+
+before qw( show aliases collections tags details ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
@@ -144,6 +170,37 @@ sub _merge_load_entities
     $c->model('Language')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
+
+=head2 collections
+
+View a list of collections that this work has been added to.
+
+=cut
+
+sub collections : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{work}->id); # TODO: Change to work once table is added
+    my @public_collections;
+    my $private_collections = 0;
+
+    # Keep public collections;
+    # count private collection
+    foreach my $collection (@all_collections) {
+        push(@public_collections, $collection)
+            if ($collection->{'public'} == 1);
+        $private_collections++
+            if ($collection->{'public'} == 0);
+    }
+
+    $c->model('Editor')->load(@public_collections);
+
+    $c->stash(
+        public_collections => \@public_collections,
+        private_collections => $private_collections,
+    );
+}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
