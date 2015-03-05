@@ -371,6 +371,8 @@ MB.createExternalLinksEditor = function (options) {
                            typeB ? typeB.phrase.toLowerCase() : '');
   });
 
+  initialLinks = initialLinks.map(l => l.update('url', URLCleanup.cleanUrl));
+
   var typeOptions = (
     MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
