@@ -30,6 +30,7 @@ use POSIX;
 Readonly my $EMPTY_PAGE_PRIORITY => 0.1;
 Readonly my $SECONDARY_PAGE_PRIORITY => 0.3;
 Readonly my $DEFAULT_PAGE_PRIORITY => 0.5;
+Readonly my $MAX_SITEMAP_SIZE => 50000.0;
 
 # Check options
 
@@ -331,7 +332,8 @@ sub build_one_entity {
 
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
-        "SELECT batch, count(id) from (SELECT id, ceil(id / 50000.0) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC"
+        "SELECT batch, count(id) from (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
+        $MAX_SITEMAP_SIZE
     );
     my @batches;
 
@@ -341,7 +343,7 @@ sub build_one_entity {
         for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
             # Add this potential batch to the previous one if the sum will come out less than 50,000
             # Otherwise create a new batch and push the previous one onto the list.
-            if ($batch->{count} + $raw_batch->{count} <= 50000) {
+            if ($batch->{count} + $raw_batch->{count} <= $MAX_SITEMAP_SIZE) {
                 $batch->{count} = $batch->{count} + $raw_batch->{count};
                 push @{$batch->{batches}}, $raw_batch->{batch};
             } else {
@@ -547,9 +549,9 @@ sub build_one_batch {
     my $tables = $entity_type . $extra_sql{join};
 
     my $query = "SELECT $columns FROM $tables " .
-                "WHERE ceil(${entity_type}.id / 50000.0) = any(?) " .
+                "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
                 "ORDER BY ${entity_type}.id ASC";
-    my $ids = $sql->select_list_of_hashes($query, $batch_info->{batches});
+    my $ids = $sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
 
     for my $suffix (keys %$suffix_info) {
         my %opts = %{ $suffix_info->{$suffix} // {}};
@@ -617,11 +619,18 @@ sub build_one_suffix {
         }
     }
 
+    # If we can fit all the paginated stuff into the main sitemap file, why not do it?
+    if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
+        print localtime() . " paginated plus base urls are fewer than 50k for $base_filename, combining into one...\n";
+        push(@base_urls, @paginated_urls);
+        @paginated_urls = ();
+    }
+
     my $filename = $base_filename . $ext;
     build_one_sitemap($filename, $index, @base_urls);
 
     if (@paginated_urls) {
-        my $iter = natatime 50000, @paginated_urls;
+        my $iter = natatime $MAX_SITEMAP_SIZE, @paginated_urls;
         my $page_number = 1;
         while (my @urls = $iter->()) {
             my $paginated_filename = $base_filename . "-$page_number" . $ext;
@@ -634,7 +643,7 @@ sub build_one_suffix {
 sub build_one_sitemap {
     my ($filename, $index, @urls) = @_;
 
-    die "Too many URLs for one sitemap: $filename" if scalar @urls > 50000;
+    die "Too many URLs for one sitemap: $filename" if scalar @urls > $MAX_SITEMAP_SIZE;
 
     my $local_filename = "$FindBin::Bin/../root/static/sitemaps/$filename";
     my $remote_filename = $web_server . '/' . $filename;
