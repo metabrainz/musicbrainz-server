@@ -244,6 +244,15 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, release))
          ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_recordings
+             (artist        INTEGER,
+              recording     INTEGER,
+              is_video      BOOLEAN NOT NULL,
+              is_standalone BOOLEAN NOT NULL,
+
+              PRIMARY KEY (artist, recording))
+         ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -285,6 +294,18 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
                    WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_releases WHERE artist = artist_credit_name.artist AND release = release.id)");
     $sql->do("ANALYZE tmp_sitemaps_artist_va_releases");
+
+    $sql->do("INSERT INTO tmp_sitemaps_artist_recordings (artist, recording, is_video, is_standalone)
+                  WITH track_recordings (recording) AS (
+                      SELECT DISTINCT recording FROM track
+                  )
+                  SELECT DISTINCT ON (artist, recording)
+                      artist_credit_name.artist AS artist, recording.id as recording,
+                      video as is_video, track_recordings.recording IS NULL AS is_standalone
+                    FROM recording
+                    JOIN artist_credit_name ON recording.artist_credit = artist_credit_name.artist_credit
+                    LEFT JOIN track_recordings ON recording.id = track_recordings.recording");
+    $sql->do("ANALYZE tmp_sitemaps_artist_recordings");
 }
 
 sub drop_temporary_tables {
@@ -294,6 +315,7 @@ sub drop_temporary_tables {
     $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
     $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_releases");
     $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_releases");
+    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_recordings");
     $sql->commit;
 }
 
@@ -408,6 +430,38 @@ sub build_suffix_info {
             priority => sub {
                 my (%opts) = @_;
                 return $SECONDARY_PAGE_PRIORITY if $opts{va_release_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{recording_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
+        $suffix_info->{recordings_video} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_video) video_count"},
+            paginated => "video_count",
+            suffix => 'recordings?video=1',
+            filename_suffix => 'recordings-video',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{video_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
+        };
+        $suffix_info->{recordings_standalone} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_standalone) standalone_count"},
+            paginated => "standalone_count",
+            suffix => 'recordings?standalone=1',
+            filename_suffix => 'recordings-standalone',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{standalone_count} > 0;
                 return $EMPTY_PAGE_PRIORITY;
             }
         };
