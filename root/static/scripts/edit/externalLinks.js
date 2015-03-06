@@ -347,7 +347,7 @@ MB.createExternalLinksEditor = function (options) {
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
     if (MB.hasSessionStorage && sessionStorage.submittedLinks) {
-      initialLinks = JSON.parse(sessionStorage.submittedLinks);
+      initialLinks = JSON.parse(sessionStorage.submittedLinks).filter(l => !isEmpty(l)).map(LinkState);
     }
   } else {
     var seededLinkRegex = new RegExp("(?:\\?|&)edit-" + sourceType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g");
