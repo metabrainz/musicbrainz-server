@@ -371,7 +371,13 @@ MB.createExternalLinksEditor = function (options) {
                            typeB ? typeB.phrase.toLowerCase() : '');
   });
 
-  initialLinks = initialLinks.map(l => l.update('url', URLCleanup.cleanUrl));
+  initialLinks = initialLinks.map(function (link) {
+    var newData = {url: URLCleanup.cleanUrl(link.url)};
+    if (!_.isNumber(link.relationship)) {
+      newData.relationship = _.uniqueId('new-');
+    }
+    return link.merge(newData);
+  });
 
   var typeOptions = (
     MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
