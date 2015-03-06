@@ -70,6 +70,8 @@ And then editing `postgresql.conf` to have:
 
     shared_preload_libraries = 'pg_amqp.so'
 
+Restart postgresql for the changes in `postgresql.conf` to take effect.
+
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
