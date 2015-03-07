@@ -598,9 +598,6 @@ sub build_one_suffix {
     }
     my $ext = $fCompress ? '.xml.gz' : '.xml';
 
-    my @base_urls;
-    my @paginated_urls;
-
     my $create_opts = sub {
         my ($url, $id_info) = @_;
 
@@ -612,32 +609,45 @@ sub build_one_suffix {
         return \%add_opts;
     };
 
-    for my $id_info (@$ids) {
-        my $id = $id_info->{main_id};
-        my $url = $web_server . '/' . $entity_url . '/' . $id;
-        if ($opts{suffix}) {
-            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
-            $url .= "$suffix_delimiter$opts{suffix}";
-        }
-        push(@base_urls, $create_opts->($url, $id_info));
+    my $construct_url_lists = sub {
+        my ($ids, $create_opts, %opts) = @_;
+        my @base_urls;
+        my @paginated_urls;
 
-        if ($opts{paginated}) {
-            # 50 items per page, and the first page is covered by the base.
-            my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
+        for my $id_info (@$ids) {
+            my $id = $id_info->{main_id};
+            my $url = $web_server . '/' . $entity_url . '/' . $id;
+            if ($opts{suffix}) {
+                my $suffix_delimiter = $opts{suffix_delimiter} // '/';
+                $url .= "$suffix_delimiter$opts{suffix}";
+            }
+            push(@base_urls, $create_opts->($url, $id_info));
 
-            # Since we exclude page 1 above, this is for anything above 0.
-            if ($paginated_count > 0) {
-	        # Start from page 2, and add one to the count for the last page
-	        # (since the count was one less due to the exclusion of the first
-	        # page)
-                my $use_amp = $url =~ m/\?/;
-                my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+            if ($opts{paginated}) {
+                # 50 items per page, and the first page is covered by the base.
+                my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
 
-                # Expand these all to full specifications for build_one_sitemap.
-                push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                # Since we exclude page 1 above, this is for anything above 0.
+                if ($paginated_count > 0) {
+                    # Start from page 2, and add one to the count for the last page
+                    # (since the count was one less due to the exclusion of the first
+                    # page)
+                    my $use_amp = $url =~ m/\?/;
+                    my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+
+                    # Expand these all to full specifications for build_one_sitemap.
+                    push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                }
             }
         }
-    }
+
+        return {base => \@base_urls, paginated => \@paginated_urls}
+    };
+
+    my $url_constructor = $opts{url_constructor} // $construct_url_lists;
+    my $urls = $url_constructor->($ids, $create_opts, %opts);
+    my @base_urls = @{ $urls->{base} };
+    my @paginated_urls = @{ $urls->{paginated} };
 
     # If we can fit all the paginated stuff into the main sitemap file, why not do it?
     if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
@@ -647,7 +657,9 @@ sub build_one_suffix {
     }
 
     my $filename = $base_filename . $ext;
-    build_one_sitemap($filename, $index, @base_urls);
+    if (@base_urls) {
+        build_one_sitemap($filename, $index, @base_urls);
+    }
 
     if (@paginated_urls) {
         my $iter = natatime $MAX_SITEMAP_SIZE, @paginated_urls;
