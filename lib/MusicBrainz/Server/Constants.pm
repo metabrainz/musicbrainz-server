@@ -61,6 +61,7 @@ our @EXPORT_OK = (
         $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
         $EDIT_COUNT_LIMIT
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
+        $MAX_INITIAL_MEDIUMS
         @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
@@ -334,6 +335,8 @@ Readonly our %PART_OF_SERIES => (
 );
 
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+
+Readonly our $MAX_INITIAL_MEDIUMS => 10;
 
 Readonly our %ENTITIES => (
     area => {

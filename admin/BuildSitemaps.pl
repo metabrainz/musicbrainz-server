@@ -7,7 +7,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::Data::Relationship;
 use DBDefs;
 use Sql;
@@ -499,6 +499,25 @@ sub build_suffix_info {
             extra_sql => {join => 'release_meta ON release.id = release_meta.id',
                           columns => 'cover_art_presence'}
         };
+
+        $suffix_info->{'disc'} = {
+            extra_sql => {columns => "(SELECT count(DISTINCT id) FROM medium WHERE medium.release = release.id) AS medium_count"},
+            filename_suffix => 'disc',
+            url_constructor => sub {
+                my ($ids, $create_opts, $entity_url, %opts) = @_;
+                my @paginated_urls;
+                for my $id_info (@$ids) {
+                    if ($id_info->{medium_count} > $MAX_INITIAL_MEDIUMS) {
+                        my $id = $id_info->{main_id};
+                        my $url_base = $web_server . '/' . $entity_url . '/' . $id;
+                        for (my $i = 1; $i < $id_info->{medium_count} + 1; $i++) {
+                            push(@paginated_urls, $create_opts->("$url_base/disc/$i", $id_info));
+                        }
+                    }
+                }
+                return {base => [], paginated => \@paginated_urls}
+            }
+        }
     }
 
     if ($entity_properties->{aliases}) {
@@ -592,7 +611,7 @@ sub build_one_suffix {
     my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $base_filename = "sitemap-$entity_type-$minimum_batch_number";
-    if ($opts{suffix}) {
+    if ($opts{suffix} || $opts{filename_suffix}) {
         my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
         $base_filename .= "-$filename_suffix";
     }
@@ -610,7 +629,7 @@ sub build_one_suffix {
     };
 
     my $construct_url_lists = sub {
-        my ($ids, $create_opts, %opts) = @_;
+        my ($ids, $create_opts, $entity_url, %opts) = @_;
         my @base_urls;
         my @paginated_urls;
 
@@ -645,7 +664,7 @@ sub build_one_suffix {
     };
 
     my $url_constructor = $opts{url_constructor} // $construct_url_lists;
-    my $urls = $url_constructor->($ids, $create_opts, %opts);
+    my $urls = $url_constructor->($ids, $create_opts, $entity_url, %opts);
     my @base_urls = @{ $urls->{base} };
     my @paginated_urls = @{ $urls->{paginated} };
 
