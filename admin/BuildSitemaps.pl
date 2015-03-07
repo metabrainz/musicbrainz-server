@@ -481,17 +481,13 @@ sub build_suffix_info {
         };
     }
 
-    if ($entity_properties->{aliases}) {
-        $suffix_info->{aliases} = {
-            suffix => 'aliases',
-            priority => sub {
-                my (%opts) = @_;
-                return $SECONDARY_PAGE_PRIORITY if $opts{has_aliases};
-                return $EMPTY_PAGE_PRIORITY;
-            },
-            extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"}
+    if ($entity_type eq 'label') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count"
         };
+        $suffix_info->{base}{paginated} = "release_count";
     }
+
     if ($entity_type eq 'release') {
         $suffix_info->{'cover-art'} = {
             suffix => 'cover-art',
@@ -502,6 +498,18 @@ sub build_suffix_info {
             },
             extra_sql => {join => 'release_meta ON release.id = release_meta.id',
                           columns => 'cover_art_presence'}
+        };
+    }
+
+    if ($entity_properties->{aliases}) {
+        $suffix_info->{aliases} = {
+            suffix => 'aliases',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{has_aliases};
+                return $EMPTY_PAGE_PRIORITY;
+            },
+            extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"}
         };
     }
     if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
