@@ -295,26 +295,20 @@ sub collections : Chained('load') PathPart('collections')
 
     my $show_private = $c->stash->{viewing_own_profile};
 
-    my @release_collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, 'release');
-    my @event_collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, 'event');
+    for my $entity_type (entities_with('collections')) {
+        my @collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, $entity_type);
 
-    $c->model('Collection')->load_entity_count(@release_collections, @event_collections);
-    $c->model('CollectionType')->load(@release_collections, @event_collections);
+        $c->model('Collection')->load_entity_count(@collections);
+        $c->model('CollectionType')->load(@collections);
 
-    if ($c->user_exists) {
-        for my $collection (@release_collections) {
-            $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+        if ($c->user_exists) {
+            for my $collection (@collections) {
+                $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+            }
         }
-        for my $collection (@event_collections) {
-            $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
-        }
+        $c->stash( "${entity_type}_collections" => \@collections );
     }
-
-    $c->stash(
-        user => $user,
-        release_collections => \@release_collections,
-        event_collections => \@event_collections,
-    );
+    $c->stash(user => $user);
 }
 
 sub profile : Chained('load') PathPart('') HiddenOnSlaves

@@ -35,5 +35,20 @@
         [%- ELSE -%]
             <p>[%- l('No events found in this list.') -%]</p>
         [%- END -%]
+    [%- ELSIF collection.type.entity_type == 'work' -%]
+        <h2>[% l('Works') %]</h2>
+
+        [%- IF works.size -%]
+          <form action="[% c.req.uri %]" method="post">
+
+            [% INCLUDE 'components/works-list.tt' checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' %]
+
+            <div class="row">[% form_submit(l('Remove selected works from collection'))
+                 IF my_collection %]</div>
+          </form>
+        [%- ELSE -%]
+            <p>[%- l('No works found in this list.') -%]</p>
+        [%- END -%]
     [%- END -%]
+
 [% END %]

@@ -71,11 +71,11 @@ after [qw(show aliases collections details tags )] => sub {
         @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'work');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
-                if ($c->model('Collection')->contains_entity('release', $collection->id, $entity->id)); # TODO: Change to work once table is added
+                if ($c->model('Collection')->contains_entity('work', $collection->id, $entity->id));
         }
     }
 
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $entity->id); # TODO: Change to work once table is added
+    my @all_collections = $c->model('Collection')->find_all_by_entity('work', $entity->id);
 
     $c->stash(
         collections => \@collections,
@@ -181,7 +181,7 @@ sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{work}->id); # TODO: Change to work once table is added
+    my @all_collections = $c->model('Collection')->find_all_by_entity('work', $c->stash->{work}->id);
     my @public_collections;
     my $private_collections = 0;
 

@@ -1,0 +1,35 @@
+[%- IF collections.size -%]
+    <h2>[% title %]</h2>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Collection') %]</th>
+                <th>[% l('Type') %]</th>
+                <th>[% entity_name %]</th>
+                [% IF viewing_own_profile %]
+                    <th>[% l('Subscribed') %]</th>
+                    <th>[% l('Privacy') %]</th>
+                    <th class="actions-header">[% l('Actions') %]</th>
+                [% END %]
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR collection=collections -%]
+                <tr class="[% loop.parity %]">
+                    <td>[% link_collection(collection) %]</td>
+                    <td>[% collection.type.l_name %]</td>
+                    <td>[% collection.entity_count %]</td>
+                    [% IF viewing_own_profile %]
+                        <td>[% yesno(collection.subscribed) %]</td>
+                        <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                        <td>
+                            [% link_collection(collection, 'edit', l('Edit')) %] |
+                            [% link_collection(collection, 'delete', l('Remove')) %]
+                        </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+        </tbody>
+    </table>
+[% END %]

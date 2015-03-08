@@ -10,8 +10,8 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
-use MusicBrainz::Server::Data::Utils qw( model_to_type load_everything_for_edits );
-use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
+use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 after 'load' => sub
@@ -46,25 +46,15 @@ sub add : Chained('own_collection') RequireAuth
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
+    my $entity_type = $collection->type->entity_type;
+    my $entity_id = $c->request->params->{$entity_type};
 
-    if ($c->request->params->{release} && $collection->type->entity_type eq 'release') {
-        my $release_id = $c->request->params->{release};
+    if ($entity_id) {
+        my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
 
-        my $release = $c->model('Release')->get_by_id($release_id);
+        $c->model('Collection')->add_entities_to_collection($entity_type, $collection->id, $entity_id);
 
-        $c->model('Collection')->add_entities_to_collection("release", $collection->id, $release_id);
-
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
-        $c->detach;
-    }
-    elsif ($c->request->params->{event} && $collection->type->entity_type eq 'event') {
-        my $event_id = $c->request->params->{event};
-
-        my $event = $c->model('Event')->get_by_id($event_id);
-
-        $c->model('Collection')->add_entities_to_collection("event", $collection->id, $event_id);
-
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
+        $c->response->redirect($c->req->referer || $c->uri_for_action('/'.$entity_type.'/show', [ $entity->gid ]));
         $c->detach;
     }
     else {
@@ -77,25 +67,15 @@ sub remove : Chained('own_collection') RequireAuth
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
+    my $entity_type = $collection->type->entity_type;
+    my $entity_id = $c->request->params->{$entity_type};
 
-    if ($c->request->params->{release} && $collection->type->entity_type eq 'release') {
-        my $release_id = $c->request->params->{release};
+    if ($entity_id) {
+        my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
 
-        my $release = $c->model('Release')->get_by_id($release_id);
+        $c->model('Collection')->remove_entities_from_collection($entity_type, $collection->id, $entity_id);
 
-        $c->model('Collection')->remove_entities_from_collection("release", $collection->id, $release_id);
-
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
-        $c->detach;
-    }
-    elsif ($c->request->params->{event} && $collection->type->entity_type eq 'event') {
-        my $event_id = $c->request->params->{event};
-
-        my $event = $c->model('Event')->get_by_id($event_id);
-
-        $c->model('Collection')->remove_entities_from_collection('event', $collection->id, $event_id);
-
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
+        $c->response->redirect($c->req->referer || $c->uri_for_action('/'.$entity_type.'/show', [ $entity->gid ]));
         $c->detach;
     }
     else {
@@ -108,7 +88,6 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-
     my $entity_type = $collection->type->entity_type;
 
     if ($c->form_posted && $c->stash->{my_collection}) {
@@ -124,39 +103,46 @@ sub show : Chained('load') PathPart('')
 
     my $order = $c->req->params->{order} || 'date';
 
-    if ($collection->type->entity_type eq 'release') {
-        my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
-        });
-        $c->model('ArtistCredit')->load(@$releases);
-        $c->model('Medium')->load_for_releases(@$releases);
-        $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-        $c->model('Release')->load_release_events(@$releases);
-        $c->model('ReleaseLabel')->load(@$releases);
-        $c->model('Label')->load(map { $_->all_labels } @$releases);
-        $c->model('ReleaseGroup')->load(@$releases);
-        $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$releases);
+    my $model = $c->model(type_to_model($entity_type));
+    my $entities = $self->_load_paged($c, sub {
+            $model->find_by_collection($collection->id, shift, shift, $order);
+    });
+
+    if ($entity_type eq 'release') {
+        $c->model('ArtistCredit')->load(@$entities);
+        $c->model('Medium')->load_for_releases(@$entities);
+        $c->model('MediumFormat')->load(map { $_->all_mediums } @$entities);
+        $model->load_release_events(@$entities);
+        $c->model('ReleaseLabel')->load(@$entities);
+        $c->model('Label')->load(map { $_->all_labels } @$entities);
+        $c->model('ReleaseGroup')->load(@$entities);
+        $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);
         if ($c->user_exists) {
-            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$releases);
+            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$entities);
         }
         $c->stash(
-            releases => $releases
+            releases => $entities
         );
     }
-
-    if ($collection->type->entity_type eq 'event') {
-        my $events = $self->_load_paged($c, sub {
-            $c->model('Event')->find_by_collection($collection->id, shift, shift, $order);
-        });
-        $c->model('EventType')->load(@$events);
-        $c->model('Event')->load_performers(@$events);
-        $c->model('Event')->load_locations(@$events);
+    elsif ($entity_type eq 'event') {
+        $c->model('EventType')->load(@$entities);
+        $model->load_performers(@$entities);
+        $model->load_locations(@$entities);
         if ($c->user_exists) {
-            $c->model('Event')->rating->load_user_ratings($c->user->id, @$events);
+            $model->rating->load_user_ratings($c->user->id, @$entities);
         }
 
         $c->stash(
-            events => $events
+            events => $entities
+        );
+    }
+    elsif ($entity_type eq 'work') {
+        $model->load_related_info(@$entities);
+        if ($c->user_exists) {
+          $model->rating->load_user_ratings($c->user->id, @$entities);
+        }
+        $c->stash(
+            works => $entities
         );
     }
 
@@ -217,15 +203,12 @@ sub create : Local RequireAuth
         my %insert = $self->_form_to_hash($form);
 
         my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
+        for (entities_with('collections')) {
+            my $entity_id = $c->request->params->{$_};
 
-        my $params = $c->req->params;
-        if (exists $params->{"release"}) {
-            my $release_id = $params->{"release"};
-            $c->model('Collection')->add_entities_to_collection("release", $collection->{id}, $release_id);
-        }
-        if (exists $params->{"event"}) {
-            my $event_id = $params->{"event"};
-            $c->model('Collection')->add_entities_to_collection("event", $collection->{id}, $event_id);
+            if ($entity_id) {
+              $c->model('Collection')->add_entities_to_collection($_, $collection->{id}, $entity_id);
+            }
         }
 
         $c->response->redirect(

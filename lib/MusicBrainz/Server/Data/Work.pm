@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    order_by
     placeholders
     query_to_list
     query_to_list_limited
@@ -116,16 +117,15 @@ sub find_by_iswc
 sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $order) = @_;
-
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            return "begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+           return "musicbrainz_collate(name), comment, type"
         },
         "name" => sub {
-            return "musicbrainz_collate(name), begin_date_year, begin_date_month, begin_date_day, time"
+            return "musicbrainz_collate(name), comment, type"
         },
         "type" => sub {
-            return "type, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+            return "type, musicbrainz_collate(name), comment"
         },
     });
 
@@ -137,7 +137,7 @@ sub find_by_collection
         FROM " . $self->_table . "
         JOIN editor_collection_work ec ON work.id = ec.work
         WHERE ec.collection = ?
-        ORDER BY id, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
+        ORDER BY work.id, musicbrainz_collate(work.name)
       ) work
       ORDER BY $order_by
       OFFSET ?";
