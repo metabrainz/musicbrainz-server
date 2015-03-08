@@ -98,12 +98,8 @@ sub show : Chained('load') PathPart('')
     });
 
     if ($entity_type eq 'release') {
+        $model->load_related_info(@$entities);
         $c->model('ArtistCredit')->load(@$entities);
-        $c->model('Medium')->load_for_releases(@$entities);
-        $c->model('MediumFormat')->load(map { $_->all_mediums } @$entities);
-        $model->load_release_events(@$entities);
-        $c->model('ReleaseLabel')->load(@$entities);
-        $c->model('Label')->load(map { $_->all_labels } @$entities);
         $c->model('ReleaseGroup')->load(@$entities);
         $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);
         if ($c->user_exists) {
