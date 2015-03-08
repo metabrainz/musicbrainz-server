@@ -41,9 +41,8 @@ sub own_collection : Chained('load') CaptureArgs(0) {
     $c->detach('/error_403') if $c->user->id != $collection->editor_id;
 }
 
-sub add : Chained('own_collection') RequireAuth
-{
-    my ($self, $c) = @_;
+sub _do_add_or_remove {
+    my ($self, $c, $func_name) = @_;
 
     my $collection = $c->stash->{collection};
     my $entity_type = $collection->type->entity_type;
@@ -52,7 +51,7 @@ sub add : Chained('own_collection') RequireAuth
     if ($entity_id) {
         my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
 
-        $c->model('Collection')->add_entities_to_collection($entity_type, $collection->id, $entity_id);
+        $c->model('Collection')->$func_name($entity_type, $collection->id, $entity_id);
 
         $c->response->redirect($c->req->referer || $c->uri_for_action('/'.$entity_type.'/show', [ $entity->gid ]));
         $c->detach;
@@ -61,26 +60,16 @@ sub add : Chained('own_collection') RequireAuth
         $c->forward('show');
     }
 }
+sub add : Chained('own_collection') RequireAuth
+{
+    my ($self, $c) = @_;
+    $self->_do_add_or_remove($c, 'add_entities_to_collection');
+}
 
 sub remove : Chained('own_collection') RequireAuth
 {
     my ($self, $c) = @_;
-
-    my $collection = $c->stash->{collection};
-    my $entity_type = $collection->type->entity_type;
-    my $entity_id = $c->request->params->{$entity_type};
-
-    if ($entity_id) {
-        my $entity = $c->model(type_to_model($entity_type))->get_by_id($entity_id);
-
-        $c->model('Collection')->remove_entities_from_collection($entity_type, $collection->id, $entity_id);
-
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/'.$entity_type.'/show', [ $entity->gid ]));
-        $c->detach;
-    }
-    else {
-        $c->forward('show');
-    }
+    $self->_do_add_or_remove($c, 'remove_entities_from_collection');
 }
 
 sub show : Chained('load') PathPart('')
