@@ -43,13 +43,9 @@ sub _load_releases
     my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
-    $c->model('MediumFormat')->load(@mediums);
-    $c->model('Medium')->load_for_releases(@releases);
     my @rgs = $c->model('ReleaseGroup')->load(@releases);
     $c->model('ReleaseGroup')->load_meta(@rgs);
-    $c->model('Release')->load_release_events(@releases);
-    $c->model('ReleaseLabel')->load(@releases);
-    $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('Release')->load_related_info(@releases);
     $c->model('ArtistCredit')->load(@releases);
     $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
@@ -214,12 +210,8 @@ sub attach : Local DenyWhenReadOnly
         my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
         });
-        $c->model('Medium')->load_for_releases(@$releases);
-        $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
-        $c->model('Release')->load_release_events(@$releases);
-        $c->model('ReleaseLabel')->load(@$releases);
-        $c->model('Label')->load(map { $_->all_labels } @$releases);
+        $c->model('Release')->load_related_info(@$releases);
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
         $c->model('ReleaseGroup')->load_meta(@rgs);
 
@@ -253,17 +245,13 @@ sub attach : Local DenyWhenReadOnly
                                             { track_count => $cdtoc->track_count });
             });
             my @releases = map { $_->entity } @$releases;
-            $c->model('Medium')->load_for_releases(@releases);
-            $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_mediums(@mediums);
 
             my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
-            $c->model('Release')->load_release_events(@releases);
-            $c->model('ReleaseLabel')->load(@releases);
-            $c->model('Label')->load(map { $_->all_labels } @releases);
+            $c->model('Release')->load_related_info(@releases);
 
             my @rgs = $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroup')->load_meta(@rgs);
@@ -380,11 +368,7 @@ sub move : Local Edit
             });
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
-            $c->model('Medium')->load_for_releases(@releases);
-            $c->model('Release')->load_release_events(@releases);
-            $c->model('ReleaseLabel')->load(@releases);
-            $c->model('Label')->load(map { $_->all_labels } @releases);
-            $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+            $c->model('Release')->load_related_info(@releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_mediums(@mediums);
