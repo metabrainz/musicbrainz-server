@@ -501,6 +501,13 @@ sub build_suffix_info {
         };
     }
 
+    if ($entity_type eq 'release_group') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count"
+        };
+        $suffix_info->{base}{paginated} = "release_count";
+    }
+
     if ($entity_properties->{aliases}) {
         $suffix_info->{aliases} = {
             suffix => 'aliases',
