@@ -1157,6 +1157,16 @@ sub load_meta
     }
 }
 
+sub load_related_info {
+    my ($self, @entities) = @_;
+
+    $self->c->model('Medium')->load_for_releases(@entities);
+    $self->c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
+    $self->load_release_events(@entities);
+    $self->c->model('ReleaseLabel')->load(@entities);
+    $self->c->model('Label')->load(map { $_->all_labels } @entities);
+}
+
 sub find_ids_by_track_ids
 {
     my ($self, @ids) = @_;
