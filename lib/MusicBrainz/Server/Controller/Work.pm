@@ -31,6 +31,9 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name     => 'work'
+};
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -61,27 +64,7 @@ sub show : PathPart('') Chained('load')
 # Stuff that has the side bar and thus needs to display collection information
 after [qw(show aliases collections details tags )] => sub {
     my ($self, $c) = @_;
-
-    my $entity = $c->stash->{work};
-
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'work');
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->contains_entity('work', $collection->id, $entity->id));
-        }
-    }
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('work', $entity->id);
-
-    $c->stash(
-        collections => \@collections,
-        containment => \%containment,
-        all_collections => \@all_collections,
-    );
+    $self->_stash_collections($c);
 };
 
 before qw( show aliases collections tags details ) => sub {
@@ -180,26 +163,7 @@ View a list of collections that this work has been added to.
 sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('work', $c->stash->{work}->id);
-    my @public_collections;
-    my $private_collections = 0;
-
-    # Keep public collections;
-    # count private collection
-    foreach my $collection (@all_collections) {
-        push(@public_collections, $collection)
-            if ($collection->{'public'} == 1);
-        $private_collections++
-            if ($collection->{'public'} == 0);
-    }
-
-    $c->model('Editor')->load(@public_collections);
-
-    $c->stash(
-        public_collections => \@public_collections,
-        private_collections => $private_collections,
-    );
+    $self->_collections($c);
 }
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {

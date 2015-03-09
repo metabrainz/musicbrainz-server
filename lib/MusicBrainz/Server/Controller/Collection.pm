@@ -178,6 +178,11 @@ sub _form_to_hash
     return map { $form->field($_)->name => $form->field($_)->value } $form->edit_field_names;
 }
 
+sub _redirect_to_collection {
+    my ($self, $c, $gid) = @_;
+    $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $gid ]));
+}
+
 sub create : Local RequireAuth
 {
     my ($self, $c) = @_;
@@ -195,9 +200,7 @@ sub create : Local RequireAuth
               $c->model('Collection')->add_entities_to_collection($_, $collection->{id}, $entity_id);
             }
         }
-
-        $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $collection->{gid} ]));
+        $self->_redirect_to_collection($c, $collection->{gid});
     }
 }
 
@@ -215,9 +218,7 @@ sub edit : Chained('own_collection') RequireAuth
         my %update = $self->_form_to_hash($form);
 
         $c->model('Collection')->update($collection->id, \%update);
-
-        $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
+        $self->_redirect_to_collection($c, $collection->gid);
     }
 }
 

@@ -17,6 +17,9 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, cover_art => {copy_stash => ['cover_art']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name     => 'release'
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
@@ -121,27 +124,7 @@ before show => sub {
 after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
            show collections details discids tags )] => sub {
     my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->contains_entity('release', $collection->id, $release->id));
-        }
-    }
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $release->id);
-
-    $c->stash(
-        collections => \@collections,
-        containment => \%containment,
-        all_collections => \@all_collections,
-    );
+    $self->_stash_collections($c);
 };
 
 sub discids : Chained('load')
@@ -300,26 +283,7 @@ View a list of collections that this release has been added to.
 sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{release}->id);
-    my @public_collections;
-    my $private_collections = 0;
-
-    # Keep public collections;
-    # count private collection
-    foreach my $collection (@all_collections) {
-        push(@public_collections, $collection)
-            if ($collection->{'public'} == 1);
-        $private_collections++
-            if ($collection->{'public'} == 0);
-    }
-
-    $c->model('Editor')->load(@public_collections);
-
-    $c->stash(
-        public_collections => \@public_collections,
-        private_collections => $private_collections,
-    );
+    $self->_collections($c);
 }
 
 sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
