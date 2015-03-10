@@ -116,7 +116,6 @@ parserTest("internal track positions are updated appropriately after being reuse
     t.plan(2);
 
     var re = releaseEditor;
-    re.rootField = re.fields.Root();
     re.rootField.release(re.fields.Release(common.testRelease));
 
     var release = re.rootField.release();
@@ -139,7 +138,6 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     t.plan(1);
 
     var re = releaseEditor;
-    re.rootField = re.fields.Root();
     re.rootField.release(re.fields.Release(common.testRelease));
 
     var release = re.rootField.release();
@@ -178,8 +176,6 @@ parserTest("MBS-7456: Failing to parse artists does not break track autocomplete
     re.trackParser.options.trackArtists = true;
     re.trackParser.options.useTrackLengths = false;
 
-    re.rootField = re.fields.Root();
-
     var release = re.fields.Release({
         mediums: [{
             tracks: [{
@@ -217,8 +213,6 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackNames: false,
         useTrackLengths: false,
     };
-
-    re.rootField = re.fields.Root();
 
     var release = re.fields.Release({
         mediums: [{

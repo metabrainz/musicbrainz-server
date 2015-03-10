@@ -7,7 +7,6 @@ window.rstr_sha1 = sha1.rstr_sha1;
 
 require("knockout-arraytransforms");
 require("knockout-delegatedEvents");
-require("knockout-postbox");
 
 require("./relationship-editor/common/fields.js");
 require("./relationship-editor/common/viewModel.js");

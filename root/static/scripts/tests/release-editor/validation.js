@@ -19,7 +19,6 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     t.plan(8);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         mediums: [
@@ -44,7 +43,6 @@ validationTest("duplicate release countries are rejected, including null ones (M
     t.plan(5);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         events: [
