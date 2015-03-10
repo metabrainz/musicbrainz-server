@@ -11,11 +11,14 @@ role
     my $params = shift;
     my $entity_name = $params->entity_name;
 
+    method _all_collections => sub {
+        my ($self, $c) = @_;
+        return [ $c->model('Collection')->find_all_by_entity($entity_name, $c->stash->{$entity_name}->id) ];
+    };
+
     # Stuff that has the side bar and thus needs to display collection information
     method _stash_collections => sub {
         my ($self, $c) = @_;
-
-        my $entity = $c->stash->{$entity_name};
 
         my @collections;
         my %containment;
@@ -24,33 +27,31 @@ role
             @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, $entity_name);
             foreach my $collection (@collections) {
                 $containment{$collection->id} = 1
-                  if ($c->model('Collection')->contains_entity($entity_name, $collection->id, $entity->id));
+                  if ($c->model('Collection')->contains_entity($entity_name, $collection->id, $c->stash->{$entity_name}->id));
             }
         }
-
-        my @all_collections = $c->model('Collection')->find_all_by_entity($entity_name, $entity->id);
 
         $c->stash(
                   collections => \@collections,
                   containment => \%containment,
-                  all_collections => \@all_collections,
+                  all_collections => $self->_all_collections($c),
         );
     };
 
     method _collections => sub {
         my ($self, $c) = @_;
 
-        my @all_collections = $c->model('Collection')->find_all_by_entity($entity_name, $c->stash->{$entity_name}->id);
         my @public_collections;
         my $private_collections = 0;
 
         # Keep public collections;
         # count private collection
-        foreach my $collection (@all_collections) {
-            push(@public_collections, $collection)
-              if ($collection->{'public'} == 1);
-            $private_collections++
-              if ($collection->{'public'} == 0);
+        foreach my $collection (@{$self->_all_collections($c)}) {
+            if ($collection->{'public'} == 1) {
+                push(@public_collections, $collection);
+            } else {
+                $private_collections++;
+            }
         }
 
         $c->model('Editor')->load(@public_collections);
