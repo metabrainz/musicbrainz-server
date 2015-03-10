@@ -118,27 +118,17 @@ sub _mapping
     );
 }
 
-sub allow_auto_edit
-{
-    my ($self) = @_;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
-    foreach my $prop (qw(name comment time setlist)) {
+    foreach my $prop (qw(time setlist)) {
         my ($old_prop, $new_prop) = normalise_strings(
             $self->data->{old}{$prop}, $self->data->{new}{$prop});
         return 0 if $old_prop ne $new_prop;
     }
 
-    # Adding a date is automatic if there was no date yet.
-    return 0 if exists $self->data->{old}{begin_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
-    return 0 if exists $self->data->{old}{end_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
-
-    return 0 if exists $self->data->{old}{type_id}
-        and $self->data->{old}{type_id} != 0;
-
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub current_instance {
     my $self = shift;

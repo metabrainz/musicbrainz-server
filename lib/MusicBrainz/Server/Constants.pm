@@ -346,6 +346,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
             search_hint_type => 3
         },
+        disambiguation => 1,
+        date_period => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -363,6 +365,9 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
             search_hint_type => 3
         },
+        sort_name => 1,
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -382,6 +387,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         removal     => { automatic => 1 },
@@ -401,6 +408,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -417,6 +425,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -437,6 +447,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         tags       => 1,
         removal     => { automatic => 1 }
     },
@@ -447,6 +459,7 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -460,6 +473,7 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        disambiguation => 1,
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
@@ -474,6 +488,7 @@ Readonly our %ENTITIES => (
         type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -493,6 +508,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal     => { automatic => 1 },
@@ -516,6 +532,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         report_filter => 1,

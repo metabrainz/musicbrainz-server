@@ -11,7 +11,6 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -74,6 +73,10 @@ after initialize => sub {
     my $entity = $self->current_instance;
     $self->c->model('Relationship')->load($entity);
     $self->data->{affects} = scalar @{ $entity->relationships };
+};
+
+override allow_auto_edit => sub {
+    return 0;
 };
 
 around accept => sub {

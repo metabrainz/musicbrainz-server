@@ -6,7 +6,6 @@ use Clone qw( clone );
 use JSON;
 use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -152,26 +151,14 @@ sub build_display_data
     return $data;
 }
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
-                                                  $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
-
-    return 0 if defined $self->data->{old}{type_id};
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if defined $self->data->{old}{language_id};
-
     return 0 if defined $self->data->{old}{attributes};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub current_instance {
     my $self = shift;
