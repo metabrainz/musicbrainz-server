@@ -752,6 +752,13 @@ sub build_one_suffix {
     }
 }
 
+=head2 build_one_sitemap
+
+Called by C<build_one_suffix> to build an individual sitemap given a filename,
+the sitemap index object, and the list of URLs with appropriate options.
+
+=cut
+
 sub build_one_sitemap {
     my ($filename, $index, @urls) = @_;
 
