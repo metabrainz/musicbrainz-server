@@ -261,6 +261,14 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, work))
          ON COMMIT DELETE ROWS");
+
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
+             (instrument INTEGER,
+              recording  INTEGER,
+
+              PRIMARY KEY (instrument, recording))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -323,17 +331,30 @@ sub fill_temporary_tables {
                     FROM tmp_sitemaps_artist_recordings tsar
                     JOIN l_recording_work ON tsar.recording = l_recording_work.entity0");
     $sql->do("ANALYZE tmp_sitemaps_artist_works");
+
+    # Instruments linked to recordings via artist-recording relationship
+    # attributes. Matches Data::Recording, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_recordings (instrument, recording)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_recording.entity1 AS recording
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
 }
 
 sub drop_temporary_tables {
     my ($sql) = @_;
     $sql->begin;
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_recordings");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_works");
+    for my $table (qw( artist_direct_rgs
+                       artist_va_rgs
+                       artist_direct_releases
+                       artist_va_releases
+                       artist_recordings
+                       artist_works
+                       instrument_recordings ) ) {
+        $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_$table");
+    }
     $sql->commit;
 }
 
@@ -478,6 +499,15 @@ sub build_suffix_info {
             paginated => "event_count",
             suffix => 'events',
             priority => $priority_by_count->('event_count')
+        };
+    }
+
+    if ($entity_type eq 'instrument') {
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => $priority_by_count->('recording_count')
         };
     }
 
