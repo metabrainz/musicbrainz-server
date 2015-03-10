@@ -57,6 +57,7 @@ our @EXPORT_OK = (
         %PART_OF_SERIES
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
         $SERIES_ORDERING_ATTRIBUTE
+        $MAX_INITIAL_MEDIUMS
         @FULL_TABLE_LIST
         %ENTITIES entities_with
     ),
@@ -330,6 +331,8 @@ Readonly our %PART_OF_SERIES => (
 );
 
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+
+Readonly our $MAX_INITIAL_MEDIUMS => 10;
 
 Readonly our %ENTITIES => (
     area => {
