@@ -196,6 +196,7 @@ sub find_by_instrument {
     push @$conditions, "instrument.id = ?";
     push @$params, $instrument_id;
 
+    # NOTE: if more tables than l_artist_release are added here, check admin/BuildSitemaps.pl
     my $query = "
       SELECT *
       FROM (

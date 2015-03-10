@@ -269,6 +269,13 @@ sub create_temporary_tables {
 
               PRIMARY KEY (instrument, recording))
           ON COMMIT DELETE ROWS");
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
+             (instrument INTEGER,
+              release  INTEGER,
+
+              PRIMARY KEY (instrument, release))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -341,6 +348,16 @@ sub fill_temporary_tables {
                     JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
                     JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
     $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
+
+    # Instruments linked to releases via artist-release relationship
+    # attributes. Matches Data::Release, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_releases (instrument, release)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_release.entity1 AS release
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_release ON l_artist_release.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
 }
 
 sub drop_temporary_tables {
@@ -352,7 +369,8 @@ sub drop_temporary_tables {
                        artist_va_releases
                        artist_recordings
                        artist_works
-                       instrument_recordings ) ) {
+                       instrument_recordings
+                       instrument_releases )) {
         $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_$table");
     }
     $sql->commit;
@@ -508,6 +526,12 @@ sub build_suffix_info {
             paginated => "recording_count",
             suffix => 'recordings',
             priority => $priority_by_count->('recording_count')
+        };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count"},
+            paginated => "release_count",
+            suffix => 'releases',
+            priority => $priority_by_count->('release_count')
         };
     }
 
