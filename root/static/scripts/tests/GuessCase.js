@@ -115,7 +115,7 @@ test('Label', function (t) {
     ];
 
     $.each(tests, function (idx, test) {
-        result = MB.GuessCase.label.guess(test.input);
+        var result = MB.GuessCase.label.guess(test.input);
         t.equal(result, test.expected, test.input);
     });
 });
@@ -168,7 +168,7 @@ test('Work', function (t) {
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
         gc.mode = MB.GuessCase.Mode[test.mode];
 
-        result = MB.GuessCase.work.guess(test.input);
+        var result = MB.GuessCase.work.guess(test.input);
         t.equal(result, test.expected, test.input);
     });
 });
@@ -297,7 +297,7 @@ test('BugFixes', function (t) {
     $.each(tests, function (idx, test) {
         window.gc.mode = MB.GuessCase.Mode[test.mode];
 
-        result = MB.GuessCase.work.guess(test.input);
+        var result = MB.GuessCase.work.guess(test.input);
         t.equal(result, test.expected, test.bug + ', ' + test.input);
     });
 });

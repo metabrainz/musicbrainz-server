@@ -189,7 +189,7 @@ has 'combined_track_relationships' => (
 sub _build_combined_track_relationships {
     my ($self) = @_;
 
-    my (%combined, %keyed_relationships, %seen_recordings, %seen_works);
+    my (%combined, %keyed_relationships, %seen_recordings);
 
     my $add_relationship = sub {
         my ($track, $relationship) = @_;
@@ -220,6 +220,7 @@ sub _build_combined_track_relationships {
         for my $relationship ($track->recording->all_relationships) {
             $add_relationship->($track, $relationship);
 
+            my %seen_works;
             if ($relationship->link->type->entity1_type eq 'work') {
                 next if $seen_works{$relationship->target->id};
 

@@ -317,17 +317,6 @@
     </div>
 [%- END -%]
 
-[%- MACRO external_link_bubble BLOCK -%]
-  <div class="bubble" id="external-link-bubble" data-bind="bubble: bubbleDoc">
-    <!-- ko with: target -->
-      <p data-bind="if: url() &amp;&amp; !error()">
-        [% l('URL:') | js %] <a target="_blank" data-bind="attr: { href: url }, text: url"></a>
-      </p>
-      <p data-bind="html: linkTypeDescription"></p>
-    <!-- /ko -->
-  </div>
-[%- END -%]
-
 [%- MACRO artist_credit_table BLOCK -%]
   <div class="bubble" id="artist-credit-bubble" data-bind="bubble: $root.artistBubble">
     <p>
@@ -394,64 +383,8 @@
   </div>
 [%- END -%]
 
-[%- MACRO external_links_editor(form, entity_type) BLOCK -%]
-  <table id="external-links-editor" class="row-form">
-  <tbody data-bind="loop: { items: nonRemovedLinks, id: 'uniqueID' }">
-    <tr data-bind="urlCleanup: '[% entity_type %]'">
-      <td>
-        <!-- ko ifnot: showTypeSelection() -->
-          <label>
-            <!-- ko if: matchesType() && faviconClass() -->
-              <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
-            <!-- /ko -->
-            <!-- ko text: linkPhrase(parent.source) || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
-          </label>
-        <!-- /ko -->
-      <select class="link-type"
-       data-bind="options: MB.forms.linkTypeOptions(
-                             { children: MB.typeInfo[entityTypes] },
-                             /^url-/.test(entityTypes)
-                           ),
-                  optionsValue: 'value',
-                  optionsText: 'text',
-                  optionsCaption: '',
-                  optionsAfterRender: MB.forms.setDisabledOption,
-                  value: linkTypeID,
-                  visible: showTypeSelection()"></select>
-      </td>
-      <td>
-        <input type="url"
-          class="value with-button"
-          data-bind="
-            value: url,
-            valueUpdate: 'input',
-            controlsBubble: parent.bubbleDoc" />
-
-        <!-- ko with: error() -->
-          <div class="error field-error" data-visible="1" data-bind="text: $data"></div>
-        <!-- /ko -->
-
-        <!-- ko if: linkTypeAttributes().length -->
-          <div data-bind="foreach: linkTypeAttributes()">
-            <!-- ko template: {
-                      name: "template.edit-attribute",
-                      data: _.assign({ relationship: $parent }, $data),
-                    }
-              --><!-- /ko -->
-          </div>
-        <!-- /ko -->
-      </td>
-      <td>
-        <!-- ko ifnot: isEmpty() -->
-          <button type="button" class="nobutton remove" data-bind="hasFocus: removeButtonFocused" data-click="remove">
-            <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
-          </button>
-        <!-- /ko -->
-      </td>
-    </tr>
-  </tbody>
-  </table>
-
+[%- MACRO external_links_editor BLOCK -%]
+  <div id="external-links-editor-container"></div>
   <script>
     [%- USE JSON.Escape -%]
     MB.faviconClasses = [% favicon_css_classes.json %];

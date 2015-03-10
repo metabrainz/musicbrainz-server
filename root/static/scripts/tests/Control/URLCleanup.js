@@ -6,7 +6,6 @@
 var test = require('tape');
 
 test('Guess type', function (t) {
-    var control = MB.Control.URLCleanup();
     var tests = [
             // Amazon
             [
@@ -690,15 +689,14 @@ test('Guess type', function (t) {
         ];
 
     $.each(tests, function (i, test) {
-        t.equal(control.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
+        t.equal(MB.Control.URLCleanup.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
     });
 
     t.end();
 });
 
 test('Cleanup', function (t) {
-    var control = MB.Control.URLCleanup(),
-        tests = [
+    var tests = [
             [
                 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
                 'http://www.amazon.co.uk/gp/product/B00009W0XE',
@@ -1426,7 +1424,7 @@ test('Cleanup', function (t) {
         ];
 
     $.each(tests, function (i, test) {
-        t.equal(control.cleanUrl(test[2], test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+        t.equal(MB.Control.URLCleanup.cleanUrl(test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
     });
 
     t.end();
