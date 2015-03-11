@@ -1,10 +1,10 @@
 [% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
 
-[% INCLUDE 'components/user-collections.tt' title=l("Release Collections") entity_name=l('Releases') collections=release_collections %]
+[% INCLUDE 'user-collections' title=l("Release Collections") entity_name=l('Releases') collections=release_collections %]
 
-[% INCLUDE 'components/user-collections.tt' title=l("Event Collections") entity_name=l('Events') collections=event_collections %]
+[% INCLUDE 'user-collections' title=l("Event Collections") entity_name=l('Events') collections=event_collections %]
 
-[% INCLUDE 'components/user-collections.tt' title=l("Works Collections") entity_name=l('Works') collections=work_collections %]
+[% INCLUDE 'user-collections' title=l("Works Collections") entity_name=l('Works') collections=work_collections %]
 
 [%- IF no_collections -%]
     <h2>[% l("Collections") %]</h2>
@@ -17,6 +17,45 @@
 
 [% IF viewing_own_profile %]
     <p><a href="[% c.uri_for_action('/collection/create') %]">[% l('Create a new collection') %]</a></p>
+[% END %]
+
+[% END %]
+
+[% BLOCK 'user-collections' %]
+[%- IF collections.size -%]
+    <h2>[% title %]</h2>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Collection') %]</th>
+                <th>[% l('Type') %]</th>
+                <th>[% entity_name %]</th>
+                [% IF viewing_own_profile %]
+                    <th>[% l('Subscribed') %]</th>
+                    <th>[% l('Privacy') %]</th>
+                    <th class="actions-header">[% l('Actions') %]</th>
+                [% END %]
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR collection=collections -%]
+                <tr class="[% loop.parity %]">
+                    <td>[% link_collection(collection) %]</td>
+                    <td>[% collection.type.l_name %]</td>
+                    <td>[% collection.entity_count %]</td>
+                    [% IF viewing_own_profile %]
+                        <td>[% yesno(collection.subscribed) %]</td>
+                        <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                        <td>
+                            [% link_collection(collection, 'edit', l('Edit')) %] |
+                            [% link_collection(collection, 'delete', l('Remove')) %]
+                        </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+        </tbody>
+    </table>
 [% END %]
 
 [% END %]
