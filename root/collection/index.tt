@@ -6,49 +6,30 @@
           [% collection.description | format_wikitext  %]
        [%- END -%]
     </div>
-
-    [%- IF collection.type.entity_type == 'release' -%]
-        <h2>[% l('Releases') %]</h2>
-
-        [%- IF releases.size -%]
-          <form action="[% c.req.uri %]" method="post">
-            [%- INCLUDE 'components/releases-list.tt' show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' -%]
-
-            <div class="row">[% form_submit(l('Remove selected releases from collection'))
-                 IF my_collection %]</div>
-          </form>
-        [%- ELSE -%]
-            <p>[%- l('No releases found in collection.') -%]</p>
-        [%- END -%]
-
-    [%- ELSIF collection.type.entity_type == 'event' -%]
-        <h2>[% l('Events') %]</h2>
-
-        [%- IF events.size -%]
-          <form action="[% c.req.uri %]" method="post">
-
-            [% INCLUDE 'components/events-list.tt' checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' %]
-
-            <div class="row">[% form_submit(l('Remove selected events from collection'))
-                 IF my_collection %]</div>
-          </form>
-        [%- ELSE -%]
-            <p>[%- l('No events found in this list.') -%]</p>
-        [%- END -%]
-    [%- ELSIF collection.type.entity_type == 'work' -%]
-        <h2>[% l('Works') %]</h2>
-
-        [%- IF works.size -%]
-          <form action="[% c.req.uri %]" method="post">
-
-            [% INCLUDE 'components/works-list.tt' checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' %]
-
-            <div class="row">[% form_submit(l('Remove selected works from collection'))
-                 IF my_collection %]</div>
-          </form>
-        [%- ELSE -%]
-            <p>[%- l('No works found in this list.') -%]</p>
-        [%- END -%]
-    [%- END -%]
+    [%- INCLUDE list entity_name='release' section_title=l('Releases') entities=releases list_tt='components/releases-list.tt'
+                remove_message=l('Remove selected releases from collection')
+                empty_message=l('No releases found in collection.') -%]
+    [%- INCLUDE list entity_name='event' section_title=l('Events') entities=events list_tt='components/events-list.tt'
+                remove_message=l('Remove selected events from collection')
+                empty_message=l('No events found in collection.') -%]
+    [%- INCLUDE list entity_name='work' section_title=l('Works') entities=works list_tt='components/works-list.tt'
+                remove_message=l('Remove selected works from collection')
+                empty_message=l('No works found in collection.') -%]
 
 [% END %]
+
+[% BLOCK list %]
+    [%- IF collection.type.entity_type == entity_name -%]
+    <h2>[% section_title %]</h2>
+
+    [%- IF entities.size -%]
+    <form action="[% c.req.uri %]" method="post">
+      [%- INCLUDE $list_tt show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' -%]
+
+      <div class="row">[% form_submit(remove_message) IF my_collection %]</div>
+    </form>
+    [%- ELSE -%]
+    <p>[%- empty_message -%]</p>
+    [%- END -%]
+    [%- END -%]
+[%- END -%]
