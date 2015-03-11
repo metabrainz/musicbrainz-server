@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_MERGE
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_SET_COVER_ART
+    %ENTITIES
 );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
@@ -66,6 +67,7 @@ sub show : Chained('load') PathPart('') {
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
+    $c->model('CritiqueBrainz')->load_display_reviews($rg);
 
     $c->stash(
         template => 'release_group/index.tt',
@@ -89,7 +91,12 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             my $rg = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 artist_credit => ArtistCredit->from_artist($artist)
             );
-            $c->stash( initial_artist => $artist );
+            $c->stash(
+                initial_artist => $artist,
+                # These added so the entity tabs will appear properly
+                entity => $artist,
+                entity_properties => $ENTITIES{artist}
+            );
             return ( item => $rg );
         }
         else {

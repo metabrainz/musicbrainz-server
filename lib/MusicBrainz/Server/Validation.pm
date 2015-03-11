@@ -23,9 +23,6 @@
 #   $Id: MusicBrainz.pm 8398 2006-08-13 01:45:27Z nikki $
 #____________________________________________________________________________
 
-use 5.008;
-no warnings qw( portable );
-
 package MusicBrainz::Server::Validation;
 
 require Exporter;
@@ -33,6 +30,7 @@ require Exporter;
     our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
         unaccent_utf16
+        is_integer
         is_positive_integer
         is_guid
         trim_in_place
@@ -64,7 +62,7 @@ require Exporter;
 
 use strict;
 use Carp qw( carp cluck croak );
-use Date::Calc qw( check_date );
+use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
@@ -80,10 +78,16 @@ sub unaccent_utf16 ($)
 # Validation and sanitisation section
 ################################################################################
 
+sub is_integer
+{
+    my $t = shift;
+    defined($t) and not ref($t) and $t =~ /\A(-?[0-9]{1,20})\z/;
+}
+
 sub is_positive_integer
 {
     my $t = shift;
-    defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
+    is_integer($t) and $t > 0;
 }
 
 sub is_guid
@@ -124,27 +128,27 @@ sub is_valid_iswc
 {
     my $iswc = shift;
     $iswc =~ s/\s//g;
-    return $iswc =~ /^T-?\d{3}\.?\d{3}\.?\d{3}[-.]?\d$/;
+    return $iswc =~ /^T-?[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}[-.]?[0-9]$/;
 }
 
 sub format_iswc
 {
     my $iswc = shift;
     $iswc =~ s/\s//g;
-    $iswc =~ s/^T-?(\d{3})\.?(\d{3})\.?(\d{3})[-.]?(\d)/T-$1.$2.$3-$4/;
+    $iswc =~ s/^T-?([0-9]{3})\.?([0-9]{3})\.?([0-9]{3})[-.]?([0-9])/T-$1.$2.$3-$4/;
     return $iswc;
 }
 
 sub is_valid_ipi
 {
     my $ipi = shift;
-    return $ipi =~ /^\d{11}$/;
+    return $ipi =~ /^[0-9]{11}$/;
 }
 
 sub format_ipi
 {
     my $ipi = shift;
-    return $ipi unless $ipi =~ /^[\d\s.]{9,}$/;
+    return $ipi unless $ipi =~ /^[0-9\s.]{9,}$/;
     $ipi =~ s/[\s.]//g;
     return sprintf("%011.0f", $ipi)
 }
@@ -153,7 +157,7 @@ sub is_valid_isni
 {
     my $isni = shift;
     $isni =~ s/[\s\.-]//g;
-    return $isni =~ /^\d{15}[\dX]$/;
+    return $isni =~ /^[0-9]{15}[0-9X]$/;
 }
 
 sub format_isni
@@ -255,12 +259,37 @@ sub is_valid_partial_date
 {
     my ($year, $month, $day) = @_;
 
-    # anything partial cannot be checked, and is therefore considered valid.
-    return 1 unless (defined $year && $month && $day);
+    if (defined $month) {
+        return 0 unless is_positive_integer($month) && $month <= 12;
+    }
 
-    return 1 if check_date($year, $month, $day);
+    if (defined $day) {
+        return 0 unless is_positive_integer($day) && $day <= 31;
+    }
 
-    return 0;
+    if (defined $month && $day) {
+        return 0 if $day > 29 && $month == 2;
+        return 0 if $day > 30 && any { $_ == $month } (4, 6, 9, 11);
+    }
+
+    if (defined $year) {
+        return 0 unless is_integer($year);
+    }
+
+    if (defined $year && $month && $day
+        && $month == 2 && $day == 29)
+    {
+        return 0 unless $year % 4 == 0;
+        return 0 if $year % 100 == 0 && $year % 400 != 0;
+    }
+
+    if (defined $year && $month && $day) {
+        # XXX retain legacy behaviour for now:
+        # partial dates with year <= 0 are OK, but complete dates are not (don't ask)
+        return 0 unless $year > 0;
+    }
+
+    return 1;
 }
 
 ################################################################################
@@ -369,7 +398,7 @@ sub validate_coordinates {
     }
 
     my $separators = '\s?,?\s?';
-    my $number_part = q{\d+(?:[\.,]\d+|)};
+    my $number_part = q{[0-9]+(?:[\.,][0-9]+)?};
 
     $coordinates =~ tr/　．０-９/ .0-9/; # replace fullwidth characters with normal ASCII
     $coordinates =~ s/(北|南)緯\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒${separators}(東|西)経\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒/$2° $3' $4" $1, $6° $7' $8" $5/;

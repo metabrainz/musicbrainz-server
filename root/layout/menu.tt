@@ -103,6 +103,11 @@
                             <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
                         </li>
                     [% END %]
+                    [% IF c.user.is_account_admin %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Edit Attributes') %]</a>
+                        </li>
+                    [% END %]
                 </ul>
             </li>
         [% END %]
@@ -268,6 +273,9 @@
             </li>
             <li>
                 <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
+            </li>
+            <li>
+                <a href="[% c.uri_for_action('/instrument/list') %]">[% l('Instrument List') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('Development') %]">[% l('Development') %]</a>

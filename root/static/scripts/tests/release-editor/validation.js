@@ -4,13 +4,14 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var test = require('tape');
+var validation = require('../../edit/validation.js');
 
 var releaseEditor = MB.releaseEditor;
 
 function validationTest(name, callback) {
     test(name, function (t) {
         callback(t);
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -18,7 +19,6 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     t.plan(8);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         mediums: [
@@ -43,7 +43,6 @@ validationTest("duplicate release countries are rejected, including null ones (M
     t.plan(5);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         events: [
@@ -61,5 +60,5 @@ validationTest("duplicate release countries are rejected, including null ones (M
     t.ok(events[1].isDuplicate());
     t.ok(events[2].isDuplicate());
     t.ok(events[3].isDuplicate());
-    t.ok(releaseEditor.validation.errorsExist());
+    t.ok(validation.errorsExist());
 });

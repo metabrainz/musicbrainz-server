@@ -73,4 +73,21 @@
         <p>[% l('No releases found.') -%]</p>
     [%- END -%]
     [%- INCLUDE "components/relationships.tt" source=rg -%]
+
+    <h2>[% l('CritiqueBrainz Reviews') %]</h2>
+
+    [%- PROCESS 'components/critiquebrainz.tt' -%]
+
+    <p>
+      [%~ critiquebrainz_links(rg) ~%]
+    </p>
+
+    <div id="critiquebrainz-reviews">
+      [%~ IF rg.most_recent_review ~%]
+        [% critiquebrainz_review(rg.most_recent_review, l('Most Recent')) %]
+      [%~ END ~%]
+      [%~ IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id ~%]
+        [% critiquebrainz_review(rg.most_popular_review, l('Most Popular')) %]
+      [%~ END ~%]
+    </div>
 [%- END -%]

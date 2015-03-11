@@ -7,7 +7,7 @@
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-    var validation = releaseEditor.validation = releaseEditor.validation || {};
+    var validation = require('../edit/validation.js');
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
@@ -46,9 +46,13 @@
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
-            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
-            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
+
+            this.updateRecordingTitle = ko.observable(releaseEditor.copyTrackTitlesToRecordings());
+            this.updateRecordingArtist = ko.observable(releaseEditor.copyTrackArtistsToRecordings());
+
+            releaseEditor.copyTrackTitlesToRecordings.subscribe(this.updateRecordingTitle);
+            releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
             this.recordingValue = ko.observable(
                 MB.entity.Recording({ name: data.name })
@@ -121,7 +125,18 @@
 
             var oldLength = this.length();
             var newLength = MB.utility.unformatTrackLength(length);
+
+            if (_.isNaN(newLength)) {
+                this.formattedLength('');
+                return;
+            }
+
             this.length(newLength);
+
+            var newFormattedLength = MB.utility.formatTrackLength(newLength);
+            if (length !== newFormattedLength) {
+                this.formattedLength(newFormattedLength);
+            }
 
             // If the length being changed is for a pregap track and the medium
             // has cdtocs attached, make sure the new length doesn't exceed the
@@ -573,6 +588,7 @@
         weights: [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3],
 
         init: function (data) {
+            this.original = data;
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);
@@ -743,15 +759,6 @@
             if (!this.mediums().length) {
                 this.mediums.push(fields.Medium({}, this));
             }
-
-            // Setup the external links editor
-
-            this.externalLinks = MB.Control.externalLinks.ViewModel({
-                source: this,
-                sourceData: data
-            });
-
-            this.hasInvalidLinks = errorField(this.externalLinks.links.any("error"));
         },
 
         loadMedia: function () {
@@ -790,13 +797,6 @@
                 }
             });
         }
-    });
-
-
-    fields.Root = aclass(function () {
-        this.release = ko.observable().syncWith("releaseField", true, true);
-        this.makeVotable = ko.observable(false);
-        this.editNote = ko.observable("");
     });
 
 

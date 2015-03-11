@@ -57,15 +57,15 @@ CREATE UNIQUE INDEX editor_oauth_token_idx_refresh_token ON editor_oauth_token (
 
 CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
 
-CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
+CREATE UNIQUE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
 CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
 CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
-CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
+CREATE UNIQUE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
-CREATE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
+CREATE UNIQUE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
 CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
-CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
+CREATE UNIQUE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX edit_idx_editor_id_desc ON edit (editor, id DESC); -- DESC only for historical reasons
 CREATE INDEX edit_idx_type_id ON edit (type, id);
@@ -435,7 +435,6 @@ CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 CREATE UNIQUE INDEX track_idx_gid ON track (gid);
 
 CREATE INDEX track_idx_recording ON track (recording);
-CREATE INDEX track_idx_medium ON track (medium, position);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 

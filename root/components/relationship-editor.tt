@@ -59,6 +59,7 @@
         data-bind="options: linkTypeOptions(relationship().entityTypes),
                    optionsValue: 'value',
                    optionsText: 'text',
+                   optionsCaption: '',
                    optionsAfterRender: MB.forms.setDisabledOption,
                    value: relationship().linkTypeID"></select>
       <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->
@@ -195,7 +196,7 @@
     </label>
     <!-- /ko -->
     <div class="error" data-bind="text: relationship.attributeError($data)"></div>
-    <!-- ko if: $root.showAttributesHelp -->
+    <!-- ko if: $parents[1].showAttributesHelp -->
       <div class="ar-descr" data-bind="html: attribute.description"></div>
     <!-- /ko -->
   </div>

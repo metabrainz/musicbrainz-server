@@ -3,110 +3,30 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var validation = require('../edit/validation.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
 
 
     RE.GenericEntityViewModel = aclass(RE.ViewModel, {
-
-        activeDialog: ko.observable(),
         fieldName: "rel",
 
         after$init: function () {
-            this.editNote = ko.observable("");
-            this.makeVotable = ko.observable(false);
+            MB.sourceRelationshipEditor = this;
 
-            this.submissionLoading = ko.observable(false);
-            this.submissionError = ko.observable("");
-        },
-
-        typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === this.source.entityType && targetType !== "url";
-        },
-
-        getEdits: function (addChanged) {
             var source = this.source;
-            _.each(source.relationships(), function (r) {
-                addChanged(r, source);
-            });
-        },
 
-        submit: function (data, event) {
-            event.preventDefault();
-
-            var self = this;
-            var edits = [];
-            var alreadyAdded = {};
-
-            this.submissionLoading(true);
-
-            function addChanged(relationship, source) {
-                if (alreadyAdded[relationship.uniqueID]) {
-                    return;
-                }
-                if (!self.containsRelationship(relationship, source)) {
-                    return;
-                }
-                alreadyAdded[relationship.uniqueID] = true;
-
-                var editData = relationship.editData();
-
-                if (relationship.added()) {
-                    edits.push(MB.edit.relationshipCreate(editData));
-                }
-                else if (relationship.edited()) {
-                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
-                }
-                else if (relationship.removed()) {
-                    edits.push(MB.edit.relationshipDelete(editData));
-                }
-            }
-
-            this.getEdits(addChanged);
-
-            if (edits.length == 0) {
-                this.submissionLoading(false);
-                this.submissionError(MB.i18n.l("You haven’t made any changes!"));
-                return;
-            }
-
-            var data = {
-                editNote: this.editNote(),
-                makeVotable: this.makeVotable(),
-                edits: edits
-            };
-
-            var beforeUnload = window.onbeforeunload;
-            if (beforeUnload) window.onbeforeunload = undefined;
-
-            MB.edit.create(data, this)
-                .always(function () {
-                    this.submissionLoading(false);
+            this.incompleteRelationships = validation.errorField(
+                source.displayableRelationships(this).any(function (r) {
+                    return !r.linkTypeID() || !r.target(source).gid;
                 })
-                .done(this.submissionDone)
-                .fail(function (jqXHR) {
-                    try {
-                        var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
-
-                        this.submissionError(message);
-                    }
-                    catch (e) {
-                        this.submissionError(jqXHR.responseText);
-                    }
-
-                    if (beforeUnload) window.onbeforeunload = beforeUnload;
-                });
-        },
-
-        submissionDone: function () {
-            window.location.reload();
+            );
         },
 
         openAddDialog: function (source, event) {
-            var targetType = this.allowedRelations[source.entityType][0];
+            var targetType = _.without(MB.allowedRelations[source.entityType], 'url')[0];
 
             UI.AddDialog({
                 source: source,
@@ -125,44 +45,24 @@
             }
         },
 
-        removeRelationship: function (relationship) {
-            if (relationship.added()) {
-                relationship.remove();
-            } else if (relationship.removed()) {
-                relationship.removed(false);
-            } else {
-                if (relationship.edited()) {
-                    relationship.fromJS(relationship.original);
-                }
-                relationship.removed(true);
-            }
-        },
-
-        _sortedRelationships: function (relationships, source) {
-            var self = this, sorted;
-
-            sorted = relationships.sortBy(function (relationship) {
-                return relationship.lowerCaseTargetName(source);
-            }).sortBy("linkOrder");
-
+        around$_sortedRelationships: function (supr, relationships, source) {
             if (source.entityType === "series") {
-                sorted = sorted.sortBy(function (relationship) {
+                return supr(relationships, source).sortBy(function (relationship) {
                     if (+source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
                         return relationship.paddedSeriesNumber();
                     }
                     return "";
                 });
             }
-
-            return sorted;
+            return supr(relationships, source);
         }
     });
 
 
     ko.bindingHandlers.relationshipStyling = {
 
-        update: function (element) {
-            var relationship = arguments[3];
+        update: function (element, valueAccessor) {
+            var relationship = ko.unwrap(valueAccessor());
             var added = relationship.added();
 
             $(element)
@@ -173,19 +73,10 @@
     };
 
 
-    function addHiddenInputs(vm) {
-        var fieldPrefix = vm.formName + "." + vm.fieldName;
+    function addHiddenInputs(pushInput, vm, formName) {
+        var fieldPrefix = formName + "." + vm.fieldName;
         var relationships = vm.source.relationshipsInViewModel(vm)();
-        var hiddenInputs = document.createDocumentFragment();
         var index = 0;
-
-        function pushInput(prefix, name, value) {
-            var input = document.createElement("input");
-            input.type = "hidden";
-            input.name = prefix + "." + name;
-            input.value = value;
-            hiddenInputs.appendChild(input);
-        }
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             var relationship = relationships[i],
@@ -204,12 +95,7 @@
                 pushInput(prefix, "removed", 1);
             }
 
-            var target = relationship.target(vm.source);
-            if (target.entityType === "url") {
-                pushInput(prefix, "text", target.name);
-            } else {
-                pushInput(prefix, "target", target.gid);
-            }
+            pushInput(prefix, "target", relationship.target(vm.source).gid);
 
             _.each(editData.attributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
@@ -259,25 +145,30 @@
 
             index++;
         }
-
-        $("#relationship-editor").append(hiddenInputs);
     }
 
-    RE.prepareSubmission = function () {
-        var submitted = [], vm, source;
+    RE.prepareSubmission = function (formName) {
+        var submitted = [];
+        var submittedLinks;
+        var vm;
+        var source = MB.sourceEntity;
+        var hiddenInputs = document.createDocumentFragment();
+        var fieldCount = 0;
 
-        $("button[type=submit]").prop("disabled", true);
+        function pushInput(prefix, name, value) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = prefix + "." + name;
+            input.value = value;
+            hiddenInputs.appendChild(input);
+            ++fieldCount;
+        }
+
+        $("#page form button[type=submit]").prop("disabled", true);
         $("input[type=hidden]", "#relationship-editor").remove();
 
         if (vm = MB.sourceRelationshipEditor) {
-            addHiddenInputs(vm);
-            source = vm.source;
-            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
-        }
-
-        if (vm = MB.sourceExternalLinksEditor) {
-            addHiddenInputs(vm);
-            source = vm.source;
+            addHiddenInputs(pushInput, vm, formName);
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
@@ -297,8 +188,20 @@
                 })
             );
         }
+
+        if (vm = MB.sourceExternalLinksEditor) {
+            vm.getFormData(formName + '.url', fieldCount, pushInput);
+
+            if (MB.hasSessionStorage && vm.state.links.size) {
+                sessionStorage.submittedLinks = JSON.stringify(vm.state.links.toJS());
+            }
+        }
+
+        $("#relationship-editor").append(hiddenInputs);
     };
 
-    $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(RE.prepareSubmission));
+    $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(function () {
+        RE.prepareSubmission($('#relationship-editor').data('form-name'));
+    }));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

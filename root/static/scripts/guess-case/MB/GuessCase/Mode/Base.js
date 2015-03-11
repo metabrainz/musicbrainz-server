@@ -315,6 +315,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
             if (fix && fix.name) {
                 if (fix.re.global) {
+                    var matches;
                     while ((matches = fix.re.exec(is))) {
                         is = replace_match(matches, is);
                     }

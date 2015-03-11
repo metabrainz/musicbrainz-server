@@ -6,8 +6,20 @@
 var test = require('tape');
 
 test('Guess type', function (t) {
-    var control = MB.Control.URLCleanup();
     var tests = [
+            // Amazon
+            [
+                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
+            [
+                'release', 'http://www.amazon.in/gp/product/B006H1JVW4',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
+            [
+                'release', 'http://www.amazon.com.br/gp/product/B00T8E47G2',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
             // Wikipedia
             [
                 'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
@@ -58,11 +70,11 @@ test('Guess type', function (t) {
             //Last.fm
             [
                 'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
-                MB.constants.LINK_TYPES.socialnetwork.artist
+                MB.constants.LINK_TYPES.lastfm.artist
             ],
             [
                 'event', 'http://www.last.fm/event/3291943+Pori+jazz',
-                MB.constants.LINK_TYPES.socialnetwork.event
+                MB.constants.LINK_TYPES.lastfm.event
             ],
             // WhoSampled
             [
@@ -103,6 +115,10 @@ test('Guess type', function (t) {
             [
                 'artist', 'http://thesession.org/recordings/artists/2836',
                 MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'event', 'http://thesession.org/events/3811',
+                MB.constants.LINK_TYPES.otherdatabases.event
             ],
             // Wikimedia Commons
             [
@@ -168,10 +184,6 @@ test('Guess type', function (t) {
                 'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                 MB.constants.LINK_TYPES.purevolume.artist
             ],
-            [
-                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
-                MB.constants.LINK_TYPES.amazon.release
-            ],
             // Recochoku
             [
                 'release', 'http://recochoku.jp/album/30282664/',
@@ -215,8 +227,20 @@ test('Guess type', function (t) {
             ],
             // Trove
             [
+                'artist', 'http://nla.gov.au/nla.party-548358',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
                 'release', 'http://nla.gov.au/anbd.bib-an11701020',
                 MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://trove.nla.gov.au/work/9438679',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            [
+                'label', 'http://nla.gov.au/nla.party-1448035',
+                MB.constants.LINK_TYPES.otherdatabases.label
             ],
             // Instagram
             [
@@ -615,19 +639,64 @@ test('Guess type', function (t) {
             [
                 'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                 MB.constants.LINK_TYPES.setlistfm.place
+            ],
+            [
+                'release', 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'artist', 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'https://www.finna.fi/Record/viola.163990',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            // ClassicalArchives.com
+            [
+                'artist', 'http://www.classicalarchives.com/composer/2806.html',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.classicalarchives.com/album/menlo-201409.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'work', 'http://www.classicalarchives.com/work/1119282.html',
+                MB.constants.LINK_TYPES.otherdatabases.work
+            ],
+            // CDJapan.co.jp
+            [
+                'artist', 'http://www.cdjapan.co.jp/person/76324',
+                MB.constants.LINK_TYPES.mailorder.artist
+            ],
+            [
+                'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
+                MB.constants.LINK_TYPES.mailorder.release
             ]
         ];
 
     $.each(tests, function (i, test) {
-        t.equal(control.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
+        t.equal(MB.Control.URLCleanup.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
     });
 
     t.end();
 });
 
 test('Cleanup', function (t) {
-    var control = MB.Control.URLCleanup(),
-        tests = [
+    var tests = [
             [
                 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
                 'http://www.amazon.co.uk/gp/product/B00009W0XE',
@@ -636,6 +705,16 @@ test('Cleanup', function (t) {
             [
                 'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
                 'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+                'release'
+            ],
+            [
+                'http://www.amazon.in/dp/B006H1JVW4',
+                'http://www.amazon.in/gp/product/B006H1JVW4',
+                'release'
+            ],
+            [
+                'http://amazon.com.br/dp/B00T8E47G2',
+                'http://www.amazon.com.br/gp/product/B00T8E47G2',
                 'release'
             ],
             // %E2%80%8E cleanup
@@ -817,9 +896,9 @@ test('Cleanup', function (t) {
                 'release_group'
             ],
             [
-                'thesession.org/recordings/1488#comment283364',
-                'http://thesession.org/recordings/1488',
-                'release_group'
+                'thesession.org/events/3811#comment748363',
+                'http://thesession.org/events/3811',
+                'event'
             ],
             [
                 'http://thesession.org/recordings/4740/edit',
@@ -1283,10 +1362,69 @@ test('Cleanup', function (t) {
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'work'
             ],
+            // Trove
+            [
+                'http://trove.nla.gov.au/people/1448035?c=people',
+                'http://nla.gov.au/nla.party-1448035',
+                'label'
+            ],
+            [
+                'https://nla.gov.au/nla.party-548358/',
+                'http://nla.gov.au/nla.party-548358',
+                'artist'
+            ],
+            [
+                'trove.nla.gov.au/work/9438679',
+                'http://trove.nla.gov.au/work/9438679',
+                'release_group'
+            ],
+            [
+                'http://nla.gov.au/anbd.bib-an11701020#',
+                'http://nla.gov.au/anbd.bib-an11701020',
+                'release_group'
+            ],
+            // ClassicalArchives.com
+            [
+                'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
+                'http://www.classicalarchives.com/composer/2806.html',
+                'artist'
+            ],
+            [
+                'http://classicalarchives.com/album/menlo-201409.html?test',
+                'http://www.classicalarchives.com/album/menlo-201409.html',
+                'release'
+            ],
+            [
+                'https://www.classicalarchives.com/work/1119282.html',
+                'http://www.classicalarchives.com/work/1119282.html',
+                'work'
+            ],
+            // CDJapan.co.jp
+            [
+                'www.cdjapan.co.jp/person/76324#test',
+                'http://www.cdjapan.co.jp/person/76324',
+                'artist'
+            ],
+            [
+                'https://cdjapan.co.jp/product/COCC-72267?test',
+                'http://www.cdjapan.co.jp/product/COCC-72267',
+                'release'
+            ],
+            // Sina Weibo
+            [
+                'www.weibo.com/mchotdog2010#test',
+                'http://weibo.com/mchotdog2010',
+                'artist'
+            ],
+            [
+                'https://weibo.com/mchotdog2010?test',
+                'http://weibo.com/mchotdog2010',
+                'label'
+            ]
         ];
 
     $.each(tests, function (i, test) {
-        t.equal(control.cleanUrl(test[2], test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+        t.equal(MB.Control.URLCleanup.cleanUrl(test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
     });
 
     t.end();

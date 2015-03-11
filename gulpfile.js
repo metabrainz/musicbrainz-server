@@ -45,8 +45,10 @@ function buildStyles() {
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
-                cleancss: true,
-                relativeUrls: true
+                relativeUrls: true,
+                plugins: [
+                    new (require('less-plugin-clean-css'))
+                ]
             }))
     );
 }
@@ -110,6 +112,10 @@ function langToPosix(lang) {
 }
 
 function buildScripts(watch) {
+    if (process.env.UGLIFY) {
+        process.env.NODE_ENV = 'production';
+    }
+
     var promises = [];
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -148,18 +154,30 @@ function buildScripts(watch) {
                 b.external('jed-' + lang);
             });
 
+            b.require('jquery', { expose: 'jquery' });
+
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
         }),
         createBundle("edit.js", watch, function (b) {
+            b.transform('reactify', { es6: true });
+
+            b.require('./root/static/scripts/edit/validation.js', { expose: true });
+            b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
+
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
         }),
         createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
-        createBundle("statistics.js", watch),
+        createBundle("release-editor.js", watch, function (b) {
+            b.transform('reactify', { es6: true });
 
-        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
-            .pipe(gulp.dest("./root/static/build/"))
+            b.external('./root/static/scripts/edit/validation.js');
+            b.external('./root/static/scripts/edit/externalLinks.js');
+        }),
+        createBundle("statistics.js", watch, function (b) {
+            b.external('jquery');
+        }),
+        createBundle('timeline.js')
     ]);
 }
 
@@ -169,6 +187,19 @@ gulp.task("styles", function () {
 
 gulp.task("scripts", function () {
     return buildScripts(false).done(writeManifest);
+});
+
+gulp.task("tests", function () {
+    process.env.NODE_ENV = 'development';
+
+    return bundleScripts(
+        runBrowserify('tests.js', false, function (b) {
+            b.transform('reactify', { es6: true });
+
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+        }),
+        'tests.js'
+    ).pipe(gulp.dest("./root/static/build/"));
 });
 
 gulp.task("watch", function () {

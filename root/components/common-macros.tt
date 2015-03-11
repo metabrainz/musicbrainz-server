@@ -89,7 +89,7 @@ END; -%]
         data-small-thumbnail="[% artwork.small_thumbnail %]"
         data-large-thumbnail="[% artwork.large_thumbnail %]"
         data-fallback="[% fallback %]"
-        data-title="[% artwork_hover(artwork) | html %]"
+        data-title="[% artwork_hover(artwork) %]"
         data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
     ></span>
 [% END %]
@@ -793,12 +793,7 @@ END -%]
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
-  [%~ IF server_details.developement_server ~%]
-    [%~ USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest.replace('\.css', '.less') -%]" />
-  [%~ ELSE ~%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
-  [%~ END ~%]
+  <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
 [%~ END ~%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
@@ -807,10 +802,19 @@ END -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%~ MACRO medium_link(medium) BLOCK -%]
-  [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
-  [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
-[%- END -%]
+[%~ MACRO medium_link(medium) BLOCK;
+    args = {
+        medium_format => medium_format_name(medium),
+        position => medium.position,
+        release => descriptive_link(medium.release)
+    };
+    IF medium.name != '';
+        args.medium_name = isolate_text(medium.name);
+        l('{medium_format} {position}: {medium_name} on {release}', args);
+    ELSE;
+        l('{medium_format} {position} on {release}', args);
+    END;
+END ~%]
 
 [%~ MACRO medium_in_release(release, medium) BLOCK -%]
     [%- fragment = "disc" _ medium.position -%]
@@ -863,6 +867,7 @@ END -%]
             $.get('[% wikipedia_extract_url %]',
                   function (data) {
                       $('#wikipedia-insertion-point').replaceWith(data);
+                      MB.makeCollapsible('wikipedia-extract');
                   },
                   'html');
         //]]></script>
@@ -907,18 +912,17 @@ END -%]
   [%- END -%]
 [%- END -%]
 
-[%~ MACRO relationship_target_links(rel) BLOCK -%]
-  <span[% IF rel.edits_pending %] class="mp mp-rel"[% END %]>
-  [% IF rel.target.artist_credit AND
-        rel.target.artist_credit.name == hide_ac %]
-      [% link_entity(rel.target) %]
-  [% ELSE %]
-      [% descriptive_link(rel.target) %]
-  [% END %]
-  [% '(' _ rel.extra_phrase_attributes _ ')' IF rel.extra_phrase_attributes %]
-  [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
-  </span>
-[%- END -%]
+[%~ MACRO relationship_target_links(rel) BLOCK;
+    '<span class="mp mp-rel">' IF rel.edits_pending;
+    IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
+        link_entity(rel.target);
+    ELSE;
+        descriptive_link(rel.target);
+    END;
+    bracketed(rel.extra_phrase_attributes) IF rel.extra_phrase_attributes;
+    bracketed(rel.link.formatted_date) IF rel.link.formatted_date;
+    '</span>' IF rel.edits_pending;
+END ~%]
 
 [%~ MACRO release_countries(release_events) BLOCK;
     IF release_events.size;

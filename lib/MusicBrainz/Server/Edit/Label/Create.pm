@@ -37,7 +37,6 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         area_id      => Nullable[Int],
         comment      => Nullable[Str],
-        ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
         isni_codes    => Optional[ArrayRef[Str]],
         ended        => Optional[Bool]
@@ -76,7 +75,7 @@ sub build_display_data
         area       => defined($self->data->{area_id}) &&
                       ($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment},
-        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        ipi_codes  => $self->data->{ipi_codes},
         isni_codes => $self->data->{isni_codes},
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
         end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
@@ -89,6 +88,9 @@ sub restore {
 
     $data->{area_id} = delete $data->{country_id}
         if exists $data->{country_id};
+
+    $data->{ipi_codes} = [ delete $data->{ipi_code} // () ]
+        if exists $data->{ipi_code};
 
     $self->data($data);
 }

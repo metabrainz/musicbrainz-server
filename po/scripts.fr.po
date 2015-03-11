@@ -6,10 +6,11 @@
 # Dibou <email address hidden>, 2012
 # kmartin <email address hidden>, 2013
 # murdos <email address hidden>, 2011-2012
+# yahoe.001, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-04 11:38+0000\n"
+"PO-Revision-Date: 2015-01-30 12:10+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +132,7 @@ msgstr "Cirth"
 #. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
-msgstr "Code pour système d'écriture hérité"
+msgstr "Code pour systèmes d'écriture hérité"
 
 #. frequency:1 iso_code:Zzzz
 #: DB:script/name:130

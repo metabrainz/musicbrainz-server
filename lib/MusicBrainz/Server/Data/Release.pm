@@ -31,7 +31,6 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
@@ -777,7 +776,7 @@ sub delete
 {
     my ($self, @release_ids) = @_;
 
-    $self->c->model('Collection')->delete_releases(@release_ids);
+    $self->c->model('Collection')->delete_entities('release', @release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
@@ -944,7 +943,7 @@ sub merge
     my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     $self->annotation->merge($new_id, @old_ids);
-    $self->c->model('Collection')->merge_releases($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseGroup')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);

@@ -50,7 +50,7 @@ around BUILDARGS => sub {
 sub is_empty
 {
     my ($self) = @_;
-    return !($self->year || $self->month || $self->day);
+    return !(defined $self->year || $self->month || $self->day);
 }
 
 sub format

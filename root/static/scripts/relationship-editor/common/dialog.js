@@ -90,11 +90,10 @@
                 instruments.push(observable);
 
                 observable.subscribe(function (instrument) {
-                    var gid = instrument.gid;
-                    if (gid) {
-                        observable.linkAttribute(relationship.addAttribute(gid));
+                    relationship.attributes.remove(observable.linkAttribute.peek())
+                    if (instrument.gid) {
+                        observable.linkAttribute(relationship.addAttribute(instrument.gid));
                     } else {
-                        relationship.attributes.remove(observable.linkAttribute.peek());
                         observable.linkAttribute(null);
                     }
                 });
@@ -254,15 +253,21 @@
             var self = this;
 
             // Firefox needs a small delay in order to allow for the change
-            // event to trigger on <select> menus.
+            // event to trigger on <select> menus, and Opera 12.0* needs it
+            // triggered explicitly, so do that first.
 
-            _.defer(function () {
-                if (event.keyCode === 13 && /^input|select$/.test(nodeName) && !self.hasErrors()) {
-                    self.accept();
-                } else if (event.keyCode === 27 && nodeName !== "select") {
-                    self.close();
+            if (event.keyCode === 13 && /^input|select$/.test(nodeName)) {
+                $(event.target).trigger('change');
+
+                if (!this.hasErrors()) {
+                    // Opera 12.0* also has a bug where the pencil icon is
+                    // clicked if the dialog is closed too fast, which makes
+                    // it immediately reopen, hence the added delay here.
+                    _.defer(function () { self.accept() });
                 }
-            });
+            } else if (event.keyCode === 27 && nodeName !== "select") {
+                this.close();
+            }
 
             return true;
         },
@@ -327,7 +332,7 @@
 
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
-            var targetTypes = this.viewModel.allowedRelations[sourceType];
+            var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
 
             if (sourceType === "series") {
                 var self = this;
@@ -380,6 +385,11 @@
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 
             this.relationship(newRelationship);
+
+            // XXX knockout is stupid and unsets the linkTypeID for no apparent
+            // reason, so do it again...
+            newRelationship.linkTypeID(data.linkTypeID);
+
             currentRelationship.remove();
 
             var ac = this.autocomplete;
@@ -400,7 +410,7 @@
             } else if (typeInfo.deprecated) {
                 return MB.i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
-                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
+                var checker = MB.Control.URLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
@@ -411,7 +421,9 @@
         },
 
         targetEntityError: function () {
-            var target = this.relationship().target(this.source);
+            var relationship = this.relationship();
+            var target = relationship.target(this.source);
+            var typeInfo = relationship.linkTypeInfo() || {};
 
             if (!target.gid) {
                 return MB.i18n.l("Required field.");
@@ -420,6 +432,7 @@
             }
 
             if (target.entityType === "series" &&
+                    _.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, typeInfo.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
@@ -462,6 +475,7 @@
 
     function addRelationships(source, relationships) {
         var linkType = relationships[0].linkTypeInfo();
+        var relationship;
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             relationship = relationships[i];

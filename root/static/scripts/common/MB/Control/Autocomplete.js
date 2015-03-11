@@ -303,32 +303,43 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     // Overrides $.ui.autocomplete.prototype._searchTimeout
     _searchTimeout: function (event) {
-        var oldTerm = this.term;
         var newTerm = this._value();
+
+        if (_.str.isBlank(newTerm)) {
+            clearTimeout(this.searching);
+            this.close();
+            return;
+        }
+
         var mbidMatch = newTerm.match(this.mbidRegex);
-
-        if (mbidMatch === null) {
-            if (!newTerm) {
-                clearTimeout(this.searching);
-                this.close();
-
-            // only search if the value has changed
-            } else if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
-                clearTimeout(this.searching);
-                this.completedTerm = oldTerm;
-
-                this.searching = this._delay(
-                    function () {
-                        delete this.completedTerm;
-                        this.selectedItem = null;
-                        this.search(null, event);
-                    },
-                    this.options.delay
-                );
-            }
-        } else {
+        if (mbidMatch) {
             clearTimeout(this.searching);
             this._lookupMBID(mbidMatch[0]);
+            return;
+        }
+
+        var oldTerm = this.term;
+
+        // Support pressing <space> to trigger a search, but ignore it if the
+        // menu is already open.
+        if (this.menu.element.is(':visible')) {
+            newTerm = _.str.clean(newTerm);
+            oldTerm = _.str.clean(oldTerm);
+        }
+
+        // only search if the value has changed
+        if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
+            clearTimeout(this.searching);
+            this.completedTerm = oldTerm;
+
+            this.searching = this._delay(
+                function () {
+                    delete this.completedTerm;
+                    this.selectedItem = null;
+                    this.search(null, event);
+                },
+                this.options.delay
+            );
         }
     },
 

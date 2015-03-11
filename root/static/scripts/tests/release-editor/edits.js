@@ -5,6 +5,11 @@
 
 var test = require('tape');
 var common = require('./common.js');
+var validation = require('../../edit/validation.js');
+
+var React = require('react/addons');
+var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
+var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
@@ -23,7 +28,7 @@ function addReleaseTest(name, callback) {
         callback(t, common.setupReleaseAdd(data));
 
         MB.entityCache = {};
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -370,7 +375,7 @@ test("releaseGroupCreate edits", function (t) {
 function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -512,11 +517,12 @@ var testURLRelationship = {
 editReleaseTest("relationshipCreate edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    var newRelationshipData = _.omit(testURLRelationship, "id");
-
-    release.relationships.push(
-        release.externalLinks.getRelationship(newRelationshipData, release)
+    var component = releaseEditor.createExternalLinksEditor(
+        common.testRelease,
+        document.createElement('div')
     );
+
+    addURL(component, 'http://www.discogs.com/release/1369894');
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -542,25 +548,23 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
 editReleaseTest("relationshipEdit edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    MB.typeInfo = {};
     MB.faviconClasses = {};
 
-    var release = release;
-    var vm = release.externalLinks;
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign({}, common.testRelease, { relationships: [testURLRelationship] }),
+        document.createElement('div')
+    );
 
-    release.relationships([vm.getRelationship(testURLRelationship, release)]);
+    triggerChange(
+        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://www.amazon.co.jp/gp/product/B00003IQQD'
+    );
 
-    var link = vm.links()[0];
-
-    link.linkTypeID(77);
-    link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
+    triggerChange(scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
-        "beginDate": null,
         "edit_type": 91,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -572,7 +576,7 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
             "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
           }
         ],
-        "hash": "1b778d8d4db3f01cef707c72c3ac247317af6309",
+        "hash": "81f1bb7352973e1133c15093912860c82c2a57f3",
         "id": 123,
         "linkTypeID": 77
       }
@@ -582,10 +586,13 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
 editReleaseTest("relationshipDelete edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    var vm = release.externalLinks;
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign({}, common.testRelease, { relationships: [testURLRelationship] }),
+        document.createElement('div')
+    );
 
-    release.relationships([vm.getRelationship(testURLRelationship, release)]);
-    vm.links()[0].remove();
+    // Click remove button
+    triggerClick($(component.getDOMNode()).find('button')[0]);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -602,41 +609,79 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
-        "id": 123
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
       }
     ]);
 });
 
 editReleaseTest("edits are not generated for external links that duplicate existing removed ones", function (t, release) {
-    t.plan(5);
+    t.plan(6);
 
     var newURL = { name: "http://www.discogs.com/release/13698944", entityType: "url" };
-    var vm = release.externalLinks;
 
-    var existingRelationship1 = vm.getRelationship(testURLRelationship, release);
-
-    var existingRelationship2 = vm.getRelationship(
-        _.assign(_.clone(testURLRelationship), { id: 456, target: newURL }), release
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign(
+            {},
+            common.testRelease,
+            {
+                relationships: [
+                    testURLRelationship,
+                    _.assign(_.clone(testURLRelationship), { id: 456, target: newURL })
+                ]
+            }
+        ),
+        document.createElement('div')
     );
 
-    var addedDuplicate = vm.getRelationship(_.omit(testURLRelationship, "id"), release);
+    var $mountPoint = $(component.getDOMNode());
 
-    release.relationships([existingRelationship1, existingRelationship2]);
-    existingRelationship1.remove();
-    release.relationships.push(addedDuplicate);
+    // Remove first URL
+    triggerClick($mountPoint.find('button:eq(0)')[0]);
 
-    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    // Add a duplicate of the first URL
+    addURL(component, 'http://www.discogs.com/release/1369894');
 
-    addedDuplicate.remove();
+    // No edits are generated, because there are errors.
+    t.equal(releaseEditor.edits.externalLinks(release).length, 0);
+    t.equal(validation.errorsExist(), true);
 
-    t.equal(releaseEditor.validation.errorsExist(), false);
+    // Remove duplicate
+    triggerClick($mountPoint.find('button:eq(1)')[0]);
 
-    existingRelationship2.url(existingRelationship1.url());
+    // There's one edit to remove the first URL.
+    t.deepEqual(releaseEditor.edits.externalLinks(release), [
+      {
+        "attributes": [],
+        "edit_type": 92,
+        "entities": [
+          {
+            "entityType": "release",
+            "gid": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+            "name": "Vision Creation Newsun"
+          },
+          {
+            "entityType": "url",
+            "name": "http://www.discogs.com/release/1369894"
+          }
+        ],
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
+      }
+    ]);
 
-    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(validation.errorsExist(), false);
+
+    // Duplicate the first URL again by editing the other existing URL
+    triggerChange(
+        $mountPoint.find('input:eq(0)')[0],
+        'http://www.discogs.com/release/1369894'
+    );
+
+    t.equal(releaseEditor.edits.externalLinks(release).length, 0);
+    t.equal(validation.errorsExist(), true);
 });
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {

@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var externalLinks = require('../edit/externalLinks.js');
+var validation = require('../edit/validation.js');
+
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
@@ -164,8 +167,6 @@ MB.releaseEditor.init = function (options) {
 
     // Intialize release data/view model.
 
-    this.rootField = this.fields.Root();
-
     this.rootField.missingEditNote = function () {
         return self.action === "add" && !self.rootField.editNote();
     };
@@ -174,6 +175,11 @@ MB.releaseEditor.init = function (options) {
 
     if (this.action === "edit") {
         this.loadRelease(options.gid);
+    } else {
+        MB.releaseEditor.createExternalLinksEditor(
+            { entityType: 'release' },
+            $('#external-links-editor-container')[0]
+        );
     }
 
     this.getEditPreviews();
@@ -216,11 +222,11 @@ MB.releaseEditor.releaseLoaded = function (data) {
     this.loadError("");
 
     var seed = this.seededReleaseData;
-    delete this.seededReleaseData;
 
-    if (seed && seed.relationships) {
-        data.relationships = (data.relationships || []).concat(seed.relationships);
-    }
+    // Setup the external links editor
+    _.defer(function () {
+        MB.releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
+    });
 
     var release = this.fields.Release(data);
 
@@ -229,6 +235,40 @@ MB.releaseEditor.releaseLoaded = function (data) {
     if (!seed || !seed.mediums) release.loadMedia();
 
     this.rootField.release(release);
+};
+
+
+MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
+    if (!mountPoint) {
+        // XXX undefined in some tape tests
+        return;
+    }
+
+    var self = this;
+    var seed = this.seededReleaseData;
+    delete this.seededReleaseData;
+
+    if (seed && seed.relationships) {
+        data.relationships = (data.relationships || []).concat(seed.relationships);
+    }
+
+    this.externalLinks = externalLinks.createExternalLinksEditor({
+        sourceData: data,
+        mountPoint: mountPoint
+    });
+
+    this.externalLinksEditData = ko.observable({});
+    this.hasInvalidLinks = this.externalLinks.props.errorObservable;
+
+    // XXX Since there's no notion of observable data in React, we need to
+    // override componentDidUpdate to watch for changes to the external links.
+    // externalLinksEditData is hooked into the edit generation code and will
+    // create corresponding edits for the new link data.
+    this.externalLinks.componentDidUpdate = function () {
+        self.externalLinksEditData(self.externalLinks.getEditData());
+    };
+
+    return this.externalLinks;
 };
 
 
@@ -254,7 +294,7 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
 MB.releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
-        !this.validation.errorsExist() &&
+        !validation.errorsExist() &&
         (this.action === "edit" || this.rootField.editNote()) &&
         this.allEdits().length > 0
     );

@@ -18,7 +18,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     date_closure
     merge_partial_date
 );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -180,39 +179,6 @@ sub initialize
         },
         $self->_change_data($alias, %opts)
     });
-}
-
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    {
-        my ($old, $new) = normalise_strings($self->data->{old}{name},
-                                            $self->data->{new}{name});
-        return 0 if $old ne $new;
-    }
-
-    {
-        my ($old, $new) = normalise_strings($self->data->{old}{sort_name},
-                                            $self->data->{new}{sort_name});
-        return 0 if $old ne $new;
-    }
-
-    return 0 if $self->data->{old}{type_id};
-
-    return 0 if exists $self->data->{old}{begin_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
-    return 0 if exists $self->data->{old}{end_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
-
-    return 0 if exists $self->data->{old}{ended}
-        and $self->data->{old}{ended} != $self->data->{new}{ended};
-
-    return 0 if $self->data->{old}{locale};
-
-    return 0 if exists $self->data->{new}{primary_for_locale};
-
-    return 1;
 }
 
 sub current_instance {

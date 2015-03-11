@@ -68,7 +68,10 @@ window.addEventListener('error', function (event) {
     console.log(event.message);
     console.log('File name: ' + event.filename);
     console.log('Line number: ' + event.lineno);
-    phantom.exit(1);
+
+    if (typeof phantom !== 'undefined') {
+        phantom.exit(1);
+    }
 });
 
 window.MB_LANGUAGE = 'en';

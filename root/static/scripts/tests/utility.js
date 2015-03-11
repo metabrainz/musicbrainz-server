@@ -6,7 +6,7 @@
 var test = require('tape');
 
 test('All', function (t) {
-    t.plan(21);
+    t.plan(22);
 
     var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
     var expected = "MusicBrainz!~2011";
@@ -33,6 +33,7 @@ test('All', function (t) {
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
+        { date: "0000", expected: { year: 0, month: null, day: null} },
         { date: "1999-01-02", expected: { year: 1999, month: 1, day: 2 } },
         { date: "1999-01", expected: { year: 1999, month: 1, day: null } },
         { date: "1999", expected: { year: 1999, month: null, day: null } },
@@ -45,16 +46,6 @@ test('All', function (t) {
         var result = MB.utility.parseDate(test.date);
         t.deepEqual(result, test.expected, test.date);
     });
-});
-
-test('filesize.js wrapper', function (t) {
-    t.plan(5);
-
-    t.equal(MB.utility.filesize(857372), "837.3KB");
-    t.equal(MB.utility.filesize(1235783), "1.2MB");
-    t.equal(MB.utility.filesize(7440138), "7.1MB");
-    t.equal(MB.utility.filesize(2379302), "2.3MB");
-    t.equal(MB.utility.filesize(159985050), "152.5MB");
 });
 
 test("formatDate", function (t) {

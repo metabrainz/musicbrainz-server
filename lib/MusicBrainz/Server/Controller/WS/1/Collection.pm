@@ -80,12 +80,12 @@ sub add_remove : Private
 
         if (@can_add) {
             my @add = map { $_->id } values %{ $c->model('Release')->get_by_gids(@can_add) };
-            $c->model('Collection')->add_releases_to_collection($collection_id, @add)
+            $c->model('Collection')->add_entities_to_collection("release", $collection_id, @add)
         }
 
         if (@can_remove) {
             my @remove = map { $_->id } values %{ $c->model('Release')->get_by_gids(@can_remove) };
-            $c->model('Collection')->remove_releases_from_collection($collection_id, @remove);
+            $c->model('Collection')->remove_entities_from_collection("release", $collection_id, @remove);
         }
     }
 

@@ -3,12 +3,13 @@ package MusicBrainz::Server::Data::MediumFormat;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'mf' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
@@ -17,7 +18,19 @@ sub _table
 
 sub _columns
 {
-    return 'id, name, year, parent AS parent_id, child_order, has_discids, description';
+    return 'id, name, year, parent, child_order, has_discids, description';
+}
+
+sub _column_mapping {
+    return {
+        id              => 'id',
+        parent_id       => 'parent',
+        child_order     => 'child_order',
+        name            => 'name',
+        description     => 'description',
+        year            => 'year',
+        has_discids     => 'has_discids',
+    };
 }
 
 sub _entity_class
@@ -38,6 +51,13 @@ sub find_by_name
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
           WHERE lower(name) = lower(?)', $name);
     return $row ? $self->_new_from_row($row) : undef;
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM medium WHERE format = ? LIMIT 1',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

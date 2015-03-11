@@ -63,7 +63,7 @@
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>
-        [% external_links_editor(r.form, 'place') %]
+        [% external_links_editor() %]
       </fieldset>
 
       [% INCLUDE 'forms/edit-note.tt' %]
@@ -78,8 +78,6 @@
         <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
         [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
     </div>
-
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -120,6 +118,8 @@
     }
 
     var coordinates_request;
+    var coordinatesError = MB.validation.errorField(ko.observable(false));
+
     $("input[name=edit-place\\.coordinates]").on('input', function () {
         if (coordinates_request) {
             coordinates_request.abort();
@@ -130,14 +130,14 @@
             $(".coordinates-errors").css("display", "none");
             $("input[name=edit-place\\.coordinates]").removeClass("error");
             $("input[name=edit-place\\.coordinates]").css("background-color", "transparent");
-            $(".edit-place .submit").prop('disabled', false);
+            coordinatesError(false);
         } else {
             var url = "/ws/js/parse-coordinates?coordinates=" + encodeURIComponent(coordinates);
             coordinates_request = $.getJSON(url, function (data) {
                 $(".coordinates-errors").css("display", "none");
                 $("input[name=edit-place\\.coordinates]").removeClass("error");
                 $("input[name=edit-place\\.coordinates]").addClass("success");
-                $(".edit-place .submit").prop('disabled', false);
+                coordinatesError(false);
 
                 marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
 
@@ -148,7 +148,7 @@
 
                 $("input[name=edit-place\\.coordinates]").addClass("error");
                 $(".coordinates-errors").css("display", "block");
-                $(".edit-place .submit").prop('disabled', true);
+                coordinatesError(true);
             });
         };
     });

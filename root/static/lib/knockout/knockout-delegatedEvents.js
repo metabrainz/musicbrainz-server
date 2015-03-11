@@ -1,3 +1,4 @@
+// knockout-delegatedEvents 0.1.3 | (c) 2014 Ryan Niemeyer |  http://www.opensource.org/licenses/mit-license
 ;(function(factory) {
     //CommonJS
     if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {

@@ -1210,7 +1210,7 @@ msgstr "Kikongo"
 msgid "Konkani"
 msgstr "Konkaní"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Coreano"
@@ -1655,7 +1655,7 @@ msgstr "Noruego antiguo"
 msgid "North American Indian languages"
 msgstr "Lenguas indígenas de Norteamérica"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Noruego"
