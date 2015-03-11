@@ -33,10 +33,7 @@ var i18n = require('../../common/i18n.js');
 
             this.linkTypeID = ko.observable(data.linkTypeID);
             this.linkTypeID.isDifferent = linkTypeComparer;
-
-            this.linkTypeID.subscribe(function (id) {
-                self.linkTypeIDChanged(id);
-            });
+            this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             this.period = {
                 beginDate: setPartialDate({}, data.beginDate || {}),
@@ -96,6 +93,10 @@ var i18n = require('../../common/i18n.js');
             if (!typeInfo) {
                 return;
             }
+
+            // This should really only change if the relationship was initially
+            // seeded without any link type.
+            this.entityTypes = typeInfo.type0 + '-' + typeInfo.type1;
 
             var typeAttributes = typeInfo.attributes,
                 attributes = this.attributes(), attribute;
@@ -174,8 +175,8 @@ var i18n = require('../../common/i18n.js');
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                MB.utility.request(args, this).done(function (data) {
-                    entity1.parseRelationships(data.relationships, this.parent);
+                MB.utility.request(args).done(function (data) {
+                    entity1.parseRelationships(data.relationships);
                 });
             }
 

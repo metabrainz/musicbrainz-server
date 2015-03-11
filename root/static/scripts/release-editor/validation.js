@@ -9,7 +9,6 @@ var i18n = require('../common/i18n.js');
 
     var validation = releaseEditor.validation = releaseEditor.validation || {};
     var utils = releaseEditor.utils;
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
 
     // Allow for access in ko templates
     validation.errorsExist = require('../edit/validation.js').errorsExist;

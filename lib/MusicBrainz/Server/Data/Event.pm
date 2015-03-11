@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_string_attributes
-    merge_partial_date
+    merge_date_period
     order_by
     placeholders
     query_to_list_limited
@@ -83,6 +83,7 @@ sub delete
 {
     my ($self, @event_ids) = @_;
 
+    $self->c->model('Collection')->delete_entities('event', @event_ids);
     $self->c->model('Relationship')->delete_entities('event', @event_ids);
     $self->annotation->delete(@event_ids);
     $self->alias->delete_entities(@event_ids);
@@ -103,6 +104,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('event', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('event', $new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('event', $new_id, @old_ids);
 
     my @merge_options = ($self->sql => (
                            table => 'event',
@@ -112,7 +114,7 @@ sub _merge_impl
 
     merge_table_attributes(@merge_options, columns => [ qw( time type ) ]);
     merge_string_attributes(@merge_options, columns => [ qw( setlist ) ]);
-    merge_partial_date(@merge_options, field => $_) for qw( begin_date end_date );
+    merge_date_period(@merge_options);
 
     $self->_delete_and_redirect_gids('event', $new_id, @old_ids);
     return 1;

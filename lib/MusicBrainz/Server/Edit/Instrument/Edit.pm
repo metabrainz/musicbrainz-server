@@ -79,6 +79,10 @@ sub build_display_data {
     return $data;
 }
 
+override allow_auto_edit => sub {
+    return 1;
+};
+
 sub current_instance {
     my $self = shift;
     my $instrument = $self->c->model('Instrument')->get_by_id($self->entity_id);

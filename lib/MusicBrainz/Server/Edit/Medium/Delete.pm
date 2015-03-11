@@ -15,6 +15,9 @@ with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Medium';
+
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { N_l('Remove medium') }
 sub edit_kind { 'remove' }
@@ -45,6 +48,7 @@ sub foreign_keys
     my $self = shift;
     my %fk;
 
+    $fk{Medium} = { $self->medium_id => [ 'MediumFormat', 'Release ArtistCredit' ] };
     $fk{MediumFormat} = { $self->data->{format_id} => [] };
     $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
 
@@ -57,12 +61,18 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my $medium = $loaded->{Medium}->{ $self->medium_id } //
+                 Medium->new(
+                     format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
+                     name => $self->data->{name},
+                     position => $self->data->{position},
+                     release => $loaded->{Release}->{ $self->data->{release_id} } //
+                                Release->new,
+                 );
+
     return {
-        format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
-        release => $loaded->{Release}->{ $self->data->{release_id} },
+        medium => $medium,
         tracks => display_tracklist($loaded, $self->data->{tracklist}),
-        name => $self->data->{name},
-        position => $self->data->{position},
     }
 }
 

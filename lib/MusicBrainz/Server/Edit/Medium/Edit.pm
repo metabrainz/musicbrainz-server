@@ -461,6 +461,10 @@ sub accept {
             $_->{artist_credit}
         } @final_tracklist);
 
+        # Wait until commit before checking (medium, position) uniqueness,
+        # after all tracks are in their final places.
+        $self->c->sql->do('SET CONSTRAINTS track_uniq_medium_position DEFERRED');
+
         # Create tracks and recordings
         my %tracks_reused;
         for my $track (@final_tracklist) {

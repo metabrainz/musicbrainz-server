@@ -21,18 +21,13 @@
 
     <fieldset>
       <legend>[% l('External Links') %]</legend>
-      [% external_links_editor(r.form, 'instrument') %]
+      [% external_links_editor() %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
   </div>
-
-  <div class="documentation">
-    [%- external_link_bubble() -%]
-  </div>
-
 </form>
 
 [%- guesscase_options() -%]

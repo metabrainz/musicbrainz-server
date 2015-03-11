@@ -13,7 +13,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
 
@@ -129,10 +128,9 @@ sub _mapping
     );
 }
 
-sub allow_auto_edit
-{
+override allow_auto_edit => sub {
     return 1;
-}
+};
 
 sub current_instance {
     my $self = shift;

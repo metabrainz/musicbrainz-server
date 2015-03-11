@@ -138,7 +138,7 @@ sub release_toplevel
     {
         my @collections =
             grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
-            $c->model('Collection')->find_all_by_release($release->id);
+            $c->model('Collection')->find_all_by_entity('release', $release->id);
 
         $c->model('Editor')->load(@collections);
         $c->model('Collection')->load_entity_count(@collections);

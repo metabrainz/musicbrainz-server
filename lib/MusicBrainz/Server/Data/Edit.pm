@@ -19,8 +19,8 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
     $VOTE_APPROVE
-    $EDIT_MINIMUM_RESPONSE_PERIOD
-    $EDIT_COUNT_LIMIT
+    $MINIMUM_RESPONSE_PERIOD
+    $LIMIT_FOR_EDIT_LISTING
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
@@ -147,7 +147,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -163,18 +163,15 @@ sub find_by_collection
     $status_cond = ' AND status = ' . $status if defined($status);
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE edit.id IN (SELECT er.edit
-                                      FROM edit_release er JOIN editor_collection_release ecr
-                                           ON er.release = ecr.release
-                                     WHERE ecr.collection = ?
-                                    UNION
-                                    SELECT ee.edit
-                                      FROM edit_event ee JOIN editor_collection_event ece
-                                           ON ee.event = ece.event
-                                     WHERE ece.collection = ?)
+                  WHERE edit.id IN (' . join(' UNION ', map {
+                    "SELECT edit_$_.edit
+                    FROM edit_$_ JOIN editor_collection_$_
+                     ON edit_$_.$_ = editor_collection_$_.$_
+                     WHERE editor_collection_$_.collection = ?"
+                  } entities_with('collections')) . ')
                   ' . $status_cond . '
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+                  OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -190,7 +187,7 @@ sub find_by_collection
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $collection_id, $offset);
+        }, $query, ($collection_id) x entities_with('collections'), $offset);
 }
 
 sub find_for_subscription
@@ -256,7 +253,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY vote_time DESC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -279,7 +276,7 @@ sub find_open_for_editor
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -349,7 +346,7 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY id ASC
-OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
+OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -378,7 +375,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -660,13 +657,13 @@ sub default_includes {
     }
 }
 
-# Runs its own transaction
+# Must be called in a transaction
 sub approve
 {
-    my ($self, $edit, $editor_id) = @_;
+    my ($self, $edit, $editor) = @_;
 
     $self->c->model('Vote')->enter_votes(
-        $editor_id,
+        $editor,
         {
             vote    => $VOTE_APPROVE,
             edit_id => $edit->id
@@ -788,17 +785,26 @@ sub _close
 }
 
 sub insert_votes_and_notes {
-    my ($self, $user_id, %data) = @_;
+    my ($self, $editor, %data) = @_;
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
+    # Filter out approvals, they can only be entered via the approve method
+    @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
+
     Sql::run_in_transaction(sub {
-        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        $self->c->model('Vote')->enter_votes($editor, @votes);
+
+        my $edits = $self->get_by_ids(map { $_->{edit_id} } @notes);
         for my $note (@notes) {
+            my $edit_id = $note->{edit_id};
+            my $edit = $edits->{$edit_id};
+            defined $edit && $edit->editor_may_add_note($editor)
+                or next;
             $self->c->model('EditNote')->add_note(
-                $note->{edit_id},
+                $edit_id,
                 {
-                    editor_id => $user_id,
+                    editor_id => $editor->id,
                     text => $note->{edit_note},
                 });
         }
@@ -822,7 +828,7 @@ sub add_link {
 
 sub extend_expiration_time {
     my ($self, @ids) = @_;
-    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
     $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
         WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }

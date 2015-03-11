@@ -171,8 +171,9 @@ $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 3, "Edit rejected");
 
 # Test approving edits, successfully this time
+my $editor1 = $test->c->model('Editor')->get_by_id(1);
 $edit = $edit_data->get_by_id_and_lock(5);
-$edit_data->approve($edit, 1);
+$edit_data->approve($edit, $editor1);
 
 $edit = $edit_data->get_by_id(5);
 is($edit->status, $STATUS_APPLIED);
