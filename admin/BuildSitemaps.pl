@@ -542,6 +542,16 @@ sub build_suffix_info {
         $suffix_info->{base}{paginated} = "release_count";
     }
 
+    if ($entity_type eq 'place') {
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_event_place directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
+    }
+
     if ($entity_type eq 'release') {
         $suffix_info->{'cover-art'} = {
             suffix => 'cover-art',
