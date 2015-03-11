@@ -15,7 +15,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             this.relationshipElements = {};
         },
 
-        parseRelationships: function (relationships, viewModel) {
+        parseRelationships: function (relationships) {
             var self = this;
 
             if (!relationships || !relationships.length) {
@@ -23,7 +23,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             }
 
             var newRelationships = _(relationships)
-                .map(function (data) { return viewModel.getRelationship(data, self) })
+                .map(function (data) { return MB.getRelationship(data, self) })
                 .compact()
                 .value();
 
@@ -35,7 +35,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             this.relationships(allRelationships);
 
             _.each(relationships, function (data) {
-                MB.entity(data.target).parseRelationships(data.target.relationships, viewModel);
+                MB.entity(data.target).parseRelationships(data.target.relationships);
             });
         },
 
@@ -46,7 +46,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
         relationshipsInViewModel: cacheByID(function (vm) {
             var self = this;
             return this.relationships.filter(function (relationship) {
-                return vm.containsRelationship(relationship, self);
+                return vm === relationship.parent;
             });
         }),
 
@@ -108,12 +108,6 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
                 }
             }
             return false;
-        },
-
-        getRelationshipGroup: function (linkTypeID, viewModel) {
-            return _(this.groupedRelationships(viewModel))
-                .values().where({ linkTypeID: +linkTypeID })
-                .invoke("relationships").flatten().value();
         }
     });
 

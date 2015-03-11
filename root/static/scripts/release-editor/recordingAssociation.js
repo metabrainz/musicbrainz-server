@@ -31,8 +31,7 @@ var debounce = require('../common/utility/debounce.js');
     // created/updated within the last 3 hours. (It just uses the last_updated
     // column to find these.)
 
-    var releaseField = ko.observable().subscribeTo("releaseField", true),
-        releaseGroupRecordings = ko.observable(),
+    var releaseGroupRecordings = ko.observable(),
         releaseGroupTimer,
         recentRecordings = [],
         trackArtistIDs = [],
@@ -40,7 +39,7 @@ var debounce = require('../common/utility/debounce.js');
 
 
     var releaseGroupField = utils.computedWith(
-        function (release) { return release.releaseGroup() }, releaseField
+        function (release) { return release.releaseGroup() }, releaseEditor.rootField.release
     );
 
 

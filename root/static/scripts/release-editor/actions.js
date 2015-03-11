@@ -275,8 +275,8 @@ var deferFocus = require('../edit/utility/deferFocus.js');
 
         inferTrackDurationsFromRecordings: ko.observable(false),
 
-        copyTrackTitlesToRecordings: ko.observable(false).publishOn("updateRecordingTitles", true),
-        copyTrackArtistsToRecordings: ko.observable(false).publishOn("updateRecordingArtists", true)
+        copyTrackTitlesToRecordings: ko.observable(false),
+        copyTrackArtistsToRecordings: ko.observable(false)
     });
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

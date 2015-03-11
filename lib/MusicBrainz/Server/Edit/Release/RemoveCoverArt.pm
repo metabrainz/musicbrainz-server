@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
 
 use MooseX::Types::Moose qw( Str Int ArrayRef );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw( N_l );
@@ -32,6 +32,8 @@ has '+data' => (
         cover_art_id => Int,
         cover_art_types => ArrayRef[Int],
         cover_art_comment => Str,
+        cover_art_mime_type => Optional[Str],
+        cover_art_suffix => Optional[Str]
     ]
 );
 
@@ -53,7 +55,9 @@ sub initialize {
         cover_art_comment => $cover_art->comment,
         cover_art_types => [
             grep defined, map { $type_map{$_}->id } @{ $cover_art->types }
-        ]
+        ],
+        cover_art_mime_type => $cover_art->mime_type,
+        cover_art_suffix => $cover_art->suffix
     });
 }
 
@@ -91,7 +95,9 @@ sub build_display_data {
         Artwork->new(
             release => $release,
             id => $self->data->{cover_art_id},
-            comment => $self->data->{cover_art_comment}
+            comment => $self->data->{cover_art_comment},
+            exists $self->data->{cover_art_mime_type} ? (mime_type => $self->data->{cover_art_mime_type}) : (),
+            exists $self->data->{cover_art_suffix} ? (suffix => $self->data->{cover_art_suffix}) : ()
         );
 
     $artwork->cover_art_types([

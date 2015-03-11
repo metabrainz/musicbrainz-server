@@ -227,6 +227,10 @@ ws_test 'recording lookup with release relationships',
                 <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
                     <title>An Inextricable Tale Audiobook</title>
                     <quality>normal</quality>
+                    <text-representation>
+                        <language>eng</language>
+                        <script>Latn</script>
+                    </text-representation>
                     <date>2007-11-08</date>
                     <country>US</country>
                     <release-event-list count="1">

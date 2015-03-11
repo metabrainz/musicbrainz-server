@@ -52,6 +52,7 @@ our @EXPORT_OK = qw(
     merge_string_attributes
     merge_boolean_attributes
     merge_partial_date
+    merge_date_period
     model_to_type
     object_to_ids
     order_by
@@ -559,6 +560,14 @@ sub merge_partial_date {
               AND $table.$year IS NULL",
                      $old_ids, $new_id)
     }, @_);
+}
+
+sub merge_date_period {
+    my @args = @_;
+
+    merge_partial_date(@args, field => $_)
+        for qw( begin_date end_date );
+    merge_boolean_attributes(@args, columns => ['ended']);
 }
 
 sub is_special_artist {

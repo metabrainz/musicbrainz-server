@@ -35,10 +35,7 @@ var dates = require('../../edit/utility/dates.js');
 
             this.linkTypeID = ko.observable(data.linkTypeID);
             this.linkTypeID.isDifferent = linkTypeComparer;
-
-            this.linkTypeID.subscribe(function (id) {
-                self.linkTypeIDChanged(id);
-            });
+            this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             this.period = {
                 beginDate: setPartialDate({}, data.beginDate || {}),
@@ -102,6 +99,10 @@ var dates = require('../../edit/utility/dates.js');
             if (!typeInfo) {
                 return;
             }
+
+            // This should really only change if the relationship was initially
+            // seeded without any link type.
+            this.entityTypes = typeInfo.type0 + '-' + typeInfo.type1;
 
             var typeAttributes = typeInfo.attributes,
                 attributes = this.attributes(), attribute;
@@ -180,8 +181,8 @@ var dates = require('../../edit/utility/dates.js');
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                request(args, this).done(function (data) {
-                    entity1.parseRelationships(data.relationships, this.parent);
+                request(args).done(function (data) {
+                    entity1.parseRelationships(data.relationships);
                 });
             }
 

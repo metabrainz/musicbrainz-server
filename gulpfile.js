@@ -112,6 +112,10 @@ function langToPosix(lang) {
 }
 
 function buildScripts(watch) {
+    if (process.env.UGLIFY) {
+        process.env.NODE_ENV = 'production';
+    }
+
     var promises = [];
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -151,27 +155,31 @@ function buildScripts(watch) {
             });
 
             b.require('jquery', { expose: 'jquery' });
-
             // Needed by knockout-* plugins in edit.js
-            b.require('knockout', { expose: 'knockout' });
-
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
             b.require('./root/static/scripts/common/utility/debounce.js', { expose: true });
             b.require('./root/static/scripts/common/utility/formatTrackLength.js', { expose: true });
             b.require('./root/static/scripts/common/utility/request.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
-            b.external('knockout');
+            b.transform('reactify', { es6: true });
+
+            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
             b.external('./root/static/scripts/common/utility/request.js');
 
             b.require('./root/static/scripts/edit/utility/dates.js', { expose: true });
             b.require('./root/static/scripts/edit/utility/deferFocus.js', { expose: true });
+            b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
             b.require('./root/static/scripts/edit/validation.js', { expose: true });
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch, function (b) {
+            b.transform('reactify', { es6: true });
+
             b.external('./root/static/scripts/common/utility/debounce.js');
             b.external('./root/static/scripts/common/utility/formatTrackLength.js');
             b.external('./root/static/scripts/common/utility/request.js');
+            b.external('./root/static/scripts/edit/externalLinks.js');
             b.external('./root/static/scripts/edit/validation.js');
             b.external('./root/static/scripts/edit/utility/dates.js');
             b.external('./root/static/scripts/edit/utility/deferFocus.js');
@@ -180,10 +188,6 @@ function buildScripts(watch) {
             b.external('jquery');
             b.external('./root/static/scripts/common/utility/debounce.js');
         }),
-
-        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
-            .pipe(gulp.dest("./root/static/build/")),
-
         createBundle('timeline.js')
     ]);
 }
@@ -194,6 +198,19 @@ gulp.task("styles", function () {
 
 gulp.task("scripts", function () {
     return buildScripts(false).done(writeManifest);
+});
+
+gulp.task("tests", function () {
+    process.env.NODE_ENV = 'development';
+
+    return bundleScripts(
+        runBrowserify('tests.js', false, function (b) {
+            b.transform('reactify', { es6: true });
+
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+        }),
+        'tests.js'
+    ).pipe(gulp.dest("./root/static/build/"));
 });
 
 gulp.task("watch", function () {

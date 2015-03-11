@@ -7,7 +7,7 @@ var type0, type1, linkTypeName, linkTypeID, jsRoot, formName;
 var searchUrl;
 
 // Private classes
-var RelationshipsSearcher, ViewModel;
+var RelationshipSearcher, ViewModel;
 
 ERE.init = function (config) {
     type0 = config.type0;

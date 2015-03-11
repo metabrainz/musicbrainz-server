@@ -142,46 +142,23 @@ sub _mapping
     );
 }
 
-sub allow_auto_edit
-{
-    my ($self) = @_;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
-    # Changing name or sortname is allowed if the change only affects
-    # small things like case etc.
-    my ($old_name, $new_name) = normalise_strings(
-        $self->data->{old}{name}, $self->data->{new}{name});
     my ($old_label_code, $new_label_code) = normalise_strings(
         $self->data->{old}{label_code}, $self->data->{new}{label_code});
-
-    return 0 if $old_name ne $new_name;
     return 0 if $self->data->{old}{label_code} &&
         $old_label_code ne $new_label_code;
 
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
-
     # Don't allow an autoedit if the area changed
     return 0 if defined $self->data->{old}{area_id};
-
-    # Adding a date is automatic if there was no date yet.
-    return 0 if exists $self->data->{old}{begin_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
-    return 0 if exists $self->data->{old}{end_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
-
-    return 0 if exists $self->data->{old}{type_id}
-        and $self->data->{old}{type_id} != 0;
-
-    return 0 if exists $self->data->{old}{ended}
-        and $self->data->{old}{ended} != $self->data->{new}{ended};
 
     return 0 if $self->data->{new}{ipi_codes};
 
     return 0 if $self->data->{new}{isni_codes};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub current_instance {
     my $self = shift;
@@ -192,7 +169,6 @@ sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
 }
-
 
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);

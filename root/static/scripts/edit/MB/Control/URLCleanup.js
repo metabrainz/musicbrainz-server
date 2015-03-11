@@ -19,8 +19,6 @@
 
 */
 
-var validation = require('../../validation.js');
-
 MB.constants.LINK_TYPES = {
     wikipedia: {
         area: "9228621d-9720-35c3-ad3f-327d789464ec",
@@ -45,11 +43,11 @@ MB.constants.LINK_TYPES = {
         artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
         label: "dfd36bc7-0c06-49fa-8b79-96978778c716",
         place: "815bc5ca-c2fb-4dc6-a89b-9150888b0d4d",
-        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af"
-    },
-    imdbsamples: {
+        // recording and release are the "samples from" version of the IMDb rel
+        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2",
         release: "7387c5a2-9abe-4515-b667-9eb5ed4dd4ce",
-        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2"
+        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af",
+        work: "e5c75559-4dda-452e-a900-ae375935164c"
     },
     myspace: {
         artist: "bac47923-ecde-4b59-822e-d08f0cd10156",
@@ -233,6 +231,7 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
+            var m;
             if ((m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/)) != null)
                 url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
             return url;
@@ -246,6 +245,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]*$/, "$1/$2"); // URLs containing Discogs IDs
+            var m;
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
@@ -261,13 +261,6 @@ MB.constants.CLEANUPS = {
     imdb: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
         type: MB.constants.LINK_TYPES.imdb,
-        clean: function (url) {
-            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
-        }
-    },
-    imdbsamples: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
-        type: MB.constants.LINK_TYPES.imdbsamples,
         clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
@@ -305,7 +298,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i") ],
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br)|amzn\\.com)","i") ],
         type: MB.constants.LINK_TYPES.amazon,
         clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
@@ -315,6 +308,7 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
+            var m;
             if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
                 if (tld == "jp") tld = "co.jp";
@@ -354,6 +348,7 @@ MB.constants.CLEANUPS = {
     cdbaby: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i") ],
         clean: function (url) {
+            var m;
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
             url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
@@ -459,6 +454,14 @@ MB.constants.CLEANUPS = {
         ],
         type: MB.constants.LINK_TYPES.discographyentry
     },
+    cdjapan: {
+        match: [ new RegExp("^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(product|person)/", "i") ],
+        type: MB.constants.LINK_TYPES.mailorder,
+        clean: function (url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, "http://www.cdjapan.co.jp/$1/$2");
+            return url;
+        }
+    },
     ozonru: {
         match: [ new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i") ],
         type: MB.constants.LINK_TYPES.mailorder
@@ -496,7 +499,8 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")
+            new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i")
         ],
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function (url) {
@@ -519,6 +523,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+            url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://weibo.com/$1");
             return url;
         }
     },
@@ -643,6 +648,7 @@ MB.constants.CLEANUPS = {
     },
     otherdatabases: {
         match: [
+            new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|composer|work)/", "i"),
             new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
             new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
             new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
@@ -694,6 +700,8 @@ MB.constants.CLEANUPS = {
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
+            // Standardising ClassicalArchives.com
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|composer|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
             //Removing cruft from Worldcat URLs
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
             //Standardising IBDb not to use www
@@ -736,19 +744,8 @@ function test_all(tests, text) {
     }
 }
 
-MB.Control.URLCleanup = function (options) {
-    options = options || {};
-
+MB.Control.URLCleanup = (function () {
     var self = {};
-
-    self.typeInfoByID = options.typeInfoByID || {};
-    self.typeControl = $(options.typeControl);
-    self.urlControl = $(options.urlControl);
-    self.sourceType = options.sourceType;
-
-    if (options.errorCallback) {
-        validation.errorField(options.errorCallback);
-    }
 
     var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -886,7 +883,7 @@ MB.Control.URLCleanup = function (options) {
 
     // allow only Amazon pages with the Amazon rel
     validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function (url) {
-        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
+        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br)\//) != null;
     }
 
     // allow only IMDb pages with the IMDb rels
@@ -899,10 +896,10 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function (url) {
         return url.match(/imdb\.com\/title/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.recording ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.release ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
 
@@ -1026,7 +1023,7 @@ MB.Control.URLCleanup = function (options) {
         return cleanup && cleanup.type[sourceType];
     };
 
-    self.cleanUrl = function (sourceType, dirtyURL) {
+    self.cleanUrl = function (dirtyURL) {
         dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
@@ -1036,32 +1033,28 @@ MB.Control.URLCleanup = function (options) {
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    var urlChanged = function (event) {
-        var url = self.urlControl.val(),
-            clean = self.cleanUrl(self.sourceType, url) || url;
+    return self;
+}());
+
+MB.Control.URLCleanup.registerEvents = function ($url) {
+    function urlChanged(event) {
+        var url = $url.val();
+        var clean = MB.Control.URLCleanup.cleanUrl(url) || url;
 
         if (url.match(/^\w+\./)) {
-            self.urlControl.val('http://' + url);
+            $url.val('http://' + url);
             return;
         }
 
         // Allow adding spaces while typing; they'll be trimmed later onblur.
         if (_.str.trim(url) !== clean) {
-            self.urlControl.val(clean);
+            $url.val(clean);
         }
-    };
-
-    function trimInputValue() {
-        this.value = _.str.trim(this.value);
     }
 
-    self.toggleEvents = function (prop) {
-        self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
-        self.urlControl[prop]("blur", trimInputValue);
-        self.urlControl.parents('form')[prop]("submit", urlChanged);
-    };
-
-    self.toggleEvents("on");
-
-    return self;
+    $url.on('input', urlChanged)
+        .on('blur', function () { this.value = _.str.trim(this.value) })
+        .parents('form').on('submit', urlChanged);
 };
+
+module.exports = MB.Control.URLCleanup;

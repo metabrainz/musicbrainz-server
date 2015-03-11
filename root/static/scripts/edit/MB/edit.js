@@ -81,6 +81,28 @@ var request = require('../../common/utility/request.js');
             return { names: names };
         },
 
+        externalLinkRelationship: function (link, source) {
+            var editData = {
+                id: number(link.relationship),
+                linkTypeID: number(link.type),
+                attributes: [],
+                entities: [
+                    this.relationshipEntity(source),
+                    { entityType: 'url', name: string(link.url) }
+                ]
+            };
+
+            if (source.entityType > 'url') {
+                editData.entities.reverse();
+            }
+
+            if (link.video) {
+                editData.attributes = [{ type: { gid: MB.constants.VIDEO_ATTRIBUTE_GID } }];
+            }
+
+            return editData;
+        },
+
         medium: function (medium) {
             return {
                 name:       nullableString(medium.name),

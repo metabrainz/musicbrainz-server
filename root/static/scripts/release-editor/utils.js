@@ -13,7 +13,6 @@ var request = require('../common/utility/request.js');
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils = {};
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
 
 
     utils.mapChild = function (parent, children, type) {
@@ -32,7 +31,7 @@ var request = require('../common/utility/request.js');
 
 
     utils.withRelease = function (read, defaultValue) {
-        return utils.computedWith(read, releaseField, defaultValue);
+        return MB.utility.computedWith(read, releaseEditor.rootField.release, defaultValue);
     };
 
 

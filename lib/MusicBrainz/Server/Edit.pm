@@ -199,24 +199,22 @@ sub determine_quality
     return $QUALITY_NORMAL;
 }
 
-sub can_approve
-{
-    my ($self, $privs) = @_;
+sub editor_may_approve {
+    my ($self, $editor) = @_;
 
     my $conditions = $self->edit_conditions;
     return
          $self->is_open
       && $conditions->{auto_edit}
-      && ($privs->privileges & $AUTO_EDITOR_FLAG);
+      && ($editor->privileges & $AUTO_EDITOR_FLAG);
 }
 
-sub can_cancel
-{
-    my ($self, $user) = @_;
+sub editor_may_cancel {
+    my ($self, $editor) = @_;
 
     return
          $self->is_open
-      && $self->editor_id == $user->id;
+      && $self->editor_id == $editor->id;
 }
 
 sub was_approved

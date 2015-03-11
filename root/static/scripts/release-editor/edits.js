@@ -9,14 +9,9 @@ var debounce = require('../common/utility/debounce.js');
 
     var utils = releaseEditor.utils;
     var validation = require('../edit/validation.js');
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
 
 
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
-
-    var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums());
-    }, []);
 
     var newReleaseLabels = utils.withRelease(function (release) {
         return _.filter(release.labels(), function (releaseLabel) {
@@ -142,10 +137,12 @@ var debounce = require('../common/utility/debounce.js');
             var oldPositions = _.map(release.mediums.original(), function (m) {
                 return m.original().position;
             });
-            var newPositions = newMediums().invoke("position").value();
+
+            var newMediums = release.mediums();
+            var newPositions = _.invoke(release.mediums(), "position");
             var tmpPositions = [];
 
-            newMediums().each(function (medium) {
+            _.each(newMediums, function (medium) {
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original();
 
@@ -217,7 +214,8 @@ var debounce = require('../common/utility/debounce.js');
                                 // position we want. Avoid this *unless* we're
                                 // swapping with that medium.
 
-                                var possibleSwap = newMediums().find(
+                                var possibleSwap = _.find(
+                                    newMediums,
                                     function (other) {
                                         return other.position() === attempt;
                                     }
@@ -266,7 +264,7 @@ var debounce = require('../common/utility/debounce.js');
                 }
             });
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var newPosition = medium.position();
 
                 var oldPosition = medium.tmpPosition || (
@@ -308,7 +306,7 @@ var debounce = require('../common/utility/debounce.js');
         discID: function (release) {
             var edits = [];
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var toc = medium.toc();
 
                 if (toc && medium.canHaveDiscID()) {
@@ -329,25 +327,28 @@ var debounce = require('../common/utility/debounce.js');
         externalLinks: function (release) {
             var edits = [];
 
-            _(release.externalLinks.links()).each(function (link) {
-                if (!link.linkTypeID() || !link.url() || link.error()) {
+            if (releaseEditor.hasInvalidLinks()) {
+                return edits;
+            }
+
+            var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+
+            _(allLinks).each(function (link) {
+                if (!link.type || !link.url) {
                     return;
                 }
 
-                var editData = link.editData();
+                var editData = MB.edit.fields.externalLinkRelationship(link, release);
 
-                if (link.removed()) {
+                if (!newLinks[link.relationship]) {
                     edits.push(MB.edit.relationshipDelete(editData));
-                }
-                else if (link.id) {
-                    // Update the release name in case it changed.
-                    link.original.entities[0].name = editData.entities[0].name;
+                } else if (oldLinks[link.relationship]) {
+                    var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(editData, link.original)) {
-                        edits.push(MB.edit.relationshipEdit(editData, link.original));
+                    if (!_.isEqual(editData, original)) {
+                        edits.push(MB.edit.relationshipEdit(editData, original));
                     }
-                }
-                else {
+                } else {
                     edits.push(MB.edit.relationshipCreate(editData));
                 }
             });
@@ -562,7 +563,9 @@ var debounce = require('../common/utility/debounce.js');
                 var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
-                newMediums().reject("id").each(function (medium) {
+                var newMediums = release.mediums();
+
+                _(newMediums).reject("id").each(function (medium) {
                     var addedData = added[medium.tmpPosition || medium.position()];
 
                     if (addedData) {
@@ -580,8 +583,7 @@ var debounce = require('../common/utility/debounce.js');
                 });
 
                 release.mediums.original(release.existingMediumData());
-
-                newMediums.notifySubscribers(newMediums());
+                release.mediums.notifySubscribers(newMediums);
             }
         },
         {
@@ -591,7 +593,7 @@ var debounce = require('../common/utility/debounce.js');
             edits: releaseEditor.edits.discID,
 
             callback: function (release) {
-                newMediums().invoke("toc", null);
+                _.invoke(release.mediums(), "toc", null);
             }
         },
         {
@@ -613,7 +615,7 @@ var debounce = require('../common/utility/debounce.js');
         }
 
         releaseEditor.submissionInProgress(true);
-        var release = releaseField();
+        var release = releaseEditor.rootField.release();
 
         chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
     };

@@ -8,7 +8,7 @@
       <th class="year c">[% l('Year') %]</th>
       <th>[% l('Title') %]</th>
       [% IF show_artists %]
-      <th>[% l('Artist') %]</th>
+      <th class="artist">[% l('Artist') %]</th>
       [% END %]
       [% IF no_grouping %]
       <th>[% l('Type') %]</th>
@@ -22,7 +22,7 @@
 [% END %]
 
 [% IF no_grouping %]
-<table class="tbl">
+<table class="tbl release-group-list">
   [% rg_list_thead %]
   <tbody>
 [% END %]
@@ -35,7 +35,7 @@
         </table>
         [% END %]
         <h3>[% rg.l_type_name || l('Unspecified type') %]</h3>
-        <table class="tbl">
+        <table class="tbl release-group-list">
             [% rg_list_thead %]
             <tbody>
         [% last_rg_type = rgtype %]

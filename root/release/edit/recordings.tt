@@ -180,7 +180,7 @@
             <td></td>
             <td colspan="3" class="appears-on">
               [%- l('appears on:') %]
-              <span class="appears" data-bind="html: _.invoke(appearsOn.results, 'html').join(', ')"></span>
+              <span class="appears" data-bind="html: _.invoke(appearsOn.results, 'html', { target: '_blank' }).join(', ')"></span>
             </td>
           </tr>
           <!-- /ko -->

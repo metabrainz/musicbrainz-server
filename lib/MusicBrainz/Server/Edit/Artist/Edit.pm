@@ -13,7 +13,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
 
@@ -153,32 +152,8 @@ sub _mapping
     );
 }
 
-sub allow_auto_edit
-{
-    my ($self) = @_;
-
-    # Changing name or sortname is allowed if the change only affects
-    # small things like case etc.
-    my ($old_name, $new_name) = normalise_strings(
-        $self->data->{old}{name}, $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_sort_name, $new_sort_name) = normalise_strings(
-        $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
-    return 0 if $old_sort_name ne $new_sort_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
-
-    # Adding a date is automatic if there was no date yet.
-    return 0 if exists $self->data->{old}{begin_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
-    return 0 if exists $self->data->{old}{end_date}
-        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
-
-    return 0 if exists $self->data->{old}{type_id}
-        and defined($self->data->{old}{type_id}) && $self->data->{old}{type_id} != 0;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if exists $self->data->{old}{gender_id}
         and defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
@@ -192,15 +167,12 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{end_area_id}
         and defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
 
-    return 0 if exists $self->data->{old}{ended}
-        and $self->data->{old}{ended} != $self->data->{new}{ended};
-
     return 0 if $self->data->{new}{ipi_codes};
 
     return 0 if $self->data->{new}{isni_codes};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub current_instance {
     my $self = shift;

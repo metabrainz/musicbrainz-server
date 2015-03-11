@@ -14,6 +14,9 @@ $date = Date->new();
 ok( $date->is_empty );
 is( $date->format, "" );
 
+$date->year(0);
+ok( not $date->is_empty );
+
 $date->year(2009);
 ok( not $date->is_empty );
 is( $date->year, 2009 );

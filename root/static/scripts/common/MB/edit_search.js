@@ -1,6 +1,6 @@
 $(function () {
 
-    cardinalityMap = {
+    var cardinalityMap = {
         'id': {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
         },
