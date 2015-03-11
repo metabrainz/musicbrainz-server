@@ -384,7 +384,7 @@ MB.createExternalLinksEditor = function (options) {
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
-  var errorObservable = validation.errorField(ko.observable(false));
+  var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
   return React.render(
     <ExternalLinksEditor
