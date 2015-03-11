@@ -31,7 +31,7 @@ var request = require('../common/utility/request.js');
 
 
     utils.withRelease = function (read, defaultValue) {
-        return MB.utility.computedWith(read, releaseEditor.rootField.release, defaultValue);
+        return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
     };
 
 
