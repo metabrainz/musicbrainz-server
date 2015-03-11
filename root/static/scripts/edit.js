@@ -1,6 +1,3 @@
-var filesize = require("filesize");
-window.filesize = filesize;
-
 var sha1 = require("../lib/sha1/sha1.js");
 window.hex_sha1 = sha1.hex_sha1;
 window.rstr_sha1 = sha1.rstr_sha1;

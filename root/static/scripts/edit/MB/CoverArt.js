@@ -18,6 +18,8 @@
 
 */
 
+var filesize = require('filesize');
+
 MB.CoverArt = {};
 
 MB.CoverArt.get_image_mime_type = function () {
