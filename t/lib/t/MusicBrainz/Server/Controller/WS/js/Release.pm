@@ -9,14 +9,13 @@ use Test::JSON import => [ 'is_valid_json' ];
 with 't::Mechanize', 't::Context';
 
 test all => sub {
-
     my $test = shift;
     my $c = $test->c;
     my $json = JSON::Any->new( utf8 => 1 );
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
-    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+    my $mech = $test->mech;
     $mech->default_header("Accept" => "application/json");
 
     my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels+media';
