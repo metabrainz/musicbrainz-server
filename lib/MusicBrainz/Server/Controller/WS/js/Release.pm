@@ -76,6 +76,7 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('ArtistCredit')->load($release, $release->release_group);
     $c->model('ReleasePackaging')->load($release);

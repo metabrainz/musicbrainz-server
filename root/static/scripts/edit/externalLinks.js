@@ -6,15 +6,15 @@
 var Immutable = require('immutable');
 var React = require('react');
 var PropTypes = React.PropTypes;
+var validation = require('./validation.js');
 var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
+var i18n = require('../common/i18n.js');
 var URLCleanup = require('./MB/Control/URLCleanup.js');
 
 require('react/addons');
 
-var validation = require('./validation.js');
-
-var l = MB.i18n.l;
+var l = i18n.l;
 
 var LinkState = Immutable.Record({
   url: '',
@@ -115,7 +115,7 @@ var ExternalLinksEditor = React.createClass({
 
       var prefix = startingPrefix + '.' + (startingIndex + (index++));
 
-      if (/^[0-9]+$/.test(relationship)) {
+      if (isInteger(relationship)) {
         pushInput(prefix, 'relationship_id', relationship);
 
         if (!newLinks[relationship]) {
@@ -161,7 +161,7 @@ var ExternalLinksEditor = React.createClass({
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !this.id) {
+            } else if (typeInfo.deprecated && !isInteger(link.relationship)) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -293,6 +293,10 @@ var ExternalLink = React.createClass({
   }
 });
 
+function isInteger(value) {
+  return /^[0-9]+$/.test(value);
+}
+
 function linkTypeAndUrlString(link) {
   return link.type + '\0' + link.url;
 }
@@ -395,12 +399,12 @@ MB.createExternalLinksEditor = function (options) {
     var typeA = MB.typeInfoByID[a.type];
     var typeB = MB.typeInfoByID[b.type];
 
-    return MB.i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
-                           typeB ? typeB.phrase.toLowerCase() : '');
+    return i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
+                        typeB ? typeB.phrase.toLowerCase() : '');
   });
 
   initialLinks = initialLinks.map(function (link) {
-    var newData = {url: URLCleanup.cleanUrl(link.url)};
+    var newData = {url: URLCleanup.cleanUrl(link.url) || link.url};
     if (!_.isNumber(link.relationship)) {
       newData.relationship = _.uniqueId('new-');
     }
@@ -412,7 +416,7 @@ MB.createExternalLinksEditor = function (options) {
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
-  var errorObservable = validation.errorField(ko.observable(false));
+  var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
   return React.render(
     <ExternalLinksEditor

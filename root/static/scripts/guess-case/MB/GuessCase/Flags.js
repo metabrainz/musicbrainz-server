@@ -19,6 +19,8 @@
 
 */
 
+var utils = require('../../utils.js');
+
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 /**
@@ -101,7 +103,7 @@ MB.GuessCase.Flags = function () {
     self.getCurrentCloseBracket = function () {
         var ob;
         if ((ob = self.getOpenedBracket()) != null) {
-            return gc.u.getCorrespondingBracket(ob);
+            return utils.getCorrespondingBracket(ob);
         }
         return null;
     };

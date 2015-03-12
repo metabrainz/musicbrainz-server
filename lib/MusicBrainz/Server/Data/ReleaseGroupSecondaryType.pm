@@ -35,11 +35,19 @@ sub load_for_release_groups {
             \@ids
         )
     };
+
+    my $types_by_rg = {};
     for my $type (@rows) {
-        for my $rg (@{ $rg_by_id{ $type->{release_group} } }) {
-            $rg->add_secondary_type(
-                MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($type)
-              );
+        push @{ $types_by_rg->{$type->{release_group}} }, $type;
+    }
+
+    for my $rgs (values %rg_by_id) {
+        for my $rg (@$rgs) {
+            $rg->secondary_types([
+                map {
+                    MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($_)
+                } @{ $types_by_rg->{$rg->id} }
+            ]);
         }
     }
 }

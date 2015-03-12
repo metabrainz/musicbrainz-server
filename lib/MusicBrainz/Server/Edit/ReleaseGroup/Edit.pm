@@ -153,7 +153,9 @@ around initialize => sub
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
 
-    $opts{type_id} = delete $opts{primary_type_id};
+    $self->c->model('ReleaseGroupType')->load($release_group);
+
+    $opts{type_id} = delete $opts{primary_type_id} if exists $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [
         grep { looks_like_number($_) } @{ $opts{secondary_type_ids} }

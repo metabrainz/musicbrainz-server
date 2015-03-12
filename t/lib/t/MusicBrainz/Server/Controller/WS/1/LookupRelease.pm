@@ -314,7 +314,7 @@ ws_test 'release with track-relationships',
     '/release/4ccb3e54-caab-4ad4-94a6-a598e0e52eec?type=xml&inc=track-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
-<release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
+<release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Album Official">
  <title>An Inextricable Tale Audiobook</title>
  <text-representation script="Latn" language="ENG" />
  <asin>B000XULO2A</asin>

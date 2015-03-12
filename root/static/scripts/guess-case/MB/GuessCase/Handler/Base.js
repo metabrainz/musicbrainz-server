@@ -19,6 +19,8 @@
 
 */
 
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -507,7 +509,7 @@ MB.GuessCase.Handler.Base = function () {
             for (var i = pos; i < gc.i.getLength(); i++) {
                 var w = (gc.i.getWordAtIndex(i) || "");
                 if (w != " ") {
-                    if ((gc.u.isLowerCaseBracketWord(w)) ||
+                    if ((utils.isLowerCaseBracketWord(w)) ||
                         (w.match(/^featuring$|^ft$|^feat$/i) != null)) {
                         gc.f.slurpExtraTitleInformation = true;
 
@@ -895,7 +897,7 @@ MB.GuessCase.Handler.Base = function () {
         // by a digit or a roman number
         if (w.match(gc.re.SERIES_NUMBER)) {
             // if no other punctuation char present
-            if (gc.i.getPos() >= 1 && !gc.u.isPunctuationChar(gc.o.getLastWord())) {
+            if (gc.i.getPos() >= 1 && !utils.isPunctuationChar(gc.o.getLastWord())) {
                 // check if there was a hypen (+whitespace) before,and drop it.
                 var droppedwords = false;
                 while (gc.o.getLength() > 0 && (gc.o.getLastWord() || "").match(/ |-/i)) {
@@ -1059,14 +1061,14 @@ MB.GuessCase.Handler.Base = function () {
     };
 
     self.moveArticleToEnd = function (is) {
-        return gc.u.trim(is).replace(
+        return utils.trim(is).replace(
             /^(The|Los) (.+)$/,
             function (match, article, name) { return name + ", " + article }
         );
     };
 
     self.sortCompoundName = function (is, callback) {
-        is = gc.u.trim(is);
+        is = utils.trim(is);
 
         var joinPhrase = " and ";
         joinPhrase = (is.indexOf(" + ") != -1 ? " + " : joinPhrase);

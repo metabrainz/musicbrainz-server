@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (releaseEditor) {
 
     var validation = releaseEditor.validation = releaseEditor.validation || {};
@@ -119,40 +121,40 @@
             return;
         }
 
-        var checkDigitText = MB.i18n.l("The check digit is {checkdigit}.");
-        var doubleCheckText = MB.i18n.l("Please double-check the barcode on the release.");
+        var checkDigitText = i18n.l("The check digit is {checkdigit}.");
+        var doubleCheckText = i18n.l("Please double-check the barcode on the release.");
 
         if (barcode.length === 11) {
             field.error(
-                MB.i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
+                i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
                 " " +
-                MB.i18n.expand(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
+                i18n.expand(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
             );
         } else if (barcode.length === 12) {
             if (field.validateCheckDigit("0" + barcode)) {
-                field.message(MB.i18n.l("The barcode you entered is a valid UPC code."));
+                field.message(i18n.l("The barcode you entered is a valid UPC code."));
             } else {
                 field.error(
-                    MB.i18n.l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
+                    i18n.l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
                     " " +
                     doubleCheckText +
                     " " +
-                    MB.i18n.expand(checkDigitText, { checkdigit: field.checkDigit(barcode) })
+                    i18n.expand(checkDigitText, { checkdigit: field.checkDigit(barcode) })
                 );
             }
         } else if (barcode.length === 13) {
             if (field.validateCheckDigit(barcode)) {
-                field.message(MB.i18n.l("The barcode you entered is a valid EAN code."));
+                field.message(i18n.l("The barcode you entered is a valid EAN code."));
             } else {
                 field.error(
-                    MB.i18n.l("The barcode you entered is not a valid EAN code.") +
+                    i18n.l("The barcode you entered is not a valid EAN code.") +
                     " " +
                     doubleCheckText
                 );
             }
         } else {
             field.error(
-                MB.i18n.l("The barcode you entered is not a valid UPC or EAN code.") +
+                i18n.l("The barcode you entered is not a valid UPC or EAN code.") +
                 " " +
                 doubleCheckText
             );

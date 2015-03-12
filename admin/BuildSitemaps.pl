@@ -7,7 +7,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::Data::Relationship;
 use DBDefs;
 use Sql;
@@ -261,6 +261,21 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, work))
          ON COMMIT DELETE ROWS");
+
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
+             (instrument INTEGER,
+              recording  INTEGER,
+
+              PRIMARY KEY (instrument, recording))
+          ON COMMIT DELETE ROWS");
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
+             (instrument INTEGER,
+              release  INTEGER,
+
+              PRIMARY KEY (instrument, release))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -323,17 +338,41 @@ sub fill_temporary_tables {
                     FROM tmp_sitemaps_artist_recordings tsar
                     JOIN l_recording_work ON tsar.recording = l_recording_work.entity0");
     $sql->do("ANALYZE tmp_sitemaps_artist_works");
+
+    # Instruments linked to recordings via artist-recording relationship
+    # attributes. Matches Data::Recording, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_recordings (instrument, recording)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_recording.entity1 AS recording
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
+
+    # Instruments linked to releases via artist-release relationship
+    # attributes. Matches Data::Release, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_releases (instrument, release)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_release.entity1 AS release
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_release ON l_artist_release.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
 }
 
 sub drop_temporary_tables {
     my ($sql) = @_;
     $sql->begin;
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_recordings");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_works");
+    for my $table (qw( artist_direct_rgs
+                       artist_va_rgs
+                       artist_direct_releases
+                       artist_va_releases
+                       artist_recordings
+                       artist_works
+                       instrument_recordings
+                       instrument_releases )) {
+        $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_$table");
+    }
     $sql->commit;
 }
 
@@ -481,11 +520,36 @@ sub build_suffix_info {
         };
     }
 
+    if ($entity_type eq 'instrument') {
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => $priority_by_count->('recording_count')
+        };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count"},
+            paginated => "release_count",
+            suffix => 'releases',
+            priority => $priority_by_count->('release_count')
+        };
+    }
+
     if ($entity_type eq 'label') {
         $suffix_info->{base}{extra_sql} = {
             columns => "(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count"
         };
         $suffix_info->{base}{paginated} = "release_count";
+    }
+
+    if ($entity_type eq 'place') {
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_event_place directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
     }
 
     if ($entity_type eq 'release') {
@@ -499,6 +563,32 @@ sub build_suffix_info {
             extra_sql => {join => 'release_meta ON release.id = release_meta.id',
                           columns => 'cover_art_presence'}
         };
+
+        $suffix_info->{'disc'} = {
+            extra_sql => {columns => "(SELECT count(DISTINCT id) FROM medium WHERE medium.release = release.id) AS medium_count"},
+            filename_suffix => 'disc',
+            url_constructor => sub {
+                my ($ids, $create_opts, $entity_url, %opts) = @_;
+                my @paginated_urls;
+                for my $id_info (@$ids) {
+                    if ($id_info->{medium_count} > $MAX_INITIAL_MEDIUMS) {
+                        my $id = $id_info->{main_id};
+                        my $url_base = $web_server . '/' . $entity_url . '/' . $id;
+                        for (my $i = 1; $i < $id_info->{medium_count} + 1; $i++) {
+                            push(@paginated_urls, $create_opts->("$url_base/disc/$i", $id_info));
+                        }
+                    }
+                }
+                return {base => [], paginated => \@paginated_urls}
+            }
+        }
+    }
+
+    if ($entity_type eq 'release_group') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count"
+        };
+        $suffix_info->{base}{paginated} = "release_count";
     }
 
     if ($entity_properties->{aliases}) {
@@ -592,14 +682,11 @@ sub build_one_suffix {
     my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $base_filename = "sitemap-$entity_type-$minimum_batch_number";
-    if ($opts{suffix}) {
+    if ($opts{suffix} || $opts{filename_suffix}) {
         my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
         $base_filename .= "-$filename_suffix";
     }
     my $ext = $fCompress ? '.xml.gz' : '.xml';
-
-    my @base_urls;
-    my @paginated_urls;
 
     my $create_opts = sub {
         my ($url, $id_info) = @_;
@@ -612,32 +699,45 @@ sub build_one_suffix {
         return \%add_opts;
     };
 
-    for my $id_info (@$ids) {
-        my $id = $id_info->{main_id};
-        my $url = $web_server . '/' . $entity_url . '/' . $id;
-        if ($opts{suffix}) {
-            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
-            $url .= "$suffix_delimiter$opts{suffix}";
-        }
-        push(@base_urls, $create_opts->($url, $id_info));
+    my $construct_url_lists = sub {
+        my ($ids, $create_opts, $entity_url, %opts) = @_;
+        my @base_urls;
+        my @paginated_urls;
 
-        if ($opts{paginated}) {
-            # 50 items per page, and the first page is covered by the base.
-            my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
+        for my $id_info (@$ids) {
+            my $id = $id_info->{main_id};
+            my $url = $web_server . '/' . $entity_url . '/' . $id;
+            if ($opts{suffix}) {
+                my $suffix_delimiter = $opts{suffix_delimiter} // '/';
+                $url .= "$suffix_delimiter$opts{suffix}";
+            }
+            push(@base_urls, $create_opts->($url, $id_info));
 
-            # Since we exclude page 1 above, this is for anything above 0.
-            if ($paginated_count > 0) {
-	        # Start from page 2, and add one to the count for the last page
-	        # (since the count was one less due to the exclusion of the first
-	        # page)
-                my $use_amp = $url =~ m/\?/;
-                my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+            if ($opts{paginated}) {
+                # 50 items per page, and the first page is covered by the base.
+                my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
 
-                # Expand these all to full specifications for build_one_sitemap.
-                push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                # Since we exclude page 1 above, this is for anything above 0.
+                if ($paginated_count > 0) {
+                    # Start from page 2, and add one to the count for the last page
+                    # (since the count was one less due to the exclusion of the first
+                    # page)
+                    my $use_amp = $url =~ m/\?/;
+                    my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+
+                    # Expand these all to full specifications for build_one_sitemap.
+                    push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                }
             }
         }
-    }
+
+        return {base => \@base_urls, paginated => \@paginated_urls}
+    };
+
+    my $url_constructor = $opts{url_constructor} // $construct_url_lists;
+    my $urls = $url_constructor->($ids, $create_opts, $entity_url, %opts);
+    my @base_urls = @{ $urls->{base} };
+    my @paginated_urls = @{ $urls->{paginated} };
 
     # If we can fit all the paginated stuff into the main sitemap file, why not do it?
     if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
@@ -647,7 +747,9 @@ sub build_one_suffix {
     }
 
     my $filename = $base_filename . $ext;
-    build_one_sitemap($filename, $index, @base_urls);
+    if (@base_urls) {
+        build_one_sitemap($filename, $index, @base_urls);
+    }
 
     if (@paginated_urls) {
         my $iter = natatime $MAX_SITEMAP_SIZE, @paginated_urls;
@@ -659,6 +761,13 @@ sub build_one_suffix {
         }
     }
 }
+
+=head2 build_one_sitemap
+
+Called by C<build_one_suffix> to build an individual sitemap given a filename,
+the sitemap index object, and the list of URLs with appropriate options.
+
+=cut
 
 sub build_one_sitemap {
     my ($filename, $index, @urls) = @_;

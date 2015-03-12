@@ -157,6 +157,7 @@ function buildScripts(watch) {
             b.require('jquery', { expose: 'jquery' });
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            b.require('./root/static/scripts/common/i18n.js', { expose: true });
             b.require('./root/static/scripts/common/utility/debounce.js', { expose: true });
             b.require('./root/static/scripts/common/utility/formatTrackLength.js', { expose: true });
             b.require('./root/static/scripts/common/utility/request.js', { expose: true });
@@ -165,17 +166,21 @@ function buildScripts(watch) {
             b.transform('reactify', { es6: true });
 
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('./root/static/scripts/common/i18n.js');
             b.external('./root/static/scripts/common/utility/request.js');
 
             b.require('./root/static/scripts/edit/utility/dates.js', { expose: true });
             b.require('./root/static/scripts/edit/utility/deferFocus.js', { expose: true });
             b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
-            b.require('./root/static/scripts/edit/validation.js', { expose: true });
+            b.require('./root/static/scripts/edit/validation.js', { expose: true });     
         }),
-        createBundle("guess-case.js", watch),
+        createBundle("guess-case.js", watch, function (b) {
+            b.external('./root/static/scripts/common/i18n.js');
+        }),
         createBundle("release-editor.js", watch, function (b) {
             b.transform('reactify', { es6: true });
 
+            b.external('./root/static/scripts/common/i18n.js');
             b.external('./root/static/scripts/common/utility/debounce.js');
             b.external('./root/static/scripts/common/utility/formatTrackLength.js');
             b.external('./root/static/scripts/common/utility/request.js');

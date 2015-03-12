@@ -10,7 +10,7 @@
           <table>
             <tr>
               <td colspan="2" style="padding: 0">
-                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name" />
+                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
                 <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
                 <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
               </td>

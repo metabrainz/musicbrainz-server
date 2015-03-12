@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../../common/i18n.js');
 var dates = require('../../edit/utility/dates.js');
 
 (function (RE) {
@@ -11,10 +12,10 @@ var dates = require('../../edit/utility/dates.js');
     var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
-        recording:      MB.i18n.l("The series you’ve selected is for recordings."),
-        release:        MB.i18n.l("The series you’ve selected is for releases."),
-        release_group:  MB.i18n.l("The series you’ve selected is for release groups."),
-        work:           MB.i18n.l("The series you’ve selected is for works.")
+        recording:      i18n.l("The series you’ve selected is for recordings."),
+        release:        i18n.l("The series you’ve selected is for releases."),
+        release_group:  i18n.l("The series you’ve selected is for release groups."),
+        work:           i18n.l("The series you’ve selected is for works.")
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -296,7 +297,7 @@ var dates = require('../../edit/utility/dates.js');
             var description;
 
             if (typeInfo) {
-                description = MB.i18n.l("{description} ({url|more documentation})", {
+                description = i18n.l("{description} ({url|more documentation})", {
                     description: typeInfo.description,
                     url: { href: "/relationship/" + typeInfo.gid, target: "_blank" }
                 });
@@ -349,11 +350,11 @@ var dates = require('../../edit/utility/dates.js');
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: MB.i18n.strings.entityName[type] };
+                return { value: type, text: i18n.strings.entityName[type] };
             });
 
             options.sort(function (a, b) {
-                return MB.i18n.compare(a.text, b.text);
+                return i18n.compare(a.text, b.text);
             });
 
             return options;
@@ -406,16 +407,16 @@ var dates = require('../../edit/utility/dates.js');
             var typeInfo = this.relationship().linkTypeInfo();
 
             if (!typeInfo) {
-                return MB.i18n.l("Please select a relationship type.");
+                return i18n.l("Please select a relationship type.");
             } else if (!typeInfo.description) {
-                return MB.i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
             } else if (typeInfo.deprecated) {
-                return MB.i18n.l("This relationship type is deprecated and should not be used.");
+                return i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
                 var checker = MB.Control.URLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
-                    return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                    return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
                 }
             }
 
@@ -428,9 +429,9 @@ var dates = require('../../edit/utility/dates.js');
             var typeInfo = relationship.linkTypeInfo() || {};
 
             if (!target.gid) {
-                return MB.i18n.l("Required field.");
+                return i18n.l("Required field.");
             } else if (this.source === target) {
-                return MB.i18n.l("Entities in a relationship cannot be the same.");
+                return i18n.l("Entities in a relationship cannot be the same.");
             }
 
             if (target.entityType === "series" &&
@@ -444,7 +445,7 @@ var dates = require('../../edit/utility/dates.js');
 
         dateError: function (date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
-            return valid ? "" : MB.i18n.l("The date you've entered is not valid.");
+            return valid ? "" : i18n.l("The date you've entered is not valid.");
         },
 
         datePeriodError: function () {
@@ -455,7 +456,7 @@ var dates = require('../../edit/utility/dates.js');
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return MB.i18n.l("The end date cannot preceed the begin date.");
+                    return i18n.l("The end date cannot preceed the begin date.");
                 }
             }
 

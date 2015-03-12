@@ -281,6 +281,19 @@ var request = require('../../common/utility/request.js');
     }
 
 
+    function removeEqual(newData, oldData, required) {
+        _(newData)
+            .keys()
+            .intersection(_.keys(oldData))
+            .difference(required)
+            .each(function (key) {
+                if (_.isEqual(newData[key], oldData[key])) {
+                    delete newData[key];
+                }
+            });
+    }
+
+
     function editConstructor(type, callback) {
         return function (args, orig) {
             args = _.extend({ edit_type: type }, args);
@@ -307,7 +320,8 @@ var request = require('../../common/utility/request.js');
 
 
     edit.releaseGroupEdit = editConstructor(
-        TYPES.EDIT_RELEASEGROUP_EDIT
+        TYPES.EDIT_RELEASEGROUP_EDIT,
+        _.partialRight(removeEqual, ['gid'])
     );
 
 
@@ -324,24 +338,7 @@ var request = require('../../common/utility/request.js');
 
     edit.releaseEdit = editConstructor(
         TYPES.EDIT_RELEASE_EDIT,
-
-        function (args, orig) {
-            if (args.name === orig.name) {
-                delete args.name;
-            }
-            if (args.comment === orig.comment) {
-                delete args.comment;
-            }
-            if (_.isEqual(args.artist_credit, orig.artist_credit)) {
-                delete args.artist_credit;
-            }
-            if (args.release_group_id === orig.release_group_id) {
-                delete args.release_group_id;
-            }
-            if (_.isEqual(args.events, orig.events)) {
-                delete args.events;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -386,11 +383,7 @@ var request = require('../../common/utility/request.js');
 
     edit.mediumEdit = editConstructor(
         TYPES.EDIT_MEDIUM_EDIT,
-        function (args, orig) {
-            if (_.isEqual(args.tracklist, orig.tracklist)) {
-                delete args.tracklist;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -402,11 +395,7 @@ var request = require('../../common/utility/request.js');
 
     edit.recordingEdit = editConstructor(
         TYPES.EDIT_RECORDING_EDIT,
-        function (args, orig) {
-            if (args.name === orig.name) {
-                delete args.name;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -418,11 +407,7 @@ var request = require('../../common/utility/request.js');
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
-        function (args, orig) {
-            if (_.isEqual(args.attributes, orig.attributes)) {
-                delete args.attributes;
-            }
-        }
+        _.partialRight(removeEqual, ['id', 'linkTypeID'])
     );
 
 

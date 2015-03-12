@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
 var deferFocus = require('../edit/utility/deferFocus.js');
 
 (function (releaseEditor) {
@@ -239,7 +240,7 @@ var deferFocus = require('../edit/utility/deferFocus.js');
                 return track.artistCredit.isComplex();
             });
 
-            var question = MB.i18n.l(
+            var question = i18n.l(
                 "This tracklist has artist credits with information that " +
                 "will be lost if you swap artist credits with track titles. " +
                 "This cannot be undone. Do you wish to continue?"
@@ -269,6 +270,12 @@ var deferFocus = require('../edit/utility/deferFocus.js');
 
         reuseUnsetPreviousRecordings: function (release) {
             _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
+                var previous = track.previousTrackAtThisPosition;
+                if (previous) {
+                    track.id = previous.id;
+                    track.gid = previous.gid;
+                    delete track.previousTrackAtThisPosition;
+                }
                 track.recording(track.recording.saved);
             });
         },
