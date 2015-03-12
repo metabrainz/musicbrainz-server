@@ -24,7 +24,8 @@
             var releaseGroup = release.releaseGroup();
             var releaseName = _.str.clean(release.name());
             var releaseAC = release.artistCredit;
-            var editData = MB.edit.fields.releaseGroup(releaseGroup);
+            var origData = MB.edit.fields.releaseGroup(releaseGroup);
+            var editData = _.cloneDeep(origData);
 
             if (releaseGroup.gid) {
                 var dataChanged = false;
@@ -40,7 +41,7 @@
                 }
 
                 if (dataChanged) {
-                    return [MB.edit.releaseGroupEdit(editData)];
+                    return [MB.edit.releaseGroupEdit(editData, origData)];
                 }
             } else if (releaseEditor.action === "add") {
                 editData.name = _.str.clean(releaseGroup.name) || releaseName;

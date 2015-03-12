@@ -5,8 +5,6 @@ INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation',
 INSERT INTO recording_annotation (recording, annotation) VALUES (1, 1);
 INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', 1);
 
-INSERT INTO release_group_primary_type (name, id) VALUES ('Compilation', 4);
-
 INSERT INTO release_group (id, name, type, artist_credit, gid)
        VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217'),
               (23, 'King of the Mountain', 2, 1, 'fbf86737-02a4-304f-8554-6896e8619d77'),

@@ -127,9 +127,8 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
     VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 'Release Group', 1, 1, 'Comment', 2);
-INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
-    VALUES (1, 1);
+    VALUES (1, 7);
 EOSQL
 
     $test->c->model('ReleaseGroup')->delete(1);
