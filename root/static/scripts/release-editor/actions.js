@@ -267,6 +267,12 @@
 
         reuseUnsetPreviousRecordings: function (release) {
             _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
+                var previous = track.previousTrackAtThisPosition;
+                if (previous) {
+                    track.id = previous.id;
+                    track.gid = previous.gid;
+                    delete track.previousTrackAtThisPosition;
+                }
                 track.recording(track.recording.saved);
             });
         },
