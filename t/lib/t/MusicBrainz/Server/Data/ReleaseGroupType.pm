@@ -35,9 +35,12 @@ is ( $rgts->{2}->name, "Single" );
 
 does_ok($rgt_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @types = $rgt_data->get_all;
-is(@types, 2);
+is(@types, 5);
 is($types[0]->id, 1);
 is($types[1]->id, 2);
+is($types[2]->id, 3);
+is($types[3]->id, 11);
+is($types[4]->id, 12);
 
 
 };
