@@ -79,7 +79,7 @@ var Tooltip = React.createClass({
   },
 
   componentDidMount: function () {
-    $(this.getDOMNode()).find('a').attr('target', '_blank');
+    $(React.findDOMNode(this)).find('a').attr('target', '_blank');
   },
 
   render: function () {

@@ -28,7 +28,7 @@
     "po2json": "^0.3.2",
     "q": "^1.1.1",
     "rcss": "0.1.4",
-    "react": "^0.12.2",
+    "react": "0.13.1",
     "reactify": "^0.17.1",
     "shelljs": "^0.3.0",
     "tablesorter": "Mottie/tablesorter#430f8c5",

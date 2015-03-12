@@ -87,9 +87,10 @@ var ExternalLinksEditor = React.createClass({
 
   removeLink: function (index) {
     this.setState({ links: this.state.links.remove(index) }, () => {
-      $(this.getDOMNode()).find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
-                                'tr:lt(' + (index + 1) + ') button.remove:last')
-                          .eq(0).focus();
+      $(React.findDOMNode(this))
+        .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
+              'tr:lt(' + (index + 1) + ') button.remove:last')
+        .eq(0).focus();
     });
   },
 
