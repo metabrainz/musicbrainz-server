@@ -161,7 +161,7 @@ var ExternalLinksEditor = React.createClass({
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !this.id) {
+            } else if (typeInfo.deprecated && !link.relationship) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -384,7 +384,7 @@ MB.createExternalLinksEditor = function (options) {
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
-  var errorObservable = validation.errorField(ko.observable(false));
+  var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
   return React.render(
     <ExternalLinksEditor
