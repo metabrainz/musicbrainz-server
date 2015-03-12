@@ -61,18 +61,6 @@ MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2
 
 MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 
-/* Set a particular button to be the default submit action for a form. */
-MB.utility.setDefaultAction = function (form, button) {
-
-    var withDataAndEvents = true;
-    $(form).prepend(
-        $(button).clone(withDataAndEvents).removeAttr('id').css({
-           position: 'absolute',
-           left: "-999px", top: "-999px", height: 0, width: 0
-        }));
-
-};
-
 /* Remember the state of a checkbox, using a persistent cookie. */
 MB.utility.rememberCheckbox = function (id, name) {
 

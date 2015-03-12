@@ -108,7 +108,7 @@
 [% END %]
 
 [% BLOCK remove %]
-<button class="icon remove">
+<button type="button" class="icon remove">
   <div class="remove-item icon img" title="[% l('Delete') %]"></div>
 </button>
 [% END %]

@@ -35,7 +35,5 @@
 <script type="text/javascript">//<![CDATA[
   (function () {
     MB.Control.initialize_guess_case("instrument", "id-edit-instrument");
-
-    MB.utility.setDefaultAction("form.edit-instrument", "button.submit.positive");
   }());
 //]]></script>
