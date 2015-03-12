@@ -93,7 +93,9 @@ test 'Duplicate release labels are merged' => sub {
     my $release;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
-    $c->sql->do("INSERT INTO release_label (id, release, label, catalog_number) VALUES (2, 1, 2, 'ABC-123')");
+    $c->sql->do("INSERT INTO release_label (release, label, catalog_number)
+                 SELECT 1, label, catalog_number FROM release_label
+                 WHERE release = 1");
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_MERGE,
