@@ -23,7 +23,7 @@ test('formatTrackLength', function (t) {
 });
 
 test('parseDate', function (t) {
-    t.plan(7);
+    t.plan(8);
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
