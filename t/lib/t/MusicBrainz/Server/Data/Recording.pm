@@ -42,10 +42,10 @@ is ( $rec->edits_pending, 0 );
 my ($recs, $hits) = $rec_data->find_by_artist(1, 100, 0);
 is( $hits, 17 );
 is( scalar(@$recs), 17 );
-is( $recs->[0]->name, "A Coral Room" );
-is( $recs->[1]->name, "Aerial" );
-is( $recs->[14]->name, "The Painter's Link" );
-is( $recs->[15]->name, "[pregap]" );
+is( $recs->[0]->name, "[pregap]" );
+is( $recs->[1]->name, "A Coral Room" );
+is( $recs->[14]->name, "Sunset" );
+is( $recs->[15]->name, "The Painter's Link" );
 
 my $annotation = $rec_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
@@ -123,8 +123,9 @@ $results = $appears{1}->{results};
 is ($appears{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");
 is ($appears{1}->{hits}, 4, "recording 1 appears on four release groups");
 is (scalar @$results, 2, " ... of which two have been returned");
-is ($results->[0]->name, "Brit Awards 2006", "recording 1 appears on Brit Awards 2006");
-is ($results->[1]->name, "King of the Mountain", "recording 1 appears on King of the Mountain");
+is ($results->[0]->name, "King of the Mountain", "recording 1 appears on King of the Mountain");
+is ($results->[1]->name, "Aerial", "recording 1 appears on Aerial");
+
 
 };
 

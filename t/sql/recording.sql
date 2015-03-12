@@ -8,7 +8,9 @@ INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('0986e67c-6b7a-40b7-b4b
 INSERT INTO release_group (id, name, type, artist_credit, gid)
        VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217'),
               (23, 'King of the Mountain', 2, 1, 'fbf86737-02a4-304f-8554-6896e8619d77'),
-              (24, 'Brit Awards 2006', 4, 1, 'bd09da37-a5c9-37f2-b265-c19686374e0b');
+              (24, 'Brit Awards 2006', 1, 1, 'bd09da37-a5c9-37f2-b265-c19686374e0b');
+
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (24, 1);
 
 INSERT INTO release (id, name, release_group, artist_credit, gid)
     VALUES (22, 'エアリアル', 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5'),
