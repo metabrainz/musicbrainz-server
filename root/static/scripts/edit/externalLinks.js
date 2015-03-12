@@ -115,7 +115,7 @@ var ExternalLinksEditor = React.createClass({
 
       var prefix = startingPrefix + '.' + (startingIndex + (index++));
 
-      if (/^[0-9]+$/.test(relationship)) {
+      if (isInteger(relationship)) {
         pushInput(prefix, 'relationship_id', relationship);
 
         if (!newLinks[relationship]) {
@@ -161,7 +161,7 @@ var ExternalLinksEditor = React.createClass({
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !link.relationship) {
+            } else if (typeInfo.deprecated && !isInteger(link.relationship)) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -293,6 +293,10 @@ var ExternalLink = React.createClass({
   }
 });
 
+function isInteger(value) {
+  return /^[0-9]+$/.test(value);
+}
+
 function linkTypeAndUrlString(link) {
   return link.type + '\0' + link.url;
 }
@@ -372,7 +376,7 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   initialLinks = initialLinks.map(function (link) {
-    var newData = {url: URLCleanup.cleanUrl(link.url)};
+    var newData = {url: URLCleanup.cleanUrl(link.url) || link.url};
     if (!_.isNumber(link.relationship)) {
       newData.relationship = _.uniqueId('new-');
     }
