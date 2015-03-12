@@ -16,7 +16,7 @@
     "gulp-less": "^3.0.0",
     "gulp-rev": "^2.0.1",
     "gulp-streamify": "^0.0.5",
-    "immutable": "^3.6.2",
+    "immutable": "3.6.4",
     "jed": "1.1.0",
     "jquery": "1.11.2",
     "jquery.browser": "gabceb/jquery-browser-plugin#e4a01fd",
