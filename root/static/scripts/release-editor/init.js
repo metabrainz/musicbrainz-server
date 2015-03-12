@@ -271,6 +271,9 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
         self.externalLinksEditData(self.externalLinks.getEditData());
     };
 
+    // Copy initial edit data
+    this.externalLinks.componentDidUpdate();
+
     return this.externalLinks;
 };
 

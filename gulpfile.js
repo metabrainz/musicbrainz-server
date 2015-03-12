@@ -164,6 +164,7 @@ function buildScripts(watch) {
 
             b.require('./root/static/scripts/edit/validation.js', { expose: true });
             b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
+            b.require('./root/static/scripts/edit/utility/isPositiveInteger.js', { expose: true });
 
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
         }),
@@ -173,6 +174,7 @@ function buildScripts(watch) {
 
             b.external('./root/static/scripts/edit/validation.js');
             b.external('./root/static/scripts/edit/externalLinks.js');
+            b.external('./root/static/scripts/edit/utility/isPositiveInteger.js');
         }),
         createBundle("statistics.js", watch, function (b) {
             b.external('jquery');
