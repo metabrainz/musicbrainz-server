@@ -31,6 +31,8 @@ test all => sub {
     my $addr = MusicBrainz::Server::Email::_user_address($user1);
     is($addr, '"Editor 1" <foo@example.com>', 'User address is foo@example.com');
 
+    my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+
     subtest 'send_message_to_editor' => sub {
 
     $email->send_message_to_editor(
@@ -58,7 +60,7 @@ test all => sub {
                  "Hello!\n".
                  "------------------------------------------------------------------------\n".
                  "If you would like to respond, please visit\n".
-                 "http://localhost/user/Editor\%201/contact to send 'Editor 1' an email.\n".
+                 "$server/user/Editor\%201/contact to send 'Editor 1' an email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
 
@@ -91,7 +93,7 @@ test all => sub {
                  "Hello!\n".
                  "------------------------------------------------------------------------\n".
                  "If you would like to respond, please reply to this message or visit\n".
-                 "http://localhost/user/Editor\%201/contact to send 'Editor 1' an email.\n".
+                 "$server/user/Editor\%201/contact to send 'Editor 1' an email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
 
@@ -116,7 +118,7 @@ test all => sub {
 
     $email->send_email_verification(
         email => 'user@example.com',
-        verification_link => 'http://musicbrainz.org/verify-email',
+        verification_link => "$server/verify-email",
         ip => '127.0.0.1'
         );
 
@@ -133,7 +135,7 @@ test all => sub {
                  "This is a verification email for your MusicBrainz account. Please click\n".
                  "on the link below to verify your email address:\n".
                  "\n".
-                 "http://musicbrainz.org/verify-email\n".
+                 "$server/verify-email\n".
                  "\n".
                  "If clicking the link above doesn't work, please copy and paste the URL in a\n".
                  "new browser window instead.\n".
@@ -167,7 +169,7 @@ test all => sub {
                  "Your MusicBrainz username is: Editor 1\n".
                  "\n".
                  "If you have also forgotten your password, use this username and your email address\n".
-                 "to reset your password here - http://localhost/lost-password\n".
+                 "to reset your password here - $server/lost-password\n".
                  "\n".
                  "If you didn't initiate this request and feel that you've received this email in\n".
                  "error, don't worry, you don't need to take any further action and can safely\n".
@@ -181,7 +183,7 @@ test all => sub {
 
     $email->send_password_reset_request(
         user => $user1,
-        reset_password_link => 'http://musicbrainz.org/reset-password'
+        reset_password_link => "$server/reset-password",
         );
 
     is($email->transport->delivery_count, 1);
@@ -198,7 +200,7 @@ test all => sub {
                  "\n".
                  "To reset your password, click the link below:\n".
                  "\n".
-                 "http://musicbrainz.org/reset-password\n".
+                 "$server/reset-password\n".
                  "\n".
                  "If clicking the link above doesn't work, please copy and paste the URL in a\n".
                  "new browser window instead.\n".
@@ -208,7 +210,7 @@ test all => sub {
                  "disregard this email.\n".
                  "\n".
                  "If you still have problems logging in, please drop us a line - see\n".
-                 "http://localhost/doc/Contact_Us for details.\n".
+                 "$server/doc/Contact_Us for details.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
 
@@ -241,7 +243,7 @@ test all => sub {
 -------------------------------------------------------------------------
 To respond, please add your note at:
 
-    http://localhost/edit/1234
+    $server/edit/1234
 
 Please do not respond to this email.
 
@@ -251,7 +253,7 @@ new browser window instead.
 Please note that this email will not be sent for every vote against an edit.
 
 You can disable this notification by changing your preferences at
-http://localhost/account/preferences.
+$server/account/preferences.
 
 To ensure time for you and other editors to respond, the soonest this edit will
 be rejected, if applicable, is $close_time, 72 hours from the time of
@@ -288,7 +290,7 @@ EOS
                  "Please remember to use guess case!\n".
                  "------------------------------------------------------------------------\n".
                  "If you would like to reply to this note, please add your note at:\n".
-                 "http://localhost/edit/1234\n".
+                 "$server/edit/1234\n".
                  "Please do not respond to this email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
@@ -319,7 +321,7 @@ EOS
                  "This edit is totally wrong!\n".
                  "------------------------------------------------------------------------\n".
                  "If you would like to reply to this note, please add your note at:\n".
-                 "http://localhost/edit/9000\n".
+                 "$server/edit/9000\n".
                  "Please do not respond to this email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
