@@ -261,6 +261,21 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, work))
          ON COMMIT DELETE ROWS");
+
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
+             (instrument INTEGER,
+              recording  INTEGER,
+
+              PRIMARY KEY (instrument, recording))
+          ON COMMIT DELETE ROWS");
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
+             (instrument INTEGER,
+              release  INTEGER,
+
+              PRIMARY KEY (instrument, release))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -323,17 +338,41 @@ sub fill_temporary_tables {
                     FROM tmp_sitemaps_artist_recordings tsar
                     JOIN l_recording_work ON tsar.recording = l_recording_work.entity0");
     $sql->do("ANALYZE tmp_sitemaps_artist_works");
+
+    # Instruments linked to recordings via artist-recording relationship
+    # attributes. Matches Data::Recording, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_recordings (instrument, recording)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_recording.entity1 AS recording
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
+
+    # Instruments linked to releases via artist-release relationship
+    # attributes. Matches Data::Release, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_releases (instrument, release)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_release.entity1 AS release
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_release ON l_artist_release.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
 }
 
 sub drop_temporary_tables {
     my ($sql) = @_;
     $sql->begin;
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_releases");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_recordings");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_works");
+    for my $table (qw( artist_direct_rgs
+                       artist_va_rgs
+                       artist_direct_releases
+                       artist_va_releases
+                       artist_recordings
+                       artist_works
+                       instrument_recordings
+                       instrument_releases )) {
+        $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_$table");
+    }
     $sql->commit;
 }
 
@@ -481,11 +520,36 @@ sub build_suffix_info {
         };
     }
 
+    if ($entity_type eq 'instrument') {
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => $priority_by_count->('recording_count')
+        };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count"},
+            paginated => "release_count",
+            suffix => 'releases',
+            priority => $priority_by_count->('release_count')
+        };
+    }
+
     if ($entity_type eq 'label') {
         $suffix_info->{base}{extra_sql} = {
             columns => "(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count"
         };
         $suffix_info->{base}{paginated} = "release_count";
+    }
+
+    if ($entity_type eq 'place') {
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_event_place directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
     }
 
     if ($entity_type eq 'release') {
@@ -697,6 +761,13 @@ sub build_one_suffix {
         }
     }
 }
+
+=head2 build_one_sitemap
+
+Called by C<build_one_suffix> to build an individual sitemap given a filename,
+the sitemap index object, and the list of URLs with appropriate options.
+
+=cut
 
 sub build_one_sitemap {
     my ($filename, $index, @urls) = @_;
