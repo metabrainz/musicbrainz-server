@@ -290,8 +290,6 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         useTrackLengths: false,
     };
 
-    releaseEditor.rootField = releaseEditor.fields.Root();
-
     var release = releaseEditor.fields.Release({
         mediums: [
             {
