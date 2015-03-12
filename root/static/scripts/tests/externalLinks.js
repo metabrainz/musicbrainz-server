@@ -15,6 +15,12 @@ function externalLinksTest(name, callback, initialLinks) {
     test(name, function (t) {
         var mountPoint = document.createElement('div');
 
+        MB.typeInfoByID[666] = {
+            deprecated: true,
+            phrase: "Example",
+            reversePhrase: "Example"
+        };
+
         MB.sourceExternalLinksEditor = externalLinks.createExternalLinksEditor({
             sourceData: { entityType: "artist", relationships: initialLinks || [] },
             mountPoint: mountPoint
@@ -23,6 +29,7 @@ function externalLinksTest(name, callback, initialLinks) {
         callback(t, $(mountPoint), MB.sourceExternalLinksEditor, _.partial(addURL, MB.sourceExternalLinksEditor));
 
         delete MB.sourceExternalLinksEditor;
+        delete MB.typeInfoByID[666];
     });
 }
 
@@ -62,15 +69,8 @@ externalLinksTest("deprecated link type detection", function (t, $mountPoint, co
 
     addURL("http://www.example.com/");
 
-    MB.typeInfoByID[666] = {
-        deprecated: true,
-        phrase: "Example",
-        reversePhrase: "Example"
-    };
-
     var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
     triggerChange(selectComponent, 666);
-
     contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
 
     triggerChange(
@@ -79,9 +79,7 @@ externalLinksTest("deprecated link type detection", function (t, $mountPoint, co
     );
 
     triggerChange(selectComponent, 188);
-
     not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid URL and type are entered');
-    delete MB.typeInfoByID[666];
 });
 
 externalLinksTest("hidden input data for form submission", function (t, $mountPoint, component, addURL) {
