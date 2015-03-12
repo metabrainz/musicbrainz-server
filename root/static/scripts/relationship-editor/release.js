@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -27,12 +29,12 @@
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + MB.i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + MB.i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
@@ -61,7 +63,7 @@
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    return MB.i18n.l("All of your changes will be lost if you leave this page.");
+                    return i18n.l("All of your changes will be lost if you leave this page.");
                 }
             };
         },
@@ -133,7 +135,7 @@
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(MB.i18n.l("You haven’t made any changes!"));
+                this.submissionError(i18n.l("You haven’t made any changes!"));
                 return;
             }
 

@@ -1,3 +1,5 @@
+var i18n = require('../common/i18n.js');
+
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
 // Private variables
@@ -28,7 +30,7 @@ ERE.init = function (config) {
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
-            return { 'value': value, 'text': MB.i18n.strings.entityName[value] };
+            return { 'value': value, 'text': i18n.strings.entityName[value] };
         }).value());
 
     ko.bindingHandlers.checkObject = {

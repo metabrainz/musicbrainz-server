@@ -1,22 +1,9 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010, 2013 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var i18n = require('../../../common/i18n.js');
 
 MB.Control.ArtistEdit = function () {
     var self = {};
@@ -54,22 +41,22 @@ MB.Control.ArtistEdit = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(MB.i18n.l("Began:"), MB.i18n.l("Ended:"), MB.i18n.l("This artist has ended."));
-                self.changeAreaText(MB.i18n.l("Begin area:"), MB.i18n.l("End area:"));
+                self.changeDateText(i18n.l("Began:"), i18n.l("Ended:"), i18n.l("This artist has ended."));
+                self.changeAreaText(i18n.l("Begin area:"), i18n.l("End area:"));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(MB.i18n.l("Born:"), MB.i18n.l("Died:"), MB.i18n.l("This person is deceased."));
-                self.changeAreaText(MB.i18n.l("Born in:"), MB.i18n.l("Died in:"));
+                self.changeDateText(i18n.l("Born:"), i18n.l("Died:"), i18n.l("This person is deceased."));
+                self.changeAreaText(i18n.l("Born in:"), i18n.l("Died in:"));
                 self.enableGender();
                 break;
 
             case '2':
             case '5':
             case '6':
-                self.changeDateText(MB.i18n.l("Founded:"), MB.i18n.l("Dissolved:"), MB.i18n.l("This group has dissolved."));
-                self.changeAreaText(MB.i18n.l("Founded in:"), MB.i18n.l("Dissolved in:"));
+                self.changeDateText(i18n.l("Founded:"), i18n.l("Dissolved:"), i18n.l("This group has dissolved."));
+                self.changeAreaText(i18n.l("Founded in:"), i18n.l("Dissolved in:"));
                 self.disableGender();
                 break;
         }

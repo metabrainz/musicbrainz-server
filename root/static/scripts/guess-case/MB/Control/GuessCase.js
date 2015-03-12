@@ -1,21 +1,9 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+var i18n = require('../../../common/i18n.js');
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -24,7 +12,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     var $options = $("#guesscase-options");
 
     if ($options.length && !$options.data("ui-dialog")) {
-        $options.dialog({ title: MB.i18n.l('Guess Case Options'), autoOpen: false });
+        $options.dialog({ title: i18n.l('Guess Case Options'), autoOpen: false });
         ko.applyBindingsToNode($options[0], { guessCase: _.noop });
     }
 

@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('./i18n.js');
+
 $.widget("mb.artworkViewer", $.ui.dialog, {
 
     options: {
@@ -26,11 +28,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             // it doesn't save a whole lotta code anyway.
 
             this.$prev = $("<button>").attr("type", "button")
-                            .text(MB.i18n.l("Previous"))
+                            .text(i18n.l("Previous"))
                             .click(_.bind(this.prevImage, this));
 
             this.$next = $("<button>").attr("type", "button")
-                            .text(MB.i18n.l("Next"))
+                            .text(i18n.l("Next"))
                             .click(_.bind(this.nextImage, this));
 
             this.$pager = $("<div>").addClass("artwork-pager");
@@ -63,7 +65,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$next.prop("disabled", !this._nextImageLink);
 
         this.$pager.text(
-            MB.i18n.l("Image {current} of {total}", {
+            i18n.l("Image {current} of {total}", {
                 current: index + 1, total: this.$artwork.length
             })
         );

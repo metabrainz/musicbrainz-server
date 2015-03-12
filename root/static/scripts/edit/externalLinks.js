@@ -6,15 +6,15 @@
 var Immutable = require('immutable');
 var React = require('react');
 var PropTypes = React.PropTypes;
+var validation = require('./validation.js');
 var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
+var i18n = require('../common/i18n.js');
 var URLCleanup = require('./MB/Control/URLCleanup.js');
 
 require('react/addons');
 
-var validation = require('./validation.js');
-
-var l = MB.i18n.l;
+var l = i18n.l;
 
 var LinkState = Immutable.Record({
   url: '',
@@ -371,8 +371,8 @@ MB.createExternalLinksEditor = function (options) {
     var typeA = MB.typeInfoByID[a.type];
     var typeB = MB.typeInfoByID[b.type];
 
-    return MB.i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
-                           typeB ? typeB.phrase.toLowerCase() : '');
+    return i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
+                        typeB ? typeB.phrase.toLowerCase() : '');
   });
 
   initialLinks = initialLinks.map(function (link) {

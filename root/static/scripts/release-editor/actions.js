@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (releaseEditor) {
 
     _.extend(releaseEditor, {
@@ -237,7 +239,7 @@
                 return track.artistCredit.isComplex();
             });
 
-            var question = MB.i18n.l(
+            var question = i18n.l(
                 "This tracklist has artist credits with information that " +
                 "will be lost if you swap artist credits with track titles. " +
                 "This cannot be undone. Do you wish to continue?"

@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../i18n.js');
+
 $(function () {
   var $bottomCredits = $('#bottom-credits');
   var bottomCreditsEnabled = $.cookie('bottom-credits') === '1';
@@ -13,7 +15,7 @@ $(function () {
     $('table.tbl div.ars').show();
     $bottomCredits.toggle(hasReleaseCredits);
 
-    $toggle.text(MB.i18n.l('Display Credits at Bottom'));
+    $toggle.text(i18n.l('Display Credits at Bottom'));
     $.cookie('bottom-credits', '0', { path: '/', expires: 365 });
   }
 
@@ -22,7 +24,7 @@ $(function () {
     $('.bottom-credits').show();
     $bottomCredits.show();
 
-    $toggle.text(MB.i18n.l('Display Credits Inline'));
+    $toggle.text(i18n.l('Display Credits Inline'));
     $.cookie('bottom-credits', '1', { path: '/', expires: 365 });
   }
 
@@ -50,7 +52,7 @@ $(function () {
     var $message = $('<div>')
       .appendTo($tbody.find('td'))
       .addClass('loading-message')
-      .text(MB.i18n.l('Loading...'));
+      .text(i18n.l('Loading...'));
 
     var mediumId = this.getAttribute('data-medium-id');
 
@@ -82,7 +84,7 @@ $(function () {
         }
       })
       .fail(function () {
-        $message.removeClass('loading-message').text(MB.i18n.l('Failed to load the medium.'));
+        $message.removeClass('loading-message').text(i18n.l('Failed to load the medium.'));
       });
 
     // Prevent browser from following link

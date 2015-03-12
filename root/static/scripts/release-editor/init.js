@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
 var externalLinks = require('../edit/externalLinks.js');
 var validation = require('../edit/validation.js');
 
@@ -136,14 +137,14 @@ MB.releaseEditor.init = function (options) {
         var name = _.str.clean(release.name());
 
         if (self.action === "add") {
-            document.title = MB.i18n.expand(
-                name ? MB.i18n.l("{name} - Add Release") :
-                       MB.i18n.l("Add Release"), { name: name }
+            document.title = i18n.expand(
+                name ? i18n.l("{name} - Add Release") :
+                       i18n.l("Add Release"), { name: name }
             );
         } else {
-            document.title = MB.i18n.expand(
-                name ? MB.i18n.l("{name} - Edit Release") :
-                       MB.i18n.l("Edit Release"), { name: name }
+            document.title = i18n.expand(
+                name ? i18n.l("{name} - Edit Release") :
+                       i18n.l("Edit Release"), { name: name }
             );
         }
     });
@@ -161,7 +162,7 @@ MB.releaseEditor.init = function (options) {
     if (window.onbeforeunload === null) {
         MB.releaseEditor.allEdits.subscribe(function (edits) {
             window.onbeforeunload =
-                edits.length ? _.constant(MB.i18n.l("All of your changes will be lost if you leave this page.")) : null;
+                edits.length ? _.constant(i18n.l("All of your changes will be lost if you leave this page.")) : null;
         });
     }
 

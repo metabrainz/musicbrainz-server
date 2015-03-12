@@ -1,10 +1,17 @@
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
+
+var i18n = require('./i18n.js');
+
 (function (MB) {
 
     $.widget("mb.iframeDialog", $.ui.dialog, {
 
         options: {
             width: 800,
-            title: MB.i18n.l("Loading..."),
+            title: i18n.l("Loading..."),
             resizable: false
         },
 
@@ -82,7 +89,7 @@
             }
 
             var entity = this.options.entity;
-            this.options.title = MB.i18n.strings.addANewEntity[entity];
+            this.options.title = i18n.strings.addANewEntity[entity];
             this._super(event);
 
             if (this.options.name) {
