@@ -57,7 +57,7 @@ var i18n = require('../../common/i18n.js');
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
                 _.defer(function () {
-                    if (!removingInvalidAttributes) {
+                    if (!removingInvalidAttributes && newAttributes === self.attributes.peek()) {
                         removingInvalidAttributes = true;
                         self.attributes(validAttributes(self, newAttributes));
                         removingInvalidAttributes = false;
