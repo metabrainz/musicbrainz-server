@@ -258,6 +258,15 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
         $c->detach;
     }
 
+    unless ($c->user->has_confirmed_email_address) {
+        $c->stash(
+            title    => $c->gettext('Send Email'),
+            message  => l('You cannot contact user until you have confirmed your email address'),
+            template => 'user/message.tt',
+        );
+        $c->detach;
+    }
+
     if (exists $c->req->params->{sent}) {
         $c->stash( template => 'user/email_sent.tt' );
         $c->detach;
