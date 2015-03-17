@@ -28,7 +28,7 @@ has '+data' => (
         medium_id => Int,
         format_id => Nullable[Int],
         tracklist => Optional[ArrayRef[track()]],
-        name => Nullable[Str],
+        name => Str,
         position => Int,
         release_id => Int
     ]
@@ -109,6 +109,11 @@ sub accept
 
     $self->c->model('Medium')->delete($self->medium_id);
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{name} //= '';
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

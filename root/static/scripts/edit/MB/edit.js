@@ -103,7 +103,7 @@
 
         medium: function (medium) {
             return {
-                name:       nullableString(medium.name),
+                name:       string(medium.name),
                 format_id:  number(medium.formatID),
                 position:   number(medium.position),
                 tracklist:  array(medium.tracks, fields.track)
@@ -369,9 +369,6 @@
         TYPES.EDIT_MEDIUM_CREATE,
 
         function (args) {
-            if (!args.name) {
-                delete args.name;
-            }
             if (args.format_id === null) {
                 delete args.format_id;
             }
