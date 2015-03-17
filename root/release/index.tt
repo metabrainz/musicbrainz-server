@@ -38,7 +38,7 @@
                 <span class="expand-triangle">
                   [% medium.tracks.size ? '&#x25BC;' : '&#x25B6;' %]
                 </span>
-                [% medium.position_and_name %]
+                [% medium_description(medium) %]
               </a>
             </th>
           </tr>
