@@ -18,7 +18,7 @@ test all => sub {
     my $mech = $test->mech;
     $mech->default_header("Accept" => "application/json");
 
-    my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels+media';
+    my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels';
 
     $mech->get_ok($url, 'fetching');
     is_valid_json($mech->content, "validating (is_valid_json)");

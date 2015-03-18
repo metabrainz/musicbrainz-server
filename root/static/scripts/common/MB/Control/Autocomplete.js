@@ -458,7 +458,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             return this._renderAction(ul, item);
         }
         var formatters = MB.Control.autocomplete_formatters;
-        return (formatters[this.entity] || formatters.generic)(ul, item);
+        var entityType = formatters[this.entity] ? this.entity : 'generic';
+        return formatters[entityType](ul, item);
     },
 
     changeEntity: function (entity) {
@@ -622,6 +623,42 @@ MB.Control.autocomplete_formatters = {
         }
 
         return $("<li>").append(a).appendTo(ul);
+    },
+
+    "release": function (ul, item) {
+        var $li = this.generic(ul, item);
+        var $a = $li.children('a');
+
+        appendComment($a, _.escape(MB.entity.ArtistCredit(item.artistCredit).text()));
+
+        item.events && item.events.forEach(function (event) {
+            var country = event.country;
+            var countryHTML = '';
+
+            if (country) {
+                countryHTML = `<span class="flag flag-${country.code}"><abbr title="${country.name}">${country.code}</abbr></span>`;
+            }
+
+            appendComment(
+                $a,
+                (event.date ? _.escape(event.date) : '') +
+                (countryHTML ? maybeParentheses(countryHTML, event.date) : '')
+            );
+        });
+
+        item.labels && item.labels.forEach(function (event) {
+            appendComment(
+                $a,
+                (event.label ? _.escape(event.label.name) : '') +
+                (event.catalogNumber ? maybeParentheses(_.escape(event.catalogNumber), event.label) : '')
+            );
+        });
+
+        if (item.barcode) {
+            appendComment($a, item.barcode);
+        }
+
+        return $li;
     },
 
     "release-group": function (ul, item) {
@@ -852,6 +889,14 @@ MB.Control.autocomplete_formatters = {
     }
 
 };
+
+function maybeParentheses(text, condition) {
+    return condition ? ` (${text})` : text;
+}
+
+function appendComment($a, comment) {
+    return $a.append(`<br /><span class="autocomplete-comment">${comment}</span>`);
+}
 
 /*
    MB.Control.EntityAutocomplete is a helper class which simplifies using

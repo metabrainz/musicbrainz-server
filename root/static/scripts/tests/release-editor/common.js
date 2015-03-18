@@ -85,7 +85,6 @@ exports.testRelease = {
   statusID: 1,
   name: "Vision Creation Newsun",
   barcode: "4943674011582",
-  trackCounts: "9 + 3",
   mediums: [
     {
       tracks: [

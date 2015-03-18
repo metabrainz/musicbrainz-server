@@ -117,7 +117,8 @@ function buildScripts() {
 
     var commonBundle = runYarb('common.js', function (b) {
         b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
-         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
+         .transform(reactify);
     });
 
     var languages = (process.env.MB_LANGUAGES || "")

@@ -548,7 +548,7 @@ var dates = require('../edit/utility/dates.js');
                 day:    ko.observable(date.day)
             };
 
-            this.countryID = ko.observable(data.countryID);
+            this.countryID = ko.observable(data.country ? data.country.id : null);
             this.release = release;
             this.isDuplicate = ko.observable(false);
 
@@ -667,8 +667,6 @@ var dates = require('../edit/utility/dates.js');
                 MB.entityCache[data.gid] = this; // XXX HACK
             }
 
-            $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
-
             var self = this;
             var errorField = validation.errorField;
             var currentName = data.name;
@@ -768,6 +766,7 @@ var dates = require('../edit/utility/dates.js');
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
+            this.formats = data.formats;
             this.mediums.original = ko.observableArray([]);
             this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
