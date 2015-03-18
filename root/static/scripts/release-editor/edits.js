@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
+
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
@@ -340,15 +342,17 @@
 
                 var editData = MB.edit.fields.externalLinkRelationship(link, release);
 
-                if (!newLinks[link.relationship]) {
-                    edits.push(MB.edit.relationshipDelete(editData));
-                } else if (oldLinks[link.relationship]) {
-                    var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
+                if (isPositiveInteger(link.relationship)) {
+                    if (!newLinks[link.relationship]) {
+                        edits.push(MB.edit.relationshipDelete(editData));
+                    } else if (oldLinks[link.relationship]) {
+                        var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(editData, original)) {
-                        edits.push(MB.edit.relationshipEdit(editData, original));
+                        if (!_.isEqual(editData, original)) {
+                            edits.push(MB.edit.relationshipEdit(editData, original));
+                        }
                     }
-                } else {
+                } else if (newLinks[link.relationship]) {
                     edits.push(MB.edit.relationshipCreate(editData));
                 }
             });

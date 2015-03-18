@@ -8,6 +8,7 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
+var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 var URLCleanup = require('./MB/Control/URLCleanup.js');
 
 require('react/addons');
@@ -94,8 +95,13 @@ var ExternalLinksEditor = React.createClass({
   },
 
   getEditData: function () {
-    var oldLinks = _.indexBy(this.props.initialLinks.toJS(), 'relationship');
+    var oldLinks = _(this.props.initialLinks.toJS())
+      .filter(link => isPositiveInteger(link.relationship))
+      .indexBy('relationship')
+      .value();
+
     var newLinks = _.indexBy(this.state.links.toJS(), 'relationship');
+
     return {
       oldLinks: oldLinks,
       newLinks: newLinks,
@@ -115,7 +121,7 @@ var ExternalLinksEditor = React.createClass({
 
       var prefix = startingPrefix + '.' + (startingIndex + (index++));
 
-      if (isInteger(relationship)) {
+      if (isPositiveInteger(relationship)) {
         pushInput(prefix, 'relationship_id', relationship);
 
         if (!newLinks[relationship]) {
@@ -161,7 +167,7 @@ var ExternalLinksEditor = React.createClass({
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !isInteger(link.relationship)) {
+            } else if (typeInfo.deprecated && !isPositiveInteger(link.relationship)) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -292,10 +298,6 @@ var ExternalLink = React.createClass({
     );
   }
 });
-
-function isInteger(value) {
-  return /^[0-9]+$/.test(value);
-}
 
 function linkTypeAndUrlString(link) {
   return link.type + '\0' + link.url;
