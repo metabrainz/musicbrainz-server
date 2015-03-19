@@ -49,7 +49,6 @@ DROP TABLE editor;
 DROP TABLE editor_collection;
 DROP TABLE editor_collection_event;
 DROP TABLE editor_collection_release;
-DROP TABLE editor_collection_work;
 DROP TABLE editor_collection_type;
 DROP TABLE editor_language;
 DROP TABLE editor_oauth_token;
