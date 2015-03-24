@@ -1,21 +1,9 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+var i18n = require('../../../common/i18n.js');
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -24,7 +12,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     var $options = $("#guesscase-options");
 
     if ($options.length && !$options.data("ui-dialog")) {
-        $options.dialog({ title: MB.i18n.l('Guess Case Options'), autoOpen: false });
+        $options.dialog({ title: i18n.l('Guess Case Options'), autoOpen: false });
         ko.applyBindingsToNode($options[0], { guessCase: _.noop });
     }
 
@@ -58,48 +46,62 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
         });
 };
 
+var guessCaseOptions = {
+    modeName: ko.observable(),
+    keepUpperCase: ko.observable(),
+    upperCaseRoman: ko.observable()
+};
+
+var cookieSettings = { path: '/', expires: 365 };
+
+var mode = ko.computed({
+    read: function () {
+        var modeName = guessCaseOptions.modeName()
+
+        if (modeName !== gc.modeName) {
+            gc.modeName = modeName;
+            gc.mode = MB.GuessCase.Mode[modeName];
+            $.cookie("guesscase_mode", modeName, cookieSettings);
+        }
+        return gc.mode;
+    },
+    deferEvaluation: true
+});
+
+guessCaseOptions.help = ko.computed({
+    read: function () {
+        return mode().getDescription();
+    },
+    deferEvaluation: true
+});
+
+guessCaseOptions.keepUpperCase.subscribe(function (value) {
+    gc.CFG_UC_UPPERCASED = value;
+    $.cookie("guesscase_keepuppercase", value, cookieSettings);
+});
+
+guessCaseOptions.upperCaseRoman.subscribe(function (value) {
+    gc.CFG_UC_ROMANNUMERALS = value;
+    $.cookie("guesscase_roman", value, cookieSettings);
+});
+
 ko.bindingHandlers.guessCase = {
 
-    init: function (element, valueAccessor, allBindingsAccessor,
-                    viewModel, bindingContext) {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        if (!guessCaseOptions.modeName.peek()) {
+            guessCaseOptions.modeName(window.gc.modeName);
+        }
 
-        var gc = window.gc;
-        var callback = valueAccessor();
-        var cookieSettings = { path: "/", expires: 365 };
+        if (!guessCaseOptions.keepUpperCase.peek()) {
+            guessCaseOptions.keepUpperCase(window.gc.CFG_UC_UPPERCASED);
+        }
 
-        var bindings = {
-            modeName: ko.observable(gc.modeName).syncWith("gcModeName"),
-            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED).syncWith("gcKeepUpperCase"),
-            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS).syncWith("gcUpperCaseRoman"),
-            guessCase: _.bind(callback, bindings)
-        };
+        if (!guessCaseOptions.upperCaseRoman.peek()) {
+            guessCaseOptions.upperCaseRoman(window.gc.CFG_UC_ROMANNUMERALS);
+        }
 
-        var mode = ko.computed(function () {
-            var modeName = bindings.modeName()
-
-            if (modeName !== gc.modeName) {
-                gc.modeName = modeName;
-                gc.mode = MB.GuessCase.Mode[modeName];
-                $.cookie("guesscase_mode", modeName, cookieSettings);
-            }
-            return gc.mode;
-        });
-
-        bindings.help = ko.computed(function () {
-            return mode().getDescription();
-        });
-
-        bindings.keepUpperCase.subscribe(function (value) {
-            gc.CFG_UC_UPPERCASED = value;
-
-            $.cookie("guesscase_keepuppercase", value, cookieSettings);
-        });
-
-        bindings.upperCaseRoman.subscribe(function (value) {
-            gc.CFG_UC_ROMANNUMERALS = value;
-
-            $.cookie("guesscase_roman", value, cookieSettings);
-        });
+        var bindings = _.assign({}, guessCaseOptions);
+        bindings.guessCase = _.bind(valueAccessor(), bindings);
 
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);

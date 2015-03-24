@@ -14,7 +14,7 @@
      <td>[% edit.display_data.position %]</td>
    </tr>
 
-   [%- IF edit.display_data.name -%]
+   [%- IF edit.display_data.name != '' -%]
    <tr>
      <th>[% l('Name:') %]</th>
      <td>[% edit.display_data.name | html %]</td>

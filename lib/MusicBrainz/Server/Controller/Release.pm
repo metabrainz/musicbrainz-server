@@ -22,7 +22,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -72,6 +72,7 @@ after 'load' => sub
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load($release->release_group);
+    $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
@@ -109,7 +110,7 @@ before show => sub {
         my $position = $args[1];
         my @mediums = $c->stash->{release}->all_mediums;
 
-        if (@mediums > 10) {
+        if (@mediums > $MAX_INITIAL_MEDIUMS) {
             my $medium = $mediums[$position - 1] if looks_like_number($position);
 
             if ($medium) {
@@ -134,11 +135,11 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
         @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_release($collection->id, $release->id));
+                if ($c->model('Collection')->contains_entity('release', $collection->id, $release->id));
         }
     }
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $release->id);
 
     $c->stash(
         collections => \@collections,
@@ -173,7 +174,7 @@ sub show : Chained('load') PathPart('') {
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
 
-    if (@mediums <= 10) {
+    if (@mediums <= $MAX_INITIAL_MEDIUMS) {
         my $user_id = $c->user->id if $c->user_exists;
         $c->model('Medium')->load_related_info($user_id, @mediums);
     }
@@ -304,7 +305,7 @@ sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{release}->id);
     my @public_collections;
     my $private_collections = 0;
 

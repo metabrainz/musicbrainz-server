@@ -92,7 +92,7 @@
 
 [%~ MACRO medium_credits(medium) BLOCK ~%]
   <div class="bottom-credits" data-position="[% medium.position %]">
-    <h3>[% medium.position_and_name %]</h3>
+    <h3>[% medium_description(medium) %]</h3>
     <table class="details">
       [% FOR target_type_group=medium.combined_track_relationships.pairs %]
         [%- FOR phrase_group IN target_type_group.value -%]

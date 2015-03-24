@@ -3,6 +3,8 @@ use Moose;
 use namespace::autoclean;
 
 use HTML::Entities qw( decode_entities );
+use List::MoreUtils qw( uniq );
+
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT %ENTITIES );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
@@ -137,6 +139,7 @@ sub merge
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
     if (keys %entity_to_annotation > 1) {
         my $new_text = join("\n\n-------\n\n",
+                            uniq
                             grep { $_ ne "" }
                             map { $entity_to_annotation{$_} // "" }
                             @ids);

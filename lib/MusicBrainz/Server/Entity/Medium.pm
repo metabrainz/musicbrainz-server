@@ -12,21 +12,6 @@ has 'position' => (
     isa => 'Int'
 );
 
-sub position_and_name {
-    my ($self) = @_;
-
-    my $format = $self->l_format_name;
-    my $position = $self->position;
-    my $name = $self->name;
-    my $params = { format => $format, position => $position, name => $name };
-
-    return (
-        $name
-        ? ($format ? l('{format} {position}: {name}', $params) : l('Medium {position}: {name}', $params))
-        : ($format ? l('{format} {position}', $params) : l('Medium {position}', $params))
-    );
-}
-
 has 'track_count' => (
     is => 'rw',
     isa => 'Int',
@@ -189,7 +174,7 @@ has 'combined_track_relationships' => (
 sub _build_combined_track_relationships {
     my ($self) = @_;
 
-    my (%combined, %keyed_relationships, %seen_recordings, %seen_works);
+    my (%combined, %keyed_relationships, %seen_recordings);
 
     my $add_relationship = sub {
         my ($track, $relationship) = @_;
@@ -220,6 +205,7 @@ sub _build_combined_track_relationships {
         for my $relationship ($track->recording->all_relationships) {
             $add_relationship->($track, $relationship);
 
+            my %seen_works;
             if ($relationship->link->type->entity1_type eq 'work') {
                 next if $seen_works{$relationship->target->id};
 

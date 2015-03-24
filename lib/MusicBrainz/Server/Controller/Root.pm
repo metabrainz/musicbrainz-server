@@ -367,6 +367,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 
     $c->stash->{mapbox_map_id} = DBDefs->MAPBOX_MAP_ID;
+    $c->stash->{mapbox_access_token} = DBDefs->MAPBOX_ACCESS_TOKEN;
 }
 
 =head1 LICENSE

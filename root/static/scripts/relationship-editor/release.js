@@ -3,14 +3,24 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
 
 
-    RE.ReleaseViewModel = aclass(RE.GenericEntityViewModel, {
+    RE.ReleaseViewModel = aclass(RE.ViewModel, {
 
         after$init: function (options) {
+            MB.releaseRelationshipEditor = this;
+
+            this.editNote = ko.observable("");
+            this.makeVotable = ko.observable(false);
+
+            this.submissionLoading = ko.observable(false);
+            this.submissionError = ko.observable("");
+
             var self = this;
 
             this.checkboxes = {
@@ -19,17 +29,20 @@
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + MB.i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + MB.i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
+            this.source = MB.entity(options.sourceData);
+            this.source.parseRelationships(options.sourceData.relationships);
+
             this.source.releaseGroup.parseRelationships(
-                options.sourceData.releaseGroup.relationships, this
+                options.sourceData.releaseGroup.relationships
             );
 
             this.source.mediums = ko.observableArray([]);
@@ -50,15 +63,16 @@
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    return MB.i18n.l("All of your changes will be lost if you leave this page.");
+                    return i18n.l("All of your changes will be lost if you leave this page.");
                 }
             };
         },
 
-        after$getEdits: function (addChanged) {
+        getEdits: function (addChanged) {
             var self = this;
+            var release = this.source;
 
-            _.each(this.source.mediums(), function (medium) {
+            _.each(release.mediums(), function (medium) {
                 _.each(medium.tracks, function (track) {
                     var recording = track.recording;
 
@@ -76,10 +90,83 @@
                 });
             });
 
-            var rg = this.source.releaseGroup;
+            _.each(release.relationships(), function (r) {
+                addChanged(r, release);
+            });
+
+            var rg = release.releaseGroup;
             _.each(rg.relationships(), function (r) {
                 addChanged(r, rg);
             });
+        },
+
+        submit: function (data, event) {
+            event.preventDefault();
+
+            var self = this;
+            var edits = [];
+            var alreadyAdded = {};
+
+            this.submissionLoading(true);
+
+            function addChanged(relationship, source) {
+                if (alreadyAdded[relationship.uniqueID]) {
+                    return;
+                }
+                if (self !== relationship.parent) {
+                    return;
+                }
+                alreadyAdded[relationship.uniqueID] = true;
+
+                var editData = relationship.editData();
+
+                if (relationship.added()) {
+                    edits.push(MB.edit.relationshipCreate(editData));
+                }
+                else if (relationship.edited()) {
+                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
+                }
+                else if (relationship.removed()) {
+                    edits.push(MB.edit.relationshipDelete(editData));
+                }
+            }
+
+            this.getEdits(addChanged);
+
+            if (edits.length == 0) {
+                this.submissionLoading(false);
+                this.submissionError(i18n.l("You haven’t made any changes!"));
+                return;
+            }
+
+            var data = {
+                editNote: this.editNote(),
+                makeVotable: this.makeVotable(),
+                edits: edits
+            };
+
+            var beforeUnload = window.onbeforeunload;
+            if (beforeUnload) window.onbeforeunload = undefined;
+
+            MB.edit.create(data, this)
+                .always(function () {
+                    this.submissionLoading(false);
+                })
+                .done(this.submissionDone)
+                .fail(function (jqXHR) {
+                    try {
+                        var response = JSON.parse(jqXHR.responseText);
+                        var message = _.isObject(response.error) ?
+                                        response.error.message : response.error;
+
+                        this.submissionError(message);
+                    }
+                    catch (e) {
+                        this.submissionError(jqXHR.responseText);
+                    }
+
+                    if (beforeUnload) window.onbeforeunload = beforeUnload;
+                });
         },
 
         submissionDone: function () {
@@ -87,13 +174,12 @@
         },
 
         releaseLoaded: function (data) {
-            var self = this;
             var release = this.source;
 
             release.mediums(_.map(data.mediums, function (mediumData) {
                 _.each(mediumData.tracks, function (trackData) {
                     MB.entity(trackData.recording).parseRelationships(
-                        trackData.recording.relationships, self
+                        trackData.recording.relationships
                     );
                 });
                 return MB.entity.Medium(mediumData, release);
@@ -182,12 +268,6 @@
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
-        },
-
-        _acceptedTypes: ["release", "release_group", "recording", "work"],
-
-        typesAreAccepted: function (sourceType, targetType) {
-            return targetType !== "url" && _.contains(this._acceptedTypes, sourceType);
         }
     });
 

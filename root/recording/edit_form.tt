@@ -36,7 +36,7 @@
 
     <fieldset>
       <legend>[% l('External Links') %]</legend>
-      [% external_links_editor(r.form, 'recording') %]
+      [% external_links_editor() %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -47,7 +47,6 @@
   <div class="documentation">
     [%- artist_credit_table() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -65,7 +64,5 @@
     });
 
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
-
-    MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
   }());
 //]]></script>

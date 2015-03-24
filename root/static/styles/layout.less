@@ -536,6 +536,7 @@ table.tbl {
     /* Fixed widths and other custom styles */
     .pos { width: 1em; white-space: nowrap; }
     .year { width: 4em; }
+    &.release-group-list .artist { width: 25%; }
     .count { width: 2em; }
     .rating { width: 50px; }
     .treleases { width: 3em; }
@@ -585,14 +586,29 @@ table.details table.tbl th {
 }
 
 /* Paginator */
-.pageselector {
+nav .pagination {
+    display: table;
+    border-collapse: collapse;
+
+    li {
+        display: table-cell;
+        border: solid 1px @light-border;
+
+        &.separator {
+            border-top-style: none;
+            border-bottom-style: none;
+            width: 1em;
+        }
+    }
+
     a, span {
-        font-size: 90%;
-        padding: 0.05em 0.4em;
+        display: block;
+        padding: 0.25em 0.55em;
+        min-width: 1em; /* ensure that even single digits are a reasonable size */
+        text-align: center;
     }
 
     a {
-        border: solid 1px @text-black;
         text-decoration: none;
         background-color: #FFF;
         color: @text-black;
@@ -602,20 +618,15 @@ table.details table.tbl th {
         }
 
         &.sel {
-            background-color: @musicbrainz-orange;
+            background-color: @musicbrainz-purple;
+            color: @text-white;
             font-weight: bold;
         }
     }
 
     span {
-        border: solid 1px @dark-border;
         background-color: @very-light-bg;
         color: @dark-text;
-    }
-
-    em {
-        font-style: normal;
-        margin-left: 0.5em;
     }
 
     + .tbl {
@@ -624,17 +635,6 @@ table.details table.tbl th {
 
     &-results {
         margin-bottom: 0;
-    }
-}
-
-/* Browse Entity pages */
-.browse-entities {
-    -moz-column-count: 2; /* Firefox 9+ */
-    -webkit-column-count: 2; /* Chrome, Opera 15+, Safari 3+ */
-    column-count: 2; /* IE 10+, Opera 11-12 */
-
-    ol {
-        margin: 0;
     }
 }
 

@@ -3,16 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../../common/i18n.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
     var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
-        recording:      MB.i18n.l("The series you’ve selected is for recordings."),
-        release:        MB.i18n.l("The series you’ve selected is for releases."),
-        release_group:  MB.i18n.l("The series you’ve selected is for release groups."),
-        work:           MB.i18n.l("The series you’ve selected is for works.")
+        recording:      i18n.l("The series you’ve selected is for recordings."),
+        release:        i18n.l("The series you’ve selected is for releases."),
+        release_group:  i18n.l("The series you’ve selected is for release groups."),
+        work:           i18n.l("The series you’ve selected is for works.")
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -90,11 +92,10 @@
                 instruments.push(observable);
 
                 observable.subscribe(function (instrument) {
-                    var gid = instrument.gid;
-                    if (gid) {
-                        observable.linkAttribute(relationship.addAttribute(gid));
+                    relationship.attributes.remove(observable.linkAttribute.peek())
+                    if (instrument.gid) {
+                        observable.linkAttribute(relationship.addAttribute(instrument.gid));
                     } else {
-                        relationship.attributes.remove(observable.linkAttribute.peek());
                         observable.linkAttribute(null);
                     }
                 });
@@ -295,7 +296,7 @@
             var description;
 
             if (typeInfo) {
-                description = MB.i18n.l("{description} ({url|more documentation})", {
+                description = i18n.l("{description} ({url|more documentation})", {
                     description: typeInfo.description,
                     url: { href: "/relationship/" + typeInfo.gid, target: "_blank" }
                 });
@@ -333,7 +334,7 @@
 
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
-            var targetTypes = this.viewModel.allowedRelations[sourceType];
+            var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
 
             if (sourceType === "series") {
                 var self = this;
@@ -348,11 +349,11 @@
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: MB.i18n.strings.entityName[type] };
+                return { value: type, text: i18n.strings.entityName[type] };
             });
 
             options.sort(function (a, b) {
-                return MB.i18n.compare(a.text, b.text);
+                return i18n.compare(a.text, b.text);
             });
 
             return options;
@@ -386,6 +387,11 @@
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 
             this.relationship(newRelationship);
+
+            // XXX knockout is stupid and unsets the linkTypeID for no apparent
+            // reason, so do it again...
+            newRelationship.linkTypeID(data.linkTypeID);
+
             currentRelationship.remove();
 
             var ac = this.autocomplete;
@@ -400,16 +406,16 @@
             var typeInfo = this.relationship().linkTypeInfo();
 
             if (!typeInfo) {
-                return MB.i18n.l("Please select a relationship type.");
+                return i18n.l("Please select a relationship type.");
             } else if (!typeInfo.description) {
-                return MB.i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
             } else if (typeInfo.deprecated) {
-                return MB.i18n.l("This relationship type is deprecated and should not be used.");
+                return i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
-                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
+                var checker = MB.Control.URLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
-                    return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                    return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
                 }
             }
 
@@ -417,15 +423,18 @@
         },
 
         targetEntityError: function () {
-            var target = this.relationship().target(this.source);
+            var relationship = this.relationship();
+            var target = relationship.target(this.source);
+            var typeInfo = relationship.linkTypeInfo() || {};
 
             if (!target.gid) {
-                return MB.i18n.l("Required field.");
+                return i18n.l("Required field.");
             } else if (this.source === target) {
-                return MB.i18n.l("Entities in a relationship cannot be the same.");
+                return i18n.l("Entities in a relationship cannot be the same.");
             }
 
             if (target.entityType === "series" &&
+                    _.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, typeInfo.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
@@ -435,7 +444,7 @@
 
         dateError: function (date) {
             var valid = MB.utility.validDate(date.year(), date.month(), date.day());
-            return valid ? "" : MB.i18n.l("The date you've entered is not valid.");
+            return valid ? "" : i18n.l("The date you've entered is not valid.");
         },
 
         datePeriodError: function () {
@@ -446,7 +455,7 @@
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
-                    return MB.i18n.l("The end date cannot preceed the begin date.");
+                    return i18n.l("The end date cannot preceed the begin date.");
                 }
             }
 
@@ -468,6 +477,7 @@
 
     function addRelationships(source, relationships) {
         var linkType = relationships[0].linkTypeInfo();
+        var relationship;
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             relationship = relationships[i];

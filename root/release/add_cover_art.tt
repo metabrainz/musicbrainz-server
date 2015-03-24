@@ -127,8 +127,8 @@
               <p>[% l('New Image Goes Here') %]</p>
             </div>
             <div>
-              <button class="left">&larr;</button>
-              <button class="right" style="float: right;">&rarr;</button>
+              <button type="button" class="left">&larr;</button>
+              <button type="button" class="right" style="float: right;">&rarr;</button>
             </div>
           </div>
         [%- END -%]
@@ -153,6 +153,5 @@
 
   <script type="text/javascript">
     MB.CoverArt.add_cover_art("[%- entity.gid -%]");
-    MB.utility.setDefaultAction('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]

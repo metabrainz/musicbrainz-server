@@ -10,7 +10,7 @@ require("jquery.cookie");
 require("jquery.ui");
 
 require("./common/MB.js");
-require("./common/MB/i18n.js");
+require("./common/i18n.js");
 require("./common/text-collapse.js");
 require("./common/artworkViewer.js");
 require("./common/dialogs.js");

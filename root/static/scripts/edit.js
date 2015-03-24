@@ -7,7 +7,6 @@ window.rstr_sha1 = sha1.rstr_sha1;
 
 require("knockout-arraytransforms");
 require("knockout-delegatedEvents");
-require("knockout-postbox");
 
 require("./relationship-editor/common/fields.js");
 require("./relationship-editor/common/viewModel.js");
@@ -19,9 +18,9 @@ require("./relationship-editor/release.js");
 require("./edit/common.js");
 require("./edit/confirmNavigationFallback.js");
 require("./edit/ExampleRelationships.js");
-require("./edit/externalLinks.js");
 require("./edit/forms.js");
 require("./edit/validation.js");
+require("./edit/externalLinks.js");
 require("./edit/MB/Control/Area.js");
 require("./edit/MB/Control/ArtistCredit.js");
 require("./edit/MB/Control/ArtistEdit.js");

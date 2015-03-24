@@ -26,7 +26,7 @@ has 'primary_type' => (
 
 has 'secondary_types' => (
     isa => 'ArrayRef',
-    is => 'ro',
+    is => 'rw',
     default => sub { [] },
     traits => [ 'Array' ],
     handles => {

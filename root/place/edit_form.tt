@@ -63,7 +63,7 @@
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>
-        [% external_links_editor(r.form, 'place') %]
+        [% external_links_editor() %]
       </fieldset>
 
       [% INCLUDE 'forms/edit-note.tt' %]
@@ -78,8 +78,6 @@
         <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
         [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
     </div>
-
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -154,7 +152,5 @@
             });
         };
     });
-
-    MB.utility.setDefaultAction("form.edit-place", "button.submit.positive");
   }());
 //]]></script>

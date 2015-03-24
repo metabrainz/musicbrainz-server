@@ -1,6 +1,7 @@
 require("./edit/confirmNavigationFallback.js")
 
-// utils.js must be loaded first!
+// The order here is important!
+require("./release-editor/viewModel.js");
 require("./release-editor/utils.js");
 require("./release-editor/actions.js");
 require("./release-editor/bubbles.js");

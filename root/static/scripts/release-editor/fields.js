@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (releaseEditor) {
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
@@ -46,9 +48,13 @@
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
-            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
-            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
+
+            this.updateRecordingTitle = ko.observable(releaseEditor.copyTrackTitlesToRecordings());
+            this.updateRecordingArtist = ko.observable(releaseEditor.copyTrackArtistsToRecordings());
+
+            releaseEditor.copyTrackTitlesToRecordings.subscribe(this.updateRecordingTitle);
+            releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
             this.recordingValue = ko.observable(
                 MB.entity.Recording({ name: data.name })
@@ -144,7 +150,7 @@
             var hasTooltip = !!$lengthInput.data("ui-tooltip");
 
             if (this.medium.hasInvalidPregapLength()) {
-                $lengthInput.attr("title", MB.i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
+                $lengthInput.attr("title", i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
 
                 if (!hasTooltip) {
                     $lengthInput.tooltip();
@@ -483,15 +489,15 @@
 
             if (name) {
                 if (multidisc) {
-                    return MB.i18n.l("Medium {position}: {title}", { position: position, title: name });
+                    return i18n.l("Medium {position}: {title}", { position: position, title: name });
                 }
                 return name;
 
             }
             else if (multidisc) {
-                return MB.i18n.l("Medium {position}", { position: position });
+                return i18n.l("Medium {position}", { position: position });
             }
-            return MB.i18n.l("Tracklist");
+            return i18n.l("Tracklist");
         },
 
         canHaveDiscID: function () {
@@ -756,15 +762,6 @@
             if (!this.mediums().length && !this.hasUnknownTracklist()) {
                 this.mediums.push(fields.Medium({}, this));
             }
-
-            // Setup the external links editor
-
-            this.externalLinks = MB.Control.externalLinks.ViewModel({
-                source: this,
-                sourceData: data
-            });
-
-            this.hasInvalidLinks = errorField(this.externalLinks.links.any("error"));
         },
 
         loadMedia: function () {
@@ -806,13 +803,6 @@
     });
 
 
-    fields.Root = aclass(function () {
-        this.release = ko.observable().syncWith("releaseField", true, true);
-        this.makeVotable = ko.observable(false);
-        this.editNote = ko.observable("");
-    });
-
-
     ko.bindingHandlers.disableBecauseDiscIDs = {
 
         update: function (element, valueAccessor, allBindings, viewModel) {
@@ -821,7 +811,7 @@
             $(element)
                 .prop("disabled", disabled)
                 .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? MB.i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
+                .attr("title", disabled ? i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
         }
     };
 
