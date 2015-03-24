@@ -44,7 +44,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven’t entered a complete artist credit.')) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
