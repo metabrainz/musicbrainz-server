@@ -67,7 +67,6 @@ validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', f
     t.plan(9);
 
     releaseEditor.action = 'edit';
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     var label1 = { name: 'Foo', id: 123 };
     var label2 = { name: 'Bar', id: 456 };
