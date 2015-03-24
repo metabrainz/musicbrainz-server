@@ -13,8 +13,6 @@ var i18n = require('../common/i18n.js');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 var URLCleanup = require('./MB/Control/URLCleanup.js');
 
-require('react/addons');
-
 var l = i18n.l;
 
 var LinkState = Immutable.Record({
@@ -24,29 +22,17 @@ var LinkState = Immutable.Record({
   video: false
 });
 
-var ExternalLinksEditor = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+class ExternalLinksEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {links: withOneEmptyLink(props.initialLinks)};
+  }
 
-  propTypes: {
-    sourceType: PropTypes.string.isRequired,
-    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
-    initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
-    errorObservable: function (props, propName) {
-      if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
-        return new Error('errorObservable should be an observable');
-      }
-    }
-  },
-
-  getInitialState: function () {
-    return { links: withOneEmptyLink(this.props.initialLinks) };
-  },
-
-  setLinkState: function (index, state, callback) {
+  setLinkState(index, state, callback) {
     this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], state), index) }, callback);
-  },
+  }
 
-  handleUrlChange: function (index, event) {
+  handleUrlChange(index, event) {
     var url = event.target.value;
     var link = this.state.links.get(index);
 
@@ -67,34 +53,35 @@ var ExternalLinksEditor = React.createClass({
         }
       }
     });
-  },
+  }
 
-  handleUrlBlur: function (index, event) {
+  handleUrlBlur(index, event) {
     var url = event.target.value;
     var trimmed = _.str.trim(url);
 
     if (url !== trimmed) {
       this.setLinkState(index, { url: trimmed });
     }
-  },
+  }
 
-  handleTypeChange: function (index, event) {
+  handleTypeChange(index, event) {
     this.setLinkState(index, { type: +event.target.value || null });
-  },
+  }
 
-  handleVideoChange: function (index, event) {
+  handleVideoChange(index, event) {
     this.setLinkState(index, { video: event.target.checked });
-  },
+  }
 
-  removeLink: function (index) {
+  removeLink(index) {
     this.setState({ links: this.state.links.remove(index) }, () => {
-      $(this.getDOMNode()).find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
-                                'tr:lt(' + (index + 1) + ') button.remove:last')
-                          .eq(0).focus();
+      $(React.findDOMNode(this))
+        .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
+              'tr:lt(' + (index + 1) + ') button.remove:last')
+        .eq(0).focus();
     });
-  },
+  }
 
-  getEditData: function () {
+  getEditData() {
     var oldLinks = _(this.props.initialLinks.toJS())
       .filter(link => isPositiveInteger(link.relationship))
       .indexBy('relationship')
@@ -107,9 +94,9 @@ var ExternalLinksEditor = React.createClass({
       newLinks: newLinks,
       allLinks: _.defaults(_.clone(newLinks), oldLinks)
     };
-  },
+  }
 
-  getFormData: function (startingPrefix, startingIndex, pushInput) {
+  getFormData(startingPrefix, startingIndex, pushInput) {
     var index = 0;
     var backward = this.props.sourceType > 'url';
     var { newLinks, allLinks } = this.getEditData();
@@ -141,9 +128,9 @@ var ExternalLinksEditor = React.createClass({
 
       pushInput(prefix, 'link_type_id', link.type || '');
     });
-  },
+  }
 
-  render: function () {
+  render() {
     this.props.errorObservable(false);
 
     var linksArray = this.state.links.toArray();
@@ -201,17 +188,21 @@ var ExternalLinksEditor = React.createClass({
       </table>
     );
   }
-});
+}
 
-var LinkTypeSelect = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+ExternalLinksEditor.propTypes = {
+  sourceType: PropTypes.string.isRequired,
+  typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
+  initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
+  errorObservable: function (props, propName) {
+    if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
+      return new Error('errorObservable should be an observable');
+    }
+  }
+};
 
-  propTypes: {
-    type: PropTypes.number,
-    typeChangeCallback: PropTypes.func.isRequired
-  },
-
-  render: function () {
+class LinkTypeSelect extends React.Component {
+  render() {
     return (
       <select value={this.props.type} onChange={this.props.typeChangeCallback} className="link-type">
         <option value=""></option>
@@ -219,27 +210,15 @@ var LinkTypeSelect = React.createClass({
       </select>
     );
   }
-});
+}
 
-var ExternalLink = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+LinkTypeSelect.propTypes = {
+  type: PropTypes.number,
+  typeChangeCallback: PropTypes.func.isRequired
+};
 
-  propTypes: {
-    url: PropTypes.string.isRequired,
-    type: PropTypes.number,
-    video: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-    isOnlyLink: PropTypes.bool.isRequired,
-    urlMatchesType: PropTypes.bool.isRequired,
-    removeCallback: PropTypes.func.isRequired,
-    urlChangeCallback: PropTypes.func.isRequired,
-    urlBlurCallback: PropTypes.func.isRequired,
-    typeChangeCallback: PropTypes.func.isRequired,
-    videoChangeCallback: PropTypes.func.isRequired,
-    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
-  },
-
-  render: function () {
+class ExternalLink extends React.Component {
+  render() {
     var props = this.props;
     var typeInfo = MB.typeInfoByID[props.type] || {};
     var typeDescription = '';
@@ -297,7 +276,22 @@ var ExternalLink = React.createClass({
       </tr>
     );
   }
-});
+}
+
+ExternalLink.propTypes = {
+  url: PropTypes.string.isRequired,
+  type: PropTypes.number,
+  video: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  isOnlyLink: PropTypes.bool.isRequired,
+  urlMatchesType: PropTypes.bool.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+  urlChangeCallback: PropTypes.func.isRequired,
+  urlBlurCallback: PropTypes.func.isRequired,
+  typeChangeCallback: PropTypes.func.isRequired,
+  videoChangeCallback: PropTypes.func.isRequired,
+  typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
+};
 
 function linkTypeAndUrlString(link) {
   return link.type + '\0' + link.url;
