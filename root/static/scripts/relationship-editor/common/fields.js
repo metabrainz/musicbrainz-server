@@ -4,6 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../../common/i18n.js');
+var request = require('../../common/utility/request.js');
+var dates = require('../../edit/utility/dates.js');
+var mergeDates = require('./mergeDates.js');
 
 (function (RE) {
 
@@ -90,6 +93,10 @@ var i18n = require('../../common/i18n.js');
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
+        },
+
+        formatDatePeriod: function () {
+            return dates.formatDatePeriod(this.period);
         },
 
         fromJS: function (data) {
@@ -203,7 +210,7 @@ var i18n = require('../../common/i18n.js');
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                MB.utility.request(args).done(function (data) {
+                request(args).done(function (data) {
                     entity1.parseRelationships(data.relationships);
                 });
             }
@@ -425,8 +432,8 @@ var i18n = require('../../common/i18n.js');
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
-                MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.period.beginDate, other.period.beginDate) &&
+                mergeDates(this.period.endDate, other.period.endDate) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },

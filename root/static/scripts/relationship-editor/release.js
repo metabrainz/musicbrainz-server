@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
 
 (function (RE) {
 
@@ -52,7 +53,7 @@ var i18n = require('../common/i18n.js');
 
             this.loadingRelease(true);
             var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
-            MB.utility.request({ url: url }, this)
+            request({ url: url }, this)
                 .done(this.releaseLoaded)
                 .always(function () {
                     self.loadingRelease(false);

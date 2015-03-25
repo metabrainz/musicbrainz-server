@@ -109,4 +109,5 @@ require('./tests/release-editor/edits.js');
 require('./tests/release-editor/fields.js');
 require('./tests/release-editor/trackParser.js');
 require('./tests/release-editor/validation.js');
+require('./tests/release-editor/utils.js');
 require('./tests/utility.js');

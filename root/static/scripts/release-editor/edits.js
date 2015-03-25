@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var debounce = require('../common/utility/debounce.js');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 
 (function (releaseEditor) {
@@ -361,7 +362,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
     };
 
 
-    releaseEditor.allEdits = MB.utility.debounce(
+    releaseEditor.allEdits = debounce(
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
@@ -401,7 +402,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        MB.utility.debounce(function () {
+        debounce(function () {
             var edits = releaseEditor.allEdits();
 
             if (validation.errorsExist()) {

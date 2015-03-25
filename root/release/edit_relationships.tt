@@ -235,7 +235,7 @@
           <span class="entity" data-bind="html: html({ 'target': '_blank' }), css: { 'rel-edit': $parent.editsPending }"></span>
         <!-- /ko -->
         (<!-- ko template: "template.link.phrase" --><!-- /ko -->)
-        <!-- ko with: MB.utility.formatDatePeriod(period) -->
+        <!-- ko with: formatDatePeriod() -->
           (<!-- ko text: $data --><!-- /ko -->)
         <!-- /ko -->
         <span class="remove-button" data-click="removeRelationship">&#215;</span>

@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
 var externalLinks = require('../edit/externalLinks.js');
 var validation = require('../edit/validation.js');
 
@@ -203,7 +204,7 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this)
+    return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
                 error = jqXHR.status + " (" + error + ")"

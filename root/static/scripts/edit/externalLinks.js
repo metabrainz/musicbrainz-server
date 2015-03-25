@@ -150,7 +150,7 @@ class ExternalLinksEditor extends React.Component {
               error = '';
             } else if (!link.url) {
               error = l('Required field.');
-            } else if (!MB.utility.isValidURL(link.url)) {
+            } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
@@ -336,6 +336,34 @@ function parseRelationships(relationships) {
       }));
     }
   });
+}
+
+var protocolRegex = /^(https?|ftp):$/;
+var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+function isValidURL(url) {
+    var a = document.createElement("a");
+    a.href = url;
+
+    var hostname = a.hostname;
+
+    if (url.indexOf(hostname) < 0) {
+        return false;
+    }
+
+    if (!hostnameRegex.test(hostname)) {
+        return false;
+    }
+
+    if (hostname.indexOf(".") < 0) {
+        return false;
+    }
+
+    if (!protocolRegex.test(a.protocol)) {
+        return false;
+    }
+
+    return true;
 }
 
 MB.createExternalLinksEditor = function (options) {

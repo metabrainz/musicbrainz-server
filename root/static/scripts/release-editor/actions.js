@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var deferFocus = require('../edit/utility/deferFocus.js');
 
 (function (releaseEditor) {
 
@@ -127,7 +128,7 @@ var i18n = require('../common/i18n.js');
                 this.swapTracks(track, previous, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-up", "#" + track.elementID);
+            deferFocus("button.track-up", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -148,7 +149,7 @@ var i18n = require('../common/i18n.js');
                 this.swapTracks(track, next, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+            deferFocus("button.track-down", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -201,9 +202,9 @@ var i18n = require('../common/i18n.js');
             }
 
             if (focus) {
-                MB.utility.deferFocus("button.remove-item", "#" + focus.elementID);
+                deferFocus("button.remove-item", "#" + focus.elementID);
             } else {
-                MB.utility.deferFocus(".add-tracks button.add-item", $medium);
+                deferFocus(".add-tracks button.add-item", $medium);
             }
 
             medium.toc(null);

@@ -4,6 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var dates = require('../edit/utility/dates.js');
 
 (function (releaseEditor) {
 
@@ -44,7 +47,7 @@ var i18n = require('../common/i18n.js');
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.track = this;
 
-            this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
+            this.formattedLength = ko.observable(formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
@@ -126,7 +129,7 @@ var i18n = require('../common/i18n.js');
             }
 
             var oldLength = this.length();
-            var newLength = MB.utility.unformatTrackLength(length);
+            var newLength = utils.unformatTrackLength(length);
 
             if (_.isNaN(newLength)) {
                 this.formattedLength('');
@@ -135,7 +138,7 @@ var i18n = require('../common/i18n.js');
 
             this.length(newLength);
 
-            var newFormattedLength = MB.utility.formatTrackLength(newLength);
+            var newFormattedLength = formatTrackLength(newLength);
             if (length !== newFormattedLength) {
                 this.formattedLength(newFormattedLength);
             }
@@ -398,7 +401,7 @@ var i18n = require('../common/i18n.js');
 
             _.each(tocTracks, function (track, index) {
                 track.formattedLength(
-                    MB.utility.formatTrackLength(
+                    formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
@@ -446,7 +449,7 @@ var i18n = require('../common/i18n.js');
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this).done(this.tracksLoaded);
+            request(args, this).done(this.tracksLoaded);
         },
 
         tracksLoaded: function (data) {
@@ -522,7 +525,7 @@ var i18n = require('../common/i18n.js');
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = MB.utility.parseDate(data.date || "");
+            var date = dates.parseDate(data.date || "");
 
             this.date = {
                 year:   ko.observable(date.year),
@@ -538,7 +541,7 @@ var i18n = require('../common/i18n.js');
 
             this.hasInvalidDate = ko.computed(function () {
                 var date = self.unwrapDate();
-                return !MB.utility.validDate(date.year, date.month, date.day);
+                return !dates.isDateValid(date.year, date.month, date.day);
             });
         },
 
