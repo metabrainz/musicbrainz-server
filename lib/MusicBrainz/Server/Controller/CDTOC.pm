@@ -210,8 +210,8 @@ sub attach : Local DenyWhenReadOnly
         my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
         });
-        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
         $c->model('Release')->load_related_info(@$releases);
+        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
         $c->model('ReleaseGroup')->load_meta(@rgs);
 
@@ -245,13 +245,13 @@ sub attach : Local DenyWhenReadOnly
                                             { track_count => $cdtoc->track_count });
             });
             my @releases = map { $_->entity } @$releases;
+            $c->model('Release')->load_related_info(@releases);
             my @mediums = map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_mediums(@mediums);
 
             my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
-            $c->model('Release')->load_related_info(@releases);
 
             my @rgs = $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroup')->load_meta(@rgs);
