@@ -125,7 +125,7 @@ var request = require('../common/utility/request.js');
                     edits.push(MB.edit.relationshipCreate(editData));
                 }
                 else if (relationship.edited()) {
-                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
+                    edits.push(MB.edit.relationshipEdit(editData, relationship.original, relationship));
                 }
                 else if (relationship.removed()) {
                     edits.push(MB.edit.relationshipDelete(editData));

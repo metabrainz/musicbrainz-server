@@ -99,7 +99,7 @@ class ExternalLinksEditor extends React.Component {
   getFormData(startingPrefix, startingIndex, pushInput) {
     var index = 0;
     var backward = this.props.sourceType > 'url';
-    var { newLinks, allLinks } = this.getEditData();
+    var { oldLinks, newLinks, allLinks } = this.getEditData();
 
     _.each(allLinks, function (link, relationship) {
       if (!link.type) {
@@ -120,6 +120,9 @@ class ExternalLinksEditor extends React.Component {
 
       if (link.video) {
         pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+      } else if ((oldLinks[relationship] || {}).video) {
+        pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+        pushInput(prefix + '.attributes.0', 'removed', 1);
       }
 
       if (backward) {

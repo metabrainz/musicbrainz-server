@@ -146,24 +146,10 @@ var request = require('../../common/utility/request.js');
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            var originalAttributes = relationship.attributes.original;
-            var newAttributes = {};
-
-            data.attributes = _(ko.unwrap(relationship.attributes)).transform(function (result, attribute) {
-                var gid = attribute.type.gid;
-                var hash = attribute.toJS();
-                newAttributes[gid] = hash;
-
-                if (!originalAttributes[gid] || !_.isEqual(originalAttributes[gid], hash)) {
-                    result.push(hash);
-                }
-            }, []).sortBy(function (a) { return a.type.id }).value();
-
-            _.each(originalAttributes, function (value, gid) {
-                if (!newAttributes[gid]) {
-                    data.attributes.push({ type: { gid: gid }, removed: true });
-                }
-            });
+            data.attributes = _(ko.unwrap(relationship.attributes))
+                .invoke('toJS')
+                .sortBy(function (a) { return a.type.id })
+                .value();
 
             if (_.isNumber(data.linkTypeID)) {
                 if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
@@ -299,7 +285,7 @@ var request = require('../../common/utility/request.js');
         return function (args, orig) {
             args = _.extend({ edit_type: type }, args);
 
-            callback && callback(args, orig);
+            callback && callback.apply(null, arguments);
             args.hash = editHash(args);
 
             return args;
@@ -408,7 +394,30 @@ var request = require('../../common/utility/request.js');
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
-        _.partialRight(removeEqual, ['id', 'linkTypeID'])
+        function (args, orig, relationship) {
+            var newAttributes = {};
+            var origAttributes = relationship ? relationship.attributes.original : {};
+            var changedAttributes = [];
+
+            _.each(args.attributes, function (hash) {
+                var gid = hash.type.gid;
+
+                newAttributes[gid] = hash;
+
+                if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
+                    changedAttributes.push(hash);
+                 }
+            });
+
+            _.each(origAttributes, function (value, gid) {
+                if (!newAttributes[gid]) {
+                    changedAttributes.push({type: {gid: gid}, removed: true});
+                }
+            });
+
+            args.attributes = changedAttributes;
+            removeEqual(args, orig, ['id', 'linkTypeID']);
+        }
     );
 
 

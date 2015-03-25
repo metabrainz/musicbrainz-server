@@ -340,20 +340,26 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
                     return;
                 }
 
-                var editData = MB.edit.fields.externalLinkRelationship(link, release);
+                var newData = MB.edit.fields.externalLinkRelationship(link, release);
 
                 if (isPositiveInteger(link.relationship)) {
                     if (!newLinks[link.relationship]) {
-                        edits.push(MB.edit.relationshipDelete(editData));
+                        edits.push(MB.edit.relationshipDelete(newData));
                     } else if (oldLinks[link.relationship]) {
                         var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                        if (!_.isEqual(editData, original)) {
-                            edits.push(MB.edit.relationshipEdit(editData, original));
+                        if (!_.isEqual(newData, original)) {
+                            var editData = MB.edit.relationshipEdit(newData, original);
+
+                            if (original.video && !newData.video) {
+                                editData.attributes = [{type: {gid: MB.constants.VIDEO_ATTRIBUTE_GID}, removed: true}];
+                            }
+
+                            edits.push(editData);
                         }
                     }
                 } else if (newLinks[link.relationship]) {
-                    edits.push(MB.edit.relationshipCreate(editData));
+                    edits.push(MB.edit.relationshipCreate(newData));
                 }
             });
 

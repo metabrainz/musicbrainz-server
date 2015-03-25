@@ -97,7 +97,8 @@ var validation = require('../edit/validation.js');
 
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
-            _.each(editData.attributes, function (attribute, i) {
+            var changedAttributes = MB.edit.relationshipEdit(editData, relationship.original, relationship).attributes;
+            _.each(changedAttributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
