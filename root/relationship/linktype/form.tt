@@ -147,9 +147,7 @@
             </div>
         [% END %]
 
-        <script type="text/javascript"
-            src="[% c.uri_for('/static/scripts/edit/ExampleRelationships.js') %]">
-        </script>
+        [% script_manifest('edit.js') %]
         <script type="text/javascript">
 var editor = MB.ExampleRelationshipsEditor.init({
     type0: '[% link_type.entity0_type %]',
