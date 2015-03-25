@@ -296,7 +296,6 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     }
 };
 
-
 MB.releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&

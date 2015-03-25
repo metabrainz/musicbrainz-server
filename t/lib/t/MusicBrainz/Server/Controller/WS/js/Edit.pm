@@ -1107,4 +1107,63 @@ test 'Invalid release event dates are rejected' => sub {
     like($response->{error}, qr/^invalid date: 0000-0-0/, 'error is returned for invalid release event date');
 };
 
+test 'Releases can be added without any mediums' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    my $response;
+    my @edits;
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $artist_credit = {
+        names => [
+            {
+                artist => { id => 5, name => "David Bowie" },
+                name => "David Bowie",
+                join_phrase => '',
+            }
+        ]
+    };
+
+    my $release_edits = [{
+        edit_type         => $EDIT_RELEASE_CREATE,
+        name              => 'NoMedium',
+        release_group_id  => undef,
+        artist_credit     => $artist_credit,
+    }];
+
+    my $release_group_edits = [{
+        edit_type     => $EDIT_RELEASEGROUP_CREATE,
+        name          => 'NoMedium',
+        artist_credit => $artist_credit,
+    }];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::ReleaseGroup::Create', 'release group created');
+
+    $response = from_json($mech->content);
+    is($response->{edits}->[0]->{message}, 'OK', 'ws response says OK');
+
+    my $release_group_id = $response->{edits}->[0]->{entity}->{id};
+    $release_edits->[0]->{release_group_id} = $release_group_id;
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $release_edits,
+            editNote => 'foo',
+            makeVotable => 0,
+        }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::Create', 'release added without any mediums');
+};
+
 1;
