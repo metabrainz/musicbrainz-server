@@ -230,7 +230,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes()).pluck("type").pluck("id").value(),
+        _(relationship.attributes()).pluck("type").pluck("id").value().sort(),
         [123, 194, 277],
         "attributes are the same"
     );
@@ -677,10 +677,13 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.0.period.ended": "1",
         "edit-artist.rel.0.backward": "1",
         "edit-artist.rel.0.link_type_id": "103",
+        "edit-artist.rel.0.attributes.0.removed": "1",
+        "edit-artist.rel.0.attributes.0.type.gid": "17f9f065-2312-4a24-8309-6f6dd63e2e33",
+        "edit-artist.rel.0.attributes.1.removed": "1",
+        "edit-artist.rel.0.attributes.1.type.gid": "8e2a3255-87c2-4809-a174-98cb3704f1a5",
         "edit-artist.rel.1.relationship_id": "35568",
         "edit-artist.rel.1.removed": "1",
         "edit-artist.rel.1.target": "49a51491-650e-44b3-8085-2f07ac2986dd",
-        "edit-artist.rel.1.attributes.0.type.gid": "17f9f065-2312-4a24-8309-6f6dd63e2e33",
         "edit-artist.rel.1.period.ended": "1",
         "edit-artist.rel.1.backward": "1",
         "edit-artist.rel.1.link_type_id": "103",

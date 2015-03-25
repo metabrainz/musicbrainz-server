@@ -41,6 +41,10 @@ has_field 'attributes.text_value' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
+has_field 'attributes.removed' => (
+    type => 'Boolean',
+);
+
 has_field 'link_order' => (
     type => 'Integer',
 );

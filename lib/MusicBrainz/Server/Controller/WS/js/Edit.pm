@@ -25,6 +25,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $UNTRUSTED_FLAG
 );
+use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     model_to_type
@@ -331,20 +332,12 @@ sub process_relationship {
         process_partial_date($data->{$date});
     }
 
-    $data->{attributes} = [
-        map {
-            my $credited_as = trim($_->{credit});
-            my $text_value = trim($_->{textValue});
-            {
-                type => {
-                    gid => $_->{type}{gid}
-                },
-                non_empty($credited_as) ? (credited_as => $credited_as) : (),
-                non_empty($text_value) ? (text_value => $text_value) : (),
-            }
-        } @{ $data->{attributes} }
-    ]
-        if defined $data->{attributes};
+    if (defined $data->{attributes} && @{ $data->{attributes} }) {
+        $data->{attributes} = merge_link_attributes(
+            $data->{attributes},
+            [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()]
+        );
+    }
 
     delete $data->{id};
     delete $data->{linkTypeID};
