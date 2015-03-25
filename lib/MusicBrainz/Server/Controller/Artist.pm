@@ -393,11 +393,7 @@ sub releases : Chained('load')
     $c->stash( template => 'artist/releases.tt' );
 
     $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Medium')->load_for_releases(@$releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Release')->load_release_events(@$releases);
-    $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('Release')->load_related_info(@$releases);
     $c->stash(
         releases => $releases,
         show_artists => scalar grep {
