@@ -154,6 +154,12 @@ sub find
         }, $query, @args, $offset);
 }
 
+my $edit_in_collection_sql = 'edit.id IN (' . join(' UNION ', map {
+    "SELECT edit_$_.edit FROM edit_$_ JOIN editor_collection_$_
+          ON edit_$_.$_ = editor_collection_$_.$_
+         WHERE editor_collection_$_.collection = ?"
+} entities_with('collections')) . ')';
+
 sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $status) = @_;
@@ -162,16 +168,10 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE edit.id IN (' . join(' UNION ', map {
-                    "SELECT edit_$_.edit
-                    FROM edit_$_ JOIN editor_collection_$_
-                     ON edit_$_.$_ = editor_collection_$_.$_
-                     WHERE editor_collection_$_.collection = ?"
-                  } entities_with('collections')) . ')
-                  ' . $status_cond . '
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                  WHERE $edit_in_collection_sql $status_cond
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+                  OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -208,22 +208,13 @@ sub find_for_subscription
     elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                      WHERE edit.id IN (SELECT er.edit
-                                          FROM edit_release er JOIN editor_collection_release ecr
-                                               ON er.release = ecr.release
-                                         WHERE ecr.collection = ?
-                                        UNION
-                                        SELECT ee.edit
-                                          FROM edit_event ee JOIN editor_collection_event ece
-                                               ON ee.event = ece.event
-                                         WHERE ece.collection = ?)
-                       AND id > ? AND status IN (?, ?)';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                      WHERE $edit_in_collection_sql AND id > ? AND status IN (?, ?)";
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query,  $subscription->target_id, $subscription->target_id,
+            $query, ($subscription->target_id) x entities_with('collections'),
             $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -319,16 +310,14 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM
-      (SELECT edit, esc.editor FROM edit_release er
-        JOIN editor_collection_release ecr ON er.release = ecr.release
-        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
-        WHERE esc.available
-      UNION
-      SELECT edit, esc.editor FROM edit_event ee
-        JOIN editor_collection_event ece ON ee.event = ece.event
-        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
-        WHERE esc.available) ce
+    SELECT edit FROM (" . join(' UNION ', map {
+        "SELECT edit, esc.editor FROM edit_$_
+          JOIN editor_collection_$_
+           ON edit_$_.$_ = editor_collection_$_.$_
+          JOIN editor_subscribe_collection esc
+           ON esc.collection = editor_collection_$_.collection
+         WHERE esc.available"
+    } entities_with('collections')) . ") ce
       JOIN edit ON ce.edit = edit.id
     WHERE edit.status = ? AND ce.editor = ?
     UNION
