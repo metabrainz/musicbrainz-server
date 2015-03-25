@@ -4,6 +4,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var flags = require('./flags.js');
+
 // Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence.
 var preBracketSingleWordsList = [
     'acoustic',
@@ -116,23 +118,6 @@ exports.isPunctuationChar = function (w) {
     return punctuationChars.test(w);
 };
 
-var bracketChars = /^[()\[\]{}<>]$/;
-
-var bracketPairs = {
-    '(': ')',
-    ')': '(',
-    '[': ']',
-    ']': '[',
-    '{': '}',
-    '}': '{',
-    '<': '>',
-    '>': '<'
-};
-
-exports.getCorrespondingBracket = function (w) {
-    return bracketChars.test(w) ? bracketPairs[w] : '';
-};
-
 // Trim leading, trailing and running-line whitespace from the given string.
 exports.trim = function (is) {
     is = _.str.clean(is);
@@ -145,7 +130,7 @@ exports.titleString = function (is, forceCaps) {
         return '';
     }
 
-    forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
+    forceCaps = (forceCaps != null ? forceCaps : flags.context.forceCaps);
 
     // Get current pointer in word array.
     var len = gc.i.getLength();
@@ -202,7 +187,7 @@ exports.titleString = function (is, forceCaps) {
             os = lc;
         } else if (gc.mode.isUpperCaseWord(lc)) {
             os = uc;
-        } else if (gc.f.isInsideBrackets() && exports.isLowerCaseBracketWord(lc)) {
+        } else if (flags.isInsideBrackets() && exports.isLowerCaseBracketWord(lc)) {
             os = lc;
         }
     }
@@ -230,7 +215,7 @@ exports.titleStringByMode = function (is, forceCaps) {
     // opening bracket, keep the work lowercase.
     var doCaps = (
         forceCaps || !gc.mode.isSentenceCaps() ||
-        gc.f.slurpExtraTitleInformation || gc.f.openingBracket ||
+        flags.context.slurpExtraTitleInformation || flags.context.openingBracket ||
         gc.i.isFirstWord() || exports.isSentenceStopChar(wordBefore)
     );
 

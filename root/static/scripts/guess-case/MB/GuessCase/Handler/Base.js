@@ -19,6 +19,7 @@
 
 */
 
+var flags = require('../../../flags.js');
 var utils = require('../../../utils.js');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
@@ -173,9 +174,9 @@ MB.GuessCase.Handler.Base = function () {
         gc.o.appendSpaceIfNeeded();
         gc.i.capitalizeCurrentWord();
         gc.o.appendCurrentWord();
-        gc.f.resetContext();
-        gc.f.forceCaps = false;
-        gc.f.spaceNextWord = true;
+        flags.resetContext();
+        flags.context.forceCaps = false;
+        flags.context.spaceNextWord = true;
     };
 
     /**
@@ -187,10 +188,10 @@ MB.GuessCase.Handler.Base = function () {
             gc.re.WHITESPACE = " ";
         }
         if (gc.i.matchCurrentWord(gc.re.WHITESPACE)) {
-            gc.f.whitespace = true;
-            gc.f.spaceNextWord = true;
-            if (gc.f.openingBracket) {
-                gc.f.spaceNextWord = false;
+            flags.context.whitespace = true;
+            flags.context.spaceNextWord = true;
+            if (flags.context.openingBracket) {
+                flags.context.spaceNextWord = false;
             }
             return true;
         }
@@ -211,7 +212,7 @@ MB.GuessCase.Handler.Base = function () {
             // -- handle special case feat. "role" lowercase.
             var featIndex = gc.o.getLength()-3;
             var role;
-            if (gc.f.slurpExtraTitleInformation &&
+            if (flags.context.slurpExtraTitleInformation &&
                 featIndex > 0 &&
                 gc.o.getWordAtIndex(featIndex) == "feat." &&
                 (role = gc.o.getLastWord()) != "") {
@@ -232,11 +233,11 @@ MB.GuessCase.Handler.Base = function () {
                 var naword = gc.i.getWordAtIndex(pos+2);
                 if (nword.match(gc.re.OPENBRACKET)) {
                     skip = true;
-                    gc.f.spaceNextWord = true;
+                    flags.context.spaceNextWord = true;
                 }
                 if (gc.i.isNextWord(" ") &&
                     naword.match(gc.re.OPENBRACKET)) {
-                    gc.f.spaceNextWord = true;
+                    flags.context.spaceNextWord = true;
                     skip = true;
                     gc.i.nextIndex();
                 }
@@ -244,10 +245,10 @@ MB.GuessCase.Handler.Base = function () {
             if (!skip) {
                 // no whitespace before colons
                 gc.o.appendCurrentWord();
-                gc.f.resetContext();
-                gc.f.forceCaps = true;
-                gc.f.colon = true;
-                gc.f.spaceNextWord = (gc.i.isNextWord(" "));
+                flags.resetContext();
+                flags.context.forceCaps = true;
+                flags.context.colon = true;
+                flags.context.spaceNextWord = (gc.i.isNextWord(" "));
             }
             return true;
         }
@@ -263,7 +264,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.ASTERIX)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
+            flags.resetContext();
             return true;
         }
         return false;
@@ -278,7 +279,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.DIAMOND)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
+            flags.resetContext();
             return true;
         }
         return false;
@@ -294,7 +295,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.PERCENT)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
+            flags.resetContext();
             return true;
         }
         return false;
@@ -308,10 +309,10 @@ MB.GuessCase.Handler.Base = function () {
             gc.re.AMPERSAND = "&";
         }
         if (gc.i.matchCurrentWord(gc.re.AMPERSAND)) {
-            gc.f.resetContext();
-            gc.f.forceCaps = true;
+            flags.resetContext();
+            flags.context.forceCaps = true;
             gc.o.appendSpace(); // add a space,and remember to
-            gc.f.spaceNextWord = true; // add one before the next word
+            flags.context.spaceNextWord = true; // add one before the next word
             gc.o.appendCurrentWord();
             return true;
         }
@@ -327,14 +328,14 @@ MB.GuessCase.Handler.Base = function () {
             gc.re.LINESTOP = /[\?\!\;]/;
         }
         if (gc.i.matchCurrentWord(gc.re.LINESTOP)) {
-            gc.f.resetContext();
+            flags.resetContext();
 
             // force caps on word before the colon, if
             // the mode is not sentencecaps
             gc.o.capitalizeLastWord(!gc.mode.isSentenceCaps());
 
-            gc.f.forceCaps = true;
-            gc.f.spaceNextWord = true;
+            flags.context.forceCaps = true;
+            flags.context.spaceNextWord = true;
             gc.o.appendCurrentWord();
             return true;
         }
@@ -354,11 +355,11 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.HYPHEN)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
+            flags.resetContext();
 
             // don't capitalize next word after hyphen in sentence mode.
-            gc.f.forceCaps = !gc.mode.isSentenceCaps();
-            gc.f.hypen = true;
+            flags.context.forceCaps = !gc.mode.isSentenceCaps();
+            flags.context.hypen = true;
             return true;
         }
         return false;
@@ -373,10 +374,10 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.INVERTEDMARKS)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: false});
-            gc.f.resetContext();
+            flags.resetContext();
 
             // next word is start of a new sentence.
-            gc.f.forceCaps = true;
+            flags.context.forceCaps = true;
             return true;
         }
         return false;
@@ -391,7 +392,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.PLUS)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
+            flags.resetContext();
             return true;
         }
         return false;
@@ -407,8 +408,8 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.SLASH)) {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
-            gc.f.resetContext();
-            gc.f.forceCaps = true;
+            flags.resetContext();
+            flags.context.forceCaps = true;
             return true;
         }
         return false;
@@ -426,8 +427,8 @@ MB.GuessCase.Handler.Base = function () {
             gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: false});
 
             // changed 05/2006: do not force capitalization after quotes
-            gc.f.resetContext();
-            gc.f.forceCaps = !gc.i.isNextWord(" ");
+            flags.resetContext();
+            flags.context.forceCaps = !gc.i.isNextWord(" ");
             return true;
         }
         return false;
@@ -446,42 +447,42 @@ MB.GuessCase.Handler.Base = function () {
         }
 
         if (gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)) {
-            gc.f.forceCaps = false;
+            flags.context.forceCaps = false;
             var a = gc.i.isPreviousWord(" ");
             var b = gc.i.isNextWord(" ");
-            var state = gc.f.openedSingleQuote;
+            var state = flags.context.openedSingleQuote;
 
             // preserve whitespace before opening singlequote.
             // -- if it's a "Asdf 'Text in Quotes'"
             if (a && !b) {
                 gc.o.appendSpace();
-                gc.f.openedSingleQuote = true;
-                gc.f.forceCaps = true;
+                flags.context.openedSingleQuote = true;
+                flags.context.forceCaps = true;
 
             // preserve whitespace after closing singlequote.
             } else  if (!a && b) {
                 if (state) {
-                    gc.f.forceCaps = true;
-                    gc.f.openedSingleQuote = false;
+                    flags.context.forceCaps = true;
+                    flags.context.openedSingleQuote = false;
                 } else {
 
                 }
                 gc.o.capitalizeLastWord();
             }
-            gc.f.spaceNextWord = b; // and keep whitespace intact
+            flags.context.spaceNextWord = b; // and keep whitespace intact
             gc.o.appendCurrentWord(); // append current word
 
             // if there is a space after the ' assume its a closing singlequote
             // do not force capitalization per default, else for "Rollin' on",
             // the "On" will be titled.
-            gc.f.resetContext();
+            flags.resetContext();
 
             // default, if singlequote state was not modified, is
             // not forcing caps.
-            if (state == gc.f.openedSingleQuote) {
-                gc.f.forceCaps = false;
+            if (state == flags.context.openedSingleQuote) {
+                flags.context.forceCaps = false;
             }
-            gc.f.singlequote = true;
+            flags.context.singlequote = true;
             return true;
         }
         return false;
@@ -502,8 +503,8 @@ MB.GuessCase.Handler.Base = function () {
             gc.o.capitalizeLastWord(!gc.mode.isSentenceCaps());
 
             // register current bracket as openening bracket
-            gc.f.pushBracket(gc.i.getCurrentWord());
-            var cb = gc.f.getCurrentCloseBracket();
+            flags.pushBracket(gc.i.getCurrentWord());
+            var cb = flags.getCurrentCloseBracket();
             var forcelowercase = false;
             var pos = gc.i.getPos()+1;
             for (var i = pos; i < gc.i.getLength(); i++) {
@@ -511,7 +512,7 @@ MB.GuessCase.Handler.Base = function () {
                 if (w != " ") {
                     if ((utils.isLowerCaseBracketWord(w)) ||
                         (w.match(/^featuring$|^ft$|^feat$/i) != null)) {
-                        gc.f.slurpExtraTitleInformation = true;
+                        flags.context.slurpExtraTitleInformation = true;
 
                         if (i == pos) {
                             forcelowercase = true;
@@ -523,13 +524,13 @@ MB.GuessCase.Handler.Base = function () {
                 }
             }
             gc.o.appendSpace(); // always space brackets
-            gc.f.resetContext();
-            gc.f.spaceNextWord = false;
-            gc.f.openingBracket = true;
-            gc.f.forceCaps = !forcelowercase;
+            flags.resetContext();
+            flags.context.spaceNextWord = false;
+            flags.context.openingBracket = true;
+            flags.context.forceCaps = !forcelowercase;
             gc.o.appendCurrentWord();
-            gc.f.part = false;
-            gc.f.volume = false;
+            flags.context.part = false;
+            flags.context.volume = false;
             return true;
         }
         return false;
@@ -549,13 +550,13 @@ MB.GuessCase.Handler.Base = function () {
             // set, else leave it like it is.
             gc.o.capitalizeLastWord();
 
-            if (gc.f.isInsideBrackets()) {
-                gc.f.popBracket();
-                gc.f.slurpExtraTitleInformation = false;
+            if (flags.isInsideBrackets()) {
+                flags.popBracket();
+                flags.context.slurpExtraTitleInformation = false;
             }
-            gc.f.resetContext();
-            gc.f.forceCaps = !gc.mode.isSentenceCaps();
-            gc.f.spaceNextWord = true;
+            flags.resetContext();
+            flags.context.forceCaps = !gc.mode.isSentenceCaps();
+            flags.context.spaceNextWord = true;
             gc.o.appendCurrentWord();
             return true;
         }
@@ -580,9 +581,9 @@ MB.GuessCase.Handler.Base = function () {
                 // -- see http://bugs.musicbrainz.org/ticket/1317
 
                 // handle comma
-                gc.f.resetContext();
-                gc.f.spaceNextWord = true;
-                gc.f.forceCaps = false;
+                flags.resetContext();
+                flags.context.spaceNextWord = true;
+                flags.context.forceCaps = false;
                 gc.o.appendCurrentWord();
             }
             return true;
@@ -606,16 +607,16 @@ MB.GuessCase.Handler.Base = function () {
 
         if (gc.i.matchCurrentWord(gc.re.PERIOD)) {
             if (gc.o.getLastWord() == ".") {
-                if (!gc.f.ellipsis) {
+                if (!flags.context.ellipsis) {
                     gc.o.appendWord("..");
                     while (gc.i.isNextWord(".")) {
                         gc.i.nextIndex(); // skip trailing (.)
                     }
-                    gc.f.resetContext();
-                    gc.f.ellipsis = true;
+                    flags.resetContext();
+                    flags.context.ellipsis = true;
                 }
-                gc.f.forceCaps = true; // capitalize next word in any case.
-                gc.f.spaceNextWord = true;
+                flags.context.forceCaps = true; // capitalize next word in any case.
+                flags.context.spaceNextWord = true;
             } else {
                 if (!gc.i.hasMoreWords() || gc.i.getNextWord() != ".") {
                     // capitalize the last word, if forceCaps was
@@ -623,9 +624,9 @@ MB.GuessCase.Handler.Base = function () {
                     gc.o.capitalizeLastWord();
                 }
                 gc.o.appendWord(".");
-                gc.f.resetContext();
-                gc.f.forceCaps = true; // force caps on next word
-                gc.f.spaceNextWord = (gc.i.isNextWord(" "));
+                flags.resetContext();
+                flags.context.forceCaps = true; // force caps on next word
+                flags.context.spaceNextWord = (gc.i.isNextWord(" "));
             }
             return true;
         }
@@ -642,7 +643,7 @@ MB.GuessCase.Handler.Base = function () {
 
         // acronym handling was made less strict to
         // fix broken acronyms which look like this: "A. B. C."
-        // the variable gc.f.gotPeriod,is used such that such
+        // the variable flags.context.gotPeriod,is used such that such
         // cases do not yield false positives:
         // The method works as follows:
         // "A.B.C. I Love You"          => "A.B.C. I Love You"
@@ -653,25 +654,25 @@ MB.GuessCase.Handler.Base = function () {
         if (gc.i.matchCurrentWord(gc.re.ACRONYM)) {
             var cw = gc.i.getCurrentWord();
             tmp.push(cw.toUpperCase()); // add current word
-            gc.f.expectWord = false;
-            gc.f.gotPeriod = false;
+            flags.context.expectWord = false;
+            flags.context.gotPeriod = false;
 
             acronymloop:
             for (subIndex = gc.i.getPos() + 1; subIndex < gc.i.getLength();) {
                 cw = gc.i.getWordAtIndex(subIndex); // remember current word.
 
-                if (gc.f.expectWord && cw.match(gc.re.ACRONYM)) {
+                if (flags.context.expectWord && cw.match(gc.re.ACRONYM)) {
                     tmp.push(cw.toUpperCase()); // do character
-                    gc.f.expectWord = false;
-                    gc.f.gotPeriod = false;
+                    flags.context.expectWord = false;
+                    flags.context.gotPeriod = false;
                 } else {
-                    if (cw == "." && !gc.f.gotPeriod) {
+                    if (cw == "." && !flags.context.gotPeriod) {
                         tmp[tmp.length] = "."; // do dot
-                        gc.f.gotPeriod = true;
-                        gc.f.expectWord = true;
+                        flags.context.gotPeriod = true;
+                        flags.context.expectWord = true;
                     } else {
-                        if (gc.f.gotPeriod && cw == " ") {
-                            gc.f.expectWord = true; // do a single whitespace
+                        if (flags.context.gotPeriod && cw == " ") {
+                            flags.context.expectWord = true; // do a single whitespace
                         } else {
                             if (tmp[tmp.length-1] != ".") {
                                 tmp.pop(); // loose last of the acronym
@@ -692,10 +693,10 @@ MB.GuessCase.Handler.Base = function () {
             gc.o.appendSpaceIfNeeded();
             gc.o.appendWord(s);
 
-            gc.f.resetContext();
-            gc.f.acronym = true;
-            gc.f.spaceNextWord = true;
-            gc.f.forceCaps = false;
+            flags.resetContext();
+            flags.context.acronym = true;
+            flags.context.spaceNextWord = true;
+            flags.context.forceCaps = false;
             gc.i.setPos(subIndex-1); // set pointer to after acronym
             return true;
         }
@@ -717,28 +718,28 @@ MB.GuessCase.Handler.Base = function () {
         var subIndex = null, tmp = [];
         if (gc.i.matchCurrentWord(gc.re.DIGITS)) {
             tmp.push(gc.i.getCurrentWord());
-            gc.f.numberSplitExpect = true;
+            flags.context.numberSplitExpect = true;
 
             numberloop:
             for (subIndex = gc.i.getPos() + 1; subIndex < gc.i.getLength();) {
-                if (gc.f.numberSplitExpect) {
+                if (flags.context.numberSplitExpect) {
                     if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NUMBERSPLIT)) {
                         tmp.push(gc.i.getWordAtIndex(subIndex)); // found a potential number split
-                        gc.f.numberSplitExpect = false;
+                        flags.context.numberSplitExpect = false;
                     } else {
                         break numberloop;
                     }
                 } else {
                     // look for a group of 3 digits
                     if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
-                        if (gc.f.numberSplitChar == null) {
-                            gc.f.numberSplitChar = tmp[tmp.length - 1]; // confirmed number split
+                        if (flags.context.numberSplitChar == null) {
+                            flags.context.numberSplitChar = tmp[tmp.length - 1]; // confirmed number split
                         }
                         tmp.push(gc.i.getWordAtIndex(subIndex));
-                        gc.f.numberSplitExpect = true;
+                        flags.context.numberSplitExpect = true;
                     } else {
                         if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
-                            if (tmp.length > 2 && gc.f.numberSplitChar != tmp[tmp.length - 1]) {
+                            if (tmp.length > 2 && flags.context.numberSplitChar != tmp[tmp.length - 1]) {
                                 // check for the opposite number splitter (,or .)
                                 // because numbers are generally either
                                 // 1,000,936.00 or 1.300.402,00 depending on
@@ -766,7 +767,7 @@ MB.GuessCase.Handler.Base = function () {
             gc.i.setPos(subIndex-1);
             var number = tmp.join("");
 
-            if (gc.f.part || gc.f.volume) {
+            if (flags.context.part || flags.context.volume) {
                 // delete leading '0',if last word was a seriesnumberstyle word.
                 // e.g. disc 02 -> disc 2
                 number = number.replace(/^0*/,"");
@@ -778,7 +779,7 @@ MB.GuessCase.Handler.Base = function () {
             // e.g. Releasename cd 4 -> Releasename (disc 4)
             // but  Releasename cd 4 the name -> Releasename (disc 4: The Name)
             var addcolon = false;
-            if (gc.f.volume) {
+            if (flags.context.volume) {
                 var pos = gc.i.getPos();
                 if (pos < gc.i.getLength()-2) {
                     var nword = gc.i.getWordAtIndex(pos+1);
@@ -792,8 +793,8 @@ MB.GuessCase.Handler.Base = function () {
                         addcolon = true;
                     }
                 }
-                gc.f.spaceNextWord = true;
-                gc.f.forceCaps = true;
+                flags.context.spaceNextWord = true;
+                flags.context.forceCaps = true;
             }
 
             gc.o.appendSpaceIfNeeded();
@@ -802,15 +803,15 @@ MB.GuessCase.Handler.Base = function () {
             // clear the flags (for the colon-handling after volume,part
             // added (flawed implementation, but it works i guess)
             // and disc,even if no digit followed (and thus no colon was
-            gc.f.resetSeriesNumberStyleFlags();
-            gc.f.resetContext();
+            flags.resetSeriesNumberStyleFlags();
+            flags.resetContext();
             if (addcolon) {
                 gc.o.appendWord(":");     // if there is no colon already present,add a colon
-                gc.f.forceCaps = true;
-                gc.f.colon = true;
+                flags.context.forceCaps = true;
+                flags.context.colon = true;
             } else {
-                gc.f.forceCaps = false;
-                gc.f.number = true;
+                flags.context.forceCaps = false;
+                flags.context.number = true;
             }
             return true;
         }
@@ -830,7 +831,7 @@ MB.GuessCase.Handler.Base = function () {
             // set, else leave it like it is.
             gc.o.capitalizeLastWord();
 
-            if (!gc.f.openingBracket) {
+            if (!flags.context.openingBracket) {
                 gc.o.appendSpace();
             }
             gc.o.appendWord("vs");
@@ -838,9 +839,9 @@ MB.GuessCase.Handler.Base = function () {
             if (gc.i.isNextWord(".")) {
                 gc.i.nextIndex(); // skip trailing (.)
             }
-            gc.f.resetContext();
-            gc.f.forceCaps = true;
-            gc.f.spaceNextWord = true;
+            flags.resetContext();
+            flags.context.forceCaps = true;
+            flags.context.spaceNextWord = true;
             return true;
         }
         return false;
@@ -855,7 +856,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.VOLUMENUMBERSTYLE) && gc.i.hasMoreWords()) {
             if (self.doSeriesNumberStyle("Volume")) {
-                gc.f.volume = true;
+                flags.context.volume = true;
                 return true;
             }
         }
@@ -871,7 +872,7 @@ MB.GuessCase.Handler.Base = function () {
         }
         if (gc.i.matchCurrentWord(gc.re.PARTNUMBERSTYLE) && gc.i.hasMoreWords()) {
             if (self.doSeriesNumberStyle("Part")) {
-                gc.f.part = true;
+                flags.context.part = true;
                 return true;
             }
         }
@@ -942,18 +943,18 @@ MB.GuessCase.Handler.Base = function () {
             // add space, and number
             gc.o.appendSpace();
             gc.o.appendWord(w);
-            gc.f.resetContext();
+            flags.resetContext();
 
             // if there is no colon already present,add a colon
             if (addcolon) {
                 gc.o.appendWord(":");
-                gc.f.forceCaps = true;
-                gc.f.spaceNextWord = true;
-                gc.f.colon = true;
+                flags.context.forceCaps = true;
+                flags.context.spaceNextWord = true;
+                flags.context.colon = true;
             } else {
-                gc.f.spaceNextWord = false;
-                gc.f.forceCaps = true;
-                gc.f.number = true;
+                flags.context.spaceNextWord = false;
+                flags.context.forceCaps = true;
+                flags.context.number = true;
             }
             gc.i.setPos(wi);
             return true;
@@ -997,14 +998,13 @@ MB.GuessCase.Handler.Base = function () {
             // enough words after the keyword
             if (gc.i.getPos() < gc.i.getLength() - 2) {
 
-                if (!gc.f.openingBracket && !gc.f.isInsideBrackets()) {
-
-                    if (gc.f.isInsideBrackets()) {
+                if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
+                    if (flags.isInsideBrackets()) {
                         // close open parentheses before the feat. part.
                         var closebrackets = new Array();
-                        while (gc.f.isInsideBrackets()) {
+                        while (flags.isInsideBrackets()) {
                             // close brackets that were opened before
-                            var cb = gc.f.popBracket();
+                            var cb = flags.popBracket();
                             gc.o.appendWord(cb);
                             if (gc.i.getWordAtIndex(gc.i.getLength()-1) == cb) {
                                 gc.i.dropLastWord();
@@ -1045,12 +1045,12 @@ MB.GuessCase.Handler.Base = function () {
                 // gc.o.appendSpaceIfNeeded();
                 gc.o.appendWord("feat.");
 
-                gc.f.resetContext();
-                gc.f.forceCaps = true;
-                gc.f.openingBracket = false;
-                gc.f.spaceNextWord = true;
-                gc.f.slurpExtraTitleInformation = true;
-                gc.f.feat = true;
+                flags.resetContext();
+                flags.context.forceCaps = true;
+                flags.context.openingBracket = false;
+                flags.context.spaceNextWord = true;
+                flags.context.slurpExtraTitleInformation = true;
+                flags.context.feat = true;
                 if (gc.i.isNextWord(".")) {
                     gc.i.nextIndex();  // skip trailing (.)
                 }
