@@ -166,12 +166,6 @@ sub find
         }, $query, @args, $offset);
 }
 
-my $edit_in_collection_sql = 'edit.id IN (' . join(' UNION ', map {
-    "SELECT edit_$_.edit FROM edit_$_ JOIN editor_collection_$_
-          ON edit_$_.$_ = editor_collection_$_.$_
-         WHERE editor_collection_$_.collection = ?"
-} entities_with('collections')) . ')';
-
 sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $status) = @_;
