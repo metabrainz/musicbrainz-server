@@ -342,6 +342,8 @@ function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());
         validation.errorFields([]);
+        releaseEditor.externalLinksEditData({});
+        releaseEditor.hasInvalidLinks = validation.errorField(ko.observable(false));
     });
 }
 

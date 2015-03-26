@@ -9,10 +9,11 @@ var externalLinks = require('../edit/externalLinks.js');
 var validation = require('../edit/validation.js');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
-
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
-    loadError: ko.observable("")
+    loadError: ko.observable(""),
+    externalLinksEditData: ko.observable({}),
+    hasInvalidLinks: validation.errorField(ko.observable(false))
 });
 
 
@@ -253,9 +254,6 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     if (seed && seed.relationships) {
         data.relationships = (data.relationships || []).concat(seed.relationships);
     }
-
-    this.externalLinksEditData = ko.observable({});
-    this.hasInvalidLinks = validation.errorField(ko.observable(false));
 
     this.externalLinks = externalLinks.createExternalLinksEditor({
         sourceData: data,

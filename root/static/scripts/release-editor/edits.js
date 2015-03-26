@@ -368,24 +368,23 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
     };
 
 
-    releaseEditor.allEdits = debounce(
-        utils.withRelease(function (release) {
-            var root = releaseEditor.rootField;
+    var _allEdits = _.map([
+        'releaseGroup',
+        'release',
+        'releaseLabel',
+        'medium',
+        'mediumReorder',
+        'discID',
+        'annotation',
+        'externalLinks'
+    ], function (name) {
+        return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
+    });
 
-            return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
-                releaseEditor.edits.release(release),
-                releaseEditor.edits.releaseLabel(release),
-                releaseEditor.edits.medium(release),
-                releaseEditor.edits.mediumReorder(release),
-                releaseEditor.edits.discID(release),
-                releaseEditor.edits.annotation(release),
-                releaseEditor.edits.externalLinks(release)
-            );
-        }, []),
-        1500
-    );
 
+    releaseEditor.allEdits = ko.computed(function () {
+        return _.flatten(_.map(_allEdits, ko.unwrap));
+    });
 
     releaseEditor.editPreviews = ko.observableArray([]);
     releaseEditor.loadingEditPreviews = ko.observable(false);
