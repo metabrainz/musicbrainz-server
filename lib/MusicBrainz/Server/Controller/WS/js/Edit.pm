@@ -217,7 +217,7 @@ sub process_release_events {
     return unless $events && @$events;
 
     for my $event (@$events) {
-        process_partial_date($event->{date}) if $event->{date};
+        $event->{date} = clean_partial_date($event->{date}) if $event->{date};
     }
 }
 
@@ -307,15 +307,20 @@ sub process_medium {
     $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
 }
 
-sub process_partial_date {
+sub clean_partial_date {
     my ($date) = @_;
 
+    return undef unless ref($date) eq 'HASH';
+
+    my $clean = {};
     for (qw( year month day )) {
-        delete $date->{$_} unless non_empty($date->{$_});
+        $clean->{$_} = $date->{$_} if non_empty($date->{$_});
     }
 
-    my ($year, $month, $day) = @$date{'year', 'month', 'day'};
+    my ($year, $month, $day) = @$clean{'year', 'month', 'day'};
     die "invalid date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+
+    return $clean;
 }
 
 sub process_relationship {
@@ -324,13 +329,21 @@ sub process_relationship {
     $data->{entity0} = $data->{entities}->[0];
     $data->{entity1} = $data->{entities}->[1];
 
-    $data->{begin_date} = delete $data->{beginDate} // {};
-    $data->{end_date} = delete $data->{endDate} // {};
-    $data->{ended} = boolean_from_json($data->{ended});
+    my $begin_date = clean_partial_date(delete $data->{beginDate});
+    my $end_date = clean_partial_date(delete $data->{endDate});
+    my $ended = delete $data->{ended};
 
-    for my $date ("begin_date", "end_date") {
-        process_partial_date($data->{$date});
+    if (!defined($begin_date) && $data->{relationship}) {
+        $begin_date = partial_date_to_hash($data->{relationship}->link->begin_date);
     }
+
+    if (!defined($end_date) && $data->{relationship}) {
+        $end_date = partial_date_to_hash($data->{relationship}->link->end_date);
+    }
+
+    $data->{begin_date} = $begin_date;
+    $data->{end_date} = $end_date;
+    $data->{ended} = boolean_from_json($ended) if defined $ended;
 
     if (defined $data->{attributes}) {
         $data->{attributes} = merge_link_attributes(

@@ -981,6 +981,47 @@ test 'Duplicate relationships are ignored' => sub {
     is(scalar(@edits), 0);
 };
 
+test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 1,
+        attributes  => [{ type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' } }],
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+        ],
+        beginDate   => { year => 1999, month => undef, day => undef },
+        endDate     => { year => 1999, month => undef, day => undef },
+    };
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => [$edit_data] }));
+    } $c;
+
+    $edit_data = {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => $edits[0]->entity_id,
+        linkTypeID  => 1,
+        beginDate   => undef
+        # implied undef endDate
+    };
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => [$edit_data] }));
+    } $c;
+
+    # should be a noop
+    is(scalar(@edits), 0);
+};
+
 test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
