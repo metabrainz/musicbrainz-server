@@ -67,6 +67,7 @@ use constant FAVICON_CLASSES => {
     'bibliotekapiosenki.pl'     => 'piosenki',
     'qim.com'                   => 'quebecinfomusique',
     'thedancegypsy.com'         => 'thedancegypsy',
+    'cdbaby.com'                => 'cdbaby',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
