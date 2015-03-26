@@ -782,7 +782,7 @@ test 'removing an attribute from a relationship' => sub {
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        attributes  => [],
+        attributes  => [{%$guitar_attribute, removed => 1}],
         beginDate   => { year => undef, month => undef, day => undef },
         endDate     => { year => undef, month => undef, day => undef },
         ended       => 0,

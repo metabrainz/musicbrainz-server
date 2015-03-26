@@ -332,7 +332,7 @@ sub process_relationship {
         process_partial_date($data->{$date});
     }
 
-    if (defined $data->{attributes} && @{ $data->{attributes} }) {
+    if (defined $data->{attributes}) {
         $data->{attributes} = merge_link_attributes(
             $data->{attributes},
             [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()]
