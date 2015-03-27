@@ -153,6 +153,11 @@ ALTER TABLE l_event_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_event_release_group(id);
 
+ALTER TABLE l_event_series_example
+   ADD CONSTRAINT l_event_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_series(id);
+
 ALTER TABLE l_event_url_example
    ADD CONSTRAINT l_event_url_example_fk_id
    FOREIGN KEY (id)

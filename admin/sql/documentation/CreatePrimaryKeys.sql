@@ -33,6 +33,7 @@ ALTER TABLE l_event_place_example ADD CONSTRAINT l_event_place_example_pkey PRIM
 ALTER TABLE l_event_recording_example ADD CONSTRAINT l_event_recording_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_event_release_example ADD CONSTRAINT l_event_release_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_event_release_group_example ADD CONSTRAINT l_event_release_group_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_event_series_example ADD CONSTRAINT l_event_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_event_url_example ADD CONSTRAINT l_event_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_event_work_example ADD CONSTRAINT l_event_work_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_instrument_instrument_example ADD CONSTRAINT l_instrument_instrument_example_pkey PRIMARY KEY (id);
