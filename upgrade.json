@@ -10,7 +10,7 @@
   },
 
   "22": {
-    "slave": ["20150209-extend-aliases-to-more-entities.sql"],
+    "slave": ["20150209-extend-aliases-to-more-entities.sql", "20150317-medium-name-not-null.sql"],
     "standalone": ["20150209-extend-aliases-to-more-entities-standalone.sql"]
   }
 }
