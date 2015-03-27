@@ -118,6 +118,7 @@ sub find_by_artist
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
+    # NOTE: if more tables than l_artist_recording are added here, check admin/BuildSitemaps.pl
     my $query = "SELECT " . $self->_columns . ", array_agg(lac.credited_as) AS instrument_credits
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id

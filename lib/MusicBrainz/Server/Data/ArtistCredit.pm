@@ -16,11 +16,9 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_credit_name.name, join_phrase, artist_credit,
-                        artist.id, gid, artist.name AS artist_name,
-                        artist.sort_name AS sort_name,
-                        artist.edits_pending AS edits_pending,
-                        comment " .
+    my $artist_columns = $self->c->model('Artist')->_columns;
+    my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit, " .
+                $artist_columns . " " .
                 "FROM artist_credit_name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
@@ -35,18 +33,11 @@ sub get_by_ids
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my %info = (
             artist_id => $row->{artist},
-            name => $row->{name}
+            name => $row->{ac_name}
         );
         $info{join_phrase} = $row->{join_phrase} // '';
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
-        $obj->artist(MusicBrainz::Server::Entity::Artist->new(
-            id => $row->{id},
-            gid => $row->{gid},
-            name => $row->{artist_name},
-            sort_name => $row->{sort_name},
-            edits_pending => $row->{edits_pending},
-            comment => $row->{comment}
-        ));
+        $obj->artist($self->c->model('Artist')->_new_from_row($row));
         my $id = $row->{artist_credit};
         $result{$id}->add_name($obj);
         $counts{$id} += 1;

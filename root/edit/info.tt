@@ -7,17 +7,17 @@
 
     [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
 
-    [% IF !server_details.read_only && (edit.editor_may_add_note(c.user) || edit.can_approve(c.user) || edit.can_cancel(c.user)) %]
+    [% IF !server_details.read_only && (edit.editor_may_add_note(c.user) || edit.editor_may_approve(c.user) || edit.editor_may_cancel(c.user)) %]
     <div class="cancel-edit buttons">
         [% IF edit.editor_may_add_note(c.user) %]
             <a class="positive edit-note-toggle">[% l('Add Note') %]</a>
         [% END %]
 
-        [% IF edit.can_approve(c.user) %]
+        [% IF edit.editor_may_approve(c.user) %]
             <a class="positive" href="[% c.uri_for_action('/edit/approve', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Approve edit') %]</a>
         [% END %]
 
-        [% IF edit.can_cancel(c.user) %]
+        [% IF edit.editor_may_cancel(c.user) %]
             <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Cancel edit') %]</a>
         [% END %]
 

@@ -36,7 +36,7 @@ test 'Accept' => sub {
     my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{A new candidate has been put forward for autoeditor status});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     like($email->get_body, qr{Candidate:\s+noob1});
     like($email->get_body, qr{Proposer:\s+autoeditor1});
     is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
@@ -72,7 +72,7 @@ test 'Accept' => sub {
     $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now open});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     like($email->get_body, qr{Candidate:\s+noob1});
     like($email->get_body, qr{Proposer:\s+autoeditor1});
     like($email->get_body, qr{Seconder:\s+autoeditor2});
@@ -140,7 +140,7 @@ test 'Accept' => sub {
     $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: noob1 has been\s+accepted as an auto-editor});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
@@ -189,7 +189,7 @@ test 'Rejected' => sub {
     my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: the proposal to make\s+noob1 an auto-editor was declined});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
@@ -307,7 +307,7 @@ test 'Timeout' => sub {
     my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled, because two seconders could not be\s+found within the allowed time \(1 week\)});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
@@ -343,7 +343,7 @@ test 'Cancel' => sub {
     my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled by the proposer \(autoeditor1\)});
-    like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    like($email->get_body, qr{https://[^/]+/election/${\ $election->id }});
     is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), "References header is correct");
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;

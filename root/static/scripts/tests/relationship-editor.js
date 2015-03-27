@@ -89,9 +89,8 @@ function setupReleaseRelationshipEditor() {
 }
 
 function setupGenericRelationshipEditor(options) {
-    var vm = MB.relationshipEditor.GenericEntityViewModel(options);
-    MB.sourceRelationshipEditor = vm;
-    return vm;
+    MB.initRelationshipEditors(options);
+    return MB.sourceRelationshipEditor;
 }
 
 function formData() {
@@ -121,7 +120,10 @@ function relationshipEditorTest(name, callback) {
         _.defer = _defer;
 
         MB.entityCache = {};
-        delete MB.sourceRelationshipEditor;
+        MB.sourceRelationshipEditor = null;
+        MB.sourceExternalLinksEditor = null;
+        MB.releaseRelationshipEditor = null;
+        MB.sourceEntity = null;
         delete sessionStorage.submittedRelationships;
 
         $fixture.remove();
@@ -502,11 +504,7 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
 
     // Pretend the form was posted.
     MB.formWasPosted = true;
-
-    var vm = MB.relationshipEditor.GenericEntityViewModel({
-        sourceData: source
-    });
-
+    var vm = setupGenericRelationshipEditor({ sourceData: source });
     MB.formWasPosted = false;
 
     var entities = vm.source.relationships()[0].entities();
@@ -635,8 +633,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                     verbosePhrase: "is/was a member of"
                 }
             ]
-        },
-        formName: "edit-artist"
+        }
     });
 
     var newRelationship = vm.getRelationship({
@@ -666,7 +663,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
 
     t.deepEqual(formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
@@ -705,8 +702,7 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
             relationships: []
-        },
-        formName: "edit-series"
+        }
     });
 
     var newRelationship1 = vm.getRelationship({
@@ -756,7 +752,7 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
     newRelationship2.show();
     newRelationship3.show();
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-series');
 
     t.deepEqual(formData(), {
         "edit-series.rel.0.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
@@ -789,8 +785,7 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
             relationships: []
-        },
-        formName: "edit-series"
+        }
     });
 
     var artist = MB.entity({
@@ -808,34 +803,35 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
         }
     }, artist);
 
-    t.equal(newRelationship, null);
+    t.ok(!newRelationship);
     t.equal(artist.relationships().length, 0);
 });
+
+var loveMeDo = {
+    entityType: "recording",
+    name: "Love Me Do",
+    gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
+    relationships: [
+        {
+            linkTypeID: 44,
+            direction: "backward",
+            target: {
+                entityType: "artist",
+                name: "Ringo Starr",
+                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+            },
+            linkOrder: 0,
+            attributes: ids2attrs([333]),
+            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
+        }
+    ]
+};
 
 relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: {
-            entityType: "recording",
-            name: "Love Me Do",
-            gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
-            relationships: [
-                {
-                    linkTypeID: 44,
-                    direction: "backward",
-                    target: {
-                        entityType: "artist",
-                        name: "Ringo Starr",
-                        gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
-                    },
-                    linkOrder: 0,
-                    attributes: ids2attrs([333]),
-                    verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-                }
-            ]
-        },
-        formName: "edit-recording"
+        sourceData: loveMeDo
     });
 
     var relationship = vm.source.relationships()[0];
@@ -860,4 +856,24 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     dialog.accept();
     relationship = dialog.relationship();
     t.equal(relationship.attributes().length, 0, "invalid attributes removed");
+});
+
+relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS-7983)", function (t) {
+    t.plan(2);
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: loveMeDo,
+        formName: "edit-recording"
+    });
+
+    var relationship = vm.source.relationships()[0];
+    t.equal(relationship.attributes().length, 1);
+
+    relationship.attributes.push(
+        new MB.relationshipEditor.fields.LinkAttribute(
+            { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
+        )
+    );
+
+    t.equal(relationship.attributes().length, 1, "invalid attribute not added");
 });

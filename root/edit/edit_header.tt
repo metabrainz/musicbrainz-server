@@ -70,13 +70,13 @@
             [%~ link_edit(edit, show, l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name})) ~%]
         </h2>
     [%~ ELSE ~%]
-        [%~ IF edit.can_approve(c.user) || edit.can_cancel(c.user) ~%]
+        [%~ IF edit.editor_may_approve(c.user) || edit.editor_may_cancel(c.user) ~%]
             <div class="cancel-edit buttons">
-                [%~ IF edit.can_approve(c.user) ~%]
+                [%~ IF edit.editor_may_approve(c.user) ~%]
                     <a class="positive" href="[% c.uri_for_action('/edit/approve', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Approve edit') %]</a>
                 [%~ END =%]
 
-                [%= IF edit.can_cancel(c.user) ~%]
+                [%= IF edit.editor_may_cancel(c.user) ~%]
                     <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Cancel edit') %]</a>
                 [%~ END ~%]
             </div>

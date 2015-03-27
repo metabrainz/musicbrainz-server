@@ -12,7 +12,6 @@
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils = {};
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
 
 
     utils.mapChild = function (parent, children, type) {
@@ -23,7 +22,7 @@
 
 
     utils.withRelease = function (read, defaultValue) {
-        return MB.utility.computedWith(read, releaseField, defaultValue);
+        return MB.utility.computedWith(read, releaseEditor.rootField.release, defaultValue);
     };
 
 

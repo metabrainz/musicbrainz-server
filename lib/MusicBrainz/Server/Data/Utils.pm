@@ -35,7 +35,6 @@ our @EXPORT_OK = qw(
     add_coordinates_to_row
     artist_credit_to_ref
     check_data
-    check_in_use
     copy_escape
     coordinates_to_hash
     defined_hash
@@ -53,6 +52,7 @@ our @EXPORT_OK = qw(
     merge_string_attributes
     merge_boolean_attributes
     merge_partial_date
+    merge_date_period
     model_to_type
     object_to_ids
     order_by
@@ -175,16 +175,6 @@ sub load_meta
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-}
-
-sub check_in_use
-{
-    my ($sql, %queries) = @_;
-
-    my @queries = keys %queries;
-    my $query = join ' UNION ', map { "SELECT 1 FROM $_" } @queries;
-    return 1 if $sql->select_single_value($query, map { @{$queries{$_}} } @queries );
-    return;
 }
 
 sub partial_date_to_hash
@@ -570,6 +560,14 @@ sub merge_partial_date {
               AND $table.$year IS NULL",
                      $old_ids, $new_id)
     }, @_);
+}
+
+sub merge_date_period {
+    my @args = @_;
+
+    merge_partial_date(@args, field => $_)
+        for qw( begin_date end_date );
+    merge_boolean_attributes(@args, columns => ['ended']);
 }
 
 sub is_special_artist {

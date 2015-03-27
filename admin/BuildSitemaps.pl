@@ -7,7 +7,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::Data::Relationship;
 use DBDefs;
 use Sql;
@@ -30,6 +30,7 @@ use POSIX;
 Readonly my $EMPTY_PAGE_PRIORITY => 0.1;
 Readonly my $SECONDARY_PAGE_PRIORITY => 0.3;
 Readonly my $DEFAULT_PAGE_PRIORITY => 0.5;
+Readonly my $MAX_SITEMAP_SIZE => 50000.0;
 
 # Check options
 
@@ -230,6 +231,51 @@ sub create_temporary_tables {
 
               PRIMARY KEY (artist, rg))
          ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_releases
+             (artist  INTEGER,
+              release INTEGER,
+
+              PRIMARY KEY (artist, release))
+         ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_releases
+             (artist  INTEGER,
+              release INTEGER,
+
+              PRIMARY KEY (artist, release))
+         ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_recordings
+             (artist        INTEGER,
+              recording     INTEGER,
+              is_video      BOOLEAN NOT NULL,
+              is_standalone BOOLEAN NOT NULL,
+
+              PRIMARY KEY (artist, recording))
+         ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_works
+             (artist   INTEGER,
+              work     INTEGER,
+
+              PRIMARY KEY (artist, work))
+         ON COMMIT DELETE ROWS");
+
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
+             (instrument INTEGER,
+              recording  INTEGER,
+
+              PRIMARY KEY (instrument, recording))
+          ON COMMIT DELETE ROWS");
+    $sql->do(
+         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
+             (instrument INTEGER,
+              release  INTEGER,
+
+              PRIMARY KEY (instrument, release))
+          ON COMMIT DELETE ROWS");
     $sql->commit;
 }
 
@@ -256,13 +302,77 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
                    WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_rgs WHERE artist = artist_credit_name.artist AND rg = release_group.id)) q");
     $sql->do("ANALYZE tmp_sitemaps_artist_va_rgs");
+
+    # Releases that will appear in the non-VA part of the artist releases tab, per artist
+    $sql->do("INSERT INTO tmp_sitemaps_artist_direct_releases (artist, release)
+                  SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
+                    FROM release JOIN artist_credit_name ON release.artist_credit = artist_credit_name.artist_credit");
+    $sql->do("ANALYZE tmp_sitemaps_artist_direct_releases");
+    # Releases that will appear in the VA listings instead. Uses above table to exclude non-VA appearances.
+    $sql->do("INSERT INTO tmp_sitemaps_artist_va_releases (artist, release)
+                  SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
+                    FROM release
+                    JOIN medium ON medium.release = release.id
+                    JOIN track ON track.medium = medium.id
+                    JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
+                   WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_releases WHERE artist = artist_credit_name.artist AND release = release.id)");
+    $sql->do("ANALYZE tmp_sitemaps_artist_va_releases");
+
+    $sql->do("INSERT INTO tmp_sitemaps_artist_recordings (artist, recording, is_video, is_standalone)
+                  WITH track_recordings (recording) AS (
+                      SELECT DISTINCT recording FROM track
+                  )
+                  SELECT DISTINCT ON (artist, recording)
+                      artist_credit_name.artist AS artist, recording.id as recording,
+                      video as is_video, track_recordings.recording IS NULL AS is_standalone
+                    FROM recording
+                    JOIN artist_credit_name ON recording.artist_credit = artist_credit_name.artist_credit
+                    LEFT JOIN track_recordings ON recording.id = track_recordings.recording");
+    $sql->do("ANALYZE tmp_sitemaps_artist_recordings");
+
+    # Works linked directly to artists as well as via recording ACs.
+    $sql->do("INSERT INTO tmp_sitemaps_artist_works (artist, work)
+                  SELECT entity0 AS artist, entity1 AS work from l_artist_work
+                   UNION DISTINCT
+                  SELECT tsar.artist AS artist, entity1 AS work
+                    FROM tmp_sitemaps_artist_recordings tsar
+                    JOIN l_recording_work ON tsar.recording = l_recording_work.entity0");
+    $sql->do("ANALYZE tmp_sitemaps_artist_works");
+
+    # Instruments linked to recordings via artist-recording relationship
+    # attributes. Matches Data::Recording, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_recordings (instrument, recording)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_recording.entity1 AS recording
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
+
+    # Instruments linked to releases via artist-release relationship
+    # attributes. Matches Data::Release, which also ignores other tables
+    $sql->do("INSERT INTO tmp_sitemaps_instrument_releases (instrument, release)
+                  SELECT DISTINCT instrument.id AS instrument, l_artist_release.entity1 AS release
+                    FROM instrument
+                    JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+                    JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
+                    JOIN l_artist_release ON l_artist_release.link = link_attribute.link");
+    $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
 }
 
 sub drop_temporary_tables {
     my ($sql) = @_;
     $sql->begin;
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
-    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
+    for my $table (qw( artist_direct_rgs
+                       artist_va_rgs
+                       artist_direct_releases
+                       artist_va_releases
+                       artist_recordings
+                       artist_works
+                       instrument_recordings
+                       instrument_releases )) {
+        $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_$table");
+    }
     $sql->commit;
 }
 
@@ -278,7 +388,8 @@ sub build_one_entity {
 
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
-        "SELECT batch, count(id) from (SELECT id, ceil(id / 50000.0) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC"
+        "SELECT batch, count(id) from (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
+        $MAX_SITEMAP_SIZE
     );
     my @batches;
 
@@ -288,7 +399,7 @@ sub build_one_entity {
         for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
             # Add this potential batch to the previous one if the sum will come out less than 50,000
             # Otherwise create a new batch and push the previous one onto the list.
-            if ($batch->{count} + $raw_batch->{count} <= 50000) {
+            if ($batch->{count} + $raw_batch->{count} <= $MAX_SITEMAP_SIZE) {
                 $batch->{count} = $batch->{count} + $raw_batch->{count};
                 push @{$batch->{batches}}, $raw_batch->{batch};
             } else {
@@ -320,6 +431,16 @@ SQL and priorities.
 
 sub build_suffix_info {
     my ($entity_type) = @_;
+
+    my $priority_by_count = sub {
+        my ($count_prop) = @_;
+        return sub {
+            my (%opts) = @_;
+            return $SECONDARY_PAGE_PRIORITY if $opts{$count_prop} > 0;
+            return $EMPTY_PAGE_PRIORITY;
+        }
+    };
+
     my $entity_properties = $ENTITIES{$entity_type} // {};
     my $suffix_info = {base => {
     }};
@@ -341,11 +462,7 @@ sub build_suffix_info {
             suffix => 'va=1',
             filename_suffix => 'va',
             suffix_delimiter => '?',
-            priority => sub {
-                my (%opts) = @_;
-                return $SECONDARY_PAGE_PRIORITY if $opts{official_va_rg_count} > 0;
-                return $EMPTY_PAGE_PRIORITY;
-            }
+            priority => $priority_by_count->('official_va_rg_count')
         };
         $suffix_info->{all_va} = {
             extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id) all_va_rg_count"},
@@ -353,12 +470,125 @@ sub build_suffix_info {
             suffix => 'va=1&all=1',
             filename_suffix => 'va-all',
             suffix_delimiter => '?',
+            priority => $priority_by_count->('all_va_rg_count')
+        };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_direct_releases tsadre WHERE tsadre.artist = artist.id) direct_release_count"},
+            paginated => "direct_release_count",
+            suffix => 'releases',
+            priority => $priority_by_count->('direct_release_count')
+        };
+        $suffix_info->{releases_va} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_artist_va_releases tsavre WHERE tsavre.artist = artist.id) va_release_count"},
+            paginated => "va_release_count",
+            suffix => 'releases?va=1',
+            filename_suffix => 'releases-va',
+            priority => $priority_by_count->('va_release_count')
+        };
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => $priority_by_count->('recording_count')
+        };
+        $suffix_info->{recordings_video} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_video) video_count"},
+            paginated => "video_count",
+            suffix => 'recordings?video=1',
+            filename_suffix => 'recordings-video',
+            priority => $priority_by_count->('video_count')
+        };
+        $suffix_info->{recordings_standalone} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_artist_recordings tsar WHERE tsar.artist = artist.id AND is_standalone) standalone_count"},
+            paginated => "standalone_count",
+            suffix => 'recordings?standalone=1',
+            filename_suffix => 'recordings-standalone',
+            priority => $priority_by_count->('standalone_count')
+        };
+        $suffix_info->{works} = {
+            extra_sql => {columns => "(SELECT count(work) FROM tmp_sitemaps_artist_works tsaw WHERE tsaw.artist = artist.id) work_count"},
+            paginated => "work_count",
+            suffix => 'works',
+            priority => $priority_by_count->('work_count')
+        };
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_artist_event directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity1) FROM l_artist_event WHERE entity0 = artist.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
+    }
+
+    if ($entity_type eq 'instrument') {
+        $suffix_info->{recordings} = {
+            extra_sql => {columns => "(SELECT count(recording) FROM tmp_sitemaps_instrument_recordings tsir where tsir.instrument = instrument.id) recording_count"},
+            paginated => "recording_count",
+            suffix => 'recordings',
+            priority => $priority_by_count->('recording_count')
+        };
+        $suffix_info->{releases} = {
+            extra_sql => {columns => "(SELECT count(release) FROM tmp_sitemaps_instrument_releases tsir where tsir.instrument = instrument.id) release_count"},
+            paginated => "release_count",
+            suffix => 'releases',
+            priority => $priority_by_count->('release_count')
+        };
+    }
+
+    if ($entity_type eq 'label') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(DISTINCT release) FROM release_label WHERE release_label.label = label.id) release_count"
+        };
+        $suffix_info->{base}{paginated} = "release_count";
+    }
+
+    if ($entity_type eq 'place') {
+        $suffix_info->{events} = {
+            # NOTE: no temporary table needed, since this can really probably just hit l_event_place directly, no need to join or union. Can revisit if performance is an issue.
+            extra_sql => {columns => "(SELECT count(DISTINCT entity0) FROM l_event_place WHERE entity1 = place.id) event_count"},
+            paginated => "event_count",
+            suffix => 'events',
+            priority => $priority_by_count->('event_count')
+        };
+    }
+
+    if ($entity_type eq 'release') {
+        $suffix_info->{'cover-art'} = {
+            suffix => 'cover-art',
             priority => sub {
                 my (%opts) = @_;
-                return $SECONDARY_PAGE_PRIORITY if $opts{all_va_rg_count} > 0;
+                return $SECONDARY_PAGE_PRIORITY if $opts{cover_art_presence} eq 'present';
                 return $EMPTY_PAGE_PRIORITY;
-            }
+            },
+            extra_sql => {join => 'release_meta ON release.id = release_meta.id',
+                          columns => 'cover_art_presence'}
         };
+
+        $suffix_info->{'disc'} = {
+            extra_sql => {columns => "(SELECT count(DISTINCT id) FROM medium WHERE medium.release = release.id) AS medium_count"},
+            filename_suffix => 'disc',
+            url_constructor => sub {
+                my ($ids, $create_opts, $entity_url, %opts) = @_;
+                my @paginated_urls;
+                for my $id_info (@$ids) {
+                    if ($id_info->{medium_count} > $MAX_INITIAL_MEDIUMS) {
+                        my $id = $id_info->{main_id};
+                        my $url_base = $web_server . '/' . $entity_url . '/' . $id;
+                        for (my $i = 1; $i < $id_info->{medium_count} + 1; $i++) {
+                            push(@paginated_urls, $create_opts->("$url_base/disc/$i", $id_info));
+                        }
+                    }
+                }
+                return {base => [], paginated => \@paginated_urls}
+            }
+        }
+    }
+
+    if ($entity_type eq 'release_group') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(DISTINCT release.id) FROM release WHERE release.release_group = release_group.id) release_count"
+        };
+        $suffix_info->{base}{paginated} = "release_count";
     }
 
     if ($entity_properties->{aliases}) {
@@ -372,16 +602,11 @@ sub build_suffix_info {
             extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"}
         };
     }
-    if ($entity_type eq 'release') {
-        $suffix_info->{'cover-art'} = {
-            suffix => 'cover-art',
-            priority => sub {
-                my (%opts) = @_;
-                return $SECONDARY_PAGE_PRIORITY if $opts{cover_art_presence} eq 'present';
-                return $EMPTY_PAGE_PRIORITY;
-            },
-            extra_sql => {join => 'release_meta ON release.id = release_meta.id',
-                          columns => 'cover_art_presence'}
+    if ($entity_properties->{mbid}{indexable}) {
+        # These pages are nearly worthless, so can really just be ignored.
+        $suffix_info->{details} = {
+            suffix => 'details',
+            priority => $EMPTY_PAGE_PRIORITY
         };
     }
     if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
@@ -402,7 +627,7 @@ sub build_suffix_info {
         for my $tab (qw( events releases recordings works performances map discids )) {
             # XXX: discids, performances should have extra sql for priority
             # XXX: pagination, priority based on counts for paginated things
-            if ($tabs{$tab}) {
+            if ($tabs{$tab} && !$suffix_info->{$tab}) {
                 $suffix_info->{$tab} = {
                     suffix => $tab,
                     priority => sub { return $SECONDARY_PAGE_PRIORITY }
@@ -441,9 +666,9 @@ sub build_one_batch {
     my $tables = $entity_type . $extra_sql{join};
 
     my $query = "SELECT $columns FROM $tables " .
-                "WHERE ceil(${entity_type}.id / 50000.0) = any(?) " .
+                "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
                 "ORDER BY ${entity_type}.id ASC";
-    my $ids = $sql->select_list_of_hashes($query, $batch_info->{batches});
+    my $ids = $sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
 
     for my $suffix (keys %$suffix_info) {
         my %opts = %{ $suffix_info->{$suffix} // {}};
@@ -464,14 +689,11 @@ sub build_one_suffix {
     my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $base_filename = "sitemap-$entity_type-$minimum_batch_number";
-    if ($opts{suffix}) {
+    if ($opts{suffix} || $opts{filename_suffix}) {
         my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
         $base_filename .= "-$filename_suffix";
     }
     my $ext = $fCompress ? '.xml.gz' : '.xml';
-
-    my @base_urls;
-    my @paginated_urls;
 
     my $create_opts = sub {
         my ($url, $id_info) = @_;
@@ -484,37 +706,60 @@ sub build_one_suffix {
         return \%add_opts;
     };
 
-    for my $id_info (@$ids) {
-        my $id = $id_info->{main_id};
-        my $url = $web_server . '/' . $entity_url . '/' . $id;
-        if ($opts{suffix}) {
-            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
-            $url .= "$suffix_delimiter$opts{suffix}";
-        }
-        push(@base_urls, $create_opts->($url, $id_info));
+    my $construct_url_lists = sub {
+        my ($ids, $create_opts, $entity_url, %opts) = @_;
+        my @base_urls;
+        my @paginated_urls;
 
-        if ($opts{paginated}) {
-            # 50 items per page, and the first page is covered by the base.
-            my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
+        for my $id_info (@$ids) {
+            my $id = $id_info->{main_id};
+            my $url = $web_server . '/' . $entity_url . '/' . $id;
+            if ($opts{suffix}) {
+                my $suffix_delimiter = $opts{suffix_delimiter} // '/';
+                $url .= "$suffix_delimiter$opts{suffix}";
+            }
+            push(@base_urls, $create_opts->($url, $id_info));
 
-            # Since we exclude page 1 above, this is for anything above 0.
-            if ($paginated_count > 0) {
-	        # Start from page 2, and add one to the count for the last page
-	        # (since the count was one less due to the exclusion of the first
-	        # page)
-                my @new_paginated_urls = map { $url . ($opts{suffix_delimiter} // '/' eq '?' ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+            if ($opts{paginated}) {
+                # 50 items per page, and the first page is covered by the base.
+                my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
 
-                # Expand these all to full specifications for build_one_sitemap.
-                push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                # Since we exclude page 1 above, this is for anything above 0.
+                if ($paginated_count > 0) {
+                    # Start from page 2, and add one to the count for the last page
+                    # (since the count was one less due to the exclusion of the first
+                    # page)
+                    my $use_amp = $url =~ m/\?/;
+                    my @new_paginated_urls = map { $url . ($use_amp ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+
+                    # Expand these all to full specifications for build_one_sitemap.
+                    push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+                }
             }
         }
+
+        return {base => \@base_urls, paginated => \@paginated_urls}
+    };
+
+    my $url_constructor = $opts{url_constructor} // $construct_url_lists;
+    my $urls = $url_constructor->($ids, $create_opts, $entity_url, %opts);
+    my @base_urls = @{ $urls->{base} };
+    my @paginated_urls = @{ $urls->{paginated} };
+
+    # If we can fit all the paginated stuff into the main sitemap file, why not do it?
+    if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
+        print localtime() . " paginated plus base urls are fewer than 50k for $base_filename, combining into one...\n";
+        push(@base_urls, @paginated_urls);
+        @paginated_urls = ();
     }
 
     my $filename = $base_filename . $ext;
-    build_one_sitemap($filename, $index, @base_urls);
+    if (@base_urls) {
+        build_one_sitemap($filename, $index, @base_urls);
+    }
 
     if (@paginated_urls) {
-        my $iter = natatime 50000, @paginated_urls;
+        my $iter = natatime $MAX_SITEMAP_SIZE, @paginated_urls;
         my $page_number = 1;
         while (my @urls = $iter->()) {
             my $paginated_filename = $base_filename . "-$page_number" . $ext;
@@ -524,10 +769,17 @@ sub build_one_suffix {
     }
 }
 
+=head2 build_one_sitemap
+
+Called by C<build_one_suffix> to build an individual sitemap given a filename,
+the sitemap index object, and the list of URLs with appropriate options.
+
+=cut
+
 sub build_one_sitemap {
     my ($filename, $index, @urls) = @_;
 
-    die "Too many URLs for one sitemap: $filename" if scalar @urls > 50000;
+    die "Too many URLs for one sitemap: $filename" if scalar @urls > $MAX_SITEMAP_SIZE;
 
     my $local_filename = "$FindBin::Bin/../root/static/sitemaps/$filename";
     my $remote_filename = $web_server . '/' . $filename;

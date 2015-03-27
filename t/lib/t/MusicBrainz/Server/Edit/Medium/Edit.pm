@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Edit::Medium::Edit;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
-use Test::Deep qw( cmp_set );
+use Test::Deep qw( cmp_set cmp_deeply );
 
 with 't::Edit';
 with 't::Context';
@@ -524,6 +524,82 @@ test 'Pregap tracks can be added' => sub {
     ok(@tracks == 1);
     is($tracks[0]->position, 0);
     ok(!$tracks[0]->is_data_track); # MBS-7988
+};
+
+test 'Tracks can be reordered' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $artist_row = $c->model('Artist')->insert({
+        name => 'Artist',
+        sort_name => 'Artist'
+    });
+
+    my $ac_hash = { names => [{ artist => $artist_row, name => 'Artist' }] };
+    my $ac_id = $c->model('ArtistCredit')->find_or_insert($ac_hash);
+
+    my $release_row = $c->model('Release')->insert({
+        name => 'Release',
+        artist_credit => $ac_id,
+        release_group_id => $c->model('ReleaseGroup')->insert({ name => 'ReleaseGroup', artist_credit => $ac_id })->{id}
+    });
+
+    my $medium_row = $c->model('Medium')->insert({
+        release_id => $release_row->{id},
+        position => 1,
+        tracklist => [
+            {
+                position => 1,
+                name => 'Track 1',
+                artist_credit => $ac_hash,
+                recording_id => $c->model('Recording')->insert({ name => 'Recording 1', artist_credit => $ac_id })->{id}
+            },
+            {
+                position => 2,
+                name => 'Track 2',
+                artist_credit => $ac_hash,
+                recording_id => $c->model('Recording')->insert({ name => 'Recording 2', artist_credit => $ac_id })->{id}
+            }
+        ]
+    });
+
+    my $medium = $c->model('Medium')->get_by_id($medium_row->{id});
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => $EDIT_MEDIUM_EDIT,
+        to_edit => $medium,
+        tracklist => [
+            $medium->tracks->[1],
+            $medium->tracks->[0]
+        ]
+    );
+
+    $edit->accept;
+
+    my $track_hashes = tracks_to_hash($medium->tracks);
+
+    cmp_deeply($edit->data, {
+        entity_id => $medium->id,
+        new => {
+            tracklist => [
+                $track_hashes->[1],
+                $track_hashes->[0]
+            ]
+        },
+        old => {
+            tracklist => [
+                $track_hashes->[0],
+                $track_hashes->[1]
+            ]
+        },
+        release => {
+            id => $release_row->{id},
+            name => 'Release'
+        }
+    })
 };
 
 sub create_edit {

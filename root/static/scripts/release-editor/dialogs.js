@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (releaseEditor) {
 
     var Dialog = aclass({
@@ -19,7 +21,7 @@
 
     releaseEditor.trackParserDialog = Dialog().extend({
         element: "#track-parser-dialog",
-        title: MB.i18n.l("Track Parser"),
+        title: i18n.l("Track Parser"),
 
         toBeParsed: ko.observable(""),
         result: ko.observable(null),
@@ -245,7 +247,7 @@
 
     var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
-        title: MB.i18n.l("Add Disc"),
+        title: i18n.l("Add Disc"),
 
         trackParser: releaseEditor.trackParserDialog,
         mediumSearch: mediumSearchTab,

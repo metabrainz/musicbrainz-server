@@ -1,22 +1,9 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010,2011 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var i18n = require('../../i18n.js');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -59,12 +46,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: MB.i18n.l("An error occurred while searching. Click here to try again."),
+                        label: i18n.l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
                     }, {
                         label: self.indexedSearch ?
-                               MB.i18n.l("Try with direct search instead.") :
-                               MB.i18n.l("Try with indexed search instead."),
+                               i18n.l("Try with direct search instead.") :
+                               i18n.l("Try with indexed search instead."),
                         action: _.bind(self._searchAgain, self, true)
 
                     }]);
@@ -96,7 +83,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
 
-        this.element.attr("placeholder",  MB.i18n.l("Type to search, or paste an MBID"));
+        this.element.attr("placeholder",  i18n.l("Type to search, or paste an MBID"));
 
         var self = this;
 
@@ -168,7 +155,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: MB.i18n.l("Clear recent items"),
+                    label: i18n.l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -400,30 +387,30 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + MB.i18n.l("No results") + ")",
+                label: "(" + i18n.l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: MB.i18n.l("Show more..."),
+                label: i18n.l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? MB.i18n.l("Not found? Try again with direct search.") :
-                                        MB.i18n.l("Slow? Switch back to indexed search."),
+            label: this.indexedSearch ? i18n.l("Not found? Try again with direct search.") :
+                                        i18n.l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && MB.i18n.strings.addANewEntity[entity]) {
+        if (allowCreation && i18n.strings.addANewEntity[entity]) {
             results.push({
-                label: MB.i18n.strings.addANewEntity[entity],
+                label: i18n.strings.addANewEntity[entity],
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
@@ -600,7 +587,7 @@ MB.Control.autocomplete_formatters = {
         {
             a.append(
                 $('<span class="autocomplete-video"></span>')
-                    .text("(" + MB.i18n.l("video") + ")")
+                    .text("(" + i18n.l("video") + ")")
             );
         }
 

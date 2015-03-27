@@ -684,8 +684,8 @@ test 'release lookup, relation attributes' => sub {
                         date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
-                            language => JSON::null,
-                            script => JSON::null,
+                            language => 'jpn',
+                            script => 'Jpan',
                         },
                         status => JSON::null,
                         packaging => JSON::null,
@@ -723,8 +723,8 @@ test 'release lookup, relation attributes' => sub {
                         date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
-                            language => JSON::null,
-                            script => JSON::null,
+                            language => 'jpn',
+                            script => 'Jpan',
                         },
                         status => JSON::null,
                         packaging => JSON::null,

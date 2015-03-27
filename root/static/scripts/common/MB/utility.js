@@ -42,8 +42,8 @@ MB.utility.fullWidthConverter = function (inputString) {
         return "";
     }
 
-    i = inputString.length;
-    newString = [];
+    var i = inputString.length;
+    var newString = [];
 
     do {
         newString.push(
@@ -60,18 +60,6 @@ MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
 MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
-
-/* Set a particular button to be the default submit action for a form. */
-MB.utility.setDefaultAction = function (form, button) {
-
-    var withDataAndEvents = true;
-    $(form).prepend(
-        $(button).clone(withDataAndEvents).removeAttr('id').css({
-           position: 'absolute',
-           left: "-999px", top: "-999px", height: 0, width: 0
-        }));
-
-};
 
 /* Remember the state of a checkbox, using a persistent cookie. */
 MB.utility.rememberCheckbox = function (id, name) {
@@ -205,10 +193,6 @@ MB.utility.validDate = (function () {
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
-    function empty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
     var numberRegex = /^[0-9]+$/;
 
     function parseNumber(num) {
@@ -259,21 +243,20 @@ MB.utility.validDatePeriod = function (a, b) {
 
 MB.utility.parseDate = (function () {
     var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
+    function parseDatePart(str) {
+        var n = parseInt(str, 10);
+        return isNaN(n) ? null : n;
+    };
 
     return function (str) {
         var match = str.match(dateRegex) || [];
         return {
-            year:  parseInt(match[1], 10) || null,
-            month: parseInt(match[2], 10) || null,
-            day:   parseInt(match[3], 10) || null
+            year:  parseDatePart(match[1]),
+            month: parseDatePart(match[2]),
+            day:   parseDatePart(match[3])
         };
     };
 }());
-
-MB.utility.filesize = function (size) {
-    /* 1 decimal place.  false disables bit sizes. */
-    return filesize(size, 1, false);
-};
 
 MB.utility.percentOf = function (x, y) {
     return x * y / 100;

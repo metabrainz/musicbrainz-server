@@ -17,8 +17,4 @@
     [%- enter_edit() -%]
 
   </form>
-
-  <script type="text/javascript">//<![CDATA[
-    MB.utility.setDefaultAction("form.cover-art", "button.submit.positive");
-  //]]></script>
 [%- END -%]

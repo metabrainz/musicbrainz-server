@@ -7,6 +7,7 @@ use base 'Exporter';
 
 use Readonly;
 use DateTime::Duration;
+use List::AllUtils qw( uniq );
 
 sub _get
 {
@@ -22,19 +23,14 @@ our %EXPORT_TAGS = (
     edit_type       => _get(qr/^EDIT_/),
     expire_action   => _get(qr/^EXPIRE_/),
     quality         => _get(qr/^QUALITY_/),
-    alias           => _get(qr/^EDIT_.*_ALIAS/),
-    annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
-    historic        => _get(qr/^EDIT_HISTORIC/),
+    alias           => _get(qr/^EDIT_.*_ALIAS$/),
+    annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION$/),
+    historic        => _get(qr/^EDIT_HISTORIC_/),
     editor          => _get(qr/^EDITOR_/),
     vote            => _get(qr/^VOTE_/),
     edit_status     => _get(qr/^STATUS_/),
     access_scope    => _get(qr/^ACCESS_SCOPE_/),
-    privileges      => [
-        qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
-            $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG
-            $BANNER_EDITOR_FLAG )
-    ],
+    privileges      => _get(qr/_FLAG$/),
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
             $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
@@ -42,28 +38,29 @@ our %EXPORT_TAGS = (
     election_vote => [
         qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
     ],
-    vote => [
-        qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_YES $VOTE_APPROVE )
-    ],
     email_addresses => [
         qw( $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
     ],
 );
 
 our @EXPORT_OK = (
-    qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
-        $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
-        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
-        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
-        $BANNER_EDITOR_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
-        $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
-        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
-        $EDIT_COUNT_LIMIT
-        %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
-        @FULL_TABLE_LIST          %ENTITIES            entities_with
+    (uniq map { @$_ } values %EXPORT_TAGS),
+    qw(
+        $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
+        $COVERART_FRONT_TYPE $COVERART_BACK_TYPE
+        $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
+        $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
+        $REQUIRED_VOTES $OPEN_EDIT_DURATION
+        $MINIMUM_RESPONSE_PERIOD
+        $LIMIT_FOR_EDIT_LISTING
+        $ARTIST_ARTIST_COLLABORATION
+        %PART_OF_SERIES
+        $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
+        $SERIES_ORDERING_ATTRIBUTE
+        $MAX_INITIAL_MEDIUMS
+        @FULL_TABLE_LIST
+        %ENTITIES entities_with
     ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -318,8 +315,8 @@ Readonly our $AREA_TYPE_CITY => 3;
 
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;
-Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
-Readonly our $EDIT_COUNT_LIMIT => 500;
+Readonly our $MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $LIMIT_FOR_EDIT_LISTING => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;
@@ -344,6 +341,8 @@ Readonly our %PART_OF_SERIES => (
 
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
+Readonly our $MAX_INITIAL_MEDIUMS => 10;
+
 Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -359,6 +358,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
             search_hint_type => 3
         },
+        disambiguation => 1,
+        date_period => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -376,6 +377,9 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
             search_hint_type => 3
         },
+        sort_name => 1,
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -395,6 +399,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         removal     => { automatic => 1 },
@@ -414,6 +420,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -430,6 +437,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -450,6 +459,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         tags       => 1,
         removal     => { automatic => 1 }
     },
@@ -466,6 +477,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_RECORDING_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -485,6 +497,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_RELEASE_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
@@ -505,6 +518,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_RELEASEGROUP_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -524,6 +538,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal     => { automatic => 1 },
@@ -547,6 +562,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         report_filter => 1,

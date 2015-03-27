@@ -564,13 +564,16 @@ sub load_relationships {
             );
         };
 
-        my @load_language_for = (
-            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
-        );
-        $c->model('Language')->load(@load_language_for);
-
         my @releases = map { $_->target } grep { $_->target_type eq 'release' }
             map { $_->all_relationships } @for;
+
+        my @load_language_for = (
+            @releases,
+            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
+        );
+
+        $c->model('Language')->load(@load_language_for);
+        $c->model('Script')->load(@releases);
         $c->model('Release')->load_release_events(@releases);
     }
 }

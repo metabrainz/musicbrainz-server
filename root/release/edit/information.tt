@@ -10,7 +10,7 @@
           <table>
             <tr>
               <td colspan="2" style="padding: 0">
-                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name" />
+                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
                 <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
                 <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
               </td>
@@ -176,7 +176,7 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
+          <button type="button" class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
             [% lp('Add Release Event', 'button/menu') %]
           </button>
         </td>
@@ -218,7 +218,7 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
+          <button type="button" class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
             [% lp('Add Label', 'button/menu') %]
           </button>
         </td>
@@ -270,12 +270,9 @@
     </table>
   </fieldset>
 
-  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+  <fieldset class="information">
     <legend>[% l('External Links') %]</legend>
-
-    <!-- ko with: externalLinks -->
-      [% external_links_editor(0, 'release') %]
-    <!-- /ko -->
+    [% external_links_editor() %]
   </fieldset>
 </div>
 
@@ -371,8 +368,4 @@
       -%]
     </p>
   </div>
-
-  <!-- ko with: externalLinks -->
-    [% external_link_bubble() %]
-  <!-- /ko -->
 </div>

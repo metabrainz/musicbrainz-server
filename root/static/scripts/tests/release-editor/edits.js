@@ -7,6 +7,10 @@ var test = require('tape');
 var common = require('./common.js');
 var validation = require('../../edit/validation.js');
 
+var React = require('react/addons');
+var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
+var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
+
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
 
@@ -100,9 +104,7 @@ addReleaseTest("recordingEdit edits are generated for new release", function (t,
     releaseEditor.copyTrackTitlesToRecordings(true);
 
     var track = release.mediums()[0].tracks()[0];
-
     track.name("[unicode suckz!]");
-    track.length(722093);
 
     var edits = _.filter(releaseEditor.edits.medium(release),
         function (edit) {
@@ -113,24 +115,8 @@ addReleaseTest("recordingEdit edits are generated for new release", function (t,
       {
         to_edit: "f66857fb-bb59-444e-97dc-62c73e5eddae",
         name: "[unicode suckz!]",
-        artist_credit: {
-          names:[
-            {
-              artist: {
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              name: "Boredoms",
-              join_phrase: null
-            }
-          ]
-        },
-        length: 822093,
-        comment: "",
-        video: false,
         edit_type: 72,
-        hash: "e14c68fb875cf1169b1c1a6ffd2a31de09ee8534"
+        hash: "df8db83fde0f411573f00da610a34cb3208bc333"
       }
     ]);
 
@@ -165,26 +151,10 @@ addReleaseTest("recordingEdit edits are generated for new mediums (MBS-7271)", f
 
     t.deepEqual(edits, [
       {
-        "artist_credit": {
-          "names": [
-            {
-              "artist": {
-                "gid": "0798d15b-64e2-499f-9969-70167b1d8617",
-                "id": 39282,
-                "name": "Boredoms"
-              },
-              "join_phrase": null,
-              "name": "Boredoms"
-            }
-          ]
-        },
-        "comment": "",
         "edit_type": 72,
-        "hash": "bd8f7990396214d3dede21b6064ded7d35f90930",
-        "length": null,
+        "hash": "a596f1eaa0a460011396fc3251db1ce2bb74d06d",
         "name": "foobar",
         "to_edit": "80f797aa-2077-435d-85e2-c22e31a654f4",
-        "video": false
       }
     ]);
 
@@ -513,11 +483,12 @@ var testURLRelationship = {
 editReleaseTest("relationshipCreate edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    var newRelationshipData = _.omit(testURLRelationship, "id");
-
-    release.relationships.push(
-        release.externalLinks.getRelationship(newRelationshipData, release)
+    var component = releaseEditor.createExternalLinksEditor(
+        common.testRelease,
+        document.createElement('div')
     );
+
+    addURL(component, 'http://www.discogs.com/release/1369894');
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -543,25 +514,23 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
 editReleaseTest("relationshipEdit edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    MB.typeInfo = {};
     MB.faviconClasses = {};
 
-    var release = release;
-    var vm = release.externalLinks;
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign({}, common.testRelease, { relationships: [testURLRelationship] }),
+        document.createElement('div')
+    );
 
-    release.relationships([vm.getRelationship(testURLRelationship, release)]);
+    triggerChange(
+        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://www.amazon.co.jp/gp/product/B00003IQQD'
+    );
 
-    var link = vm.links()[0];
-
-    link.linkTypeID(77);
-    link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
+    triggerChange(scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
-        "beginDate": null,
         "edit_type": 91,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -573,7 +542,7 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
             "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
           }
         ],
-        "hash": "1b778d8d4db3f01cef707c72c3ac247317af6309",
+        "hash": "81f1bb7352973e1133c15093912860c82c2a57f3",
         "id": 123,
         "linkTypeID": 77
       }
@@ -583,10 +552,13 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
 editReleaseTest("relationshipDelete edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    var vm = release.externalLinks;
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign({}, common.testRelease, { relationships: [testURLRelationship] }),
+        document.createElement('div')
+    );
 
-    release.relationships([vm.getRelationship(testURLRelationship, release)]);
-    vm.links()[0].remove();
+    // Click remove button
+    triggerClick($(component.getDOMNode()).find('button')[0]);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -603,41 +575,95 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
-        "id": 123
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
       }
     ]);
 });
 
 editReleaseTest("edits are not generated for external links that duplicate existing removed ones", function (t, release) {
-    t.plan(5);
+    t.plan(6);
 
     var newURL = { name: "http://www.discogs.com/release/13698944", entityType: "url" };
-    var vm = release.externalLinks;
 
-    var existingRelationship1 = vm.getRelationship(testURLRelationship, release);
-
-    var existingRelationship2 = vm.getRelationship(
-        _.assign(_.clone(testURLRelationship), { id: 456, target: newURL }), release
+    var component = releaseEditor.createExternalLinksEditor(
+        _.assign(
+            {},
+            common.testRelease,
+            {
+                relationships: [
+                    testURLRelationship,
+                    _.assign(_.clone(testURLRelationship), { id: 456, target: newURL })
+                ]
+            }
+        ),
+        document.createElement('div')
     );
 
-    var addedDuplicate = vm.getRelationship(_.omit(testURLRelationship, "id"), release);
+    var $mountPoint = $(component.getDOMNode());
 
-    release.relationships([existingRelationship1, existingRelationship2]);
-    existingRelationship1.remove();
-    release.relationships.push(addedDuplicate);
+    // Remove first URL
+    triggerClick($mountPoint.find('button:eq(0)')[0]);
 
-    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
+    // Add a duplicate of the first URL
+    addURL(component, 'http://www.discogs.com/release/1369894');
+
+    // No edits are generated, because there are errors.
+    t.equal(releaseEditor.edits.externalLinks(release).length, 0);
     t.equal(validation.errorsExist(), true);
 
-    addedDuplicate.remove();
+    // Remove duplicate
+    triggerClick($mountPoint.find('button:eq(1)')[0]);
+
+    // There's one edit to remove the first URL.
+    t.deepEqual(releaseEditor.edits.externalLinks(release), [
+      {
+        "attributes": [],
+        "edit_type": 92,
+        "entities": [
+          {
+            "entityType": "release",
+            "gid": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+            "name": "Vision Creation Newsun"
+          },
+          {
+            "entityType": "url",
+            "name": "http://www.discogs.com/release/1369894"
+          }
+        ],
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
+      }
+    ]);
 
     t.equal(validation.errorsExist(), false);
 
-    existingRelationship2.url(existingRelationship1.url());
+    // Duplicate the first URL again by editing the other existing URL
+    triggerChange(
+        $mountPoint.find('input:eq(0)')[0],
+        'http://www.discogs.com/release/1369894'
+    );
 
-    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
+    t.equal(releaseEditor.edits.externalLinks(release).length, 0);
     t.equal(validation.errorsExist(), true);
+});
+
+editReleaseTest("releaseGroupEdit edits should not include unchanged fields (MBS-8212)", function (t, release) {
+    t.plan(1);
+
+    releaseEditor.copyTitleToReleaseGroup(true);
+    release.name('Blah');
+
+    t.deepEqual(releaseEditor.edits.releaseGroup(release), [
+        {
+          "edit_type" : 21,
+          "gid" : "1c205925-2cfe-35c0-81de-d7ef17df9658",
+          "hash" : "6b8e1d79cb7a109986781e453bd954558cb6bf19",
+          "name" : "Blah"
+        }
+    ]);
 });
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {

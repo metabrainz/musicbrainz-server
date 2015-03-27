@@ -1,3 +1,4 @@
+// knockout-postbox 0.4.2 | (c) 2013 Ryan Niemeyer |  http://www.opensource.org/licenses/mit-license
 ;(function(factory) {
     //CommonJS
     if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {

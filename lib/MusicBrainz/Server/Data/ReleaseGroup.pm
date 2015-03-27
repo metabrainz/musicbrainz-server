@@ -7,7 +7,6 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
-    check_in_use
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -28,7 +27,6 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
 
 sub _type { 'release_group' }
@@ -429,24 +427,6 @@ sub update
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
         if exists $update->{secondary_type_ids};
-}
-
-sub in_use
-{
-    my ($self, $release_group_id) = @_;
-    return check_in_use($self->sql,
-        'release                    WHERE release_group = ?' => [ $release_group_id ],
-        'l_area_release_group       WHERE entity1 = ?' => [ $release_group_id ],
-        'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
-        'l_instrument_release_group WHERE entity1 = ?' => [ $release_group_id ],
-        'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
-        'l_place_release_group      WHERE entity1 = ?' => [ $release_group_id ],
-        'l_recording_release_group  WHERE entity1 = ?' => [ $release_group_id ],
-        'l_release_release_group    WHERE entity1 = ?' => [ $release_group_id ],
-        'l_release_group_url        WHERE entity0 = ?' => [ $release_group_id ],
-        'l_release_group_work       WHERE entity0 = ?' => [ $release_group_id ],
-        'l_release_group_release_group WHERE entity0 = ? OR entity1 = ?' => [ $release_group_id, $release_group_id ],
-    );
 }
 
 sub can_delete
