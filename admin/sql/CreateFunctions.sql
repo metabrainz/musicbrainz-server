@@ -1160,6 +1160,42 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_recording_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE recording_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND recording = NEW.recording;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_release_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE release_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND release = NEW.release;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_release_group_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE release_group_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND release_group = NEW.release_group;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION unique_primary_series_alias()
 RETURNS trigger AS $$
 BEGIN

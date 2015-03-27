@@ -35,6 +35,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
 
 sub _type { 'recording' }
 
@@ -231,6 +232,7 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);

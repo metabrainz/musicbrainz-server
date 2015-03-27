@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::WithArtistCredits';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'ReleaseGroup',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "release-group" => {

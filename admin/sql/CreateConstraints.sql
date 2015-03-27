@@ -102,9 +102,21 @@ ALTER TABLE release
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
+ALTER TABLE release_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
 ALTER TABLE release_group
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE release_group_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE track
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
@@ -113,6 +125,12 @@ ALTER TABLE track
 ALTER TABLE recording
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE recording_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE series
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

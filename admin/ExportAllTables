@@ -186,11 +186,17 @@ my @group_core = qw(
     place_gid_redirect
     place_type
     recording
+    recording_alias
+    recording_alias_type
     recording_gid_redirect
     release
+    release_alias
+    release_alias_type
     release_country
     release_gid_redirect
     release_group
+    release_group_alias
+    release_group_alias_type
     release_group_gid_redirect
     release_group_primary_type
     release_group_secondary_type

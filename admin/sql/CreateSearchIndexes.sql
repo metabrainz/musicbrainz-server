@@ -23,9 +23,18 @@ CREATE INDEX label_alias_idx_txt_sort ON label_alias USING gin(to_tsvector('mb_s
 
 CREATE INDEX release_idx_txt ON release USING gin(to_tsvector('mb_simple', name));
 
+CREATE INDEX release_alias_idx_txt ON release_alias USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX release_alias_idx_txt_sort ON release_alias USING gin(to_tsvector('mb_simple', sort_name));
+
 CREATE INDEX release_group_idx_txt ON release_group USING gin(to_tsvector('mb_simple', name));
 
+CREATE INDEX release_group_alias_idx_txt ON release_group_alias USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX release_group_alias_idx_txt_sort ON release_group_alias USING gin(to_tsvector('mb_simple', sort_name));
+
 CREATE INDEX recording_idx_txt ON recording USING gin(to_tsvector('mb_simple', name));
+
+CREATE INDEX recording_alias_idx_txt ON recording_alias USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX recording_alias_idx_txt_sort ON recording_alias USING gin(to_tsvector('mb_simple', sort_name));
 
 CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 

@@ -10,12 +10,13 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}, cover_art => {copy_stash => ['cover_art']}}
+    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}, cover_art => {copy_stash => ['cover_art']}}
 };
 
 use List::Util qw( first );

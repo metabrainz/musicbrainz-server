@@ -258,6 +258,7 @@ test 'release lookup with artists + aliases' => sub {
             }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
+            aliases => [],
         });
 };
 
