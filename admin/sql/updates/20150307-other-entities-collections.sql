@@ -5,9 +5,9 @@ ALTER TABLE editor_collection_type
       DROP CONSTRAINT IF EXISTS allowed_collection_entity_type;
 
 INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES
-        (7, 'Geographical Area', 'area', NULL, 3),
+        (7, 'Area', 'area', NULL, 3),
         (8, 'Artist', 'artist', NULL, 4),
-        (9, 'Musical Instrument', 'instrument', NULL, 5),
+        (9, 'Instrument', 'instrument', NULL, 5),
         (10, 'Label', 'label', NULL, 6),
         (11, 'Place', 'place', NULL, 7),
         (12, 'Recording', 'recording', NULL, 8),
