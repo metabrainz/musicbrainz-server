@@ -602,6 +602,13 @@ sub build_suffix_info {
             extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"}
         };
     }
+    if ($entity_properties->{mbid}{indexable}) {
+        # These pages are nearly worthless, so can really just be ignored.
+        $suffix_info->{details} = {
+            suffix => 'details',
+            priority => $EMPTY_PAGE_PRIORITY
+        };
+    }
     if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
         my @tables = MusicBrainz::Server::Data::Relationship::_generate_table_list($entity_type, grep { $_ ne 'url' } entities_with(['mbid','relatable']));
         my $select = join(' UNION ALL ', map { 'SELECT TRUE FROM ' . $_->[0] . ' WHERE ' . $_->[1] . " = ${entity_type}.id" } @tables);
