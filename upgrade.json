@@ -10,7 +10,11 @@
   },
 
   "22": {
-    "slave": ["20150209-extend-aliases-to-more-entities.sql", "20150317-medium-name-not-null.sql"],
-    "standalone": ["20150209-extend-aliases-to-more-entities-standalone.sql", "20150317-drop-event-name-constraint.sql"]
+    "slave": ["20150209-extend-aliases-to-more-entities.sql",
+              "20150307-other-entities-collections.sql",
+              "20150317-medium-name-not-null.sql"],
+    "standalone": ["20150209-extend-aliases-to-more-entities-standalone.sql",
+                   "20150307-other-entities-collections-fks.sql",
+                   "20150317-drop-event-name-constraint.sql"]
   }
 }
