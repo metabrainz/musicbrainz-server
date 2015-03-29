@@ -88,8 +88,8 @@ var deferFocus = require('../edit/utility/deferFocus.js');
             var index = mediums.indexOf(medium);
             var position = medium.position();
 
-            mediums.remove(medium);
             medium.removed = true;
+            mediums.remove(medium);
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {
