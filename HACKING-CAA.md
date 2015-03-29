@@ -52,33 +52,30 @@ To simulate a 503 Slow Down error, run slowdown.psgi instead of ssssss.psgi:
 CAA-indexer
 ===========
 
-Download the CAA-indexer and get skytools:
+Download the CAA-indexer and install RabbitMQ.
 
     $ git clone git://github.com/metabrainz/CAA-indexer.git
-    $ sudo apt-get install skytools
+    $ sudo apt-get install rabbitmq
+    $ sudo /etc/init.d/rabbitmq start
 
-Set up a configuration file for pgqadm:
+You will also need to install the `pg_amqp` extension for PostgreSQL. For
+details on this, see https://github.com/omniti-labs/pg_amqp, but it can
+generally be described as:
 
-    $ cp musicbrainz.ini.example musicbrainz.ini
-    $ vim musicbrainz.ini
+    $ git clone https://github.com/omniti-labs/pg_amqp.git
+    $ cd pg_amqp
+    $ sudo make install
 
-Make sure to configure a database user with sufficient permission
-(otherwise you will probably get a "permission denied for language c"
-error from pgqadmin).
+And then editing `postgresql.conf` to have:
 
-The .ini file by default stores log and pid files in /var/log, you
-probably do not want this for a development setup.  I would suggest
-keeping those in a "log" directory inside the CAA-indexer directory.
+    shared_preload_libraries = 'pg_amqp.so'
 
-Now install PGQ in the database and run the ticker:
-
-    $ pgqadm musicbrainz.ini install
-    $ pgqadm musicbrainz.ini ticker -d
+Restart postgresql for the changes in `postgresql.conf` to take effect.
 
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
-    $ ./admin/psql READWRITE < ./admin/sql/caa/CreatePGQ.sql
+    $ ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
     $ cd -
 
 Install the dependancies for the CAA-indexer and create a
@@ -128,5 +125,5 @@ Now that all of that is configured you can point the musicbrainz server at
 the upload and download urls for your local cover art archive, change
 the following values in lib/DBDefs.pm:
 
-    sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://localhost:5050/%s", shift) };
+    sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) };
     sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" };

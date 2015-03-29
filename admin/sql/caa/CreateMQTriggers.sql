@@ -2,9 +2,6 @@ BEGIN;
 
 SET search_path = 'cover_art_archive';
 
-SELECT pgq.create_queue('CoverArtIndex');
-SELECT pgq.register_consumer('CoverArtIndex', 'CoverArtIndexer');
-
 CREATE OR REPLACE FUNCTION reindex_release() RETURNS trigger AS $$
     DECLARE
         release_mbid UUID;
@@ -15,7 +12,7 @@ CREATE OR REPLACE FUNCTION reindex_release() RETURNS trigger AS $$
         WHERE r.id = NEW.id;
 
         IF FOUND THEN
-            PERFORM pgq.insert_event('CoverArtIndex', 'index', release_mbid::text);
+            PERFORM amqp.publish(1, 'cover-art-archive', 'index', release_mbid::text);
         END IF;
         RETURN NULL;
     END;
@@ -32,7 +29,7 @@ CREATE OR REPLACE FUNCTION reindex_artist() RETURNS trigger AS $$
             RETURN NULL;
         END IF;
 
-        PERFORM pgq.insert_event('CoverArtIndex', 'index', r.gid::text)
+        PERFORM amqp.publish(1, 'cover-art-archive', 'index', r.gid::text)
         FROM musicbrainz.release r
         JOIN cover_art_archive.cover_art caa_r ON r.id = caa_r.release
         JOIN musicbrainz.artist_credit_name acn ON r.artist_credit = acn.artist_credit
@@ -57,7 +54,7 @@ CREATE OR REPLACE FUNCTION reindex_release_via_catno() RETURNS trigger AS $$
         WHERE release.id = NEW.release;
 
         IF FOUND THEN
-            PERFORM pgq.insert_event('CoverArtIndex', 'index', release_mbid::text);
+            PERFORM amqp.publish(1, 'cover-art-archive', 'index', release_mbid::text);
         END IF;
         RETURN NULL;
     END;
@@ -69,7 +66,7 @@ EXECUTE PROCEDURE reindex_release_via_catno();
 
 CREATE OR REPLACE FUNCTION reindex_caa() RETURNS trigger AS $$
     BEGIN
-        PERFORM pgq.insert_event('CoverArtIndex', 'index', gid::text)
+        PERFORM amqp.publish(1, 'cover-art-archive', 'index', gid::text)
         FROM musicbrainz.release
         WHERE id = coalesce((
                      CASE TG_OP
@@ -87,7 +84,7 @@ EXECUTE PROCEDURE reindex_caa();
 CREATE OR REPLACE FUNCTION caa_move() RETURNS trigger AS $$
     BEGIN
         IF OLD.release != NEW.release THEN
-            PERFORM pgq.insert_event('CoverArtIndex', 'move',
+            PERFORM amqp.publish(1, 'cover-art-archive', 'move',
                       (SELECT ca.id || E'\n' ||
                               old_release.gid || E'\n' ||
                               new_release.gid || E'\n' ||
@@ -111,14 +108,13 @@ EXECUTE PROCEDURE caa_move();
 CREATE OR REPLACE FUNCTION delete_release() RETURNS trigger AS $$
     BEGIN
         PERFORM
-          pgq.insert_event('CoverArtIndex', 'delete',
-            (cover_art.id || E'\n' ||
-             OLD.gid || E'\n' || image_type.suffix)::text)
+          amqp.publish(1, 'cover-art-archive', 'delete',
+            (cover_art.id || E'\n' || OLD.gid || E'\n' || image_type.suffix)::text)
         FROM cover_art_archive.cover_art
         JOIN cover_art_archive.image_type ON image_type.mime_type = cover_art.mime_type
         WHERE release = OLD.id;
 
-        PERFORM pgq.insert_event('CoverArtIndex', 'delete',
+        PERFORM amqp.publish(1, 'cover-art-archive', 'delete',
             ('index.json' || E'\n' || OLD.gid)::text)
         FROM musicbrainz.release
         WHERE release.id = OLD.id;
