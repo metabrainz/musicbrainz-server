@@ -14,8 +14,8 @@ use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everyt
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
-after 'load' => sub
-{
+
+after 'load' => sub {
     my ($self, $c) = @_;
     my $collection = $c->stash->{collection};
 
@@ -53,27 +53,24 @@ sub _do_add_or_remove {
 
         $c->model('Collection')->$func_name($entity_type, $collection->id, $entity_id);
 
-        $c->response->redirect($c->req->referer || $c->uri_for_action('/'.$entity_type.'/show', [ $entity->gid ]));
+        $c->response->redirect($c->req->referer || $c->uri_for_action("/$entity_type/show", [ $entity->gid ]));
         $c->detach;
-    }
-    else {
+    } else {
         $c->forward('show');
     }
 }
-sub add : Chained('own_collection') RequireAuth
-{
+
+sub add : Chained('own_collection') RequireAuth {
     my ($self, $c) = @_;
     $self->_do_add_or_remove($c, 'add_entities_to_collection');
 }
 
-sub remove : Chained('own_collection') RequireAuth
-{
+sub remove : Chained('own_collection') RequireAuth {
     my ($self, $c) = @_;
     $self->_do_add_or_remove($c, 'remove_entities_from_collection');
 }
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
@@ -108,8 +105,7 @@ sub show : Chained('load') PathPart('')
         $c->stash(
             releases => $entities
         );
-    }
-    elsif ($entity_type eq 'event') {
+    } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
         $model->load_performers(@$entities);
         $model->load_locations(@$entities);
@@ -120,8 +116,7 @@ sub show : Chained('load') PathPart('')
         $c->stash(
             events => $entities
         );
-    }
-    elsif ($entity_type eq 'work') {
+    } elsif ($entity_type eq 'work') {
         $model->load_related_info(@$entities);
         if ($c->user_exists) {
           $model->rating->load_user_ratings($c->user->id, @$entities);
@@ -138,17 +133,13 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub edits : Chained('load') PathPart RequireAuth
-{
+sub edits : Chained('load') PathPart RequireAuth {
     my ($self, $c) = @_;
-
     $self->_list_edits($c);
 }
 
-sub open_edits : Chained('load') PathPart RequireAuth
-{
+sub open_edits : Chained('load') PathPart RequireAuth {
     my ($self, $c) = @_;
-
     $self->_list_edits($c, $STATUS_OPEN);
 }
 
@@ -171,10 +162,8 @@ sub _list_edits {
     load_everything_for_edits($c, $edits);
 }
 
-sub _form_to_hash
-{
+sub _form_to_hash {
     my ($self, $form) = @_;
-
     return map { $form->field($_)->name => $form->field($_)->value } $form->edit_field_names;
 }
 
@@ -183,8 +172,7 @@ sub _redirect_to_collection {
     $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $gid ]));
 }
 
-sub create : Local RequireAuth
-{
+sub create : Local RequireAuth {
     my ($self, $c) = @_;
 
     my $form = $c->form( form => 'Collection' );
@@ -204,8 +192,7 @@ sub create : Local RequireAuth
     }
 }
 
-sub edit : Chained('own_collection') RequireAuth
-{
+sub edit : Chained('own_collection') RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
@@ -222,8 +209,7 @@ sub edit : Chained('own_collection') RequireAuth
     }
 }
 
-sub delete : Chained('own_collection') RequireAuth
-{
+sub delete : Chained('own_collection') RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};

@@ -31,11 +31,11 @@ role
             }
         }
 
-        $c->stash(
-                  collections => \@collections,
-                  containment => \%containment,
-                  all_collections => $self->_all_collections($c),
-        );
+        $c->stash
+          (collections => \@collections,
+           containment => \%containment,
+           all_collections => $self->_all_collections($c),
+          );
     };
 
     method _collections => sub {

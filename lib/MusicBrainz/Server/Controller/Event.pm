@@ -35,8 +35,7 @@ namespace
 
 sub base : Chained('/') PathPart('event') CaptureArgs(0) { }
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $event = $c->stash->{event};
@@ -62,16 +61,12 @@ Shows an event's main landing page.
 
 =cut
 
-sub show : PathPart('') Chained('load')
-{
+sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
-
     my $event = $c->stash->{event};
 
     $c->model('Event')->load_performers($event);
-
     $c->stash(template => 'event/index.tt');
-
     $c->model('Relationship')->load($event->related_series);
 }
 
@@ -81,14 +76,12 @@ View a list of collections that this event has been added to.
 
 =cut
 
-sub attendance : Chained('load') RequireAuth
-{
+sub attendance : Chained('load') RequireAuth {
     my ($self, $c) = @_;
     $self->_collections($c);
 }
 
-sub _merge_load_entities
-{
+sub _merge_load_entities {
     my ($self, $c, @events) = @_;
     $c->model('EventType')->load(@events);
     $c->model('Event')->load_performers(@events);

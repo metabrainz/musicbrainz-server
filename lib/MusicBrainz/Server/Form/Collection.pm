@@ -42,7 +42,7 @@ sub validate_type_id {
 
     my $type = $self->ctx->model('CollectionType')->get_by_id($self->field('type_id')->value);
 
-    if ( (! $ENTITIES{$type->entity_type}{'collections'} ) ) {
+    if (!$ENTITIES{$type->entity_type}{'collections'}) {
         return $self->field('type_id')->add_error(l('The collection type does not apply to the given entity.'));
     }
 } 

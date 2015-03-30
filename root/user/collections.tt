@@ -4,7 +4,7 @@
 
 [% INCLUDE 'user-collections' title=l("Event Collections") entity_name=l('Events') collections=event_collections %]
 
-[% INCLUDE 'user-collections' title=l("Works Collections") entity_name=l('Works') collections=work_collections %]
+[% INCLUDE 'user-collections' title=l("Work Collections") entity_name=l('Works') collections=work_collections %]
 
 [%- IF no_collections -%]
     <h2>[% l("Collections") %]</h2>
