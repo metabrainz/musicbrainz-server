@@ -132,7 +132,7 @@ sub get_first_collection {
 
 sub find_all_by_editor {
     my ($self, $id, $show_private, $entity_type) = @_;
-    my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type' " : "";
+    my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
     if (!$show_private) {
         $extra_conditions .= "AND editor_collection.public=true ";
     }
