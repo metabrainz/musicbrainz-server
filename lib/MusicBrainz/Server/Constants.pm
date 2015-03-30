@@ -353,8 +353,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         removal     => { manual => 1 },
-        tags        => 1,
-        collections => 1
+        tags        => 1
     },
     artist => {
         mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
@@ -377,8 +376,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 },
-        collections => 1
+        removal     => { automatic => 1 }
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -416,8 +414,7 @@ Readonly our %ENTITIES => (
         },
         disambiguation => 1,
         removal     => { manual => 1 },
-        tags        => 1,
-        collections => 1
+        tags        => 1
     },
     label => {
         mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
@@ -438,8 +435,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { manual => 1, automatic => 1 },
-        collections => 1
+        removal     => { manual => 1, automatic => 1 }
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -458,8 +454,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         tags       => 1,
-        removal     => { automatic => 1 },
-        collections => 1
+        removal     => { automatic => 1 }
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -473,8 +468,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
-        removal     => { manual => 1 },
-        collections => 1
+        removal     => { manual => 1 }
     },
     release => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -503,8 +497,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
-        removal     => { automatic => 1 },
-        collections => 1
+        removal     => { automatic => 1 }
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -523,8 +516,7 @@ Readonly our %ENTITIES => (
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal     => { automatic => 1 },
-        tags        => 1,
-        collections => 1
+        tags        => 1
     },
     url => {
         mbid => { relatable => 'overview', multiple => 1, no_details => 1 },
@@ -549,8 +541,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
-        removal     => { automatic => 1 },
-        collections => 1
+        removal     => { automatic => 1 }
     },
     track => {
         mbid => { multiple => 1 },
