@@ -7,14 +7,11 @@
        [%- END -%]
     </div>
     [%- INCLUDE list entity_name='release' section_title=l('Releases') entities=releases list_tt='components/releases-list.tt'
-                remove_message=l('Remove selected releases from collection')
-                empty_message=l('No releases found in collection.') -%]
+                remove_message=l('Remove selected releases from collection') -%]
     [%- INCLUDE list entity_name='event' section_title=l('Events') entities=events list_tt='components/events-list.tt'
-                remove_message=l('Remove selected events from collection')
-                empty_message=l('No events found in collection.') -%]
+                remove_message=l('Remove selected events from collection') -%]
     [%- INCLUDE list entity_name='work' section_title=l('Works') entities=works list_tt='components/works-list.tt'
-                remove_message=l('Remove selected works from collection')
-                empty_message=l('No works found in collection.') -%]
+                remove_message=l('Remove selected works from collection') -%]
 
 [% END %]
 
@@ -29,7 +26,7 @@
       <div class="row">[% form_submit(remove_message) IF my_collection %]</div>
     </form>
     [%- ELSE -%]
-    <p>[%- empty_message -%]</p>
+    <p>[%- l('This collection is empty.') -%]</p>
     [%- END -%]
     [%- END -%]
 [%- END -%]
