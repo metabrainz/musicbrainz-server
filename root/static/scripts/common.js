@@ -7,7 +7,7 @@ window.$ = window.jQuery = require("jquery");
 
 require("jquery.browser");
 require("jquery.cookie");
-require("jquery.ui");
+require("../lib/jquery.ui/ui/jquery-ui.custom.js");
 
 require("./common/MB.js");
 require("./common/i18n.js");
