@@ -291,7 +291,6 @@ my @group_private = qw(
     editor_collection
     editor_collection_event
     editor_collection_release
-    editor_collection_work
     editor_language
     editor_oauth_token
     editor_preference
