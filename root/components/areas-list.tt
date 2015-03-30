@@ -1,0 +1,20 @@
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Area') %]</th>
+            <th>[% l('Type') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [% FOR entity IN areas %]
+        <tr class="[% loop.parity %]">
+            <td>
+                [% descriptive_link(entity) %]
+            </td>
+            <td>
+                [% entity.l_type_name %]
+            </td>
+        </tr>
+        [% END %]
+    </tbody>
+</table>
