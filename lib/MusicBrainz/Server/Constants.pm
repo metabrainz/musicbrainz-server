@@ -869,6 +869,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     url
     url_gid_redirect
     work
+    work_lastmod
     work_alias
     work_alias_type
     work_annotation
