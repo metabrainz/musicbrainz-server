@@ -201,7 +201,7 @@ gulp.task("watch", ['styles', 'scripts'], function () {
         }
 
         if (rebuild) {
-            writeScript(b, resourceName);
+            writeScript(b, resourceName).done(writeManifest);
         }
     }
 

@@ -38,7 +38,7 @@
     "underscore.string": "2.4.0",
     "vinyl": "^0.4.6",
     "vinyl-source-stream": "^1.0.0",
-    "yarb": "^0.4.1"
+    "yarb": "^0.4.2"
   },
   "devDependencies": {
     "gulp-jshint": ">= 1.8.4",

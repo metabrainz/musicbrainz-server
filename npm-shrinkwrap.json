@@ -2693,9 +2693,9 @@
       "resolved": "https://registry.npmjs.org/vinyl-source-stream/-/vinyl-source-stream-1.1.0.tgz"
     },
     "yarb": {
-      "version": "0.4.1",
-      "from": "yarb@>=0.4.1 <0.5.0",
-      "resolved": "https://registry.npmjs.org/yarb/-/yarb-0.4.1.tgz",
+      "version": "0.4.2",
+      "from": "yarb@>=0.4.2 <0.5.0",
+      "resolved": "https://registry.npmjs.org/yarb/-/yarb-0.4.2.tgz",
       "dependencies": {
         "array-uniq": {
           "version": "1.0.2",
@@ -2764,7 +2764,7 @@
             },
             "defined": {
               "version": "0.0.0",
-              "from": "defined@0.0.0",
+              "from": "defined@>=0.0.0 <0.1.0",
               "resolved": "https://registry.npmjs.org/defined/-/defined-0.0.0.tgz"
             },
             "through2": {
@@ -2938,7 +2938,7 @@
                 },
                 "source-map": {
                   "version": "0.1.43",
-                  "from": "source-map@>=0.1.43 <0.2.0",
+                  "from": "source-map@>=0.1.40 <0.2.0",
                   "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.43.tgz",
                   "dependencies": {
                     "amdefine": {
@@ -3048,7 +3048,7 @@
             },
             "xtend": {
               "version": "3.0.0",
-              "from": "xtend@>=3.0.0 <3.1.0",
+              "from": "xtend@>=3.0.0 <4.0.0",
               "resolved": "https://registry.npmjs.org/xtend/-/xtend-3.0.0.tgz"
             }
           }
