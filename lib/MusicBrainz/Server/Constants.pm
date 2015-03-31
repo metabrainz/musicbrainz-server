@@ -525,6 +525,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
+        lastmod_table => 1,
         merging => 1,
         model      => 'Work',
         type => { simple => 1 },
