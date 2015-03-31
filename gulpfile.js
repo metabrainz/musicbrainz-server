@@ -1,7 +1,9 @@
 var extend          = require("extend"),
+    File            = require('vinyl'),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
+    path            = require('path'),
     po2json         = require("po2json"),
     reactTools      = require('react-tools'),
     rev             = require("gulp-rev"),
@@ -113,7 +115,11 @@ function reactify(filename) {
 function buildScripts() {
     process.env.NODE_ENV = process.env.UGLIFY ? 'production' : 'development';
 
-    var langPromises = [];
+    var commonBundle = runYarb('common.js', function (b) {
+        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout');
+        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+    });
+
     var languages = (process.env.MB_LANGUAGES || "")
         .split(",")
         .filter(function (lang) { return lang && lang !== 'en' })
@@ -122,6 +128,7 @@ function buildScripts() {
     languages.forEach(function (lang) {
         var srcPo = "./po/mb_server." + lang + ".po";
         var tmpPo = "./po/javascript." + lang + ".po";
+        var scriptName = 'jed-' + lang + '.js';
 
         // Create a temporary .po file containing only the strings used by root/static/scripts.
         shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
@@ -129,62 +136,49 @@ function buildScripts() {
         var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
         fs.unlinkSync(tmpPo);
 
-        var scriptName = 'jed-' + lang + '.js';
-        var jedWrapper = './root/static/scripts/' + scriptName;
+        var langVinyl = new File({
+            path: path.resolve('./root/static/scripts/' + scriptName),
+            contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n')
+        });
 
-        fs.writeFileSync(
-            jedWrapper,
-            'module.exports = ' + JSON.stringify(jedOptions) + ';\n'
-        );
-
-        var promise = writeScript(
-            yarb(scriptName).require(jedWrapper, {expose: 'jed-' + lang}),
-            scriptName
-        );
-
-        langPromises.push(promise);
-        promise.done(function () {fs.unlinkSync(jedWrapper)});
+        var bundle = yarb().expose(langVinyl, 'jed-' + lang);
+        commonBundle.require(langVinyl);
+        commonBundle.external(bundle);
+        writeScript(bundle, scriptName);
     });
 
-    Q.all(langPromises).then(function () {
-        var commonBundle = runYarb('common.js', function (b) {
-            b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout');
-            b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
-        });
+    var editBundle = runYarb('edit.js', function (b) {
+        b.external(commonBundle);
+        b.transform('envify', {global: true});
+        b.transform(reactify);
+    });
 
-        var editBundle = runYarb('edit.js', function (b) {
-            b.external(commonBundle);
-            b.transform('envify', {global: true});
-            b.transform(reactify);
-        });
+    var guessCaseBundle = runYarb('guess-case.js', function (b) {
+        b.external(commonBundle);
+    });
 
-        var guessCaseBundle = runYarb('guess-case.js', function (b) {
-            b.external(commonBundle);
-        });
+    var releaseEditorBundle = runYarb('release-editor.js', function (b) {
+        b.external(commonBundle)
+        b.external(editBundle)
+        b.transform(reactify);
+    });
 
-        var releaseEditorBundle = runYarb('release-editor.js', function (b) {
-            b.external(commonBundle)
-            b.external(editBundle)
-            b.transform(reactify);
-        });
+    var statisticsBundle = runYarb('statistics.js', function (b) {
+        b.external(commonBundle);
+    });
 
-        var statisticsBundle = runYarb('statistics.js', function (b) {
-            b.external(commonBundle);
-        });
+    var timelineBundle = runYarb('timeline.js', function (b) {
+        b.external(commonBundle);
+    });
 
-        var timelineBundle = runYarb('timeline.js', function (b) {
-            b.external(commonBundle);
-        });
-
-        return Q.all([
-            writeScript(commonBundle, 'common.js'),
-            writeScript(editBundle, 'edit.js'),
-            writeScript(guessCaseBundle, 'guess-case.js'),
-            writeScript(releaseEditorBundle, 'release-editor.js'),
-            writeScript(statisticsBundle, 'statistics.js'),
-            writeScript(timelineBundle, 'timeline.js')
-        ]);
-    }).then(writeManifest);
+    return Q.all([
+        writeScript(commonBundle, 'common.js'),
+        writeScript(editBundle, 'edit.js'),
+        writeScript(guessCaseBundle, 'guess-case.js'),
+        writeScript(releaseEditorBundle, 'release-editor.js'),
+        writeScript(statisticsBundle, 'statistics.js'),
+        writeScript(timelineBundle, 'timeline.js')
+    ]).then(writeManifest);
 }
 
 gulp.task("styles", buildStyles);
