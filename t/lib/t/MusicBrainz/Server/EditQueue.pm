@@ -163,6 +163,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "Normal quality edit with 3 Yes / 0 No passes before expiration");
@@ -227,6 +228,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_HIGH);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "High quality edit with 3 Yes / 0 No passes before expiration");
@@ -291,6 +293,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_LOW);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "Low quality edit with 3 Yes / 0 No passes before expiration");
