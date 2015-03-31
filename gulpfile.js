@@ -116,8 +116,8 @@ function buildScripts() {
     process.env.NODE_ENV = process.env.UGLIFY ? 'production' : 'development';
 
     var commonBundle = runYarb('common.js', function (b) {
-        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout');
-        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
+         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
     });
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -142,15 +142,12 @@ function buildScripts() {
         });
 
         var bundle = yarb().expose(langVinyl, 'jed-' + lang);
-        commonBundle.require(langVinyl);
-        commonBundle.external(bundle);
+        commonBundle.require(langVinyl).external(bundle);
         writeScript(bundle, scriptName);
     });
 
     var editBundle = runYarb('edit.js', function (b) {
-        b.external(commonBundle);
-        b.transform('envify', {global: true});
-        b.transform(reactify);
+        b.external(commonBundle).transform('envify', {global: true}).transform(reactify);
     });
 
     var guessCaseBundle = runYarb('guess-case.js', function (b) {
@@ -158,9 +155,7 @@ function buildScripts() {
     });
 
     var releaseEditorBundle = runYarb('release-editor.js', function (b) {
-        b.external(commonBundle)
-        b.external(editBundle)
-        b.transform(reactify);
+        b.external(commonBundle).external(editBundle).transform(reactify);
     });
 
     var statisticsBundle = runYarb('statistics.js', function (b) {
@@ -217,10 +212,10 @@ gulp.task("tests", function () {
 
     return bundleScripts(
         runYarb('tests.js', function (b) {
-            b.transform('envify', {global: true});
-            b.transform(reactify);
-            b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout');
-            b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+            b.transform('envify', {global: true})
+             .transform(reactify)
+             .expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
+             .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
     ).pipe(gulp.dest("./root/static/build/"));
