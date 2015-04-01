@@ -166,7 +166,7 @@ test 'label lookup with releases, inc=media' => sub {
                             format => "CD",
                             "track-count" => 9,
                             position => 1,
-                            title => JSON::null
+                            title => '',
                         },
                         {
                             format => "CD",
@@ -203,7 +203,7 @@ test 'label lookup with releases, inc=media' => sub {
                             format => "CD",
                             "track-count" => 12,
                             position => 1,
-                            title => JSON::null
+                            title => '',
                         } ]
                 }
             ],
