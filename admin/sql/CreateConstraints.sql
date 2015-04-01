@@ -47,8 +47,7 @@ ALTER TABLE editor_collection_type ADD CONSTRAINT allowed_collection_entity_type
   );
 
 ALTER TABLE event
-  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name));
 
 ALTER TABLE event_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
