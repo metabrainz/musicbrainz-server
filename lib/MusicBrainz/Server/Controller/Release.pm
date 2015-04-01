@@ -536,7 +536,7 @@ sub _merge_parameters {
                   old_position => $medium->position,
                   new_position => $merge->field('position')->value,
                   old_name => $medium->name,
-                  new_name => $merge->field('name')->value };
+                  new_name => $merge->field('name')->value // '' };
         }
         return (
             medium_changes => [
