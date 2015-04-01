@@ -530,7 +530,6 @@ sub _merge_parameters {
                 $release->all_mediums
                     or die 'Couldnt find medium';
 
-            $medium_changes{ $release->id } ||= [];
             push @{ $medium_changes{ $release->id } },
                 { id => $merge->field('id')->value,
                   old_position => $medium->position,
