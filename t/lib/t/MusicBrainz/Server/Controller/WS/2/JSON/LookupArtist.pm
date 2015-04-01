@@ -385,7 +385,7 @@ test 'artist lookup with releases and discids' => sub {
                     barcode => "600116822123",
                     media => [
                         {
-                            title => JSON::null,
+                            title => '',
                             format => "CD",
                             position => 1,
                             discs => [
@@ -457,7 +457,7 @@ test 'artist lookup with releases and discids' => sub {
                     barcode => "600116817020",
                     media => [
                         {
-                            title => JSON::null,
+                            title => '',
                             format => "CD",
                             position => 1,
                             discs => [

@@ -88,8 +88,8 @@ cmp_deeply($edit->data, {
                 id => 2,
                 old_position => 1,
                 new_position => 1,
-                old_name => undef,
-                new_name => undef,
+                old_name => '',
+                new_name => '',
             }]
         },
         {
@@ -101,8 +101,8 @@ cmp_deeply($edit->data, {
                 id => 3,
                 old_position => 1,
                 new_position => 2,
-                old_name => undef,
-                new_name => undef,
+                old_name => '',
+                new_name => '',
             }]
         },
     )
@@ -194,7 +194,7 @@ cmp_deeply($edit->data, {
                 id => 2,
                 old_position => 1,
                 new_position => 1,
-                old_name => undef,
+                old_name => '',
                 new_name => 'Foo',
             }]
         },
@@ -207,7 +207,7 @@ cmp_deeply($edit->data, {
                 id => 3,
                 old_position => 1,
                 new_position => 2,
-                old_name => undef,
+                old_name => '',
                 new_name => 'Bar',
             }]
         },
