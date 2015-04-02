@@ -88,8 +88,8 @@ has '+data' => (
                     id           => Int,
                     old_position => Str | Int,
                     new_position => Int,
-                    old_name => Nullable[Str],
-                    new_name => Nullable[Str],
+                    old_name => Str,
+                    new_name => Str,
                 ]]
             ]]],
         recording_merges => Nullable[ArrayRef[Dict[
@@ -287,6 +287,19 @@ sub do_merge
     }
 
     $self->c->model('Release')->merge(%opts);
+};
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    if (defined $data->{medium_changes}) {
+        for my $release (@{ $data->{medium_changes} }) {
+            for my $medium (@{ $release->{mediums} }) {
+                $medium->{old_name} //= '';
+                $medium->{new_name} //= '';
+            }
+        }
+    }
 };
 
 __PACKAGE__->meta->make_immutable;
