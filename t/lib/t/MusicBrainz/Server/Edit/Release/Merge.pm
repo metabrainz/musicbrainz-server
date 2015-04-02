@@ -39,7 +39,13 @@ test all => sub {
                     name => 'Release 1',
                 },
                 mediums => [
-                    { id => 2, old_position => 1, new_position => 1 }
+                    {
+                        id => 2,
+                        old_position => 1,
+                        new_position => 1,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             },
             {
@@ -48,7 +54,13 @@ test all => sub {
                     name => 'Release 2',
                 },
                 mediums => [
-                    { id => 3, old_position => 1, new_position => 2 }
+                    {
+                        id => 3,
+                        old_position => 1,
+                        new_position => 2,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             }
         ]
@@ -84,8 +96,20 @@ test all => sub {
                     name => 'Release 1',
                 },
                 mediums => [
-                    { id => 2, old_position => 1, new_position => 1 },
-                    { id => 3, old_position => 2, new_position => 2 }
+                    {
+                        id => 2,
+                        old_position => 1,
+                        new_position => 1,
+                        old_name => '',
+                        new_name => '',
+                    },
+                    {
+                        id => 3,
+                        old_position => 2,
+                        new_position => 2,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             },
             {
@@ -94,7 +118,13 @@ test all => sub {
                     name => 'Release 2',
                 },
                 mediums => [
-                    { id => 4, old_position => 1, new_position => 3 }
+                    {
+                        id => 4,
+                        old_position => 1,
+                        new_position => 3,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             }
         ]
@@ -151,7 +181,13 @@ test 'Linking Merge Release edits to recordings' => sub {
                     name => 'Release 1',
                 },
                 mediums => [
-                    { id => 2, old_position => 1, new_position => 1 }
+                    {
+                        id => 2,
+                        old_position => 1,
+                        new_position => 1,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             },
             {
@@ -160,7 +196,13 @@ test 'Linking Merge Release edits to recordings' => sub {
                     name => 'Release 2',
                 },
                 mediums => [
-                    { id => 3, old_position => 1, new_position => 2 }
+                    {
+                        id => 3,
+                        old_position => 1,
+                        new_position => 2,
+                        old_name => '',
+                        new_name => '',
+                    },
                 ]
             }
         ]
