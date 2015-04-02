@@ -42,6 +42,4 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 # Don't render with TT
 sub end : Private { }
 
-sub serialization_routine { '_generic' }
-
 1;

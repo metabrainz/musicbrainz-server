@@ -56,7 +56,6 @@ role {
         }
 
         my $model = $self->config->{model};
-        my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
         my $entity;
 
         $self->edit_action($c,
@@ -68,14 +67,9 @@ role {
                 $entity = $c->model($model)->get_by_id($edit->entity_id);
 
                 return unless $args{within_dialog};
-                $js_model->_load_entities($c, $entity);
-
-                my $serialization_routine = $js_model->serialization_routine;
-                my $object = JSONSerializer->$serialization_routine($entity);
-                $object->{entityType} = $js_model->type;
 
                 my $json = JSON::Any->new( utf8 => 1 );
-                $c->stash( dialog_result => $json->encode($object) );
+                $c->stash( dialog_result => $json->encode(JSONSerializer->serialize_internal($c, $entity)) );
 
                 # XXX Delete the "Thank you, your edit has been..." message
                 # so it doesn't weirdly show up on the next page.

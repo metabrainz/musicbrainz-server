@@ -9,8 +9,6 @@ use Text::Trim;
 
 requires 'type';
 
-sub serialization_routine { '_generic' }
-
 sub model {
     my ($self, $c) = @_;
     return $c->model(type_to_model($self->type));
@@ -31,7 +29,7 @@ sub dispatch_search {
     my ($output, $pager) =
         $direct eq 'true' ? $self->_direct_search($c, $query, $page, $limit)
                           : $self->_indexed_search($c, $query, $page, $limit);
-    my $serialization_routine = 'autocomplete' . $self->serialization_routine;
+    my $serialization_routine = 'autocomplete_' . $self->type;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));

@@ -71,7 +71,7 @@ sub medium : Chained('root') PathPart Args(1) {
         }
     }
 
-    my $ret = $c->stash->{serializer}->_medium($medium);
+    my $ret = $c->stash->{serializer}->medium($medium);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($ret));
 }
@@ -303,13 +303,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    my $js_class = "MusicBrainz::Server::Controller::WS::js::$type";
-
-    $js_class->_load_entities($c, $entity);
-
-    my $serialization_routine = $js_class->serialization_routine;
-    my $data = $c->stash->{serializer}->$serialization_routine($entity);
-
+    my $data = $c->stash->{serializer}->serialize_internal($c, $entity);
     my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
     $data->{relationships} = $relationships if @$relationships;
 
