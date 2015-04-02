@@ -780,6 +780,7 @@ sub delete
 
     $self->c->model('Collection')->delete_entities('release', @release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
+    $self->alias->delete_entities(@release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);

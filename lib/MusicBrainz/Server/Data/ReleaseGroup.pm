@@ -444,6 +444,7 @@ sub delete
         or return;
 
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
+    $self->alias->delete_entities(@group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);

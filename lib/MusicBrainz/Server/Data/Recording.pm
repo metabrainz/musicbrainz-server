@@ -197,6 +197,7 @@ sub delete
 
     $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
     $self->c->model('ISRC')->delete_recordings(@recording_ids);
+    $self->alias->delete_entities(@recording_ids);
     $self->annotation->delete(@recording_ids);
     $self->tags->delete(@recording_ids);
     $self->rating->delete(@recording_ids);
