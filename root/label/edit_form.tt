@@ -13,23 +13,8 @@
         </p>
       [%~ END -%]
 
-      [% IF form.has_duplicates %]
-      <fieldset>
-          <legend>[% l('Possible Duplicate Labels') %]</legend>
-          <p>
-              [% l('We found the following labels with very similar names:') %]
-          </p>
-          <ul>
-              [% FOREACH dupe=form.duplicates %]
-              <li>[% link_entity(dupe) %]</li>
-              [% END %]
-          </ul>
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new label.')) %]
-          <p>
-              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this label from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
-          </p>
-      </fieldset>
-      [% END %]
+      <div id="possible-duplicates">
+      </div>
 
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
@@ -91,5 +76,7 @@
     MB.Control.initialize_guess_case("label", "id-edit-label");
 
     MB.Control.Area("span.area.autocomplete");
+
+    MB.initializeDuplicateChecker('label');
   }());
 //]]></script>
