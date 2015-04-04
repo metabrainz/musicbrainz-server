@@ -525,6 +525,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
+        lastmod_table => 1,
         merging => 1,
         model      => 'Work',
         type => { simple => 1 },
@@ -868,6 +869,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     url
     url_gid_redirect
     work
+    work_lastmod
     work_alias
     work_alias_type
     work_annotation

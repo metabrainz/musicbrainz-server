@@ -25,6 +25,7 @@ use File::Slurp qw( read_dir );
 use Digest::MD5 qw( md5_hex );
 use Readonly;
 use POSIX;
+use DateTime::Format::Pg;
 
 # Constants
 Readonly my $EMPTY_PAGE_PRIORITY => 0.1;
@@ -650,6 +651,7 @@ sub build_one_batch {
 
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
     my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
+    my $entity_properties = $ENTITIES{$entity_type} // {};
 
     # Merge the extra joins/columns needed for particular suffixes
     my %extra_sql = (join => '', columns => []);
@@ -664,6 +666,11 @@ sub build_one_batch {
     }
     my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
     my $tables = $entity_type . $extra_sql{join};
+
+    if ($entity_properties->{lastmod_table}) {
+        $tables .= " LEFT JOIN ${entity_type}_lastmod lastmod ON ($entity_type.id = lastmod.id)";
+        $columns .= ", lastmod.last_modified AS lastmod";
+    }
 
     my $query = "SELECT $columns FROM $tables " .
                 "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
@@ -702,6 +709,9 @@ sub build_one_suffix {
         my %add_opts = (loc => $url);
         if ($opts{priority}) {
             $add_opts{priority} = ref $opts{priority} eq 'CODE' ? $opts{priority}->(%$id_info) : $opts{priority};
+        }
+        if ($entity_properties->{lastmod_table} && $id_info->{lastmod}) {
+            $add_opts{lastmod} = DateTime::Format::Pg->parse_datetime($id_info->{lastmod});
         }
         return \%add_opts;
     };
