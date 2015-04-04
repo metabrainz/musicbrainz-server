@@ -20,7 +20,7 @@ class PossibleDuplicates extends React.Component {
           <label>
             <input type="checkbox" onChange={this.props.checkboxCallback} />
             {' '}
-            {i18n.l('Yes, I still want to create “{entity_name}”.', {entity_name: this.props.name})}
+            {i18n.l('Yes, I still want to enter “{entity_name}”.', {entity_name: this.props.name})}
           </label>
         </p>
         <p dangerouslySetInnerHTML={{__html:
