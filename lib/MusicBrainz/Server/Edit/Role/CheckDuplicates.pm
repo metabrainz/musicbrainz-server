@@ -24,6 +24,14 @@ after initialize => sub {
         MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation->throw(
             'A disambiguation comment is required for this entity.'
         );
+    } elsif (!non_empty($opts{comment})) {
+        # If a disambiguation comment isn't needed despite being empty,
+        # then either there aren't any other entities with the given name
+        # (in which case we don't need to further check for uniqueness),
+        # or this is a place entity, and is already disambiguated by its
+        # area information. Places have no unique index on (name, comment).
+        # Neither do series, but we enforce it anyway.
+        return;
     }
 
     my @keys = qw(name comment);
