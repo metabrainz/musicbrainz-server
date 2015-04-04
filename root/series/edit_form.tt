@@ -7,6 +7,11 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
+      [% IF duplicate_violation ~%]
+        <p class="error">
+          [%~ l('A series with that name and disambiguation already exists. You must enter a unique disambiguation comment.') ~%]
+        </p>
+      [%~ END -%]
 
       [% IF form.has_duplicates %]
       <fieldset>
