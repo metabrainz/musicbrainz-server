@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Place::Create;
 use Moose;
-use List::AllUtils qw( any );
+
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Place';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Add place') }
 sub edit_type { $EDIT_PLACE_CREATE }
@@ -37,39 +38,6 @@ has '+data' => (
         ended       => Optional[Bool],
     ]
 );
-
-around initialize => sub {
-    my ($orig, $self, %options) = @_;
-
-    if ($self->is_comment_required(\%options)) {
-        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-            'A comment is required for this place.'
-        );
-    }
-
-    $self->$orig(%options);
-};
-
-sub is_comment_required {
-    my ($self, $data) = @_;
-
-    my ($name, $comment, $area_id) = $data->{qw(name comment area_id)};
-    return 0 if $comment;
-
-    my $duplicate_areas = $self->c->sql->select_single_column_array(
-        'SELECT area FROM place WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
-        $data->{name}
-    );
-
-    # A comment is not required if the name is unique.
-    return 0 unless @$duplicate_areas;
-
-    # We require a disambiguation comment if no area is given, or if there
-    # is a possible duplicate in the same area or lacking area information.
-    return 1 unless defined $area_id;
-
-    return any {(!defined($_) || $_ == $area_id) ? 1 : 0} @$duplicate_areas;
-}
 
 sub foreign_keys
 {
@@ -108,6 +76,19 @@ before restore => sub {
 
     $data->{coordinates} = undef
         if defined $data->{coordinates} && !defined $data->{coordinates}{latitude};
+};
+
+override _is_disambiguation_needed => sub {
+    my ($self, %opts) = @_;
+
+    my ($name, $area_id) = $opts{qw(name area_id)};
+    my $duplicate_areas = $self->c->sql->select_single_column_array(
+        'SELECT area FROM place
+         WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
+        $name
+    );
+
+    return $self->_possible_duplicate_area($area_id, @$duplicate_areas);
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -68,6 +68,18 @@ sub _insert_hash
     return $data;
 }
 
+sub _is_disambiguation_needed {
+    my ($self, %opts) = @_;
+
+    my $table = $self->c->model($self->_create_model)->_table;
+    return $self->c->sql->select_single_value(
+        "SELECT 1 FROM $table
+         WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))
+         LIMIT 1",
+        $opts{name}
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

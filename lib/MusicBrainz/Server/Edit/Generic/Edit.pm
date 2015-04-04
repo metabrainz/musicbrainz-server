@@ -141,6 +141,22 @@ sub _edit_hash
     return $data;
 }
 
+sub _is_disambiguation_needed {
+    my ($self, %opts) = @_;
+
+    # If the artist name hasn't meaningfully changed, don't force requiring a comment.
+    my $entity = $self->current_instance;
+    return 0 if normalise_strings($entity->name) eq normalise_strings($opts{name});
+
+    my $table = $self->c->model($self->_edit_model)->_table;
+    return $self->c->sql->select_single_value(
+        "SELECT 1 FROM $table
+         WHERE id != ? AND musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))
+         LIMIT 1",
+        $entity->id, $opts{name}
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
