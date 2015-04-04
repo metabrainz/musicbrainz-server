@@ -9,8 +9,16 @@ var timeout = 1000;
 
 function makeRequest(args, context, deferred) {
     deferred.jqXHR = $.ajax(_.extend({ dataType: "json" }, args))
-        .done(function () { deferred.resolveWith(context, arguments) })
-        .fail(function () { deferred.rejectWith(context, arguments) });
+        .done(function () {
+            if (!deferred.aborted) {
+                deferred.resolveWith(context, arguments);
+            }
+        })
+        .fail(function () {
+            if (!deferred.aborted) {
+                deferred.rejectWith(context, arguments);
+            }
+        });
 
     deferred.jqXHR.sentData = args.data;
 }
