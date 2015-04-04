@@ -56,15 +56,19 @@ sub is_comment_required {
     my ($name, $comment, $area_id) = $data->{qw(name comment area_id)};
     return 0 if $comment;
 
-    my @duplicates = $self->c->model('Place')->find_by_name($name);
-    return 0 unless @duplicates;
+    my $duplicate_areas = $self->c->sql->select_single_column_array(
+        'SELECT area FROM place WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
+        $data->{name}
+    );
+
+    # A comment is not required if the name is unique.
+    return 0 unless @$duplicate_areas;
 
     # We require a disambiguation comment if no area is given, or if there
     # is a possible duplicate in the same area or lacking area information.
     return 1 unless defined $area_id;
 
-    $self->c->model('Area')->load(@duplicates);
-    return any {(!$_->area || $_->area->id == $area_id) ? 1 : 0} @duplicates;
+    return any {(!defined($_) || $_ == $area_id) ? 1 : 0} @$duplicate_areas;
 }
 
 sub foreign_keys
