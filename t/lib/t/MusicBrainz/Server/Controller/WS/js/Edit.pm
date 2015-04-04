@@ -208,7 +208,10 @@ test 'previewing/creating/editing a release group and release' => sub {
                        typeID => 1,
                        name => 'Japan',
                        gid => '2db42837-c832-3c27-b4a3-08198f75693c',
-                       id => 107
+                       id => 107,
+                       parent_city => undef,
+                       parent_country => undef,
+                       parent_subdivision => undef,
                     },
                     date => '1999-10-27'
                 }

@@ -158,7 +158,10 @@ our $japan = {
     'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
     'entityType' => 'area',
     'comment' => '',
-    'id' => 107
+    'id' => 107,
+    'parent_city' => undef,
+    'parent_country' => undef,
+    'parent_subdivision' => undef,
 };
 
 test 'seeding a release with no tracklist' => sub {

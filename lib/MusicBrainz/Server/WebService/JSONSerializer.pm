@@ -316,9 +316,9 @@ sub area {
         typeID  => $area->type_id,
         code    => $area->primary_code,
         $area->type ? (typeName => $area->type->name) : (),
-        $area->parent_country ? (parentCountry => $area->parent_country->name) : (),
-        $area->parent_subdivision ? (parentSubdivision => $area->parent_subdivision->name) : (),
-        $area->parent_city ? (parentCity => $area->parent_city->name) : ()
+        parent_country => $area->parent_country ? $self->area($area->parent_country) : undef,
+        parent_subdivision => $area->parent_subdivision ? $self->area($area->parent_subdivision) : undef,
+        parent_city => $area->parent_city ? $self->area($area->parent_city) : undef,
     };
 }
 
@@ -518,28 +518,12 @@ sub work {
     };
 }
 
-sub autocomplete_place
-{
+sub autocomplete_place {
     my ($self, $results, $pager) = @_;
-
-    my $add_area_containment = sub {
-        my ($r, $place) = @_;
-        return unless $place->area;
-        for my $level (qw/country subdivision city/) {
-            $r->{'areaParent' . ucfirst($level)} =
-                $place->area->{"parent_$level"}->name
-                if $place->area->{"parent_$level"};
-        }
-    };
 
     my $output = _with_primary_alias(
         $results,
-        sub {
-            my $place = shift->{entity};
-            my $r = $self->place($place);
-            $add_area_containment->($r, $place);
-            return $r;
-        }
+        sub { $self->place(shift->{entity}) }
     );
 
     push @$output, {
@@ -561,7 +545,7 @@ sub place {
         typeID      => $place->type_id,
         comment     => $place->comment,
         $place->type ? (typeName => $place->type->name) : (),
-        $place->area ? (area => $place->area->name) : (),
+        area        => $place->area ? $self->area($place->area) : undef,
     };
 }
 

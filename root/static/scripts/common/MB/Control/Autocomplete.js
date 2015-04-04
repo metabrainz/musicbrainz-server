@@ -767,14 +767,14 @@ MB.Control.autocomplete_formatters = {
                       _.escape(item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
-             var items = [];
-             if (item.typeName) items.push(_.escape(item.typeName));
-             if (item.parentCity) items.push(_.escape(item.parentCity));
-             if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
-             if (item.parentCountry) items.push(_.escape(item.parentCountry));
-             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape(i18n.commaOnlyList(items)) + '</span>');
+        if (item.typeName || item.parent_country || item.parent_subdivision || item.parent_city) {
+            var items = [];
+            if (item.typeName) {
+                items.push(_.escape(item.typeName));
+            }
+            items.push(renderContainingAreas(item));
+            a.append('<br /><span class="autocomplete-comment">' +
+                     _.escape(i18n.commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -801,15 +801,13 @@ MB.Control.autocomplete_formatters = {
                      _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
-        if (item.typeName || item.area) {
-             a.append('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? _.escape(item.typeName) : '') +
-                       (item.typeName && item.area ? ', ' : '') +
-                       (item.area ? _.escape(item.area) : '') +
-                       (item.areaParentCity ? ', ' + _.escape(item.areaParentCity) : '') +
-                       (item.areaParentSubdivision ? ', ' + _.escape(item.areaParentSubdivision) : '') +
-                       (item.areaParentCountry ? ', ' + _.escape(item.areaParentCountry) : '') +
-                       '</span>');
+        var area = item.area;
+        if (item.typeName || area) {
+            a.append('<br /><span class="autocomplete-comment">' +
+                     (item.typeName ? _.escape(item.typeName) : '') +
+                     (item.typeName && item.area ? ', ' : '') +
+                     (area ? _.escape(area.name) + ', ' + renderContainingAreas(area) : '') +
+                     '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -914,6 +912,24 @@ function getLabelName(releaseLabel) {
 
 function getCatalogNumber(releaseLabel) {
     return releaseLabel.catalogNumber || '';
+}
+
+function renderContainingAreas(area) {
+    var strings = [];
+
+    if (area.parent_city) {
+        strings.push(_.escape(area.parent_city.name));
+    }
+
+    if (area.parent_subdivision) {
+        strings.push(_.escape(area.parent_subdivision.name));
+    }
+
+    if (area.parent_country) {
+        strings.push(_.escape(area.parent_country.name));
+    }
+
+    return i18n.commaOnlyList(strings);
 }
 
 /*
