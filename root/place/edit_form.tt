@@ -7,8 +7,7 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-      <div id="possible-duplicates">
-      </div>
+      [% duplicate_entities_section() %]
 
       <fieldset>
         <legend>[% l('Place Details') %]</legend>

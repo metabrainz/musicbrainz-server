@@ -7,20 +7,7 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-      [% IF needs_disambiguation ~%]
-        <p class="error">
-          [%~ l('You must enter a disambiguation comment for this series.') ~%]
-        </p>
-      [%~ END -%]
-
-      [% IF duplicate_violation ~%]
-        <p class="error">
-          [%~ l('A series with that name and disambiguation already exists. You must enter a unique disambiguation comment.') ~%]
-        </p>
-      [%~ END -%]
-
-      <div id="possible-duplicates">
-      </div>
+      [% duplicate_entities_section() %]
 
       <fieldset>
         <legend>[% l('Series Details') %]</legend>
