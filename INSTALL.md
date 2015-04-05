@@ -296,7 +296,7 @@ Creating the database
             
             To drop the database, run:
 
-               dropdb -U musicbrainz musicbrainz    
+                    dropdb -U musicbrainz musicbrainz    
     
            Next, ensure the database preferences file is setup to use the schema
            version matching the schema version of the downloaded exports. The June
@@ -304,14 +304,17 @@ Creating the database
            database exports are made on version 21.
            
            Edit the database preferences file. On the VMware image, this is usually
-           located at /home/musicbrainz/musicbrainz-server/lib/DBDefs.pm. Change
+           located at /home/musicbrainz/musicbrainz-server/lib/DBDefs.pm.
+            
+           Change
 
-                    sub DB_SCHEMA_SEQUENCE { 20 }
+                sub DB_SCHEMA_SEQUENCE { 20 }
+
+            to:
+
+                sub DB_SCHEMA_SEQUENCE { 21 }
  
-                to:
-
-                    sub DB_SCHEMA_SEQUENCE { 21 }
-
+    
         Next ensure you have downloaded the database export files from one of
         the mirror locations specified above. To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
