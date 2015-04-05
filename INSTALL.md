@@ -278,12 +278,11 @@ Creating the database
             ./admin/InitDb.pl --createdb --clean
 
     2.  Import a database dump
-
+    
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
         or the European mirror server at
         ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
-
         VirtualMachine image users:
             If you are initializing the MusicBrainz VMware Virtual Machine OVA image,
             it is very likely that the included database is oudated. Often waiting on
@@ -340,7 +339,6 @@ Creating the database
         By default, the archives will be extracted into the `/tmp` directory as
         an intermediate step. You may specify a different location with the
         `--tmp-dir` option.
-
 
     NOTE: on a fresh postgresql install you may see the following error:
 
