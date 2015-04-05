@@ -37,19 +37,13 @@ function renderDuplicates(name, duplicates, container) {
       name={name}
       duplicates={duplicates}
       checkboxCallback={event => isConfirmed(event.target.checked)} />,
-    container,
-    function () {
-      $(container).slideDown('slow');
-    }
+    container
   );
 }
 
 function unmountDuplicates(container) {
   needsConfirmation(false);
-
-  $(container).slideUp('slow', function () {
-    React.unmountComponentAtNode(container);
-  });
+  React.unmountComponentAtNode(container);
 }
 
 function sortPlaceDuplicates(duplicates) {
@@ -159,8 +153,6 @@ MB.initializeDuplicateChecker = function (type) {
   var originalName = currentName;
   var currentDuplicates = [];
   var promise;
-
-  $(dupeContainer).hide();
 
   function makeRequest(name) {
     if (!name || name === originalName) {
