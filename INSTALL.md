@@ -284,10 +284,40 @@ Creating the database
         or the European mirror server at
         ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
-        To get going, you need at least the mbdump.tar.bz2,
+        VirtualMachine image users:
+            If you are initializing the MusicBrainz VMware Virtual Machine OVA image,
+            it is very likely that the included database is oudated. Often waiting on
+            replication data to bring the database up to date will take significantly
+            more time than if you were to drop the outdated database copy and start
+            with an up to date database export. If you would like to import the
+            MusicBrainz database exports, you will need to drop the existing database
+            first, edit the database preferences file to specify the current schema
+            version, and finally import the current database export obtained from a
+            MusicBrainz mirror.
+            
+            To drop the database, run:
+
+               dropdb -U musicbrainz musicbrainz    
+    
+           Next, ensure the database preferences file is setup to use the schema
+           version matching the schema version of the downloaded exports. The June
+           2014 VMware OVA image currently uses schema version 20, while the current
+           database exports are made on version 21.
+           
+           Edit the database preferences file. On the VMware image, this is usually
+           located at /home/musicbrainz/musicbrainz-server/lib/DBDefs.pm. Change
+
+                    sub DB_SCHEMA_SEQUENCE { 20 }
+ 
+                to:
+
+                    sub DB_SCHEMA_SEQUENCE { 21 }
+
+        Next ensure you have downloaded the database export files from one of
+        the mirror locations specified above. To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
         grab whichever dumps suit your needs.
-
+        
         Assuming the dumps have been downloaded to /tmp/dumps/ you can verify
         that the data is correct by running:
 
@@ -299,7 +329,7 @@ Creating the database
             gpg --recv-keys C777580F
             gpg --verify-files /tmp/dump/*.asc
 
-        If this is OK and you wish to continue, you can import them with:
+        If this is OK and you wish to continue, you can continue to import them with:
 
             ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
