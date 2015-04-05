@@ -1025,15 +1025,16 @@ END -%]
 [%~ END ~%]
 
 [%~ MACRO duplicate_entities_section BLOCK ~%]
-  [% IF needs_disambiguation ~%]
-    <p class="error">
-      [%~ l('You must enter a disambiguation comment for this entity.') ~%]
-    </p>
-  [%~ END -%]
-  [% IF duplicate_violation ~%]
-    <p class="error">
-      [%~ l('An entity with that name and disambiguation already exists. You must enter a unique disambiguation comment.') ~%]
-    </p>
-  [%~ END -%]
-  <div id="possible-duplicates"></div>
+  <div class="row no-label">
+    <div id="possible-duplicates"></div>
+  </div>
+[%~ END ~%]
+
+[%~ MACRO disambiguation_error BLOCK ~%]
+  [%- IF needs_disambiguation OR duplicate_violation -%]
+    <div class="row no-label error">
+      [%~ l('You must enter a disambiguation comment for this entity.') IF needs_disambiguation ~%]
+      [%~ l('An entity with that name and disambiguation already exists. You must enter a unique disambiguation comment.') IF duplicate_violation ~%]
+    </div>
+  [%- END -%]
 [%~ END ~%]

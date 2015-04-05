@@ -7,12 +7,12 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-      [% duplicate_entities_section() %]
-
       <fieldset>
         <legend>[% l('Series Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
+        [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>

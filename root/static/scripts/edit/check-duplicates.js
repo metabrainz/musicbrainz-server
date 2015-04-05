@@ -40,7 +40,6 @@ function renderDuplicates(name, duplicates, container) {
     container,
     function () {
       $(container).slideDown('slow');
-      $('body').animate({scrollTop: 0}, 'slow');
     }
   );
 }
