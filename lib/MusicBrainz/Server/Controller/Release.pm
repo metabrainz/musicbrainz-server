@@ -260,17 +260,6 @@ sub change_quality : Chained('load') PathPart('change-quality') Edit {
     );
 }
 
-=head2 collections
-
-View a list of collections that this release has been added to.
-
-=cut
-
-sub collections : Chained('load') RequireAuth {
-    my ($self, $c) = @_;
-    $self->_collections($c);
-}
-
 sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
     my ($self, $c) = @_;
 

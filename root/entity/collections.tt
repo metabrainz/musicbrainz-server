@@ -1,10 +1,10 @@
-[%- WRAPPER 'work/layout.tt' title=l('Collections') page='collections' -%]
+[%- WRAPPER "$entity_type/layout.tt" title=l('Collections') page='collections' -%]
     <h2>[% l('Collections') %]</h2>
     [% IF public_collections.size || private_collections > 0 %]
         <p>[% ln('{entity} has been added to {num} collection:',
                  '{entity} has been added to {num} collections:',
                  public_collections.size + private_collections,
-                 { entity => html_escape(work.name), num => public_collections.size + private_collections }) %]</p>
+                 { entity => html_escape($entity_type.name), num => public_collections.size + private_collections }) %]</p>
         <ul>
             [% FOR col=public_collections %]
                 <li>[% l('{collection} by {owner}', { collection => link_collection(col),
@@ -21,6 +21,6 @@
         </ul>
     [% ELSE %]
         <p>[% l('{entity} has not been added to any collections.',
-                { entity => html_escape(work.name) }) %]</p>
+                { entity => html_escape($entity_type.name) }) %]</p>
     [% END %]
 [%- END -%]

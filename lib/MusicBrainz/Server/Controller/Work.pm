@@ -61,18 +61,13 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-# Stuff that has the side bar and thus needs to display collection information
-after [qw(show aliases collections details tags )] => sub {
-    my ($self, $c) = @_;
-    $self->_stash_collections($c);
-};
-
 before qw( show aliases collections tags details ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('Language')->load_for_works($work);
     $c->model('WorkAttribute')->load_for_works($work);
+    $self->_stash_collections($c);
 };
 
 with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
@@ -153,18 +148,6 @@ sub _merge_load_entities
     $c->model('Language')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
-
-=head2 collections
-
-View a list of collections that this work has been added to.
-
-=cut
-
-sub collections : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-    $self->_collections($c);
-}
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',

@@ -6,10 +6,23 @@ parameter 'entity_name' => (
     required => 1
 );
 
+parameter 'method_name' => (
+    isa => 'Str',
+    required => 0
+);
+
 role
 {
     my $params = shift;
+    my %extra = @_;
     my $entity_name = $params->entity_name;
+    my $method_name = $params->method_name // 'collections';
+
+    $extra{consumer}->name->config(
+        action => {
+            $method_name => { Chained => 'load', RequireAuth => undef }
+        }
+    );
 
     method _all_collections => sub {
         my ($self, $c) = @_;
@@ -38,7 +51,13 @@ role
           );
     };
 
-    method _collections => sub {
+=head2 collections
+
+View a list of collections that this work has been added to.
+
+=cut
+
+    method $method_name => sub {
         my ($self, $c) = @_;
 
         my @public_collections;
@@ -56,9 +75,11 @@ role
 
         $c->model('Editor')->load(@public_collections);
 
-        $c->stash(
+        $c->stash
+          (entity_type => $entity_name,
            public_collections => \@public_collections,
            private_collections => $private_collections,
+           template => 'entity/collections.tt',
         );
     };
 };

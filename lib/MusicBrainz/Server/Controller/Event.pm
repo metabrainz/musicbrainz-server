@@ -19,7 +19,8 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name     => 'event'
+    entity_name     => 'event',
+    method_name     => 'attendance'
 };
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE $EDIT_EVENT_DELETE $EDIT_EVENT_EDIT $EDIT_EVENT_MERGE );
@@ -68,17 +69,6 @@ sub show : PathPart('') Chained('load') {
     $c->model('Event')->load_performers($event);
     $c->stash(template => 'event/index.tt');
     $c->model('Relationship')->load($event->related_series);
-}
-
-=head2 attendance
-
-View a list of collections that this event has been added to.
-
-=cut
-
-sub attendance : Chained('load') RequireAuth {
-    my ($self, $c) = @_;
-    $self->_collections($c);
 }
 
 sub _merge_load_entities {
