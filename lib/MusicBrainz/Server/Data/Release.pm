@@ -1070,8 +1070,7 @@ sub merge
         if ($update_names) {
             foreach my $id (@medium_ids) {
                 next unless exists $names{$id};
-                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?',
-                               $names{$id} || undef, $id);
+                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?', $names{$id}, $id);
             }
         }
     }
