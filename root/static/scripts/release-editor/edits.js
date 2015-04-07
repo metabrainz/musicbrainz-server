@@ -141,7 +141,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
             });
 
             var newMediums = release.mediums();
-            var newPositions = _.invoke(release.mediums(), "position");
+            var newPositions = _.invoke(newMediums, "position");
             var tmpPositions = [];
 
             _.each(newMediums, function (medium) {
