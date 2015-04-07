@@ -52,6 +52,16 @@ sub initialize {
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);
 
+    if ($release) {
+        $self->c->model('ReleaseLabel')->load($release) unless $release->all_labels;
+
+        $self->throw_if_release_label_is_duplicate(
+            $release,
+            $opts{label} ? $opts{label}->id : undef,
+            $opts{catalog_number}
+        );
+    }
+
     $opts{release} = {
         id => $release->id,
         name => $release->name

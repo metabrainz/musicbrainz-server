@@ -55,8 +55,9 @@ sub prepare_test_database {
         INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
         VALUES (3, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url', '-');
 
-        ALTER SEQUENCE track_id_seq RESTART 100;
-        ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
+        SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
+        SELECT setval('l_artist_recording_id_seq', (SELECT MAX(id) FROM l_artist_recording));
+        SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
     });
 }
 
@@ -454,7 +455,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '~☉~',
                     recording_id => 27,
                     position => 1,
-                    id => 109,
+                    id => 45,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 },
@@ -464,7 +465,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '[hourglass!]',
                     recording_id => 28,
                     position => 2,
-                    id => 110,
+                    id => 46,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 },
@@ -474,7 +475,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '~◌~',
                     recording_id => 29,
                     position => 3,
-                    id => 111,
+                    id => 47,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 }
@@ -553,7 +554,7 @@ test 'adding a relationship' => sub {
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -648,7 +649,7 @@ test 'editing a relationship' => sub {
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
@@ -782,7 +783,7 @@ test 'removing an attribute from a relationship' => sub {
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        attributes  => [],
+        attributes  => [{%$guitar_attribute, removed => 1}],
         beginDate   => { year => undef, month => undef, day => undef },
         endDate     => { year => undef, month => undef, day => undef },
         ended       => 0,
@@ -957,7 +958,7 @@ test 'Duplicate relationships are ignored' => sub {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 1,
         attributes  => [
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -978,6 +979,47 @@ test 'Duplicate relationships are ignored' => sub {
         post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
     } $c;
 
+    is(scalar(@edits), 0);
+};
+
+test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 1,
+        attributes  => [{ type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' } }],
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
+        ],
+        beginDate   => { year => 1999, month => undef, day => undef },
+        endDate     => { year => 1999, month => undef, day => undef },
+    };
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => [$edit_data] }));
+    } $c;
+
+    $edit_data = {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => $edits[0]->entity_id,
+        linkTypeID  => 1,
+        beginDate   => undef
+        # implied undef endDate
+    };
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => [$edit_data] }));
+    } $c;
+
+    # should be a noop
     is(scalar(@edits), 0);
 };
 
@@ -1105,6 +1147,65 @@ test 'Invalid release event dates are rejected' => sub {
 
     $response = from_json($mech->content);
     like($response->{error}, qr/^invalid date: 0000-0-0/, 'error is returned for invalid release event date');
+};
+
+test 'Releases can be added without any mediums' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    my $response;
+    my @edits;
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $artist_credit = {
+        names => [
+            {
+                artist => { id => 5, name => "David Bowie" },
+                name => "David Bowie",
+                join_phrase => '',
+            }
+        ]
+    };
+
+    my $release_edits = [{
+        edit_type         => $EDIT_RELEASE_CREATE,
+        name              => 'NoMedium',
+        release_group_id  => undef,
+        artist_credit     => $artist_credit,
+    }];
+
+    my $release_group_edits = [{
+        edit_type     => $EDIT_RELEASEGROUP_CREATE,
+        name          => 'NoMedium',
+        artist_credit => $artist_credit,
+    }];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::ReleaseGroup::Create', 'release group created');
+
+    $response = from_json($mech->content);
+    is($response->{edits}->[0]->{message}, 'OK', 'ws response says OK');
+
+    my $release_group_id = $response->{edits}->[0]->{entity}->{id};
+    $release_edits->[0]->{release_group_id} = $release_group_id;
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $release_edits,
+            editNote => 'foo',
+            makeVotable => 0,
+        }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::Create', 'release added without any mediums');
 };
 
 1;

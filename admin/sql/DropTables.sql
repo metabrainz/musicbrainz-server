@@ -267,6 +267,7 @@ DROP TABLE work_attribute;
 DROP TABLE work_attribute_type;
 DROP TABLE work_attribute_type_allowed_value;
 DROP TABLE work_gid_redirect;
+DROP TABLE work_lastmod;
 DROP TABLE work_meta;
 DROP TABLE work_rating_raw;
 DROP TABLE work_tag;

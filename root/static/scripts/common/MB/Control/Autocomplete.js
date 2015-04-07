@@ -5,6 +5,8 @@
 
 var i18n = require('../../i18n.js');
 
+var formatTrackLength = require('../../utility/formatTrackLength.js');
+
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
@@ -549,7 +551,7 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
+        if (item.sortName && !isLatin(item.name) && item.sortName != item.name)
         {
             comment.push(item.sortName);
         }
@@ -574,7 +576,7 @@ MB.Control.autocomplete_formatters = {
         if (item.length)
         {
             a.prepend('<span class="autocomplete-length">' +
-                MB.utility.formatTrackLength(item.length) + '</span>');
+                formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)
@@ -926,3 +928,7 @@ ko.bindingHandlers.autocomplete = {
         }
     }
 };
+
+function isLatin(str) {
+    return !/[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str);
+}

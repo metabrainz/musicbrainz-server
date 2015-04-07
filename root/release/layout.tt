@@ -89,9 +89,9 @@
             [%~ INCLUDE "layout/sidebar/sidebar-rating.tt" entity=release.release_group rating_heading=l('Release group rating') ~%]
 
             [%~ IF release.release_group.review_count ~%]
-                <h2>[% l('Release group reviews') %]</h2>
+                <h2 class="reviews">[% l('Release group reviews') %]</h2>
                 [%- PROCESS 'components/critiquebrainz.tt' -%]
-                [%~ critiquebrainz_links(release.release_group) ~%]
+                <p>[% critiquebrainz_links(release.release_group) %]</p>
             [%~ END ~%]
         [%~ END ~%]
     [%~ END ~%]

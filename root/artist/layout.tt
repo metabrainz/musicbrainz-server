@@ -11,7 +11,7 @@
             [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_group/create', { artist = artist.gid }), text => l('Add release group') }) ~%]
             [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { artist = artist.gid }), text => l('Add release') }) ~%]
             [%~ edit_links_add_entity.push({ url => c.uri_for_action('/recording/create', { artist = artist.gid }), text => l('Add recording') }) ~%]
-            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/work/create', { artist = artist.gid }), text => l('Add work') }) ~%]
+            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/work/create', { 'rels.0.target' => artist.gid }), text => l('Add work') }) ~%]
 
             [%~ edit_links_other.push({ url => c.uri_for_action('/artist/split', [ artist.gid ]), text => l('Split into separate artists') }) ~%]
         [%~ END ~%]

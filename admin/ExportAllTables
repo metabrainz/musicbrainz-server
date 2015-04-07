@@ -323,6 +323,8 @@ my @group_private = qw(
     series_tag_raw
     work_rating_raw
     work_tag_raw
+
+    work_lastmod
 );
 
 my @group_cdstubs = qw(

@@ -358,3 +358,13 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
     t.notEqual(oldRecordings[1], newRecordings[1], 'second recording is still different');
     t.equal(oldRecordings[2], newRecordings[1], 'third recording is still reused from second track');
 });
+
+parserTest("parsing fullwidth numbers", function (t) {
+    t.plan(1);
+
+    var input = "１ Ｆｏｏ ２：３４";
+
+    common.trackParser(t, input, [
+        { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
+    ]);
+});

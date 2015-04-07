@@ -60,6 +60,8 @@ sub check_attributes {
             delete $data->{credited_as} if exists $data->{credited_as} && !$lat->creditable;
         }
     }
+
+    @$attributes = sort_by { $_->{type}{id} } @$attributes;
 }
 
 sub restore_int_attributes {
@@ -81,17 +83,7 @@ sub restore_int_attributes {
 
 sub serialize_link_attributes {
     my ($self, @attributes) = @_;
-
-    return [ sort_by { $_->{type}{id} } map {
-        my $type = $_->type;
-        {
-            type => $type->to_json_hash,
-
-            $type->creditable && non_empty($_->credited_as) ? (credited_as => $_->credited_as) : (),
-            # text values are required
-            $type->free_text ? (text_value => $_->text_value) : (),
-        }
-    } @attributes ];
+    return [ sort_by { $_->{type}{id} } map { $_->to_json_hash } @attributes ];
 }
 
 sub editor_may_edit_types {

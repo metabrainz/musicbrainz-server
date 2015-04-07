@@ -342,6 +342,8 @@ function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());
         validation.errorFields([]);
+        releaseEditor.externalLinksEditData({});
+        releaseEditor.hasInvalidLinks = validation.errorField(ko.observable(false));
     });
 }
 
@@ -558,7 +560,7 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
     );
 
     // Click remove button
-    triggerClick($(component.getDOMNode()).find('button')[0]);
+    triggerClick($(React.findDOMNode(component)).find('button')[0]);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -601,7 +603,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
         document.createElement('div')
     );
 
-    var $mountPoint = $(component.getDOMNode());
+    var $mountPoint = $(React.findDOMNode(component));
 
     // Remove first URL
     triggerClick($mountPoint.find('button:eq(0)')[0]);

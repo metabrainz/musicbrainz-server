@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var deferFocus = require('../../edit/utility/deferFocus.js');
+
 (function () {
 
     var Multiselect = aclass({
@@ -130,7 +132,7 @@
             --nextIndex;
 
             if (nextIndex >= 0) {
-                MB.utility.deferFocus("a:eq(" + nextIndex + ")", this.$items);
+                deferFocus("a:eq(" + nextIndex + ")", this.$items);
             } else {
                 this.inputHasFocus(true);
             }

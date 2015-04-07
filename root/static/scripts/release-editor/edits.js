@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var debounce = require('../common/utility/debounce.js');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 
 (function (releaseEditor) {
@@ -339,20 +340,26 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
                     return;
                 }
 
-                var editData = MB.edit.fields.externalLinkRelationship(link, release);
+                var newData = MB.edit.fields.externalLinkRelationship(link, release);
 
                 if (isPositiveInteger(link.relationship)) {
                     if (!newLinks[link.relationship]) {
-                        edits.push(MB.edit.relationshipDelete(editData));
+                        edits.push(MB.edit.relationshipDelete(newData));
                     } else if (oldLinks[link.relationship]) {
                         var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                        if (!_.isEqual(editData, original)) {
-                            edits.push(MB.edit.relationshipEdit(editData, original));
+                        if (!_.isEqual(newData, original)) {
+                            var editData = MB.edit.relationshipEdit(newData, original);
+
+                            if (original.video && !newData.video) {
+                                editData.attributes = [{type: {gid: MB.constants.VIDEO_ATTRIBUTE_GID}, removed: true}];
+                            }
+
+                            edits.push(editData);
                         }
                     }
                 } else if (newLinks[link.relationship]) {
-                    edits.push(MB.edit.relationshipCreate(editData));
+                    edits.push(MB.edit.relationshipCreate(newData));
                 }
             });
 
@@ -361,24 +368,23 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
     };
 
 
-    releaseEditor.allEdits = MB.utility.debounce(
-        utils.withRelease(function (release) {
-            var root = releaseEditor.rootField;
+    var _allEdits = _.map([
+        'releaseGroup',
+        'release',
+        'releaseLabel',
+        'medium',
+        'mediumReorder',
+        'discID',
+        'annotation',
+        'externalLinks'
+    ], function (name) {
+        return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
+    });
 
-            return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
-                releaseEditor.edits.release(release),
-                releaseEditor.edits.releaseLabel(release),
-                releaseEditor.edits.medium(release),
-                releaseEditor.edits.mediumReorder(release),
-                releaseEditor.edits.discID(release),
-                releaseEditor.edits.annotation(release),
-                releaseEditor.edits.externalLinks(release)
-            );
-        }, []),
-        1500
-    );
 
+    releaseEditor.allEdits = ko.computed(function () {
+        return _.flatten(_.map(_allEdits, ko.unwrap));
+    });
 
     releaseEditor.editPreviews = ko.observableArray([]);
     releaseEditor.loadingEditPreviews = ko.observable(false);
@@ -401,7 +407,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        MB.utility.debounce(function () {
+        debounce(function () {
             var edits = releaseEditor.allEdits();
 
             if (validation.errorsExist()) {

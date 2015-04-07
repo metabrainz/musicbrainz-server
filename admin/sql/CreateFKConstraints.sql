@@ -2735,6 +2735,12 @@ ALTER TABLE work_gid_redirect
    FOREIGN KEY (new_id)
    REFERENCES work(id);
 
+ALTER TABLE work_lastmod
+   ADD CONSTRAINT work_lastmod_fk_id
+   FOREIGN KEY (id)
+   REFERENCES work(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE work_meta
    ADD CONSTRAINT work_meta_fk_id
    FOREIGN KEY (id)

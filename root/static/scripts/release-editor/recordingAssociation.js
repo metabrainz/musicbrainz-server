@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+var debounce = require('../common/utility/debounce.js');
+
 (function (releaseEditor) {
 
     var recordingAssociation = releaseEditor.recordingAssociation = {};
@@ -35,7 +38,7 @@
         etiRegex = /(\([^)]+\) ?)*$/;
 
 
-    var releaseGroupField = MB.utility.computedWith(
+    var releaseGroupField = utils.computedWith(
         function (release) { return release.releaseGroup() }, releaseEditor.rootField.release
     );
 
@@ -56,7 +59,7 @@
     });
 
 
-    MB.utility.debounce(utils.withRelease(function (release) {
+    debounce(utils.withRelease(function (release) {
         var newIDs = _(release.mediums()).invoke("tracks").flatten()
                       .pluck("artistCredit").invoke("names").flatten()
                       .invoke("artist").pluck("id").uniq().compact().value();
@@ -80,7 +83,7 @@
                 data: $.param({ artists: newIDs }, true /* traditional */)
             };
 
-            MB.utility.request(requestArgs).done(function (data) {
+            request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
         }
@@ -385,7 +388,7 @@
 
 
     recordingAssociation.track = function (track) {
-        MB.utility.debounce(function () { watchTrackForChanges(track) });
+        debounce(function () { watchTrackForChanges(track) });
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

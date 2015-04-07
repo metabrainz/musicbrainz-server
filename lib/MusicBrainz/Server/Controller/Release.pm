@@ -92,12 +92,8 @@ after 'load' => sub
         $c->model('ReleasePackaging')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels);
         $c->model('ReleaseGroupType')->load($release->release_group);
-        $c->model('Medium')->load_for_releases($release);
-        $c->model('MediumFormat')->load($release->all_mediums);
-        $c->model('Release')->load_release_events($release);
+        $c->model('Release')->load_related_info($release);
 
         # Only needed by pages showing the sidebar
         $c->model('CritiqueBrainz')->load_display_reviews($release->release_group);
@@ -623,11 +619,7 @@ sub _merge_load_entities
 {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
-    $c->model('Release')->load_release_events(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $c->model('ReleaseLabel')->load(@releases);
-    $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('Release')->load_related_info(@releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

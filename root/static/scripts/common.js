@@ -24,8 +24,6 @@ require("./common/MB/Control/SelectAll.js");
 require("./common/MB/Control/TagEditor.js");
 require("./common/MB/edit_search.js");
 require("./common/MB/release.js");
-require("./common/MB/utility.js");
-require("./common/multiselect.js");
 require("./common/ratings.js");
 require("./common/tagger.js");
 require("./common/coverart.js");

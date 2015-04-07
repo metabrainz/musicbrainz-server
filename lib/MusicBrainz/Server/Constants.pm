@@ -51,7 +51,7 @@ our @EXPORT_OK = (
         $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
         $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
         $REQUIRED_VOTES $OPEN_EDIT_DURATION
-        $MINIMUM_RESPONSE_PERIOD
+        $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD
         $LIMIT_FOR_EDIT_LISTING
         $ARTIST_ARTIST_COLLABORATION
         %PART_OF_SERIES
@@ -316,6 +316,7 @@ Readonly our $AREA_TYPE_CITY => 3;
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $MINIMUM_VOTING_PERIOD => DateTime::Duration->new(hours => 48);
 Readonly our $LIMIT_FOR_EDIT_LISTING => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
@@ -552,6 +553,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
+        lastmod_table => 1,
         merging => 1,
         model      => 'Work',
         type => { simple => 1 },
@@ -901,6 +903,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     url
     url_gid_redirect
     work
+    work_lastmod
     work_alias
     work_alias_type
     work_annotation

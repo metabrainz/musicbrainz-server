@@ -62,11 +62,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('Release')->find_by_release_group($rg->id, shift, shift);
     });
 
-    $c->model('Medium')->load_for_releases(@$releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Release')->load_release_events(@$releases);
-    $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('Release')->load_related_info(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('CritiqueBrainz')->load_display_reviews($rg);
 
@@ -134,11 +130,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 
     my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
-    $c->model('Medium')->load_for_releases(@$releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Release')->load_release_events(@$releases);
-    $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('Release')->load_related_info(@$releases);
 
     my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
     $c->model('CoverArtType')->load_for(@$artwork);

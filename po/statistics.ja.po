@@ -524,7 +524,7 @@ msgstr "アクティブなユーザー"
 msgid "Active Voters"
 msgstr "アクティブな投票者"
 
-#: ../root/statistics/timeline.tt:48
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr ""
 
@@ -754,7 +754,7 @@ msgstr ""
 msgid "Characters"
 msgstr "キャラクター"
 
-#: ../root/statistics/timeline.tt:48
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr ""
 
@@ -762,11 +762,11 @@ msgstr ""
 msgid "Choirs"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr ""
 
@@ -1147,7 +1147,7 @@ msgstr ""
 msgid "Disc IDs:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
@@ -1239,7 +1239,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:56
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
@@ -1305,7 +1305,7 @@ msgstr ""
 msgid "High Data Quality:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1433,7 +1433,7 @@ msgstr "最近7日間"
 msgid "Last updated: {date}"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:32
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr ""
 
@@ -1494,11 +1494,11 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr ""
 
@@ -1648,11 +1648,11 @@ msgstr "一次タイプ"
 msgid "Rank"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr ""
 
@@ -1863,7 +1863,7 @@ msgstr ""
 msgid "Releases:"
 msgstr "リリース："
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr ""
 
@@ -1917,7 +1917,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:55
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr ""
 
@@ -2088,7 +2088,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr "昨日："
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr ""
 

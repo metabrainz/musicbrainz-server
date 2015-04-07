@@ -73,16 +73,12 @@ var infoTipContentContainer = RCSS.registerClass(
 
 RCSS.injectAll();
 
-var Tooltip = React.createClass({
-  propTypes: {
-    hoverCallback: PropTypes.func.isRequired
-  },
+class Tooltip extends React.Component {
+  componentDidMount() {
+    $(React.findDOMNode(this)).find('a').attr('target', '_blank');
+  }
 
-  componentDidMount: function () {
-    $(this.getDOMNode()).find('a').attr('target', '_blank');
-  },
-
-  render: function () {
+  render() {
     var hoverCallback = this.props.hoverCallback;
     return (
       <div className={infoTipContainer.className}
@@ -93,6 +89,8 @@ var Tooltip = React.createClass({
       </div>
     );
   }
-});
+}
+
+Tooltip.propTypes = {hoverCallback: PropTypes.func.isRequired};
 
 module.exports = Tooltip;
