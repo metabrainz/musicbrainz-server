@@ -43,7 +43,7 @@
   "devDependencies": {
     "gulp-jshint": ">= 1.8.4",
     "gulp-watch": "^4.2.1",
-    "tape": "^3.0.3"
+    "tape": "^4.0.0"
   },
   "private": true
 }
