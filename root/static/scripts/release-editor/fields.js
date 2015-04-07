@@ -744,7 +744,7 @@ var dates = require('../edit/utility/dates.js');
             ko.computed(function () {
                 _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
                     _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
-                });
+                }).value();
             });
 
             this.needsLabels = errorField(this.labels.any("needsLabel"));
