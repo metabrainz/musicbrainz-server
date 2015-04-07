@@ -40,8 +40,8 @@ exports.trackParser = function (t, input, expected) {
 };
 
 exports.createMediums = function (release) {
-    var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.medium
+    var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+        return sub.edits === releaseEditor.edits.medium;
     });
 
     // Simulate edit submission.
