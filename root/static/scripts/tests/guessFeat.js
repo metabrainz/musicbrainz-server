@@ -5,7 +5,7 @@
 
 var test = require('tape');
 var _ = require('lodash');
-var guessFeat = require('../edit/utility/guess-feat.js');
+var guessFeat = require('../edit/utility/guessFeat');
 
 test('guessing feat. artists', function (t) {
     t.plan(18);

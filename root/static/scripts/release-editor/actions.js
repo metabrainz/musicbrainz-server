@@ -5,7 +5,7 @@
 
 var i18n = require('../common/i18n.js');
 var deferFocus = require('../edit/utility/deferFocus.js');
-var guessFeat = require('../edit/utility/guess-feat.js');
+var guessFeat = require('../edit/utility/guessFeat');
 
 (function (releaseEditor) {
 
