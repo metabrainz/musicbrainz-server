@@ -16,6 +16,7 @@ my $mock_class = 1000 + int(rand(1000));
     package t::MusicBrainz::Server::EditQueue::MockEdit;
     use Moose;
     extends 'MusicBrainz::Server::Edit';
+    with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
     sub edit_name { 'Mock edit' }
     sub edit_type { $mock_class }
 }
@@ -110,6 +111,21 @@ EOSQL
     is($edit->status, $STATUS_APPLIED, 'applied');
 };
 
+test 'Edit queue won\'t close recent destructive edits even with sufficient yes votes' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
+INSERT INTO edit (id, editor, type, data, status, open_time, expire_time, yes_votes)
+  VALUES (101, 10, $mock_class, '{}', 1, now() - interval '3 hours', now() + interval '6 days 21 hours', 100);
+EOSQL
+
+    my $errors = $test->edit_queue->process_edits;
+    is($errors, 0, 'without errors');
+
+    my $edit = $test->c->model('Edit')->get_by_id(101);
+    is($edit->status, $STATUS_OPEN, 'still open');
+};
+
 test '_determine_new_status for different quality levels' => sub {
     my $test = shift;
 
@@ -163,6 +179,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "Normal quality edit with 3 Yes / 0 No passes before expiration");
@@ -227,6 +244,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_HIGH);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "High quality edit with 3 Yes / 0 No passes before expiration");
@@ -291,6 +309,7 @@ test '_determine_new_status for different quality levels' => sub {
     $edit->quality($QUALITY_LOW);
     $edit->yes_votes(3);
     $edit->no_votes(0);
+    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, $STATUS_APPLIED, "Low quality edit with 3 Yes / 0 No passes before expiration");
