@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var getSimilarity = require('../edit/utility/similarity');
+
 MB.releaseEditor = MB.releaseEditor || {};
 
 
@@ -353,7 +355,7 @@ MB.releaseEditor.trackParser = {
     matchDataWithTrack: function (data, track) {
         if (!track) return;
 
-        var similarity = MB.releaseEditor.utils.similarity(data.name, track.name.peek());
+        var similarity = getSimilarity(data.name, track.name.peek());
 
         if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };

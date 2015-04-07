@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var balanced = require('balanced-match');
+var getSimilarity = require('./similarity');
 
 var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
 var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
@@ -78,7 +79,7 @@ function cleanCredit(name, isProbablyClassical) {
 function bestArtistMatch(artists, name, isProbablyClassical) {
     return _(artists)
         .map(function (a) {
-            var similarity = MB.utility.similarity(name, a.name);
+            var similarity = getSimilarity(name, a.name);
             if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
                 return {similarity: similarity, artist: a, name: name};
             }
