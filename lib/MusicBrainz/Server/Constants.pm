@@ -51,12 +51,13 @@ our @EXPORT_OK = (
         $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
         $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
         $REQUIRED_VOTES $OPEN_EDIT_DURATION
-        $MINIMUM_RESPONSE_PERIOD
+        $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD
         $LIMIT_FOR_EDIT_LISTING
         $ARTIST_ARTIST_COLLABORATION
         %PART_OF_SERIES
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
         $SERIES_ORDERING_ATTRIBUTE
+        $MAX_INITIAL_MEDIUMS
         @FULL_TABLE_LIST
         %ENTITIES entities_with
     ),
@@ -306,6 +307,7 @@ Readonly our $AREA_TYPE_CITY => 3;
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $MINIMUM_VOTING_PERIOD => DateTime::Duration->new(hours => 48);
 Readonly our $LIMIT_FOR_EDIT_LISTING => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
@@ -331,6 +333,8 @@ Readonly our %PART_OF_SERIES => (
 
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
+Readonly our $MAX_INITIAL_MEDIUMS => 10;
+
 Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -346,6 +350,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
             search_hint_type => 3
         },
+        disambiguation => 1,
+        date_period => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -363,6 +369,9 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
             search_hint_type => 3
         },
+        sort_name => 1,
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -382,6 +391,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         removal     => { automatic => 1 },
@@ -401,6 +412,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         removal     => { manual => 1 },
         tags        => 1
     },
@@ -417,6 +429,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -437,6 +451,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
+        date_period => 1,
         tags       => 1,
         removal     => { automatic => 1 }
     },
@@ -447,6 +463,7 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -460,6 +477,7 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        disambiguation => 1,
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
@@ -474,6 +492,7 @@ Readonly our %ENTITIES => (
         type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -493,6 +512,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal     => { automatic => 1 },
@@ -506,6 +526,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
+        lastmod_table => 1,
         merging => 1,
         model      => 'Work',
         type => { simple => 1 },
@@ -516,6 +537,7 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
             search_hint_type => 2
         },
+        disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
@@ -848,6 +870,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     url
     url_gid_redirect
     work
+    work_lastmod
     work_alias
     work_alias_type
     work_annotation

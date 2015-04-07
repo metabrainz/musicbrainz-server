@@ -22,7 +22,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -91,12 +91,8 @@ after 'load' => sub
         $c->model('ReleasePackaging')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels);
         $c->model('ReleaseGroupType')->load($release->release_group);
-        $c->model('Medium')->load_for_releases($release);
-        $c->model('MediumFormat')->load($release->all_mediums);
-        $c->model('Release')->load_release_events($release);
+        $c->model('Release')->load_related_info($release);
 
         # Only needed by pages showing the sidebar
         $c->model('CritiqueBrainz')->load_display_reviews($release->release_group);
@@ -110,7 +106,7 @@ before show => sub {
         my $position = $args[1];
         my @mediums = $c->stash->{release}->all_mediums;
 
-        if (@mediums > 10) {
+        if (@mediums > $MAX_INITIAL_MEDIUMS) {
             my $medium = $mediums[$position - 1] if looks_like_number($position);
 
             if ($medium) {
@@ -174,7 +170,7 @@ sub show : Chained('load') PathPart('') {
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
 
-    if (@mediums <= 10) {
+    if (@mediums <= $MAX_INITIAL_MEDIUMS) {
         my $user_id = $c->user->id if $c->user_exists;
         $c->model('Medium')->load_related_info($user_id, @mediums);
     }
@@ -623,11 +619,7 @@ sub _merge_load_entities
 {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
-    $c->model('Release')->load_release_events(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $c->model('ReleaseLabel')->load(@releases);
-    $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('Release')->load_related_info(@releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

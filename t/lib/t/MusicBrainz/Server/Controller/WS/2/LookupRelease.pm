@@ -559,6 +559,10 @@ ws_test 'release lookup, relation attributes',
                 <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
+                    <text-representation>
+                        <language>jpn</language>
+                        <script>Jpan</script>
+                    </text-representation>
                     <date>2004-01-15</date>
                     <country>JP</country>
                     <release-event-list count="1">
@@ -582,6 +586,10 @@ ws_test 'release lookup, relation attributes',
                 <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
+                    <text-representation>
+                        <language>jpn</language>
+                        <script>Jpan</script>
+                    </text-representation>
                     <date>2004-01-15</date>
                     <country>JP</country>
                     <release-event-list count="1">

@@ -196,6 +196,7 @@ sub find_by_instrument {
     push @$conditions, "instrument.id = ?";
     push @$params, $instrument_id;
 
+    # NOTE: if more tables than l_artist_release are added here, check admin/BuildSitemaps.pl
     my $query = "
       SELECT *
       FROM (
@@ -1155,6 +1156,16 @@ sub load_meta
         $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
             if defined $row->{cover_art_url};
     }
+}
+
+sub load_related_info {
+    my ($self, @entities) = @_;
+
+    $self->c->model('Medium')->load_for_releases(@entities);
+    $self->c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
+    $self->load_release_events(@entities);
+    $self->c->model('ReleaseLabel')->load(@entities);
+    $self->c->model('Label')->load(map { $_->all_labels } @entities);
 }
 
 sub find_ids_by_track_ids

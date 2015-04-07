@@ -1,15 +1,7 @@
 <table class="details remove-medium">
   <tr>
     <th>[% l('Medium:') %]</th>
-    <td>
-      [%- SET discname = '"' _ edit.display_data.name _ '"' IF edit.display_data.name; -%]
-      [% l('{format} {position} {name} on {release} by {artist}',
-           { format => edit.display_data.format.name || l('Medium'),
-             position => edit.display_data.position,
-             name => discname,
-             release => link_entity(edit.display_data.release),
-             artist => artist_credit(edit.display_data.release.artist_credit) }) %]
-    </td>
+    <td>[% medium_link(edit.display_data.medium) %]</td>
   </tr>
 
   [% IF edit.display_data.tracklist %]

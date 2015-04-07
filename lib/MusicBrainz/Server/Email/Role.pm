@@ -30,7 +30,7 @@ has 'from' => (
 has 'server' => (
     isa => Str,
     is => 'ro',
-    default => sprintf 'http://%s', DBDefs->WEB_SERVER_USED_IN_EMAIL
+    default => sub { $MusicBrainz::Server::Email::url_prefix },
 );
 
 sub text { '' }

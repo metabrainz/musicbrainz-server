@@ -76,7 +76,7 @@
             <td></td>
             <td colspan="2" class="add-item">
               [% caption = lp('Add Work Attribute', 'button/menu') %]
-              <button class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
+              <button type="button" class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
                 [% caption | html %]
               </button>
             </td>
@@ -121,7 +121,5 @@
   (function () {
     MB.Control.initialize_guess_case("work", "id-edit-work");
     MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
-
-    MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
   }());
 //]]></script>

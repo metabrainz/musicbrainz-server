@@ -10,7 +10,7 @@
           <table>
             <tr>
               <td colspan="2" style="padding: 0">
-                <input id="name" class="with-guesscase-guessfeat" type="text" size="47" required="required" data-bind="value: name" />
+                <input id="name" class="with-guesscase-guessfeat" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
                 <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
                 <button type="button" class="guessfeat icon" title="[% l('Guess feat. artists') %]" data-click="guessReleaseFeatArtists"></button>
                 <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
@@ -45,7 +45,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven’t entered a complete artist credit.')) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
@@ -177,7 +177,7 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
+          <button type="button" class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
             [% lp('Add Release Event', 'button/menu') %]
           </button>
         </td>
@@ -214,12 +214,14 @@
            '<!-- ko text: MB.i18n.expand(\'' _ js_escape(l('You haven’t selected a label for “{name}”.')) _ '\', { name: label().name }) --><!-- /ko -->'
          )
       %]
+
+      [% table_row_error(4, 'showErrorRightAway: isDuplicate', l('This label/catalog number pair already exists.')) %]
     <!-- /ko -->
 
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
+          <button type="button" class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
             [% lp('Add Label', 'button/menu') %]
           </button>
         </td>

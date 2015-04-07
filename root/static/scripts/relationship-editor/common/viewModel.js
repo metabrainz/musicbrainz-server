@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../../common/utility/request.js');
+
 (function (RE) {
 
     function mapItems(result, item) {
@@ -156,6 +158,10 @@ MB.getRelationship = function (data, source) {
 };
 
 function getRelationshipEditor(data, source) {
+    if (source.entityType === 'url') {
+        return MB.sourceRelationshipEditor;
+    }
+
     var target = data.target;
     var typeInfo = MB.typeInfoByID[data.linkTypeID];
 
@@ -240,7 +246,7 @@ function addRelationshipsFromQueryString(source) {
         if (target.entityType) {
             addSubmittedRelationship(data, source);
         } else {
-            MB.utility.request({ url: '/ws/js/entity/' + rel.target })
+            request({ url: '/ws/js/entity/' + rel.target })
               .done(function (targetData) {
                   data.target = targetData;
                   addSubmittedRelationship(data, source);

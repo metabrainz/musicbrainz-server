@@ -19,6 +19,8 @@
 
 */
 
+var flags = require('../../flags.js');
+
 /**
  * Main class of the GC functionality
  **/
@@ -35,8 +37,6 @@
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils();
-    self.f = MB.GuessCase.Flags();
     self.i = MB.GuessCase.Input();
     self.o = MB.GuessCase.Output();
 
@@ -50,13 +50,6 @@
     // member functions
     // ---------------------------------------------------------------------------
 
-    /**
-     * Initialise the GuessCase object for another run
-     **/
-    self.init = function () {
-        self.f.init(); // init flags object
-    };
-
     function guess(handlerName, method) {
         var handler;
 
@@ -67,7 +60,8 @@
          * @return {string} The processed string.
          **/
         return function (is) {
-            gc.init();
+            // Initialise flags for another run.
+            flags.init();
 
             handler = handler || MB.GuessCase.Handler[handlerName]();
 

@@ -6,15 +6,14 @@
 var Immutable = require('immutable');
 var React = require('react');
 var PropTypes = React.PropTypes;
+var validation = require('./validation.js');
 var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
+var i18n = require('../common/i18n.js');
+var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 var URLCleanup = require('./MB/Control/URLCleanup.js');
 
-require('react/addons');
-
-var validation = require('./validation.js');
-
-var l = MB.i18n.l;
+var l = i18n.l;
 
 var LinkState = Immutable.Record({
   url: '',
@@ -23,29 +22,17 @@ var LinkState = Immutable.Record({
   video: false
 });
 
-var ExternalLinksEditor = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+class ExternalLinksEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {links: withOneEmptyLink(props.initialLinks)};
+  }
 
-  propTypes: {
-    sourceType: PropTypes.string.isRequired,
-    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
-    initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
-    errorObservable: function (props, propName) {
-      if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
-        return new Error('errorObservable should be an observable');
-      }
-    }
-  },
-
-  getInitialState: function () {
-    return { links: withOneEmptyLink(this.props.initialLinks) };
-  },
-
-  setLinkState: function (index, state, callback) {
+  setLinkState(index, state, callback) {
     this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], state), index) }, callback);
-  },
+  }
 
-  handleUrlChange: function (index, event) {
+  handleUrlChange(index, event) {
     var url = event.target.value;
     var link = this.state.links.get(index);
 
@@ -66,47 +53,53 @@ var ExternalLinksEditor = React.createClass({
         }
       }
     });
-  },
+  }
 
-  handleUrlBlur: function (index, event) {
+  handleUrlBlur(index, event) {
     var url = event.target.value;
     var trimmed = _.str.trim(url);
 
     if (url !== trimmed) {
       this.setLinkState(index, { url: trimmed });
     }
-  },
+  }
 
-  handleTypeChange: function (index, event) {
+  handleTypeChange(index, event) {
     this.setLinkState(index, { type: +event.target.value || null });
-  },
+  }
 
-  handleVideoChange: function (index, event) {
+  handleVideoChange(index, event) {
     this.setLinkState(index, { video: event.target.checked });
-  },
+  }
 
-  removeLink: function (index) {
+  removeLink(index) {
     this.setState({ links: this.state.links.remove(index) }, () => {
-      $(this.getDOMNode()).find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
-                                'tr:lt(' + (index + 1) + ') button.remove:last')
-                          .eq(0).focus();
+      $(React.findDOMNode(this))
+        .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
+              'tr:lt(' + (index + 1) + ') button.remove:last')
+        .eq(0).focus();
     });
-  },
+  }
 
-  getEditData: function () {
-    var oldLinks = _.indexBy(this.props.initialLinks.toJS(), 'relationship');
+  getEditData() {
+    var oldLinks = _(this.props.initialLinks.toJS())
+      .filter(link => isPositiveInteger(link.relationship))
+      .indexBy('relationship')
+      .value();
+
     var newLinks = _.indexBy(this.state.links.toJS(), 'relationship');
+
     return {
       oldLinks: oldLinks,
       newLinks: newLinks,
       allLinks: _.defaults(_.clone(newLinks), oldLinks)
     };
-  },
+  }
 
-  getFormData: function (startingPrefix, startingIndex, pushInput) {
+  getFormData(startingPrefix, startingIndex, pushInput) {
     var index = 0;
     var backward = this.props.sourceType > 'url';
-    var { newLinks, allLinks } = this.getEditData();
+    var { oldLinks, newLinks, allLinks } = this.getEditData();
 
     _.each(allLinks, function (link, relationship) {
       if (!link.type) {
@@ -115,7 +108,7 @@ var ExternalLinksEditor = React.createClass({
 
       var prefix = startingPrefix + '.' + (startingIndex + (index++));
 
-      if (/^[0-9]+$/.test(relationship)) {
+      if (isPositiveInteger(relationship)) {
         pushInput(prefix, 'relationship_id', relationship);
 
         if (!newLinks[relationship]) {
@@ -127,6 +120,9 @@ var ExternalLinksEditor = React.createClass({
 
       if (link.video) {
         pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+      } else if ((oldLinks[relationship] || {}).video) {
+        pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+        pushInput(prefix + '.attributes.0', 'removed', 1);
       }
 
       if (backward) {
@@ -135,9 +131,9 @@ var ExternalLinksEditor = React.createClass({
 
       pushInput(prefix, 'link_type_id', link.type || '');
     });
-  },
+  }
 
-  render: function () {
+  render() {
     this.props.errorObservable(false);
 
     var linksArray = this.state.links.toArray();
@@ -157,11 +153,11 @@ var ExternalLinksEditor = React.createClass({
               error = '';
             } else if (!link.url) {
               error = l('Required field.');
-            } else if (!MB.utility.isValidURL(link.url)) {
+            } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !this.id) {
+            } else if (typeInfo.deprecated && !isPositiveInteger(link.relationship)) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -195,17 +191,21 @@ var ExternalLinksEditor = React.createClass({
       </table>
     );
   }
-});
+}
 
-var LinkTypeSelect = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+ExternalLinksEditor.propTypes = {
+  sourceType: PropTypes.string.isRequired,
+  typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
+  initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
+  errorObservable: function (props, propName) {
+    if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
+      return new Error('errorObservable should be an observable');
+    }
+  }
+};
 
-  propTypes: {
-    type: PropTypes.number,
-    typeChangeCallback: PropTypes.func.isRequired
-  },
-
-  render: function () {
+class LinkTypeSelect extends React.Component {
+  render() {
     return (
       <select value={this.props.type} onChange={this.props.typeChangeCallback} className="link-type">
         <option value=""></option>
@@ -213,27 +213,15 @@ var LinkTypeSelect = React.createClass({
       </select>
     );
   }
-});
+}
 
-var ExternalLink = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+LinkTypeSelect.propTypes = {
+  type: PropTypes.number,
+  typeChangeCallback: PropTypes.func.isRequired
+};
 
-  propTypes: {
-    url: PropTypes.string.isRequired,
-    type: PropTypes.number,
-    video: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-    isOnlyLink: PropTypes.bool.isRequired,
-    urlMatchesType: PropTypes.bool.isRequired,
-    removeCallback: PropTypes.func.isRequired,
-    urlChangeCallback: PropTypes.func.isRequired,
-    urlBlurCallback: PropTypes.func.isRequired,
-    typeChangeCallback: PropTypes.func.isRequired,
-    videoChangeCallback: PropTypes.func.isRequired,
-    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
-  },
-
-  render: function () {
+class ExternalLink extends React.Component {
+  render() {
     var props = this.props;
     var typeInfo = MB.typeInfoByID[props.type] || {};
     var typeDescription = '';
@@ -291,7 +279,22 @@ var ExternalLink = React.createClass({
       </tr>
     );
   }
-});
+}
+
+ExternalLink.propTypes = {
+  url: PropTypes.string.isRequired,
+  type: PropTypes.number,
+  video: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  isOnlyLink: PropTypes.bool.isRequired,
+  urlMatchesType: PropTypes.bool.isRequired,
+  removeCallback: PropTypes.func.isRequired,
+  urlChangeCallback: PropTypes.func.isRequired,
+  urlBlurCallback: PropTypes.func.isRequired,
+  typeChangeCallback: PropTypes.func.isRequired,
+  videoChangeCallback: PropTypes.func.isRequired,
+  typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
+};
 
 function linkTypeAndUrlString(link) {
   return link.type + '\0' + link.url;
@@ -338,6 +341,34 @@ function parseRelationships(relationships) {
   });
 }
 
+var protocolRegex = /^(https?|ftp):$/;
+var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+function isValidURL(url) {
+    var a = document.createElement("a");
+    a.href = url;
+
+    var hostname = a.hostname;
+
+    if (url.indexOf(hostname) < 0) {
+        return false;
+    }
+
+    if (!hostnameRegex.test(hostname)) {
+        return false;
+    }
+
+    if (hostname.indexOf(".") < 0) {
+        return false;
+    }
+
+    if (!protocolRegex.test(a.protocol)) {
+        return false;
+    }
+
+    return true;
+}
+
 MB.createExternalLinksEditor = function (options) {
   var sourceData = options.sourceData;
   var sourceType = sourceData.entityType;
@@ -347,7 +378,7 @@ MB.createExternalLinksEditor = function (options) {
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
     if (MB.hasSessionStorage && sessionStorage.submittedLinks) {
-      initialLinks = JSON.parse(sessionStorage.submittedLinks);
+      initialLinks = JSON.parse(sessionStorage.submittedLinks).filter(l => !isEmpty(l)).map(LinkState);
     }
   } else {
     var seededLinkRegex = new RegExp("(?:\\?|&)edit-" + sourceType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g");
@@ -363,12 +394,28 @@ MB.createExternalLinksEditor = function (options) {
     });
   }
 
+  initialLinks.sort(function (a, b) {
+    var typeA = MB.typeInfoByID[a.type];
+    var typeB = MB.typeInfoByID[b.type];
+
+    return i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
+                        typeB ? typeB.phrase.toLowerCase() : '');
+  });
+
+  initialLinks = initialLinks.map(function (link) {
+    var newData = {url: URLCleanup.cleanUrl(link.url) || link.url};
+    if (!_.isNumber(link.relationship)) {
+      newData.relationship = _.uniqueId('new-');
+    }
+    return link.merge(newData);
+  });
+
   var typeOptions = (
     MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
-  var errorObservable = validation.errorField(ko.observable(false));
+  var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
   return React.render(
     <ExternalLinksEditor

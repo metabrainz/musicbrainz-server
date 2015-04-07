@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-03 07:45+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-02-03 23:53+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "Gommalacca 10\""
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
@@ -46,7 +46,7 @@ msgstr "Vinile 10\""
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "Gommalacca 12\""
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
@@ -61,12 +61,12 @@ msgstr "Floppy disk 3,5\""
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "Flexi-disc 7\""
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "Gommalacca 7\""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -221,47 +221,47 @@ msgstr ""
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
-msgstr ""
+msgstr "Un festival che si tiene periodicamente, di solito annualmente nello stesso luogo."
 
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "Una serie di eventi."
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Una serie di esibizioni dello stesso spettacolo nello stesso locale."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "Una serie di registrazioni."
 
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "Una serie di concerti collegati di un artista in diversi luoghi."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr ""
+msgstr "Una serie di gruppi di pubblicazioni."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr ""
+msgstr "Una serie di pubblicazioni."
 
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "A series of works which form a catalogue of classical compositions."
-msgstr ""
+msgstr "Una serie di opere che formano un catalogo di composizioni classiche."
 
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr ""
+msgstr "Una serie di opere."
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -1175,7 +1175,7 @@ msgstr "Festival"
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr ""
+msgstr "Flexi-disc"
 
 #: DB:medium_format/description:51
 msgctxt "medium_format"
@@ -1909,7 +1909,7 @@ msgstr "Music Card"
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Musical"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -2311,7 +2311,7 @@ msgstr "Gruppo di pubblicazioni"
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "Edificio religioso"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
@@ -2454,7 +2454,7 @@ msgstr "Nome serie"
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "Gommalacca"
 
 #: DB:medium_format/description:53
 msgctxt "medium_format"

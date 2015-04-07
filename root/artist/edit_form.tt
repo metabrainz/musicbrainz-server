@@ -123,7 +123,5 @@
     [% IF artist -%]
       edit.initializeArtistCreditPreviews("[% artist.gid %]");
     [%- END %]
-
-    MB.utility.setDefaultAction("form.edit-artist", "button.submit.positive");
   }());
 //]]></script>

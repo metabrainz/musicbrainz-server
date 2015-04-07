@@ -18,6 +18,9 @@
 
 */
 
+var flags = require('../../../flags.js');
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -55,7 +58,7 @@ MB.GuessCase.Handler.Area = function () {
         } else {
             self.doNormalWord();
         }
-        gc.f.number = false;
+        flags.context.number = false;
         return null;
     };
 
@@ -63,7 +66,7 @@ MB.GuessCase.Handler.Area = function () {
      * Guesses the sortname for areas
      **/
     self.guessSortName = function (is) {
-        return gc.u.trim(is);
+        return utils.trim(is);
     };
 
     return self;

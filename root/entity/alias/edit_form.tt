@@ -68,7 +68,5 @@
     denyDataForSearchHints();
 
     MB.Control.initialize_guess_case('[% entity_type %]', 'id-edit-alias');
-
-    MB.utility.setDefaultAction('form.edit-alias', 'button.submit.positive');
 }());
 //]]></script>

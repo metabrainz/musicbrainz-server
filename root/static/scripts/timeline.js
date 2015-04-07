@@ -1,6 +1,8 @@
-require("jquery.flot");
-require("jquery.flot.musicbrainzEvents");
-require("jquery.flot.selection");
+var debounce = require('./common/utility/debounce.js');
+
+require('../lib/flot/jquery.flot.js');
+require('../lib/flot/jquery.flot.selection.js');
+require('./jquery.flot.musicbrainz_events.js');
 
 MB.Timeline = {};
 
@@ -12,7 +14,7 @@ MB.Timeline.TimelineViewModel = aclass({
             return _.filter(self.categories(),
                 function (category) { return category.enabled() });
         });
-        self.events = MB.utility.debounce(ko.observableArray([]), 50);
+        self.events = debounce(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
         self.loadedEvents = ko.observable(false);
         self.options = {
@@ -22,10 +24,10 @@ MB.Timeline.TimelineViewModel = aclass({
         // rateLimit so they'll all be updated before zoomHashPart is recalculated,
         // and to ensure graph doesn't need repeated redrawing
         self.zoom = {
-            xaxis: { min: MB.utility.debounce(ko.observable(null), 50),
-                     max: MB.utility.debounce(ko.observable(null), 50) },
-            yaxis: { min: MB.utility.debounce(ko.observable(null), 50),
-                     max: MB.utility.debounce(ko.observable(null), 50) }
+            xaxis: { min: debounce(ko.observable(null), 50),
+                     max: debounce(ko.observable(null), 50) },
+            yaxis: { min: debounce(ko.observable(null), 50),
+                     max: debounce(ko.observable(null), 50) }
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -64,7 +66,7 @@ MB.Timeline.TimelineViewModel = aclass({
             }
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
-        self.lines = MB.utility.debounce(function () {
+        self.lines = debounce(function () {
             return _.chain(self.enabledCategories())
                 .map(function (category) { return category.enabledLines() })
                 .flatten().value();
@@ -106,7 +108,7 @@ MB.Timeline.TimelineViewModel = aclass({
         self.addLines(initialLines);
         self._getLocationHashSettings();
 
-        self.hash = MB.utility.debounce(function () {
+        self.hash = debounce(function () {
             var optionParts = [];
             if (self.options.rate()) { optionParts.push('r') }
             if (!self.options.events()) { optionParts.push('-v') }
@@ -231,7 +233,7 @@ MB.Timeline.TimelineCategory = aclass({
         self.enabledByDefault = !!enabledByDefault;
         self.enabled = ko.observable(!!enabledByDefault);
         // rateLimit to improve reponsiveness of checkboxes
-        self.lines = MB.utility.debounce(ko.observableArray([]), 50);
+        self.lines = debounce(ko.observableArray([]), 50);
 
         self.enabledLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) { return line.enabled() && line.loaded() })
@@ -246,7 +248,7 @@ MB.Timeline.TimelineCategory = aclass({
         });
 
         // rateLimit to load asynchronously
-        MB.utility.debounce(function () {
+        debounce(function () {
             _.forEach(self.needLoadingLines(), function (line) { line.loadData() });
         }, 1);
     },

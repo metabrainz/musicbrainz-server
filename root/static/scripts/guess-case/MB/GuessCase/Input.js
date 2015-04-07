@@ -19,6 +19,8 @@
 
 */
 
+var utils = require('../../utils.js');
+
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 /**
@@ -184,7 +186,7 @@ MB.GuessCase.Input = function () {
     self.capitalizeCurrentWord = function () {
         var w;
         if ((w = self.getCurrentWord()) != null) {
-            var o = gc.u.titleString(w);
+            var o = utils.titleString(w);
             if (w != o) {
                 self.updateCurrentWord(o);
             }

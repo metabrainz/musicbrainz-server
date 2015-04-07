@@ -1,5 +1,5 @@
 // This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
+// Copyright (C) 2011-2014 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 //
@@ -8,11 +8,11 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
+var request = require('../common/utility/request.js');
 
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils = {};
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
 
 
     utils.mapChild = function (parent, children, type) {
@@ -22,8 +22,38 @@
     };
 
 
+    utils.computedWith = function (callback, observable, defaultValue) {
+        return ko.computed(function () {
+            var result = observable();
+            return result ? callback(result) : defaultValue;
+        });
+    };
+
+
     utils.withRelease = function (read, defaultValue) {
-        return MB.utility.computedWith(read, releaseField, defaultValue);
+        return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
+    };
+
+
+    utils.unformatTrackLength = function (duration) {
+        if (!duration) {
+            return null;
+        }
+
+        if (duration.slice(-2) == 'ms') {
+            return parseInt(duration, 10);
+        }
+
+        var parts = duration.replace(/[:\.]/, ':').split(':');
+        if (parts[0] == '?' || parts[0] == '??' || duration === '') {
+            return null;
+        }
+
+        var seconds = parseInt(parts.pop(), 10);
+        var minutes = parseInt(parts.pop() || 0, 10) * 60;
+        var hours = parseInt(parts.pop() || 0, 10) * 3600;
+
+        return (hours + minutes + seconds) * 1000;
     };
 
 
@@ -57,7 +87,7 @@
 
         if (offset !== undefined) requestArgs.data.offset = offset;
 
-        return MB.utility.request(requestArgs);
+        return request(requestArgs);
     };
 
 
@@ -114,8 +144,27 @@
         return Math.abs(a - b) <= MB.constants.MAX_LENGTH_DIFFERENCE;
     }
 
+    // Compares two names, considers them equivalent if there are only case
+    // changes, changes in punctuation and/or changes in whitespace between
+    // the two strings.
+
+    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
+
+    function stripSpacesAndPunctuation(str) {
+        return (str || "").replace(punctuation, "").toLowerCase();
+    }
+
+    utils.similarity = function (a, b) {
+        // If a track title is all punctuation, we'll end up with an empty
+        // string, so just fall back to the original for comparison.
+        a = stripSpacesAndPunctuation(a) || a || "";
+        b = stripSpacesAndPunctuation(b) || b || "";
+
+        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
+    };
+
     function namesAreSimilar(a, b) {
-        return MB.utility.similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
+        return utils.similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
     }
 
     utils.similarNames = function (oldName, newName) {

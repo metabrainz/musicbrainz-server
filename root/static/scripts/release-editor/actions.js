@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var deferFocus = require('../edit/utility/deferFocus.js');
 var guessFeat = require('../edit/utility/guess-feat.js');
 
 (function (releaseEditor) {
@@ -87,8 +89,8 @@ var guessFeat = require('../edit/utility/guess-feat.js');
             var index = mediums.indexOf(medium);
             var position = medium.position();
 
-            mediums.remove(medium);
             medium.removed = true;
+            mediums.remove(medium);
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {
@@ -127,7 +129,7 @@ var guessFeat = require('../edit/utility/guess-feat.js');
                 this.swapTracks(track, previous, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-up", "#" + track.elementID);
+            deferFocus("button.track-up", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -148,7 +150,7 @@ var guessFeat = require('../edit/utility/guess-feat.js');
                 this.swapTracks(track, next, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+            deferFocus("button.track-down", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -201,9 +203,9 @@ var guessFeat = require('../edit/utility/guess-feat.js');
             }
 
             if (focus) {
-                MB.utility.deferFocus("button.remove-item", "#" + focus.elementID);
+                deferFocus("button.remove-item", "#" + focus.elementID);
             } else {
-                MB.utility.deferFocus(".add-tracks button.add-item", $medium);
+                deferFocus(".add-tracks button.add-item", $medium);
             }
 
             medium.toc(null);
@@ -239,7 +241,7 @@ var guessFeat = require('../edit/utility/guess-feat.js');
                 return track.artistCredit.isComplex();
             });
 
-            var question = MB.i18n.l(
+            var question = i18n.l(
                 "This tracklist has artist credits with information that " +
                 "will be lost if you swap artist credits with track titles. " +
                 "This cannot be undone. Do you wish to continue?"
@@ -281,14 +283,20 @@ var guessFeat = require('../edit/utility/guess-feat.js');
 
         reuseUnsetPreviousRecordings: function (release) {
             _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
+                var previous = track.previousTrackAtThisPosition;
+                if (previous) {
+                    track.id = previous.id;
+                    track.gid = previous.gid;
+                    delete track.previousTrackAtThisPosition;
+                }
                 track.recording(track.recording.saved);
             });
         },
 
         inferTrackDurationsFromRecordings: ko.observable(false),
 
-        copyTrackTitlesToRecordings: ko.observable(false).publishOn("updateRecordingTitles", true),
-        copyTrackArtistsToRecordings: ko.observable(false).publishOn("updateRecordingArtists", true)
+        copyTrackTitlesToRecordings: ko.observable(false),
+        copyTrackArtistsToRecordings: ko.observable(false)
     });
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

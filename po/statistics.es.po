@@ -529,7 +529,7 @@ msgstr "Usuarios activos"
 msgid "Active Voters"
 msgstr "Votantes activos"
 
-#: ../root/statistics/timeline.tt:48
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr "Añadir/eliminar lineas:"
 
@@ -759,7 +759,7 @@ msgstr "Canceladas:"
 msgid "Characters"
 msgstr "Personajes"
 
-#: ../root/statistics/timeline.tt:48
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr ""
 
@@ -767,11 +767,11 @@ msgstr ""
 msgid "Choirs"
 msgstr "Coros"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr "Controles"
 
@@ -1152,7 +1152,7 @@ msgstr "IDs de disco"
 msgid "Disc IDs:"
 msgstr "IDs de disco"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
@@ -1244,7 +1244,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:56
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
@@ -1310,7 +1310,7 @@ msgstr "Calidad de datos alta"
 msgid "High Data Quality:"
 msgstr "Calidad de datos alta:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1438,7 +1438,7 @@ msgstr "Últimos 7 días:"
 msgid "Last updated: {date}"
 msgstr "Última actualización: {date}"
 
-#: ../root/statistics/timeline.tt:32
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr "Leyenda"
 
@@ -1500,11 +1500,11 @@ msgstr "Editores más activos la semana pasada:"
 msgid "Most active voters in the past week"
 msgstr "Votantes más activos la semana pasada:"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr ""
 
@@ -1654,11 +1654,11 @@ msgstr "Tipos primarios"
 msgid "Rank"
 msgstr "Posicición"
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr ""
 
@@ -1872,7 +1872,7 @@ msgstr "Publicaciones, calidad de datos e IDs de disco"
 msgid "Releases:"
 msgstr "Publicaciones:"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr ""
 
@@ -1926,7 +1926,7 @@ msgstr "No hay datos que mostrar."
 msgid "Timeline"
 msgstr "Linea temporal"
 
-#: ../root/statistics/timeline.tt:55
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr "Gráfica cronológica"
 
@@ -2097,7 +2097,7 @@ msgstr "Votos \"Sí\""
 msgid "Yesterday:"
 msgstr "Ayer:"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr ""
 

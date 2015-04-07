@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var validation = require('../edit/validation.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -16,9 +18,11 @@
 
             var source = this.source;
 
-            this.incompleteRelationships = source.displayableRelationships(this).any(function (r) {
-                return !r.linkTypeID() || !r.target(source).gid;
-            });
+            this.incompleteRelationships = validation.errorField(
+                source.displayableRelationships(this).any(function (r) {
+                    return !r.linkTypeID() || !r.target(source).gid;
+                })
+            );
         },
 
         openAddDialog: function (source, event) {
@@ -93,17 +97,22 @@
 
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
-            _.each(editData.attributes, function (attribute, i) {
+            var changedAttributes = MB.edit.relationshipEdit(editData, relationship.original, relationship).attributes;
+            _.each(changedAttributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
 
-                if (attribute.credit) {
-                    pushInput(attrPrefix, "credited_as", attribute.credit);
+                if (attribute.credited_as) {
+                    pushInput(attrPrefix, "credited_as", attribute.credited_as);
                 }
 
-                if (attribute.textValue) {
-                    pushInput(attrPrefix, "text_value", attribute.textValue);
+                if (attribute.text_value) {
+                    pushInput(attrPrefix, "text_value", attribute.text_value);
+                }
+
+                if (attribute.removed) {
+                    pushInput(attrPrefix, "removed", 1);
                 }
             });
 

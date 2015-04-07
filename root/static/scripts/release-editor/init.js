@@ -3,14 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
 var externalLinks = require('../edit/externalLinks.js');
 var validation = require('../edit/validation.js');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
-
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
-    loadError: ko.observable("")
+    loadError: ko.observable(""),
+    externalLinksEditData: ko.observable({}),
+    hasInvalidLinks: validation.errorField(ko.observable(false))
 });
 
 
@@ -136,14 +139,14 @@ MB.releaseEditor.init = function (options) {
         var name = _.str.clean(release.name());
 
         if (self.action === "add") {
-            document.title = MB.i18n.expand(
-                name ? MB.i18n.l("{name} - Add Release") :
-                       MB.i18n.l("Add Release"), { name: name }
+            document.title = i18n.expand(
+                name ? i18n.l("{name} - Add Release") :
+                       i18n.l("Add Release"), { name: name }
             );
         } else {
-            document.title = MB.i18n.expand(
-                name ? MB.i18n.l("{name} - Edit Release") :
-                       MB.i18n.l("Edit Release"), { name: name }
+            document.title = i18n.expand(
+                name ? i18n.l("{name} - Edit Release") :
+                       i18n.l("Edit Release"), { name: name }
             );
         }
     });
@@ -161,13 +164,11 @@ MB.releaseEditor.init = function (options) {
     if (window.onbeforeunload === null) {
         MB.releaseEditor.allEdits.subscribe(function (edits) {
             window.onbeforeunload =
-                edits.length ? _.constant(MB.i18n.l("All of your changes will be lost if you leave this page.")) : null;
+                edits.length ? _.constant(i18n.l("All of your changes will be lost if you leave this page.")) : null;
         });
     }
 
     // Intialize release data/view model.
-
-    this.rootField = this.fields.Root();
 
     this.rootField.missingEditNote = function () {
         return self.action === "add" && !self.rootField.editNote();
@@ -204,7 +205,7 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this)
+    return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
                 error = jqXHR.status + " (" + error + ")"
@@ -256,11 +257,9 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
 
     this.externalLinks = externalLinks.createExternalLinksEditor({
         sourceData: data,
-        mountPoint: mountPoint
+        mountPoint: mountPoint,
+        errorObservable: this.hasInvalidLinks
     });
-
-    this.externalLinksEditData = ko.observable({});
-    this.hasInvalidLinks = this.externalLinks.props.errorObservable;
 
     // XXX Since there's no notion of observable data in React, we need to
     // override componentDidUpdate to watch for changes to the external links.
@@ -269,6 +268,9 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     this.externalLinks.componentDidUpdate = function () {
         self.externalLinksEditData(self.externalLinks.getEditData());
     };
+
+    // Copy initial edit data
+    this.externalLinks.componentDidUpdate();
 
     return this.externalLinks;
 };
@@ -291,7 +293,6 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
         addDiscUI.close();
     }
 };
-
 
 MB.releaseEditor.allowsSubmission = function () {
     return (

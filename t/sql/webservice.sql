@@ -2,9 +2,6 @@
 
 SET client_min_messages TO 'warning';
 
-DELETE FROM release_group_primary_type;
-DELETE FROM release_status;
-
 -- Helper quasi-entities language, script, area
 INSERT INTO language (frequency, id, iso_code_1, iso_code_2b, iso_code_2t, iso_code_3, name) VALUES (2, 120, 'en', 'eng', 'eng', 'eng', 'English');
 INSERT INTO language (frequency, id, iso_code_1, iso_code_2b, iso_code_2t, iso_code_3, name) VALUES (2, 198, 'ja', 'jpn', 'jpn', 'jpn', 'Japanese');
@@ -58,10 +55,6 @@ INSERT INTO series_ordering_type (id, name, description) VALUES
 
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
 
-INSERT INTO release_status (id, name) VALUES (1, 'Official');
-INSERT INTO release_status (id, name) VALUES (2, 'Promotion');
-INSERT INTO release_status (id, name) VALUES (4, 'Pseudo-Release');
-
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (0, '1', 1, 'CD', NULL, 1982);
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (4, '0', 2, 'DVD', NULL, 1995);
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (7, '0', 6, 'MiniDisc', NULL, 1992);
@@ -69,14 +62,6 @@ INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VAL
 
 INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
-
-INSERT INTO release_group_primary_type (id, name) VALUES (1, 'Album');
-INSERT INTO release_group_primary_type (id, name) VALUES (2, 'Single');
-INSERT INTO release_group_primary_type (id, name) VALUES (3, 'EP');
-INSERT INTO release_group_primary_type (id, name) VALUES (6, 'Spokenword');
-INSERT INTO release_group_primary_type (id, name) VALUES (9, 'Live');
-
-INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
 
 -- URLs
 
@@ -464,10 +449,10 @@ INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (388, '', 0, '9b5006e5-b276-3a05-bcdd-8d986842320b', 18759, '2009-05-24 20:47:00.490177+00', 'Houses of the Holy', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (779, '', 0, '3e38adc0-bb7d-39d1-a811-7ce6db5d869d', 47743, '2009-05-24 20:47:00.490177+00', 'Recipe for Hate', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (100300, '', 0, 'd3cad1a9-9173-3f9f-b853-bd0852ceae1a', 666173, '2009-05-24 20:47:00.490177+00', 'The Future Sound of Budapest', 3);
-INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (22492, '', 0, 'a4d2a86c-bbd6-352b-b9fa-f9da86df842c', 87135, '2009-05-24 20:47:00.490177+00', 'Live at the Regal', 9);
+INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (22492, '', 0, 'a4d2a86c-bbd6-352b-b9fa-f9da86df842c', 87135, '2009-05-24 20:47:00.490177+00', 'Live at the Regal', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (199821, '', 0, 'a8c946f5-8d26-3534-bab7-37c57eebbc1c', 284354, '2009-05-24 20:47:00.490177+00', '[non-album tracks]', NULL);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398438, '', 0, 'cde61708-3be3-31ad-ba61-06af6af59565', 703316, '2009-05-24 20:47:00.490177+00', 'Exogamy', 1);
-INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398598, '', 0, '04ba5879-e3ac-3cba-8a69-ee7da8ad8c4c', 772397, '2009-05-24 20:47:00.490177+00', 'An Inextricable Tale Audiobook', 6);
+INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398598, '', 0, '04ba5879-e3ac-3cba-8a69-ee7da8ad8c4c', 772397, '2009-05-24 20:47:00.490177+00', 'An Inextricable Tale Audiobook', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (305, '', 0, '9dba763e-7cff-36b3-af88-b755f237a4c7', 61258, '2009-05-24 15:47:00.490177-05', 'Soup', 1);
 
 UPDATE release_group_meta SET first_release_date_month = 7, rating_count = NULL, first_release_date_year = 2001, release_count = 2, first_release_date_day = 4, rating = NULL WHERE id = 377462;
@@ -489,7 +474,9 @@ UPDATE release_group_meta SET first_release_date_month = NULL, rating_count = NU
 UPDATE release_group_meta SET first_release_date_month = 4, rating_count = 1, first_release_date_year = 2008, release_count = 1, first_release_date_day = 29, rating = 80 WHERE id = 703316;
 UPDATE release_group_meta SET first_release_date_month = 11, rating_count = NULL, first_release_date_year = 2007, release_count = 1, first_release_date_day = 8, rating = NULL WHERE id = 772397;
 
-INSERT INTO release_group_secondary_type_join (created, release_group, secondary_type) VALUES ('2013-04-02 17:42:38.063723+00', 761939, 1);
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (761939, 7);
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (772397, 3);
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (87135, 6);
 
 -- Recordings
 

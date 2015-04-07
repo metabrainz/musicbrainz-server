@@ -230,7 +230,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes()).pluck("type").pluck("id").value(),
+        _(relationship.attributes()).pluck("type").pluck("id").value().sort(),
         [123, 194, 277],
         "attributes are the same"
     );
@@ -677,10 +677,13 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.0.period.ended": "1",
         "edit-artist.rel.0.backward": "1",
         "edit-artist.rel.0.link_type_id": "103",
+        "edit-artist.rel.0.attributes.0.removed": "1",
+        "edit-artist.rel.0.attributes.0.type.gid": "17f9f065-2312-4a24-8309-6f6dd63e2e33",
+        "edit-artist.rel.0.attributes.1.removed": "1",
+        "edit-artist.rel.0.attributes.1.type.gid": "8e2a3255-87c2-4809-a174-98cb3704f1a5",
         "edit-artist.rel.1.relationship_id": "35568",
         "edit-artist.rel.1.removed": "1",
         "edit-artist.rel.1.target": "49a51491-650e-44b3-8085-2f07ac2986dd",
-        "edit-artist.rel.1.attributes.0.type.gid": "17f9f065-2312-4a24-8309-6f6dd63e2e33",
         "edit-artist.rel.1.period.ended": "1",
         "edit-artist.rel.1.backward": "1",
         "edit-artist.rel.1.link_type_id": "103",
@@ -807,29 +810,31 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
     t.equal(artist.relationships().length, 0);
 });
 
+var loveMeDo = {
+    entityType: "recording",
+    name: "Love Me Do",
+    gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
+    relationships: [
+        {
+            linkTypeID: 44,
+            direction: "backward",
+            target: {
+                entityType: "artist",
+                name: "Ringo Starr",
+                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+            },
+            linkOrder: 0,
+            attributes: ids2attrs([333]),
+            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
+        }
+    ]
+};
+
 relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: {
-            entityType: "recording",
-            name: "Love Me Do",
-            gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
-            relationships: [
-                {
-                    linkTypeID: 44,
-                    direction: "backward",
-                    target: {
-                        entityType: "artist",
-                        name: "Ringo Starr",
-                        gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
-                    },
-                    linkOrder: 0,
-                    attributes: ids2attrs([333]),
-                    verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-                }
-            ]
-        }
+        sourceData: loveMeDo
     });
 
     var relationship = vm.source.relationships()[0];
@@ -854,4 +859,24 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     dialog.accept();
     relationship = dialog.relationship();
     t.equal(relationship.attributes().length, 0, "invalid attributes removed");
+});
+
+relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS-7983)", function (t) {
+    t.plan(2);
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: loveMeDo,
+        formName: "edit-recording"
+    });
+
+    var relationship = vm.source.relationships()[0];
+    t.equal(relationship.attributes().length, 1);
+
+    relationship.attributes.push(
+        new MB.relationshipEditor.fields.LinkAttribute(
+            { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
+        )
+    );
+
+    t.equal(relationship.attributes().length, 1, "invalid attribute not added");
 });

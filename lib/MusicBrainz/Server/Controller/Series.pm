@@ -74,12 +74,8 @@ sub show : PathPart('') Chained('load') {
     }
 
     if ($series->type->entity_type eq 'release') {
+        $c->model('Release')->load_related_info(@entities);
         $c->model('ArtistCredit')->load(@entities);
-        $c->model('Medium')->load_for_releases(@entities);
-        $c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
-        $c->model('Release')->load_release_events(@entities);
-        $c->model('ReleaseLabel')->load(@entities);
-        $c->model('Label')->load(map { $_->all_labels } @entities);
     }
 
     if ($series->type->entity_type eq 'release_group') {

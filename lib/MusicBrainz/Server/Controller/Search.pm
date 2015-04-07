@@ -104,13 +104,9 @@ sub direct : Private
         }
         when ('release') {
             $c->model('Language')->load(@entities);
-            $c->model('Release')->load_release_events(@entities);
+            $c->model('Release')->load_related_info(@entities);
             $c->model('Script')->load(@entities);
-            $c->model('Medium')->load_for_releases(@entities);
-            $c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
             $c->model('ReleaseStatus')->load(@entities);
-            $c->model('ReleaseLabel')->load(@entities);
-            $c->model('Label')->load(map { $_->all_labels} @entities);
             $c->model('ReleaseGroup')->load(@entities);
             $c->model('ReleaseGroupType')->load(map { $_->release_group }
                 @entities);

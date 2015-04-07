@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -27,16 +30,17 @@
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + MB.i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + MB.i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
             this.source = MB.entity(options.sourceData);
+            this.source.parseRelationships(options.sourceData.relationships);
 
             this.source.releaseGroup.parseRelationships(
                 options.sourceData.releaseGroup.relationships
@@ -49,7 +53,7 @@
 
             this.loadingRelease(true);
             var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
-            MB.utility.request({ url: url }, this)
+            request({ url: url }, this)
                 .done(this.releaseLoaded)
                 .always(function () {
                     self.loadingRelease(false);
@@ -60,15 +64,16 @@
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    return MB.i18n.l("All of your changes will be lost if you leave this page.");
+                    return i18n.l("All of your changes will be lost if you leave this page.");
                 }
             };
         },
 
         getEdits: function (addChanged) {
             var self = this;
+            var release = this.source;
 
-            _.each(this.source.mediums(), function (medium) {
+            _.each(release.mediums(), function (medium) {
                 _.each(medium.tracks, function (track) {
                     var recording = track.recording;
 
@@ -86,7 +91,11 @@
                 });
             });
 
-            var rg = this.source.releaseGroup;
+            _.each(release.relationships(), function (r) {
+                addChanged(r, release);
+            });
+
+            var rg = release.releaseGroup;
             _.each(rg.relationships(), function (r) {
                 addChanged(r, rg);
             });
@@ -116,7 +125,7 @@
                     edits.push(MB.edit.relationshipCreate(editData));
                 }
                 else if (relationship.edited()) {
-                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
+                    edits.push(MB.edit.relationshipEdit(editData, relationship.original, relationship));
                 }
                 else if (relationship.removed()) {
                     edits.push(MB.edit.relationshipDelete(editData));
@@ -127,7 +136,7 @@
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(MB.i18n.l("You haven’t made any changes!"));
+                this.submissionError(i18n.l("You haven’t made any changes!"));
                 return;
             }
 

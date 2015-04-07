@@ -123,7 +123,7 @@ sub build_display_data
     my $format = $self->data->{format_id};
 
     my $data = {
-        name         => $self->data->{name} || '',
+        name         => $self->data->{name},
         format       => $format ? $loaded->{MediumFormat}->{ $format } : '',
         position     => $self->data->{position},
         tracks       => display_tracklist($loaded, $self->data->{tracklist}),
