@@ -550,7 +550,9 @@ sub create_edits {
         } catch {
             if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
                 $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
-            } elsif (ref($_) ne 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            } elsif (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency)$/) {
+                $c->forward('/ws/js/detach_with_error', ["$_"]);
+            } else {
                 $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
             }
         };

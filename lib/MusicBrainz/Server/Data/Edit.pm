@@ -440,7 +440,7 @@ sub _create_instance {
     try {
         $edit->initialize(%opts);
     } catch {
-        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+        if (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency)$/) {
             confess $_;
         } else {
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
