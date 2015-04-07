@@ -306,7 +306,7 @@ sub collections : Chained('load') PathPart('collections')
                 $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
             }
         }
-        $c->stash( "${entity_type}_collections" => \@collections );
+        $c->stash->{collections}{$entity_type} = \@collections;
     }
     $c->stash(user => $user);
 }

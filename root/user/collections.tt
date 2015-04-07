@@ -1,10 +1,23 @@
+[%- MACRO format_entity_collection_title(type_name) BLOCK -%]
+    [%-    IF type_name == 'area'; l('Area Collections');
+        ELSIF type_name == 'artist'; l('Artist Collections');
+        ELSIF type_name == 'event'; l('Event Collections');
+        ELSIF type_name == 'instrument'; l('Instrument Collections');
+        ELSIF type_name == 'label'; l('Label Collections');
+        ELSIF type_name == 'place'; l('Place Collections');
+        ELSIF type_name == 'recording'; l('Recording Collections');
+        ELSIF type_name == 'release'; l('Release Collections');
+        ELSIF type_name == 'release_group'; l('Release Group Collections');
+        ELSIF type_name == 'series'; lp('Series Collections', 'plural');
+        ELSIF type_name == 'work'; l('Work Collections');
+    END -%]
+[%- END -%]
+
 [% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
 
-[% INCLUDE 'user-collections' title=l("Release Collections") entity_name=l('Releases') collections=release_collections %]
-
-[% INCLUDE 'user-collections' title=l("Event Collections") entity_name=l('Events') collections=event_collections %]
-
-[% INCLUDE 'user-collections' title=l("Work Collections") entity_name=l('Works') collections=work_collections %]
+[%- FOR colentity = collections.pairs -%]
+    [% INCLUDE 'user-collections' %]
+[% END %]
 
 [%- IF no_collections -%]
     <h2>[% l("Collections") %]</h2>
@@ -22,15 +35,15 @@
 [% END %]
 
 [% BLOCK 'user-collections' %]
-[%- IF collections.size -%]
-    <h2>[% title %]</h2>
+[%- IF colentity.value.size -%]
+    <h2>[% format_entity_collection_title(colentity.key) %]</h2>
 
     <table class="tbl">
         <thead>
             <tr>
                 <th>[% l('Collection') %]</th>
                 <th>[% l('Type') %]</th>
-                <th>[% entity_name %]</th>
+                <th>[% format_plural_entity_type_name(colentity.key) %]</th>
                 [% IF viewing_own_profile %]
                     <th>[% l('Subscribed') %]</th>
                     <th>[% l('Privacy') %]</th>
@@ -39,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            [%- FOR collection=collections -%]
+            [%- FOR collection = colentity.value -%]
                 <tr class="[% loop.parity %]">
                     <td>[% link_collection(collection) %]</td>
                     <td>[% collection.type.l_name %]</td>
