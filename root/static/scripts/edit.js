@@ -3,7 +3,7 @@ window.hex_sha1 = sha1.hex_sha1;
 window.rstr_sha1 = sha1.rstr_sha1;
 
 require("knockout-arraytransforms");
-require("knockout-delegatedEvents");
+require("../lib/knockout/knockout-delegatedEvents.js");
 
 require("./relationship-editor/common/multiselect.js");
 require("./relationship-editor/common/fields.js");
