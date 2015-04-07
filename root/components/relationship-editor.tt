@@ -132,10 +132,10 @@
 
 <script type="text/html" id="template.extra-attributes-and-dates">
   <!-- ko if: relationship.hasDates() -->
-    <!-- ko with: MB.utility.formatDatePeriod(relationship.period) -->
+    <!-- ko with: relationship.formatDatePeriod() -->
       (<!-- ko text: $data --><!-- /ko -->)
     <!-- /ko -->
-    <!-- ko if: relationship.period.ended() && !MB.utility.formatDatePeriod(relationship.period) -->
+    <!-- ko if: relationship.period.ended() && !relationship.formatDatePeriod() -->
       ([% l('ended') %])
     <!-- /ko -->
   <!-- /ko -->
@@ -162,7 +162,7 @@
               <img class="search" src="/static/images/icons/search.png" alt="[% l('Search') %]" />
             </span>
             <!-- ko with: $rawData.linkAttribute -->
-              <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
+              <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: creditedAs" />
             <!-- /ko -->
             <!-- ko if: $parent.instruments().length > 1 -->
               <button type="button" class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
@@ -207,7 +207,7 @@
     <div>
       <a href="#" data-bind="html: '&#215; ' + _.escape(type.l_name)"></a>
       <!-- ko if: type.creditable -->
-        <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
+        <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: creditedAs" />
       <!-- /ko -->
     </div>
   </div>

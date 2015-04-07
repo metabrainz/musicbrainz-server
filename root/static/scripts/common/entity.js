@@ -5,6 +5,8 @@
 
 var i18n = require('./i18n.js');
 
+var formatTrackLength = require('./utility/formatTrackLength.js');
+
 (function () {
 
     // Base class that both core and non-core entities inherit from. The only
@@ -164,7 +166,7 @@ var i18n = require('./i18n.js');
         entityType: "recording",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(data.length);
+            this.formattedLength = formatTrackLength(data.length);
 
             // Returned from the /ws/js/recording search.
             if (this.appearsOn) {
@@ -240,7 +242,7 @@ var i18n = require('./i18n.js');
         entityType: "track",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(this.length);
+            this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");

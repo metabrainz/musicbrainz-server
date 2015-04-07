@@ -4,6 +4,8 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
 
 (function (releaseEditor) {
 
@@ -74,7 +76,7 @@ var i18n = require('../common/i18n.js');
                 this.loading(true);
                 this.error("");
 
-                MB.utility.request({
+                request({
                     url: this.tab.tracksRequestURL(this),
                     data: this.tab.tracksRequestData
                 }, this)
@@ -100,7 +102,7 @@ var i18n = require('../common/i18n.js');
             track.id = null;
             track.position = track.position || (index + 1);
             track.number = track.position;
-            track.formattedLength = MB.utility.formatTrackLength(track.length);
+            track.formattedLength = formatTrackLength(track.length);
 
             if (track.artistCredit) {
                 track.artist = MB.entity.ArtistCredit(track.artistCredit).text();
@@ -141,7 +143,7 @@ var i18n = require('../common/i18n.js');
                 page: pageJump ? this.currentPage() + pageJump : 1
             };
 
-            this._jqXHR = MB.utility.request({ url: this.endpoint, data: data }, this)
+            this._jqXHR = request({ url: this.endpoint, data: data }, this)
                 .done(this.requestDone)
                 .fail(function (jqXHR, textStatus) {
                     if (textStatus !== "abort") {

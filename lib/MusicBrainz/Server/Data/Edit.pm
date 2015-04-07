@@ -33,6 +33,18 @@ use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+my $EDIT_IN_COLLECTION_SQL = 'edit.id IN (' .
+  join(' UNION ',
+       map {
+           my $type = $_;
+           my $coll_table = "editor_collection_${type}";
+           my $edit_table = "edit_${type}";
+           "SELECT ${edit_table}.edit FROM ${edit_table}
+              JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
+            WHERE ${coll_table}.collection = ?"
+       } entities_with('collections')
+      ) . ')';
+
 sub _table
 {
     return 'edit';
@@ -162,16 +174,10 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE edit.id IN (' . join(' UNION ', map {
-                    "SELECT edit_$_.edit
-                    FROM edit_$_ JOIN editor_collection_$_
-                     ON edit_$_.$_ = editor_collection_$_.$_
-                     WHERE editor_collection_$_.collection = ?"
-                  } entities_with('collections')) . ')
-                  ' . $status_cond . '
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                  WHERE $EDIT_IN_COLLECTION_SQL $status_cond
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+                  OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -208,22 +214,13 @@ sub find_for_subscription
     elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                      WHERE edit.id IN (SELECT er.edit
-                                          FROM edit_release er JOIN editor_collection_release ecr
-                                               ON er.release = ecr.release
-                                         WHERE ecr.collection = ?
-                                        UNION
-                                        SELECT ee.edit
-                                          FROM edit_event ee JOIN editor_collection_event ece
-                                               ON ee.event = ece.event
-                                         WHERE ece.collection = ?)
-                       AND id > ? AND status IN (?, ?)';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                      WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?)";
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query,  $subscription->target_id, $subscription->target_id,
+            $query, ($subscription->target_id) x entities_with('collections'),
             $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -319,16 +316,15 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM
-      (SELECT edit, esc.editor FROM edit_release er
-        JOIN editor_collection_release ecr ON er.release = ecr.release
-        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
-        WHERE esc.available
-      UNION
-      SELECT edit, esc.editor FROM edit_event ee
-        JOIN editor_collection_event ece ON ee.event = ece.event
-        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
-        WHERE esc.available) ce
+    SELECT edit FROM (" . join(' UNION ', map {
+        my $type = $_;
+        my $coll_table = "editor_collection_${type}";
+        my $edit_table = "edit_${type}";
+        "SELECT edit, esc.editor FROM ${edit_table}
+           JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
+           JOIN editor_subscribe_collection esc ON esc.collection = ${coll_table}.collection
+         WHERE esc.available"
+    } entities_with('collections')) . ") ce
       JOIN edit ON ce.edit = edit.id
     WHERE edit.status = ? AND ce.editor = ?
     UNION

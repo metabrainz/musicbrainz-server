@@ -19,6 +19,7 @@
 
 */
 
+var flags = require('../../flags.js');
 var utils = require('../../utils.js');
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
@@ -93,11 +94,11 @@ MB.GuessCase.Output = function () {
     };
 
     /**
-     * Checks the global flag gc.f.spaceNextWord and adds a space to the
+     * Checks the global flag spaceNextWord and adds a space to the
      * processed wordlist if needed. The flag is *NOT* reset.
      **/
     self.appendSpaceIfNeeded = function () {
-        if (gc.f.spaceNextWord) {
+        if (flags.context.spaceNextWord) {
             gc.o.appendSpace();
         }
     };
@@ -147,7 +148,7 @@ MB.GuessCase.Output = function () {
      * Capitalize the word at the current cursor position.
      **/
     self.capitalizeWordAtIndex = function (index, overrideCaps) {
-        overrideCaps = (overrideCaps != null ? overrideCaps : gc.f.forceCaps);
+        overrideCaps = (overrideCaps != null ? overrideCaps : flags.context.forceCaps);
         if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
             (!self.isEmpty()) &&
             (self.getWordAtIndex(index) != null)) {
@@ -162,7 +163,7 @@ MB.GuessCase.Output = function () {
 
                 // If inside brackets, do nothing.
                 if (!overrideCaps &&
-                    gc.f.isInsideBrackets() &&
+                    flags.isInsideBrackets() &&
                     utils.isLowerCaseBracketWord(probe)) {
 
                     // If it is an UPPERCASE word,do nothing.
@@ -191,7 +192,7 @@ MB.GuessCase.Output = function () {
      * Modifies the last element of the processed wordlist
      *
      * @param    overrideCaps    can be used to override
-     *                            the gc.f.forceCaps parameter.
+     *                            the flags.context.forceCaps parameter.
      **/
     self.capitalizeLastWord = function (overrideCaps) {
         self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
@@ -202,7 +203,7 @@ MB.GuessCase.Output = function () {
      **/
     self.getOutput = function () {
         // if *not* sentence mode, force caps on last word.
-        gc.f.forceCaps = !gc.mode.isSentenceCaps();
+        flags.context.forceCaps = !gc.mode.isSentenceCaps();
         self.capitalizeLastWord();
 
         self.closeOpenBrackets();
@@ -214,9 +215,9 @@ MB.GuessCase.Output = function () {
      **/
     self.closeOpenBrackets = function () {
         var parts = new Array();
-        while (gc.f.isInsideBrackets()) {
+        while (flags.isInsideBrackets()) {
             // close brackets that were opened before
-            parts[parts.length] = gc.f.popBracket();
+            parts[parts.length] = flags.popBracket();
         }
         self.appendWord(parts.join(""));
     };
@@ -244,7 +245,7 @@ MB.GuessCase.Output = function () {
                     self.appendSpace();  // preserve whitespace before,
                 }
                 self.appendCurrentWord(); // append current word
-                gc.f.spaceNextWord = (ws.after); // and afterwards as well
+                flags.context.spaceNextWord = (ws.after); // and afterwards as well
             }
             return ws;
         }

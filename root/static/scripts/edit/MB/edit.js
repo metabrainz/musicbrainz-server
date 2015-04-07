@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../../common/utility/request.js');
+
 (function (edit) {
 
     var TYPES = edit.TYPES = {
@@ -144,23 +146,10 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            data.attributes = _(ko.unwrap(relationship.attributes)).map(function (attribute) {
-                var output = {
-                    type: {
-                        gid: string(attribute.type.gid)
-                    }
-                }, credit, textValue;
-
-                if (credit = string(attribute.credit)) {
-                    output.credit = credit;
-                }
-
-                if (textValue = string(attribute.textValue)) {
-                    output.textValue = textValue;
-                }
-
-                return output;
-            }).sortBy(function (a) { return a.type.id }).value();
+            data.attributes = _(ko.unwrap(relationship.attributes))
+                .invoke('toJS')
+                .sortBy(function (a) { return a.type.id })
+                .value();
 
             if (_.isNumber(data.linkTypeID)) {
                 if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
@@ -296,7 +285,7 @@
         return function (args, orig) {
             args = _.extend({ edit_type: type }, args);
 
-            callback && callback(args, orig);
+            callback && callback.apply(null, arguments);
             args.hash = editHash(args);
 
             return args;
@@ -405,7 +394,30 @@
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
-        _.partialRight(removeEqual, ['id', 'linkTypeID'])
+        function (args, orig, relationship) {
+            var newAttributes = {};
+            var origAttributes = relationship ? relationship.attributes.original : {};
+            var changedAttributes = [];
+
+            _.each(args.attributes, function (hash) {
+                var gid = hash.type.gid;
+
+                newAttributes[gid] = hash;
+
+                if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
+                    changedAttributes.push(hash);
+                 }
+            });
+
+            _.each(origAttributes, function (value, gid) {
+                if (!newAttributes[gid]) {
+                    changedAttributes.push({type: {gid: gid}, removed: true});
+                }
+            });
+
+            args.attributes = changedAttributes;
+            removeEqual(args, orig, ['id', 'linkTypeID']);
+        }
     );
 
 
@@ -425,7 +437,7 @@
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
 
-            return MB.utility.request({
+            return request({
                 type: "POST",
                 url: endpoint,
                 data: JSON.stringify(data),

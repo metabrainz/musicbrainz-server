@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../../common/i18n.js');
+var dates = require('../../edit/utility/dates.js');
 
 (function (RE) {
 
@@ -443,7 +444,7 @@ var i18n = require('../../common/i18n.js');
         },
 
         dateError: function (date) {
-            var valid = MB.utility.validDate(date.year(), date.month(), date.day());
+            var valid = dates.isDateValid(date.year(), date.month(), date.day());
             return valid ? "" : i18n.l("The date you've entered is not valid.");
         },
 
@@ -454,7 +455,7 @@ var i18n = require('../../common/i18n.js');
             var b = period.endDate;
 
             if (!this.dateError(a) && !this.dateError(b)) {
-                if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
+                if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
                     return i18n.l("The end date cannot preceed the begin date.");
                 }
             }
