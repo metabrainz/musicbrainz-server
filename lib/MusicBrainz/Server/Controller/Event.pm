@@ -60,11 +60,11 @@ after [qw( show aliases attendance details tags )] => sub {
         @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'event');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_event($collection->id, $event->id));
+                if ($c->model('Collection')->contains_entity('event', $collection->id, $event->id));
         }
     }
 
-    my @all_collections = $c->model('Collection')->find_all_by_event($event->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('event', $event->id);
 
     $c->stash(
         collections => \@collections,
@@ -102,7 +102,7 @@ sub attendance : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my @all_collections = $c->model('Collection')->find_all_by_event($c->stash->{event}->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('event', $c->stash->{event}->id);
     my @public_collections;
     my $private_collections = 0;
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"PO-Revision-Date: 2015-02-03 07:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -463,8 +463,8 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
-"\treleased."
+"Top menu navigation improved, duplicate artists, album edit all, track time "
+"editing features released."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-12-07
@@ -524,7 +524,7 @@ msgstr "Ενεργοί Χρήστες"
 msgid "Active Voters"
 msgstr "Ενεργοί Ψηφοφόροι"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr "Προσθήκη/αφαίρεση γραμμών"
 
@@ -754,7 +754,7 @@ msgstr "Ακυρώθηκε:"
 msgid "Characters"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr ""
 
@@ -762,11 +762,11 @@ msgstr ""
 msgid "Choirs"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr "Κάντε κλικ για αποεπιλογή"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr "Στοιχεία ελέγχου"
 
@@ -1147,7 +1147,7 @@ msgstr "Disc IDs"
 msgid "Disc IDs:"
 msgstr "Disc IDs:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr "Σχεδιασμός παραλληλογράμμου σε οποιοδήποτε γράφημα"
 
@@ -1239,7 +1239,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr "Ακριβείες τιμές (αντικείμενα έναντι ημέρας)"
 
@@ -1305,7 +1305,7 @@ msgstr "Υψηλή ποιότητα δεδομένων"
 msgid "High Data Quality:"
 msgstr "Υψηλή ποιότητα δεδομένων:"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1433,7 +1433,7 @@ msgstr ""
 msgid "Last updated: {date}"
 msgstr "Τελευταία ενημέρωση: {date}"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr "Υπόμνημα"
 
@@ -1495,11 +1495,11 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr "Περισσότερο ενεργοί ψηφοφόροι την τελευταία εβδομάδα"
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr "Γεγονότα MusicBrainz"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr "Γεγονότα MusicBrainz:"
 
@@ -1649,11 +1649,11 @@ msgstr "Πρωτεύοντες τύποι"
 msgid "Rank"
 msgstr "Κατάταξη"
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Κατάταξη αλλαγών (μέσος όρος αντικειμένων/ημέρα έναντι ημέρας)"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr "Γράφημα ρυθμού αλλαγών"
 
@@ -1867,7 +1867,7 @@ msgstr ""
 msgid "Releases:"
 msgstr "Κυκλοφορίες:"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr "Επαναφορά:"
 
@@ -1921,7 +1921,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr "Χρονογράφημα"
 
@@ -2092,7 +2092,7 @@ msgstr "Θετικές ψήφοι"
 msgid "Yesterday:"
 msgstr "Χθες:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr "Εστίαση:"
 

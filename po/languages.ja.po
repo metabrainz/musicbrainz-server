@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"PO-Revision-Date: 2015-03-27 11:32+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -346,6 +346,11 @@ msgstr "ビルマ語"
 #: DB:language/name:65
 msgid "Caddo"
 msgstr "カドー語"
+
+#. frequency:1 iso_code_3:frc
+#: DB:language/name:2311
+msgid "Cajun French"
+msgstr ""
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
@@ -1207,7 +1212,7 @@ msgstr "コンゴ語"
 msgid "Konkani"
 msgstr "コンカニー語"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "韓国語"
@@ -1612,6 +1617,11 @@ msgstr "ネワール語"
 msgid "Nepali"
 msgstr "ネパール語"
 
+#. frequency:1 iso_code_3:yrl
+#: DB:language/name:7618
+msgid "Nhengatu"
+msgstr ""
+
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
 msgid "Nias"
@@ -1652,7 +1662,7 @@ msgstr "古ノルド語"
 msgid "North American Indian languages"
 msgstr "北米インディアン諸語"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "ノルウェー語"
@@ -2486,6 +2496,11 @@ msgstr "イディッシュ語"
 #: DB:language/name:464
 msgid "Yoruba"
 msgstr "ヨルバ語"
+
+#. frequency:1 iso_code_3:yua
+#: DB:language/name:7636
+msgid "Yucateco"
+msgstr ""
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

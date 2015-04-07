@@ -77,7 +77,7 @@
                         [%- l('Name:') -%]
                     </label>
                     <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
-                    <button data-bind="click: removeExample">
+                    <button type="button" data-bind="click: removeExample">
                         [% l('Remove Example') %]
                     </button>
                 [% END %]
@@ -121,7 +121,7 @@
             <input type="hidden" class="gid" value=""
                 data-bind="value: currentExample.possibleRelationships.query"  />
           </span>
-          <button data-bind="click: currentExample.possibleRelationships.search,
+          <button type="button" data-bind="click: currentExample.possibleRelationships.search,
                              enable: currentExample.possibleRelationships.query">
                 [% l('Find Relationships') %]</button>
         [%- END -%]
@@ -150,15 +150,13 @@
 
         [% WRAPPER form_row %]
             <div class="no-label">
-                <button data-bind="click: currentExample.add, enable: currentExample.relationship()">
+                <button type="button" data-bind="click: currentExample.add, enable: currentExample.relationship()">
                     [% l('Add Example') %]
                 </button>
             </div>
         [% END %]
 
-        <script type="text/javascript"
-            src="[% c.uri_for('/static/scripts/edit/ExampleRelationships.js') %]">
-        </script>
+        [% script_manifest('edit.js') %]
         <script type="text/javascript">
 var editor = MB.ExampleRelationshipsEditor.init({
     type0: '[% link_type.entity0_type %]',
@@ -202,10 +200,3 @@ function examplePrefix(i, s) {
         [% form_submit(l('Save')) %]
     </div>
 </form>
-
-<script type="text/javascript">
-    MB.utility.setDefaultAction(
-        'form.edit-relationship',
-        'form.edit-relationship button[type="submit"]'
-    );
-</script>

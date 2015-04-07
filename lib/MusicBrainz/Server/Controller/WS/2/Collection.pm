@@ -145,7 +145,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 
     if ($c->req->method eq 'PUT') {
         $self->deny_readonly($c);
-        $c->model('Collection')->add_releases_to_collection(
+        $c->model('Collection')->add_entities_to_collection('release',
             $collection->id,
             map { $_->id } grep { defined } map { $releases{$_} } @gids
         );
@@ -154,7 +154,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     }
     elsif ($c->req->method eq 'DELETE') {
         $self->deny_readonly($c);
-        $c->model('Collection')->remove_releases_from_collection(
+        $c->model('Collection')->remove_entities_from_collection('release',
             $collection->id,
             map { $_->id } grep { defined } map { $releases{$_} } @gids
         );

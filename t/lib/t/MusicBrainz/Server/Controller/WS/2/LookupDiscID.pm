@@ -29,6 +29,17 @@ ws_test 'direct disc id lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
     <sectors>189343</sectors>
+    <offset-list count="9">
+      <offset position="1">150</offset>
+      <offset position="2">6614</offset>
+      <offset position="3">32287</offset>
+      <offset position="4">54041</offset>
+      <offset position="5">61236</offset>
+      <offset position="6">88129</offset>
+      <offset position="7">92729</offset>
+      <offset position="8">115276</offset>
+      <offset position="9">153877</offset>
+    </offset-list>
     <release-list count="1">
       <release id="f205627f-b70a-409d-adbe-66289b614e80">
         <title>Aerial</title>
@@ -58,7 +69,19 @@ ws_test 'direct disc id lookup',
             <position>2</position>
             <format>Format</format>
             <disc-list count="1">
-              <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors>
+              <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
+                <sectors>189343</sectors>
+                <offset-list count="9">
+                  <offset position="1">150</offset>
+                  <offset position="2">6614</offset>
+                  <offset position="3">32287</offset>
+                  <offset position="4">54041</offset>
+                  <offset position="5">61236</offset>
+                  <offset position="6">88129</offset>
+                  <offset position="7">92729</offset>
+                  <offset position="8">115276</offset>
+                  <offset position="9">153877</offset>
+                </offset-list>
               </disc>
             </disc-list>
             <track-list count="9" />
@@ -135,7 +158,22 @@ ws_test 'lookup via toc',
           <title>A Sky of Honey</title>
           <position>2</position>
           <format>Format</format>
-          <disc-list count="1"><disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors></disc></disc-list>
+          <disc-list count="1">
+            <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
+              <sectors>189343</sectors>
+              <offset-list count="9">
+                <offset position="1">150</offset>
+                <offset position="2">6614</offset>
+                <offset position="3">32287</offset>
+                <offset position="4">54041</offset>
+                <offset position="5">61236</offset>
+                <offset position="6">88129</offset>
+                <offset position="7">92729</offset>
+                <offset position="8">115276</offset>
+                <offset position="9">153877</offset>
+              </offset-list>
+            </disc>
+          </disc-list>
           <track-list count="9" />
         </medium>
       </medium-list>
@@ -217,7 +255,22 @@ ws_test 'lookup via toc with invalid discid parameter',
           <title>A Sky of Honey</title>
           <position>2</position>
           <format>Format</format>
-          <disc-list count="1"><disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors></disc></disc-list>
+          <disc-list count="1">
+            <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
+              <sectors>189343</sectors>
+              <offset-list count="9">
+                <offset position="1">150</offset>
+                <offset position="2">6614</offset>
+                <offset position="3">32287</offset>
+                <offset position="4">54041</offset>
+                <offset position="5">61236</offset>
+                <offset position="6">88129</offset>
+                <offset position="7">92729</offset>
+                <offset position="8">115276</offset>
+                <offset position="9">153877</offset>
+              </offset-list>
+            </disc>
+          </disc-list>
           <track-list count="9" />
         </medium>
       </medium-list>

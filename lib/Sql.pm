@@ -354,12 +354,11 @@ sub run_in_transaction
     }
 }
 
-# Given an error message possibly thrown by DBI, does it represent a query
-# timeout?
+# Given an error possibly thrown by DBI, does it represent a query timeout?
 sub is_timeout
 {
     my ($self, $error) = @_;
-    return $error =~ /(?:Query was cancelled|canceling query|statement timeout)/i;
+    return $error =~ /^57014 /;
 }
 
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,

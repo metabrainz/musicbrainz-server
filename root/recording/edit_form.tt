@@ -22,7 +22,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
-      [%- form_row_name_with_guesscase(r) -%]
+      [%- form_row_name_with_guesscase(r, { guessfeat => 1 }) -%]
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- IF !form.used_by_tracks || form.field('length').has_errors;
@@ -36,7 +36,7 @@
 
     <fieldset>
       <legend>[% l('External Links') %]</legend>
-      [% external_links_editor(r.form, 'recording') %]
+      [% external_links_editor() %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -47,7 +47,6 @@
   <div class="documentation">
     [%- artist_credit_table() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -55,17 +54,16 @@
 [%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
-  (function () {
+  $(function () {
     var artistCredit = MB.Control.initialize_artist_credit();
 
     MB.Control.initialize_guess_case("recording", "id-edit-recording");
+    MB.Control.initGuessFeatButton('edit-recording');
 
     ko.computed(function () {
         $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
     });
 
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
-
-    MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
-  }());
+  });
 //]]></script>

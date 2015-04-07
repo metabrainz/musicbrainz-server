@@ -49,7 +49,7 @@ subtest 'Add releases to collection' => sub {
     note($mech->content);
     xml_ok($mech->content);
 
-    ok($c->model('Collection')->check_release($collection, $release->id));
+    ok($c->model('Collection')->contains_entity('release', $collection, $release->id));
 };
 
 $test->_clear_mech;
@@ -66,7 +66,7 @@ subtest 'Remove releases from collection' => sub {
     is($mech->status, HTTP_OK);
     xml_ok($mech->content);
 
-    ok(!$c->model('Collection')->check_release($collection, $release->id));
+    ok(!$c->model('Collection')->contains_entity('release', $collection, $release->id));
 };
 
 };

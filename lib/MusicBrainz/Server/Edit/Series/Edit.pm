@@ -6,7 +6,6 @@ use MusicBrainz::Server::Constants qw( $EDIT_SERIES_EDIT );
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use MooseX::Types::Moose qw( Int Str );
@@ -79,8 +78,8 @@ sub build_display_data {
     return $data;
 }
 
-sub allow_auto_edit {
-    my ($self) = @_;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     my $series = $self->c->model('Series')->get_by_id($self->series_id);
     $self->c->model('SeriesType')->load($series);
@@ -93,22 +92,23 @@ sub allow_auto_edit {
     return 1 unless scalar(@$items);
 
     # Changing the ordering type is not allowed if there are items.
-    return 0 if ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
+    return 0 if $self->_changes_ordering_type;
 
-    # Changing name is allowed if the change only affects
-    # small things like case etc.
-    my ($old_name, $new_name) = normalise_strings(
-        $self->data->{old}{name}, $self->data->{new}{name});
+    return $self->$orig(@args);
+};
 
-    return 0 if $old_name ne $new_name;
+after insert => sub {
+    my ($self) = @_;
 
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
+    # prevent auto-editors from changing the ordering type as an auto-edit
+    $self->auto_edit(0) if $self->_changes_ordering_type;
+};
 
-    return 0 if $old_comment ne $new_comment;
-
-    return 1;
-}
+around editor_may_approve => sub {
+    my ($orig, $self, @args) = @_;
+    return 0 if $self->_changes_ordering_type;
+    return $self->$orig(@args);
+};
 
 sub current_instance {
     my $self = shift;
@@ -118,6 +118,11 @@ sub current_instance {
 sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
+}
+
+sub _changes_ordering_type {
+    my $self = shift;
+    return ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
 }
 
 __PACKAGE__->meta->make_immutable;

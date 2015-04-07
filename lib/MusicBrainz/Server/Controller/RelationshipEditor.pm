@@ -24,7 +24,7 @@ our $valid_params = qr/
             |link_type
             |entity\.(0|1)\.(gid|type|url)
             |period\.((begin_date|end_date)\.(year|month|day)|ended)
-            |attributes\.[0-9]+\.(type\.gid|text_value|credited_as)
+            |attributes\.[0-9]+\.(type\.gid|text_value|credited_as|removed)
         )
         |edit_note
         |make_votable
@@ -68,9 +68,6 @@ sub submit_edits {
         for my $i (0, 1) {
             my $entity = $rel->{entity}->[$i];
 
-            $entity->{entityType} = delete $entity->{type}
-                or detach_with_error($c, "Missing field: entity.$i.type");
-
             if (my $url = delete $entity->{url}) {
                 $entity->{name} = $url;
             }
@@ -78,18 +75,6 @@ sub submit_edits {
 
         $rel->{entities} = delete $rel->{entity};
         $rel->{linkTypeID} = delete $rel->{link_type};
-
-        if (my $attributes = delete $rel->{attributes}) {
-            # This is really stupid because it gets converted back again to
-            # the existing format in /ws/js.
-            $rel->{attributes} = [ map +{
-                type => {
-                    gid => $_->{type}{gid}
-                },
-                non_empty($_->{credited_as}) ? (credit => $_->{credited_as}) : (),
-                non_empty($_->{text_value}) ? (textValue => $_->{text_value}) : (),
-            }, @$attributes ];
-        }
 
         if (my $period = delete $rel->{period}) {
             $rel->{beginDate} = $period->{begin_date} if $period->{begin_date};

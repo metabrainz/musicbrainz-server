@@ -18,7 +18,7 @@ use Text::Trim;
 my $ws_defs = Data::OptList::mkopt([
     "medium" => {
         method => 'GET',
-        inc => [ qw(recordings) ],
+        inc => [ qw(recordings rels) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
     "cdstub" => {
@@ -62,19 +62,16 @@ sub medium : Chained('root') PathPart Args(1) {
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
                               $medium->all_tracks);
 
-    my $inc_recordings = $c->stash->{inc}->recordings;
-
-    if ($inc_recordings) {
+    if ($c->stash->{inc}->recordings) {
         $c->model('Recording')->load($medium->all_tracks);
         $c->model('ArtistCredit')->load(map $_->recording, $medium->all_tracks);
+
+        if ($c->stash->{inc}->rels) {
+            $c->model('Relationship')->load_cardinal(map { $_->recording } $medium->all_tracks);
+        }
     }
 
-    my $ret = $c->stash->{serializer}->_medium($medium, $inc_recordings);
-
-    $ret->{tracks} = [
-        map $c->stash->{serializer}->_track($_), $medium->all_tracks
-    ];
-
+    my $ret = $c->stash->{serializer}->_medium($medium);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($ret));
 }
@@ -213,9 +210,7 @@ sub disc_search {
     $query = join(" AND ", @query);
 
     my $no_redirect = 1;
-    my $response = $c->model('Search')->external_search(
-        $type, $query, $limit, $page, 1, undef);
-
+    my $response = $c->model('Search')->external_search($type, $query, $limit, $page, 1);
     my @output;
 
     if ($response->{pager})
@@ -351,11 +346,11 @@ sub error : Chained('root') PathPart('error') {
 }
 
 sub detach_with_error : Private {
-    my ($self, $c, $error) = @_;
+    my ($self, $c, $error, $status) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->body(encode_json({ error => $error }));
-    $c->res->status(400);
+    $c->res->status($status // 400);
     $c->detach;
 }
 

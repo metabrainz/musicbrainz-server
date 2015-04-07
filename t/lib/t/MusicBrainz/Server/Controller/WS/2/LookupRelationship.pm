@@ -103,6 +103,10 @@ ws_test 'release lookup with release relationships',
                 <attribute-list><attribute>transliterated</attribute></attribute-list>
                 <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                     <title>Summer Reggae! Rainbow</title>
+                    <text-representation>
+                        <language>jpn</language>
+                        <script>Latn</script>
+                    </text-representation>
                     <date>2001-07-04</date>
                     <country>JP</country>
                     <release-event-list count="1">

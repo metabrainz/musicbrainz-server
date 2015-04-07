@@ -69,13 +69,6 @@ has '_verbose_phrase' => (
     lazy => 1
 );
 
-sub editor_can_edit
-{
-    my ($self, $editor) = @_;
-    return MusicBrainz::Server::Data::Relationship->editor_can_edit($editor,
-        $self->link->type->entity0_type, $self->link->type->entity1_type);
-}
-
 sub entity_is_orderable {
     my ($self, $entity) = @_;
 

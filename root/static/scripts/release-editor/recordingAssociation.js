@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+var debounce = require('../common/utility/debounce.js');
+
 (function (releaseEditor) {
 
     var recordingAssociation = releaseEditor.recordingAssociation = {};
@@ -28,16 +31,15 @@
     // created/updated within the last 3 hours. (It just uses the last_updated
     // column to find these.)
 
-    var releaseField = ko.observable().subscribeTo("releaseField", true),
-        releaseGroupRecordings = ko.observable(),
+    var releaseGroupRecordings = ko.observable(),
         releaseGroupTimer,
         recentRecordings = [],
         trackArtistIDs = [],
         etiRegex = /(\([^)]+\) ?)*$/;
 
 
-    var releaseGroupField = MB.utility.computedWith(
-        function (release) { return release.releaseGroup() }, releaseField
+    var releaseGroupField = utils.computedWith(
+        function (release) { return release.releaseGroup() }, releaseEditor.rootField.release
     );
 
 
@@ -57,7 +59,7 @@
     });
 
 
-    utils.debounce(utils.withRelease(function (release) {
+    debounce(utils.withRelease(function (release) {
         var newIDs = _(release.mediums()).invoke("tracks").flatten()
                       .pluck("artistCredit").invoke("names").flatten()
                       .invoke("artist").pluck("id").uniq().compact().value();
@@ -81,7 +83,7 @@
                 data: $.param({ artists: newIDs }, true /* traditional */)
             };
 
-            MB.utility.request(requestArgs).done(function (data) {
+            request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
         }
@@ -386,7 +388,7 @@
 
 
     recordingAssociation.track = function (track) {
-        utils.debounce(ko.computed(function () { watchTrackForChanges(track) }));
+        debounce(function () { watchTrackForChanges(track) });
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

@@ -2,12 +2,12 @@
 # Translators:
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2014
+# Maurits Meulenbelt <email address hidden>, 2013-2015
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-06 13:27+0000\n"
+"PO-Revision-Date: 2015-02-10 10:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -464,8 +464,8 @@ msgstr "Verbeteringen aan de zoekfunctie en de webienst worden uigebracht."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
-"\treleased."
+"Top menu navigation improved, duplicate artists, album edit all, track time "
+"editing features released."
 msgstr "Verbeterde menunavigatie, dubbele artiesten, bewerkingen voor hele uitgaves en de lengte van nummers uitgebracht."
 
 #: DB:statistics.statistic_event/title:2007-12-07
@@ -525,7 +525,7 @@ msgstr "Actieve gebruikers"
 msgid "Active Voters"
 msgstr "Actieve stemmers"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr "Lijnen toevoegen of verwijderen:"
 
@@ -755,7 +755,7 @@ msgstr "geannuleerd:"
 msgid "Characters"
 msgstr "Karakters"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr "Bovenstaande selectievakjes"
 
@@ -763,11 +763,11 @@ msgstr "Bovenstaande selectievakjes"
 msgid "Choirs"
 msgstr "Koren"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr "Klik ergens in de grafiek"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr "Bediening"
 
@@ -1148,7 +1148,7 @@ msgstr "Disc-id’s"
 msgid "Disc IDs:"
 msgstr "Disc-id’s:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr "Trek een rechthoek op een grafiek"
 
@@ -1240,7 +1240,7 @@ msgstr "Evenementen"
 msgid "Events:"
 msgstr "Evenementen:"
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr "Exacte waardes (objecten uitgezet tegen de datum)"
 
@@ -1306,7 +1306,7 @@ msgstr "hoge gegevenskwaliteit"
 msgid "High Data Quality:"
 msgstr "hoge gegevenskwaliteit:"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr "Beweeg over de verticale lijnen en klik er op"
 
@@ -1434,7 +1434,7 @@ msgstr "Laatste 7 dagen:"
 msgid "Last updated: {date}"
 msgstr "Het laatst bijgewerkt op {date}"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr "Legenda"
 
@@ -1496,11 +1496,11 @@ msgstr "Meest actieve redacteurs in de afgelopen week (bewerken)"
 msgid "Most active voters in the past week"
 msgstr "Meest actieve redacteurs in de afgelopen week (stemmen)"
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr "Gebeurtenissen op MusicBrainz"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr "Gebeurtenissen op MusicBrainz:"
 
@@ -1650,11 +1650,11 @@ msgstr "Primaire types"
 msgid "Rank"
 msgstr "Rang"
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Veranderingssnelheid (gemiddeld aantal objecten per dag uitgezet tegen de datum)"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr "Veranderingssnelheidsgrafiek"
 
@@ -1868,7 +1868,7 @@ msgstr "Uitgaves, gegevenskwaliteit en disc-id’s"
 msgid "Releases:"
 msgstr "Uitgaves:"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr "Originele grootte:"
 
@@ -1922,7 +1922,7 @@ msgstr "Er zijn geen gegevens om hier te tonen."
 msgid "Timeline"
 msgstr "Tijdslijn"
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr "Tijdslijngrafiek"
 
@@ -2093,7 +2093,7 @@ msgstr "Voorstemmen"
 msgid "Yesterday:"
 msgstr "gisteren:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr "Vergroten:"
 

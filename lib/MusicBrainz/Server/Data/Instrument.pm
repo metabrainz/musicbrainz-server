@@ -1,20 +1,13 @@
 package MusicBrainz::Server::Data::Instrument;
 
 use Moose;
-use namespace::autoclean;
-use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
-    defined_hash
     hash_to_row
     load_subobjects
     merge_string_attributes
     merge_table_attributes
-    placeholders
     query_to_list
-    query_to_list_limited
 );
-use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Instrument;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -23,7 +16,6 @@ with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
@@ -124,6 +116,14 @@ sub _hash_to_row {
     });
 
     return $row;
+}
+
+sub get_all {
+    my $self = shift;
+
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table;
+
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) }, $query);
 }
 
 __PACKAGE__->meta->make_immutable;

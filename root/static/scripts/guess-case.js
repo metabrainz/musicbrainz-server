@@ -1,5 +1,5 @@
-require("./guess-case/MB/GuessCase/Utils.js");
-require("./guess-case/MB/GuessCase/Flags.js");
+require("./guess-case/flags.js");
+require("./guess-case/utils.js");
 require("./guess-case/MB/GuessCase/Input.js");
 require("./guess-case/MB/GuessCase/Output.js");
 require("./guess-case/MB/GuessCase/Handler/Area.js");

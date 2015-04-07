@@ -19,7 +19,7 @@ entering a delete edit."
 
 sub cancel_or_action {
     my ($c, $edit, $redirect, $action_callback) = @_;
-    if ($edit && $edit->can_cancel($c->user)) {
+    if ($edit && $edit->editor_may_cancel($c->user)) {
         $c->stash->{edit} = $edit;
         $c->stash->{cancel_redirect} = $redirect if $redirect;
         $c->flash->{message} = l('Since your edit adding this object was still open, that edit has been cancelled instead of opening a new edit.');

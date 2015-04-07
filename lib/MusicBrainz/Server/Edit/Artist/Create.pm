@@ -39,7 +39,6 @@ has '+data' => (
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
         isni_codes => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
@@ -80,7 +79,7 @@ sub build_display_data
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
-        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        ipi_codes  => $self->data->{ipi_codes},
         isni_codes   => $self->data->{isni_codes},
         ended      => $self->data->{ended} // 0
     };
@@ -98,6 +97,9 @@ sub restore {
 
     $data->{area_id} = delete $data->{country_id}
         if exists $data->{country_id};
+
+    $data->{ipi_codes} = [ delete $data->{ipi_code} // () ]
+        if exists $data->{ipi_code};
 
     $self->data($data);
 }

@@ -17,14 +17,13 @@ $.ajax = function () {
 
 exports.setupReleaseAdd = function (data) {
     releaseEditor.action = "add";
-    releaseEditor.rootField = releaseEditor.fields.Root();
+    // seed() sets rootField.release() for us when action === 'add'
     releaseEditor.seed({ seed: data || {} });
     return releaseEditor.rootField.release();
 };
 
 exports.setupReleaseEdit = function () {
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
     var release = releaseEditor.fields.Release(exports.testRelease);
     releaseEditor.rootField.release(release);
     return release;
@@ -41,8 +40,8 @@ exports.trackParser = function (t, input, expected) {
 };
 
 exports.createMediums = function (release) {
-    var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.medium
+    var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+        return sub.edits === releaseEditor.edits.medium;
     });
 
     // Simulate edit submission.
@@ -69,6 +68,7 @@ exports.testArtistCredit = [
 ];
 
 exports.testRelease = {
+  entityType: "release",
   releaseGroup: {
     typeName: null,
     name: "Vision Creation Newsun",

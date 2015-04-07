@@ -68,7 +68,10 @@ window.addEventListener('error', function (event) {
     console.log(event.message);
     console.log('File name: ' + event.filename);
     console.log('Line number: ' + event.lineno);
-    phantom.exit(1);
+
+    if (typeof phantom !== 'undefined') {
+        phantom.exit(1);
+    }
 });
 
 window.MB_LANGUAGE = 'en';
@@ -96,6 +99,7 @@ require('./tests/edit.js');
 require('./tests/entity.js');
 require('./tests/externalLinks.js');
 require('./tests/GuessCase.js');
+require('./tests/guessFeat');
 require('./tests/i18n.js');
 require('./tests/relationship-editor.js');
 require('./tests/release-editor/actions.js');
@@ -106,4 +110,5 @@ require('./tests/release-editor/edits.js');
 require('./tests/release-editor/fields.js');
 require('./tests/release-editor/trackParser.js');
 require('./tests/release-editor/validation.js');
+require('./tests/release-editor/utils.js');
 require('./tests/utility.js');

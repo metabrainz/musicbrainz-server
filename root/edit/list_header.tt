@@ -9,6 +9,7 @@
                 |
             [% END %]
             [%- IF refine_url_args -%]
+                [%- refine_url_args.form_only = 'yes' -%]
                 <a href="[% c.uri_for('/search/edits', refine_url_args) %]">[% l('Refine this search') %]</a>
                 |
             [%- END -%]

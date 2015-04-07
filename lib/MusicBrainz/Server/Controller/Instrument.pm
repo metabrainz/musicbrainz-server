@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_INSTRUMENT_DELETE
 );
 use MusicBrainz::Server::Translation qw( l );
+use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Instrument',
@@ -92,11 +93,7 @@ sub releases : Chained('load') {
     $c->stash( template => 'instrument/releases.tt' );
 
     $c->model('ArtistCredit')->load(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $c->model('Release')->load_release_events(@releases);
-    $c->model('ReleaseLabel')->load(@releases);
-    $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('Release')->load_related_info(@releases);
     $c->stash(
         releases => \@releases,
         instrument_credits => \%instrument_credits,
@@ -135,6 +132,27 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
         }
     };
 };
+
+sub list : Path('/instruments') Args(0) {
+    my ($self, $c) = @_;
+
+    my @instruments = $c->model('Instrument')->get_all;
+    my $coll = $c->get_collator();
+    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @instruments;
+
+    my @types = $c->model('InstrumentType')->get_all();
+
+    my $entities = {};
+    for my $i (@sorted) {
+        my $type = $i->{type_id} || "unknown";
+        push @{ $entities->{$type} }, $i;
+    }
+
+    $c->stash(
+        entities => $entities,
+        types => \@types,
+    );
+}
 
 1;
 

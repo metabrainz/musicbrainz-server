@@ -3,6 +3,7 @@ use JSON;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
+use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
@@ -145,10 +146,6 @@ role {
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
         my %reordered_relationships;
 
-        my $link_attribute_types = $c->model('LinkAttributeType')->get_by_gids(
-            map { $_->{type}{gid} } map { @{ $_->{attributes} // [] } } @field_values
-        );
-
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
@@ -157,14 +154,6 @@ role {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
                 $args{end_date} = $period->{end_date} if $period->{end_date};
                 $args{ended} = $period->{ended} if $period->{ended};
-            }
-
-            if (my $attributes = $field->{attributes}) {
-                for (@$attributes) {
-                    my $type = $link_attribute_types->{$_->{type}{gid}};
-                    $_->{type} = $type->to_json_hash if $type;
-                }
-                $args{attributes} = [ grep { $_->{type}{id} } @$attributes ];
             }
 
             $args{ended} ||= 0;
@@ -183,6 +172,13 @@ role {
                 $c->model('Relationship')->load_entities($relationship);
 
                 $args{relationship} = $relationship;
+            }
+
+            if (my $attributes = $field->{attributes}) {
+                $args{attributes} = merge_link_attributes(
+                    $attributes,
+                    [$relationship ? $relationship->link->all_attributes : ()]
+                );
             }
 
             unless ($field->{removed}) {

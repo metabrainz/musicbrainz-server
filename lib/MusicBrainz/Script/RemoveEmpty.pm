@@ -88,6 +88,7 @@ sub run {
             @{ $self->c->sql->select_single_column_array($query) }
         )
     };
+    my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
     for my $e (@entities) {
         next if any { $e->id == $_ } @{ $skip_ids{$entity} // [] };
@@ -104,7 +105,7 @@ sub run {
                 my $edit = $self->c->model('Edit')->create(
                     edit_type => $edit_class{$entity},
                     to_delete => $e,
-                    editor_id => $EDITOR_MODBOT,
+                    editor => $modbot,
                     privileges => $BOT_FLAG | $AUTO_EDITOR_FLAG
                 );
                 ++$removed

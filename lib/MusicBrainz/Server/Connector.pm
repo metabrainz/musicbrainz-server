@@ -42,7 +42,8 @@ sub _build_conn
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
         pg_enable_utf8    => 1,
         pg_server_prepare => 0, # XXX Still necessary?
-        RaiseError        => 1,
+        HandleError       => sub { my ($msg, $h) = @_; die $h->state . ' ' . $msg },
+        RaiseError        => 0,
         PrintError        => 0,
         Callbacks         => {
             connected => sub {

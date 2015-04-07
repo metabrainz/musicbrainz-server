@@ -4,12 +4,12 @@ use MooseX::Singleton;
 use Cwd qw(abs_path);
 use DBDefs;
 use DateTime::Locale;
-use Encode;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use List::UtilsBy qw( sort_by );
 use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
+use Text::Balanced qw( extract_bracketed );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
 use MusicBrainz::Server::Validation qw( encode_entities );
@@ -17,7 +17,7 @@ use MusicBrainz::Server::Validation qw( encode_entities );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list )],
+    exports => [qw( l lp ln N_l N_ln N_lp get_collator comma_list comma_only_list )],
     groups => {
         default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list )]
     }
@@ -197,7 +197,7 @@ sub _expand
 
     my $make_link = sub {
         my ($var, $text) = @_;
-        my $final_text = defined $args{$text} ? $args{$text} : $text;
+        my $final_text = defined $args{$text} ? $args{$text} : $self->_expand($text, %args);
         if (defined $args{$var}) {
             if (ref($args{$var}) eq 'HASH') {
                 return '<a ' . join(' ', map { "$_=\"" . encode_entities($args{$var}->{$_}) . "\"" } sort keys %{ $args{$var} }) . '>' . $final_text . '</a>';
@@ -209,14 +209,24 @@ sub _expand
         }
     };
 
-    $string = decode('utf-8', $string);
-
+    my $result = '';
+    my $remainder = $string;
     my $re = join '|', map { quotemeta $_ } keys %args;
 
-    $string =~ s/\{($re)\|(.*?)\}/$make_link->($1, $2)/ge;
-    $string =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
+    while (1) {
+        my ($match, $prefix);
+        ($match, $remainder, $prefix) = extract_bracketed($remainder, '{}', '[^{]*');
 
-    return $string;
+        $match //= '';
+        $prefix //= '';
+        return "${result}${prefix}${remainder}" unless $match;
+
+        $match =~ s/^\{($re)\|(.*?)\}$/$make_link->($1, $2)/ge;
+        $match =~ s/^\{($re)\}$/defined $args{$1} ? $args{$1} : "{$1}"/ge;
+        $result .= "${prefix}${match}";
+    }
+
+    return $result;
 }
 
 sub get_collator

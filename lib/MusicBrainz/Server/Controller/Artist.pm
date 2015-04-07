@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => {
         all         => ['relationships'],
         cardinal    => ['edit'],
-        subset      => { split => ['artist'] },
+        subset      => { split => ['artist'], show => ['artist', 'url'] },
         default     => ['url']
     },
 };
@@ -28,7 +28,8 @@ with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'},
-                                          {from => 'recordings_jsonld', to => 'recordings'}]},
+                                          {from => 'recordings_jsonld', to => 'recordings'},
+                                          {from => 'identities', to => 'identities'}]},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
@@ -115,7 +116,7 @@ after 'load' => sub
             $c->user->id, $artist->id);
     }
 
-    $c->model('ArtistType')->load($artist);
+    $c->model('ArtistType')->load($artist, map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
@@ -209,6 +210,7 @@ sub show : PathPart('') Chained('load')
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
+    $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
         recordings => $recordings,
@@ -224,20 +226,21 @@ sub show : PathPart('') Chained('load')
     );
 
     my $coll = $c->get_collator();
-    $c->model('Relationship')->load_subset(['artist'], $artist);
+    my @identities;
     my ($legal_name) = map { $_->target }
                        grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
     if (defined $legal_name) {
         $c->model('Relationship')->load_subset(['artist'], $legal_name);
         $c->stash( legal_name => $legal_name );
+        push(@identities, $legal_name);
     } else {
         my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);
         $c->model('Artist')->alias_type->load(@$aliases);
         my @aliases = map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       uniq
-                      grep { $_->type_name eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_aliases => \@aliases );
     }
     $legal_name //= $artist;
@@ -247,7 +250,9 @@ sub show : PathPart('') Chained('load')
                            map { $_->target }
                            grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
                            grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $legal_name->relationships };
-    $c->stash(other_identities => \@other_identities);
+    push(@identities, @other_identities);
+    $c->stash(other_identities => \@other_identities,
+              identities => \@identities);
 }
 
 sub relationships : Chained('load') PathPart('relationships') {}
@@ -388,11 +393,7 @@ sub releases : Chained('load')
     $c->stash( template => 'artist/releases.tt' );
 
     $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Medium')->load_for_releases(@$releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Release')->load_release_events(@$releases);
-    $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('Release')->load_related_info(@$releases);
     $c->stash(
         releases => $releases,
         show_artists => scalar grep {
@@ -460,7 +461,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                         next if $ac == $old_ac;
                         my $ac_edit = $c->model('Edit')->create(
                             edit_type     => $EDIT_ARTIST_EDITCREDIT,
-                            editor_id     => $c->user->id,
+                            editor        => $c->user,
                             to_edit       => $old_ac,
                             artist_credit => $ac,
                         );
@@ -631,7 +632,7 @@ sub split : Chained('load') Edit {
             ) {
                 my $rem = $c->model('Edit')->create(
                     edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                    editor_id    => $c->user->id,
+                    editor       => $c->user,
                     type0        => 'artist',
                     type1        => 'artist',
                     relationship => $relationship

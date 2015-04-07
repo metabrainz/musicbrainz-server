@@ -194,7 +194,7 @@ ws_test 'lookup track with release-relationships',
  <duration>86666</duration>
  <relation-list target-type="Release">
   <relation target="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" begin="2008" type="SamplesMaterial">
-   <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Spokenword Official">
+   <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" type="Album Official">
     <title>An Inextricable Tale Audiobook</title>
     <text-representation script="Latn" language="ENG" />
     <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c"><name>Paul Allgood</name><sort-name>Allgood, Paul</sort-name></artist>

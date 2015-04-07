@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.old no_checkboxes=1 no_ratings=1 ~%]
+      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.old checkboxes='' no_ratings=1 ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.new no_checkboxes=1 no_ratings=1 ~%]
+      [%~ INCLUDE 'components/events-list.tt' events=edit.display_data.new checkboxes='' no_ratings=1 ~%]
     </td>
   </tr>
 </table>

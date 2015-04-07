@@ -3,12 +3,12 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # salorock <email address hidden>, 2012
-# salorock <email address hidden>, 2013-2014
+# salorock <email address hidden>, 2013-2015
 # salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-21 22:08+0000\n"
+"PO-Revision-Date: 2015-02-03 23:48+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -465,9 +465,9 @@ msgstr "Rilascio della funzione di ricerca e miglioramenti al web service."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
-"\treleased."
-msgstr "Miglioramenti alla navigazione nel menu superiore, rilascio del supporto agli artisti omonimi, alle modifiche per tutte le tracce di un album, alle modifiche alla durata delle tracce."
+"Top menu navigation improved, duplicate artists, album edit all, track time "
+"editing features released."
+msgstr "Miglioramenti alla navigazione nel menù superiore, rilascio del supporto agli artisti omonimi, alle modifiche per tutte le tracce di un album, alle modifiche alla durata delle tracce."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
@@ -526,7 +526,7 @@ msgstr "Utenti attivi"
 msgid "Active Voters"
 msgstr "Votanti attivi"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr "Aggiungi/elimina linee:"
 
@@ -756,7 +756,7 @@ msgstr "Cancellate:"
 msgid "Characters"
 msgstr "Personaggi"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr "Spunta le caselle in alto"
 
@@ -764,11 +764,11 @@ msgstr "Spunta le caselle in alto"
 msgid "Choirs"
 msgstr "Cori"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr "Clicca per deselezionare"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr "Comandi"
 
@@ -1149,7 +1149,7 @@ msgstr "ID disco"
 msgid "Disc IDs:"
 msgstr "ID disco:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr "Disegna un rettangolo su uno dei grafici"
 
@@ -1241,7 +1241,7 @@ msgstr "Eventi"
 msgid "Events:"
 msgstr "Eventi:"
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr "Valori esatti (elementi per ogni giorno)"
 
@@ -1307,7 +1307,7 @@ msgstr "Qualità dati alta"
 msgid "High Data Quality:"
 msgstr "Qualità dati alta:"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr "Soffermati e clicca sulle righe verticali"
 
@@ -1435,7 +1435,7 @@ msgstr "Ultimi 7 giorni:"
 msgid "Last updated: {date}"
 msgstr "Ultima modifica: {date}"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr "Legenda"
 
@@ -1497,11 +1497,11 @@ msgstr "Editor più attivi nell'ultima settimana"
 msgid "Most active voters in the past week"
 msgstr "Votanti più attivi nell'ultima settimana"
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr "Eventi di MusicBrainz"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr "Eventi di MusicBrainz:"
 
@@ -1651,11 +1651,11 @@ msgstr "Tipi primari"
 msgid "Rank"
 msgstr "Posizione"
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Tasso di variazione (media elementi giornalieri per ogni giorno)"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr "Grafico del tasso di variazione"
 
@@ -1869,7 +1869,7 @@ msgstr "Pubblicazioni, qualità dati e ID disco"
 msgid "Releases:"
 msgstr "Pubblicazioni:"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr "Reimposta:"
 
@@ -1923,7 +1923,7 @@ msgstr "Nessun dato da visualizzare."
 msgid "Timeline"
 msgstr "Cronologia"
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr "Grafico della cronologia"
 
@@ -2094,7 +2094,7 @@ msgstr "Voti positivi"
 msgid "Yesterday:"
 msgstr "Ieri:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr "Ingrandisci:"
 

@@ -118,6 +118,7 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     $lwp->timeout(10);
+    $lwp->agent(DBDefs->LWP_USER_AGENT);
     my $response = $lwp->get($url) or return;
     if (!$response->is_success) {
         log_error { "Failed to lookup cover art: $_" } $response->decoded_content;

@@ -10,6 +10,7 @@ use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
@@ -566,9 +567,7 @@ sub schema_fixup
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                primary_type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
-                    name => $release->{"release-group"}->{"primary-type"} || ''
-                )
+                fixup_rg($release->{"release-group"})
             );
             push @releases, MusicBrainz::Server::Entity::Release->new(
                 gid     => $release->{id},
@@ -621,6 +620,7 @@ sub schema_fixup
                 entity1 => $entity,
                 link => MusicBrainz::Server::Entity::Link->new(
                     type => MusicBrainz::Server::Entity::LinkType->new(
+                        entity1_type => $entity_type,
                         name => $rel->{type}
                     )
                 )
@@ -669,8 +669,11 @@ sub schema_fixup
                     my @relationships = @{ $relationship_map{$_} };
                     {
                         entity => $relationships[0]->entity1,
-                            roles  => [ map { $_->link->type->name } @relationships ]
+                            roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ]
                         }
+                } grep {
+                    my @relationships = @{ $relationship_map{$_} };
+                    any { $_->link->type->entity1_type eq 'artist' } @relationships;
                 } keys %relationship_map
             ];
         }
@@ -742,7 +745,7 @@ sub alias_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
+    my ($self, $type, $query, $limit, $page, $adv) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
@@ -759,20 +762,8 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-    if (DBDefs->_RUNNING_TESTS)
-    {
-        $ua = MusicBrainz::Server::Test::mock_search_server($type);
-    }
-    else
-    {
-        $ua = LWP::UserAgent->new if (!defined $ua);
-    }
-
-    $ua->timeout(5);
-    $ua->env_proxy;
-
     # Dispatch the search request.
-    my $response = get_chunked_with_retry($ua, $search_url);
+    my $response = get_chunked_with_retry($self->c->lwp, $search_url);
     if (!defined $response) {
         return { code => 500, error => 'We could not fetch the document from the search server. Please try again.' };
     }
@@ -1054,12 +1045,8 @@ sub xml_search
                                  $offset,
                                  $limit,);
 
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(5);
-    $ua->env_proxy;
-
     # Dispatch the search request.
-    my $response = $ua->get($search_url);
+    my $response = $self->c->lwp->get($search_url);
     unless ($response->is_success)
     {
         die $response;

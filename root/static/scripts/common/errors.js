@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('./utility/request.js');
+
 (function () {
     // https://wiki.musicbrainz.org/Development/Supported_browsers
     var browser = $.browser,
@@ -50,7 +52,7 @@
         if (reported[message] === undefined) {
             reported[message] = true;
 
-            MB.utility.request({
+            request({
                 type: "POST",
                 url: "/ws/js/error",
                 data: JSON.stringify({ error: message }),
