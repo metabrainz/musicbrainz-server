@@ -9,6 +9,7 @@
 // the MIT license: http://opensource.org/licenses/MIT
 
 var request = require('../common/utility/request.js');
+var similarity = require('../edit/utility/similarity.js');
 
 (function (releaseEditor) {
 
@@ -144,27 +145,8 @@ var request = require('../common/utility/request.js');
         return Math.abs(a - b) <= MB.constants.MAX_LENGTH_DIFFERENCE;
     }
 
-    // Compares two names, considers them equivalent if there are only case
-    // changes, changes in punctuation and/or changes in whitespace between
-    // the two strings.
-
-    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
-
-    function stripSpacesAndPunctuation(str) {
-        return (str || "").replace(punctuation, "").toLowerCase();
-    }
-
-    utils.similarity = function (a, b) {
-        // If a track title is all punctuation, we'll end up with an empty
-        // string, so just fall back to the original for comparison.
-        a = stripSpacesAndPunctuation(a) || a || "";
-        b = stripSpacesAndPunctuation(b) || b || "";
-
-        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
-    };
-
     function namesAreSimilar(a, b) {
-        return utils.similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
+        return similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
     }
 
     utils.similarNames = function (oldName, newName) {

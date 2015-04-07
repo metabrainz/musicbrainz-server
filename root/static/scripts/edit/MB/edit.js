@@ -277,7 +277,8 @@ var request = require('../../common/utility/request.js');
                 if (_.isEqual(newData[key], oldData[key])) {
                     delete newData[key];
                 }
-            });
+            })
+            .value();
     }
 
 

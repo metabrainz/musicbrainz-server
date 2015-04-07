@@ -10,8 +10,9 @@
           <table>
             <tr>
               <td colspan="2" style="padding: 0">
-                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
+                <input id="name" class="with-guesscase-guessfeat" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
                 <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+                <button type="button" class="guessfeat icon" title="[% l('Guess feat. artists') %]" data-click="guessReleaseFeatArtists"></button>
                 <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
               </td>
             </tr>
