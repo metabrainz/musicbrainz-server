@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
+var _str = require('underscore.string');
 var balanced = require('balanced-match');
 var getSimilarity = require('./similarity');
 
@@ -11,9 +13,9 @@ var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
 var bracketPairs = [['(', ')'], ['[', ']']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
-    var wrapped = _(str.split(featRegex)).map(_.str.clean);
+    var wrapped = _(str.split(featRegex)).map(_str.clean);
     return {
-        name: _.str.clean(wrapped.first()),
+        name: _str.clean(wrapped.first()),
         artistCredit: wrapped.rest().compact()
             .map(c => expandCredit(c, artists, isProbablyClassical)).flatten().value()
     };
@@ -51,7 +53,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
             }
         }
 
-        return {name: _.str.clean(name), artistCredit: credits};
+        return {name: _str.clean(name), artistCredit: credits};
     }, {name: str, artistCredit: []});
 }
 
