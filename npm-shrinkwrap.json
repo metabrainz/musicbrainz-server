@@ -2228,9 +2228,9 @@
       }
     },
     "lodash": {
-      "version": "3.3.1",
-      "from": "lodash@3.3.1",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.3.1.tgz"
+      "version": "3.6.0",
+      "from": "lodash@3.6.0",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.6.0.tgz"
     },
     "po2json": {
       "version": "0.3.2",

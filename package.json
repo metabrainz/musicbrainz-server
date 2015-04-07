@@ -24,7 +24,7 @@
     "jquery.cookie": "1.4.1",
     "knockout-arraytransforms": "1.0.0",
     "less-plugin-clean-css": "^1.4.0",
-    "lodash": "3.3.1",
+    "lodash": "3.6.0",
     "po2json": "^0.3.2",
     "q": "^1.1.1",
     "rcss": "0.1.4",
