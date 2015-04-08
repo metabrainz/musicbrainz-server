@@ -3,25 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var i18n = require('../common/i18n.js');
 var linkPhrase = require('../edit/utility/linkPhrase');
 
 MB.forms = {
 
-    buildOptionsTree: function (root, textAttr, valueAttr, callback, sortFunc) {
+    buildOptionsTree: function (root, textAttr, valueAttr, sortFunc) {
         var options = [];
         var nbsp = String.fromCharCode(160);
 
         function buildOptions(parent, indent) {
             var i = 0, children = parent.children, child;
             if (!children) { return; }
-
-            if (callback) {
-                while (child = children[i++]) {
-                    callback(child);
-                }
-                i = 0;
-            }
 
             if (sortFunc) {
                 children = children.concat().sort(sortFunc);
@@ -31,7 +25,8 @@ MB.forms = {
                 var opt = {};
 
                 opt.value = child[valueAttr];
-                opt.text = _.str.repeat(nbsp, indent * 2) + child[textAttr];
+                opt.text = _.str.repeat(nbsp, indent * 2) +
+                           (_.isFunction(textAttr) ? textAttr(child) : child[textAttr]);
                 opt.data = child;
                 options.push(opt);
 
@@ -46,17 +41,15 @@ MB.forms = {
     linkTypeOptions: function (root, backward) {
         var textAttr = backward ? 'reversePhrase' : 'phrase';
 
-        function callback(data, option) {
-            if (!data[textAttr]) {
-                data[textAttr] = linkPhrase.clean(data.linkTypeID, !!backward);
-            }
+        function getText(data) {
+            return linkPhrase.clean(data.gid, !!backward);
         }
 
         function sortFunc(a, b) {
             return (a.childOrder - b.childOrder) || i18n.compare(a[textAttr], b[textAttr]);
         }
 
-        var options = MB.forms.buildOptionsTree(root, textAttr, "id", callback, sortFunc);
+        var options = MB.forms.buildOptionsTree(root, getText, "id", sortFunc);
 
         for (var i = 0, len = options.length, option; i < len; i++) {
             if ((option = options[i]) && !option.data.description) {
