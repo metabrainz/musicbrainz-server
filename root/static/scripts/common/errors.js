@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var parseStack = require('parse-stack');
 var request = require('./utility/request.js');
 
 (function () {
@@ -29,7 +30,7 @@ var request = require('./utility/request.js');
 
     var location = window.location,
         origin = location.origin || (location.protocol + "//" + location.host),
-        urlRegex = new RegExp("^" + origin + "/static/.*\\.js$"),
+        urlRegex = new RegExp("^" + origin + "/static/build/.*\\.js$"),
         reported = {};
 
     window.onerror = function (message, url, line, column, error) {
@@ -45,7 +46,16 @@ var request = require('./utility/request.js');
         }
 
         // Unavailable in IE<10 or Opera 12
-        if (error && error.stack) {
+        var stack = parseStack(error);
+
+        if (stack) {
+            // Check that the first (source) file in the stack originates from
+            // root/static/build. This excludes errors from .js files that
+            // userscripts inject into the page. The '.replace' removes line
+            // numbers.
+            if (!urlRegex.test(_.last(stack).filepath.replace(/:\d+$/, ''))) {
+                return;
+            }
             message += "\n\n" + error.stack;
         }
 
