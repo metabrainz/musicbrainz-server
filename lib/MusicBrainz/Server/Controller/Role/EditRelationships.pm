@@ -102,7 +102,7 @@ role {
         $c->stash(
             source_entity   => $json->encode($source_entity),
             attr_info       => $json->encode(build_attr_info($attr_tree)),
-            type_info       => $json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, \@link_type_tree, $attr_tree)),
+            type_info       => $json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
         );
 
         my $post_creation = delete $opts{post_creation};

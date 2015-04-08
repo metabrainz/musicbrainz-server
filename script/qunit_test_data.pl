@@ -14,7 +14,7 @@ my @link_types = $c->model('LinkType')->get_full_tree;
 my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
 my $json = JSON->new->utf8->pretty;
-my $type_info = trim $json->encode(build_type_info($c, qr/.*/, \@link_types, $attr_tree));
+my $type_info = trim $json->encode(build_type_info($c, qr/.*/, @link_types));
 my $attr_info = trim $json->encode(build_attr_info($attr_tree));
 
 print "Writing root/static/scripts/tests/typeInfo.js ...\n";
