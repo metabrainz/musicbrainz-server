@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var nonEmpty = require('../utility/nonEmpty');
 var request = require('../../common/utility/request.js');
 
 (function (edit) {
@@ -160,7 +161,12 @@ var request = require('../../common/utility/request.js');
             if (relationship.hasDates()) {
                 data.beginDate = fields.partialDate(period.beginDate);
                 data.endDate = fields.partialDate(period.endDate);
-                data.ended = Boolean(value(period.ended));
+
+                if (data.endDate && _(data.endDate).values().any(nonEmpty)) {
+                    data.ended = true;
+                } else {
+                    data.ended = Boolean(value(period.ended));
+                }
             }
 
             return data;
