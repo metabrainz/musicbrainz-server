@@ -164,7 +164,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     ),
 );
 is( $rel->phrase, 'is a founding member of' );
-ok( $rel->extra_phrase_attributes eq 'vocal and guitar' || $rel->extra_phrase_attributes eq 'guitar and vocal' );
+ok( $rel->extra_phrase_attributes eq 'vocal, guitar' || $rel->extra_phrase_attributes eq 'guitar, vocal' );
 
 };
 
