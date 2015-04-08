@@ -46,16 +46,23 @@ var request = require('./utility/request.js');
         }
 
         // Unavailable in IE<10 or Opera 12
-        var stack = parseStack(error);
+        var stack;
+        try {
+            stack = parseStack(error);
+        } catch (e) {
+            // https://github.com/lydell/parse-stack/blob/3e1a2d3/lib/parse-stack.js#L46
+        }
 
         if (stack) {
             // Check that the first (source) file in the stack originates from
             // root/static/build. This excludes errors from .js files that
             // userscripts inject into the page. The '.replace' removes line
             // numbers.
-            if (!urlRegex.test(_.last(stack).filepath.replace(/:\d+$/, ''))) {
+            var errOrigin = _.last(stack);
+            if (errOrigin && errOrigin.filepath && !urlRegex.test(errOrigin.filepath.replace(/:\d+$/, ''))) {
                 return;
             }
+
             message += "\n\n" + error.stack;
         }
 
