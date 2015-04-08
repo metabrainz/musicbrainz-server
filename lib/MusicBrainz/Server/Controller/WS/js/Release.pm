@@ -99,7 +99,7 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json($c->stash->{serializer}->_release($release, $inc->recordings, $inc->rels)));
+    $c->res->body(encode_json($c->stash->{serializer}->_release($release)));
 }
 
 1;
