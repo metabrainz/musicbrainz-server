@@ -10,6 +10,7 @@ var extend          = require("extend"),
     shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
+    through         = require('through'),
     through2        = require("through2"),
     Q               = require("q"),
     watch           = require('gulp-watch'),
@@ -100,16 +101,26 @@ function langToPosix(lang) {
 }
 
 function reactify(filename) {
-    return through2(function (chunk, enc, cb) {
-        this.push(reactTools.transform(String(chunk), {
-          es5: true,
-          sourceMap: !!process.env.SOURCEMAPS,
-          sourceFilename: filename,
-          stripTypes: false,
-          harmony: true
-        }));
-        cb();
-    });
+    var chunks = [];
+
+    return through(
+        function (chunk) {
+            chunks.push(chunk);
+        },
+        function () {
+            var source = String(Buffer.concat(chunks));
+
+            this.push(reactTools.transform(source, {
+                es5: true,
+                sourceMap: !!process.env.SOURCEMAPS,
+                sourceFilename: filename,
+                stripTypes: false,
+                harmony: true
+            }));
+
+            this.push(null);
+        }
+    );
 }
 
 function buildScripts() {
