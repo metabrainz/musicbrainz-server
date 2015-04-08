@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Translation;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
@@ -221,7 +222,7 @@ sub insert
         }
     }
 
-    if (exists $values->{orderable_direction}) {
+    if (is_positive_integer($values->{orderable_direction})) {
         $self->sql->insert_row('orderable_link_type', {
             link_type => $id,
             direction => $values->{orderable_direction}
