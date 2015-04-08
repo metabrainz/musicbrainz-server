@@ -220,6 +220,14 @@ sub insert
             });
         }
     }
+
+    if (exists $values->{orderable_direction}) {
+        $self->sql->insert_row('orderable_link_type', {
+            link_type => $id,
+            direction => $values->{orderable_direction}
+        });
+    }
+
     return $self->_entity_class->new( id => $id, gid => $row->{gid} );
 }
 
@@ -290,6 +298,14 @@ sub update
                 max            => $attrib->{max},
             });
         }
+    }
+
+    if (exists $values->{orderable_direction}) {
+        $self->sql->delete_row('orderable_link_type', { link_type => $id });
+        $self->sql->insert_row('orderable_link_type', {
+            link_type => $id,
+            direction => $values->{orderable_direction}
+        });
     }
 }
 

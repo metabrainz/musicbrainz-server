@@ -89,6 +89,34 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase).sortBy("key").map(function (group) {
                     group.openAddDialog = openAddDialog;
+                    group.canBeOrdered = ko.observable(false);
+
+                    var relationships = group.values.peek();
+                    var typeInfo = relationships[0].linkTypeInfo();
+
+                    if (typeInfo && typeInfo.orderableDirection > 0) {
+                        group.canBeOrdered = group.values.all(function (r) {
+                            return r.entityCanBeReordered(r.target(self));
+                        });
+                    }
+
+                    if (ko.unwrap(group.canBeOrdered)) {
+                        var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
+
+                        group.hasOrdering = ko.computed({
+                            read: hasOrdering,
+                            write: function (newValue) {
+                                var currentValue = hasOrdering.peek();
+
+                                if (currentValue && !newValue) {
+                                    _.each(group.values.slice(0), function (r) { r.linkOrder(0) });
+                                } else if (newValue && !currentValue) {
+                                    _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
+                                }
+                            }
+                        });
+                    }
+
                     return group;
                 });
         }),
@@ -115,6 +143,17 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
                 }
             }
             return false;
+        },
+
+        getRelationshipGroup: function (linkTypeID, viewModel) {
+            // Returns all relationships of the given linkTypeID. Used in
+            // fields.js to recalculate link orders when an item is moved.
+            // Since displayableRelationships is used, it should be in the
+            // same order as it appears in the UI.
+
+            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+                return r.linkTypeID() == linkTypeID;
+            });
         }
     });
 
