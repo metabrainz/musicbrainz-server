@@ -565,7 +565,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -610,7 +610,7 @@ MB.Control.autocomplete_formatters = {
             }
 
             a.append('<br /><span class="autocomplete-appears">appears on: ' +
-                      _.escape(rgs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
@@ -619,7 +619,7 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs && item.isrcs.length)
         {
             a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      _.escape(item.isrcs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(item.isrcs)) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -720,7 +720,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -733,8 +733,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -762,8 +761,7 @@ MB.Control.autocomplete_formatters = {
              if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
              if (item.parentCountry) items.push(_.escape(item.parentCountry));
              a.append('<br /><span class="autocomplete-comment">' +
-                       items.join(", ") +
-                       '</span>');
+                      _.escape(i18n.commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -787,7 +785,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName || item.area) {
@@ -824,7 +822,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.description) {
@@ -853,7 +851,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName) {
@@ -875,8 +873,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
