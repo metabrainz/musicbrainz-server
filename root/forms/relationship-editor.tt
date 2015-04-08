@@ -53,7 +53,7 @@
           </div>
         </td>
       </tr>
-      <!-- ko if: canBeOrdered -->
+      <!-- ko if: canBeOrdered() && values().length > 1 -->
         <tr>
           <td></td>
           <td>

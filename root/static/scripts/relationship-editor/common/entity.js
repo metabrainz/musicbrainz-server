@@ -89,7 +89,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase).sortBy("key").map(function (group) {
                     group.openAddDialog = openAddDialog;
-                    group.canBeOrdered = false;
+                    group.canBeOrdered = ko.observable(false);
 
                     var relationships = group.values.peek();
                     var typeInfo = relationships[0].linkTypeInfo();
