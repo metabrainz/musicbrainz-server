@@ -5,6 +5,7 @@
 
 var i18n = require('../../common/i18n.js');
 var request = require('../../common/utility/request.js');
+var linkPhrase = require('../../edit/utility/linkPhrase');
 var dates = require('../../edit/utility/dates.js');
 var mergeDates = require('./mergeDates.js');
 
@@ -280,74 +281,8 @@ var mergeDates = require('./mergeDates.js');
             return "";
         },
 
-        _phraseRegex: /\{(.*?)(?::(.*?))?\}/g,
-
         _phraseAndExtraAttributes: function () {
-            var typeInfo = this.linkTypeInfo();
-
-            if (!typeInfo) {
-                return ['', '', ''];
-            }
-
-            var phrase = typeInfo.phrase;
-            var reversePhrase = typeInfo.reversePhrase;
-
-            if (typeInfo.orderableDirection > 0) {
-                phrase = typeInfo.simplePhrase;
-                reversePhrase = typeInfo.simpleReversePhrase;
-            }
-
-            var attributesByName = {};
-            var usedAttributes = [];
-
-            _.each(this.attributes(), function (attribute) {
-                var type = attribute.type;
-                var value = type.l_name;
-
-                if (type.freeText) {
-                    value = _.str.clean(attribute.textValue());
-
-                    if (value) {
-                        value = i18n.l("{attribute}: {value}", {
-                            attribute: type.l_name, value: value
-                        });
-                    }
-                }
-
-                if (type.creditable) {
-                    var credit = _.str.clean(attribute.creditedAs());
-
-                    if (credit) {
-                        value = i18n.l("{attribute} [{credited_as}]", {
-                            attribute: type.l_name, credited_as: credit
-                        });
-                    }
-                }
-
-                if (value) {
-                    var rootName = type.root.name;
-                    (attributesByName[rootName] = attributesByName[rootName] || []).push(value);
-                }
-            });
-
-            function interpolate(match, name, alts) {
-                usedAttributes.push(name);
-
-                var values = attributesByName[name] || [];
-                var replacement = i18n.commaList(values)
-
-                if (alts && (alts = alts.split("|"))) {
-                    replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || "";
-                }
-
-                return replacement;
-            }
-
-            return [
-                _.str.clean(phrase.replace(this._phraseRegex, interpolate)),
-                _.str.clean(reversePhrase.replace(this._phraseRegex, interpolate)),
-                i18n.commaOnlyList(_.flatten(_.values(_.omit(attributesByName, usedAttributes))))
-            ];
+            return linkPhrase.interpolate(this.linkTypeID(), this.attributes());
         },
 
         linkPhrase: function (source) {
