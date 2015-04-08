@@ -66,13 +66,15 @@ var mergeDates = require('./mergeDates.js');
             // that depends on 'attributes' being an observableArray.
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
-                _.defer(function () {
-                    if (!removingInvalidAttributes && newAttributes === self.attributes.peek()) {
-                        removingInvalidAttributes = true;
-                        self.attributes(validAttributes(self, newAttributes));
-                        removingInvalidAttributes = false;
-                    }
-                });
+                if (!removingInvalidAttributes) {
+                    _.defer(function () {
+                        if (newAttributes === self.attributes.peek()) {
+                            removingInvalidAttributes = true;
+                            self.attributes(validAttributes(self, newAttributes));
+                            removingInvalidAttributes = false;
+                        }
+                    });
+                }
             });
 
             this.linkOrder = ko.observable(data.linkOrder || 0);
