@@ -646,13 +646,25 @@ MB.Control.autocomplete_formatters = {
             );
         });
 
-        item.labels && item.labels.forEach(function (event) {
-            appendComment(
-                $a,
-                (event.label ? _.escape(event.label.name) : '') +
-                (event.catalogNumber ? maybeParentheses(_.escape(event.catalogNumber), event.label) : '')
-            );
-        });
+        _(item.labels)
+            .groupBy(getLabelName)
+            .each(function (releaseLabels, name) {
+                var catalogNumbers = _(releaseLabels).map(getCatalogNumber).compact().sort().value();
+
+                if (catalogNumbers.length > 2) {
+                    appendComment(
+                        $a,
+                        name +
+                        maybeParentheses(_.first(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
+                    );
+                } else {
+                    _.each(releaseLabels, function (releaseLabel) {
+                        var name = getLabelName(releaseLabel);
+                        appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                    });
+                }
+            })
+            .value();
 
         if (item.barcode) {
             appendComment($a, item.barcode);
@@ -893,6 +905,14 @@ function maybeParentheses(text, condition) {
 
 function appendComment($a, comment) {
     return $a.append(`<br /><span class="autocomplete-comment">${comment}</span>`);
+}
+
+function getLabelName(releaseLabel) {
+    return releaseLabel.label ? releaseLabel.label.name : '';
+}
+
+function getCatalogNumber(releaseLabel) {
+    return releaseLabel.catalogNumber || '';
 }
 
 /*
