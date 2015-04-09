@@ -31,9 +31,20 @@
   <tr>
     <td class="section" data-bind="text: MB.i18n.addColon(MB.i18n.strings.entityName[source.entityType])"></td>
     <td>
-      <span data-bind="html: source.html({ 'target': '_blank' })"></span>
+      <span data-bind="html: source.html({ 'target': '_blank', creditedAs: relationship().creditField(source)() })"></span>
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: source, relationship: relationship()}} --><!-- /ko -->
     </td>
   </tr>
+</script>
+
+<script type="text/html" id="template.dialog-entity-credit">
+  <!-- ko if: entity.entityType === 'artist' -->
+    <br />
+    <label>
+      [% l('Credited as:') %]
+      <input type="text" data-bind="value: relationship.creditField(entity), attr: {placeholder: entity.name}" />
+    </label>
+  <!-- /ko -->
 </script>
 
 <script type="text/html" id="template.dialog-target-entity">
@@ -47,6 +58,7 @@
         <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
       </span>
       <div class="error" data-bind="text: targetEntityError()"></div>
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: relationship().target(source), relationship: relationship()}} --><!-- /ko -->
     </td>
   </tr>
 </script>

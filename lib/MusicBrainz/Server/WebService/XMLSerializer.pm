@@ -1073,6 +1073,9 @@ sub _serialize_relation
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
+    push @list, $gen->source_credit($rel->source_credit) if $rel->source_credit;
+    push @list, $gen->target_credit($rel->target_credit) if $rel->target_credit;
+
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 

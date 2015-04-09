@@ -36,10 +36,10 @@
             <!-- ko with: target($root.source) -->
               <!-- ko if: $data.gid -->
                 <!-- ko if: $parent.showLinkOrder($root.source) -->
-                  <span data-bind="html: MB.i18n.expand('[% l('{num}. {relationship}') | js %]', { num: $parent.linkOrder(), relationship: html({ target: '_blank' }) }), relationshipStyling: $parent"></span>
+                  <span data-bind="html: MB.i18n.expand('[% l('{num}. {relationship}') | js %]', { num: $parent.linkOrder(), relationship: html({ target: '_blank', creditedAs: $parent.creditField($data)() }) }), relationshipStyling: $parent"></span>
                 <!-- /ko -->
                 <!-- ko ifnot: $parent.showLinkOrder($root.source) -->
-                  <span data-bind="html: html({ target: '_blank' }), relationshipStyling: $parent"></span>
+                  <span data-bind="html: html({ target: '_blank', creditedAs: $parent.creditField($data)() }), relationshipStyling: $parent"></span>
                 <!-- /ko -->
               <!-- /ko -->
               <!-- ko ifnot: $data.gid -->

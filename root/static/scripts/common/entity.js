@@ -92,7 +92,9 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
-            "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
+            "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
+            "<% if (data.creditedAs) { %><span class=\"real-name\" title=\"<%- data.name %>\">*</span><% } %>" +
+            "<% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +

@@ -97,6 +97,13 @@ var validation = require('../edit/validation.js');
 
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
+            _.each(['entity0_credit', 'entity1_credit'], function (prop) {
+                var value = _.str.clean(relationship[prop]());
+                if (value) {
+                    pushInput(prefix, prop, value);
+                }
+            });
+
             var changedAttributes = MB.edit.relationshipEdit(editData, relationship.original, relationship).attributes;
             _.each(changedAttributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;

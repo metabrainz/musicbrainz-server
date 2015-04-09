@@ -56,6 +56,8 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
+        entity0_credit => $row->{entity0_credit},
+        entity1_credit => $row->{entity1_credit},
         last_updated => $row->{last_updated},
         link_order => $row->{link_order},
     );
@@ -393,21 +395,34 @@ sub delete_entities
     }
 }
 
-sub exists
-{
+sub exists {
     my ($self, $type0, $type1, $values) = @_;
+
     $self->_check_types($type0, $type1);
+
+    my @props = qw(entity0 entity1 link);
+    my @values = ($values->{entity0_id}, $values->{entity1_id});
+
+    push @values, $self->c->model('Link')->find({
+        link_type_id => $values->{link_type_id},
+        begin_date => $values->{begin_date},
+        end_date => $values->{end_date},
+        ended => $values->{ended},
+        attributes => $values->{attributes},
+    });
+
+    for (qw(entity0_credit entity1_credit)) {
+        if (exists $values->{$_}) {
+            push @props, $_;
+            push @values, $values->{$_};
+        }
+    }
+
+    my $conditions = join(' AND ', map { "$_ = ?" } @props);
+
     return $self->sql->select_single_value(
-        "SELECT 1 FROM l_${type0}_${type1}
-          WHERE entity0 = ? AND entity1 = ? AND link = ?",
-        $values->{entity0_id}, $values->{entity1_id},
-        $self->c->model('Link')->find({
-            link_type_id => $values->{link_type_id},
-            begin_date => $values->{begin_date},
-            end_date => $values->{end_date},
-            ended => $values->{ended},
-            attributes => $values->{attributes},
-        })
+        "SELECT 1 FROM l_${type0}_${type1} WHERE $conditions",
+        @values
     );
 }
 
@@ -443,6 +458,8 @@ sub insert
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
+        entity0_credit => $values->{entity0_credit} // '',
+        entity1_credit => $values->{entity1_credit} // '',
         link_order => $values->{link_order} // 0,
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
@@ -474,6 +491,8 @@ sub update
     my $new = {};
     $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
     $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+    $new->{entity0_credit} = $values->{entity0_credit} if $values->{entity0_credit};
+    $new->{entity1_credit} = $values->{entity1_credit} if $values->{entity1_credit};
 
     my $series0 = $type0 eq "series";
     my $series1 = $type1 eq "series";

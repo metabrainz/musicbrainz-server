@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model non_empty );
 use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -35,6 +35,8 @@ has '+data' => (
             id   => NullableOnPreview[Int],
             name => Str
         ],
+        entity0_credit => Optional[Str],
+        entity1_credit => Optional[Str],
         link_type    => Dict[
             id => Int,
             name => Str,
@@ -84,6 +86,11 @@ sub initialize
         name => $e1->name,
     };
 
+    $self->sanitize_entity_credits(\%opts, $lt);
+    for (qw(entity0_credit entity1_credit)) {
+        delete $opts{$_} unless non_empty($opts{$_});
+    }
+
     $opts{link_type} = {
         id => $lt->id,
         name => $lt->name,
@@ -101,6 +108,7 @@ sub initialize
     delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
     delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
 
+    # Don't include entity0_credit/entity1_credit here, they don't determine uniqueness.
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if $self->c->model('Relationship')->exists(
             $lt->entity0_type,
@@ -229,14 +237,16 @@ sub insert
     my $relationship = $self->c->model('Relationship')->insert(
         $self->data->{type0},
         $self->data->{type1}, {
-            entity0_id   => $self->data->{entity0}{id},
-            entity1_id   => $self->data->{entity1}{id},
-            attributes   => $self->data->{attributes},
-            link_type_id => $self->data->{link_type}{id},
-            begin_date   => $self->data->{begin_date},
-            end_date     => $self->data->{end_date},
-            ended        => $self->data->{ended},
-            link_order   => $self->data->{link_order} // 0,
+            entity0_id      => $self->data->{entity0}{id},
+            entity1_id      => $self->data->{entity1}{id},
+            entity0_credit  => $self->data->{entity0_credit},
+            entity1_credit  => $self->data->{entity1_credit},
+            attributes      => $self->data->{attributes},
+            link_type_id    => $self->data->{link_type}{id},
+            begin_date      => $self->data->{begin_date},
+            end_date        => $self->data->{end_date},
+            ended           => $self->data->{ended},
+            link_order      => $self->data->{link_order} // 0,
         });
 
     $self->entity_id($relationship->id);

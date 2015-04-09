@@ -966,6 +966,8 @@ test 'artist lookup with artist relations' => sub {
                         disambiguation => "",
                         relations => []
                     },
+                    'source-credit' => 'Maki Goto',
+                    'target-credit' => '7nin Matsuri',
                     begin => '2001',
                     end => JSON::null,
                     ended => JSON::false,

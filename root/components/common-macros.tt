@@ -240,7 +240,9 @@ END -%]
 
 [%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
-[%~ MACRO link_entity(entity, action, text) BLOCK;
+[%~ MACRO link_entity(entity, action, text, credited_as) BLOCK;
+    show_disambiguation = text == '';
+    text = text OR credited_as;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
@@ -265,7 +267,10 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    disambiguation(entity) IF text == '';
+    IF credited_as AND entity.name != credited_as;
+        '<span class="real-name" title="' _ html_escape(entity.name) _ '">*</span>';
+    END;
+    disambiguation(entity) IF show_disambiguation;
 END -%]
 
 [%~ MACRO link_deleted(entity, text) BLOCK;
@@ -277,17 +282,17 @@ END -%]
       '</span>';
     END; -%]
 
-[%~ MACRO descriptive_link(entity)
+[%~ MACRO descriptive_link(entity, credited_as)
     IF entity.artist_credit.defined;
-        l('{entity} by {artist}', { entity => link_entity(entity),
+        l('{entity} by {artist}', { entity => link_entity(entity, 'show', '', credited_as),
                                     artist => artist_credit(entity.artist_credit) });
     ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
-        l('{place} in {area}', { place => link_entity(entity),
+        l('{place} in {area}', { place => link_entity(entity, 'show', '', credited_as),
                                  area => link_area_with_containment(entity.area) });
     ELSIF get_entity_type(entity) == 'area' && entity.gid;
-        link_area_with_containment(entity);
+        link_area_with_containment(entity, 'show', '', credited_as);
     ELSE;
-        link_entity(entity);
+        link_entity(entity, 'show', '', credited_as);
     END; -%]
 
 [%~ MACRO get_entity_type(entity) BLOCK;
@@ -431,8 +436,8 @@ END -%]
     comma_only_list(link_areas);
 END -%]
 
-[%~ MACRO link_area_with_containment(area, action, text) BLOCK;
-    link_entity(area, action, text);
+[%~ MACRO link_area_with_containment(area, action, text, credited_as) BLOCK;
+    link_entity(area, action, text, credited_as);
     IF link_area_containment(area); ', ' _ link_area_containment(area); END;
 END -%]
 
@@ -696,7 +701,7 @@ END -%]
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
     relationship.${ phrase_field };
     ' ';
-    descriptive_link(relationship.target);
+    descriptive_link(relationship.target, relationship.target_credit);
     IF !relationship.link.begin_date.is_empty;
         ' ';
         IF !relationship.link.end_date.is_empty;
@@ -921,9 +926,9 @@ END ~%]
 [%~ MACRO relationship_target_links(rel) BLOCK;
     '<span class="mp mp-rel">' IF rel.edits_pending;
     IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
-        link_entity(rel.target);
+        link_entity(rel.target, 'show', '', rel.target_credit);
     ELSE;
-        descriptive_link(rel.target);
+        descriptive_link(rel.target, rel.target_credit);
     END;
     bracketed(rel.extra_phrase_attributes) IF rel.extra_phrase_attributes;
     bracketed(rel.link.formatted_date) IF rel.link.formatted_date;

@@ -141,9 +141,11 @@ var request = require('../../common/utility/request.js');
             var period = relationship.period || {};
 
             var data = {
-                id:         number(relationship.id),
-                linkTypeID: number(relationship.linkTypeID),
-                entities:   array(relationship.entities, this.relationshipEntity)
+                id:             number(relationship.id),
+                linkTypeID:     number(relationship.linkTypeID),
+                entities:       array(relationship.entities, this.relationshipEntity),
+                entity0_credit: string(relationship.entity0_credit),
+                entity1_credit: string(relationship.entity1_credit)
             };
 
             data.attributes = _(ko.unwrap(relationship.attributes))

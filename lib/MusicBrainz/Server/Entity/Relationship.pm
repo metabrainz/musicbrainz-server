@@ -42,6 +42,11 @@ has 'entity0' => (
     isa => 'Linkable',
 );
 
+has 'entity0_credit' => (
+    is => 'ro',
+    isa => 'Str',
+);
+
 has 'entity1_id' => (
     is => 'rw',
     isa => 'Int',
@@ -50,6 +55,11 @@ has 'entity1_id' => (
 has 'entity1' => (
     is => 'rw',
     isa => 'Linkable',
+);
+
+has 'entity1_credit' => (
+    is => 'ro',
+    isa => 'Str',
 );
 
 has 'link_order' => (
@@ -82,10 +92,10 @@ sub entity_is_orderable {
     return 0;
 }
 
-sub _source_target_prop
-{
+sub _source_target_prop {
     my ($self, %opts) = @_;
     my $is_target = $opts{is_target};
+    my $prop_base = $opts{prop_base} // $self;
     my $prop_suffix = $opts{prop_suffix};
     my $prop;
     if (not $is_target) {
@@ -94,48 +104,53 @@ sub _source_target_prop
         $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity1' : 'entity0';
     }
     $prop = $prop . '_' . $prop_suffix if $prop_suffix;
-    # If we need to pull things other than entity0/entity1 from something other
-    # than the link type, this can be amended to an argument instead of hardcoded
-    my $base = $prop_suffix ? $self->link->type : $self;
-    return $base->$prop;
+    return $prop_base->$prop;
 }
 
-sub source
-{
+sub source {
     return shift->_source_target_prop();
 }
 
-sub source_type
-{
-    return shift->_source_target_prop(prop_suffix => 'type');
+sub source_type {
+    my ($self) = @_;
+    return $self->_source_target_prop(prop_suffix => 'type', prop_base => $self->link->type);
 }
 
-sub source_cardinality
-{
-    return shift->_source_target_prop(prop_suffix => 'cardinality');
+sub source_cardinality {
+    my ($self) = @_;
+    return $self->_source_target_prop(prop_suffix => 'cardinality', prop_base => $self->link->type);
 }
 
-sub source_key
-{
+sub source_credit {
+    my ($self) = @_;
+    return $self->_source_target_prop(prop_suffix => 'credit');
+}
+
+sub source_key {
     my ($self) = @_;
     return ($self->source_type eq 'url')
         ? $self->source->url
         : $self->source->gid;
 }
 
-sub target
-{
-    return shift->_source_target_prop(is_target => 1);
+sub target {
+    my ($self) = @_;
+    return $self->_source_target_prop(is_target => 1);
 }
 
-sub target_type
-{
-    return shift->_source_target_prop(is_target => 1, prop_suffix => 'type');
+sub target_type {
+    my ($self) = @_;
+    return $self->_source_target_prop(is_target => 1, prop_suffix => 'type', prop_base => $self->link->type);
 }
 
-sub target_cardinality
-{
-    return shift->_source_target_prop(is_target => 1, prop_suffix => 'cardinality');
+sub target_cardinality {
+    my ($self) = @_;
+    return $self->_source_target_prop(is_target => 1, prop_suffix => 'cardinality', prop_base => $self->link->type);
+}
+
+sub target_credit {
+    my ($self) = @_;
+    return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit');
 }
 
 sub target_key

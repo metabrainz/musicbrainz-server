@@ -34,6 +34,9 @@ var mergeDates = require('./mergeDates.js');
             this.entityTypes = _(data.entities).pluck("entityType").join("-");
             this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
+            this.entity0_credit = ko.observable(data.entity0_credit || '');
+            this.entity1_credit = ko.observable(data.entity1_credit || '');
+
             this.linkTypeID = ko.observable(data.linkTypeID);
             this.linkTypeID.isDifferent = linkTypeComparer;
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
@@ -102,6 +105,8 @@ var mergeDates = require('./mergeDates.js');
         fromJS: function (data) {
             this.linkTypeID(data.linkTypeID);
             this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+            this.entity0_credit(data.entity0_credit || '');
+            this.entity1_credit(data.entity1_credit || '');
 
             setPartialDate(this.period.beginDate, data.beginDate || {});
             setPartialDate(this.period.endDate, data.endDate || {});
@@ -458,6 +463,18 @@ var mergeDates = require('./mergeDates.js');
                 encodeURIComponent(entity1.name),
                 encodeURIComponent(entity1.id)
             );
+        },
+
+        creditField: function (entity) {
+            var entities = this.entities();
+
+            if (entity === entities[0]) {
+                return this.entity0_credit;
+            }
+
+            if (entity === entities[1]) {
+                return this.entity1_credit;
+            }
         }
     });
 

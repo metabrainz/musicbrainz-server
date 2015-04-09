@@ -2686,9 +2686,9 @@ INSERT INTO link_attribute (attribute_type, created, link) VALUES (229, '2011-01
 
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (12282, 229, 'crazy guitar');
 
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 398438, 45799, '2011-01-18 15:31:00.495651+00', 6101);
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 100300, 180273, 4168, '2011-01-18 15:31:00.495651+00', 6103);
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 82524, 265420, 127517, '2011-05-16 15:03:23.368437+00', 6490);
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 398598, 398438, 45799, '2011-01-18 15:31:00.495651+00', 6101, '', '');
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 100300, 180273, 4168, '2011-01-18 15:31:00.495651+00', 6103, '', '');
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 82524, 265420, 127517, '2011-05-16 15:03:23.368437+00', 6490, 'Maki Goto', '7nin Matsuri');
 
 INSERT INTO l_artist_label (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398438, 3933, 201, '2011-01-18 15:31:00.495651+00', 11764);
 INSERT INTO l_artist_label (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 9772, 1949, 2367, '2011-01-18 15:31:00.495651+00', 11714);
