@@ -11,7 +11,7 @@ INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) 
         (10, 'Label', 'label', NULL, 2),
         (11, 'Place', 'place', NULL, 2),
         (12, 'Recording', 'recording', NULL, 2),
-        (13, 'Release Group', 'release_group', NULL, 2),
+        (13, 'Release group', 'release_group', NULL, 2),
         (14, 'Series', 'series', NULL, 2),
         (15, 'Work', 'work', NULL, 2);
 
