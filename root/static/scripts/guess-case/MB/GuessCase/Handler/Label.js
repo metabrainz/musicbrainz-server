@@ -77,49 +77,17 @@ MB.GuessCase.Handler.Label = function () {
     /**
      * Delegate function which handles words not handled
      * in the common word handlers.
-     *
-     * - Handles VersusStyle
-     *
      **/
     self.doWord = function () {
-        if (self.doVersusStyle()) {
-        } else if (self.doPresentsStyle()) {
-        } else {
-            // no special case, append
-            gc.o.appendSpaceIfNeeded();
-            gc.i.capitalizeCurrentWord();
-            gc.o.appendCurrentWord();
-        }
+        gc.o.appendSpaceIfNeeded();
+        gc.i.capitalizeCurrentWord();
+        gc.o.appendCurrentWord();
+
         flags.resetContext();
         flags.context.number = false;
         flags.context.forceCaps = false;
         flags.context.spaceNextWord = true;
         return null;
-    };
-
-    /**
-     * Reformat pres/presents -> presents
-     *
-     * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
-     * - Handles FeaturingArtistStyle
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
-     *
-     **/
-    self.doPresentsStyle = function () {
-        if (!self.doPresentsRE) {
-            self.doPresentsRE = /^(presents?|pres)$/i;
-        }
-        if (gc.i.matchCurrentWord(self.doPresentsRE)) {
-            gc.o.appendSpace();
-            gc.o.appendWord("presents");
-            if (gc.i.isNextWord(".")) {
-                gc.i.nextIndex();
-            }
-            return true;
-        }
-        return false;
     };
 
     /**
