@@ -39,11 +39,19 @@
 
 <script type="text/html" id="template.dialog-entity-credit">
   <!-- ko if: entity.entityType === 'artist' -->
-    <br />
-    <label>
-      [% l('Credited as:') %]
-      <input type="text" data-bind="value: relationship.creditField(entity), attr: {placeholder: entity.name}" />
-    </label>
+    <div>
+      <label>
+        [% l('Credited as:') %]
+        <input type="text" data-bind="value: relationship.creditField(entity), attr: {placeholder: entity.name}" />
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" data-bind="checked: $parent.changeAllRelationshipCredits" />
+        <span data-bind="html: MB.i18n.l('Change all relationship credits for {entity} on the page.', {entity: entity.html({target: '_blank'})})">
+        </span>
+      </label>
+    </div>
   <!-- /ko -->
 </script>
 
