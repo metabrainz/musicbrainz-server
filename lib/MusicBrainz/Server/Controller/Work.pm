@@ -31,9 +31,6 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name     => 'work'
-};
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -61,13 +58,12 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-before qw( show aliases collections tags details ) => sub {
+before qw( show aliases tags details ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('Language')->load_for_works($work);
     $c->model('WorkAttribute')->load_for_works($work);
-    $self->_stash_collections($c);
 };
 
 with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
