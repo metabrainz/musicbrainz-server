@@ -1,4 +1,6 @@
 package t::MusicBrainz::Server::Data::Relationship;
+use List::UtilsBy qw( sort_by );
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -117,6 +119,55 @@ EOSQL
     my $artist = $c->model('Artist')->get_by_id(1);
     $c->model('Relationship')->load($artist);
     is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
+};
+
+test 'Entity credits are merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO label (id, name, gid)
+VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f'),
+       (5, 'E', '36df2c0e-c56d-43e5-a031-4049480c5a40'),
+       (6, 'F', '2db8bc79-d7ec-4be5-9abe-2df3d59ead57'),
+       (7, 'G', 'a7f08565-8fd9-4770-8b07-9c4195225211');
+
+INSERT INTO l_label_label (id, link, entity0, entity1, entity0_credit, entity1_credit)
+VALUES
+    -- same values are kept, different values are dropped
+    (1, 1, 1, 4, '', ''),
+    (2, 1, 2, 4, 'kept1', 'dropped1'),
+    (3, 1, 3, 4, 'kept1', 'dropped2'),
+
+    -- empty source values are ignored
+    (4, 1, 1, 5, '', ''),
+    (5, 1, 2, 5, 'kept2', ''),
+    (6, 1, 3, 5, '', 'kept3'),
+
+    -- non-empty target values aren't overwritten
+    (7, 1, 1, 6, 'kept4', 'kept5'),
+    (8, 1, 2, 6, 'dropped3', 'dropped4'),
+
+    -- or cleared
+    (9, 1, 1, 7, 'kept6', 'kept7'),
+    (10, 1, 2, 7, '', '');
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2, 3);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+
+    my @relationships = sort_by { $_->id } $label->all_relationships;
+    is($relationships[0]->entity0_credit, 'kept1');
+    is($relationships[0]->entity1_credit, '');
+    is($relationships[1]->entity0_credit, 'kept2');
+    is($relationships[1]->entity1_credit, 'kept3');
+    is($relationships[2]->entity0_credit, 'kept4');
+    is($relationships[2]->entity1_credit, 'kept5');
+    is($relationships[3]->entity0_credit, 'kept6');
+    is($relationships[3]->entity1_credit, 'kept7');
 };
 
 test all => sub {

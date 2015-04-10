@@ -362,16 +362,44 @@ sub merge_entities
         )", $target_id, @source_ids);
         # Having deleted those duplicates, continue with merging by link ID
 
+        # Entity credits on relationships to the target entity are always kept
+        # if they're non-empty. If relationships to any of the source entities
+        # have credits, they'll overwrite the credits on equivalent target
+        # relationships if, for each set of duplicate source relationships, all
+        # the non-empty credits are the same.
+        for my $prop (qw(entity0_credit entity1_credit)) {
+            $self->sql->do(
+                "WITH source AS (
+                    SELECT link, $entity1, unnest(array_agg(DISTINCT $prop)) credit
+                      FROM $table
+                     WHERE $entity0 = any(?) AND $prop != ''
+                     GROUP BY link, $entity1
+                    HAVING count(DISTINCT $prop) = 1
+                )
+                UPDATE $table SET $prop = source.credit
+                  FROM source
+                 WHERE $entity0 = ?
+                   AND $table.$prop = ''
+                   AND $table.link = source.link
+                   AND $table.$entity1 = source.$entity1",
+            \@source_ids, $target_id);
+        }
+
         # We want to keep a single row for each link type, and foreign entity.
         $self->sql->do(
-            "DELETE FROM $table
-            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-              AND id NOT IN (
-                  SELECT DISTINCT ON ($entity1, link) id
-                    FROM $table
-                   WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-              )",
-            $target_id, @source_ids, $target_id, @source_ids
+            "WITH dupe AS (
+                SELECT link, $entity1
+                  FROM $table
+                 WHERE $entity0 = any(?)
+                 GROUP BY link, $entity1
+                HAVING count(*) > 1
+            )
+            DELETE FROM $table
+             USING dupe
+             WHERE $entity0 = any(?)
+               AND $table.link = dupe.link
+               AND $table.$entity1 = dupe.$entity1",
+            \@ids, \@source_ids
         );
 
         # Move all remaining relationships
