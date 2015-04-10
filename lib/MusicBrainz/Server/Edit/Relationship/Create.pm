@@ -187,6 +187,8 @@ sub build_display_data
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
+            entity0_credit => $self->data->{entity0_credit} // '',
+            entity1_credit => $self->data->{entity1_credit} // '',
             link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(
