@@ -102,9 +102,6 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$entities);
         }
-        $c->stash(
-            releases => $entities
-        );
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
         $model->load_performers(@$entities);
@@ -112,21 +109,15 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
         }
-
-        $c->stash(
-            events => $entities
-        );
     } elsif ($entity_type eq 'work') {
         $model->load_related_info(@$entities);
         if ($c->user_exists) {
           $model->rating->load_user_ratings($c->user->id, @$entities);
         }
-        $c->stash(
-            works => $entities
-        );
     }
 
     $c->stash(
+        entities => $entities,
         collection => $collection,
         order => $order,
         template => 'collection/index.tt'

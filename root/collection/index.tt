@@ -6,44 +6,19 @@
           [% collection.description | format_wikitext  %]
        [%- END -%]
     </div>
-    [%- INCLUDE list entity_name='area' section_title=l('Areas') entities=areas list_tt='components/areas-list.tt'
-                remove_message=l('Remove selected areas from collection') -%]
-    [%- INCLUDE list entity_name='artist' section_title=l('Artists') entities=artists list_tt='components/artists-list.tt'
-                remove_message=l('Remove selected artists from collection') -%]
-    [%- INCLUDE list entity_name='event' section_title=l('Events') entities=events list_tt='components/events-list.tt'
-                remove_message=l('Remove selected events from collection') -%]
-    [%- INCLUDE list entity_name='instrument' section_title=l('Instruments') entities=instruments list_tt='components/instruments-list.tt'
-                remove_message=l('Remove selected instruments from collection') -%]
-    [%- INCLUDE list entity_name='label' section_title=l('Labels') entities=labels list_tt='components/labels-list.tt'
-                remove_message=l('Remove selected labels from collection') -%]
-    [%- INCLUDE list entity_name='place' section_title=l('Places') entities=places list_tt='components/places-list.tt'
-                remove_message=l('Remove selected places from collection') -%]
-    [%- INCLUDE list entity_name='recording' section_title=l('Recordings') entities=recordings list_tt='components/recordings-list.tt'
-                remove_message=l('Remove selected recordings from collection') -%]
-    [%- INCLUDE list entity_name='release' section_title=l('Releases') entities=releases list_tt='components/releases-list.tt'
-                remove_message=l('Remove selected releases from collection') -%]
-    [%- INCLUDE list entity_name='release_group' section_title=l('Release Groups') entities=release_groups list_tt='components/release_groups-list.tt'
-                remove_message=l('Remove selected release groups from collection') -%]
-    [%- INCLUDE list entity_name='series' section_title=lp('Series', 'singular') entities=series list_tt='components/series-list.tt'
-                remove_message=l('Remove selected series from collection') -%]
-    [%- INCLUDE list entity_name='work' section_title=l('Works') entities=works list_tt='components/works-list.tt'
-                remove_message=l('Remove selected works from collection') -%]
 
-[% END %]
-
-[% BLOCK list %]
-    <h2>[% section_title %]</h2>
-    [%- IF collection.type.entity_type == entity_name -%]
-
+    <h2>[% format_plural_entity_type_name(collection.type.entity_type) %]</h2>
 
     [%- IF entities.size -%]
     <form action="[% c.req.uri %]" method="post">
-      [%- INCLUDE $list_tt show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' -%]
+      [%- list_tt = 'components/' _ collection.type.entity_type _ 's-list.tt';
+          INCLUDE $list_tt show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
+            WRAPPER 'components/with-pager.tt' -%]
 
-      <div class="row">[% form_submit(remove_message) IF my_collection %]</div>
+      <div class="row">[% form_submit(l('Remove selected items from collection')) IF my_collection %]</div>
     </form>
     [%- ELSE -%]
     <p>[%- l('This collection is empty.') -%]</p>
     [%- END -%]
-    [%- END -%]
-[%- END -%]
+
+[% END %]
