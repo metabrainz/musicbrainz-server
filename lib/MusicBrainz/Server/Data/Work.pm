@@ -9,7 +9,6 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
-    order_by
     placeholders
     query_to_list
     query_to_list_limited
@@ -112,39 +111,6 @@ sub find_by_iswc
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $iswc);
-}
-
-sub find_by_collection
-{
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
-    my $order_by = order_by($order, "date", {
-        "date" => sub {
-           return "musicbrainz_collate(name), comment, type"
-        },
-        "name" => sub {
-            return "musicbrainz_collate(name), comment, type"
-        },
-        "type" => sub {
-            return "type, musicbrainz_collate(name), comment"
-        },
-    });
-
-    my $query = "
-      SELECT *
-      FROM (
-      SELECT DISTINCT ON (work.id)
-        " . $self->_columns . "
-        FROM " . $self->_table . "
-        JOIN editor_collection_work ec ON work.id = ec.work
-        WHERE ec.collection = ?
-        ORDER BY work.id, musicbrainz_collate(work.name)
-      ) work
-      ORDER BY $order_by
-      OFFSET ?";
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
 }
 
 sub load
