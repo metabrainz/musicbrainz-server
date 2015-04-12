@@ -6,6 +6,7 @@
         </tr>
     </thead>
     <tbody>
+        [% DEFAULT areas=entities %]
         [% FOR entity IN areas %]
         <tr class="[% loop.parity %]">
             <td>
