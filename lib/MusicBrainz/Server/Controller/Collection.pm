@@ -109,11 +109,6 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
         }
-    } elsif ($entity_type eq 'work') {
-        $model->load_related_info(@$entities);
-        if ($c->user_exists) {
-          $model->rating->load_user_ratings($c->user->id, @$entities);
-        }
     }
 
     $c->stash(
