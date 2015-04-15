@@ -28,13 +28,6 @@ exports.resetContext = function () {
     context.ellipsis = false;
 };
 
-// Reset the variables for the SeriesNumberStyle
-exports.resetSeriesNumberStyleFlags = function () {
-    context.part = false;
-    context.volume = false;
-    context.feat = false;
-};
-
 // Returns if there are opened brackets at current position in the string.
 exports.isInsideBrackets = function () {
     return context.openBrackets.length > 0;
@@ -86,7 +79,6 @@ exports.init = function () {
     context.slurpExtraTitleInformation = false;
 
     exports.resetContext();
-    exports.resetSeriesNumberStyleFlags();
 
     // Flag to not lowercase acronyms if followed by major punctuation.
     context.acronym = false;
