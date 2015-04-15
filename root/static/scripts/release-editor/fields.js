@@ -232,6 +232,13 @@ var dates = require('../edit/utility/dates.js');
                 }
             }
 
+            // Hints for guess-feat. functionality.
+            var release = this.medium.release;
+            if (release) {
+                release.relatedArtists = _.union(release.relatedArtists, value.relatedArtists);
+                release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
+            }
+
             this.recordingValue(value);
         },
 
@@ -241,6 +248,14 @@ var dates = require('../edit/utility/dates.js');
 
         hasVariousArtists: function () {
             return this.artistCredit.isVariousArtists();
+        },
+
+        relatedArtists: function () {
+            return this.medium.release.relatedArtists;
+        },
+
+        isProbablyClassical: function () {
+            return this.medium.release.isProbablyClassical;
         }
     });
 
@@ -446,7 +461,7 @@ var dates = require('../edit/utility/dates.js');
 
             var args = {
                 url: "/ws/js/medium/" + id,
-                data: { inc: "recordings" }
+                data: { inc: "recordings+rels" }
             };
 
             request(args, this).done(this.tracksLoaded);
@@ -704,7 +719,7 @@ var dates = require('../edit/utility/dates.js');
             ko.computed(function () {
                 _(self.events()).groupBy(countryID).each(function (events) {
                     _.invoke(events, "isDuplicate", _.filter(events, nonEmptyEvent).length > 1);
-                });
+                }).value();
             });
 
             this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
@@ -729,7 +744,7 @@ var dates = require('../edit/utility/dates.js');
             ko.computed(function () {
                 _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
                     _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
-                });
+                }).value();
             });
 
             this.needsLabels = errorField(this.labels.any("needsLabel"));

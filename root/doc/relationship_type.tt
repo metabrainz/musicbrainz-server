@@ -33,6 +33,7 @@
         [% END %]
         <strong>[% l('entity0 cardinality:') %]</strong> [% link_type_cardinality_name(relationship_type.entity0_cardinality) %]<br />
         <strong>[% l('entity1 cardinality:') %]</strong> [% link_type_cardinality_name(relationship_type.entity1_cardinality) %]<br />
+        <strong>[% l('Orderable direction:') %]</strong> [% orderable_direction_name(relationship_type.orderable_direction) %]<br />
         <strong>[% l('UUID:') %]</strong> [% relationship_type.gid %]<br />
     </p>
 

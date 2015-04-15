@@ -97,7 +97,6 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
-            null,
             {variable: "data"}
         ),
 
@@ -145,7 +144,6 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
         template: _.template(
             "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
             "<bdi><%- data.name %></bdi></a>",
-            null,
             {variable: "data"}
         )
     });
@@ -179,6 +177,9 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
                     return MB.entity(appearance, appearsOnType);
                 });
             }
+
+            this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
         },
 
         around$html: function (supr, params) {
@@ -203,6 +204,9 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             if (data.mediums) {
                 this.mediums = _.map(data.mediums, MB.entity.Medium);
             }
+
+            this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
         }
     });
 
@@ -301,7 +305,6 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             "<% if (data.nameVariation) print('</span>'); %>" +
             "<% if (data.editsPending > 0) print('</span>'); %>" +
             "<%- data.join %>",
-            null,
             {variable: "data"}
         ),
 
@@ -344,9 +347,13 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
-        around$toJSON: function (supr) {
+        toJSON: function (supr) {
             var artist = ko.unwrap(this.artist);
-            return _.assign(supr(), { artist: artist ? artist.toJSON() : null });
+            return {
+                artist: artist ? artist.toJSON() : null,
+                name: ko.unwrap(this.name) || '',
+                joinPhrase: ko.unwrap(this.joinPhrase) || ''
+            };
         },
 
         text: function () {
@@ -462,6 +469,17 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
         }
     });
 
+    function relatedArtists(relationships) {
+        return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
+    }
+
+    var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
+
+    function isProbablyClassical(entity) {
+        return classicalRoles.test(entity.name) || _.any(entity.relationships, function (r) {
+            return _.contains(MB.constants.PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+        });
+    }
 
     // Used by MB.entity() to look up classes. JSON from the web service
     // usually includes a lower-case type name, which is used as the key.

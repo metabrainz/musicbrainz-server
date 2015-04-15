@@ -57,6 +57,12 @@
                         link_type_cardinality_name(edit.data.new.entity1_cardinality)) -%]
   [% END %]
 
+  [% IF edit.data.old.orderable_direction != edit.data.new.orderable_direction %]
+  [%- display_word_diff(l('Orderable direction:'),
+                        orderable_direction_name(edit.data.old.orderable_direction),
+                        orderable_direction_name(edit.data.new.orderable_direction)) -%]
+  [% END %]
+
   [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>
@@ -95,6 +101,7 @@
                          html_escape(edit.data.new.documentation));
      END %]
 
+  [% IF edit.display_data.examples.old OR edit.display_data.examples.new %]
   <tr>
     <th>[% l('Examples:') %]</th>
     <td class="old">
@@ -122,4 +129,5 @@
       </ul>
     </td>
   </tr>
+  [% END %]
 </table>

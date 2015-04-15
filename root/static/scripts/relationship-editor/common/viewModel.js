@@ -47,7 +47,7 @@ var request = require('../../common/utility/request.js');
             if (type0 !== type1) {
                 (MB.allowedRelations[type1] = MB.allowedRelations[type1] || []).push(type0);
             }
-        });
+        }).value();
 
         _.each(MB.attrInfoByID, function (attr) {
             attr.root = MB.attrInfoByID[attr.rootID];

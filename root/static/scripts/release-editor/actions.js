@@ -5,6 +5,7 @@
 
 var i18n = require('../common/i18n.js');
 var deferFocus = require('../edit/utility/deferFocus.js');
+var guessFeat = require('../edit/utility/guessFeat');
 
 (function (releaseEditor) {
 
@@ -264,6 +265,18 @@ var deferFocus = require('../edit/utility/deferFocus.js');
             _.times(addTrackCount, function () {
                 medium.pushTrack({ artistCredit: defaultAC });
             });
+        },
+
+        guessReleaseFeatArtists: function (release) {
+            guessFeat(release);
+        },
+
+        guessTrackFeatArtists: function (track) {
+            guessFeat(track);
+        },
+
+        guessMediumFeatArtists: function (medium) {
+            _.each(medium.tracks(), guessFeat);
         },
 
         // Recordings tab

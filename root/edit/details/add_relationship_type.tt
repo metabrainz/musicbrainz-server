@@ -25,6 +25,13 @@
   </tr>
   [% END %]
 
+  [% IF edit.data.orderable_direction.defined %]
+  <tr>
+    <th>[% l('Orderable direction:') %]</th>
+    <td>[% orderable_direction_name(edit.data.orderable_direction) %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>

@@ -57,8 +57,8 @@ test all => sub {
         linkOrder => 0,
     }, "BoA performed vocals");
 
-    is_deeply($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
-               [], "No relationships on second track");
+    is($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
+       undef, "No relationships on second track");
 };
 
 test 'Release group types are serialized (MBS-8212)' => sub {

@@ -250,9 +250,19 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
     my $editor = $c->stash->{user};
     unless ($editor->email) {
         $c->stash(
-            title    => $c->gettext('Send Email'),
+            title    => l('Send Email'),
             message  => l('The editor {name} has no email address attached to their account.',
                          { name => $editor->name }),
+            template => 'user/message.tt',
+        );
+        $c->detach;
+    }
+
+    unless ($c->user->has_confirmed_email_address) {
+        $c->stash(
+            title    => l('Send Email'),
+            message  => l('You cannot contact other users because you have not {url|confirmed your email address}.',
+                          {url => $c->uri_for_action('/account/resend_verification')}),
             template => 'user/message.tt',
         );
         $c->detach;
