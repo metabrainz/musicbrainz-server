@@ -14,6 +14,7 @@
 }
 
 .styled-button {
+    background-image: none; /* Firefox <35 for Android, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button */
     background-color:@very-light-bg;
     border:1px solid @dark-button-border;
     border-top:1px solid @light-button-border;
