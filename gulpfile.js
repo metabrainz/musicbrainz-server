@@ -70,7 +70,7 @@ function runYarb(resourceName, callback) {
 
     callback && callback(bundle);
 
-    if (process.env.UGLIFY) {
+    if (process.env.DEVELOPMENT_SERVER == 0) {
         bundle.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts
             global: true,
@@ -113,7 +113,7 @@ function reactify(filename) {
 }
 
 function buildScripts() {
-    process.env.NODE_ENV = process.env.UGLIFY ? 'production' : 'development';
+    process.env.NODE_ENV = process.env.DEVELOPMENT_SERVER == 1 ? 'development' : 'production';
 
     var commonBundle = runYarb('common.js', function (b) {
         b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
