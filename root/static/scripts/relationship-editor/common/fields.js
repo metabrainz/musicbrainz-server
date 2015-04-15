@@ -3,6 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../../common/i18n.js');
+var request = require('../../common/utility/request.js');
+var dates = require('../../edit/utility/dates.js');
+var mergeDates = require('./mergeDates.js');
+
 (function (RE) {
 
     var fields = RE.fields = RE.fields || {};
@@ -31,10 +36,7 @@
 
             this.linkTypeID = ko.observable(data.linkTypeID);
             this.linkTypeID.isDifferent = linkTypeComparer;
-
-            this.linkTypeID.subscribe(function (id) {
-                self.linkTypeIDChanged(id);
-            });
+            this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             this.period = {
                 beginDate: setPartialDate({}, data.beginDate || {}),
@@ -44,6 +46,34 @@
 
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
+            this.attributes.original = {};
+
+            if (data.id) {
+                _.each(this.attributes.peek(), function (attribute) {
+                    self.attributes.original[attribute.type.gid] = attribute.toJS();
+                });
+            }
+
+            // XXX Sigh. This whole subscription shouldn't be necessary, because
+            // we already filter out invalid attributes in linkTypeIDChanged.
+            // But knockout's 'checked' binding is annoying and reverts any removals
+            // if it sees that the previous attributes are still checked (they
+            // haven't been removed from the template yet; that probably happens
+            // in a later subscription). That's why the _.defer is needed; we need
+            // to wait for it to idiotically add the attributes back. The proper
+            // solution would be to use a writable computed observable that filters
+            // out invalid values upon writing, but there's already a bunch of code
+            // that depends on 'attributes' being an observableArray.
+            var removingInvalidAttributes = false;
+            this.attributes.subscribe(function (newAttributes) {
+                _.defer(function () {
+                    if (!removingInvalidAttributes && newAttributes === self.attributes.peek()) {
+                        removingInvalidAttributes = true;
+                        self.attributes(validAttributes(self, newAttributes));
+                        removingInvalidAttributes = false;
+                    }
+                });
+            });
 
             this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
@@ -63,6 +93,10 @@
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
+        },
+
+        formatDatePeriod: function () {
+            return dates.formatDatePeriod(this.period);
         },
 
         fromJS: function (data) {
@@ -95,13 +129,17 @@
                 return;
             }
 
+            // This should really only change if the relationship was initially
+            // seeded without any link type.
+            this.entityTypes = typeInfo.type0 + '-' + typeInfo.type1;
+
             var typeAttributes = typeInfo.attributes,
                 attributes = this.attributes(), attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
 
-                if (!typeAttributes || !typeAttributes[attribute.type.id]) {
+                if (!typeAttributes || !typeAttributes[attribute.type.rootID]) {
                     this.attributes.remove(attribute);
                     --i;
                     --len;
@@ -172,8 +210,8 @@
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                MB.utility.request(args, this).done(function (data) {
-                    entity1.parseRelationships(data.relationships, this.parent);
+                request(args).done(function (data) {
+                    entity1.parseRelationships(data.relationships);
                 });
             }
 
@@ -208,7 +246,7 @@
         },
 
         setAttributes: function (attributes) {
-            this.attributes(_.map(attributes, function (data) {
+            this.attributes(_.map(validAttributes(this, attributes), function (data) {
                 return new fields.LinkAttribute(data);
             }));
         },
@@ -235,7 +273,7 @@
                 });
 
                 if (values.length < min) {
-                    return MB.text.AttributeRequired;
+                    return i18n.l("This attribute is required.");
                 }
             }
 
@@ -257,17 +295,17 @@
                     value = _.str.clean(attribute.textValue());
 
                     if (value) {
-                        value = MB.i18n.expand(MB.text.AttributeTextValue, {
+                        value = i18n.l("{attribute}: {value}", {
                             attribute: type.l_name, value: value
                         });
                     }
                 }
 
                 if (type.creditable) {
-                    var credit = _.str.clean(attribute.credit());
+                    var credit = _.str.clean(attribute.creditedAs());
 
                     if (credit) {
-                        value = MB.i18n.expand(MB.text.AttributeCredit, {
+                        value = i18n.l("{attribute} [{credited_as}]", {
                             attribute: type.l_name, credited_as: credit
                         });
                     }
@@ -285,7 +323,7 @@
                 var values = attributesByName[name] || [];
                 delete extraAttributes[name];
 
-                var replacement = MB.i18n.commaList(values)
+                var replacement = i18n.commaList(values)
 
                 if (alts && (alts = alts.split("|"))) {
                     replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || "";
@@ -300,7 +338,7 @@
             return [
                 typeInfo ? _.str.clean(typeInfo.phrase.replace(regex, interpolate)) : "",
                 typeInfo ? _.str.clean(typeInfo.reversePhrase.replace(regex, interpolate)) : "",
-                MB.i18n.commaList(_.flatten(_.values(extraAttributes)))
+                i18n.commaList(_.flatten(_.values(extraAttributes)))
             ];
         },
 
@@ -394,8 +432,8 @@
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
-                MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.period.beginDate, other.period.beginDate) &&
+                mergeDates(this.period.endDate, other.period.endDate) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },
@@ -428,11 +466,11 @@
         var type = this.type = MB.attrInfoByID[data.type.gid];
 
         if (type.creditable) {
-            this.credit = ko.observable(ko.unwrap(data.credit) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
         }
 
         if (type.freeText) {
-            this.textValue = ko.observable(ko.unwrap(data.textValue) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
         }
     };
 
@@ -440,12 +478,27 @@
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + _.str.clean(this.credit());
+            return type.gid + "\0" + _.str.clean(this.creditedAs());
         }
         if (type.freeText) {
             return type.gid + "\0" + _.str.clean(this.textValue());
         }
         return type.gid;
+    };
+
+    fields.LinkAttribute.prototype.toJS = function () {
+        var type = this.type;
+        var output = { type: { gid: type.gid } };
+
+        if (type.creditable) {
+            output.credited_as = _.str.clean(this.creditedAs());
+        }
+
+        if (type.freeText) {
+            output.text_value = _.str.clean(this.textValue());
+        }
+
+        return output;
     };
 
     ko.bindingHandlers.textAttribute = {
@@ -495,6 +548,22 @@
             if (!match) return false;
         }
         return true;
+    }
+
+    function validAttributes(relationship, attributes) {
+        var typeInfo = relationship.linkTypeInfo();
+
+        if (_.isEmpty(attributes) || _.isEmpty(typeInfo) || _.isEmpty(typeInfo.attributes)) {
+            return [];
+        } else {
+            return _.transform(attributes, function (accum, data) {
+                var attrInfo = MB.attrInfoByID[data.type.gid];
+
+                if (attrInfo && typeInfo.attributes[attrInfo.rootID]) {
+                    accum.push(data);
+                }
+            });
+        }
     }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

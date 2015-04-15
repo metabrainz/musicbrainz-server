@@ -196,6 +196,8 @@ test 'basic release with collections' => sub {
                     id => "f34c079d-374e-4436-9448-da92dedef3cd",
                     name => "My Collection",
                     editor => "editor",
+                    type => "Release",
+                    "entity-type" => "release",
                     "release-count" => 1
                 }]
         });
@@ -472,7 +474,18 @@ test 'release lookup with discids and puids' => sub {
                     format => "CD",
                     title => JSON::null,
                     position => 1,
-                    discs => [ { id => "W01Qvrvwkaz2Cm.IQm55_RHoRxs-", sectors => 60295 } ],
+                    discs => [
+                        {
+                            id => "W01Qvrvwkaz2Cm.IQm55_RHoRxs-",
+                            'offset-count' => 3,
+                            offsets => [
+                                150,
+                                22352,
+                                38335
+                            ],
+                            sectors => 60295
+                        }
+                    ],
                     "track-count" => 3,
                     "track-offset" => 0,
                     tracks => [
@@ -670,8 +683,8 @@ test 'release lookup, relation attributes' => sub {
                         date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
-                            language => JSON::null,
-                            script => JSON::null,
+                            language => 'jpn',
+                            script => 'Jpan',
                         },
                         status => JSON::null,
                         packaging => JSON::null,
@@ -709,8 +722,8 @@ test 'release lookup, relation attributes' => sub {
                         date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
-                            language => JSON::null,
-                            script => JSON::null,
+                            language => 'jpn',
+                            script => 'Jpan',
                         },
                         status => JSON::null,
                         packaging => JSON::null,

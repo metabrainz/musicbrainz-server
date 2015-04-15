@@ -1,5 +1,5 @@
 // This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
+// Copyright (C) 2010-2014 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -18,13 +18,13 @@ MB.releaseEditor.trackParser = {
     trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
 
     options: {
-        hasTrackNumbers: MB.utility.optionCookie("trackparser_tracknumbers", true),
-        hasTrackArtists: MB.utility.optionCookie("trackparser_trackartists", true),
-        hasVinylNumbers: MB.utility.optionCookie("trackparser_vinylnumbers", true),
-        useTrackNumbers: MB.utility.optionCookie("trackparser_usetracknumbers", true),
-        useTrackNames: MB.utility.optionCookie("trackparser_usetracknames", true),
-        useTrackArtists: MB.utility.optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: MB.utility.optionCookie("trackparser_tracktimes", true)
+        hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
+        hasTrackArtists: optionCookie("trackparser_trackartists", true),
+        hasVinylNumbers: optionCookie("trackparser_vinylnumbers", true),
+        useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
+        useTrackNames: optionCookie("trackparser_usetracknames", true),
+        useTrackArtists: optionCookie("trackparser_usetrackartists", true),
+        useTrackLengths: optionCookie("trackparser_tracktimes", true)
     },
 
     parse: function (str, medium) {
@@ -35,6 +35,7 @@ MB.releaseEditor.trackParser = {
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
+        var previousTracks = [];
         var matchedTracks = {};
         var dataTrackPairs = [];
         var hasTocs;
@@ -43,6 +44,7 @@ MB.releaseEditor.trackParser = {
         // Mediums aren't passed in for unit tests.
         if (medium) {
             currentTracks = medium.tracks.peek().slice(0);
+            previousTracks = currentTracks.slice(0);
             hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
         }
@@ -102,12 +104,15 @@ MB.releaseEditor.trackParser = {
                 }
             });
 
-        var newTracks = _.map(newTracksData, function (data) {
+        var newTracks = _.map(newTracksData, function (data, index) {
             var matchedTrack = data.matchedTrack;
+            var previousTrack = previousTracks[index];
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
+            var previousTrackAC = previousTrack && previousTrack.artistCredit;
 
-            // See if we can re-use the AC from the matched track or the release.
-            var matchedAC = _.find([ matchedTrackAC, releaseAC ],
+            // See if we can re-use the AC from the matched track, the previous
+            // track at this position, or the release.
+            var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || ac.isVariousArtists()) return false;
 
@@ -186,6 +191,40 @@ MB.releaseEditor.trackParser = {
             }
         }
 
+        // MBS-7719: make sure the "Reuse previous recordings" button is
+        // available for new tracks by saving any unset recordings onto the
+        // new track instances.
+        if (previousTracks && previousTracks.length) {
+            _.each(newTracks, function (track, index) {
+                delete track.previousTrackAtThisPosition;
+
+                var previousTrack = previousTracks[index];
+
+                // Don't save the recording that was at this position if the
+                // *track* that was at this position was moved/reused.
+                if (previousTrack && !matchedTracks[previousTrack.uniqueID]) {
+                    var previousRecording = previousTrack.recording.peek();
+
+                    if (previousRecording && previousRecording.gid) {
+                        var currentRecording = track.recording.peek();
+
+                        if (currentRecording !== previousRecording) {
+                            track.recording.saved = previousRecording;
+                            track.hasNewRecording(false);
+                        }
+                    }
+
+                    // Save track ids, too.
+                    if (previousTrack.gid) {
+                        track.previousTrackAtThisPosition = {
+                            id: previousTrack.id,
+                            gid: previousTrack.gid
+                        };
+                    }
+                }
+            });
+        }
+
         return newTracks;
     },
 
@@ -205,8 +244,8 @@ MB.releaseEditor.trackParser = {
 
         if (match !== null) {
             if (options.useTrackLengths && match[1] !== "?:??") {
-                data.formattedLength = MB.utility.fullWidthConverter(match[1]);
-                data.length = MB.utility.unformatTrackLength(data.formattedLength);
+                data.formattedLength = fullWidthConverter(match[1]);
+                data.length = MB.releaseEditor.utils.unformatTrackLength(data.formattedLength);
             }
             // Remove the track time from the line.
             line = line.slice(0, -match[0].length);
@@ -220,7 +259,7 @@ MB.releaseEditor.trackParser = {
             if (match === null) return {};
 
             if (options.useTrackNumbers) {
-                data.number = MB.utility.fullWidthConverter(match[1]);
+                data.number = fullWidthConverter(match[1]);
 
                 if (/^\d+$/.test(data.number)) {
                     data.number = data.number.replace(/^0+(\d+)/, "$1");
@@ -313,10 +352,46 @@ MB.releaseEditor.trackParser = {
     matchDataWithTrack: function (data, track) {
         if (!track) return;
 
-        var similarity = MB.utility.similarity(data.name, track.name.peek());
+        var similarity = MB.releaseEditor.utils.similarity(data.name, track.name.peek());
 
         if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };
         }
     }
 };
+
+function optionCookie(name, defaultValue) {
+    var existingValue = $.cookie(name);
+
+    var observable = ko.observable(
+        defaultValue ? existingValue !== "false" : existingValue === "true"
+    );
+
+    observable.subscribe(function (newValue) {
+        $.cookie(name, newValue, { path: "/", expires: 365 });
+    });
+
+    return observable;
+}
+
+/* Convert fullwidth characters to standard halfwidth Latin. */
+function fullWidthConverter(inputString) {
+    if (inputString === "") {
+        return "";
+    }
+
+    i = inputString.length;
+    newString = [];
+
+    do {
+        newString.push(
+            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
+                return String.fromCharCode(p1.charCodeAt(0) - 65248);
+            })
+        );
+    } while (--i);
+
+    return newString.reverse().join("");
+}
+
+exports.fullWidthConverter = fullWidthConverter;

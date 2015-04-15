@@ -29,8 +29,7 @@
                   <input type="radio" name="merge.target" value="[% release.id %]" />
                 </td>
                   <td>
-                    [% link_release(release) %]
-                    [% disambiguation(release) %]
+                    [%~ link_entity(release) ~%]
                   </td>
                   <td>[% artist_credit(release.artist_credit) %]</td>
                   <td>[% html_escape(release.combined_format_name) or "-" %]</td>

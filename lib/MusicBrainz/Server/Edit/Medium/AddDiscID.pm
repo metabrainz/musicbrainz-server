@@ -92,7 +92,7 @@ method build_display_data ($loaded)
     my $pos = $self->data->{medium_position};
 
     return {
-        medium => $loaded->{Medium}{ $self->data->{medium_id} } //
+        medium => $loaded->{Medium}{ $self->data->{medium_id} // -1 } //
                   Medium->new( release => $loaded->{Release}{ $self->release_id } //
                                            Release->new( name => $self->data->{release}{name} ),
                                $pos ? ( position => $pos ) : (),

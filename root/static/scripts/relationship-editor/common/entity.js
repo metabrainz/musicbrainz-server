@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var mergeDates = require('./mergeDates.js');
+var deferFocus = require('../../edit/utility/deferFocus.js');
+
 (function (RE) {
 
     MB.entity.CoreEntity.extend({
@@ -12,7 +15,7 @@
             this.relationshipElements = {};
         },
 
-        parseRelationships: function (relationships, viewModel) {
+        parseRelationships: function (relationships) {
             var self = this;
 
             if (!relationships || !relationships.length) {
@@ -20,7 +23,7 @@
             }
 
             var newRelationships = _(relationships)
-                .map(function (data) { return viewModel.getRelationship(data, self) })
+                .map(function (data) { return MB.getRelationship(data, self) })
                 .compact()
                 .value();
 
@@ -32,7 +35,7 @@
             this.relationships(allRelationships);
 
             _.each(relationships, function (data) {
-                MB.entity(data.target).parseRelationships(data.target.relationships, viewModel);
+                MB.entity(data.target).parseRelationships(data.target.relationships);
             });
         },
 
@@ -43,7 +46,7 @@
         relationshipsInViewModel: cacheByID(function (vm) {
             var self = this;
             return this.relationships.filter(function (relationship) {
-                return vm.containsRelationship(relationship, self);
+                return vm === relationship.parent;
             });
         }),
 
@@ -68,12 +71,19 @@
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invoke(relationships, "attributes"),
-                    commonAttributes = _.reject(_.intersection.apply(_, attributeLists), isFreeText);
+                var attributeLists = _.invoke(relationships, "attributes");
 
-                relationship.attributes(commonAttributes);
-                MB.utility.deferFocus("input.name", "#dialog");
+                var commonAttributes = _.map(
+                    _.reject(_.intersection.apply(_, attributeLists), isFreeText),
+                    function (attr) {
+                        return { type: { gid: attr.type.gid } };
+                    }
+                );
+
+                relationship.setAttributes(commonAttributes);
+                deferFocus("input.name", "#dialog");
                 dialog.open(event.target);
+                return dialog;
             }
 
             return this.displayableRelationships(vm)
@@ -95,13 +105,8 @@
                 if (rel !== other && rel.isDuplicate(other)) {
                     var obj = _.omit(rel.editData(), "id");
 
-                    obj.beginDate = MB.utility.mergeDates(
-                        rel.period.beginDate, other.period.beginDate
-                    );
-
-                    obj.endDate = MB.utility.mergeDates(
-                        rel.period.endDate, other.period.endDate
-                    );
+                    obj.beginDate = mergeDates(rel.period.beginDate, other.period.beginDate);
+                    obj.endDate = mergeDates(rel.period.endDate, other.period.endDate);
 
                     other.fromJS(obj);
                     rel.remove();
@@ -110,12 +115,6 @@
                 }
             }
             return false;
-        },
-
-        getRelationshipGroup: function (linkTypeID, viewModel) {
-            return _(this.groupedRelationships(viewModel))
-                .values().where({ linkTypeID: +linkTypeID })
-                .invoke("relationships").flatten().value();
         }
     });
 

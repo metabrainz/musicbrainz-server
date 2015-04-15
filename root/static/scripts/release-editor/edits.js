@@ -3,17 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var debounce = require('../common/utility/debounce.js');
+var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
+
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
-    var releaseField = ko.observable().subscribeTo("releaseField", true);
+    var validation = require('../edit/validation.js');
 
 
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
-
-    var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums());
-    }, []);
 
     var newReleaseLabels = utils.withRelease(function (release) {
         return _.filter(release.labels(), function (releaseLabel) {
@@ -26,16 +25,34 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var name = _.str.clean(releaseGroup.name) || _.str.clean(release.name());
+            var releaseName = _.str.clean(release.name());
+            var releaseAC = release.artistCredit;
+            var origData = MB.edit.fields.releaseGroup(releaseGroup);
+            var editData = _.cloneDeep(origData);
 
-            if (releaseGroup.id || !name) return [];
+            if (releaseGroup.gid) {
+                var dataChanged = false;
 
-            var editData = MB.edit.fields.releaseGroup(releaseGroup);
+                if (releaseEditor.copyTitleToReleaseGroup() && releaseGroup.canTakeName(releaseName)) {
+                    editData.name = releaseName;
+                    dataChanged = true;
+                }
 
-            editData.name = name;
-            editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
+                if (releaseEditor.copyArtistToReleaseGroup() && releaseGroup.canTakeArtist(releaseAC)) {
+                    editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
+                    dataChanged = true;
+                }
 
-            return [ MB.edit.releaseGroupCreate(editData) ];
+                if (dataChanged) {
+                    return [MB.edit.releaseGroupEdit(editData, origData)];
+                }
+            } else if (releaseEditor.action === "add") {
+                editData.name = _.str.clean(releaseGroup.name) || releaseName;
+                editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
+                return [MB.edit.releaseGroupCreate(editData)];
+            }
+
+            return [];
         },
 
         release: function (release) {
@@ -122,10 +139,12 @@
             var oldPositions = _.map(release.mediums.original(), function (m) {
                 return m.original().position;
             });
-            var newPositions = newMediums().invoke("position").value();
+
+            var newMediums = release.mediums();
+            var newPositions = _.invoke(release.mediums(), "position");
             var tmpPositions = [];
 
-            newMediums().each(function (medium) {
+            _.each(newMediums, function (medium) {
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original();
 
@@ -197,7 +216,8 @@
                                 // position we want. Avoid this *unless* we're
                                 // swapping with that medium.
 
-                                var possibleSwap = newMediums().find(
+                                var possibleSwap = _.find(
+                                    newMediums,
                                     function (other) {
                                         return other.position() === attempt;
                                     }
@@ -246,7 +266,7 @@
                 }
             });
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var newPosition = medium.position();
 
                 var oldPosition = medium.tmpPosition || (
@@ -288,7 +308,7 @@
         discID: function (release) {
             var edits = [];
 
-            newMediums().each(function (medium) {
+            _.each(release.mediums(), function (medium) {
                 var toc = medium.toc();
 
                 if (toc && medium.canHaveDiscID()) {
@@ -309,26 +329,37 @@
         externalLinks: function (release) {
             var edits = [];
 
-            _(release.externalLinks.links()).each(function (link) {
-                if (!link.linkTypeID() || !link.url() || link.error()) {
+            if (releaseEditor.hasInvalidLinks()) {
+                return edits;
+            }
+
+            var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+
+            _(allLinks).each(function (link) {
+                if (!link.type || !link.url) {
                     return;
                 }
 
-                var editData = link.editData();
+                var newData = MB.edit.fields.externalLinkRelationship(link, release);
 
-                if (link.removed()) {
-                    edits.push(MB.edit.relationshipDelete(editData));
-                }
-                else if (link.id) {
-                    // Update the release name in case it changed.
-                    link.original.entities[0].name = editData.entities[0].name;
+                if (isPositiveInteger(link.relationship)) {
+                    if (!newLinks[link.relationship]) {
+                        edits.push(MB.edit.relationshipDelete(newData));
+                    } else if (oldLinks[link.relationship]) {
+                        var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(editData, link.original)) {
-                        edits.push(MB.edit.relationshipEdit(editData, link.original));
+                        if (!_.isEqual(newData, original)) {
+                            var editData = MB.edit.relationshipEdit(newData, original);
+
+                            if (original.video && !newData.video) {
+                                editData.attributes = [{type: {gid: MB.constants.VIDEO_ATTRIBUTE_GID}, removed: true}];
+                            }
+
+                            edits.push(editData);
+                        }
                     }
-                }
-                else {
-                    edits.push(MB.edit.relationshipCreate(editData));
+                } else if (newLinks[link.relationship]) {
+                    edits.push(MB.edit.relationshipCreate(newData));
                 }
             });
 
@@ -337,24 +368,23 @@
     };
 
 
-    releaseEditor.allEdits = utils.debounce(
-        utils.withRelease(function (release) {
-            var root = releaseEditor.rootField;
+    var _allEdits = _.map([
+        'releaseGroup',
+        'release',
+        'releaseLabel',
+        'medium',
+        'mediumReorder',
+        'discID',
+        'annotation',
+        'externalLinks'
+    ], function (name) {
+        return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
+    });
 
-            return Array.prototype.concat(
-                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
-                releaseEditor.edits.release(release),
-                releaseEditor.edits.releaseLabel(release),
-                releaseEditor.edits.medium(release),
-                releaseEditor.edits.mediumReorder(release),
-                releaseEditor.edits.discID(release),
-                releaseEditor.edits.annotation(release),
-                releaseEditor.edits.externalLinks(release)
-            );
-        }, []),
-        1500
-    );
 
+    releaseEditor.allEdits = ko.computed(function () {
+        return _.flatten(_.map(_allEdits, ko.unwrap));
+    });
 
     releaseEditor.editPreviews = ko.observableArray([]);
     releaseEditor.loadingEditPreviews = ko.observable(false);
@@ -377,10 +407,10 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        utils.debounce(ko.computed(function () {
+        debounce(function () {
             var edits = releaseEditor.allEdits();
 
-            if (releaseEditor.validation.errorsExist()) {
+            if (validation.errorsExist()) {
                 refreshPreviews([]);
                 return;
             }
@@ -405,7 +435,7 @@
                     // Make sure edits haven't changed while request was pending
                     if (edits === releaseEditor.allEdits()) {
                         // and that errors haven't occurred.
-                        if (releaseEditor.validation.errorsExist()) {
+                        if (validation.errorsExist()) {
                             edits = [];
                         }
                         refreshPreviews(edits);
@@ -415,7 +445,7 @@
                     releaseEditor.loadingEditPreviews(false);
                     previewRequest = null;
                 });
-        }), 100);
+        }, 100);
     };
 
 
@@ -494,9 +524,11 @@
             edits: releaseEditor.edits.releaseGroup,
 
             callback: function (release, edits) {
-                release.releaseGroup(
-                    releaseEditor.fields.ReleaseGroup(edits[0].entity)
-                );
+                var edit = edits[0];
+
+                if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
+                    release.releaseGroup(releaseEditor.fields.ReleaseGroup(edits[0].entity));
+                }
             }
         },
         {
@@ -540,7 +572,9 @@
                 var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
-                newMediums().reject("id").each(function (medium) {
+                var newMediums = release.mediums();
+
+                _(newMediums).reject("id").each(function (medium) {
                     var addedData = added[medium.tmpPosition || medium.position()];
 
                     if (addedData) {
@@ -558,8 +592,7 @@
                 });
 
                 release.mediums.original(release.existingMediumData());
-
-                newMediums.notifySubscribers(newMediums());
+                release.mediums.notifySubscribers(newMediums);
             }
         },
         {
@@ -569,7 +602,7 @@
             edits: releaseEditor.edits.discID,
 
             callback: function (release) {
-                newMediums().invoke("toc", null);
+                _.invoke(release.mediums(), "toc", null);
             }
         },
         {
@@ -591,7 +624,7 @@
         }
 
         releaseEditor.submissionInProgress(true);
-        var release = releaseField();
+        var release = releaseEditor.rootField.release();
 
         chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
     };

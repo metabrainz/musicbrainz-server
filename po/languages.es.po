@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-05 16:49+0000\n"
-"Last-Translator: Ismael Olea <email address hidden>\n"
+"PO-Revision-Date: 2015-03-27 11:32+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -350,6 +350,11 @@ msgstr "Birmano"
 msgid "Caddo"
 msgstr "Caddo"
 
+#. frequency:1 iso_code_3:frc
+#: DB:language/name:2311
+msgid "Cajun French"
+msgstr ""
+
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
 msgid "Catalan"
@@ -590,7 +595,7 @@ msgstr "Duala"
 msgid "Dutch"
 msgstr "Neerlandés"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Holandés medio (ca. 1050-1350)"
@@ -1210,7 +1215,7 @@ msgstr "Kikongo"
 msgid "Konkani"
 msgstr "Konkaní"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "Coreano"
@@ -1615,6 +1620,11 @@ msgstr "Nepal bhasa"
 msgid "Nepali"
 msgstr "Nepalí"
 
+#. frequency:1 iso_code_3:yrl
+#: DB:language/name:7618
+msgid "Nhengatu"
+msgstr ""
+
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
 msgid "Nias"
@@ -1655,7 +1665,7 @@ msgstr "Noruego antiguo"
 msgid "North American Indian languages"
 msgstr "Lenguas indígenas de Norteamérica"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Noruego"
@@ -2489,6 +2499,11 @@ msgstr "Yidis"
 #: DB:language/name:464
 msgid "Yoruba"
 msgstr "Yoruba"
+
+#. frequency:1 iso_code_3:yua
+#: DB:language/name:7636
+msgid "Yucateco"
+msgstr ""
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

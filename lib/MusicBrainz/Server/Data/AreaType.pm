@@ -9,15 +9,11 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'area_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
     return 'area_type';
-}
-
-sub _columns
-{
-    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class
@@ -29,6 +25,13 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM area WHERE type = ? LIMIT 1',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

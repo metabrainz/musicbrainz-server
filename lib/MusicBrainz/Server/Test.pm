@@ -33,7 +33,7 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok test_xpath_html commandline_override
-            capture_edits
+            capture_edits post_json
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
@@ -275,30 +275,6 @@ sub evaluate_template
     return $out;
 }
 
-sub mock_search_server
-{
-    my ($type) = @_;
-
-    $type =~ s/-/_/g;
-
-    local $/;
-    my $searchresults = "t/json/search_".lc($type).".json";
-    open(JSON, $searchresults) or die("Could not open $searchresults");
-    my $json = <JSON>;
-    close(JSON);
-
-    my $mock = mock_class 'LWP::UserAgent' => 'LWP::UserAgent::Mock';
-    my $mock_server = $mock->new_object;
-    $mock_server->mock_return(
-        'get' => sub {
-            HTTP::Response->new(200, undef, undef, $json);
-        }
-    );
-    $mock_server->mock_return(
-        'timeout' => sub { 5; }
-    );
-}
-
 sub old_edit_row
 {
     my ($self, %args) = @_;
@@ -488,6 +464,17 @@ sub commandline_override
     GetOptions("tests=s" => \$test_re);
 
     return grep { $_ =~ /$test_re/ } @default_tests;
+}
+
+sub post_json {
+    my ($mech, $uri, $json) = @_;
+
+    my $req = HTTP::Request->new('POST', $uri);
+
+    $req->header('Content-Type' => 'application/json');
+    $req->content($json);
+
+    return $mech->request($req);
 }
 
 1;

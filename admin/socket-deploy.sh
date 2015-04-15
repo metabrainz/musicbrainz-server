@@ -12,6 +12,7 @@ git pull --ff-only
 CURRENT=$(pgrep -U `whoami` -f perl-fcgi-pm)
 
 eval $(perl -Mlocal::lib)
+eval $(admin/ShowDBDefs)
 
 echo `date` : "Checking dependencies (if this fails on libintl-perl, don't worry)"
 cpanm --notest --installdeps .
@@ -20,7 +21,7 @@ echo `date` : "Checking npm dependencies"
 npm install
 
 echo `date` : "Rebuilding resources"
-script/compile_resources.pl
+UGLIFY=1 script/compile_resources.pl
 
 echo `date` : "Building and installing translations"
 make -C po all_quiet && make -C po deploy

@@ -1,8 +1,8 @@
 <table class="tbl">
   <thead>
     <tr>
-      [%~ IF c.user_exists AND !no_checkboxes ~%]
-        <th>
+      [%~ IF c.user_exists AND checkboxes ~%]
+        <th style="width: 1em">
           <input type="checkbox" />
         </th>
       [%~ END ~%]
@@ -33,9 +33,9 @@
   <tbody>
     [%~ FOR event IN events ~%]
     <tr class="[% loop.parity %]">
-      [%~ IF c.user_exists AND !no_checkboxes ~%]
+      [%~ IF c.user_exists AND checkboxes ~%]
       <td>
-        <input type="checkbox" name="add-to-merge" value="[%~ event.id ~%]" />
+        <input type="checkbox" name="[% checkboxes %]" value="[%~ event.id ~%]" />
       </td>
       [%~ END ~%]
       [%~ IF series_item_numbers ~%]
@@ -88,16 +88,7 @@
           </ul>
         </td>
       [%~ END ~%]
-      [%~ IF event.begin_date.format == event.end_date.format ~%]
-          <td>[%~ event.begin_date.format ~%]</td>
-      [%~ ELSIF event.begin_date.format && event.end_date.format ~%]
-          <td>[%~ l('{begindate} &#x2013; {enddate}', { begindate => event.begin_date.format,
-                                                        enddate   => event.end_date.format }) ~%]</td>
-      [%~ ELSIF event.begin_date.format ~%]
-          <td>[%~ l('{begindate} &#x2013; ????', { begindate => event.begin_date.format }) ~%]</td>
-      [%~ ELSIF event.end_date.format ~%]
-          <td>[%~ l('???? &#x2013; {enddate}', { enddate   => event.end_date.format }) ~%]</td>
-      [%~ END ~%]
+      <td>[% event.formatted_date %]</td>
       <td>[%~ event.formatted_time ~%]</td>
       [%~ UNLESS no_ratings ~%]
         <td>[%~ rating_stars(event) ~%]</td>

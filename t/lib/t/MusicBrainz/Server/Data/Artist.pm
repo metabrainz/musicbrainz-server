@@ -115,16 +115,21 @@ like ( $annotation->text, qr/Test annotation 1/ );
 
 
 # Merging annotations
-$artist_data->annotation->merge(4, 3);
+$artist_data->annotation->merge(4, 5, 3, 6);
 $annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
 $annotation = $artist_data->annotation->get_latest(4);
-like ( $annotation->text, qr/Test annotation 2/ );
-
 
 like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
 like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
+like($annotation->text, qr/Duplicate annotation/, 'has third annotation');
+
+like($annotation->text, qr/annotation 2.*annotation 1/s,
+     'annotation from merge target is first (MBS-3452)');
+
+unlike($annotation->text, qr/Duplicate annotation.*Duplicate annotation/s,
+       'duplicate annotation appears only once (MBS-6164)');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);
@@ -376,6 +381,19 @@ EOSQL
     is($artist->end_date->year, 2005);
     is($artist->end_date->month, undef);
     is($artist->end_date->day, 12);
+};
+
+test 'Merging "ended" flag' => sub {
+    my $c = shift->c;
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name, ended) VALUES
+  (3, 'ac653796-bca1-4d2e-a92a-4ce5ef2efb0b', 'The Artist', 'Artist, The', FALSE),
+  (4, '0db63477-bc98-4aac-a76a-28d78971a07c', 'An Artist', 'Artist, An', TRUE);
+EOSQL
+
+    $c->model('Artist')->merge(3, [4]);
+    my $artist = $c->model('Artist')->get_by_id(3);
+    ok($artist->ended, 'merge result retains "ended" flag (MBS-6763)');
 };
 
 test 'Merging attributes for VA' => sub {

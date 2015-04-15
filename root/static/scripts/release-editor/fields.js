@@ -3,11 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var dates = require('../edit/utility/dates.js');
+
 (function (releaseEditor) {
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-    var validation = releaseEditor.validation = releaseEditor.validation || {};
+    var validation = require('../edit/validation.js');
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
@@ -42,13 +47,17 @@
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.track = this;
 
-            this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
+            this.formattedLength = ko.observable(formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
-            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
-            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
+
+            this.updateRecordingTitle = ko.observable(releaseEditor.copyTrackTitlesToRecordings());
+            this.updateRecordingArtist = ko.observable(releaseEditor.copyTrackArtistsToRecordings());
+
+            releaseEditor.copyTrackTitlesToRecordings.subscribe(this.updateRecordingTitle);
+            releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
             this.recordingValue = ko.observable(
                 MB.entity.Recording({ name: data.name })
@@ -120,8 +129,19 @@
             }
 
             var oldLength = this.length();
-            var newLength = MB.utility.unformatTrackLength(length);
+            var newLength = utils.unformatTrackLength(length);
+
+            if (_.isNaN(newLength)) {
+                this.formattedLength('');
+                return;
+            }
+
             this.length(newLength);
+
+            var newFormattedLength = formatTrackLength(newLength);
+            if (length !== newFormattedLength) {
+                this.formattedLength(newFormattedLength);
+            }
 
             // If the length being changed is for a pregap track and the medium
             // has cdtocs attached, make sure the new length doesn't exceed the
@@ -133,7 +153,7 @@
             var hasTooltip = !!$lengthInput.data("ui-tooltip");
 
             if (this.medium.hasInvalidPregapLength()) {
-                $lengthInput.attr("title", MB.text.InvalidPregapLength);
+                $lengthInput.attr("title", i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
 
                 if (!hasTooltip) {
                     $lengthInput.tooltip();
@@ -381,7 +401,7 @@
 
             _.each(tocTracks, function (track, index) {
                 track.formattedLength(
-                    MB.utility.formatTrackLength(
+                    formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
@@ -429,7 +449,7 @@
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this).done(this.tracksLoaded);
+            request(args, this).done(this.tracksLoaded);
         },
 
         tracksLoaded: function (data) {
@@ -472,17 +492,15 @@
 
             if (name) {
                 if (multidisc) {
-                    return MB.i18n.expand(
-                        MB.text.DiscNumberTitle, { num: position, title: name }
-                    );
+                    return i18n.l("Medium {position}: {title}", { position: position, title: name });
                 }
                 return name;
 
             }
             else if (multidisc) {
-                return MB.i18n.expand(MB.text.DiscNumber, { num: position });
+                return i18n.l("Medium {position}", { position: position });
             }
-            return MB.text.Tracklist;
+            return i18n.l("Tracklist");
         },
 
         canHaveDiscID: function () {
@@ -507,7 +525,7 @@
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = MB.utility.parseDate(data.date || "");
+            var date = dates.parseDate(data.date || "");
 
             this.date = {
                 year:   ko.observable(date.year),
@@ -523,7 +541,7 @@
 
             this.hasInvalidDate = ko.computed(function () {
                 var date = self.unwrapDate();
-                return !MB.utility.validDate(date.year, date.month, date.day);
+                return !dates.isDateValid(date.year, date.month, date.day);
             });
         },
 
@@ -555,6 +573,7 @@
             this.label = ko.observable(MB.entity(data.label || {}, "label"));
             this.catalogNumber = ko.observable(data.catalogNumber);
             this.release = release;
+            this.isDuplicate = ko.observable(false);
 
             var self = this;
 
@@ -575,6 +594,7 @@
         weights: [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3],
 
         init: function (data) {
+            this.original = data;
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);
@@ -698,7 +718,22 @@
                 _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
             );
 
+            function releaseLabelKey(releaseLabel) {
+                return ((releaseLabel.label() || {}).id || '') + '\0' + _.str.clean(releaseLabel.catalogNumber());
+            }
+
+            function nonEmptyReleaseLabel(releaseLabel) {
+                return releaseLabelKey(releaseLabel) !== '\0';
+            }
+
+            ko.computed(function () {
+                _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
+                    _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
+                });
+            });
+
             this.needsLabels = errorField(this.labels.any("needsLabel"));
+            this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
 
             this.releaseGroup = ko.observable(
                 fields.ReleaseGroup(data.releaseGroup || {})
@@ -725,9 +760,10 @@
             this.loadedMediums = this.mediums.filter("loaded");
             this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
             this.hasTracks = this.mediums.any("hasTracks");
+            this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
-            this.needsMediums = errorField(function () { return !self.mediums().length });
+            this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
             this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
             this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
@@ -742,18 +778,9 @@
                 this.labels.push(fields.ReleaseLabel({}, this));
             }
 
-            if (!this.mediums().length) {
+            if (!this.mediums().length && !this.hasUnknownTracklist()) {
                 this.mediums.push(fields.Medium({}, this));
             }
-
-            // Setup the external links editor
-
-            this.externalLinks = MB.Control.externalLinks.ViewModel({
-                source: this,
-                sourceData: data
-            });
-
-            this.hasInvalidLinks = errorField(this.externalLinks.links.any("error"));
         },
 
         loadMedia: function () {
@@ -795,13 +822,6 @@
     });
 
 
-    fields.Root = aclass(function () {
-        this.release = ko.observable().syncWith("releaseField", true, true);
-        this.makeVotable = ko.observable(false);
-        this.editNote = ko.observable("");
-    });
-
-
     ko.bindingHandlers.disableBecauseDiscIDs = {
 
         update: function (element, valueAccessor, allBindings, viewModel) {
@@ -810,7 +830,7 @@
             $(element)
                 .prop("disabled", disabled)
                 .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? MB.text.DoNotChangeTracks : "");
+                .attr("title", disabled ? i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
         }
     };
 

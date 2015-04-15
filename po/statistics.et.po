@@ -1,11 +1,12 @@
 # 
 # Translators:
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012
+# Mihkel Tõnnov <email address hidden>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-02-20 22:07+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -461,9 +462,9 @@ msgstr "Avalikustati otsingufunktsioonid ja veebiteenuse täiendused."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
-"\treleased."
-msgstr "Parandati põhimenüüd, avalikustati duplikaatartistide, kogu albumi toimetamise ja\nlugude kestuse toimetamise funktsioonid."
+"Top menu navigation improved, duplicate artists, album edit all, track time "
+"editing features released."
+msgstr "Parandati põhimenüüd, avalikustati duplikaatartistide, kogu albumi toimetamise ja lugude kestuse toimetamise funktsioonid."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
@@ -522,7 +523,7 @@ msgstr "Aktiivsed kasutajad"
 msgid "Active Voters"
 msgstr "Aktiivsed hääletajad"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Add/remove lines:"
 msgstr "Joonte lisamine/eemaldamine:"
 
@@ -752,7 +753,7 @@ msgstr "Tühistatud:"
 msgid "Characters"
 msgstr "Tegelaskujud"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:20
 msgid "Check boxes above"
 msgstr "Vali ülalolevaid märkeruute"
 
@@ -760,11 +761,11 @@ msgstr "Vali ülalolevaid märkeruute"
 msgid "Choirs"
 msgstr "Koorid"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Click to deselect"
 msgstr "Klõpsa valiku eemaldamiseks"
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:16
 msgid "Controls"
 msgstr "Juhtimine"
 
@@ -1022,7 +1023,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:59
 msgid "Count of all events"
-msgstr ""
+msgstr "Sündmuste arv"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
@@ -1145,7 +1146,7 @@ msgstr "Plaadi-ID-d"
 msgid "Disc IDs:"
 msgstr "Plaadi-ID-sid:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Draw a rectangle on either graph"
 msgstr "Joonista ristkülik emmal-kummal graafikul"
 
@@ -1231,13 +1232,13 @@ msgstr ""
 
 #: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
 msgid "Events"
-msgstr ""
+msgstr "Sündmused"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
 msgid "Events:"
-msgstr ""
+msgstr "Sündmusi:"
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:28
 msgid "Exact Values (items vs. day)"
 msgstr "Täpsed väärtused (elementide arv vastaval päeval)"
 
@@ -1303,7 +1304,7 @@ msgstr "Kõrge andmekvaliteet"
 msgid "High Data Quality:"
 msgstr "Kõrge andmekvaliteediga:"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "Hover and click on vertical lines"
 msgstr "Vii kursor püstjoonele ja klõpsa"
 
@@ -1431,7 +1432,7 @@ msgstr "Viimase 7 päeva jooksul:"
 msgid "Last updated: {date}"
 msgstr "Viimati uuendatud: {date}"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:4
 msgid "Legend"
 msgstr "Legend"
 
@@ -1493,11 +1494,11 @@ msgstr "Nädala jooksul kõige aktiivsemad toimetajad"
 msgid "Most active voters in the past week"
 msgstr "Nädala jooksul kõige aktiivsemad hääletajad"
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:8
 msgid "MusicBrainz Events"
 msgstr "MusicBrainzi sündmused"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:21
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzi sündmused:"
 
@@ -1647,11 +1648,11 @@ msgstr "Põhitüübid"
 msgid "Rank"
 msgstr "Koht"
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:30
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Muutumiskiirus (keskmine elementide arvu muutus vastaval päeval)"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:12
 msgid "Rate of Change Graph"
 msgstr "Muutumiskiiruse graafik"
 
@@ -1865,7 +1866,7 @@ msgstr "Väljalasked, andmekvaliteet ja plaadi-ID-d"
 msgid "Releases:"
 msgstr "Väljalaskeid:"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:19
 msgid "Reset:"
 msgstr "Lähtestamine:"
 
@@ -1919,7 +1920,7 @@ msgstr "Pole andmeid, mida siin näidata."
 msgid "Timeline"
 msgstr "Ajatelg"
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
 msgstr "Ajatelg"
 
@@ -2090,7 +2091,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr "Eile:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
 msgstr "Suurendamine:"
 

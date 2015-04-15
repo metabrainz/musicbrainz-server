@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add relationship attribute') }
@@ -39,10 +40,20 @@ sub build_display_data
     }
 }
 
-sub accept {
+sub insert {
     my $self = shift;
-    $self->c->model('LinkAttributeType')->insert($self->data)
+
+    my $entity = $self->c->model('LinkAttributeType')->insert($self->data);
+    $self->entity_id($entity->id);
+    $self->entity_gid($entity->gid);
 };
+
+sub reject {
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'Edits of this type cannot be rejected'
+    );
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

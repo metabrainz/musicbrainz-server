@@ -1,12 +1,16 @@
 body {
-    padding: 0 10px;
+    padding: 0;
     margin: 0;
     background-color: @very-light-bg;
     color: @text-black;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
-    min-width: 780px;
+    min-width: @min-width;
     margin: auto;
+
+    @media @wide {
+        padding: 0 10px;
+    }
 }
 
 a {
@@ -176,8 +180,11 @@ img.gravatar {
     font-size: 95%;
     font-weight: bold;
     z-index: 9;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+
+    @media @wide {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
 }
 
 #header-menu div {
@@ -255,11 +262,14 @@ img.gravatar {
     background: #FFF;
     overflow: visible;
     position: relative;
-    border-radius: 6px;
     display: table;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
+
+    @media @wide {
+        border-radius: 6px;
+    }
 }
 
 #current-editing h2 {
@@ -277,7 +287,10 @@ img.gravatar {
     border: 0;
     color: @text-orange;
     position: relative;
-    border-radius: 6px;
+
+    @media @wide {
+        border-radius: 6px;
+    }
 
     p {
         margin: 0;
@@ -294,7 +307,6 @@ img.gravatar {
 }
 
 div.caa-warning,
-div.notice,
 div.warning {
     margin: 2em auto;
     border: 1px solid @dark-border;
@@ -426,8 +438,6 @@ div.warning img.warning {
 /*
 ** Misc
 */
-.clear { clear: both; }
-
 .c, table.tbl .c { text-align: center; }
 
 .noborder { border: none !important; }
@@ -464,9 +474,12 @@ table.tbl {
     border-top: solid 1px @dark-border;
     border-bottom: solid 1px @dark-border;
 
+    thead {
+        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
+    }
+
     th {
         font-size: 95%;
-        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
         padding: 0.2em 0.4em;
         text-align: left;
         border-bottom: solid 1px @dark-border;
@@ -523,6 +536,7 @@ table.tbl {
     /* Fixed widths and other custom styles */
     .pos { width: 1em; white-space: nowrap; }
     .year { width: 4em; }
+    &.release-group-list .artist { width: 25%; }
     .count { width: 2em; }
     .rating { width: 50px; }
     .treleases { width: 3em; }
@@ -542,25 +556,21 @@ table.tbl {
         background: data-uri('../images/icons/page_white_cd.png');
         cursor: help !important;
     }
-
-    /* Sortable table headers/images */
-    thead tr .header {
-        cursor: pointer;
-    }
-    thead tr .header .arrow {
-        background: data-uri('../images/layout/bg.gif') no-repeat center right;
-        display: inline-block;
-        height: 9px;
-        width: 21px;
-    }
-    thead tr .headerSortUp .arrow {
-        background-image: data-uri('../images/layout/asc.gif');
-    }
-    thead tr .headerSortDown .arrow {
-        background-image: data-uri('../images/layout/desc.gif');
-    }
 }
 
+#toggle-credits { float: right; }
+
+table.tbl.medium {
+    /* Kills the 2px borders between collapsed discs on release pages. */
+    margin-top: -1px;
+
+    .expand-triangle {
+        color: @musicbrainz-purple;
+    }
+
+    /* Visibly apparent for tracks with inline credits. */
+    td { vertical-align: top; }
+}
 
 /* Nesting of different table types */
 table.details table.tbl {
@@ -576,14 +586,29 @@ table.details table.tbl th {
 }
 
 /* Paginator */
-.pageselector {
+nav .pagination {
+    display: table;
+    border-collapse: collapse;
+
+    li {
+        display: table-cell;
+        border: solid 1px @light-border;
+
+        &.separator {
+            border-top-style: none;
+            border-bottom-style: none;
+            width: 1em;
+        }
+    }
+
     a, span {
-        font-size: 90%;
-        padding: 0.05em 0.4em;
+        display: block;
+        padding: 0.25em 0.55em;
+        min-width: 1em; /* ensure that even single digits are a reasonable size */
+        text-align: center;
     }
 
     a {
-        border: solid 1px @text-black;
         text-decoration: none;
         background-color: #FFF;
         color: @text-black;
@@ -593,20 +618,15 @@ table.details table.tbl th {
         }
 
         &.sel {
-            background-color: @musicbrainz-orange;
+            background-color: @musicbrainz-purple;
+            color: @text-white;
             font-weight: bold;
         }
     }
 
     span {
-        border: solid 1px @dark-border;
         background-color: @very-light-bg;
         color: @dark-text;
-    }
-
-    em {
-        font-style: normal;
-        margin-left: 0.5em;
     }
 
     + .tbl {
@@ -616,28 +636,6 @@ table.details table.tbl th {
     &-results {
         margin-bottom: 0;
     }
-}
-
-/* Browse Entity pages */
-.browse-entities {
-    margin-top: 1em;
-}
-
-.browse-entities ol {
-    margin: 0;
-}
-
-.browse {
-    margin-top: 0.5em;
-}
-
-.browse td {
-    text-align: center;
-    padding: 2px;
-}
-
-.browse td.char {
-    width: 0.7em;
 }
 
 /* Entity details & edit details */
@@ -740,28 +738,6 @@ table.properties th {
     text-align: right;
 }
 
-/* CSS columns (instead of using tables) */
-div.columns-2 div.column {
-    float: left;
-    width: 50%;
-    min-width: 300px;
-}
-div.columns-3 div.column {
-    float: left;
-    width: 33.3%;
-    min-width: 200px;
-}
-div.columns-4 div.column {
-    float: left;
-    width: 25%;
-    min-width: 150px;
-}
-div.columns-5 div.column {
-    float: left;
-    width: 20%;
-    min-width: 120px;
-}
-
 .nagpanel {
     background-color: @effectively-white-bg;
     border: 2px dashed @musicbrainz-purple;
@@ -848,17 +824,17 @@ div.artwork { position: relative; width: 250px; }
     display: block;
 }
 
-.annotation-body {
+.annotation-body, .review-body, .wikipedia-extract-body {
     position: relative;
     overflow: auto;
 }
 
-.annotation-collapsed {
+.annotation-collapsed, .review-collapsed, .wikipedia-extract-collapsed {
     max-height: 100px;
     overflow: hidden;
 }
 
-.annotation-collapsed:after {
+.annotation-collapsed:after, .review-collapsed:after, .wikipedia-extract-collapsed:after {
     display: block;
     position: absolute;
     bottom: 0;
@@ -874,7 +850,7 @@ div.artwork { position: relative; width: 250px; }
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-.annotation-collapse {
+.annotation-collapse, .review-collapse, .wikipedia-extract-collapse {
     max-height: none;
 }
 
@@ -907,4 +883,18 @@ dl.ars dt {
 #largemap {
     margin: 10px;
     min-height: 600px;
+}
+
+/* CritiqueBrainz reviews */
+
+#critiquebrainz-reviews {
+    .review-metadata {
+        margin: 0;
+        font-size: 90%;
+    }
+
+    .review-body {
+        text-align: justify;
+        padding-left: @form-margin;
+    }
 }

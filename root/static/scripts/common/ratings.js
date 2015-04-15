@@ -3,6 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('./i18n.js');
+
+function ratingTooltip(rating) {
+    if (rating == 0) {
+       return i18n.l("Remove your rating");
+    } else {
+       return i18n.ln("Rate: {rating} star", "Rate: {rating} stars", rating, { rating: rating });
+    }
+}
+
 $(document).on("click", "span.star-rating a", function () {
     var $ratingLink = $(this);
     var url = this.href + '&json=1';
@@ -43,7 +53,7 @@ $(document).on("click", "span.star-rating a", function () {
             if (oldRatingMatch[1] != newRating)
             {
                 this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
-                $(this).attr('title', MB.text.RatingTitles[5 * newRating / 100]);
+                $(this).attr('title', ratingTooltip(5 * newRating / 100));
             }
         });
 

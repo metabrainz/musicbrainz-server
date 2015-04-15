@@ -5,7 +5,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
-use MusicBrainz::Server::Constants qw( $EDIT_COUNT_LIMIT );
+use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
@@ -95,7 +95,7 @@ has fields => (
 );
 
 sub new_from_user_input {
-    my ($class, $user_input) = @_;
+    my ($class, $user_input, $user_id) = @_;
     my $input = expand_hash($user_input);
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
@@ -106,19 +106,20 @@ sub new_from_user_input {
         auto_edit_filter => $ae,
         fields => [
             map {
-                $class->_construct_predicate($_)
+                $class->_construct_predicate($_, $user_id)
             } grep { defined } @{ $input->{conditions} }
         ]
     );
 }
 
 sub _construct_predicate {
-    my ($class, $input) = @_;
+    my ($class, $input, $user_id) = @_;
     return try {
         my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
         $predicate_class->new_from_input(
             $input->{field},
-            $input
+            $input,
+            $user_id,
         )
     } catch {
         my $err = $_;
@@ -150,7 +151,7 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT $EDIT_COUNT_LIMIT OFFSET ?";
+         LIMIT $LIMIT_FOR_EDIT_LISTING OFFSET ?";
 }
 
 sub arguments {

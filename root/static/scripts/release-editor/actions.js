@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var deferFocus = require('../edit/utility/deferFocus.js');
+
 (function (releaseEditor) {
 
     _.extend(releaseEditor, {
@@ -30,6 +33,9 @@
 
         // Information tab
 
+        copyTitleToReleaseGroup: ko.observable(false),
+        copyArtistToReleaseGroup: ko.observable(false),
+
         addReleaseEvent: function (release) {
             release.events.push(this.fields.ReleaseEvent({}, release));
         },
@@ -44,11 +50,6 @@
 
         removeReleaseLabel: function (releaseLabel) {
             releaseLabel.release.labels.remove(releaseLabel);
-        },
-
-        guessCaseReleaseName: function () {
-            var release = releaseEditor.rootField.release();
-            release.name(MB.GuessCase.release.guess(release.name.peek()));
         },
 
         // Tracklist tab
@@ -87,8 +88,8 @@
             var index = mediums.indexOf(medium);
             var position = medium.position();
 
-            mediums.remove(medium);
             medium.removed = true;
+            mediums.remove(medium);
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {
@@ -127,7 +128,7 @@
                 this.swapTracks(track, previous, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-up", "#" + track.elementID);
+            deferFocus("button.track-up", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -148,7 +149,7 @@
                 this.swapTracks(track, next, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+            deferFocus("button.track-down", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -201,9 +202,9 @@
             }
 
             if (focus) {
-                MB.utility.deferFocus("button.remove-item", "#" + focus.elementID);
+                deferFocus("button.remove-item", "#" + focus.elementID);
             } else {
-                MB.utility.deferFocus(".add-tracks button.add-item", $medium);
+                deferFocus(".add-tracks button.add-item", $medium);
             }
 
             medium.toc(null);
@@ -239,7 +240,13 @@
                 return track.artistCredit.isComplex();
             });
 
-            if (!requireConf || confirm(MB.text.ConfirmSwap)) {
+            var question = i18n.l(
+                "This tracklist has artist credits with information that " +
+                "will be lost if you swap artist credits with track titles. " +
+                "This cannot be undone. Do you wish to continue?"
+            );
+
+            if (!requireConf || confirm(question)) {
                 _.each(tracks, function (track) {
                     var oldTitle = track.name();
 
@@ -263,14 +270,20 @@
 
         reuseUnsetPreviousRecordings: function (release) {
             _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
+                var previous = track.previousTrackAtThisPosition;
+                if (previous) {
+                    track.id = previous.id;
+                    track.gid = previous.gid;
+                    delete track.previousTrackAtThisPosition;
+                }
                 track.recording(track.recording.saved);
             });
         },
 
         inferTrackDurationsFromRecordings: ko.observable(false),
 
-        copyTrackTitlesToRecordings: ko.observable(false).publishOn("updateRecordingTitles", true),
-        copyTrackArtistsToRecordings: ko.observable(false).publishOn("updateRecordingArtists", true)
+        copyTrackTitlesToRecordings: ko.observable(false),
+        copyTrackArtistsToRecordings: ko.observable(false)
     });
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

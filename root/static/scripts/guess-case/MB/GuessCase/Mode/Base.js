@@ -1,23 +1,12 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010-2011 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2005 Stefan Kestenholz (keschte)
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+var i18n = require('../../../../common/i18n.js');
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var utils = require('../../../utils.js');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
@@ -60,20 +49,11 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
      * keschte          2005-06-14              added "tha" to be handled like "the"
      * warp             2011-02-01              added da, de, di, fe, fi, ina, inna
      **/
-    self.getLowerCaseWords = function () {
-        return [
-            'a', 'an', 'and', 'as', 'at', 'but', 'by', 'da', 'de', 'di', 'fe',
-            'fi', 'for', 'in', 'ina', 'inna', 'n', 'nor', 'o', 'of', 'on', 'or',
-            'tha', 'the', 'to'
-        ];
-    };
+    var lowerCaseWords = /^(a|an|and|as|at|but|by|da|de|di|fe|fi|for|in|ina|inna|n|nor|o|of|on|or|tha|the|to)$/;
 
     self.isLowerCaseWord = function (w) {
-        if (!self.lowerCaseWords) {
-            self.lowerCaseWords = gc.u.toAssocArray(self.getLowerCaseWords());
-        }
-        return gc.u.inArray(self.lowerCaseWords,w);
-    }; // lowercase_words
+        return lowerCaseWords.test(w);
+    };
 
     /**
      * Words which are always written uppercase.
@@ -86,33 +66,12 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
      * keschte          2005-10-24              removed AD
      * keschte          2005-11-15              removed RIP (Let Rip) is not R.I.P.
      **/
-    self.getUpperCaseWords = function () {
-        return [
-            "dj", "mc", "tv", "mtv", "ep", "lp",
-            "ymca", "nyc", "ny", "ussr", "usa", "r&b",
-            "bbc", "fm", "bc", "ac", "dc", "uk", "bpm", "ok", "nba",
-            "rza", "gza", "odb", "dmx", "2xlc" // artists
-        ];
-    };
-
-    self.getRomanNumberals = function () {
-        return ["i","ii","iii","iv","v","vi","vii","viii","ix","x"];
-    };
+    var upperCaseWords = /^(dj|mc|tv|mtv|ep|lp|ymca|nyc|ny|ussr|usa|r&b|bbc|fm|bc|ac|dc|uk|bpm|ok|nba|rza|gza|odb|dmx|2xlc)$/;
+    var romanNumerals = /^(i|ii|iii|iv|v|vi|vii|viii|ix|x)$/;
 
     self.isUpperCaseWord = function (w) {
-        if (!self.upperCaseWords) {
-            self.upperCaseWords = gc.u.toAssocArray(self.getUpperCaseWords());
-        }
-        if (!self.romanNumerals) {
-            self.romanNumerals = gc.u.toAssocArray(self.getRomanNumberals());
-        }
-        var f = gc.u.inArray(self.upperCaseWords, w);
-        if (!f && gc.CFG_UC_ROMANNUMERALS) {
-            f = gc.u.inArray(self.romanNumerals, w);
-        }
-
-        return f;
-    }; // uppercase_words
+        return upperCaseWords.test(w) || (gc.CFG_UC_ROMANNUMERALS && romanNumerals.test(w));
+    };
 
     /**
      * Pre-process to find any lowercase_bracket word that needs to be put into parentheses.
@@ -128,7 +87,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
         while (((w[wi] == " ") || // skip whitespace
                 (w[wi] == '"' && (w[wi-1] == "7" || w[wi-1] == "12")) || // vinyl 7" or 12"
                 ((w[wi+1] || "") == '"' && (w[wi] == "7" || w[wi] == "12")) ||
-                (gc.u.isPrepBracketWord(w[wi]))) &&
+                (utils.isPrepBracketWord(w[wi]))) &&
                wi >= 0) {
             handlePreProcess = true;
             wi--;
@@ -153,11 +112,10 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
             // in parantheses, consult the list of words
             // were we do not do it, else continue.
             var probe = w[lastword];
-            if ((wi == lastword) &&
-                (gc.u.isPrepBracketSingleWord(probe))) {
-
+            if (wi == lastword && utils.isPrepBracketSingleWord(probe)) {
                 handlePreProcess = false;
             }
+
             if (handlePreProcess && wi > 0 && wi <= lastword) {
                 var nw = w.slice(0, wi);
                 if (nw[wi-1] == "(") { nw.pop(); }
@@ -166,7 +124,6 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
                 nw = nw.concat(w.slice(wi,w.length));
                 nw[nw.length] = ")";
                 w = nw;
-
             }
         }
         return w;
@@ -296,12 +253,10 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     self.runFixes = function (is, list) {
         var replace_match = function (matcher, is) {
             // get reference to first set of parentheses
-            var a = matcher[1];
-            a = (MB.utility.isNullOrEmpty(a) ? "" : a);
+            var a = matcher[1] || '';
 
             // get reference to last set of parentheses
-            var b = matcher[matcher.length-1];
-            b = (MB.utility.isNullOrEmpty(b) ? "" : b);
+            var b = matcher[matcher.length-1] || '';
 
             // compile replace string
             var rs = [a,fix.replace,b].join("");
@@ -315,6 +270,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
             if (fix && fix.name) {
                 if (fix.re.global) {
+                    var matches;
                     while ((matches = fix.re.exec(is))) {
                         is = replace_match(matches, is);
                     }
@@ -365,22 +321,27 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
         return false;
     };
 
-    MB.GuessCase.Mode.Artist = $.extend({}, self, {
-        isLowerCaseWord: function (w) {
-            return w === 'the' ? false : self.isLowerCaseWord(w);
-        },
-
-        isSentenceCaps: function () { return false }
-    });
-
     MB.GuessCase.Mode.English = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionEnglish,
+        description: i18n.l(
+            "This mode capitalises almost all words, with some words " +
+            "(mainly articles and short prepositions) lowercased. Some " +
+            "words may need to be manually capitalised to follow the " +
+            "{url|English capitalisation guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language/English" }
+        ),
 
         isSentenceCaps: function () { return false }
     });
 
     MB.GuessCase.Mode.French = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionFrench,
+        description: i18n.l(
+            "This mode capitalises titles as sentence mode, but also " +
+            "inserts spaces before semicolons, colons, exclamation marks " +
+            "and question marks, and inside guillemets. Some words may " +
+            "need to be manually capitalised to follow the {url|French " +
+            "capitalisation guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language/French" }
+        ),
 
         runPostProcess: function (is) {
             return self.runPostProcess(is)
@@ -391,6 +352,12 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     });
 
     MB.GuessCase.Mode.Sentence = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionSentence
+        description: i18n.l(
+            "This mode capitalises the first word of a sentence, most " +
+            "other words are lowercased. Some words, often proper nouns, " +
+            "may need to be manually fixed according to the {url|relevant " +
+            "language guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language" }
+        )
     });
 }());

@@ -9,11 +9,10 @@ use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    check_in_use
     hash_to_row
     load_subobjects
     merge_table_attributes
-    merge_partial_date
+    merge_date_period
     placeholders
     query_to_list
     query_to_list_limited
@@ -38,7 +37,6 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel'
 };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
@@ -169,25 +167,6 @@ sub update
     return 1;
 }
 
-sub in_use
-{
-    my ($self, $label_id) = @_;
-
-    return check_in_use($self->sql,
-        'release_label         WHERE label = ?'   => [ $label_id ],
-        'l_area_label          WHERE entity1 = ?' => [ $label_id ],
-        'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
-        'l_instrument_label    WHERE entity1 = ?' => [ $label_id ],
-        'l_label_place         WHERE entity0 = ?' => [ $label_id ],
-        'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
-        'l_label_release       WHERE entity0 = ?' => [ $label_id ],
-        'l_label_release_group WHERE entity0 = ?' => [ $label_id ],
-        'l_label_url           WHERE entity0 = ?' => [ $label_id ],
-        'l_label_work          WHERE entity0 = ?' => [ $label_id ],
-        'l_label_label         WHERE entity0 = ? OR entity1 = ?'=> [ $label_id, $label_id ],
-    );
-}
-
 sub can_delete
 {
     my ($self, $label_id) = @_;
@@ -236,14 +215,13 @@ sub _merge_impl
         )
     );
 
-    merge_partial_date(
+    merge_date_period(
         $self->sql => (
             table => 'label',
-            field => $_,
             old_ids => \@old_ids,
             new_id => $new_id
         )
-    ) for qw( begin_date end_date );
+    );
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
 

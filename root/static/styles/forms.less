@@ -1,4 +1,4 @@
-@form-half-width: 520px;
+@form-half-width: 540px;
 @form-margin: 12px;
 @form-label-width: 150px;
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
@@ -126,7 +126,10 @@ div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
     border-bottom: 12px solid transparent;
 }
 
-.bubble div.row input[type=text] {
+.bubble div.row input[type=text],
+.bubble div.row input[type=email],
+.bubble div.row input[type=number],
+.bubble div.row input[type=url] {
     width: @form-bubble-input-width;
     font-size: 1em;
 }
@@ -215,7 +218,7 @@ table.row-form {
 
     label { display: inline-block; text-align: right; }
 
-    input[type=text], select, span.autocomplete {
+    input[type=text], input[type=email], input[type=number], input[type=url], select, span.autocomplete {
         width: 100% !important;
     }
 
@@ -240,12 +243,35 @@ table.row-form {
     ul.errors { margin: 0; }
 }
 
+div.checkbox {
+    display: table;
+    > div {
+        display: table-row;
+        > input { display: table-cell; }
+        > label { display: table-cell; text-align: left; }
+    }
+}
+
 /* __________________________________
 
-          Guess Case doc bubble
+          Guess Case
    __________________________________ */
 
-div.guesscase-options table td { vertical-align: top; width: 50%; }
+#guesscase-options {
+    display: none;
+}
+
+button.guesscase-title, button.guesscase-sortname {
+    background-image: data-uri('../images/icons/guesscase.png');
+}
+
+button.sortname-copy {
+    background-image: data-uri('../images/icons/copy.png');
+}
+
+button.guesscase-options {
+    background-image: data-uri('../images/icons/cog.png');
+}
 
 /* __________________________________
 
@@ -346,9 +372,14 @@ div.half-width fieldset select.short {
     font-weight: bold;
 }
 
-div.half-width fieldset input.with-remove,
-div.half-width fieldset select.with-remove {
-    width: @form-input-width - @form-icon-size - 2;
+div.half-width fieldset {
+    input.with-button, select.with-button {
+        width: @form-input-width - @form-icon-size - 2;
+    }
+
+    input.with-guesscase {
+        width: @form-input-width - (@form-icon-size * 2) - 6 !important;
+    }
 }
 
 div.half-width fieldset input[type=checkbox] {
@@ -474,6 +505,11 @@ div.remove-item {
     background-image: data-uri('../images/icons/track-up.png');
 }
 
+.help {
+    background-image: data-uri('../images/icons/help.png');
+    cursor: help !important;
+}
+
 /*
   Artist credits
   ================================================
@@ -505,6 +541,13 @@ div.remove-item {
   External links editor
 */
 
+#external-links-editor {
+    td {
+        vertical-align: top;
+        padding-top: @form-margin / 2;
+    }
+}
+
 #external-links-editor, #work-attributes {
     width: 100%;
     padding: @form-margin / 2;
@@ -517,7 +560,7 @@ div.remove-item {
 
     td.errors ul { margin: 0; }
 
-    input[type=text] { width: 100%; }
+    input[type=text], input[type=email], input[type=number], input[type=url] { width: 100%; }
 }
 
 #external-links-editor span.favicon {
@@ -525,6 +568,7 @@ div.remove-item {
     width: @form-icon-size;
     height: @form-icon-size;
     vertical-align: middle;
+    margin-right: 4px;
 }
 
 /* Relationship editor */
@@ -617,5 +661,10 @@ div.rel-editor-dialog {
     .relationship-list {
         width: 100%;
         & > div { padding: 6px; }
+    }
+
+    .no-value {
+        color: @dark-grey;
+        border-bottom: 1px @dark-grey dotted;
     }
 }

@@ -1,21 +1,11 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2014 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+var i18n = require('./i18n.js');
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+var formatTrackLength = require('./utility/formatTrackLength.js');
 
 (function () {
 
@@ -137,6 +127,15 @@
                 json.artistCredit = this.artistCredit.toJSON();
             }
             return json;
+        },
+
+        canTakeName: function (name) {
+            name = _.str.clean(name);
+            return name && name !== ko.unwrap(this.name);
+        },
+
+        canTakeArtist: function (ac) {
+            return ac.isComplete() && !this.artistCredit.isEqual(ac);
         }
     });
 
@@ -167,7 +166,7 @@
         entityType: "recording",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(data.length);
+            this.formattedLength = formatTrackLength(data.length);
 
             // Returned from the /ws/js/recording search.
             if (this.appearsOn) {
@@ -184,7 +183,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-            params.videoString = MB.text.Video;
+            params.videoString = i18n.l("video");
             return supr(params);
         },
 
@@ -243,7 +242,7 @@
         entityType: "track",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(this.length);
+            this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -336,7 +335,11 @@
         },
 
         isEqual: function (other) {
-            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
+            var hasArtist1 = this.hasArtist();
+            var hasArtist2 = other.hasArtist();
+
+            return (hasArtist1 === hasArtist2) &&
+                   (!hasArtist1 || ko.unwrap(this.artist).gid === ko.unwrap(other.artist).gid) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
@@ -444,12 +447,18 @@
         after$init: function (data) {
             this.tracks = _.map(data.tracks, MB.entity.Track);
 
-            this.positionName = "";
-            this.positionName += (this.format || MB.text.Medium) + " " + this.position;
-
+            var positionName;
             if (this.name) {
-                this.positionName += ": " + this.name;
+                positionName = this.format ? "{medium_format} {position}: {title}" : "Medium {position}: {title}";
+            } else {
+                positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
             }
+
+            this.positionName = i18n.l(positionName, {
+                medium_format: this.format,
+                position: this.position,
+                title: this.name
+            });
         }
     });
 

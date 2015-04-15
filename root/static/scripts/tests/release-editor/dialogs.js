@@ -3,111 +3,125 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-$.ui.dialog.prototype.options.appendTo = "#qunit-fixture";
+var test = require('tape');
+var common = require('./common.js');
 
+var releaseEditor = MB.releaseEditor;
 
-releaseEditor.test.module("release editor dialogs", function () {
-    releaseEditor.test.setupReleaseAdd();
+$.ui.dialog.prototype.options.appendTo = "#fixture";
 
-    releaseEditor.trackParser.options = {
-        hasTrackNumbers: true,
-        hasVinylNumbers: false,
-        hasTrackArtists: false,
-        useTrackNumbers: true,
-        useTrackArtists: true,
-        useTrackNames: true,
-        useTrackLengths: true
-    };
+function dialogTest(name, callback) {
+    test(name, function (t) {
+        var release = common.setupReleaseAdd();
 
-    $("#qunit-fixture").append(
-        $("<div>").attr("id", "add-disc-dialog").hide(),
-        $("<div>").attr("id", "track-parser-dialog").hide()
-    );
+        releaseEditor.trackParser.options = {
+            hasTrackNumbers: true,
+            hasVinylNumbers: false,
+            hasTrackArtists: false,
+            useTrackNumbers: true,
+            useTrackArtists: true,
+            useTrackNames: true,
+            useTrackLengths: true
+        };
 
-    releaseEditor.activeTabID("#information");
-});
+        var $fixture = $('<div>').attr('id', 'fixture').appendTo('body').append(
+            $("<div>").attr("id", "add-disc-dialog").hide(),
+            $("<div>").attr("id", "track-parser-dialog").hide()
+        );
 
+        releaseEditor.activeTabID("#information");
 
-test("adding an empty medium via the add-disc dialog is allowed (MBS-7221)", function () {
+        callback(t, release);
+
+        $fixture.remove();
+    });
+}
+
+dialogTest("adding an empty medium via the add-disc dialog is allowed (MBS-7221)", function (t, release) {
+    t.plan(3);
+
     var addDiscDialog = releaseEditor.addDiscDialog;
     var trackParserDialog = releaseEditor.trackParserDialog;
-    var mediums = this.release.mediums;
+    var mediums = release.mediums;
 
-    ok(!mediums()[0].hasTracks(), "first medium is empty");
+    t.ok(!mediums()[0].hasTracks(), "first medium is empty");
 
     trackParserDialog.open(mediums()[0]);
     trackParserDialog.toBeParsed("1. ~fooo~ (1:23)\n");
     trackParserDialog.parse();
 
-    ok(mediums()[0].hasTracks(), "first medium has tracks after using track parser");
+    t.ok(mediums()[0].hasTracks(), "first medium has tracks after using track parser");
 
     addDiscDialog.open();
     addDiscDialog.currentTab(trackParserDialog);
     addDiscDialog.trackParser.toBeParsed("\n\t\n");
     addDiscDialog.addDisc();
 
-    ok(!mediums()[1].hasTracks(), "new empty medium was added");
+    t.ok(!mediums()[1].hasTracks(), "new empty medium was added");
 });
 
+dialogTest("switching to the tracklist tab opens the add-disc dialog if there's only one empty medium", function (t, release) {
+    t.plan(3);
 
-test("switching to the tracklist tab opens the add-disc dialog if there's only one empty medium", function () {
     var addDiscDialog = releaseEditor.addDiscDialog;
     var trackParserDialog = releaseEditor.trackParserDialog;
 
     releaseEditor.activeTabID("#tracklist");
-    releaseEditor.autoOpenTheAddDiscDialog(this.release);
+    releaseEditor.autoOpenTheAddDiscDialog(release);
 
     var uiDialog = $(addDiscDialog.element).data("ui-dialog");
 
-    ok(uiDialog.isOpen(), "add-disc dialog is open after switching to the tracklist tab");
+    t.ok(uiDialog.isOpen(), "add-disc dialog is open after switching to the tracklist tab");
 
     releaseEditor.activeTabID("#information");
-    releaseEditor.autoOpenTheAddDiscDialog(this.release);
+    releaseEditor.autoOpenTheAddDiscDialog(release);
 
-    ok(!uiDialog.isOpen(), "add-disc dialog is closed after switching back to the information tab");
+    t.ok(!uiDialog.isOpen(), "add-disc dialog is closed after switching back to the information tab");
 
-    this.release.mediums()[0].tracks.push(
+    release.mediums()[0].tracks.push(
         releaseEditor.fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
     releaseEditor.activeTabID("#information");
-    releaseEditor.autoOpenTheAddDiscDialog(this.release);
+    releaseEditor.autoOpenTheAddDiscDialog(release);
 
-    ok(!uiDialog.isOpen(), "add-disc dialog remains closed after switching to the tracklist tab with a non-empty medium");
+    t.ok(!uiDialog.isOpen(), "add-disc dialog remains closed after switching to the tracklist tab with a non-empty medium");
 });
 
+dialogTest("clearing the tracks of an existing medium via the track parser doesn't cause the add-disc dialog to open", function (t, release) {
+    t.plan(3);
 
-test("clearing the tracks of an existing medium via the track parser doesn't cause the add-disc dialog to open", function () {
     var addDiscDialog = releaseEditor.addDiscDialog;
     var trackParserDialog = releaseEditor.trackParserDialog;
-    var medium = this.release.mediums()[0];
+    var medium = release.mediums()[0];
 
     medium.tracks.push(
         releaseEditor.fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
-    ok(medium.hasTracks(), "medium has tracks");
+    t.ok(medium.hasTracks(), "medium has tracks");
 
     releaseEditor.activeTabID("#tracklist");
     trackParserDialog.open(medium);
     trackParserDialog.toBeParsed("");
     trackParserDialog.parse();
-    releaseEditor.autoOpenTheAddDiscDialog(this.release);
+    releaseEditor.autoOpenTheAddDiscDialog(release);
 
-    ok(!medium.hasTracks(), "medium does not have tracks");
+    t.ok(!medium.hasTracks(), "medium does not have tracks");
 
     var uiDialog = $(addDiscDialog.element).data("ui-dialog");
-    ok(!uiDialog, "add-disc dialog is not open");
+    t.ok(!uiDialog, "add-disc dialog is not open");
 });
 
+dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", function (t, release) {
+    t.plan(1);
 
-test("adding a new medium does not cause reorder edits (MBS-7412)", function () {
     var addDiscDialog = releaseEditor.addDiscDialog;
     var mediumSearchTab = releaseEditor.mediumSearchTab;
 
-    this.release.mediums([
+    release.mediums([
         releaseEditor.fields.Medium(
-            _.assign(_.omit(releaseEditor.test.testMedium, "id"), { position: 1 })
+            _.assign(_.omit(common.testMedium, "id"), { position: 1 })
         )
     ]);
 
@@ -116,7 +130,7 @@ test("adding a new medium does not cause reorder edits (MBS-7412)", function () 
     mediumSearchTab.result({ position: 1, tracks: [{ name: "foo" }] });
     addDiscDialog.addDisc();
 
-    releaseEditor.test.createMediums(this.release);
+    common.createMediums(release);
 
-    equal(releaseEditor.edits.mediumReorder(this.release).length, 0, "mediums are not reordered");
+    t.equal(releaseEditor.edits.mediumReorder(release).length, 0, "mediums are not reordered");
 });

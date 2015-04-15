@@ -3,6 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
+
 (function (releaseEditor) {
 
     var Dialog = aclass({
@@ -19,7 +23,7 @@
 
     releaseEditor.trackParserDialog = Dialog().extend({
         element: "#track-parser-dialog",
-        title: MB.text.TrackParser,
+        title: i18n.l("Track Parser"),
 
         toBeParsed: ko.observable(""),
         result: ko.observable(null),
@@ -72,7 +76,7 @@
                 this.loading(true);
                 this.error("");
 
-                MB.utility.request({
+                request({
                     url: this.tab.tracksRequestURL(this),
                     data: this.tab.tracksRequestData
                 }, this)
@@ -98,7 +102,7 @@
             track.id = null;
             track.position = track.position || (index + 1);
             track.number = track.position;
-            track.formattedLength = MB.utility.formatTrackLength(track.length);
+            track.formattedLength = formatTrackLength(track.length);
 
             if (track.artistCredit) {
                 track.artist = MB.entity.ArtistCredit(track.artistCredit).text();
@@ -139,7 +143,7 @@
                 page: pageJump ? this.currentPage() + pageJump : 1
             };
 
-            this._jqXHR = MB.utility.request({ url: this.endpoint, data: data }, this)
+            this._jqXHR = request({ url: this.endpoint, data: data }, this)
                 .done(this.requestDone)
                 .fail(function (jqXHR, textStatus) {
                     if (textStatus !== "abort") {
@@ -245,7 +249,7 @@
 
     var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
-        title: MB.text.AddDisc,
+        title: i18n.l("Add Disc"),
 
         trackParser: releaseEditor.trackParserDialog,
         mediumSearch: mediumSearchTab,

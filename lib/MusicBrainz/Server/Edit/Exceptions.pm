@@ -9,7 +9,8 @@ use Exception::Class (
     'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation' => {
         fields => [qw( conflict )]
     },
-    'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable'
+    'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable',
+    'MusicBrainz::Server::Edit::Exceptions::Forbidden'
 );
 
 1;

@@ -1,1 +1,5 @@
 [%- USE Translation('statistics') -%]
+
+[% BLOCK layout_head %]
+  [%- css_manifest('statistics.css') -%]
+[% END %]

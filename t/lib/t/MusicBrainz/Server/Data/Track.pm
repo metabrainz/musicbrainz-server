@@ -77,6 +77,13 @@ is($track->recording_id, 2);
 is($track->length, 500);
 is($track->name, "Test track!");
 
+
+my $additional_mbid = 'ca828670-0970-43fc-99e9-8b910af4f8ca';
+$track_data->add_gid_redirects($additional_mbid => 1);
+
+$track = $track_data->get_by_gid($additional_mbid);
+is($track->id, 1);
+
 Sql::run_in_transaction(sub {
     my $toc = $test->c->sql->select_single_value("SELECT toc FROM medium_index WHERE medium = 1");
     is($toc, undef, 'medium_index does not have an entry for medium 1');

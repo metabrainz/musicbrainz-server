@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -87,7 +88,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @submissions = @{ $form->field('vote')->value };
         $c->model('Edit')->insert_votes_and_notes(
-            $c->user->id,
+            $c->user,
             votes => [ grep { defined($_->{vote}) } @submissions ],
             notes => [ grep { defined($_->{edit_note}) } @submissions ]
         );
@@ -106,7 +107,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
         my $edit = $c->model('Edit')->get_by_id_and_lock($c->stash->{edit}->id);
         $c->model('Vote')->load_for_edits($edit);
 
-        if (!$edit->can_approve($c->user)) {
+        if (!$edit->editor_may_approve($c->user)) {
             $c->stash( template => 'edit/cannot_approve.tt' );
             return;
         }
@@ -126,7 +127,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
                 };
             }
 
-            $c->model('Edit')->approve($edit, $c->user->id);
+            $c->model('Edit')->approve($edit, $c->user);
             $c->response->redirect(
                 $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         }
@@ -137,7 +138,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
-    if (!$edit->can_cancel($c->user)) {
+    if (!$edit->editor_may_cancel($c->user)) {
         $c->stash( template => 'edit/cannot_cancel.tt' );
         $c->detach;
     }
@@ -204,13 +205,25 @@ sub search : Path('/search/edits') RequireAuth
     );
     return unless %{ $c->req->query_params };
 
-    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user->id);
     $c->stash( query => $query );
 
-    if ($query->valid) {
-        my $edits = $self->_load_paged($c, sub {
-            return $c->model('Edit')->run_query($query, shift, shift);
-        });
+    if ($query->valid && !$c->req->query_params->{'form_only'}) {
+        my $edits;
+        my $timed_out = 0;
+
+        try {
+            $edits = $self->_load_paged($c, sub {
+                return $c->model('Edit')->run_query($query, shift, shift);
+            });
+        } catch {
+            if ($c->model('MB')->context->sql->is_timeout($_)) { $timed_out = 1; }
+            else { die $_; }
+        };
+        if ($timed_out) {
+            $c->stash( timed_out => 1 );
+            return;
+        }
 
         $c->stash(
             edits => $edits, # stash early in case an ISE occurs

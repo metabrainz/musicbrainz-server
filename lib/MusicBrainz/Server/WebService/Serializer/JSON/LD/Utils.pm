@@ -5,12 +5,14 @@ use strict;
 
 use base 'Exporter';
 use Class::Load qw( load_class );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 our @EXPORT_OK = qw(
     serializer
     serialize_entity
     list_or_single
     artwork
+    format_date
 );
 
 #        ArtistCredit
@@ -90,6 +92,20 @@ sub artwork {
                  {'@type' => 'ImageObject', contentUrl => $artwork->large_thumbnail, encodingFormat => 'jpg'}
              ]
            };
+}
+
+=head2 format_date
+
+Given an Entity::PartialDate object, returns a formatted string
+of the first defined run of numbers.
+
+=cut
+
+sub format_date {
+    my ($date) = @_;
+
+    my @run = $date->defined_run if $date;
+    return PartialDate->new(year => $run[0], month => $run[1], day => $run[2])->format if @run;
 }
 
 1;

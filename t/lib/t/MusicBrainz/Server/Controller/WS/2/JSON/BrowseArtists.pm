@@ -35,6 +35,7 @@ test 'browse artists via release group' => sub {
                     },
                     type => "Person",
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };
@@ -73,6 +74,7 @@ test 'browse artists via recording' => sub {
                         { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -97,6 +99,7 @@ test 'browse artists via recording' => sub {
                         { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };
@@ -129,6 +132,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "97fa3f6e-557c-4227-bc0e-95a7f9f3285d",
@@ -148,6 +152,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
                     ipis => [],
+                    gender => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -175,6 +180,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'pop' },
                         ],
                     ipis => [],
+                    gender => JSON::null,
                 }]
         });
 };

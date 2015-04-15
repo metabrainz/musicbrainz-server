@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
@@ -22,7 +23,6 @@ sub edit_kind { 'other' }
 
 has '+data' => (
     isa => Dict[
-        tracklist_id => Nullable[Int],
         medium_id => Nullable[Int],
         cdtoc => Dict[
             id => Int,
@@ -49,25 +49,36 @@ sub release_ids {
 
 sub foreign_keys {
     my $self = shift;
+    my $medium_id = $self->data->{medium_id};
     return {
         Release => {
             map { $_ => [ 'ArtistCredit' ] } $self->release_ids
         },
-        CDTOC => [ $self->data->{cdtoc}{id} ]
+        CDTOC => [ $self->data->{cdtoc}{id} ],
+        $medium_id ? (Medium => { $medium_id => [ 'Release ArtistCredit', 'MediumFormat' ] } ) : (),
     }
 }
 
 sub build_display_data {
     my ($self, $loaded) = @_;
+
+    my @mediums;
+    my $medium_id = $self->data->{medium_id};
+
+    if ($medium_id && $loaded->{Medium}{$medium_id}) {
+        @mediums = ($loaded->{Medium}{$medium_id});
+        # Edits that have a medium_id can't affect multiple releases.
+    } else {
+        @mediums = map {
+            Medium->new( release => $loaded->{Release}{ $_->{id} } //
+                                    Release->new( name => $_->{name} ) )
+        } @{ $self->data->{affected_releases} };
+    }
+                  
     return {
         cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
             || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),
-        releases => [
-            map {
-                $loaded->{Release}{ $_->{id} } ||
-                    Release->new( name => $_->{name} )
-            } @{ $self->data->{affected_releases} }
-        ],
+        mediums => \@mediums,
         length => {
             map { $_ => $self->data->{length}{$_} } qw( old new )
         }
@@ -91,7 +102,6 @@ sub initialize {
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
 
     $self->data({
-        tracklist_id => undef,
         medium_id => $medium_id,
         cdtoc => {
             id => $cdtoc_id,
@@ -102,7 +112,7 @@ sub initialize {
             name => $_->name
         }, $medium->release ] ,
         length => {
-            old => [ map { $_->length } $medium->cdtoc_tracks ],
+            old => [ map { $_->length } @{ $medium->cdtoc_tracks } ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
         }
     })
@@ -114,15 +124,19 @@ sub accept {
     my $medium_id = $self->data->{medium_id};
     if (!$self->c->model('Medium')->get_by_id($medium_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The medium to set track times no longer exists. It may have '.
-            'been merged into another identical tracklist, or been changed '.
-            'since this edit was entered.'
+            'The medium to set track times for no longer exists. It may '.
+            'have been merged or removed since this edit was entered.'
         );
     }
 
     $self->c->model('Medium')->set_lengths_to_cdtoc(
         $medium_id, $self->data->{cdtoc}{id});
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    delete $data->{tracklist_id};
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

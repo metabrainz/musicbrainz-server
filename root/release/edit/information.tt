@@ -7,11 +7,44 @@
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
         <td colspan="2">
-          <input id="title" type="text" size="47" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
+          <table>
+            <tr>
+              <td colspan="2" style="padding: 0">
+                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
+                <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+                <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsName', l('A release title is required.')) %]
+
+      <tr data-bind="with: artistCredit">
+        <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
+        <td class="release-artist">
+          <span class="autocomplete">
+            <input id="release-artist" type="text"
+              required="required"
+              data-bind="
+                autocomplete: {
+                  entity: 'artist',
+                  artistCredit: $data
+                }"
+              data-hidden-inputs="[% 1 IF form %]"
+              data-form="[% form.name IF form.html_prefix %]"
+              data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
+            />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+          </span>
+        </td>
+        <td>
+          <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
+        </td>
+      </tr>
+
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven’t entered a complete artist credit.')) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
@@ -33,29 +66,40 @@
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
 
-      <tr data-bind="with: artistCredit">
-        <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
-        <td class="release-artist">
-          <span class="autocomplete">
-            <input id="release-artist" type="text"
-              data-bind="
-                autocomplete: {
-                  entity: 'artist',
-                  artistCredit: $data
-                }"
-              data-hidden-inputs="[% 1 IF form %]"
-              data-form="[% form.name IF form.html_prefix %]"
-              data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
-            />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
-          </span>
-        </td>
-        <td>
-          <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
-        </td>
-      </tr>
-
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
+      <!-- ko with: releaseGroup -->
+        <!-- ko if: $data.gid -->
+          <!-- ko if: canTakeName($parent.name()) -->
+            <tr>
+              <td></td>
+              <td colspan="2">
+                <div class="checkbox">
+                  <div>
+                    <input type="checkbox" id="copy-title-to-rg" data-bind="checked: $root.copyTitleToReleaseGroup" />
+                    <label class="inline" for="copy-title-to-rg">
+                      [% l('Copy the release title to the release group') %]
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <!-- /ko -->
+          <!-- ko if: canTakeArtist($parent.artistCredit) -->
+            <tr>
+              <td></td>
+              <td colspan="2">
+                <div class="checkbox">
+                  <div>
+                    <input type="checkbox" id="copy-ac-to-rg" data-bind="checked: $root.copyArtistToReleaseGroup" />
+                    <label class="inline" for="copy-ac-to-rg">
+                      [% l('Copy the release artist credit to the release group') %]
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <!-- /ko -->
+        <!-- /ko -->
+      <!-- /ko -->
 
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
@@ -121,7 +165,7 @@
         [% table_cells_select('country', l('Country:'), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
-          <button type="button" class="icon remove-item" title="[% l('Remove Event') %]" data-click="removeReleaseEvent"></button>
+          <button type="button" class="icon remove-item" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
         </td>
       </tr>
 
@@ -132,8 +176,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Event', 'button/menu') %]" data-click="addReleaseEvent">
-            [% lp('Add Event', 'button/menu') %]
+          <button type="button" class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
+            [% lp('Add Release Event', 'button/menu') %]
           </button>
         </td>
       </tr>
@@ -166,15 +210,17 @@
 
       [% table_row_error(
            4, 'showErrorWhenTabIsSwitched: needsLabel',
-           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+           '<!-- ko text: MB.i18n.expand(\'' _ js_escape(l('You haven’t selected a label for “{name}”.')) _ '\', { name: label().name }) --><!-- /ko -->'
          )
       %]
+
+      [% table_row_error(4, 'showErrorRightAway: isDuplicate', l('This label/catalog number pair already exists.')) %]
     <!-- /ko -->
 
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
+          <button type="button" class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
             [% lp('Add Label', 'button/menu') %]
           </button>
         </td>
@@ -183,7 +229,7 @@
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
-          <input id="barcode" type="text" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
+          <input id="barcode" type="text" pattern="[0-9]*" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
         </td>
       </tr>
 
@@ -226,23 +272,18 @@
     </table>
   </fieldset>
 
-  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+  <fieldset class="information">
     <legend>[% l('External Links') %]</legend>
-
-    <!-- ko with: externalLinks -->
-      [% external_links_editor(0, 'release') %]
-    <!-- /ko -->
+    [% external_links_editor() %]
   </fieldset>
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">
-  [%- guesscase_bubble(0, '$root.guessCaseBubble', '_.bind($root.guessCaseReleaseName, $root)') -%]
-
   [%- artist_credit_table() -%]
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
     <!-- ko with: target() && target().releaseGroup -->
-      <p data-bind="html: MB.i18n.expand(MB.text.SelectedReleaseGroup, { releasegroup: html({ target: '_blank' }) })"></p>
+      <p data-bind="html: MB.i18n.expand('[% l('You selected {releasegroup}.') | js %]', { releasegroup: html({ target: '_blank' }) })"></p>
     <!-- /ko -->
   </div>
 
@@ -258,7 +299,7 @@
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
       <!-- ko if: $data.gid -->
-        <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
+        <p data-bind="html: MB.i18n.expand('[% l('You selected {label}.') | js %]', { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->
     <!-- ko if: target() && catNoLooksLikeASIN(target().catalogNumber()) -->
@@ -329,8 +370,4 @@
       -%]
     </p>
   </div>
-
-  <!-- ko with: externalLinks -->
-    [% external_link_bubble() %]
-  <!-- /ko -->
 </div>

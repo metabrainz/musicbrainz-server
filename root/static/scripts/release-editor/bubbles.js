@@ -9,8 +9,6 @@
         return MB.Control.BubbleDoc("Information").extend(options || {});
     }
 
-    releaseEditor.guessCaseBubble = bubbleDoc();
-
     releaseEditor.artistBubble = MB.Control.ArtistCreditBubbleDoc("Information");
 
     releaseEditor.releaseGroupBubble = bubbleDoc({

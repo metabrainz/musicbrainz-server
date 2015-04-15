@@ -3,145 +3,126 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module("external links editor", {
+var test = require('tape');
+var externalLinks = require('../edit/externalLinks.js');
+var React = require('react/addons');
+var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
+var { triggerChange, triggerClick, addURL } = require('./external-links-editor/utils.js');
 
-    setup: function () {
+MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
-        $("#qunit-fixture").append($.parseHTML('\
-            <table id="external-links-editor">\
-            <tbody data-bind="loop: { items: nonRemovedLinks, id: \'uniqueID\' }">\
-              <tr data-bind="urlCleanup: \'artist\'">\
-                <td>\
-                  <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
-                    <option value=""> </option>\
-                    <option value="179">Wikipedia</option>\
-                    <option value="180">Discogs</option>\
-                    <option value="181">MusicMoz</option>\
-                    <option value="188">other databases</option>\
-                  </select>\
-                </td>\
-                <td>\
-                  <input type="text" data-bind="value: url" />\
-                  <!-- ko with: error() -->\
-                    <div class="errors" data-bind="text: $data"></div>\
-                  <!-- /ko -->\
-                </td>\
-              </tr>\
-            </tbody>\
-            </table>\
-            <div id="external-link-bubble"></div>\
-            <div id="relationship-editor"></div>\
-        '));
+function externalLinksTest(name, callback, initialLinks) {
+    test(name, function (t) {
+        var mountPoint = document.createElement('div');
 
-        MB.faviconClasses = { "wikipedia.org": "wikipedia" };
-
-        this.addURL = function (name) {
-            var source = this.viewModel.source;
-            var target = MB.entity.URL({ name: name });
-            var url = this.viewModel.getRelationship({ target: target }, source);
-
-            source.relationships.push(url);
-
-            return url;
+        MB.typeInfoByID[666] = {
+            deprecated: true,
+            phrase: "Example",
+            reversePhrase: "Example"
         };
 
-        this.viewModel = MB.Control.externalLinks.applyBindings({
-            sourceData: { entityType: "artist", relationships: [] },
-            formName: "edit-artist"
+        MB.sourceExternalLinksEditor = externalLinks.createExternalLinksEditor({
+            sourceData: { entityType: "artist", relationships: initialLinks || [] },
+            mountPoint: mountPoint
         });
 
-        MB.sourceExternalLinksEditor = this.viewModel;
+        callback(t, $(mountPoint), MB.sourceExternalLinksEditor, _.partial(addURL, MB.sourceExternalLinksEditor));
 
-        this.RE = MB.relationshipEditor;
-    },
+        delete MB.sourceExternalLinksEditor;
+        delete MB.typeInfoByID[666];
+    });
+}
 
-    teardown: function () {
-        MB.sourceExternalLinksEditor = null;
-    }
+function contains(t, $mountPoint, selector, description) {
+    t.ok(!!$mountPoint.find(selector).length, description);
+}
+
+function not_contains(t, $mountPoint, selector, description) {
+    t.ok(!$mountPoint.find(selector).length, description);
+}
+
+externalLinksTest("automatic link type detection for URL", function (t, $mountPoint, component, addURL) {
+    t.plan(2);
+
+    addURL("http://en.wikipedia.org/wiki/No_Age");
+
+    contains(t, $mountPoint, '.wikipedia-favicon', 'wikipedia favicon is used');
+    contains(t, $mountPoint, ':contains(Wikipedia)', 'wikipedia label is used');
 });
 
+externalLinksTest("invalid URL detection", function (t, $mountPoint, component, addURL) {
+    t.plan(2);
 
-test("automatic link type detection for URL", function () {
-    var url = this.addURL("http://en.wikipedia.org/wiki/No_Age");
+    addURL("foo");
+    contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is shown for invalid URL');
 
-    ok(url.matchesType(), "wikipedia page is detected");
-    equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
-    equal(url.linkPhrase(this.viewModel.source), "Wikipedia", "wikipedia label is used");
-    equal(url.linkTypeID(), 179, "internal link type is set to 179");
-    equal(url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
+    triggerChange(
+        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://en.wikipedia.org/wiki/No_Age'
+    );
+
+    not_contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is removed after valid URL is entered');
 });
 
+externalLinksTest("deprecated link type detection", function (t, $mountPoint, component, addURL) {
+    t.plan(2);
 
-test("invalid URL detection", function () {
-    var url = this.addURL("foo");
+    addURL("http://www.example.com/");
 
-    ok(!!url.error(), "error is shown for invalid URL");
+    var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
+    triggerChange(selectComponent, 666);
+    contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
 
-    url.cleanup.urlControl.val("http://en.wikipedia.org/wiki/No_Age").change();
-    ok(!url.error(), "error is removed after valid URL is entered");
+    triggerChange(
+        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/'
+    );
+
+    triggerChange(selectComponent, 188);
+    not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid URL and type are entered');
 });
 
+externalLinksTest("hidden input data for form submission", function (t, $mountPoint, component, addURL) {
+    t.plan(12);
 
-test("deprecated link type detection", function () {
-    var url = this.addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
+    var $re = $('<div id="relationship-editor"></div>').appendTo('body');
 
-    MB.typeInfoByID[181] = {
-        deprecated: true,
-        phrase: "MusicMoz",
-        reversePhrase: "MusicMoz"
-    };
+    addURL('http://rateyourmusic.com/artist/deerhunter');
 
-    url.cleanup.typeControl.val(181).change();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+    t.equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
 
-    ok(!!url.error(), "error is shown for deprecated link type");
+    triggerChange(
+        $mountPoint.find('input[type=url]:eq(0)')[0],
+        'http://en.wikipedia.org/wiki/dEErHuNtER'
+    );
 
-    url.cleanup.typeControl.val(188).change();
-    ok(!url.error(), "error is removed after valid link type is selected");
-});
+    triggerClick($mountPoint.find('button:eq(1)')[0]);
 
+    MB.relationshipEditor.prepareSubmission('edit-artist');
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
-test("hidden input data for form submission", function () {
-    var source = this.viewModel.source;
-    var $re = $("#relationship-editor");
+    triggerClick($mountPoint.find('button:eq(0)')[0]);
 
-    var existingURL = this.viewModel.getRelationship({
+    MB.relationshipEditor.prepareSubmission('edit-artist');
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+
+    $re.remove();
+},
+// initial links
+[
+    {
         id: 1,
         target: MB.entity.URL({ name: "http://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
-    }, source);
-
-    var addedURL = this.viewModel.getRelationship({
-        target: MB.entity.URL({ name: "http://rateyourmusic.com/artist/deerhunter" }),
-        linkTypeID: 188
-    }, source);
-
-    existingURL.cleanup.urlControl.change();
-    existingURL.cleanup.typeControl.change();
-
-    source.relationships.push(addedURL);
-    addedURL.cleanup.urlControl.change();
-    addedURL.cleanup.typeControl.change();
-
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
-    equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
-    equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
-
-    existingURL.cleanup.urlControl.val("http://en.wikipedia.org/wiki/dEErHuNtER").change();
-    addedURL.remove();
-
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
-
-    existingURL.removed(true);
-
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
-});
+    }
+]);

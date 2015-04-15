@@ -19,6 +19,8 @@
 
 */
 
+var flags = require('../../flags.js');
+
 /**
  * Main class of the GC functionality
  **/
@@ -35,8 +37,6 @@
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils();
-    self.f = MB.GuessCase.Flags();
     self.i = MB.GuessCase.Input();
     self.o = MB.GuessCase.Output();
 
@@ -50,14 +50,7 @@
     // member functions
     // ---------------------------------------------------------------------------
 
-    /**
-     * Initialise the GuessCase object for another run
-     **/
-    self.init = function () {
-        self.f.init(); // init flags object
-    };
-
-    function guess(handlerName, method, modeName) {
+    function guess(handlerName, method) {
         var handler;
 
         /**
@@ -67,12 +60,8 @@
          * @return {string} The processed string.
          **/
         return function (is) {
-            gc.init();
-
-            if (modeName) {
-                var previousMode = self.mode;
-                self.mode = MB.GuessCase.Mode[modeName];
-            }
+            // Initialise flags for another run.
+            flags.init();
 
             handler = handler || MB.GuessCase.Handler[handlerName]();
 
@@ -87,10 +76,6 @@
                 var os = handler[method].apply(handler, arguments);
             }
 
-            if (modeName) {
-                self.mode = previousMode;
-            }
-
             return os;
         };
     }
@@ -101,14 +86,13 @@
     };
 
     MB.GuessCase.artist = {
-        guess: guess("Artist", "process", "Artist"),
-        sortname: guess("Artist", "guessSortName", "Artist")
+        guess: guess("Artist", "process"),
+        sortname: guess("Artist", "guessSortName")
     };
 
     MB.GuessCase.label = {
-        // This probably shouldn't be using the "Artist" mode, but it always has been.
-        guess: guess("Label", "process", "Artist"),
-        sortname: guess("Label", "guessSortName", "Artist")
+        guess: guess("Label", "process"),
+        sortname: guess("Label", "guessSortName")
     };
 
     MB.GuessCase.place = {
@@ -137,6 +121,13 @@
     // Series doesn't have it's own handler, and just uses the work handler
     // because additional behavior isn't needed.
     MB.GuessCase.series = MB.GuessCase.work;
+
+    // lol
+    MB.GuessCase.instrument = {
+        guess: function (string) {
+            return string.toLowerCase();
+        }
+    };
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;

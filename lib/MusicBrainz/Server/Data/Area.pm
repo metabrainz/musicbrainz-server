@@ -13,7 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
-    merge_partial_date
+    merge_date_period
     placeholders
     object_to_ids
 );
@@ -21,7 +21,6 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
@@ -239,14 +238,13 @@ sub _merge_impl
         )
     );
 
-    merge_partial_date(
+    merge_date_period(
         $self->sql => (
             table => 'area',
-            field => $_,
             old_ids => \@old_ids,
             new_id => $new_id
         )
-    ) for qw( begin_date end_date );
+    );
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
     return 1;
@@ -297,8 +295,11 @@ sub get_by_iso_3166_3 {
 
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
-    my $query = "SELECT * FROM (SELECT " . $self->_columns .
-        " FROM " . $self->_table . ") q WHERE ${table} && ?";
+
+    my $query = "SELECT " . $self->_columns .
+                " FROM " . $self->_table .
+                " JOIN ${table} c ON c.area = area.id" .
+                " WHERE c.code = any(?)";
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {

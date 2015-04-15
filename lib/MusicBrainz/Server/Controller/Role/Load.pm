@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Load;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::Data::Utils 'model_to_type';
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -33,6 +33,8 @@ role
 
     my $model = $params->model;
     my $entity_type = model_to_type($model);
+    # defaulting to something non-undef silences a warning
+    my $entity_properties = $ENTITIES{ $entity_type // 0 };
     my $entity_name = $params->entity_name || $entity_type;
 
     requires 'not_found', 'invalid_mbid';
@@ -52,9 +54,6 @@ role
         my $entity = $self->_load($c, @args);
 
         $c->detach('not_found') unless defined $entity;
-
-        # defaulting to something non-undef silences a warning
-        my $entity_properties = $ENTITIES{ $entity_type // 0 };
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
@@ -87,13 +86,26 @@ role
     {
         my ($self, $c, $id) = @_;
 
-        if (is_guid($id)) {
-            return $c->model($model)->get_by_gid($id);
+        my $entity;
+        my $id_is_guid = is_guid($id) && $c->model($model)->can('get_by_gid');
+
+        if ($id_is_guid) {
+            $entity = $c->model($model)->get_by_gid($id);
+        } elsif (is_positive_integer($id)) {
+            $entity = $c->model($model)->get_by_id($id);
         }
-        else {
+
+        if ($entity) {
+            $c->model($model)->load_gid_redirects($entity) if exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
+            return $entity;
+        }
+
+        if (!$id_is_guid) {
             # This will detach for us
             $self->invalid_mbid($c, $id);
         }
+
+        return undef;
     };
 };
 

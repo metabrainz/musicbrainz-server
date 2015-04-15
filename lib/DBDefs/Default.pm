@@ -110,6 +110,9 @@ sub BETA_REDIRECT_HOSTNAME    { '' }
 # The server to use for rel="canonical" links. Includes scheme.
 sub CANONICAL_SERVER          { "https://musicbrainz.org" }
 
+# The server used to link to CritiqueBrainz users and reviews.
+sub CRITIQUEBRAINZ_SERVER     { "https://critiquebrainz.org" }
+
 ################################################################################
 # Mail Settings
 ################################################################################
@@ -159,6 +162,15 @@ sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 # started there).  If set to 0 no SSL redirects will be done, which is
 # suitable for local or development deployments.
 sub SSL_REDIRECTS_ENABLED { 0 }
+
+# The user agent string sent via LWP to external services, e.g. the MediaWiki
+# and CritiqueBrainz APIs.
+sub LWP_USER_AGENT {
+    my $self = shift;
+
+    # Space at end causes LWP to append the default libwww-perl/X.X bits
+    return 'musicbrainz-server/'. $self->DB_SCHEMA_SEQUENCE .' ('. $self->WEB_SERVER .') ';
+}
 
 ################################################################################
 # Documentation Server Settings
@@ -366,7 +378,8 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
-sub MAPBOX_MAP_ID { 'musicbrainz.iplg7e52' }
+sub MAPBOX_MAP_ID { 'mapbox.streets' }
+sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }

@@ -6,7 +6,7 @@ and is accessible at http://musicbrainz.org.
 
 MusicBrainz is a user-maintained open community that collects music metadata
 and makes it available to the public in the form of a relational database.
-For more information, [visit our website] (http://musicbrainz.org/doc/About).
+For more information, [visit our website](http://musicbrainz.org/doc/About).
 
 To get help, please join #musicbrainz-devel on irc.freenode.net
 
@@ -25,7 +25,7 @@ General Prerequisites:
 Reporting bugs
 --------------
 
-Please report issues on our [bug tracker](http://tickets.musicbrainz.org).
+Please report issues on our [bug tracker](http://tickets.musicbrainz.org/).
 
 Contributing
 ------------

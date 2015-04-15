@@ -26,11 +26,11 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
@@ -250,14 +250,6 @@ around 'initialize' => sub
 
     $self->check_event_countries($opts{events} // []);
 
-    if (exists $opts{artist_credit}) {
-        $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
-    }
-
-    if (exists $opts{artist_credit} && !$release->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release);
-    }
-
     $self->$orig(%opts);
 };
 
@@ -330,17 +322,8 @@ before accept => sub {
     }
 };
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
-                                                  $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};
@@ -351,10 +334,9 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{events};
 
     return 0 if exists $self->data->{old}{release_group_id};
-    return 0 if exists $self->data->{new}{artist_credit};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub restore {
     my ($self, $data) = @_;

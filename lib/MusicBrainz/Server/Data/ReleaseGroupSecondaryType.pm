@@ -10,15 +10,11 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'release_group_secondary_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
     return 'release_group_secondary_type';
-}
-
-sub _columns
-{
-    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class
@@ -39,11 +35,19 @@ sub load_for_release_groups {
             \@ids
         )
     };
+
+    my $types_by_rg = {};
     for my $type (@rows) {
-        for my $rg (@{ $rg_by_id{ $type->{release_group} } }) {
-            $rg->add_secondary_type(
-                MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($type)
-              );
+        push @{ $types_by_rg->{$type->{release_group}} }, $type;
+    }
+
+    for my $rgs (values %rg_by_id) {
+        for my $rg (@$rgs) {
+            $rg->secondary_types([
+                map {
+                    MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new($_)
+                } @{ $types_by_rg->{$rg->id} }
+            ]);
         }
     }
 }
@@ -74,6 +78,13 @@ sub delete_entities {
     $self->sql->do(
         "DELETE FROM release_group_secondary_type_join " .
         "WHERE release_group = any(?) ", \@ids);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM release_group_secondary_type_join WHERE secondary_type = ? LIMIT 1',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

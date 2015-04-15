@@ -338,6 +338,11 @@ msgstr ""
 msgid "Caddo"
 msgstr ""
 
+#. frequency:1 iso_code_3:frc 
+#: DB:language/name:2311
+msgid "Cajun French"
+msgstr ""
+
 #. frequency:1 iso_code_3:cat 
 #: DB:language/name:68
 msgid "Catalan"
@@ -1198,7 +1203,7 @@ msgstr ""
 msgid "Konkani"
 msgstr ""
 
-#. frequency:1 iso_code_3:kor 
+#. frequency:2 iso_code_3:kor 
 #: DB:language/name:224
 msgid "Korean"
 msgstr ""
@@ -1603,6 +1608,11 @@ msgstr ""
 msgid "Nepali"
 msgstr ""
 
+#. frequency:1 iso_code_3:yrl 
+#: DB:language/name:7618
+msgid "Nhengatu"
+msgstr ""
+
 #. frequency:1 iso_code_3:nia 
 #: DB:language/name:302
 msgid "Nias"
@@ -1643,7 +1653,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr ""
 
-#. frequency:2 iso_code_3:nor 
+#. frequency:1 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""
@@ -2476,6 +2486,11 @@ msgstr ""
 #. frequency:1 iso_code_3:yor 
 #: DB:language/name:464
 msgid "Yoruba"
+msgstr ""
+
+#. frequency:1 iso_code_3:yua 
+#: DB:language/name:7636
+msgid "Yucateco"
 msgstr ""
 
 #. frequency:1 iso_code_3:yue 

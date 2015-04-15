@@ -15,6 +15,7 @@ use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
@@ -35,7 +36,6 @@ our @EXPORT_OK = qw(
     add_coordinates_to_row
     artist_credit_to_ref
     check_data
-    check_in_use
     copy_escape
     coordinates_to_hash
     defined_hash
@@ -53,6 +53,7 @@ our @EXPORT_OK = qw(
     merge_string_attributes
     merge_boolean_attributes
     merge_partial_date
+    merge_date_period
     model_to_type
     object_to_ids
     order_by
@@ -175,16 +176,6 @@ sub load_meta
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-}
-
-sub check_in_use
-{
-    my ($sql, %queries) = @_;
-
-    my @queries = keys %queries;
-    my $query = join ' UNION ', map { "SELECT 1 FROM $_" } @queries;
-    return 1 if $sql->select_single_value($query, map { @{$queries{$_}} } @queries );
-    return;
 }
 
 sub partial_date_to_hash
@@ -572,6 +563,14 @@ sub merge_partial_date {
     }, @_);
 }
 
+sub merge_date_period {
+    my @args = @_;
+
+    merge_partial_date(@args, field => $_)
+        for qw( begin_date end_date );
+    merge_boolean_attributes(@args, columns => ['ended']);
+}
+
 sub is_special_artist {
     my $artist_id = shift;
     return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
@@ -600,7 +599,11 @@ sub take_while (&@) {
 sub split_relationship_by_attributes {
     my ($attributes_by_gid, $data) = @_;
 
-    my @attributes = @{ $data->{attributes} // [] };
+    # Make output order deterministic.
+    my @attributes = sort_by {
+        $attributes_by_gid->{$_->{type}{gid}}->id
+    } @{ $data->{attributes} // [] };
+
     my (@to_split, @others, @new_data);
 
     for (@attributes) {

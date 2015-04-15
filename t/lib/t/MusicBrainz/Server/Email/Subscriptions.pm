@@ -7,6 +7,8 @@ use Test::More;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 
+use MusicBrainz::Server::Translation qw( get_collator );
+
 use DBDefs;
 use aliased 'MusicBrainz::Server::Entity::Collection';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
@@ -41,6 +43,7 @@ test all => sub {
 
     my $email = Email->new(
         editor => $editor,
+        collator => get_collator('root'),
         edits => \%edits,
         deletes => [$deleted_coll]
         );
@@ -49,7 +52,7 @@ test all => sub {
 
     ok((grep {"$_" eq 'Message-Id' } $email->extra_headers), 'Has a message-id header');
 
-    my $server = sprintf 'http://%s', DBDefs->WEB_SERVER_USED_IN_EMAIL;
+    my $server = sprintf 'https://%s', DBDefs->WEB_SERVER_USED_IN_EMAIL;
     my $expected = "$server/user/%E3%83%8B%E3%83%83%E3%82%AD%E3%83%BC/subscriptions";
 
     contains_string($text, $expected, 'Correctly escaped editor name');

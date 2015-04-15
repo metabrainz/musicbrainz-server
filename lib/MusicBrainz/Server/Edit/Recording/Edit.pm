@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
-    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     load_artist_credit_definitions
@@ -20,13 +19,13 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
@@ -146,15 +145,9 @@ around 'initialize' => sub
 {
     my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
-    if (exists $opts{artist_credit} && !$recording->artist_credit) {
-        $self->c->model('ArtistCredit')->load($recording);
-    }
 
     delete $opts{length} if exists $opts{length} &&
         $self->c->model('Recording')->usage_count($recording->id);
-
-    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
-        if exists($opts{artist_credit});
 
     $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
 
@@ -204,26 +197,16 @@ around extract_property => sub {
     }
 };
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
-                                                  $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if exists $self->data->{old}{video}
         and $self->data->{old}{video} != $self->data->{new}{video};
 
     return 0 if $self->data->{old}{length};
-    return 0 if exists $self->data->{new}{artist_credit};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

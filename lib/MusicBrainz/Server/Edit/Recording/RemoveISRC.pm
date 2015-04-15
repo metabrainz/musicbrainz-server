@@ -12,7 +12,6 @@ use aliased 'MusicBrainz::Server::Entity::ISRC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Remove ISRC') }
 sub edit_kind { 'remove' }

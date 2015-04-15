@@ -41,7 +41,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
-my $databaseName;
+my $databaseName = 'READWRITE';
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -429,7 +429,8 @@ Options are:
   -c --clean             Prepare a ready to use empty database
      --[no]echo          When running the various SQL scripts, echo the commands
                          as they are run
-  -q, --quiet            Don't show the output of any SQL scripts
+  -t --tmp-dir DIR       Use DIR for temporary storage
+  -q --quiet             Don't show the output of any SQL scripts
   -h --help              This help
   --with-pending=PATH    For use only if this is a master replication server
                          (DBDefs->REPLICATION_TYPE==RT_MASTER).  PATH specifies
@@ -452,7 +453,7 @@ without errors, the database will be ready to use. Or it *should* at least.
 Since all non-option arguments are passed directly to MBImport.pl, you can
 pass additional options to that script by using "--".  For example:
 
-  InitDb.pl --createdb --echo --import -- --tmp-dir=/var/tmp *.tar.bz2
+  InitDb.pl --createdb --echo --import -- --skip-editor *.tar.bz2
 
 EOF
 }
@@ -477,7 +478,6 @@ GetOptions(
     "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
 
-$databaseName = "READWRITE" if $databaseName eq '';
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
 # database

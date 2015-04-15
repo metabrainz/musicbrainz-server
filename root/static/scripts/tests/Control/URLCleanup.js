@@ -1,8 +1,25 @@
-module('URL Cleanup');
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2014 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-test('Guess type', function () {
-    var control = MB.Control.URLCleanup();
+var test = require('tape');
+
+test('Guess type', function (t) {
     var tests = [
+            // Amazon
+            [
+                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
+            [
+                'release', 'http://www.amazon.in/gp/product/B006H1JVW4',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
+            [
+                'release', 'http://www.amazon.com.br/gp/product/B00T8E47G2',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
             // Wikipedia
             [
                 'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
@@ -53,11 +70,11 @@ test('Guess type', function () {
             //Last.fm
             [
                 'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
-                MB.constants.LINK_TYPES.socialnetwork.artist
+                MB.constants.LINK_TYPES.lastfm.artist
             ],
             [
                 'event', 'http://www.last.fm/event/3291943+Pori+jazz',
-                MB.constants.LINK_TYPES.socialnetwork.event
+                MB.constants.LINK_TYPES.lastfm.event
             ],
             // WhoSampled
             [
@@ -98,6 +115,10 @@ test('Guess type', function () {
             [
                 'artist', 'http://thesession.org/recordings/artists/2836',
                 MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'event', 'http://thesession.org/events/3811',
+                MB.constants.LINK_TYPES.otherdatabases.event
             ],
             // Wikimedia Commons
             [
@@ -163,10 +184,6 @@ test('Guess type', function () {
                 'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                 MB.constants.LINK_TYPES.purevolume.artist
             ],
-            [
-                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
-                MB.constants.LINK_TYPES.amazon.release
-            ],
             // Recochoku
             [
                 'release', 'http://recochoku.jp/album/30282664/',
@@ -210,8 +227,20 @@ test('Guess type', function () {
             ],
             // Trove
             [
+                'artist', 'http://nla.gov.au/nla.party-548358',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
                 'release', 'http://nla.gov.au/anbd.bib-an11701020',
                 MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://trove.nla.gov.au/work/9438679',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            [
+                'label', 'http://nla.gov.au/nla.party-1448035',
+                MB.constants.LINK_TYPES.otherdatabases.label
             ],
             // Instagram
             [
@@ -262,6 +291,18 @@ test('Guess type', function () {
             ],
             [
                 'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                MB.constants.LINK_TYPES.streamingmusic.recording
+            ],
+            [
+                'artist', 'http://www.deezer.com/artist/243332',
+                MB.constants.LINK_TYPES.streamingmusic.artist
+            ],
+            [
+                'release', 'http://www.deezer.com/album/497382',
+                MB.constants.LINK_TYPES.streamingmusic.release
+            ],
+            [
+                'recording', 'http://www.deezer.com/track/3437226',
                 MB.constants.LINK_TYPES.streamingmusic.recording
             ],
             // Lyrics
@@ -318,6 +359,34 @@ test('Guess type', function () {
             ],
             // Other download stores
             [
+                'artist', 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://www.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://es.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'http://fr-ca.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://www.zdigital.com.au/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
                 'release', 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
                 MB.constants.LINK_TYPES.downloadpurchase.release
             ],
@@ -327,6 +396,18 @@ test('Guess type', function () {
             ],
             [
                 'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://hd-music.info/album.cgi/913',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://ototoy.jp/_/default/p/45622',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://www.e-onkyo.com/music/album/vpcd81809/',
                 MB.constants.LINK_TYPES.downloadpurchase.release
             ],
             // Allmusic
@@ -430,6 +511,10 @@ test('Guess type', function () {
             // VK
             [
                 'artist', 'http://vk.com/tin_sontsya',
+                MB.constants.LINK_TYPES.socialnetwork.artist
+            ],
+            [
+                'artist', 'https://vine.co/destorm',
                 MB.constants.LINK_TYPES.socialnetwork.artist
             ],
             // Generasia
@@ -538,6 +623,10 @@ test('Guess type', function () {
                 'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
                 MB.constants.LINK_TYPES.otherdatabases.release_group
             ],
+            [
+                'area', 'http://www.geonames.org/6255147/asia.html',
+                MB.constants.LINK_TYPES.geonames.area
+            ],
             // setlist.fm
             [
                 'artist', 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
@@ -550,17 +639,64 @@ test('Guess type', function () {
             [
                 'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                 MB.constants.LINK_TYPES.setlistfm.place
+            ],
+            [
+                'release', 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'artist', 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'https://www.finna.fi/Record/viola.163990',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            // ClassicalArchives.com
+            [
+                'artist', 'http://www.classicalarchives.com/composer/2806.html',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.classicalarchives.com/album/menlo-201409.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'work', 'http://www.classicalarchives.com/work/1119282.html',
+                MB.constants.LINK_TYPES.otherdatabases.work
+            ],
+            // CDJapan.co.jp
+            [
+                'artist', 'http://www.cdjapan.co.jp/person/76324',
+                MB.constants.LINK_TYPES.mailorder.artist
+            ],
+            [
+                'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
+                MB.constants.LINK_TYPES.mailorder.release
             ]
         ];
 
     $.each(tests, function (i, test) {
-        QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
+        t.equal(MB.Control.URLCleanup.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
     });
+
+    t.end();
 });
 
-test('Cleanup', function () {
-    var control = MB.Control.URLCleanup(),
-        tests = [
+test('Cleanup', function (t) {
+    var tests = [
             [
                 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
                 'http://www.amazon.co.uk/gp/product/B00009W0XE',
@@ -569,6 +705,16 @@ test('Cleanup', function () {
             [
                 'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
                 'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+                'release'
+            ],
+            [
+                'http://www.amazon.in/dp/B006H1JVW4',
+                'http://www.amazon.in/gp/product/B006H1JVW4',
+                'release'
+            ],
+            [
+                'http://amazon.com.br/dp/B00T8E47G2',
+                'http://www.amazon.com.br/gp/product/B00T8E47G2',
                 'release'
             ],
             // %E2%80%8E cleanup
@@ -648,6 +794,31 @@ test('Cleanup', function () {
                 'https://soundcloud.com/alec_empire',
                 'artist'
             ],
+            [ // mobile subdomain should be removed
+                'http://m.soundcloud.com/octobersveryown',
+                'https://soundcloud.com/octobersveryown',
+                'artist'
+            ],
+            [ // #! should be removed
+                'http://www.reverbnation.com/#!/benwebbmusic',
+                'http://www.reverbnation.com/benwebbmusic',
+                'artist'
+            ],
+            [ // scheme should be http
+                'https://www.reverbnation.com/littlesparrow',
+                'http://www.reverbnation.com/littlesparrow',
+                'artist'
+            ],
+            [ // www should be included
+                'http://reverbnation.com/negator',
+                'http://www.reverbnation.com/negator',
+                'artist'
+            ],
+            [ // mobile subdomain should be www
+                'http://m.reverbnation.com/venue/602562',
+                'http://www.reverbnation.com/venue/602562',
+                'event'
+            ],
             // Discogs
             [
                 'http://www.discogs.com/Various-Out-Patients-2/release/5578',
@@ -725,9 +896,9 @@ test('Cleanup', function () {
                 'release_group'
             ],
             [
-                'thesession.org/recordings/1488#comment283364',
-                'http://thesession.org/recordings/1488',
-                'release_group'
+                'thesession.org/events/3811#comment748363',
+                'http://thesession.org/events/3811',
+                'event'
             ],
             [
                 'http://thesession.org/recordings/4740/edit',
@@ -788,6 +959,32 @@ test('Cleanup', function () {
                 'https://www.facebook.com/events/779218695457920',
                 'event'
             ],
+            [
+                'https://www.facebook.com/event.php?eid=129606980393356',
+                'https://www.facebook.com/events/129606980393356',
+                'event'
+            ],
+            [
+                'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                'event'
+            ],
+            [
+                'http://www.lastfm.de/festival/297838+Death+Feast+2008',
+                'http://www.last.fm/festival/297838+Death+Feast+2008',
+                'event'
+            ],
+            [
+                'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                'event'
+            ],
+            [
+                'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+                'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+                'event'
+            ],
+
                 // Google+
             [
                 'http://plus.google.com/u/0/101821796946045393834/about',
@@ -912,6 +1109,27 @@ test('Cleanup', function () {
                 'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
                 'https://itunes.apple.com/us/album/id721686178',
                 'release'
+            ],
+            [
+                'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                'artist'
+            ],
+            [
+                'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                'release'
+            ],
+
+            [ // scheme should be https
+                'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+                'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+                'artist'
+            ],
+            [ // other parameters should be removed
+                'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
+                'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
+                'artist'
             ],
             [
                 'https://pt.wikisource.org/wiki/A_Portuguesa',
@@ -1123,6 +1341,11 @@ test('Cleanup', function () {
                 'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
                 'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg'
             ],
+            [
+                'http://www.geonames.org/6255147/asia.html',
+                'http://sws.geonames.org/6255147/',
+                'area'
+            ],
             // Genius
             [
                 'http://genius.com/artists/Dramatik',
@@ -1139,9 +1362,70 @@ test('Cleanup', function () {
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'work'
             ],
+            // Trove
+            [
+                'http://trove.nla.gov.au/people/1448035?c=people',
+                'http://nla.gov.au/nla.party-1448035',
+                'label'
+            ],
+            [
+                'https://nla.gov.au/nla.party-548358/',
+                'http://nla.gov.au/nla.party-548358',
+                'artist'
+            ],
+            [
+                'trove.nla.gov.au/work/9438679',
+                'http://trove.nla.gov.au/work/9438679',
+                'release_group'
+            ],
+            [
+                'http://nla.gov.au/anbd.bib-an11701020#',
+                'http://nla.gov.au/anbd.bib-an11701020',
+                'release_group'
+            ],
+            // ClassicalArchives.com
+            [
+                'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
+                'http://www.classicalarchives.com/composer/2806.html',
+                'artist'
+            ],
+            [
+                'http://classicalarchives.com/album/menlo-201409.html?test',
+                'http://www.classicalarchives.com/album/menlo-201409.html',
+                'release'
+            ],
+            [
+                'https://www.classicalarchives.com/work/1119282.html',
+                'http://www.classicalarchives.com/work/1119282.html',
+                'work'
+            ],
+            // CDJapan.co.jp
+            [
+                'www.cdjapan.co.jp/person/76324#test',
+                'http://www.cdjapan.co.jp/person/76324',
+                'artist'
+            ],
+            [
+                'https://cdjapan.co.jp/product/COCC-72267?test',
+                'http://www.cdjapan.co.jp/product/COCC-72267',
+                'release'
+            ],
+            // Sina Weibo
+            [
+                'www.weibo.com/mchotdog2010#test',
+                'http://weibo.com/mchotdog2010',
+                'artist'
+            ],
+            [
+                'https://weibo.com/mchotdog2010?test',
+                'http://weibo.com/mchotdog2010',
+                'label'
+            ]
         ];
 
     $.each(tests, function (i, test) {
-        QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+        t.equal(MB.Control.URLCleanup.cleanUrl(test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
     });
+
+    t.end();
 });

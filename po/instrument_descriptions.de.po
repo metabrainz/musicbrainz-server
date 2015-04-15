@@ -1,13 +1,15 @@
 # 
 # Translators:
+# nikki, 2014
 # Ettore Atalan <email address hidden>, 2014
 # lorenzpressler <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2014
+# TL, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-30 01:10+0000\n"
+"PO-Revision-Date: 2015-03-27 11:32+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +21,7 @@ msgstr ""
 #. name:Batá drum
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr ""
+msgstr "Eine Batá-Trommel ist eine beidseitig fellbespannte Sanduhrtrommel aus Nigeria "
 
 #. name:tef
 #: DB:instrument/description:531
@@ -28,12 +30,19 @@ msgid ""
 " the fingers."
 msgstr ""
 
+#. name:baroque trumpet
+#: DB:instrument/description:521
+msgid ""
+"A baroque trumpet is a natural trumpet modelled on the instruments used "
+"between the 1500s and the 1700s. It lacks valves but may have vents."
+msgstr ""
+
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Eine Drehorgel (oder Leierkasten) ist ein mechanisches Musikinstrument, das typischerweise vom Spieler mit einer Kurbel betrieben wird, die ein Steuersystem im Innern des Instrumentes in Bewegung setzt."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -52,7 +61,7 @@ msgstr ""
 msgid ""
 "A bullroarer consists of a piece of wood attached to a long cord which is "
 "then swung in a circle."
-msgstr ""
+msgstr "Das Schwirrgerät ist ein flaches, meist ovales Stück Holz oder Knochen mit abgerundeten Kanten, das an einer langen Schnur im Kreis geschwungen wird. "
 
 #. name:chamber organ
 #: DB:instrument/description:471
@@ -116,7 +125,7 @@ msgstr ""
 msgid ""
 "A flute is an aerophone or reedless wind instrument that produces its sound "
 "from the flow of air across an opening."
-msgstr ""
+msgstr "Eine Flöte ist ein Ablenkungs-Aerophon, bei dem ein Luftstrom über eine Kante geführt wird, an der er in Schwingung gerät."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
@@ -133,13 +142,13 @@ msgstr ""
 msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
-msgstr ""
+msgstr "Die Hi-Hat ist ein typischer Teil eines Schlagzeugs, sie besteht aus einem Becken-Paar, das horizontal auf einem Ständer mit einem Pedal montiert ist."
 
 #. name:17-string koto
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "Eine Wölbbrett-Zither mit 17 statt 13 Seiden-Saiten bespannt, wird auch als Basskoto bezeichnet."
 
 #. name:daire
 #: DB:instrument/description:532
@@ -154,7 +163,7 @@ msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
 " in order to produce sounds."
-msgstr ""
+msgstr "Eine Laserharfe ist ein elektronisches Musikinstrument, das aus mehreren Laserstrahlen besteht, die (analog zum Anzupfen von Harfensaiten) unterbrochen werden müssen, um Töne zu erzeugen."
 
 #. name:đàn tứ dây
 #: DB:instrument/description:233
@@ -163,27 +172,34 @@ msgid ""
 " guitar"
 msgstr ""
 
+#. name:lithophone
+#: DB:instrument/description:702
+msgid ""
+"A lithophone is a musical instrument consisting of a rock or pieces of rock "
+"which are struck to produce musical notes."
+msgstr ""
+
 #. name:mark tree
 #: DB:instrument/description:637
 msgid ""
 "A mark tree consists of many small chimes arranged in order of length which "
 "hang from a bar. The chimes are played by sweeping a finger or stick through"
 " the length of the hanging chimes."
-msgstr ""
+msgstr "Chimes (engl. mark tree) sind ein Perkussionsinstrument, das aus einer Anzahl verschieden langer Klangstäbe aus Metall besteht. Diese sind eng nebeneinander hängend an einem Träger angebracht und werden zur Erzielung eines Klangeffekts vom höchsten zum tiefsten Stab (auch umgekehrt) in einem Zug mit einem Schlägel oder den Fingernägeln angeschlagen."
 
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air"
 " chambers fitted with a free reed."
-msgstr ""
+msgstr "Die Mundorgel ist eine Gruppe von Durchschlagzungeninstrumenten bei denen in einer Luftkammer verschieden lange Pfeifen aus Bambus eingesetzt sind."
 
 #. name:musical saw
 #: DB:instrument/description:145
 msgid ""
 "A musical saw is a hand saw used as a musical instrument. It is usually "
 "played by bowing the non-serrated edge."
-msgstr ""
+msgstr "Die Singende Säge ist ein Musikinstrument, bei dem eine breite Säge aus Stahl (Fuchsschwanz) mit einem Violinbogen gestrichen wird."
 
 #. name:bowed piano
 #: DB:instrument/description:504
@@ -202,14 +218,14 @@ msgid ""
 "A prepared piano is a piano that has had its sound altered by placing "
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
-msgstr ""
+msgstr "Beim präparierten Klavier werden an bestimmten Stellen der Saitenchöre Gegenstände wie Radiergummis, Nägel, Papier usw. eingesetzt um entweder Mehrklänge, Flageoletttöne oder perkussive Klänge hervorzubringen."
 
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
 "A slit drum is a hollow percussion instrument made of wood or bamboo with a "
 "slit at the top."
-msgstr ""
+msgstr "Die Schlitztrommel ein traditionelles idiophones Aufschlaginstrument. Sie wird aus ausgehöhlten Baumstämmen oder Bambusrohren mit einem oder mehreren Schlitzen als Öffnung hergestellt."
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -218,39 +234,47 @@ msgid ""
 "water to create music. Although it is also known as a Japanese water zither,"
 " it is named after the sound the koto (a Japanese zither) makes and is not "
 "actually a string instrument."
-msgstr ""
+msgstr "Ein suikinkutsu ist eine Form japanischer Gartenornamentik und zugleich ein musikalisches Element. Das suikinkutsu besteht vor allem aus einem auf den Kopf gestellten Topf mit einem Loch an seiner Oberseite. Durch das Loch tropft Wasser in den Innenraum, in dem bereits ein kleiner Wasserteich enthalten ist, und produziert dabei einen platschenden Ton, der sich innerhalb des Topfes wie eine Glocke oder eine Saite der als Koto bekannten japanischen Zitter anhört."
 
 #. name:talkbox
 #: DB:instrument/description:453
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr ""
+msgstr "Eine Talkbox ist ein Effektgerät mit der ein Musiker den Klangs eines Instruments mit Hilfe des Mundraumes verändern kann."
 
 #. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
-msgstr ""
+msgstr "Eine Tar ist eine gezupfte Langhalslaute im Iran und mehreren Ländern Zentralasiens."
 
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid ""
 "A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
-msgstr ""
+msgstr "Das Tenor-Banjo ist ein viersaitiges Banjo mit 17 oder 19 Bünde, gestimmt c-g-d'-a'."
 
 #. name:tenor violin
 #: DB:instrument/description:615
 msgid ""
 "A tenor violin is an instrument with a range between those of the cello and "
 "the viola."
-msgstr ""
+msgstr "Die Tenor-Viola, auch „viola tenore“, ist ein Streichinstrument die wie die Bratsche eine Quinte tiefer als die Violine gestimmt wird, nämlich in C g d a', "
 
 #. name:tom-tom
 #: DB:instrument/description:462
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
+msgstr "Das Tomtom (auch Tom) ist eine zylindrische einseitig oder häufiger beidseitig Fell-bestückte Trommel und gehört zum festen Bestandteil des Drumsets."
+
+#. name:tromba marina
+#: DB:instrument/description:698
+msgid ""
+"A tromba marina is a triangular bowed string instrument used in medieval and"
+" Renaissance Europe that consists of a body and neck in the shape of a "
+"truncated cone resting on a triangular base."
 msgstr ""
 
 #. name:marxophone
@@ -261,13 +285,6 @@ msgstr ""
 #. name:typewriter
 #: DB:instrument/description:526
 msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr ""
-
-#. name:baroque trumpet
-#: DB:instrument/description:521
-msgid ""
-"A valveless trumpet, in the model of the ones from the 16th to 18th "
-"centuries"
 msgstr ""
 
 #. name:vessel flute
@@ -284,11 +301,11 @@ msgid ""
 "centuries"
 msgstr ""
 
-#. name:algozey
-#: DB:instrument/description:508
+#. name:wooden fish
+#: DB:instrument/description:267
 msgid ""
-"A wooden, beaked double-flute traditionally played by goat herders in the "
-"Punjab region of India and Pakistan."
+"A wooden fish is an idiophone often used during Buddhist rituals in East "
+"Asia."
 msgstr ""
 
 #. name:acoustic fretless guitar
@@ -301,7 +318,7 @@ msgstr ""
 msgid ""
 "Amadinda, southern Uganda giant xylophone, made on with resonating hardwood "
 "bars"
-msgstr ""
+msgstr "Die Amadinda aus Uganda ist ein Holmxylophon mit zwölf hölzernen Klangplatten."
 
 #. name:morsing
 #: DB:instrument/description:533
@@ -320,6 +337,14 @@ msgstr "Eine irisch/schottische Harfe."
 msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
+msgstr "Als Archtop (englisch für „gewölbte Decke“) -Gitarren werden hauptsächlich Zupfinstrumente mit Stahlsaiten bezeichnet, sie werden umgangssprachlich auch „Jazzgitarren“ genannt."
+
+#. name:electric piano
+#: DB:instrument/description:259
+msgid ""
+"An electric piano is an electro-mechanical musical instrument. Depending on "
+"the type of electric piano, the tones may be produced by strings, reeds or "
+"tuning forks."
 msgstr ""
 
 #. name:idiophone
@@ -327,7 +352,7 @@ msgstr ""
 msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
-msgstr ""
+msgstr "Idiophon heisst 'Selbsttöner' oder 'Selbstklinger' und bezeichnet ein Musikinstrument, das als Ganzes schwingend den Klang erzeugt oder schwingungsfähige Teile enthält, die keine gespannten Saiten oder Membranen sind."
 
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
@@ -339,12 +364,12 @@ msgstr ""
 #. name:balafon
 #: DB:instrument/description:364
 msgid "Balafon, Malian 'gourd xylophone'"
-msgstr ""
+msgstr "Ein Balafon ist ein Xylophon mit untergehängten Kalebassen als Resonatoren."
 
 #. name:bandura
 #: DB:instrument/description:393
 msgid "Bandura, Ukrainian 14th century lute"
-msgstr ""
+msgstr "Bandura, „ukrainische Lautenzither“, ist ein gezupftes Lauteninstrument bei dem neben dem Griffbrett entsprechend einer Zither eine Reihe weiterer Saiten angebracht sind, die parallel über den Resonanzkörper verlaufen und nicht verkürzt werden. Die gesamte Saitenzahl beträgt bis zu 65. Die Bandura wird mit beiden Händen gespielt."
 
 #. name:bandura
 #: DB:instrument/description:394
@@ -368,12 +393,12 @@ msgstr ""
 #. name:bendir
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
-msgstr ""
+msgstr "Bendir ist eine in Nordafrika verbreitete Rahmentrommel. Das Instrument besteht aus einem einseitig mit Ziegen- oder Schafhaut bespannten kreisrunden Holzrahmen."
 
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr ""
+msgstr "Die Cajón, auf Deutsch auch Kistentrommel genannt, ist ein aus Peru stammendes perkussives Musikinstrument."
 
 #. name:chacha
 #: DB:instrument/description:335
@@ -404,17 +429,17 @@ msgstr ""
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgstr ""
+msgstr "Das Krummhorn ist ein Holzblasinstrument mit Doppelrohrblatt, zylindrisch gebohrter Röhre und Windkapsel. Es besitzt sieben vorderständige Grifflöcher und ein Daumenloch für den linken Daumen. "
 
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "Die Davul ist eine zweifellige Rahmentrommel. Sie hat einen flachen hölzernen Korpus, der mit zwei unterschiedlichen Fellen bespannt ist. Der Spieler trägt sie an einem Riemen über der linken Schulter. Das höhere (rechte) Fell wird mit einer dünnen Gerte, das tiefere (linke) mit einem massiven Schlägel geschlagen."
 
 #. name:dobro
 #: DB:instrument/description:184
 msgid "Dobro, resonator guitar"
-msgstr ""
+msgstr "Dobro (=Herstellername) ist eine Resonatorgitarre."
 
 #. name:dhol
 #: DB:instrument/description:535
@@ -424,14 +449,14 @@ msgstr ""
 #. name:dunun
 #: DB:instrument/description:659
 msgid "Dunun is a family of West African cylindrical drums."
-msgstr ""
+msgstr "Dunduns werden aus einem Holzstamm gefertigt, haben einen durchgehend zylindrischen Querschnitt, den auf beiden Seiten ein etwas dickeres, durch ein spezielles Schnursystem gespanntes Kuhfell abschliesst."
 
 #. name:EWI
 #: DB:instrument/description:441
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr ""
+msgstr "Ein Blaswandler (englisch Wind Controller, Electronic Wind Instrument, kurz: EWI) ist ein elektronisches Musikinstrument, das in der Anblasweise einer Blockflöte, Klarinette oder einem Saxophon nachempfunden ist. Der Blaswandler tastet über spezielle Sensoren des Musikers Anblasluftstrom und die Griffkombination einer klappenähnlichen Schalterkombination ab."
 
 #. name:effects
 #: DB:instrument/description:677
@@ -451,10 +476,17 @@ msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
 msgstr ""
 
+#. name:friction idiophone
+#: DB:instrument/description:701
+msgid ""
+"Friction idiophones are idiophones where the sound is created by the "
+"instrument being rubbed."
+msgstr ""
+
 #. name:gankogui
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
-msgstr ""
+msgstr "Eine Gankogui ist eine Doppelhandglocke ohne Klöppel, die in der Musik der Ewe im Süden von Ghana und bei den Fon in Togo und Benin als Takt gebendes Perkussionsinstrument gespielt wird. Die beiden unterschiedlich großen Metallglocken des Aufschlagidiophons werden mit einem Holzstab angeschlagen."
 
 #. name:German harp
 #: DB:instrument/description:356
@@ -464,12 +496,12 @@ msgstr "deutsche/böhmische Harfe"
 #. name:ghatam
 #: DB:instrument/description:331
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
-msgstr ""
+msgstr "Die Ghatam ist ein aus rotem Ton gebrannter Tontopf, der in der südindischen Musik als Perkussionsinstrument verwendet wird."
 
 #. name:goblet drum
 #: DB:instrument/description:268
 msgid "Goblet drums are single-headed drums with a goblet shaped body."
-msgstr ""
+msgstr "Eine Darbuka ist eine einfellige Bechertrommel aus dem Nahen Osten und dem arabischen Nordafrika."
 
 #. name:syrinx
 #: DB:instrument/description:298
@@ -479,7 +511,7 @@ msgstr "griechische Panflöte"
 #. name:gusli
 #: DB:instrument/description:423
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
-msgstr ""
+msgstr "Die Gusli ist ein altrussisches Saiteninstrument. Ursprünglich gab es dieses in zwei Formen, eine, die der Zither entsprach und auf den Knien liegend gespielt wurde und eine andere, die in der Hand gehalten wurde. Es existiert auch eine modernere Variante als eine Art Tischharfe in Form eines Klaviers. Das Instrument besitzt 36 Saiten."
 
 #. name:Harddisk
 #: DB:instrument/description:603
@@ -504,12 +536,12 @@ msgstr ""
 #. name:kantele
 #: DB:instrument/description:424
 msgid "Kantele, Finnish traditional plucked string"
-msgstr ""
+msgstr "Die Kantele ist eine griffbrettlose Kastenzither, die in Finnland, Estland und Karelien gespielt wird."
 
 #. name:kanun
 #: DB:instrument/description:288
 msgid "Kanun, Arabic plucked strings"
-msgstr ""
+msgstr "Die Kanun ist eine Kastenzither, die im Orient beheimatet ist."
 
 #. name:keyed brass instruments
 #: DB:instrument/description:154
@@ -530,7 +562,7 @@ msgstr ""
 msgid ""
 "Krakebs are large metal castanet-like instruments which are the primary "
 "rhythmic component of Gnawa music."
-msgstr ""
+msgstr "Qaraqib (auch Krakeb) sind ein Paar zu den Gegenschlagidiophonen gehörende Gefässklappern aus Eisen, die in volksislamischen Sufi-Bruderschaften im Maghreb, vor allem bei den Gnawas in Marokko, in der rituellen Musik gespielt werden."
 
 #. name:lamellophone
 #: DB:instrument/description:632
@@ -539,7 +571,7 @@ msgid ""
 "long thin plates - \"lamella\" or \"tongues\" - which are fixed at one end "
 "and free at the other end. The free end is plucked, causing the plate to "
 "vibrate."
-msgstr ""
+msgstr "Lamellophone sind verschiedenartige Formen von Musikinstrumenten, die zu den Zupfidiophonen gezählt werden. Mehrere Lamellen sind auf einem Brett oder Resonanzkasten befestigt und werden mit den Fingern angezupft."
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
@@ -566,7 +598,7 @@ msgstr ""
 msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana."
-msgstr ""
+msgstr "Die Maddale ist eine zweifellige Doppelkonustrommel, die vor allem in der religiösen Volksmusik in den südindischen Bundesstaaten Karnataka, Kerala und Tamil Nadu mit den Händen gespielt wird."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -579,12 +611,12 @@ msgid ""
 "Mirliton is a generic term for membranophones played by a performer speaking"
 " or singing into them, and which alter the sound of the voice by means of a "
 "vibrating membrane."
-msgstr ""
+msgstr "Mirliton ist ein durch Luftbewegung angeregtes Membranophon. Deren Varianten werden aufgrund der Art der Tonerzeugung unterschieden."
 
 #. name:nai
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
-msgstr ""
+msgstr "Die Nai ist die rumänische Panflöte. Bei dieser Panflöte sind die Röhrchen leicht gekrümmt angeordnet. Sie sollte nicht mit der Nayflöte verwechselt werden."
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -611,22 +643,8 @@ msgstr ""
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
-"Other instruments. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Instrument_Tree/Requests"
-msgstr ""
-
-#. name:other percussion
-#: DB:instrument/description:171
-msgid ""
-"Other percussion. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
-
-#. name:other string instruments
-#: DB:instrument/description:64
-msgid ""
-"Other string instruments. If you can't find an instrument, please request it"
-" at http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+"Other instruments. If you can't find an instrument, please <a "
+"href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
 msgstr ""
 
 #. name:hang
@@ -666,7 +684,7 @@ msgstr ""
 #. name:pi
 #: DB:instrument/description:667
 msgid "Pi is a family of quadruple reed oboes from Thailand."
-msgstr ""
+msgstr "Die Pi ist ein Durchschlagzungeninstrument aus Nord-Thailand. Sie besteht aus einer Bambusart und besitzt eine einzelne durchschlagende Zunge aus einem dünnen Metallstück. Die Spielweise ähnelt der einer Flöte. Das Instrument kann Töne sowohl durch das Anblasen als auch durch das Ansaugen erzeugen, womit ein kontinuierlicher Sound entstehen kann."
 
 #. name:pí thiu
 #: DB:instrument/description:339
@@ -691,7 +709,7 @@ msgstr "Santur, Mittlerer Osten"
 #. name:shawm
 #: DB:instrument/description:408
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
-msgstr ""
+msgstr "Die Schalmei ist ein Holzblasinstrument mit Doppelrohrblatt und konisch gebohrter Röhre. Sie besitzt meist sieben vorderständige Grifflöcher. Ein Daumenloch für den linken Daumen kann ebenfalls vorhanden sein."
 
 #. name:slide brass instruments
 #: DB:instrument/description:202
@@ -715,12 +733,17 @@ msgstr ""
 msgid ""
 "Struck idiophones are idiophones where the sound is created by the "
 "instrument being struck. These are the most common type of idiophone."
+msgstr "Schlagidiophone sind Idiophone bei denen das Instrument durch Perkussion in Schwingung versetzt wird."
+
+#. name:Swedish bagpipes
+#: DB:instrument/description:691
+msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr ""
 
 #. name:tambura
 #: DB:instrument/description:391
 msgid "Tambura, Tanbura or Tamboura"
-msgstr ""
+msgstr "Die Tambura ist ein Zupfinstrument mit vier, sechs oder acht Metallsaiten bespannt, die immer paarweise angeordnet sind. Der Ton der Tambura klingt metallisch und ist von relativ kurzer Dauer."
 
 #. name:tanbou ka
 #: DB:instrument/description:333
@@ -732,14 +755,14 @@ msgstr ""
 msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
-msgstr ""
+msgstr "Beim Stepptanz werden mit je zwei Metallplatten, die haltbarer sind als die zunächst benutzten Holzsohlen, vorne und hinten an den Schuhen angebracht, beim Tanzen rhythmische Klänge erzeugt, die zum optischen Eindruck und zur Musik passen. Der Tänzer wird somit zum Perkussions-Musiker."
 
 #. name:Cretan lyra
 #: DB:instrument/description:482
 msgid ""
 "The Cretan lyra is a Greek pear-shaped, three-stringed bowed musical "
 "instrument, central to the traditional music of Crete and parts of Greece."
-msgstr ""
+msgstr "Die Kretische Lyra ist eine birnenförmige, mit dem Bogen gestrichene Kurzhalslaute in der griechischen Volksmusik. Sie hat drei in Quinten gestimmte Saiten, am Hals befinden sich keine Bünde."
 
 #. name:E-flat clarinet
 #: DB:instrument/description:574
@@ -756,7 +779,7 @@ msgstr ""
 msgid ""
 "The Paraguayan harp is a 32-48-string diatonic harp used in Paraguay and "
 "Venezuela."
-msgstr ""
+msgstr "Die typische Paraguay-Harfe gehört zu den Chordophonen, genauer zu den Zupfinstrumenten. Sie hat 36 Saiten und ist etwa 150 cm hoch, der Abstand zwischen den Saiten beträgt etwa einen Zentimeter. Die Schallöffnungen befinden sich auf der Rückseite des Instrumentes."
 
 #. name:Portuguese guitar
 #: DB:instrument/description:647
@@ -777,28 +800,28 @@ msgstr ""
 msgid ""
 "The Saraswati veena is an Indian plucked stringed instrument used in "
 "Carnatic music."
-msgstr ""
+msgstr "Die Langhalslaute Saraswati vina ist ein gezupftes Saiteninstrument aus dem Süden Indiens."
 
 #. name:Schwyzerörgeli
 #: DB:instrument/description:679
 msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
-msgstr ""
+msgstr "Das Schwyzerörgeli ist eine Variante des diatonischen Akkordeons, es wird hauptsächlich in der Schweizer Volksmusik verwendet."
 
 #. name:Stroh violin
 #: DB:instrument/description:451
 msgid ""
 "The Stroh violin is a violin with a metal resonator and horn rather than a "
 "wooden body."
-msgstr ""
+msgstr "Die Strohgeige ist eine Form der Violine, die ohne Resonanzkörper auskommt. Die Saiten der Violine werden wie üblich mit einem Bogen angestrichen. Die mechanische Saitenschwingung wird am Steg über einen Hebel direkt auf eine Membran übertragen. Diese erzeugt daraus entsprechend dem Grammophon Luftschwingungen, die durch einen Trichter aus Metall verstärkt an die Umgebungsluft abgegeben werden."
 
 #. name:Vienna horn
 #: DB:instrument/description:562
 msgid ""
 "The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
 " for playing orchestral or classical music."
-msgstr ""
+msgstr "Das Wiener Horn ist ein Blechblasinstrument mit drei Ventilen, eine spezielle Bauform des Waldhorns. Es ist ein einfaches F-Horn und hat eine engere Mensur als das Doppelhorn."
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -807,9 +830,30 @@ msgid ""
 "fingerboard resulting in elevated frets similar to the đàn nguyệt."
 msgstr ""
 
+#. name:Wurlitzer electric piano
+#: DB:instrument/description:468
+msgid ""
+"The Wurlitzer electric piano is an electric piano where flat steel reeds are"
+" struck by felt hammers."
+msgstr ""
+
 #. name:Xaphoon
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
+msgstr "Ein Xaphoon ist ein Einfachrohrblattinstrument aus Bambus oder Kunststoff, das ähnlich wie ein Saxophon oder eine Klarinette klingt."
+
+#. name:accordion
+#: DB:instrument/description:41
+msgid ""
+"The accordion is a rectangular free-reed bellows-driven instrument with a "
+"keyboard & buttons."
+msgstr ""
+
+#. name:afoxé
+#: DB:instrument/description:717
+msgid ""
+"The afoxé is a Brazilian instrument typically consisting of a gourd wrapped "
+"in a beaded net."
 msgstr ""
 
 #. name:agogô
@@ -817,11 +861,58 @@ msgstr ""
 msgid ""
 "The agogô is a single or multiple bell used in samba music with origins in "
 "traditional Yoruba music."
-msgstr ""
+msgstr "Der Agogô ist ein Aufschlagidiophon in der brasilianischen Musik, das aus zwei, über einen Bügel miteinander verbundenen, länglich-kegelförmigen Metallglocken ohne Klöppel besteht. Die beiden Glocken sind von unterschiedlicher Größe und Tonhöhe und werden mit einem kurzen Stab angeschlagen."
 
 #. name:ajaeng
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
+msgstr "Die ajaeng ist eine siebensaitige, mit einem Holzstab gestrichene Wölbbrettzither, die in der traditionellen koreanischen Hofmusik gespielt wird."
+
+#. name:alfaia
+#: DB:instrument/description:718
+msgid "The alfaia is a Brazilian cylindrical drum."
+msgstr ""
+
+#. name:algozey
+#: DB:instrument/description:508
+msgid ""
+"The algozey is a wooden, beaked double-flute traditionally played by goat "
+"herders in the Punjab region of India and Pakistan."
+msgstr ""
+
+#. name:alphorn
+#: DB:instrument/description:27
+msgid ""
+"The alphorn, or alpine horn, is a conical wood horn used for communication "
+"in mountains."
+msgstr ""
+
+#. name:alto clarinet
+#: DB:instrument/description:10
+msgid ""
+"The alto clarinet is a clarinet in E♭ or sometimes F, normally with a curved"
+" neck."
+msgstr ""
+
+#. name:alto flute
+#: DB:instrument/description:346
+msgid ""
+"The alto flute is a concert flute in G, lower in tone than the flûte "
+"d'amour."
+msgstr ""
+
+#. name:alto saxophone
+#: DB:instrument/description:21
+msgid ""
+"The alto saxophone is a woodwind invented by Adolphe Sax which is between "
+"the tenor and soprano in size."
+msgstr ""
+
+#. name:anvil
+#: DB:instrument/description:720
+msgid ""
+"The anvil is a tool normally used by blacksmiths which is sometimes used as "
+"a percussion instrument."
 msgstr ""
 
 #. name:archlute
@@ -830,13 +921,18 @@ msgid ""
 "The archlute is a European plucked string instrument developed around 1600 "
 "as a compromise between the very large theorbo and the Renaissance tenor "
 "lute"
-msgstr ""
+msgstr "Erzlaute ist der Oberbegriff für historische westeuropäische Lauteninstrumente, deren gemeinsames Merkmal ein an dem in Längsrichtung verlängerten Hals angebrachter zweiter Wirbelkasten ist. Dieser zweite Wirbelkasten dient zur Aufnahme von tiefer klingenden Bordunsaiten, die beim Spielen nicht verkürzt werden und neben den über dem Griffbrett befindlichen Melodiesaiten verlaufen."
 
 #. name:arghul
 #: DB:instrument/description:634
 msgid ""
 "The arghul is a traditional Egyptian double-pipe, single-reed woodwind "
 "instrument."
+msgstr "Der Arghul ist ein Einfachrohrblattinstrument, genauer eine gedoppelte Rohrpfeife mit ideoglotten Rohrblättern. Er hat zwei parallele Schallrohre, die mit gewachsten Fäden verbunden werden. "
+
+#. name:atabaque
+#: DB:instrument/description:719
+msgid "The atabaque is a tall Brazilian hand drum."
 msgstr ""
 
 #. name:atarigane
@@ -845,12 +941,33 @@ msgid ""
 "The atarigane is a Japanese gong which is struck using a deer horn mallet."
 msgstr ""
 
+#. name:bagpipe
+#: DB:instrument/description:4
+msgid ""
+"The bagpipe is an instrument consisting of a series of enclosed reeds fed by"
+" a bag of air."
+msgstr ""
+
+#. name:bajo sexto
+#: DB:instrument/description:728
+msgid ""
+"The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
+"courses."
+msgstr ""
+
+#. name:bandoneón
+#: DB:instrument/description:193
+msgid ""
+"The bandoneón is a type of bisonoric concertina popular in parts of South "
+"America and in Lithuania."
+msgstr ""
+
 #. name:bandora
 #: DB:instrument/description:488
 msgid ""
 "The bandora is a large long-necked plucked string instrument that has been "
 "described as a kind of bass cittern."
-msgstr ""
+msgstr "Die Pandora (auch Bandora) ist eine europäische gezupfte Kastenhalslaute aus dem 16. und 17. Jahrhundert. Sie gehört zur Cister-Familie und ist dort der größere Basstypus. Im Gegensatz zur Cister hatte die Pandora einen stark geschweiften Zargenkorpus und Querriegelsaitenbefestigung."
 
 #. name:bangu
 #: DB:instrument/description:581
@@ -867,18 +984,32 @@ msgstr ""
 msgid ""
 "The banhu is a Chinese bowed string instrument in the huqin family. It is "
 "also called banghu for its use in bangzi opera."
-msgstr ""
+msgstr "Die Kniegeige Banhu ist ein traditionelles chinesisches Streichinstrument, das der Familie der Huqin-Instrumente angehört. Die Banhu hat zwei Saiten und wird vertikal gehalten. Sie wird mit einem Bogen gespielt, wobei das Haar des Bogens zwischen den zwei Saiten verläuft. Der Klangkörper wird aus Kokosnussschalen hergestellt und nicht aus Holz."
 
 #. name:banjitar
 #: DB:instrument/description:396
 msgid "The banjitar is a six-string banjo with the neck of a guitar."
-msgstr ""
+msgstr "Das Gitarren-Banjo ist ein sechssaitiges Zupfinstrument mit einem langen Hals mit Bünden."
 
 #. name:bansuri
 #: DB:instrument/description:190
 msgid ""
 "The bansuri is a transverse alto flute, which is the North Indian "
 "counterpart to the venu."
+msgstr "Die Bansuri ist eine in Nordindien gespielte Querflöte aus Bambus und hat sechs oder sieben Grifflöcher. Das nahe Ende ist geschlossen, das ferne Ende offen. Sie besitzt kein Mundstück und ist diatonisch gestimmt."
+
+#. name:baritone horn
+#: DB:instrument/description:28
+msgid ""
+"The baritone horn is a piston valve brass instrument with a wide-rimmed cup "
+"mouthpiece which is pitched in B♭, one octave below the B♭ trumpet."
+msgstr ""
+
+#. name:baritone saxophone
+#: DB:instrument/description:23
+msgid ""
+"The baritone saxophone is the largest and lowest-pitch saxophone in wide "
+"use."
 msgstr ""
 
 #. name:baryton
@@ -888,6 +1019,34 @@ msgid ""
 "with instruments of the viol family, distinguished by an extra set of "
 "plucked strings. It was in regular use in Europe up until the end of the "
 "18th century."
+msgstr "Das Baryton (auch maskulin „der Baryton“) ist ein Streichinstrument des 18. Jahrhunderts mit der Grösse und Stimmung einer Tenor-Bass-Gambe. Zusätzlich zu den Spielsaiten besitzt das Baryton Resonanzsaiten, die mit der linken Hand gezupft werden können und ihm einen deutlichen Nachhall verleihen."
+
+#. name:bass clarinet
+#: DB:instrument/description:11
+msgid ""
+"The bass clarinet is a clarinet, typically pitched an octave below the "
+"soprano B♭ clarinet."
+msgstr ""
+
+#. name:bass flute
+#: DB:instrument/description:416
+msgid ""
+"The bass flute is a flute, pitched one octave below the C concert flute, "
+"with a tube about 1.5 meters long."
+msgstr ""
+
+#. name:bass harmonica
+#: DB:instrument/description:465
+msgid ""
+"The bass harmonica is a type of octave harmonica where the lowest note (E) "
+"is the same as that on a bass guitar."
+msgstr ""
+
+#. name:bass oboe
+#: DB:instrument/description:732
+msgid ""
+"The bass oboe is a double reed woodwind instrument which is about twice the "
+"size of a regular oboe."
 msgstr ""
 
 #. name:bass saxophone
@@ -897,6 +1056,12 @@ msgid ""
 "family (not counting the subcontrabass tubax). It is similar in design to a "
 "baritone saxophone, but it is larger, with a longer loop near the "
 "mouthpiece."
+msgstr "Das Basssaxophon ist ein Musikinstrument aus Messing. Es gehört, anders, als sein metallischer Korpus vermuten lässt, zur Familie der Holzblasinstrumente, da sein Ton mit Hilfe eines Rohrblatts erzeugt wird."
+
+#. name:bass trumpet
+#: DB:instrument/description:727
+msgid ""
+"The bass trumpet is a type of low trumpet similar to the valve trombone."
 msgstr ""
 
 #. name:bawu
@@ -905,7 +1070,7 @@ msgid ""
 "The bawu is a Chinese wind instrument. Although shaped like a flute, it is "
 "actually a free reed instrument, with a single metal reed. It is played in a"
 " transverse (horizontal) manner."
-msgstr ""
+msgstr "Das Bawu ist ein chinesisches Musikinstrument. Es sieht aus wie eine Holzquerflöte, verwendet aber zur Tonerzeugung eine durchschlagende Stimmzunge und wird deshalb zu den Mundorgeln gezählt. Der Klang ist ähnlich dem der Klarinette."
 
 #. name:bin-sasara
 #: DB:instrument/description:380
@@ -919,14 +1084,14 @@ msgstr ""
 msgid ""
 "The biwa is a short-necked Japanese fretted lute which is played with a "
 "large triangular-shaped plectrum."
-msgstr ""
+msgstr "Die Biwa ist ein klassisches japanisches Musikinstrument, eine vier- oder fünfsaitige, birnenförmige Kurzhalslaute, die mit einem großen Plektrum angeschlagen wird."
 
 #. name:buk
 #: DB:instrument/description:577
 msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
-msgstr ""
+msgstr "Buk ist zum einen die generelle koreanische Bezeichnung für Trommel (von der es traditionell mindestens 15 verschiedene Ausführungen gibt) und zum anderen eine flache zweifellige Fasstrommel aus einem Stück eines ausgehöhlten Baumstamms."
 
 #. name:bulbul tarang
 #: DB:instrument/description:528
@@ -945,14 +1110,14 @@ msgstr ""
 msgid ""
 "The cavaquinho is a small plucked string instrument of Portuguese origin "
 "with four wire or gut strings"
-msgstr ""
+msgstr "Ein Cavaquinho ist ein Saiteninstrument aus der Familie der Zupfinstrumente. Es hat die Form einer Gitarre, ist von den Ausmassen kleiner als diese, hat einen Korpus aus Holz und vier Saiten aus Metall. Das Instrument zählt zu den Vorläufern der bekannteren hawaiischen Ukulele."
 
 #. name:caxixi
 #: DB:instrument/description:489
 msgid ""
 "The caxixi is a shaker originating in Brazil which is made of a small wicker"
 " basket containing seeds or other small particles."
-msgstr ""
+msgstr "Caxixi st eine Rassel, die aus Bast geflochten und mit Kiesel oder Samen gefüllt ist. Im Boden der Caxixi ist eine Kalebassen-Scheibe eingearbeitet. Die Caxixi wird beim Spiel auf und ab bewegt bzw. gedreht, sodass der Inhalt entweder auf die Kalebasse oder auf das Geflecht trifft und je nach dem ein hoher, scharfer oder ein weicher, tiefer Ton erklingt."
 
 #. name:chakhe
 #: DB:instrument/description:627
@@ -966,26 +1131,31 @@ msgstr ""
 msgid ""
 "The chalumeau is a single-reed woodwind instrument of the late baroque and "
 "early classical era."
-msgstr ""
+msgstr "Das Chalumeau ist ein Holzblasinstrument mit einfachem Rohrblatt. Es ist verwandt mit der Klarinette, die aus dem Chalumeau entwickelt wurde. Das Instrument hat eine zylindrische Röhre, sieben vorderständige Grifflöcher und ein Daumenloch."
 
 #. name:chande
 #: DB:instrument/description:536
 msgid ""
 "The chande is a drum used in the traditional and classical music of South "
 "India."
+msgstr "Chande bezeichnet eine zylindrische Doppelfelltrommel, die in einigen Regionen in der südindischen Volksmusik gespielt wird. "
+
+#. name:chanzy
+#: DB:instrument/description:713
+msgid "The chanzy is a three-stringed Tuvan lute."
 msgstr ""
 
 #. name:charango
 #: DB:instrument/description:466
 msgid "The charango is a small South American lute."
-msgstr ""
+msgstr "Das Charango ist ein kleines Zupfinstrument aus der südamerikanischen Andenregion, bei dem als Resonanzkörper ursprünglich der getrocknete Panzer eines Gürteltieres verwendet wurde. Heutzutage wird der Resonanzkörper überwiegend aus Holz hergestellt. Die äussere Form ähnelt einer Gitarre."
 
 #. name:chau gong
 #: DB:instrument/description:640
 msgid ""
 "The chau gong is a large gong made of brass or bronze which is almost flat "
 "except for the rim."
-msgstr ""
+msgstr "Das Tamtam, auch Chau Gong, ist ein grosses ostasiatisches Aufschlag-Idiophon, also ein unmittelbar geschlagener, selbsttönender Klangkörper unbestimmter Tonhöhe, der gewöhnlich mit einem Schlägel aus Filz angeschlagen wird. Es besteht aus einer flachen tellerförmigen Scheibe, die oft aus Bronze gefertigt ist und bis zu 200 cm Durchmesser aufweisen kann. Der Rand der Scheibe ist umgebogen. Das Instrument hängt in einem Metallständer an Seilen."
 
 #. name:chikuzen biwa
 #: DB:instrument/description:578
@@ -999,31 +1169,31 @@ msgstr ""
 msgid ""
 "The concert flute is the most common variant of the flute and is commonly "
 "referred to as just \"flute\"."
-msgstr ""
+msgstr "Die Querflöte ist ein Holzblasinstrument mit einer, im Unterschied zur Längsflöte, seitlich am Rohr angebrachten Anblaskante."
 
 #. name:cornamuse
 #: DB:instrument/description:510
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr ""
+msgstr "Die Cornamuse ist ein Holzblasinstrument mit Doppelrohrblatt, zylindrisch gebohrter Röhre und Windkapsel. Das untere Ende der Röhre ist mit einem Deckel verschlossen, der seitliche Luftaustrittslöcher besitzt."
 
 #. name:cornet
 #: DB:instrument/description:25
 msgid "The cornet is a brass instrument very similar to the trumpet."
-msgstr ""
+msgstr "Das Kornett ist ein Blechblasinstrument, das trotz der trompetenähnlichen Form und Stimmlage aufgrund seiner Mensur zu den Horninstrumenten gezählt wird."
 
 #. name:cornett
 #: DB:instrument/description:203
 msgid ""
 "The cornett (not to be confused with the cornet) is an early wind "
 "instrument."
-msgstr ""
+msgstr "Der Zink (engl. Cornett) ist ein historisches Musikinstrument. Es wurde meist aus Holz gefertigt und zählt als chromatische Grifflochtrompete zur Klasse der Lippenton-Aerophone (auch Blechblasinstrumente genannt). Mit dem Ventil-Kornett hat der Zink nichts zu tun."
 
 #. name:cuíca
 #: DB:instrument/description:491
 msgid "The cuíca is a Brazilian friction drum often used in samba music."
-msgstr ""
+msgstr "Die Cuíca ist eine Reibetrommel (Friktionstrommel) der brasilianischen Musik. Sie besteht üblicherweise aus einem Metallzylinder, der an einer Seite mit Leder bespannt ist. In das Leder wird ein kleiner Bambusstab eingebunden, durch den die Membran zum Schwingen gebracht wird und der sich innerhalb des Instrumentenkörpers befindet."
 
 #. name:cò ke
 #: DB:instrument/description:309
@@ -1045,7 +1215,7 @@ msgid ""
 "The daf is a large Persian frame drum used in popular and classical music. "
 "The frame is usually made of hardwood with many metal ringlets attached and "
 "the membrane is usually goatskin."
-msgstr ""
+msgstr "Die Daf (auch Daff, Deff, Def, Tef, duff) ist eine grosse Rahmentrommel. Dafs bestehen allgemein aus einem flachen kreisrunden Holzrahmen, der einseitig mit Ziegenfell oder Schaffell bespannt ist. Türkische Rahmentrommeln mit Schellenkranz heißen zilli def oder zilli tef."
 
 #. name:cizhonghu
 #: DB:instrument/description:218
@@ -1066,7 +1236,7 @@ msgstr ""
 msgid ""
 "The darbuka is an hourglass-shaped goblet drum from Greece, the Middle East "
 "and India."
-msgstr ""
+msgstr "Darbuka ist eine einfellige Bechertrommel aus dem Nahen Osten und dem arabischen Nordafrika."
 
 #. name:daruan
 #: DB:instrument/description:546
@@ -1087,7 +1257,7 @@ msgstr ""
 msgid ""
 "The dilruba is a bowed string instrument from Northern India, mostly used in"
 " religious music and light classical songs"
-msgstr ""
+msgstr "Dilruba ist ein mit der Sarangi vergleichbares nordindisches Streichinstrument. "
 
 #. name:ding tac ta
 #: DB:instrument/description:317
@@ -1111,7 +1281,7 @@ msgid ""
 " it is sometimes just called 笛 (di), but in Japanese 笛 (fue) is a more "
 "generic word referring to a whole class of flutes rather than this specific "
 "instrument."
-msgstr ""
+msgstr "Dizi ist eine Querflöte der traditionellen chinesischen Musik. Gewöhnlich werden dizis aus Bambus gefertigt, weswegen sie im Westen bisweilen auch als „chinesische Bambusflöte“ bezeichnet werden."
 
 #. name:dohol
 #: DB:instrument/description:399
@@ -1121,40 +1291,51 @@ msgstr ""
 #. name:dombra
 #: DB:instrument/description:598
 msgid "The dombra is a long-necked lute from central Asia."
-msgstr ""
+msgstr "Dombra ist ein weit verbreitetes Zupfinstrument in mehreren mittelasiatischen Staaten. Die zweisaitigen Langhalslauten mit birnenförmigem Korpus besitzen mit Ausnahme des kasachischen Instruments und im Unterschied zur in derselben Region gespielten dotār keine Bünde. "
 
 #. name:domra
 #: DB:instrument/description:485
 msgid ""
 "The domra is a long-necked Russian string instrument of the lute family with"
 " a round body and three or four metal strings."
+msgstr "Die Domra ist eine in der russischen Musik gespielte Laute. Es gibt Zupfinstrumente mit vier Saiten, deren Stimmung und Mensur der europäischen Laute oder der Mandoline ähnlich sind. Die dreisaitige Domra ist wie die Balalaika gestimmt, als deren Vorgänger sie gilt."
+
+#. name:doshpuluur
+#: DB:instrument/description:706
+msgid "The doshpuluur is a long-necked Tuvan lute."
 msgstr ""
 
-#. name:double bass / contrabass / acoustic upright bass
+#. name:double bass
 #: DB:instrument/description:48
 msgid ""
 "The double bass, also known as contrabass or upright bass as well as many "
 "other names, is the largest and lowest-pitched bowed string instrument of "
 "the violin family in the modern symphony orchestra."
+msgstr "Der Kontrabass (englisch: Double Bass, oft auch einfach als Bass bezeichnet, volkstümlich auch als Bassgeige) ist das tiefste und größte Streichinstrument. Da der Kontrabass sowohl bauliche Eigenschaften der Violinen als auch der Gamben aufweist, herrscht Uneinigkeit über seine Familienzugehörigkeit."
+
+#. name:dramyin
+#: DB:instrument/description:689
+msgid ""
+"The dramyin is a traditional Himalayan long-necked lute with seven strings."
 msgstr ""
 
 #. name:duduk
 #: DB:instrument/description:397
 msgid "The duduk is a traditional Armenian double reed woodwind instrument."
-msgstr ""
+msgstr "Die duduk ist ein armenisches Holzblasinstrument mit einem extrem großen Doppelrohrblatt, das bis zu zehn Zentimeter lang und bis zu drei Zentimeter breit ist. Sie gilt als armenisches Nationalinstrument und ist auch als „armenische Flöte“ bekannt."
 
 #. name:dulcian
 #: DB:instrument/description:496
 msgid ""
 "The dulcian is a double reed bass woodwind instrument which is a 16th "
 "century ancestor of the bassoon."
-msgstr ""
+msgstr "Der Dulzian ist ein Holzblasinstrument mit direkt angeblasenem Doppelrohrblatt und konischer Bohrung. Das Barockfagott wurde aus dem Dulzian entwickelt."
 
 #. name:dutar
 #: DB:instrument/description:629
 msgid ""
 "The dutar is a long-necked two-stringed lute found in Iran and Central Asia."
-msgstr ""
+msgstr "Dotar ist eine zweisaitge Langhalslaute, die in der iranischen, afghanischen und tadschikischen Musik gespielt wird."
 
 #. name:duxianqin
 #: DB:instrument/description:596
@@ -1168,19 +1349,19 @@ msgstr ""
 msgid ""
 "The ektara is a one-string instrument used in traditional music from "
 "Bangladesh, India, Egypt, and Pakistan."
-msgstr ""
+msgstr "Ektara bezeichnet eine Gruppe von Zupftrommeln in der volkstümlichen nordindischen Musik. Bei dieser Verbindung aus Membranophon und Saiteninstrument wird die über die Unterseite des Korpus gespannte Hautdecke indirekt durch Zupfen einer Saite in Schwingungen versetzt."
 
 #. name:erhu
 #: DB:instrument/description:215
 msgid "The erhu is a bowed Chinese instrument with two strings."
-msgstr ""
+msgstr "Die Erhu ist ein zweisaitiges chinesisches Streichinstrument ohne Bünde und ohne Griffbrett, das zu den Röhrenspiessgeigen gezählt wird."
 
 #. name:esraj
 #: DB:instrument/description:529
 msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument"
-msgstr ""
+msgstr "Die Esraj ist eine nordindische gestrichene Schalenhalslaute mit vier bis fünf Spielsaiten und über ein Dutzend Resonanzsaiten."
 
 #. name:flûte d'amour
 #: DB:instrument/description:415
@@ -1192,14 +1373,14 @@ msgstr ""
 msgid ""
 "The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
 "treble/alto recorder."
-msgstr ""
+msgstr "Die Fourth-Flute ist eine Längsflöte (genauer Sopranblockflöte in b1 ), die zur Gruppe der Holzblasinstrumente gehört."
 
 #. name:fujara
 #: DB:instrument/description:571
 msgid ""
 "The fujara is a large folk shepherd's fipple flute originated from central "
 "Slovakia."
-msgstr ""
+msgstr "Fujara ist eine lange, senkrecht gehaltene Schnabelflöte, die in der Slowakei traditionell von Hirten gespielt wird."
 
 #. name:ganzá
 #: DB:instrument/description:644
@@ -1218,14 +1399,14 @@ msgstr ""
 msgid ""
 "The gayageum is a traditional Korean zither-like string instrument which "
 "normally has 12 strings."
-msgstr ""
+msgstr "Gayageum ist eine in der klassischen koreanischen Musik gespielte Wölbbrettzither mit 12 seidenen Saiten und 12 beweglichen Stegen."
 
 #. name:gehu
 #: DB:instrument/description:219
 msgid ""
 "The gehu is a Chinese bowed string instrument, with four strings and tuned "
 "like the cello."
-msgstr ""
+msgstr "Gehu ist ein viersaitiges Streichinstrument in der chinesischen Musik, eine Kombination aus Cello und Instrumenten der Huqin-Familie."
 
 #. name:geomungo
 #: DB:instrument/description:76
@@ -1240,27 +1421,42 @@ msgid ""
 "The glass harmonica is an instrument made of a series of glass bowls mounted"
 " on a spindle which is then turned. It is played by touching the rims of the"
 " bowls with a finger."
-msgstr ""
+msgstr "Die Glasharmonika ist ein Reibe-Idiophon. Zur Tonerzeugung dienen verschieden grosse, ineinandergeschobene Glasglocken, die auf einer gemeinsamen waagerechten Achse lagern, die durch ein Pedal in Rotation versetzt wird. Gespielt wird die Glasharmonika durch das Berühren der Glockenränder mit einem feuchten Finger."
 
 #. name:gralla
 #: DB:instrument/description:582
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
-msgstr ""
+msgstr "Die Gralla ist eine katalanische Schalmei. Sie gehört zu den Holzblasinstrumenten und wird mit einem Doppelrohrblatt gespielt. Sie hat sechs Grifflöcher und ein Daumenloch, das zum Oktavieren benutzt wird."
 
 #. name:guan
 #: DB:instrument/description:683
 msgid ""
 "The guan is a Chinese double reed wind instrument made from hardwood or "
 "bamboo."
-msgstr ""
+msgstr "Die Guan ist ein ostasiatisches Blasinstrument mit doppeltem Rohrblatt. Die zylindrische Bohrung verleiht der Guan einen Ton ähnlich der Klarinette."
 
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
 "The guitalele is a guitar-ukulele hybrid, combining the small size of a "
 "guitalele with the six strings of a classical guitar."
+msgstr "Eine Gitalele (auch Guitarlele, Guitalele oder Gitarrlele geschrieben) ist eine Mischung aus einer Gitarre und einer Ukulele. Einerseits ist sie beinahe so klein und handlich wie eine Ukulele. Andererseits hat sie sechs Saiten wie eine Gitarre, nicht vier wie die Ukulele. Gitarristen können ihre gewohnten Griffe auch auf der Gitalele verwenden (auf der Ukulele „fehlen“ dagegen die beiden tiefsten Saiten)."
+
+#. name:guitarrón chileno
+#: DB:instrument/description:688
+msgid ""
+"The guitarrón chileno is a Chilean guitar-like plucked string instrument "
+"which typically has 25 strings."
+msgstr ""
+
+#. name:guitarrón mexicano
+#: DB:instrument/description:687
+msgid ""
+"The guitarrón mexicano is a very large and deep-bodied Mexican guitar-like "
+"instrument with six strings which is traditionally played in mariachi "
+"groups."
 msgstr ""
 
 #. name:gumbri
@@ -1268,7 +1464,7 @@ msgstr ""
 msgid ""
 "The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
 " North Africa."
-msgstr ""
+msgstr "Gimbri ist eine 1–1,5 Meter lange gezupfte Kastenhalslaute mit drei Saiten in Marokko, Tunesien und Algerien. Sie hat einen langen runden Hals und einen rechteckigen Korpus aus einem Stück Holz, der an der Oberseite mit einer ungegerbten Tierhaut überzogen ist. Die Saiten sind normalerweise aus Schafsdarm und werden nicht mit Wirbeln, sondern mit einem Lederband am Hals befestigt."
 
 #. name:guqin
 #: DB:instrument/description:506
@@ -1324,11 +1520,21 @@ msgid ""
 "melodic instruments in Japanese gagaku music."
 msgstr ""
 
+#. name:hotchiku
+#: DB:instrument/description:709
+msgid "The hotchiku is a Japanese end-blown bamboo flute."
+msgstr ""
+
 #. name:hulusi
 #: DB:instrument/description:547
 msgid ""
 "The hulusi is a Chinese free reed wind instrument which has three bamboo "
 "pipes which pass through a gourd."
+msgstr ""
+
+#. name:igil
+#: DB:instrument/description:707
+msgid "The igil is a Tuvan bowed string instrument with two strings."
 msgstr ""
 
 #. name:janggu
@@ -1355,6 +1561,13 @@ msgstr ""
 msgid ""
 "The jinghu is a Chinese bowed string instrument with two strings used "
 "primarily in Beijing opera."
+msgstr ""
+
+#. name:jouhikko
+#: DB:instrument/description:695
+msgid ""
+"The jouhikko is a traditional, 2 or 3 stringed bowed lyre, from Finland and "
+"Karelia."
 msgstr ""
 
 #. name:k'lông pút
@@ -1503,6 +1716,13 @@ msgid ""
 "of the heads."
 msgstr ""
 
+#. name:krar
+#: DB:instrument/description:734
+msgid ""
+"The krar is a five or six-stringed bowl-shaped lyre from Eritrea and "
+"Ethiopia."
+msgstr ""
+
 #. name:kèn bầu
 #: DB:instrument/description:303
 msgid "The kèn bầu is a double reed instrument from Vietnam."
@@ -1523,6 +1743,11 @@ msgid ""
 "eight inches long and has three to six fingerholes placed along the pipe."
 msgstr ""
 
+#. name:laouto
+#: DB:instrument/description:704
+msgid "The laouto is a long-neck fretted instrument of the lute family."
+msgstr ""
+
 #. name:lasso d'amore
 #: DB:instrument/description:144
 msgid ""
@@ -1537,9 +1762,21 @@ msgid ""
 "three pipes."
 msgstr ""
 
+#. name:lavta
+#: DB:instrument/description:705
+msgid "The lavta is a plucked string instrument from Greece and Turkey."
+msgstr ""
+
 #. name:limbe
 #: DB:instrument/description:573
 msgid "The limbe is a Mongolian transverse flute."
+msgstr ""
+
+#. name:lirone
+#: DB:instrument/description:697
+msgid ""
+"The lirone (or lira da gamba) is the bass member of the lira family, a bowed"
+" string instrument with between 9 and 16 strings and a fretted neck."
 msgstr ""
 
 #. name:liuqin
@@ -1580,11 +1817,15 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:mõ
-#: DB:instrument/description:267
+#. name:mukkuri
+#: DB:instrument/description:710
+msgid "The mukkuri is an Ainu jew's harp."
+msgstr ""
+
+#. name:nabal
+#: DB:instrument/description:684
 msgid ""
-"The mõ is a Vietnamese idiophone consisting of a hollow piece of wood with "
-"slits which is played with drumsticks."
+"The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr ""
 
 #. name:nagadou-daiko
@@ -1595,6 +1836,11 @@ msgstr ""
 #. name:naobo
 #: DB:instrument/description:599
 msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
+msgstr ""
+
+#. name:ngoni
+#: DB:instrument/description:729
+msgid "The ngoni is a plucked string instrument from West Africa."
 msgstr ""
 
 #. name:nohkan
@@ -1616,6 +1862,18 @@ msgid ""
 "played with the nose. The stream of air is directed over an edge in the "
 "instrument and the frequency of the notes produced is controlled by the "
 "volume of air."
+msgstr ""
+
+#. name:nyatiti
+#: DB:instrument/description:714
+msgid ""
+"The nyatiti is a five to eight-stringed plucked string instrument from "
+"Kenya."
+msgstr ""
+
+#. name:nyckelharpa
+#: DB:instrument/description:228
+msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr ""
 
 #. name:oboe da caccia
@@ -1660,6 +1918,13 @@ msgstr ""
 msgid "The pi nai is a type of pi normally used in the piphat ensemble."
 msgstr ""
 
+#. name:piccolo oboe
+#: DB:instrument/description:733
+msgid ""
+"The piccolo oboe is the smallest and highest pitched member of the oboe "
+"family."
+msgstr ""
+
 #. name:pipa
 #: DB:instrument/description:350
 msgid ""
@@ -1675,11 +1940,30 @@ msgid ""
 "Japanese hichiriki."
 msgstr ""
 
+#. name:pkhachich
+#: DB:instrument/description:700
+msgid ""
+"The pkhachich is a traditional shaken percussion instrument of the "
+"Circassian peoples."
+msgstr ""
+
+#. name:pocket trumpet
+#: DB:instrument/description:690
+msgid ""
+"The pocket trumpet is a compact size B♭ trumpet, with the same playing range"
+" as the regular trumpet."
+msgstr ""
+
 #. name:post horn
 #: DB:instrument/description:626
 msgid ""
 "The post horn is a valveless coiled brass instrument used to signal the "
 "arrival or departure of a post rider or mail coach."
+msgstr ""
+
+#. name:pātē
+#: DB:instrument/description:726
+msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
 msgstr ""
 
 #. name:qilaut
@@ -1724,6 +2008,16 @@ msgid ""
 " ranat ek but lower in pitch."
 msgstr ""
 
+#. name:reco-reco
+#: DB:instrument/description:721
+msgid "The reco-reco is a scraped percussion instrument from Brazil."
+msgstr ""
+
+#. name:repinique
+#: DB:instrument/description:722
+msgid "The repinique is a cylindrical drum from Brazil."
+msgstr ""
+
 #. name:riq
 #: DB:instrument/description:329
 msgid ""
@@ -1734,6 +2028,11 @@ msgstr ""
 #. name:rondador
 #: DB:instrument/description:568
 msgid "The rondador is a set of chorded bamboo panpipes from Ecuador."
+msgstr ""
+
+#. name:rototom
+#: DB:instrument/description:731
+msgid "The rototom is a drum which has no shell and is tuned by rotating."
 msgstr ""
 
 #. name:rudra veena
@@ -1804,6 +2103,11 @@ msgid ""
 "which has a cylindrical soundbox made of wood and a snakeskin resonator."
 msgstr ""
 
+#. name:saw sam sai
+#: DB:instrument/description:712
+msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
+msgstr ""
+
 #. name:saw u
 #: DB:instrument/description:625
 msgid ""
@@ -1856,6 +2160,13 @@ msgstr ""
 msgid ""
 "The sheng is a Chinese free reed instrument consisting of a number of "
 "vertical pipes."
+msgstr ""
+
+#. name:shichepshin
+#: DB:instrument/description:699
+msgid ""
+"The shichepshin is a traditional bowed string instrument of the Circassian "
+"peoples."
 msgstr ""
 
 #. name:shime-daiko
@@ -1929,6 +2240,16 @@ msgid ""
 "with steel strings."
 msgstr ""
 
+#. name:suka
+#: DB:instrument/description:730
+msgid "The suka is a once-extinct fiddle from Poland."
+msgstr ""
+
+#. name:suling
+#: DB:instrument/description:725
+msgid "The suling is a bamboo flute from Southeast Asia."
+msgstr ""
+
 #. name:suona
 #: DB:instrument/description:548
 msgid ""
@@ -1940,6 +2261,11 @@ msgstr ""
 #: DB:instrument/description:379
 msgid ""
 "The surdo is a large bass drum used in Brazilian music, most notably samba."
+msgstr ""
+
+#. name:swarmandal
+#: DB:instrument/description:716
+msgid "The swarmandal is an Indian zither."
 msgstr ""
 
 #. name:sáo trúc
@@ -1960,6 +2286,14 @@ msgstr ""
 msgid ""
 "The t'rưng is a bamboo xylophone from the central highlands of Vietnam which"
 " is played by ethnic groups such as the Bahnar and the Ê Đê."
+msgstr ""
+
+#. name:tabla
+#: DB:instrument/description:185
+msgid ""
+"The tabla is a pair of hand drums used in Hindustani classical music and in "
+"the traditional music of India, Pakistan, Afghanistan, Nepal, Bangladesh and"
+" Sri Lanka."
 msgstr ""
 
 #. name:tack piano
@@ -1985,11 +2319,16 @@ msgid ""
 "which are used to fret the strings."
 msgstr ""
 
-#. name:talharpa / hiiu kannel
+#. name:talharpa
 #: DB:instrument/description:544
 msgid ""
 "The talharpa is a four-stringed bowed lyre from northern Europe, mostly "
 "played in Estonia."
+msgstr ""
+
+#. name:tamborim
+#: DB:instrument/description:723
+msgid "The tamborim is a small frame drum from Brazil."
 msgstr ""
 
 #. name:taphon
@@ -2030,6 +2369,11 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
+#. name:tinya
+#: DB:instrument/description:724
+msgid "The tinya is a small drum used in the traditional music of the Andes."
+msgstr ""
+
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -2040,6 +2384,11 @@ msgstr ""
 msgid ""
 "The tonkori is a plucked string instrument played by the Ainu of northern "
 "Japan and Sakhalin."
+msgstr ""
+
+#. name:topshuur
+#: DB:instrument/description:708
+msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
 msgstr ""
 
 #. name:tromboon
@@ -2054,6 +2403,13 @@ msgstr ""
 msgid ""
 "The trống bông is a wooden Vietnamese drum with a single drumhead which is "
 "played with both hands."
+msgstr ""
+
+#. name:tubax
+#: DB:instrument/description:694
+msgid ""
+"The tubax is a modified saxophone which is more compact due to the tubing "
+"being folded more times."
 msgstr ""
 
 #. name:tumbi
@@ -2118,11 +2474,25 @@ msgid ""
 "or a fourth higher."
 msgstr ""
 
+#. name:violoncello piccolo
+#: DB:instrument/description:693
+msgid ""
+"The violoncello piccolo is a Baroque string instrument which is between the "
+"viola and cello in size and typically has five strings."
+msgstr ""
+
 #. name:virginal
 #: DB:instrument/description:509
 msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
 "with only one string per note"
+msgstr ""
+
+#. name:wot
+#: DB:instrument/description:711
+msgid ""
+"The wot is a circular panpipe from Laos and the Isan region of northeastern "
+"Thailand."
 msgstr ""
 
 #. name:xiao
@@ -2141,6 +2511,11 @@ msgstr ""
 #: DB:instrument/description:651
 msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
+msgstr ""
+
+#. name:xylorimba
+#: DB:instrument/description:703
+msgid "The xylorimba is an extended-range xylophone."
 msgstr ""
 
 #. name:yangqin
@@ -2169,14 +2544,31 @@ msgid ""
 " a coconut shell."
 msgstr ""
 
+#. name:yonggo
+#: DB:instrument/description:685
+msgid ""
+"The yonggo is a barrel drum with a dragon painted on its shell which is used"
+" in daechwita, a genre of traditional Korean music."
+msgstr ""
+
 #. name:yueqin
 #: DB:instrument/description:240
 msgid "The yueqin is a Chinese \"moon-shaped\" plucked lute."
 msgstr ""
 
+#. name:zabumba
+#: DB:instrument/description:715
+msgid "The zabumba is a bass drum from Brazil."
+msgstr ""
+
 #. name:zarb
 #: DB:instrument/description:328
 msgid "The zarb is a goblet drum from Persia."
+msgstr ""
+
+#. name:zhaleika
+#: DB:instrument/description:692
+msgid "The zhaleika is a single reed hornpipe from Russia."
 msgstr ""
 
 #. name:zhonghu
@@ -2258,6 +2650,11 @@ msgid ""
 "The đàn tỳ bà is a four-stringed Vietnamese lute with a pear-shaped body. "
 "Like the Chinese pipa from which is derived, it has greatly elevated frets "
 "at the neck."
+msgstr ""
+
+#. name:ģīga
+#: DB:instrument/description:696
+msgid "The ģīga is a two-stringed bowed zither found in Latvia."
 msgstr ""
 
 #. name:ōtsuzumi
@@ -2441,7 +2838,7 @@ msgstr ""
 msgid "variety of bass guitars without frets"
 msgstr ""
 
-#. name:đại cô/tiểu cô
-#: DB:instrument/description:266
+#. name:other drums
+#: DB:instrument/description:588
 msgid "variously sized drums"
 msgstr "unterschiedlich große Trommeln"

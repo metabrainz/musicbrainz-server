@@ -18,6 +18,8 @@
 
 */
 
+var flags = require('../../../flags.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -52,7 +54,7 @@ MB.GuessCase.Handler.Place = function () {
         } else {
             self.doNormalWord();
         }
-        gc.f.number = false;
+        flags.context.number = false;
         return null;
     };
 

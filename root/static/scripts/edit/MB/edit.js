@@ -3,10 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../../common/utility/request.js');
+
 (function (edit) {
 
     var TYPES = edit.TYPES = {
         EDIT_RELEASEGROUP_CREATE:                   20,
+        EDIT_RELEASEGROUP_EDIT:                     21,
         EDIT_RELEASE_CREATE:                        31,
         EDIT_RELEASE_EDIT:                          32,
         EDIT_RELEASE_ADDRELEASELABEL:               34,
@@ -78,6 +81,28 @@
             return { names: names };
         },
 
+        externalLinkRelationship: function (link, source) {
+            var editData = {
+                id: number(link.relationship),
+                linkTypeID: number(link.type),
+                attributes: [],
+                entities: [
+                    this.relationshipEntity(source),
+                    { entityType: 'url', name: string(link.url) }
+                ]
+            };
+
+            if (source.entityType > 'url') {
+                editData.entities.reverse();
+            }
+
+            if (link.video) {
+                editData.attributes = [{ type: { gid: MB.constants.VIDEO_ATTRIBUTE_GID } }];
+            }
+
+            return editData;
+        },
+
         medium: function (medium) {
             return {
                 name:       nullableString(medium.name),
@@ -121,23 +146,10 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            data.attributes = _(ko.unwrap(relationship.attributes)).map(function (attribute) {
-                var output = {
-                    type: {
-                        gid: string(attribute.type.gid)
-                    }
-                }, credit, textValue;
-
-                if (credit = string(attribute.credit)) {
-                    output.credit = credit;
-                }
-
-                if (textValue = string(attribute.textValue)) {
-                    output.textValue = textValue;
-                }
-
-                return output;
-            }).sortBy(function (a) { return a.type.id }).value();
+            data.attributes = _(ko.unwrap(relationship.attributes))
+                .invoke('toJS')
+                .sortBy(function (a) { return a.type.id })
+                .value();
 
             if (_.isNumber(data.linkTypeID)) {
                 if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
@@ -199,6 +211,7 @@
 
         releaseGroup: function (rg) {
             return {
+                gid:                string(rg.gid),
                 primary_type_id:    number(rg.typeID),
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
@@ -255,11 +268,24 @@
     }
 
 
+    function removeEqual(newData, oldData, required) {
+        _(newData)
+            .keys()
+            .intersection(_.keys(oldData))
+            .difference(required)
+            .each(function (key) {
+                if (_.isEqual(newData[key], oldData[key])) {
+                    delete newData[key];
+                }
+            });
+    }
+
+
     function editConstructor(type, callback) {
         return function (args, orig) {
             args = _.extend({ edit_type: type }, args);
 
-            callback && callback(args, orig);
+            callback && callback.apply(null, arguments);
             args.hash = editHash(args);
 
             return args;
@@ -271,10 +297,18 @@
         TYPES.EDIT_RELEASEGROUP_CREATE,
 
         function (args) {
+            delete args.gid;
+
             if (!_.any(args.secondary_type_ids)) {
                 delete args.secondary_type_ids;
             }
         }
+    );
+
+
+    edit.releaseGroupEdit = editConstructor(
+        TYPES.EDIT_RELEASEGROUP_EDIT,
+        _.partialRight(removeEqual, ['gid'])
     );
 
 
@@ -291,24 +325,7 @@
 
     edit.releaseEdit = editConstructor(
         TYPES.EDIT_RELEASE_EDIT,
-
-        function (args, orig) {
-            if (args.name === orig.name) {
-                delete args.name;
-            }
-            if (args.comment === orig.comment) {
-                delete args.comment;
-            }
-            if (_.isEqual(args.artist_credit, orig.artist_credit)) {
-                delete args.artist_credit;
-            }
-            if (args.release_group_id === orig.release_group_id) {
-                delete args.release_group_id;
-            }
-            if (_.isEqual(args.events, orig.events)) {
-                delete args.events;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -353,11 +370,7 @@
 
     edit.mediumEdit = editConstructor(
         TYPES.EDIT_MEDIUM_EDIT,
-        function (args, orig) {
-            if (_.isEqual(args.tracklist, orig.tracklist)) {
-                delete args.tracklist;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -369,11 +382,7 @@
 
     edit.recordingEdit = editConstructor(
         TYPES.EDIT_RECORDING_EDIT,
-        function (args, orig) {
-            if (args.name === orig.name) {
-                delete args.name;
-            }
-        }
+        _.partialRight(removeEqual, ['to_edit'])
     );
 
 
@@ -385,20 +394,35 @@
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
-        function (args, orig) {
-            if (_.isEqual(args.linkTypeID, orig.linkTypeID)) {
-                delete args.linkTypeID;
-            }
-            if (_.isEqual(args.attributes, orig.attributes)) {
-                delete args.attributes;
-            }
+        function (args, orig, relationship) {
+            var newAttributes = {};
+            var origAttributes = relationship ? relationship.attributes.original : {};
+            var changedAttributes = [];
+
+            _.each(args.attributes, function (hash) {
+                var gid = hash.type.gid;
+
+                newAttributes[gid] = hash;
+
+                if (!origAttributes[gid] || !_.isEqual(origAttributes[gid], hash)) {
+                    changedAttributes.push(hash);
+                 }
+            });
+
+            _.each(origAttributes, function (value, gid) {
+                if (!newAttributes[gid]) {
+                    changedAttributes.push({type: {gid: gid}, removed: true});
+                }
+            });
+
+            args.attributes = changedAttributes;
+            removeEqual(args, orig, ['id', 'linkTypeID']);
         }
     );
 
 
     edit.relationshipDelete = editConstructor(
-        TYPES.EDIT_RELATIONSHIP_DELETE,
-        function (args) { delete args.linkTypeID }
+        TYPES.EDIT_RELATIONSHIP_DELETE
     );
 
 
@@ -413,7 +437,7 @@
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
 
-            return MB.utility.request({
+            return request({
                 type: "POST",
                 url: endpoint,
                 data: JSON.stringify(data),

@@ -21,6 +21,7 @@ use constant FAVICON_CLASSES => {
     'soundcloud.com'            => 'soundcloud',
     'ibdb.com'                  => 'ibdb',
     'imslp.org'                 => 'imslp',
+    'instagram.com'             => 'instagram',
     'ester.ee'                  => 'ESTER',
     'worldcat.org'              => 'worldcat',
     '45cat.com'                 => 'fortyfivecat',
@@ -60,6 +61,13 @@ use constant FAVICON_CLASSES => {
     'finnmusic.net'             => 'finnmusic',
     'fono.fi'                   => 'fonofi',
     'stage48.net'               => 'stage48',
+    'tedcrane.com/DanceDB'      => 'dancedb',
+    'finna.fi'                  => 'finna',
+    'mainlynorfolk.info'        => 'mainlynorfolk',
+    'bibliotekapiosenki.pl'     => 'piosenki',
+    'qim.com'                   => 'quebecinfomusique',
+    'thedancegypsy.com'         => 'thedancegypsy',
+    'cdbaby.com'                => 'cdbaby',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

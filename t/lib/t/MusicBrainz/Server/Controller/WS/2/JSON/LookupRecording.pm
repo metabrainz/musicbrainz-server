@@ -300,7 +300,10 @@ test 'recording lookup with release relationships' => sub {
                         relations => [],
                         quality => 'normal',
                         status => JSON::null,
-                        'text-representation' => { language => JSON::null, script => JSON::null },
+                        'text-representation' => {
+                            language => 'eng',
+                            script => 'Latn'
+                        },
                         title => 'An Inextricable Tale Audiobook',
                     },
                     begin => '2008',

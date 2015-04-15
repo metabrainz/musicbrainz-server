@@ -1,22 +1,11 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010,2011 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+var i18n = require('../../i18n.js');
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var formatTrackLength = require('../../utility/formatTrackLength.js');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -59,8 +48,14 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: MB.text.InlineSearchFailed,
+                        label: i18n.l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
+                    }, {
+                        label: self.indexedSearch ?
+                               i18n.l("Try with direct search instead.") :
+                               i18n.l("Try with indexed search instead."),
+                        action: _.bind(self._searchAgain, self, true)
+
                     }]);
                 }
             }));
@@ -89,6 +84,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.$input = this.element;
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
+
+        this.element.attr("placeholder",  i18n.l("Type to search, or paste an MBID"));
 
         var self = this;
 
@@ -160,7 +157,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: MB.text.ClearRecentItems,
+                    label: i18n.l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -295,32 +292,43 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     // Overrides $.ui.autocomplete.prototype._searchTimeout
     _searchTimeout: function (event) {
-        var oldTerm = this.term;
         var newTerm = this._value();
+
+        if (_.str.isBlank(newTerm)) {
+            clearTimeout(this.searching);
+            this.close();
+            return;
+        }
+
         var mbidMatch = newTerm.match(this.mbidRegex);
-
-        if (mbidMatch === null) {
-            if (!newTerm) {
-                clearTimeout(this.searching);
-                this.close();
-
-            // only search if the value has changed
-            } else if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
-                clearTimeout(this.searching);
-                this.completedTerm = oldTerm;
-
-                this.searching = this._delay(
-                    function () {
-                        delete this.completedTerm;
-                        this.selectedItem = null;
-                        this.search(null, event);
-                    },
-                    this.options.delay
-                );
-            }
-        } else {
+        if (mbidMatch) {
             clearTimeout(this.searching);
             this._lookupMBID(mbidMatch[0]);
+            return;
+        }
+
+        var oldTerm = this.term;
+
+        // Support pressing <space> to trigger a search, but ignore it if the
+        // menu is already open.
+        if (this.menu.element.is(':visible')) {
+            newTerm = _.str.clean(newTerm);
+            oldTerm = _.str.clean(oldTerm);
+        }
+
+        // only search if the value has changed
+        if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
+            clearTimeout(this.searching);
+            this.completedTerm = oldTerm;
+
+            this.searching = this._delay(
+                function () {
+                    delete this.completedTerm;
+                    this.selectedItem = null;
+                    this.search(null, event);
+                },
+                this.options.delay
+            );
         }
     },
 
@@ -381,30 +389,30 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + MB.text.NoResults + ")",
+                label: "(" + i18n.l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: MB.text.ShowMore,
+                label: i18n.l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? MB.text.SwitchToDirectSearch :
-                                        MB.text.SwitchToIndexedSearch,
+            label: this.indexedSearch ? i18n.l("Not found? Try again with direct search.") :
+                                        i18n.l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && MB.text.AddANewEntity[entity]) {
+        if (allowCreation && i18n.strings.addANewEntity[entity]) {
             results.push({
-                label: MB.text.AddANewEntity[entity],
+                label: i18n.strings.addANewEntity[entity],
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
@@ -543,7 +551,7 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
+        if (item.sortName && !isLatin(item.name) && item.sortName != item.name)
         {
             comment.push(item.sortName);
         }
@@ -568,7 +576,7 @@ MB.Control.autocomplete_formatters = {
         if (item.length)
         {
             a.prepend('<span class="autocomplete-length">' +
-                MB.utility.formatTrackLength(item.length) + '</span>');
+                formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)
@@ -581,7 +589,7 @@ MB.Control.autocomplete_formatters = {
         {
             a.append(
                 $('<span class="autocomplete-video"></span>')
-                    .text("(" + MB.text.Video + ")")
+                    .text("(" + i18n.l("video") + ")")
             );
         }
 
@@ -920,3 +928,7 @@ ko.bindingHandlers.autocomplete = {
         }
     }
 };
+
+function isLatin(str) {
+    return !/[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str);
+}

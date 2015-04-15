@@ -30,6 +30,8 @@ EOSQL
                 id => "f34c079d-374e-4436-9448-da92dedef3ce",
                 name => "my collection",
                 editor => "new_editor",
+                type => "Release",
+                "entity-type" => "release",
                 "release-count" => 1,
                 releases => [
                     {

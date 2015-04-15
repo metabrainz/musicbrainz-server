@@ -40,16 +40,7 @@
                                 [% END %]
                               </ul>
                             </td>
-                            [%- IF result.entity.begin_date.format == result.entity.end_date.format %]
-                                <td>[% result.entity.begin_date.format %]</td>
-                            [%- ELSIF result.entity.begin_date.format && result.entity.end_date.format %]
-                                <td>[% l('{begindate} &#x2013; {enddate}', { begindate => result.entity.begin_date.format,
-                                                                      enddate   => result.entity.end_date.format }) %]</td>
-                            [% ELSIF result.entity.begin_date.format %]
-                                <td>[% l('{begindate} &#x2013; ????', { begindate => result.entity.begin_date.format }) %]</td>
-                            [% ELSIF result.entity.end_date.format %]
-                                <td>[% l('???? &#x2013; {enddate}', { enddate   => result.entity.end_date.format }) %]</td>
-                            [%- END -%]
+                            <td>[% result.entity.formatted_date %]</td>
                             <td>[% result.entity.formatted_time %]</td>
                         </tr>
                         [%- END -%]

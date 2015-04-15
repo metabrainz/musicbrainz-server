@@ -271,8 +271,8 @@ sub ImportTable
 
         $sql->begin;
         $sql->do("DELETE FROM $table") if $delete_first;
+        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->dbh;
 
         $p->("", "") if $fProgress;
         my $t;

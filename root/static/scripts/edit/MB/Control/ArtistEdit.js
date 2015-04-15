@@ -1,22 +1,9 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010, 2013 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var i18n = require('../../../common/i18n.js');
 
 MB.Control.ArtistEdit = function () {
     var self = {};
@@ -31,15 +18,15 @@ MB.Control.ArtistEdit = function () {
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
 
-    self.changeDateText = function (text) {
-        self.$begin.text(text[0]);
-        self.$end.text(text[1]);
-        self.$ended.text(text[2]);
+    self.changeDateText = function (begin, end, ended) {
+        self.$begin.text(begin);
+        self.$end.text(end);
+        self.$ended.text(ended);
     };
 
-    self.changeAreaText = function (text) {
-        self.$beginarea.text(text[0]);
-        self.$endarea.text(text[1]);
+    self.changeAreaText = function (begin, end) {
+        self.$beginarea.text(begin);
+        self.$endarea.text(end);
     };
 
     /* Sets the label descriptions depending upon the artist type:
@@ -54,22 +41,22 @@ MB.Control.ArtistEdit = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(MB.text.ArtistDate.Unknown);
-                self.changeAreaText(MB.text.ArtistArea.Unknown);
+                self.changeDateText(i18n.l("Began:"), i18n.l("Ended:"), i18n.l("This artist has ended."));
+                self.changeAreaText(i18n.l("Begin area:"), i18n.l("End area:"));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(MB.text.ArtistDate.Person);
-                self.changeAreaText(MB.text.ArtistArea.Person);
+                self.changeDateText(i18n.l("Born:"), i18n.l("Died:"), i18n.l("This person is deceased."));
+                self.changeAreaText(i18n.l("Born in:"), i18n.l("Died in:"));
                 self.enableGender();
                 break;
 
             case '2':
             case '5':
             case '6':
-                self.changeDateText(MB.text.ArtistDate.Founded);
-                self.changeAreaText(MB.text.ArtistArea.Founded);
+                self.changeDateText(i18n.l("Founded:"), i18n.l("Dissolved:"), i18n.l("This group has dissolved."));
+                self.changeAreaText(i18n.l("Founded in:"), i18n.l("Dissolved in:"));
                 self.disableGender();
                 break;
         }

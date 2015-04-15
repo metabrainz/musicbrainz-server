@@ -19,6 +19,9 @@
 
 */
 
+var flags = require('../../../flags.js');
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -88,10 +91,10 @@ MB.GuessCase.Handler.Artist = function () {
             gc.i.capitalizeCurrentWord();
             gc.o.appendCurrentWord();
         }
-        gc.f.resetContext();
-        gc.f.number = false;
-        gc.f.forceCaps = false;
-        gc.f.spaceNextWord = true;
+        flags.resetContext();
+        flags.context.number = false;
+        flags.context.forceCaps = false;
+        flags.context.spaceNextWord = true;
         return null;
     };
 
@@ -125,8 +128,8 @@ MB.GuessCase.Handler.Artist = function () {
      **/
     self.guessSortName = function (is, person) {
         return self.sortCompoundName(is, function (artist) {
-            if (!MB.utility.isNullOrEmpty(artist)) {
-                artist = gc.u.trim(artist);
+            if (artist) {
+                artist = utils.trim(artist);
                 var append = "";
 
                 // strip Jr./Sr. from the string, and append at the end.
@@ -186,7 +189,7 @@ MB.GuessCase.Handler.Artist = function () {
                                 names[i+1] = names[i] + " " + names[i+1];
                             // handle St. because it belongs
                             // to the lastname
-                            } else if (!MB.utility.isNullOrEmpty(names[i])) {
+                            } else if (names[i]) {
                                 reOrderedNames[i+1] = names[i];
                             }
                         }
@@ -200,9 +203,23 @@ MB.GuessCase.Handler.Artist = function () {
                     }
                 }
 
-                return gc.u.trim(_.compact(names).join(" ") + (append || ""));
+                return utils.trim(_.compact(names).join(" ") + (append || ""));
             }
         });
+    };
+
+    var baseProcess = self.process;
+
+    self.process = function (is) {
+        var isLowerCaseWord = gc.mode.isLowerCaseWord;
+
+        gc.mode.isLowerCaseWord = function (w) {
+            return w === 'the' ? false : isLowerCaseWord.call(gc.mode, w);
+        };
+
+        var os = baseProcess.call(self, is);
+        gc.mode.isLowerCaseWord = isLowerCaseWord;
+        return os;
     };
 
     return self;

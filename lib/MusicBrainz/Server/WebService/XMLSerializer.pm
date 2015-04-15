@@ -217,6 +217,7 @@ sub _serialize_collection
     my %attrs;
     $attrs{id} = $collection->gid;
     $attrs{type} = $collection->type->name if ($collection->type);
+    $attrs{"entity-type"} = $collection->type->entity_type if ($collection->type);
 
     my @collection;
     push @collection, $gen->name($collection->name);
@@ -620,7 +621,7 @@ sub _serialize_tracks
     }
 
     my @list;
-    foreach my $track ($medium->cdtoc_tracks) {
+    foreach my $track (@{ $medium->cdtoc_tracks }) {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
@@ -691,12 +692,25 @@ sub _serialize_disc
     my @list;
     push @list, $gen->sectors($cdtoc->leadout_offset);
 
-    if ($toplevel)
-    {
+    $self->_serialize_disc_offsets(\@list, $gen, $cdtoc, $inc, $stash);
+
+    if ($toplevel) {
         $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash, $toplevel);
     }
 
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
+}
+
+sub _serialize_disc_offsets
+{
+    my ($self, $data, $gen, $cdtoc, $inc, $stash) = @_;
+
+    my @list;
+    foreach my $track (0 .. ($cdtoc->track_count - 1)) {
+        push @list, $gen->offset({ position => $track + 1 }, $cdtoc->track_offset->[$track]);
+    }
+
+    push @$data, $gen->offset_list({ count => $cdtoc->track_count }, @list);
 }
 
 sub _serialize_cdstub

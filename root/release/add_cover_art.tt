@@ -1,5 +1,5 @@
 [%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
-  [%- script_manifest('edit.js.manifest') -%]
+  [%- script_manifest('edit.js') -%]
 
   <script type="text/javascript">//<![CDATA[
     MB.cover_art_types_json = [% cover_art_types_json %];
@@ -10,13 +10,13 @@
   [%~ javascript_required() ~%]
 
   <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
         if (data.over_limit == 1) {
             $(".caa-warning").parent().toggle();
         }
-    });
-  </script>
+    }).fail(function () { $(".caa-warning").parent().toggle(); });
+  //]]</script>
 
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
@@ -41,10 +41,10 @@
         <tr>
           <td class="uploader-preview-column">
               <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
-              <input type="button" class="icon file-up"
-                     title="[% l('Move file up') %]" style="float: right;" />
-              <input type="button" class="icon file-down"
-                     title="[% l('Move file down') %]" style="clear: right; float: right;" />
+              <button type="button" class="icon file-up"
+                     title="[% l('Move file up') %]" style="float: right;"></button>
+              <button type="button" class="icon file-down"
+                     title="[% l('Move file down') %]" style="clear: right; float: right"></button>
           </td>
           <td>
             <div class="status" style="float: right; width: 264px;">
@@ -127,8 +127,8 @@
               <p>[% l('New Image Goes Here') %]</p>
             </div>
             <div>
-              <button class="left">&larr;</button>
-              <button class="right" style="float: right;">&rarr;</button>
+              <button type="button" class="left">&larr;</button>
+              <button type="button" class="right" style="float: right;">&rarr;</button>
             </div>
           </div>
         [%- END -%]
@@ -153,6 +153,5 @@
 
   <script type="text/javascript">
     MB.CoverArt.add_cover_art("[%- entity.gid -%]");
-    MB.utility.setDefaultAction('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]

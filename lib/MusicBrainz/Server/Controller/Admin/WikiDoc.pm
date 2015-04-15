@@ -56,8 +56,8 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
         $page =~ s/ /_/g;
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
-                edit_type    => $EDIT_WIKIDOC_CHANGE,
-                editor_id    => $c->user->id,
+                edit_type   => $EDIT_WIKIDOC_CHANGE,
+                editor      => $c->user,
 
                 page        => $page,
                 old_version => undef,
@@ -85,8 +85,8 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
         my $values = $form->values;
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
-                edit_type    => $EDIT_WIKIDOC_CHANGE,
-                editor_id    => $c->user->id,
+                edit_type   => $EDIT_WIKIDOC_CHANGE,
+                editor      => $c->user,
 
                 page        => $page,
                 old_version => $current_version,
@@ -115,8 +115,8 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
-                edit_type    => $EDIT_WIKIDOC_CHANGE,
-                editor_id    => $c->user->id,
+                edit_type   => $EDIT_WIKIDOC_CHANGE,
+                editor      => $c->user,
 
                 page        => $page,
                 old_version => $version,

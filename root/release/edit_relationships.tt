@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) -%]
-    [% script_manifest('edit.js.manifest') %]
+    [% script_manifest('edit.js') %]
 
     [% PROCESS 'components/relationship-editor.tt' %]
 
@@ -16,13 +16,8 @@
 
       <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
+      <!-- ko if: source.mediums().length -->
       <h2>[% l('Track Relationships') %]</h2>
-
-      [%# These are here to make sure the strings get added to the message catalog.
-          The strings are later obtained via /ws/js/plurals. %]
-
-      <!-- [% ln('{n} recording selected', '{n} recordings selected', 0) %]
-           [% ln('{n} work selected', '{n} works selected', 0) %] -->
 
       <table id="batch-tools" data-bind="with: checkboxes">
         <tr>
@@ -74,6 +69,7 @@
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
         </tbody>
       </table>
+      <!-- /ko -->
 
       <p data-bind="if: loadingRelease">
         <span class="loading-message">[% l('Loading...') %]</span>
@@ -231,7 +227,7 @@
     </script>
 
     <script type="text/html" id="template.link.phrase"><!--
-      --><span class="link-phrase" data-bind="text: linkPhrase($parent), relationshipStyling: true" data-click="openEditDialog"></span><!--
+      --><span class="link-phrase" data-bind="text: linkPhrase($parent), relationshipStyling: $data" data-click="openEditDialog"></span><!--
     --></script>
 
     <script type="text/html" id="template.relationship.performance">
@@ -241,7 +237,7 @@
           <span class="entity" data-bind="html: html({ 'target': '_blank' }), css: { 'rel-edit': $parent.editsPending }"></span>
         <!-- /ko -->
         (<!-- ko template: "template.link.phrase" --><!-- /ko -->)
-        <!-- ko with: MB.utility.formatDatePeriod(period) -->
+        <!-- ko with: formatDatePeriod() -->
           (<!-- ko text: $data --><!-- /ko -->)
         <!-- /ko -->
         <span class="remove-button" data-click="removeRelationship">&#215;</span>

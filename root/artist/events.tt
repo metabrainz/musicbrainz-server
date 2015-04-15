@@ -4,7 +4,7 @@
     [% IF events.size %]
       <form action="[% c.uri_for_action('/event/merge_queue') %]"
             method="post">
-        [% INCLUDE 'components/events-list.tt' no_artists=1 artist_roles=1 WRAPPER 'components/with-pager.tt' %]
+        [% INCLUDE 'components/events-list.tt' checkboxes='add-to-merge' no_artists=1 artist_roles=1 WRAPPER 'components/with-pager.tt' %]
         [% form_submit(l('Add selected events for merging')) WRAPPER form_row IF c.user_exists %]
       </form>
     [% ELSE %]

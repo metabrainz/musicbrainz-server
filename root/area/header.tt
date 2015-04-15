@@ -1,5 +1,5 @@
 <div class="areaheader">
-    <h1>[%- link_area(area) %] [% disambiguation(area) %]</h1>
+    <h1>[%- link_entity(area) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
              [% html_escape(area.l_type_name) or l('Area') %]
@@ -10,7 +10,7 @@
 </div>
 
 [%~ IF c.user.is_location_editor;
-    edit_tab = ['edit', link_area(area, 'edit', l('Edit'))];
+    edit_tab = ['edit', link_entity(area, 'edit', l('Edit'))];
 END ~%]
 
 [%- INCLUDE 'components/entity-tabs.tt' edit_tab=edit_tab -%]

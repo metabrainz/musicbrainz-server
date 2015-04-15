@@ -18,6 +18,8 @@
 
 */
 
+var filesize = require('filesize');
+
 MB.CoverArt = {};
 
 MB.CoverArt.get_image_mime_type = function () {
@@ -323,7 +325,7 @@ MB.CoverArt.FileUpload = function (file) {
     var statuses = MB.CoverArt.upload_status_enum;
 
     self.name = file.name;
-    self.size = MB.utility.filesize(file.size);
+    self.size = filesize(file.size, { round: 1, bits: false });
     self.comment = ko.observable("");
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;
@@ -489,7 +491,7 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
 
     var queue = MB.CoverArt.process_upload_queue(gid, upvm, pos);
 
-    MB.utility.iteratePromises(queue)
+    iteratePromises(queue)
         .done(function () {
             window.location.href = '/release/' + gid + '/cover-art';
         })
@@ -524,12 +526,12 @@ MB.CoverArt.add_cover_art = function (gid) {
             upvm.files_to_upload.remove(ko.dataFor(this));
         });
 
-        $(document).on('click', 'input.file-up', function (event) {
+        $(document).on('click', 'button.file-up', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), -1);
         });
 
-        $(document).on('click', 'input.file-down', function (event) {
+        $(document).on('click', 'button.file-down', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), 1);
         });
@@ -594,3 +596,36 @@ MB.CoverArt.add_cover_art = function (gid) {
         });
     }
 };
+
+/* This takes a list of asynchronous functions (i.e. functions which
+   return a jquery promise) and runs them in sequence.  It in turn
+   returns a promise which is only resolved when all promises in the
+   queue have been resolved.  If one of the promises is rejected, the
+   rest of the queue is still processed (but the returned promise will
+   be rejected).
+
+   Note that any results are currently ignored, it is assumed you are
+   interested in the side effects of the functions executed.
+*/
+function iteratePromises(promises) {
+    var deferred = $.Deferred();
+    var failed = false;
+
+    function iterate() {
+        if (promises.length > 0) {
+            promises.shift()().then(iterate, function () {
+                failed = true;
+                iterate();
+            });
+        } else {
+            if (failed) {
+                deferred.reject();
+            } else {
+                deferred.resolve();
+            }
+        }
+    }
+
+    iterate();
+    return deferred.promise();
+}

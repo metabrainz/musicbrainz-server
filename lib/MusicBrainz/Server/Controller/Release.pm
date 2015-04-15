@@ -22,7 +22,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::Constants qw( :edit_type $MAX_INITIAL_MEDIUMS );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -35,7 +35,6 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
-use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 # A duration lookup has to match within this many milliseconds
@@ -73,6 +72,7 @@ after 'load' => sub
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load($release->release_group);
+    $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
@@ -91,12 +91,29 @@ after 'load' => sub
         $c->model('ReleasePackaging')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels);
         $c->model('ReleaseGroupType')->load($release->release_group);
-        $c->model('Medium')->load_for_releases($release);
-        $c->model('MediumFormat')->load($release->all_mediums);
-        $c->model('Release')->load_release_events($release);
+        $c->model('Release')->load_related_info($release);
+
+        # Only needed by pages showing the sidebar
+        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group);
+    }
+};
+
+before show => sub {
+    my ($self, $c, @args) = @_;
+
+    if (@args && $args[0] eq 'disc') {
+        my $position = $args[1];
+        my @mediums = $c->stash->{release}->all_mediums;
+
+        if (@mediums > $MAX_INITIAL_MEDIUMS) {
+            my $medium = $mediums[$position - 1] if looks_like_number($position);
+
+            if ($medium) {
+                my $user_id = $c->user->id if $c->user_exists;
+                $c->model('Medium')->load_related_info($user_id, $medium);
+            }
+        }
     }
 };
 
@@ -114,11 +131,11 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
         @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_release($collection->id, $release->id));
+                if ($c->model('Collection')->contains_entity('release', $collection->id, $release->id));
         }
     }
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $release->id);
 
     $c->stash(
         collections => \@collections,
@@ -147,34 +164,19 @@ tags, tracklisting, release events, etc.
 
 =cut
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-
     my @mediums = $release->all_mediums;
-    $c->model('Track')->load_for_mediums(@mediums);
 
-    my @tracks = map { $_->all_tracks } @mediums;
-    my @recordings = $c->model('Recording')->load(@tracks);
-    $c->model('Recording')->load_meta(@recordings);
-    if ($c->user_exists) {
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
+    if (@mediums <= $MAX_INITIAL_MEDIUMS) {
+        my $user_id = $c->user->id if $c->user_exists;
+        $c->model('Medium')->load_related_info($user_id, @mediums);
     }
-    $c->model('ArtistCredit')->load($release, @tracks);
 
-    $c->model('Relationship')->load(@recordings);
-    $c->model('Relationship')->load(
-        grep { $_->isa(Work) } map { $_->target }
-            map { $_->all_relationships } @recordings);
-
-    $c->stash(
-        template      => 'release/index.tt',
-        show_artists  => $release->has_multiple_artists,
-        show_video  => $release->includes_video,
-        combined_rels => $release->combined_track_relationships,
-    );
+    $c->model('ArtistCredit')->load($release);
+    $c->stash->{template} = 'release/index.tt';
 }
 
 =head2 show
@@ -299,7 +301,7 @@ sub collections : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
+    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{release}->id);
     my @public_collections;
     my $private_collections = 0;
 
@@ -370,7 +372,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
         mime_types => \@mime_types,
-        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
+        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY // '',
         cover_art_types_json => $json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }
@@ -617,11 +619,7 @@ sub _merge_load_entities
 {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
-    $c->model('Release')->load_release_events(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $c->model('ReleaseLabel')->load(@releases);
-    $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('Release')->load_related_info(@releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

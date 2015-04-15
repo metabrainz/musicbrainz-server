@@ -22,7 +22,6 @@ use MusicBrainz::Server::Entity::SeriesType;
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::Name';
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'series' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'series' };

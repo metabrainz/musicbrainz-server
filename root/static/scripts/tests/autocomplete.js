@@ -3,26 +3,30 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module("autocomplete", {
+var test = require('tape');
 
-    setup: function () {
-        this.$input = $("<input>").attr("type", "text").appendTo("#qunit-fixture");
+function autocompleteTest(name, callback) {
+    test(name, function (t) {
+        var $fixture = $('<div>').appendTo('body');
+        var $input = $("<input>").attr("type", "text").appendTo($fixture);
 
-        ko.applyBindingsToNode(this.$input[0], { autocomplete: { entity: "artist" } });
+        ko.applyBindingsToNode($input[0], { autocomplete: { entity: "artist" } });
+        var $menu = $input.autocomplete("widget");
 
-        this.$menu = this.$input.autocomplete("widget");
-    },
+        callback(t, $input, $menu);
 
-    teardown: function () {
-        this.$input.autocomplete("destroy");
-        $(".ui-widget").remove();
-    }
-});
-
+        $input.autocomplete("destroy");
+        $fixture.add('.ui-widget').remove();
+    });
+}
 
 $.ui.menu.prototype.delay = 0;
 
 $.ui.autocomplete.prototype.options.delay = 0;
+
+$.Widget.prototype._delay = function (handler) {
+    return (typeof handler === "string" ? this[handler] : handler).call(this);
+};
 
 $.ui.autocomplete.prototype.options.source = function (request, response) {
     var data = [
@@ -42,16 +46,14 @@ $.ui.autocomplete.prototype.options.source = function (request, response) {
     this._lookupSuccess(response, data);
 };
 
-
-function blurAutocomplete(self) {
-    if (document.activeElement === self.$input[0]) {
-        self.$input.blur();
+function blurAutocomplete($input) {
+    if (document.activeElement === $input[0]) {
+        $input.blur();
     }
 }
 
-
-function clickOnMenuItem(self, itemToClick, callback) {
-    var $item = self.$menu.find(".ui-menu-item" + itemToClick).find("a");
+function clickOnMenuItem($input, $menu, itemToClick) {
+    var $item = $menu.find(".ui-menu-item" + itemToClick).find("a");
 
     $item.mouseenter();
 
@@ -59,70 +61,43 @@ function clickOnMenuItem(self, itemToClick, callback) {
     $item.trigger(mousedown);
 
     if (!mousedown.isDefaultPrevented()) {
-        blurAutocomplete(self);
+        blurAutocomplete($input);
     }
 
-    _.defer(function () {
-        $item.mouseup().click();
-
-        _.defer(callback, self);
-    });
+    $item.mouseup().click();
 }
 
+function searchAndClick(t, $input, $menu, itemToClick) {
+    $input.val("Foo").keydown().focus();
 
-function searchAndClick(self, itemToClick, callback) {
-    self.$input.val("Foo").keydown();
+    t.ok($menu.is(":visible"), "menu is open after search");
 
-    _.delay(function () {
-        self.$input.focus();
-
-        ok(self.$menu.is(":visible"), "menu is open after search");
-
-        clickOnMenuItem(self, itemToClick, callback);
-    }, 100);
+    clickOnMenuItem($input, $menu, itemToClick);
 }
 
+autocompleteTest("clicking on actions should not close the menu (MBS-6912)", function (t, $input, $menu) {
+    t.plan(2);
 
-asyncTest("clicking on actions should not close the menu (MBS-6912)", function () {
-    expect(2);
+    searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
-
-    searchAndClick(this, itemToClick, function (self) {
-        ok(self.$menu.is(":visible"), "menu is still open after clicking show more");
-
-        start();
-    });
+    t.ok($menu.is(":visible"), "menu is still open after clicking show more");
 });
 
+autocompleteTest("clicking on actions should not prevent the menu from ever closing (MBS-6978)", function (t, $input, $menu) {
+    t.plan(2);
 
-asyncTest("clicking on actions should not prevent the menu from ever closing (MBS-6978)", function () {
-    expect(2);
+    searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
+    blurAutocomplete($input);
 
-    searchAndClick(this, itemToClick, function (self) {
-        blurAutocomplete(self);
-
-        _.defer(function () {
-            ok(self.$menu.is(":hidden"), "menu is hidden after blurring the autocomplete");
-
-            start();
-        });
-    });
+    t.ok($menu.is(":hidden"), "menu is hidden after blurring the autocomplete");
 });
 
+autocompleteTest("multiple searches should not prevent clicks on the menu (MBS-7080)", function (t, $input, $menu) {
+    t.plan(3);
 
-asyncTest("multiple searches should not prevent clicks on the menu (MBS-7080)", function () {
-    expect(3);
+    searchAndClick(t, $input, $menu, ':eq(0)');
+    searchAndClick(t, $input, $menu, ':eq(0)');
 
-    var itemToClick = ":eq(0)";
-
-    searchAndClick(this, itemToClick, function (self) {
-        searchAndClick(self, itemToClick, function (self) {
-            ok(self.$menu.is(":hidden"), "menu is hidden after selecting item");
-
-            start();
-        });
-    });
+    t.ok($menu.is(":hidden"), "menu is hidden after selecting item");
 });
