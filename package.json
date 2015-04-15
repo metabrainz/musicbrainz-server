@@ -31,7 +31,6 @@
     "rcss": "0.1.4",
     "react": "0.13.1",
     "react-tools": "^0.13.1",
-    "reactify": "^1.0.0",
     "shelljs": "^0.3.0",
     "tablesorter": "Mottie/tablesorter#430f8c5",
     "through": "^2.3.6",

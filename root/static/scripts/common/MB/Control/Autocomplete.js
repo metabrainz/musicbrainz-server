@@ -458,7 +458,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             return this._renderAction(ul, item);
         }
         var formatters = MB.Control.autocomplete_formatters;
-        return (formatters[this.entity] || formatters.generic)(ul, item);
+        var entityType = formatters[this.entity] ? this.entity : 'generic';
+        return formatters[entityType](ul, item);
     },
 
     changeEntity: function (entity) {
@@ -564,7 +565,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -609,7 +610,7 @@ MB.Control.autocomplete_formatters = {
             }
 
             a.append('<br /><span class="autocomplete-appears">appears on: ' +
-                      _.escape(rgs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
@@ -618,10 +619,58 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs && item.isrcs.length)
         {
             a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      _.escape(item.isrcs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(item.isrcs)) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
+    },
+
+    "release": function (ul, item) {
+        var $li = this.generic(ul, item);
+        var $a = $li.children('a');
+
+        appendComment($a, _.escape(MB.entity.ArtistCredit(item.artistCredit).text()));
+
+        item.events && item.events.forEach(function (event) {
+            var country = event.country;
+            var countryHTML = '';
+
+            if (country) {
+                countryHTML = `<span class="flag flag-${country.code}"><abbr title="${country.name}">${country.code}</abbr></span>`;
+            }
+
+            appendComment(
+                $a,
+                (event.date ? _.escape(event.date) : '') +
+                (countryHTML ? maybeParentheses(countryHTML, event.date) : '')
+            );
+        });
+
+        _(item.labels)
+            .groupBy(getLabelName)
+            .each(function (releaseLabels, name) {
+                var catalogNumbers = _(releaseLabels).map(getCatalogNumber).compact().sort().value();
+
+                if (catalogNumbers.length > 2) {
+                    appendComment(
+                        $a,
+                        name +
+                        maybeParentheses(_.first(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
+                    );
+                } else {
+                    _.each(releaseLabels, function (releaseLabel) {
+                        var name = getLabelName(releaseLabel);
+                        appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                    });
+                }
+            })
+            .value();
+
+        if (item.barcode) {
+            appendComment($a, item.barcode);
+        }
+
+        return $li;
     },
 
     "release-group": function (ul, item) {
@@ -683,7 +732,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -696,8 +745,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -725,8 +773,7 @@ MB.Control.autocomplete_formatters = {
              if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
              if (item.parentCountry) items.push(_.escape(item.parentCountry));
              a.append('<br /><span class="autocomplete-comment">' +
-                       items.join(", ") +
-                       '</span>');
+                      _.escape(i18n.commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -750,7 +797,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName || item.area) {
@@ -787,7 +834,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.description) {
@@ -816,7 +863,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName) {
@@ -838,8 +885,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -852,6 +898,22 @@ MB.Control.autocomplete_formatters = {
     }
 
 };
+
+function maybeParentheses(text, condition) {
+    return condition ? ` (${text})` : text;
+}
+
+function appendComment($a, comment) {
+    return $a.append(`<br /><span class="autocomplete-comment">${comment}</span>`);
+}
+
+function getLabelName(releaseLabel) {
+    return releaseLabel.label ? releaseLabel.label.name : '';
+}
+
+function getCatalogNumber(releaseLabel) {
+    return releaseLabel.catalogNumber || '';
+}
 
 /*
    MB.Control.EntityAutocomplete is a helper class which simplifies using

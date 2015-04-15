@@ -207,6 +207,20 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
 
             this.relatedArtists = relatedArtists(data.relationships);
             this.isProbablyClassical = isProbablyClassical(data);
+        },
+
+        around$toJSON: function (supr) {
+            var object = supr();
+
+            if (_.isArray(this.events)) {
+                object.events = _.cloneDeep(this.events);
+            }
+
+            if (_.isArray(this.labels)) {
+                object.labels = _.cloneDeep(this.labels);
+            }
+
+            return object;
         }
     });
 

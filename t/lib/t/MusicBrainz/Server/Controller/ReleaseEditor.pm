@@ -151,6 +151,16 @@ test 'returning an error when a space appears before an MBID' => sub {
     ]);
 };
 
+our $japan = {
+    'code' => 'JP',
+    'typeID' => 1,
+    'name' => 'Japan',
+    'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
+    'entityType' => 'area',
+    'comment' => '',
+    'id' => 107
+};
+
 test 'seeding a release with no tracklist' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -196,7 +206,7 @@ test 'seeding a release with no tracklist' => sub {
             'editNote' => 'http://www.helloproject.com/discography/berryz/s_036.html',
             'comment' => "通常盤B",
             'events' => [
-                { 'date' => '2014-02-19', 'countryID' => '107' }
+                { 'date' => '2014-02-19', 'country' => $japan }
             ],
             'makeVotable' => '1',
             'artistCredit' => [
@@ -259,9 +269,7 @@ test 'seeding a lowercase country' => sub {
     cmp_deeply($result, {
         'errors' => [],
         'seed' => {
-            'events' => [
-                { 'countryID' => '107' }
-            ],
+            'events' => [{ 'country' => $japan }],
         },
     });
 };

@@ -54,21 +54,6 @@ sub area_list          { shift->entity_list(@_, "area", "areas") };
 sub place_list         { shift->entity_list(@_, "place", "places") };
 sub event_list         { shift->entity_list(@_, "event", "events") };
 
-sub serialize_release
-{
-    my ($self, $c, $release) = @_;
-
-    my $inc = $c->stash->{inc};
-    my $data = $self->_release($release, $inc->media, $inc->recordings, $inc->rels);
-
-    if ($inc->annotation) {
-        $data->{annotation} = defined $release->latest_annotation ?
-            $release->latest_annotation->text : "";
-    }
-
-    return encode_json($data);
-}
-
 sub serialize_relationships
 {
     my ($self, @relationships) = @_;
@@ -186,7 +171,8 @@ sub _release {
         languageID   => $release->language_id,
         scriptID     => $release->script_id,
         packagingID  => $release->packaging_id,
-        barcode      => $release->barcode->code
+        barcode      => $release->barcode->code,
+        annotation   => defined $release->latest_annotation ? $release->latest_annotation->text : '',
     });
 
     if ($release->release_group) {
@@ -201,12 +187,9 @@ sub _release {
         $data->{events} = [
             map {
                 date => $_->date->format,
-                countryID => $_->country_id
+                country => defined($_->country) ? $self->_area($_->country) : undef
             }, $release->all_events
         ];
-
-        $data->{countryCodes} = [ map { $_->country->primary_code }
-            grep { $_->country_id } $release->all_events ];
     }
 
     if (scalar($release->all_labels)) {
@@ -220,11 +203,7 @@ sub _release {
     }
 
     if (scalar($release->all_mediums)) {
-        if ($release->all_mediums) {
-            $data->{mediums} = [map $self->_medium($_), $release->all_mediums];
-        }
-
-        $data->{trackCounts} = $release->combined_track_count;
+        $data->{mediums} = [map $self->_medium($_), $release->all_mediums];
         $data->{formats} = $release->combined_format_name;
     }
 
@@ -321,6 +300,7 @@ sub _area
         gid     => $area->gid,
         comment => $area->comment,
         typeID  => $area->type_id,
+        code    => $area->primary_code,
         $area->type ? (typeName => $area->type->name) : (),
         $area->parent_country ? (parentCountry => $area->parent_country->name) : (),
         $area->parent_subdivision ? (parentSubdivision => $area->parent_subdivision->name) : (),
