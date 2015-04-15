@@ -677,9 +677,9 @@ END -%]
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
     IF phrase_field == "verbose_phrase";
         phrase = relationship.verbose_phrase;
-        UNLESS phrase.match('\{entity0\}'); descriptive_link(relationship.source); ' '; END;
+        SET phrase = '{entity0} ' _ phrase UNLESS phrase.match('\{entity0\}');
+        SET phrase = phrase _ ' {entity1}' UNLESS phrase.match('\{entity1\}');
         l(phrase, { entity0 => descriptive_link(relationship.source), entity1 => descriptive_link(relationship.target) });
-        UNLESS phrase.match('\{entity1\}'); ' '; descriptive_link(relationship.target); ' '; END;
     ELSE;
         relationship.${ phrase_field }; ' '; descriptive_link(relationship.target);
     END;
