@@ -209,6 +209,7 @@ sub _interpolate {
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
 
+        # placeholders for entity names which are processed elsewhere
         return "{$name}" if $name eq "entity0" || $name eq "entity1";
 
         delete $extra_attrs{$name} unless $type_is_orderable;
