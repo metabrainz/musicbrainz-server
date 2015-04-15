@@ -304,6 +304,9 @@ sub CreateRelations
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
     RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
 
+    RunSQLScript($DB, "CreateSlaveIndexes.sql", "Creating slave-only indexes ...")
+        if $REPTYPE == RT_SLAVE;
+
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
