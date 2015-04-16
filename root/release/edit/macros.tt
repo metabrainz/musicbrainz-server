@@ -17,7 +17,7 @@
 [% MACRO table_cells_select(id, label, colspan, data_bind, options, multiple) BLOCK -%]
   <td><label for="[% id %]">[% label %]</label></td>
   <td colspan="[% colspan %]">
-    <select id="[% id %]" data-bind="[% data_bind %]"[% ' multiple' IF multiple %]>
+    <select id="[% id %]" style="width: 100%;" data-bind="[% data_bind %]"[% ' multiple' IF multiple %]>
       <option value="" selected="selected">&#160;</option>
       [% IF options.0.optgroup %]
         [% FOR optgroup=options %]
