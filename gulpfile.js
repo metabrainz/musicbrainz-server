@@ -52,7 +52,7 @@ function buildStyles() {
                 rootpath: "/static/",
                 relativeUrls: true,
                 plugins: [
-                    new (require('less-plugin-clean-css'))
+                    new (require('less-plugin-clean-css'))({compatibility: 'ie8'})
                 ]
             }))
     ).done(writeManifest);
