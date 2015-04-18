@@ -6,7 +6,6 @@ window._.str = require("underscore.string");
 window.$ = window.jQuery = require("jquery");
 
 require("jquery.browser");
-require("jquery.cookie");
 require("../lib/jquery.ui/ui/jquery-ui.custom.js");
 
 require("./common/MB.js");

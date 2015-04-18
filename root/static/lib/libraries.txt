@@ -96,14 +96,6 @@ version:     0.0.7
 author:      Gabriel Cebrian. Initial implementation by the jQuery Team
 url:         https://github.com/gabceb/jquery-browser-plugin
 
--- jquery/jquery.cookie.js --
-
-library:     jquery.cookie
-license:     MIT
-version:     1.4.1
-author:      Klaus Hartl
-url:         https://github.com/carhartl/jquery-cookie
-
 -- aclass/aclass.js --
 
 library:     aclass

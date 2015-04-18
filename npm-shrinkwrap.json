@@ -1799,10 +1799,6 @@
       "from": "git+https://github.com/gabceb/jquery-browser-plugin#e4a01fd",
       "resolved": "git+https://github.com/gabceb/jquery-browser-plugin#e4a01fd783d4684659b3193626b5553f0d8f6758"
     },
-    "jquery.cookie": {
-      "version": "1.4.1",
-      "from": "jquery.cookie@1.4.1"
-    },
     "knockout-arraytransforms": {
       "version": "1.0.0",
       "from": "knockout-arraytransforms@1.0.0",
