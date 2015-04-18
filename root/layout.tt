@@ -42,9 +42,10 @@
             </div>
         [% END %]
 
-        [%- IF server_details.alert -%]
-            <div class="warning-header">
+        [%- IF server_details.alert && server_details.alert_mtime > (c.req.cookies.alert_dismissed_mtime.value || 0) -%]
+            <div class="alert-banner">
                 <p>[% server_details.alert %]</p>
+                <button type="button" class="dismiss-alert remove-item icon"></button>
             </div>
         [%- END -%]
 
