@@ -7,8 +7,9 @@ var $ = require('jquery');
 var setCookie = require('./utility/setCookie');
 
 $(function () {
-    $('.dismiss-alert').on('click', function () {
-        setCookie('alert_dismissed_mtime', Math.ceil(Date.now() / 1000));
-        $(this).parent().remove();
+    $('.dismiss-banner').on('click', function () {
+        var bannerName = $(this).parent().remove().end().data('banner-name');
+
+        setCookie(bannerName + '_dismissed_mtime', Math.ceil(Date.now() / 1000));
     });
 });

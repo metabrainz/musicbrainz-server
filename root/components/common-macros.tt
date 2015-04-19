@@ -1011,3 +1011,7 @@ END -%]
 [%~ MACRO data_track_icon BLOCK ~%]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]
+
+[%~ MACRO dismiss_banner_button(banner_name) BLOCK ~%]
+    <button type="button" class="dismiss-banner remove-item icon" data-banner-name="[% banner_name %]"></button>
+[%~ END ~%]

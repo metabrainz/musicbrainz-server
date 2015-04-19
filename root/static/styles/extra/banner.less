@@ -1,7 +1,4 @@
-.warning-header,
-.flash,
-.server-details,
-.alert-banner {
+.banner {
     margin: @form-margin 0;
     text-align: center;
     background: #FFFFFF;
@@ -15,27 +12,22 @@
 
     p {
         margin: 0;
+        margin-right: @form-margin;
+    }
+
+    .dismiss-banner {
+        position: absolute;
+        top: @form-margin;
+        right: @form-margin;
     }
 }
 
 .warning-header,
 .server-details,
-.alert-banner {
+.alert {
     font-weight: bold;
 }
 
 .server-details {
     color: @text-orange;
-}
-
-.alert-banner {
-    p {
-        margin-right: @form-margin;
-    }
-
-    .dismiss-alert {
-        position: absolute;
-        top: @form-margin;
-        right: @form-margin;
-    }
 }

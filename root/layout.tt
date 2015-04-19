@@ -24,28 +24,32 @@
             </div>
         </div>
 
-        [% IF server_details.staging_server %]
-            <div class="server-details">
-                <p>
-                    [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
-                    [%= l('{uri|Return to musicbrainz.org}.',
-                          { uri => '//musicbrainz.org' _
-                                   (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
-                </p>
-            </div>
-        [% ELSIF server_details.is_slave_db %]
-            <div class="server-details">
-                <p>
-                    [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
-                          {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
-                </p>
-            </div>
-        [% END %]
+        [%- IF !c.req.cookies.server_details_dismissed_mtime.value -%]
+            [% IF server_details.staging_server %]
+                <div class="banner server-details">
+                    <p>
+                        [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
+                        [%= l('{uri|Return to musicbrainz.org}.',
+                              { uri => '//musicbrainz.org' _
+                                       (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
+                    </p>
+                    [% dismiss_banner_button('server_details') %]
+                </div>
+            [% ELSIF server_details.is_slave_db %]
+                <div class="banner server-details">
+                    <p>
+                        [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
+                              {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
+                    </p>
+                    [% dismiss_banner_button('server_details') %]
+                </div>
+            [% END %]
+        [%- END -%]
 
         [%- IF server_details.alert && server_details.alert_mtime > (c.req.cookies.alert_dismissed_mtime.value || 0) -%]
-            <div class="alert-banner">
+            <div class="banner alert">
                 <p>[% server_details.alert %]</p>
-                <button type="button" class="dismiss-alert remove-item icon"></button>
+                [% dismiss_banner_button('alert') %]
             </div>
         [%- END -%]
 
@@ -58,13 +62,13 @@
         [%- END -%]
 
         [% IF makes_no_changes %]
-        <div class="warning-header">
+        <div class="banner warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
         </div>
         [% END %]
 
         [% IF c.sessionid.defined AND c.flash.message %]
-            <div class="flash">
+            <div class="banner flash">
                 <p>
                     [% c.flash.message %]
                 </p>
