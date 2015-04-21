@@ -288,7 +288,7 @@ around edit_conditions => sub {
 around editor_may_approve => sub {
     my ($orig, $self, $editor) = @_;
 
-    return $self->_editor_may_auto_edit($editor) || $self->$orig($editor);
+    return $self->is_open && ($self->_editor_may_auto_edit($editor) || $self->$orig($editor));
 };
 
 sub _editor_may_auto_edit {
