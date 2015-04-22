@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use URI;
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -66,7 +67,8 @@ sub url_browse : Private
     my $url;
     if ($resource eq 'resource')
     {
-        ($url) = $c->model('URL')->find_by_url($id);
+        my $normalized = URI->new($id)->canonical;
+        ($url) = $c->model('URL')->find_by_url($normalized);
         $c->detach('not_found') unless ($url);
     }
 
