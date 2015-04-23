@@ -143,61 +143,16 @@ sub direct : Private
 
 =head1 NAME
 
-MusicBrainz::Server::Controller::Explore - Handles exploreing the database
+MusicBrainz::Server::Controller::Explore - Handles exploring the database.
 
 =head1 DESCRIPTION
 
-This control handles exploreing the database for various data, such as
-artists and releases, but also MusicBrainz specific data, such as editors
-and tags.
-
-=head1 METHODS
-
-=head2 editor
-
-Serach for a MusicBrainz database.
-
-This explore is performed right in this action, and is not dispatched to
-one of the MusicBrainz explore servers. It explorees for a moderator with
-the exact name given, and if found, redirects to their profile page. If
-no moderator could be found, the user is informed.
-
-=head2 external
-
-Explore using an external explore engine
-
-=head2 filter_artist
-
-Provide a form for users to explore for an artist. This is a 3 stage form.
-
-=over 4
-
-=item First, the user is presented with the form and enters a query
-
-=item Then the user is presented with a list of explore results
-
-=item Finally, the user selects a result and may continue.
-
-=back
-
-To retrieve the item that the user has selected, you should use the
-C<state> method of the current context. For example:
-
-    $c->forward('/explore/fitler_artist');
-    if (defined $c->state)
-    {
-        # Do stuff with the artist
-    }
-    else
-    {
-        # No explore result yet, probably want to wait
-        # until we have an artist
-    }
+This control handles exploring the database for various data, such as
+artists and releases by specifying the category to be searched, through a
+web interface not necessarily using any queries.
 
 =head1 LICENSE
 
-Copyright (C) 2009 Oliver Charles
-Copyright (C) 2012 Pavan Chander
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,
