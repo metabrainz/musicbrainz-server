@@ -295,7 +295,7 @@ Creating the database
         MusicBrainz verifying them against our GPG signing key:
 
             gpg --recv-keys C777580F
-            gpg --verify-files /tmp/dump/*.gpg
+            gpg --verify-files /tmp/dump/*.asc
 
         If this is OK and you wish to continue, you can import them with:
 
