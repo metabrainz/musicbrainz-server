@@ -306,4 +306,9 @@
             </li>
         </ul>
     </li>
+    <li class="explore">
+        <a href="[% c.uri_for('/explore') %]">
+            [% l('Explore') %]
+        </a>
+    </li>
 </ul>
