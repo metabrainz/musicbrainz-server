@@ -178,12 +178,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
 3.  Install dependencies
 
-    First install one module as a system package (it is used by a database
-    function):
-
-        sudo apt-get install libjson-xs-perl
-
-    To install the other dependencies for MusicBrainz Server, make sure you are
+    To install the dependencies for MusicBrainz Server, make sure you are
     in the MusicBrainz source code directory and run the following:
 
         cpanm --installdeps --notest .
@@ -266,8 +261,14 @@ Creating the database
     Note that a running PostgreSQL will pick up changes to configuration files
     only when being told so via a `HUP` signal.
 
+3.  Install a Perl module
 
-3.  Create the database
+    One PL/Perl database function requires the JSON::XS Perl module. Install it
+    like so:
+
+        sudo apt-get install libjson-xs-perl
+
+4.  Create the database
 
     You have two options when it comes to the database. You can either opt for a
     clean database with just the schema (useful for developers with limited disk
