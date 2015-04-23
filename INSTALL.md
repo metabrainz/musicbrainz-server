@@ -151,7 +151,6 @@ and avoids modifying the rest of your system.
 
 Below outlines how to setup MusicBrainz server with local::lib.
 
-
 1.  Prerequisites
 
     Before you get started you will actually need to have local::lib installed.
@@ -195,20 +194,20 @@ Below outlines how to setup MusicBrainz server with local::lib.
 Installing Node.js dependencies
 -------------------------------
 
-    Node dependencies are managed using `npm`. To install these dependencies, run
-    the following inside the musicbrainz-server/ checkout:
+Node dependencies are managed using `npm`. To install these dependencies, run
+the following inside the musicbrainz-server/ checkout:
 
-        npm install
+    npm install
 
-    Node dependencies are installed under ./node_modules.
+Node dependencies are installed under ./node\_modules.
 
-    We use Gulp as our JavaScript/CSS build system. This will be installed after
-    running the above. Calling `gulp` on its own will build everything necessary
-    to access the server in a web browser. It can be invoked by:
+We use Gulp as our JavaScript/CSS build system. This will be installed after
+running the above. Calling `gulp` on its own will build everything necessary
+to access the server in a web browser. It can be invoked by:
 
-        ./node_modules/.bin/gulp
+    ./node_modules/.bin/gulp
 
-    If you'd like, you can add ./node_modules/.bin to your $PATH.
+If you'd like, you can add ./node\_modules/.bin to your $PATH.
 
 
 Creating the database
@@ -237,7 +236,6 @@ Creating the database
         make
         sudo make install
         cd ..
-
 
 2.  Setup PostgreSQL authentication
 
@@ -311,7 +309,6 @@ Creating the database
         an intermediate step. You may specify a different location with the
         `--tmp-dir` option.
 
-
     NOTE: on a fresh postgresql install you may see the following error:
 
         CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
@@ -324,7 +321,7 @@ Creating the database
 
 
 Starting the server
-------------------
+-------------------
 
 You should now have everything ready to run the development server!
 
@@ -341,57 +338,58 @@ If you'd like a more permanent setup,
 [the plackup documentation](https://metacpan.org/pod/plackup) may prove useful
 in setting up a server such as nginx, using FastCGI.
 
+
 Translations
 ------------
 
 If you intend to run a server with translations, there are a few steps to follow:
 
-1. Prerequisites
+1.  Prerequisites
 
-   Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-   and the transifex client 'tx'
-   (http://help.transifex.com/features/client/index.html):
+    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
+    and the transifex client 'tx'
+    (http://help.transifex.com/features/client/index.html):
 
-         sudo apt-get install gettext transifex-client
+        sudo apt-get install gettext transifex-client
 
-   Configure a username and password in ~/.transifexrc using the format listed
-   on the above page.
+    Configure a username and password in ~/.transifexrc using the format listed
+    on the above page.
 
-2. Change to the po directory
+2.  Change to the po directory
 
-         cd po/
+        cd po/
 
-3. Get translations
+3.  Get translations
 
-         tx pull -l {a list of languages you want to pull}
+        tx pull -l {a list of languages you want to pull}
 
-   This will download the .po files for your language(s) of choice to the po/
-   folder with the correct filenames.
+    This will download the .po files for your language(s) of choice to the po/
+    folder with the correct filenames.
 
-4. Install translations
+4.  Install translations
 
-         make install
+        make install
 
-   This will compile and install the files to
-   lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
+    This will compile and install the files to
+    lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
 
-5. Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
-   {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
+5.  Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
+    {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
 
-6. Ensure you have a system locale for any languages you want to use, and for
-   some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
+6.  Ensure you have a system locale for any languages you want to use, and for
+    some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
 
-   For many languages, this will suffice:
+    For many languages, this will suffice:
 
-         sudo apt-get install language-pack-{language code}
+        sudo apt-get install language-pack-{language code}
 
-   To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-   to add entries to LANG2COUNTRY. Suggested ones include:
+    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
+    to add entries to LANG2COUNTRY. Suggested ones include:
 
-   * es => 'ES'
-   * et => 'EE'
-   * el => 'GR'
-   * sl => 'SI' (this one is there in 1.20, but needs amendment)
+    * es => 'ES'
+    * et => 'EE'
+    * el => 'GR'
+    * sl => 'SI' (this one is there in 1.20, but needs amendment)
 
 
 Troubleshooting
