@@ -44,7 +44,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven’t entered a complete artist credit.')) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
@@ -213,6 +213,8 @@
            '<!-- ko text: MB.i18n.expand(\'' _ js_escape(l('You haven’t selected a label for “{name}”.')) _ '\', { name: label().name }) --><!-- /ko -->'
          )
       %]
+
+      [% table_row_error(4, 'showErrorRightAway: isDuplicate', l('This label/catalog number pair already exists.')) %]
     <!-- /ko -->
 
       <tr>

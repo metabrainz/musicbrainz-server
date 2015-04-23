@@ -5648,7 +5648,7 @@ msgstr ""
 msgid "Cajonos Zapotec"
 msgstr ""
 
-#. frequency:0 iso_code_3:frc 
+#. frequency:1 iso_code_3:frc 
 #: DB:language/name:2311
 msgid "Cajun French"
 msgstr ""
@@ -24413,7 +24413,7 @@ msgstr ""
 msgid "Nhanda"
 msgstr ""
 
-#. frequency:0 iso_code_3:yrl 
+#. frequency:1 iso_code_3:yrl 
 #: DB:language/name:7618
 msgid "Nhengatu"
 msgstr ""
@@ -38753,7 +38753,7 @@ msgstr ""
 msgid "Yucatec Maya Sign Language"
 msgstr ""
 
-#. frequency:0 iso_code_3:yua 
+#. frequency:1 iso_code_3:yua 
 #: DB:language/name:7636
 msgid "Yucateco"
 msgstr ""

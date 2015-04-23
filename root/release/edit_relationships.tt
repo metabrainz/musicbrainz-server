@@ -16,6 +16,7 @@
 
       <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
+      <!-- ko if: source.mediums().length -->
       <h2>[% l('Track Relationships') %]</h2>
 
       <table id="batch-tools" data-bind="with: checkboxes">
@@ -68,6 +69,7 @@
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
         </tbody>
       </table>
+      <!-- /ko -->
 
       <p data-bind="if: loadingRelease">
         <span class="loading-message">[% l('Loading...') %]</span>
@@ -235,7 +237,7 @@
           <span class="entity" data-bind="html: html({ 'target': '_blank' }), css: { 'rel-edit': $parent.editsPending }"></span>
         <!-- /ko -->
         (<!-- ko template: "template.link.phrase" --><!-- /ko -->)
-        <!-- ko with: MB.utility.formatDatePeriod(period) -->
+        <!-- ko with: formatDatePeriod() -->
           (<!-- ko text: $data --><!-- /ko -->)
         <!-- /ko -->
         <span class="remove-button" data-click="removeRelationship">&#215;</span>

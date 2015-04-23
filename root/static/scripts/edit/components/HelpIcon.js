@@ -6,12 +6,13 @@
 var React = require('react');
 var Tooltip = require('./Tooltip.js');
 
-var HelpIcon = React.createClass({
-  getInitialState: function () {
-    return { hover: false };
-  },
+class HelpIcon extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {hover: false};
+  }
 
-  render: function () {
+  render() {
     return (
       <div style={{position: 'relative', display: 'inline-block'}}>
         <div ref="help"
@@ -24,6 +25,6 @@ var HelpIcon = React.createClass({
       </div>
     );
   }
-});
+}
 
 module.exports = HelpIcon;

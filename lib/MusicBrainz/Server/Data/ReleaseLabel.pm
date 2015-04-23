@@ -61,11 +61,28 @@ sub load
     }
 }
 
-sub merge_labels
-{
+sub merge_labels {
     my ($self, $new_id, @old_ids) = @_;
-    $self->sql->do('UPDATE release_label SET label = ?
-              WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+
+    $self->sql->do(
+        'UPDATE release_label SET label = ? WHERE label = any(?)',
+        $new_id,
+        \@old_ids
+    );
+
+    $self->sql->do(
+        'DELETE FROM release_label WHERE id IN (
+            SELECT a.id
+            FROM release_label a
+            JOIN release_label b ON (
+                b.release = a.release AND
+                b.catalog_number IS NOT DISTINCT FROM a.catalog_number
+            )
+            WHERE a.id < b.id AND a.label = ? AND b.label = ?
+        )',
+        $new_id,
+        $new_id
+    );
 }
 
 sub merge_releases

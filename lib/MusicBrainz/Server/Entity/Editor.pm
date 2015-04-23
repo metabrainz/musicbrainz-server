@@ -243,6 +243,13 @@ sub identity_string {
     return join(', ', $self->name, $self->id);
 }
 
+sub new_privileged {
+    shift->new(
+        id => 0,
+        privileges => $AUTO_EDITOR_FLAG | $LOCATION_EDITOR_FLAG,
+    );
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -348,6 +355,10 @@ The editor is able to administer the accounts of other editors
 =head2 is_banner_editor
 
 The editor is able to change the banner message
+
+=head2 new_privileged
+
+Returns a dummy instance with high editing privileges.
 
 =head1 COPYRIGHT
 

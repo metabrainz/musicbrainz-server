@@ -4,6 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../../common/i18n.js');
+var request = require('../../common/utility/request.js');
+var dates = require('../../edit/utility/dates.js');
+var mergeDates = require('./mergeDates.js');
 
 (function (RE) {
 
@@ -43,6 +46,13 @@ var i18n = require('../../common/i18n.js');
 
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
+            this.attributes.original = {};
+
+            if (data.id) {
+                _.each(this.attributes.peek(), function (attribute) {
+                    self.attributes.original[attribute.type.gid] = attribute.toJS();
+                });
+            }
 
             // XXX Sigh. This whole subscription shouldn't be necessary, because
             // we already filter out invalid attributes in linkTypeIDChanged.
@@ -83,6 +93,10 @@ var i18n = require('../../common/i18n.js');
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
+        },
+
+        formatDatePeriod: function () {
+            return dates.formatDatePeriod(this.period);
         },
 
         fromJS: function (data) {
@@ -196,7 +210,7 @@ var i18n = require('../../common/i18n.js');
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                MB.utility.request(args).done(function (data) {
+                request(args).done(function (data) {
                     entity1.parseRelationships(data.relationships);
                 });
             }
@@ -288,7 +302,7 @@ var i18n = require('../../common/i18n.js');
                 }
 
                 if (type.creditable) {
-                    var credit = _.str.clean(attribute.credit());
+                    var credit = _.str.clean(attribute.creditedAs());
 
                     if (credit) {
                         value = i18n.l("{attribute} [{credited_as}]", {
@@ -418,8 +432,8 @@ var i18n = require('../../common/i18n.js');
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
-                MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.period.beginDate, other.period.beginDate) &&
+                mergeDates(this.period.endDate, other.period.endDate) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },
@@ -452,11 +466,11 @@ var i18n = require('../../common/i18n.js');
         var type = this.type = MB.attrInfoByID[data.type.gid];
 
         if (type.creditable) {
-            this.credit = ko.observable(ko.unwrap(data.credit) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
         }
 
         if (type.freeText) {
-            this.textValue = ko.observable(ko.unwrap(data.textValue) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
         }
     };
 
@@ -464,12 +478,27 @@ var i18n = require('../../common/i18n.js');
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + _.str.clean(this.credit());
+            return type.gid + "\0" + _.str.clean(this.creditedAs());
         }
         if (type.freeText) {
             return type.gid + "\0" + _.str.clean(this.textValue());
         }
         return type.gid;
+    };
+
+    fields.LinkAttribute.prototype.toJS = function () {
+        var type = this.type;
+        var output = { type: { gid: type.gid } };
+
+        if (type.creditable) {
+            output.credited_as = _.str.clean(this.creditedAs());
+        }
+
+        if (type.freeText) {
+            output.text_value = _.str.clean(this.textValue());
+        }
+
+        return output;
     };
 
     ko.bindingHandlers.textAttribute = {

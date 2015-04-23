@@ -19,6 +19,8 @@
 
 */
 
+var flags = require('../../../flags.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -88,10 +90,10 @@ MB.GuessCase.Handler.Label = function () {
             gc.i.capitalizeCurrentWord();
             gc.o.appendCurrentWord();
         }
-        gc.f.resetContext();
-        gc.f.number = false;
-        gc.f.forceCaps = false;
-        gc.f.spaceNextWord = true;
+        flags.resetContext();
+        flags.context.number = false;
+        flags.context.forceCaps = false;
+        flags.context.spaceNextWord = true;
         return null;
     };
 

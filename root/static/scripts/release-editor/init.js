@@ -4,14 +4,16 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
 var externalLinks = require('../edit/externalLinks.js');
 var validation = require('../edit/validation.js');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
-
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
-    loadError: ko.observable("")
+    loadError: ko.observable(""),
+    externalLinksEditData: ko.observable({}),
+    hasInvalidLinks: validation.errorField(ko.observable(false))
 });
 
 
@@ -203,7 +205,7 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this)
+    return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
                 error = jqXHR.status + " (" + error + ")"
@@ -253,9 +255,6 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
         data.relationships = (data.relationships || []).concat(seed.relationships);
     }
 
-    this.externalLinksEditData = ko.observable({});
-    this.hasInvalidLinks = validation.errorField(ko.observable(false));
-
     this.externalLinks = externalLinks.createExternalLinksEditor({
         sourceData: data,
         mountPoint: mountPoint,
@@ -294,7 +293,6 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
         addDiscUI.close();
     }
 };
-
 
 MB.releaseEditor.allowsSubmission = function () {
     return (

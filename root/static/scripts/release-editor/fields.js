@@ -4,6 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../common/i18n.js');
+var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var dates = require('../edit/utility/dates.js');
 
 (function (releaseEditor) {
 
@@ -44,7 +47,7 @@ var i18n = require('../common/i18n.js');
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.track = this;
 
-            this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
+            this.formattedLength = ko.observable(formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
@@ -126,7 +129,7 @@ var i18n = require('../common/i18n.js');
             }
 
             var oldLength = this.length();
-            var newLength = MB.utility.unformatTrackLength(length);
+            var newLength = utils.unformatTrackLength(length);
 
             if (_.isNaN(newLength)) {
                 this.formattedLength('');
@@ -135,7 +138,7 @@ var i18n = require('../common/i18n.js');
 
             this.length(newLength);
 
-            var newFormattedLength = MB.utility.formatTrackLength(newLength);
+            var newFormattedLength = formatTrackLength(newLength);
             if (length !== newFormattedLength) {
                 this.formattedLength(newFormattedLength);
             }
@@ -398,7 +401,7 @@ var i18n = require('../common/i18n.js');
 
             _.each(tocTracks, function (track, index) {
                 track.formattedLength(
-                    MB.utility.formatTrackLength(
+                    formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
@@ -446,7 +449,7 @@ var i18n = require('../common/i18n.js');
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this).done(this.tracksLoaded);
+            request(args, this).done(this.tracksLoaded);
         },
 
         tracksLoaded: function (data) {
@@ -522,7 +525,7 @@ var i18n = require('../common/i18n.js');
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = MB.utility.parseDate(data.date || "");
+            var date = dates.parseDate(data.date || "");
 
             this.date = {
                 year:   ko.observable(date.year),
@@ -538,7 +541,7 @@ var i18n = require('../common/i18n.js');
 
             this.hasInvalidDate = ko.computed(function () {
                 var date = self.unwrapDate();
-                return !MB.utility.validDate(date.year, date.month, date.day);
+                return !dates.isDateValid(date.year, date.month, date.day);
             });
         },
 
@@ -570,6 +573,7 @@ var i18n = require('../common/i18n.js');
             this.label = ko.observable(MB.entity(data.label || {}, "label"));
             this.catalogNumber = ko.observable(data.catalogNumber);
             this.release = release;
+            this.isDuplicate = ko.observable(false);
 
             var self = this;
 
@@ -714,7 +718,22 @@ var i18n = require('../common/i18n.js');
                 _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
             );
 
+            function releaseLabelKey(releaseLabel) {
+                return ((releaseLabel.label() || {}).id || '') + '\0' + _.str.clean(releaseLabel.catalogNumber());
+            }
+
+            function nonEmptyReleaseLabel(releaseLabel) {
+                return releaseLabelKey(releaseLabel) !== '\0';
+            }
+
+            ko.computed(function () {
+                _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
+                    _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
+                });
+            });
+
             this.needsLabels = errorField(this.labels.any("needsLabel"));
+            this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
 
             this.releaseGroup = ko.observable(
                 fields.ReleaseGroup(data.releaseGroup || {})
@@ -741,9 +760,10 @@ var i18n = require('../common/i18n.js');
             this.loadedMediums = this.mediums.filter("loaded");
             this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
             this.hasTracks = this.mediums.any("hasTracks");
+            this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
-            this.needsMediums = errorField(function () { return !self.mediums().length });
+            this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
             this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
             this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
@@ -758,7 +778,7 @@ var i18n = require('../common/i18n.js');
                 this.labels.push(fields.ReleaseLabel({}, this));
             }
 
-            if (!this.mediums().length) {
+            if (!this.mediums().length && !this.hasUnknownTracklist()) {
                 this.mediums.push(fields.Medium({}, this));
             }
         },
