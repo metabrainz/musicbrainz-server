@@ -289,11 +289,6 @@ sub search
     my $fuzzy_search_limit = 10000;
     my $search_timeout = 60 * 1000;
 
-    $self->sql->auto_commit;
-    $self->sql->do('SET SESSION gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
-    $self->sql->auto_commit;
-    $self->sql->do('SET SESSION statement_timeout TO ?', $search_timeout);
-
     my @query_args = ();
     push @query_args, $hard_search_limit if $use_hard_search_limit;
     push @query_args, $deleted_entity if $deleted_entity;
@@ -302,9 +297,14 @@ sub search
 
     my @result;
     my $pos = $offset + 1;
-    my @rows = @{
-        $self->sql->select_list_of_hashes($query, $query_str, $query_str, @query_args)
-    };
+    my @rows;
+
+    Sql::run_in_transaction(sub {
+        $self->sql->do('SET LOCAL gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
+        $self->sql->do('SET LOCAL statement_timeout TO ?', $search_timeout);
+
+        @rows = @{ $self->sql->select_list_of_hashes($query, $query_str, $query_str, @query_args) };
+    }, $self->sql);
 
     for my $row (@rows) {
         last unless ($limit--);
