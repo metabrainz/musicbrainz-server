@@ -822,7 +822,9 @@ CREATE TABLE l_area_area ( -- replicate
     entity1             INTEGER NOT NULL, -- references area.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_artist ( -- replicate
@@ -832,7 +834,9 @@ CREATE TABLE l_area_artist ( -- replicate
     entity1             INTEGER NOT NULL, -- references artist.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_event ( -- replicate
@@ -842,7 +846,9 @@ CREATE TABLE l_area_event ( -- replicate
     entity1             INTEGER NOT NULL, -- references event.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_instrument ( -- replicate
@@ -852,7 +858,9 @@ CREATE TABLE l_area_instrument ( -- replicate
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_label ( -- replicate
@@ -862,7 +870,9 @@ CREATE TABLE l_area_label ( -- replicate
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_place ( -- replicate
@@ -872,7 +882,9 @@ CREATE TABLE l_area_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_recording ( -- replicate
@@ -882,7 +894,9 @@ CREATE TABLE l_area_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_release ( -- replicate
@@ -892,7 +906,9 @@ CREATE TABLE l_area_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_release_group ( -- replicate
@@ -902,7 +918,9 @@ CREATE TABLE l_area_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_series ( -- replicate
@@ -912,7 +930,9 @@ CREATE TABLE l_area_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_url ( -- replicate
@@ -922,7 +942,9 @@ CREATE TABLE l_area_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_area_work ( -- replicate
@@ -932,7 +954,9 @@ CREATE TABLE l_area_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_artist ( -- replicate
@@ -942,7 +966,9 @@ CREATE TABLE l_artist_artist ( -- replicate
     entity1             INTEGER NOT NULL, -- references artist.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_event ( -- replicate
@@ -952,7 +978,9 @@ CREATE TABLE l_artist_event ( -- replicate
     entity1             INTEGER NOT NULL, -- references event.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_instrument ( -- replicate
@@ -962,7 +990,9 @@ CREATE TABLE l_artist_instrument ( -- replicate
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_label ( -- replicate
@@ -972,7 +1002,9 @@ CREATE TABLE l_artist_label ( -- replicate
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_place ( -- replicate
@@ -982,7 +1014,9 @@ CREATE TABLE l_artist_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_recording ( -- replicate
@@ -992,7 +1026,9 @@ CREATE TABLE l_artist_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_release ( -- replicate
@@ -1002,7 +1038,9 @@ CREATE TABLE l_artist_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_release_group ( -- replicate
@@ -1012,7 +1050,9 @@ CREATE TABLE l_artist_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_series ( -- replicate
@@ -1022,7 +1062,9 @@ CREATE TABLE l_artist_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_url ( -- replicate
@@ -1032,7 +1074,9 @@ CREATE TABLE l_artist_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_artist_work ( -- replicate (verbose)
@@ -1042,7 +1086,9 @@ CREATE TABLE l_artist_work ( -- replicate (verbose)
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_event ( -- replicate
@@ -1052,7 +1098,9 @@ CREATE TABLE l_event_event ( -- replicate
     entity1             INTEGER NOT NULL, -- references event.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_instrument ( -- replicate
@@ -1062,7 +1110,9 @@ CREATE TABLE l_event_instrument ( -- replicate
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_label ( -- replicate
@@ -1072,7 +1122,9 @@ CREATE TABLE l_event_label ( -- replicate
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_place ( -- replicate
@@ -1082,7 +1134,9 @@ CREATE TABLE l_event_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_recording ( -- replicate
@@ -1092,7 +1146,9 @@ CREATE TABLE l_event_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_release ( -- replicate
@@ -1102,7 +1158,9 @@ CREATE TABLE l_event_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_release_group ( -- replicate
@@ -1112,7 +1170,9 @@ CREATE TABLE l_event_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_series ( -- replicate
@@ -1122,7 +1182,9 @@ CREATE TABLE l_event_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_url ( -- replicate
@@ -1132,7 +1194,9 @@ CREATE TABLE l_event_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_event_work ( -- replicate
@@ -1142,7 +1206,9 @@ CREATE TABLE l_event_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_label ( -- replicate
@@ -1152,7 +1218,9 @@ CREATE TABLE l_label_label ( -- replicate
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_instrument ( -- replicate
@@ -1162,7 +1230,9 @@ CREATE TABLE l_instrument_instrument ( -- replicate
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_label ( -- replicate
@@ -1172,7 +1242,9 @@ CREATE TABLE l_instrument_label ( -- replicate
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_place ( -- replicate
@@ -1182,7 +1254,9 @@ CREATE TABLE l_instrument_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_recording ( -- replicate
@@ -1192,7 +1266,9 @@ CREATE TABLE l_instrument_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_release ( -- replicate
@@ -1202,7 +1278,9 @@ CREATE TABLE l_instrument_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_release_group ( -- replicate
@@ -1212,7 +1290,9 @@ CREATE TABLE l_instrument_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_series ( -- replicate
@@ -1222,7 +1302,9 @@ CREATE TABLE l_instrument_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_url ( -- replicate
@@ -1232,7 +1314,9 @@ CREATE TABLE l_instrument_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_instrument_work ( -- replicate
@@ -1242,7 +1326,9 @@ CREATE TABLE l_instrument_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_place ( -- replicate
@@ -1252,7 +1338,9 @@ CREATE TABLE l_label_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_recording ( -- replicate
@@ -1262,7 +1350,9 @@ CREATE TABLE l_label_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_release ( -- replicate
@@ -1272,7 +1362,9 @@ CREATE TABLE l_label_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_release_group ( -- replicate
@@ -1282,7 +1374,9 @@ CREATE TABLE l_label_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_series ( -- replicate
@@ -1292,7 +1386,9 @@ CREATE TABLE l_label_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_url ( -- replicate
@@ -1302,7 +1398,9 @@ CREATE TABLE l_label_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_label_work ( -- replicate
@@ -1312,7 +1410,9 @@ CREATE TABLE l_label_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_place ( -- replicate
@@ -1322,7 +1422,9 @@ CREATE TABLE l_place_place ( -- replicate
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_recording ( -- replicate
@@ -1332,7 +1434,9 @@ CREATE TABLE l_place_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_release ( -- replicate
@@ -1342,7 +1446,9 @@ CREATE TABLE l_place_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_release_group ( -- replicate
@@ -1352,7 +1458,9 @@ CREATE TABLE l_place_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_series ( -- replicate
@@ -1362,7 +1470,9 @@ CREATE TABLE l_place_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_url ( -- replicate
@@ -1372,7 +1482,9 @@ CREATE TABLE l_place_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_place_work ( -- replicate
@@ -1382,7 +1494,9 @@ CREATE TABLE l_place_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_recording ( -- replicate
@@ -1392,7 +1506,9 @@ CREATE TABLE l_recording_recording ( -- replicate
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_release ( -- replicate
@@ -1402,7 +1518,9 @@ CREATE TABLE l_recording_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_release_group ( -- replicate
@@ -1412,7 +1530,9 @@ CREATE TABLE l_recording_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_series ( -- replicate
@@ -1422,7 +1542,9 @@ CREATE TABLE l_recording_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_url ( -- replicate
@@ -1432,7 +1554,9 @@ CREATE TABLE l_recording_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_recording_work ( -- replicate
@@ -1442,7 +1566,9 @@ CREATE TABLE l_recording_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_release ( -- replicate
@@ -1452,7 +1578,9 @@ CREATE TABLE l_release_release ( -- replicate
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_release_group ( -- replicate
@@ -1462,7 +1590,9 @@ CREATE TABLE l_release_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_series ( -- replicate
@@ -1472,7 +1602,9 @@ CREATE TABLE l_release_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_url ( -- replicate
@@ -1482,7 +1614,9 @@ CREATE TABLE l_release_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_work ( -- replicate
@@ -1492,7 +1626,9 @@ CREATE TABLE l_release_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_group_release_group ( -- replicate
@@ -1502,7 +1638,9 @@ CREATE TABLE l_release_group_release_group ( -- replicate
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_group_series ( -- replicate
@@ -1512,7 +1650,9 @@ CREATE TABLE l_release_group_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_group_url ( -- replicate
@@ -1522,7 +1662,9 @@ CREATE TABLE l_release_group_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_release_group_work ( -- replicate
@@ -1532,7 +1674,9 @@ CREATE TABLE l_release_group_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_series_series ( -- replicate
@@ -1542,7 +1686,9 @@ CREATE TABLE l_series_series ( -- replicate
     entity1             INTEGER NOT NULL, -- references series.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_series_url ( -- replicate
@@ -1552,7 +1698,9 @@ CREATE TABLE l_series_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_series_work ( -- replicate
@@ -1562,7 +1710,9 @@ CREATE TABLE l_series_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_url_url ( -- replicate
@@ -1572,7 +1722,9 @@ CREATE TABLE l_url_url ( -- replicate
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_url_work ( -- replicate
@@ -1582,7 +1734,9 @@ CREATE TABLE l_url_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE l_work_work ( -- replicate
@@ -1592,7 +1746,9 @@ CREATE TABLE l_work_work ( -- replicate
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0),
+    entity0_credit      TEXT NOT NULL DEFAULT '',
+    entity1_credit      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE label ( -- replicate (verbose)
