@@ -14,6 +14,7 @@
               "20150307-other-entities-collections.sql",
               "20150317-medium-name-not-null.sql",
               "20150331-relationship-credits.sql"],
+    "slave_only": ["20150415-mbs-8349.sql"],
     "standalone": ["20150209-extend-aliases-to-more-entities-standalone.sql",
                    "20150307-other-entities-collections-fks.sql",
                    "20150317-drop-event-name-constraint.sql",

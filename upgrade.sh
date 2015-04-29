@@ -48,9 +48,11 @@ fi
 
 ################################################################################
 # Migrations that apply for only slaves
-#if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
-#then
-#fi
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : 'Running upgrade scripts for slave nodes'
+    ./admin/psql READWRITE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave_only.sql || exit 1
+fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
