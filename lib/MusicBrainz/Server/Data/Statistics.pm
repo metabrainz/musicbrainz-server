@@ -193,11 +193,10 @@ my %stats = (
     },
     "count.mbid" => {
         DESC => "Count of all MBIDs known/allocated",
-        SQL => "SELECT count(gid) FROM (" .
-            join(' UNION ALL ',
-                 (map { "SELECT gid FROM $_" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
-                 (map { "SELECT gid FROM ${_}_gid_redirect" } entities_with(['mbid', 'multiple'])))
-        . ") q"
+        SQL => "SELECT " .
+            join(' + ',
+                 (map { "(SELECT COUNT(gid) FROM $_)" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
+                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'])))
     },
     "count.release" => {
         DESC => "Count of all releases",
