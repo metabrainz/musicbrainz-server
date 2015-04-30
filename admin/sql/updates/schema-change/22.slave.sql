@@ -3,6 +3,7 @@
 -- 20150307-other-entities-collections.sql
 -- 20150317-medium-name-not-null.sql
 -- 20150331-relationship-credits.sql
+-- 20150429-tag-upvote.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 --------------------------------------------------------------------------------
@@ -539,5 +540,20 @@ ALTER TABLE l_url_work ADD COLUMN entity1_credit TEXT NOT NULL DEFAULT '';
 
 ALTER TABLE l_work_work ADD COLUMN entity0_credit TEXT NOT NULL DEFAULT '';
 ALTER TABLE l_work_work ADD COLUMN entity1_credit TEXT NOT NULL DEFAULT '';
+
+--------------------------------------------------------------------------------
+SELECT '20150429-tag-upvote.sql';
+
+ALTER TABLE area_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE artist_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE event_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE instrument_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE label_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE place_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE recording_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE release_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE release_group_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE series_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE work_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
 
 COMMIT;
