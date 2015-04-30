@@ -121,7 +121,8 @@ CREATE TABLE area_tag ( -- replicate (verbose)
 CREATE TABLE area_tag_raw (
     area                INTEGER NOT NULL, -- PK, references area.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE artist ( -- replicate (verbose)
@@ -262,7 +263,8 @@ CREATE TABLE artist_tag_raw
 (
     artist              INTEGER NOT NULL, -- PK, references artist.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE artist_credit ( -- replicate
@@ -602,7 +604,8 @@ CREATE TABLE event_rating_raw (
 CREATE TABLE event_tag_raw (
     event               INTEGER NOT NULL, -- PK, references event.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE event_alias_type ( -- replicate
@@ -781,7 +784,8 @@ CREATE TABLE instrument_tag ( -- replicate (verbose)
 CREATE TABLE instrument_tag_raw (
     instrument          INTEGER NOT NULL, -- PK, references instrument.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE iso_3166_1 ( -- replicate
@@ -1803,7 +1807,8 @@ CREATE TABLE label_tag_raw
 (
     label               INTEGER NOT NULL, -- PK, references label.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE label_alias_type ( -- replicate
@@ -2265,7 +2270,8 @@ CREATE TABLE place_tag_raw
 (
     place               INTEGER NOT NULL, -- PK, references place.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE place_type ( -- replicate
@@ -2348,7 +2354,8 @@ CREATE TABLE recording_tag_raw
 (
     recording           INTEGER NOT NULL, -- PK, references recording.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE recording_annotation ( -- replicate (verbose)
@@ -2466,7 +2473,8 @@ CREATE TABLE release_tag_raw
 (
     release             INTEGER NOT NULL, -- PK, references release.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE release_annotation ( -- replicate (verbose)
@@ -2593,7 +2601,8 @@ CREATE TABLE release_group_tag_raw
 (
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE release_group_annotation ( -- replicate (verbose)
@@ -2763,7 +2772,8 @@ CREATE TABLE series_tag ( -- replicate (verbose)
 CREATE TABLE series_tag_raw (
     series              INTEGER NOT NULL, -- PK, references series.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE tag ( -- replicate (verbose)
@@ -2866,7 +2876,8 @@ CREATE TABLE work_tag_raw
 (
     work                INTEGER NOT NULL, -- PK, references work.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    tag                 INTEGER NOT NULL -- PK, references tag.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    is_upvote           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE work_alias_type ( -- replicate
