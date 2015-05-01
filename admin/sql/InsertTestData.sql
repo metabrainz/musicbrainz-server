@@ -71,8 +71,6 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
-
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 
@@ -348,5 +346,8 @@ ALTER SEQUENCE link_type_id_seq RESTART 3;
 ALTER SEQUENCE link_attribute_type_id_seq RESTART 5;
 
 ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
+
+SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));
+SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
 
 SET client_min_messages TO 'NOTICE';

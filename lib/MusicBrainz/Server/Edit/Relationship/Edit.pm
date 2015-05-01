@@ -313,6 +313,12 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
+    unless ($relationship->entity0 && $relationship->entity1) {
+        $self->c->model('Relationship')->load_entities($relationship);
+    }
+
+    my $new_entity0 = $opts{entity0} // $relationship->entity0;
+    my $new_entity1 = $opts{entity1} // $relationship->entity1;
     my $new_link_type = $opts{link_type} // $link->type;
     my $current_attributes = $self->serialize_link_attributes($link->all_attributes);
     my $new_attributes = $opts{attributes} // $current_attributes;
@@ -320,10 +326,6 @@ sub initialize
     $self->check_attributes($new_link_type, $new_attributes);
 
     delete $opts{link_order}; # Not supported by this edit type.
-
-    unless ($relationship->entity0 && $relationship->entity1) {
-        $self->c->model('Relationship')->load_entities($relationship);
-    }
 
     $opts{entity0} = {
         id => $opts{entity0}->id,
@@ -344,6 +346,20 @@ sub initialize
     } if $opts{link_type};
 
     normalize_date_period(\%opts);
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if $self->c->model('Relationship')->exists(
+            $new_link_type->entity0_type,
+            $new_link_type->entity1_type, {
+            link_type_id => $new_link_type->id,
+            begin_date   => $opts{begin_date},
+            end_date     => $opts{end_date},
+            ended        => $opts{ended},
+            attributes   => $opts{attributes},
+            entity0_id   => $new_entity0->id,
+            entity1_id   => $new_entity1->id,
+            link_order   => $relationship->link_order,
+        });
 
     $self->relationship($relationship);
     $self->data({
@@ -410,6 +426,7 @@ sub accept
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
         ended        => $data->{new}{ended}         // $relationship->link->ended,
+        link_order   => $relationship->link_order,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -505,6 +522,18 @@ before restore => sub {
         $self->restore_int_attributes($data->{$_}) for qw( link old new );
     }
 };
+
+sub editor_may_edit {
+    my ($self, $opts) = @_;
+
+    my $old_lt = $opts->{relationship}->link->type;
+    my $new_lt = $opts->{link_type} // $old_lt;
+
+    return (
+        $self->editor_may_edit_types($old_lt->entity0_type, $old_lt->entity1_type) &&
+        $self->editor_may_edit_types($new_lt->entity0_type, $new_lt->entity1_type)
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 

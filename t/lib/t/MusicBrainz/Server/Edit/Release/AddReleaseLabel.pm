@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::AddReleaseLabel;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -91,6 +92,24 @@ test 'Inserting just a catalog number' => sub {
         is($release->labels->[1]->label_id, undef, "Second release label has no label id");
         is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
     }
+};
+
+test 'Prevents initializing an edit with a duplicate label/catalog number pair' => sub {
+    my ($test) = @_;
+
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    like exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+            editor_id => 1,
+            release => $c->model('Release')->get_by_id(1),
+            label => $c->model('Label')->get_by_id(1),
+            catalog_number => 'ABC-123',
+        );
+    }, qr/The label and catalog number in this edit already exist on the release./;
 };
 
 sub create_edit {

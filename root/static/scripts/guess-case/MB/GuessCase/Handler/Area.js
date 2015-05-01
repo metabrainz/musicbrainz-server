@@ -18,6 +18,9 @@
 
 */
 
+var flags = require('../../../flags.js');
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -40,22 +43,16 @@ MB.GuessCase.Handler.Area = function () {
      *
      * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
      * - Handles FeaturingArtistStyle
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
      *
      **/
     self.doWord = function () {
         if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
-        } else if (self.doVersusStyle()) {
-        } else if (self.doVolumeNumberStyle()) {
-        } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
         } else {
             self.doNormalWord();
         }
-        gc.f.number = false;
+        flags.context.number = false;
         return null;
     };
 
@@ -63,7 +60,7 @@ MB.GuessCase.Handler.Area = function () {
      * Guesses the sortname for areas
      **/
     self.guessSortName = function (is) {
-        return gc.u.trim(is);
+        return utils.trim(is);
     };
 
     return self;

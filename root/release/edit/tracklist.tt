@@ -203,7 +203,7 @@
     </td>
 
     <td class="credits-button buttons" data-bind="with: artistCredit">
-      <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+      <button type="button" data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
     </td>
 
     <td class="length">
@@ -212,6 +212,7 @@
 
     <td class="icon">
       <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+      <button type="button" class="icon guessfeat" title="[% l('Guess feat. artists') %]" data-click="guessTrackFeatArtists"></button>
       <!-- ko ifnot: medium.hasToc() -->
       <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
       <!-- /ko -->
@@ -264,13 +265,18 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko if: needsMediums() -->
-    <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
-  <!-- /ko -->
-
-  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: needsMediums">
-    [%~ l('A release must contain at least one medium.') ~%]
+  <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
+    [%~ l('Add a medium by clicking “Add Disc” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
+
+  <!-- ko if: !mediums().length -->
+    <p>
+      <label>
+        <input type="checkbox" data-bind="checked: hasUnknownTracklist" />
+        [% l('The tracklist for this release is currently unknown.') %]
+      </label>
+    </p>
+  <!-- /ko -->
 
   <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
@@ -409,9 +415,10 @@
         <!-- /ko -->
 
         <div class="buttons">
-          <button data-click="openTrackParser">[% l('Track Parser') %]</button>
-          <button data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
-          <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
+          <button type="button" data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button type="button" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
+          <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
+          <button type="button" data-click="guessMediumFeatArtists">[%- l('Guess feat. artists from track titles') -%]</button>
         </div>
 
         <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">

@@ -1,6 +1,6 @@
 $(function () {
 
-    cardinalityMap = {
+    var cardinalityMap = {
         'id': {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
         },
@@ -117,9 +117,4 @@ $(function () {
     $('ul.conditions span.autocomplete').each(function () {
         MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
-
-    if ($('#edit-search').length)
-    {
-        MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
-    }
 });

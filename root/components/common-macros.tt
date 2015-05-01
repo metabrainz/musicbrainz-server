@@ -118,26 +118,6 @@ END; -%]
     END;
 END -%]
 
-[%~ MACRO comma_list(items) BLOCK -%]
-    [% IF items.size == 1 %]
-        [% items.0 %]
-    [% ELSE %]
-        [%- output = l('{almost_last_list_item} and {last_list_item}', {last_list_item => items.last, almost_last_list_item => items.reverse.slice(1).first}) -%]
-        [%- FOREACH item IN items.reverse.slice(2) -%]
-            [%- output = l('{list_item}, {rest}', {list_item => item, rest => output}) -%]
-        [%- END -%]
-        [%- output -%]
-    [% END %]
-[%- END -%]
-
-[%~ MACRO comma_only_list(items) BLOCK -%]
-    [%- output = l('{last_list_item}', {last_list_item => items.last}) -%]
-    [%- FOREACH item IN items.reverse.slice(1) -%]
-        [%- output = l('{commas_only_list_item}, {rest}', {commas_only_list_item => item, rest => output}) -%]
-    [%- END -%]
-    [%- output -%]
-[%- END -%]
-
 [%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
 [%~ MACRO get_plural_type(entity)
     SWITCH entity;
@@ -433,7 +413,8 @@ END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text) BLOCK;
     link_entity(area, action, text);
-    IF link_area_containment(area); ', ' _ link_area_containment(area); END;
+    containment_link = link_area_containment(area);
+    IF containment_link; ', ' _ containment_link; END;
 END -%]
 
 [%~ MACRO link_place(place, action, text) BLOCK;
@@ -793,12 +774,7 @@ END -%]
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
-  [%~ IF server_details.developement_server ~%]
-    [%~ USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest.replace('\.css', '.less') -%]" />
-  [%~ ELSE ~%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
-  [%~ END ~%]
+  <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
 [%~ END ~%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
@@ -807,18 +783,24 @@ END -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%~ MACRO medium_link(medium) BLOCK;
+[%~ MACRO medium_description(medium) BLOCK;
     args = {
         medium_format => medium_format_name(medium),
         position => medium.position,
-        release => descriptive_link(medium.release)
     };
     IF medium.name != '';
         args.medium_name = isolate_text(medium.name);
-        l('{medium_format} {position}: {medium_name} on {release}', args);
+        l('{medium_format} {position}: {medium_name}', args);
     ELSE;
-        l('{medium_format} {position} on {release}', args);
+        l('{medium_format} {position}', args);
     END;
+END ~%]
+
+[%~ MACRO medium_link(medium) BLOCK;
+    l('{medium} on {release}', {
+        medium => medium_description(medium),
+        release => descriptive_link(medium.release),
+    });
 END ~%]
 
 [%~ MACRO medium_in_release(release, medium) BLOCK -%]
@@ -872,6 +854,7 @@ END ~%]
             $.get('[% wikipedia_extract_url %]',
                   function (data) {
                       $('#wikipedia-insertion-point').replaceWith(data);
+                      MB.makeCollapsible('wikipedia-extract');
                   },
                   'html');
         //]]></script>
@@ -916,18 +899,17 @@ END ~%]
   [%- END -%]
 [%- END -%]
 
-[%~ MACRO relationship_target_links(rel) BLOCK -%]
-  <span[% IF rel.edits_pending %] class="mp mp-rel"[% END %]>
-  [% IF rel.target.artist_credit AND
-        rel.target.artist_credit.name == hide_ac %]
-      [% link_entity(rel.target) %]
-  [% ELSE %]
-      [% descriptive_link(rel.target) %]
-  [% END %]
-  [% '(' _ rel.extra_phrase_attributes _ ')' IF rel.extra_phrase_attributes %]
-  [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
-  </span>
-[%- END -%]
+[%~ MACRO relationship_target_links(rel) BLOCK;
+    '<span class="mp mp-rel">' IF rel.edits_pending;
+    IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
+        link_entity(rel.target);
+    ELSE;
+        descriptive_link(rel.target);
+    END;
+    bracketed(rel.extra_phrase_attributes) IF rel.extra_phrase_attributes;
+    bracketed(rel.link.formatted_date) IF rel.link.formatted_date;
+    '</span>' IF rel.edits_pending;
+END ~%]
 
 [%~ MACRO release_countries(release_events) BLOCK;
     IF release_events.size;
@@ -1012,6 +994,13 @@ END -%]
       ELSIF cardinality == 1; l('Many relationships');
       ELSE; l('Unknown');
   END %] ([% cardinality %])
+[%~ END ~%]
+
+[%~ MACRO orderable_direction_name(direction) BLOCK ~%]
+  [%~ IF direction == 0; l('None');
+      ELSIF direction == 1; l('Forward');
+      ELSIF direction == 2; l('Backward');
+  END %] ([% direction %])
 [%~ END ~%]
 
 [%~ USE Canonicalize ~%]

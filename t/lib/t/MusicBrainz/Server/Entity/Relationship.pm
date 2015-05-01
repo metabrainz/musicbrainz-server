@@ -13,12 +13,6 @@ use MusicBrainz::Server::Entity::Link;
 
 test all => sub {
 
-is( MusicBrainz::Server::Entity::Relationship::_join_attrs([]), '' );
-is( MusicBrainz::Server::Entity::Relationship::_join_attrs(['A']), 'A' );
-is( MusicBrainz::Server::Entity::Relationship::_join_attrs(['A', 'B']), 'A and B' );
-is( MusicBrainz::Server::Entity::Relationship::_join_attrs(['A', 'B', 'C']), 'A, B and C' );
-is( MusicBrainz::Server::Entity::Relationship::_join_attrs(['A', 'B', 'C', 'D']), 'A, B, C and D' );
-
 my $link_type = MusicBrainz::Server::Entity::LinkType->new(
     link_phrase => '{instrument:has %|was} {additional:additionally} arranged by',
     reverse_link_phrase => '{additional:additionally} arranged {instrument:% on}',
@@ -170,7 +164,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     ),
 );
 is( $rel->phrase, 'is a founding member of' );
-ok( $rel->extra_phrase_attributes eq 'vocal and guitar' || $rel->extra_phrase_attributes eq 'guitar and vocal' );
+ok( $rel->extra_phrase_attributes eq 'vocal, guitar' || $rel->extra_phrase_attributes eq 'guitar, vocal' );
 
 };
 

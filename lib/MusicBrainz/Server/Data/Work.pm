@@ -26,7 +26,6 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
@@ -269,12 +268,7 @@ sub find_artists
     $self->_find_writers(\@ids, \%writers);
     $self->_find_recording_artists(\@ids, \%artists);
 
-    my %map = map +{
-        $_ => {
-            writers => { hits => 0, results => [] },
-            artists => { hits => 0, results => [] }
-        }
-    }, @ids;
+    my %map;
 
     for my $work_id (@ids) {
         my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
@@ -293,7 +287,7 @@ sub find_artists
                     ? [ @artists[ 0 .. ($limit-1) ] ]
                     : \@artists,
             },
-        }
+        };
     }
 
     return %map;

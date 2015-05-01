@@ -18,6 +18,8 @@
 
 */
 
+var flags = require('../../../flags.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -37,22 +39,14 @@ MB.GuessCase.Handler.Place = function () {
     /**
      * Delegate function which handles words not handled
      * in the common word handlers.
-     *
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
-     *
      **/
     self.doWord = function () {
-        if (self.doVersusStyle()) {
-        } else if (self.doIgnoreWords()) {
-        } else if (self.doVolumeNumberStyle()) {
-        } else if (self.doPartNumberStyle()) {
+        if (self.doIgnoreWords()) {
         } else if (gc.mode.doWord()) {
         } else {
             self.doNormalWord();
         }
-        gc.f.number = false;
+        flags.context.number = false;
         return null;
     };
 

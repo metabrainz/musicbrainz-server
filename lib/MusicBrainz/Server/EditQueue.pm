@@ -3,8 +3,10 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $EDIT_MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD );
 use DateTime::Format::Pg;
+
+use aliased 'MusicBrainz::Server::Entity::Editor';
 
 has 'c' => (
     is => 'ro',
@@ -56,7 +58,7 @@ sub process_edits
     my $sql = $self->c->sql;
 
     $self->log->debug("Selecting eligible edit IDs\n");
-    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
     my $edit_ids = $sql->select_single_column_array("
         SELECT id FROM edit
           LEFT JOIN (SELECT edit, min(vote_time) AS timestamp FROM vote WHERE vote = 0 AND NOT superseded GROUP BY edit) first_no_vote ON edit.id = first_no_vote.edit
@@ -232,8 +234,13 @@ sub _determine_new_status
 
     # Are the number of required unanimous votes present?
     if ($yes_votes >= $conditions->{votes} && $no_votes == 0) {
-        $self->log->debug("Unanimous yes\n");
-        return $STATUS_APPLIED;
+        my $created = $edit->created_time;
+        my $now = DateTime->now( time_zone => $created->time_zone );
+        if ($created + $MINIMUM_VOTING_PERIOD < $now
+                || $edit->editor_may_approve(Editor->new_privileged)) {
+            $self->log->debug("Unanimous yes\n");
+            return $STATUS_APPLIED;
+        }
     }
 
     # Are the number of required unanimous votes present?

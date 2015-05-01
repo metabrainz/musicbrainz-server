@@ -1,15 +1,20 @@
-var browserify      = require("browserify"),
-    extend          = require("extend"),
+var extend          = require("extend"),
+    File            = require('vinyl'),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
+    path            = require('path'),
     po2json         = require("po2json"),
+    reactTools      = require('react-tools'),
     rev             = require("gulp-rev"),
     shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
+    through         = require('through'),
     through2        = require("through2"),
     Q               = require("q"),
+    watch           = require('gulp-watch'),
+    yarb            = require('yarb'),
 
     revManifestPath = "./root/static/build/rev-manifest.json",
     revManifest     = {};
@@ -45,36 +50,29 @@ function buildStyles() {
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
-                cleancss: true,
-                relativeUrls: true
+                relativeUrls: true,
+                plugins: [
+                    new (require('less-plugin-clean-css'))({compatibility: 'ie8'})
+                ]
             }))
-    );
+    ).done(writeManifest);
 }
 
-function runBrowserify(resourceName, watch, callback) {
-    var b = browserify("./root/static/scripts/" + resourceName, {
-        cache: {},
-        packageCache: {},
-        fullPaths: watch ? true : false,
+var CACHED_BUNDLES = Object.create(null);
+
+function runYarb(resourceName, callback) {
+    if (resourceName in CACHED_BUNDLES) {
+        return CACHED_BUNDLES[resourceName];
+    }
+
+    var bundle = yarb('./root/static/scripts/' + resourceName, {
         debug: !!process.env.SOURCEMAPS
     });
 
-    if (callback) {
-        callback(b);
-    }
+    callback && callback(bundle);
 
-    return b;
-}
-
-function bundleScripts(b, resourceName) {
-    return b.bundle().on("error", console.log).pipe(source(resourceName));
-}
-
-function createBundle(resourceName, watch, callback) {
-    var b = runBrowserify(resourceName, watch, callback);
-
-    if (process.env.UGLIFY) {
-        b.transform("uglifyify", {
+    if (process.env.DEVELOPMENT_SERVER == 0) {
+        bundle.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts
             global: true,
 
@@ -84,23 +82,16 @@ function createBundle(resourceName, watch, callback) {
         });
     }
 
-    function build() {
-        return writeResource(bundleScripts(b, resourceName));
-    }
+    CACHED_BUNDLES[resourceName] = bundle;
+    return bundle;
+}
 
-    if (watch) {
-        b = require("watchify")(b);
+function bundleScripts(b, resourceName) {
+    return b.bundle().on("error", console.log).pipe(source(resourceName));
+}
 
-        function _build() {
-            console.log("building " + resourceName);
-            build().done(writeManifest);
-        }
-
-        _build();
-        b.on("update", _build);
-    }
-
-    return build();
+function writeScript(b, resourceName) {
+    return writeResource(bundleScripts(b, resourceName));
 }
 
 function langToPosix(lang) {
@@ -109,8 +100,37 @@ function langToPosix(lang) {
     });
 }
 
-function buildScripts(watch) {
-    var promises = [];
+function reactify(filename) {
+    var chunks = [];
+
+    return through(
+        function (chunk) {
+            chunks.push(chunk);
+        },
+        function () {
+            var source = String(Buffer.concat(chunks));
+
+            this.push(reactTools.transform(source, {
+                es5: true,
+                sourceMap: !!process.env.SOURCEMAPS,
+                sourceFilename: filename,
+                stripTypes: false,
+                harmony: true
+            }));
+
+            this.push(null);
+        }
+    );
+}
+
+function buildScripts() {
+    process.env.NODE_ENV = process.env.DEVELOPMENT_SERVER == 1 ? 'development' : 'production';
+
+    var commonBundle = runYarb('common.js', function (b) {
+        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
+         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
+         .transform(reactify);
+    });
 
     var languages = (process.env.MB_LANGUAGES || "")
         .split(",")
@@ -120,6 +140,7 @@ function buildScripts(watch) {
     languages.forEach(function (lang) {
         var srcPo = "./po/mb_server." + lang + ".po";
         var tmpPo = "./po/javascript." + lang + ".po";
+        var scriptName = 'jed-' + lang + '.js';
 
         // Create a temporary .po file containing only the strings used by root/static/scripts.
         shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
@@ -127,64 +148,89 @@ function buildScripts(watch) {
         var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
         fs.unlinkSync(tmpPo);
 
-        var jedWrapper = './root/static/scripts/jed-' + lang + '.js';
-
-        fs.writeFileSync(
-            jedWrapper,
-            'module.exports = ' + JSON.stringify(jedOptions) + ';\n'
-        );
-
-        createBundle("jed-" + lang + ".js", watch, function (b) {
-            b.external('jed');
-            b.require(jedWrapper, { expose: 'jed-' + lang });
-        }).done(function () {
-            fs.unlinkSync(jedWrapper);
+        var langVinyl = new File({
+            path: path.resolve('./root/static/scripts/' + scriptName),
+            contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n')
         });
+
+        var bundle = yarb().expose(langVinyl, 'jed-' + lang);
+        commonBundle.require(langVinyl).external(bundle);
+        writeScript(bundle, scriptName);
+    });
+
+    var editBundle = runYarb('edit.js', function (b) {
+        b.external(commonBundle).transform('envify', {global: true}).transform(reactify);
+    });
+
+    var guessCaseBundle = runYarb('guess-case.js', function (b) {
+        b.external(commonBundle);
+    });
+
+    var releaseEditorBundle = runYarb('release-editor.js', function (b) {
+        b.external(commonBundle).external(editBundle).transform(reactify);
+    });
+
+    var statisticsBundle = runYarb('statistics.js', function (b) {
+        b.external(commonBundle);
+    });
+
+    var timelineBundle = runYarb('timeline.js', function (b) {
+        b.external(commonBundle);
     });
 
     return Q.all([
-        createBundle("common.js", watch, function (b) {
-            languages.forEach(function (lang) {
-                b.external('jed-' + lang);
-            });
-
-            // Needed by knockout-* plugins in edit.js
-            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
-        }),
-        createBundle("edit.js", watch, function (b) {
-            b.require('./root/static/scripts/edit/validation.js', { expose: true });
-
-            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
-        }),
-        createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch, function (b) {
-            b.external('./root/static/scripts/edit/validation.js');
-        }),
-        createBundle("statistics.js", watch),
-
-        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
-            .pipe(gulp.dest("./root/static/build/"))
-    ]);
+        writeScript(commonBundle, 'common.js'),
+        writeScript(editBundle, 'edit.js'),
+        writeScript(guessCaseBundle, 'guess-case.js'),
+        writeScript(releaseEditorBundle, 'release-editor.js'),
+        writeScript(statisticsBundle, 'statistics.js'),
+        writeScript(timelineBundle, 'timeline.js')
+    ]).then(writeManifest);
 }
 
-gulp.task("styles", function () {
-    return buildStyles().done(writeManifest);
-});
+gulp.task("styles", buildStyles);
+gulp.task("scripts", buildScripts);
 
-gulp.task("scripts", function () {
-    return buildScripts(false).done(writeManifest);
-});
+gulp.task("watch", ['styles', 'scripts'], function () {
+    watch("./root/static/**/*.less", buildStyles);
 
-gulp.task("watch", function () {
-    function _buildStyles() {
-        console.log("building all styles");
-        buildStyles().done(writeManifest);
+    function rebundle(b, resourceName, file) {
+        var rebuild = false;
+
+        switch (file.event) {
+            case 'add':
+                rebuild = true;
+                break;
+            case 'change':
+            case 'unlink':
+                rebuild = b.has(file.path);
+                break;
+        }
+
+        if (rebuild) {
+            writeScript(b, resourceName).done(writeManifest);
+        }
     }
 
-    _buildStyles();
-    gulp.watch("./root/static/**/*.less", _buildStyles);
+    watch("./root/static/scripts/**/*.js", function (file) {
+        Object.keys(CACHED_BUNDLES).forEach(function (resourceName) {
+            rebundle(CACHED_BUNDLES[resourceName], resourceName, file);
+        });
+    });
+});
 
-    buildScripts(true);
+gulp.task("tests", function () {
+    process.env.NODE_ENV = 'development';
+
+    return bundleScripts(
+        runYarb('tests.js', function (b) {
+            b.transform('envify', {global: true})
+             .transform(reactify)
+             .expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
+             .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+        }),
+        'tests.js'
+    ).pipe(gulp.dest("./root/static/build/"));
 });
 
 gulp.task("clean", function () {

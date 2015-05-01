@@ -76,7 +76,7 @@
             <td></td>
             <td colspan="2" class="add-item">
               [% caption = lp('Add Work Attribute', 'button/menu') %]
-              <button class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
+              <button type="button" class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
                 [% caption | html %]
               </button>
             </td>
@@ -89,7 +89,7 @@
 
     <fieldset>
       <legend>[% l('External Links') %]</legend>
-      [% external_links_editor(r.form, 'work') %]
+      [% external_links_editor() %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -99,7 +99,6 @@
 
   <div class="documentation">
     [%- iswc_bubble(link_entity(work)) -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -122,7 +121,5 @@
   (function () {
     MB.Control.initialize_guess_case("work", "id-edit-work");
     MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
-
-    MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
   }());
 //]]></script>

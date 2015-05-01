@@ -158,16 +158,13 @@ test 'Changing the secondary types for a release group is not always an auto-edi
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
-    $c->sql->do(<<'EOSQL');
-INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
-EOSQL
 
     {
         my $edit = $c->model('Edit')->create(
             edit_type => $EDIT_RELEASEGROUP_EDIT,
             editor_id => 1,
             to_edit => $c->model('ReleaseGroup')->get_by_id(1),
-            secondary_type_ids => [ 1 ]
+            secondary_type_ids => [ 7 ]
         );
 
         ok(!$edit->is_open, 'Adding a secondary type should be an auto-edit');

@@ -1,11 +1,12 @@
 # 
 # Translators:
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2014
+# Mihkel Tõnnov <email address hidden>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-03 07:45+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-02-20 21:53+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,19 +20,19 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "„Motett” tähistab mitmesuguseid (tavaliselt saateta) kooriteoseid. Mida täpsemalt, sõltub suuresti perioodist."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
 msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
-msgstr ""
+msgstr "„Sonaat” on üldine termin, mis tähistab väiksemaid instrumentaalteoseid (tihti soolopillile või soolo- ja klahvpillile), algselt barokkmuusikas."
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10″ šellak"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
@@ -41,7 +42,7 @@ msgstr "10″ vinüül"
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12″ šellak"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
@@ -51,7 +52,7 @@ msgstr "12″ vinüül"
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3,5″ diskett"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -61,7 +62,7 @@ msgstr ""
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7″ šellak"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -216,37 +217,37 @@ msgstr ""
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
-msgstr ""
+msgstr "Regulaarne festival, tavaliselt igal aastal samas kohas."
 
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "Seeria koosneb sündmustest."
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Sama kava eri ettekanded samas kohas."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "Seeria koosneb salvestistest."
 
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "Sama artisti suhteliselt sarnased kontserdid eri kohtades."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr ""
+msgstr "Seeria koosneb väljalaskerühmadest."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr ""
+msgstr "Seeria koosneb väljalasetest."
 
 #: DB:series_type/description:5
 msgctxt "series_type"
@@ -256,7 +257,7 @@ msgstr ""
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr ""
+msgstr "Seeria koosneb teostest."
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -391,7 +392,7 @@ msgctxt "event_type"
 msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
-msgstr ""
+msgstr "Sündmus, kus hulk bände/artiste esinevad päeva jooksul. Suuremad festivalid võivad kesta mitu päeva."
 
 #: DB:event_type/description:1
 msgctxt "event_type"
@@ -471,7 +472,7 @@ msgstr "Asāvēri"
 #: DB:editor_collection_type/name:5
 msgctxt "collection_type"
 msgid "Attending"
-msgstr ""
+msgstr "osaleb"
 
 #: DB:work_type/name:25
 msgctxt "work_type"
@@ -841,7 +842,7 @@ msgstr ""
 #: DB:area_type/name:7
 msgctxt "area_type"
 msgid "County"
-msgstr ""
+msgstr "2. järgu haldusüksus"
 
 #: DB:area_type/description:7
 msgctxt "area_type"
@@ -910,7 +911,7 @@ msgstr "DJ-miks"
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr ""
+msgstr "DTS CD"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
@@ -930,7 +931,7 @@ msgstr "video-DVD"
 #: DB:medium_format/name:47
 msgctxt "medium_format"
 msgid "DVDplus"
-msgstr ""
+msgstr "DVDplus"
 
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
@@ -1388,7 +1389,7 @@ msgstr "Hēmavati"
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr "identifikaatorid"
+msgstr "Identifikaatorid"
 
 #: DB:label_type/name:9
 msgctxt "label_type"
@@ -1801,7 +1802,7 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
-msgstr ""
+msgstr "võibolla osaleb"
 
 #: DB:work_attribute_type_allowed_value/value:175
 msgctxt "work_attribute_type_allowed_value"
@@ -1904,7 +1905,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "muusikal"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -2131,7 +2132,7 @@ msgstr "overtüür"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr ""
+msgstr "isiklik muusikakogu"
 
 #: DB:work_attribute_type_allowed_value/value:203
 msgctxt "work_attribute_type_allowed_value"
@@ -2171,7 +2172,7 @@ msgstr "kohanimi"
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr ""
+msgstr "näidend"
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
@@ -2449,7 +2450,7 @@ msgstr "seeria pealkiri"
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "šellakplaat"
 
 #: DB:medium_format/description:53
 msgctxt "medium_format"

@@ -72,6 +72,7 @@ use constant FAVICON_CLASSES => {
     'tunearch.org'              => 'tunearch',
     'castalbums.org'            => 'castalbums',
     'smdb.kb.se'                => 'SMDB',
+    'cdbaby.com'                => 'cdbaby',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

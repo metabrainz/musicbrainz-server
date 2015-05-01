@@ -44,6 +44,7 @@ sub change_fields
         has_dates => Optional[Bool],
         entity0_cardinality => Optional[Int],
         entity1_cardinality => Optional[Int],
+        orderable_direction => Optional[Int],
         examples => Optional[ArrayRef[Dict[
             relationship => Dict[
                 id => Int,

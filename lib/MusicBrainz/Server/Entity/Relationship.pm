@@ -4,7 +4,7 @@ use Moose;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -68,13 +68,6 @@ has '_verbose_phrase' => (
     builder => '_build_verbose_phrase',
     lazy => 1
 );
-
-sub editor_can_edit
-{
-    my ($self, $editor) = @_;
-    return MusicBrainz::Server::Data::Relationship->editor_can_edit($editor,
-        $self->link->type->entity0_type, $self->link->type->entity1_type);
-}
 
 sub entity_is_orderable {
     my ($self, $entity) = @_;
@@ -177,20 +170,6 @@ sub extra_verbose_phrase_attributes
     return $self->_verbose_phrase->[1];
 }
 
-sub _join_attrs
-{
-    my @attrs = map { $_ } @{$_[0]};
-    if (scalar(@attrs) > 1) {
-        my $a = pop(@attrs);
-        my $b = join(l(", "), @attrs);
-        return l("{b} and {a}", {b => $b, a => $a});
-    }
-    elsif (scalar(@attrs) == 1) {
-        return $attrs[0];
-    }
-    return '';
-}
-
 sub _build_phrase {
     my ($self) = @_;
     $self->_interpolate(
@@ -205,8 +184,7 @@ sub _build_verbose_phrase {
     $self->_interpolate($self->link->type->l_long_link_phrase);
 }
 
-sub _interpolate
-{
+sub _interpolate {
     my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
@@ -221,18 +199,23 @@ sub _interpolate
         }
     }
     my %extra_attrs = %attrs;
+    my $type_is_orderable = $self->link->type->orderable_direction > 0;
+
+    # Ordered relationships in a series should all share the same link phrase,
+    # even if their attributes differ, so that they remain grouped together
+    # in the relationships display.
+    %attrs = () if $type_is_orderable;
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
-        delete $extra_attrs{$name};
+        delete $extra_attrs{$name} unless $type_is_orderable;
         if (!$alt) {
             return '' unless exists $attrs{$name};
-            return _join_attrs($attrs{$name});
-        }
-        else {
+            return comma_list(@{ $attrs{$name} });
+        } else {
             my ($alt1, $alt2) = split /\|/, $alt;
             return $alt2 || '' unless exists $attrs{$name};
-            my $attr = _join_attrs($attrs{$name});
+            my $attr = comma_list(@{ $attrs{$name} });
             $alt1 =~ s/%/$attr/eg;
             return $alt1;
         }
@@ -241,7 +224,7 @@ sub _interpolate
     trim_in_place($phrase);
 
     my @extra_attrs = map { @$_ } values %extra_attrs;
-    return [ $phrase, _join_attrs(\@extra_attrs) ];
+    return [ $phrase, comma_only_list(@extra_attrs) ];
 }
 
 sub _cmp {

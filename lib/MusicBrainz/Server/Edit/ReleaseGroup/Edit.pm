@@ -18,7 +18,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -154,7 +153,9 @@ around initialize => sub
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
 
-    $opts{type_id} = delete $opts{primary_type_id};
+    $self->c->model('ReleaseGroupType')->load($release_group);
+
+    $opts{type_id} = delete $opts{primary_type_id} if exists $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [
         grep { looks_like_number($_) } @{ $opts{secondary_type_ids} }
@@ -227,27 +228,14 @@ before accept => sub {
     }
 };
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
-                                                  $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
-
-    return 0 if defined $self->data->{old}{type_id};
-
-    return 0 if exists $self->data->{new}{artist_credit};
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if $self->data->{old}{secondary_type_ids}
         && @{ $self->data->{old}{secondary_type_ids} };
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -48,6 +48,17 @@ sub html {
     return $value;
 }
 
+sub to_json_hash {
+    my ($self) = @_;
+
+    return {
+        type => $self->type->to_json_hash,
+        $self->type->creditable && non_empty($self->credited_as) ? (credited_as => $self->credited_as) : (),
+        # text values are required
+        $self->type->free_text ? (text_value => $self->text_value) : (),
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

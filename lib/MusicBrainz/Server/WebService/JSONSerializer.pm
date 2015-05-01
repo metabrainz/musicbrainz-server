@@ -54,21 +54,6 @@ sub area_list          { shift->entity_list(@_, "area", "areas") };
 sub place_list         { shift->entity_list(@_, "place", "places") };
 sub event_list         { shift->entity_list(@_, "event", "events") };
 
-sub serialize_release
-{
-    my ($self, $c, $release) = @_;
-
-    my $inc = $c->stash->{inc};
-    my $data = $self->_release($release, $inc->media, $inc->recordings, $inc->rels);
-
-    if ($inc->annotation) {
-        $data->{annotation} = defined $release->latest_annotation ?
-            $release->latest_annotation->text : "";
-    }
-
-    return encode_json($data);
-}
-
 sub serialize_relationships
 {
     my ($self, @relationships) = @_;
@@ -87,15 +72,7 @@ sub serialize_relationship {
     my $out = {
         id              => $relationship->id,
         linkTypeID      => $link->type_id,
-        attributes      => [
-            map +{
-                type => {
-                    gid => $_->type->gid,
-                },
-                non_empty($_->credited_as) ? (credit => $_->credited_as) : (),
-                non_empty($_->text_value) ? (textValue => $_->text_value) : (),
-            }, $link->all_attributes
-        ],
+        attributes      => [map +{ (%{ $_->to_json_hash }, type => { gid => $_->type->gid }) }, $link->all_attributes],
         ended           => $link->ended ? \1 : \0,
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
@@ -181,11 +158,10 @@ sub autocomplete_release
     return encode_json(\@output);
 }
 
-sub _release
-{
-    my ($self, $release, $inc_media, $inc_recordings, $inc_rels) = @_;
+sub _release {
+    my ($self, $release) = @_;
 
-    my $data = {
+    my $data = $self->_with_relationships($release, {
         entityType   => "release",
         name         => $release->name,
         id           => $release->id,
@@ -195,20 +171,12 @@ sub _release
         languageID   => $release->language_id,
         scriptID     => $release->script_id,
         packagingID  => $release->packaging_id,
-        barcode      => $release->barcode->code
-    };
+        barcode      => $release->barcode->code,
+        annotation   => defined $release->latest_annotation ? $release->latest_annotation->text : '',
+    });
 
     if ($release->release_group) {
         $data->{releaseGroup} = $self->_release_group($release->release_group);
-    }
-
-    if ($inc_rels) {
-        $data->{relationships} =
-            $self->serialize_relationships($release->all_relationships);
-
-        $data->{releaseGroup}->{relationships} =
-            $self->serialize_relationships($release->release_group->all_relationships)
-                if $release->release_group;
     }
 
     if ($release->artist_credit) {
@@ -219,12 +187,9 @@ sub _release
         $data->{events} = [
             map {
                 date => $_->date->format,
-                countryID => $_->country_id
+                country => defined($_->country) ? $self->_area($_->country) : undef
             }, $release->all_events
         ];
-
-        $data->{countryCodes} = [ map { $_->country->primary_code }
-            grep { $_->country_id } $release->all_events ];
     }
 
     if (scalar($release->all_labels)) {
@@ -238,23 +203,15 @@ sub _release
     }
 
     if (scalar($release->all_mediums)) {
-        if ($inc_media) {
-            $data->{mediums} = [
-                map $self->_medium($_, $inc_recordings, $inc_rels),
-                        $release->all_mediums
-            ];
-        }
-
-        $data->{trackCounts} = $release->combined_track_count;
+        $data->{mediums} = [map $self->_medium($_), $release->all_mediums];
         $data->{formats} = $release->combined_format_name;
     }
 
     return $data;
 }
 
-sub _medium
-{
-    my ($self, $medium, $inc_recordings, $inc_rels) = @_;
+sub _medium {
+    my ($self, $medium) = @_;
 
     my $data = {
         entityType => "medium",
@@ -266,19 +223,10 @@ sub _medium
         cdtocs    => [ map { $_->cdtoc->toc } $medium->all_cdtocs ],
     };
 
-    if ($inc_recordings) {
-        my $tracks_data = $data->{tracks} = [];
-
-        for my $track ($medium->all_tracks) {
-            my $track_data = $self->_track($track);
-
-            if ($inc_rels) {
-                $track_data->{recording}->{relationships} =
-                    $self->serialize_relationships($track->recording->all_relationships);
-            }
-            push @{ $data->{tracks} }, $track_data;
-        }
+    if ($medium->all_tracks) {
+        $data->{tracks} = [map { $self->_track($_) } $medium->all_tracks];
     }
+
     return $data;
 }
 
@@ -352,6 +300,7 @@ sub _area
         gid     => $area->gid,
         comment => $area->comment,
         typeID  => $area->type_id,
+        code    => $area->primary_code,
         $area->type ? (typeName => $area->type->name) : (),
         $area->parent_country ? (parentCountry => $area->parent_country->name) : (),
         $area->parent_subdivision ? (parentSubdivision => $area->parent_subdivision->name) : (),
@@ -401,7 +350,7 @@ sub _release_group
 {
     my ($self, $item) = @_;
 
-    my $output = {
+    my $output = $self->_with_relationships($item, {
         entityType => "release_group",
         name    => $item->name,
         id      => $item->id,
@@ -411,7 +360,7 @@ sub _release_group
         typeName => $item->type_name,
         firstReleaseDate => $item->first_release_date->format,
         secondaryTypeIDs => [ map { $_->id } $item->all_secondary_types ],
-    };
+    });
 
     if ($item->artist_credit) {
         $output->{artist} = $item->artist_credit->name;
@@ -453,7 +402,7 @@ sub _recording
 {
     my ($self, $recording, $hide_ac) = @_;
 
-    my $output = {
+    my $output = $self->_with_relationships($recording, {
         entityType  => "recording",
         name        => $recording->name,
         id          => $recording->id,
@@ -462,7 +411,7 @@ sub _recording
         length      => $recording->length,
         isrcs       => [ map { $_->isrc } $recording->all_isrcs ],
         video       => $recording->video ? \1 : \0
-    };
+    });
 
     # Relationship target entities in Controller::Role::EditRelationships
     # don't have/need any additional information like artist credits loaded,
@@ -730,6 +679,17 @@ sub autocomplete_series {
     } if $pager;
 
     return encode_json($output);
+}
+
+sub _with_relationships {
+    my ($self, $entity, $data) = @_;
+
+    # FIXME: Need a way to distinguish between relationships not being loaded vs. not existing.
+    if ($entity->all_relationships) {
+        $data->{relationships} = $self->serialize_relationships($entity->all_relationships);
+    }
+
+    return $data;
 }
 
 __PACKAGE__->meta->make_immutable;

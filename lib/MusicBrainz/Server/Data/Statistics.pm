@@ -193,11 +193,10 @@ my %stats = (
     },
     "count.mbid" => {
         DESC => "Count of all MBIDs known/allocated",
-        SQL => "SELECT count(gid) FROM (" .
-            join(' UNION ALL ',
-                 (map { "SELECT gid FROM $_" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
-                 (map { "SELECT gid FROM ${_}_gid_redirect" } entities_with(['mbid', 'multiple'])))
-        . ") q"
+        SQL => "SELECT " .
+            join(' + ',
+                 (map { "(SELECT COUNT(gid) FROM $_)" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
+                 (map { "(SELECT COUNT(gid) FROM ${_}_gid_redirect)" } entities_with(['mbid', 'multiple'])))
     },
     "count.release" => {
         DESC => "Count of all releases",
@@ -664,9 +663,10 @@ my %stats = (
                   UNION SELECT editor FROM editor_subscribe_series
                   UNION SELECT editor FROM editor_subscribe_series_deleted
                 ),
-                collection_editors AS (SELECT DISTINCT editor FROM editor_collection
-                                        WHERE EXISTS (SELECT TRUE FROM editor_collection_release WHERE collection=editor_collection.id LIMIT 1)
-                                           OR EXISTS (SELECT TRUE FROM editor_collection_event WHERE collection=editor_collection.id LIMIT 1)),
+                collection_editors AS (SELECT DISTINCT editor FROM editor_collection 
+                  WHERE } . join(' OR ', map {
+                    "EXISTS (SELECT TRUE FROM editor_collection_$_ WHERE collection=editor_collection.id LIMIT 1)"
+                  } entities_with('collections')) . qq{ ),
                 voters AS (SELECT DISTINCT editor FROM vote),
                 noters AS (SELECT DISTINCT editor FROM edit_note),
                 application_editors AS (SELECT DISTINCT owner FROM application)

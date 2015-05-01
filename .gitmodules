@@ -4,6 +4,3 @@
 [submodule "postgresql-musicbrainz-collate"]
 	path = postgresql-musicbrainz-collate
 	url = git://github.com/metabrainz/postgresql-musicbrainz-collate.git
-[submodule "root/static/lib/aclass"]
-	path = root/static/lib/aclass
-	url = https://github.com/mwiencek/aclass.git

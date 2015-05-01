@@ -1,0 +1,36 @@
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2011 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
+
+function formatTrackLength(milliseconds) {
+    if (!milliseconds) {
+        return '';
+    }
+
+    if (milliseconds < 1000) {
+        return milliseconds + ' ms';
+    }
+
+    var oneMinute = 60;
+    var oneHour = 60 * oneMinute;
+
+    var seconds = Math.round(milliseconds / 1000.0);
+    var hours = Math.floor(seconds / oneHour);
+    seconds = seconds % oneHour;
+
+    var minutes = Math.floor(seconds / oneMinute);
+    seconds = seconds % oneMinute;
+
+    var result = ('00' + seconds).slice(-2);
+
+    if (hours > 0) {
+        result = hours + ':' + ('00' + minutes).slice(-2) + ':' + result;
+    } else {
+        result = minutes + ':' + result;
+    }
+
+    return result;
+}
+
+module.exports = formatTrackLength;

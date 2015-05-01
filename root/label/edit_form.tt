@@ -65,7 +65,7 @@
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>
-        [% external_links_editor(r.form, 'label') %]
+        [% external_links_editor() %]
       </fieldset>
 
       [% INCLUDE 'forms/edit-note.tt' %]
@@ -75,7 +75,6 @@
 
   <div class="documentation">
     [%- area_bubble() -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>
@@ -87,7 +86,5 @@
     MB.Control.initialize_guess_case("label", "id-edit-label");
 
     MB.Control.Area("span.area.autocomplete");
-
-    MB.utility.setDefaultAction("form.edit-label", "button.submit.positive");
   }());
 //]]></script>

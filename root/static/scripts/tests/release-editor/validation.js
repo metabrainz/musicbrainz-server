@@ -19,7 +19,6 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     t.plan(8);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         mediums: [
@@ -44,7 +43,6 @@ validationTest("duplicate release countries are rejected, including null ones (M
     t.plan(5);
 
     releaseEditor.action = "edit";
-    releaseEditor.rootField = releaseEditor.fields.Root();
 
     releaseEditor.releaseLoaded({
         events: [
@@ -63,4 +61,41 @@ validationTest("duplicate release countries are rejected, including null ones (M
     t.ok(events[2].isDuplicate());
     t.ok(events[3].isDuplicate());
     t.ok(validation.errorsExist());
+});
+
+validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', function (t) {
+    t.plan(9);
+
+    releaseEditor.action = 'edit';
+
+    var label1 = { name: 'Foo', id: 123 };
+    var label2 = { name: 'Bar', id: 456 };
+
+    releaseEditor.releaseLoaded({
+        labels: [
+            { label: label1, catalogNumber: 'ABC-123' },
+            { label: label1, catalogNumber: 'ABC-123' },
+            { label: null, catalogNumber: 'ABC-456' },
+            { label: null, catalogNumber: 'ABC-456' },
+            { label: label2, catalogNumber: null },
+            { label: label2, catalogNumber: null },
+            { label: null, catalogNumber: null },
+            { label: null, catalogNumber: null }
+        ]
+    });
+
+    var labels = releaseEditor.rootField.release().labels();
+
+    t.ok(labels[0].isDuplicate());
+    t.ok(labels[1].isDuplicate());
+    t.ok(labels[2].isDuplicate());
+    t.ok(labels[3].isDuplicate());
+    t.ok(labels[4].isDuplicate());
+    t.ok(labels[5].isDuplicate());
+
+    // Empty release labels aren't duplicates of each other, they're ignored
+    t.ok(!labels[6].isDuplicate());
+    t.ok(!labels[7].isDuplicate());
+
+    t.ok(releaseEditor.validation.errorsExist());
 });

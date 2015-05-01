@@ -26,8 +26,13 @@ sub get_latest_entries {
         return undef unless $xml && $xml->is_success;
 
         $entry_parser = XML::RSS::Parser::Lite->new;
-        $entry_parser->parse($xml->content);
-        $cache->set($key => $entry_parser, $BLOG_CACHE_TIMEOUT);
+        try {
+            $entry_parser->parse($xml->content);
+        } finally {
+            unless (@_) {
+                $cache->set($key => $entry_parser, $BLOG_CACHE_TIMEOUT);
+            }
+        };
     }
 
     return $entry_parser;

@@ -1,21 +1,11 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2014 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+var i18n = require('./i18n.js');
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+var formatTrackLength = require('./utility/formatTrackLength.js');
 
 (function () {
 
@@ -107,7 +97,6 @@
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
-            null,
             {variable: "data"}
         ),
 
@@ -155,7 +144,6 @@
         template: _.template(
             "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
             "<bdi><%- data.name %></bdi></a>",
-            null,
             {variable: "data"}
         )
     });
@@ -176,7 +164,7 @@
         entityType: "recording",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(data.length);
+            this.formattedLength = formatTrackLength(data.length);
 
             // Returned from the /ws/js/recording search.
             if (this.appearsOn) {
@@ -189,11 +177,14 @@
                     return MB.entity(appearance, appearsOnType);
                 });
             }
+
+            this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
         },
 
         around$html: function (supr, params) {
             params = params || {};
-            params.videoString = MB.i18n.l("video");
+            params.videoString = i18n.l("video");
             return supr(params);
         },
 
@@ -213,6 +204,23 @@
             if (data.mediums) {
                 this.mediums = _.map(data.mediums, MB.entity.Medium);
             }
+
+            this.relatedArtists = relatedArtists(data.relationships);
+            this.isProbablyClassical = isProbablyClassical(data);
+        },
+
+        around$toJSON: function (supr) {
+            var object = supr();
+
+            if (_.isArray(this.events)) {
+                object.events = _.cloneDeep(this.events);
+            }
+
+            if (_.isArray(this.labels)) {
+                object.labels = _.cloneDeep(this.labels);
+            }
+
+            return object;
         }
     });
 
@@ -252,7 +260,7 @@
         entityType: "track",
 
         after$init: function (data) {
-            this.formattedLength = MB.utility.formatTrackLength(this.length);
+            this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -311,7 +319,6 @@
             "<% if (data.nameVariation) print('</span>'); %>" +
             "<% if (data.editsPending > 0) print('</span>'); %>" +
             "<%- data.join %>",
-            null,
             {variable: "data"}
         ),
 
@@ -354,9 +361,13 @@
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
-        around$toJSON: function (supr) {
+        toJSON: function (supr) {
             var artist = ko.unwrap(this.artist);
-            return _.assign(supr(), { artist: artist ? artist.toJSON() : null });
+            return {
+                artist: artist ? artist.toJSON() : null,
+                name: ko.unwrap(this.name) || '',
+                joinPhrase: ko.unwrap(this.joinPhrase) || ''
+            };
         },
 
         text: function () {
@@ -464,7 +475,7 @@
                 positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
             }
 
-            this.positionName = MB.i18n.l(positionName, {
+            this.positionName = i18n.l(positionName, {
                 medium_format: this.format,
                 position: this.position,
                 title: this.name
@@ -472,6 +483,17 @@
         }
     });
 
+    function relatedArtists(relationships) {
+        return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
+    }
+
+    var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
+
+    function isProbablyClassical(entity) {
+        return classicalRoles.test(entity.name) || _.any(entity.relationships, function (r) {
+            return _.contains(MB.constants.PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+        });
+    }
 
     // Used by MB.entity() to look up classes. JSON from the web service
     // usually includes a lower-case type name, which is used as the key.

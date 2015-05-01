@@ -10,7 +10,7 @@ MB.Control.Area = function () {
 
     ko.applyBindingsToNode($("#area-bubble")[0], { bubble: bubble });
 
-    _(arguments).each(function (selector) {
+    _.each(arguments, function (selector) {
         var $span = $(selector);
         var name = $span.find("input.name")[0];
         var ac = MB.Control.EntityAutocomplete({ inputs: $span });

@@ -19,6 +19,9 @@
 
 */
 
+var flags = require('../../../flags.js');
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -75,49 +78,17 @@ MB.GuessCase.Handler.Artist = function () {
     /**
      * Delegate function which handles words not handled
      * in the common word handlers.
-     *
-     * - Handles VersusStyle
-     *
      **/
     self.doWord = function () {
-        if (self.doVersusStyle()) {
-        } else if (self.doPresentsStyle()) {
-        } else {
-            // no special case, append
-            gc.o.appendSpaceIfNeeded();
-            gc.i.capitalizeCurrentWord();
-            gc.o.appendCurrentWord();
-        }
-        gc.f.resetContext();
-        gc.f.number = false;
-        gc.f.forceCaps = false;
-        gc.f.spaceNextWord = true;
-        return null;
-    };
+        gc.o.appendSpaceIfNeeded();
+        gc.i.capitalizeCurrentWord();
+        gc.o.appendCurrentWord();
 
-    /**
-     * Reformat pres/presents -> presents
-     *
-     * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
-     * - Handles FeaturingArtistStyle
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
-     *
-     **/
-    self.doPresentsStyle = function () {
-        if (!self.doPresentsRE) {
-            self.doPresentsRE = /^(presents?|pres)$/i;
-        }
-        if (gc.i.matchCurrentWord(self.doPresentsRE)) {
-            gc.o.appendSpace();
-            gc.o.appendWord("presents");
-            if (gc.i.isNextWord(".")) {
-                gc.i.nextIndex();
-            }
-            return true;
-        }
-        return false;
+        flags.resetContext();
+        flags.context.number = false;
+        flags.context.forceCaps = false;
+        flags.context.spaceNextWord = true;
+        return null;
     };
 
     /**
@@ -125,8 +96,8 @@ MB.GuessCase.Handler.Artist = function () {
      **/
     self.guessSortName = function (is, person) {
         return self.sortCompoundName(is, function (artist) {
-            if (!MB.utility.isNullOrEmpty(artist)) {
-                artist = gc.u.trim(artist);
+            if (artist) {
+                artist = utils.trim(artist);
                 var append = "";
 
                 // strip Jr./Sr. from the string, and append at the end.
@@ -186,7 +157,7 @@ MB.GuessCase.Handler.Artist = function () {
                                 names[i+1] = names[i] + " " + names[i+1];
                             // handle St. because it belongs
                             // to the lastname
-                            } else if (!MB.utility.isNullOrEmpty(names[i])) {
+                            } else if (names[i]) {
                                 reOrderedNames[i+1] = names[i];
                             }
                         }
@@ -200,7 +171,7 @@ MB.GuessCase.Handler.Artist = function () {
                     }
                 }
 
-                return gc.u.trim(_.compact(names).join(" ") + (append || ""));
+                return utils.trim(_.compact(names).join(" ") + (append || ""));
             }
         });
     };

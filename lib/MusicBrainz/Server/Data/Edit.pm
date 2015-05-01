@@ -19,8 +19,8 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
     $VOTE_APPROVE
-    $EDIT_MINIMUM_RESPONSE_PERIOD
-    $EDIT_COUNT_LIMIT
+    $MINIMUM_RESPONSE_PERIOD
+    $LIMIT_FOR_EDIT_LISTING
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
@@ -32,6 +32,18 @@ use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+my $EDIT_IN_COLLECTION_SQL = 'edit.id IN (' .
+  join(' UNION ',
+       map {
+           my $type = $_;
+           my $coll_table = "editor_collection_${type}";
+           my $edit_table = "edit_${type}";
+           "SELECT ${edit_table}.edit FROM ${edit_table}
+              JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
+            WHERE ${coll_table}.collection = ?"
+       } entities_with('collections')
+      ) . ')';
 
 sub _table
 {
@@ -147,7 +159,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -162,22 +174,26 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE edit.id IN (SELECT er.edit
-                                      FROM edit_release er JOIN editor_collection_release ecr
-                                           ON er.release = ecr.release
-                                     WHERE ecr.collection = ?
-                                    UNION
-                                    SELECT ee.edit
-                                      FROM edit_event ee JOIN editor_collection_event ece
-                                           ON ee.event = ece.event
-                                     WHERE ece.collection = ?)
-                  ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                  WHERE $EDIT_IN_COLLECTION_SQL $status_cond
+                  ORDER BY edit.id DESC, edit.editor
+                  OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
+        # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
+        # clause, using its default value of 0.5 (i.e. every other row in the edit
+        # table is expected to match), even though the row estimate for the subquery is
+        # largely correct and would provide a (far lower) upper bound on the possible
+        # number of matched rows in the outer query. The bogus row estimate tempts the
+        # query planner into using a merge join between the subquery and the edit
+        # table that for small collections (less than 500 edits) requires a scan over
+        # the whole index on edit.id; in reality, a nested loop join is far faster.
+        # The redundant secondary sort on edit.editor eliminates (in the view of the
+        # planner) one advantage of the merge join, namely that it returns the rows
+        # in the final order already, and thereby tricks the planner into preferring
+        # the nested loop join.
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $collection_id, $offset);
+        }, $query, ($collection_id) x entities_with('collections'), $offset);
 }
 
 sub find_for_subscription
@@ -198,22 +214,13 @@ sub find_for_subscription
     elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                      WHERE edit.id IN (SELECT er.edit
-                                          FROM edit_release er JOIN editor_collection_release ecr
-                                               ON er.release = ecr.release
-                                         WHERE ecr.collection = ?
-                                        UNION
-                                        SELECT ee.edit
-                                          FROM edit_event ee JOIN editor_collection_event ece
-                                               ON ee.event = ece.event
-                                         WHERE ece.collection = ?)
-                       AND id > ? AND status IN (?, ?)';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
+                      WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?)";
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query,  $subscription->target_id, $subscription->target_id,
+            $query, ($subscription->target_id) x entities_with('collections'),
             $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -243,7 +250,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY vote_time DESC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -266,7 +273,7 @@ sub find_open_for_editor
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -309,16 +316,15 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM
-      (SELECT edit, esc.editor FROM edit_release er
-        JOIN editor_collection_release ecr ON er.release = ecr.release
-        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
-        WHERE esc.available
-      UNION
-      SELECT edit, esc.editor FROM edit_event ee
-        JOIN editor_collection_event ece ON ee.event = ece.event
-        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
-        WHERE esc.available) ce
+    SELECT edit FROM (" . join(' UNION ', map {
+        my $type = $_;
+        my $coll_table = "editor_collection_${type}";
+        my $edit_table = "edit_${type}";
+        "SELECT edit, esc.editor FROM ${edit_table}
+           JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
+           JOIN editor_subscribe_collection esc ON esc.collection = ${coll_table}.collection
+         WHERE esc.available"
+    } entities_with('collections')) . ") ce
       JOIN edit ON ce.edit = edit.id
     WHERE edit.status = ? AND ce.editor = ?
     UNION
@@ -336,7 +342,7 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY id ASC
-OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
+OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -365,7 +371,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -400,31 +406,43 @@ sub merge_entities
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
-sub preview
-{
-    my ($self, %opts) = @_;
+sub _create_instance {
+    my ($self, $previewing, %opts) = @_;
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
-    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
-    my $privs = delete $opts{privileges} || 0;
+    my $editor = delete $opts{editor};
+    my $editor_id = delete $opts{editor_id};
+
+    if ($editor_id && !$editor) {
+        $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    }
+
+    croak "editor required" unless $editor;
+
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
-    {
+    if ($previewing && !$class->does('MusicBrainz::Server::Edit::Role::Preview')) {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
     }
 
-    my $edit = $class->new( editor_id => $editor_id, c => $self->c, preview => 1 );
+    my $edit = $class->new(
+        c => $self->c,
+        editor_id => $editor->id,
+        editor => $editor,
+        preview => $previewing
+    );
+
+    MusicBrainz::Server::Edit::Exceptions::Forbidden->throw
+        unless ($editor->id == $EDITOR_MODBOT || $edit->editor_may_edit(\%opts));
+
     try {
         $edit->initialize(%opts);
-    }
-    catch {
-        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+    } catch {
+        if (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency)$/) {
             confess $_;
-        }
-        else {
+        } else {
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
@@ -432,28 +450,19 @@ sub preview
     return $edit;
 }
 
-sub create
-{
+sub preview {
     my ($self, %opts) = @_;
 
-    my $type = delete $opts{edit_type} or croak "edit_type required";
-    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
-    my $privs = delete $opts{privileges} || 0;
-    my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
-        or confess "Could not lookup edit type for $type";
+    delete $opts{privileges};
+    return $self->_create_instance(1, %opts);
+}
 
-    my $edit = $class->new( editor_id => $editor_id, c => $self->c );
-    try {
-        $edit->initialize(%opts);
-    }
-    catch {
-        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-            confess $_;
-        }
-        else {
-            croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
-        }
-    };
+sub create {
+    my ($self, %opts) = @_;
+
+    my $privs = delete $opts{privileges} || 0;
+
+    my $edit = $self->_create_instance(0, %opts);
 
     my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions;
@@ -475,7 +484,7 @@ sub create
 
     # ModBot can override the rules sometimes
     $edit->auto_edit(1)
-        if ($editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
+        if ($edit->editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
 
     # Save quality level
     $edit->quality($quality);
@@ -644,13 +653,13 @@ sub default_includes {
     }
 }
 
-# Runs its own transaction
+# Must be called in a transaction
 sub approve
 {
-    my ($self, $edit, $editor_id) = @_;
+    my ($self, $edit, $editor) = @_;
 
     $self->c->model('Vote')->enter_votes(
-        $editor_id,
+        $editor,
         {
             vote    => $VOTE_APPROVE,
             edit_id => $edit->id
@@ -772,17 +781,26 @@ sub _close
 }
 
 sub insert_votes_and_notes {
-    my ($self, $user_id, %data) = @_;
+    my ($self, $editor, %data) = @_;
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
+    # Filter out approvals, they can only be entered via the approve method
+    @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
+
     Sql::run_in_transaction(sub {
-        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        $self->c->model('Vote')->enter_votes($editor, @votes);
+
+        my $edits = $self->get_by_ids(map { $_->{edit_id} } @notes);
         for my $note (@notes) {
+            my $edit_id = $note->{edit_id};
+            my $edit = $edits->{$edit_id};
+            defined $edit && $edit->editor_may_add_note($editor)
+                or next;
             $self->c->model('EditNote')->add_note(
-                $note->{edit_id},
+                $edit_id,
                 {
-                    editor_id => $user_id,
+                    editor_id => $editor->id,
                     text => $note->{edit_note},
                 });
         }
@@ -806,7 +824,7 @@ sub add_link {
 
 sub extend_expiration_time {
     my ($self, @ids) = @_;
-    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
     $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
         WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }

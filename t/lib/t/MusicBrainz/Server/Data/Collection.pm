@@ -54,61 +54,61 @@ $test->c->model('EditorSubscriptions')->update_subscriptions(2, 2);
 is(scalar(@subs), 1, 'Unavailable subscription deleted');
 
 $sql->begin;
-$coll_data->merge_releases(1, 2, 3);
+$coll_data->merge_entities('release', 1, 2, 3);
 $sql->commit;
 
 
-ok($coll_data->check_release(1, 1), 'Release #1 is still in collection #1');
-ok(!$coll_data->check_release(1, 3), 'Release #3 has been deleted');
-ok(!$coll_data->check_release(2, 2), 'Release #2 has been deleted');
-ok($coll_data->check_release(2, 1), 'Release #2 has been merged into #1');
-ok($coll_data->check_release(2, 4), 'Release #4 is still there');
+ok($coll_data->contains_entity('release', 1, 1), 'Release #1 is still in collection #1');
+ok(!$coll_data->contains_entity('release', 1, 3), 'Release #3 has been deleted');
+ok(!$coll_data->contains_entity('release', 2, 2), 'Release #2 has been deleted');
+ok($coll_data->contains_entity('release', 2, 1), 'Release #2 has been merged into #1');
+ok($coll_data->contains_entity('release', 2, 4), 'Release #4 is still there');
 
 
 $sql->begin;
-$coll_data->delete_releases(1, 4);
+$coll_data->delete_entities('release', 1, 4);
 $sql->commit;
 
 
-ok(!$coll_data->check_release(1, 1), 'Release #1 has been deleted');
-ok(!$coll_data->check_release(2, 1), 'Release #1 has been deleted');
-ok(!$coll_data->check_release(2, 4), 'Release #4 has been deleted');
+ok(!$coll_data->contains_entity('release', 1, 1), 'Release #1 has been deleted');
+ok(!$coll_data->contains_entity('release', 2, 1), 'Release #1 has been deleted');
+ok(!$coll_data->contains_entity('release', 2, 4), 'Release #4 has been deleted');
 
-$coll_data->add_releases_to_collection(1, 3);
-ok($coll_data->check_release(1, 3), 'Release #3 has been added to collection #1');
+$coll_data->add_entities_to_collection('release', 1, 3);
+ok($coll_data->contains_entity('release', 1, 3), 'Release #3 has been added to collection #1');
 
-$coll_data->add_releases_to_collection(1, 3);
-ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release #3');
+$coll_data->add_entities_to_collection('release', 1, 3);
+ok($coll_data->contains_entity('release', 1, 3), 'No exception occured when re-adding release #3');
 
 
-my @releases = $coll_data->find_all_by_release(3);
+my @releases = $coll_data->find_all_by_entity('release', 3);
 is(scalar(@releases), 1, 'One collection contains release #3');
 ok((grep { $_->id == 1 } @releases), 'found collection by release');
 
-ok(!$coll_data->check_event(3, 1), 'Event #1 is not in collection #3');
-$coll_data->add_events_to_collection(3, 1);
-ok($coll_data->check_event(3, 1), 'Now event #1 is in collection #3');
+ok(!$coll_data->contains_entity('event', 3, 1), 'Event #1 is not in collection #3');
+$coll_data->add_entities_to_collection('event', 3, 1);
+ok($coll_data->contains_entity('event', 3, 1), 'Now event #1 is in collection #3');
 
 $sql->begin;
-$coll_data->merge_events(2, 3);
+$coll_data->merge_entities('event', 2, 3);
 $sql->commit;
 
-ok(!$coll_data->check_event(4, 3), 'Event #3 has been merged and is no longer in collection #4');
-ok($coll_data->check_event(3, 2), 'Event #2 is still in collection #3');
-ok($coll_data->check_event(4, 2), 'Event #2 is now in collection #4');
+ok(!$coll_data->contains_entity('event', 4, 3), 'Event #3 has been merged and is no longer in collection #4');
+ok($coll_data->contains_entity('event', 3, 2), 'Event #2 is still in collection #3');
+ok($coll_data->contains_entity('event', 4, 2), 'Event #2 is now in collection #4');
 
-my @events = $coll_data->find_all_by_event(2);
+my @events = $coll_data->find_all_by_entity('event', 2);
 is(scalar(@events), 2, 'Two collections contain event #2');
 ok((grep { $_->id == 4 } @events), 'Collection #4 is one of the ones containing event #2');
 ok((grep { $_->id == 3 } @events), 'Collection #3 is one of the ones containing event #2');
 
-$coll_data->remove_events_from_collection(3, (1,2));
-ok(!$coll_data->check_event(3, 1), 'Event #1 is out of collection #3 again');
-ok(!$coll_data->check_event(3, 2), 'Neither is event #2 in collection #3 anymore');
+$coll_data->remove_entities_from_collection('event', 3, (1,2));
+ok(!$coll_data->contains_entity('event', 3, 1), 'Event #1 is out of collection #3 again');
+ok(!$coll_data->contains_entity('event', 3, 2), 'Neither is event #2 in collection #3 anymore');
 
-ok($coll_data->check_event(3, 4), 'Event #4 in collection #3.');
-$coll_data->delete_events(4);
-ok(!$coll_data->check_event(3, 4), 'Now Event #4 is not in collection #3.');
+ok($coll_data->contains_entity('event', 3, 4), 'Event #4 in collection #3.');
+$coll_data->delete_entities('event', 4);
+ok(!$coll_data->contains_entity('event', 3, 4), 'Now Event #4 is not in collection #3.');
 
 };
 

@@ -19,6 +19,8 @@
 
 */
 
+var flags = require('../../../flags.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -98,43 +100,37 @@ MB.GuessCase.Handler.Track = function () {
      * in the common word handlers.
      *
      * - Handles FeaturingArtistStyle
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
      *
      **/
     self.doWord = function () {
         if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
-        } else if (self.doVersusStyle()) {
-        } else if (self.doVolumeNumberStyle()) {
-        } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
         } else {
             if (gc.i.matchCurrentWord(/7in/i)) {
                 gc.o.appendSpaceIfNeeded();
                 gc.o.appendWord('7"');
-                gc.f.resetContext();
-                gc.f.spaceNextWord = false;
-                gc.f.forceCaps = false;
+                flags.resetContext();
+                flags.context.spaceNextWord = false;
+                flags.context.forceCaps = false;
             } else if (gc.i.matchCurrentWord(/12in/i)) {
                 gc.o.appendSpaceIfNeeded();
                 gc.o.appendWord('12"');
-                gc.f.resetContext();
-                gc.f.spaceNextWord = false;
-                gc.f.forceCaps = false;
+                flags.resetContext();
+                flags.context.spaceNextWord = false;
+                flags.context.forceCaps = false;
             } else {
                 // handle other cases (e.g. normal words)
                 gc.o.appendSpaceIfNeeded();
                 gc.i.capitalizeCurrentWord();
 
                 gc.o.appendCurrentWord();
-                gc.f.resetContext();
-                gc.f.spaceNextWord = true;
-                gc.f.forceCaps = false;
+                flags.resetContext();
+                flags.context.spaceNextWord = true;
+                flags.context.forceCaps = false;
             }
         }
-        gc.f.number = false;
+        flags.context.number = false;
         return null;
     };
 
