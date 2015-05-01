@@ -287,8 +287,6 @@ sub search
     }
 
     my $fuzzy_search_limit = 10000;
-    my $search_timeout = 60 * 1000;
-
     my @query_args = ();
     push @query_args, $hard_search_limit if $use_hard_search_limit;
     push @query_args, $deleted_entity if $deleted_entity;
@@ -301,8 +299,6 @@ sub search
 
     Sql::run_in_transaction(sub {
         $self->sql->do('SET LOCAL gin_fuzzy_search_limit TO ?', $fuzzy_search_limit);
-        $self->sql->do('SET LOCAL statement_timeout TO ?', $search_timeout);
-
         @rows = @{ $self->sql->select_list_of_hashes($query, $query_str, $query_str, @query_args) };
     }, $self->sql);
 
