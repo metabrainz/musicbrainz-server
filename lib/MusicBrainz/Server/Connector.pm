@@ -42,15 +42,6 @@ sub _build_conn
         HandleError       => sub { my ($msg, $h) = @_; die $h->state . ' ' . $msg },
         RaiseError        => 0,
         PrintError        => 0,
-        Callbacks         => {
-            connected => sub {
-                my $dbh = shift;
-                $dbh->do("SET TIME ZONE 'UTC'");
-                $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
-
-                return ();
-            }
-        }
     });
 
     # Make sure we notice the DB going down and attempt to reconnect
