@@ -67,6 +67,11 @@ use constant FAVICON_CLASSES => {
     'bibliotekapiosenki.pl'     => 'piosenki',
     'qim.com'                   => 'quebecinfomusique',
     'thedancegypsy.com'         => 'thedancegypsy',
+    'videogam.in'               => 'videogamin',
+    'spirit-of-rock.com'        => 'spiritofrock',
+    'tunearch.org'              => 'tunearch',
+    'castalbums.org'            => 'castalbums',
+    'smdb.kb.se'                => 'SMDB',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
