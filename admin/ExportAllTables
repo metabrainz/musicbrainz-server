@@ -724,12 +724,15 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
     make_tar("mbdump-documentation.tar.bz2", @group_documentation);
 
-    system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
-           ' | grep -v mbdump-private > MD5SUMS';
+    for my $hash_program ('md5sum', 'sha256sum') {
+        my $hash_output_file = uc($hash_program . 's');
+        system "cd $OutputDir && /usr/bin/$hash_program --binary *.tar.bz2" .
+               " | grep -v mbdump-private > $hash_output_file";
 
-    $? == 0 or die "md5sum returned $?";
+        $? == 0 or die "$hash_program returned $?";
 
-    gpg_sign("$OutputDir/MD5SUMS");
+        gpg_sign("$OutputDir/$hash_output_file");
+    }
 
     if ($encrypt_for) {
         system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
