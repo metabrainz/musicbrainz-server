@@ -6,11 +6,6 @@ has 'username' => (
     is  => 'rw',
 );
 
-has 'schema' => (
-    isa => 'Str',
-    is  => 'rw',
-);
-
 has 'password' => (
     isa => 'Maybe[Str]',
     is  => 'rw',

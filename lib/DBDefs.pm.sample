@@ -52,7 +52,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -61,7 +60,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect to a test database
     TEST => {
         database    => "musicbrainz_test",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -70,7 +68,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
