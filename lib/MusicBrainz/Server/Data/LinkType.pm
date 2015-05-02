@@ -303,6 +303,9 @@ sub update
 
     if (exists $values->{orderable_direction}) {
         $self->sql->delete_row('orderable_link_type', { link_type => $id });
+    }
+
+    if (is_positive_integer($values->{orderable_direction})) {
         $self->sql->insert_row('orderable_link_type', {
             link_type => $id,
             direction => $values->{orderable_direction}
