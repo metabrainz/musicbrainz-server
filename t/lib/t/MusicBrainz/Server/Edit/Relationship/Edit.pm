@@ -9,7 +9,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -170,6 +170,7 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
         editor_id => 1,
         relationship => $rel,
         begin_date => { year => 1994 },
+        privileges => $UNTRUSTED_FLAG,
     );
 
     my $edit2 = $c->model('Edit')->create(
@@ -177,6 +178,7 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
         editor_id => 1,
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
+        privileges => $UNTRUSTED_FLAG,
     );
 
     is(exception { $edit2->accept }, undef);
@@ -202,10 +204,7 @@ test 'Relationship link_order values are ignored' => sub {
         link_order => 5,
     );
 
-    accept_edit($c, $edit);
-
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-
     is($rel->link_order, 0);
 };
 
@@ -255,8 +254,6 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
         attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
     );
 
-    accept_edit($c, $edit);
-
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
@@ -299,8 +296,6 @@ test 'Instrument credits can be added to an existing relationship' => sub {
             }
         ],
     );
-
-    accept_edit($c, $edit);
 
     $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
