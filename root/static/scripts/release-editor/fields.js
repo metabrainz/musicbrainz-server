@@ -232,6 +232,13 @@ var dates = require('../edit/utility/dates.js');
                 }
             }
 
+            // Hints for guess-feat. functionality.
+            var release = this.medium.release;
+            if (release) {
+                release.relatedArtists = _.union(release.relatedArtists, value.relatedArtists);
+                release.isProbablyClassical = release.isProbablyClassical || value.isProbablyClassical;
+            }
+
             this.recordingValue(value);
         },
 
@@ -241,6 +248,14 @@ var dates = require('../edit/utility/dates.js');
 
         hasVariousArtists: function () {
             return this.artistCredit.isVariousArtists();
+        },
+
+        relatedArtists: function () {
+            return this.medium.release.relatedArtists;
+        },
+
+        isProbablyClassical: function () {
+            return this.medium.release.isProbablyClassical;
         }
     });
 
@@ -446,7 +461,7 @@ var dates = require('../edit/utility/dates.js');
 
             var args = {
                 url: "/ws/js/medium/" + id,
-                data: { inc: "recordings" }
+                data: { inc: "recordings+rels" }
             };
 
             request(args, this).done(this.tracksLoaded);
@@ -533,7 +548,7 @@ var dates = require('../edit/utility/dates.js');
                 day:    ko.observable(date.day)
             };
 
-            this.countryID = ko.observable(data.countryID);
+            this.countryID = ko.observable(data.country ? data.country.id : null);
             this.release = release;
             this.isDuplicate = ko.observable(false);
 
@@ -652,8 +667,6 @@ var dates = require('../edit/utility/dates.js');
                 MB.entityCache[data.gid] = this; // XXX HACK
             }
 
-            $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
-
             var self = this;
             var errorField = validation.errorField;
             var currentName = data.name;
@@ -704,7 +717,7 @@ var dates = require('../edit/utility/dates.js');
             ko.computed(function () {
                 _(self.events()).groupBy(countryID).each(function (events) {
                     _.invoke(events, "isDuplicate", _.filter(events, nonEmptyEvent).length > 1);
-                });
+                }).value();
             });
 
             this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
@@ -729,7 +742,7 @@ var dates = require('../edit/utility/dates.js');
             ko.computed(function () {
                 _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
                     _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
-                });
+                }).value();
             });
 
             this.needsLabels = errorField(this.labels.any("needsLabel"));
@@ -753,6 +766,7 @@ var dates = require('../edit/utility/dates.js');
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
+            this.formats = data.formats;
             this.mediums.original = ko.observableArray([]);
             this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));

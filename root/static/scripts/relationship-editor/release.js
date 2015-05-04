@@ -52,7 +52,7 @@ var request = require('../common/utility/request.js');
             ko.applyBindings(this, document.getElementById("content"));
 
             this.loadingRelease(true);
-            var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
+            var url = "/ws/js/release/" + this.source.gid + "?inc=rels+recordings";
             request({ url: url }, this)
                 .done(this.releaseLoaded)
                 .always(function () {

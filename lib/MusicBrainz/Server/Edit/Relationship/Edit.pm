@@ -358,6 +358,7 @@ sub initialize
             attributes   => $opts{attributes},
             entity0_id   => $new_entity0->id,
             entity1_id   => $new_entity1->id,
+            link_order   => $relationship->link_order,
         });
 
     $self->relationship($relationship);
@@ -425,6 +426,7 @@ sub accept
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
         ended        => $data->{new}{ended}         // $relationship->link->ended,
+        link_order   => $relationship->link_order,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

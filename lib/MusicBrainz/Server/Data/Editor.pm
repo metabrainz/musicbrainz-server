@@ -313,16 +313,16 @@ sub update_privileges
 {
     my ($self, $editor, $values) = @_;
 
-    my $privs =   $values->{auto_editor}      * $AUTO_EDITOR_FLAG
-                + $values->{bot}              * $BOT_FLAG
-                + $values->{untrusted}        * $UNTRUSTED_FLAG
-                + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
-                + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
-                + $values->{no_nag}           * $DONT_NAG_FLAG
-                + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
-                + $values->{banner_editor}    * $BANNER_EDITOR_FLAG
-                + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
-                + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
+    my $privs =   ($values->{auto_editor}      // 0) * $AUTO_EDITOR_FLAG
+                + ($values->{bot}              // 0) * $BOT_FLAG
+                + ($values->{untrusted}        // 0) * $UNTRUSTED_FLAG
+                + ($values->{link_editor}      // 0) * $RELATIONSHIP_EDITOR_FLAG
+                + ($values->{location_editor}  // 0) * $LOCATION_EDITOR_FLAG
+                + ($values->{no_nag}           // 0) * $DONT_NAG_FLAG
+                + ($values->{wiki_transcluder} // 0) * $WIKI_TRANSCLUSION_FLAG
+                + ($values->{banner_editor}    // 0) * $BANNER_EDITOR_FLAG
+                + ($values->{mbid_submitter}   // 0) * $MBID_SUBMITTER_FLAG
+                + ($values->{account_admin}    // 0) * $ACCOUNT_ADMIN_FLAG;
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs=? WHERE id=?',

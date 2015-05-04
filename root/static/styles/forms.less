@@ -273,6 +273,11 @@ button.guesscase-options {
     background-image: data-uri('../images/icons/cog.png');
 }
 
+button.guessfeat {
+    background-image: data-uri('../images/icons/guessfeat.png');
+    background-size: @form-icon-size @form-icon-size;
+}
+
 /* __________________________________
 
           MB.Control.Autocomplete
@@ -379,6 +384,10 @@ div.half-width fieldset {
 
     input.with-guesscase {
         width: @form-input-width - (@form-icon-size * 2) - 6 !important;
+    }
+
+    input.with-guesscase-guessfeat {
+        width: @form-input-width - (@form-icon-size * 3) - 9 !important;
     }
 }
 

@@ -97,6 +97,23 @@ exports.commaList = function (items) {
     return output;
 };
 
+exports.commaOnlyList = function (items) {
+    var output = '';
+
+    if (!items.length) {
+        return output;
+    }
+
+    output = l('{last_list_item}', {last_list_item: items.pop()});
+    items.reverse();
+
+    _.each(items.reverse(), function (item) {
+        output = l('{commas_only_list_item}, {rest}', {commas_only_list_item: item, rest: output});
+    });
+
+    return output;
+};
+
 var lang = document.documentElement.lang || "en";
 var collatorOptions = { numeric: true };
 var collator;

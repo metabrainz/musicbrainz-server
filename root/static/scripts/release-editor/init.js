@@ -202,7 +202,7 @@ MB.releaseEditor.init = function (options) {
 MB.releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
-        data: { inc: "annotation+release-events+labels+media+rels" }
+        data: { inc: "rels" }
     };
 
     return request(args, this)

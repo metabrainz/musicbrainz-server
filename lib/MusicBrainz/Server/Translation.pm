@@ -17,9 +17,9 @@ use MusicBrainz::Server::Validation qw( encode_entities );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l N_ln N_lp get_collator )],
+    exports => [qw( l lp ln N_l N_ln N_lp get_collator comma_list comma_only_list )],
     groups => {
-        default => [qw( l lp ln N_l N_ln N_lp )]
+        default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list )]
     }
 };
 
@@ -236,6 +236,37 @@ sub get_collator
     # make sure to update the postgresql collate extension as well
     $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
     return $coll;
+}
+
+sub comma_list {
+    return ($_[0] // '') if scalar(@_) <= 1;
+
+    my ($last, $almost_last, @rest) = reverse(@_);
+
+    my $output = l('{almost_last_list_item} and {last_list_item}', {
+        last_list_item => $last,
+        almost_last_list_item => $almost_last
+    });
+
+    for (@rest) {
+        $output = l('{list_item}, {rest}', { list_item => $_, rest => $output });
+    }
+
+    return $output;
+}
+
+sub comma_only_list {
+    return ($_[0] // '') if scalar(@_) <= 1;
+
+    my ($last, @rest) = reverse(@_);
+
+    my $output = l('{last_list_item}', { last_list_item => $last });
+
+    for (@rest) {
+        $output = l('{commas_only_list_item}, {rest}', { commas_only_list_item => $_, rest => $output });
+    }
+
+    return $output;
 }
 
 1;

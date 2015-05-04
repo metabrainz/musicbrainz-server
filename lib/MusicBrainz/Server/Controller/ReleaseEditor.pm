@@ -359,7 +359,7 @@ sub _seeded_event
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {
-            $result->{countryID} = $country->id;
+            $result->{country} = JSONSerializer->_area($country);
         } else {
             push @$errors, "Invalid $field_name.country: “$iso”.";
         }

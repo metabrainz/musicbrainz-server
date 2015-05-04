@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var test = require('tape');
 
 test('Sortname', function (t) {
@@ -120,6 +121,31 @@ test('Label', function (t) {
     });
 });
 
+test('Recording', function (t) {
+    t.plan(2);
+
+    var tests = [
+        {
+            input: "ハイタッチ (w/o maaya)",
+            expected: "ハイタッチ (w/o Maaya)",
+            message: 'w/o is not capitalized'
+        },
+        {
+            input: "ハイタッチ (w／o maaya)",
+            expected: "ハイタッチ (w／o Maaya)",
+            message: 'w／o is not capitalized'
+        }
+    ];
+
+    _.each(tests, function (test) {
+        t.equal(
+            MB.GuessCase.recording.guess(test.input),
+            test.expected,
+            test.message
+        );
+    });
+});
+
 test('Work', function (t) {
     t.plan(7);
 
@@ -174,7 +200,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-    t.plan(18);
+    t.plan(15);
 
     var tests = [
         {
@@ -193,18 +219,11 @@ test('BugFixes', function (t) {
             bug: 'MBS-1311', mode: "Sentence"
         },
         {
-            input: "ハイタッチ (w/o maaya)",
-            expected: "ハイタッチ (without Maaya)",
-            bug: 'MBS-1312', mode: "English"
-        },
-        {
-
             input: "Megablast (Rap Version) (ft. Merlin)",
             expected: "Megablast (rap version) (feat. Merlin)",
             bug: 'MBS-1313', mode: "English"
         },
         {
-
             input: "너 (Techno Version)",
             expected: "너 (techno version)",
             bug: 'MBS-1313', mode: "English"
@@ -233,16 +252,6 @@ test('BugFixes', function (t) {
             input: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
             expected: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
             bug: "MBS-1318", mode: "English"
-        },
-        {
-            input: "Bad Hands, Part II (Autechre remix)",
-            expected: "Bad Hands, Part II (Autechre remix)",
-            bug: "MBS-2408", mode: "English"
-        },
-        {
-            input: "Bad Hands (Part II)",
-            expected: "Bad Hands, Part II",
-            bug: "MBS-2408", mode: "English"
         },
         {
             input: "Hold on, I'm Coming",

@@ -34,6 +34,15 @@
     [% END %]
 
     [% WRAPPER form_row %]
+        [% r.label('orderable_direction', l('Orderable direction:')) %]
+        [% r.number('orderable_direction') %]
+        <div class="no-label">
+            [% l('A value of 1 or 2 indicates that either entity1 or entity0 are orderable, respectively.') %]
+        </div>
+        [% form_field_errors(form, 'orderable_direction') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
         [% r.label('priority', l('Priority:')) %]
         [% r.number('priority') %]
         [% form_field_errors(form, 'priority') %]

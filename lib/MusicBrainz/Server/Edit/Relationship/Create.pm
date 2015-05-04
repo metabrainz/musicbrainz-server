@@ -15,6 +15,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -95,7 +96,9 @@ sub initialize
     $opts{type0} = $lt->entity0_type;
     $opts{type1} = $lt->entity1_type;
 
-    delete $opts{link_order} unless $opts{link_order} && $lt->orderable_direction;
+    unless (is_positive_integer($opts{link_order}) && $lt->orderable_direction) {
+        delete $opts{link_order};
+    }
 
     normalize_date_period(\%opts);
     delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
@@ -112,6 +115,7 @@ sub initialize
             attributes   => $opts{attributes},
             entity0_id   => $e0->id,
             entity1_id   => $e1->id,
+            link_order   => $opts{link_order} // 0,
         });
 
     $self->data({ %opts, edit_version => 2 });

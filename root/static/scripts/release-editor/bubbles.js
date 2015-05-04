@@ -155,7 +155,8 @@
                 .invoke("tracks").flatten().without(track).pluck("artistCredit")
                 .each(function (ac) {
                     if (matchWith === ac.text()) ac.setNames(names);
-                });
+                })
+                .value();
 
             this.initialArtistText("");
         },

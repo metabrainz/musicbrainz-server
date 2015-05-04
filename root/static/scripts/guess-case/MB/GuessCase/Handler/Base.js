@@ -529,8 +529,6 @@ MB.GuessCase.Handler.Base = function () {
             flags.context.openingBracket = true;
             flags.context.forceCaps = !forcelowercase;
             gc.o.appendCurrentWord();
-            flags.context.part = false;
-            flags.context.volume = false;
             return true;
         }
         return false;
@@ -765,198 +763,14 @@ MB.GuessCase.Handler.Base = function () {
                 subIndex++;
             }
             gc.i.setPos(subIndex-1);
-            var number = tmp.join("");
-
-            if (flags.context.part || flags.context.volume) {
-                // delete leading '0',if last word was a seriesnumberstyle word.
-                // e.g. disc 02 -> disc 2
-                number = number.replace(/^0*/,"");
-            }
-
-            // add : after disc with number,with more words following
-            // only if there is a string which is assumed to be the
-            // disc title.
-            // e.g. Releasename cd 4 -> Releasename (disc 4)
-            // but  Releasename cd 4 the name -> Releasename (disc 4: The Name)
-            var addcolon = false;
-            if (flags.context.volume) {
-                var pos = gc.i.getPos();
-                if (pos < gc.i.getLength()-2) {
-                    var nword = gc.i.getWordAtIndex(pos+1);
-                    var naword = gc.i.getWordAtIndex(pos+2);
-                    var nwordm = nword.match(/[\):\-&]/);
-                    var nawordm = naword.match(/[\(:\-&]/);
-
-                    // only add a colon,if the next word is not ")",":","-","&"
-                    // and the word after the next is not "-","&","("
-                    if (nwordm == null && nawordm == null) {
-                        addcolon = true;
-                    }
-                }
-                flags.context.spaceNextWord = true;
-                flags.context.forceCaps = true;
-            }
 
             gc.o.appendSpaceIfNeeded();
-            gc.o.appendWord(number);
+            gc.o.appendWord(tmp.join(""));
 
-            // clear the flags (for the colon-handling after volume,part
-            // added (flawed implementation, but it works i guess)
-            // and disc,even if no digit followed (and thus no colon was
-            flags.resetSeriesNumberStyleFlags();
             flags.resetContext();
-            if (addcolon) {
-                gc.o.appendWord(":");     // if there is no colon already present,add a colon
-                flags.context.forceCaps = true;
-                flags.context.colon = true;
-            } else {
-                flags.context.forceCaps = false;
-                flags.context.number = true;
-            }
-            return true;
-        }
-        return false;
-    };
+            flags.context.forceCaps = false;
+            flags.context.number = true;
 
-    /**
-     * Correct vs.
-     **/
-    self.doVersusStyle = function () {
-        if (!gc.re.VERSUSSTYLE) {
-            gc.re.VERSUSSTYLE = "vs";
-        }
-
-        if (gc.i.matchCurrentWord(gc.re.VERSUSSTYLE)) {
-            // capitalize the last word, if forceCaps was
-            // set, else leave it like it is.
-            gc.o.capitalizeLastWord();
-
-            if (!flags.context.openingBracket) {
-                gc.o.appendSpace();
-            }
-            gc.o.appendWord("vs");
-            gc.o.appendWord(".");
-            if (gc.i.isNextWord(".")) {
-                gc.i.nextIndex(); // skip trailing (.)
-            }
-            flags.resetContext();
-            flags.context.forceCaps = true;
-            flags.context.spaceNextWord = true;
-            return true;
-        }
-        return false;
-    };
-
-    /**
-     * Handle "Vol","Vol.","Volume" -> ", Volume"
-     **/
-    self.doVolumeNumberStyle = function () {
-        if (!gc.re.VOLUMENUMBERSTYLE) {
-            gc.re.VOLUMENUMBERSTYLE = /^(volumes|volume)$/i;
-        }
-        if (gc.i.matchCurrentWord(gc.re.VOLUMENUMBERSTYLE) && gc.i.hasMoreWords()) {
-            if (self.doSeriesNumberStyle("Volume")) {
-                flags.context.volume = true;
-                return true;
-            }
-        }
-        return false;
-    };
-
-    /**
-     * Handle "Pt","Pt.","Part" -> ", Part"
-     **/
-    self.doPartNumberStyle = function () {
-        if (!gc.re.PARTNUMBERSTYLE) {
-            gc.re.PARTNUMBERSTYLE = /^(parts|part)$/i;
-        }
-        if (gc.i.matchCurrentWord(gc.re.PARTNUMBERSTYLE) && gc.i.hasMoreWords()) {
-            if (self.doSeriesNumberStyle("Part")) {
-                flags.context.part = true;
-                return true;
-            }
-        }
-        return false;
-    };
-
-    /**
-     * Do the common work for handleVolume, handlePart
-     **/
-    self.doSeriesNumberStyle = function (seriesType) {
-        // from next position on, skip spaces and dots.
-        var pos = gc.i.getPos();
-        var len = gc.i.getLength();
-        var wi = pos+1, si = wi;
-
-        while ((wi < len-1) && (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
-            wi++;
-        }
-
-        var w = (gc.i.getWordAtIndex(wi) || "");
-
-        // only do the conversion if ...,(volume|part) is followed
-        // by a digit or a roman number
-        if (w.match(gc.re.SERIES_NUMBER)) {
-            // if no other punctuation char present
-            if (gc.i.getPos() >= 1 && !utils.isPunctuationChar(gc.o.getLastWord())) {
-                // check if there was a hypen (+whitespace) before,and drop it.
-                var droppedwords = false;
-                while (gc.o.getLength() > 0 && (gc.o.getLastWord() || "").match(/ |-/i)) {
-                    gc.o.dropLastWord();
-                    droppedwords = true;
-                }
-
-                // force capitalization of the last word,
-                // because we are starting a new styleguideline
-                // specialcase (or sentence).
-                gc.o.capitalizeLastWord(true);
-                gc.o.appendWord(",");
-            } else {
-                // capitalize last word before punctuation char.
-                var pos = gc.o.getLength()-2;
-                gc.o.capitalizeWordAtIndex(pos, true);
-            }
-
-            // check if we have to add a colon (SubTitleStyle)
-            var addcolon = false;
-            if (wi < gc.i.getLength()-2) {
-                var nword = gc.i.getWordAtIndex(wi+1);
-                var naword = gc.i.getWordAtIndex(wi+2);
-                var nwordm = nword.match(/[\):\-&,\/]/);
-                var nawordm = naword.match(/[\(:\-&,\/]/);
-
-                // alert(nword+"="+nwordm+"    "+naword+"="+nawordm);
-                // only add a colon,if the next word is not [ ) : - & / , ]
-                // and the word after the next is not [ ) : - & / , ]
-                if (nwordm == null && nawordm == null) {
-                    addcolon = true;
-                } else if (seriesType.match(/part|parts/i) &&
-                           (nword.match(/,/) || naword.match(/&|-|,|\d+/))) {
-                    seriesType = "Parts"; // make multiple parts
-                }
-            }
-
-            // append the current seriestype to output.
-            gc.o.appendSpaceIfNeeded();
-            gc.o.appendWord(seriesType);
-
-            // add space, and number
-            gc.o.appendSpace();
-            gc.o.appendWord(w);
-            flags.resetContext();
-
-            // if there is no colon already present,add a colon
-            if (addcolon) {
-                gc.o.appendWord(":");
-                flags.context.forceCaps = true;
-                flags.context.spaceNextWord = true;
-                flags.context.colon = true;
-            } else {
-                flags.context.spaceNextWord = false;
-                flags.context.forceCaps = true;
-                flags.context.number = true;
-            }
-            gc.i.setPos(wi);
             return true;
         }
         return false;

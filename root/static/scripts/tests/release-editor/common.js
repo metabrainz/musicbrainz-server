@@ -40,8 +40,8 @@ exports.trackParser = function (t, input, expected) {
 };
 
 exports.createMediums = function (release) {
-    var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.medium
+    var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+        return sub.edits === releaseEditor.edits.medium;
     });
 
     // Simulate edit submission.
@@ -85,7 +85,6 @@ exports.testRelease = {
   statusID: 1,
   name: "Vision Creation Newsun",
   barcode: "4943674011582",
-  trackCounts: "9 + 3",
   mediums: [
     {
       tracks: [
