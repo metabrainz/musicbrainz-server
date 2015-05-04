@@ -86,7 +86,7 @@ First, creates a context C<$c> to use, especially its Sql object (C<$sql>).
 
 =cut
 
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'MAINTENANCE')
 my $sql = Sql->new($c->conn);
 
 print localtime() . " Building sitemaps and sitemap index files\n";

@@ -18,6 +18,14 @@ sub register_databases
         next unless $args;
         $class->register_database($key, Database->new($args));
     }
+
+    # The MAINTENANCE database is used for running some scripts under admin/ and
+    # must always be defined. It defaults to READWRITE, but should be configured
+    # in DBDefs if READWRITE points to a connection pooler that doesn't support
+    # session-based features.
+    unless (defined $databases{MAINTENANCE}) {
+        $databases{MAINTENANCE} = $databases{READWRITE};
+    }
 }
 
 sub register_database
