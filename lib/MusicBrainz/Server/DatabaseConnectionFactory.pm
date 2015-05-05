@@ -18,14 +18,6 @@ sub register_databases
         next unless $args;
         $class->register_database($key, Database->new($args));
     }
-
-    # The MAINTENANCE database is used for running some scripts under admin/ and
-    # must always be defined. It defaults to READWRITE, but should be configured
-    # in DBDefs if READWRITE points to a connection pooler that doesn't support
-    # session-based features.
-    unless (defined $databases{MAINTENANCE}) {
-        $databases{MAINTENANCE} = $databases{READWRITE};
-    }
 }
 
 sub register_database
@@ -46,13 +38,12 @@ sub get_connection
     my ($class, $key, %opts) = @_;
     load_class($connector_class);
 
+    my $database = $class->get($key);
+
     if ($opts{fresh}) {
-        my $database = $databases{ $key };
         return $connector_class->new( database => $database );
-    }
-    else {
+    } else {
         $connections{ $key } ||= do {
-            my $database = $databases{ $key };
             confess "There is no configuration in DBDefs for database $key but one is required" unless defined($database);
             $connector_class->new( database => $database );
         };
@@ -71,10 +62,16 @@ sub connector_class
     return $connector_class;
 }
 
-sub get
-{
+sub get {
     my ($class, $name) = @_;
-    return $databases{$name};
+
+    my $database = $databases{$name};
+
+    if ($name eq 'MAINTENANCE' && !defined($database)) {
+        $database = $databases{READWRITE};
+    }
+
+    return $database;
 }
 
 1;
