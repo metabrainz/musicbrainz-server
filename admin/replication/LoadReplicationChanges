@@ -37,6 +37,7 @@ use Try::Tiny;
 use LWP::UserAgent;
 use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
 use GnuPG qw( :algo );
+use URI;
 
 use MusicBrainz::Server::Replication qw( :replication_type );
 
@@ -51,7 +52,7 @@ my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
-my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
+my $baseuri = "https://test.metabrainz.org/api/musicbrainz";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 my $fVerifySig = 0;
@@ -171,7 +172,11 @@ if ($period ne 'hourly') {
     $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
     $uriprefix = "$period/";
 }
-my $url = "$baseuri/$uriprefix$file";
+
+my $url = URI->new("$baseuri/$uriprefix$file");
+$url->query_param( token => DBDefs->REPLICATION_ACCESS_TOKEN ); 
+$url = $url->as_string;
+print $url;
 my $localfile = "$tmpdir/$file";
 
 my $resp = retrieve_remote_file($url, $localfile);
