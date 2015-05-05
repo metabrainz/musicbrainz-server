@@ -52,7 +52,7 @@ my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
-my $baseuri = "https://test.metabrainz.org/api/musicbrainz";
+my $baseuri = "https://metabrainz.org/api/musicbrainz";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 my $fVerifySig = 0;
