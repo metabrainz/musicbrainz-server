@@ -29,7 +29,14 @@ has 'database' => (
 
 sub _build_connector {
     my $self = shift;
-    return DatabaseConnectionFactory->get_connection($self->database);
+    my $conn = DatabaseConnectionFactory->get_connection($self->database);
+
+    if ($self->database eq 'MAINTENANCE') {
+        $conn->sql->auto_commit;
+        $conn->sql->do('SET statement_timeout = 0');
+    }
+
+    return $conn;
 }
 
 has 'models' => (
