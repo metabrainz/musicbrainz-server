@@ -376,7 +376,12 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                exempt => [ $VARTIST_ID, $DARTIST_ID ],
+                extra_fks => { artist_credit_name => 'artist' },
+            },
+        },
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -395,7 +400,7 @@ Readonly our %ENTITIES => (
         date_period => 1,
         ratings    => 1,
         tags       => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         collections => 1
     },
     instrument => {
@@ -435,7 +440,13 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { manual => 1, automatic => 1 }
+        removal => {
+            manual => 1,
+            automatic => {
+                exempt => [ $DLABEL_ID ],
+                extra_fks => { release_label => 'label' },
+            },
+        },
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -454,7 +465,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         tags       => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -497,7 +508,11 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                extra_fks => { release => 'release_group' },
+            },
+        },
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -515,7 +530,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         tags        => 1
     },
     url => {
@@ -541,7 +556,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     track => {
         mbid => { multiple => 1 },

@@ -5,10 +5,9 @@ use DBDefs;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw(
+    %ENTITIES
     $EDITOR_MODBOT
-    $VARTIST_ID
-    $DARTIST_ID
-    $DLABEL_ID
+    $STATUS_OPEN
     $EDIT_ARTIST_DELETE
     $EDIT_EVENT_DELETE
     $EDIT_LABEL_DELETE
@@ -21,30 +20,11 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
-
-my %entity_query_map = (
-    artist => 'SELECT * FROM empty_artists()',
-    event => 'SELECT * FROM empty_events()',
-    label => 'SELECT * FROM empty_labels()',
-    place => 'SELECT * FROM empty_places()',
-    release_group => 'SELECT * FROM empty_release_groups()',
-    work => 'SELECT * FROM empty_works()',
-    series => 'SELECT * FROM empty_series()',
-);
-
-my %skip_ids = (
-    artist => [ $VARTIST_ID, $DARTIST_ID ],
-    event => [],
-    label => [ $DLABEL_ID ],
-    place => [],
-    release_group => [],
-    work => [],
-    series => [],
-);
 
 my %edit_class = (
     artist => $EDIT_ARTIST_DELETE,
@@ -78,9 +58,40 @@ has verbose => (
 
 sub run {
     my ($self, $entity) = @_;
-    my $query = $entity_query_map{$entity} or $self->usage, exit 1;
+
+    my $info;
+    defined $entity && defined $ENTITIES{$entity} &&
+        defined $ENTITIES{$entity}->{removal} &&
+        ($info = $ENTITIES{$entity}->{removal}->{automatic})
+    or $self->usage, exit 1;
 
     print localtime() . " : Finding unused entities of type '$entity'\n";
+
+    my $used_in_relationship = used_in_relationship($self->c, $entity => 'T.id');
+    my $used_in_extra_fks = '';
+    while (my ($fk_table, $fk_column) = each %{ $info->{extra_fks} // {} }) {
+        $used_in_extra_fks .= "OR EXISTS (
+            SELECT 1
+              FROM $fk_table F
+             WHERE F.$fk_column = T.id
+        ) ";
+    }
+    my $query =
+        "SELECT id
+         FROM $entity T
+         WHERE edits_pending = 0
+           AND (last_updated < now() - '1 day'::interval OR last_updated IS NULL)
+           AND NOT (
+               EXISTS (
+                   SELECT 1
+                     FROM edit_$entity E
+                     JOIN edit ON edit.id = E.edit
+                    WHERE edit.status = $STATUS_OPEN
+                      AND E.$entity = T.id
+               )
+               OR $used_in_relationship
+               $used_in_extra_fks
+           )";
 
     my ($count, $removed) = (0, 0);
     my @entities = values %{
@@ -91,7 +102,7 @@ sub run {
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
     for my $e (@entities) {
-        next if any { $e->id == $_ } @{ $skip_ids{$entity} // [] };
+        next if any { $e->id == $_ } @{ $info->{exempt} // [] };
         ++$count;
 
         if ($self->dry_run) {
