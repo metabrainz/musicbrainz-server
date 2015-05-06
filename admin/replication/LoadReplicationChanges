@@ -116,7 +116,7 @@ my $lockfh;
 }
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
+my $c = MusicBrainz::Server::Context->create_script_context;
 
 use Sql;
 my $sql = Sql->new($c->conn);

@@ -12,7 +12,7 @@ use File::Slurp;
 use Encode qw(encode decode);
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context();
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
 ### DATABASE
 

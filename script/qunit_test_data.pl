@@ -9,7 +9,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Form::Utils qw( build_attr_info build_type_info );
 use Text::Trim qw( trim );
 
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 my @link_types = $c->model('LinkType')->get_full_tree;
 my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
