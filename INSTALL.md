@@ -322,6 +322,12 @@ Creating the database
 
         postgres=# CREATE LANGUAGE plpgsql;
 
+    MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
+    If this is an issue in your setup, you may want to set a timeout at the
+    database level:
+
+        ALTER DATABASE musicbrainz_db SET statement_timeout TO 60000;
+
 
 Starting the server
 ------------------

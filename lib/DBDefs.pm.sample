@@ -52,7 +52,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -61,7 +60,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect to a test database
     TEST => {
         database    => "musicbrainz_test",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -70,7 +68,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -84,6 +81,16 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
+    # How to connect when running maintenance scripts located under admin/.
+    # This defaults to READWRITE if left undefined, but should be configured if
+    # READWRITE points to a connection pooler that doesn't support session-based features.
+#   MAINTENANCE    => {
+#       database    => "musicbrainz_db",
+#       username    => "musicbrainz",
+#       password        => "musicbrainz",
+#       host            => "",
+#       port            => "5432",
+#   },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
 );

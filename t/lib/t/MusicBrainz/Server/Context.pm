@@ -45,7 +45,7 @@ test 'Check context CacheManager routing' => sub {
 test 'Can clear database connections and establish new ones' => sub {
     my $test = shift;
 
-    my $c = MusicBrainz::Server::Context->create_script_context;
+    my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
     $c->sql->begin;
     like exception { $c->sql->do('SELECT 1/0'); },
