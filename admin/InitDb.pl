@@ -222,6 +222,13 @@ sub Create
         "LC_CTYPE='C' LC_COLLATE='C'"
     );
 
+    # We frequently use DateTime->now to populate 'TIMESTAMP WITH TIME ZONE'
+    # columns in the code. DateTime->now outputs 'floating' UTC by default, but
+    # doesn't encode any timezone info in its output, so the database must have
+    # its timezone set to UTC in order to correctly interpret those values.
+    $system_sql->auto_commit;
+    $system_sql->do("ALTER DATABASE $dbname SET timezone TO 'UTC'");
+
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
     my $sys_db = Databases->get($sysname);
