@@ -167,13 +167,11 @@ NEXT_PACKET:
 
 my $iNextReplicationSequence = $iReplicationSequence + 1;
 my $file = "replication-$iNextReplicationSequence.tar.bz2";
-my $uriprefix = '';
 if ($period ne 'hourly') {
     $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
-    $uriprefix = "$period/";
 }
 
-my $url = "$baseuri/$uriprefix$file?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
+my $url = "$baseuri/$file?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
 my $localfile = "$tmpdir/$file";
 
 my $resp = retrieve_remote_file($url, $localfile);
@@ -187,8 +185,7 @@ else {
     if ($catchup) {
         print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
         $file = "replication-$iNextReplicationSequence.tar.bz2";
-        $uriprefix = '';
-        $url = "$baseuri/$uriprefix$file";
+        $url = "$baseuri/$file";
         $localfile = "$tmpdir/$file";
         $resp = retrieve_remote_file($url, $localfile);
     }
