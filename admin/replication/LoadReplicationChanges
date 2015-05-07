@@ -100,6 +100,10 @@ EOF
 usage(), exit if $fHelp;
 usage(), exit 2 if @ARGV;
 
+my $token = DBDefs->REPLICATION_ACCESS_TOKEN;
+die "Invalid or missing REPLICATION_ACCESS_TOKEN in DBDefs.pm -- Get one at https://metabrainz.org"
+    if (!($token =~ /^[a-zA-Z0-9]{40}$/))
+
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
 # Get a lock so we don't run multiple instances in parallel
