@@ -69,7 +69,7 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # the replication packets. Enter the access token below:
 # NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
 #
-# sub REPLICATION_ACCESS_TOKEN { "" }
+sub REPLICATION_ACCESS_TOKEN { "" }
 
 ################################################################################
 # GPG Signature

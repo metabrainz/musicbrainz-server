@@ -102,7 +102,7 @@ usage(), exit 2 if @ARGV;
 
 my $token = DBDefs->REPLICATION_ACCESS_TOKEN;
 die "Invalid or missing REPLICATION_ACCESS_TOKEN in DBDefs.pm -- Get one at https://metabrainz.org"
-    if (!($token =~ /^[a-zA-Z0-9]{40}$/))
+    if (!($token =~ /^[a-zA-Z0-9]{40}$/));
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
@@ -175,7 +175,7 @@ if ($period ne 'hourly') {
     $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
 }
 
-my $url = "$baseuri/$file?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
+my $url = "$baseuri/$file";
 my $localfile = "$tmpdir/$file";
 
 my $resp = retrieve_remote_file($url, $localfile);
@@ -375,12 +375,14 @@ sub retrieve_remote_file {
 
     # Fetch the file and inform the user about what is being done
     print localtime() . " : Downloading $url to $file\n";
-    my $f_resp = $ua->mirror($url, $file);
+
+    my $url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
+    my $f_resp = $ua->mirror($url_token, $file);
 
     return $f_resp unless $fVerifySig;
 
     # Identify signature URL and Local filename
-    $url .= '.asc';
+    $url .= '.asc?token=' . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
     my $signature = $file . '.asc';
 
     # Fetch file signature and inform the user about what is being done
