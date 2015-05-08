@@ -118,26 +118,6 @@ END; -%]
     END;
 END -%]
 
-[%~ MACRO comma_list(items) BLOCK -%]
-    [% IF items.size == 1 %]
-        [% items.0 %]
-    [% ELSE %]
-        [%- output = l('{almost_last_list_item} and {last_list_item}', {last_list_item => items.last, almost_last_list_item => items.reverse.slice(1).first}) -%]
-        [%- FOREACH item IN items.reverse.slice(2) -%]
-            [%- output = l('{list_item}, {rest}', {list_item => item, rest => output}) -%]
-        [%- END -%]
-        [%- output -%]
-    [% END %]
-[%- END -%]
-
-[%~ MACRO comma_only_list(items) BLOCK -%]
-    [%- output = l('{last_list_item}', {last_list_item => items.last}) -%]
-    [%- FOREACH item IN items.reverse.slice(1) -%]
-        [%- output = l('{commas_only_list_item}, {rest}', {commas_only_list_item => item, rest => output}) -%]
-    [%- END -%]
-    [%- output -%]
-[%- END -%]
-
 [%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
 [%~ MACRO get_plural_type(entity)
     SWITCH entity;
@@ -438,7 +418,8 @@ END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text, credited_as) BLOCK;
     link_entity(area, action, text, credited_as);
-    IF link_area_containment(area); ', ' _ link_area_containment(area); END;
+    containment_link = link_area_containment(area);
+    IF containment_link; ', ' _ containment_link; END;
 END -%]
 
 [%~ MACRO link_place(place, action, text) BLOCK;
@@ -1018,6 +999,13 @@ END -%]
       ELSIF cardinality == 1; l('Many relationships');
       ELSE; l('Unknown');
   END %] ([% cardinality %])
+[%~ END ~%]
+
+[%~ MACRO orderable_direction_name(direction) BLOCK ~%]
+  [%~ IF direction == 0; l('None');
+      ELSIF direction == 1; l('Forward');
+      ELSIF direction == 2; l('Backward');
+  END %] ([% direction %])
 [%~ END ~%]
 
 [%~ USE Canonicalize ~%]

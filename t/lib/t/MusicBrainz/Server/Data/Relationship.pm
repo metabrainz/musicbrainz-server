@@ -121,6 +121,23 @@ EOSQL
     is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
 };
 
+test 'Don\'t consider relationships with different link orders to be the same' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
+
+    my $exists = $c->model('Relationship')->exists('artist', 'recording', {
+        entity0_id => 1,
+        entity1_id => 1,
+        link_order => 1,
+        link_type_id => 1,
+        attributes => [{ type => { id => 4 } }],
+    });
+
+    ok(!$exists, 'relationship with different link order is not the same');
+};
+
 test 'Entity credits are merged' => sub {
     my $test = shift;
     my $c = $test->c;

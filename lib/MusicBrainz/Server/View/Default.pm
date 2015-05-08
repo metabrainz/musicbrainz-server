@@ -48,4 +48,24 @@ sub process
     return 1;
 }
 
+sub comma_list {
+    my ($self, $c, $items) = @_;
+
+    if (ref($items) ne 'ARRAY') {
+        $items = [$items];
+    }
+
+    MusicBrainz::Server::Translation::comma_list(@$items);
+}
+
+sub comma_only_list {
+    my ($self, $c, $items) = @_;
+
+    if (ref($items) ne 'ARRAY') {
+        $items = [$items];
+    }
+
+    MusicBrainz::Server::Translation::comma_only_list(@$items);
+}
+
 1;

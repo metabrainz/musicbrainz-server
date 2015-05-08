@@ -83,7 +83,7 @@ sub RunSQLScript
     my $stdout;
     my $quiet;
 
-    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema . ",public";
+    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz,public";
     $ENV{"PGPASSWORD"} = $db->password;
 
     if ($fVerbose)
@@ -113,7 +113,7 @@ sub RunSQLScript
 sub HasPLPerlSupport
 {
     my $mb = Databases->get_connection('READWRITE');
-    my $mb_no_schema = $mb->meta->clone_object($mb, database => $mb->database->meta->clone_object($mb->database, schema => ''));
+    my $mb_no_schema = $mb->meta->clone_object($mb, database => $mb->database->meta->clone_object($mb->database));
     my $sql = Sql->new( $mb_no_schema->conn );
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
 }
@@ -235,7 +235,7 @@ sub Create
     print "\nFailed to create language plperlu -- it's likely to be already installed, continuing.\n" if ($? >> 8);
 
     # Set the default search path for the READWRITE and READONLY users
-    my $search_path = $db->schema . ", public";
+    my $search_path = "musicbrainz, public";
 
     if (my $READONLY = Databases->get('READONLY')) {
         _set_search_path($system_sql, $READONLY->username, $search_path);
@@ -263,7 +263,7 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $DB->password;
 
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
-        for ($DB->schema, 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
+        for ('musicbrainz', 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
     die "\nFailed to create schema\n" if ($? >> 8);
 
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
@@ -303,6 +303,9 @@ sub CreateRelations
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
     RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
+
+    RunSQLScript($DB, "CreateSlaveIndexes.sql", "Creating slave-only indexes ...")
+        if $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
@@ -484,8 +487,7 @@ my $DB = Databases->get($databaseName);
 my $SYSTEM = Databases->get("SYSTEM");
 my $SYSMB  = $SYSTEM->meta->clone_object(
     $SYSTEM,
-    database => $DB->database,
-    schema => $DB->schema
+    database => $DB->database
 );
 Databases->register_database("SYSMB", $SYSMB);
 

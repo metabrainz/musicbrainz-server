@@ -295,8 +295,17 @@ my @group_private = qw(
     autoeditor_election_vote
     editor
     editor_collection
+    editor_collection_area
+    editor_collection_artist
     editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
     editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_work
     editor_language
     editor_oauth_token
     editor_preference
@@ -447,7 +456,7 @@ use MusicBrainz::Server::Context;
 use Sql;
 
 # Log in to the main DB
-my $c = MusicBrainz::Server::Context->new;
+my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = Sql->new($c->conn);
 my $dbh = $c->dbh;
 

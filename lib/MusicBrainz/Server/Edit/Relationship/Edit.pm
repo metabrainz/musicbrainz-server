@@ -358,13 +358,14 @@ sub initialize
         if $self->c->model('Relationship')->exists(
             $new_link_type->entity0_type,
             $new_link_type->entity1_type, {
-            link_type_id    => $new_link_type->id,
-            begin_date      => $opts{begin_date},
-            end_date        => $opts{end_date},
-            ended           => $opts{ended},
-            attributes      => $opts{attributes},
-            entity0_id      => $new_entity0->id,
-            entity1_id      => $new_entity1->id,
+            link_type_id => $new_link_type->id,
+            begin_date   => $opts{begin_date},
+            end_date     => $opts{end_date},
+            ended        => $opts{ended},
+            attributes   => $opts{attributes},
+            entity0_id   => $new_entity0->id,
+            entity1_id   => $new_entity1->id,
+            link_order   => $relationship->link_order,
             entity0_credit  => $opts{entity0_credit},
             entity1_credit  => $opts{entity1_credit},
         });
@@ -436,6 +437,7 @@ sub accept
         begin_date      => $data->{new}{begin_date}     // $relationship->link->begin_date,
         end_date        => $data->{new}{end_date}       // $relationship->link->end_date,
         ended           => $data->{new}{ended}          // $relationship->link->ended,
+        link_order   => $relationship->link_order,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

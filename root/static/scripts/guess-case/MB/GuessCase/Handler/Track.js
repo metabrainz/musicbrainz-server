@@ -100,17 +100,11 @@ MB.GuessCase.Handler.Track = function () {
      * in the common word handlers.
      *
      * - Handles FeaturingArtistStyle
-     * - Handles VersusStyle
-     * - Handles VolumeNumberStyle
-     * - Handles PartNumberStyle
      *
      **/
     self.doWord = function () {
         if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
-        } else if (self.doVersusStyle()) {
-        } else if (self.doVolumeNumberStyle()) {
-        } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
         } else {
             if (gc.i.matchCurrentWord(/7in/i)) {

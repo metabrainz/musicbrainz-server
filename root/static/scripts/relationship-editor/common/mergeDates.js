@@ -3,19 +3,30 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
+var ko = require('knockout');
+var nonEmpty = require('../../edit/utility/nonEmpty');
+var parseIntegerOrNull = require('../../edit/utility/parseIntegerOrNull');
+
+function conflict(a, b, prop) {
+    return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];
+}
+
+var unwrapInteger = _.flow(ko.unwrap, parseIntegerOrNull);
+
 function mergeDates(a, b) {
-    var ay = a.year(), am = a.month(), ad = a.day();
-    var by = b.year(), bm = b.month(), bd = b.day();
+    a = _.mapValues(a, unwrapInteger);
+    b = _.mapValues(b, unwrapInteger);
 
-    var yConflict = ay && by && ay !== by;
-    var mConflict = am && bm && am !== bm;
-    var dConflict = ad && bd && ad !== bd;
-
-    if (yConflict || mConflict || dConflict) {
+    if (conflict(a, b, 'year') || conflict(a, b, 'month') || conflict(a, b, 'day')) {
         return null;
     }
 
-    return { year: ay || by, month: am || bm, day: ad || bd };
+    return {
+        year:  nonEmpty(a.year)  ? a.year  : b.year,
+        month: nonEmpty(a.month) ? a.month : b.month,
+        day:   nonEmpty(a.day)   ? a.day   : b.day
+    };
 }
 
 module.exports = mergeDates;

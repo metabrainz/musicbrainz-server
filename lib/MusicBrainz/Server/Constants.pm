@@ -849,8 +849,17 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     editor_collection
+    editor_collection_area
+    editor_collection_artist
     editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
     editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_work
     editor_collection_type
     medium
     medium_cdtoc

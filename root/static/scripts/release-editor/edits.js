@@ -141,7 +141,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
             });
 
             var newMediums = release.mediums();
-            var newPositions = _.invoke(release.mediums(), "position");
+            var newPositions = _.invoke(newMediums, "position");
             var tmpPositions = [];
 
             _.each(newMediums, function (medium) {
@@ -323,6 +323,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
                     );
                 }
             });
+
             return edits;
         },
 
@@ -335,7 +336,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 
             var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
 
-            _(allLinks).each(function (link) {
+            _.each(allLinks, function (link) {
                 if (!link.type || !link.url) {
                     return;
                 }
@@ -589,7 +590,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 
                         medium.original(currentData);
                     }
-                });
+                }).value();
 
                 release.mediums.original(release.existingMediumData());
                 release.mediums.notifySubscribers(newMediums);

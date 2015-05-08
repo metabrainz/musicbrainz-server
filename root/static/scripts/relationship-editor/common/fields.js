@@ -5,6 +5,7 @@
 
 var i18n = require('../../common/i18n.js');
 var request = require('../../common/utility/request.js');
+var linkPhrase = require('../../edit/utility/linkPhrase');
 var dates = require('../../edit/utility/dates.js');
 var mergeDates = require('./mergeDates.js');
 
@@ -69,13 +70,15 @@ var mergeDates = require('./mergeDates.js');
             // that depends on 'attributes' being an observableArray.
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
-                _.defer(function () {
-                    if (!removingInvalidAttributes && newAttributes === self.attributes.peek()) {
-                        removingInvalidAttributes = true;
-                        self.attributes(validAttributes(self, newAttributes));
-                        removingInvalidAttributes = false;
-                    }
-                });
+                if (!removingInvalidAttributes) {
+                    _.defer(function () {
+                        if (newAttributes === self.attributes.peek()) {
+                            removingInvalidAttributes = true;
+                            self.attributes(validAttributes(self, newAttributes));
+                            removingInvalidAttributes = false;
+                        }
+                    });
+                }
             });
 
             this.linkOrder = ko.observable(data.linkOrder || 0);
@@ -285,66 +288,8 @@ var mergeDates = require('./mergeDates.js');
             return "";
         },
 
-        _phraseRegex: /\{(.*?)(?::(.*?))?\}/g,
-
         _phraseAndExtraAttributes: function () {
-            var attributes = this.attributes();
-            var attributesByName = {};
-
-            for (var i = 0, len = attributes.length; i < len; i++) {
-                var attribute = attributes[i];
-                var type = attribute.type;
-                var value = type.l_name;
-
-                if (type.freeText) {
-                    value = _.str.clean(attribute.textValue());
-
-                    if (value) {
-                        value = i18n.l("{attribute}: {value}", {
-                            attribute: type.l_name, value: value
-                        });
-                    }
-                }
-
-                if (type.creditable) {
-                    var credit = _.str.clean(attribute.creditedAs());
-
-                    if (credit) {
-                        value = i18n.l("{attribute} [{credited_as}]", {
-                            attribute: type.l_name, credited_as: credit
-                        });
-                    }
-                }
-
-                if (value) {
-                    var rootName = type.root.name;
-                    (attributesByName[rootName] = attributesByName[rootName] || []).push(value);
-                }
-            }
-
-            var extraAttributes = _.clone(attributesByName);
-
-            function interpolate(match, name, alts) {
-                var values = attributesByName[name] || [];
-                delete extraAttributes[name];
-
-                var replacement = i18n.commaList(values)
-
-                if (alts && (alts = alts.split("|"))) {
-                    replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || "";
-                }
-
-                return replacement;
-            }
-
-            var typeInfo = this.linkTypeInfo();
-            var regex = this._phraseRegex;
-
-            return [
-                typeInfo ? _.str.clean(typeInfo.phrase.replace(regex, interpolate)) : "",
-                typeInfo ? _.str.clean(typeInfo.reversePhrase.replace(regex, interpolate)) : "",
-                i18n.commaList(_.flatten(_.values(extraAttributes)))
-            ];
+            return linkPhrase.interpolate(this.linkTypeID(), this.attributes());
         },
 
         linkPhrase: function (source) {
@@ -418,24 +363,40 @@ var mergeDates = require('./mergeDates.js');
             return true;
         },
 
+        _moveEntity: function (offset) {
+            var vm = this.parent;
+            var relationships = vm.source.getRelationshipGroup(this.linkTypeID(), vm);
+            var index = _.indexOf(relationships, this);
+            var newIndex = index + offset;
+
+            if (newIndex >= 0 && newIndex <= relationships.length - 1) {
+                var other = relationships[newIndex];
+                relationships[newIndex] = this;
+                relationships[index] = other;
+
+                _.each(relationships, function (r, i) {
+                    r.linkOrder(i + 1);
+                });
+            }
+        },
+
         moveEntityUp: function () {
-            this.linkOrder(Math.max(this.linkOrder() - 1, 0));
+            this._moveEntity(-1);
         },
 
         moveEntityDown: function () {
-            this.linkOrder(this.linkOrder() + 1);
+            this._moveEntity(1);
         },
 
         showLinkOrder: function (source) {
-            return this.entityIsOrdered(this.target(source)) &&
-                    (source.entityType !== "series" ||
-                     +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
+            return this.linkOrder() > 0 && this.entityCanBeReordered(this.target(source));
         },
 
         isDuplicate: function (other) {
             return (
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
+                this.linkOrder() == other.linkOrder() &&
                 _.isEqual(this.entities(), other.entities()) &&
                 mergeDates(this.period.beginDate, other.period.beginDate) &&
                 mergeDates(this.period.endDate, other.period.endDate) &&

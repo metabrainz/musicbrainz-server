@@ -163,7 +163,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
             linkTypeID: 154,
             attributes: ids2attrs([1, 69, 75, 109, 302]),
             expected: "contains additional samples by",
-            expectedExtra: "strings, guitars, lyre and plucked string instruments"
+            expectedExtra: "lyre, guitars, strings, plucked string instruments"
         },
         // MBS-6129
         {
@@ -838,7 +838,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: loveMeDo
+        sourceData: _.cloneDeep(loveMeDo)
     });
 
     var relationship = vm.source.relationships()[0];
@@ -869,8 +869,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: loveMeDo,
-        formName: "edit-recording"
+        sourceData: loveMeDo
     });
 
     var relationship = vm.source.relationships()[0];
@@ -883,4 +882,23 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     );
 
     t.equal(relationship.attributes().length, 1, "invalid attribute not added");
+});
+
+relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
+    t.plan(1);
+
+    var sourceData = _.cloneDeep(loveMeDo);
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: sourceData
+    });
+
+    var relationship = vm.source.relationships()[0];
+
+    var newRelationship = vm.getRelationship(
+        _.assign(_.clone(sourceData.relationships[0]), { linkOrder: 1 }),
+        vm.source
+    );
+
+    t.ok(!newRelationship.isDuplicate(relationship));
 });

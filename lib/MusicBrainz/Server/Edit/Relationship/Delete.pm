@@ -22,7 +22,6 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_l("Remove relationship") }
@@ -280,6 +279,35 @@ sub editor_may_edit {
 
     my $lt = $opts->{relationship}->link->type;
     return $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
+}
+
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $editor = $self->editor // $self->c->model('Editor')->get_by_id($self->editor_id);
+    my $conditions = $self->$orig(@args);
+    $conditions->{auto_edit} = $self->_editor_may_auto_edit($editor) ? 1 : 0;
+
+    return $conditions;
+};
+
+around editor_may_approve => sub {
+    my ($orig, $self, $editor) = @_;
+
+    return $self->is_open && ($self->_editor_may_auto_edit($editor) || $self->$orig($editor));
+};
+
+sub _editor_may_auto_edit {
+    my ($self, $editor) = @_;
+
+    if ($editor->is_auto_editor) {
+        my $lt = $self->data->{relationship}{link}{type};
+
+        # MBS-8332
+        return $lt->{entity0_type} eq 'url' || $lt->{entity1_type} eq 'url';
+    }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

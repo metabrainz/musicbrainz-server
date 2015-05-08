@@ -3,25 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-function empty(value) {
-    return value === null || value === undefined || value === "";
-}
+var nonEmpty = require('./nonEmpty');
+var parseInteger = require('./parseInteger');
+var parseIntegerOrNull = require('./parseIntegerOrNull');
 
 var daysInMonth = {
     "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 };
 
-var numberRegex = /^[0-9]+$/;
-
-function parseNumber(num) {
-    return numberRegex.test(num) ? parseInt(num, 10) : NaN;
-}
-
 exports.isDateValid = function (y, m, d) {
-    y = empty(y) ? null : parseNumber(y);
-    m = empty(m) ? null : parseNumber(m);
-    d = empty(d) ? null : parseNumber(d);
+    y = nonEmpty(y) ? parseInteger(y) : null;
+    m = nonEmpty(m) ? parseInteger(m) : null;
+    d = nonEmpty(d) ? parseInteger(d) : null;
 
     // We couldn't parse one of the fields as a number.
     if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
@@ -61,17 +55,12 @@ exports.isDatePeriodValid = function (a, b) {
 
 var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
 
-function parseDatePart(str) {
-    var n = parseInt(str, 10);
-    return isNaN(n) ? null : n;
-}
-
 exports.parseDate = function (str) {
     var match = str.match(dateRegex) || [];
     return {
-        year: parseDatePart(match[1]),
-        month: parseDatePart(match[2]),
-        day: parseDatePart(match[3])
+        year: parseIntegerOrNull(match[1]),
+        month: parseIntegerOrNull(match[2]),
+        day: parseIntegerOrNull(match[3])
     };
 };
 
@@ -81,8 +70,8 @@ exports.formatDate = function (date) {
     var d = ko.unwrap(date.day);
 
     return (
-        (!empty(y) ? (y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
-                   : (m || d ? "????" : "")) +
+        (nonEmpty(y) ? (y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
+                     : (m || d ? "????" : "")) +
         (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
         (d ? "-" + _.str.pad(d, 2, "0") : "")
     );

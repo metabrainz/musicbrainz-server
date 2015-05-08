@@ -428,8 +428,8 @@ sub exists {
 
     $self->_check_types($type0, $type1);
 
-    my @props = qw(entity0 entity1 link);
-    my @values = ($values->{entity0_id}, $values->{entity1_id});
+    my @props = qw(entity0 entity1 link_order link);
+    my @values = @{$values}{qw(entity0_id entity1_id link_order)};
 
     push @values, $self->c->model('Link')->find({
         link_type_id => $values->{link_type_id},
