@@ -64,7 +64,7 @@ requires 'JSON::XS'                                   => '2.32';
 requires 'List::AllUtils'                             => '0.02';
 requires 'List::MoreUtils'                            => '0.33';
 requires 'List::UtilsBy'                              => '0.08';
-required 'LWP::Protocol::https';
+requires 'LWP::Protocol::https';
 requires 'Log::Dispatch'                              => '2.29';
 requires 'Math::Random::Secure'                       => '0.06';
 requires 'Method::Signatures::Simple'                 => '1.02';
