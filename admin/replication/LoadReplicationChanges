@@ -79,7 +79,7 @@ Usage: LoadReplicationChanges [options]
     --lockfile=FILE    use FILE as the lock file to prevent us running in
                        parallel (default: $deflockfile)
     --base-uri=URI     load the replication data from this location
-                       (default: from data.musicbrainz.org via HTTP)
+                       (default: from metabrainz.org via HTTP)
     --process-arg=ARG  Add ARG to each invocation of ProcessReplicationChanges.
                        If required, ARG can be an option (e.g.
                        --process-arg=--debug-xact).  Add --process-arg=ARG
