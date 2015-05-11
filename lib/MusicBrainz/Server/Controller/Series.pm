@@ -14,7 +14,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Series',
     entity_name     => 'series',
-    relationships   => { cardinal => ['edit'], subset => { show => ['artist', 'url'] }, default => ['url'] },
+    relationships => {
+        cardinal => ['edit'],
+        subset => {show => ['artist', 'series', 'url']},
+        default => ['url']
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
