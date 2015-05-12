@@ -505,6 +505,10 @@ END -%]
     c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END -%]
 
+[%~ MACRO register_url(redirect) BLOCK;
+    c.uri_for_action('/account/register', { uri => c.req.query_params.uri || redirect || c.relative_uri });
+END -%]
+
 [%~ MACRO simple_link(url, text) BLOCK;
     INCLUDE _wrap_text options=['link'] content=text link=url;
 END -%]
