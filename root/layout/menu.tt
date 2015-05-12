@@ -113,7 +113,7 @@
         [% END %]
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li><a href="[% c.uri_for_action('/account/register') %]">[% l('Create Account') %]</a></li>
+        <li><a href="[% register_url() %]">[% l('Create Account') %]</a></li>
     [%- END -%]
 </ul>
 

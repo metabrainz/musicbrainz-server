@@ -10,7 +10,7 @@
 
     <p>
         [% l('Don\'t have an account? {uri|Create one now}!',
-            { uri => c.uri_for_action('/account/register') }) %]
+            { uri => register_url() }) %]
     </p>
 
     [%- USE r = FormRenderer(login_form) -%]
