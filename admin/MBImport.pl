@@ -107,7 +107,7 @@ EOF
 $fHelp and usage();
 @ARGV or usage();
 
-my $mb = Databases->get_connection('READWRITE');
+my $mb = Databases->get_connection('MAINTENANCE');
 my $sql = Sql->new($mb->conn);
 
 
