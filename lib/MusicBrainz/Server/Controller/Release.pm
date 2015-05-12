@@ -18,6 +18,9 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}, cover_art => {copy_stash => ['cover_art']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name     => 'release'
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
@@ -63,8 +66,7 @@ namespace
 
 sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
     $c->model('Release')->load_meta($release);
@@ -122,31 +124,10 @@ before show => sub {
 after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
            show collections details discids tags )] => sub {
     my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->contains_entity('release', $collection->id, $release->id));
-        }
-    }
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $release->id);
-
-    $c->stash(
-        collections => \@collections,
-        containment => \%containment,
-        all_collections => \@all_collections,
-    );
+    $self->_stash_collections($c);
 };
 
-sub discids : Chained('load')
-{
+sub discids : Chained('load') {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -188,8 +169,7 @@ Given a TOC, carry out a fuzzy TOC lookup and display the matches in a table
 
 =cut
 
-sub medium_sort
-{
+sub medium_sort {
     ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
         or
     ($a->medium->release->release_group->primary_type_id || 99) <=> ($b->medium->release->release_group->primary_type_id || 99)
@@ -203,23 +183,18 @@ sub medium_sort
     ($a->medium->release->date->day || 31) <=> ($b->medium->release->date->day || 31)
 }
 
-sub lookup : Local
-{
+sub lookup : Local {
     my ($self, $c) = @_;
 
     my $toc = $c->req->query_params->{toc};
     $c->stash->{toc} = $toc;
 
     my $results = $c->model('DurationLookup')->lookup($toc, DURATION_LOOKUP_RANGE);
-    if (defined $results)
-    {
+    if (defined $results) {
         $c->model('Release')->load(map { $_->medium } @{$results});
-        if (scalar(@{$results}) == 1)
-        {
+        if (scalar(@{$results}) == 1) {
              $c->response->redirect($c->uri_for("/release/" . $results->[0]->medium->release->gid));
-        }
-        else
-        {
+        } else {
             $c->model('ReleaseGroup')->load(map { $_->medium->release } @{$results});
             $c->model('ReleaseGroupType')->load(map { $_->medium->release->release_group } @{$results});
             $c->model('ReleaseStatus')->load(map { $_->medium->release } @{$results});
@@ -228,9 +203,7 @@ sub lookup : Local
             my @sorted = sort medium_sort @{$results};
             $c->stash->{results} = \@sorted;
         }
-    }
-    else
-    {
+    } else {
         $c->stash->{results} = [];
     }
 }
@@ -241,16 +214,14 @@ Duplicate a release into the add release editor
 
 =cut
 
-sub duplicate : Chained('load')
-{
+sub duplicate : Chained('load') {
     my ($self, $c) = @_;
     $c->forward('/user/login');
     $c->forward('_load_related');
     $c->forward('/release_editor/duplicate_release');
 }
 
-sub _load_related : Private
-{
+sub _load_related : Private {
     my ($self, $c) = @_;
 
     my $release = $self->entity;
@@ -265,8 +236,7 @@ Rate a release
 
 =cut
 
-sub rating : Chained('load') Args(2)
-{
+sub rating : Chained('load') Args(2) {
     my ($self, $c, $entity, $new_vote) = @_;
     #Need more validation here
 
@@ -275,8 +245,7 @@ sub rating : Chained('load') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-sub change_quality : Chained('load') PathPart('change-quality') Edit
-{
+sub change_quality : Chained('load') PathPart('change-quality') Edit {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
     $self->edit_action(
@@ -292,46 +261,13 @@ sub change_quality : Chained('load') PathPart('change-quality') Edit
     );
 }
 
-=head2 collections
-
-View a list of collections that this release has been added to.
-
-=cut
-
-sub collections : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('release', $c->stash->{release}->id);
-    my @public_collections;
-    my $private_collections = 0;
-
-    # Keep public collections;
-    # count private collection
-    foreach my $collection (@all_collections) {
-        push(@public_collections, $collection)
-            if ($collection->{'public'} == 1);
-        $private_collections++
-            if ($collection->{'public'} == 0);
-    }
-
-    $c->model('Editor')->load(@public_collections);
-
-    $c->stash(
-        public_collections => \@public_collections,
-        private_collections => $private_collections,
-    );
-}
-
-sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
-{
+sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
     my ($self, $c) = @_;
 
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit
-{
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit {
     my ($self, $c) = @_;
 
     my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
@@ -345,8 +281,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
 }
 
-sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
-{
+sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
     my $json = JSON::Any->new( utf8 => 1 );
@@ -410,8 +345,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
     }
 }
 
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
-{
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
 
@@ -607,16 +541,14 @@ around _merge_submit => sub {
 
     if ($c->model('Release')->can_merge(%merge_opts)) {
         $self->$orig($c, $form, $entities);
-    }
-    else {
+    } else {
         $form->field('merge_strategy')->add_error(
             l('This merge strategy is not applicable to the releases you have selected.')
         );
     }
 };
 
-sub _merge_load_entities
-{
+sub _merge_load_entities {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_related_info(@releases);
@@ -627,8 +559,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     create_edit_type => $EDIT_RELEASE_CREATE,
 };
 
-sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
-{
+sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit {
     my ($self, $c, $id) = @_;
 
     my $entity = $c->stash->{entity};

@@ -31,6 +31,7 @@
     </tr>
   </thead>
   <tbody>
+    [% DEFAULT events=entities %]
     [%~ FOR event IN events ~%]
     <tr class="[% loop.parity %]">
       [%~ IF c.user_exists AND checkboxes ~%]
