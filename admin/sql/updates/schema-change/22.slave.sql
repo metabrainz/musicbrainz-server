@@ -4,6 +4,7 @@
 -- 20150317-medium-name-not-null.sql
 -- 20150331-relationship-credits.sql
 -- 20150429-tag-upvote.sql
+-- 20150403-drop-empty-functions.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 --------------------------------------------------------------------------------
@@ -555,5 +556,16 @@ ALTER TABLE release_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
 ALTER TABLE release_group_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
 ALTER TABLE series_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
 ALTER TABLE work_tag_raw ADD COLUMN is_upvote BOOLEAN NOT NULL DEFAULT TRUE;
+
+--------------------------------------------------------------------------------
+SELECT '20150403-drop-empty-functions.sql';
+
+DROP FUNCTION IF EXISTS empty_artists();
+DROP FUNCTION IF EXISTS empty_events();
+DROP FUNCTION IF EXISTS empty_labels();
+DROP FUNCTION IF EXISTS empty_places();
+DROP FUNCTION IF EXISTS empty_release_groups();
+DROP FUNCTION IF EXISTS empty_series();
+DROP FUNCTION IF EXISTS empty_works();
 
 COMMIT;
