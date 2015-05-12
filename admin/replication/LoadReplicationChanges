@@ -376,18 +376,19 @@ sub retrieve_remote_file {
     # Fetch the file and inform the user about what is being done
     print localtime() . " : Downloading $url to $file\n";
 
-    my $url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
-    my $f_resp = $ua->mirror($url_token, $file);
+    my $f_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
+    my $f_resp = $ua->mirror($f_url_token, $file);
 
     return $f_resp unless $fVerifySig;
 
     # Identify signature URL and Local filename
-    $url .= '.asc?token=' . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN); 
+    $url .= '.asc';
     my $signature = $file . '.asc';
 
     # Fetch file signature and inform the user about what is being done
     print localtime() . " : Downloading $url to $signature\n";
-    my $s_resp = $ua->mirror($url, $signature);
+    my $s_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
+    my $s_resp = $ua->mirror($s_url_token, $signature);
 
     return $f_resp;
 }
