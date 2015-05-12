@@ -7,7 +7,7 @@
     
         [%- USE r = FormRenderer(tag_form) -%]
         <form action="[% c.req.uri %]" method="post">
-            <p>[% l('Please enter tags in the text area below. Tags are comma separated (see the {tagdocs|documentation for tags}).',
+            <p>[% l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
                      { tagdocs => doc_link('Folksonomy_Tagging') }) %]</p>
             <p>[% r.textarea('tags', { cols => 50, rows => 5 }) %]</p>
             [% form_submit(l('Submit tags')) %]
