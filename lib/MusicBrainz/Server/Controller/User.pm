@@ -294,9 +294,11 @@ sub collections : Chained('load') PathPart('collections')
     my $user = $c->stash->{user};
 
     my $show_private = $c->stash->{viewing_own_profile};
+    my $no_collections = 1;
 
     for my $entity_type (entities_with('collections')) {
         my @collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, $entity_type);
+        $no_collections = 0 if ($no_collections && @collections);
 
         $c->model('Collection')->load_entity_count(@collections);
         $c->model('CollectionType')->load(@collections);
@@ -308,7 +310,7 @@ sub collections : Chained('load') PathPart('collections')
         }
         $c->stash->{collections}{$entity_type} = \@collections;
     }
-    $c->stash(user => $user);
+    $c->stash(user => $user, no_collections => $no_collections);
 }
 
 sub profile : Chained('load') PathPart('') HiddenOnSlaves
