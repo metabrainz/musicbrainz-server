@@ -109,62 +109,30 @@ def test():
 
 def production():
     """
-    To upgrade the servers, first take them out of the load balancer one by
-    one. Then, use Fabric to update them:
+    To upgrade an individual server, run:
 
-    fab production
+    fab -H host production
 
-    You will be prompted to check you wish to continue, and then prompted for a
-    server to update. The Fabric deployment script will take care of taking the
-    service down, running a Git pull (and running the rest of
-    production-deploy.sh) and then bring the service back up.
+    The Fabric deployment script will pull the server-configs repository, do
+    a Chef provision, send SIGHUP to the musicbrainz-server and
+    musicbrainz-ws services, and wait 30 seconds for them to restart.
 
-    It will attempt to check that the server started correctly by looking at the
-    tail of the log and also doing a curl against localhost.
+    It will attempt to check that the server started correctly by checking
+    for "plackup" processes and also doing a wget against localhost.
     """
-    puts("Checking if the server is quiet (expecting no requests in 5 second window)")
-    with settings( hide("stdout") ):
-        t1 = run("tail /var/log/nginx/001-musicbrainz.access.log")
-        sleep(5)
-        t2 = run("tail /var/log/nginx/001-musicbrainz.access.log")
 
-    if t1 != t2:
-        puts(red("The server does NOT appear to be quiet!"))
-        cont = prompt("Do you wish to proceed?", validate=r'^(yes|no)', default='no')
-        if cont == 'no':
-            abort('User does not wish to proceed')
+    sudo('git --git-dir=/root/server-configs/.git --work-tree=/root/server-configs pull origin master')
+    sudo('git --git-dir=/root/server-configs/.git --work-tree=/root/server-configs submodule update --init --recursive')
+    sudo('/root/server-configs/provision.sh')
 
-    with cd('/home/musicbrainz/musicbrainz-server'):
-        sudo("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git", user="musicbrainz")
-
-        # If there's anything uncommited this must be fixed
-        sudo("git diff --exit-code", user="musicbrainz")
-        sudo("git diff --exit-code --cached", user="musicbrainz")
-
-        old_rev = sudo("git rev-parse HEAD", user="musicbrainz")
-        sudo("git pull --ff-only", user="musicbrainz")
-        sudo("git submodule init", user="musicbrainz")
-        sudo("git submodule update", user="musicbrainz")
-        new_rev = sudo("git rev-parse HEAD", user="musicbrainz")
-
-        sql_updates = sudo("git diff --name-only %s %s -- admin/sql/updates" % (old_rev, new_rev), user="musicbrainz")
-        if sql_updates != '':
-            puts("Remember to update the following files:")
-            puts(sql_updates)
-
-    shutdown()
-    sudo("/home/musicbrainz/musicbrainz-server/admin/production-deploy.sh", user="musicbrainz")
-    sudo("svc -u /etc/service/mb_server-fastcgi")
-
-    puts("Waiting 20 seconds for server to start")
-    sleep(20)
-
-    sudo("/etc/init.d/nginx restart", pty=False)
+    sudo("svc -h /etc/service/musicbrainz-server")
+    sudo("svc -h /etc/service/musicbrainz-ws")
+    puts("Waiting 30 seconds for workers to start")
+    sleep(30)
 
     # A non-0 exit code from any of these will cause the deployment to abort
-    with settings( hide("stdout") ):
-        run("pgrep plackup")
-        run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
+    with settings(hide("stdout")):
+        run("pgrep -f plackup")
         run("wget http://localhost -O -")
 
 def reset_test():
@@ -181,9 +149,6 @@ def reset_test():
             run("git fetch")
             run("git reset --hard origin/test")
         socket_deploy()
-
-def shutdown():
-    sudo("svc -d /etc/service/mb_server-fastcgi")
 
 def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
