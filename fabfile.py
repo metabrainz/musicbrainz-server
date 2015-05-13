@@ -132,8 +132,8 @@ def production():
 
     # A non-0 exit code from any of these will cause the deployment to abort
     with settings(hide("stdout")):
-        run("pgrep -f plackup")
         run("wget http://localhost -O -")
+        run("wget http://localhost/ws/2/artist/?query=foo -O -")
 
 def reset_test():
     """
