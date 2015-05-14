@@ -14,7 +14,7 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+gender');
+MusicBrainz::Server::Test->prepare_test_database($test->c);
 
 my $gender_data = MusicBrainz::Server::Data::Gender->new(c => $test->c);
 

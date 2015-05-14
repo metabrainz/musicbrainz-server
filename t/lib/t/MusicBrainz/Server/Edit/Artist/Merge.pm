@@ -33,7 +33,6 @@ test 'Merge Person with gender into Group' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 UPDATE artist SET type = 2 WHERE id = 4;
 UPDATE artist SET type = 1, gender = 2 WHERE id = 3;

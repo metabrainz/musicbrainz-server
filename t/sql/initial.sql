@@ -1,6 +1,10 @@
 BEGIN;
 SET client_min_messages TO 'WARNING';
 
+INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL);
+INSERT INTO gender VALUES (2, 'Female', NULL, 2, NULL);
+INSERT INTO gender VALUES (3, 'Other', NULL, 3, NULL);
+
 INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL);
 INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL);
 INSERT INTO release_group_primary_type VALUES (3, 'EP', NULL, 3, NULL);

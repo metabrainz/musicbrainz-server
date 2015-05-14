@@ -36,8 +36,6 @@ INSERT INTO event_type (id, name) VALUES (1, 'Festival');
 
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
-INSERT INTO gender (id, name) VALUES (2, 'Female');
-
 INSERT INTO label_type (id, name) VALUES (1, 'Distributor');
 INSERT INTO label_type (id, name) VALUES (4, 'Original Production');
 INSERT INTO label_type (id, name) VALUES (6, 'Reissue Production');
