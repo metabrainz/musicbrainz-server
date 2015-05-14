@@ -47,7 +47,7 @@ test 'Create collection with no release set does not add release' => sub {
     $mech->field('edit-list.description', '');
     $mech->click();
 
-    $mech->content_contains("No releases found in collection.");
+    $mech->content_contains("This collection is empty.");
 
     my $tx = test_xpath_html($mech->content);
     $tx->is('//div[@id="content"]/div/h1/a', "mycollection",

@@ -18,6 +18,10 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name     => 'event',
+    method_name     => 'attendance'
+};
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE $EDIT_EVENT_DELETE $EDIT_EVENT_EDIT $EDIT_EVENT_MERGE );
 
@@ -32,8 +36,7 @@ namespace
 
 sub base : Chained('/') PathPart('event') CaptureArgs(0) { }
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $event = $c->stash->{event};
@@ -50,27 +53,7 @@ after 'load' => sub
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( show aliases attendance details tags )] => sub {
     my ($self, $c) = @_;
-
-    my $event = $c->stash->{event};
-
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this event is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'event');
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->contains_entity('event', $collection->id, $event->id));
-        }
-    }
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('event', $event->id);
-
-    $c->stash(
-        collections => \@collections,
-        containment => \%containment,
-        all_collections => \@all_collections,
-    );
+    $self->_stash_collections($c);
 };
 
 =head2 show
@@ -79,52 +62,16 @@ Shows an event's main landing page.
 
 =cut
 
-sub show : PathPart('') Chained('load')
-{
+sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
-
     my $event = $c->stash->{event};
 
     $c->model('Event')->load_performers($event);
-
     $c->stash(template => 'event/index.tt');
-
     $c->model('Relationship')->load($event->related_series);
 }
 
-=head2 attendance
-
-View a list of collections that this event has been added to.
-
-=cut
-
-sub attendance : Chained('load') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my @all_collections = $c->model('Collection')->find_all_by_entity('event', $c->stash->{event}->id);
-    my @public_collections;
-    my $private_collections = 0;
-
-    # Keep public collections;
-    # count private collection
-    foreach my $collection (@all_collections) {
-        push(@public_collections, $collection)
-            if ($collection->{'public'} == 1);
-        $private_collections++
-            if ($collection->{'public'} == 0);
-    }
-
-    $c->model('Editor')->load(@public_collections);
-
-    $c->stash(
-        public_collections => \@public_collections,
-        private_collections => $private_collections,
-    );
-}
-
-sub _merge_load_entities
-{
+sub _merge_load_entities {
     my ($self, $c, @events) = @_;
     $c->model('EventType')->load(@events);
     $c->model('Event')->load_performers(@events);

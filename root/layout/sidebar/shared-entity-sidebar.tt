@@ -101,7 +101,7 @@
                 [%~ FOREACH collection IN collections ~%]
                     <li>
                     [%~ IF containment.${collection.id} ~%]
-                        <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) ~%]">
+                        <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { $entity_type => entity.id }) ~%]">
                             [%~ IF collections.size == 1 ~%]
                                 [%~ l('Remove from my collection') ~%]
                             [%~ ELSE ~%]
@@ -109,7 +109,7 @@
                             [%~ END ~%]
                         </a>
                     [%~ ELSE ~%]
-                        <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) ~%]">
+                        <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { $entity_type => entity.id }) ~%]">
                         [%~ IF collections.size == 1 ~%]
                             [%~ l('Add to my collection') ~%]
                         [%~ ELSE ~%]
@@ -122,8 +122,8 @@
             [%~ ELSE ~%]
                 <li>[%~ l("You have no collections!") ~%]</li>
             [%~ END ~%]
-                <li><a href="[%~ c.uri_for_action("/collection/create", { release => release.id }) ~%]">[%~ l('Add to a new collection') ~%]</a></li>
-                <li>[%~ link_entity(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
+                <li><a href="[%~ c.uri_for_action("/collection/create", { $entity_type => entity.id }) ~%]">[%~ l('Add to a new collection') ~%]</a></li>
+                <li>[%~ link_entity(entity, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
                                                                all_collections.size, { num => all_collections.size }) ) ~%]</li>
             </ul>
         [%~ END ~%]

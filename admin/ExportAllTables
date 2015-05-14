@@ -236,6 +236,7 @@ my @group_derived = qw(
     artist_meta
     artist_tag
     event_annotation
+    event_meta
     event_tag
     instrument_tag
     label_annotation
@@ -319,6 +320,7 @@ my @group_private = qw(
     editor_watch_release_group_type
     editor_watch_release_status
     event_tag_raw
+    event_rating_raw
     instrument_tag_raw
     label_rating_raw
     label_tag_raw

@@ -385,7 +385,12 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                exempt => [ $VARTIST_ID, $DARTIST_ID ],
+                extra_fks => { artist_credit_name => 'artist' },
+            },
+        },
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -404,7 +409,7 @@ Readonly our %ENTITIES => (
         date_period => 1,
         ratings    => 1,
         tags       => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         collections => 1
     },
     instrument => {
@@ -444,7 +449,13 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { manual => 1, automatic => 1 }
+        removal => {
+            manual => 1,
+            automatic => {
+                exempt => [ $DLABEL_ID ],
+                extra_fks => { release_label => 'label' },
+            },
+        },
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -463,7 +474,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         tags       => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -524,7 +535,11 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                extra_fks => { release => 'release_group' },
+            },
+        },
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -542,7 +557,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         tags        => 1
     },
     url => {
@@ -568,7 +583,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     track => {
         mbid => { multiple => 1 },
@@ -667,6 +682,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_url
     edit_work
     event_tag_raw
+    event_rating_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw
@@ -737,6 +753,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     event_alias_type
     event_annotation
     event_gid_redirect
+    event_meta
     event_tag
     event_type
     gender
@@ -932,6 +949,7 @@ Readonly our @FULL_TABLE_LIST => qw(
 
     documentation.l_area_area_example
     documentation.l_area_artist_example
+    documentation.l_area_event_example
     documentation.l_area_instrument_example
     documentation.l_area_label_example
     documentation.l_area_place_example
@@ -942,6 +960,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_area_url_example
     documentation.l_area_work_example
     documentation.l_artist_artist_example
+    documentation.l_artist_event_example
     documentation.l_artist_instrument_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
@@ -951,6 +970,16 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_event_event_example
+    documentation.l_event_instrument_example
+    documentation.l_event_label_example
+    documentation.l_event_place_example
+    documentation.l_event_recording_example
+    documentation.l_event_release_example
+    documentation.l_event_release_group_example
+    documentation.l_event_series_example
+    documentation.l_event_url_example
+    documentation.l_event_work_example
     documentation.l_instrument_instrument_example
     documentation.l_instrument_label_example
     documentation.l_instrument_place_example

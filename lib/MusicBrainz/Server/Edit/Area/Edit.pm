@@ -27,6 +27,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Area';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit area') }
 sub edit_type { $EDIT_AREA_EDIT }
@@ -127,10 +128,6 @@ sub _mapping
         },
     );
 }
-
-override allow_auto_edit => sub {
-    return 1;
-};
 
 sub current_instance {
     my $self = shift;

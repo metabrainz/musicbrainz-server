@@ -41,7 +41,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
-my $databaseName = 'READWRITE';
+my $databaseName = 'MAINTENANCE';
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -56,6 +56,15 @@ my $fVerbose = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
+
+{
+    my $READWRITE = Databases->get('READWRITE');
+    my $MAINTENANCE = Databases->get('MAINTENANCE');
+
+    ($READWRITE->database eq $MAINTENANCE->database &&
+     $READWRITE->username eq $MAINTENANCE->username)
+        or die 'ERROR: READWRITE and MAINTENANCE should be identical other than the host/port';
+}
 
 sub RequireMinimumPostgreSQLVersion
 {
@@ -112,7 +121,7 @@ sub RunSQLScript
 
 sub HasPLPerlSupport
 {
-    my $mb = Databases->get_connection('READWRITE');
+    my $mb = Databases->get_connection('MAINTENANCE');
     my $mb_no_schema = $mb->meta->clone_object($mb, database => $mb->database->meta->clone_object($mb->database));
     my $sql = Sql->new( $mb_no_schema->conn );
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
@@ -120,7 +129,7 @@ sub HasPLPerlSupport
 
 sub HasEditData
 {
-    my $mb = Databases->get_connection('READWRITE');
+    my $mb = Databases->get_connection('MAINTENANCE');
     my $sql = Sql->new( $mb->conn );
     return $sql->select_single_value('SELECT TRUE FROM edit LIMIT 1');
 }
@@ -180,7 +189,7 @@ sub Create
 
     # Figure out the name of the system database
     my $sysname;
-    if ($createdb eq 'READWRITE' || $createdb eq 'READONLY')
+    if ($createdb eq 'MAINTENANCE' || $createdb eq 'READWRITE' || $createdb eq 'READONLY')
     {
         $sysname = "SYSTEM";
     }
@@ -222,6 +231,13 @@ sub Create
         "LC_CTYPE='C' LC_COLLATE='C'"
     );
 
+    # We frequently use DateTime->now to populate 'TIMESTAMP WITH TIME ZONE'
+    # columns in the code. DateTime->now outputs 'floating' UTC by default, but
+    # doesn't encode any timezone info in its output, so the database must have
+    # its timezone set to UTC in order to correctly interpret those values.
+    $system_sql->auto_commit;
+    $system_sql->do("ALTER DATABASE $dbname SET timezone TO 'UTC'");
+
     # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
     # "createlang" is simpler :-)
     my $sys_db = Databases->get($sysname);
@@ -236,12 +252,16 @@ sub Create
 
     # Set the default search path for the READWRITE and READONLY users
     my $search_path = "musicbrainz, public";
+    my $READONLY = Databases->get('READONLY');
+    my $READWRITE = Databases->get('READWRITE');
 
-    if (my $READONLY = Databases->get('READONLY')) {
+    if ($READONLY) {
         _set_search_path($system_sql, $READONLY->username, $search_path);
     }
 
-    _set_search_path($system_sql, $db->username, $search_path);
+    if (!$READONLY || $READWRITE->username ne $READONLY->username) {
+        _set_search_path($system_sql, $READWRITE->username, $search_path);
+    }
 }
 
 sub _set_search_path {
@@ -425,7 +445,8 @@ Usage: InitDb.pl [options] [file] ...
 Options are:
      --psql=PATH         Specify the path to the "psql" utility
      --postgres=NAME     Specify the name of the system user
-     --database=NAME     Specify which database to initialize (default: READWRITE)
+     --database=NAME     Specify which database to initialize
+                         (default: MAINTENANCE or READWRITE)
      --createdb          Create the database, PL/PGSQL language and user
   -i --import            Prepare the database and then import the data from
                          the given files
@@ -519,7 +540,9 @@ if ($mode eq "MODE_NO_TABLES") { } # nothing to do
 elsif ($mode eq "MODE_NO_DATA") { CreateRelations($DB, $SYSMB) }
 elsif ($mode eq "MODE_IMPORT") { CreateRelations($DB, $SYSMB, \@ARGV) }
 
-GrantSelect("READWRITE") if $databaseName eq "READWRITE";
+if ($databaseName eq 'MAINTENANCE' || $databaseName eq 'READWRITE') {
+    GrantSelect($databaseName);
+}
 
 END {
     print localtime() . " : InitDb.pl "
