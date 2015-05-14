@@ -413,6 +413,8 @@ sub validate_file_signature {
     try {
         $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
         $gpg->verify( signature => $signature, file => $file );
+        unlink $file
+            or warn "unlink $file: $!\n";
     }
 
     # Exist with and error if verification failed
