@@ -1084,6 +1084,10 @@ BEGIN
       EXECUTE delete_unused_url(ARRAY[OLD.entity1]);
     END IF;
 
+    IF TG_TABLE_NAME LIKE 'url' THEN
+      EXECUTE delete_unused_url(ARRAY[OLD.id, NEW.id]);
+    END IF;
+
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
