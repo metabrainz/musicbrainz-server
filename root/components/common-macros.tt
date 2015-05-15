@@ -247,9 +247,6 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    IF credited_as AND entity.name != credited_as;
-        '<span class="real-name" title="' _ html_escape(entity.name) _ '">*</span>';
-    END;
     disambiguation(entity) IF show_disambiguation;
 END -%]
 

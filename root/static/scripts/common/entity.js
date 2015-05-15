@@ -89,15 +89,16 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
 
         template: _.template(
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
+            "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
             "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
             "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
-            "<% if (data.creditedAs) { %><span class=\"real-name\" title=\"<%- data.name %>\">*</span><% } %>" +
             "<% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +
+            "<% if (data.nameVariation) { %></span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             {variable: "data"}
         ),
@@ -114,6 +115,7 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             var json = this.toJSON();
 
             json.entityType = json.entityType.replace("_", "-");
+            json.nameVariation = json.creditedAs && json.creditedAs !== json.name;
 
             if (this.gid) {
                 return this.template(_.extend(renderParams || {}, json));
