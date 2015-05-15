@@ -61,7 +61,7 @@ INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 2, 4, 3);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2);
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
