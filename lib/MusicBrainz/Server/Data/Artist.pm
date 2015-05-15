@@ -267,7 +267,7 @@ sub merge
     $self->annotation->merge($new_id, @$old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, $old_ids, rename_credits => $opts{rename});
 
     unless (is_special_artist($new_id)) {
         my $merge_columns = [ qw( area begin_area end_area type ) ];

@@ -25,7 +25,7 @@ INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 1, 1, 3);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2, 3);
+    $c->model('Relationship')->merge_entities('label', 1, [2, 3]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -42,7 +42,7 @@ INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 1, 3);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2);
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -80,7 +80,7 @@ INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 3, 1), (3, 2, 3, 4);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2);
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -97,7 +97,7 @@ INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 1, 1, 3);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2);
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -114,7 +114,7 @@ INSERT INTO l_artist_artist (id, link, entity0, entity1)
     VALUES (1, 3, 2, 3), (2, 4, 1, 3);
 EOSQL
 
-    $c->model('Relationship')->merge_entities('artist', 1, 2);
+    $c->model('Relationship')->merge_entities('artist', 1, [2]);
 
     my $artist = $c->model('Artist')->get_by_id(1);
     $c->model('Relationship')->load($artist);
@@ -171,7 +171,7 @@ VALUES
     (10, 1, 2, 7, '', '');
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, 2, 3);
+    $c->model('Relationship')->merge_entities('label', 1, [2, 3]);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -245,7 +245,7 @@ my $sql = $test->c->sql;
 $sql->begin;
 $sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1
-$rel_data->merge_entities('artist', 1, 2);
+$rel_data->merge_entities('artist', 1, [2]);
 $test->c->sql->commit;
 
 $artist1->clear_relationships;

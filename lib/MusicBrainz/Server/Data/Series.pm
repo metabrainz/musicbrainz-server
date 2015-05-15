@@ -81,7 +81,7 @@ sub _merge_impl {
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('series', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('series', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('series', $new_id, \@old_ids);
 
     merge_table_attributes(
         $self->sql => (

@@ -103,7 +103,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('event', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('event', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('event', $new_id, \@old_ids);
     $self->c->model('Collection')->merge_entities('event', $new_id, @old_ids);
 
     my @merge_options = ($self->sql => (
@@ -292,8 +292,8 @@ sub find_by_place
 
 =method find_related_entities
 
-This method will return a map with lists of artists and locations 
-for the given event. 
+This method will return a map with lists of artists and locations
+for the given event.
 
 =cut
 

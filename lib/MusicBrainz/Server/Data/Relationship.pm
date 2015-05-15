@@ -308,13 +308,12 @@ sub all_pairs
     return @all;
 }
 
-sub merge_entities
-{
-    my ($self, $type, $target_id, @source_ids) = @_;
+sub merge_entities {
+    my ($self, $type, $target_id, $source_ids, %opts) = @_;
 
     # Delete relationships where the start is the same as the end
     # (after merging)
-    my @ids = ($target_id, @source_ids);
+    my @ids = ($target_id, @$source_ids);
     $self->sql->do(
         "DELETE FROM l_${type}_${type} WHERE
              (entity0 IN (" . placeholders(@ids) . ')
@@ -347,7 +346,7 @@ sub merge_entities
                 FROM $table
                 LEFT JOIN link_attribute la USING (link)
                 LEFT JOIN link_attribute_text_value USING (link, attribute_type)
-                WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
+                WHERE $entity0 IN (" .placeholders($target_id, @$source_ids) .")
                 GROUP BY id, link, entity0, entity1
               ) a
               JOIN link ON (link.id = a.link)
@@ -359,8 +358,23 @@ sub merge_entities
                                                 ended)
                                            AND same_entity_dated.$entity0 = b.$entity0
                                            AND same_entity_dated.id <> b.id)
-        )", $target_id, @source_ids);
+        )", $target_id, @$source_ids);
         # Having deleted those duplicates, continue with merging by link ID
+
+        # Unless the rename_credits option is given, preserve implicit (empty)
+        # relationship credits by copying the existing entity names into them.
+        if ($type eq 'artist' && !$opts{rename_credits}) {
+            my $target_table = $self->c->model(type_to_model($type))->_main_table;
+
+            $self->sql->do(
+                "UPDATE $table SET ${entity0}_credit = target.name
+                   FROM $target_table target
+                  WHERE ${table}.${entity0}_credit = ''
+                    AND target.id = ${table}.${entity0}
+                    AND target.id = any(?)",
+                $source_ids
+            );
+        }
 
         # Entity credits on relationships to the target entity are always kept
         # if they're non-empty. If relationships to any of the source entities
@@ -382,7 +396,7 @@ sub merge_entities
                    AND $table.$prop = ''
                    AND $table.link = source.link
                    AND $table.$entity1 = source.$entity1",
-            \@source_ids, $target_id);
+            $source_ids, $target_id);
         }
 
         # We want to keep a single row for each link type, and foreign entity.
@@ -399,14 +413,14 @@ sub merge_entities
              WHERE $entity0 = any(?)
                AND $table.link = dupe.link
                AND $table.$entity1 = dupe.$entity1",
-            \@ids, \@source_ids
+            \@ids, $source_ids
         );
 
         # Move all remaining relationships
         $self->sql->do("
             UPDATE $table SET $entity0 = ?
-            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-        ", $target_id, $target_id, @source_ids);
+            WHERE $entity0 IN (" . placeholders($target_id, @$source_ids) . ")
+        ", $target_id, $target_id, @$source_ids);
     }
 }
 
