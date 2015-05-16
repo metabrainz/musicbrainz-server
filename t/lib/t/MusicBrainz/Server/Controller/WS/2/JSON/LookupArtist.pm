@@ -157,6 +157,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -172,6 +174,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -187,6 +191,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -202,6 +208,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -217,6 +225,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }],
             ipis => [],
             gender => JSON::null,

@@ -309,6 +309,8 @@ test 'recording lookup with release relationships' => sub {
                     begin => '2008',
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }
             ]
         });
@@ -345,7 +347,9 @@ test 'recording lookup with work relationships' => sub {
                         title => 'the Love Bug',
                         type => JSON::null,
                         relations => []
-                    }
+                    },
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }
             ],
         });
@@ -392,11 +396,15 @@ test 'recording lookup with work-level relationships' => sub {
                     end => undef,
                     ended => JSON::false,
                     type => 'composer',
-                    'type-id' => '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2'
+                    'type-id' => '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2',
+                    'source-credit' => '',
+                    'target-credit' => '',
                 } ],
                 title => 'Asseswaving',
                 type => undef
-            }
+            },
+            'source-credit' => '',
+            'target-credit' => '',
         } ],
         title => 'Asseswaving'
     });
