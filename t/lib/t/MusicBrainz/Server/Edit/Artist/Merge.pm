@@ -61,7 +61,7 @@ test 'Merge, renaming relationship credits' => sub {
     accept_edit($c, $edit);
 
     my $relationship = $c->model('Relationship')->get_by_id('artist', 'recording', 1);
-    is($relationship->entity0_credit, '');
+    is($relationship->entity0_credit, '', 'entity0_credit is empty, so it shows the new artist name');
 };
 
 test 'Merge, without renaming relationship credits' => sub {
@@ -74,7 +74,7 @@ test 'Merge, without renaming relationship credits' => sub {
     accept_edit($c, $edit);
 
     my $relationship = $c->model('Relationship')->get_by_id('artist', 'recording', 1);
-    is($relationship->entity0_credit, 'Old Artist');
+    is($relationship->entity0_credit, 'Old Artist', 'entity0_credit has the old artist name');
 };
 
 test all => sub {
