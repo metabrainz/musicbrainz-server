@@ -1,5 +1,5 @@
 package t::MusicBrainz::Server::Data::Relationship;
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( nsort_by );
 
 use Test::Routine;
 use Test::Moose;
@@ -148,10 +148,13 @@ INSERT INTO label (id, name, gid)
 VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f'),
        (5, 'E', '36df2c0e-c56d-43e5-a031-4049480c5a40'),
        (6, 'F', '2db8bc79-d7ec-4be5-9abe-2df3d59ead57'),
-       (7, 'G', 'a7f08565-8fd9-4770-8b07-9c4195225211');
+       (7, 'G', 'a7f08565-8fd9-4770-8b07-9c4195225211'),
+       (8, 'H', '74927808-8334-41b9-a2a1-8a58ed1926c1'),
+       (9, 'I', '85ad4aec-8320-4d7e-86f7-5a81104fd077');
 
 INSERT INTO l_label_label (id, link, entity0, entity1, entity0_credit, entity1_credit)
 VALUES
+    -- cases where the relationship already exists on the target entity:
     -- same values are kept, different values are dropped
     (1, 1, 1, 4, '', ''),
     (2, 1, 2, 4, 'kept1', 'dropped1'),
@@ -168,7 +171,16 @@ VALUES
 
     -- or cleared
     (9, 1, 1, 7, 'kept6', 'kept7'),
-    (10, 1, 2, 7, '', '');
+    (10, 1, 2, 7, '', ''),
+
+    -- cases where the relationships only exist on source entities:
+    -- same values are kept, different values are dropped
+    (11, 1, 2, 8, 'kept8', 'dropped5'),
+    (12, 1, 3, 8, 'kept8', 'dropped6'),
+
+    -- empty source values are ignored
+    (14, 1, 2, 9, 'kept9', ''),
+    (15, 1, 3, 9, '', 'kept10');
 EOSQL
 
     $c->model('Relationship')->merge_entities('label', 1, [2, 3]);
@@ -176,7 +188,7 @@ EOSQL
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
 
-    my @relationships = sort_by { $_->id } $label->all_relationships;
+    my @relationships = nsort_by { $_->id } $label->all_relationships;
     is($relationships[0]->entity0_credit, 'kept1');
     is($relationships[0]->entity1_credit, '');
     is($relationships[1]->entity0_credit, 'kept2');
@@ -185,6 +197,28 @@ EOSQL
     is($relationships[2]->entity1_credit, 'kept5');
     is($relationships[3]->entity0_credit, 'kept6');
     is($relationships[3]->entity1_credit, 'kept7');
+    is($relationships[4]->entity0_credit, 'kept8');
+    is($relationships[4]->entity1_credit, '');
+    is($relationships[5]->entity0_credit, 'kept9');
+    is($relationships[5]->entity1_credit, 'kept10');
+};
+
+test 'Duplicate relationships that only exist among source entities are merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_artist_label (id, link, entity0, entity1)
+    VALUES (1, 5, 2, 1), (2, 5, 3, 1);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('artist', 1, [2, 3]);
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    $c->model('Relationship')->load($artist);
+
+    is(scalar($artist->all_relationships), 1, 'one relationship remains');
 };
 
 test all => sub {

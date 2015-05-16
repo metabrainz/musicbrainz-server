@@ -26,6 +26,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw( entities_with );
 use Scalar::Util 'weaken';
+use List::AllUtils qw( uniq );
+use List::UtilsBy qw( partition_by );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -376,45 +378,70 @@ sub merge_entities {
             );
         }
 
-        # Entity credits on relationships to the target entity are always kept
-        # if they're non-empty. If relationships to any of the source entities
-        # have credits, they'll overwrite the credits on equivalent target
-        # relationships if, for each set of duplicate source relationships, all
-        # the non-empty credits are the same.
-        for my $prop (qw(entity0_credit entity1_credit)) {
-            $self->sql->do(
-                "WITH source AS (
-                    SELECT link, $entity1, unnest(array_agg(DISTINCT $prop)) credit
-                      FROM $table
-                     WHERE $entity0 = any(?) AND $prop != ''
-                     GROUP BY link, $entity1
-                    HAVING count(DISTINCT $prop) = 1
-                )
-                UPDATE $table SET $prop = source.credit
-                  FROM source
-                 WHERE $entity0 = ?
-                   AND $table.$prop = ''
-                   AND $table.link = source.link
-                   AND $table.$entity1 = source.$entity1",
-            $source_ids, $target_id);
-        }
+        my $credits_to_update = {};
+        my @ids_to_delete;
 
         # We want to keep a single row for each link type, and foreign entity.
-        $self->sql->do(
-            "WITH dupe AS (
-                SELECT link, $entity1
-                  FROM $table
-                 WHERE $entity0 = any(?)
-                 GROUP BY link, $entity1
+        my $dupes = $self->sql->select_list_of_hashes(
+            "SELECT * FROM $table
+             WHERE id IN (
+                SELECT unnest(array_agg(id)) FROM $table
+                WHERE $entity0 = any(?)
+                GROUP BY link, $entity1
                 HAVING count(*) > 1
-            )
-            DELETE FROM $table
-             USING dupe
-             WHERE $entity0 = any(?)
-               AND $table.link = dupe.link
-               AND $table.$entity1 = dupe.$entity1",
-            \@ids, $source_ids
+             )
+             ORDER BY $entity0 = ? DESC, id ASC",
+             \@ids, $target_id
         );
+
+        my %dupes = partition_by { join '+', @{$_}{'link', $entity1} } @$dupes;
+
+        while (my ($key, $group) = each %dupes) {
+            # If there's a duplicate relationship on the target entity, it'll
+            # always be kept due to the ORDER BY above, which is important for
+            # preserving the relationship credits.
+            my ($to_keep, @to_delete) = @$group;
+            my ($target_dupe, @source_dupes) = (undef, @$group);
+
+            if ($to_keep->{$entity0} == $target_id) {
+                $target_dupe = $to_keep;
+                @source_dupes = @to_delete;
+            }
+
+            push @ids_to_delete, map { $_->{id} } @to_delete;
+
+            for my $prop (qw(entity0_credit entity1_credit)) {
+                # Entity credits on relationships to the target entity are
+                # always kept if they're non-empty.
+                if (!$target_dupe || !$target_dupe->{$prop}) {
+                    # If relationships to any of the source entities have credits,
+                    # and all are the same value, then that value becomes the new
+                    # credit. Otherwise, an empty value is used.
+                    my @credits = uniq grep { $_ } map { $_->{$prop} } @source_dupes;
+
+                    $credits_to_update->{$prop}->{$to_keep->{id}} = scalar @credits == 1 ? $credits[0] : '';
+                }
+            }
+        }
+
+        $self->sql->do("DELETE FROM $table WHERE id = any(?)", \@ids_to_delete);
+
+        for my $prop (qw(entity0_credit entity1_credit)) {
+            my $values = $credits_to_update->{$prop};
+            if ($values) {
+                my @relationship_ids = keys %$values;
+
+                $self->sql->do(
+                    "UPDATE $table SET $prop =
+                        (SELECT $prop
+                           FROM (VALUES " . join(', ', ('(?::INTEGER, ?::TEXT)') x @relationship_ids) . ")
+                             AS x (id, $prop)
+                          WHERE x.id = $table.id)
+                     WHERE id = any(?)",
+                    %$values, \@relationship_ids
+                );
+            }
+        }
 
         # Move all remaining relationships
         $self->sql->do("
