@@ -144,18 +144,20 @@ sub _artist { _generic(@_, "artist") }
 
 sub _label { _generic(@_, "label") }
 
-sub autocomplete_release
-{
-    my ($self, $output, $pager) = @_;
+sub autocomplete_release {
+    my ($self, $results, $pager) = @_;
 
-    my @output = map $self->_release($_), @$output;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_release(shift->{entity}) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json(\@output);
+    return encode_json($output);
 }
 
 sub _release {
@@ -331,23 +333,23 @@ sub output_error
     return encode_json({ error => $err });
 }
 
-sub autocomplete_release_group
-{
+sub autocomplete_release_group {
     my ($self, $results, $pager) = @_;
 
-    my @output;
-    push @output, $self->_release_group($_) for @$results;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_release_group(shift->{entity}) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json(\@output);
+    return encode_json($output);
 }
 
-sub _release_group
-{
+sub _release_group {
     my ($self, $item) = @_;
 
     my $output = $self->_with_relationships($item, {
@@ -370,32 +372,30 @@ sub _release_group
     return $output;
 }
 
-sub autocomplete_recording
-{
+sub autocomplete_recording {
     my ($self, $results, $pager) = @_;
 
-    my @output;
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $item = shift;
+            my $out = $self->_recording($item->{entity});
 
-    for (@$results) {
-        my $out = $self->_recording( $_->{recording} );
+            $out->{appearsOn} = {
+                hits => $item->{appearsOn}{hits},
+                results => [map +{ name => $_->name, gid => $_->gid }, @{ $item->{appearsOn}{results} }],
+            };
 
-        $out->{appearsOn} = {
-            hits    => $_->{appearsOn}{hits},
-            results => [ map { {
-                'name' => $_->name,
-                'gid'  => $_->gid
-            } } @{ $_->{appearsOn}{results} } ],
-        };
+            return $out;
+        }
+    );
 
-        push @output, $out
-    }
-
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json(\@output);
+    return encode_json($output);
 }
 
 sub _recording

@@ -48,17 +48,15 @@ after _load_entities => sub {
     $c->model('ISRC')->load_for_recordings(@recordings);
 };
 
-sub _format_output {
-    my ($self, $c, @entities) = @_;
+around _format_output => sub {
+    my ($orig, $self, $c, @entities) = @_;
     my %appears_on = $c->model('Recording')->appears_on(\@entities, 3);
 
-    return map {
-        {
-            recording => $_,
-            appearsOn => $appears_on{$_->id}
-        }
-    } @entities;
-}
+    return map +{
+        %$_,
+        appearsOn => $appears_on{$_->{entity}->id}
+    }, $self->$orig($c, @entities);
+};
 
 1;
 
