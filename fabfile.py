@@ -121,8 +121,8 @@ def production():
     for "plackup" processes and also doing a wget against localhost.
     """
 
-    sudo('git --git-dir=/root/server-configs/.git --work-tree=/root/server-configs pull origin master')
-    sudo('git --git-dir=/root/server-configs/.git --work-tree=/root/server-configs submodule update --init --recursive')
+    sudo("su root -c 'cd /root/server-configs; git pull origin master'")
+    sudo("su root -c 'cd /root/server-configs; git submodule update --init --recursive'")
     sudo('/root/server-configs/provision.sh')
 
     sudo("svc -h /etc/service/musicbrainz-server")
