@@ -173,7 +173,8 @@ addReleaseTest("mediumCreate edits are generated for new release", function (t, 
       {
         "edit_type": 51,
         "format_id": 1,
-        "hash": "5f0c29deb70e582765ec7f89c69578d564296b9d",
+        "hash": "a3538b040fca631856b0f7925031575268d9786f",
+        "name": "",
         "position": 1,
         "release": undefined,
         "tracklist": [
@@ -226,7 +227,8 @@ addReleaseTest("mediumCreate edits are generated for new release", function (t, 
       {
         "edit_type": 51,
         "format_id": 1,
-        "hash": "b3af2f50a1e9001b96105abf3d7a8a78b4ce7cbf",
+        "hash": "e1b3249d20daf421a77f9ed681d165cc92c59407",
+        "name": "",
         "position": 2,
         "release": undefined,
         "tracklist": [
