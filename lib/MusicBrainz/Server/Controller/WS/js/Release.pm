@@ -7,6 +7,9 @@ use Scalar::Util qw( blessed );
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::WithArtistCredits';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'Release',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "release" => {

@@ -33,6 +33,7 @@ DROP TRIGGER reptg_l_event_place_example ON l_event_place_example;
 DROP TRIGGER reptg_l_event_recording_example ON l_event_recording_example;
 DROP TRIGGER reptg_l_event_release_example ON l_event_release_example;
 DROP TRIGGER reptg_l_event_release_group_example ON l_event_release_group_example;
+DROP TRIGGER reptg_l_event_series_example ON l_event_series_example;
 DROP TRIGGER reptg_l_event_url_example ON l_event_url_example;
 DROP TRIGGER reptg_l_event_work_example ON l_event_work_example;
 DROP TRIGGER reptg_l_instrument_instrument_example ON l_instrument_instrument_example;

@@ -30,6 +30,7 @@
         </tr>
     </thead>
     <tbody>
+    [% DEFAULT releases=entities %]
     [%- FOR release=releases -%]
       <tr class="[% loop.parity %]">
         [% IF c.user_exists && checkboxes %]

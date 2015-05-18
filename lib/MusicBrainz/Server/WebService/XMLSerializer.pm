@@ -329,6 +329,9 @@ sub _serialize_release_group
             if $inc->artist_credits;
     }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
     $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
@@ -394,6 +397,9 @@ sub _serialize_release
         $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
@@ -566,6 +572,9 @@ sub _serialize_recording
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);

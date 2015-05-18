@@ -106,7 +106,7 @@ var request = require('../../common/utility/request.js');
 
         medium: function (medium) {
             return {
-                name:       nullableString(medium.name),
+                name:       string(medium.name),
                 format_id:  number(medium.formatID),
                 position:   number(medium.position),
                 tracklist:  array(medium.tracks, fields.track)
@@ -365,9 +365,6 @@ var request = require('../../common/utility/request.js');
         TYPES.EDIT_MEDIUM_CREATE,
 
         function (args) {
-            if (!args.name) {
-                delete args.name;
-            }
             if (args.format_id === null) {
                 delete args.format_id;
             }

@@ -125,6 +125,10 @@ CREATE TRIGGER "reptg_l_event_release_group_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_l_event_series_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_l_event_url_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_event_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

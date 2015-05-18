@@ -64,6 +64,13 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 #               packets.  Changes to the database are allowed.
 sub REPLICATION_TYPE { RT_STANDALONE }
 
+# If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
+# you must sign in at https://metabrainz.org and generate an access token to access
+# the replication packets. Enter the access token below:
+# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
+#
+sub REPLICATION_ACCESS_TOKEN { "" }
+
 ################################################################################
 # GPG Signature
 ################################################################################
@@ -472,7 +479,8 @@ sub BACKUP_GROUP { "musicbrainz" }
 sub BACKUP_DIR_MODE { 700 }
 sub BACKUP_FILE_MODE { 600 }
 
-sub RSYNC_REPLICATION_SERVER { 'ftpowner@scooby.localdomain' }
+sub RSYNC_FULLEXPORT_SERVER { 'ftpowner@scooby.localdomain' }
+sub RSYNC_REPLICATION_SERVER { 'metabrainz@sakura.localdomain' }
 
 1;
 # eof DBDefs.pm

@@ -252,6 +252,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             release     => $release_id,
             position    => 1,
             format_id   => 1,
+            name        => '',
             tracklist   => [
                 {
                     position        => 1,

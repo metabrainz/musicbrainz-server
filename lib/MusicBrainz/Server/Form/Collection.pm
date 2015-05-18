@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Collection;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -41,8 +42,10 @@ sub validate_type_id {
 
     my $type = $self->ctx->model('CollectionType')->get_by_id($self->field('type_id')->value);
 
-    if ( ($request->params->{release} && $type->entity_type ne 'release') || ($request->params->{event} && $type->entity_type ne 'event') ) {
-        return $self->field('type_id')->add_error(l('The collection type does not apply to the given entity.'));
+    for my $entity_type (entities_with('collections')) {
+        if ($request->params->{$entity_type} && $type->entity_type ne $entity_type) {
+            return $self->field('type_id')->add_error(l('The collection type does not apply to the given entity.'));
+        }
     }
-} 
+}
 1;

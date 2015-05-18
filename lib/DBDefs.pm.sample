@@ -99,7 +99,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 21 }
+sub DB_SCHEMA_SEQUENCE { 22 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -115,6 +115,13 @@ sub DB_SCHEMA_SEQUENCE { 21 }
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 # sub REPLICATION_TYPE { RT_STANDALONE }
+
+# If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
+# you must sign in at https://metabrainz.org and generate an access token to access
+# the replication packets. Enter the access token below:
+# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
+#
+# sub REPLICATION_ACCESS_TOKEN { "" }
 
 ################################################################################
 # GPG Signature

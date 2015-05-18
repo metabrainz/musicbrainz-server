@@ -35,6 +35,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
 
 sub _type { 'recording' }
 
@@ -196,6 +197,7 @@ sub delete
 
     $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
     $self->c->model('ISRC')->delete_recordings(@recording_ids);
+    $self->alias->delete_entities(@recording_ids);
     $self->annotation->delete(@recording_ids);
     $self->tags->delete(@recording_ids);
     $self->rating->delete(@recording_ids);
@@ -232,6 +234,7 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);

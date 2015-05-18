@@ -186,11 +186,17 @@ my @group_core = qw(
     place_gid_redirect
     place_type
     recording
+    recording_alias
+    recording_alias_type
     recording_gid_redirect
     release
+    release_alias
+    release_alias_type
     release_country
     release_gid_redirect
     release_group
+    release_group_alias
+    release_group_alias_type
     release_group_gid_redirect
     release_group_primary_type
     release_group_secondary_type
@@ -230,6 +236,7 @@ my @group_derived = qw(
     artist_meta
     artist_tag
     event_annotation
+    event_meta
     event_tag
     instrument_tag
     label_annotation
@@ -289,8 +296,17 @@ my @group_private = qw(
     autoeditor_election_vote
     editor
     editor_collection
+    editor_collection_area
+    editor_collection_artist
     editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
     editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_work
     editor_language
     editor_oauth_token
     editor_preference
@@ -304,6 +320,7 @@ my @group_private = qw(
     editor_watch_release_group_type
     editor_watch_release_status
     event_tag_raw
+    event_rating_raw
     instrument_tag_raw
     label_rating_raw
     label_tag_raw

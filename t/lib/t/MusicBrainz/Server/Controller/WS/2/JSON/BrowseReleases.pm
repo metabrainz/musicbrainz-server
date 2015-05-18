@@ -111,7 +111,7 @@ test 'browse releases via label' => sub {
                             format => "CD",
                             position => 1,
                             "track-count" => 9,
-                            title => JSON::null
+                            title => '',
                         },
                         {
                             format => "CD",
@@ -155,7 +155,7 @@ test 'browse releases via label' => sub {
                             format => "CD",
                             position => 1,
                             "track-count" => 12,
-                            title => JSON::null
+                            title => '',
                         } ],
                     asin => "B000KJTG6K",
                     disambiguation => "",

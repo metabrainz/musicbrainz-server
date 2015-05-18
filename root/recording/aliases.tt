@@ -1,0 +1,6 @@
+[%- WRAPPER "recording/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=recording
+        delete_path='/recording/delete_alias'
+        add_path='/recording/add_alias'
+        edit_path='/recording/edit_alias' -%]
+[%- END -%]

@@ -7,6 +7,19 @@
   "21": {
     "slave": ["20140606-events.sql", "20141008-instrument-indexes.sql", "20141014-mbs-7784-data-tracks.sql", "20140806-collection-types.sql", "20140906-event-collections.sql", "20141014-mbs-7551-tags.sql", "20141031-unused-url.sql"],
     "standalone": ["20140606-events-fks.sql", "20140906-event-collections-fks.sql", "20141021-collection-types-fks.sql", "20141014-mbs-7551-tags-fks.sql"]
-  }
+  },
 
+  "22": {
+    "slave": ["20150209-extend-aliases-to-more-entities.sql",
+              "20150307-other-entities-collections.sql",
+              "20150317-medium-name-not-null.sql",
+              "20150331-relationship-credits.sql",
+              "20150429-tag-upvote.sql",
+              "20150403-drop-empty-functions.sql"],
+    "slave_only": ["20150415-mbs-8349.sql"],
+    "standalone": ["20150209-extend-aliases-to-more-entities-standalone.sql",
+                   "20150307-other-entities-collections-fks.sql",
+                   "20150317-drop-event-name-constraint.sql",
+                   "20150331-relationship-credits-standalone.sql"]
+  }
 }

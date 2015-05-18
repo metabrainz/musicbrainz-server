@@ -33,6 +33,7 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release'
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' };
 
 use Readonly;
 Readonly our $MERGE_APPEND => 1;
@@ -779,6 +780,7 @@ sub delete
 
     $self->c->model('Collection')->delete_entities('release', @release_ids);
     $self->c->model('Relationship')->delete_entities('release', @release_ids);
+    $self->alias->delete_entities(@release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     $self->tags->delete(@release_ids);
@@ -943,6 +945,7 @@ sub merge
     my @old_ids = @{ $opts{old_ids} };
     my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Collection')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
@@ -1067,8 +1070,7 @@ sub merge
         if ($update_names) {
             foreach my $id (@medium_ids) {
                 next unless exists $names{$id};
-                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?',
-                               $names{$id} || undef, $id);
+                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?', $names{$id}, $id);
             }
         }
     }

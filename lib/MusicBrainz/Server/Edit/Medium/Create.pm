@@ -33,7 +33,7 @@ sub medium_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        name         => Optional[Str],
+        name         => Str,
         format_id    => Optional[Int],
         position     => Int,
         release      => NullableOnPreview[Dict[
@@ -195,6 +195,11 @@ sub allow_auto_edit {
 
     return defined $open_release_edit;
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{name} //= '';
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

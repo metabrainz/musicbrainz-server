@@ -1,6 +1,7 @@
 SET client_min_messages TO 'warning';
 
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca', 'foo@example.com', now());
+
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'changelog');
 INSERT INTO recording_annotation (recording, annotation) VALUES (1, 1);
 INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', 1);
@@ -19,10 +20,17 @@ INSERT INTO release (id, name, release_group, artist_credit, gid)
 
 INSERT INTO medium (id, release, position, format, name)
        VALUES (22, 22, 1, 1, 'A Sea of Honey'),
-              (23, 23, 1, 1, NULL),
-              (24, 24, 1, 1, NULL);
+              (23, 23, 1, 1, ''),
+              (24, 24, 1, 1, '');
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
        VALUES (62, '98d47750-2da0-497c-94aa-9dedc713ca53', 22, 1, 1, 1, 'King of the Mountain', 1, NULL),
               (63, 'f89d2463-8c12-49cb-9c83-229f2a5d4028', 23, 1, 1, 1, 'King of the Mountain', 1, NULL),
               (64, '13103972-499f-4407-b248-3d04c1afcc24', 24, 1, 1, 1, 'King of the Mountain', 1, NULL);
+
+INSERT INTO recording_alias_type (id, name) VALUES (1, 'Recording name'), (2, 'Search hint');
+
+INSERT INTO recording_alias (id, recording, name, type, sort_name) VALUES
+    (1, 1, 'Test Recording Alias', 2, 'Test Recording Alias');
+
+SELECT setval('recording_alias_id_seq', (SELECT MAX(id) FROM recording_alias));

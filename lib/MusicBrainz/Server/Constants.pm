@@ -107,6 +107,9 @@ Readonly our $EDIT_RELEASEGROUP_SET_COVER_ART => 22;
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
 Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
+Readonly our $EDIT_RELEASEGROUP_ADD_ALIAS => 26;
+Readonly our $EDIT_RELEASEGROUP_DELETE_ALIAS => 27;
+Readonly our $EDIT_RELEASEGROUP_EDIT_ALIAS => 28;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
 Readonly our $EDIT_RELEASE_EDIT => 32;
@@ -125,6 +128,9 @@ Readonly our $EDIT_RELEASE_ADD_COVER_ART => 314;
 Readonly our $EDIT_RELEASE_REMOVE_COVER_ART => 315;
 Readonly our $EDIT_RELEASE_EDIT_COVER_ART => 316;
 Readonly our $EDIT_RELEASE_REORDER_COVER_ART => 317;
+Readonly our $EDIT_RELEASE_ADD_ALIAS => 318;
+Readonly our $EDIT_RELEASE_DELETE_ALIAS => 319;
+Readonly our $EDIT_RELEASE_EDIT_ALIAS => 320;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;
@@ -162,6 +168,9 @@ Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
 Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
+Readonly our $EDIT_RECORDING_ADD_ALIAS => 711;
+Readonly our $EDIT_RECORDING_DELETE_ALIAS => 712;
+Readonly our $EDIT_RECORDING_EDIT_ALIAS => 713;
 
 Readonly our $EDIT_AREA_CREATE => 81;
 Readonly our $EDIT_AREA_EDIT => 82;
@@ -376,7 +385,12 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                exempt => [ $VARTIST_ID, $DARTIST_ID ],
+                extra_fks => { artist_credit_name => 'artist' },
+            },
+        },
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -395,7 +409,7 @@ Readonly our %ENTITIES => (
         date_period => 1,
         ratings    => 1,
         tags       => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         collections => 1
     },
     instrument => {
@@ -435,7 +449,13 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { manual => 1, automatic => 1 }
+        removal => {
+            manual => 1,
+            automatic => {
+                exempt => [ $DLABEL_ID ],
+                extra_fks => { release_label => 'label' },
+            },
+        },
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -454,7 +474,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         tags       => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -463,6 +483,12 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RECORDING_ADD_ALIAS,
+            edit_edit_type => $EDIT_RECORDING_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RECORDING_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         disambiguation => 1,
         ratings    => 1,
         tags       => 1,
@@ -477,6 +503,12 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RELEASE_ADD_ALIAS,
+            edit_edit_type => $EDIT_RELEASE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RELEASE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         disambiguation => 1,
         tags       => 1,
         artist_credits => 1,
@@ -492,12 +524,22 @@ Readonly our %ENTITIES => (
         type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RELEASEGROUP_ADD_ALIAS,
+            edit_edit_type => $EDIT_RELEASEGROUP_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RELEASEGROUP_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         disambiguation => 1,
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => {
+            automatic => {
+                extra_fks => { release => 'release_group' },
+            },
+        },
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -515,7 +557,7 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 },
+        removal => { automatic => {} },
         tags        => 1
     },
     url => {
@@ -541,7 +583,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal => { automatic => {} },
     },
     track => {
         mbid => { multiple => 1 },
@@ -640,6 +682,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_url
     edit_work
     event_tag_raw
+    event_rating_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw
@@ -710,6 +753,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     event_alias_type
     event_annotation
     event_gid_redirect
+    event_meta
     event_tag
     event_type
     gender
@@ -822,8 +866,17 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     editor_collection
+    editor_collection_area
+    editor_collection_artist
     editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
     editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_work
     editor_collection_type
     medium
     medium_cdtoc
@@ -837,15 +890,21 @@ Readonly our @FULL_TABLE_LIST => qw(
     place_tag
     place_type
     recording
+    recording_alias
+    recording_alias_type
     recording_annotation
     recording_gid_redirect
     recording_meta
     recording_tag
     release
+    release_alias
+    release_alias_type
     release_annotation
     release_country
     release_gid_redirect
     release_group
+    release_group_alias
+    release_group_alias_type
     release_group_annotation
     release_group_gid_redirect
     release_group_meta
@@ -890,6 +949,7 @@ Readonly our @FULL_TABLE_LIST => qw(
 
     documentation.l_area_area_example
     documentation.l_area_artist_example
+    documentation.l_area_event_example
     documentation.l_area_instrument_example
     documentation.l_area_label_example
     documentation.l_area_place_example
@@ -900,6 +960,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_area_url_example
     documentation.l_area_work_example
     documentation.l_artist_artist_example
+    documentation.l_artist_event_example
     documentation.l_artist_instrument_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
@@ -909,6 +970,16 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_event_event_example
+    documentation.l_event_instrument_example
+    documentation.l_event_label_example
+    documentation.l_event_place_example
+    documentation.l_event_recording_example
+    documentation.l_event_release_example
+    documentation.l_event_release_group_example
+    documentation.l_event_series_example
+    documentation.l_event_url_example
+    documentation.l_event_work_example
     documentation.l_instrument_instrument_example
     documentation.l_instrument_label_example
     documentation.l_instrument_place_example
