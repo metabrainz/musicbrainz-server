@@ -92,7 +92,7 @@
               music database on the internet. If this appeals to you, please {reg|create an account} or
               {login_url|login}.',
               { how => doc_link('HowEditingWorks'),
-                reg => c.uri_for_action('/account/register', { uri => c.relative_uri }),
+                reg => register_url(c.relative_uri),
                 login_url => login_url(c.relative_uri) }) %]</p>
         <p>[% l('Or...') %]</p>
     </li>
