@@ -215,16 +215,17 @@ SELECT '20150307-other-entities-collections.sql';
 ALTER TABLE editor_collection_type
       DROP CONSTRAINT IF EXISTS allowed_collection_entity_type;
 
-INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES
-        (7, 'Area', 'area', NULL, 2),
-        (8, 'Artist', 'artist', NULL, 2),
-        (9, 'Instrument', 'instrument', NULL, 2),
-        (10, 'Label', 'label', NULL, 2),
-        (11, 'Place', 'place', NULL, 2),
-        (12, 'Recording', 'recording', NULL, 2),
-        (13, 'Release group', 'release_group', NULL, 2),
-        (14, 'Series', 'series', NULL, 2),
-        (15, 'Work', 'work', NULL, 2);
+-- Commented-out because code was not ready for this yet.
+--INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES
+--        (7, 'Area', 'area', NULL, 2),
+--        (8, 'Artist', 'artist', NULL, 2),
+--        (9, 'Instrument', 'instrument', NULL, 2),
+--        (10, 'Label', 'label', NULL, 2),
+--        (11, 'Place', 'place', NULL, 2),
+--        (12, 'Recording', 'recording', NULL, 2),
+--        (13, 'Release group', 'release_group', NULL, 2),
+--        (14, 'Series', 'series', NULL, 2),
+--        (15, 'Work', 'work', NULL, 2);
 
 CREATE TABLE editor_collection_area (
     collection INTEGER NOT NULL,
