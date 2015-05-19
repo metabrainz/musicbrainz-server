@@ -215,7 +215,7 @@ table.row-form {
     label { display: inline-block; text-align: right; }
 
     input[type=text], input[type=email], input[type=number], input[type=url], select, span.autocomplete {
-        width: 100% !important;
+        width: 100%;
     }
 
     td:first-child, th:first-child {
@@ -590,7 +590,7 @@ div.rel-editor-dialog {
     display: none;
     max-width: 500px;
 
-    span.autocomplete { width: 100%; }
+    span.autocomplete, span.autocomplete input { width: 100%; }
     p.msg { margin: 0.5em; margin-bottom: 1em; }
     span.error, div.error { color: @negative-text; }
 
@@ -607,7 +607,6 @@ div.rel-editor-dialog {
     }
 
     input[type=text], textarea {
-        width: 100%;
         box-sizing: border-box;
     }
 
