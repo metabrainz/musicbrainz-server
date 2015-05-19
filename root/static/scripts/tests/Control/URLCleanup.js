@@ -664,6 +664,38 @@ test('Guess type', function (t) {
                 'release', 'https://www.finna.fi/Record/viola.163990',
                 MB.constants.LINK_TYPES.otherdatabases.release
             ],
+            [
+                'recording', 'http://www.mvdbase.com/video.php?id=4',
+                MB.constants.LINK_TYPES.otherdatabases.recording
+            ], 
+            [
+                'release', 'http://videogam.in/music/?id=PCCG-00486',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ], 
+            [
+                'work', 'http://tunearch.org/wiki/Lovely_Lass_to_a_Friar_Came_(2)_(A)',
+                MB.constants.LINK_TYPES.otherdatabases.work
+            ], 
+            [
+                'artist', 'http://www.folkwiki.se/Personer/SvenDonat',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ], 
+            [
+                'artist', 'http://www.spirit-of-rock.com/groupe-groupe-Explosions_In_The_Sky-l-en.html',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ], 
+            [
+                'release_group', 'http://castalbums.org/recordings/The-Scottsboro-Boys-2014-Original-London-Cast/28967',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ], 
+            [
+                'release_group', 'http://smdb.kb.se/catalog/id/001508972',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ], 
+            [
+                'work', 'http://www.operadis-opera-discography.org.uk/CLBABLUE.HTM',
+                MB.constants.LINK_TYPES.otherdatabases.work
+            ],
             // ClassicalArchives.com
             [
                 'artist', 'http://www.classicalarchives.com/composer/2806.html',
