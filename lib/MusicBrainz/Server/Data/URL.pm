@@ -6,6 +6,7 @@ use Carp;
 use MusicBrainz::Server::Data::Utils
     qw( generate_gid hash_to_row query_to_list );
 use MusicBrainz::Server::Entity::URL;
+use URI;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with
@@ -172,11 +173,12 @@ sub _merge_impl
 
 sub find_by_url {
     my ($self, $url) = @_;
+    my $normalized = URI->new($url)->canonical;
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
                 ' WHERE url = ?';
     return query_to_list(
         $self->sql, sub { $self->_new_from_row(@_) },
-        $query, $url
+        $query, $normalized
     );
 }
 
