@@ -195,6 +195,7 @@ sub update
         return $merge_into->id;
     }
     else {
+        $url_hash->{url} = URI->new($url_hash->{url})->canonical;
         my $row = $self->_hash_to_row($url_hash);
         $self->sql->update_row('url', $row, { id => $url_id });
         return $url_id;
@@ -219,6 +220,7 @@ sub insert { confess "Should not be used for URLs" }
 sub find_or_insert
 {
     my ($self, $url) = @_;
+    $url = URI->new($url)->canonical;
     my $id = $self->sql->select_single_value('SELECT id FROM url WHERE url = ?',
                                              $url);
     unless ($id) {
