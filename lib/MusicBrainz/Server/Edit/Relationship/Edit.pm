@@ -535,22 +535,7 @@ sub editor_may_edit {
     );
 }
 
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-
-    my $conditions = $self->$orig(@args);
-    $conditions->{auto_edit} = $self->_allow_auto_edit;
-
-    return $conditions;
-};
-
-around allow_auto_edit => sub {
-    my ($orig, $self, @args) = @_;
-
-    return $self->_allow_auto_edit || $self->$orig(@args);
-};
-
-sub _allow_auto_edit {
+sub allow_auto_edit {
     my ($self) = @_;
 
     my $data = $self->data;

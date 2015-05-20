@@ -9,7 +9,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -304,8 +304,18 @@ test 'Instrument credits can be added to an existing relationship' => sub {
     is($rel->link->attributes->[0]->credited_as, 'crazy guitar');
 };
 
+test 'Edits that change endpoints are auto-editable by auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c, privileges => $AUTO_EDITOR_FLAG);
+    ok(!$edit->is_open, 'edit changing an endpoint was applied immediately by an auto-editor');
+};
+
 sub _create_edit {
-    my $c = shift;
+    my ($c, %args) = @_;
 
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
@@ -318,7 +328,8 @@ sub _create_edit {
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
-        entity1 => $c->model('Artist')->get_by_id(3)
+        entity1 => $c->model('Artist')->get_by_id(3),
+        %args
     );
 }
 
