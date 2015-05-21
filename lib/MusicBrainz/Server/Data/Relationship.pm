@@ -317,10 +317,10 @@ sub merge_entities {
     # (after merging)
     my @ids = ($target_id, @$source_ids);
     $self->sql->do(
-        "DELETE FROM l_${type}_${type} WHERE
-             (entity0 IN (" . placeholders(@ids) . ')
-          AND entity1 IN (' . placeholders(@ids) . '))',
-        @ids, @ids);
+        "DELETE FROM l_${type}_${type}
+         WHERE entity0 = any(\$1) AND entity1 = any(\$1)",
+        \@ids
+    );
 
     my @credit_fields = qw(entity0_credit entity1_credit);
     my @date_fields = qw(
@@ -458,10 +458,10 @@ EOSQL
         }
 
         # Move all remaining relationships
-        $self->sql->do("
-            UPDATE $table SET $entity0 = ?
-            WHERE $entity0 IN (" . placeholders($target_id, @$source_ids) . ")
-        ", $target_id, $target_id, @$source_ids);
+        $self->sql->do(
+            "UPDATE $table SET $entity0 = ? WHERE $entity0 = any(?)",
+            $target_id, \@ids
+        );
     };
 
     foreach my $t (_generate_table_list($type)) {
