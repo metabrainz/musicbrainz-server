@@ -427,13 +427,15 @@ EOSQL
         while (my ($key, $possible_dupes) = each %possible_dupes) {
             my %definite_dupes = partition_by { join "\t", @{$_}{$entity1, 'link'} } @$possible_dupes;
 
+            # Merge relationships that are exact duplicates other than credits,
+            # and group the remaining ones by $entity0.
+            my %by_source = partition_by { $_->{$entity0} } map { $merge_dupes->(@$_) } values %definite_dupes;
+
             # Delete relationships where:
             # a.) there is no date set (no begin or end date, and the ended flag is off), and
             # b.) there is no relationship on the same pre-merge entity which
             #     *does* have a date, since this indicates the quasi-duplication
             #     may be intentional
-            my %by_source = partition_by { $_->{$entity0} } map { $merge_dupes->(@$_) } values %definite_dupes;
-
             my (@non_empty_dates, @empty_dates);
             for my $by_source (values %by_source) {
                 # Make sure the entity doesn't contain both a dated and non-dated relationship, per (b) above.
@@ -455,6 +457,9 @@ EOSQL
 
                 $delete_relationships->(@empty_dates);
             }
+
+            # No need to merge @empty_dates together. They'd have had the same
+            # link and been grouped together in %definite_dupes above.
         }
 
         # Move all remaining relationships
