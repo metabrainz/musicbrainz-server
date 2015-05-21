@@ -87,6 +87,23 @@ EOSQL
     is(scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
 };
 
+test 'Merge matching undated rels on entity merge' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 1, 3), (2, 1, 2, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is(scalar($label->all_relationships) => 1, 'two relationships became one');
+};
+
 test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -119,6 +136,23 @@ EOSQL
     my $artist = $c->model('Artist')->get_by_id(1);
     $c->model('Relationship')->load($artist);
     is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
+};
+
+test 'Don\'t merge matching rels, other than link_order' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_artist_artist (id, link, link_order, entity0, entity1)
+    VALUES (1, 1, 1, 2, 3), (2, 1, 2, 1, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('artist', 1, [2]);
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    $c->model('Relationship')->load($artist);
+    is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than link orders are not merged');
 };
 
 test 'Don\'t consider relationships with different link orders to be the same' => sub {
@@ -201,6 +235,42 @@ EOSQL
     is($relationships[4]->entity1_credit, '');
     is($relationships[5]->entity0_credit, 'kept9');
     is($relationships[5]->entity1_credit, 'kept10');
+};
+
+test 'Entity credits plus dates merge harmoniously' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO label (id, name, gid)
+VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f');
+
+INSERT INTO l_label_label (id, link, entity0, entity1, entity0_credit, entity1_credit)
+VALUES
+    -- The relationship on the target entity has a begin date and no credits.
+    -- The relationship on the source entity has credits and no dates.
+    (1, 2, 1, 3, '', ''),
+    (2, 1, 2, 3, 'credit0', 'credit1'),
+
+    -- The relationship on the target entity credits and no dates.
+    -- The relationship on the source entity has a begin date and no credits.
+    (3, 1, 1, 4, 'credit2', 'credit3'),
+    (4, 2, 2, 4, '', '');
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, [2]);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+
+    my @relationships = nsort_by { $_->id } $label->all_relationships;
+    is($relationships[0]->entity0_credit, 'credit0');
+    is($relationships[0]->entity1_credit, 'credit1');
+    is($relationships[0]->link->begin_date->format, '1995');
+    is($relationships[1]->entity0_credit, 'credit2');
+    is($relationships[1]->entity1_credit, 'credit3');
+    is($relationships[1]->link->begin_date->format, '1995');
 };
 
 test 'Duplicate relationships that only exist among source entities are merged' => sub {
