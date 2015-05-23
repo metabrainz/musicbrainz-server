@@ -29,11 +29,6 @@ has 'root' => (
     isa => 'LinkAttributeType',
 );
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_name {
     my $self = shift;
     my $rootid = defined $self->root ? $self->root->id : $self->root_id;
@@ -43,11 +38,6 @@ sub l_name {
         return MusicBrainz::Server::Translation::Relationships::l($self->name);
     }
 }
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
-);
 
 sub l_description {
     my $self = shift;
@@ -69,15 +59,15 @@ has 'creditable' => (
     isa => 'Bool',
 );
 
-sub to_json_hash {
-    my ($self) = @_;
-    +{
-        $self->root ? (root => $self->root->to_json_hash) : (),
-        id => $self->id,
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
         gid => $self->gid,
-        name => $self->name
+        $self->root ? (root => $self->root->TO_JSON) : (),
     };
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

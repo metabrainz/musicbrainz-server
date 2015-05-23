@@ -18,4 +18,13 @@ has country => (
     isa => 'Maybe[Area]'
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        date    => $self->date->format,
+        country => defined($self->country) ? $self->country->TO_JSON : undef,
+    };
+}
+
 1;

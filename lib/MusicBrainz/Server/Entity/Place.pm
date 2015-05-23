@@ -11,47 +11,13 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'PlaceType',
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Area';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'PlaceType' };
 
 has 'address' => (
     is => 'rw',
     isa => 'Str'
-);
-
-has 'area_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'area' => (
-    is => 'rw',
-    isa => 'Area'
 );
 
 has 'coordinates' => (
@@ -60,6 +26,15 @@ has 'coordinates' => (
 );
 
 sub _appearances_table_types { qw( release release_group recording work ) }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        area => $self->area ? $self->area->TO_JSON : undef,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

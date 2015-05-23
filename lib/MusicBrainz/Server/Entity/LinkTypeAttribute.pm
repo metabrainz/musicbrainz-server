@@ -3,15 +3,7 @@ package MusicBrainz::Server::Entity::LinkTypeAttribute;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'LinkAttributeType',
-);
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkAttributeType' };
 
 has 'min' => (
     is => 'rw',
@@ -22,6 +14,11 @@ has 'max' => (
     is => 'rw',
     isa => 'Maybe[Int]',
 );
+
+sub TO_JSON {
+    my ($self) = @_;
+    return { min => $self->min, max => $self->max };
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

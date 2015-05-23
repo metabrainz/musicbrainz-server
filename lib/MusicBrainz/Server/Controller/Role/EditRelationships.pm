@@ -6,7 +6,6 @@ use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
-use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
@@ -65,8 +64,7 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $serialization_method = "_$source_type";
-        my $source_entity = $source ? JSONSerializer->$serialization_method($source) : {entityType => $source_type};
+        my $source_entity = $source ? $source->TO_JSON : {entityType => $source_type};
 
         if ($source) {
             my @existing_relationships =
@@ -79,8 +77,7 @@ role {
 
                 } sort { $a <=> $b } $source->all_relationships;
 
-            $source_entity->{relationships} =
-                JSONSerializer->serialize_relationships(@existing_relationships);
+            $source_entity->{relationships} = [map { $_->TO_JSON } @existing_relationships];
         }
 
         my $form_name = "edit-$source_type";

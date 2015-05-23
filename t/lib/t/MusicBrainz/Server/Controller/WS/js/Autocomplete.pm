@@ -18,24 +18,38 @@ test all => sub {
     ws_test 'artist autocomplete response',
         '/artist?q=David&direct=true' => encode_json(
             [ {
+                "annotation" => '',
+                "area" => undef,
+                "begin_date" => '',
                 "comment" => '',
-                "id" => 5,
-                "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
-                "name" => "David Bowie",
-                "sortName" => "David Bowie",
-                "primaryAlias" => undef,
+                "editsPending" => JSON::false,
+                "end_date" => '',
+                "ended" => JSON::false,
                 "entityType" => "artist",
+                "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
+                "id" => 5,
+                "name" => "David Bowie",
+                "primaryAlias" => undef,
+                "sortName" => "David Bowie",
+                "typeID" => undef,
               }, { "current" => 1, "pages" => 1 } ]);
 
     ws_test 'label autocomplete response',
         '/label?q=Warp&direct=true' => encode_json(
             [ {
-                "comment" => "Sheffield based electronica label",
+                "annotation" => '',
+                "area" => undef,
+                "begin_date" => '',
+                "comment" => 'Sheffield based electronica label',
+                "editsPending" => JSON::false,
+                "end_date" => '',
+                "ended" => JSON::false,
+                "entityType" => 'label',
+                "gid" => '46f0f4cd-8aab-4b33-b698-f459faf64190',
                 "id" => 2,
-                "gid" => "46f0f4cd-8aab-4b33-b698-f459faf64190",
-                "name" => "Warp Records",
+                "name" => 'Warp Records',
                 "primaryAlias" => undef,
-                "entityType" => "label",
+                "typeID" => 1,
               }, { "current" => 1, "pages" => 1 } ]);
 
 };

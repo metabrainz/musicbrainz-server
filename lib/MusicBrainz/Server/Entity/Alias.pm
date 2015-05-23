@@ -5,6 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AliasType' };
 
 has 'name' => (
     is => 'rw',
@@ -21,29 +22,10 @@ has 'locale' => (
     isa => 'Str',
 );
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-);
-
 has 'primary_for_locale' => (
     isa => 'Bool',
     is => 'rw',
 );
-
-sub type_name {
-    my $self = shift;
-    return defined $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name {
-    my $self = shift;
-    return defined $self->type ? $self->type->l_name : undef;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

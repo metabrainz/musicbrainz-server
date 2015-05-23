@@ -243,7 +243,7 @@ var formatTrackLength = require('./utility/formatTrackLength');
             var type = this.type();
             if (!type) return [];
 
-            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.entityType];
+            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.series_entity_type];
             var linkTypeID = MB.typeInfoByID[gid].id;
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {

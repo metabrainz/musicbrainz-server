@@ -6,28 +6,14 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'WorkAttributeType',
 };
 
-has name => (
-    isa => 'Str',
-    is => 'rw',
-);
-
-has comment => (
-    isa => 'Str',
-    is => 'rw',
-);
-
 has free_text => (
     is => 'rw',
     isa => 'Bool',
-);
-
-has description => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
 );
 
 has allowed_values => (
@@ -66,18 +52,14 @@ sub allows_value {
     return exists $allowed{$value} ? 1 : 0;
 }
 
-sub to_json_hash {
-    my $self = shift;
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
 
     return {
-        id => +$self->id,
-        name => $self->l_name,
-        comment => $self->l_comment,
+        %{ $self->$orig },
         freeText => $self->free_text ? \1 : \0,
-        parentID => $self->parent_id,
-        description => $self->l_description,
     };
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

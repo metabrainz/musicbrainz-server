@@ -175,47 +175,68 @@ test 'previewing/creating/editing a release group and release' => sub {
             languageID => 486,
             gid => ignore(),
             annotation => '',
+            artist => 'Boredoms plus a fake artist and a trailing join phrase',
             artistCredit => [
                 {
                     joinPhrase => ' plus ',
                     artist => {
+                        annotation => '',
+                        area => undef,
+                        begin_date => '',
                         comment => '',
+                        editsPending => JSON::false,
+                        end_date => '',
+                        ended => JSON::false,
                         entityType => 'artist',
                         gid => '0798d15b-64e2-499f-9969-70167b1d8617',
                         id => 39282,
                         name => 'Boredoms',
-                        sortName => 'Boredoms'
-                    }
+                        sortName => 'Boredoms',
+                        typeID => undef,
+                    },
+                    name => 'Boredoms',
                 },
                 {
                     joinPhrase => ' and a trailing join phrase',
                     artist => {
+                        annotation => '',
+                        area => undef,
+                        begin_date => '',
                         comment => '',
+                        editsPending => JSON::false,
+                        end_date => '',
+                        ended => JSON::false,
                         entityType => 'artist',
-                        name => 'a fake artist',
                         gid => '1e6092a0-73d3-465a-b06a-99c81f7bec37',
                         id => 66666,
-                        sortName => 'a fake artist'
-                    }
+                        name => 'a fake artist',
+                        sortName => 'a fake artist',
+                        typeID => undef,
+                    },
+                    name => 'a fake artist',
                 }
             ],
             events => [
                 {
                     country => {
-                       entityType => 'area',
-                       comment => '',
-                       code => undef,
-                       typeID => 1,
-                       name => 'Japan',
-                       gid => '2db42837-c832-3c27-b4a3-08198f75693c',
-                       id => 107,
-                       parent_city => undef,
-                       parent_country => undef,
-                       parent_subdivision => undef,
+                        annotation => '',
+                        begin_date => '',
+                        code => undef,
+                        comment => '',
+                        containment => [],
+                        editsPending => JSON::false,
+                        end_date => '',
+                        ended => JSON::false,
+                        entityType => 'area',
+                        gid => '2db42837-c832-3c27-b4a3-08198f75693c',
+                        id => 107,
+                        name => 'Japan',
+                        typeID => 1,
                     },
                     date => '1999-10-27'
                 }
             ],
+            editsPending => JSON::true,
         },
         message => 'OK',
     }, 'ws response contains serialized release data');

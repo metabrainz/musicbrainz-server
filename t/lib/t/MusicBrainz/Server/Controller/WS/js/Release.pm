@@ -35,12 +35,19 @@ test all => sub {
         direction => 'backward',
         ended => any('false', JSON::false),
         target => {
+            annotation => '',
+            area => undef,
+            begin_date => '1986-11-05',
             comment => '',
-            sortName => 'BoA',
+            editsPending => JSON::false,
+            end_date => '',
+            ended => JSON::false,
             entityType => 'artist',
-            name => 'BoA',
+            gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
             id => 9496,
-            gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55'
+            name => 'BoA',
+            sortName => 'BoA',
+            typeID => 1,
         },
         editsPending => any('false', JSON::false),
         endDate => undef,
@@ -49,6 +56,8 @@ test all => sub {
         verbosePhrase => 'vocal',
         attributes => [
             {
+                typeID => 194,
+                typeName => 'guest',
                 type => {
                     gid => 'b3045913-62ac-433e-9211-ac683cdf6b5c',
                 },

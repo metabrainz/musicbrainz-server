@@ -27,14 +27,13 @@ use MusicBrainz::Server::Form::Utils qw(
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
-use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 # Methods for the release editor
 sub _init_release_editor
 {
     my ($self, $c, %options) = @_;
 
-    my $json = JSON::Any->new( utf8 => 1 );
+    my $json = JSON::Any->new( utf8 => 1, convert_blessed => 1 );
 
     $options{redirect_uri} = (
         $c->req->query_params->{redirect_uri} //
@@ -162,8 +161,7 @@ sub _process_seeded_data
         if ($release_group) {
             $c->model('ArtistCredit')->load($release_group);
 
-            $result->{releaseGroup} = JSONSerializer->_release_group($release_group);
-
+            $result->{releaseGroup} = $release_group->TO_JSON;
             $result->{name} ||= $result->{releaseGroup}->{name};
             $result->{artistCredit} ||= $result->{releaseGroup}->{artistCredit};
         } else {
@@ -359,7 +357,7 @@ sub _seeded_event
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {
-            $result->{country} = JSONSerializer->_area($country);
+            $result->{country} = $country->TO_JSON;
         } else {
             push @$errors, "Invalid $field_name.country: “$iso”.";
         }
@@ -379,7 +377,7 @@ sub _seeded_label
         my $label = $c->model('Label')->get_by_gid($gid);
 
         if ($label) {
-            $result->{label} = JSONSerializer->_label($label);
+            $result->{label} = $label->TO_JSON;
         }
         else {
             push @$errors, "Invalid $field_name.mbid: “$gid”."
@@ -503,7 +501,7 @@ sub _seeded_track
         if (my $recording = $c->model('Recording')->get_by_gid($gid)) {
             $c->model('ArtistCredit')->load($recording);
 
-            $result->{recording} = JSONSerializer->_recording($recording);
+            $result->{recording} = $recording->TO_JSON;
         } else {
             push @$errors, "Invalid $field_name.recording: “$gid”.";
         }
@@ -543,7 +541,7 @@ sub _seeded_artist_credit_name
         my $entity = $c->model('Artist')->get_by_gid($gid);
 
         if ($entity) {
-            $result->{artist} = JSONSerializer->_artist($entity);
+            $result->{artist} = $entity->TO_JSON;
             $result->{name} ||= $entity->name;
         } else {
             push @$errors, "Invalid $field_name.mbid: “$gid”.";

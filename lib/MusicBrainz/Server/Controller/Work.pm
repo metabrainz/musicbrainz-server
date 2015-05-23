@@ -122,7 +122,7 @@ sub stash_work_attribute_json {
 
         $out //= {};
 
-        my @children = map { $build_json->($_, $_->to_json_hash) }
+        my @children = map { $build_json->($_, $_->TO_JSON) }
                        $root->sorted_children($coll);
         $out->{children} = [ @children ] if scalar(@children);
 

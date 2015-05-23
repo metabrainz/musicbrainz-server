@@ -56,7 +56,7 @@ var validation = require('../edit/validation');
                     var seriesType = source.type();
 
                     if (seriesType) {
-                        sorted((seriesOrdering[seriesType.entityType] || _.identity)(result(), source));
+                        sorted((seriesOrdering[seriesType.series_entity_type] || _.identity)(result(), source));
                     } else {
                         sorted(result());
                     }

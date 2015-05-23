@@ -5,16 +5,7 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'LinkType',
-);
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkType' };
 
 has 'attributes' => (
     is => 'rw',

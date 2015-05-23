@@ -7,15 +7,7 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities );
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'LinkAttributeType',
-);
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkAttributeType' };
 
 has 'credited_as' => (
     is => 'rw',
@@ -48,11 +40,11 @@ sub html {
     return $value;
 }
 
-sub to_json_hash {
+sub TO_JSON {
     my ($self) = @_;
 
     return {
-        type => $self->type->to_json_hash,
+        type => $self->type->TO_JSON,
         $self->type->creditable && non_empty($self->credited_as) ? (credited_as => $self->credited_as) : (),
         # text values are required
         $self->type->free_text ? (text_value => $self->text_value) : (),

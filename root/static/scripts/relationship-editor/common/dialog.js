@@ -57,7 +57,7 @@ var dates = require('../../edit/utility/dates.js');
                             if (dialog.autocomplete.entity === "series" &&
                                     dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
                                 return _.filter(items, function (item) {
-                                    return item.type.entityType === dialog.source.entityType;
+                                    return item.type.series_entity_type === dialog.source.entityType;
                                 });
                             } else {
                                 return items;
@@ -348,7 +348,7 @@ var dates = require('../../edit/utility/dates.js');
             );
 
             if (this.source.entityType === "series") {
-                var itemType = MB.seriesTypesByID[this.source.typeID()].entityType;
+                var itemType = MB.seriesTypesByID[this.source.typeID()].series_entity_type;
 
                 options = _.reject(options, function (opt) {
                     var info = MB.typeInfoByID[opt.value];

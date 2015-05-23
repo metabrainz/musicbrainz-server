@@ -81,6 +81,19 @@ sub appearances {
     return \%groups;
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+
+    # FIXME: Need a way to distinguish between relationships not being loaded vs. not existing.
+    if ($self->all_relationships) {
+        $json->{relationships} = [map { $_->TO_JSON } $self->all_relationships];
+    }
+
+    return $json;
+};
+
 1;
 
 =head1 NAME

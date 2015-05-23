@@ -9,16 +9,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'PlaceType',
 };
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
-);
-
 sub l_name {
     my $self = shift;
     return lp($self->name, 'place_type')

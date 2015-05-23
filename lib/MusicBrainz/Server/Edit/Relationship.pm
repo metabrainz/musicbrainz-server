@@ -1,6 +1,10 @@
 package MusicBrainz::Server::Edit::Relationship;
 use List::UtilsBy qw( sort_by partition_by );
 use Moose::Role;
+use MusicBrainz::Server::ControllerUtils::Relationship qw(
+    serialize_link_attribute
+    serialize_link_attribute_type
+);
 use MusicBrainz::Server::Data::Utils qw( non_empty sanitize );
 use namespace::autoclean;
 
@@ -54,7 +58,7 @@ sub check_attributes {
                 die "Attribute $gid requires a text value" unless non_empty($data->{text_value});
             }
 
-            $data->{type} = $lat->to_json_hash;
+            $data->{type} = serialize_link_attribute_type($lat);
 
             delete $data->{text_value} if exists $data->{text_value} && !$lat->free_text;
             delete $data->{credited_as} if exists $data->{credited_as} && !$lat->creditable;
@@ -83,7 +87,11 @@ sub restore_int_attributes {
 
 sub serialize_link_attributes {
     my ($self, @attributes) = @_;
-    return [ sort_by { $_->{type}{id} } map { $_->to_json_hash } @attributes ];
+
+    return [
+        sort_by { $_->{type}{id} }
+        map { serialize_link_attribute($_) } @attributes
+    ];
 }
 
 sub editor_may_edit_types {

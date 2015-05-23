@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 extends 'MusicBrainz::Server::Entity';
 
 with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    name => 'value',
     type => 'WorkAttributeTypeAllowedValue',
     sort_criterion => 'l_value',
 };
@@ -15,32 +16,20 @@ has work_attribute_type_id => (
     isa => 'Int',
 );
 
-has value => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has description => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
-);
-
 sub l_value {
     my $self = shift;
     return lp($self->value, 'work_attribute_type_allowed_value')
 }
 
-sub to_json_hash {
-    my $self = shift;
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
 
     return {
-        id => $self->id,
+        %{ $self->$orig },
         workAttributeTypeID => $self->work_attribute_type_id,
-        value => $self->l_value,
-        parentID => $self->parent_id,
-        description => $self->description,
+        value => $self->value,
     };
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

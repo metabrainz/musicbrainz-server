@@ -10,6 +10,8 @@ with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'InstrumentType' };
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
@@ -23,31 +25,6 @@ sub l_name {
     }
 }
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-    );
-
-has 'type' => (
-    is => 'rw',
-    isa => 'InstrumentType'
-);
-
-sub type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'description' => (
     is => 'rw',
     isa => 'Str'
@@ -57,6 +34,15 @@ sub l_description {
     my $self = shift;
     return $self->description ? MusicBrainz::Server::Translation::InstrumentDescriptions::l($self->description) : undef;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        description => $self->l_description,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

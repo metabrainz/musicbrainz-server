@@ -27,6 +27,12 @@ has 'name' => (
     isa => 'Str'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {%{ $self->$orig }, gid => $self->gid};
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

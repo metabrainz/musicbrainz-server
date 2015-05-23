@@ -66,6 +66,15 @@ has 'show_gravatar' => (
     lazy => 1
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        datetime_format => $self->datetime_format,
+        timezone => $self->timezone,
+    };
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

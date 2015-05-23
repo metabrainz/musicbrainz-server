@@ -7,6 +7,15 @@ has 'edits_pending' => (
     isa => 'Int'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        editsPending => $self->edits_pending ? \1 : \0,
+    };
+};
+
 1;
 
 =head1 COPYRIGHT

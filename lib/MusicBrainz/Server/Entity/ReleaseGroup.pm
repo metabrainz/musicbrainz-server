@@ -13,6 +13,8 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
 has 'primary_type_id' => (
     is => 'rw',
@@ -55,17 +57,6 @@ sub l_type_name
             );
 }
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit',
-    predicate => 'artist_credit_loaded',
-);
-
 has 'first_release_date' => (
     is => 'rw',
     isa => 'PartialDate',
@@ -74,11 +65,6 @@ has 'first_release_date' => (
 has 'release_count' => (
     is => 'rw',
     isa => 'Int'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
 );
 
 has 'cover_art' => (
@@ -114,6 +100,18 @@ sub write_review_href {
     my ($self) = @_;
     return DBDefs->CRITIQUEBRAINZ_SERVER . '/review/write?release_group=' . $self->gid;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        firstReleaseDate    => $self->first_release_date->format,
+        secondaryTypeIDs    => [map { $_->id } $self->all_secondary_types],
+        typeID              => $self->primary_type_id,
+        typeName            => $self->type_name,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

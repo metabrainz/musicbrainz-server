@@ -10,17 +10,8 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
-
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit',
-    clearer => 'clear_artist_credit',
-);
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
 has 'track_id' => (
     is => 'rw',
@@ -35,11 +26,6 @@ has 'track' => (
 has 'length' => (
     is => 'rw',
     isa => 'Maybe[Int]'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
 );
 
 has 'video' => (
@@ -67,6 +53,17 @@ sub related_works {
         $_->link && $_->link->type && $_->link->type->entity1_type eq 'work'
     } $self->all_relationships;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        isrcs   => [map { $_->isrc } $self->all_isrcs],
+        length  => $self->length,
+        video   => $self->video ? \1 : \0,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

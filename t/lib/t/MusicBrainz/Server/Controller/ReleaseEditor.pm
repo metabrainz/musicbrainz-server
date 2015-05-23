@@ -152,16 +152,19 @@ test 'returning an error when a space appears before an MBID' => sub {
 };
 
 our $japan = {
+    'annotation' => '',
+    'begin_date' => '',
     'code' => 'JP',
-    'typeID' => 1,
-    'name' => 'Japan',
-    'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
-    'entityType' => 'area',
     'comment' => '',
+    'containment' => [],
+    'editsPending' => \0,
+    'end_date' => '',
+    'ended' => \0,
+    'entityType' => 'area',
+    'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
     'id' => 107,
-    'parent_city' => undef,
-    'parent_country' => undef,
-    'parent_subdivision' => undef,
+    'name' => 'Japan',
+    'typeID' => 1,
 };
 
 test 'seeding a release with no tracklist' => sub {
