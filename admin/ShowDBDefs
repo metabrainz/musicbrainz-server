@@ -35,14 +35,8 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use Class::MOP;
 use DBDefs;
 use String::ShellQuote;
 
-my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
-
-my %exclude = map { $_ => 1 }
-    qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES );
-
-printf "export %s=%s\n", $_, shell_quote(join(',', grep { defined } $export->{$_}->body->('DBDefs')))
-    for (sort grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export);
+my $export = DBDefs->get_environment_hash;
+printf("export %s=%s\n", $_, shell_quote($export->{$_})) for sort keys %$export;

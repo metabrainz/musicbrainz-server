@@ -27,10 +27,23 @@ use warnings;
 
 package DBDefs::Default;
 
+use Class::MOP;
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Translation 'l';
+
+sub get_environment_hash {
+    my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
+
+    my %exclude = map { $_ => 1 }
+        qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES get_environment_hash );
+
+    return {
+        map { $_ => join(',', grep { defined } $export->{$_}->body->('DBDefs')) }
+        grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export
+    };
+}
 
 ################################################################################
 # Directories
