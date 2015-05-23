@@ -435,6 +435,14 @@ sub EMAIL_BUGS { undef }
 sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
+# We use a small HTTP server (root/server.js) to render React.js templates.
+# These configure the host/port it listens on. If RENDERER_HOST is '', then
+# musicbrainz-server will fork & exec root/server.js for us (convenient on
+# development servers). Otherwise, it'll assume the service is running
+# separately.
+sub RENDERER_HOST { '' }
+sub RENDERER_PORT { 9009 }
+
 ################################################################################
 # Profiling
 ################################################################################

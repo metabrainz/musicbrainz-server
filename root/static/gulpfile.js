@@ -14,15 +14,25 @@ var through2 = require('through2');
 var Q = require('q');
 var watch = require('gulp-watch');
 var yarb = require('yarb');
+var {findObjectFile} = require('../server/gettext');
 
 const CACHED_BUNDLES = new Map();
-const ROOT_DIR = path.resolve(__dirname, '../');
-const PO_DIR = path.resolve(__dirname, '../../po');
+const CHECKOUT_DIR = path.resolve(__dirname, '../../');
+const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
+const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
 const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
+
 const revManifestPath = path.resolve(BUILD_DIR, 'rev-manifest.json');
 const revManifest = {};
+
+const JED_OPTIONS_EN = {
+  domain: 'mb_server',
+  locale_data: {
+    mb_server: {'': {}},
+  },
+};
 
 if (fs.existsSync(revManifestPath)) {
   _.assign(revManifest, JSON.parse(fs.readFileSync(revManifestPath)));
@@ -151,31 +161,17 @@ function buildScripts() {
     .without('en')
     .map(langToPosix)
     .transform(function (result, lang) {
-      var srcPo = path.resolve(PO_DIR, `mb_server.${lang}.po`);
+      var srcPo = findObjectFile('mb_server', lang, 'po');
       var tmpPo = path.resolve(PO_DIR, `javascript.${lang}.po`);
-
-      try {
-        fs.statSync(srcPo);
-      } catch (err) {
-        if (err.code === 'ENOENT' && /_/.test(lang)) {
-          let newSrcPo = srcPo.replace(/_[a-zA-Z]+\.po/, '.po');
-
-          console.warn(`Warning: ${srcPo} does not exist, trying ${newSrcPo}`);
-
-          srcPo = newSrcPo;
-        } else {
-          throw err;
-        }
-      }
 
       // Create a temporary .po file containing only the strings used by root/static/scripts.
       shell.exec(`msggrep -N '../root/static/scripts/**/*.js' ${srcPo} -o ${tmpPo}`);
 
-      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed'});
+      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed', domain: 'mb_server'});
 
       fs.unlinkSync(tmpPo);
     }, {})
-    .assign({en: {}})
+    .assign({en: JED_OPTIONS_EN})
     .each(function (jedOptions, lang) {
       var bundle = transformBundle(yarb().expose(createLangVinyl(lang, jedOptions), 'jed-data'));
       commonBundle.external(bundle);
@@ -272,7 +268,7 @@ gulp.task('tests', function () {
 
   return bundleScripts(
     runYarb('tests.js', function (b) {
-      b.expose(createLangVinyl('en', {}), 'jed-data');
+      b.expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data');
       b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
     }),
     'tests.js'
