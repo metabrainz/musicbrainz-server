@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::WorkAttributeType;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Attributes qw( lp );
 
@@ -57,7 +58,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        freeText => $self->free_text ? \1 : \0,
+        freeText => boolean_to_json($self->free_text),
     };
 };
 

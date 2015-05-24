@@ -5,7 +5,11 @@ use 5.10.0;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_ref
+    boolean_to_json
+    boolean_from_json
+);
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -14,8 +18,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     verify_artist_credits
     merge_artist_credit
-    boolean_to_json
-    boolean_from_json
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( N_l );

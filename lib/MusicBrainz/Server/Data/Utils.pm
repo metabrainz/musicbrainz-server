@@ -35,6 +35,8 @@ our @EXPORT_OK = qw(
     add_partial_date_to_row
     add_coordinates_to_row
     artist_credit_to_ref
+    boolean_from_json
+    boolean_to_json
     check_data
     copy_escape
     coordinates_to_hash
@@ -55,6 +57,7 @@ our @EXPORT_OK = qw(
     merge_partial_date
     merge_date_period
     model_to_type
+    non_empty
     object_to_ids
     order_by
     partial_date_to_hash
@@ -68,7 +71,6 @@ our @EXPORT_OK = qw(
     trim
     type_to_model
     split_relationship_by_attributes
-    non_empty
 );
 
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
@@ -632,6 +634,20 @@ sub split_relationship_by_attributes {
 sub non_empty {
     my $value = shift;
     return defined($value) && $value ne "";
+}
+
+sub boolean_to_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? ${$bool} : $bool;
+    return $bool ? \1 : \0;
+}
+
+sub boolean_from_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? ${$bool} : $bool;
+    return $bool ? 1 : 0;
 }
 
 1;

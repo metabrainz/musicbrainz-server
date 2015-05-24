@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Track;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Track qw( format_track_length );
 
@@ -65,7 +66,7 @@ around TO_JSON => sub {
 
     my $output = {
         %{ $self->$orig },
-        isDataTrack     => $self->is_data_track ? \1 : \0,
+        isDataTrack     => boolean_to_json($self->is_data_track),
         length          => $self->length,
         number          => $self->number,
         position        => $self->position,
