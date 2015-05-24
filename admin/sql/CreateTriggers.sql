@@ -829,6 +829,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 --------------------------------------------------------------------------------
 
+CREATE CONSTRAINT TRIGGER url_gc_a_upd_url
+AFTER UPDATE ON url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_area_url
 AFTER UPDATE ON l_area_url DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();

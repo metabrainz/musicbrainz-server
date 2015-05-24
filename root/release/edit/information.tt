@@ -140,7 +140,7 @@
         <td><label>[% l('Date:') %]</label></td>
         <td class="partial-date">
           <span class="partial-date">
-            <input maxlength="4" placeholder="[% l('YYYY') %]" size="4"
+            <input type="text" maxlength="4" placeholder="[% l('YYYY') %]" size="4"
               class="partial-date-year"
               data-bind="
                 value: date.year,
@@ -148,14 +148,14 @@
                 controlsBubble: $root.dateBubble,
                 withLabel: 'event-date'"
             />-[%
-            %]<input maxlength="2" placeholder="[% l('MM') %]" size="2"
+            %]<input type="text" maxlength="2" placeholder="[% l('MM') %]" size="2"
                 class="partial-date-month"
                 data-bind="
                   value: date.month,
                   valueUpdate: 'input',
                   controlsBubble: $root.dateBubble"
             />-[%
-            %]<input maxlength="2" placeholder="[% l('DD') %]" size="2"
+            %]<input type="text" maxlength="2" placeholder="[% l('DD') %]" size="2"
                 class="partial-date-day"
                 data-bind="
                   value: date.day,

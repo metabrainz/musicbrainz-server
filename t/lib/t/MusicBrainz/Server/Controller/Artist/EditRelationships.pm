@@ -10,6 +10,7 @@ use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
@@ -204,7 +205,7 @@ test 'editing a relationship' => sub {
             edit_version => 2,
         });
 
-        ok !exception { $edit->accept };
+        is($edit->status, $STATUS_APPLIED);
     };
 
     subtest 'remove begin date and ended flag' => sub {
@@ -215,6 +216,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '1',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'edit-artist.make_votable' => '1',
             });
         } $c;
 
