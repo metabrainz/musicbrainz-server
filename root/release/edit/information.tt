@@ -367,7 +367,7 @@
              denote bootlegs, mixtape/street albums, demos, or digital
              albums. Be sure to link to the corresponding real release with
              the {url|transl(iter)ation relationship}.',
-            { url => doc_link('Translation_Transliteration_Relationship_Type') })
+            { url => c.uri_for('/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644') })
       -%]
     </p>
   </div>
