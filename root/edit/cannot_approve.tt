@@ -7,7 +7,7 @@
     [% ELSIF edit.status == 8 %]
         <p>[% l('The edit has been cancelled.') %]</p>
     [% ELSIF !edit.auto_edit_for_editor(c.user) %]
-        <p>[% l('Only {doc|auto-editors} can approve an edit.', { doc => doc_link('Auto-Editor') }) %]</p>
+        <p>[% l('Only {doc|auto-editors} can approve an edit.', { doc => doc_link('Editor') }) %]</p>
     [% ELSE %]
         <p>[% l('The reason for this was unknown.') %]</p>
     [% END %]

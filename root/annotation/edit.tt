@@ -4,7 +4,7 @@
 <p>[% l('Please note that any content submitted to MusicBrainz will be made available
          to the public under {open|open licenses}, do not submit
          any copyrighted text here! ',
-         { open => doc_link('MusicBrainz_License') }) %]</p>
+         { open => doc_link('About/Data_License') }) %]</p>
 
 [% IF show_preview %]
     <h3>[% l('Preview:') %]</h3>

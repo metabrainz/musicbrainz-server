@@ -4,7 +4,7 @@
 
     <p>[% error_description | html  %]</p>
 
-    <p>[% l('{doc|Learn more}', { doc => doc_link('OAuth2') }) %]</p>
+    <p>[% l('{doc|Learn more}', { doc => doc_link('Development/OAuth2') }) %]</p>
 
 [% END %]
 

@@ -45,7 +45,7 @@
             comes back true when the current user is the edit.editor. %]
             <p>
                 [% l('You are not currently able to vote on this edit. ({url|Details})',
-                    { url=doc_link('Voting_FAQ') }) %]
+                    { url=doc_link('Introduction_to_Voting') }) %]
             </p>
         [% END %]
 

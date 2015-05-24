@@ -91,7 +91,7 @@
               information to MusicBrainz. Find out how we peer review entered data to create the most accurate
               music database on the internet. If this appeals to you, please {reg|create an account} or
               {login_url|login}.',
-              { how => doc_link('HowEditingWorks'),
+              { how => doc_link('How_Editing_Works'),
                 reg => register_url(c.relative_uri),
                 login_url => login_url(c.relative_uri) }) %]</p>
         <p>[% l('Or...') %]</p>

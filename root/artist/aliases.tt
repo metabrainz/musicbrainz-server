@@ -8,7 +8,7 @@
     <h2>[% l("Artist credits") %]</h2>
         <p>
           [%- l('This is a list of all the different ways {artist} is credited in the database.
-                 View the {doc|artist credit documentation} for more details.', { artist => link_entity(entity), doc => doc_link('Artist_Credit') })
+                 View the {doc|artist credit documentation} for more details.', { artist => link_entity(entity), doc => doc_link('Artist_Credits') })
           -%]
         </p>
 
