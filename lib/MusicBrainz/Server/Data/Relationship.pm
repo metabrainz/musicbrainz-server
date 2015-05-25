@@ -397,6 +397,11 @@ EOSQL
 
             my $old_credit = $relationship->{$prop};
 
+            # Check that:
+            # (1) The credit is different from the existing one.
+            # (2) If the relationship comes from the merge target, the credit
+            #     is currently empty. Non-empty credits on the merge target
+            #     are never overwritten.
             if ($new_credit ne $old_credit && !($old_credit && $relationship->{$entity0} == $target_id)) {
                 $self->sql->do("UPDATE $table SET $prop = ? WHERE id = ?", $new_credit, $relationship->{id});
                 $relationship->{$prop} = $new_credit;
