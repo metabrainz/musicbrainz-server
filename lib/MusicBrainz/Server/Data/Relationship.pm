@@ -475,7 +475,7 @@ EOSQL
     };
 
     foreach my $t (_generate_table_list($type)) {
-        Sql::run_in_transaction(sub { $do_table_merge->(@$t) }, $self->sql);
+        $do_table_merge->(@$t);
     }
 }
 
