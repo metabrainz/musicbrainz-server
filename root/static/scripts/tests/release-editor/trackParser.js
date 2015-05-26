@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var test = require('tape');
 var common = require('./common.js');
 
@@ -11,13 +12,13 @@ var releaseEditor = MB.releaseEditor;
 function parserTest(name, callback) {
     test(name, function (t) {
         releaseEditor.trackParser.options = {
-            hasTrackNumbers: true,
+            hasTrackNumbers: false,
             hasVinylNumbers: false,
             hasTrackArtists: false,
-            useTrackNumbers: true,
-            useTrackArtists: true,
-            useTrackNames: true,
-            useTrackLengths: true,
+            useTrackNumbers: false,
+            useTrackArtists: false,
+            useTrackNames: false,
+            useTrackLengths: false,
         };
         callback(t);
     });
@@ -26,7 +27,13 @@ function parserTest(name, callback) {
 parserTest("track numbers", function (t) {
     t.plan(1);
 
-    releaseEditor.trackParser.options.hasVinylNumbers = true;
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        hasVinylNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
 
     var input = [
         "a1  Kermis         02:04",
@@ -53,6 +60,13 @@ parserTest("track numbers", function (t) {
 parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
     t.plan(1);
 
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
+
     var input = [
         "1. Forgotten Child    3:39    ",
         "2. Dirty Looks  4:34   ",
@@ -72,6 +86,13 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
 parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
     t.plan(1);
 
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
+
     var input = [
         "1. Criminology 2.5",
         "2. Love On A .45"
@@ -86,6 +107,13 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
 
 parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
     t.plan(1);
+
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
 
     var input = "\
         1 Freeman Hardy & Willis Acid\n\n\
@@ -105,6 +133,13 @@ parserTest("ignoring lines that don't start with a number when the option is set
 parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
     t.plan(1);
 
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
+
     var input = "1. Love On A .45  05:22:31";
 
     common.trackParser(t, input, [
@@ -114,6 +149,12 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 
 parserTest("internal track positions are updated appropriately after being reused", function (t) {
     t.plan(2);
+
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
 
     var re = releaseEditor;
     re.rootField.release(re.fields.Release(common.testRelease));
@@ -145,10 +186,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
 
     medium.cdtocs = ["1"];
 
-    re.trackParser.options = {
-        hasTrackNumbers: false,
-        useTrackLengths: true
-    };
+    re.trackParser.options.useTrackLengths = true;
 
     // The string does not include track numbers.
     var input = re.trackParser.mediumToString(medium);
@@ -173,8 +211,13 @@ parserTest("MBS-7456: Failing to parse artists does not break track autocomplete
 
     var re = releaseEditor;
 
-    re.trackParser.options.trackArtists = true;
-    re.trackParser.options.useTrackLengths = false;
+    _.assign(re.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        hasTrackArtists: true,
+        useTrackArtists: true
+    });
 
     var release = re.fields.Release({
         mediums: [{
@@ -205,15 +248,12 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     var re = releaseEditor;
     var trackParser = re.trackParser;
 
-    trackParser.options = {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         hasTrackArtists: true,
-        useTrackNumbers: true,
-        useTrackArtists: false,
-        useTrackNames: false,
-        useTrackLengths: false,
-    };
+        useTrackNumbers: true
+    });
 
     var release = re.fields.Release({
         mediums: [{
@@ -239,8 +279,10 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only titles
-    trackParser.options.useTrackNumbers = false;
-    trackParser.options.useTrackNames = true;
+    _.assign(trackParser.options, {
+        useTrackNumbers: false,
+        useTrackNames: true
+    });
 
     medium.tracks(trackParser.parse("B1. FOO! - BAR! (2:55)", medium));
 
@@ -251,8 +293,10 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only artists
-    trackParser.options.useTrackNames = false;
-    trackParser.options.useTrackArtists = true;
+    _.assign(trackParser.options, {
+        useTrackNames: false,
+        useTrackArtists: true
+    });
 
     medium.tracks(trackParser.parse("B1. oof - BAR! (2:55)", medium));
 
@@ -263,8 +307,10 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only lengths
-    trackParser.options.useTrackArtists = false;
-    trackParser.options.useTrackLengths = true;
+    _.assign(trackParser.options, {
+        useTrackArtists: false,
+        useTrackLengths: true
+    });
 
     medium.tracks(trackParser.parse("B1. oof - rab (2:55)", medium));
 
@@ -280,15 +326,11 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     var trackParser = releaseEditor.trackParser;
 
-    releaseEditor.trackParser.options = {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
-        hasVinylNumbers: false,
-        hasTrackArtists: false,
         useTrackNumbers: true,
-        useTrackArtists: false,
-        useTrackNames: true,
-        useTrackLengths: false,
-    };
+        useTrackNames: true
+    });
 
     var release = releaseEditor.fields.Release({
         mediums: [
@@ -361,6 +403,13 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
 parserTest("parsing fullwidth numbers", function (t) {
     t.plan(1);
+
+    _.assign(releaseEditor.trackParser.options, {
+        hasTrackNumbers: true,
+        useTrackNumbers: true,
+        useTrackNames: true,
+        useTrackLengths: true
+    });
 
     var input = "１ Ｆｏｏ ２：３４";
 
