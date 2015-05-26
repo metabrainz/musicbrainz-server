@@ -151,7 +151,7 @@ MB.releaseEditor.trackParser = {
                     matchedTrack.name(data.name);
                 }
 
-                if (options.useTrackLengths && !hasTocs && data.formattedLength) {
+                if (options.useTrackLengths && (!hasTocs || matchedTrack.isDataTrack.peek()) && data.formattedLength) {
                     matchedTrack.formattedLength(data.formattedLength);
                 }
 

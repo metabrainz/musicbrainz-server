@@ -417,3 +417,44 @@ parserTest("parsing fullwidth numbers", function (t) {
         { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
     ]);
 });
+
+parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)", function (t) {
+    t.plan(2);
+
+    var trackParser = releaseEditor.trackParser;
+    _.assign(trackParser.options, {useTrackLengths: true});
+
+    var release = releaseEditor.fields.Release({
+        id: 1,
+        mediums: [
+            {
+                id: 1,
+                cdtocs: ['fake'],
+                tracks: [
+                    {
+                        id: 1,
+                        gid: '33705d86-ab4f-4bed-9a6c-1a690df7e70b',
+                        name: 'Track 1',
+                        length: 12000
+                    },
+                    {
+                        id: 2,
+                        gid: 'bd43814d-096d-48d7-8ff8-634baa0a8aa6',
+                        name: 'Track 2',
+                        length: 0,
+                        isDataTrack: true
+                    }
+                ]
+            }
+        ]
+    });
+
+    releaseEditor.rootField.release(release);
+
+    var medium = release.mediums()[0];
+    var tracks = medium.tracks();
+
+    medium.tracks(trackParser.parse('1:23\n2:34', medium));
+    t.equal(tracks[0].length(), 12000, 'length of non-data track did not change');
+    t.equal(tracks[1].length(), 154000, 'length of data track changed');
+});
