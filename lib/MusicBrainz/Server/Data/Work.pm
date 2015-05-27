@@ -119,9 +119,6 @@ sub find_by_collection
     my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my $order_by = order_by($order, "name", {
-        "date" => sub {
-            return "musicbrainz_collate(name)"
-        },
         "name" => sub {
             return "musicbrainz_collate(name)"
         },
