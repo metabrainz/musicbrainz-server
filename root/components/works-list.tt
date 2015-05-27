@@ -22,6 +22,7 @@
     </tr>
   </thead>
   <tbody>
+    [% DEFAULT works=entities %]
     [% FOR work IN works %]
     <tr class="[% loop.parity %]">
       [% IF c.user_exists AND !no_checkboxes %]
