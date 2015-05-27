@@ -49,11 +49,12 @@ MB.releaseEditor.trackParser = {
             previousTracks = currentTracks.slice(0);
             hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
-        }
 
-        if (hasTocs) {
-            // Don't add more tracks than the CDTOC allows.
-            lines = lines.slice(0, currentTracks.length);
+            // Don't add more tracks than the CDTOC allows. If there are data
+            // tracks, then more can be added at the end.
+            if (hasTocs && !medium.hasDataTracks()) {
+                lines = lines.slice(0, currentTracks.length);
+            }
         }
 
         var newTracksData = $.map(lines, function (line) {
@@ -165,31 +166,55 @@ MB.releaseEditor.trackParser = {
             return MB.releaseEditor.fields.Track(data, medium);
         });
 
-        // Force the number of tracks if there's a CDTOC.
         if (medium) {
             currentTracks = medium.tracks.peek();
 
-            var currentTrackCount = currentTracks.length,
-                dataTracksEnded = false;
+            var currentTrackCount = currentTracks.length;
+            var difference = newTracks.length - currentTrackCount;
+            var oldAudioTrackCount = medium.audioTracks.peek().length;
 
-            if (hasTocs && newTracks.length < currentTrackCount) {
-                var difference = currentTrackCount - newTracks.length;
-
-                while (difference-- > 0) {
-                    newTracks.push(MB.releaseEditor.fields.Track({
-                        length: currentTracks[currentTrackCount - difference - 1].length.peek()
-                    }, medium));
-                }
-            }
-
+            // Make sure data tracks are contiguous at the end of the medium.
             if (medium.hasDataTracks()) {
-                // Data tracks must be contiguous at the end of the medium.
-                _.each(newTracks.concat().reverse(), function (track) {
-                    if (dataTracksEnded) {
-                        track.isDataTrack(false);
-                    } else if (!track.isDataTrack()) {
+                var dataTracksEnded = false;
+
+                _.each(newTracks.slice(0).reverse(), function (t, index) {
+                    // Don't touch the data track boundary if the total number
+                    // of tracks is >= the previous number. The user can edit
+                    // things manually if it needs fixing. Since we're
+                    // iterating backwards, the condition is checking that we
+                    // don't exceed the point where the audio tracks end.
+                    if (difference >= 0) {
+                        t.isDataTrack(index < (newTracks.length - oldAudioTrackCount));
+                    // Otherwise, keep isDataTrack true for ones that stayed at
+                    // the end, but unset it if they somehow moved up in the
+                    // tracklist and are no longer contiguous.
+                    } else if (dataTracksEnded) {
+                        t.isDataTrack(false);
+                    } else if (!t.isDataTrack()) {
                         dataTracksEnded = true;
                     }
+                });
+            }
+
+            // Force a minimum number of audio tracks if there's a CDTOC.
+            var newAudioTrackCount = _.sum(newTracks, function (t) {
+                return t.isDataTrack() ? 0 : 1;
+            });
+
+            if (hasTocs && newAudioTrackCount < oldAudioTrackCount) {
+                difference = oldAudioTrackCount - newAudioTrackCount;
+
+                newTracks.splice.apply(
+                    newTracks,
+                    [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
+                        return MB.releaseEditor.fields.Track({
+                            length: currentTracks[newAudioTrackCount + n].length.peek()
+                        }, medium);
+                    }))
+                );
+
+                _.each(newTracks, function (t, index) {
+                    t.position(index + 1);
                 });
             }
         }

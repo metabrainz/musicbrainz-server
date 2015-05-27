@@ -458,3 +458,75 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     t.equal(tracks[0].length(), 12000, 'length of non-data track did not change');
     t.equal(tracks[1].length(), 154000, 'length of data track changed');
 });
+
+parserTest("data track boundary is unchanged if the track count is >= the previous one (MBS-8410)", function (t) {
+    t.plan(1);
+
+    var trackParser = releaseEditor.trackParser;
+    trackParser.options.useTrackNames = true;
+
+    var release = releaseEditor.fields.Release({
+        id: 1,
+        mediums: [
+            {
+                id: 1,
+                tracks: [
+                    {id: 1, name: 'Track A'},
+                    {id: 2, name: 'Track B', isDataTrack: true}
+                ]
+            }
+        ]
+    });
+
+    releaseEditor.rootField.release(release);
+
+    var medium = release.mediums()[0];
+    medium.tracks(trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium));
+
+    t.deepEqual(
+        _.map(medium.tracks(), function (t) {
+            return {id: t.id, name: t.name(), isDataTrack: t.isDataTrack()};
+        }),
+        [
+            {id: 2, name: 'Track B', isDataTrack: false},
+            {id: 1, name: 'Track A', isDataTrack: true},
+            {id: undefined, name: 'Cool Bonus Vid', isDataTrack: true}
+        ]
+    );
+});
+
+parserTest("force number of tracks to equal CD TOC", function (t) {
+    t.plan(3);
+
+    var trackParser = releaseEditor.trackParser;
+    trackParser.options.useTrackNames = true;
+
+    var release = releaseEditor.fields.Release({
+        id: 1,
+        mediums: [
+            {
+                id: 1,
+                cdtocs: ['fake'],
+                tracks: [
+                    {id: 1, name: 'Track A'},
+                    // data tracks should not be included in count
+                    {id: 2, name: 'Track B', isDataTrack: true}
+                ]
+            }
+        ]
+    });
+
+    releaseEditor.rootField.release(release);
+
+    var medium = release.mediums()[0];
+    medium.tracks(trackParser.parse(
+        'Track A\n' +
+        'Very Different Title\n' +
+        'Another Data Track',
+        medium
+    ));
+
+    t.equal(medium.audioTracks().length, 1);
+    t.equal(medium.dataTracks().length, 2);
+    t.deepEqual(_.invoke(medium.tracks(), 'name'), ['Track A', 'Very Different Title', 'Another Data Track']);
+});
