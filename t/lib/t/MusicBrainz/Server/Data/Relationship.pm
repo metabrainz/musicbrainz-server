@@ -176,7 +176,7 @@ test 'Entity credits are merged' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO label (id, name, gid)
 VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f'),
@@ -241,7 +241,7 @@ test 'Entity credits plus dates merge harmoniously' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO label (id, name, gid)
 VALUES (4, 'D', '71a79efe-ab55-4a5a-a221-72062f5acb2f');
