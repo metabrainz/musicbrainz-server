@@ -87,11 +87,11 @@ sub _create_message_to_editor_email
         'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
     );
 
+    push @headers, 'From', _user_address($from, 1);
     if ($opts{reveal_address}) {
-        push @headers, 'From', _user_address($from);
+        push @headers, 'Reply-To', _user_address($from);
     }
     else {
-        push @headers, 'From', _user_address($from, 1);
         push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
     }
 

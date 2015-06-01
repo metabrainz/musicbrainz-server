@@ -535,6 +535,26 @@ sub editor_may_edit {
     );
 }
 
+sub allow_auto_edit {
+    my ($self) = @_;
+
+    my $data = $self->data;
+    my $entity0 = $data->{new}{entity0};
+    my $entity1 = $data->{new}{entity1};
+
+    # MBS-7972
+    # Make auto-editable if neither endpoint changed.
+    return 1 if !($entity0 || $entity1);
+
+    # Switching the entities around should also be an auto-edit.
+    return 0 if $data->{type0} ne $data->{type1};
+
+    return 0 if defined($entity0) xor defined($entity1);
+
+    return ($data->{old}{entity0}{id} == $entity1->{id} &&
+            $data->{old}{entity1}{id} == $entity0->{id});
+}
+
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

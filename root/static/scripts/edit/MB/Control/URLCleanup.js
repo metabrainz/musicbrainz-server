@@ -696,7 +696,15 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?tedcrane\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?thedancegypsy\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?bibliotekapiosenki\\.pl", "i"),
-            new RegExp("^(https?://)?(www\\.)?finna\\.fi", "i")
+            new RegExp("^(https?://)?(www\\.)?finna\\.fi", "i"),
+            new RegExp("^(https?://)?(www\\.)?castalbums\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?folkwiki\\.se", "i"),
+            new RegExp("^(https?://)?(www\\.)?mvdbase\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?smdb\\.kb\\.se", "i"),
+            new RegExp("^(https?://)?(www\\.)?operadis-opera-discography\\.org\\.uk", "i"),
+            new RegExp("^(https?://)?(www\\.)?spirit-of-rock\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?tunearch\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?videogam\\.in", "i")
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
