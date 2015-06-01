@@ -317,7 +317,6 @@ INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
     (1, 3, 2);
 
 -- Restart sequences
-ALTER SEQUENCE gender_id_seq RESTART 3;
 ALTER SEQUENCE artist_id_seq RESTART 10;
 ALTER SEQUENCE artist_credit_id_seq RESTART 5;
 ALTER SEQUENCE label_id_seq RESTART 5;
