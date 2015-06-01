@@ -9,28 +9,22 @@
     tag_links.join(', ');
 END -%]
 
-<script type="text/javascript">//<![CDATA[
-    $(function () {
-        MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
-            "[% c.uri_for('/tag/') %]",
-            '[% link_entity(entity, 'tags', l('more...')).replace("'", "\\'").replace('</', '<\/') %]');
-    });
-//]]></script>
+<h2>[% l('Tags') %]</h2>
 
 <div id="sidebar-tags">
-    <h2>[% l('Tags') %]</h2>
-    <p>
-    <span class="tags">
-      [% tag_list(tags, more, entity) %]
-      [% UNLESS tags.size %]
-      [%- lp('(none)', 'tag') -%]
-      [% END %]
-    </span>
-    </p>
-    [% IF c.user_exists %]
-        <form action="[% c.uri_for_action("/$entity_type/tags", [ entity.gid ]) %]" method="post">
-            <input type="text" class="tag-input" name="tag.tags" value="[% sidebar_user_tags.join(', ') %]" />
-            [% form_submit(l('Tag', 'verb'), 'inline') %]
-        </form>
-    [% END %]
+  <p>
+    [% tag_list(tags, more, entity) IF tags.size %]
+    [%- lp('(none)', 'tag') UNLESS tags.size -%]
+  </p>
 </div>
+
+[%- IF c.user_exists -%]
+  <script>
+    MB.init_sidebar_tag_editor(
+      {entity_type: '[% entity_type %]', gid: '[% entity.gid %]'},
+      [% top_tags_json %],
+      [% user_tags_json %],
+      [% more_tags ? 'true' : 'false' %]
+    );
+  </script>
+[%- END -%]

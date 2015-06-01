@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Controller::Role::Tag;
-use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use Readonly;
-
+use JSON;
 use List::MoreUtils qw( uniq );
+use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::Data::Utils qw( trim );
+use Readonly;
 
 requires 'load', '_load_paged';
 
 Readonly my $TOP_TAGS_COUNT => 5;
 
-after 'load' => sub
-{
+after load => sub {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
@@ -18,51 +18,43 @@ after 'load' => sub
     my $count = $tags_model->find_tag_count($entity->id);
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
         if $c->user_exists;
+    my $json = JSON->new->allow_blessed->convert_blessed;
 
     $c->stash(
         top_tags => \@tags,
         more_tags => $count > @tags,
-        sidebar_user_tags => [ map { $_->tag->name } @user_tags ]
+        top_tags_json => $json->encode(\@tags),
+        user_tags_json => $json->encode(\@user_tags),
     );
 };
 
-sub tags : Chained('load') PathPart('tags')
-{
+sub tags : Chained('load') PathPart('tags') {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
+    my $json = JSON->new->allow_blessed->convert_blessed;
 
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
-        if $c->user_exists;
     my $tags = $self->_load_paged($c, sub {
         $tags_model->find_tags($entity->id, shift, shift);
     });
 
     $c->stash(
         tags => $tags,
-        user_tags => \@user_tags,
+        tags_json => $json->encode($tags),
         template => 'entity/tags.tt',
     );
-
-    my @user_tag_names = map { $_->tag->name } @user_tags;
-    my $form = $c->form( tag_form => 'Tag', init_object => {
-        tags => join(', ', sort @user_tag_names)
-    });
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my $tags = $form->field('tags')->value;
-        $tags_model->update($c->user->id, $entity->id, $tags);
-
-        my $redirect = $c->uri_for_action($c->action, [ $entity->gid ], { saved => 1});
-        $c->response->redirect($redirect);
-        $c->detach;
-    }
 }
 
-sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
-{
-    my ($self, $c) = @_;
+sub parse_tags {
+    my ($input) = @_;
+
+    # make sure the list contains only unique tags
+    uniq grep { $_ } map { lc trim $_ } split ',', $input;
+}
+
+sub _vote_on_tags {
+    my ($self, $c, $method) = @_;
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
     if (!$c->user_exists) {
@@ -71,22 +63,19 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
         $c->detach;
     }
 
+    my @tags = parse_tags($c->req->params->{tags});
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
-    $tags_model->update($c->user->id, $entity->id, $c->req->params->{tags});
+    my $json = JSON->new->utf8->allow_blessed->convert_blessed;
 
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
-    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
-    my $count = $tags_model->find_tag_count($entity->id);
+    $c->res->body($json->encode({
+        updates => [map { $tags_model->$method($c->user->id, $entity->id, $_) } @tags]
+    }));
+}
 
-    my $response = {
-        tags => [
-            uniq sort map { $_->tag->name } @user_tags, @tags
-        ],
-        more => $count > @tags
-    };
-
-    $c->res->body(JSON::Any->new(utf8 => 1)->encode($response));
+for my $method (qw(upvote downvote withdraw)) {
+    my $attributes = "Chained('load') PathPart('tags/$method') DenyWhenReadonly";
+    eval "sub ${method}_tags : $attributes { shift->_vote_on_tags(shift, '$method') }";
 }
 
 no Moose::Role;
