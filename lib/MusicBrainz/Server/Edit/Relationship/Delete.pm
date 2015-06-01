@@ -39,6 +39,8 @@ has '+data' => (
                 id => Int,
                 name => Str,
             ],
+            entity0_credit => Optional[Str],
+            entity1_credit => Optional[Str],
             phrase => Optional[Str],
             extra_phrase_attributes => Optional[Str],
             link => Dict[
@@ -117,6 +119,8 @@ sub build_display_data
             $self->c->model($self->model1)->_entity_class->new(
                 name => $self->data->{relationship}{entity1}{name}
             ),
+        entity0_credit => $self->data->{relationship}{entity0_credit} // '',
+        entity1_credit => $self->data->{relationship}{entity1_credit} // '',
         link => $link
     );
     if ($self->data->{relationship}{phrase}) {
@@ -195,6 +199,8 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
+            $relationship->entity0_credit ? (entity0_credit => $relationship->entity0_credit) : (),
+            $relationship->entity1_credit ? (entity1_credit => $relationship->entity1_credit) : (),
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),

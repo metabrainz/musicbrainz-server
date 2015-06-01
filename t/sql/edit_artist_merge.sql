@@ -5,8 +5,8 @@ INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (3, 'da34a170-7f7f-11de-8a39-0800200c9a66', 'Artist', 'Artist', 'Artist 3'),
-           (4, 'e9f5fc80-7f7f-11de-8a39-0800200c9a66', 'Artist', 'Artist', 'Artist 4');
+    VALUES (3, 'da34a170-7f7f-11de-8a39-0800200c9a66', 'Old Artist', 'Old Artist', 'Artist 3'),
+           (4, 'e9f5fc80-7f7f-11de-8a39-0800200c9a66', 'New Artist', 'New Artist', 'Artist 4');
 
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00151894163');
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00145958831');
@@ -17,3 +17,23 @@ INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730476');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750994');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730477');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750995');
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (101, 'Old Artist', 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (101, 1, 3, 'Old Artist', '');
+
+INSERT INTO recording (id, gid, name, artist_credit, length)
+    VALUES (1, '123c079d-374e-4436-9448-da92dedef3ce', 'Test Recording', 101, 123456);
+
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
+    VALUES (1,
+            '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
+            'artist',
+            'recording',
+            'performer',
+            'performed on',
+            'has performer',
+            'performer');
+
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+
+INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);

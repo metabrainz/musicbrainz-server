@@ -77,6 +77,8 @@ subtype 'RelationshipHash'
             id => NullableOnPreview[Int],
             name => Str,
         ]],
+        entity0_credit => Optional[Str],
+        entity1_credit => Optional[Str],
     ];
 
 has '+data' => (
@@ -179,6 +181,8 @@ sub _build_relationship
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
         entity1 => $loaded->{$model1}{ $entity1->{id} } ||
             $self->c->model($model1)->_entity_class->new( name => $entity1->{name} ),
+        entity0_credit => $change->{entity0_credit} // '',
+        entity1_credit => $change->{entity1_credit} // '',
     );
 }
 
@@ -262,6 +266,8 @@ sub _mapping
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
         },
+        entity0_credit => sub { shift->entity0_credit },
+        entity1_credit => sub { shift->entity1_credit },
     );
 }
 
@@ -324,6 +330,7 @@ sub initialize
     my $new_attributes = $opts{attributes} // $current_attributes;
 
     $self->check_attributes($new_link_type, $new_attributes);
+    $self->sanitize_entity_credits(\%opts, $new_link_type);
 
     delete $opts{link_order}; # Not supported by this edit type.
 
@@ -359,6 +366,8 @@ sub initialize
             entity0_id   => $new_entity0->id,
             entity1_id   => $new_entity1->id,
             link_order   => $relationship->link_order,
+            entity0_credit  => $opts{entity0_credit},
+            entity1_credit  => $opts{entity1_credit},
         });
 
     $self->relationship($relationship);
@@ -419,13 +428,15 @@ sub accept
     # dict should be complete.  If a value isn't defined in $values it doesn't
     # change, so take the original value as it was stored in $link.
     my $values = {
-        entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
-        entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
-        attributes   => $data->{new}{attributes}    // $self->serialize_link_attributes($relationship->link->all_attributes),
-        link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
-        begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
-        end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended,
+        entity0_id      => $data->{new}{entity0}{id}    // $relationship->entity0_id,
+        entity1_id      => $data->{new}{entity1}{id}    // $relationship->entity1_id,
+        entity0_credit  => $data->{new}{entity0_credit} // $relationship->entity0_credit,
+        entity1_credit  => $data->{new}{entity1_credit} // $relationship->entity1_credit,
+        attributes      => $data->{new}{attributes}     // $self->serialize_link_attributes($relationship->link->all_attributes),
+        link_type_id    => $data->{new}{link_type}{id}  // $relationship->link->type_id,
+        begin_date      => $data->{new}{begin_date}     // $relationship->link->begin_date,
+        end_date        => $data->{new}{end_date}       // $relationship->link->end_date,
+        ended           => $data->{new}{ended}          // $relationship->link->ended,
         link_order   => $relationship->link_order,
     };
 

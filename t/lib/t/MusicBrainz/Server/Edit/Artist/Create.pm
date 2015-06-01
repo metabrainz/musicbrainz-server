@@ -15,7 +15,6 @@ test all => sub {
 my $test = shift;
 my $c = $test->c;
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE artist CASCADE;

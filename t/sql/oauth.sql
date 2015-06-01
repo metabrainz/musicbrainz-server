@@ -1,7 +1,5 @@
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee'), (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6'), (3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d');
 
-INSERT INTO gender (id, name) VALUES (1, 'female');
-
 UPDATE editor SET website='http://www.mysite.com/', gender=1, email='me@mysite.com', email_confirm_date=now() WHERE id=1;
 INSERT INTO editor_preference (editor, name, value) VALUES (1, 'timezone', 'Europe/Bratislava');
 

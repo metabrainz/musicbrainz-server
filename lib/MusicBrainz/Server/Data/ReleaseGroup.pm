@@ -500,7 +500,7 @@ sub _merge_impl
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('release_group', $new_id, \@old_ids);
     $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);
     $self->c->model('CoverArtArchive')->merge_release_groups($new_id, @old_ids);
 

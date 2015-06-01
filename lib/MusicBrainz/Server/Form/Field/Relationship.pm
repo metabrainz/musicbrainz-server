@@ -21,6 +21,14 @@ has_field 'target' => (
     type => '+MusicBrainz::Server::Form::Field::GID',
 );
 
+has_field 'entity0_credit' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+);
+
+has_field 'entity1_credit' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+);
+
 has_field 'attributes' => (
     type => 'Repeatable',
 );

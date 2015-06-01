@@ -193,7 +193,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('area', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('area', $new_id, \@old_ids);
     $self->merge_codes($new_id, @old_ids);
 
     # If any of the areas being merged is a country, then the new area is a

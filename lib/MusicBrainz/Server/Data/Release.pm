@@ -951,7 +951,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseGroup')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('release', $new_id, \@old_ids);
     $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 

@@ -5,6 +5,7 @@
             <tr>
                 <th>[% l('Date') %]</th>
                 <th>[% l('Title') %]</th>
+                <th>[% l('Credited As') %]</th>
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
             </tr>
@@ -13,16 +14,21 @@
         [%- FOREACH relationship IN entity.appearances.pairs -%]
                 <tr class="subh">
                     <th></th>
-                    <th colspan="3">[% l(relationship.key) %]</th>
+                    <th colspan="4">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.parity %]">
                     <td>[% rel.link.formatted_date %]</td>
-                    <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
+                    <td colspan="[% 1 + (rel.source_credit ? 0 : (rel.link.attributes.size ? 0 : 2)) %]">
                         [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
-                        [% link_entity(rel.target) %]
+                        [% link_entity(rel.target, 'show', '', rel.target_credit) %]
                         [%~ '</span>' IF rel.edits_pending ~%]
                     </td>
+                    [% IF rel.source_credit %]
+                    <td colspan="[% rel.link.attributes.size ? 1 : 2 %]">
+                        [%~ rel.source_credit ~%]
+                    </td>
+                    [% END %]
                     [% IF rel.link.attributes.size %]
                     <td>
                       [%~ attr_list = [];

@@ -74,11 +74,11 @@
 
     <td class="old">
       <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
-        [% descriptive_link(old_rel.source); %]
+        [% descriptive_link(old_rel.source, old_rel.source_credit); %]
       </span>
       [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
       <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
-        [% descriptive_link(old_rel.target); %]
+        [% descriptive_link(old_rel.target, old_rel.target_credit); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
       [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '-') %]
@@ -87,11 +87,11 @@
   <tr>
     <td class="new">
       <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
-        [% descriptive_link(new_rel.source); %]
+        [% descriptive_link(new_rel.source, new_rel.source_credit); %]
       </span>
       [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
       <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
-        [% descriptive_link(new_rel.target); %]
+        [% descriptive_link(new_rel.target, new_rel.target_credit); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
       [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '+') %]

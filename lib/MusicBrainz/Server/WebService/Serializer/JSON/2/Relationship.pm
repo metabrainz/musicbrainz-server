@@ -38,6 +38,8 @@ sub serialize
     } if any { $_->type->creditable } @attributes;
 
     $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
+    $body->{'source-credit'} = $entity->source_credit // '';
+    $body->{'target-credit'} = $entity->target_credit // '';
 
     return $body;
 };

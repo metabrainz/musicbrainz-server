@@ -108,6 +108,8 @@ test 'work lookup with recording relationships' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -126,6 +128,8 @@ test 'work lookup with recording relationships' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }
                 ],
             iswcs => [],

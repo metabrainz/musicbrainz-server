@@ -31,9 +31,28 @@
   <tr>
     <td class="section" data-bind="text: MB.i18n.addColon(MB.i18n.strings.entityName[source.entityType])"></td>
     <td>
-      <span data-bind="html: source.html({ 'target': '_blank' })"></span>
+      <span data-bind="html: source.html({ 'target': '_blank', creditedAs: relationship().creditField(source)() })"></span>
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: source, relationship: relationship()}} --><!-- /ko -->
     </td>
   </tr>
+</script>
+
+<script type="text/html" id="template.dialog-entity-credit">
+  <!-- ko if: entity.entityType === 'artist' -->
+    <div>
+      <label>
+        [% l('Credited as:') %]
+        <input type="text" data-bind="value: relationship.creditField(entity), attr: {placeholder: entity.name}" />
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" data-bind="checked: $parent.changeAllRelationshipCredits" />
+        <span data-bind="html: MB.i18n.l('Change all relationship credits for {entity} on the page.', {entity: entity.html({target: '_blank'})})">
+        </span>
+      </label>
+    </div>
+  <!-- /ko -->
 </script>
 
 <script type="text/html" id="template.dialog-target-entity">
@@ -47,6 +66,7 @@
         <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
       </span>
       <div class="error" data-bind="text: targetEntityError()"></div>
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: relationship().target(source), relationship: relationship()}} --><!-- /ko -->
     </td>
   </tr>
 </script>

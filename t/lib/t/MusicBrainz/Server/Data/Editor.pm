@@ -202,7 +202,6 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
-INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
@@ -221,7 +220,6 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
-INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted

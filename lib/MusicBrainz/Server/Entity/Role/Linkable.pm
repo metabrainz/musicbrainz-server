@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Role::Linkable;
 use Moose::Role;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Translation qw( l );
 use List::UtilsBy qw( sort_by );
 
 has 'relationships' => (
@@ -28,10 +29,16 @@ sub grouped_relationships
 
     for my $relationship (@relationships) {
         next if ($filter_present && !$filter{ $relationship->target_type });
-        $groups{ $relationship->target_type } ||= {};
-        $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
-        push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
-            $relationship;
+
+        my $phrase = $relationship->phrase;
+        if ($relationship->source_credit) {
+            $phrase = l('{role} (as {credited_name})', {
+                role => $phrase,
+                credited_name => $relationship->source_credit
+            });
+        }
+
+        push @{ $groups{$relationship->target_type}{$phrase} }, $relationship;
     }
 
     return \%groups;

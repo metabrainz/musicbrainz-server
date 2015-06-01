@@ -2,8 +2,9 @@
   <tr>
     <th>[% l('Relationship:') %]</th>
     <td>
-      [% descriptive_link(edit.display_data.relationship.source) %]
-      [% display_relationship(edit.display_data.relationship, 'verbose_phrase') %]
+      [%- relationship=edit.display_data.relationship -%]
+      [% descriptive_link(relationship.source, relationship.source_credit) %]
+      [% display_relationship(relationship, 'verbose_phrase') %]
     </td>
   </tr>
   [% IF edit.data.link_order.defined %]

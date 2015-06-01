@@ -197,6 +197,8 @@ role {
 
                 $args{entity0} = $field->{forward} ? $source : $target;
                 $args{entity1} = $field->{forward} ? $target : $source;
+                $args{entity0_credit} = $field->{entity0_credit};
+                $args{entity1_credit} = $field->{entity1_credit};
                 $args{link_order} = $field->{link_order} // 0;
             }
 
