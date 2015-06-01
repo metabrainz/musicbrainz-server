@@ -584,6 +584,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         report_filter => 1,
         removal => { automatic => {} },
+        collections => 1,
     },
     track => {
         mbid => { multiple => 1 },

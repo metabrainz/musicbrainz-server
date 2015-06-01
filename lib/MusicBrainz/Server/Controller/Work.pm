@@ -31,6 +31,9 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name     => 'work'
+};
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -64,6 +67,12 @@ before qw( show aliases tags details ) => sub {
     $c->model('WorkType')->load($work);
     $c->model('Language')->load_for_works($work);
     $c->model('WorkAttribute')->load_for_works($work);
+};
+
+# Stuff that has the side bar and thus needs to display collection information
+after [qw( show collections details tags )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
 };
 
 with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {

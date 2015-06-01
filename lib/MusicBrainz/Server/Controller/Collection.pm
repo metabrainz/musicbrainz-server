@@ -87,7 +87,7 @@ sub show : Chained('load') PathPart('') {
 
     $self->own_collection($c) if !$collection->public;
 
-    my $order = $c->req->params->{order} || 'date';
+    my $order = $c->req->params->{order};
 
     my $model = $c->model(type_to_model($entity_type));
     my $entities = $self->_load_paged($c, sub {
@@ -109,6 +109,8 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
         }
+    } elsif ($entity_type eq 'work') {
+        $c->model('Work')->load_related_info(@$entities);
     }
 
     $c->stash(
