@@ -243,12 +243,4 @@ gulp.task("clean", function () {
     });
 });
 
-gulp.task("jshint", function () {
-    var jshint = require("gulp-jshint");
-
-    return gulp.src("./root/static/scripts/**/*.js")
-        .pipe(jshint())
-        .pipe(jshint.reporter("default"));
-});
-
 gulp.task("default", ["styles", "scripts"]);

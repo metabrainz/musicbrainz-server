@@ -1840,8 +1840,8 @@
       }
     },
     "lodash": {
-      "version": "3.6.0",
-      "from": "lodash@3.6.0"
+      "version": "3.9.3",
+      "from": "lodash@3.9.3"
     },
     "parse-stack": {
       "version": "0.1.3",
