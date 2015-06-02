@@ -8,6 +8,6 @@
         <p>[% l('{link} has no relationships.', { link => link_entity(artist) }) -%]</p>
     [%- END -%]
 
-    [%- INCLUDE "components/relationships-table.tt" heading=l("Appearances") entity=artist -%]
+    [%- INCLUDE "components/relationships-table.tt" heading=l("Appearances") entity=artist show_credits=1 -%]
 </div>
 [%- END -%]
