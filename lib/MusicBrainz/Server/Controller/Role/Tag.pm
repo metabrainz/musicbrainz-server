@@ -70,9 +70,16 @@ sub _vote_on_tags {
     }));
 }
 
-for my $method (qw(upvote downvote withdraw)) {
-    my $attributes = "Chained('load') PathPart('tags/$method') DenyWhenReadonly";
-    eval "sub ${method}_tags : $attributes { shift->_vote_on_tags(shift, '$method') }";
+sub upvote_tags : Chained('load') PathPart('tags/upvote') DenyWhenReadonly {
+    shift->_vote_on_tags(shift, 'upvote');
+}
+
+sub downvote_tags : Chained('load') PathPart('tags/downvote') DenyWhenReadonly {
+    shift->_vote_on_tags(shift, 'downvote');
+}
+
+sub withdraw_tags : Chained('load') PathPart('tags/withdraw') DenyWhenReadonly {
+    shift->_vote_on_tags(shift, 'withdraw');
 }
 
 no Moose::Role;
