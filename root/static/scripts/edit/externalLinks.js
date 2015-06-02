@@ -81,12 +81,15 @@ class ExternalLinksEditor extends React.Component {
     });
   }
 
-  getEditData() {
-    var oldLinks = _(this.props.initialLinks.toJS())
+  getOldLinksHash() {
+    return _(this.props.initialLinks.toJS())
       .filter(link => isPositiveInteger(link.relationship))
       .indexBy('relationship')
       .value();
+  }
 
+  getEditData() {
+    var oldLinks = this.getOldLinksHash();
     var newLinks = _.indexBy(this.state.links.toJS(), 'relationship');
 
     return {
@@ -136,6 +139,7 @@ class ExternalLinksEditor extends React.Component {
   render() {
     this.props.errorObservable(false);
 
+    var oldLinks = this.getOldLinksHash();
     var linksArray = this.state.links.toArray();
 
     var linksByTypeAndUrl = _(linksArray).concat(this.props.initialLinks.toArray())
@@ -148,6 +152,7 @@ class ExternalLinksEditor extends React.Component {
             var error;
             var typeInfo = MB.typeInfoByID[link.type] || {};
             var checker = URLCleanup.validationRules[typeInfo.gid];
+            var oldLink = oldLinks[link.relationship];
 
             if (isEmpty(link)) {
               error = '';
@@ -157,7 +162,7 @@ class ExternalLinksEditor extends React.Component {
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && !isPositiveInteger(link.relationship)) {
+            } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && link.type != oldLink.type))) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
