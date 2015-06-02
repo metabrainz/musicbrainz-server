@@ -6,7 +6,7 @@
 
 [%- IF tags.size OR c.user_exists -%]
   [%- WRAPPER 'components/with-pager.tt' -%]
-    <div id="table-tags">
+    <div id="paged-tags">
       <table class="tbl">
         <thead>
           <tr>

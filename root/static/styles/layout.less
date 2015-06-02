@@ -412,16 +412,37 @@ div.warning img.warning {
 
 #sidebar-tags {
     ul {
-        list-style: none;
         padding-left: @form-margin;
-
-        > li {
-            display: flex;
-            > a { flex-grow: 2; }
-        }
     }
     button {
         padding: 2px 6px;
+    }
+}
+
+.tag-list {
+    padding: 0;
+    list-style: none;
+
+    &.tag-list-columned {
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        li {
+            margin-right: @form-margin;
+        }
+    }
+
+    li {
+        display: flex;
+        height: 24px;
+
+        a {
+            flex-grow: 2;
+            padding: 4px;
+            white-space: nowrap;
+        }
     }
 }
 
@@ -429,7 +450,7 @@ div.warning img.warning {
     display: inline-block;
     background: @light-grey;
     text-align: center;
-    padding: 3px 6px;
+    padding: 4px 6px;
     margin-left: 6px;
 }
 
@@ -519,6 +540,13 @@ tr.diff-changes {
     margin-left: -5px;
 }
 
+/* Striping */
+tr.even td,
+tr.even th,
+li.even {
+    background: @even-table-row;
+}
+
 /* The release information table */
 table.tbl {
     margin-top: 1em;
@@ -582,7 +610,6 @@ table.tbl {
     tr.even td,
     tr.even th {
         padding: 0.2em 0.4em;
-        background: @even-table-row;
     }
     tr:target td { background-color: @highlight-table-row; }
 

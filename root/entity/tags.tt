@@ -3,7 +3,7 @@
 
     [% IF c.user_exists %]
         <script>
-          MB.init_table_tag_editor(
+          MB.init_paged_tag_editor(
             {entity_type: '[% entity_type %]', gid: '[% entity.gid %]'},
             [% tags_json %],
             [% user_tags_json %],

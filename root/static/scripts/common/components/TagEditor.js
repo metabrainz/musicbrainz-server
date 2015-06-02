@@ -78,29 +78,12 @@ class VoteButtons extends React.Component {
   }
 }
 
-class TableTag extends React.Component {
+class TagRow extends React.Component {
   render() {
     var {tag, count, index} = this.props;
 
     return (
-      <tr className={(index + 1) % 2 ? 'odd' : 'even'}>
-        <td>
-          <TagLink tag={tag} />
-        </td>
-        <td>
-          <VoteButtons {...this.props} />
-        </td>
-      </tr>
-    );
-  }
-}
-
-class SidebarTag extends React.Component {
-  render() {
-    var {tag, count} = this.props;
-
-    return (
-      <li key={tag}>
+      <li key={tag} className={(index + 1) % 2 ? 'odd' : 'even'}>
         <TagLink tag={tag} />
         {' '}
         <VoteButtons {...this.props} />
@@ -115,7 +98,7 @@ class TagEditor extends React.Component {
     this.state = _.assign({positiveTagsOnly: true}, props.initialState);
   }
 
-  createTagRows(Row) {
+  createTagRows() {
     var tags = this.state.tags;
 
     return tags.reduce((accum, t, index) => {
@@ -131,12 +114,12 @@ class TagEditor extends React.Component {
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
         accum.push(
-          <Row key={t.tag}
-               tag={t.tag}
-               count={t.count}
-               index={index}
-               currentVote={t.vote}
-               callback={callback} />
+          <TagRow key={t.tag}
+                  tag={t.tag}
+                  count={t.count}
+                  index={index}
+                  currentVote={t.vote}
+                  callback={callback} />
         );
       }
 
@@ -217,7 +200,7 @@ class TagEditor extends React.Component {
   }
 }
 
-class TableTagEditor extends TagEditor {
+class PagedTagEditor extends TagEditor {
   showAllTags(event) {
     event.preventDefault();
     this.setState({positiveTagsOnly: false});
@@ -225,24 +208,16 @@ class TableTagEditor extends TagEditor {
 
   render() {
     var {tags, positiveTagsOnly} = this.state;
-    var tagRows = this.createTagRows(TableTag);
+    var tagRows = this.createTagRows();
 
     return (
       <div>
         {tags.size === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
 
         {tagRows.length > 0 &&
-          <table className="tbl">
-            <thead>
-              <tr>
-                <th>{l('Tag')}</th>
-                <th className="actions-header">{l('Score')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tagRows}
-            </tbody>
-          </table>}
+          <ul className="tag-list tag-list-columned">
+            {tagRows}
+          </ul>}
 
         {(positiveTagsOnly && tags.some(t => !isAlwaysVisible(t))) && [
           <p key={1}>
@@ -272,8 +247,8 @@ class SidebarTagEditor extends TagEditor {
   render() {
     return (
       <div>
-        <ul>
-          {this.createTagRows(SidebarTag)}
+        <ul className="tag-list">
+          {this.createTagRows()}
           {this.props.more &&
             <li>
               <a href={getTagsPath(this.props.entity)}>{l('more...')}</a>
@@ -321,5 +296,5 @@ function init_tag_editor(Component, mountPoint) {
   };
 }
 
-MB.init_table_tag_editor = init_tag_editor(TableTagEditor, 'table-tags');
+MB.init_paged_tag_editor = init_tag_editor(PagedTagEditor, 'paged-tags');
 MB.init_sidebar_tag_editor = init_tag_editor(SidebarTagEditor, 'sidebar-tags');
