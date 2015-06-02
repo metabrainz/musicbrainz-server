@@ -419,30 +419,19 @@ div.warning img.warning {
     }
 }
 
+#all-tags .tag-list li {
+    height: 24px;
+    &.even { background: @even-table-row; }
+}
+
 .tag-list {
     padding: 0;
     list-style: none;
 
-    &.tag-list-columned {
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-
-        li {
-            margin-right: @form-margin;
-        }
-    }
-
-    li {
-        display: flex;
-        height: 24px;
-
-        a {
-            flex-grow: 2;
-            padding: 4px;
-            white-space: nowrap;
-        }
+    li a {
+        display: inline-block;
+        word-break: break-all;
+        padding: 4px;
     }
 }
 
@@ -462,6 +451,7 @@ div.warning img.warning {
 }
 
 .tag-vote-buttons {
+    float: right;
     white-space: nowrap;
 }
 
@@ -540,13 +530,6 @@ tr.diff-changes {
     margin-left: -5px;
 }
 
-/* Striping */
-tr.even td,
-tr.even th,
-li.even {
-    background: @even-table-row;
-}
-
 /* The release information table */
 table.tbl {
     margin-top: 1em;
@@ -610,6 +593,7 @@ table.tbl {
     tr.even td,
     tr.even th {
         padding: 0.2em 0.4em;
+        background: @even-table-row;
     }
     tr:target td { background-color: @highlight-table-row; }
 

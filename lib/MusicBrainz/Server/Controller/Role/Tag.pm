@@ -4,7 +4,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Data::Utils qw( trim );
 use Readonly;
 
-requires 'load', '_load_paged';
+requires 'load';
 
 Readonly my $TOP_TAGS_COUNT => 5;
 
@@ -30,15 +30,11 @@ sub tags : Chained('load') PathPart('tags') {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my $tags_model = $c->model($self->{model})->tags;
-
-    my $tags = $self->_load_paged($c, sub {
-        $tags_model->find_tags($entity->id, shift, shift);
-    });
+    my @tags = $c->model($self->{model})->tags->find_tags($entity->id);
 
     $c->stash(
-        tags => [grep { $_->count > 0 } @$tags],
-        tags_json => $c->json->encode($tags),
+        tags => [grep { $_->count > 0 } @tags],
+        tags_json => $c->json->encode(\@tags),
         template => 'entity/tags.tt',
     );
 }

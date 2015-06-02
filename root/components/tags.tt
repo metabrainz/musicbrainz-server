@@ -5,26 +5,18 @@
 <h2>[% l("Tags") %]</h2>
 
 [%- IF tags.size OR c.user_exists -%]
-  [%- WRAPPER 'components/with-pager.tt' -%]
-    <div id="paged-tags">
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% lp('Tag', 'noun') %]</th>
-            <th class="actions-header">[% l('Score') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [%- FOREACH tag IN tags -%]
-          <tr class="[% loop.parity %]">
-            <td>[% PROCESS tag_link_block %]</td>
-            <td>[% tag.count %]</td>
-          </tr>
-          [%- END -%]
-        </tbody>
-      </table>
-    </div>
-  [%- END -%]
+  <div id="all-tags">
+    <ul class="tag-list">
+      [%- FOREACH tag IN tags -%]
+        <li class="[% loop.parity %]">
+          [% PROCESS tag_link_block %]
+          <span class="tag-vote-buttons">
+            <span class="tag-count">[% tag.count %]</span>
+          </span>
+        </li>
+      [%- END -%]
+    </ul>
+  </div>
 [%- ELSE -%]
   <p>[% no_tags_text %]</p>
 [%- END -%]

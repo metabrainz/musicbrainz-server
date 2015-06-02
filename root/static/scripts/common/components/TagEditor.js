@@ -60,16 +60,16 @@ DownvoteButton.defaultProps = {text: '\u2212', title: lp('Downvote', 'verb'), vo
 class VoteButtons extends React.Component {
   render() {
     var currentVote = this.props.currentVote;
-    var className;
+    var className = '';
 
     if (currentVote === 1) {
-      className = 'tag-upvoted';
+      className = ' tag-upvoted';
     } else if (currentVote === -1) {
-      className = 'tag-downvoted';
+      className = ' tag-downvoted';
     }
 
     return (
-      <span className={'tag-vote-buttons ' + className}>
+      <span className={'tag-vote-buttons' + className}>
         <UpvoteButton {...this.props} />
         <DownvoteButton {...this.props} />
         <span className="tag-count">{this.props.count}</span>
@@ -200,7 +200,7 @@ class TagEditor extends React.Component {
   }
 }
 
-class PagedTagEditor extends TagEditor {
+class MainTagEditor extends TagEditor {
   showAllTags(event) {
     event.preventDefault();
     this.setState({positiveTagsOnly: false});
@@ -215,7 +215,7 @@ class PagedTagEditor extends TagEditor {
         {tags.size === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
 
         {tagRows.length > 0 &&
-          <ul className="tag-list tag-list-columned">
+          <ul className="tag-list">
             {tagRows}
           </ul>}
 
@@ -296,5 +296,5 @@ function init_tag_editor(Component, mountPoint) {
   };
 }
 
-MB.init_paged_tag_editor = init_tag_editor(PagedTagEditor, 'paged-tags');
+MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');
 MB.init_sidebar_tag_editor = init_tag_editor(SidebarTagEditor, 'sidebar-tags');

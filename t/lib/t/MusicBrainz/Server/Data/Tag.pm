@@ -35,8 +35,8 @@ is( $tags[1]->count, 3 );
 my $count = $tag_data->find_tag_count(4);
 is ($count, 4, "tag count is four");
 
-my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);
-is( scalar(@$tags), 4 );
+@tags = $tag_data->find_tags(4);
+is( scalar(@tags), 4 );
 
 $test->c->sql->begin;
 $tag_data->delete(4);
