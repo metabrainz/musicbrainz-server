@@ -25,6 +25,10 @@ function getTagsPath(entity) {
   return `/${entity.entity_type}/${entity.gid}/tags`;
 }
 
+function isAlwaysVisible(tag) {
+  return tag.vote > 0 || (tag.vote === 0 && tag.count > 0);
+}
+
 class TagLink extends React.Component {
   render() {
     var tag = this.props.tag;
@@ -37,7 +41,9 @@ class VoteButton extends React.Component {
     var {vote, currentVote, callback} = this.props;
 
     return (
-      <button type="button" className={'tag-vote tag-' + VOTE_ACTIONS[vote]}
+      <button type="button"
+              className={'tag-vote tag-' + VOTE_ACTIONS[vote]}
+              title={this.props.title}
               onClick={_.partial(callback, vote === currentVote ? 0 : vote)}>
         {this.props.text}
       </button>
@@ -46,10 +52,10 @@ class VoteButton extends React.Component {
 }
 
 class UpvoteButton extends VoteButton {};
-UpvoteButton.defaultProps = {text: '+', vote: 1};
+UpvoteButton.defaultProps = {text: '+', title: lp('Upvote', 'verb'), vote: 1};
 
 class DownvoteButton extends VoteButton {};
-DownvoteButton.defaultProps = {text: '\u2212', vote: -1};
+DownvoteButton.defaultProps = {text: '\u2212', title: lp('Downvote', 'verb'), vote: -1};
 
 class VoteButtons extends React.Component {
   render() {
@@ -63,10 +69,10 @@ class VoteButtons extends React.Component {
     }
 
     return (
-      <span className={className}>
-        <span className="tag-count">{this.props.count}</span>
+      <span className={'tag-vote-buttons ' + className}>
         <UpvoteButton {...this.props} />
         <DownvoteButton {...this.props} />
+        <span className="tag-count">{this.props.count}</span>
       </span>
     );
   }
@@ -106,13 +112,13 @@ class SidebarTag extends React.Component {
 class TagEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props.initialState;
+    this.state = _.assign({positiveTagsOnly: true}, props.initialState);
   }
 
   createTagRows(Row) {
     var tags = this.state.tags;
 
-    return tags.map((t, index) => {
+    return tags.reduce((accum, t, index) => {
       var callback = newVote => {
         this.updateVote(index, newVote);
 
@@ -123,13 +129,19 @@ class TagEditor extends React.Component {
           });
       };
 
-      return <Row key={t.tag}
-                  tag={t.tag}
-                  count={t.count}
-                  index={index}
-                  currentVote={t.vote}
-                  callback={callback} />;
-    });
+      if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
+        accum.push(
+          <Row key={t.tag}
+               tag={t.tag}
+               count={t.count}
+               index={index}
+               currentVote={t.vote}
+               callback={callback} />
+        );
+      }
+
+      return accum;
+    }, []);
   }
 
   setTags(tags) {
@@ -206,23 +218,41 @@ class TagEditor extends React.Component {
 }
 
 class TableTagEditor extends TagEditor {
+  showAllTags(event) {
+    event.preventDefault();
+    this.setState({positiveTagsOnly: false});
+  }
+
   render() {
+    var {tags, positiveTagsOnly} = this.state;
+    var tagRows = this.createTagRows(TableTag);
+
     return (
       <div>
-        {this.state.tags.size > 0
-          ? <table className="tbl">
-              <thead>
-                <tr>
-                  <th>{l('Tag')}</th>
-                  <th className="actions-header">{l('Vote Count')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.createTagRows(TableTag)}
-              </tbody>
-            </table>
-          : <p>{l('Nobody has tagged this yet.')}</p>
-        }
+        {tags.size === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
+
+        {tagRows.length > 0 &&
+          <table className="tbl">
+            <thead>
+              <tr>
+                <th>{l('Tag')}</th>
+                <th className="actions-header">{l('Score')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tagRows}
+            </tbody>
+          </table>}
+
+        {(positiveTagsOnly && tags.some(t => !isAlwaysVisible(t))) && [
+          <p key={1}>
+            {l('Tags with a score of zero or below, and tags that you’ve downvoted are hidden.')}
+          </p>,
+          <p key={2}>
+            <a href="#" onClick={this.showAllTags.bind(this)}>{l('Show all tags.')}</a>
+          </p>
+        ]}
+
         <h2>{l('Add Tags')}</h2>
         <p dangerouslySetInnerHTML={{__html:
           l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
@@ -250,10 +280,12 @@ class SidebarTagEditor extends TagEditor {
             </li>}
         </ul>
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
-        <input type="text" className="tag-input" ref="tags" />
-        <button type="button" className="styled-button" onClick={this.addTags.bind(this)}>
-          {l('Tag', 'verb')}
-        </button>
+        <div style={{display: 'flex'}}>
+          <input type="text" className="tag-input" style={{flexGrow: 2}} ref="tags" />
+          <button type="button" className="styled-button" onClick={this.addTags.bind(this)}>
+            {l('Tag', 'verb')}
+          </button>
+        </div>
       </div>
     );
   }
@@ -264,8 +296,21 @@ function init_tag_editor(Component, mountPoint) {
     userTags = _.indexBy(userTags, t => t.tag);
 
     var combined = _.map(aggregatedTags, function (t) {
-      t.vote = _.get(userTags, [t.tag, 'vote'], 0);
+      var userTag = userTags[t.tag];
+
+      if (userTag) {
+        t.vote = userTag.vote;
+        userTag.used = true;
+      }
+
       return Tag(t);
+    });
+
+    // Always show upvoted user tags (affects sidebar)
+    _.each(userTags, function (k, t) {
+      if (t.vote > 0 && !t.used) {
+        combined.push(Tag(t));
+      }
     });
 
     React.render(

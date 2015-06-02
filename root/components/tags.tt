@@ -11,7 +11,7 @@
         <thead>
           <tr>
             <th>[% lp('Tag', 'noun') %]</th>
-            <th class="actions-header">[% l('Vote Count') %]</th>
+            <th class="actions-header">[% l('Score') %]</th>
           </tr>
         </thead>
         <tbody>

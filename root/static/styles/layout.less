@@ -414,6 +414,11 @@ div.warning img.warning {
     ul {
         list-style: none;
         padding-left: @form-margin;
+
+        > li {
+            display: flex;
+            > a { flex-grow: 2; }
+        }
     }
     button {
         padding: 2px 6px;
@@ -422,11 +427,10 @@ div.warning img.warning {
 
 .tag-count {
     display: inline-block;
-    background: @very-light-grey;
-    border-radius: 50%;
-    height: 1.4em;
-    width: 1.4em;
+    background: @light-grey;
     text-align: center;
+    padding: 3px 6px;
+    margin-left: 6px;
 }
 
 .tag-vote {
@@ -436,16 +440,24 @@ div.warning img.warning {
     cursor: pointer;
 }
 
+.tag-vote-buttons {
+    white-space: nowrap;
+}
+
 .tag-upvoted {
-    .tag-count { background: @positive-light-bg; }
+    .tag-count { background: @positive-bg; }
     .tag-upvote { color: @positive-text; }
     .tag-downvote { color: @dark-grey; }
 }
 
 .tag-downvoted {
-    .tag-count { background: @negative-light-bg; }
+    .tag-count { background: @negative-bg; }
     .tag-upvote { color: @dark-grey; }
     .tag-downvote { color: @negative-text; }
+}
+
+.tag-vote:hover {
+    color: @text-orange;
 }
 
 /*

@@ -40,7 +40,7 @@ sub tags : Chained('load') PathPart('tags') {
     });
 
     $c->stash(
-        tags => $tags,
+        tags => [grep { $_->count > 0 } @$tags],
         tags_json => $json->encode($tags),
         template => 'entity/tags.tt',
     );
