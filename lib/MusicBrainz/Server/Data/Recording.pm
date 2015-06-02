@@ -20,6 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     placeholders
     load_subobjects
+    order_by
     query_to_list_limited
     query_to_list
 );
@@ -162,6 +163,46 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
+
+    my $extra_join = "";
+    my $also_select = "";
+
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "artist" => sub {
+            $extra_join = "JOIN artist_credit ac ON ac.id = recording.artist_credit";
+            $also_select = "ac.name AS ac_name";
+            return "musicbrainz_collate(ac_name), musicbrainz_collate(recording.name)";
+        },
+        "length" => sub {
+            return "length, musicbrainz_collate(name)"
+        },
+    });
+
+    my $query = "
+      SELECT *
+      FROM (
+      SELECT DISTINCT ON (" . $self->_table . ".id)
+        " . $self->_columns .
+          ($also_select ? ", $also_select" : "") . "
+        FROM " . $self->_table . "
+        JOIN editor_collection_recording ecr ON recording.id = ecr.recording
+        $extra_join
+        WHERE ecr.collection = ?
+        ORDER BY id, musicbrainz_collate(recording.name)
+      ) recording
+      ORDER BY $order_by
+      OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $collection_id, $offset || 0);
+}
 sub can_delete {
     my ($self, $recording_id) = @_;
     return !$self->sql->select_single_value(

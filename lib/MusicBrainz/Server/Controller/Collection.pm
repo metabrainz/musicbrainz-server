@@ -94,8 +94,15 @@ sub show : Chained('load') PathPart('') {
             $model->find_by_collection($collection->id, shift, shift, $order);
     });
 
-    if ($entity_type eq 'release') {
+    if ($model->can('load_related_info')) {
         $model->load_related_info(@$entities);
+    }
+
+    if ($model->can('load_meta')) {
+        $model->load_meta(@$entities);
+    }
+
+    if ($entity_type eq 'release') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroup')->load(@$entities);
         $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);
@@ -109,8 +116,12 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
         }
-    } elsif ($entity_type eq 'work') {
-        $c->model('Work')->load_related_info(@$entities);
+    } elsif ($entity_type eq 'recording') {
+        $c->model('ArtistCredit')->load(@$entities);
+        $c->model('ISRC')->load_for_recordings(@$entities);
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$entities);
+        }
     }
 
     $c->stash(
