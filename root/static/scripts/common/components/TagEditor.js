@@ -85,7 +85,6 @@ class TagRow extends React.Component {
     return (
       <li key={tag} className={(index + 1) % 2 ? 'odd' : 'even'}>
         <TagLink tag={tag} />
-        {' '}
         <VoteButtons {...this.props} />
       </li>
     );
