@@ -18,7 +18,7 @@ var VOTE_ACTIONS = {
 };
 
 function sortedTags(tags) {
-  return tags.sortBy(t => t.tag).sortBy(t => t.count).reverse();
+  return tags.sortBy(t => t.tag).sortBy(t => -t.count);
 }
 
 function getTagsPath(entity) {
