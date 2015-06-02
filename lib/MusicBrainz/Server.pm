@@ -6,6 +6,7 @@ BEGIN { extends 'Catalyst' }
 use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
+use JSON;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -419,6 +420,13 @@ sub try_get_session {
     my ($c, $key) = @_;
     return $c->sessionid ? $c->session->{$key} : undef;
 }
+
+has json => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->convert_blessed;
+    }
+);
 
 =head1 NAME
 

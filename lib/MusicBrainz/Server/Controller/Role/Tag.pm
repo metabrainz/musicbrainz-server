@@ -18,13 +18,12 @@ after load => sub {
     my $count = $tags_model->find_tag_count($entity->id);
     my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
         if $c->user_exists;
-    my $json = JSON->new->allow_blessed->convert_blessed;
 
     $c->stash(
         top_tags => \@tags,
         more_tags => $count > @tags,
-        top_tags_json => $json->encode(\@tags),
-        user_tags_json => $json->encode(\@user_tags),
+        top_tags_json => $c->json->encode(\@tags),
+        user_tags_json => $c->json->encode(\@user_tags),
     );
 };
 
@@ -33,7 +32,6 @@ sub tags : Chained('load') PathPart('tags') {
 
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
-    my $json = JSON->new->allow_blessed->convert_blessed;
 
     my $tags = $self->_load_paged($c, sub {
         $tags_model->find_tags($entity->id, shift, shift);
@@ -41,7 +39,7 @@ sub tags : Chained('load') PathPart('tags') {
 
     $c->stash(
         tags => [grep { $_->count > 0 } @$tags],
-        tags_json => $json->encode($tags),
+        tags_json => $c->json->encode($tags),
         template => 'entity/tags.tt',
     );
 }
@@ -66,9 +64,8 @@ sub _vote_on_tags {
     my @tags = parse_tags($c->req->params->{tags});
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
-    my $json = JSON->new->utf8->allow_blessed->convert_blessed;
 
-    $c->res->body($json->encode({
+    $c->res->body($c->json->encode({
         updates => [map { $tags_model->$method($c->user->id, $entity->id, $_) } @tags]
     }));
 }
