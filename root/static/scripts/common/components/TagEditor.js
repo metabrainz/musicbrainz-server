@@ -281,7 +281,7 @@ function init_tag_editor(Component, mountPoint) {
     });
 
     // Always show upvoted user tags (affects sidebar)
-    _.each(userTags, function (k, t) {
+    _.each(userTags, function (t, k) {
       if (t.vote > 0 && !t.used) {
         combined.push(Tag(t));
       }
