@@ -13,8 +13,7 @@ END -%]
 
 <div id="sidebar-tags">
   <p>
-    [% tag_list(tags, more, entity) IF tags.size %]
-    [%- lp('(none)', 'tag') UNLESS tags.size -%]
+    [% IF tags.size; tag_list(tags, more, entity); ELSE; lp('(none)', 'tag'); END %]
   </p>
 </div>
 
