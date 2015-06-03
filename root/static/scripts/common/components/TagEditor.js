@@ -39,11 +39,16 @@ class TagLink extends React.Component {
 class VoteButton extends React.Component {
   render() {
     var {vote, currentVote, callback} = this.props;
+    var title = this.props.title;
+
+    if (vote === currentVote) {
+      title = l('Withdraw vote');
+    }
 
     return (
       <button type="button"
               className={'tag-vote tag-' + VOTE_ACTIONS[vote]}
-              title={this.props.title}
+              title={title}
               onClick={_.partial(callback, vote === currentVote ? 0 : vote)}>
         {this.props.text}
       </button>
