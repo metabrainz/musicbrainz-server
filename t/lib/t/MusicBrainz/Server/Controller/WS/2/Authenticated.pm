@@ -105,7 +105,6 @@ $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist')
 
 $mech->content_contains('h!p');
 $mech->content_contains('jpop');
-$mech->content_contains('asdfjkl;');
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
