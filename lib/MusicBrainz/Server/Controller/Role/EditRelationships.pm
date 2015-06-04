@@ -153,10 +153,8 @@ role {
             if (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
                 $args{end_date} = $period->{end_date} if $period->{end_date};
-                $args{ended} = $period->{ended} if $period->{ended};
+                $args{ended} = $period->{ended} if defined $period->{ended};
             }
-
-            $args{ended} ||= 0;
 
             my $relationship;
             if ($field->{relationship_id}) {

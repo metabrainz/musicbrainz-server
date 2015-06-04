@@ -59,6 +59,7 @@ has_field 'link_order' => (
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
+    not_nullable => 1,
 );
 
 has_field 'backward' => (

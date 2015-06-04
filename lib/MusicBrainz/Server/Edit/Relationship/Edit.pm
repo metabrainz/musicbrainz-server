@@ -12,7 +12,6 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
-use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
@@ -28,6 +27,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
@@ -352,8 +352,6 @@ sub initialize
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
-    normalize_date_period(\%opts);
-
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if $self->c->model('Relationship')->exists(
             $new_link_type->entity0_type,
@@ -399,6 +397,15 @@ sub initialize
         edit_version => 2,
         $self->_change_data($relationship, %opts)
     });
+}
+
+sub initialize_date_period {
+    my ($self, $opts) = @_;
+
+    my $link = $opts->{relationship}->link;
+    $opts->{begin_date} //= partial_date_to_hash($link->begin_date);
+    $opts->{end_date} //= partial_date_to_hash($link->end_date);
+    $opts->{ended} //= $link->ended;
 }
 
 sub accept

@@ -954,3 +954,43 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
     var editData = MB.edit.relationshipEdit(relationship.editData(), relationship.original, relationship);
     t.deepEqual(editData.beginDate, {year: null, month: null, day: null});
 });
+
+relationshipEditorTest("empty date period fields are outputted when cleared", function (t) {
+    t.plan(1);
+
+    var relData = {
+        id: 1,
+        linkTypeID: 103,
+        target: {
+            entityType: "artist",
+            name: "Ringo Starr",
+            gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+        },
+        beginDate: {year: 2006},
+        ended: true
+    };
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: {
+            entityType: "artist",
+            name: "The Beatles",
+            gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
+            relationships: [relData]
+        }
+    });
+
+    var relationship = vm.getRelationship(relData, vm.source);
+    relationship.period.beginDate.year(null);
+    relationship.period.ended(false);
+
+    MB.relationshipEditor.prepareSubmission('edit-artist');
+
+    t.deepEqual(formData(), {
+        "edit-artist.rel.0.relationship_id": "1",
+        "edit-artist.rel.0.target": "300c4c73-33ac-4255-9d57-4e32627f5e13",
+        "edit-artist.rel.0.period.begin_date.year": "",
+        "edit-artist.rel.0.period.begin_date.month": "",
+        "edit-artist.rel.0.period.begin_date.day": "",
+        "edit-artist.rel.0.link_type_id": "103",
+    });
+});

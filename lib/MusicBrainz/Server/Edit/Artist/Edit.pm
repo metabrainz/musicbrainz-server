@@ -30,6 +30,7 @@ with 'MusicBrainz::Server::Edit::Artist';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
 with 'MusicBrainz::Server::Edit::Role::ISNI';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }

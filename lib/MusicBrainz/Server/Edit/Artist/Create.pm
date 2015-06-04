@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }

@@ -9,12 +9,12 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model non_empty );
-use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -107,10 +107,6 @@ sub initialize
         delete $opts{link_order};
     }
 
-    normalize_date_period(\%opts);
-    delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
-    delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
-
     # Don't include entity0_credit/entity1_credit here, they don't determine uniqueness.
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if $self->c->model('Relationship')->exists(
@@ -127,6 +123,14 @@ sub initialize
         });
 
     $self->data({ %opts, edit_version => 2 });
+}
+
+sub initialize_date_period {
+    my ($self, $opts) = @_;
+
+    for (qw(begin_date end_date)) {
+        delete $opts->{$_} unless any { non_empty($_) } values %{$opts->{$_} // {}};
+    }
 }
 
 sub foreign_keys

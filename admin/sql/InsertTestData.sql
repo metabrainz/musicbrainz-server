@@ -256,7 +256,8 @@ INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (3), (4);
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument', 'performed {additional} {instrument} on', 'has {additional} {instrument} performed by', 'performer', 'description'),
-           (2, 'f8673e29-02a5-47b7-af61-dd4519328dd0', 'artist', 'recording', 'performance', 'performance', 'performance', 'performance', '');
+           (2, 'f8673e29-02a5-47b7-af61-dd4519328dd0', 'artist', 'recording', 'performance', 'performance', 'performance', 'performance', ''),
+           (3, 'fe33d22f-c3b0-4d68-bd53-a856badf2b15', 'artist', 'url', 'official homepage', 'official homepages', 'official homepage for', 'has an official homepage at', 'Indicates the official homepage for an artist.');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
@@ -265,6 +266,7 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
 
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 2);
+INSERT INTO link (id, link_type, attribute_count, begin_date_year) VALUES (3, 3, 0, 2006);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
@@ -279,6 +281,7 @@ INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (3, 2, 8, 3);
+INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 3, 8, 1);
 
 INSERT INTO annotation (id, editor, text) VALUES (1, 1, 'Test annotation 1' || chr(10) || chr(10) || 'More annotation');
 INSERT INTO annotation (id, editor, text) VALUES (2, 1, 'Test annotation 2.');
@@ -337,11 +340,12 @@ ALTER SEQUENCE release_label_id_seq RESTART 5;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
-ALTER SEQUENCE link_id_seq RESTART 3;
-ALTER SEQUENCE link_type_id_seq RESTART 3;
+ALTER SEQUENCE link_id_seq RESTART 4;
+ALTER SEQUENCE link_type_id_seq RESTART 4;
 ALTER SEQUENCE link_attribute_type_id_seq RESTART 5;
 
 ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
+ALTER SEQUENCE l_artist_url_id_seq RESTART 2;
 
 SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));
 SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
