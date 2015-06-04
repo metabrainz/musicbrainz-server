@@ -84,7 +84,7 @@ sub tag : Path('/ws/1/tag')
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->xml( list_of([ map { $_->tag } @tags ]) ));
+        $c->res->body($c->stash->{serializer}->xml( list_of([ map { $_->tag } grep { $_->is_upvote } @tags ]) ));
     }
 }
 
