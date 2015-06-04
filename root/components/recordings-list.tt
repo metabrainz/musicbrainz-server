@@ -1,7 +1,7 @@
 [% BLOCK recording_row_checkbox %]
-  [% IF c.user_exists && !no_checkboxes %]
+  [% IF c.user_exists && checkboxes %]
   <td>
-    <input type="checkbox" name="add-to-merge" value="[% recording.id %]" />
+    <input type="checkbox" name="[% checkboxes %]" value="[% recording.id %]" />
   </td>
   [% END %]
 [% END %]
@@ -11,7 +11,7 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists && !no_checkboxes %]
+            [% IF c.user_exists && checkboxes %]
             <th style="width: 1em">
               [% IF select_all %]
                 <input type="checkbox" />
