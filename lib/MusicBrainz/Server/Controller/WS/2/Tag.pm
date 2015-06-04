@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
