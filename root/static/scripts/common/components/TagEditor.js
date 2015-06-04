@@ -57,10 +57,10 @@ class VoteButton extends React.Component {
 }
 
 class UpvoteButton extends VoteButton {};
-UpvoteButton.defaultProps = {text: '+', title: lp('Upvote', 'verb'), vote: 1};
+UpvoteButton.defaultProps = {text: '+', title: l('Upvote'), vote: 1};
 
 class DownvoteButton extends VoteButton {};
-DownvoteButton.defaultProps = {text: '\u2212', title: lp('Downvote', 'verb'), vote: -1};
+DownvoteButton.defaultProps = {text: '\u2212', title: l('Downvote'), vote: -1};
 
 class VoteButtons extends React.Component {
   render() {
