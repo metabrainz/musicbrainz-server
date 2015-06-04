@@ -45,7 +45,7 @@
         '<h2>' _ l('Works') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/works-list.tt'
-                  works=entities no_checkboxes=1 show_artists=1
+                  works=entities checkboxes='' show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
       END
