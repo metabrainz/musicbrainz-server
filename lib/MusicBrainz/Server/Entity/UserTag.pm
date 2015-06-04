@@ -40,12 +40,18 @@ has is_upvote => (
     isa => 'Bool',
 );
 
+has aggregate_count => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 sub TO_JSON {
     my ($self) = @_;
 
     return {
         tag => $self->tag->TO_JSON,
         vote => $self->is_upvote ? 1 : -1,
+        count => $self->aggregate_count,
     };
 }
 

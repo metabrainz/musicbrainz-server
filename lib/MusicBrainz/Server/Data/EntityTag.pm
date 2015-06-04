@@ -334,8 +334,14 @@ sub find_user_tags {
     my ($self, $user_id, $entity_id) = @_;
 
     my $type = $self->type;
-    my $table = $self->tag_table . '_raw';
-    my $query = "SELECT tag, is_upvote FROM $table WHERE editor = ? AND $type = ?";
+    my $table = $self->tag_table;
+    my $table_raw = "${table}_raw";
+
+    my $query = qq{
+        SELECT tag, is_upvote, count AS aggregate_count FROM $table_raw
+        JOIN $table USING (tag, $type)
+        WHERE editor = ? AND $type = ?
+    };
 
     my @tags = query_to_list($self->c->sql, sub {
         my $row = shift;
@@ -343,6 +349,7 @@ sub find_user_tags {
             tag_id => $row->{tag},
             editor_id => $user_id,
             is_upvote => $row->{is_upvote},
+            aggregate_count => $row->{aggregate_count},
         );
     }, $query, $user_id, $entity_id);
 
