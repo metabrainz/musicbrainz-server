@@ -61,8 +61,5 @@ sub build_display_data
     }
 }
 
-sub initialize { die 'This edit is read only' }
-sub insert { die 'This edit is read only' }
-
 __PACKAGE__->meta->make_immutable;
 no Moose;

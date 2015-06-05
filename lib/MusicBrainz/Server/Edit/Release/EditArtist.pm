@@ -55,14 +55,6 @@ around _build_related_entities => sub {
 };
 
 
-sub alter_edit_pending
-{
-    my $self = shift;
-    return {
-        Release => [ $self->release_ids ],
-    }
-}
-
 sub foreign_keys
 {
     my ($self) = @_;
@@ -101,31 +93,6 @@ sub build_display_data
         || Release->new( name => $self->data->{release}{name} );
 
     return $data;
-}
-
-sub initialize {
-    my ($self, %opts) = @_;
-    my $release = delete $opts{release} or die 'Missing release object';
-    if (!$release->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release);
-    }
-
-    my $new = clean_submitted_artist_credits($opts{artist_credit});
-    my $old = clean_submitted_artist_credits($release->artist_credit);
-
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if Compare($old, $new);
-
-    $self->data({
-        release => {
-            id => $release->id,
-            name => $release->name
-        },
-        update_tracklists => $opts{update_tracklists},
-        new_artist_credit => $new,
-        old_artist_credit => $old,
-    });
-    return $self;
 }
 
 1;

@@ -39,14 +39,6 @@ has '+data' => (
     ]
 );
 
-sub alter_edit_pending
-{
-    my $self = shift;
-    return {
-        Release => [ $self->data->{release}{id} ],
-    }
-}
-
 sub _build_related_entities
 {
     my $self = shift;
