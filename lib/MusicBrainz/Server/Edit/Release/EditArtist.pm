@@ -24,7 +24,7 @@ with 'MusicBrainz::Server::Edit::Release';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit release artist') }
+sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{release}{id} }

@@ -17,7 +17,7 @@ sub deserialize_new_value {
     return $previous;
 }
 
-sub edit_name     { N_l('Edit track name (historic)') }
+sub edit_name     { N_l('Edit track (historic)') }
 sub edit_kind     { 'edit' }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }

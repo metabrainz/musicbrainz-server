@@ -7,8 +7,8 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Change release group') }
-sub edit_kind     { 'other' }
+sub edit_name     { N_l('Edit release') }
+sub edit_kind     { 'edit' }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
 sub edit_template { 'historic/change_release_group' }
