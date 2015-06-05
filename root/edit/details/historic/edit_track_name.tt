@@ -1,6 +1,6 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-<table class="details edit-track-name">
+<table class="details edit-track">
   [% IF edit.display_data.recording %]
   <tr>
     <th>[% l('Recording:') %]</th>
