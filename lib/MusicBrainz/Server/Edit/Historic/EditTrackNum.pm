@@ -12,7 +12,7 @@ sub edit_name     { N_l('Edit track (historic)') }
 sub edit_kind     { 'edit' }
 sub historic_type { 5 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
-sub edit_template { 'historic/edit_track_number' }
+sub edit_template { 'historic/edit_track' }
 
 sub _build_related_entities
 {

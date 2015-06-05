@@ -7,11 +7,11 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name { N_l('Edit track (historic)') }
+sub edit_name { N_l('Edit recording') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }
 sub historic_type { 45 }
-sub edit_template { 'historic/edit_track_length' }
+sub edit_template { 'edit_recording' }
 
 sub _build_related_entities
 {
