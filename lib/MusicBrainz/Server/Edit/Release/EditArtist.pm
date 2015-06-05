@@ -11,9 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
-    clean_submitted_artist_credits
     load_artist_credit_definitions
-    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l N_l );
 
@@ -27,11 +25,12 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
-sub release_id { shift->data->{release}{id} }
+sub release_id { shift->data->{entity}{id} }
+sub edit_template { "edit_release" }
 
 has '+data' => (
     isa => Dict[
-        release => Dict[
+        entity => Dict[
             id => Int,
             name => Str
         ],
@@ -55,8 +54,7 @@ around _build_related_entities => sub {
 };
 
 
-sub foreign_keys
-{
+sub foreign_keys {
     my ($self) = @_;
     my $relations = {};
 
@@ -69,14 +67,13 @@ sub foreign_keys
     }
 
     $relations->{Release} = {
-        $self->data->{release}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
     return $relations;
 }
 
-sub build_display_data
-{
+sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $data = {};
@@ -89,10 +86,18 @@ sub build_display_data
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};
-    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-        || Release->new( name => $self->data->{release}{name} );
+    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
+        || Release->new( name => $self->data->{entity}{name} );
 
     return $data;
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    $data->{entity} = delete $data->{release};
+
+    $self->data($data);
 }
 
 1;

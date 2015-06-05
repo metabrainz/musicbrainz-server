@@ -75,4 +75,10 @@
           html_escape(edit.display_data.barcode.old.format),
           html_escape(edit.display_data.barcode.new.format)) -%]
 
+  [% IF edit.display_data.update_tracklists %]
+  <tr>
+    <th>[%~ add_colon(l('Note')) ~%]</th>
+    <td>[% l('This edit also changed the track artists.') %]</td>
+  </tr>
+  [% END %]
 </table>
