@@ -64,11 +64,5 @@ sub build_display_data
 sub initialize { die 'This edit is read only' }
 sub insert { die 'This edit is read only' }
 
-sub accept {
-    MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
-        'This edit cannot be applied as PUIDs are no longer stored by MusicBrainz'
-    )
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -128,46 +128,4 @@ sub initialize {
     return $self;
 }
 
-sub accept {
-    my $self = shift;
-
-    verify_artist_credits($self->c, $self->data->{new_artist_credit});
-
-    my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
-
-    if (!$release) {
-        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This edit cannot be applied, as the release being edited no longer exists.'
-        );
-    }
-
-    my $old_ac_id = $release->artist_credit_id;
-
-    my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
-        $self->data->{new_artist_credit}
-    );
-
-    $self->c->model('Release')->update(
-        $self->release_id, {
-            artist_credit =>$new_ac_id
-        });
-
-
-    if ($self->data->{update_tracklists}) {
-        $self->c->model('Medium')->load_for_releases($release);
-        $self->c->model('Track')->load_for_mediums($release->all_mediums);
-        $self->c->model('ArtistCredit')->load(
-            map { $_->all_tracks } $release->all_mediums);
-
-        for my $medium ($release->all_mediums) {
-            for my $track ($medium->all_tracks) {
-
-                $self->c->model('Track')->update(
-                    $track->id, { artist_credit_id => $new_ac_id })
-                    if ($track->artist_credit_id == $old_ac_id);
-            }
-        }
-    }
-}
-
 1;
