@@ -494,6 +494,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
+        collections => 1,
         removal     => { manual => 1 }
     },
     release => {

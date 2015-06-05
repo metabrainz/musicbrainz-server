@@ -58,7 +58,7 @@ END %]
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [%- INCLUDE 'components/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/recordings-list.tt' checkboxes='add-to-merge' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
     <p>
