@@ -6,7 +6,6 @@ window._.str = require("underscore.string");
 window.$ = window.jQuery = require("jquery");
 
 require("jquery.browser");
-require("jquery.cookie");
 require("../lib/jquery.ui/ui/jquery-ui.custom.js");
 
 require("./common/MB.js");
@@ -27,6 +26,7 @@ require("./common/MB/release.js");
 require("./common/ratings.js");
 require("./common/tagger.js");
 require("./common/coverart.js");
+require("./common/banner.js");
 
 if (typeof phantom === 'undefined') {
     require("./common/errors.js");

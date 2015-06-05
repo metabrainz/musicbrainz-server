@@ -19,7 +19,8 @@
 
 */
 
-var flags = require('../../flags.js');
+var flags = require('../../flags');
+var getCookie = require('../../../common/utility/getCookie');
 
 /**
  * Main class of the GC functionality
@@ -27,12 +28,12 @@ var flags = require('../../flags.js');
 (function () {
     var self = {};
 
-    self.modeName = $.cookie("guesscase_mode") || "English";
+    self.modeName = getCookie("guesscase_mode") || "English";
     self.mode = MB.GuessCase.Mode[self.modeName];
 
     /* config. */
-    self.CFG_UC_ROMANNUMERALS = $.cookie("guesscase_roman") !== "false";
-    self.CFG_UC_UPPERCASED = $.cookie("guesscase_keepuppercase") !== "false";
+    self.CFG_UC_ROMANNUMERALS = getCookie("guesscase_roman") !== "false";
+    self.CFG_UC_UPPERCASED = getCookie("guesscase_keepuppercase") !== "false";
 
     // ----------------------------------------------------------------------------
     // member variables

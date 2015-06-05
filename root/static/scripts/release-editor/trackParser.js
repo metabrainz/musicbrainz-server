@@ -4,6 +4,8 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var getSimilarity = require('../edit/utility/similarity');
+var getCookie = require('../common/utility/getCookie');
+var setCookie = require('../common/utility/setCookie');
 
 MB.releaseEditor = MB.releaseEditor || {};
 
@@ -389,14 +391,14 @@ MB.releaseEditor.trackParser = {
 };
 
 function optionCookie(name, defaultValue) {
-    var existingValue = $.cookie(name);
+    var existingValue = getCookie(name);
 
     var observable = ko.observable(
         defaultValue ? existingValue !== "false" : existingValue === "true"
     );
 
     observable.subscribe(function (newValue) {
-        $.cookie(name, newValue, { path: "/", expires: 365 });
+        setCookie(name, newValue);
     });
 
     return observable;

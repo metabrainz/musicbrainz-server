@@ -122,7 +122,10 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
                          init_object => { message => $current_message } );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $c->model('MB')->context->redis->set('alert', $form->values->{message});
+        my $redis = $c->model('MB')->context->redis;
+
+        $redis->set('alert', $form->values->{message});
+        $redis->set('alert_mtime', time());
 
         $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
         $c->response->redirect($c->uri_for('/'));
