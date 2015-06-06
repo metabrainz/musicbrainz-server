@@ -8,5 +8,3 @@ INSERT INTO label (id, gid, name, comment)
 INSERT INTO label_alias (id, label, name, sort_name) VALUES (1, 1, 'Alias 1', 'Alias 1');
 INSERT INTO label_alias (id, label, name, sort_name) VALUES (2, 1, 'Alias 2', 'Alias 2');
 INSERT INTO label_alias (id, label, name, sort_name) VALUES (3, 3, 'Alias 2', 'Alias 2');
-
-ALTER SEQUENCE label_alias_id_seq RESTART 4;

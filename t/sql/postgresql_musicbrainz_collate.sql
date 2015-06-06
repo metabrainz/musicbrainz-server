@@ -19,5 +19,3 @@ INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pend
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending) VALUES (53, 'acdb56a2-1d23-4bb3-91d3-0a15a97adbe0', 'ᏣᎳᎩ', 1, NULL, 'cherokee', 0);
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending) VALUES (54, '366582ca-c945-4b42-9ee1-8aad42ef0aa4', 'ქართული', 1, NULL, 'georgian', 0);
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending) VALUES (55, '03d48616-8a05-401a-8bcb-71566b1bf709', 'ಕನ್ನಡ', 1, NULL, 'kannada', 0);
-
-ALTER SEQUENCE recording_id_seq RESTART 60;

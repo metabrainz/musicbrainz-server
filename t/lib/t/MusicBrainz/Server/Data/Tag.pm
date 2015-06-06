@@ -191,7 +191,7 @@ is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
 $tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
-is_deeply($tags, [1, 200]);
+is_deeply($tags, [5, 200]);
 
 };
 

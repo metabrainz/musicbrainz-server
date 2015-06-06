@@ -415,8 +415,6 @@ INSERT INTO event_alias (id, event, name, sort_name) VALUES
 
 -- Instruments
 
-SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
-
 INSERT INTO instrument (id, gid, name, type) VALUES (7, '3590521b-8c97-4f4b-b1bb-5f68d3663d8a', 'English horn', 1);
 
 INSERT INTO instrument_alias (id, instrument, name, sort_name) VALUES
@@ -2509,7 +2507,6 @@ INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 
 INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
-SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
 
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 

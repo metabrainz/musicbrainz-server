@@ -1,4 +1,3 @@
-
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist (id, gid, name, sort_name)
@@ -31,8 +30,6 @@ INSERT INTO work (id, gid, name, type, edits_pending, comment) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1, 0, 'Work'),
     (2, '755c079d-374e-4436-9448-da92dedef3cf', 'Test', 1, 0, 'Another Work');
 
-SELECT setval('work_id_seq', (SELECT MAX(id) FROM work));
-
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee', 'foo@example.com', now()),
 (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6', 'foo@example.com', now()),
@@ -49,8 +46,6 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
            (3, 'f34c079d-374e-4436-9448-da92dedef3c9', 1, 'event_collection1', FALSE, '', 2),
            (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 2),
            (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 3);
-
-SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);

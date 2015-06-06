@@ -104,9 +104,3 @@ INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 
 INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
-
-ALTER SEQUENCE artist_alias_id_seq RESTART 2;
-ALTER SEQUENCE annotation_id_seq RESTART 2;
-ALTER SEQUENCE tag_id_seq RESTART 3;
-
-

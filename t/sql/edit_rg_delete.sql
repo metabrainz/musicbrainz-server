@@ -9,5 +9,3 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '018acbc0-803c-11de-8a39-0800200c9a66', 'Release Name', 1);
-
-ALTER SEQUENCE artist_credit_id_seq RESTART 2;

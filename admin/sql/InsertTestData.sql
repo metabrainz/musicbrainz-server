@@ -319,35 +319,4 @@ INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_off
 INSERT INTO medium_cdtoc (id, medium, cdtoc) VALUES
     (1, 3, 2);
 
--- Restart sequences
-ALTER SEQUENCE artist_id_seq RESTART 10;
-ALTER SEQUENCE artist_credit_id_seq RESTART 5;
-ALTER SEQUENCE label_id_seq RESTART 5;
-ALTER SEQUENCE medium_id_seq RESTART 7;
-ALTER SEQUENCE recording_id_seq RESTART 18;
-ALTER SEQUENCE release_id_seq RESTART 4;
-ALTER SEQUENCE release_group_id_seq RESTART 5;
-ALTER SEQUENCE work_id_seq RESTART 2;
-ALTER SEQUENCE url_id_seq RESTART 2;
-
-ALTER SEQUENCE annotation_id_seq RESTART 8;
-
-ALTER SEQUENCE artist_alias_id_seq RESTART 8;
-ALTER SEQUENCE label_alias_id_seq RESTART 8;
-ALTER SEQUENCE track_id_seq RESTART 20;
-ALTER SEQUENCE medium_id_seq RESTART 7;
-ALTER SEQUENCE release_label_id_seq RESTART 5;
-
-ALTER SEQUENCE tag_id_seq RESTART 100;
-
-ALTER SEQUENCE link_id_seq RESTART 4;
-ALTER SEQUENCE link_type_id_seq RESTART 4;
-ALTER SEQUENCE link_attribute_type_id_seq RESTART 5;
-
-ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
-ALTER SEQUENCE l_artist_url_id_seq RESTART 2;
-
-SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));
-SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
-
 SET client_min_messages TO 'NOTICE';

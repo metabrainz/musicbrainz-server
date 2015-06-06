@@ -392,7 +392,7 @@ $rel = $rel_data->insert('artist', 'recording', {
     entity1_id => 1
 });
 $sql->commit;
-is($rel->id, 100);
+is($rel->id, 4);
 
 $artist1->clear_relationships;
 $rel_data->load_subset([ 'artist' ], $artist1);
@@ -407,14 +407,14 @@ $rel_data->load($artist1);
 is(scalar($artist1->all_relationships), 1, 'allow all rels');
 
 $rel = $artist1->relationships->[0];
-is($rel->id, 100);
-is($rel->link->id, 100);
+is($rel->id, 4);
+is($rel->link->id, 5);
 is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
 is($rel->phrase, 'performed Additional guitar and string instruments on');
 
 $sql->begin;
-$rel_data->update('artist', 'recording', 100, {
+$rel_data->update('artist', 'recording', 4, {
     link_type_id => 1,
     begin_date => undef,
     end_date => undef,
@@ -430,27 +430,27 @@ $rel_data->load($artist1);
 is(scalar($artist1->all_relationships), 1);
 
 $rel = $artist1->relationships->[0];
-is($rel->id, 100);
-is($rel->link->id, 101);
+is($rel->id, 4);
+is($rel->link->id, 6);
 is_deeply($rel->link->begin_date, { });
 is_deeply($rel->link->end_date, { });
 is($rel->phrase, 'performed string instruments on', 'phrase');
 
-$rel = $rel_data->get_by_id('artist', 'recording', 100);
+$rel = $rel_data->get_by_id('artist', 'recording', 4);
 is($rel->edits_pending, 0);
 
 $sql->begin;
-$rel_data->adjust_edit_pending('artist', 'recording', +1, 100);
+$rel_data->adjust_edit_pending('artist', 'recording', +1, 4);
 $sql->commit;
 
-$rel = $rel_data->get_by_id('artist', 'recording', 100);
+$rel = $rel_data->get_by_id('artist', 'recording', 4);
 is($rel->edits_pending, 1);
 
 $sql->begin;
-$rel_data->adjust_edit_pending('artist', 'recording', -1, 100);
+$rel_data->adjust_edit_pending('artist', 'recording', -1, 4);
 $sql->commit;
 
-$rel = $rel_data->get_by_id('artist', 'recording', 100);
+$rel = $rel_data->get_by_id('artist', 'recording', 4);
 is($rel->edits_pending, 0);
 
 };

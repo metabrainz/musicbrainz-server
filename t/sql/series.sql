@@ -76,14 +76,3 @@ INSERT INTO l_recording_series (id, link, entity0, entity1, link_order) VALUES
 
 INSERT INTO l_series_work (id, link, entity0, entity1, link_order) VALUES
     (1, 5, 2, 1, 1), (2, 6, 2, 2, 2), (3, 7, 2, 3, 3), (4, 8, 2, 4, 4);
-
-ALTER SEQUENCE url_id_seq RESTART;
-SELECT setval('series_id_seq', (SELECT max(id) FROM series));
-SELECT setval('series_alias_id_seq', (SELECT max(id) FROM series_alias));
-SELECT setval('artist_credit_id_seq', (SELECT max(id) FROM artist_credit));
-SELECT setval('recording_id_seq', (SELECT max(id) FROM recording));
-SELECT setval('work_id_seq', (SELECT max(id) FROM work));
-SELECT setval('link_id_seq', (SELECT max(id) FROM link));
-SELECT setval('link_type_id_seq', (SELECT max(id) FROM link_type));
-SELECT setval('l_recording_series_id_seq', (SELECT max(id) FROM l_recording_series));
-SELECT setval('l_series_work_id_seq', (SELECT max(id) FROM l_series_work));

@@ -109,8 +109,3 @@ INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg
 -- release_meta
 UPDATE release_meta SET cover_art_presence = 'present' WHERE id in (7, 8);
 UPDATE release_meta SET cover_art_presence = 'darkened' WHERE id = 9;
-
-ALTER SEQUENCE release_group_id_seq RESTART 5;
-
-ALTER SEQUENCE release_id_seq RESTART 12;
-ALTER SEQUENCE release_label_id_seq RESTART 3;
