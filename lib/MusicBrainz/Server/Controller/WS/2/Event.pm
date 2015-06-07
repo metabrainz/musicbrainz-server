@@ -122,6 +122,7 @@ sub event_browse : Private {
 sub event_search : Chained('root') PathPart('event') Args(0) {
     my ($self, $c) = @_;
 
+    $c->detach('event_browse') if ($c->stash->{linked});
     $self->_search($c, 'event');
 }
 
