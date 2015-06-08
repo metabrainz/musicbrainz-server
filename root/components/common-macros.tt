@@ -222,7 +222,9 @@ END -%]
 
 [%~ MACRO link_entity(entity, action, text, credited_as) BLOCK;
     show_disambiguation = text == '';
-    text = text OR credited_as;
+    IF (NOT text.defined OR text == '');
+        text = credited_as;
+    END;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
