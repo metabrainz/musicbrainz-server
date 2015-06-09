@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.old ~%]
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.old checkboxes='' ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.new ~%]
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.new checkboxes='' ~%]
     </td>
   </tr>
 </table>

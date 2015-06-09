@@ -3,14 +3,14 @@
         <th>[% l('Merge:') %]</th>
         <td>
             [% INCLUDE 'components/release_groups-list.tt' release_groups=edit.display_data.old
-                no_checkboxes=1 no_ratings=1 no_grouping=1 show_artists=1 %]
+                checkboxes='' no_ratings=1 no_grouping=1 show_artists=1 %]
         </td>
     </tr>
     <tr>
         <th>[% l('Into:') %]</th>
         <td>
             [% INCLUDE 'components/release_groups-list.tt' release_groups=edit.display_data.new
-                no_checkboxes=1 no_ratings=1 no_grouping=1 show_artists=1 %]
+                checkboxes='' no_ratings=1 no_grouping=1 show_artists=1 %]
         </td>
     </tr>
 </table>

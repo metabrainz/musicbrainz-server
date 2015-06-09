@@ -1,6 +1,7 @@
 <table class="tbl">
   <thead>
     <tr>
+      [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
       <th>[% l('Label') %]</th>
       <th>[% l('Type') %]</th>
       <th>[% l('Code') %]</th>
@@ -17,6 +18,11 @@
   <tbody>
     [% FOR label IN labels %]
     <tr class="[% loop.parity %]">
+      [% IF c.user_exists && checkboxes %]
+      <td>
+        <input type="checkbox" name="[% checkboxes %]" value="[% label.id %]" />
+      </td>
+      [% END %]
       <td>
         [% descriptive_link(label) %]
       </td>

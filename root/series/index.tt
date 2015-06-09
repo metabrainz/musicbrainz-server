@@ -37,7 +37,7 @@
         '<h2>' _ l('Release Groups') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/release_groups-list.tt'
-                  release_groups=entities no_grouping=1 no_checkboxes=1
+                  release_groups=entities no_grouping=1 checkboxes=''
                   show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
