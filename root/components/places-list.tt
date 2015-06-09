@@ -1,6 +1,7 @@
 <table class="tbl">
   <thead>
     <tr>
+      [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
       <th>[% l('Place') %]</th>
       <th>[% l('Type') %]</th>
       <th>[% l('Address') %]</th>
@@ -9,6 +10,11 @@
   <tbody>
     [% FOR place IN places %]
     <tr class="[% loop.parity %]">
+      [% IF c.user_exists && checkboxes %]
+      <td>
+        <input type="checkbox" name="[% checkboxes %]" value="[% place.id %]" />
+      </td>
+      [% END %]
       <td>
         [% link_entity(place) %]
       </td>

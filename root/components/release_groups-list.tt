@@ -1,7 +1,7 @@
 [% MACRO rg_list_thead BLOCK %]
   <thead>
     <tr>
-      [% IF c.user_exists && !no_checkboxes %]<th class="pos"></th>[% END %]
+      [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
       [% IF series_item_numbers %]
       <th style="width: 1em">[% l('#') %]</th>
       [% END %]
@@ -41,9 +41,9 @@
         [% last_rg_type = rgtype %]
     [% END %]
     <tr class="[% loop.parity %]">
-        [% IF c.user_exists && !no_checkboxes %]
+        [% IF c.user_exists && checkboxes %]
         <td>
-          <input type="checkbox" name="add-to-merge" value="[% rg.id %]" />
+          <input type="checkbox" name="[% checkboxes %]" value="[% rg.id %]" />
         </td>
         [% END %]
         [% IF series_item_numbers %]
