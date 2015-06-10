@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::JSONSerializer;
 
+use Class::Load qw( load_class );
 use Moose;
 use JSON;
 use List::MoreUtils qw( any );
@@ -61,6 +62,7 @@ sub serialize_internal {
     my $model = type_to_model($type);
 
     my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
+    load_class($js_model);
     $js_model->_load_entities($c, $entity);
 
     return $self->$type($entity);
