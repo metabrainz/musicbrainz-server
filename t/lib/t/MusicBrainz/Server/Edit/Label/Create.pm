@@ -8,7 +8,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Label::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -113,13 +113,46 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
     }, 'The given values duplicate an existing row.');
 };
 
-sub create_edit
-{
-    my $c = shift;
+test 'Rejected edits are applied if the label can\'t be deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+labeltype');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', '', now());
+    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7', '', now());
+EOSQL
+
+    my $edit = create_edit($c, privileges => $UNTRUSTED_FLAG);
+    my $label_id = $edit->entity_id;
+
+    $c->sql->do(<<EOSQL);
+    INSERT INTO artist (id, gid, name, sort_name)
+        VALUES (1, '01aa077b-ea92-437a-833f-4bf617dac3e7', 'A', 'A');
+
+    INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'AC', 1);
+    INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+        VALUES (1, 1, 'AC', 0, '');
+
+    INSERT INTO release_group (id, gid, name, artist_credit)
+        VALUES (1, 'b654bda0-4304-47d5-83a6-fd9cafc85cf3', 'RG', 1);
+
+    INSERT INTO release (id, gid, name, artist_credit, release_group)
+        VALUES (1, '357cfecb-8afd-41b7-a357-c1fde7ce46cd', 'R', 1, 1);
+
+    INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, '');
+EOSQL
+
+    reject_edit($c, $edit);
+    is($edit->status, $STATUS_APPLIED);
+};
+
+sub create_edit {
+    my ($c, %opts) = @_;
+
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_CREATE,
         editor_id => 1,
-
         name => '!K7',
         type_id => 1,
         comment => 'Funky record label',
@@ -127,7 +160,8 @@ sub create_edit
         begin_date => { year => 1995, month => 1, day => 12 },
         end_date => { year => 2005, month => 5, day => 30 },
         ipi_codes => [ '00284373936', '00262168177' ],
-        isni_codes => [ '0000000106750994', '0000000106750995' ]
+        isni_codes => [ '0000000106750994', '0000000106750995' ],
+        %opts,
     );
 }
 

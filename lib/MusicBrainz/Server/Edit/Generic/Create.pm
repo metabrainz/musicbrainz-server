@@ -50,11 +50,15 @@ sub insert
     $self->entity_gid($entity->{gid}) if exists $entity->{gid};
 }
 
-sub reject
-{
+sub reject {
     my $self = shift;
+    my $model = $self->c->model($self->_create_model);
 
-    $self->c->model($self->_create_model)->delete($self->entity_id);
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'This edit can’t be rejected because the entity is being used.',
+    ) unless $model->can_delete($self->entity_id);
+
+    $model->delete($self->entity_id);
 }
 
 sub _insert_hash
