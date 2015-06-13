@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Generic::Create;
+use utf8;
 use Moose;
 use MooseX::ABC;
 
