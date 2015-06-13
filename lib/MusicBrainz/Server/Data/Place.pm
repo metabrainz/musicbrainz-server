@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_coordinates_to_row
     hash_to_row
     load_subobjects
+    order_by
     merge_table_attributes
     merge_string_attributes
     merge_date_period
@@ -177,13 +178,46 @@ sub find_by_area {
         $query, $area_id, $offset || 0);
 }
 
+sub find_by_collection {
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
+
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "address" => sub {
+            return "musicbrainz_collate(address), musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    my $query = "
+      SELECT *
+      FROM (
+      SELECT DISTINCT ON (place.id)
+        " . $self->_columns . "
+        FROM " . $self->_table . "
+        JOIN editor_collection_place ecp ON place.id = ecp.place
+        WHERE ecp.collection = ?
+        ORDER BY id, musicbrainz_collate(name)
+      ) place
+      ORDER BY $order_by
+      OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $collection_id, $offset || 0);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2013 MetaBrainz Foundation
+Copyright (C) 2013-2015 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
