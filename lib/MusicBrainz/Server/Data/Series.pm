@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Series;
 
 use List::AllUtils qw( max );
+use List::UtilsBy qw( nsort_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
@@ -283,13 +284,8 @@ sub automatically_reorder {
     for my $text_value (@sorted_values) {
         # for each group of relationships with the same text attribute value,
         # sort by begin/end date.
-        my @group = (
-            sort {
-                $a->link->begin_date <=> $b->link->begin_date ||
-                $a->link->end_date <=> $b->link->end_date
-            }
-            @{ $relationships_by_text_value{$text_value} }
-        );
+        my @group = nsort_by { $_->link->begin_date || $_->link->end_date }
+                    @{ $relationships_by_text_value{$text_value} };
 
         my $prev_date_period = '';
         for my $relationship (@group) {
