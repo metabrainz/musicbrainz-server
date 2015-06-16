@@ -16,6 +16,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 sub edit_name { N_l('Add PUIDs (historic)') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
+sub edit_template { "add_puids" };
 
 has '+data' => (
     isa => Dict[
