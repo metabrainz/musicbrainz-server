@@ -46,7 +46,7 @@
             </tbody>
         </table>
     [% ELSE %]
-        <p>[% l('There are no disc IDs attached to this release; to find out more about how to add one, see {doc|How to Add Disc IDs}.', { doc => doc_link('How to Add Disc IDs') }) %]</p>
+        <p>[% l('There are no disc IDs attached to this release; to find out more about how to add one, see {doc|How to Add Disc IDs}.', { doc => doc_link('How_to_Add_Disc_IDs') }) %]</p>
     [% END %]
 
 [%- END -%]

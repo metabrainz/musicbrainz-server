@@ -24,7 +24,7 @@
 
             <p>
                 [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.',
-                    { doc => doc_link('How_To_Contribute') }) %]
+                    { doc => doc_link('How_to_Contribute') }) %]
             </p>
 
             <div class="linkbar">
@@ -90,7 +90,7 @@
         <div id="community" class="feature-column">
             <h2 class="community">[% l('Community') %]</h2>
             <p>
-                <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
+                <a href="[% doc_link('How_to_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
             </p>
         </div>
 

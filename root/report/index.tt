@@ -8,7 +8,7 @@
                   database looking for data that might require fixing, either to comply with
                   the {style|style guidelines}, or in other cases where administrative
                   "clean up" tasks are required.',
-                  { style => doc_link('Official_Style_Guideline') }) %]
+                  { style => doc_link('Style') }) %]
         </p>
 
         <h2>[% l('Artists') %]</h2>

@@ -11,12 +11,12 @@
                 into the Public Domain and/or licensed under a Creative Commons by-nc-sa license.
                 Furthermore, you give the MetaBrainz Foundation the right to license this
                 data for commercial use. Please read our {doc|license page} for more details.</strong>',
-                { doc => doc_link('MusicBrainz_License') }) -%]</p>
+                { doc => doc_link('About/Data_License') }) -%]</p>
 
         <p>[%- l('MusicBrainz believes strongly in the privacy of its users! Any personal
                   information you choose to provide will not be sold or shared with anyone else.
                   For full details, please read our {doc|Privacy Policy}.',
-                  {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]</p>
+                  {doc => doc_link('About/Privacy_Policy')}) -%]</p>
 
 
 

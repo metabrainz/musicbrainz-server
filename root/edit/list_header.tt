@@ -25,11 +25,11 @@
             [%- l('Help:') -%]
         </th>
         <td>
-            <a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a>
+            <a href="[% doc_link('Introduction_to_Voting') %]">[% l('Voting FAQ') %]</a>
             |
             <a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a>
             |
-            <a href="[% doc_link('Official_Style_Guidelines') %]">[% l('Style guidelines') %]</a>
+            <a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a>
             |
             <a href="[% doc_link('How_Editing_Works') %]">[% l('How editing works') %]</a>
         </td>
