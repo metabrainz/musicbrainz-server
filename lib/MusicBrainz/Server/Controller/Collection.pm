@@ -102,7 +102,10 @@ sub show : Chained('load') PathPart('') {
         $model->load_meta(@$entities);
     }
 
-    if ($entity_type eq 'release') {
+    if ($entity_type eq 'artist') {
+        $c->model('ArtistType')->load(@$entities);
+        $c->model('Gender')->load(@$entities);
+    } elsif ($entity_type eq 'release') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroup')->load(@$entities);
         $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);

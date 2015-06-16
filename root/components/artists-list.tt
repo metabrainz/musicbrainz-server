@@ -2,35 +2,36 @@
   <thead>
     <tr>
       [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-      <th>[% l('Artist') %]</th>
-      <th>[% l('Type') %]</th>
-      <th>[% l('Gender') %]</th>
+      <th>[% sortable ? sortable_table_header('name', l('Artist')) : l('Artist') %]</th>
+      <th>[% sortable ? sortable_table_header('type', l('Type')) : l('Type') %]</th>
+      <th>[% sortable ? sortable_table_header('gender', l('Gender')) : l('Gender') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
       [% END %]
     </tr>
   </thead>
   <tbody>
-    [% FOR artist IN artists %]
+    [%~ DEFAULT artists = entities ~%]
+    [%~ FOR artist IN artists ~%]
     <tr class="[% loop.parity %]">
-      [% IF c.user_exists && checkboxes %]
+      [%~ IF c.user_exists && checkboxes ~%]
       <td>
         <input type="checkbox" name="[% checkboxes %]" value="[% artist.id %]" />
       </td>
-      [% END %]
+      [%~ END ~%]
       <td>
-        [% descriptive_link(artist) %]
+        [%~ descriptive_link(artist) ~%]
       </td>
       <td>
-        [% artist.l_type_name %]
+        [%~ artist.l_type_name ~%]
       </td>
       <td>
-        [% artist.l_gender_name %]
+        [%~ artist.l_gender_name ~%]
       </td>
-      [% UNLESS no_ratings %]
+      [%~ UNLESS no_ratings ~%]
       <td>[% rating_stars(artist) %]</td>
-      [% END %]
+      [%~ END ~%]
     </tr>
-    [% END %]
+    [%~ END ~%]
   </tbody>
 </table>
