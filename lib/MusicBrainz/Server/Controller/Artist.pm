@@ -34,6 +34,9 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name => 'artist'
+};
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -401,6 +404,11 @@ sub releases : Chained('load')
         } @$releases,
     );
 }
+
+after [qw( show collections details tags aliases releases recordings works events relationships )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 =head2 WRITE METHODS
 

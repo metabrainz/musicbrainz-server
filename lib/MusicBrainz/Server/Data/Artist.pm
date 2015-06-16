@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_date_period
+    order_by
     placeholders
     query_to_list_limited
 );
@@ -43,6 +44,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'artist' }
 
@@ -189,6 +191,23 @@ sub find_by_work
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $work_id, $work_id, $offset || 0);
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "gender" => sub {
+            return "gender, musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 sub _area_cols

@@ -383,6 +383,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
+        collections => 1,
         removal => {
             automatic => {
                 exempt => [ $VARTIST_ID, $DARTIST_ID ],
