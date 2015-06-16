@@ -1,6 +1,6 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-<table class="details edit-release-name">
+<table class="details edit-release">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">

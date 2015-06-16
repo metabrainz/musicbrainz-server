@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_PUID_DELETE }
-sub edit_name { N_l('Remove PUID') }
+sub edit_name { N_l('Remove PUID (historic)') }
 sub edit_kind { 'remove' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -54,17 +54,6 @@ sub build_display_data
             || Recording->new( name => $self->data->{recording}{name} ),
         puid_name => $self->data->{puid}
     };
-}
-
-sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
-
-sub initialize { die 'This edit is read only' }
-sub insert { die 'This edit is read only' }
-
-sub reject {
-    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
-        'This edit cannot be rejected as PUIDs no longer exist in MusicBrainz'
-    );
 }
 
 __PACKAGE__->meta->make_immutable;
