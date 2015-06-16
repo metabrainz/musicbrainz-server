@@ -32,6 +32,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'place' }
 
@@ -178,9 +179,8 @@ sub find_by_area {
         $query, $area_id, $offset || 0);
 }
 
-sub find_by_collection {
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
-
+sub _order_by {
+    my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
             return "musicbrainz_collate(name)"
@@ -193,22 +193,7 @@ sub find_by_collection {
         }
     });
 
-    my $query = "
-      SELECT *
-      FROM (
-      SELECT DISTINCT ON (place.id)
-        " . $self->_columns . "
-        FROM " . $self->_table . "
-        JOIN editor_collection_place ecp ON place.id = ecp.place
-        WHERE ecp.collection = ?
-        ORDER BY id, musicbrainz_collate(name)
-      ) place
-      ORDER BY $order_by
-      OFFSET ?";
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+    return $order_by
 }
 
 __PACKAGE__->meta->make_immutable;

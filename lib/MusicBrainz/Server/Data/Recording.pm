@@ -37,6 +37,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'recording' }
 
@@ -163,9 +164,8 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
-sub find_by_collection
-{
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
+sub _order_by {
+    my ($self, $order) = @_;
 
     my $extra_join = "";
     my $also_select = "";
@@ -184,25 +184,9 @@ sub find_by_collection
         },
     });
 
-    my $query = "
-      SELECT *
-      FROM (
-      SELECT DISTINCT ON (" . $self->_table . ".id)
-        " . $self->_columns .
-          ($also_select ? ", $also_select" : "") . "
-        FROM " . $self->_table . "
-        JOIN editor_collection_recording ecr ON recording.id = ecr.recording
-        $extra_join
-        WHERE ecr.collection = ?
-        ORDER BY id, musicbrainz_collate(recording.name)
-      ) recording
-      ORDER BY $order_by
-      OFFSET ?";
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+    return ($order_by, $extra_join, $also_select)
 }
+
 sub can_delete {
     my ($self, $recording_id) = @_;
     return !$self->sql->select_single_value(

@@ -34,6 +34,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 use Readonly;
 Readonly our $MERGE_APPEND => 1;
@@ -658,9 +659,8 @@ sub find_by_medium
                          $query, @{ids}, $offset || 0);
 }
 
-sub find_by_collection
-{
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
+sub _order_by {
+    my ($self, $order) = @_;
 
     my $extra_join = "";
     my $also_select = "";
@@ -719,25 +719,15 @@ sub find_by_collection
         },
     });
 
-    my $query = "
-      SELECT *
-      FROM (
-        SELECT DISTINCT ON (release.id)
-          " . $self->_columns . ", date_year, date_month, date_day " .
-          ($also_select ? ", $also_select" : "") . "
-        FROM " . $self->_table . "
-        JOIN editor_collection_release cr ON release.id = cr.release
-        LEFT JOIN release_event ON release_event.release = release.id
-        $extra_join
-        WHERE cr.collection = ?
-        ORDER BY release.id, date_year, date_month, date_day
-      ) release
-      ORDER BY $order_by
-      OFFSET ?";
+    # Date and release event information should always be included.
+    if ($also_select ne "") {
+        $also_select .= ", ";
+    }
+    $also_select .= "date_year, date_month, date_day";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+    $extra_join = "LEFT JOIN release_event ON release_event.release = release.id " . $extra_join;
+
+    return ($order_by, $extra_join, $also_select);
 }
 
 sub _insert_hook_after_each {
