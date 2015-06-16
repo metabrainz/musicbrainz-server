@@ -43,14 +43,6 @@ INSERT INTO label_type (id, name) VALUES (7, 'Publisher');
 
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
 
-INSERT INTO series_type (id, name, entity_type, parent, description) VALUES
-    (4, 'Work', 'work', NULL, 'Indicates that the series is of works.'),
-    (5, 'Catalogue', 'work', 4, 'Indicates that the series is a works catalogue.');
-
-INSERT INTO series_ordering_type (id, name, description) VALUES
-    (1, 'Automatic', 'Sorts the items in the series automatically by their number attributes, using a natural sort order.'),
-    (2, 'Manual', 'Allows for manually setting the position of each item in the series.');
-
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
 
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (0, '1', 1, 'CD', NULL, 1982);
