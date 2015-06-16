@@ -22,7 +22,7 @@ sub find_by_collection {
         JOIN editor_collection_$type ec ON $type.id = ec.$type
         $extra_join
         WHERE ec.collection = ?
-        ORDER BY id, musicbrainz_collate($type.name)
+        ORDER BY id
       ) $type
       ORDER BY $order_by
       OFFSET ?";
