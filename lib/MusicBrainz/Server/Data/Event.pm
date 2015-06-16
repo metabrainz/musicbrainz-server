@@ -31,6 +31,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type {
     return 'event';
@@ -229,12 +230,8 @@ sub find_by_artist
         $query, $artist_id, $offset || 0);
 }
 
-sub find_by_collection
-{
-    my ($self, $collection_id, $limit, $offset, $order) = @_;
-
-    my $extra_join = "";
-    my $also_select = "";
+sub _order_by {
+    my ($self, $order) = @_;
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
@@ -248,22 +245,7 @@ sub find_by_collection
         },
     });
 
-    my $query = "
-      SELECT *
-      FROM (
-      SELECT DISTINCT ON (event.id)
-        " . $self->_columns . "
-        FROM " . $self->_table . "
-        JOIN editor_collection_event ece ON event.id = ece.event
-        WHERE ece.collection = ?
-        ORDER BY id, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
-      ) event
-      ORDER BY $order_by
-      OFFSET ?";
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+    return $order_by;
 }
 
 sub find_by_place
