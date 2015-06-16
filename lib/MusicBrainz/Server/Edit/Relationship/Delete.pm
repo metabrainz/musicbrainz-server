@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
+use Try::Tiny;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw(
@@ -284,9 +285,17 @@ sub editor_may_edit {
 around edit_conditions => sub {
     my ($orig, $self, @args) = @_;
 
-    my $editor = $self->editor // $self->c->model('Editor')->get_by_id($self->editor_id);
     my $conditions = $self->$orig(@args);
-    $conditions->{auto_edit} = $self->_editor_may_auto_edit($editor) ? 1 : 0;
+
+    # This is wrapped in try/catch so that it will behave something resembling
+    # properly when called as a class method by the edit type documentation
+    # templates.
+    try {
+        my $editor = $self->editor // $self->c->model('Editor')->get_by_id($self->editor_id);
+        $conditions->{auto_edit} = $self->_editor_may_auto_edit($editor) ? 1 : 0;
+    } catch {
+        warn $_;
+    };
 
     return $conditions;
 };
