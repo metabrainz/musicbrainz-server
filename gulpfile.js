@@ -184,7 +184,8 @@ function buildScripts() {
         writeScript(guessCaseBundle, 'guess-case.js'),
         writeScript(releaseEditorBundle, 'release-editor.js'),
         writeScript(statisticsBundle, 'statistics.js'),
-        writeScript(timelineBundle, 'timeline.js')
+        writeScript(timelineBundle, 'timeline.js'),
+        writeScript(runYarb('debug.js', function (b) {b.external(commonBundle)}), 'debug.js')
     ]).then(writeManifest);
 }
 

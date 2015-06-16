@@ -1,0 +1,33 @@
+.banner {
+    margin: @form-margin 0;
+    text-align: center;
+    background: #FFFFFF;
+    padding: @form-margin;
+    border: 0;
+    position: relative;
+
+    @media @wide {
+        border-radius: 6px;
+    }
+
+    p {
+        margin: 0;
+        margin-right: @form-margin + @form-icon-size;
+    }
+
+    .dismiss-banner {
+        position: absolute;
+        top: @form-margin;
+        right: @form-margin;
+    }
+}
+
+.warning-header,
+.server-details,
+.alert {
+    font-weight: bold;
+}
+
+.server-details {
+    color: @text-orange;
+}

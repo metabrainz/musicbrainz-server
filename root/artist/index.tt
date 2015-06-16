@@ -52,13 +52,13 @@ END %]
 
     [%- IF release_groups.size -%]
       <form action="[% c.uri_for_action('/release_group/merge_queue') %]" method="post">
-        [% INCLUDE 'components/release_groups-list.tt' release_groups=release_groups WRAPPER 'components/with-pager.tt' %]
+        [% INCLUDE 'components/release_groups-list.tt' release_groups=release_groups checkboxes='add-to-merge' WRAPPER 'components/with-pager.tt' %]
         [% form_submit(l('Merge release groups')) WRAPPER form_row IF c.user_exists %]
       </form>
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [%- INCLUDE 'components/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/recordings-list.tt' checkboxes='add-to-merge' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
     <p>

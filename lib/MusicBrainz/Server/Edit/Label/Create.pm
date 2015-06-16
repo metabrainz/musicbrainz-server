@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';

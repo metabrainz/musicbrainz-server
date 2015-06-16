@@ -222,7 +222,9 @@ END -%]
 
 [%~ MACRO link_entity(entity, action, text, credited_as) BLOCK;
     show_disambiguation = text == '';
-    text = text OR credited_as;
+    IF (NOT text.defined OR text == '');
+        text = credited_as;
+    END;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
@@ -1016,4 +1018,8 @@ END -%]
 
 [%~ MACRO data_track_icon BLOCK ~%]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
+[%~ END ~%]
+
+[%~ MACRO dismiss_banner_button(banner_name) BLOCK ~%]
+    <button type="button" class="dismiss-banner remove-item icon" data-banner-name="[% banner_name %]"></button>
 [%~ END ~%]

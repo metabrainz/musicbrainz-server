@@ -4,10 +4,12 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../i18n.js');
+var getCookie = require('../utility/getCookie');
+var setCookie = require('../utility/setCookie');
 
 $(function () {
   var $bottomCredits = $('#bottom-credits');
-  var bottomCreditsEnabled = $.cookie('bottom-credits') === '1';
+  var bottomCreditsEnabled = getCookie('bottom-credits') === '1';
   var hasReleaseCredits = !!$('#release-relationships, #release-group-relationships').length;
 
   function switchToInlineCredits() {
@@ -16,7 +18,7 @@ $(function () {
     $bottomCredits.toggle(hasReleaseCredits);
 
     $toggle.text(i18n.l('Display Credits at Bottom'));
-    $.cookie('bottom-credits', '0', { path: '/', expires: 365 });
+    setCookie('bottom-credits', 0);
   }
 
   function switchToBottomCredits() {
@@ -25,7 +27,7 @@ $(function () {
     $bottomCredits.show();
 
     $toggle.text(i18n.l('Display Credits Inline'));
-    $.cookie('bottom-credits', '1', { path: '/', expires: 365 });
+    setCookie('bottom-credits', 1);
   }
 
   var $toggle = $('#toggle-credits').on('click', function () {

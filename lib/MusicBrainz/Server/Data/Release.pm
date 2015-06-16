@@ -1149,14 +1149,16 @@ sub load_meta
     }, @objs);
 
     my @ids = keys %id_to_obj;
-    for my $row (@{
-        $self->sql->select_list_of_hashes(
-            'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
-            @ids
-        )
-    }) {
-        $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
-            if defined $row->{cover_art_url};
+    if (@ids) {
+        for my $row (@{
+            $self->sql->select_list_of_hashes(
+                'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
+                @ids
+            )
+        }) {
+            $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
+                if defined $row->{cover_art_url};
+        }
     }
 }
 

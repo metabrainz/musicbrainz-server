@@ -1,7 +1,7 @@
 <table class="tbl">
   <thead>
     <tr>
-      [% IF c.user_exists AND !no_checkboxes %]
+      [% IF c.user_exists AND checkboxes %]
       <th>
         <input type="checkbox" />
       </th>
@@ -25,9 +25,9 @@
     [% DEFAULT works=entities %]
     [% FOR work IN works %]
     <tr class="[% loop.parity %]">
-      [% IF c.user_exists AND !no_checkboxes %]
+      [% IF c.user_exists AND checkboxes %]
       <td>
-        <input type="checkbox" name="add-to-merge" value="[% work.id %]" />
+        <input type="checkbox" name="[% checkboxes %]" value="[% work.id %]" />
       </td>
       [% END %]
       [% IF series_item_numbers %]
