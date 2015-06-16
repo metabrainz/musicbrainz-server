@@ -116,6 +116,8 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
         }
+    } elsif ($entity_type eq 'place') {
+        $c->model('PlaceType')->load(@$entities);
     } elsif ($entity_type eq 'recording') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ISRC')->load_for_recordings(@$entities);

@@ -475,6 +475,7 @@ Readonly our %ENTITIES => (
         date_period => 1,
         tags       => 1,
         removal => { automatic => {} },
+        collections => 1
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },

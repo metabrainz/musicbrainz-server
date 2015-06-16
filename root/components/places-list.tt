@@ -2,29 +2,22 @@
   <thead>
     <tr>
       [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-      <th>[% l('Place') %]</th>
-      <th>[% l('Type') %]</th>
-      <th>[% l('Address') %]</th>
+      <th>[% sortable ? sortable_table_header('name', l('Place')) : l('Place') %]</th>
+      <th>[% sortable ? sortable_table_header('type', l('Type')) : l('Type') %]</th>
+      <th>[% sortable ? sortable_table_header('address', l('Address')) : l('Address') %]</th>
     </tr>
   </thead>
   <tbody>
-    [% FOR place IN places %]
+    [%~ DEFAULT places=entities ~%]
+    [%~ FOR place IN places ~%]
     <tr class="[% loop.parity %]">
-      [% IF c.user_exists && checkboxes %]
-      <td>
-        <input type="checkbox" name="[% checkboxes %]" value="[% place.id %]" />
-      </td>
-      [% END %]
-      <td>
-        [% link_entity(place) %]
-      </td>
-      <td>
-        [% place.l_type_name %]
-      </td>
-      <td>
-        [% place.address %]
-      </td>
+      [%~ IF c.user_exists && checkboxes %]
+      <td><input type="checkbox" name="[% checkboxes %]" value="[% place.id %]" /></td>
+      [% END ~%]
+      <td>[% link_entity(place) %]</td>
+      <td>[% place.l_type_name %]</td>
+      <td>[% place.address %]</td>
     </tr>
-    [% END %]
+    [%~ END ~%]
   </tbody>
 </table>
