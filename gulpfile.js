@@ -1,16 +1,15 @@
-var extend          = require("extend"),
+var babelify        = require('babelify'),
+    extend          = require("extend"),
     File            = require('vinyl'),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
     path            = require('path'),
     po2json         = require("po2json"),
-    reactTools      = require('react-tools'),
     rev             = require("gulp-rev"),
     shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
-    through         = require('through'),
     through2        = require("through2"),
     Q               = require("q"),
     watch           = require('gulp-watch'),
@@ -66,7 +65,7 @@ function runYarb(resourceName, callback) {
     }
 
     var bundle = yarb('./root/static/scripts/' + resourceName, {
-        debug: !!process.env.SOURCEMAPS
+        debug: false // disable sourcemaps
     });
 
     callback && callback(bundle);
@@ -78,7 +77,8 @@ function runYarb(resourceName, callback) {
 
             // Uglify options
             preserveComments: "some",
-            output: { max_line_len: 256 }
+            output: { max_line_len: 256 },
+            sourcemap: false
         });
     }
 
@@ -100,27 +100,25 @@ function langToPosix(lang) {
     });
 }
 
-function reactify(filename) {
-    var chunks = [];
+function babel() {
+    return babelify.configure({
+        // https://babeljs.io/docs/usage/options/
+        nonStandard: true,
+        only: 'root/static/scripts/**/*.js',
+        sourceMap: false,
+        blacklist: ['strict'],
 
-    return through(
-        function (chunk) {
-            chunks.push(chunk);
-        },
-        function () {
-            var source = String(Buffer.concat(chunks));
-
-            this.push(reactTools.transform(source, {
-                es5: true,
-                sourceMap: !!process.env.SOURCEMAPS,
-                sourceFilename: filename,
-                stripTypes: false,
-                harmony: true
-            }));
-
-            this.push(null);
-        }
-    );
+        // http://babeljs.io/docs/advanced/transformers/
+        optional: [
+            'es6.arrowFunctions',
+            'es6.classes',
+            'es6.destructuring',
+            'es6.properties.shorthand',
+            'es6.spread',
+            'es6.templateLiterals',
+            'es7.objectRestSpread'
+        ]
+    });
 }
 
 function buildScripts() {
@@ -128,7 +126,7 @@ function buildScripts() {
 
     var commonBundle = runYarb('common.js', function (b) {
         b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
-         .transform(reactify);
+         .transform(babel());
     });
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -158,7 +156,7 @@ function buildScripts() {
     });
 
     var editBundle = runYarb('edit.js', function (b) {
-        b.external(commonBundle).transform('envify', {global: true}).transform(reactify);
+        b.external(commonBundle).transform('envify', {global: true}).transform(babel());
     });
 
     var guessCaseBundle = runYarb('guess-case.js', function (b) {
@@ -166,11 +164,11 @@ function buildScripts() {
     });
 
     var placeBundle = runYarb('place.js', function (b) {
-        b.external(editBundle).external(guessCaseBundle).transform(reactify);
+        b.external(editBundle).external(guessCaseBundle).transform(babel());
     });
 
     var releaseEditorBundle = runYarb('release-editor.js', function (b) {
-        b.external(commonBundle).external(editBundle).transform(reactify);
+        b.external(commonBundle).external(editBundle).transform(babel());
     });
 
     var statisticsBundle = runYarb('statistics.js', function (b) {
@@ -230,7 +228,7 @@ gulp.task("tests", function () {
     return bundleScripts(
         runYarb('tests.js', function (b) {
             b.transform('envify', {global: true})
-             .transform(reactify)
+             .transform(babel())
              .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
