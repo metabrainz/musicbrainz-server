@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Authentication::WS::Credential;
-use base qw/Catalyst::Authentication::Credential::HTTP/;
+use parent qw/Catalyst::Authentication::Credential::HTTP/;
 
 use DBDefs;
 use Encode qw( decode );
