@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { N_l('Remove PUID (historic)') }
 sub edit_kind { 'remove' }
+sub edit_template { 'historic/remove_puid' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
