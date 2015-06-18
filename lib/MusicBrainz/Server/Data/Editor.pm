@@ -122,7 +122,7 @@ sub _get_tags_for_type
 
     my $query = "SELECT tag, count(tag)
         FROM ${type}_tag_raw
-        WHERE editor = ?
+        WHERE editor = ? AND is_upvote
         GROUP BY tag";
 
     my $results = $self->c->sql->select_list_of_hashes($query, $id);
