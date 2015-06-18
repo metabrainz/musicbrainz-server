@@ -22,7 +22,8 @@ function sortedTags(tags) {
 }
 
 function getTagsPath(entity) {
-  return `/${entity.entity_type}/${entity.gid}/tags`;
+  var type = entity.entity_type.replace('_', '-');
+  return `/${type}/${entity.gid}/tags`;
 }
 
 function isAlwaysVisible(tag) {
