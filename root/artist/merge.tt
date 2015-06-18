@@ -16,7 +16,7 @@
         [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]
-        [% form_row_checkbox(r, 'rename', l("Update artist credits to use the new artist's name")) %]
+        [% form_row_checkbox(r, 'rename', l("Update matching artist and relationship credits to use the new artist’s name")) %]
 
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]

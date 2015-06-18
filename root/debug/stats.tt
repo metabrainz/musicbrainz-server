@@ -1,4 +1,3 @@
-
 <div id="catalyst-stats-summary" [%- IF c.stats.elapsed > 1.0 -%]class="slow"[%- END -%]>
   [%- c.stats.elapsed * 1000 -%] ms
 </div>
@@ -27,26 +26,5 @@
       <tr><td>total</td><td class="duration">[% c.stats.elapsed * 1000 %]</td></tr>
     </tbody>
   </table>
-  <script type="text/javascript">//<![CDATA[
-    if ($.cookie('catalyst-stats-open') === "1")
-    {
-        $('#catalyst-stats').show();
-    }
-
-    $('#catalyst-stats-summary').bind('click.mb', function () {
-        $('#catalyst-stats').toggle();
-        $.cookie('catalyst-stats-open',
-            $('#catalyst-stats').is(':visible') ? "1" : "0",
-            { path: '/', expires: 365 });
-    });
-
-    $('#catalyst-stats table td.duration').each(function (idx, cell) {
-        parts = $(cell).text().split('.');
-        if (parts.length === 2)
-        {
-            $(cell).html(parts[0] + '.<span class="fractional">' + parts[1] + '<\/span>');
-        }
-    });
-  //]]></script>
+  [% script_manifest('debug.js') %]
 </div>
-

@@ -58,7 +58,7 @@ sub get_extract
 sub get_extract_by_language
 {
     my ($self, $title, $language, %opts) = @_;
-    my $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&format=json&redirects=1&titles=%s";
+    my $url_pattern = "https://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&format=json&redirects=1&titles=%s";
     return $self->_fetch_cache_or_url($url_pattern, 'extract',
                                       $EXTRACT_CACHE_TIMEOUT,
                                       $title, $language,
@@ -72,11 +72,11 @@ sub get_available_languages
     my ($url_pattern, $key, $callback, $language, $ret);
     for my $link (@$links) {
         if ($link->isa('MusicBrainz::Server::Entity::URL::Wikidata')) {
-            $url_pattern = "http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
+            $url_pattern = "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
             $key = 'sitelinks';
             $callback = \&_wikidata_languages_callback;
         } else {
-            $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&format=json&redirects=1&titles=%s";
+            $url_pattern = "https://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&format=json&redirects=1&titles=%s";
             $key = 'langlinks';
             $callback = \&_wikipedia_languages_callback;
             $language = $link->language;
@@ -102,7 +102,7 @@ sub _wikidata_languages_callback
     if ($opts{fetched}{content}{sitelinks}) {
         my @langs;
         for my $wiki (keys %{ $opts{fetched}{content}{sitelinks} }) {
-            if ($wiki =~ /wiki$/) {
+            if ($wiki =~ /wiki$/ and $wiki ne 'commonswiki') {
                 my $lang = $wiki;
                 $lang =~ s/wiki$//;
                 my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};

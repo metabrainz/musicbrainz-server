@@ -55,6 +55,8 @@ test all => sub {
             }
         ],
         linkOrder => 0,
+        entity0_credit => '',
+        entity1_credit => '',
     }, "BoA performed vocals");
 
     is($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},

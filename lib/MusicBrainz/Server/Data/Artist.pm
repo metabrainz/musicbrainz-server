@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_date_period
+    order_by
     placeholders
     query_to_list_limited
 );
@@ -43,6 +44,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'artist' }
 
@@ -191,6 +193,23 @@ sub find_by_work
         $query, $work_id, $work_id, $offset || 0);
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "gender" => sub {
+            return "gender, musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
+}
+
 sub _area_cols
 {
     return ['area', 'begin_area', 'end_area'];
@@ -267,7 +286,7 @@ sub merge
     $self->annotation->merge($new_id, @$old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, $old_ids, %opts);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
-    $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
+    $self->c->model('Relationship')->merge_entities('artist', $new_id, $old_ids, rename_credits => $opts{rename});
 
     unless (is_special_artist($new_id)) {
         my $merge_columns = [ qw( area begin_area end_area type ) ];

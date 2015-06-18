@@ -29,7 +29,10 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, r
            (4, '9610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'liked',
             'liked grouper',
             'is liked by',
-            'liked', '');
+            'liked', ''),
+           (5, '577996f3-7ff9-45cf-877e-740fb1267a63', 'artist', 'label',
+            'label founder', 'founded', 'founders', 'founded',
+            'This relationship type can be used to link a label to the person(s) who founded it.');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (2, 1, 0, 1),
@@ -38,7 +41,8 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
 INSERT INTO link (id, link_type) VALUES (1, 1);
 INSERT INTO link (id, link_type, begin_date_year) VALUES (2, 1, 1995);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 2, 1),
-                                                         (4, 2, 2);
+                                                         (4, 2, 2),
+                                                         (5, 5, 0);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (3, 4),
                                                          (4, 1),

@@ -558,11 +558,13 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                         "name": ""
                     }
                 ],
+                "entity0_credit" : "",
+                "entity1_credit" : "",
                 "attributes": [],
                 "beginDate": null,
                 "endDate": null,
                 "ended": false,
-                "hash": "c0362ff126851edb86c3581bc7e1596624ed0ea3"
+                "hash": "8b8b618b108c52693d4a090e5955d76c4f2db577"
             },
             {
                 "edit_type": 90,
@@ -579,11 +581,13 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                         "name": ""
                     }
                 ],
+                "entity0_credit" : "",
+                "entity1_credit" : "",
                 "attributes": [],
                 "beginDate": null,
                 "endDate": null,
                 "ended": false,
-                "hash": "52e6994e72cd0d0599c2793d65da793af9487686"
+                "hash": "42ee2f7d0f653edcfec2a725b1ef319e6dd3e74b"
             }
         ]);
     };

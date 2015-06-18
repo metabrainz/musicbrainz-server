@@ -189,6 +189,7 @@ var dates = require('../../edit/utility/dates.js');
             this.targetType = ko.observable(target.entityType);
             this.targetType.subscribe(this.targetTypeChanged, this);
 
+            this.changeAllRelationshipCredits = ko.observable(false);
             this.setupUI();
         },
 
@@ -226,6 +227,35 @@ var dates = require('../../edit/utility/dates.js');
         accept: function (inner) {
             if (!this.hasErrors()) {
                 inner && inner.apply(this, _.toArray(arguments).slice(1));
+
+                if (this.changeAllRelationshipCredits()) {
+                    var vm = this.viewModel;
+                    var relationship = this.relationship();
+                    var target = relationship.target(this.source);
+                    var targetCredit = relationship.creditField(target)();
+
+                    // XXX HACK XXX
+                    // MB.entityCache isn't supposed to be exposed outside of
+                    // whatever module it's defined in, but there's no easier
+                    // way to iterate over all entities on the page.
+
+                    _.each(MB.entityCache, function (entity, gid) {
+                        if (gid === target.gid) {
+                            _.each(entity.displayableRelationships(vm)(), function (r) {
+                                var entities = r.entities();
+
+                                if (entities[0].gid === gid) {
+                                    r.entity0_credit(targetCredit);
+                                }
+
+                                if (entities[1].gid === gid) {
+                                    r.entity1_credit(targetCredit);
+                                }
+                            });
+                        }
+                    });
+                }
+
                 this.close(false);
             }
         },

@@ -11,9 +11,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
-    clean_submitted_artist_credits
     load_artist_credit_definitions
-    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l N_l );
 
@@ -24,14 +22,15 @@ with 'MusicBrainz::Server::Edit::Release';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { N_l('Edit release artist') }
+sub edit_name { N_l('Edit release') }
 sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_ARTIST }
-sub release_id { shift->data->{release}{id} }
+sub release_id { shift->data->{entity}{id} }
+sub edit_template { "edit_release" }
 
 has '+data' => (
     isa => Dict[
-        release => Dict[
+        entity => Dict[
             id => Int,
             name => Str
         ],
@@ -55,16 +54,7 @@ around _build_related_entities => sub {
 };
 
 
-sub alter_edit_pending
-{
-    my $self = shift;
-    return {
-        Release => [ $self->release_ids ],
-    }
-}
-
-sub foreign_keys
-{
+sub foreign_keys {
     my ($self) = @_;
     my $relations = {};
 
@@ -77,14 +67,13 @@ sub foreign_keys
     }
 
     $relations->{Release} = {
-        $self->data->{release}{id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
     return $relations;
 }
 
-sub build_display_data
-{
+sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $data = {};
@@ -97,77 +86,18 @@ sub build_display_data
     }
 
     $data->{update_tracklists} = $self->data->{update_tracklists};
-    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-        || Release->new( name => $self->data->{release}{name} );
+    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
+        || Release->new( name => $self->data->{entity}{name} );
 
     return $data;
 }
 
-sub initialize {
-    my ($self, %opts) = @_;
-    my $release = delete $opts{release} or die 'Missing release object';
-    if (!$release->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release);
-    }
+sub restore {
+    my ($self, $data) = @_;
 
-    my $new = clean_submitted_artist_credits($opts{artist_credit});
-    my $old = clean_submitted_artist_credits($release->artist_credit);
+    $data->{entity} = delete $data->{release};
 
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if Compare($old, $new);
-
-    $self->data({
-        release => {
-            id => $release->id,
-            name => $release->name
-        },
-        update_tracklists => $opts{update_tracklists},
-        new_artist_credit => $new,
-        old_artist_credit => $old,
-    });
-    return $self;
-}
-
-sub accept {
-    my $self = shift;
-
-    verify_artist_credits($self->c, $self->data->{new_artist_credit});
-
-    my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
-
-    if (!$release) {
-        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This edit cannot be applied, as the release being edited no longer exists.'
-        );
-    }
-
-    my $old_ac_id = $release->artist_credit_id;
-
-    my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
-        $self->data->{new_artist_credit}
-    );
-
-    $self->c->model('Release')->update(
-        $self->release_id, {
-            artist_credit =>$new_ac_id
-        });
-
-
-    if ($self->data->{update_tracklists}) {
-        $self->c->model('Medium')->load_for_releases($release);
-        $self->c->model('Track')->load_for_mediums($release->all_mediums);
-        $self->c->model('ArtistCredit')->load(
-            map { $_->all_tracks } $release->all_mediums);
-
-        for my $medium ($release->all_mediums) {
-            for my $track ($medium->all_tracks) {
-
-                $self->c->model('Track')->update(
-                    $track->id, { artist_credit_id => $new_ac_id })
-                    if ($track->artist_credit_id == $old_ac_id);
-            }
-        }
-    }
+    $self->data($data);
 }
 
 1;

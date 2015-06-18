@@ -17,7 +17,7 @@
         <p>
             [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
                  { doc => doc_link('MusicBrainz_Documentation'),
-                   faq => doc_link('FAQ') }) -%]
+                   faq => doc_link('Frequently_Asked_Questions') }) -%]
         </p>
 
         <p>

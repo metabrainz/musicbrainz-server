@@ -13,9 +13,10 @@ with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-sub edit_name { N_l('Add PUIDs') }
+sub edit_name { N_l('Add PUIDs (historic)') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
+sub edit_template { "historic/add_puids" };
 
 has '+data' => (
     isa => Dict[
@@ -59,15 +60,6 @@ sub build_display_data
                 || Recording->new( name => $_->{recording}{name} )
         } } @{ $self->data->{puids} } ]
     }
-}
-
-sub initialize { die 'This edit is read only' }
-sub insert { die 'This edit is read only' }
-
-sub accept {
-    MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
-        'This edit cannot be applied as PUIDs are no longer stored by MusicBrainz'
-    )
 }
 
 __PACKAGE__->meta->make_immutable;

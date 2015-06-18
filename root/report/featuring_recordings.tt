@@ -9,7 +9,7 @@
               be fixed (both on the recordings and on the tracks!). Consult the
               {featured_artists|page about featured artists} to know more.',
               { CSG => doc_link('Style/Classical'),
-              featured_artists => doc_link('Style/Titles/Featured artists') }) %]</li>
+              featured_artists => doc_link('Style/Artist_Credits/Featured_artists') }) %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
     [%- INCLUDE 'report/filter_link.tt' -%]

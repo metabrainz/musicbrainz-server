@@ -87,15 +87,25 @@ sub show : Chained('load') PathPart('') {
 
     $self->own_collection($c) if !$collection->public;
 
-    my $order = $c->req->params->{order} || 'date';
+    my $order = $c->req->params->{order};
 
     my $model = $c->model(type_to_model($entity_type));
     my $entities = $self->_load_paged($c, sub {
             $model->find_by_collection($collection->id, shift, shift, $order);
     });
 
-    if ($entity_type eq 'release') {
+    if ($model->can('load_related_info')) {
         $model->load_related_info(@$entities);
+    }
+
+    if ($model->can('load_meta')) {
+        $model->load_meta(@$entities);
+    }
+
+    if ($entity_type eq 'artist') {
+        $c->model('ArtistType')->load(@$entities);
+        $c->model('Gender')->load(@$entities);
+    } elsif ($entity_type eq 'release') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroup')->load(@$entities);
         $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$entities);
@@ -108,6 +118,14 @@ sub show : Chained('load') PathPart('') {
         $model->load_locations(@$entities);
         if ($c->user_exists) {
             $model->rating->load_user_ratings($c->user->id, @$entities);
+        }
+    } elsif ($entity_type eq 'place') {
+        $c->model('PlaceType')->load(@$entities);
+    } elsif ($entity_type eq 'recording') {
+        $c->model('ArtistCredit')->load(@$entities);
+        $c->model('ISRC')->load_for_recordings(@$entities);
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$entities);
         }
     }
 

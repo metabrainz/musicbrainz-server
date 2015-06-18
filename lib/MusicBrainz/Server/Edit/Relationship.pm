@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship;
 use List::UtilsBy qw( sort_by partition_by );
 use Moose::Role;
-use MusicBrainz::Server::Data::Utils qw( non_empty );
+use MusicBrainz::Server::Data::Utils qw( non_empty sanitize );
 use namespace::autoclean;
 
 use MusicBrainz::Server::Translation 'l';
@@ -96,6 +96,23 @@ sub editor_may_edit_types {
         return $self->editor->is_relationship_editor;
     } else {
         return 1;
+    }
+}
+
+sub sanitize_entity_credits {
+    my ($self, $opts, $link_type) = @_;
+
+    for (qw(entity0 entity1)) {
+        my $type_prop = "${_}_type";
+        my $credit_prop = "${_}_credit";
+
+        if ($link_type->$type_prop eq 'artist') {
+            if (exists $opts->{$credit_prop}) {
+                $opts->{$credit_prop} = sanitize($opts->{$credit_prop});
+            }
+        } else {
+            delete $opts->{$credit_prop};
+        }
     }
 }
 

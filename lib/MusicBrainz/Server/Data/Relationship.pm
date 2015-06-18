@@ -26,6 +26,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw( entities_with );
 use Scalar::Util 'weaken';
+use List::AllUtils qw( any part uniq );
+use List::UtilsBy qw( nsort_by partition_by );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -56,6 +58,8 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
+        entity0_credit => $row->{entity0_credit},
+        entity1_credit => $row->{entity1_credit},
         last_updated => $row->{last_updated},
         link_order => $row->{link_order},
     );
@@ -306,77 +310,172 @@ sub all_pairs
     return @all;
 }
 
-sub merge_entities
-{
-    my ($self, $type, $target_id, @source_ids) = @_;
+sub merge_entities {
+    my ($self, $type, $target_id, $source_ids, %opts) = @_;
 
     # Delete relationships where the start is the same as the end
     # (after merging)
-    my @ids = ($target_id, @source_ids);
+    my @ids = ($target_id, @$source_ids);
     $self->sql->do(
-        "DELETE FROM l_${type}_${type} WHERE
-             (entity0 IN (" . placeholders(@ids) . ')
-          AND entity1 IN (' . placeholders(@ids) . '))',
-        @ids, @ids);
+        "DELETE FROM l_${type}_${type}
+         WHERE entity0 = any(\$1) AND entity1 = any(\$1)",
+        \@ids
+    );
 
-    foreach my $t (_generate_table_list($type)) {
-        my ($table, $entity0, $entity1) = @$t;
+    my @credit_fields = qw(entity0_credit entity1_credit);
+    my @date_fields = qw(
+        begin_date_year begin_date_month begin_date_day
+        end_date_year end_date_month end_date_day ended
+    );
+    my $comma_sep_date_fields = join ', ', @date_fields;
 
-        # First, MBS-3669:
-        # Delete relationships where:
-        # a.) there is no date set (no begin or end date, and the ended flag is off), and
-        # b.) there is no relationship on the same pre-merge entity which
-        #     *does* have a date, since this indicates the quasi-duplication
-        #     may be intentional
-        $self->sql->do("
-        DELETE FROM $table WHERE id IN (
-            SELECT id
-            FROM (
-              SELECT
-                a.id, $entity0, rank()
-                  OVER (
-                    PARTITION BY $entity1, link_type, attributes, text_values
-                    ORDER BY (begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
-                              end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND NOT ended) ASC
-                  ) > 1 AS redundant
-              FROM (
-                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes,
-                       array_agg(row(attribute_type, text_value) ORDER BY attribute_type, text_value) text_values
-                FROM $table
-                LEFT JOIN link_attribute la USING (link)
-                LEFT JOIN link_attribute_text_value USING (link, attribute_type)
-                WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
-                GROUP BY id, link, entity0, entity1
-              ) a
-              JOIN link ON (link.id = a.link)
-            ) b
-            WHERE redundant
-              AND NOT EXISTS (SELECT TRUE FROM $table same_entity_dated JOIN link ON same_entity_dated.link = link.id
-                                         WHERE (begin_date_year IS NOT NULL OR begin_date_month IS NOT NULL OR begin_date_day IS NOT NULL OR
-                                                end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL OR
-                                                ended)
-                                           AND same_entity_dated.$entity0 = b.$entity0
-                                           AND same_entity_dated.id <> b.id)
-        )", $target_id, @source_ids);
-        # Having deleted those duplicates, continue with merging by link ID
+    my $do_table_merge = sub {
+        my ($table, $entity0, $entity1) = @_;
 
-        # We want to keep a single row for each link type, and foreign entity.
-        $self->sql->do(
-            "DELETE FROM $table
-            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-              AND id NOT IN (
-                  SELECT DISTINCT ON ($entity1, link) id
+        $self->sql->do("LOCK TABLE $table IN SHARE ROW EXCLUSIVE MODE");
+
+        # Unless the rename_credits option is given, preserve implicit (empty)
+        # relationship credits by copying the existing entity names into them.
+        if ($type eq 'artist' && !$opts{rename_credits}) {
+            my $target_table = $self->c->model(type_to_model($type))->_main_table;
+
+            $self->sql->do(
+                "UPDATE $table SET ${entity0}_credit = target.name
+                   FROM $target_table target
+                  WHERE ${table}.${entity0}_credit = ''
+                    AND target.id = ${table}.${entity0}
+                    AND target.id = any(?)",
+                $source_ids
+            );
+        }
+
+        my $relationships = $self->sql->select_list_of_hashes(<<EOSQL, \@ids);
+            SELECT * FROM (
+                SELECT
+                    a.*,
+                    link_type,
+                    $comma_sep_date_fields,
+                    count(*) OVER (PARTITION BY $entity1, link_type, link_order, attributes) AS redundant
+                FROM (
+                    SELECT id,
+                           link,
+                           link_order,
+                           entity0,
+                           entity1,
+                           entity0_credit,
+                           entity1_credit,
+                           array_agg(row(attribute_type, text_value) ORDER BY attribute_type, text_value) attributes
                     FROM $table
-                   WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-              )",
-            $target_id, @source_ids, $target_id, @source_ids
-        );
+                    LEFT JOIN link_attribute la USING (link)
+                    LEFT JOIN link_attribute_text_value USING (link, attribute_type)
+                    WHERE $entity0 = any(?)
+                    GROUP BY id
+                ) a
+                JOIN link ON link.id = a.link
+            ) b WHERE redundant > 1
+EOSQL
+
+        # Given a set of duplicate relationship where only one will be kept,
+        # determine what {entity0,entity1}_credit should be used. Non-empty
+        # credits on the merge target are always preserved. Otherwise, all the
+        # non-empty credits must be the same across every relationship. If
+        # there's more than one unique credit, it'd be arbitrary to pick one,
+        # so an empty string is used instead.
+        my $determine_credit = sub {
+            my ($prop, $set, $to_keep) = @_;
+
+            if ($to_keep && $to_keep->{$prop} && $to_keep->{$entity0} == $target_id) {
+                return $to_keep->{$prop};
+            }
+
+            my @uniq_credits = uniq grep { $_ } map { $_->{$prop} } @$set;
+            return scalar(@uniq_credits) == 1 ? $uniq_credits[0] : '';
+        };
+
+        my $update_credit = sub {
+            my ($prop, $relationship, $new_credit) = @_;
+
+            my $old_credit = $relationship->{$prop};
+
+            # Check that:
+            # (1) The credit is different from the existing one.
+            # (2) If the relationship comes from the merge target, the credit
+            #     is currently empty. Non-empty credits on the merge target
+            #     are never overwritten.
+            if ($new_credit ne $old_credit && !($old_credit && $relationship->{$entity0} == $target_id)) {
+                $self->sql->do("UPDATE $table SET $prop = ? WHERE id = ?", $new_credit, $relationship->{id});
+                $relationship->{$prop} = $new_credit;
+            }
+        };
+
+        my $delete_relationships = sub {
+            $self->sql->do("DELETE FROM $table WHERE id = any(?)", [map { $_->{id} } @_]);
+        };
+
+        my $merge_dupes = sub {
+            return @_ unless @_ > 1;
+
+            # Prefer keeping relationships on the merge target, so non-empty
+            # credits on them are preserved.
+            my ($to_keep, @to_delete) = nsort_by { $_->{$entity0} == $target_id ? 0 : $_->{id} } @_;
+
+            $update_credit->($_, $to_keep, $determine_credit->($_, \@_, $to_keep)) for @credit_fields;
+            $delete_relationships->(@to_delete);
+
+            return $to_keep;
+        };
+
+        my %possible_dupes = partition_by {
+            join "\t", @{$_}{$entity1, qw(link_type link_order)}, @{$_->{attributes}}
+        } @$relationships;
+
+        while (my ($key, $possible_dupes) = each %possible_dupes) {
+            my %definite_dupes = partition_by { join "\t", @{$_}{$entity1, 'link'} } @$possible_dupes;
+
+            # Merge relationships that are exact duplicates other than credits,
+            # and group the remaining ones by $entity0.
+            my %by_source = partition_by { $_->{$entity0} } map { $merge_dupes->(@$_) } values %definite_dupes;
+
+            # Delete relationships where:
+            # a.) there is no date set (no begin or end date, and the ended flag is off), and
+            # b.) there is no relationship on the same pre-merge entity which
+            #     *does* have a date, since this indicates the quasi-duplication
+            #     may be intentional
+            my (@non_empty_dates, @empty_dates);
+            for my $by_source (values %by_source) {
+                # Make sure the entity doesn't contain both a dated and non-dated relationship, per (b) above.
+                my ($non_empty_dates, $empty_dates) = part { (any { $_ } @{$_}{@date_fields}) ? 0 : 1 } @$by_source;
+
+                push @non_empty_dates, @$non_empty_dates if defined $non_empty_dates && !defined $empty_dates;
+                push @empty_dates, @$empty_dates if defined $empty_dates && !defined $non_empty_dates;
+            }
+
+            if (@non_empty_dates) {
+                # Everything in @empty_dates will be deleted, but we may want to copy over credits on them.
+                my %empty_dates_credits = map { $_ => $determine_credit->($_, \@empty_dates) } @credit_fields;
+
+                for my $r (@non_empty_dates) {
+                    for my $prop (@credit_fields) {
+                        $update_credit->($prop, $r, $empty_dates_credits{$prop}) unless $r->{$prop};
+                    }
+                }
+
+                $delete_relationships->(@empty_dates);
+            }
+
+            # No need to merge @empty_dates together. They'd have had the same
+            # link and been grouped together in %definite_dupes above.
+        }
 
         # Move all remaining relationships
-        $self->sql->do("
-            UPDATE $table SET $entity0 = ?
-            WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
-        ", $target_id, $target_id, @source_ids);
+        $self->sql->do(
+            "UPDATE $table SET $entity0 = ? WHERE $entity0 = any(?)",
+            $target_id, \@ids
+        );
+    };
+
+    foreach my $t (_generate_table_list($type)) {
+        $do_table_merge->(@$t);
     }
 }
 
@@ -395,20 +494,32 @@ sub delete_entities
 
 sub exists {
     my ($self, $type0, $type1, $values) = @_;
+
     $self->_check_types($type0, $type1);
+
+    my @props = qw(entity0 entity1 link_order link);
+    my @values = @{$values}{qw(entity0_id entity1_id link_order)};
+
+    push @values, $self->c->model('Link')->find({
+        link_type_id => $values->{link_type_id},
+        begin_date => $values->{begin_date},
+        end_date => $values->{end_date},
+        ended => $values->{ended},
+        attributes => $values->{attributes},
+    });
+
+    for (qw(entity0_credit entity1_credit)) {
+        if (exists $values->{$_}) {
+            push @props, $_;
+            push @values, $values->{$_};
+        }
+    }
+
+    my $conditions = join(' AND ', map { "$_ = ?" } @props);
+
     return $self->sql->select_single_value(
-        "SELECT 1 FROM l_${type0}_${type1}
-          WHERE entity0 = ? AND entity1 = ? AND link_order = ? AND link = ?",
-        $values->{entity0_id},
-        $values->{entity1_id},
-        $values->{link_order},
-        $self->c->model('Link')->find({
-            link_type_id => $values->{link_type_id},
-            begin_date => $values->{begin_date},
-            end_date => $values->{end_date},
-            ended => $values->{ended},
-            attributes => $values->{attributes},
-        })
+        "SELECT 1 FROM l_${type0}_${type1} WHERE $conditions",
+        @values
     );
 }
 
@@ -444,6 +555,8 @@ sub insert
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
+        entity0_credit => $values->{entity0_credit} // '',
+        entity1_credit => $values->{entity1_credit} // '',
         link_order => $values->{link_order} // 0,
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
@@ -475,6 +588,8 @@ sub update
     my $new = {};
     $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
     $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+    $new->{entity0_credit} = $values->{entity0_credit} if $values->{entity0_credit};
+    $new->{entity1_credit} = $values->{entity1_credit} if $values->{entity1_credit};
 
     my $series0 = $type0 eq "series";
     my $series1 = $type1 eq "series";

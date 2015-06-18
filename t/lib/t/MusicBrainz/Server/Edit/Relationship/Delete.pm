@@ -87,12 +87,7 @@ test 'Removing URLs is an auto-edit for auto-editors (MBS-8332)' => sub {
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
 
-    my $editor = $c->model('Editor')->insert({
-        name => 'abcdeditor',
-        password => 'password'
-    });
-
-    $c->model('Editor')->update_email($editor, 'noreply@example.com');
+    my $editor = $c->model('Editor')->get_by_id(1);
 
     my $relationship = _get_relationship($c, 'artist', 'url', 1);
     my $edit = $c->model('Edit')->create(
@@ -108,7 +103,7 @@ test 'Removing URLs is an auto-edit for auto-editors (MBS-8332)' => sub {
     reject_edit($c, $edit);
 
     $c->model('Editor')->update_privileges($editor, {auto_editor => 1});
-    $editor = $c->model('Editor')->get_by_id($editor->id);
+    $editor = $c->model('Editor')->get_by_id(1);
 
     $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_DELETE,

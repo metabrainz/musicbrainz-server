@@ -78,6 +78,8 @@ sub serialize_relationship {
         editsPending    => $relationship->edits_pending ? \1 : \0,
         verbosePhrase   => $relationship->verbose_phrase,
         linkOrder       => $relationship->link_order,
+        entity0_credit  => $relationship->entity0_credit,
+        entity1_credit  => $relationship->entity1_credit,
     };
 
     $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);

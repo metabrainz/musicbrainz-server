@@ -64,7 +64,7 @@ externalLinksTest("invalid URL detection", function (t, $mountPoint, component, 
     not_contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is removed after valid URL is entered');
 });
 
-externalLinksTest("deprecated link type detection", function (t, $mountPoint, component, addURL) {
+externalLinksTest("deprecated link type detection for new links", function (t, $mountPoint, component, addURL) {
     t.plan(2);
 
     addURL("http://www.example.com/");
@@ -81,6 +81,25 @@ externalLinksTest("deprecated link type detection", function (t, $mountPoint, co
     triggerChange(selectComponent, 188);
     not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid URL and type are entered');
 });
+
+externalLinksTest("deprecated link type detection for existing links (MBS-8408)", function (t, $mountPoint, component, addURL) {
+    t.plan(2);
+
+    var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
+    triggerChange(selectComponent, 666);
+    contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
+
+    triggerChange(selectComponent, 179);
+    not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid type is entered');
+},
+// initial links
+[
+    {
+        id: 1,
+        target: MB.entity.URL({ name: "http://www.example.com/" }),
+        linkTypeID: 179
+    }
+]);
 
 externalLinksTest("hidden input data for form submission", function (t, $mountPoint, component, addURL) {
     t.plan(12);

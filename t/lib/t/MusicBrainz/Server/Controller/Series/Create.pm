@@ -26,7 +26,7 @@ test all => sub {
             '/series/create', {
                 'edit-series.name' => 'totally nonexistent series',
                 'edit-series.comment' => 'a comment longer than the name :(',
-                'edit-series.type_id' => 2,
+                'edit-series.type_id' => 4,
                 'edit-series.ordering_type_id' => 2,
                 'edit-series.url.0.link_type_id' => 3,
                 'edit-series.url.0.text' => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
@@ -54,7 +54,7 @@ test all => sub {
     is_deeply($edits[0]->data, {
         name => 'totally nonexistent series',
         comment => 'a comment longer than the name :(',
-        type_id => 2,
+        type_id => 4,
         ordering_type_id => 2,
     });
 

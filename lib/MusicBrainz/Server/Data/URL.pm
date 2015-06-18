@@ -164,7 +164,7 @@ sub _merge_impl
     $self->add_gid_redirects(map { $_ => $new_id } @old_gids);
 
     $self->c->model('Edit')->merge_entities('url', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('url', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('url', $new_id, \@old_ids);
 
     $self->_delete(@old_ids);
 

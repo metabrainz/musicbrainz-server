@@ -251,10 +251,8 @@ Readonly our $EDIT_HISTORIC_EDIT_LINK               => 234;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK             => 235;
 Readonly our $EDIT_HISTORIC_EDIT_LINK_TYPE          => 237;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
-Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE   => 244;
 Readonly our $EDIT_HISTORIC_EDIT_TRACK_LENGTH       => 245;
-Readonly our $EDIT_HISTORIC_REMOVE_PUID             => 246;
 Readonly our $EDIT_HISTORIC_ADD_RELEASE_EVENTS      => 249;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS     => 250;
 Readonly our $EDIT_HISTORIC_REMOVE_RELEASE_EVENTS   => 251;
@@ -385,6 +383,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
+        collections => 1,
         removal => {
             automatic => {
                 exempt => [ $VARTIST_ID, $DARTIST_ID ],
@@ -475,6 +474,7 @@ Readonly our %ENTITIES => (
         date_period => 1,
         tags       => 1,
         removal => { automatic => {} },
+        collections => 1
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -494,6 +494,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         report_filter => 1,
+        collections => 1,
         removal     => { manual => 1 }
     },
     release => {
@@ -584,6 +585,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         report_filter => 1,
         removal => { automatic => {} },
+        collections => 1,
     },
     track => {
         mbid => { multiple => 1 },

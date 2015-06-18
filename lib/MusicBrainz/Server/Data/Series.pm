@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Series;
 
 use List::AllUtils qw( max );
+use List::UtilsBy qw( nsort_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
@@ -81,7 +82,7 @@ sub _merge_impl {
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('series', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('series', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('series', $new_id, \@old_ids);
 
     merge_table_attributes(
         $self->sql => (
@@ -235,17 +236,24 @@ sub automatically_reorder {
         $series_id
     );
 
-    my $relationship_table = $entity_type lt "series"
-        ? "l_${entity_type}_series" : "l_series_${entity_type}";
+    my $type0 = $entity_type lt 'series' ? $entity_type : 'series';
+    my $type1 = $entity_type lt 'series' ? 'series' : $entity_type;
 
     my $pairs = $self->c->sql->select_list_of_hashes("
         SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
         $series_id
     );
 
+    my $relationships = $self->c->model('Relationship')->get_by_ids(
+        $type0,
+        $type1,
+        map { $_->{relationship} } @$pairs
+    );
+    $self->c->model('Link')->load(values %$relationships);
+
     my %relationships_by_text_value;
     for my $pair (@$pairs) {
-        push(@{ $relationships_by_text_value{$pair->{text_value}} }, $pair->{relationship});
+        push(@{ $relationships_by_text_value{$pair->{text_value}} }, $relationships->{$pair->{relationship}});
     }
 
     my @sorted_values = map { $_->[0] } sort {
@@ -270,18 +278,39 @@ sub automatically_reorder {
 
     my @from_args;
     my @from_values;
+    my $link_order = 1;
+    my $prev_text_value = '';
 
-    for (my $i = 0; $i < @sorted_values; $i++) {
-        for my $relationship (@{ $relationships_by_text_value{$sorted_values[$i]} }) {
+    for my $text_value (@sorted_values) {
+        # for each group of relationships with the same text attribute value,
+        # sort by begin/end date.
+        my @group = nsort_by { $_->link->begin_date || $_->link->end_date }
+                    @{ $relationships_by_text_value{$text_value} };
+
+        my $prev_date_period = '';
+        for my $relationship (@group) {
             push @from_values, "(?, ?)";
-            push @from_args, $relationship, $i+1;
+            push @from_args, $relationship->id, $link_order;
+
+            # increment link_order when the date period changes
+            my $date_period = $relationship->link->formatted_date;
+            if ($prev_date_period ne $date_period) {
+                $link_order++;
+                $prev_date_period = $date_period;
+            }
+        }
+
+        # increment link_order when the text value changes
+        if ($text_value ne $prev_text_value) {
+            $link_order++;
+            $prev_text_value = $text_value;
         }
     }
 
     return unless @from_args;
 
     $self->c->sql->do("
-        UPDATE $relationship_table SET link_order = x.link_order::integer
+        UPDATE l_${type0}_${type1} SET link_order = x.link_order::integer
         FROM (VALUES " . join(", ", @from_values) . ") AS x (relationship, link_order)
         WHERE id = x.relationship::integer",
         @from_args

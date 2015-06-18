@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_coordinates_to_row
     hash_to_row
     load_subobjects
+    order_by
     merge_table_attributes
     merge_string_attributes
     merge_date_period
@@ -31,6 +32,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'place' }
 
@@ -110,7 +112,7 @@ sub _merge_impl
     $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('place', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('place', $new_id, \@old_ids);
 
     my @merge_options = ($self->sql => (
                            table => 'place',
@@ -177,13 +179,30 @@ sub find_by_area {
         $query, $area_id, $offset || 0);
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "address" => sub {
+            return "musicbrainz_collate(address), musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2013 MetaBrainz Foundation
+Copyright (C) 2013-2015 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -694,6 +694,8 @@ test 'release lookup, relation attributes' => sub {
                     },
                     type => 'transl-tracklisting',
                     'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [ 'transliterated' ],
@@ -733,6 +735,8 @@ test 'release lookup, relation attributes' => sub {
                     },
                     type => 'transl-tracklisting',
                     'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }
             ],
             status => "Pseudo-Release",
@@ -807,7 +811,9 @@ test 'release lookup, track artists have no tags' => sub {
                                     end => undef,
                                     ended => JSON::false,
                                 type => 'producer',
-                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                                'source-credit' => '',
+                                'target-credit' => '',
                             }
                         ],
                         title => 'On My Bus'
@@ -838,7 +844,9 @@ test 'release lookup, track artists have no tags' => sub {
                                 end => undef,
                                 ended => JSON::false,
                                 type => 'producer',
-                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                                'source-credit' => '',
+                                'target-credit' => '',
                         } ],
                         title => 'Top & Low Rent'
                     },
@@ -868,7 +876,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Plock'
                     },
@@ -898,7 +908,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Marbles'
                     },
@@ -928,7 +940,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Busy Working'
                     },
@@ -958,7 +972,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'The Greek Alphabet'
                     },
@@ -988,7 +1004,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Press a Key'
                     },
@@ -1018,7 +1036,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Bibi Plone'
                     },
@@ -1048,7 +1068,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Be Rude to Your School'
                     },
@@ -1078,7 +1100,9 @@ test 'release lookup, track artists have no tags' => sub {
                             end => undef,
                             ended => JSON::false,
                             type => 'producer',
-                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
+                            'source-credit' => '',
+                            'target-credit' => '',
                         } ],
                         title => 'Summer Plays Out'
                     },
@@ -1103,7 +1127,9 @@ test 'release lookup, track artists have no tags' => sub {
             end => undef,
             ended => JSON::false,
             type => 'design/illustration',
-            'type-id' => '307e95dd-88b5-419b-8223-b146d4a0d439'
+            'type-id' => '307e95dd-88b5-419b-8223-b146d4a0d439',
+            'source-credit' => '',
+            'target-credit' => '',
         } ],
         'release-events' => [ {
             area => {

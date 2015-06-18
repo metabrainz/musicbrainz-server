@@ -20,6 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     placeholders
     load_subobjects
+    order_by
     query_to_list_limited
     query_to_list
 );
@@ -36,6 +37,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'recording' }
 
@@ -162,6 +164,29 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+
+    my $extra_join = "";
+    my $also_select = "";
+
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "artist" => sub {
+            $extra_join = "JOIN artist_credit ac ON ac.id = recording.artist_credit";
+            $also_select = "ac.name AS ac_name";
+            return "musicbrainz_collate(ac_name), musicbrainz_collate(recording.name)";
+        },
+        "length" => sub {
+            return "length, musicbrainz_collate(name)"
+        },
+    });
+
+    return ($order_by, $extra_join, $also_select)
+}
+
 sub can_delete {
     my ($self, $recording_id) = @_;
     return !$self->sql->select_single_value(
@@ -240,7 +265,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('recording', $new_id, \@old_ids);
 
     # Move tracks to the new recording
     $self->sql->do('UPDATE track SET recording = ?

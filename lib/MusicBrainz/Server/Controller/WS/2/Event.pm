@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
+use MusicBrainz::Server::Validation qw( is_guid );
 
 my $ws_defs = Data::OptList::mkopt([
      event => {
@@ -122,6 +123,7 @@ sub event_browse : Private {
 sub event_search : Chained('root') PathPart('event') Args(0) {
     my ($self, $c) = @_;
 
+    $c->detach('event_browse') if ($c->stash->{linked});
     $self->_search($c, 'event');
 }
 

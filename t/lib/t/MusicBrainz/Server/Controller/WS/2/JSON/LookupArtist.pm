@@ -157,6 +157,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -172,6 +174,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -187,6 +191,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -202,6 +208,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 },
                 {
                     attributes => [],
@@ -217,6 +225,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
                 }],
             ipis => [],
             gender => JSON::null,
@@ -966,6 +976,8 @@ test 'artist lookup with artist relations' => sub {
                         disambiguation => "",
                         relations => []
                     },
+                    'source-credit' => 'Maki Goto',
+                    'target-credit' => '7nin Matsuri',
                     begin => '2001',
                     end => JSON::null,
                     ended => JSON::false,
