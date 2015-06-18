@@ -114,7 +114,8 @@ class TagEditor extends React.Component {
         $.get(`${tagsPath}/${VOTE_ACTIONS[newVote]}?tags=${encodeURIComponent(t.tag)}`)
           .done(data => {
             this.updateTags(JSON.parse(data).updates);
-          });
+          })
+          .fail(() => this.updateVote(index, t.vote));
       };
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
