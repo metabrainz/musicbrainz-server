@@ -116,15 +116,11 @@ var request = require('../../common/utility/request.js');
         partialDate: function (data) {
             data = data || {};
 
-            var date = {
+            return {
                 year:   number(data.year),
                 month:  number(data.month),
                 day:    number(data.day)
             };
-
-            return (date.year  === null &&
-                    date.month === null &&
-                    date.day   === null) ? null : date;
         },
 
         recording: function (recording) {
@@ -198,7 +194,7 @@ var request = require('../../common/utility/request.js');
                     country_id: number(data.countryID)
                 };
 
-                if (event.date !== null || event.country_id !== null) {
+                if (_(event.date).values().any(nonEmpty) || event.country_id !== null) {
                     return event;
                 }
             });

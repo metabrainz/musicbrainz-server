@@ -561,10 +561,10 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                 "entity0_credit" : "",
                 "entity1_credit" : "",
                 "attributes": [],
-                "beginDate": null,
-                "endDate": null,
+                "beginDate": {year: null, month: null, day: null},
+                "endDate": {year: null, month: null, day: null},
                 "ended": false,
-                "hash": "8b8b618b108c52693d4a090e5955d76c4f2db577"
+                "hash": "043e1bbcf25fd9da9512f9c04c6a60fa935e6d71"
             },
             {
                 "edit_type": 90,
@@ -584,10 +584,10 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                 "entity0_credit" : "",
                 "entity1_credit" : "",
                 "attributes": [],
-                "beginDate": null,
-                "endDate": null,
+                "beginDate": {year: null, month: null, day: null},
+                "endDate": {year: null, month: null, day: null},
                 "ended": false,
-                "hash": "42ee2f7d0f653edcfec2a725b1ef319e6dd3e74b"
+                "hash": "8859a32687f9e8e154745cc6ea6946f402f18329"
             }
         ]);
     };
@@ -678,7 +678,6 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.0.period.end_date.year": "1970",
         "edit-artist.rel.0.period.end_date.month": "4",
         "edit-artist.rel.0.period.end_date.day": "10",
-        "edit-artist.rel.0.period.ended": "1",
         "edit-artist.rel.0.backward": "1",
         "edit-artist.rel.0.link_type_id": "103",
         "edit-artist.rel.0.attributes.0.removed": "1",
@@ -688,12 +687,17 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.1.relationship_id": "35568",
         "edit-artist.rel.1.removed": "1",
         "edit-artist.rel.1.target": "49a51491-650e-44b3-8085-2f07ac2986dd",
-        "edit-artist.rel.1.period.ended": "1",
         "edit-artist.rel.1.backward": "1",
         "edit-artist.rel.1.link_type_id": "103",
         "edit-artist.rel.2.target": "42a8f507-8412-4611-854f-926571049fa0",
         "edit-artist.rel.2.attributes.0.type.gid": "63021302-86cd-4aee-80df-2270d54f4978",
         "edit-artist.rel.2.attributes.1.type.gid": "8e2a3255-87c2-4809-a174-98cb3704f1a5",
+        "edit-artist.rel.2.period.begin_date.day" : "",
+        "edit-artist.rel.2.period.begin_date.month" : "",
+        "edit-artist.rel.2.period.begin_date.year" : "",
+        "edit-artist.rel.2.period.end_date.day" : "",
+        "edit-artist.rel.2.period.end_date.month" : "",
+        "edit-artist.rel.2.period.end_date.year" : "",
         "edit-artist.rel.2.period.ended": "1",
         "edit-artist.rel.2.backward": "1",
         "edit-artist.rel.2.link_type_id": "103"
@@ -901,4 +905,52 @@ relationshipEditorTest('relationships with different link orders are not duplica
     );
 
     t.ok(!newRelationship.isDuplicate(relationship));
+});
+
+relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8443)", function (t) {
+    t.plan(1);
+
+    var beethoven = {
+        entityType: "artist",
+        id: 1021,
+        gid: "1f9df192-a621-4f54-8850-2c5373b7eac9",
+        name: "Ludwig van Beethoven",
+        sortName: "Beethoven, Ludwig van",
+        comment: ""
+    };
+
+    var compositionData = {
+        id: 666,
+        linkTypeID: 168,
+        direction: "backward",
+        target: beethoven,
+        linkOrder: 0,
+        attributes: [],
+        beginDate: {year: 1801},
+        verbosePhrase: "{additional} composer",
+    };
+
+    var vm = MB.relationshipEditor.ReleaseViewModel({
+        sourceData: {
+            entityType: "release",
+            name: "3 Great Piano Sonatas (Wilhelm Backhaus)",
+            gid: "b01c805e-0d25-45ad-9ddb-785658fe56ce",
+            relationships: [compositionData],
+            artistCredit: [{artist: beethoven, joinPhrase: ""}],
+            mediums: [],
+            releaseGroup: {
+                entityType: "release_group",
+                id: 188961,
+                gid: "d0dd466b-3385-356b-bdf0-856737c6baf7",
+                name: "3 Great Piano Sonatas",
+                artistCredit: [{name: "Beethoven", joinPhrase: "; ", artist: beethoven}],
+            }
+        }
+    });
+
+    var relationship = vm.getRelationship(compositionData, vm.source);
+    relationship.period.beginDate.year(null);
+
+    var editData = MB.edit.relationshipEdit(relationship.editData(), relationship.original, relationship);
+    t.deepEqual(editData.beginDate, {year: null, month: null, day: null});
 });

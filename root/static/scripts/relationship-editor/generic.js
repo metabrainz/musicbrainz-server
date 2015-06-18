@@ -104,8 +104,8 @@ var validation = require('../edit/validation.js');
                 }
             });
 
-            var changedAttributes = MB.edit.relationshipEdit(editData, relationship.original, relationship).attributes;
-            _.each(changedAttributes, function (attribute, i) {
+            var changeData = MB.edit.relationshipEdit(editData, relationship.original, relationship);
+            _.each(changeData.attributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
@@ -123,9 +123,9 @@ var validation = require('../edit/validation.js');
                 }
             });
 
-            var beginDate = editData.beginDate,
-                endDate = editData.endDate,
-                ended = editData.ended;
+            var beginDate = changeData.beginDate,
+                endDate = changeData.endDate,
+                ended = changeData.ended;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);
