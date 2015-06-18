@@ -422,23 +422,15 @@ sub donation_check
                  $obj->is_location_editor);
 
     my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
+    if ($nag) {
+        my $response = $self->c->lwp->get(
+            'https://metabrainz.org/donations/nag-check/' . uri_escape_utf8($obj->name)
+        );
 
-        my $response = $ua->request(HTTP::Request->new(GET =>
-            'https://metabrainz.org/donations/nag-check/' .
-            uri_escape_utf8($obj->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
             $nag = $1;
             $days = $2;
-        }
-        else
-        {
+        } else {
             return undef;
         }
     }
