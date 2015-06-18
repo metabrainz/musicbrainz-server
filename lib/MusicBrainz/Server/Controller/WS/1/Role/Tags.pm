@@ -13,8 +13,8 @@ before 'lookup' => sub {
     my $model = $self->model;
 
     if ($c->stash->{inc}->tags) {
-        my ($tags, $hits) = $c->model($model)->tags->find_tags($entity->id);
-        $c->stash->{data}{tags} = $tags;
+        my @tags = $c->model($model)->tags->find_tags($entity->id);
+        $c->stash->{data}{tags} = \@tags;
     }
 
     if ($c->stash->{inc}->user_tags) {

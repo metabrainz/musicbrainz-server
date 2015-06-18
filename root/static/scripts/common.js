@@ -20,13 +20,13 @@ require("./common/MB/Control/EditSummary.js");
 require("./common/MB/Control/Filter.js");
 require("./common/MB/Control/Menu.js");
 require("./common/MB/Control/SelectAll.js");
-require("./common/MB/Control/TagEditor.js");
 require("./common/MB/edit_search.js");
 require("./common/MB/release.js");
 require("./common/ratings.js");
 require("./common/tagger.js");
 require("./common/coverart.js");
 require("./common/banner.js");
+require("./common/components/TagEditor.js");
 
 if (typeof phantom === 'undefined') {
     require("./common/errors.js");

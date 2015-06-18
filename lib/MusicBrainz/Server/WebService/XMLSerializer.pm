@@ -1253,7 +1253,9 @@ sub _serialize_user_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    if ($tag->is_upvote) {
+        push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    }
 }
 
 sub _serialize_rating

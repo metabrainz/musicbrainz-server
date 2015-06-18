@@ -2,16 +2,13 @@
     [%- INCLUDE "components/tags.tt" entity=entity no_tags_text=l('Nobody has tagged this yet.') -%]
 
     [% IF c.user_exists %]
-    
-        <h2>[% l('Update Tags') %]</h2>
-    
-        [%- USE r = FormRenderer(tag_form) -%]
-        <form action="[% c.req.uri %]" method="post">
-            <p>[% l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-                     { tagdocs => doc_link('Folksonomy_Tagging') }) %]</p>
-            <p>[% r.textarea('tags', { cols => 50, rows => 5 }) %]</p>
-            [% form_submit(l('Submit tags')) %]
-        </form>
-    
+        <script>
+          MB.init_main_tag_editor(
+            {entity_type: '[% entity_type %]', gid: '[% entity.gid %]'},
+            [% tags_json %],
+            [% user_tags_json %],
+            [% more_tags ? 'true' : 'false' %]
+          );
+        </script>
     [% END %]
 [%- END -%]

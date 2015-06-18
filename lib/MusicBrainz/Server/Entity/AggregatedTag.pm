@@ -30,6 +30,14 @@ has 'count' => (
     isa => 'Int'
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        tag => $self->tag->TO_JSON,
+        count => $self->count,
+    };
+}
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

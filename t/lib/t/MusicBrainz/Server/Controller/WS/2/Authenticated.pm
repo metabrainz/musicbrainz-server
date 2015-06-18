@@ -66,11 +66,11 @@ my $xp = XML::XPath->new( xml => $mech->content );
 is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
 
 _compare_tags ($c, 'Artist', '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
-               [ 'jpop', 'hello project' ]);
+               {'jpop' => 1, 'hello project' => 1});
 _compare_tags ($c, 'Artist', '472bc127-8861-45e8-bc9e-31e8dd32de7a',
-               [ 'dubstep', 'uk' ]);
+               {'dubstep' => 1, 'uk' => 1});
 _compare_tags ($c, 'Recording', '162630d9-36d2-4a8d-ade1-1c77440b34e7',
-               [ 'country schlager thrash gabber' ]);
+               {'country schlager thrash gabber' => 1});
 
 $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 &$v2 ($mech->content, "Validate user tag lookup for artist");
@@ -78,6 +78,33 @@ $mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist')
 $mech->content_contains('hello project');
 $mech->content_contains('jpop');
 
+# Test vote attributes
+$content = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist-list>
+        <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+            <user-tag-list>
+                <user-tag vote="upvote"><name>h!p</name></user-tag>
+                <user-tag vote="downvote"><name>asdfjkl;</name></user-tag>
+                <user-tag vote="withdraw"><name>hello project</name></user-tag>
+            </user-tag-list>
+        </artist>
+    </artist-list>
+</metadata>';
+
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
+xml_ok ($mech->content);
+
+$xp = XML::XPath->new(xml => $mech->content);
+is($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
+
+_compare_tags($c, 'Artist', '802673f0-9b88-4e8a-bb5c-dd01d68b086f', {'h!p' => 1, 'jpop' => 1, 'asdfjkl;' => -1});
+
+$mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
+&$v2($mech->content, "Validate user tag lookup for artist");
+
+$mech->content_contains('h!p');
+$mech->content_contains('jpop');
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -116,15 +143,14 @@ sub _compare_tags
 {
     my ($c, $model, $gid, $expected, $desc) = @_;
 
-    $expected = [ sort (@$expected) ];
-    $desc = "$model has tags (".join (', ', @$expected).")";
+    my $tag_names = join ', ', sort keys %$expected;
+    $desc = "$model has tags ($tag_names)";
 
     my $entity = $c->model($model)->get_by_gid($gid);
     my @user_tags = $c->model($model)->tags->find_user_tags(1, $entity->id);
 
-    my @tags = sort(map { $_->tag->name } grep { $_->tag } @user_tags );
-
-    is_deeply(\@tags, $expected, $desc);
+    my %tags = map { $_->tag->name => ($_->is_upvote ? 1 : -1) } grep { $_->tag } @user_tags;
+    is_deeply(\%tags, $expected, $desc);
 }
 
 test 'OAuth bearer' => sub {
