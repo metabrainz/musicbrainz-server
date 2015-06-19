@@ -29,7 +29,7 @@ exports.clean = _.memoize(function (linkType, backward) {
 
         return match;
     });
-}, _.add);
+}, (a, b) => a + String(b));
 
 exports.interpolate = function (linkType, attributes) {
     var typeInfo = MB.typeInfoByID[linkType];
