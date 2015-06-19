@@ -82,12 +82,21 @@ sub build_display_data
 sub accept
 {
     my $self = shift;
-    $self->c->model('ISWC')->insert(
-        map +{
-            work_id => $_->{work}{id},
-            iswc => $_->{iswc}
-        }, @{ $self->data->{iswcs} }
-    );
+
+    my @iswcs = $self->c->model('ISWC')->filter_additions(@{ $self->data->{iswcs} });
+
+    if (@iswcs == 0) {
+        MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable
+            ->throw('All ISWCs added by this edit have already been added.');
+    }
+    else {
+        $self->c->model('ISWC')->insert(
+            map +{
+                work_id => $_->{work}{id},
+                iswc => $_->{iswc}
+            }, @iswcs
+        );
+    }
 }
 
 no Moose;
