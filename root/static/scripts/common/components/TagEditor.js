@@ -250,6 +250,21 @@ class MainTagEditor extends TagEditor {
 }
 
 class SidebarTagEditor extends TagEditor {
+  constructor(props) {
+    super(props);
+    this.addTags = this.addTags.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  handleKeyDown(event) {
+    switch (event.keyCode) {
+      // enter
+      case 13:
+        this.addTags();
+        break;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -262,8 +277,8 @@ class SidebarTagEditor extends TagEditor {
         </ul>
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
         <div style={{display: 'flex'}}>
-          <input type="text" className="tag-input" style={{flexGrow: 2}} ref="tags" />
-          <button type="button" className="styled-button" onClick={this.addTags.bind(this)}>
+          <input type="text" className="tag-input" style={{flexGrow: 2}} ref="tags" onKeyDown={this.handleKeyDown} />
+          <button type="button" className="styled-button" onClick={this.addTags}>
             {l('Tag', 'verb')}
           </button>
         </div>
