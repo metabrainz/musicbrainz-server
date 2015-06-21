@@ -243,6 +243,7 @@ sub automatically_reorder {
         SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
         $series_id
     );
+    return unless @$pairs;
 
     my $relationships = $self->c->model('Relationship')->get_by_ids(
         $type0,
