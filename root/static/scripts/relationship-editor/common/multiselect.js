@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var deferFocus = require('../../edit/utility/deferFocus.js');
+var clean = require('../../common/utility/clean');
+var deferFocus = require('../../edit/utility/deferFocus');
 
 (function () {
 
@@ -64,7 +65,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
         },
 
         termChanged: function (term) {
-            term = _.str.clean(term);
+            term = clean(term);
             this.updateOptions(term);
             this.menuVisible(!!term);
         },

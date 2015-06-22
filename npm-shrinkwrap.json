@@ -2194,10 +2194,6 @@
         }
       }
     },
-    "underscore.string": {
-      "version": "2.4.0",
-      "from": "underscore.string@2.4.0"
-    },
     "vinyl": {
       "version": "0.4.6",
       "from": "vinyl@>=0.4.6 <0.5.0",
@@ -2563,6 +2559,10 @@
     "cookie": {
       "version": "0.1.2",
       "from": "cookie@>=0.1.2 <0.2.0"
+    },
+    "leven": {
+      "version": "1.0.2",
+      "from": "leven@>=1.0.2 <2.0.0"
     }
   }
 }

@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
-var externalLinks = require('../edit/externalLinks.js');
-var validation = require('../edit/validation.js');
+var i18n = require('../common/i18n');
+var clean = require('../common/utility/clean');
+var request = require('../common/utility/request');
+var externalLinks = require('../edit/externalLinks');
+var validation = require('../edit/validation');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
     activeTabID: ko.observable("#information"),
@@ -136,7 +137,7 @@ MB.releaseEditor.init = function (options) {
     // Update the document title to match the release title
 
     this.utils.withRelease(function (release) {
-        var name = _.str.clean(release.name());
+        var name = clean(release.name());
 
         if (self.action === "add") {
             document.title = i18n.expand(

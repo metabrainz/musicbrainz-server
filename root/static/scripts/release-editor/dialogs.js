@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
-var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var i18n = require('../common/i18n');
+var isBlank = require('../common/utility/isBlank');
+var request = require('../common/utility/request');
+var formatTrackLength = require('../common/utility/formatTrackLength');
 
 (function (releaseEditor) {
 
@@ -41,7 +42,7 @@ var formatTrackLength = require('../common/utility/formatTrackLength.js');
             var toBeParsed = this.toBeParsed();
 
             var newTracks = releaseEditor.trackParser.parse(toBeParsed, medium);
-            var error = !!_.str.trim(toBeParsed) && newTracks.length === 0;
+            var error = !isBlank(toBeParsed) && newTracks.length === 0;
 
             this.error(error);
             !error && medium.tracks(newTracks);

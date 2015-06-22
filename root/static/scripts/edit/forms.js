@@ -25,7 +25,7 @@ MB.forms = {
                 var opt = {};
 
                 opt.value = child[valueAttr];
-                opt.text = _.str.repeat(nbsp, indent * 2) +
+                opt.text = _.repeat(nbsp, indent * 2) +
                            (_.isFunction(textAttr) ? textAttr(child) : child[textAttr]);
                 opt.data = child;
                 options.push(opt);

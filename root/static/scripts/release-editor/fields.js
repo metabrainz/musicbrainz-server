@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
-var formatTrackLength = require('../common/utility/formatTrackLength.js');
-var dates = require('../edit/utility/dates.js');
+var i18n = require('../common/i18n');
+var clean = require('../common/utility/clean');
+var request = require('../common/utility/request');
+var formatTrackLength = require('../common/utility/formatTrackLength');
+var dates = require('../edit/utility/dates');
 
 (function (releaseEditor) {
 
@@ -732,7 +733,7 @@ var dates = require('../edit/utility/dates.js');
             );
 
             function releaseLabelKey(releaseLabel) {
-                return ((releaseLabel.label() || {}).id || '') + '\0' + _.str.clean(releaseLabel.catalogNumber());
+                return ((releaseLabel.label() || {}).id || '') + '\0' + clean(releaseLabel.catalogNumber());
             }
 
             function nonEmptyReleaseLabel(releaseLabel) {

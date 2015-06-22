@@ -20,3 +20,5 @@ MB.Control.Area = function () {
         );
     });
 };
+
+module.exports = MB.Control;

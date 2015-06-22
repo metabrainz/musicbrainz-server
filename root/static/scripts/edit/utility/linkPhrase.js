@@ -4,8 +4,8 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var _ = require('lodash');
-var _str = require('underscore.string');
 var i18n = require('../../common/i18n');
+var clean = require('../../common/utility/clean');
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
 
@@ -54,14 +54,14 @@ exports.interpolate = function (linkType, attributes) {
         var value = type.l_name;
 
         if (type.freeText) {
-            value = _str.clean(attribute.textValue());
+            value = clean(attribute.textValue());
             if (value) {
                 value = i18n.l('{attribute}: {value}', {attribute: type.l_name, value: value});
             }
         }
 
         if (type.creditable) {
-            var credit = _str.clean(attribute.creditedAs());
+            var credit = clean(attribute.creditedAs());
             if (credit) {
                 value = i18n.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
             }
@@ -87,8 +87,8 @@ exports.interpolate = function (linkType, attributes) {
     }
 
     return [
-        _str.clean(phrase.replace(attributeRegex, interpolate)),
-        _str.clean(reversePhrase.replace(attributeRegex, interpolate)),
+        clean(phrase.replace(attributeRegex, interpolate)),
+        clean(reversePhrase.replace(attributeRegex, interpolate)),
         i18n.commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value())
     ];
 };

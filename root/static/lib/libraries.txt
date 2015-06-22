@@ -80,14 +80,6 @@ version:     0.1.3
 author:      Ryan Niemeyer
 url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
--- underscore.string/underscore.string.js --
-
-library:     Underscore.string
-license:     MIT
-version:     2.4.0
-author:      Esa-Matti Suuronen
-url:         http://epeli.github.com/underscore.string
-
 -- jquery/jquery.browser.js --
 
 library:     jquery-browser-plugin

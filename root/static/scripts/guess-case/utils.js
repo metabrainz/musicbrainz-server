@@ -4,7 +4,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var flags = require('./flags.js');
+var clean = require('../common/utility/clean');
+var flags = require('./flags');
 
 // Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence.
 var preBracketSingleWordsList = [
@@ -120,7 +121,7 @@ exports.isPunctuationChar = function (w) {
 
 // Trim leading, trailing and running-line whitespace from the given string.
 exports.trim = function (is) {
-    is = _.str.clean(is);
+    is = clean(is);
     return is.replace(/([\(\[])\s+/, "$1").replace(/\s+([\)\]])/, "$1");
 };
 
