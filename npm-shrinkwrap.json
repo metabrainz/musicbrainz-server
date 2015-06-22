@@ -1799,15 +1799,15 @@
       "from": "git+https://github.com/gabceb/jquery-browser-plugin#e4a01fd",
       "resolved": "git+https://github.com/gabceb/jquery-browser-plugin#e4a01fd783d4684659b3193626b5553f0d8f6758"
     },
+    "knockout": {
+      "version": "3.1.0",
+      "from": "git+https://github.com/mwiencek/knockout#a8f12df",
+      "resolved": "git+https://github.com/mwiencek/knockout#a8f12dfbafe1c06eda16dbb7711c14d72619ab03"
+    },
     "knockout-arraytransforms": {
       "version": "1.0.0",
       "from": "knockout-arraytransforms@1.0.0",
-      "dependencies": {
-        "knockout": {
-          "version": "3.3.0",
-          "from": "knockout@>=3.3.0 <4.0.0"
-        }
-      }
+      "dependencies": {}
     },
     "less-plugin-clean-css": {
       "version": "1.5.0",

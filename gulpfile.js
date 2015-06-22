@@ -127,8 +127,7 @@ function buildScripts() {
     process.env.NODE_ENV = process.env.DEVELOPMENT_SERVER == 1 ? 'development' : 'production';
 
     var commonBundle = runYarb('common.js', function (b) {
-        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
-         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
+        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
          .transform(reactify);
     });
 
@@ -227,7 +226,6 @@ gulp.task("tests", function () {
         runYarb('tests.js', function (b) {
             b.transform('envify', {global: true})
              .transform(reactify)
-             .expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
              .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
