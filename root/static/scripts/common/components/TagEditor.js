@@ -101,6 +101,7 @@ class TagEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = _.assign({positiveTagsOnly: true}, props.initialState);
+    this.addTags = this.addTags.bind(this);
   }
 
   createTagRows() {
@@ -149,7 +150,9 @@ class TagEditor extends React.Component {
     }
   }
 
-  addTags() {
+  addTags(event) {
+    event.preventDefault();
+
     var input = React.findDOMNode(this.refs.tags);
     var tags = input.value;
 
@@ -238,33 +241,20 @@ class MainTagEditor extends TagEditor {
         <p dangerouslySetInnerHTML={{__html:
           l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
             {tagdocs: '/doc/Folksonomy_Tagging'})}}></p>
-        <p>
-          <textarea row="5" cols="50" ref="tags"></textarea>
-        </p>
-        <button type="button" className="styled-button" onClick={this.addTags.bind(this)}>
-          {l('Submit tags')}
-        </button>
+        <form id="tag-form" onSubmit={this.addTags}>
+          <p>
+            <textarea row="5" cols="50" ref="tags"></textarea>
+          </p>
+          <button type="submit" className="styled-button">
+            {l('Submit tags')}
+          </button>
+        </form>
       </div>
     );
   }
 }
 
 class SidebarTagEditor extends TagEditor {
-  constructor(props) {
-    super(props);
-    this.addTags = this.addTags.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
-  handleKeyDown(event) {
-    switch (event.keyCode) {
-      // enter
-      case 13:
-        this.addTags();
-        break;
-    }
-  }
-
   render() {
     return (
       <div>
@@ -276,12 +266,14 @@ class SidebarTagEditor extends TagEditor {
             </li>}
         </ul>
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
-        <div style={{display: 'flex'}}>
-          <input type="text" className="tag-input" style={{flexGrow: 2}} ref="tags" onKeyDown={this.handleKeyDown} />
-          <button type="button" className="styled-button" onClick={this.addTags}>
-            {l('Tag', 'verb')}
-          </button>
-        </div>
+        <form id="tag-form" onSubmit={this.addTags}>
+          <div style={{display: 'flex'}}>
+            <input ref="tags" type="text" name="tags" className="tag-input" style={{flexGrow: 2}} />
+            <button type="submit" className="styled-button">
+              {l('Tag', 'verb')}
+            </button>
+          </div>
+        </form>
       </div>
     );
   }
