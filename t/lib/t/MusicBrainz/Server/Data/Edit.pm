@@ -211,7 +211,7 @@ test 'Find edits by subscription' => sub {
     };
     test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [1, 4], "Artist subscription");
     test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 1), [4], "Artist subscription with offset");
-    test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [4, 2], "Editor subscription");
+    test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [2, 4], "Editor subscription");
     test_find_subscription_edits(LabelSubscription->new(label_id => 1, last_edit_sent => 0), [2], "Label subscription");
 
     $sql->do('UPDATE edit SET status = ? WHERE id = ?', $STATUS_ERROR, 1);
