@@ -4,6 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Fatal;
 use Clone qw( clone );
+use List::MoreUtils qw( pairwise );
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 
@@ -24,6 +25,8 @@ use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
 
 with 't::Context';
+
+my $edit_data; # make file-level, so it can be accessed by subtests
 
 test 'Merge entity edit history' => sub {
     my $test = shift;
@@ -56,25 +59,21 @@ test 'Test locks on edits' => sub {
     my $test = shift;
 
     # We have to have some data present outside transactions.
-    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
-        'TEST',
-        fresh => 1
-    );
+    my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection('TEST', fresh => 1);
 
-    $foreign_connection->dbh->do('INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (50, $$editor$$, $${CLEARTEXT}password$$, $$3a115bc4f05ea9856bd4611b75c80bca$$, $$foo@example.com$$, now())');
-    $foreign_connection->dbh->do(
-        q{INSERT INTO edit (id, editor, type, status, data, expire_time)
-             VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())}
-         );
+    $foreign_connection->dbh->do('INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+             VALUES (50, $$editor$$, $${CLEARTEXT}password$$, $$3a115bc4f05ea9856bd4611b75c80bca$$, $$foo@example.com$$, now())');
+    $foreign_connection->dbh->do(q{INSERT INTO edit (id, editor, type, status, data, expire_time)
+             VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())});
 
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql2 = Sql->new($foreign_connection->conn);
     $sql2->begin;
     $sql2->select_single_row_array('SELECT * FROM edit WHERE id = 12345 FOR UPDATE');
 
-    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/;
+    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/, 'Lock found';
 
     # Release the lock
     $sql2->rollback;
@@ -82,121 +81,114 @@ test 'Test locks on edits' => sub {
     $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
 
+sub is_expected_edit_ids {
+    my ($expected_edit_ids, $edits) = @_;
+    pairwise { is($a->id, $b, "Found edit #".$a->id) } @$edits, @$expected_edit_ids;
+}
+
 test all => sub {
 
-my $test = shift;
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    sub test_find_edits {
+        my ($query, $expected_edit_ids, $test_name) = @_;
+        subtest $test_name => sub {
+            is_expected_edit_ids($expected_edit_ids, $edit_data->find($query, 10, 0));
+        };
+    };
 
-my $sql = $test->c->sql;
+    sub test_number_of_results_returned {
+        my ($query, $expected_hits, $expected_array_size, $test_name) = @_;
+        subtest $test_name => sub {
+            my ($edits, $hits) = $edit_data->find($query, 2, 0);
+            is($hits, $expected_hits, "Got expected number of hits: $hits");
+            is(scalar @$edits, $expected_array_size, "Got expected array size: ".scalar @$edits);
+        };
+    };
 
-# Find all edits
-my ($edits, $hits) = $edit_data->find({}, 10, 0);
-is($hits, 5);
-is(scalar @$edits, 5, "Found all edits");
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+    $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    my $sql = $test->c->sql;
 
-# Check we get the edits in descending ID order
-is($edits->[$_]->id, 5 - $_) for (0..4);
+    # Verify that hits will differ from the length
+    # of the returned array if there are more results than
+    # is given in the 2nd parameter to find()
+    test_number_of_results_returned({}, 5, 2, 'Max results vs. hits');
 
-# Find edits with a certain status
-($edits, $hits) = $edit_data->find({ status => $STATUS_OPEN }, 10, 0);
-is($hits, 4);
-is(scalar @$edits, 4, "Found all open edits");
-is($edits->[0]->id, 5);
-is($edits->[1]->id, 3);
-is($edits->[2]->id, 2);
-is($edits->[3]->id, 1);
+    test_find_edits({}, [5, 4, 3, 2, 1], "Every edit");
+    test_find_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], "Open edits", $edit_data);
+    test_find_edits({ editor => 1 }, [3, 1], "Edits by editor", $edit_data);
+    test_number_of_results_returned({ editor => 122 }, 0, 0, 'No results');
+    test_find_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], "Open edits by editor", $edit_data);
+    test_find_edits({ artist => 1 }, [4,1], "Edits by an artist", $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], "Applied edits by an artist", $edit_data);
+    test_find_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], "Applied edits by either of two artists", $edit_data);
 
-# Find edits by a specific editor
-($edits, $hits) = $edit_data->find({ editor => 1 }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found edits by a specific editor");
-is($edits->[0]->id, 3);
-is($edits->[1]->id, 1);
+    subtest 'Accepting an edit' => sub {
+        my $edit = $edit_data->get_by_id(1);
 
-# Find edits by a specific editor with a certain status
-($edits, $hits) = $edit_data->find({ editor => 1, status => $STATUS_OPEN }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found all open edits by a specific editor");
-is($edits->[0]->id, 3);
-is($edits->[1]->id, 1);
+        my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        is($editor->accepted_edits, 12, "Edit not yet accepted");
 
-# Find edits with 0 results
-($edits, $hits) = $edit_data->find({ editor => 122 }, 10, 0);
-is($hits, 0);
-is(scalar @$edits, 0, "Found no edits for a specific editor");
+        $sql->begin;
+        $edit_data->accept($edit);
+        $sql->commit;
 
-# Find edits by a certain artist
-($edits, $hits) = $edit_data->find({ artist => 1 }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found edits by a certain artist");
-is($edits->[0]->id, 4);
-is($edits->[1]->id, 1);
+        $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        is($editor->accepted_edits, 13, "Edit accepted");
+    };
 
-($edits, $hits) = $edit_data->find({ artist => 1, status => $STATUS_APPLIED }, 10, 0);
-is($hits, 1);
-is(scalar @$edits, 1, "Found applied edits by a certain artist");
-is($edits->[0]->id, 4);
+    subtest 'Rejecting an edit' => sub {
+        my $edit = $edit_data->get_by_id(3);
 
-# Find edits over multiple entities
-($edits, $hits) = $edit_data->find({ artist => [1,2] }, 10, 0);
-is($hits, 1);
-is(scalar @$edits, 1, "Found edits over multiple entities");
-is($edits->[0]->id, 4);
+        my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        is($editor->rejected_edits, 2, "Edit not yet rejected");
 
-# Test accepting edits
-my $edit = $edit_data->get_by_id(1);
+        $sql->begin;
+        $edit_data->reject($edit, $STATUS_FAILEDVOTE);
+        $sql->commit;
 
-my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-is($editor->accepted_edits, 12, "Edit not yet accepted");
+        $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        is($editor->rejected_edits, 3, "Edit rejected");
+    };
 
-$sql->begin;
-$edit_data->accept($edit);
-$sql->commit;
+    subtest 'Approving an edit' => sub {
+        my $editor = $test->c->model('Editor')->get_by_id(1);
+        my $edit = $edit_data->get_by_id_and_lock(5);
+        is($edit->status, $STATUS_OPEN, 'Edit open');
+        $edit_data->approve($edit, $editor);
 
-$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-is($editor->accepted_edits, 13, "Edit accepted");
+        $edit = $edit_data->get_by_id(5);
+        is($edit->status, $STATUS_APPLIED, "Edit now applied");
 
-# Test rejecting edits
-$edit = $edit_data->get_by_id(3);
+        $test->c->model('Vote')->load_for_edits($edit);
+        is($edit->votes->[0]->vote, $VOTE_APPROVE, "First vote is approval");
+        is($edit->votes->[0]->editor_id, 1, "First vote by editor-1");
+    };
 
-$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-is($editor->rejected_edits, 2, "Edit not yet rejected");
+    subtest 'Canceling an edit'=> sub {
+        my $edit = $edit_data->get_by_id(2);
+        is($edit->status, $STATUS_OPEN, 'Edit open');
 
-$sql->begin;
-$edit_data->reject($edit, $STATUS_FAILEDVOTE);
-$sql->commit;
+        my $editor_original = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        $edit_data->cancel($edit);
 
-$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-is($editor->rejected_edits, 3, "Edit rejected");
+        my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
 
-# Test approving edits, successfully this time
-my $editor1 = $test->c->model('Editor')->get_by_id(1);
-$edit = $edit_data->get_by_id_and_lock(5);
-$edit_data->approve($edit, $editor1);
+        $edit = $edit_data->get_by_id(2);
+        is($edit->status, $STATUS_DELETED, "Edit now canceled");
 
-$edit = $edit_data->get_by_id(5);
-is($edit->status, $STATUS_APPLIED);
+        is ($editor_cancelled->$_, $editor_original->$_, "$_ has not changed")
+          for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
+    };
+};
 
-$test->c->model('Vote')->load_for_edits($edit);
-is($edit->votes->[0]->vote, $VOTE_APPROVE);
-is($edit->votes->[0]->editor_id, 1);
+test 'Collections' => sub {
+    my $test = shift;
 
-# Test canceling
-$edit = $edit_data->get_by_id(2);
-$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+collection');
+    $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
-$edit_data->cancel($edit);
-
-my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
-
-$edit = $edit_data->get_by_id(2);
-is($edit->status, $STATUS_DELETED);
-
-is ($editor_cancelled->$_, $editor->$_,
-    "$_ has not changed")
-    for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
-
+    is_expected_edit_ids([3], $edit_data->find_by_collection(1, 10, 0));
 };
 
 test 'Find edits by subscription' => sub {
@@ -206,40 +198,26 @@ test 'Find edits by subscription' => sub {
 
     my $test = shift;
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+    $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql = $test->c->sql;
 
-    my $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
-    my @edits = $edit_data->find_for_subscription($sub);
-    is(@edits => 2, 'found 2 edits');
-    ok((grep { $_->id == 1 } @edits), 'has edit #1');
-    ok((grep { $_->id == 4 } @edits), 'has edit #4');
+    sub test_find_subscription_edits {
+        my ($sub, $expected_edit_ids, $test_name) = @_;
+        subtest $test_name => sub {
+            my @edits = $edit_data->find_for_subscription($sub);
+            is_expected_edit_ids($expected_edit_ids, \@edits);
+        };
+    };
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [1, 4], "Artist subscription");
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 1), [4], "Artist subscription with offset");
+    test_find_subscription_edits(EditorSubscription->new(subscribed_editor_id => 2, last_edit_sent => 0), [4, 2], "Editor subscription");
+    test_find_subscription_edits(LabelSubscription->new(label_id => 1, last_edit_sent => 0), [2], "Label subscription");
 
-    $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 1 );
-    @edits = $edit_data->find_for_subscription($sub);
-    is(@edits => 1, 'found 1 edits');
-    ok(!(grep { $_->id == 1 } @edits), 'does not have edit #1');
-    ok((grep { $_->id == 4 } @edits), 'has edit #4');
-
-    $sub = EditorSubscription->new( subscribed_editor_id => 2, last_edit_sent => 0 );
-    @edits = $edit_data->find_for_subscription($sub);
-    is(@edits => 2, 'found 1 edits');
-    ok((grep { $_->id == 2 } @edits), 'has edit #2');
-    ok((grep { $_->id == 4 } @edits), 'has edit #4');
-
-    $sub = LabelSubscription->new( label_id => 1, last_edit_sent => 0 );
-    @edits = $edit_data->find_for_subscription($sub);
-    is(@edits => 1, 'found 1 edits');
-    ok((grep { $_->id == 2 } @edits), 'has edit #2');
-
-    $sql->do('UPDATE edit SET status = ? WHERE id = ?',
-             $STATUS_ERROR, 1);
-    $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
-    @edits = $edit_data->find_for_subscription($sub);
-    is(@edits => 1, 'found 1 edit');
-    ok(!(grep { $_->id == 1 } @edits), 'doesnt have edit #1');
-    ok((grep { $_->id == 4 } @edits), 'has edit #4');
+    $sql->do('UPDATE edit SET status = ? WHERE id = ?', $STATUS_ERROR, 1);
+    my $edit = $edit_data->get_by_id(1);
+    is($edit->status, $STATUS_ERROR, 'Edit now in error');
+    test_find_subscription_edits(ArtistSubscription->new(artist_id => 1, last_edit_sent => 0), [4], "Artist subscription after an edit marked as error");
 };
 
 test 'Accepting auto-edits should credit editor auto-edits column' => sub {
@@ -259,8 +237,8 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     );
 
     $editor = $c->model('Editor')->get_by_id(1);
-    is $editor->accepted_auto_edits, $old_ae_count + 1;
-    is $editor->accepted_edits, $old_e_count;
+    is $editor->accepted_auto_edits, $old_ae_count + 1, "One more accepted auto-edit";
+    is $editor->accepted_edits, $old_e_count, "Same number of accepted edits";
 };
 
 test 'default_includes function' => sub {
