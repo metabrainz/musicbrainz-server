@@ -31,7 +31,7 @@ $mech->content_contains('new_editor');
 $mech->content_lacks('alice');
 
 my $tx = test_xpath_html($mech->content);
-$tx->is('count(//li//span[@class="inline-rating"])', 1, '1 rating is show');
+$tx->is('count(//li//span[@class="inline-rating"])', 1, '1 rating is shown');
 
 $mech->content_contains('1 private rating not listed');
 
