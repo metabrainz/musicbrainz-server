@@ -8,8 +8,9 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
-var request = require('../common/utility/request.js');
-var similarity = require('../edit/utility/similarity.js');
+var _ = require('lodash');
+var request = require('../common/utility/request');
+var similarity = require('../edit/utility/similarity');
 
 (function (releaseEditor) {
 
@@ -161,19 +162,20 @@ var similarity = require('../edit/utility/similarity.js');
 
 
     utils.calculateDiscID = function (toc) {
-        var sprintf = _.str.sprintf;
         var info = toc.split(/\s/);
 
-        var temp = sprintf("%02X", parseInt(info.shift(), 10)) +
-                   sprintf("%02X", parseInt(info.shift(), 10));
+        var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
 
         for (var i = 0; i < 100; i++) {
-            temp += sprintf("%08X", parseInt(info[i], 10) || 0);
+            temp += paddedHex(info[i], 8);
         }
 
         return base64(rstr_sha1(temp));
     };
 
+    function paddedHex(str, length) {
+        return _.padLeft((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+    }
 
     // The alphabet has been modified and does not conform to RFC822.
     // For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
@@ -211,3 +213,5 @@ var similarity = require('../edit/utility/similarity.js');
     }
 
 }(MB.releaseEditor = MB.releaseEditor || {}));
+
+module.exports = MB.releaseEditor.utils;

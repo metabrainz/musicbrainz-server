@@ -3,8 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var nonEmpty = require('../utility/nonEmpty');
-var request = require('../../common/utility/request.js');
+var clean = require('../../common/utility/clean');
+var request = require('../../common/utility/request');
 
 (function (edit) {
 
@@ -31,7 +33,7 @@ var request = require('../../common/utility/request.js');
 
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
-    function string(arg) { return _.str.clean(value(arg)) }
+    function string(arg) { return clean(value(arg)) }
     function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
@@ -43,8 +45,8 @@ var request = require('../../common/utility/request.js');
             return {
                 entity: nullableString(entity.gid),
 
-                // Don't _.str.clean!
-                text: _.str.trim(value(entity.annotation))
+                // Don't clean()!
+                text: String(value(entity.annotation) || '').trim()
             };
         },
 
@@ -72,7 +74,7 @@ var request = require('../../common/utility/request.js');
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === names.length - 1) {
-                    name.join_phrase = _.str.rtrim(name.join_phrase);
+                    name.join_phrase = _.trimRight(name.join_phrase);
                 }
 
                 name.join_phrase = name.join_phrase || null;

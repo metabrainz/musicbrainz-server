@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../i18n.js');
-
-var formatTrackLength = require('../../utility/formatTrackLength.js');
+var i18n = require('../../i18n');
+var clean = require('../../utility/clean');
+var formatTrackLength = require('../../utility/formatTrackLength');
+var isBlank = require('../../utility/isBlank');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -294,7 +295,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     _searchTimeout: function (event) {
         var newTerm = this._value();
 
-        if (_.str.isBlank(newTerm)) {
+        if (isBlank(newTerm)) {
             clearTimeout(this.searching);
             this.close();
             return;
@@ -312,8 +313,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         // Support pressing <space> to trigger a search, but ignore it if the
         // menu is already open.
         if (this.menu.element.is(':visible')) {
-            newTerm = _.str.clean(newTerm);
-            oldTerm = _.str.clean(oldTerm);
+            newTerm = clean(newTerm);
+            oldTerm = clean(oldTerm);
         }
 
         // only search if the value has changed

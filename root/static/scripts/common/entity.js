@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('./i18n.js');
-
-var formatTrackLength = require('./utility/formatTrackLength.js');
+var i18n = require('./i18n');
+var clean = require('./utility/clean');
+var formatTrackLength = require('./utility/formatTrackLength');
 
 (function () {
 
@@ -133,7 +133,7 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
         },
 
         canTakeName: function (name) {
-            name = _.str.clean(name);
+            name = clean(name);
             return name && name !== ko.unwrap(this.name);
         },
 

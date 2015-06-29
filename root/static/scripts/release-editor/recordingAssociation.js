@@ -132,12 +132,10 @@ var debounce = require('../common/utility/debounce.js');
         var duration = parseInt(track.length(), 10);
 
         if (duration) {
-            duration = utils.constructLuceneField([
-                _.str.sprintf("[%d TO %d] OR \\-",
-                    duration - MB.constants.MAX_LENGTH_DIFFERENCE,
-                    duration + MB.constants.MAX_LENGTH_DIFFERENCE)
-            ], "dur");
+            var a = duration - MB.constants.MAX_LENGTH_DIFFERENCE;
+            var b = duration + MB.constants.MAX_LENGTH_DIFFERENCE;
 
+            duration = utils.constructLuceneField([`[${a} TO ${b}] OR \\-`], 'dur');
             query = "(" + query + ") AND " + duration;
         }
 

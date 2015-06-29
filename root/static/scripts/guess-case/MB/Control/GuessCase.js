@@ -110,3 +110,5 @@ ko.bindingHandlers.guessCase = {
 };
 
 ko.virtualElements.allowedBindings.guessCase = true;
+
+module.exports = MB.Control;

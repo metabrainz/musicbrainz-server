@@ -3,7 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var getSimilarity = require('../edit/utility/similarity');
+var clean = require('../common/utility/clean');
+var isBlank = require('../common/utility/isBlank');
 var getCookie = require('../common/utility/getCookie');
 var setCookie = require('../common/utility/setCookie');
 
@@ -35,7 +38,7 @@ MB.releaseEditor.trackParser = {
         var self = this;
 
         var options = ko.toJS(this.options);
-        var lines = _.reject(_.str.lines(str), _.str.isBlank);
+        var lines = _.reject(str.split('\n'), isBlank);
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
@@ -262,7 +265,7 @@ MB.releaseEditor.trackParser = {
         var data = {};
 
         // trim only, keeping tabs and other space separators intact.
-        line = _.str.trim(line);
+        line = line.trim();
 
         if (line === "") return data;
 
@@ -303,7 +306,7 @@ MB.releaseEditor.trackParser = {
         // Parse the track title and artist.
         if (!options.hasTrackArtists) {
             if (options.useTrackNames) {
-                data.name = _.str.clean(line);
+                data.name = clean(line);
             }
             return data;
         }
@@ -326,10 +329,12 @@ MB.releaseEditor.trackParser = {
                 // Use whatever's left as the name, including any separators.
                 var withoutArtist = _.take(parts, _.lastIndexOf(parts, artist));
 
-                data.name = _.str.trim(withoutArtist.join(""), this.separators);
+                data.name = withoutArtist.join("")
+                    .replace(new RegExp('^' + this.separators.source), '')
+                    .replace(new RegExp(this.separators.source + '$'), '');
             }
         } else if (options.useTrackNames) {
-            data.name = _.str.clean(line);
+            data.name = clean(line);
         }
 
         // Either of these could be the artist name (they may have to be
@@ -347,11 +352,11 @@ MB.releaseEditor.trackParser = {
     },
 
     separatorOrBlank: function (str) {
-        return this.separators.test(str) || _.str.isBlank(str);
+        return this.separators.test(str) || isBlank(str);
     },
 
     cleanArtistName: function (name) {
-        return _.str.clean(name)
+        return clean(name)
             // Artist, The -> The Artist
             .replace(/(.*),\sThe$/i, "The $1")
             .replace(/\s*,/g, ",");

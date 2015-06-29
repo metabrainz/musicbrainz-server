@@ -4,18 +4,18 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var _ = require('lodash');
-var _str = require('underscore.string');
 var balanced = require('balanced-match');
 var getSimilarity = require('./similarity');
+var clean = require('../../common/utility/clean');
 
 var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
 var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
 var bracketPairs = [['(', ')'], ['[', ']']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
-    var wrapped = _(str.split(featRegex)).map(_str.clean);
+    var wrapped = _(str.split(featRegex)).map(clean);
     return {
-        name: _str.clean(wrapped.first()),
+        name: clean(wrapped.first()),
         artistCredit: wrapped.rest().compact()
             .map(c => expandCredit(c, artists, isProbablyClassical)).flatten().value()
     };
@@ -53,7 +53,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
             }
         }
 
-        return {name: _str.clean(name), artistCredit: credits};
+        return {name: clean(name), artistCredit: credits};
     }, {name: str, artistCredit: []});
 }
 

@@ -361,3 +361,5 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
 
     return bubbleDoc;
 };
+
+module.exports = MB.Control;

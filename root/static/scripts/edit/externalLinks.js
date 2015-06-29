@@ -37,7 +37,7 @@ class ExternalLinksEditor extends React.Component {
     var link = this.state.links.get(index);
 
     // Allow adding spaces while typing, they'll be trimmed on blur
-    if (_.str.trim(url) !== _.str.trim(link.url)) {
+    if (url.trim() !== link.url.trim()) {
       if (url.match(/^\w+\./)) {
           url = 'http://' + url;
       }
@@ -57,7 +57,7 @@ class ExternalLinksEditor extends React.Component {
 
   handleUrlBlur(index, event) {
     var url = event.target.value;
-    var trimmed = _.str.trim(url);
+    var trimmed = url.trim();
 
     if (url !== trimmed) {
       this.setLinkState(index, { url: trimmed });

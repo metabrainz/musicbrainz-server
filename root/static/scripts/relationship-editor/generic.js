@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var validation = require('../edit/validation.js');
+var clean = require('../common/utility/clean');
+var validation = require('../edit/validation');
 
 (function (RE) {
 
@@ -98,7 +99,7 @@ var validation = require('../edit/validation.js');
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
             _.each(['entity0_credit', 'entity1_credit'], function (prop) {
-                var value = _.str.clean(relationship[prop]());
+                var value = clean(relationship[prop]());
                 if (value) {
                     pushInput(prefix, prop, value);
                 }
