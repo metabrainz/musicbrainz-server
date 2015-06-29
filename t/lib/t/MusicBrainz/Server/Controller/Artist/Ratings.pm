@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Ratings;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 with 't::Mechanize', 't::Context';
 
@@ -29,7 +29,10 @@ $mech->content_contains('new_editor');
     $mech->content_contains('20 - ');
 }
 $mech->content_lacks('alice');
-$mech->content_lacks('100');
+
+my $tx = test_xpath_html($mech->content);
+$tx->is('count(//li//span[@class="inline-rating"])', 1, '1 rating is show');
+
 $mech->content_contains('1 private rating not listed');
 
 };
