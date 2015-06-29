@@ -991,6 +991,7 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
         "edit-artist.rel.0.period.begin_date.year": "",
         "edit-artist.rel.0.period.begin_date.month": "",
         "edit-artist.rel.0.period.begin_date.day": "",
+        "edit-artist.rel.0.period.ended" : "0",
         "edit-artist.rel.0.link_type_id": "103",
     });
 });

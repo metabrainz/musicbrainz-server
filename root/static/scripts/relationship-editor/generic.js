@@ -124,9 +124,8 @@ var validation = require('../edit/validation');
                 }
             });
 
-            var beginDate = changeData.beginDate,
-                endDate = changeData.endDate,
-                ended = changeData.ended;
+            var beginDate = changeData.beginDate;
+            var endDate = changeData.endDate;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);
@@ -140,8 +139,8 @@ var validation = require('../edit/validation');
                 pushInput(prefix, "period.end_date.day", endDate.day);
             }
 
-            if (ended) {
-                pushInput(prefix, "period.ended", ended ? 1 : 0);
+            if (changeData.ended !== undefined) {
+                pushInput(prefix, "period.ended", changeData.ended ? 1 : 0);
             }
 
             if (vm.source !== relationship.entities()[0]) {
