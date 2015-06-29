@@ -292,7 +292,7 @@ test 'Accept/failure conditions regarding links' => sub {
         is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
         is(@{ $edit->display_data->{recording_changes} }, 1, '1 recording change');
 
-        is($edit->display_data->{recording_changes}[0][1]->recording_id, 100, 'was recording 100');
+        is($edit->display_data->{recording_changes}[0][1]->recording_id, 3, 'was recording 3');
         is($edit->display_data->{recording_changes}[0][2]->recording_id, 1, 'now recording 1');
 
         ok(defined($c->model('Recording')->get_by_id(1)),

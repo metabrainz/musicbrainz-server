@@ -14,5 +14,3 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (1, 1, 2, 'David Bowie', '');
-
-ALTER SEQUENCE artist_credit_id_seq RESTART 2;

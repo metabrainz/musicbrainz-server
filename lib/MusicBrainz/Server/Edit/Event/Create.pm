@@ -15,6 +15,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Event';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Add event') }
 sub edit_type { $EDIT_EVENT_CREATE }

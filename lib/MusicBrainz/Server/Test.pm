@@ -102,26 +102,28 @@ sub _load_query
     return decode("utf-8", $query);
 }
 
-sub prepare_test_database
-{
-    my ($class, $c, $query) = @_;
+sub _do_query {
+    my ($class, $c, $query, $default) = @_;
 
-    $query = $class->_load_query($query, "admin/sql/InsertTestData.sql");
+    $query = $class->_load_query($query, $default);
 
     my $sql = Sql->new($c->conn);
     $sql->auto_commit;
     $sql->do($query);
 }
 
-sub prepare_raw_test_database
-{
+sub prepare_test_database {
     my ($class, $c, $query) = @_;
 
-    $query = $class->_load_query($query, "t/sql/clean_raw_db.sql");
+    $class->_do_query($c, $query, 'admin/sql/InsertTestData.sql');
+    $class->_do_query($c, undef, 'admin/sql/SetSequences.sql');
+}
 
-    my $sql = Sql->new($c->conn);
-    $sql->auto_commit;
-    $sql->do($query);
+sub prepare_raw_test_database {
+    my ($class, $c, $query) = @_;
+
+    $class->_do_query($c, $query, 't/sql/clean_raw_db.sql');
+    $class->_do_query($c, undef, 'admin/sql/SetSequences.sql');
 }
 
 sub prepare_test_server

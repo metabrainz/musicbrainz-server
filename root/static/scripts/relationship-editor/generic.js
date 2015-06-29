@@ -140,7 +140,7 @@ var validation = require('../edit/validation.js');
             }
 
             if (ended) {
-                pushInput(prefix, "period.ended", 1);
+                pushInput(prefix, "period.ended", ended ? 1 : 0);
             }
 
             if (vm.source !== relationship.entities()[0]) {
@@ -150,7 +150,7 @@ var validation = require('../edit/validation.js');
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
             if (relationship.linkTypeInfo().orderableDirection !== 0) {
-                if (relationship.added() || relationship.original.linkOrder !== editData.linkOrder) {
+                if (relationship.added() || changeData.linkOrder) {
                     pushInput(prefix, "link_order", editData.linkOrder);
                 }
             }

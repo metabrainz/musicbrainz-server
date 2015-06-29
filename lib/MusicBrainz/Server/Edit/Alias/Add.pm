@@ -19,6 +19,7 @@ role {
 
     with "MusicBrainz::Server::Edit::$model";
     with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+    with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
     has data => (
         is => 'rw',

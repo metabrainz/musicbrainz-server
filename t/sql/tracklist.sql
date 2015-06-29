@@ -97,10 +97,3 @@ INSERT INTO link (id, link_type, attribute_count, begin_date_year, begin_date_mo
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (2, 1, 1, 2);
-
-ALTER SEQUENCE track_id_seq RESTART 100;
-ALTER SEQUENCE medium_id_seq RESTART 100;
-ALTER SEQUENCE recording_id_seq RESTART 100;
-
-ALTER SEQUENCE artist_id_seq RESTART 100;
-ALTER SEQUENCE artist_credit_id_seq RESTART 100;

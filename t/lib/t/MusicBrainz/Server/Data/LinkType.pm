@@ -49,43 +49,42 @@ $link_type = $lt_data->insert({
 });
 $sql->commit;
 
-is($link_type->id, 100);
-
-my $row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
+my $id = $link_type->id;
+my $row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type = ?', $id);
 is($row->{attribute_type}, 1);
 is($row->{min}, 0);
 is($row->{max}, 1);
 
 $sql->begin;
-$link_type = $lt_data->update(100, {
+$link_type = $lt_data->update($id, {
     attributes => [
         { type => 2 }
     ],
 });
 $sql->commit;
 
-$row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type=100');
+$row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type = ?', $id);
 is($row->{attribute_type}, 2);
 is($row->{min}, undef);
 is($row->{max}, undef);
 
-$link_type = $lt_data->get_by_id(100);
+$link_type = $lt_data->get_by_id($id);
 is($link_type->parent_id, 1);
 
 $sql->begin;
-$link_type = $lt_data->update(100, {
+$link_type = $lt_data->update($id, {
     parent_id => undef,
 });
 $sql->commit;
 
-$link_type = $lt_data->get_by_id(100);
+$link_type = $lt_data->get_by_id($id);
 is($link_type->parent_id, undef);
 
 $sql->begin;
-$link_type = $lt_data->delete(100);
+$link_type = $lt_data->delete($id);
 $sql->commit;
 
-$link_type = $lt_data->get_by_id(100);
+$link_type = $lt_data->get_by_id($id);
 is($link_type, undef);
 
 };

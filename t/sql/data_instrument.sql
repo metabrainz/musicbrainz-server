@@ -50,9 +50,3 @@ INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (1,
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = 'a56d18ae-485f-5547-a559-eba3efef04d0'));
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = 'a56d18ae-485f-5547-a559-eba3efef04d0'), 'stupid instrument');
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 1, 1);
-
-SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
-SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
-SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
-SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
-SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));

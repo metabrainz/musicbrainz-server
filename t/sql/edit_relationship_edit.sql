@@ -46,6 +46,3 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '7a906020-72db-11de-8a39-0800200c9a66', 'Arrival', 1, 1),
            (2, '7a906020-72db-11de-8a39-0800200c9a67', 'Arrival', 1, 1);
-
-ALTER SEQUENCE l_artist_artist_id_seq RESTART 4;
-ALTER SEQUENCE link_id_seq RESTART 4;

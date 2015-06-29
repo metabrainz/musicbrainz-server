@@ -32,5 +32,3 @@ INSERT INTO recording_alias_type (id, name) VALUES (1, 'Recording name'), (2, 'S
 
 INSERT INTO recording_alias (id, recording, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Alias', 2, 'Test Recording Alias');
-
-SELECT setval('recording_alias_id_seq', (SELECT MAX(id) FROM recording_alias));
