@@ -123,9 +123,9 @@ var validation = require('../edit/validation.js');
                 }
             });
 
-            var beginDate = editData.beginDate,
-                endDate = editData.endDate,
-                ended = editData.ended;
+            var beginDate = changeData.beginDate,
+                endDate = changeData.endDate,
+                ended = changeData.ended;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);
