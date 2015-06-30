@@ -128,7 +128,7 @@ sub process_tables
         print OUT $search_path if $search_path;
         foreach my $row (@sequences) {
             my ($table, $col) = @$row;
-            print OUT "SELECT setval('${table}_${col}_seq', (SELECT MAX(${col}) FROM $table));\n";
+            print OUT "SELECT setval('${table}_${col}_seq', COALESCE((SELECT MAX(${col}) FROM $table), 0) + 1, FALSE);\n";
         }
         close OUT;
     }
