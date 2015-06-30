@@ -22,6 +22,9 @@ test all => sub {
         INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7', '', now());
 SQL
 
+    # avoid artist_va_check violation
+    $c->sql->do("SELECT setval('artist_id_seq', 1)");
+
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_CREATE,
         name => 'Junior Boys',
