@@ -17,16 +17,16 @@ test 'Accept' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $test->c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $test->c->model('Editor')->get_by_name('autoeditor5');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
+    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
+    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
     is( $election->id, 1 );
 
@@ -43,7 +43,7 @@ test 'Accept' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -51,12 +51,12 @@ test 'Accept' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_SECONDER_1 );
 
-    $election = $test->c->model('AutoEditorElection')->second($election, $seconder1);
+    $election = $c->model('AutoEditorElection')->second($election, $seconder1);
     ok( $election );
 
     is($email_transport->delivery_count, 0);
 
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -65,7 +65,7 @@ test 'Accept' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_SECONDER_2 );
 
-    $election = $test->c->model('AutoEditorElection')->second($election, $seconder2);
+    $election = $c->model('AutoEditorElection')->second($election, $seconder2);
     ok( $election );
 
     is($email_transport->delivery_count, 1);
@@ -81,7 +81,7 @@ test 'Accept' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -91,8 +91,8 @@ test 'Accept' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->model('AutoEditorElection')->vote($election, $voter1, $ELECTION_VOTE_YES);
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->vote($election, $voter1, $ELECTION_VOTE_YES);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -102,8 +102,8 @@ test 'Accept' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->model('AutoEditorElection')->vote($election, $voter2, $ELECTION_VOTE_NO);
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->vote($election, $voter2, $ELECTION_VOTE_NO);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -113,8 +113,8 @@ test 'Accept' => sub {
     is( $election->no_votes, 1 );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->model('AutoEditorElection')->vote($election, $voter2, $ELECTION_VOTE_ABSTAIN);
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->vote($election, $voter2, $ELECTION_VOTE_ABSTAIN);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -124,15 +124,15 @@ test 'Accept' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_ACCEPTED );
 
@@ -145,7 +145,7 @@ test 'Accept' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
+    $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( $candidate->is_auto_editor );
 };
 
@@ -153,35 +153,35 @@ test 'Rejected' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $test->c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $test->c->model('Editor')->get_by_name('autoeditor5');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
+    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
+    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
     is( $election->id, 1 );
 
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
-    $election = $test->c->model('AutoEditorElection')->second($election, $seconder1);
-    $election = $test->c->model('AutoEditorElection')->second($election, $seconder2);
-    $test->c->model('AutoEditorElection')->vote($election, $voter1, $ELECTION_VOTE_NO);
+    $election = $c->model('AutoEditorElection')->second($election, $seconder1);
+    $election = $c->model('AutoEditorElection')->second($election, $seconder2);
+    $c->model('AutoEditorElection')->vote($election, $voter1, $ELECTION_VOTE_NO);
     $email_transport->clear_deliveries;
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_OPEN );
 
-    $test->c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
@@ -194,7 +194,7 @@ test 'Rejected' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
+    $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( !$candidate->is_auto_editor );
 };
 
@@ -202,104 +202,104 @@ test 'Cant second' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $not_autoeditor = $test->c->model('Editor')->get_by_name('noob2');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $not_autoeditor = $c->model('Editor')->get_by_name('noob2');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
-    ok exception { $test->c->model('AutoEditorElection')->second($election, $proposer); };
-    ok exception { $test->c->model('AutoEditorElection')->second($election, $not_autoeditor); };
-    $test->c->model('AutoEditorElection')->second($election, $seconder1);
-    ok exception { $test->c->model('AutoEditorElection')->second($election, $seconder1); };
-    $test->c->model('AutoEditorElection')->cancel($election, $proposer);
-    ok exception { $test->c->model('AutoEditorElection')->second($election, $seconder2); };
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    ok exception { $c->model('AutoEditorElection')->second($election, $proposer); };
+    ok exception { $c->model('AutoEditorElection')->second($election, $not_autoeditor); };
+    $c->model('AutoEditorElection')->second($election, $seconder1);
+    ok exception { $c->model('AutoEditorElection')->second($election, $seconder1); };
+    $c->model('AutoEditorElection')->cancel($election, $proposer);
+    ok exception { $c->model('AutoEditorElection')->second($election, $seconder2); };
 };
 
 test 'Cant nominate' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $not_autoeditor = $test->c->model('Editor')->get_by_name('noob2');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $not_autoeditor = $c->model('Editor')->get_by_name('noob2');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
 
-    ok exception { $test->c->model('AutoEditorElection')->nominate($candidate, $not_autoeditor); };
-    ok exception { $test->c->model('AutoEditorElection')->nominate($proposer, $proposer); };
+    ok exception { $c->model('AutoEditorElection')->nominate($candidate, $not_autoeditor); };
+    ok exception { $c->model('AutoEditorElection')->nominate($proposer, $proposer); };
 };
 
 test 'Cant cancel' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $not_autoeditor = $test->c->model('Editor')->get_by_name('noob2');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $autoeditor = $test->c->model('Editor')->get_by_name('autoeditor2');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $not_autoeditor = $c->model('Editor')->get_by_name('noob2');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $autoeditor = $c->model('Editor')->get_by_name('autoeditor2');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
-    ok exception { $test->c->model('AutoEditorElection')->cancel($election, $not_autoeditor); };
-    ok exception { $test->c->model('AutoEditorElection')->cancel($election, $autoeditor); };
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    ok exception { $c->model('AutoEditorElection')->cancel($election, $not_autoeditor); };
+    ok exception { $c->model('AutoEditorElection')->cancel($election, $autoeditor); };
 };
 
 test 'Cant vote' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $not_autoeditor = $test->c->model('Editor')->get_by_name('noob2');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $not_autoeditor = $c->model('Editor')->get_by_name('noob2');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
-    $test->c->model('AutoEditorElection')->second($election, $seconder1);
-    $test->c->model('AutoEditorElection')->second($election, $seconder2);
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    $c->model('AutoEditorElection')->second($election, $seconder1);
+    $c->model('AutoEditorElection')->second($election, $seconder2);
 
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $proposer, $ELECTION_VOTE_YES); };
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder1, $ELECTION_VOTE_YES); };
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $seconder2, $ELECTION_VOTE_YES); };
-    ok exception { $test->c->model('AutoEditorElection')->vote($election, $not_autoeditor, $ELECTION_VOTE_YES); };
+    ok exception { $c->model('AutoEditorElection')->vote($election, $proposer, $ELECTION_VOTE_YES); };
+    ok exception { $c->model('AutoEditorElection')->vote($election, $seconder1, $ELECTION_VOTE_YES); };
+    ok exception { $c->model('AutoEditorElection')->vote($election, $seconder2, $ELECTION_VOTE_YES); };
+    ok exception { $c->model('AutoEditorElection')->vote($election, $not_autoeditor, $ELECTION_VOTE_YES); };
 };
 
 test 'Timeout' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $test->c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $test->c->model('Editor')->get_by_name('autoeditor5');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
+    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
+    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
     is( $election->id, 1 );
 
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     $email_transport->clear_deliveries;
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_SECONDER_1 );
 
-    $test->c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
+    $c->sql->do("UPDATE autoeditor_election SET propose_time = propose_time - INTERVAL '2 week'");
 
-    $test->c->model('AutoEditorElection')->try_to_close();
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $c->model('AutoEditorElection')->try_to_close();
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
@@ -312,7 +312,7 @@ test 'Timeout' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
+    $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( !$candidate->is_auto_editor );
 };
 
@@ -320,16 +320,16 @@ test 'Cancel' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+autoeditor_election');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
-    my $candidate = $test->c->model('Editor')->get_by_name('noob1');
-    my $proposer = $test->c->model('Editor')->get_by_name('autoeditor1');
-    my $seconder1 = $test->c->model('Editor')->get_by_name('autoeditor2');
-    my $seconder2 = $test->c->model('Editor')->get_by_name('autoeditor3');
-    my $voter1 = $test->c->model('Editor')->get_by_name('autoeditor4');
-    my $voter2 = $test->c->model('Editor')->get_by_name('autoeditor5');
+    my $candidate = $c->model('Editor')->get_by_name('noob1');
+    my $proposer = $c->model('Editor')->get_by_name('autoeditor1');
+    my $seconder1 = $c->model('Editor')->get_by_name('autoeditor2');
+    my $seconder2 = $c->model('Editor')->get_by_name('autoeditor3');
+    my $voter1 = $c->model('Editor')->get_by_name('autoeditor4');
+    my $voter2 = $c->model('Editor')->get_by_name('autoeditor5');
 
-    my $election = $test->c->model('AutoEditorElection')->nominate($candidate, $proposer);
+    my $election = $c->model('AutoEditorElection')->nominate($candidate, $proposer);
     ok( $election );
     is( $election->id, 1 );
     is( $election->status, $ELECTION_SECONDER_1 );
@@ -337,7 +337,7 @@ test 'Cancel' => sub {
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     $email_transport->clear_deliveries;
 
-    $test->c->model('AutoEditorElection')->cancel($election, $proposer);
+    $c->model('AutoEditorElection')->cancel($election, $proposer);
 
     is($email_transport->delivery_count, 1);
     my $email = $email_transport->shift_deliveries->{email};
@@ -348,7 +348,7 @@ test 'Cancel' => sub {
     like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
-    $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
+    $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
     is( $election->candidate_id, $candidate->id );
     is( $election->proposer_id, $proposer->id );
@@ -356,7 +356,7 @@ test 'Cancel' => sub {
     is( $election->no_votes, 0 );
     is( $election->status, $ELECTION_CANCELLED );
 
-    $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
+    $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( !$candidate->is_auto_editor );
 };
 
