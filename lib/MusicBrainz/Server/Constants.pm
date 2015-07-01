@@ -548,6 +548,7 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Series',
         type => { simple => 1 },
+        plural => 'series',
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
         aliases     => {
             add_edit_type => $EDIT_SERIES_ADD_ALIAS,

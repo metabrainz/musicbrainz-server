@@ -6,6 +6,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
   number
   serialize_entity
 );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
@@ -20,13 +21,17 @@ sub serialize
     $body{type} = $entity->type ? $entity->type->name : JSON::null;
     $body{"entity-type"} = $entity->type ? $entity->type->entity_type : JSON::null;
 
+    my $entity_type = $entity->type->entity_type;
+    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
+    my $url = $ENTITIES{$entity_type}{url} // $entity_type;
+
     if ($toplevel) {
-        $body{"release-count"} = count_of($entity, $inc, $stash, "releases");
-        $body{releases} = list_of($entity, $inc, $stash, "releases");
+        $body{"$url-count"} = count_of($entity, $inc, $stash, $plural);
+        $body{$plural} = list_of($entity, $inc, $stash, $plural);
     }
 
     if ($entity->loaded_entity_count) {
-        $body{"release-count"} = number($entity->entity_count);
+        $body{"$url-count"} = number($entity->entity_count);
     }
 
     return \%body;
