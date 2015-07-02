@@ -8,6 +8,7 @@ var _ = require('lodash');
 var Immutable = require('immutable');
 var React = require('react');
 var {l, lp} = require('../i18n');
+var request = require('../utility/request');
 
 var Tag = Immutable.Record({tag: '', count: 0, vote: 0});
 
@@ -16,6 +17,11 @@ var VOTE_ACTIONS = {
   '1': 'upvote',
   '-1': 'downvote'
 };
+
+// The voting endpoints accept multiple tags, so we want to batch requests
+// together where possible. A delay is enforced using _.debounce, so a
+// request will not be sent until VOTE_DELAY has passed since the last vote.
+var VOTE_DELAY = 1000;
 
 function sortedTags(tags) {
   return tags.sortBy(t => t.tag).sortBy(t => -t.count);
@@ -39,29 +45,41 @@ class TagLink extends React.Component {
 
 class VoteButton extends React.Component {
   render() {
-    var {vote, currentVote, callback} = this.props;
-    var title = this.props.title;
+    var {vote, currentVote, title, activeTitle, callback} = this.props;
+    var isActive = vote === currentVote;
 
-    if (vote === currentVote) {
-      title = l('Withdraw vote');
+    var buttonProps = {
+      type: 'button',
+      title: isActive ? activeTitle : (currentVote === 0 ? title : l('Withdraw vote')),
+      disabled: isActive,
+      className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
+    };
+
+    if (!isActive) {
+      buttonProps.onClick = _.partial(callback, currentVote === 0 ? vote : 0);
     }
 
-    return (
-      <button type="button"
-              className={'tag-vote tag-' + VOTE_ACTIONS[vote]}
-              title={title}
-              onClick={_.partial(callback, vote === currentVote ? 0 : vote)}>
-        {this.props.text}
-      </button>
-    );
+    return <button {...buttonProps}>{this.props.text}</button>;
   }
 }
 
 class UpvoteButton extends VoteButton {};
-UpvoteButton.defaultProps = {text: '+', title: l('Upvote'), vote: 1};
+
+UpvoteButton.defaultProps = {
+  text: '+',
+  title: l('Upvote'),
+  activeTitle: l('You’ve upvoted this tag'),
+  vote: 1
+};
 
 class DownvoteButton extends VoteButton {};
-DownvoteButton.defaultProps = {text: '\u2212', title: l('Downvote'), vote: -1};
+
+DownvoteButton.defaultProps = {
+  text: '\u2212',
+  title: l('Downvote'),
+  activeTitle: l('You’ve downvoted this tag'),
+  vote: -1
+};
 
 class VoteButtons extends React.Component {
   render() {
@@ -102,6 +120,27 @@ class TagEditor extends React.Component {
     super(props);
     this.state = _.assign({positiveTagsOnly: true}, props.initialState);
     this.addTags = this.addTags.bind(this);
+    this.pendingVotes = {};
+
+    this.flushPendingVotes = _.debounce(() => {
+      var actions = {};
+
+      _.each(this.pendingVotes, (item, tag) => {
+        var action = `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
+
+        (actions[action] = actions[action] || []).push(item);
+      });
+
+      this.pendingVotes = {};
+
+      _.each(actions, (items, action) => {
+        var url = action + '?tags=' + encodeURIComponent(_(items).pluck('tag').join(','));
+
+        request({url: url})
+          .done(data => this.updateTags(data.updates))
+          .fail(() => _.invoke(items, 'fail'))
+      });
+    }, VOTE_DELAY);
   }
 
   createTagRows() {
@@ -110,13 +149,7 @@ class TagEditor extends React.Component {
     return tags.reduce((accum, t, index) => {
       var callback = newVote => {
         this.updateVote(index, newVote);
-
-        var tagsPath = getTagsPath(this.props.entity);
-        $.get(`${tagsPath}/${VOTE_ACTIONS[newVote]}?tags=${encodeURIComponent(t.tag)}`)
-          .done(data => {
-            this.updateTags(JSON.parse(data).updates);
-          })
-          .fail(() => this.updateVote(index, t.vote));
+        this.addPendingVote(t.tag, newVote, index);
       };
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
@@ -132,10 +165,6 @@ class TagEditor extends React.Component {
 
       return accum;
     }, []);
-  }
-
-  setTags(tags) {
-    this.setState({tags: sortedTags(tags)});
   }
 
   getNewCount(index, vote) {
@@ -183,7 +212,9 @@ class TagEditor extends React.Component {
 
   updateVote(index, vote) {
     var newCount = this.getNewCount(index, vote);
-    this.setTags(this.state.tags.mergeIn([index], {count: newCount, vote: vote}));
+    this.setState({
+      tags: this.state.tags.mergeIn([index], {count: newCount, vote: vote})
+    });
   }
 
   updateTags(updatedUserTags) {
@@ -205,7 +236,16 @@ class TagEditor extends React.Component {
       }
     });
 
-    this.setTags(newTags);
+    this.setState({tags: sortedTags(newTags)});
+  }
+
+  addPendingVote(tag, vote, index) {
+    this.pendingVotes[tag] = {
+      tag: tag,
+      vote: vote,
+      fail: () => this.updateVote(index, vote),
+    };
+    this.flushPendingVotes();
   }
 }
 
