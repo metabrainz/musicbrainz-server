@@ -470,7 +470,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger');
                 // We're done!
 
                 // Don't ask for confirmation before redirecting.
-                window.onbeforeunload = null;
+                root.redirecting = true;
 
                 if (releaseEditor.redirectURI) {
                     var a = document.createElement("a");

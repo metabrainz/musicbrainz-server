@@ -119,28 +119,48 @@ class TagEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = _.assign({positiveTagsOnly: true}, props.initialState);
-    this.addTags = this.addTags.bind(this);
+
+    _.bindAll(this, 'flushPendingVotes', 'onBeforeUnload', 'addTags');
+
+    this.pendingVotes = {};
+    this.debouncePendingVotes = _.debounce(this.flushPendingVotes, VOTE_DELAY);
+  }
+
+  flushPendingVotes(asap) {
+    var actions = {};
+
+    _.each(this.pendingVotes, (item, tag) => {
+      var action = `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
+
+      (actions[action] = actions[action] || []).push(item);
+    });
+
     this.pendingVotes = {};
 
-    this.flushPendingVotes = _.debounce(() => {
-      var actions = {};
+    var doRequest = request;
+    if (asap) {
+      doRequest = args => $.ajax(_.assign({dataType: 'json'}, args));
+    }
 
-      _.each(this.pendingVotes, (item, tag) => {
-        var action = `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
+    _.each(actions, (items, action) => {
+      var url = action + '?tags=' + encodeURIComponent(_(items).pluck('tag').join(','));
 
-        (actions[action] = actions[action] || []).push(item);
-      });
+      doRequest({url: url})
+        .done(data => this.updateTags(data.updates))
+        .fail(() => _.invoke(items, 'fail'))
+    });
+  }
 
-      this.pendingVotes = {};
+  onBeforeUnload() {
+    this.flushPendingVotes(true);
+  }
 
-      _.each(actions, (items, action) => {
-        var url = action + '?tags=' + encodeURIComponent(_(items).pluck('tag').join(','));
+  componentWillMount() {
+    window.addEventListener('beforeunload', this.onBeforeUnload);
+  }
 
-        request({url: url})
-          .done(data => this.updateTags(data.updates))
-          .fail(() => _.invoke(items, 'fail'))
-      });
-    }, VOTE_DELAY);
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
   createTagRows() {
@@ -245,7 +265,7 @@ class TagEditor extends React.Component {
       vote: vote,
       fail: () => this.updateVote(index, vote),
     };
-    this.flushPendingVotes();
+    this.debouncePendingVotes();
   }
 }
 

@@ -160,14 +160,17 @@ MB.releaseEditor.init = function (options) {
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
-    // any changes. Browsers that support onbeforeunload should have this set
-    // to null, or undefined otherwise.
-    if (window.onbeforeunload === null) {
-        MB.releaseEditor.allEdits.subscribe(function (edits) {
-            window.onbeforeunload =
-                edits.length ? _.constant(i18n.l("All of your changes will be lost if you leave this page.")) : null;
-        });
-    }
+    // any changes.
+    var hasEdits = ko.computed(function () {
+        return MB.releaseEditor.allEdits().length > 0;
+    });
+
+    window.addEventListener('beforeunload', event => {
+        if (hasEdits() && !this.rootField.redirecting) {
+            event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+            return event.returnValue;
+        }
+    });
 
     // Intialize release data/view model.
 
