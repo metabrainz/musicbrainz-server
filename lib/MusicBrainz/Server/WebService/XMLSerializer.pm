@@ -4,7 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -225,7 +225,8 @@ sub _serialize_collection
 
     my $entity_type = $collection->type->entity_type;
 
-    my $plural = $entity_type eq 'series' ? 'series' : $entity_type . 's';
+    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
+
     my $ser = "_serialize_${entity_type}_list";
     my $gen_list = "${entity_type}_list";
 

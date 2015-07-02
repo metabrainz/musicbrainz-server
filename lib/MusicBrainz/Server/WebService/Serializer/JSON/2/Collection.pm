@@ -24,10 +24,11 @@ sub serialize
     my $entity_type = $entity->type->entity_type;
     my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
     my $url = $ENTITIES{$entity_type}{url} // $entity_type;
+    my $plural_url = $ENTITIES{$entity_type}{plural} // $url . 's';
 
     if ($toplevel) {
         $body{"$url-count"} = count_of($entity, $inc, $stash, $plural);
-        $body{$plural} = list_of($entity, $inc, $stash, $plural);
+        $body{$plural_url} = list_of($entity, $inc, $stash, $plural);
     }
 
     if ($entity->loaded_entity_count) {
