@@ -423,9 +423,14 @@ div.warning img.warning {
 
 .tag-vote {
     border: 0;
+    color: @dark-grey;
     background: none;
-    font-weight: bold;
-    cursor: pointer;
+    font-size: @large-text;
+    font-weight: 900;
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
 }
 
 .tag-vote-buttons {
@@ -435,16 +440,14 @@ div.warning img.warning {
 .tag-upvoted {
     .tag-count { background: @positive-bg; }
     .tag-upvote { color: @positive-text; }
-    .tag-downvote { color: @dark-grey; }
 }
 
 .tag-downvoted {
     .tag-count { background: @negative-bg; }
-    .tag-upvote { color: @dark-grey; }
     .tag-downvote { color: @negative-text; }
 }
 
-.tag-vote:hover {
+.tag-vote:hover:not(:disabled) {
     color: @text-orange;
 }
 
