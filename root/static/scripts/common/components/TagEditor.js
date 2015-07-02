@@ -159,7 +159,7 @@ class TagEditor extends React.Component {
     this.updateTags(
       _(tags.split(','))
         .map(name => {
-          name = _.trim(name);
+          name = _.trim(name).toLowerCase();
           if (name) {
             var index = this.state.tags.findIndex(t => t.tag === name);
             if (index >= 0) {
