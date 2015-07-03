@@ -32,8 +32,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'release' }
 
-sub serialization_routine { '_release' }
-
 sub search : Chained('root') PathPart('release')
 {
     my ($self, $c) = @_;
@@ -102,7 +100,7 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json($c->stash->{serializer}->_release($release)));
+    $c->res->body(encode_json($c->stash->{serializer}->release($release)));
 }
 
 1;

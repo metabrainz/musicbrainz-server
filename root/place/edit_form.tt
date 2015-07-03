@@ -7,31 +7,12 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-
-      [% IF form.has_duplicates %]
-      <fieldset>
-          <legend>[% l('Possible Duplicate Places') %]</legend>
-          <p>
-              [% l('We found the following places with very similar names:') %]
-          </p>
-          <ul>
-              [% FOREACH dupe=form.duplicates %]
-              <li>[% descriptive_link(dupe) %]</li>
-              [% END %]
-          </ul>
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new place.')) %]
-          [% IF comment_is_required %]
-          <p>
-              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this place from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
-          </p>
-          [% END %]
-      </fieldset>
-      [% END %]
-
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
+        [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
         [% WRAPPER form_row %]

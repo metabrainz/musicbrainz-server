@@ -7,29 +7,12 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-
-      [% IF form.has_duplicates %]
-      <fieldset>
-          <legend>[% l('Possible Duplicate Series') %]</legend>
-          <p>
-              [% l('We found the following series with very similar names:') %]
-          </p>
-          <ul>
-              [% FOREACH dupe=form.duplicates %]
-              <li>[% link_entity(dupe) %]</li>
-              [% END %]
-          </ul>
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new series.')) %]
-          <p>
-              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this series from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
-          </p>
-      </fieldset>
-      [% END %]
-
       <fieldset>
         <legend>[% l('Series Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
+        [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>
@@ -128,5 +111,7 @@ $(function () {
       });
     }
   });
+
+  MB.initializeDuplicateChecker('series');
 });
 //]]></script>

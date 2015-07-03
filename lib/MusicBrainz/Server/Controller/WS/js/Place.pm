@@ -24,8 +24,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'place' }
 
-sub serialization_routine { '_place' }
-
 sub search : Chained('root') PathPart('place')
 {
     my ($self, $c) = @_;

@@ -24,8 +24,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'event' }
 
-sub serialization_routine { '_event' }
-
 sub search : Chained('root') PathPart('event')
 {
     my ($self, $c) = @_;

@@ -29,6 +29,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
 with 'MusicBrainz::Server::Edit::Role::ISNI';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { N_l('Edit label') }

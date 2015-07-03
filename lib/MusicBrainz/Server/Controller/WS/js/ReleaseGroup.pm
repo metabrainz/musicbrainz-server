@@ -24,8 +24,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'release_group' }
 
-sub serialization_routine { '_release_group' }
-
 sub search : Chained('root') PathPart('release-group')
 {
     my ($self, $c) = @_;

@@ -4,7 +4,6 @@ use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 with 'MusicBrainz::Server::Form::Role::ISNI';
 with 'MusicBrainz::Server::Form::Role::Relationships';
@@ -62,8 +61,6 @@ sub edit_field_names
 
 sub options_gender_id   { select_options_tree(shift->ctx, 'Gender') }
 sub options_type_id     { select_options_tree(shift->ctx, 'ArtistType') }
-
-sub dupe_model { shift->ctx->model('Artist') }
 
 sub validate {
     my ($self) = @_;

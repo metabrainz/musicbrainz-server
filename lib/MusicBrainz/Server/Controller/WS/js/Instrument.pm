@@ -23,8 +23,6 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 
 sub type { 'instrument' }
 
-sub serialization_routine { '_instrument' }
-
 sub search : Chained('root') PathPart('instrument') {
     my ($self, $c) = @_;
     $self->dispatch_search($c);

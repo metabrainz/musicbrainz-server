@@ -11,13 +11,6 @@ use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
-    sub serialize_entity {
-        my ($source, $type) = @_;
-
-        my $method = "_$type";
-        return JSONSerializer->$method($source) if $source;
-    }
-
     sub load_entities {
         my ($c, $source_type, @rels) = @_;
 
@@ -72,8 +65,7 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $source_entity = $source ? serialize_entity($source, $source_type) :
-                                    { entityType => $source_type };
+        my $source_entity = $source ? JSONSerializer->$source_type($source) : {entityType => $source_type};
 
         if ($source) {
             my @existing_relationships =

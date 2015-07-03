@@ -7,6 +7,7 @@ var L = require('leaflet');
 var _ = require('lodash');
 var ko = require('knockout');
 var isBlank = require('./common/utility/isBlank');
+var initializeDuplicateChecker = require('./edit/check-duplicates');
 var {errorField} = require('./edit/validation');
 var initializeArea = require('./edit/MB/Control/Area').Area;
 var {initializeBubble} = require('./edit/MB/Control/Bubble');
@@ -14,6 +15,7 @@ var {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
 
 initialize_guess_case('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');
+initializeDuplicateChecker('place');
 
 var bubble = initializeBubble('#coordinates-bubble', 'input[name=edit-place\\.coordinates]');
 

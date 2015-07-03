@@ -8,7 +8,6 @@ use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-series' );
@@ -42,10 +41,6 @@ sub options_type_id {
 
 sub options_ordering_type_id {
     select_options_tree(shift->ctx, 'SeriesOrderingType');
-}
-
-sub dupe_model {
-    shift->ctx->model('Series');
 }
 
 1;

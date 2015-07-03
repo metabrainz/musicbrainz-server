@@ -24,8 +24,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'label' }
 
-sub serialization_routine { '_label' }
-
 sub search : Chained('root') PathPart('label')
 {
     my ($self, $c) = @_;
@@ -33,4 +31,3 @@ sub search : Chained('root') PathPart('label')
 }
 
 1;
-

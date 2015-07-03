@@ -649,17 +649,10 @@ sub submit_edits {
                 my $entity = $created_entities->{$model}->{$edit->entity_id};
 
                 try {
-                    my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
-                    my $serialization_routine = $js_model->serialization_routine;
-
-                    $js_model->_load_entities($c, $entity);
-
-                    $response->{entity} = JSONSerializer->$serialization_routine($entity);
-                    $response->{entity}->{entityType} = $js_model->type;
-                }
-                catch {
+                    $response->{entity} = JSONSerializer->serialize_internal($c, $entity);
+                } catch {
                     # Some entities (i.e. Mediums) don't have a WS::js model
-                    # or serialization_routine. Just return their id.
+                    # or serialization method. Just return their id.
                     $response->{entity} = { id => $entity->id };
 
                     if ($model eq 'Medium') {

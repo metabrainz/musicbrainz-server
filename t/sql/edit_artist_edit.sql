@@ -1,7 +1,7 @@
 SET client_min_messages TO 'warning';
 
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (2, '745c079d-374e-4436-9448-da92dedef3ce', 'Artist Name', 'Artist Name');
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (2, '745c079d-374e-4436-9448-da92dedef3ce', 'Artist Name', 'Artist Name', 'UK group');
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Group');
 

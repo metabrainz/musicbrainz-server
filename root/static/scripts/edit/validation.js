@@ -5,6 +5,7 @@
 
 // FIXME
 // var $ = require('jquery');
+var clean = require('../common/utility/clean');
 
 exports.errorFields = ko.observableArray([]);
 
@@ -34,6 +35,16 @@ $(document).on('submit', '#page form', function (event) {
     if (exports.errorsExist()) {
         event.preventDefault();
     }
+});
+
+$(function () {
+    $('#page form :input[required]').each(function () {
+        var error = exports.errorField(ko.observable(!clean(this.value)));
+
+        $(this).on('input change', function () {
+            error(!clean(this.value));
+        });
+    });
 });
 
 // XXX needed by inline scripts
