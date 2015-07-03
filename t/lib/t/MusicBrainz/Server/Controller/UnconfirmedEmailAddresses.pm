@@ -463,6 +463,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::2::Work::work_search",
   "Controller::WS::js::Area::search",
   "Controller::WS::js::Artist::search",
+  "Controller::WS::js::CheckDuplicates::check_duplicates",
   "Controller::WS::js::Editor::search",
   "Controller::WS::js::Event::search",
   "Controller::WS::js::Instrument::search",
