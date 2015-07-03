@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('./i18n.js');
-
-var formatTrackLength = require('./utility/formatTrackLength.js');
+var i18n = require('./i18n');
+var clean = require('./utility/clean');
+var formatTrackLength = require('./utility/formatTrackLength');
 
 (function () {
 
@@ -89,13 +89,16 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
 
         template: _.template(
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
+            "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
             "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
-            "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
+            "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
+            "<% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.videoString %>)</span><% } %>" +
+            "<% if (data.nameVariation) { %></span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             {variable: "data"}
         ),
@@ -112,6 +115,7 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
             var json = this.toJSON();
 
             json.entityType = json.entityType.replace("_", "-");
+            json.nameVariation = json.creditedAs && json.creditedAs !== json.name;
 
             if (this.gid) {
                 return this.template(_.extend(renderParams || {}, json));
@@ -129,7 +133,7 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
         },
 
         canTakeName: function (name) {
-            name = _.str.clean(name);
+            name = clean(name);
             return name && name !== ko.unwrap(this.name);
         },
 
@@ -207,6 +211,20 @@ var formatTrackLength = require('./utility/formatTrackLength.js');
 
             this.relatedArtists = relatedArtists(data.relationships);
             this.isProbablyClassical = isProbablyClassical(data);
+        },
+
+        around$toJSON: function (supr) {
+            var object = supr();
+
+            if (_.isArray(this.events)) {
+                object.events = _.cloneDeep(this.events);
+            }
+
+            if (_.isArray(this.labels)) {
+                object.labels = _.cloneDeep(this.labels);
+            }
+
+            return object;
         }
     });
 

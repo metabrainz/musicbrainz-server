@@ -90,12 +90,14 @@ sub _insert_edit {
             privileges => $privs,
             %opts
         );
-    }
-    catch {
+    } catch {
         if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
             $c->stash( makes_no_changes => 1 );
-        }
-        else {
+        } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation') {
+            $c->stash(needs_disambiguation => 1);
+        } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation') {
+            $c->stash(duplicate_violation => 1);
+        } else {
             use Data::Dumper;
             croak "The edit could not be created.\n" .
                 "POST: " . Dumper($c->req->params) . "\n" .
@@ -203,7 +205,9 @@ sub edit_action
         });
 
         if ($opts{redirect} && !$opts{no_redirect} &&
-                ($edit || !$c->stash->{makes_no_changes})) {
+                ($edit || !$c->stash->{makes_no_changes}) &&
+                !$c->stash->{needs_disambiguation} &&
+                !$c->stash->{duplicate_violation}) {
             $opts{redirect}->();
             $c->detach;
         }

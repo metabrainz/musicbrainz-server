@@ -37,6 +37,7 @@ use Try::Tiny;
 use LWP::UserAgent;
 use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
 use GnuPG qw( :algo );
+use URI::Escape qw( uri_escape );
 
 use MusicBrainz::Server::Replication qw( :replication_type );
 
@@ -51,7 +52,7 @@ my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
-my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
+my $baseuri = "https://metabrainz.org/api/musicbrainz";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 my $fVerifySig = 0;
@@ -78,7 +79,7 @@ Usage: LoadReplicationChanges [options]
     --lockfile=FILE    use FILE as the lock file to prevent us running in
                        parallel (default: $deflockfile)
     --base-uri=URI     load the replication data from this location
-                       (default: from data.musicbrainz.org via HTTP)
+                       (default: from metabrainz.org via HTTP)
     --process-arg=ARG  Add ARG to each invocation of ProcessReplicationChanges.
                        If required, ARG can be an option (e.g.
                        --process-arg=--debug-xact).  Add --process-arg=ARG
@@ -99,6 +100,10 @@ EOF
 usage(), exit if $fHelp;
 usage(), exit 2 if @ARGV;
 
+my $token = DBDefs->REPLICATION_ACCESS_TOKEN;
+die "Invalid or missing REPLICATION_ACCESS_TOKEN in DBDefs.pm -- Get one at https://metabrainz.org"
+    if (!($token =~ /^[a-zA-Z0-9]{40}$/));
+
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
 # Get a lock so we don't run multiple instances in parallel
@@ -116,7 +121,7 @@ my $lockfh;
 }
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
+my $c = MusicBrainz::Server::Context->create_script_context;
 
 use Sql;
 my $sql = Sql->new($c->conn);
@@ -166,12 +171,11 @@ NEXT_PACKET:
 
 my $iNextReplicationSequence = $iReplicationSequence + 1;
 my $file = "replication-$iNextReplicationSequence.tar.bz2";
-my $uriprefix = '';
 if ($period ne 'hourly') {
     $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
-    $uriprefix = "$period/";
 }
-my $url = "$baseuri/$uriprefix$file";
+
+my $url = "$baseuri/$file";
 my $localfile = "$tmpdir/$file";
 
 my $resp = retrieve_remote_file($url, $localfile);
@@ -185,8 +189,7 @@ else {
     if ($catchup) {
         print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
         $file = "replication-$iNextReplicationSequence.tar.bz2";
-        $uriprefix = '';
-        $url = "$baseuri/$uriprefix$file";
+        $url = "$baseuri/$file";
         $localfile = "$tmpdir/$file";
         $resp = retrieve_remote_file($url, $localfile);
     }
@@ -368,10 +371,13 @@ sub retrieve_remote_file {
         agent => '$Id$',
     );
     $ua->env_proxy;
+    $ua->ssl_opts( verify_hostname => 0 );
 
     # Fetch the file and inform the user about what is being done
     print localtime() . " : Downloading $url to $file\n";
-    my $f_resp = $ua->mirror($url, $file);
+
+    my $f_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
+    my $f_resp = $ua->mirror($f_url_token, $file);
 
     return $f_resp unless $fVerifySig;
 
@@ -381,7 +387,8 @@ sub retrieve_remote_file {
 
     # Fetch file signature and inform the user about what is being done
     print localtime() . " : Downloading $url to $signature\n";
-    my $s_resp = $ua->mirror($url, $signature);
+    my $s_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
+    my $s_resp = $ua->mirror($s_url_token, $signature);
 
     return $f_resp;
 }
@@ -413,6 +420,8 @@ sub validate_file_signature {
     try {
         $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
         $gpg->verify( signature => $signature, file => $file );
+        unlink $signature
+            or warn "unlink $signature: $!\n";
     }
 
     # Exist with and error if verification failed

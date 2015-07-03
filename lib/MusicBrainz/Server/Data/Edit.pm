@@ -201,7 +201,7 @@ sub find_for_subscription
     my ($self, $subscription) = @_;
     if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
-                      WHERE id > ? AND editor = ? AND status IN (?, ?)';
+                      WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
 
         return query_to_list(
             $self->c->sql,
@@ -215,7 +215,7 @@ sub find_for_subscription
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
-                      WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?)";
+                      WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?) ORDER BY id";
 
         return query_to_list(
             $self->c->sql,
@@ -228,7 +228,7 @@ sub find_for_subscription
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
-            "   AND id > ? AND status IN (?, ?)";
+            "   AND id > ? AND status IN (?, ?) ORDER BY id";
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
@@ -440,7 +440,7 @@ sub _create_instance {
     try {
         $edit->initialize(%opts);
     } catch {
-        if (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency)$/) {
+        if (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency|DuplicateViolation|NeedsDisambiguation)$/) {
             confess $_;
         } else {
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;

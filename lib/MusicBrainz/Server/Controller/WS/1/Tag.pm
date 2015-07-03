@@ -42,7 +42,7 @@ sub tag : Path('/ws/1/tag')
             );
 
             my ($model, $entity) = $self->load($c, $type, $id);
-            $model->tags->update($c->user->id, $entity->id, $tags);
+            _update_tags($model, $c->user->id, $entity->id, $tags);
         }
         else {
             my @batch;
@@ -67,7 +67,7 @@ sub tag : Path('/ws/1/tag')
 
             for my $submission (@batch) {
                 my ($model, $entity) = $self->load($c, $submission->{entity}, $submission->{id});
-                $model->tags->update($c->user->id, $entity->id, $submission->{tags});
+                _update_tags($model, $c->user->id, $entity->id, $submission->{tags});
             }
         }
 
@@ -84,7 +84,24 @@ sub tag : Path('/ws/1/tag')
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->xml( list_of([ map { $_->tag } @tags ]) ));
+        $c->res->body($c->stash->{serializer}->xml( list_of([ map { $_->tag } grep { $_->is_upvote } @tags ]) ));
+    }
+}
+
+sub _update_tags {
+    my ($model, $user_id, $entity_id, $tags) = @_;
+
+    my %tags = map { $_ => 1 } MusicBrainz::Server::Controller::Role::Tag::parse_tags($tags);
+    my @user_tags = $model->tags->find_user_tags($user_id, $entity_id);
+
+    for (keys %tags) {
+        $model->tags->upvote($user_id, $entity_id, $_);
+    }
+
+    for (@user_tags) {
+        if (!exists($tags{$_->tag->name}) && $_->is_upvote) {
+            $model->tags->withdraw($user_id, $entity_id, $_);
+        }
     }
 }
 

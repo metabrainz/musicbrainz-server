@@ -4,7 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -225,20 +225,15 @@ sub _serialize_collection
 
     my $entity_type = $collection->type->entity_type;
 
-    if ($entity_type eq 'release') {
-        if ($toplevel) {
-            $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash);
-        } elsif ($collection->loaded_entity_count) {
-            push @collection, $gen->release_list({ count => $collection->entity_count });
-        }
-    }
+    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
 
-    if ($entity_type eq 'event') {
-        if ($toplevel) {
-            $self->_serialize_event_list(\@collection, $gen, $opts->{events}, $inc, $stash);
-        } elsif ($collection->loaded_entity_count) {
-            push @collection, $gen->event_list({ count => $collection->entity_count });
-        }
+    my $ser = "_serialize_${entity_type}_list";
+    my $gen_list = "${entity_type}_list";
+
+    if ($toplevel) {
+        $self->$ser(\@collection, $gen, $opts->{$plural}, $inc, $stash);
+    } elsif ($collection->loaded_entity_count) {
+        push @collection, $gen->$gen_list({ count => $collection->entity_count });
     }
 
     push @$data, $gen->collection(\%attrs, @collection);
@@ -329,6 +324,9 @@ sub _serialize_release_group
             if $inc->artist_credits;
     }
 
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
     $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
@@ -394,6 +392,9 @@ sub _serialize_release
         $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
@@ -566,6 +567,9 @@ sub _serialize_recording
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
@@ -1064,6 +1068,9 @@ sub _serialize_relation
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
+    push @list, $gen->source_credit($rel->source_credit) if $rel->source_credit;
+    push @list, $gen->target_credit($rel->target_credit) if $rel->target_credit;
+
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 
@@ -1241,7 +1248,9 @@ sub _serialize_user_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    if ($tag->is_upvote) {
+        push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    }
 }
 
 sub _serialize_rating

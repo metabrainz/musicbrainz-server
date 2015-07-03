@@ -77,6 +77,3 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (30, '5cebf694-6346-44be-9724-375c08864a9d', 4, 7, 7, 14, 'Somewhere in Between', 1, 300626);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (31, '14767038-01d2-4763-911a-10269df14d1b', 4, 8, 8, 15, 'Nocturn', 1, 514679);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (32, '0a989191-d8ec-4147-9915-9ddcf59fea95', 4, 9, 9, 16, 'Aerial', 1, 472880);
-
-ALTER SEQUENCE track_id_seq RESTART 100;
-ALTER SEQUENCE recording_id_seq RESTART 100;

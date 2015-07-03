@@ -38,6 +38,3 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (12, '29d6a6af-98e2-4b86-a7bb-5f997a82170a', 2, 5, 5, 1, 'The same track over and over', 1, NULL);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (13, 'c6d69534-f122-451f-8220-346ef1f0c7cd', 2, 6, 6, 1, 'The same track over and over', 1, NULL);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (14, '2f48725e-a465-4a27-b758-dfc438ce4160', 2, 7, 7, 1, 'The same track over and over', 1, NULL);
-
-ALTER SEQUENCE cdtoc_id_seq RESTART 2;
-ALTER SEQUENCE medium_cdtoc_id_seq RESTART 3;

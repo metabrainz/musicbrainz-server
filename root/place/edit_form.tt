@@ -7,31 +7,12 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
-
-      [% IF form.has_duplicates %]
-      <fieldset>
-          <legend>[% l('Possible Duplicate Places') %]</legend>
-          <p>
-              [% l('We found the following places with very similar names:') %]
-          </p>
-          <ul>
-              [% FOREACH dupe=form.duplicates %]
-              <li>[% descriptive_link(dupe) %]</li>
-              [% END %]
-          </ul>
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new place.')) %]
-          [% IF comment_is_required %]
-          <p>
-              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this place from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
-          </p>
-          [% END %]
-      </fieldset>
-      [% END %]
-
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
+        [%- duplicate_entities_section() -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
         [% WRAPPER form_row %]
@@ -83,74 +64,4 @@
 </form>
 
 [%- guesscase_options() -%]
-
-<script type="text/javascript">//<![CDATA[
-  (function () {
-    MB.Control.initialize_guess_case("place", "id-edit-place");
-
-    MB.Control.Area("span.area.autocomplete");
-
-    var bubble = MB.Control.initializeBubble("#coordinates-bubble", "input[name=edit-place\\.coordinates]");
-
-    // The map is hidden by default, which means it can't position itself correctly.
-    // This tells it to update its position once it's visible.
-    bubble.after("show", _.once(function () { map.invalidateSize() }));
-
-    map.on('click', function (e) {
-        if (map.getZoom() > 11) {
-            marker.setLatLng(e.latlng);
-            update_coordinates(e.latlng);
-        } else {
-            // If the map is zoomed too far out, marker placement would be wildly inaccurate, so just zoom in.
-            map.setView(e.latlng);
-            map.zoomIn(2);
-        }
-    });
-
-    marker.on('dragend', function (e) {
-        var latlng = marker.getLatLng().wrap();
-        update_coordinates(latlng)
-    });
-
-    function update_coordinates(latlng) {
-        $("#id-edit-place\\.coordinates").val(latlng.lat + ", " + latlng.lng);
-        $("#id-edit-place\\.coordinates").trigger('input');
-    }
-
-    var coordinates_request;
-    var coordinatesError = MB.validation.errorField(ko.observable(false));
-
-    $("input[name=edit-place\\.coordinates]").on('input', function () {
-        if (coordinates_request) {
-            coordinates_request.abort();
-            coordinates_request = null;
-        }
-        var coordinates = $("input[name=edit-place\\.coordinates]").val();
-        if (_.str.isBlank(coordinates)) {
-            $(".coordinates-errors").css("display", "none");
-            $("input[name=edit-place\\.coordinates]").removeClass("error");
-            $("input[name=edit-place\\.coordinates]").css("background-color", "transparent");
-            coordinatesError(false);
-        } else {
-            var url = "/ws/js/parse-coordinates?coordinates=" + encodeURIComponent(coordinates);
-            coordinates_request = $.getJSON(url, function (data) {
-                $(".coordinates-errors").css("display", "none");
-                $("input[name=edit-place\\.coordinates]").removeClass("error");
-                $("input[name=edit-place\\.coordinates]").addClass("success");
-                coordinatesError(false);
-
-                marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-
-                map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
-                map.setZoom(16);
-            }).fail(function (jqxhr, text_status, error_thrown) {
-                if (text_status === 'abort') { return; }
-
-                $("input[name=edit-place\\.coordinates]").addClass("error");
-                $(".coordinates-errors").css("display", "block");
-                coordinatesError(true);
-            });
-        };
-    });
-  }());
-//]]></script>
+[% script_manifest('place.js') %]

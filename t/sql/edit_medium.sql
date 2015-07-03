@@ -1,4 +1,3 @@
-
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist (id, gid, name, sort_name, comment)
@@ -24,10 +23,3 @@ INSERT INTO medium_format (id, name, has_discids) VALUES (1, 'CD', 't');
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'Track', 1),
            (2, '58ecb4a2-5080-4c3f-84a0-6f4b42cab567', 'Pregap Track', 1);
-
-ALTER SEQUENCE artist_id_seq RESTART 100;
-ALTER SEQUENCE artist_credit_id_seq RESTART 100;
-
-ALTER SEQUENCE track_id_seq RESTART 100;
-ALTER SEQUENCE recording_id_seq RESTART 100;
-

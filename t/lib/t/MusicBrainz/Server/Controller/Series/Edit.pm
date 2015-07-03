@@ -63,7 +63,7 @@ test all => sub {
         $mech->post("/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit", {
             'edit-series.name' => 'New Name!',
             'edit-series.comment' => 'new comment!',
-            'edit-series.type_id' => 1,
+            'edit-series.type_id' => 3,
             'edit-series.ordering_type_id' => 2,
             'edit-series.rel.0.relationship_id' => 1,
             'edit-series.rel.0.link_type_id' => 1,

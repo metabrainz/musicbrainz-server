@@ -18,7 +18,7 @@ sub get_commons_image
 {
     my ($self, $title, %opts) = @_;
     my $cache_only = $opts{cache_only} // 0;
-    my $url_pattern = "http://%s.wikimedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&redirects&format=json&iiurlwidth=250&titles=%s";
+    my $url_pattern = "https://%s.wikimedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&redirects&format=json&iiurlwidth=250&titles=%s";
 
     return $self->_fetch_cache_or_url($url_pattern, 'imageinfo',
                                       $COMMONS_CACHE_TIMEOUT,

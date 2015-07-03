@@ -3,8 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var nonEmpty = require('../utility/nonEmpty');
-var request = require('../../common/utility/request.js');
+var clean = require('../../common/utility/clean');
+var request = require('../../common/utility/request');
 
 (function (edit) {
 
@@ -31,7 +33,7 @@ var request = require('../../common/utility/request.js');
 
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
-    function string(arg) { return _.str.clean(value(arg)) }
+    function string(arg) { return clean(value(arg)) }
     function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
@@ -43,8 +45,8 @@ var request = require('../../common/utility/request.js');
             return {
                 entity: nullableString(entity.gid),
 
-                // Don't _.str.clean!
-                text: _.str.trim(value(entity.annotation))
+                // Don't clean()!
+                text: String(value(entity.annotation) || '').trim()
             };
         },
 
@@ -72,7 +74,7 @@ var request = require('../../common/utility/request.js');
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === names.length - 1) {
-                    name.join_phrase = _.str.rtrim(name.join_phrase);
+                    name.join_phrase = _.trimRight(name.join_phrase);
                 }
 
                 name.join_phrase = name.join_phrase || null;
@@ -106,7 +108,7 @@ var request = require('../../common/utility/request.js');
 
         medium: function (medium) {
             return {
-                name:       nullableString(medium.name),
+                name:       string(medium.name),
                 format_id:  number(medium.formatID),
                 position:   number(medium.position),
                 tracklist:  array(medium.tracks, fields.track)
@@ -116,15 +118,11 @@ var request = require('../../common/utility/request.js');
         partialDate: function (data) {
             data = data || {};
 
-            var date = {
+            return {
                 year:   number(data.year),
                 month:  number(data.month),
                 day:    number(data.day)
             };
-
-            return (date.year  === null &&
-                    date.month === null &&
-                    date.day   === null) ? null : date;
         },
 
         recording: function (recording) {
@@ -142,9 +140,11 @@ var request = require('../../common/utility/request.js');
             var period = relationship.period || {};
 
             var data = {
-                id:         number(relationship.id),
-                linkTypeID: number(relationship.linkTypeID),
-                entities:   array(relationship.entities, this.relationshipEntity)
+                id:             number(relationship.id),
+                linkTypeID:     number(relationship.linkTypeID),
+                entities:       array(relationship.entities, this.relationshipEntity),
+                entity0_credit: string(relationship.entity0_credit),
+                entity1_credit: string(relationship.entity1_credit)
             };
 
             data.attributes = _(ko.unwrap(relationship.attributes))
@@ -196,7 +196,7 @@ var request = require('../../common/utility/request.js');
                     country_id: number(data.countryID)
                 };
 
-                if (event.date !== null || event.country_id !== null) {
+                if (_(event.date).values().any(nonEmpty) || event.country_id !== null) {
                     return event;
                 }
             });
@@ -365,9 +365,6 @@ var request = require('../../common/utility/request.js');
         TYPES.EDIT_MEDIUM_CREATE,
 
         function (args) {
-            if (!args.name) {
-                delete args.name;
-            }
             if (args.format_id === null) {
                 delete args.format_id;
             }

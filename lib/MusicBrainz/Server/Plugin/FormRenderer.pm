@@ -98,21 +98,6 @@ sub hidden
     return $self->_render_input($field, 'hidden', %$attrs);
 }
 
-sub submit
-{
-    my ($self, $field_name, $value, $attrs) = @_;
-
-    $attrs ||= {};
-    my $field = $self->_lookup_field($field_name) or return;
-    return $self->h->input({
-            type => 'submit',
-            id => $self->_id($field),
-            value => $value,
-            name => $field->html_name,
-            %$attrs
-        });
-}
-
 sub password
 {
     my ($self, $field_name, $attrs) = @_;
@@ -161,13 +146,6 @@ sub label
             %$attrs
         }, $label);
     }
-}
-
-sub inline_label
-{
-    my ($self, $field_name, $label, $attrs) = @_;
-    my $class = delete $attrs->{class} || '';
-    return $self->label($field_name, $label, { class => "inline $class", %$attrs });
 }
 
 sub select
@@ -272,33 +250,6 @@ sub date
              $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4 }),
              $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2 }),
              $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2 }))
-    ]);
-}
-
-sub artist_credit_editor
-{
-    my ($self, $field_name) = @_;
-    my $field = $self->_lookup_field($field_name) or return;
-
-    # Artist credit editor
-    my $preview = $field->fif;
-    my %gid_id_map = map { $_->artist->id => $_->artist->gid } grep { defined $_->artist } @{ $preview->{names} };
-
-    my @credits = map { [
-        $self->h->input({
-            type => 'hidden',
-            class => 'gid',
-            value => $gid_id_map{$_->field('artist_id')->value}
-        }),
-        $self->_render_input($_->field('artist_id'), 'hidden', class => 'id'),
-        $self->_render_input($_->field('name'), 'text', class => 'name'),
-        $self->_render_input($_->field('join_phrase'), 'text', class => 'join')
-    ] } $field->field('names')->fields;
-
-    return $self->h->div({ id => $self->_id($field), class => 'artist-credit' }, [
-        map {
-            $self->h->div({ class => 'credit' }, $_)
-        } @credits
     ]);
 }
 

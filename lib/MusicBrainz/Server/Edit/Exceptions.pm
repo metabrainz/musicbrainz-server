@@ -10,7 +10,8 @@ use Exception::Class (
         fields => [qw( conflict )]
     },
     'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable',
-    'MusicBrainz::Server::Edit::Exceptions::Forbidden'
+    'MusicBrainz::Server::Edit::Exceptions::Forbidden',
+    'MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation'
 );
 
 1;

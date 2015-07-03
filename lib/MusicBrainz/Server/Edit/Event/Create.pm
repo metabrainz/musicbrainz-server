@@ -14,6 +14,8 @@ use aliased 'MusicBrainz::Server::Entity::Event';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Event';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Add event') }
 sub edit_type { $EDIT_EVENT_CREATE }
@@ -63,8 +65,6 @@ sub build_display_data
         setlist     => $self->data->{setlist}
     };
 }
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

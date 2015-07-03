@@ -12,7 +12,7 @@ use File::Slurp;
 use Encode qw(encode decode);
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context();
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
 ### DATABASE
 
@@ -55,6 +55,9 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'place_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'recording_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'release_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'release_group_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'area_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'instrument_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},

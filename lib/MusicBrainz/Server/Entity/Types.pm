@@ -18,10 +18,10 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Medium MediumCDTOC MediumFormat
                 PartialDate
                 Place PlaceAlias PlaceType
-                Recording
+                Recording RecordingAlias
                 Relationship
-                ReleaseGroup ReleaseGroupSecondaryType ReleaseGroupType
-                Release ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
+                ReleaseGroup ReleaseGroupAlias ReleaseGroupSecondaryType ReleaseGroupType
+                Release ReleaseAlias ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
                 Script Tag Track UserTag
                 Series SeriesOrderingType SeriesType
                 Work WorkAlias WorkType

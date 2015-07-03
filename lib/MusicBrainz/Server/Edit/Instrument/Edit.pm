@@ -23,6 +23,7 @@ use aliased 'MusicBrainz::Server::Entity::Instrument';
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Instrument';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit instrument') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }
@@ -78,10 +79,6 @@ sub build_display_data {
 
     return $data;
 }
-
-override allow_auto_edit => sub {
-    return 1;
-};
 
 sub current_instance {
     my $self = shift;

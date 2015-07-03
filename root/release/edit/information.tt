@@ -140,7 +140,7 @@
         <td><label>[% l('Date:') %]</label></td>
         <td class="partial-date">
           <span class="partial-date">
-            <input maxlength="4" placeholder="[% l('YYYY') %]" size="4"
+            <input type="text" maxlength="4" placeholder="[% l('YYYY') %]" size="4"
               class="partial-date-year"
               data-bind="
                 value: date.year,
@@ -148,14 +148,14 @@
                 controlsBubble: $root.dateBubble,
                 withLabel: 'event-date'"
             />-[%
-            %]<input maxlength="2" placeholder="[% l('MM') %]" size="2"
+            %]<input type="text" maxlength="2" placeholder="[% l('MM') %]" size="2"
                 class="partial-date-month"
                 data-bind="
                   value: date.month,
                   valueUpdate: 'input',
                   controlsBubble: $root.dateBubble"
             />-[%
-            %]<input maxlength="2" placeholder="[% l('DD') %]" size="2"
+            %]<input type="text" maxlength="2" placeholder="[% l('DD') %]" size="2"
                 class="partial-date-day"
                 data-bind="
                   value: date.day,
@@ -367,7 +367,7 @@
              denote bootlegs, mixtape/street albums, demos, or digital
              albums. Be sure to link to the corresponding real release with
              the {url|transl(iter)ation relationship}.',
-            { url => doc_link('Translation_Transliteration_Relationship_Type') })
+            { url => c.uri_for('/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644') })
       -%]
     </p>
   </div>

@@ -202,7 +202,6 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
-INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
@@ -221,7 +220,6 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
-INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
@@ -358,19 +356,13 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO label (id, gid, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
 
-INSERT INTO series_type (id, name, entity_type, parent, child_order, description) VALUES
-    (1, 'Recording', 'recording', NULL, 0, 'description');
-
-INSERT INTO series_ordering_type (id, name, parent, child_order, description) VALUES
-    (1, 'Automatic', NULL, 0, 'description');
-
 INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
     (1, 1, NULL, 0, '58ed5e16-411a-4676-a6f9-0d8a25823763', 'ordering', 'description');
 
 INSERT INTO link_text_attribute_type VALUES (1);
 
 INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 1, 1, 1);
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1, 1);
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),

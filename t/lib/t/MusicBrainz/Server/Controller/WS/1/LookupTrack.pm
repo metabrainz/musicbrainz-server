@@ -36,6 +36,9 @@ MusicBrainz::Server::Test->prepare_raw_test_database(
 TRUNCATE recording_tag_raw CASCADE;
 TRUNCATE recording_rating_raw CASCADE;
 
+INSERT INTO recording_tag (count, recording, tag)
+    VALUES (666, 4223061, 114);
+
 INSERT INTO recording_tag_raw (recording, editor, tag)
     VALUES (4223061, 1, 114);
 

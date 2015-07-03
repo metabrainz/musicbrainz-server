@@ -10,9 +10,6 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES (221), (222);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB'), (222, 'US');
 
-INSERT INTO gender (id, name) VALUES (1, 'Male');
-INSERT INTO gender (id, name) VALUES (2, 'Female');
-
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, area,
      begin_area, end_area,
@@ -39,7 +36,3 @@ INSERT INTO annotation (id, editor, text) VALUES (4, 1, 'Duplicate annotation');
 INSERT INTO artist_annotation (artist, annotation) VALUES (3, 1), (4, 2), (5, 3), (6, 4);
 
 INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 3);
-
-ALTER SEQUENCE artist_id_seq RESTART 7;
-ALTER SEQUENCE annotation_id_seq RESTART 5;
-

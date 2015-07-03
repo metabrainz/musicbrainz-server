@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
-var externalLinks = require('../edit/externalLinks.js');
-var validation = require('../edit/validation.js');
+var i18n = require('../common/i18n');
+var clean = require('../common/utility/clean');
+var request = require('../common/utility/request');
+var externalLinks = require('../edit/externalLinks');
+var validation = require('../edit/validation');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
     activeTabID: ko.observable("#information"),
@@ -136,7 +137,7 @@ MB.releaseEditor.init = function (options) {
     // Update the document title to match the release title
 
     this.utils.withRelease(function (release) {
-        var name = _.str.clean(release.name());
+        var name = clean(release.name());
 
         if (self.action === "add") {
             document.title = i18n.expand(
@@ -159,14 +160,17 @@ MB.releaseEditor.init = function (options) {
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
-    // any changes. Browsers that support onbeforeunload should have this set
-    // to null, or undefined otherwise.
-    if (window.onbeforeunload === null) {
-        MB.releaseEditor.allEdits.subscribe(function (edits) {
-            window.onbeforeunload =
-                edits.length ? _.constant(i18n.l("All of your changes will be lost if you leave this page.")) : null;
-        });
-    }
+    // any changes.
+    var hasEdits = ko.computed(function () {
+        return MB.releaseEditor.allEdits().length > 0;
+    });
+
+    window.addEventListener('beforeunload', event => {
+        if (hasEdits() && !this.rootField.redirecting) {
+            event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+            return event.returnValue;
+        }
+    });
 
     // Intialize release data/view model.
 
@@ -202,7 +206,7 @@ MB.releaseEditor.init = function (options) {
 MB.releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
-        data: { inc: "annotation+release-events+labels+media+rels" }
+        data: { inc: "rels" }
     };
 
     return request(args, this)

@@ -38,6 +38,18 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::ISWC';
 }
 
+sub _find {
+    my ($self, $field, @ids) = @_;
+
+    my $query = "SELECT " . $self->_columns ."
+                   FROM " . $self->_table . "
+                  WHERE $field = any(?)
+                  ORDER BY iswc, id";
+
+    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
+                         $query, \@ids);
+}
+
 =method find_by_work
 
     find_by_work(@work_ids : Array[Integer])
@@ -54,13 +66,7 @@ sub find_by_works
 {
     my ($self, @work_ids) = @_;
 
-    my $query = "SELECT ".$self->_columns."
-                   FROM ".$self->_table."
-                  WHERE work = any(?)
-                  ORDER BY iswc";
-
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, \@work_ids);
+    return $self->_find('work', @work_ids);
 }
 
 =method load_for_works
@@ -101,13 +107,7 @@ sub find_by_iswc
 {
     my ($self, $iswc) = @_;
 
-    my $query = "SELECT ".$self->_columns."
-                   FROM ".$self->_table."
-                  WHERE iswc = ?
-               ORDER BY id";
-
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, $iswc);
+    return $self->_find('iswc', $iswc);
 }
 
 =method delete

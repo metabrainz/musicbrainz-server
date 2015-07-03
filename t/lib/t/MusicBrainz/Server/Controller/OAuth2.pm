@@ -512,7 +512,7 @@ test 'User info' => sub {
         sub => 'editor1',
         profile => 'http://localhost/user/editor1',
         website => 'http://www.mysite.com/',
-        gender => 'female',
+        gender => 'male',
         zoneinfo => 'Europe/Bratislava',
         email => 'me@mysite.com',
         email_verified => JSON::true,
@@ -527,7 +527,7 @@ test 'User info' => sub {
         sub => 'editor1',
         profile => 'http://localhost/user/editor1',
         website => 'http://www.mysite.com/',
-        gender => 'female',
+        gender => 'male',
         zoneinfo => 'Europe/Bratislava',
     });
 };

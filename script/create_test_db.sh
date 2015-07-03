@@ -28,7 +28,7 @@ echo "
   CREATE SCHEMA statistics;
   CREATE SCHEMA cover_art_archive;
   CREATE SCHEMA documentation;
-  CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public $DATABASE 2>&1
+  CREATE SCHEMA wikidocs;" | ./admin/psql $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating MusicBrainz Schema
@@ -48,27 +48,27 @@ OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" &
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Statistics Schema
-OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/statistics/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/statistics/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/statistics/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Cover Art Archive Schema
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Wikidocs Schema
-OUTPUT=`./admin/psql --schema='wikidocs' $DATABASE <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='wikidocs' $DATABASE <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating documentation Schema
-OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Set up pgtap extension
 OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )

@@ -3,11 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../common/i18n.js');
-var request = require('../../common/utility/request.js');
+var _ = require('lodash');
+var i18n = require('../../common/i18n');
+var clean = require('../../common/utility/clean');
+var request = require('../../common/utility/request');
 var linkPhrase = require('../../edit/utility/linkPhrase');
-var dates = require('../../edit/utility/dates.js');
-var mergeDates = require('./mergeDates.js');
+var dates = require('../../edit/utility/dates');
+var mergeDates = require('./mergeDates');
 
 (function (RE) {
 
@@ -34,6 +36,9 @@ var mergeDates = require('./mergeDates.js');
             this.entities.subscribe(this.entitiesChanged, this);
             this.entityTypes = _(data.entities).pluck("entityType").join("-");
             this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
+
+            this.entity0_credit = ko.observable(data.entity0_credit || '');
+            this.entity1_credit = ko.observable(data.entity1_credit || '');
 
             this.linkTypeID = ko.observable(data.linkTypeID);
             this.linkTypeID.isDifferent = linkTypeComparer;
@@ -105,6 +110,8 @@ var mergeDates = require('./mergeDates.js');
         fromJS: function (data) {
             this.linkTypeID(data.linkTypeID);
             this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+            this.entity0_credit(data.entity0_credit || '');
+            this.entity1_credit(data.entity1_credit || '');
 
             setPartialDate(this.period.beginDate, data.beginDate || {});
             setPartialDate(this.period.endDate, data.endDate || {});
@@ -317,7 +324,7 @@ var mergeDates = require('./mergeDates.js');
 
             for (var i = 0, part; part = parts[i]; i++) {
                 if (integerRegex.test(part)) {
-                    parts[i] = _.str.lpad(part, 10, "0");
+                    parts[i] = _.padLeft(part, 10, "0");
                 }
             }
 
@@ -404,21 +411,33 @@ var mergeDates = require('./mergeDates.js');
             var entity0 = MB.entity(entities[0]);
             var entity1 = MB.entity(entities[1]);
 
-            return _.str.sprintf(
+            return (
                 '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
-                '&conditions.0.field=%s&conditions.0.operator=%%3D&conditions.0.name=%s' +
-                '&conditions.0.args.0=%s&conditions.1.field=%s&conditions.1.operator=%%3D' +
-                '&conditions.1.name=%s&conditions.1.args.0=%s&conditions.2.field=type' +
-                '&conditions.2.operator=%%3D&conditions.2.args=90%%2C233&conditions.2.args=91' +
-                '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%%3D' +
-                '&conditions.3.args=1&field=Please+choose+a+condition',
-                encodeURIComponent(entity0.entityType),
-                encodeURIComponent(entity0.name),
-                encodeURIComponent(entity0.id),
-                encodeURIComponent(entity1.entityType),
-                encodeURIComponent(entity1.name),
-                encodeURIComponent(entity1.id)
+                `&conditions.0.field=${encodeURIComponent(entity0.entityType)}` +
+                '&conditions.0.operator=%3D' +
+                `&conditions.0.name=${encodeURIComponent(entity0.name)}` +
+                `&conditions.0.args.0=${encodeURIComponent(entity0.id)}` +
+                `&conditions.1.field=${encodeURIComponent(entity1.entityType)}` +
+                '&conditions.1.operator=%3D' +
+                `&conditions.1.name=${encodeURIComponent(entity1.name)}` +
+                `&conditions.1.args.0=${encodeURIComponent(entity1.id)}` +
+                '&conditions.2.field=type' +
+                '&conditions.2.operator=%3D&conditions.2.args=90%2C233&conditions.2.args=91' +
+                '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%3D' +
+                '&conditions.3.args=1&field=Please+choose+a+condition'
             );
+        },
+
+        creditField: function (entity) {
+            var entities = this.entities();
+
+            if (entity === entities[0]) {
+                return this.entity0_credit;
+            }
+
+            if (entity === entities[1]) {
+                return this.entity1_credit;
+            }
         }
     });
 
@@ -439,10 +458,10 @@ var mergeDates = require('./mergeDates.js');
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + _.str.clean(this.creditedAs());
+            return type.gid + "\0" + clean(this.creditedAs());
         }
         if (type.freeText) {
-            return type.gid + "\0" + _.str.clean(this.textValue());
+            return type.gid + "\0" + clean(this.textValue());
         }
         return type.gid;
     };
@@ -452,11 +471,11 @@ var mergeDates = require('./mergeDates.js');
         var output = { type: { gid: type.gid } };
 
         if (type.creditable) {
-            output.credited_as = _.str.clean(this.creditedAs());
+            output.credited_as = clean(this.creditedAs());
         }
 
         if (type.freeText) {
-            output.text_value = _.str.clean(this.textValue());
+            output.text_value = clean(this.textValue());
         }
 
         return output;

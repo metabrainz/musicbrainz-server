@@ -35,6 +35,26 @@ has 'entity' => (
     isa => 'Object'
 );
 
+has is_upvote => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
+has aggregate_count => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        tag => $self->tag->TO_JSON,
+        vote => $self->is_upvote ? 1 : -1,
+        count => $self->aggregate_count,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

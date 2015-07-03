@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var levenshtein = require('underscore.string').levenshtein;
+var leven = require('leven');
 
 var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
@@ -21,5 +21,5 @@ module.exports = function (a, b) {
     a = stripSpacesAndPunctuation(a) || a || '';
     b = stripSpacesAndPunctuation(b) || b || '';
 
-    return 1 - (levenshtein(a, b) / (a.length + b.length));
+    return 1 - (leven(a, b) / (a.length + b.length));
 };

@@ -121,7 +121,7 @@ sub change_fields
 {
     return Dict[
         position => Optional[Int],
-        name => Nullable[Str],
+        name => Optional[Str],
         format_id => Nullable[Int],
         tracklist => Optional[ArrayRef[track()]],
     ];
@@ -564,6 +564,14 @@ sub recording_ids
         @{ $self->data->{new}{tracklist} },
         @{ $self->data->{old}{tracklist} }
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    if (exists $data->{new}{name}) {
+        $data->{new}{name} //= '';
+        $data->{old}{name} //= '';
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

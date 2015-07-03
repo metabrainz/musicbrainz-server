@@ -41,7 +41,6 @@ has_field 'iswcs.contains' => (
 has_field 'attributes' => (
     type => 'Repeatable',
     inflate_default_method => \&inflate_attributes,
-    num_when_empty => 0
 );
 
 has_field 'attributes.type_id' => (

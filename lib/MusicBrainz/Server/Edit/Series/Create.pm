@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Add series') }
 sub edit_type { $EDIT_SERIES_CREATE }

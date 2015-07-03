@@ -17,6 +17,8 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Place';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Add place') }
 sub edit_type { $EDIT_PLACE_CREATE }
@@ -74,6 +76,19 @@ before restore => sub {
 
     $data->{coordinates} = undef
         if defined $data->{coordinates} && !defined $data->{coordinates}{latitude};
+};
+
+override _is_disambiguation_needed => sub {
+    my ($self, %opts) = @_;
+
+    my ($name, $area_id) = $opts{qw(name area_id)};
+    my $duplicate_areas = $self->c->sql->select_single_column_array(
+        'SELECT area FROM place
+         WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
+        $name
+    );
+
+    return $self->_possible_duplicate_area($area_id, @$duplicate_areas);
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -24,18 +24,6 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
 
 INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1);
 
-INSERT INTO series_type (id, name, entity_type, parent, child_order, description) VALUES
-    (1, 'Recording', 'recording', NULL, 0, 'Indicates that the series is of recordings.'),
-    (2, 'Work', 'work', NULL, 3, 'Indicates that the series is of works.');
-
-INSERT INTO series_ordering_type (id, name, parent, child_order, description) VALUES
-    (1, 'Automatic', NULL, 0,
-     'Sorts the items in the series automatically by their ordering attribute, using a natural sort order.'
-    ),
-    (2, 'Manual', NULL, 1,
-     'Allows for manually setting the position of each item in the series.'
-    );
-
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
 INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
@@ -49,9 +37,9 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUE
     (1, 1, 0, 1), (2, 1, 0, 1);
 
 INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 1, 1, 1),
-           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 2, 1, 2),
-           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 1, 1, 1);
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1, 1),
+           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 1, 2),
+           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1, 1);
 
 INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
@@ -88,14 +76,3 @@ INSERT INTO l_recording_series (id, link, entity0, entity1, link_order) VALUES
 
 INSERT INTO l_series_work (id, link, entity0, entity1, link_order) VALUES
     (1, 5, 2, 1, 1), (2, 6, 2, 2, 2), (3, 7, 2, 3, 3), (4, 8, 2, 4, 4);
-
-ALTER SEQUENCE url_id_seq RESTART;
-SELECT setval('series_id_seq', (SELECT max(id) FROM series));
-SELECT setval('series_alias_id_seq', (SELECT max(id) FROM series_alias));
-SELECT setval('artist_credit_id_seq', (SELECT max(id) FROM artist_credit));
-SELECT setval('recording_id_seq', (SELECT max(id) FROM recording));
-SELECT setval('work_id_seq', (SELECT max(id) FROM work));
-SELECT setval('link_id_seq', (SELECT max(id) FROM link));
-SELECT setval('link_type_id_seq', (SELECT max(id) FROM link_type));
-SELECT setval('l_recording_series_id_seq', (SELECT max(id) FROM l_recording_series));
-SELECT setval('l_series_work_id_seq', (SELECT max(id) FROM l_series_work));

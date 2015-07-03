@@ -399,7 +399,6 @@ EOSQL
 test 'Merging attributes for VA' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     $c->sql->do(<<'EOSQL');
 INSERT INTO artist (id, gid, name, sort_name, gender) VALUES

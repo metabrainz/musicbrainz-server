@@ -2,12 +2,10 @@ package MusicBrainz::Server::Data::EntityTag;
 use Moose;
 use namespace::autoclean;
 
-use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
     query_to_list_limited
-    trim
 );
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
@@ -27,17 +25,16 @@ has [qw( tag_table type )] => (
     is => 'ro'
 );
 
-sub find_tags
-{
-    my ($self, $entity_id, $limit, $offset) = @_;
-    $offset ||= 0;
+sub find_tags {
+    my ($self, $entity_id) = @_;
+
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
                 "WHERE " . $self->type . " = ?" .
-                "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name) OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row($_[0]) },
-        $query, $entity_id, $offset);
+                "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+
+    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
+                         $query, $entity_id);
 }
 
 sub find_tag_count
@@ -87,7 +84,7 @@ sub find_user_tags_for_entities
 
     my $type = $self->type;
     my $table = $self->tag_table . '_raw';
-    my $query = "SELECT tag, $type AS entity
+    my $query = "SELECT tag, $type AS entity, is_upvote
                  FROM $table
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")";
@@ -98,6 +95,7 @@ sub find_user_tags_for_entities
             tag_id => $row->{tag},
             editor_id => $user_id,
             entity_id => $row->{entity},
+            is_upvote => $row->{is_upvote},
         );
     }, $query, $user_id, @ids);
 
@@ -174,41 +172,6 @@ sub merge
     }
 }
 
-# Algorithm for updating tags
-# update:
-#  - parse tag string into tag list
-#     - separate by comma, trim whitespace
-#  - load existing tags for user/entity from raw tables into a hash
-
-#  - for each tag in tag list:
-#        is tag in existing tag list?
-#           yes, remove from existing tag list, continue
-#        find tag string in tag table, if not found, add it
-#        add tag assoc to raw tables
-#        find tag assoc in aggregate tables.
-#        if not found
-#            add it
-#        else
-#            increment count in aggregate table
-#
-#    for each tag remaining in existing tag list:
-#        remove raw tag assoc
-#        decrement aggregate tag
-#        if aggregate tag count == 0: remove aggregate tag assoc.
-
-sub parse_tags
-{
-    my ($self, $input) = @_;
-
-    my @tags = grep {
-        $_ = trim($_);
-        $_ = lc($_);
-    } split ',', $input;
-
-    # make sure the list contains only unique tags
-    return uniq(@tags);
-}
-
 sub clear {
     my ($self, $editor_id) = @_;
 
@@ -225,136 +188,168 @@ sub clear {
     }
 }
 
-sub update
-{
-    my ($self, $user_id, $entity_id, $input) = @_;
-
-    my (@new_tags, @old_tags, $count);
+sub _update_count {
+    my ($self, $entity_id, $tag_id) = @_;
 
     my $entity_type = $self->type;
     my $assoc_table = $self->tag_table;
-    my $assoc_table_raw = $self->tag_table . '_raw';
+    my $assoc_table_raw = "${assoc_table}_raw";
 
-    @new_tags = $self->parse_tags($input);
+    return $self->sql->select_single_value(
+        qq{
+            UPDATE $assoc_table SET count = (
+                SELECT sum(CASE WHEN is_upvote THEN 1 ELSE -1 END)
+                  FROM $assoc_table_raw
+                 WHERE $entity_type = \$1 AND tag = \$2
+                 GROUP BY $entity_type, tag
+            )
+            WHERE $entity_type = \$1 AND tag = \$2
+            RETURNING count
+        },
+        $entity_id, $tag_id
+    );
+}
+
+sub _vote {
+    my ($self, $user_id, $entity_id, $tag_name, $is_upvote) = @_;
+
+    my $entity_type = $self->type;
+    my $assoc_table = $self->tag_table;
+    my $assoc_table_raw = "${assoc_table}_raw";
+    my $new_vote = $is_upvote ? 1 : -1;
+    my $result = {tag => $tag_name, vote => $new_vote};
 
     Sql::run_in_transaction(sub {
         # Lock the entity being tagged to prevent concurrency issues
         $self->parent->get_by_id_locked($entity_id);
 
-        # Load the existing raw tag ids for this entity
-        my %old_tag_info;
-        my @old_tags;
-        my $old_tag_ids = $self->sql->select_single_column_array("
-            SELECT tag
-              FROM $assoc_table_raw
-             WHERE $entity_type = ?
-               AND editor = ?", $entity_id, $user_id);
-        if (scalar(@$old_tag_ids)) {
-            # Load the corresponding tag strings from the main server
-            #
-            for my $row (@{
-                $self->sql->select_list_of_lists(
-                    "SELECT id, name FROM tag
-                     WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
-                    @$old_tag_ids
-                )
-            }) {
-                # Create a lookup friendly hash from the old tags
-                $old_tag_info{$row->[1]} = $row->[0];
-            }
+        my $sql = $self->sql;
+        my $tag_id = $sql->select_single_value('SELECT id FROM tag WHERE name = ?', $tag_name);
+
+        if (!defined $tag_id) {
+            $tag_id = $sql->select_single_value('INSERT INTO tag (name) VALUES (?) RETURNING id', $tag_name);
         }
 
-        # Now loop over the new tags
-        foreach my $tag (@new_tags) {
-            # if a new tag already exists, remove it from the old tag list and we're done for this tag
-            if (exists $old_tag_info{$tag}) {
-                delete $old_tag_info{$tag};
-                next;
-            }
+        # Add raw tag associations, checking for an existing vote first
+        my $existing_vote = $sql->select_single_value(
+            "SELECT is_upvote FROM $assoc_table_raw WHERE $entity_type = ? AND tag = ? AND editor = ?",
+            $entity_id, $tag_id, $user_id
+        );
 
-            # Lookup tag id for current tag, checking for UNICODE
-            my $tag_id = eval {
-                $self->sql->select_single_value("SELECT id FROM tag WHERE name = ?", $tag);
-            };
-            if ($@) {
-                my $err = $@;
-                next if $err =~ /unicode/i;
-                die $err;
-            }
-            if (!defined $tag_id) {
-                $tag_id = $self->sql->select_single_value("INSERT INTO tag (name) VALUES (?) RETURNING id", $tag);
-            }
-
-            # Add raw tag associations
-            $self->sql->do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
-
-            # Look for the association in the aggregate tags
-            $count = $self->sql->select_single_value("SELECT count
-                                                   FROM $assoc_table
-                                                  WHERE $entity_type = ?
-                                                    AND tag = ?", $entity_id, $tag_id);
-
-            # if not found, add it
-            if (!$count) {
-                $self->sql->do("INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 1)", $entity_id, $tag_id);
-            }
-            else {
-                # Otherwise increment the refcount
-                $self->sql->do("UPDATE $assoc_table SET count = count + 1 WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id);
-            }
-
-            # With this tag taken care of remove it from the list
-            delete $old_tag_info{$tag};
+        if (defined $existing_vote) {
+            $sql->do(
+                "UPDATE $assoc_table_raw SET is_upvote = ? WHERE $entity_type = ? AND tag = ? AND editor = ?",
+                $is_upvote, $entity_id, $tag_id, $user_id
+            );
+        } else {
+            $sql->do(
+                "INSERT INTO $assoc_table_raw ($entity_type, tag, editor, is_upvote) VALUES (?, ?, ?, ?)",
+                $entity_id, $tag_id, $user_id, $is_upvote
+            );
         }
 
-        # For any of the old tags that were not affected, remove them since the user doesn't seem to want them anymore
-        foreach my $tag (keys %old_tag_info) {
-            # Lookup tag id for current tag
-            my $tag_id = $self->sql->select_single_value("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
-            die "Cannot load tag" if (!$tag_id);
+        # Look for the association in the aggregate tags
+        my $aggregate_exists = $sql->select_single_value(
+            "SELECT 1 FROM $assoc_table WHERE $entity_type = ? AND tag = ?", $entity_id, $tag_id
+        );
+        my $new_count = $new_vote;
 
-            # Remove the raw tag association
-            $self->sql->do("DELETE FROM $assoc_table_raw
-                                WHERE $entity_type = ?
-                                  AND tag = ?
-                                  AND editor = ?", $entity_id, $tag_id, $user_id);
-
-            # Decrement the count for this tag
-            $count = $self->sql->select_single_value("SELECT count
-                                                FROM $assoc_table
-                                               WHERE $entity_type = ?
-                                                 AND tag = ?", $entity_id, $tag_id);
-
-            if (defined $count && $count > 1) {
-                # Decrement the refcount
-                $self->sql->do("UPDATE $assoc_table SET count = count - 1
-                           WHERE $entity_type = ?
-                             AND tag = ?", $entity_id, $tag_id);
-            }
-            else {
-                # if count goes to zero, remove the association
-                $self->sql->do("DELETE FROM $assoc_table
-                           WHERE $entity_type = ?
-                             AND tag = ?", $entity_id, $tag_id);
-            }
+        if (defined $aggregate_exists) {
+            # If found, adjust the vote tally
+            $new_count = $self->_update_count($entity_id, $tag_id);
+        } else {
+            # Otherwise add it
+            $sql->do(
+                "INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, ?)",
+                $entity_id, $tag_id, $new_vote
+            );
         }
 
+        $result->{count} = $new_count;
     }, $self->c->sql);
+
+    return $result;
 }
 
-sub find_user_tags
-{
+sub upvote {
+    shift->_vote(@_, 1);
+}
+
+sub downvote {
+    shift->_vote(@_, 0);
+}
+
+sub withdraw {
+    my ($self, $user_id, $entity_id, $tag_name) = @_;
+
+    my $entity_type = $self->type;
+    my $assoc_table = $self->tag_table;
+    my $assoc_table_raw = "${assoc_table}_raw";
+    my $result = {tag => $tag_name, vote => 0};
+    my $was_deleted;
+
+    Sql::run_in_transaction(sub {
+        my $sql = $self->sql;
+        my $tag_id = $sql->select_single_value('SELECT id FROM tag WHERE name = ?', $tag_name);
+
+        unless ($tag_id) {
+            $was_deleted = 1;
+            return;
+        }
+
+        # Remove the raw tag association
+        my $deleted = $sql->select_single_value(
+            "DELETE FROM $assoc_table_raw WHERE $entity_type = ? AND tag = ? AND editor = ? RETURNING 1",
+            $entity_id, $tag_id, $user_id
+        );
+
+        unless ($deleted) {
+            $was_deleted = 1;
+            return;
+        }
+
+        # Delete if no raw votes are left
+        $was_deleted = $self->sql->select_single_value(
+            qq{
+                DELETE FROM $assoc_table
+                 WHERE $entity_type = \$1
+                   AND tag = \$2
+                   AND tag NOT IN (SELECT tag FROM $assoc_table_raw WHERE $entity_type = \$1)
+                RETURNING 1
+            },
+            $entity_id, $tag_id
+        );
+
+        unless ($was_deleted) {
+            # Adjust the vote tally
+            $result->{count} = $self->_update_count($entity_id, $tag_id);
+        }
+    }, $self->c->sql);
+
+    $result->{deleted} = $was_deleted ? \1 : \0;
+    return $result;
+}
+
+sub find_user_tags {
     my ($self, $user_id, $entity_id) = @_;
 
     my $type = $self->type;
-    my $table = $self->tag_table . '_raw';
-    my $query = "SELECT tag FROM $table WHERE editor = ? AND $type = ?";
+    my $table = $self->tag_table;
+    my $table_raw = "${table}_raw";
+
+    my $query = qq{
+        SELECT tag, is_upvote, count AS aggregate_count FROM $table_raw
+        JOIN $table USING (tag, $type)
+        WHERE editor = ? AND $type = ?
+    };
 
     my @tags = query_to_list($self->c->sql, sub {
         my $row = shift;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
             editor_id => $user_id,
+            is_upvote => $row->{is_upvote},
+            aggregate_count => $row->{aggregate_count},
         );
     }, $query, $user_id, $entity_id);
 

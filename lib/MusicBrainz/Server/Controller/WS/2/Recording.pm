@@ -23,7 +23,7 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits puids isrcs annotation
+                         inc      => [ qw(aliases artist-credits puids isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },

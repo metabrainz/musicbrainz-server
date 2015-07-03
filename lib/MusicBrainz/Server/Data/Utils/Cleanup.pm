@@ -16,7 +16,7 @@ sub used_in_relationship {
                 ($t0 eq $t ? "entity0 = $return" : ()),
                 ($t1 eq $t ? "entity1 = $return" : ()),
             );
-            "EXISTS ( SELECT TRUE FROM l_${t0}_${t1} WHERE $predicates LIMIT 1)";
+            "EXISTS (SELECT TRUE FROM l_${t0}_${t1} WHERE $predicates)"
         } grep { $_->[0] eq $t || $_->[1] eq $t }
             $c->model('Relationship')->all_pairs
     );

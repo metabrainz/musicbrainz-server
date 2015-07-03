@@ -119,43 +119,6 @@ $mech->text_contains('artist created in controller_artist.t',
 
 };
 
-test 'Check duplicates' => sub {
-
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
-
-MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
-
-# Test editing artists
-$mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-html_ok($mech->content);
-$mech->submit_form_ok({
-    with_fields => {
-        'edit-artist.name' => 'test artist',
-        'edit-artist.sort_name' => 'artist, test',
-        'edit-artist.rename_artist_credit' => undef
-    }
-});
-ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redirect to artist page via gid');
-
-$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
-html_ok($mech->content);
-$mech->submit_form_ok({
-    with_fields => {
-        'edit-artist.name' => 'Empty Artist',
-        'edit-artist.sort_name' => 'Empty Artist',
-        'edit-artist.rename_artist_credit' => undef
-    }
-});
-ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
-$mech->content_contains('Possible Duplicate Artists', 'warning about duplicate artists');
-
-};
-
 test 'Looooooong comment' => sub {
 
 my $test = shift;

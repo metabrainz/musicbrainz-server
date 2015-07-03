@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
+use Try::Tiny;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw(
@@ -22,7 +23,6 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_l("Remove relationship") }
@@ -40,6 +40,8 @@ has '+data' => (
                 id => Int,
                 name => Str,
             ],
+            entity0_credit => Optional[Str],
+            entity1_credit => Optional[Str],
             phrase => Optional[Str],
             extra_phrase_attributes => Optional[Str],
             link => Dict[
@@ -118,6 +120,8 @@ sub build_display_data
             $self->c->model($self->model1)->_entity_class->new(
                 name => $self->data->{relationship}{entity1}{name}
             ),
+        entity0_credit => $self->data->{relationship}{entity0_credit} // '',
+        entity1_credit => $self->data->{relationship}{entity1_credit} // '',
         link => $link
     );
     if ($self->data->{relationship}{phrase}) {
@@ -196,6 +200,8 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
+            $relationship->entity0_credit ? (entity0_credit => $relationship->entity0_credit) : (),
+            $relationship->entity1_credit ? (entity1_credit => $relationship->entity1_credit) : (),
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),
@@ -274,6 +280,43 @@ sub editor_may_edit {
 
     my $lt = $opts->{relationship}->link->type;
     return $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
+}
+
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $conditions = $self->$orig(@args);
+
+    # This is wrapped in try/catch so that it will behave something resembling
+    # properly when called as a class method by the edit type documentation
+    # templates.
+    try {
+        my $editor = $self->editor // $self->c->model('Editor')->get_by_id($self->editor_id);
+        $conditions->{auto_edit} = $self->_editor_may_auto_edit($editor) ? 1 : 0;
+    } catch {
+        warn $_;
+    };
+
+    return $conditions;
+};
+
+around editor_may_approve => sub {
+    my ($orig, $self, $editor) = @_;
+
+    return $self->is_open && ($self->_editor_may_auto_edit($editor) || $self->$orig($editor));
+};
+
+sub _editor_may_auto_edit {
+    my ($self, $editor) = @_;
+
+    if ($editor->is_auto_editor) {
+        my $lt = $self->data->{relationship}{link}{type};
+
+        # MBS-8332
+        return $lt->{entity0_type} eq 'url' || $lt->{entity1_type} eq 'url';
+    }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

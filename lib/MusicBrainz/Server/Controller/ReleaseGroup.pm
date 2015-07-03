@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Rating';
@@ -27,7 +28,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]}}
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]}, aliases => {copy_stash => ['aliases']}}
 };
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';

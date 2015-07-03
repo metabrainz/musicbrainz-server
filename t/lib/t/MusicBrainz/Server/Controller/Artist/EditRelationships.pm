@@ -10,6 +10,7 @@ use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
@@ -204,10 +205,10 @@ test 'editing a relationship' => sub {
             edit_version => 2,
         });
 
-        ok !exception { $edit->accept };
+        is($edit->status, $STATUS_APPLIED);
     };
 
-    subtest 'remove begin date and ended flag' => sub {
+    subtest 'remove begin date' => sub {
         my @edits = capture_edits {
             $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
                 'edit-artist.name' => 'Test Alias',
@@ -215,6 +216,10 @@ test 'editing a relationship' => sub {
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '1',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'edit-artist.rel.0.period.begin_date.year' => '',
+                'edit-artist.rel.0.period.begin_date.month' => '',
+                'edit-artist.rel.0.period.begin_date.day' => '',
+                'edit-artist.make_votable' => '1',
             });
         } $c;
 
@@ -243,12 +248,54 @@ test 'editing a relationship' => sub {
             relationship_id => 3,
             new => {
                 begin_date  => { month => undef, day => undef, year => undef },
-                ended       => 0,
             },
             old => {
                 begin_date  => { month => 1, day => 1, year => 1999 },
-                ended       => 1,
             },
+            edit_version => 2,
+        });
+
+        ok !exception { $edit->accept };
+    };
+
+    subtest 'remove ended flag' => sub {
+        my @edits = capture_edits {
+            $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+                'edit-artist.name' => 'Test Alias',
+                'edit-artist.sort_name' => 'Kate Bush',
+                'edit-artist.rel.0.relationship_id' => '3',
+                'edit-artist.rel.0.link_type_id' => '1',
+                'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'edit-artist.rel.0.period.ended' => '0',
+                'edit-artist.make_votable' => '1',
+            });
+        } $c;
+
+        is(scalar @edits, 1);
+        my $edit = $edits[0];
+        isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+        cmp_deeply($edit->data, {
+            type0 => 'artist',
+            type1 => 'recording',
+            link => {
+                link_type => {
+                    id                  => 1,
+                    name                => 'instrument',
+                    link_phrase         => 'performed {additional} {instrument} on',
+                    long_link_phrase    => 'performer',
+                    reverse_link_phrase => 'has {additional} {instrument} performed by',
+                },
+                entity1 => { id => 2, name => 'King of the Mountain' },
+                entity0 => { id => 8, name => 'Test Alias' },
+                begin_date  => { month => undef, day => undef, year => undef },
+                end_date    => { month => undef, day => undef, year => undef },
+                ended       => 1,
+                attributes  => [$additional_attribute, $crazy_guitar],
+            },
+            relationship_id => 3,
+            new => { ended => 0 },
+            old => { ended => 1 },
             edit_version => 2,
         });
 
@@ -359,6 +406,28 @@ test 'Duplicate link attribute types are ignored' => sub {
     is(scalar @edits, 1);
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
     cmp_deeply($edits[0]->data->{attributes}, [$guitar_attribute]);
+};
+
+test 'MBS-8322: URL relationship dates are not removed if not specified' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+            'edit-artist.url.0.relationship_id' => '1',
+            'edit-artist.url.0.link_type_id' => '3',
+            'edit-artist.url.0.text' => 'http://musicbrainz.org/',
+        });
+    } $c;
+
+    is(scalar @edits, 0);
 };
 
 1;

@@ -64,6 +64,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Place::Merge
     MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
+    MusicBrainz::Server::Edit::Recording::AddAlias
+    MusicBrainz::Server::Edit::Recording::DeleteAlias
+    MusicBrainz::Server::Edit::Recording::EditAlias
     MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Delete
@@ -83,6 +86,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::Reorder
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::AddCoverArt
+    MusicBrainz::Server::Edit::Release::AddAlias
+    MusicBrainz::Server::Edit::Release::DeleteAlias
+    MusicBrainz::Server::Edit::Release::EditAlias
     MusicBrainz::Server::Edit::Release::AddReleaseLabel
     MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::Create
@@ -98,6 +104,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::ReorderCoverArt
     MusicBrainz::Server::Edit::Release::ReorderMediums
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
+    MusicBrainz::Server::Edit::ReleaseGroup::AddAlias
+    MusicBrainz::Server::Edit::ReleaseGroup::DeleteAlias
+    MusicBrainz::Server::Edit::ReleaseGroup::EditAlias
     MusicBrainz::Server::Edit::ReleaseGroup::Create
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit

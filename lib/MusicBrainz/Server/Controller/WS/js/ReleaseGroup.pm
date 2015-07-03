@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::WithArtistCredits';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'ReleaseGroup',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "release-group" => {
@@ -20,8 +23,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 };
 
 sub type { 'release_group' }
-
-sub serialization_routine { '_release_group' }
 
 sub search : Chained('root') PathPart('release-group')
 {

@@ -4,15 +4,18 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
-use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION );
+use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION %ENTITIES entities_with );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
+use Moose::Util qw( find_meta );
+
 my $ws_defs = Data::OptList::mkopt([
      collection => {
                          method   => 'GET',
-                         inc      => [ qw(releases events tags) ],
+                         inc      => [ entities_with('collections', take => sub { my $type = shift; my $props = shift; return $props->{plural} // ($props->{url} // $type) . 's' } ),
+                                       qw( tags ) ],
                          optional => [ qw(fmt limit offset) ],
      },
      collection => {
@@ -37,81 +40,56 @@ Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
-sub events_get : Chained('load') PathPart('events') Args(0)
-{
-    my ($self, $c) = @_;
+map {
+    my $entity_properties = $ENTITIES{$_};
+    my $type = $_;
+    my $url = $entity_properties->{url} // $type;
 
-    my $collection = $c->stash->{entity} // $c->detach('not_found');
+    my $plural = $entity_properties->{plural} // $type . 's';
+    my $plural_url = $entity_properties->{plural} // $url . 's';
+    my $mname = $plural . '_get';
 
-    if (!$collection->public) {
-        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-        if ($c->user_exists) {
-            $self->_error($c, 'You do not have permission to view this collection')
-                unless $c->user->id == $collection->editor_id;
+    my $method = sub {
+        my ($self, $c) = @_;
+
+        my $collection = $c->stash->{entity} // $c->detach('not_found');
+
+        if (!$collection->public) {
+            $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+            if ($c->user_exists) {
+                $self->_error($c, 'You do not have permission to view this collection')
+                    unless $c->user->id == $collection->editor_id;
+            }
         }
-    }
 
-    my $stash = WebServiceStash->new;
+        my $stash = WebServiceStash->new;
 
-    my $opts = $stash->store($collection);
+        my $opts = $stash->store($collection);
 
-    $self->linked_collections($c, $stash, [ $collection ]);
+        $self->linked_collections($c, $stash, [ $collection ]);
 
-    $c->model('CollectionType')->load($collection);
+        $c->model('CollectionType')->load($collection);
 
-    $self->_error($c, 'This is not an event collection.'),
-        unless ($collection->type->entity_type eq 'event');
+        $self->_error($c, "This is not a $url collection."),
+            unless ($collection->type->entity_type eq $type);
 
-    $c->model('Editor')->load($collection);
+        $c->model('Editor')->load($collection);
 
-    my ($limit, $offset) = $self->_limit_and_offset($c);
-    my @results = $c->model('Event')->find_by_collection($collection->id, $limit, $offset);
+        my ($limit, $offset) = $self->_limit_and_offset($c);
+        my @results = $c->model($entity_properties->{model})->find_by_collection($collection->id, $limit, $offset);
 
-    $opts->{events} = $self->make_list(@results);
+        $opts->{$plural} = $self->make_list(@results);
 
-    $self->linked_events($c, $stash, $opts->{events}->{items});
+        my $linked = "linked_$plural";
+        $self->$linked($c, $stash, $opts->{$plural}->{items});
 
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
-}
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
+    };
 
-sub releases_get : Chained('load') PathPart('releases') Args(0)
-{
-    my ($self, $c) = @_;
-
-    my $collection = $c->stash->{entity} // $c->detach('not_found');
-
-    if (!$collection->public) {
-        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-        if ($c->user_exists) {
-            $self->_error($c, 'You do not have permission to view this collection')
-                unless $c->user->id == $collection->editor_id;
-        }
-    }
-
-    my $stash = WebServiceStash->new;
-
-    my $opts = $stash->store($collection);
-
-    $self->linked_collections($c, $stash, [ $collection ]);
-
-    $c->model('CollectionType')->load($collection);
-
-    $self->_error($c, 'This is not a release collection.'),
-        unless ($collection->type->entity_type eq 'release');
-
-    $c->model('Editor')->load($collection);
-
-    my ($limit, $offset) = $self->_limit_and_offset($c);
-    my @results = $c->model('Release')->find_by_collection($collection->id, $limit, $offset);
-
-    $opts->{releases} = $self->make_list(@results);
-
-    $self->linked_releases($c, $stash, $opts->{releases}->{items});
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
-}
+    find_meta(__PACKAGE__)->add_method($mname => $method);
+    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$plural_url')", "Args(0)"]);
+} entities_with('collections');
 
 sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;

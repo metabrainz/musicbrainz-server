@@ -41,12 +41,10 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $system = 0;
 my $help = 0;
-my $schema;
 
 GetOptions(
     "system"    => \$system,
     "help"      => \$help,
-    "schema=s"  => \$schema,
 ) or exit 2;
 
 my $key = shift // "READWRITE";
@@ -59,11 +57,7 @@ my $db = Databases->get($key) or die "No such database '$key'\n";
 
 if ($system) {
     my $sys_db = Databases->get("SYSTEM");
-    $db = $db->meta->clone_object($sys_db, database => $db->database, schema => $db->schema);
-}
-
-unless ($schema) {
-    $schema = $db->schema;
+    $db = $db->meta->clone_object($sys_db, database => $db->database);
 }
 
 $ENV{"PGPASSWORD"} = $db->password;

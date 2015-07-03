@@ -10,6 +10,7 @@ var extend          = require("extend"),
     shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
+    through         = require('through'),
     through2        = require("through2"),
     Q               = require("q"),
     watch           = require('gulp-watch'),
@@ -51,7 +52,7 @@ function buildStyles() {
                 rootpath: "/static/",
                 relativeUrls: true,
                 plugins: [
-                    new (require('less-plugin-clean-css'))
+                    new (require('less-plugin-clean-css'))({compatibility: 'ie8'})
                 ]
             }))
     ).done(writeManifest);
@@ -70,7 +71,7 @@ function runYarb(resourceName, callback) {
 
     callback && callback(bundle);
 
-    if (process.env.UGLIFY) {
+    if (process.env.DEVELOPMENT_SERVER == 0) {
         bundle.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts
             global: true,
@@ -100,24 +101,34 @@ function langToPosix(lang) {
 }
 
 function reactify(filename) {
-    return through2(function (chunk, enc, cb) {
-        this.push(reactTools.transform(String(chunk), {
-          es5: true,
-          sourceMap: !!process.env.SOURCEMAPS,
-          sourceFilename: filename,
-          stripTypes: false,
-          harmony: true
-        }));
-        cb();
-    });
+    var chunks = [];
+
+    return through(
+        function (chunk) {
+            chunks.push(chunk);
+        },
+        function () {
+            var source = String(Buffer.concat(chunks));
+
+            this.push(reactTools.transform(source, {
+                es5: true,
+                sourceMap: !!process.env.SOURCEMAPS,
+                sourceFilename: filename,
+                stripTypes: false,
+                harmony: true
+            }));
+
+            this.push(null);
+        }
+    );
 }
 
 function buildScripts() {
-    process.env.NODE_ENV = process.env.UGLIFY ? 'production' : 'development';
+    process.env.NODE_ENV = process.env.DEVELOPMENT_SERVER == 1 ? 'development' : 'production';
 
     var commonBundle = runYarb('common.js', function (b) {
-        b.expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
-         .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
+         .transform(reactify);
     });
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -154,6 +165,10 @@ function buildScripts() {
         b.external(commonBundle);
     });
 
+    var placeBundle = runYarb('place.js', function (b) {
+        b.external(editBundle).external(guessCaseBundle).transform(reactify);
+    });
+
     var releaseEditorBundle = runYarb('release-editor.js', function (b) {
         b.external(commonBundle).external(editBundle).transform(reactify);
     });
@@ -170,9 +185,11 @@ function buildScripts() {
         writeScript(commonBundle, 'common.js'),
         writeScript(editBundle, 'edit.js'),
         writeScript(guessCaseBundle, 'guess-case.js'),
+        writeScript(placeBundle, 'place.js'),
         writeScript(releaseEditorBundle, 'release-editor.js'),
         writeScript(statisticsBundle, 'statistics.js'),
-        writeScript(timelineBundle, 'timeline.js')
+        writeScript(timelineBundle, 'timeline.js'),
+        writeScript(runYarb('debug.js', function (b) {b.external(commonBundle)}), 'debug.js')
     ]).then(writeManifest);
 }
 
@@ -214,7 +231,6 @@ gulp.task("tests", function () {
         runYarb('tests.js', function (b) {
             b.transform('envify', {global: true})
              .transform(reactify)
-             .expose('./root/static/lib/knockout/knockout-latest.debug.js', 'knockout')
              .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
@@ -229,14 +245,6 @@ gulp.task("clean", function () {
             fs.unlinkSync("./root/static/build/" + file);
         }
     });
-});
-
-gulp.task("jshint", function () {
-    var jshint = require("gulp-jshint");
-
-    return gulp.src("./root/static/scripts/**/*.js")
-        .pipe(jshint())
-        .pipe(jshint.reporter("default"));
 });
 
 gulp.task("default", ["styles", "scripts"]);

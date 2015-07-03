@@ -22,7 +22,3 @@ INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Label Annota
 INSERT INTO label_annotation (label, annotation) VALUES (3, 1);
 
 INSERT INTO label_gid_redirect (gid, new_id) VALUES ('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592', 3);
-
-ALTER SEQUENCE label_id_seq RESTART 4;
-
-

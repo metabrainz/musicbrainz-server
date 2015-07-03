@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
-var formatTrackLength = require('../common/utility/formatTrackLength.js');
-var dates = require('../edit/utility/dates.js');
+var i18n = require('../common/i18n');
+var clean = require('../common/utility/clean');
+var request = require('../common/utility/request');
+var formatTrackLength = require('../common/utility/formatTrackLength');
+var dates = require('../edit/utility/dates');
 
 (function (releaseEditor) {
 
@@ -548,7 +549,7 @@ var dates = require('../edit/utility/dates.js');
                 day:    ko.observable(date.day)
             };
 
-            this.countryID = ko.observable(data.countryID);
+            this.countryID = ko.observable(data.country ? data.country.id : null);
             this.release = release;
             this.isDuplicate = ko.observable(false);
 
@@ -667,8 +668,6 @@ var dates = require('../edit/utility/dates.js');
                 MB.entityCache[data.gid] = this; // XXX HACK
             }
 
-            $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
-
             var self = this;
             var errorField = validation.errorField;
             var currentName = data.name;
@@ -734,7 +733,7 @@ var dates = require('../edit/utility/dates.js');
             );
 
             function releaseLabelKey(releaseLabel) {
-                return ((releaseLabel.label() || {}).id || '') + '\0' + _.str.clean(releaseLabel.catalogNumber());
+                return ((releaseLabel.label() || {}).id || '') + '\0' + clean(releaseLabel.catalogNumber());
             }
 
             function nonEmptyReleaseLabel(releaseLabel) {
@@ -768,6 +767,7 @@ var dates = require('../edit/utility/dates.js');
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
+            this.formats = data.formats;
             this.mediums.original = ko.observableArray([]);
             this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));

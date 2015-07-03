@@ -12,7 +12,6 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
-use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
@@ -28,6 +27,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
@@ -77,6 +77,8 @@ subtype 'RelationshipHash'
             id => NullableOnPreview[Int],
             name => Str,
         ]],
+        entity0_credit => Optional[Str],
+        entity1_credit => Optional[Str],
     ];
 
 has '+data' => (
@@ -179,6 +181,8 @@ sub _build_relationship
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
         entity1 => $loaded->{$model1}{ $entity1->{id} } ||
             $self->c->model($model1)->_entity_class->new( name => $entity1->{name} ),
+        entity0_credit => $change->{entity0_credit} // '',
+        entity1_credit => $change->{entity1_credit} // '',
     );
 }
 
@@ -262,6 +266,8 @@ sub _mapping
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
         },
+        entity0_credit => sub { shift->entity0_credit },
+        entity1_credit => sub { shift->entity1_credit },
     );
 }
 
@@ -324,6 +330,7 @@ sub initialize
     my $new_attributes = $opts{attributes} // $current_attributes;
 
     $self->check_attributes($new_link_type, $new_attributes);
+    $self->sanitize_entity_credits(\%opts, $new_link_type);
 
     delete $opts{link_order}; # Not supported by this edit type.
 
@@ -345,8 +352,6 @@ sub initialize
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
-    normalize_date_period(\%opts);
-
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if $self->c->model('Relationship')->exists(
             $new_link_type->entity0_type,
@@ -359,6 +364,8 @@ sub initialize
             entity0_id   => $new_entity0->id,
             entity1_id   => $new_entity1->id,
             link_order   => $relationship->link_order,
+            entity0_credit  => $opts{entity0_credit},
+            entity1_credit  => $opts{entity1_credit},
         });
 
     $self->relationship($relationship);
@@ -392,6 +399,15 @@ sub initialize
     });
 }
 
+sub initialize_date_period {
+    my ($self, $opts) = @_;
+
+    my $link = $opts->{relationship}->link;
+    $opts->{begin_date} //= partial_date_to_hash($link->begin_date);
+    $opts->{end_date} //= partial_date_to_hash($link->end_date);
+    $opts->{ended} //= $link->ended;
+}
+
 sub accept
 {
     my $self = shift;
@@ -419,13 +435,15 @@ sub accept
     # dict should be complete.  If a value isn't defined in $values it doesn't
     # change, so take the original value as it was stored in $link.
     my $values = {
-        entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
-        entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
-        attributes   => $data->{new}{attributes}    // $self->serialize_link_attributes($relationship->link->all_attributes),
-        link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
-        begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
-        end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended,
+        entity0_id      => $data->{new}{entity0}{id}    // $relationship->entity0_id,
+        entity1_id      => $data->{new}{entity1}{id}    // $relationship->entity1_id,
+        entity0_credit  => $data->{new}{entity0_credit} // $relationship->entity0_credit,
+        entity1_credit  => $data->{new}{entity1_credit} // $relationship->entity1_credit,
+        attributes      => $data->{new}{attributes}     // $self->serialize_link_attributes($relationship->link->all_attributes),
+        link_type_id    => $data->{new}{link_type}{id}  // $relationship->link->type_id,
+        begin_date      => $data->{new}{begin_date}     // $relationship->link->begin_date,
+        end_date        => $data->{new}{end_date}       // $relationship->link->end_date,
+        ended           => $data->{new}{ended}          // $relationship->link->ended,
         link_order   => $relationship->link_order,
     };
 
@@ -533,6 +551,26 @@ sub editor_may_edit {
         $self->editor_may_edit_types($old_lt->entity0_type, $old_lt->entity1_type) &&
         $self->editor_may_edit_types($new_lt->entity0_type, $new_lt->entity1_type)
     );
+}
+
+sub allow_auto_edit {
+    my ($self) = @_;
+
+    my $data = $self->data;
+    my $entity0 = $data->{new}{entity0};
+    my $entity1 = $data->{new}{entity1};
+
+    # MBS-7972
+    # Make auto-editable if neither endpoint changed.
+    return 1 if !($entity0 || $entity1);
+
+    # Switching the entities around should also be an auto-edit.
+    return 0 if $data->{type0} ne $data->{type1};
+
+    return 0 if defined($entity0) xor defined($entity1);
+
+    return ($data->{old}{entity0}{id} == $entity1->{id} &&
+            $data->{old}{entity1}{id} == $entity0->{id});
 }
 
 __PACKAGE__->meta->make_immutable;

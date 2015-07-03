@@ -27,6 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
 
 sub _type { 'release_group' }
 
@@ -443,6 +444,7 @@ sub delete
         or return;
 
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
+    $self->alias->delete_entities(@group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
@@ -493,11 +495,12 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('release_group', $new_id, \@old_ids);
     $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);
     $self->c->model('CoverArtArchive')->merge_release_groups($new_id, @old_ids);
 

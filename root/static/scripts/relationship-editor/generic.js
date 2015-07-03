@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var validation = require('../edit/validation.js');
+var clean = require('../common/utility/clean');
+var validation = require('../edit/validation');
 
 (function (RE) {
 
@@ -97,8 +98,15 @@ var validation = require('../edit/validation.js');
 
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
-            var changedAttributes = MB.edit.relationshipEdit(editData, relationship.original, relationship).attributes;
-            _.each(changedAttributes, function (attribute, i) {
+            _.each(['entity0_credit', 'entity1_credit'], function (prop) {
+                var value = clean(relationship[prop]());
+                if (value) {
+                    pushInput(prefix, prop, value);
+                }
+            });
+
+            var changeData = MB.edit.relationshipEdit(editData, relationship.original, relationship);
+            _.each(changeData.attributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
@@ -116,9 +124,8 @@ var validation = require('../edit/validation.js');
                 }
             });
 
-            var beginDate = editData.beginDate,
-                endDate = editData.endDate,
-                ended = editData.ended;
+            var beginDate = changeData.beginDate;
+            var endDate = changeData.endDate;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);
@@ -132,8 +139,8 @@ var validation = require('../edit/validation.js');
                 pushInput(prefix, "period.end_date.day", endDate.day);
             }
 
-            if (ended) {
-                pushInput(prefix, "period.ended", 1);
+            if (changeData.ended !== undefined) {
+                pushInput(prefix, "period.ended", changeData.ended ? 1 : 0);
             }
 
             if (vm.source !== relationship.entities()[0]) {
@@ -143,7 +150,7 @@ var validation = require('../edit/validation.js');
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
             if (relationship.linkTypeInfo().orderableDirection !== 0) {
-                if (relationship.added() || relationship.original.linkOrder !== editData.linkOrder) {
+                if (relationship.added() || changeData.linkOrder) {
                     pushInput(prefix, "link_order", editData.linkOrder);
                 }
             }

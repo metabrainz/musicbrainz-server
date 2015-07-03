@@ -27,6 +27,9 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name => 'place'
+};
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -119,6 +122,11 @@ Shows a map for a place.
 =cut
 
 sub map : Chained('load') { }
+
+after [qw( show collections details tags aliases events performances map )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 =head2 WRITE METHODS
 

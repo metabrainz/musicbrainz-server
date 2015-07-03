@@ -29,7 +29,14 @@ has 'database' => (
 
 sub _build_connector {
     my $self = shift;
-    return DatabaseConnectionFactory->get_connection($self->database);
+    my $conn = DatabaseConnectionFactory->get_connection($self->database);
+
+    if ($self->database eq 'MAINTENANCE') {
+        $conn->sql->auto_commit;
+        $conn->sql->do('SET statement_timeout = 0');
+    }
+
+    return $conn;
 }
 
 has 'models' => (
@@ -90,7 +97,7 @@ sub create_script_context
 {
     my ($class, %args) = @_;
     my $cache_manager = MusicBrainz::Server::CacheManager->new(DBDefs->CACHE_MANAGER_OPTIONS);
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, %args);
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, database => 'MAINTENANCE', %args);
 }
 
 1;

@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../../common/i18n.js');
+var i18n = require('../../../common/i18n');
+var setCookie = require('../../../common/utility/setCookie');
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -52,8 +53,6 @@ var guessCaseOptions = {
     upperCaseRoman: ko.observable()
 };
 
-var cookieSettings = { path: '/', expires: 365 };
-
 var mode = ko.computed({
     read: function () {
         var modeName = guessCaseOptions.modeName()
@@ -61,7 +60,7 @@ var mode = ko.computed({
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
             gc.mode = MB.GuessCase.Mode[modeName];
-            $.cookie("guesscase_mode", modeName, cookieSettings);
+            setCookie("guesscase_mode", modeName);
         }
         return gc.mode;
     },
@@ -77,12 +76,12 @@ guessCaseOptions.help = ko.computed({
 
 guessCaseOptions.keepUpperCase.subscribe(function (value) {
     gc.CFG_UC_UPPERCASED = value;
-    $.cookie("guesscase_keepuppercase", value, cookieSettings);
+    setCookie("guesscase_keepuppercase", value);
 });
 
 guessCaseOptions.upperCaseRoman.subscribe(function (value) {
     gc.CFG_UC_ROMANNUMERALS = value;
-    $.cookie("guesscase_roman", value, cookieSettings);
+    setCookie("guesscase_roman", value);
 });
 
 ko.bindingHandlers.guessCase = {
@@ -111,3 +110,5 @@ ko.bindingHandlers.guessCase = {
 };
 
 ko.virtualElements.allowedBindings.guessCase = true;
+
+module.exports = MB.Control;

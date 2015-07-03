@@ -6,6 +6,7 @@ use Carp;
 use MusicBrainz::Server::Data::Utils
     qw( generate_gid hash_to_row query_to_list );
 use MusicBrainz::Server::Entity::URL;
+use URI;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with
@@ -25,6 +26,7 @@ my %URL_SPECIALIZATIONS = (
     'BBCMusic'            => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'Bandcamp'            => qr{^https?://([^/]+.)?bandcamp.com/}i,
     'Canzone'             => qr{^https?://(?:www.)?discografia.dds.it/}i,
+    'Castalbums'          => qr{^https?://(?:www.)?castalbums.org/}i,
     'CDBaby'              => qr{^https?://(?:www.)?cdbaby.com/}i,
     'CiNii'               => qr{^https?://(?:www.)?ci.nii.ac.jp/}i,
     'Commons'             => qr{^https?://commons.wikimedia.org/wiki/File:}i,
@@ -38,6 +40,7 @@ my %URL_SPECIALIZATIONS = (
     'Facebook'            => qr{^https?://(?:www.)?facebook.com/}i,
     'Finna'               => qr{^https?://(?:www.)?finna.fi/}i,
     'Finnmusic'           => qr{^https?://(?:www.)?finnmusic.net/}i,
+    'FolkWiki'            => qr{^https?://(?:www.)?folkwiki.se/}i,
     'FonoFi'              => qr{^https?://(?:www.)?fono.fi/}i,
     'Generasia'           => qr{^https?://(?:www.)?generasia.com/wiki/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius.com/}i,
@@ -61,10 +64,12 @@ my %URL_SPECIALIZATIONS = (
     'MetalArchives'       => qr{^https?://(?:www.)?metal-archives.com/}i,
     'MusicMoz'            => qr{^https?://(?:www.)?musicmoz.org/}i,
     'MusikSammler'        => qr{^https?://(?:www.)?musik-sammler.de/}i,
+    'MVDbase'             => qr{^https?://(?:www.)?mvdbase.com/}i,
     'MySpace'             => qr{^https?://(?:www.)?myspace.com/}i,
     'NDL'                 => qr{^https?://(?:www.)?iss.ndl.go.jp/}i,
     'OCReMix'             => qr{^https?://(?:www.)?ocremix.org/}i,
     'OpenLibrary'         => qr{^https?://(?:www.)?openlibrary.org/}i,
+    'Operadis'            => qr{^https?://(?:www.)?operadis-opera-discography.org.uk/}i,
     'Ozon'                => qr{^https?://(?:www.)?ozon.ru/}i,
     'Piosenki'            => qr{^https?://(?:www.)?bibliotekapiosenki.pl/}i,
     'Pomus'               => qr{^https?://(?:www.)?pomus.net/}i,
@@ -78,19 +83,23 @@ my %URL_SPECIALIZATIONS = (
     'Rockipedia'          => qr{^https?://(?:www.)?rockipedia.no/}i,
     'Rolldabeats'         => qr{^https?://(?:www.)?rolldabeats.com/}i,
     'SecondHandSongs'     => qr{^https?://(?:www.)?secondhandsongs.com/}i,
+    'SMDB'                => qr{^https?://(?:www.)?smdb.kb.se/}i,
     'Songfacts'           => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'          => qr{^https?://(?:www.)?soundcloud.com/}i,
     'Stage48'             => qr{^https?://(?:www.)?stage48.net/}i,
     'STcollector'         => qr{^https?://(?:www.)?soundtrackcollector.com/}i,
     'Spotify'             => qr{^https?://([^/]+.)?spotify.com/}i,
     'SpiritOfMetal'       => qr{^https?://(?:www.)?spirit-of-metal.com/}i,
+    'SpiritOfRock'        => qr{^https?://(?:www.)?spirit-of-rock.com/}i,
     'Theatricalia'        => qr{^https?://(?:www.)?theatricalia.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www.)?thedancegypsy.com/}i,
     'TheSession'          => qr{^https?://(?:www.)?thesession.org/}i,
     'Trove'               => qr{^https?://(?:www.)?(?:trove.)?nla.gov.au/}i,
+    'Tunearch'            => qr{^https?://(?:www.)?tunearch.org/}i,
     'Twitter'             => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'               => qr{^https?://(?:www.)?vgmdb.net/}i,
     'VIAF'                => qr{^https?://(?:www.)?viaf.org/}i,
+    'Videogamin'          => qr{^https?://(?:www.)?videogam.in/}i,
     'VK'                  => qr{^https?://(?:www.)?vk.com/}i,
     'Vkdb'                => qr{^https?://(?:www.)?vkdb.jp/}i,
     'WhoSampled'          => qr{^https?://(?:www.)?whosampled.com/}i,
@@ -155,7 +164,7 @@ sub _merge_impl
     $self->add_gid_redirects(map { $_ => $new_id } @old_gids);
 
     $self->c->model('Edit')->merge_entities('url', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('url', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('url', $new_id, \@old_ids);
 
     $self->_delete(@old_ids);
 
@@ -164,11 +173,12 @@ sub _merge_impl
 
 sub find_by_url {
     my ($self, $url) = @_;
+    my $normalized = URI->new($url)->canonical;
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
                 ' WHERE url = ?';
     return query_to_list(
         $self->sql, sub { $self->_new_from_row(@_) },
-        $query, $url
+        $query, $normalized
     );
 }
 
@@ -185,6 +195,7 @@ sub update
         return $merge_into->id;
     }
     else {
+        $url_hash->{url} = URI->new($url_hash->{url})->canonical;
         my $row = $self->_hash_to_row($url_hash);
         $self->sql->update_row('url', $row, { id => $url_id });
         return $url_id;
@@ -209,6 +220,7 @@ sub insert { confess "Should not be used for URLs" }
 sub find_or_insert
 {
     my ($self, $url) = @_;
+    $url = URI->new($url)->canonical;
     my $id = $self->sql->select_single_value('SELECT id FROM url WHERE url = ?',
                                              $url);
     unless ($id) {

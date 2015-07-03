@@ -23,8 +23,6 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 
 sub type { 'series' }
 
-sub serialization_routine { '_series' }
-
 sub search : Chained('root') PathPart('series') {
     my ($self, $c) = @_;
 

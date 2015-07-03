@@ -17,7 +17,3 @@ INSERT INTO medium_format (id, name) VALUES (1, 'CD');
 
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'Track', 1);
-
-SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
-SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));
-SELECT setval('recording_id_seq', (SELECT MAX(id) FROM recording));

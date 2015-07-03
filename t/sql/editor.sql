@@ -47,5 +47,3 @@ INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 2);
 
 INSERT INTO annotation (editor) VALUES (2); -- so Alice is not fully deleted
-
-ALTER SEQUENCE editor_id_seq RESTART 5;

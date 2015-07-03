@@ -36,22 +36,12 @@ INSERT INTO event_type (id, name) VALUES (1, 'Festival');
 
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
-INSERT INTO gender (id, name) VALUES (2, 'Female');
-
 INSERT INTO label_type (id, name) VALUES (1, 'Distributor');
 INSERT INTO label_type (id, name) VALUES (4, 'Original Production');
 INSERT INTO label_type (id, name) VALUES (6, 'Reissue Production');
 INSERT INTO label_type (id, name) VALUES (7, 'Publisher');
 
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
-
-INSERT INTO series_type (id, name, entity_type, parent, description) VALUES
-    (4, 'Work', 'work', NULL, 'Indicates that the series is of works.'),
-    (5, 'Catalogue', 'work', 4, 'Indicates that the series is a works catalogue.');
-
-INSERT INTO series_ordering_type (id, name, description) VALUES
-    (1, 'Automatic', 'Sorts the items in the series automatically by their number attributes, using a natural sort order.'),
-    (2, 'Manual', 'Allows for manually setting the position of each item in the series.');
 
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
 
@@ -424,8 +414,6 @@ INSERT INTO event_alias (id, event, name, sort_name) VALUES
     (2, 7, 'Warm Festival', 'Warm Festival');
 
 -- Instruments
-
-SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 
 INSERT INTO instrument (id, gid, name, type) VALUES (7, '3590521b-8c97-4f4b-b1bb-5f68d3663d8a', 'English horn', 1);
 
@@ -993,60 +981,60 @@ INSERT INTO release_unknown_country (release, date_year, date_month, date_day) V
 
 -- Mediums
 
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 49161, '2011-01-18 15:21:33.71184+00', NULL, 1, 49161, 3);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 123054, '2011-01-18 15:21:33.71184+00', NULL, 1, 123054, 3);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 24752, '2011-01-18 15:21:33.71184+00', NULL, 1, 24752, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 243064, '2011-01-18 15:21:33.71184+00', NULL, 1, 243064, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 654729, '2011-01-18 15:21:33.71184+00', NULL, 1, 654729, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 246898, '2011-01-18 15:21:33.71184+00', NULL, 1, 246898, 12);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 446581, '2011-01-18 15:21:33.71184+00', NULL, 1, 446581, 9);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 49161, '2011-01-18 15:21:33.71184+00', '', 1, 49161, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 123054, '2011-01-18 15:21:33.71184+00', '', 1, 123054, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 24752, '2011-01-18 15:21:33.71184+00', '', 1, 24752, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 243064, '2011-01-18 15:21:33.71184+00', '', 1, 243064, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 654729, '2011-01-18 15:21:33.71184+00', '', 1, 654729, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 246898, '2011-01-18 15:21:33.71184+00', '', 1, 246898, 12);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 446581, '2011-01-18 15:21:33.71184+00', '', 1, 446581, 9);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 467794, '2011-01-18 15:21:33.71184+00', 'Chestplate Singles', 2, 446581, 9);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 59662, '2011-01-18 15:21:33.71184+00', NULL, 1, 59662, 3);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, NULL, 4675, '2011-01-18 15:21:33.71184+00', NULL, 1, 4675, 13);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 59312, '2011-01-18 15:21:33.71184+00', NULL, 1, 59312, 13);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 558940, '2011-01-18 15:21:33.71184+00', NULL, 1, 558940, 13);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 2, 558944, '2011-01-18 15:21:33.71184+00', NULL, 2, 558940, 6);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 372913, '2011-01-18 15:21:33.71184+00', NULL, 1, 372913, 2);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 238598, '2011-01-18 15:21:33.71184+00', NULL, 1, 238598, 2);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 361465, '2011-01-18 15:21:33.71184+00', NULL, 1, 361465, 2);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 8312, '2011-01-18 15:21:33.71184+00', NULL, 1, 8312, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 19969, '2011-01-18 15:21:33.71184+00', NULL, 1, 19969, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 31689, '2011-01-18 15:21:33.71184+00', NULL, 1, 31689, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 31690, '2011-01-18 15:21:33.71184+00', NULL, 1, 31690, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 6, 278075, '2011-01-18 15:21:33.71184+00', NULL, 1, 278075, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 338506, '2011-01-18 15:21:33.71184+00', NULL, 1, 338506, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 73608, '2011-01-18 15:21:33.71184+00', NULL, 2, 338506, 4);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 400930, '2011-01-18 15:21:33.71184+00', NULL, 1, 400930, 5);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 400929, '2011-01-18 15:21:33.71184+00', NULL, 2, 400930, 6);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 741970, '2011-01-18 15:21:33.71184+00', NULL, 1, 741970, 6);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 748905, '2011-01-18 15:21:33.71184+00', NULL, 1, 748905, 11);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 442242, '2011-01-18 15:21:33.71184+00', NULL, 1, 442242, 3);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 748906, '2011-01-18 15:21:33.71184+00', NULL, 1, 748906, 3);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 12998, '2011-01-18 15:21:33.71184+00', NULL, 1, 12998, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 278984, '2011-01-18 15:21:33.71184+00', NULL, 1, 278984, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 441328, '2011-01-18 15:21:33.71184+00', NULL, 1, 441328, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 479654, '2011-01-18 15:21:33.71184+00', NULL, 1, 479654, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 513103, '2011-01-18 15:21:33.71184+00', NULL, 1, 513103, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 523041, '2011-01-18 15:21:33.71184+00', NULL, 1, 523041, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 553372, '2011-01-18 15:21:33.71184+00', NULL, 1, 553372, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 601118, '2011-01-18 15:21:33.71184+00', NULL, 1, 601118, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 630918, '2011-01-18 15:21:33.71184+00', NULL, 1, 630918, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 630919, '2011-01-18 15:21:33.71184+00', NULL, 1, 630919, 8);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 32094, '2011-01-18 15:21:33.71184+00', NULL, 1, 32094, 14);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 509518, '2011-01-18 15:21:33.71184+00', NULL, 1, 509518, 14);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 329521, '2011-01-18 15:21:33.71184+00', NULL, 1, 329521, 2);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 329523, '2011-01-18 15:21:33.71184+00', NULL, 2, 329521, 2);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 207481, '2011-01-18 15:21:33.71184+00', NULL, 1, 207481, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 580942, '2011-01-18 15:21:33.71184+00', NULL, 1, 580942, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596488, '2011-01-18 15:21:33.71184+00', NULL, 1, 596488, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596489, '2011-01-18 15:21:33.71184+00', NULL, 1, 596489, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596490, '2011-01-18 15:21:33.71184+00', NULL, 1, 596490, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 596491, '2011-01-18 15:21:33.71184+00', NULL, 1, 596491, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 596492, '2011-01-18 15:21:33.71184+00', NULL, 1, 596492, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 672077, '2011-01-18 15:21:33.71184+00', NULL, 1, 672077, 10);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 375273, '2011-01-18 15:21:33.71184+00', NULL, 1, 375273, 9);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 459740, '2011-01-18 15:21:33.71184+00', NULL, 1, 459740, 15);
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 1279200, '2013-01-25 14:09:41.827297-06', NULL, 1, 1247355, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 59662, '2011-01-18 15:21:33.71184+00', '', 1, 59662, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, NULL, 4675, '2011-01-18 15:21:33.71184+00', '', 1, 4675, 13);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 59312, '2011-01-18 15:21:33.71184+00', '', 1, 59312, 13);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 558940, '2011-01-18 15:21:33.71184+00', '', 1, 558940, 13);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 2, 558944, '2011-01-18 15:21:33.71184+00', '', 2, 558940, 6);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 372913, '2011-01-18 15:21:33.71184+00', '', 1, 372913, 2);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 238598, '2011-01-18 15:21:33.71184+00', '', 1, 238598, 2);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 361465, '2011-01-18 15:21:33.71184+00', '', 1, 361465, 2);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 8312, '2011-01-18 15:21:33.71184+00', '', 1, 8312, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 19969, '2011-01-18 15:21:33.71184+00', '', 1, 19969, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 31689, '2011-01-18 15:21:33.71184+00', '', 1, 31689, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 31690, '2011-01-18 15:21:33.71184+00', '', 1, 31690, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 6, 278075, '2011-01-18 15:21:33.71184+00', '', 1, 278075, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 338506, '2011-01-18 15:21:33.71184+00', '', 1, 338506, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 73608, '2011-01-18 15:21:33.71184+00', '', 2, 338506, 4);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 400930, '2011-01-18 15:21:33.71184+00', '', 1, 400930, 5);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 400929, '2011-01-18 15:21:33.71184+00', '', 2, 400930, 6);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 741970, '2011-01-18 15:21:33.71184+00', '', 1, 741970, 6);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 748905, '2011-01-18 15:21:33.71184+00', '', 1, 748905, 11);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 442242, '2011-01-18 15:21:33.71184+00', '', 1, 442242, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 748906, '2011-01-18 15:21:33.71184+00', '', 1, 748906, 3);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 12998, '2011-01-18 15:21:33.71184+00', '', 1, 12998, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 278984, '2011-01-18 15:21:33.71184+00', '', 1, 278984, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 441328, '2011-01-18 15:21:33.71184+00', '', 1, 441328, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 479654, '2011-01-18 15:21:33.71184+00', '', 1, 479654, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 513103, '2011-01-18 15:21:33.71184+00', '', 1, 513103, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 523041, '2011-01-18 15:21:33.71184+00', '', 1, 523041, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 553372, '2011-01-18 15:21:33.71184+00', '', 1, 553372, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 601118, '2011-01-18 15:21:33.71184+00', '', 1, 601118, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 630918, '2011-01-18 15:21:33.71184+00', '', 1, 630918, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 630919, '2011-01-18 15:21:33.71184+00', '', 1, 630919, 8);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 32094, '2011-01-18 15:21:33.71184+00', '', 1, 32094, 14);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 509518, '2011-01-18 15:21:33.71184+00', '', 1, 509518, 14);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 329521, '2011-01-18 15:21:33.71184+00', '', 1, 329521, 2);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 329523, '2011-01-18 15:21:33.71184+00', '', 2, 329521, 2);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 207481, '2011-01-18 15:21:33.71184+00', '', 1, 207481, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 580942, '2011-01-18 15:21:33.71184+00', '', 1, 580942, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596488, '2011-01-18 15:21:33.71184+00', '', 1, 596488, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596489, '2011-01-18 15:21:33.71184+00', '', 1, 596489, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 7, 596490, '2011-01-18 15:21:33.71184+00', '', 1, 596490, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 596491, '2011-01-18 15:21:33.71184+00', '', 1, 596491, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 596492, '2011-01-18 15:21:33.71184+00', '', 1, 596492, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 672077, '2011-01-18 15:21:33.71184+00', '', 1, 672077, 10);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 375273, '2011-01-18 15:21:33.71184+00', '', 1, 375273, 9);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 459740, '2011-01-18 15:21:33.71184+00', '', 1, 459740, 15);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 1279200, '2013-01-25 14:09:41.827297-06', '', 1, 1247355, 3);
 
 -- Tracks
 
@@ -2519,7 +2507,6 @@ INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 
 INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
-SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
 
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 
@@ -2686,9 +2673,9 @@ INSERT INTO link_attribute (attribute_type, created, link) VALUES (229, '2011-01
 
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (12282, 229, 'crazy guitar');
 
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 398438, 45799, '2011-01-18 15:31:00.495651+00', 6101);
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 100300, 180273, 4168, '2011-01-18 15:31:00.495651+00', 6103);
-INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 82524, 265420, 127517, '2011-05-16 15:03:23.368437+00', 6490);
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 398598, 398438, 45799, '2011-01-18 15:31:00.495651+00', 6101, '', '');
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 100300, 180273, 4168, '2011-01-18 15:31:00.495651+00', 6103, '', '');
+INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link, entity0_credit, entity1_credit) VALUES (0, 82524, 265420, 127517, '2011-05-16 15:03:23.368437+00', 6490, 'Maki Goto', '7nin Matsuri');
 
 INSERT INTO l_artist_label (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398438, 3933, 201, '2011-01-18 15:31:00.495651+00', 11764);
 INSERT INTO l_artist_label (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 9772, 1949, 2367, '2011-01-18 15:31:00.495651+00', 11714);

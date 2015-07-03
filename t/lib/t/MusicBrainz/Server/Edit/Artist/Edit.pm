@@ -82,7 +82,7 @@ is($edit->display_data->{gender}->{old}, undef);
 is($edit->display_data->{gender}->{new}->{name}, 'Male');
 is($edit->display_data->{area}->{old}, undef);
 is($edit->display_data->{area}->{new}->{name}, 'United Kingdom');
-is($edit->display_data->{comment}->{old}, '');
+is($edit->display_data->{comment}->{old}, 'UK group');
 is($edit->display_data->{comment}->{new}, 'New comment');
 is($edit->display_data->{begin_date}->{old}->format, '');
 is($edit->display_data->{begin_date}->{new}->format, '1990-05-10');
@@ -184,8 +184,8 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $artist = $c->model('Artist')->get_by_id(2);
     is($artist->name, 'Renamed artist', 'artist renamed');
-    is($artist->sort_name, 'Sort FOO', 'comment changed');
-    is($artist->comment, '');
+    is($artist->sort_name, 'Sort FOO', 'sort name changed');
+    is($artist->comment, 'UK group', 'comment unchanged');
 };
 
 test 'Check IPI changes' => sub {
@@ -299,8 +299,28 @@ test 'Edits are idempotent' => sub {
 
     my $artist = $c->model('Artist')->get_by_id(2);
     is($artist->name, 'Renamed artist', 'artist renamed');
-    is($artist->sort_name, 'Sort FOO', 'comment changed');
-    is($artist->comment, '');
+    is($artist->sort_name, 'Sort FOO', 'sort name changed');
+    is($artist->comment, 'UK group', 'comment unchanged');
+};
+
+test 'An artist with a non-empty comment is not a duplicate of itself' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        name => 'artist name',
+        ipi_codes => [],
+        isni_codes => [],
+    );
+
+    $edit->accept;
+
+    my $artist = $c->model('Artist')->get_by_id(2);
+    is($artist->name, 'artist name', 'artist renamed');
 };
 
 sub _create_full_edit {
@@ -328,7 +348,7 @@ sub is_unchanged {
     is($artist->name, 'Artist Name');
     is($artist->sort_name, 'Artist Name');
     is($artist->$_, undef) for qw( type_id area_id gender_id );
-    is($artist->comment, '');
+    is($artist->comment, 'UK group');
     ok($artist->begin_date->is_empty);
     ok($artist->end_date->is_empty);
 }

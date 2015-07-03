@@ -1,0 +1,7 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+ALTER TABLE event
+    DROP CONSTRAINT IF EXISTS only_non_empty;
+
+COMMIT;

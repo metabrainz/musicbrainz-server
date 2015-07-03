@@ -10,7 +10,7 @@ cpanm --notest --installdeps .
 echo `date` : "Rebuilding resources"
 npm install
 
-UGLIFY=1 script/compile_resources.pl
+script/compile_resources.pl
 
 echo `date` : "Building and installing translations"
 make -C po all_quiet && make -C po deploy

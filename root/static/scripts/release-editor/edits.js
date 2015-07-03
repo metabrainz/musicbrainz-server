@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var debounce = require('../common/utility/debounce.js');
-var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
+var clean = require('../common/utility/clean');
+var debounce = require('../common/utility/debounce');
+var isPositiveInteger = require('../edit/utility/isPositiveInteger');
 
 (function (releaseEditor) {
 
@@ -17,7 +18,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
     var newReleaseLabels = utils.withRelease(function (release) {
         return _.filter(release.labels(), function (releaseLabel) {
             var label = releaseLabel.label();
-            return (label && label.id) || _.str.clean(releaseLabel.catalogNumber());
+            return (label && label.id) || clean(releaseLabel.catalogNumber());
         });
     }, []);
 
@@ -25,7 +26,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var releaseName = _.str.clean(release.name());
+            var releaseName = clean(release.name());
             var releaseAC = release.artistCredit;
             var origData = MB.edit.fields.releaseGroup(releaseGroup);
             var editData = _.cloneDeep(origData);
@@ -47,7 +48,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
                     return [MB.edit.releaseGroupEdit(editData, origData)];
                 }
             } else if (releaseEditor.action === "add") {
-                editData.name = _.str.clean(releaseGroup.name) || releaseName;
+                editData.name = clean(releaseGroup.name) || releaseName;
                 editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
                 return [MB.edit.releaseGroupCreate(editData)];
             }
@@ -469,7 +470,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
                 // We're done!
 
                 // Don't ask for confirmation before redirecting.
-                window.onbeforeunload = null;
+                root.redirecting = true;
 
                 if (releaseEditor.redirectURI) {
                     var a = document.createElement("a");

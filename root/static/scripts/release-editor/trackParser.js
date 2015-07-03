@@ -3,7 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var _ = require('lodash');
 var getSimilarity = require('../edit/utility/similarity');
+var clean = require('../common/utility/clean');
+var isBlank = require('../common/utility/isBlank');
+var getCookie = require('../common/utility/getCookie');
+var setCookie = require('../common/utility/setCookie');
 
 MB.releaseEditor = MB.releaseEditor || {};
 
@@ -33,7 +38,7 @@ MB.releaseEditor.trackParser = {
         var self = this;
 
         var options = ko.toJS(this.options);
-        var lines = _.reject(_.str.lines(str), _.str.isBlank);
+        var lines = _.reject(str.split('\n'), isBlank);
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
@@ -49,11 +54,12 @@ MB.releaseEditor.trackParser = {
             previousTracks = currentTracks.slice(0);
             hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
-        }
 
-        if (hasTocs) {
-            // Don't add more tracks than the CDTOC allows.
-            lines = lines.slice(0, currentTracks.length);
+            // Don't add more tracks than the CDTOC allows. If there are data
+            // tracks, then more can be added at the end.
+            if (hasTocs && !medium.hasDataTracks()) {
+                lines = lines.slice(0, currentTracks.length);
+            }
         }
 
         var newTracksData = $.map(lines, function (line) {
@@ -151,7 +157,7 @@ MB.releaseEditor.trackParser = {
                     matchedTrack.name(data.name);
                 }
 
-                if (options.useTrackLengths && !hasTocs && data.formattedLength) {
+                if (options.useTrackLengths && (!hasTocs || matchedTrack.isDataTrack.peek()) && data.formattedLength) {
                     matchedTrack.formattedLength(data.formattedLength);
                 }
 
@@ -165,31 +171,55 @@ MB.releaseEditor.trackParser = {
             return MB.releaseEditor.fields.Track(data, medium);
         });
 
-        // Force the number of tracks if there's a CDTOC.
         if (medium) {
             currentTracks = medium.tracks.peek();
 
-            var currentTrackCount = currentTracks.length,
-                dataTracksEnded = false;
+            var currentTrackCount = currentTracks.length;
+            var difference = newTracks.length - currentTrackCount;
+            var oldAudioTrackCount = medium.audioTracks.peek().length;
 
-            if (hasTocs && newTracks.length < currentTrackCount) {
-                var difference = currentTrackCount - newTracks.length;
-
-                while (difference-- > 0) {
-                    newTracks.push(MB.releaseEditor.fields.Track({
-                        length: currentTracks[currentTrackCount - difference - 1].length.peek()
-                    }, medium));
-                }
-            }
-
+            // Make sure data tracks are contiguous at the end of the medium.
             if (medium.hasDataTracks()) {
-                // Data tracks must be contiguous at the end of the medium.
-                _.each(newTracks.concat().reverse(), function (track) {
-                    if (dataTracksEnded) {
-                        track.isDataTrack(false);
-                    } else if (!track.isDataTrack()) {
+                var dataTracksEnded = false;
+
+                _.each(newTracks.slice(0).reverse(), function (t, index) {
+                    // Don't touch the data track boundary if the total number
+                    // of tracks is >= the previous number. The user can edit
+                    // things manually if it needs fixing. Since we're
+                    // iterating backwards, the condition is checking that we
+                    // don't exceed the point where the audio tracks end.
+                    if (difference >= 0) {
+                        t.isDataTrack(index < (newTracks.length - oldAudioTrackCount));
+                    // Otherwise, keep isDataTrack true for ones that stayed at
+                    // the end, but unset it if they somehow moved up in the
+                    // tracklist and are no longer contiguous.
+                    } else if (dataTracksEnded) {
+                        t.isDataTrack(false);
+                    } else if (!t.isDataTrack()) {
                         dataTracksEnded = true;
                     }
+                });
+            }
+
+            // Force a minimum number of audio tracks if there's a CDTOC.
+            var newAudioTrackCount = _.sum(newTracks, function (t) {
+                return t.isDataTrack() ? 0 : 1;
+            });
+
+            if (hasTocs && newAudioTrackCount < oldAudioTrackCount) {
+                difference = oldAudioTrackCount - newAudioTrackCount;
+
+                newTracks.splice.apply(
+                    newTracks,
+                    [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
+                        return MB.releaseEditor.fields.Track({
+                            length: currentTracks[newAudioTrackCount + n].length.peek()
+                        }, medium);
+                    }))
+                );
+
+                _.each(newTracks, function (t, index) {
+                    t.position(index + 1);
                 });
             }
         }
@@ -235,7 +265,7 @@ MB.releaseEditor.trackParser = {
         var data = {};
 
         // trim only, keeping tabs and other space separators intact.
-        line = _.str.trim(line);
+        line = line.trim();
 
         if (line === "") return data;
 
@@ -276,7 +306,7 @@ MB.releaseEditor.trackParser = {
         // Parse the track title and artist.
         if (!options.hasTrackArtists) {
             if (options.useTrackNames) {
-                data.name = _.str.clean(line);
+                data.name = clean(line);
             }
             return data;
         }
@@ -299,10 +329,12 @@ MB.releaseEditor.trackParser = {
                 // Use whatever's left as the name, including any separators.
                 var withoutArtist = _.take(parts, _.lastIndexOf(parts, artist));
 
-                data.name = _.str.trim(withoutArtist.join(""), this.separators);
+                data.name = withoutArtist.join("")
+                    .replace(new RegExp('^' + this.separators.source), '')
+                    .replace(new RegExp(this.separators.source + '$'), '');
             }
         } else if (options.useTrackNames) {
-            data.name = _.str.clean(line);
+            data.name = clean(line);
         }
 
         // Either of these could be the artist name (they may have to be
@@ -320,11 +352,11 @@ MB.releaseEditor.trackParser = {
     },
 
     separatorOrBlank: function (str) {
-        return this.separators.test(str) || _.str.isBlank(str);
+        return this.separators.test(str) || isBlank(str);
     },
 
     cleanArtistName: function (name) {
-        return _.str.clean(name)
+        return clean(name)
             // Artist, The -> The Artist
             .replace(/(.*),\sThe$/i, "The $1")
             .replace(/\s*,/g, ",");
@@ -364,14 +396,14 @@ MB.releaseEditor.trackParser = {
 };
 
 function optionCookie(name, defaultValue) {
-    var existingValue = $.cookie(name);
+    var existingValue = getCookie(name);
 
     var observable = ko.observable(
         defaultValue ? existingValue !== "false" : existingValue === "true"
     );
 
     observable.subscribe(function (newValue) {
-        $.cookie(name, newValue, { path: "/", expires: 365 });
+        setCookie(name, newValue);
     });
 
     return observable;

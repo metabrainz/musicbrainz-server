@@ -46,7 +46,7 @@ var debounce = require('../common/utility/debounce.js');
 
             if (!gid) return;
 
-            var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
+            var url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
 
             loadingFromRG = true;
             toggleLoadingIndicator(true);

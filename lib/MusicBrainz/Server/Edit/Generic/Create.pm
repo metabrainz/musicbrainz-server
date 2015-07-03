@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Generic::Create;
+use utf8;
 use Moose;
 use MooseX::ABC;
 
@@ -50,17 +51,33 @@ sub insert
     $self->entity_gid($entity->{gid}) if exists $entity->{gid};
 }
 
-sub reject
-{
+sub reject {
     my $self = shift;
+    my $model = $self->c->model($self->_create_model);
 
-    $self->c->model($self->_create_model)->delete($self->entity_id);
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'This edit can’t be rejected because the entity is being used.',
+    ) unless $model->can_delete($self->entity_id);
+
+    $model->delete($self->entity_id);
 }
 
 sub _insert_hash
 {
     my ($self, $data) = @_;
     return $data;
+}
+
+sub _is_disambiguation_needed {
+    my ($self, %opts) = @_;
+
+    my $table = $self->c->model($self->_create_model)->_table;
+    return $self->c->sql->select_single_value(
+        "SELECT 1 FROM $table
+         WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))
+         LIMIT 1",
+        $opts{name}
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

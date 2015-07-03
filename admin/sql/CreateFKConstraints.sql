@@ -411,6 +411,26 @@ ALTER TABLE editor_collection
    FOREIGN KEY (type)
    REFERENCES editor_collection_type(id);
 
+ALTER TABLE editor_collection_area
+   ADD CONSTRAINT editor_collection_area_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_area
+   ADD CONSTRAINT editor_collection_area_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE editor_collection_artist
+   ADD CONSTRAINT editor_collection_artist_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_artist
+   ADD CONSTRAINT editor_collection_artist_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
 ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_collection
    FOREIGN KEY (collection)
@@ -420,6 +440,46 @@ ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_event
    FOREIGN KEY (event)
    REFERENCES event(id);
+
+ALTER TABLE editor_collection_instrument
+   ADD CONSTRAINT editor_collection_instrument_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_instrument
+   ADD CONSTRAINT editor_collection_instrument_fk_instrument
+   FOREIGN KEY (instrument)
+   REFERENCES instrument(id);
+
+ALTER TABLE editor_collection_label
+   ADD CONSTRAINT editor_collection_label_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_label
+   ADD CONSTRAINT editor_collection_label_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE editor_collection_place
+   ADD CONSTRAINT editor_collection_place_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_place
+   ADD CONSTRAINT editor_collection_place_fk_place
+   FOREIGN KEY (place)
+   REFERENCES place(id);
+
+ALTER TABLE editor_collection_recording
+   ADD CONSTRAINT editor_collection_recording_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_recording
+   ADD CONSTRAINT editor_collection_recording_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
 
 ALTER TABLE editor_collection_release
    ADD CONSTRAINT editor_collection_release_fk_collection
@@ -431,10 +491,40 @@ ALTER TABLE editor_collection_release
    FOREIGN KEY (release)
    REFERENCES release(id);
 
+ALTER TABLE editor_collection_release_group
+   ADD CONSTRAINT editor_collection_release_group_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_release_group
+   ADD CONSTRAINT editor_collection_release_group_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE editor_collection_series
+   ADD CONSTRAINT editor_collection_series_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_series
+   ADD CONSTRAINT editor_collection_series_fk_series
+   FOREIGN KEY (series)
+   REFERENCES series(id);
+
 ALTER TABLE editor_collection_type
    ADD CONSTRAINT editor_collection_type_fk_parent
    FOREIGN KEY (parent)
    REFERENCES editor_collection_type(id);
+
+ALTER TABLE editor_collection_work
+   ADD CONSTRAINT editor_collection_work_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_work
+   ADD CONSTRAINT editor_collection_work_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
 
 ALTER TABLE editor_language
    ADD CONSTRAINT editor_language_fk_editor
@@ -2231,6 +2321,21 @@ ALTER TABLE recording
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
 
+ALTER TABLE recording_alias
+   ADD CONSTRAINT recording_alias_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_alias
+   ADD CONSTRAINT recording_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES recording_alias_type(id);
+
+ALTER TABLE recording_alias_type
+   ADD CONSTRAINT recording_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES recording_alias_type(id);
+
 ALTER TABLE recording_annotation
    ADD CONSTRAINT recording_annotation_fk_recording
    FOREIGN KEY (recording)
@@ -2317,6 +2422,21 @@ ALTER TABLE release
    FOREIGN KEY (script)
    REFERENCES script(id);
 
+ALTER TABLE release_alias
+   ADD CONSTRAINT release_alias_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_alias
+   ADD CONSTRAINT release_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES release_alias_type(id);
+
+ALTER TABLE release_alias_type
+   ADD CONSTRAINT release_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_alias_type(id);
+
 ALTER TABLE release_annotation
    ADD CONSTRAINT release_annotation_fk_release
    FOREIGN KEY (release)
@@ -2357,6 +2477,21 @@ ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_type
    FOREIGN KEY (type)
    REFERENCES release_group_primary_type(id);
+
+ALTER TABLE release_group_alias
+   ADD CONSTRAINT release_group_alias_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_alias
+   ADD CONSTRAINT release_group_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES release_group_alias_type(id);
+
+ALTER TABLE release_group_alias_type
+   ADD CONSTRAINT release_group_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_group_alias_type(id);
 
 ALTER TABLE release_group_annotation
    ADD CONSTRAINT release_group_annotation_fk_release_group

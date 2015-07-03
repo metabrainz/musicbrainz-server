@@ -7,7 +7,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
 
-sub edit_name     { N_l('Edit release name (historic)') }
+sub edit_name     { N_l('Edit release') }
 sub edit_kind     { 'edit' }
 sub historic_type { 3 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_NAME }

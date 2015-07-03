@@ -142,8 +142,8 @@ sub lookup : Chained('load') PathPart('')
         unless $rels{url};
 
     if ($c->stash->{inc}->tags) {
-        my ($tags, $hits) = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);
-        $c->stash->{data}{tags} = $tags;
+        my @tags = $c->model('ReleaseGroup')->tags->find_tags($release->release_group->id);
+        $c->stash->{data}{tags} = \@tags;
     }
 
     if ($c->stash->{inc}->user_tags) {

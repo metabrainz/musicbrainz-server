@@ -8,24 +8,32 @@ with 't::Mechanize', 't::Context';
 test all => sub {
     my $test = shift;
     my $mech = $test->mech;
-    my $c    = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_test_database($test->c);
 
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
+    html_ok($mech->content);
+    $mech->content_contains('Nobody has tagged this yet');
 
     # Test tagging
-    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
-    html_ok($mech->content);
-    my $response = $mech->submit_form(
-        with_fields => {
-            'tag.tags' => 'Broken, Fixme',
-        }
-    );
-    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
-    html_ok($mech->content);
+    $mech->get_ok('/login');
+    $mech->submit_form(with_fields => {username => 'new_editor', password => 'password'});
 
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/upvote?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
+    html_ok($mech->content);
+    $mech->content_contains('broken');
+    $mech->content_contains('fixme');
+
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/withdraw?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
+    html_ok($mech->content);
+    $mech->content_lacks('broken');
+    $mech->content_lacks('fixme');
+
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/downvote?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
+    html_ok($mech->content);
     $mech->content_contains('broken');
     $mech->content_contains('fixme');
 };

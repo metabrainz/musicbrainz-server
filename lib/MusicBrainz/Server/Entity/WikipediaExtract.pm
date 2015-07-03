@@ -29,7 +29,7 @@ sub url
     my $self = shift;
     my $title = $self->title;
     $title =~ tr/ /_/;
-    return sprintf "//%s.wikipedia.org/wiki/%s", $self->language, uri_escape_utf8($title);
+    return sprintf "https://%s.wikipedia.org/wiki/%s", $self->language, uri_escape_utf8($title);
 }
 
 __PACKAGE__->meta->make_immutable;

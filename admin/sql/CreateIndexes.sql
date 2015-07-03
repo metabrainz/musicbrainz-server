@@ -374,6 +374,9 @@ CREATE UNIQUE INDEX recording_idx_gid ON recording (gid);
 CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
 
+CREATE INDEX recording_alias_idx_recording ON recording_alias (recording);
+CREATE UNIQUE INDEX recording_alias_idx_primary ON recording_alias (recording, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
 
 CREATE INDEX recording_rating_raw_idx_editor ON recording_rating_raw (editor);
@@ -387,6 +390,9 @@ CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
 CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
+
+CREATE INDEX release_alias_idx_release ON release_alias (release);
+CREATE UNIQUE INDEX release_alias_idx_primary ON release_alias (release, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX release_tag_idx_tag ON release_tag (tag);
 
@@ -407,6 +413,9 @@ CREATE INDEX release_country_idx_country ON release_country (country);
 CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);
 CREATE INDEX release_group_idx_name ON release_group (name);
 CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
+
+CREATE INDEX release_group_alias_idx_release_group ON release_group_alias (release_group);
+CREATE UNIQUE INDEX release_group_alias_idx_primary ON release_group_alias (release_group, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
 

@@ -39,7 +39,7 @@ test 'Can accept' => sub {
     is($test->edit->status, $STATUS_APPLIED);
 
     my $url = $test->c->model('URL')->get_by_id(2);
-    is($url->url, 'http://apple.com');
+    is($url->url, 'http://apple.com/');
     is($url->edits_pending, 0);
 };
 
@@ -63,7 +63,7 @@ test 'Entering the same edit twice is OK' => sub {
     is($test->edit->status, $STATUS_APPLIED);
 
     my $url = $test->c->model('URL')->get_by_id(2);
-    is($url->url, 'http://apple.com');
+    is($url->url, 'http://apple.com/');
     is($url->edits_pending, 0);
 };
 
@@ -89,7 +89,7 @@ test 'Can edit 2 URLs into a common URL' => sub {
             editor_id => 1,
             privileges => 1,
             to_edit => $test->c->model('URL')->get_by_id($url_to_edit),
-            url => 'http://musicbrainz.org'
+            url => 'http://lalalalala.horse/'
         );
     };
 
@@ -134,7 +134,7 @@ sub _build_edit {
         edit_type => $EDIT_URL_EDIT,
         editor_id => 1,
         to_edit => $test->c->model('URL')->get_by_id($url_to_edit || 2),
-        url => $url || 'http://apple.com',
+        url => $url || 'http://apple.com/',
     );
 }
 

@@ -201,6 +201,8 @@ function addPostedRelationships(source) {
     }
 }
 
+var loadingEntities = {};
+
 function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
@@ -243,14 +245,22 @@ function addRelationshipsFromQueryString(source) {
             }, []);
         }
 
-        if (target.entityType) {
+        if (target.entityType && target.name) {
             addSubmittedRelationship(data, source);
-        } else {
-            request({ url: '/ws/js/entity/' + rel.target })
-              .done(function (targetData) {
-                  data.target = targetData;
-                  addSubmittedRelationship(data, source);
-              });
+        } else if (targetIsUUID) {
+            var gid = rel.target;
+            var req = loadingEntities[gid];
+
+            if (!req) {
+                req = request({url: '/ws/js/entity/' + gid});
+                loadingEntities[gid] = req;
+            }
+
+            req.done(function (targetData) {
+                data.target = targetData;
+                addSubmittedRelationship(data, source);
+                delete loadingEntities[gid];
+            });
         }
     });
 }

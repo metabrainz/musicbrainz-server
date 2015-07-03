@@ -19,7 +19,7 @@ has_field 'end_date' => (
 
 has_field 'ended' => (
     type => 'Checkbox',
-    default => 0
+    input_without_param => undef,
 );
 
 after 'validate' => sub {

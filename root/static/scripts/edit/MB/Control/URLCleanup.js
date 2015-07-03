@@ -696,7 +696,15 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?tedcrane\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?thedancegypsy\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?bibliotekapiosenki\\.pl", "i"),
-            new RegExp("^(https?://)?(www\\.)?finna\\.fi", "i")
+            new RegExp("^(https?://)?(www\\.)?finna\\.fi", "i"),
+            new RegExp("^(https?://)?(www\\.)?castalbums\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?folkwiki\\.se", "i"),
+            new RegExp("^(https?://)?(www\\.)?mvdbase\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?smdb\\.kb\\.se", "i"),
+            new RegExp("^(https?://)?(www\\.)?operadis-opera-discography\\.org\\.uk", "i"),
+            new RegExp("^(https?://)?(www\\.)?spirit-of-rock\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?tunearch\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?videogam\\.in", "i")
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
@@ -1024,7 +1032,7 @@ MB.Control.URLCleanup = (function () {
     };
 
     self.cleanUrl = function (dirtyURL) {
-        dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
+        dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
             return cleanup.clean && test_all(cleanup.match, dirtyURL);
@@ -1047,13 +1055,13 @@ MB.Control.URLCleanup.registerEvents = function ($url) {
         }
 
         // Allow adding spaces while typing; they'll be trimmed later onblur.
-        if (_.str.trim(url) !== clean) {
+        if (url.trim() !== clean) {
             $url.val(clean);
         }
     }
 
     $url.on('input', urlChanged)
-        .on('blur', function () { this.value = _.str.trim(this.value) })
+        .on('blur', function () { this.value = this.value.trim() })
         .parents('form').on('submit', urlChanged);
 };
 

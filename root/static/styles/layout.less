@@ -1,10 +1,13 @@
+html {
+    font-size: @default-text-size; /* The "rem" unit is based on the font size of the html tag */
+}
+
 body {
     padding: 0;
     margin: 0;
     background-color: @very-light-bg;
     color: @text-black;
-    font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
-    font-size: 12px;
+    font-family: @sans-serif;
     min-width: @min-width;
     margin: auto;
 
@@ -57,7 +60,7 @@ p {
 h1 {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 150%;
+    font-size: @very-large-text;
 }
 
 h1 a { color: @text-black !important; }
@@ -66,20 +69,20 @@ h2,
 fieldset legend {
     margin-top: 1em;
     margin-bottom: 0;
-    font-size: 120%;
+    font-size: @large-text;
     color: @text-orange;
     font-weight: bold;
 }
 
 #sidebar h2, .sidebar h2 {
-    font-size: 100%;
+    font-size: @medium-text;
     margin-left: -5px;
 }
 
 h3 {
     margin-top: 1em;
     margin-bottom: 0;
-    font-size: 100%;
+    font-size: @medium-text;
     font-weight: bold;
 }
 
@@ -177,7 +180,7 @@ img.gravatar {
 #header-menu {
     background: @musicbrainz-orange;
     position: relative;
-    font-size: 95%;
+    font-size: @small-text;
     font-weight: bold;
     z-index: 9;
 
@@ -276,36 +279,6 @@ img.gravatar {
     margin-top: 0; /* Remove the space above the merge-helper H2 */
 }
 
-.warning-header,
-.flash,
-.server-details {
-    margin: 10px 0;
-    text-align: center;
-    font-weight: bold;
-    background: #FFFFFF;
-    padding: 10px;
-    border: 0;
-    color: @text-orange;
-    position: relative;
-
-    @media @wide {
-        border-radius: 6px;
-    }
-
-    p {
-        margin: 0;
-    }
-}
-
-.flash {
-    color: @text-black;
-    font-weight: normal;
-}
-
-.warning-header {
-    color: @text-black;
-}
-
 div.caa-warning,
 div.warning {
     margin: 2em auto;
@@ -339,7 +312,7 @@ div.warning img.warning {
 #sidebar {
     padding-left: 16px;
     width: 218px;
-    font-size: 95%;
+    font-size: @small-text;
     border-left: 1px solid @light-border;
 }
 
@@ -407,6 +380,77 @@ div.warning img.warning {
     display: block;
 }
 
+#sidebar-tags {
+    ul {
+        padding-left: @form-margin;
+    }
+    button {
+        padding: 2px 6px;
+    }
+}
+
+#all-tags .tag-list li {
+    height: 24px;
+    &.even { background: @even-table-row; }
+}
+
+.tag-list {
+    padding: 0;
+    list-style: none;
+
+    li {
+        clear: right;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        a {
+            display: inline-block;
+            word-break: break-all;
+            padding: 4px;
+            flex-grow: 1;
+            -webkit-flex-grow: 1;
+        }
+    }
+}
+
+.tag-count {
+    display: inline-block;
+    background: @light-grey;
+    text-align: center;
+    padding: 4px 6px;
+    margin-left: 6px;
+}
+
+.tag-vote {
+    border: 0;
+    color: @dark-grey;
+    background: none;
+    font-size: @large-text;
+    font-weight: 900;
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+.tag-vote-buttons {
+    white-space: nowrap;
+}
+
+.tag-upvoted {
+    .tag-count { background: @positive-bg; }
+    .tag-upvote { color: @positive-text; }
+}
+
+.tag-downvoted {
+    .tag-count { background: @negative-bg; }
+    .tag-downvote { color: @negative-text; }
+}
+
+.tag-vote:hover:not(:disabled) {
+    color: @text-orange;
+}
+
 /*
 ** Footer
 */
@@ -414,7 +458,7 @@ div.warning img.warning {
     height: 1em;
     margin: 1em 0;
     padding: 0 1em;
-    font-size: 90%;
+    font-size: @small-text;
     color: @very-dark-text;
 }
 
@@ -456,7 +500,7 @@ tr.diff-changes {
 .lastupdate,
 .annotation-details,
 .small {
-    font-size: 90%;
+    font-size: @small-text;
     color: @very-dark-text;
     font-style: italic;
 }
@@ -479,7 +523,7 @@ table.tbl {
     }
 
     th {
-        font-size: 95%;
+        font-size: @small-text;
         padding: 0.2em 0.4em;
         text-align: left;
         border-bottom: solid 1px @dark-border;
@@ -508,7 +552,7 @@ table.tbl {
 
     tr.subh {
         td, th {
-            font-size: 95%;
+            font-size: @small-text;
             background: data-uri('../images/layout/table-header-2.gif') repeat-x 0 50%;
             font-weight: bold;
             border-top: solid 1px @dark-border;
@@ -749,7 +793,7 @@ table.properties th {
     }
 
     .naglink {
-        font-size: 200%;
+        font-size: @extremely-large-text;
     }
 }
 
@@ -813,7 +857,7 @@ div.artwork { position: relative; width: 250px; }
     border: 1px solid darken(@musicbrainz-purple, 20%);
     border-radius: 3px;
     padding: 2px;
-    font-size: 16px;
+    font-size: @very-large-text;
     font-weight: bold;
     position: absolute;
     top: 3px;
@@ -867,7 +911,7 @@ a.tagger-icon {
 dl.ars, dl.ars dd, dl.ars dt {
     padding: 0;
     margin: 0;
-    font-size: 11px;
+    font-size: @small-text;
 }
 
 dl.ars { margin-left: 2em; line-height: 2.2ex; }
@@ -890,7 +934,7 @@ dl.ars dt {
 #critiquebrainz-reviews {
     .review-metadata {
         margin: 0;
-        font-size: 90%;
+        font-size: @small-text;
     }
 
     .review-body {

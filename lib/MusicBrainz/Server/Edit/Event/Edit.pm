@@ -30,6 +30,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Event';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
 sub edit_type { $EDIT_EVENT_EDIT }

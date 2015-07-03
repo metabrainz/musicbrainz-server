@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../i18n.js');
-
-var formatTrackLength = require('../../utility/formatTrackLength.js');
+var i18n = require('../../i18n');
+var clean = require('../../utility/clean');
+var formatTrackLength = require('../../utility/formatTrackLength');
+var isBlank = require('../../utility/isBlank');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -294,7 +295,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     _searchTimeout: function (event) {
         var newTerm = this._value();
 
-        if (_.str.isBlank(newTerm)) {
+        if (isBlank(newTerm)) {
             clearTimeout(this.searching);
             this.close();
             return;
@@ -312,8 +313,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         // Support pressing <space> to trigger a search, but ignore it if the
         // menu is already open.
         if (this.menu.element.is(':visible')) {
-            newTerm = _.str.clean(newTerm);
-            oldTerm = _.str.clean(oldTerm);
+            newTerm = clean(newTerm);
+            oldTerm = clean(oldTerm);
         }
 
         // only search if the value has changed
@@ -458,7 +459,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             return this._renderAction(ul, item);
         }
         var formatters = MB.Control.autocomplete_formatters;
-        return (formatters[this.entity] || formatters.generic)(ul, item);
+        var entityType = formatters[this.entity] ? this.entity : 'generic';
+        return formatters[entityType](ul, item);
     },
 
     changeEntity: function (entity) {
@@ -564,7 +566,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -609,7 +611,7 @@ MB.Control.autocomplete_formatters = {
             }
 
             a.append('<br /><span class="autocomplete-appears">appears on: ' +
-                      _.escape(rgs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
@@ -618,10 +620,58 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs && item.isrcs.length)
         {
             a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      _.escape(item.isrcs.join(", ")) + '</span>');
+                     _.escape(i18n.commaOnlyList(item.isrcs)) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
+    },
+
+    "release": function (ul, item) {
+        var $li = this.generic(ul, item);
+        var $a = $li.children('a');
+
+        appendComment($a, _.escape(MB.entity.ArtistCredit(item.artistCredit).text()));
+
+        item.events && item.events.forEach(function (event) {
+            var country = event.country;
+            var countryHTML = '';
+
+            if (country) {
+                countryHTML = `<span class="flag flag-${country.code}"><abbr title="${country.name}">${country.code}</abbr></span>`;
+            }
+
+            appendComment(
+                $a,
+                (event.date ? _.escape(event.date) : '') +
+                (countryHTML ? maybeParentheses(countryHTML, event.date) : '')
+            );
+        });
+
+        _(item.labels)
+            .groupBy(getLabelName)
+            .each(function (releaseLabels, name) {
+                var catalogNumbers = _(releaseLabels).map(getCatalogNumber).compact().sort().value();
+
+                if (catalogNumbers.length > 2) {
+                    appendComment(
+                        $a,
+                        name +
+                        maybeParentheses(_.first(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
+                    );
+                } else {
+                    _.each(releaseLabels, function (releaseLabel) {
+                        var name = getLabelName(releaseLabel);
+                        appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
+                    });
+                }
+            })
+            .value();
+
+        if (item.barcode) {
+            appendComment($a, item.barcode);
+        }
+
+        return $li;
     },
 
     "release-group": function (ul, item) {
@@ -683,7 +733,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -696,8 +746,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -718,15 +767,14 @@ MB.Control.autocomplete_formatters = {
                       _.escape(item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
-             var items = [];
-             if (item.typeName) items.push(_.escape(item.typeName));
-             if (item.parentCity) items.push(_.escape(item.parentCity));
-             if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
-             if (item.parentCountry) items.push(_.escape(item.parentCountry));
-             a.append('<br /><span class="autocomplete-comment">' +
-                       items.join(", ") +
-                       '</span>');
+        if (item.typeName || item.parent_country || item.parent_subdivision || item.parent_city) {
+            var items = [];
+            if (item.typeName) {
+                items.push(_.escape(item.typeName));
+            }
+            items.push(renderContainingAreas(item));
+            a.append('<br /><span class="autocomplete-comment">' +
+                     _.escape(i18n.commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -750,18 +798,16 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
-        if (item.typeName || item.area) {
-             a.append('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? _.escape(item.typeName) : '') +
-                       (item.typeName && item.area ? ', ' : '') +
-                       (item.area ? _.escape(item.area) : '') +
-                       (item.areaParentCity ? ', ' + _.escape(item.areaParentCity) : '') +
-                       (item.areaParentSubdivision ? ', ' + _.escape(item.areaParentSubdivision) : '') +
-                       (item.areaParentCountry ? ', ' + _.escape(item.areaParentCountry) : '') +
-                       '</span>');
+        var area = item.area;
+        if (item.typeName || area) {
+            a.append('<br /><span class="autocomplete-comment">' +
+                     (item.typeName ? _.escape(item.typeName) : '') +
+                     (item.typeName && item.area ? ', ' : '') +
+                     (area ? _.escape(area.name) + ', ' + renderContainingAreas(area) : '') +
+                     '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -787,7 +833,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.description) {
@@ -816,7 +862,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join(", ")) + ')</span>');
+                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName) {
@@ -838,8 +884,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                        prefix + ': ' +
-                        _.escape(toRender.join(", ")) + '</span>');
+                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -852,6 +897,40 @@ MB.Control.autocomplete_formatters = {
     }
 
 };
+
+function maybeParentheses(text, condition) {
+    return condition ? ` (${text})` : text;
+}
+
+function appendComment($a, comment) {
+    return $a.append(`<br /><span class="autocomplete-comment">${comment}</span>`);
+}
+
+function getLabelName(releaseLabel) {
+    return releaseLabel.label ? releaseLabel.label.name : '';
+}
+
+function getCatalogNumber(releaseLabel) {
+    return releaseLabel.catalogNumber || '';
+}
+
+function renderContainingAreas(area) {
+    var strings = [];
+
+    if (area.parent_city) {
+        strings.push(_.escape(area.parent_city.name));
+    }
+
+    if (area.parent_subdivision) {
+        strings.push(_.escape(area.parent_subdivision.name));
+    }
+
+    if (area.parent_country) {
+        strings.push(_.escape(area.parent_country.name));
+    }
+
+    return i18n.commaOnlyList(strings);
+}
 
 /*
    MB.Control.EntityAutocomplete is a helper class which simplifies using

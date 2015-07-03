@@ -33,6 +33,7 @@ ALTER TABLE l_event_place_example DROP CONSTRAINT IF EXISTS l_event_place_exampl
 ALTER TABLE l_event_recording_example DROP CONSTRAINT IF EXISTS l_event_recording_example_fk_id;
 ALTER TABLE l_event_release_example DROP CONSTRAINT IF EXISTS l_event_release_example_fk_id;
 ALTER TABLE l_event_release_group_example DROP CONSTRAINT IF EXISTS l_event_release_group_example_fk_id;
+ALTER TABLE l_event_series_example DROP CONSTRAINT IF EXISTS l_event_series_example_fk_id;
 ALTER TABLE l_event_url_example DROP CONSTRAINT IF EXISTS l_event_url_example_fk_id;
 ALTER TABLE l_event_work_example DROP CONSTRAINT IF EXISTS l_event_work_example_fk_id;
 ALTER TABLE l_instrument_instrument_example DROP CONSTRAINT IF EXISTS l_instrument_instrument_example_fk_id;

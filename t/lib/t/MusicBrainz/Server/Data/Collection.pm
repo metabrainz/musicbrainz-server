@@ -110,6 +110,8 @@ ok($coll_data->contains_entity('event', 3, 4), 'Event #4 in collection #3.');
 $coll_data->delete_entities('event', 4);
 ok(!$coll_data->contains_entity('event', 3, 4), 'Now Event #4 is not in collection #3.');
 
+ok($coll_data->contains_entity('work', 5, 1), 'Work #1 is in collection #5');
+
 };
 
 1;

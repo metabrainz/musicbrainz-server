@@ -1,3 +1,8 @@
+[%- MACRO plural_type_name(type_name) BLOCK -%]
+    [%-    IF type_name == 'series'; 'series';
+         ELSE ; type_name _ 's';
+       END -%]
+[% END %]
 [% WRAPPER "collection/layout.tt" page='index' %]
 
     <div class="description">
@@ -7,33 +12,18 @@
        [%- END -%]
     </div>
 
-    [%- IF collection.type.entity_type == 'release' -%]
-        <h2>[% l('Releases') %]</h2>
+    <h2>[% format_plural_entity_type_name(collection.type.entity_type) %]</h2>
 
-        [%- IF releases.size -%]
-          <form action="[% c.req.uri %]" method="post">
-            [%- INCLUDE 'components/releases-list.tt' show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' -%]
+    [%- IF entities.size -%]
+    <form action="[% c.req.uri %]" method="post">
+      [%- list_tt = 'components/' _ plural_type_name(collection.type.entity_type) _ '-list.tt';
+          INCLUDE $list_tt show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
+            WRAPPER 'components/with-pager.tt' -%]
 
-            <div class="row">[% form_submit(l('Remove selected releases from collection'))
-                 IF my_collection %]</div>
-          </form>
-        [%- ELSE -%]
-            <p>[%- l('No releases found in collection.') -%]</p>
-        [%- END -%]
-
-    [%- ELSIF collection.type.entity_type == 'event' -%]
-        <h2>[% l('Events') %]</h2>
-
-        [%- IF events.size -%]
-          <form action="[% c.req.uri %]" method="post">
-
-            [% INCLUDE 'components/events-list.tt' checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' %]
-
-            <div class="row">[% form_submit(l('Remove selected events from collection'))
-                 IF my_collection %]</div>
-          </form>
-        [%- ELSE -%]
-            <p>[%- l('No events found in this list.') -%]</p>
-        [%- END -%]
+      [% form_submit(l('Remove selected items from collection')) WRAPPER form_row IF my_collection %]
+    </form>
+    [%- ELSE -%]
+    <p>[%- l('This collection is empty.') -%]</p>
     [%- END -%]
+
 [% END %]

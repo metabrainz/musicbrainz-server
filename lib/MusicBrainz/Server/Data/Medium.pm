@@ -130,6 +130,8 @@ sub insert
     return @medium_hashes > 1 ? @created : $created[0];
 }
 
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, @ids) = @_;

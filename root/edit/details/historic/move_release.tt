@@ -1,4 +1,4 @@
-<table class="details move-release">
+<table class="details edit-release">
   <tr>
     <th>[% l('Releases:') %]</th>
     <td colspan="2">
@@ -11,7 +11,7 @@
   </tr>
 
   <tr>
-    <th>[% l('Move tracks:') %]</th>
+    <th>[% l('Change track artists:') %]</th>
     <td colspan="2">[% yesno(edit.display_data.move_tracks) %]</td>
   </tr>
 

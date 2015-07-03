@@ -31,34 +31,7 @@ sub prepare_test_database {
     my $c = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-
-    $c->sql->do(
-    q{
-        INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
-        VALUES (486, 'zxx', 'zxx', '', 'zxx', 'No linguistic content');
-
-        INSERT INTO script (id, iso_code, iso_number, name)
-        VALUES (112, 'Zsym', '996', 'Symbols');
-
-        INSERT INTO area (id, gid, name, type)
-        VALUES (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1);
-
-        INSERT INTO country_area (area) VALUES (107);
-
-        INSERT INTO artist (id, gid, name, sort_name)
-        VALUES (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms'),
-               (66666, '1e6092a0-73d3-465a-b06a-99c81f7bec37', 'a fake artist', 'a fake artist');
-
-        INSERT INTO url (id, gid, url)
-        VALUES (2, 'de409476-4ad8-4ce8-af2f-d47bee0edf97', 'http://en.wikipedia.org/wiki/Boredoms');
-
-        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
-        VALUES (3, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url', '-');
-
-        SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
-        SELECT setval('l_artist_recording_id_seq', (SELECT MAX(id) FROM l_artist_recording));
-        SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
-    });
+    MusicBrainz::Server::Test->prepare_test_database($c, '+ws_js_edit');
 }
 
 test 'previewing/creating/editing a release group and release' => sub {
@@ -201,6 +174,48 @@ test 'previewing/creating/editing a release group and release' => sub {
             id => ignore(),
             languageID => 486,
             gid => ignore(),
+            annotation => '',
+            artistCredit => [
+                {
+                    joinPhrase => ' plus ',
+                    artist => {
+                        comment => '',
+                        entityType => 'artist',
+                        gid => '0798d15b-64e2-499f-9969-70167b1d8617',
+                        id => 39282,
+                        name => 'Boredoms',
+                        sortName => 'Boredoms'
+                    }
+                },
+                {
+                    joinPhrase => ' and a trailing join phrase',
+                    artist => {
+                        comment => '',
+                        entityType => 'artist',
+                        name => 'a fake artist',
+                        gid => '1e6092a0-73d3-465a-b06a-99c81f7bec37',
+                        id => 66666,
+                        sortName => 'a fake artist'
+                    }
+                }
+            ],
+            events => [
+                {
+                    country => {
+                       entityType => 'area',
+                       comment => '',
+                       code => undef,
+                       typeID => 1,
+                       name => 'Japan',
+                       gid => '2db42837-c832-3c27-b4a3-08198f75693c',
+                       id => 107,
+                       parent_city => undef,
+                       parent_country => undef,
+                       parent_subdivision => undef,
+                    },
+                    date => '1999-10-27'
+                }
+            ],
         },
         message => 'OK',
     }, 'ws response contains serialized release data');
@@ -213,6 +228,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             release     => $release_id,
             position    => 1,
             format_id   => 1,
+            name        => '',
             tracklist   => [
                 {
                     position        => 1,
@@ -868,7 +884,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $invalid_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 3,
+        linkTypeID  => 4,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'HAHAHA' }
@@ -886,7 +902,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $unsupported_protocol = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 3,
+        linkTypeID  => 4,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'gopher://example.com/' }
@@ -904,7 +920,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $non_canonical_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 3,
+        linkTypeID  => 4,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'http://en.Wikipedia.org:80/wiki/Boredoms' }

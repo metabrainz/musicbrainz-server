@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    order_by
     placeholders
     query_to_list
     query_to_list_limited
@@ -28,6 +29,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'work' }
 
@@ -113,6 +115,20 @@ sub find_by_iswc
         $query, $iswc);
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        },
+    });
+
+    return $order_by;
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -154,7 +170,7 @@ sub _merge_impl
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('work', $new_id, \@old_ids);
     $self->c->model('ISWC')->merge_works($new_id, @old_ids);
 
     $self->sql->do(

@@ -6,11 +6,11 @@ BEGIN { extends 'Catalyst' }
 use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
+use JSON;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
 use Try::Tiny;
-use List::Util qw( max );
 use aliased 'MusicBrainz::Server::Translation';
 
 # Set flags and add plugins for the application
@@ -365,14 +365,6 @@ around dispatch => sub {
     my $max_request_time = DBDefs->DETERMINE_MAX_REQUEST_TIME($c->req);
 
     if (defined($max_request_time) && $max_request_time > 0) {
-        my $context = $c->model('MB')->context;
-
-        my $max_statement_time = max $max_request_time * 0.7, $max_request_time - 5;
-            # give the controller some time to deal with an aborted statement
-        $max_statement_time *= 1000; # database expects milliseconds
-        $context->sql->auto_commit;
-        $context->sql->do("SET statement_timeout = $max_statement_time");
-
         alarm($max_request_time);
         POSIX::sigaction(
             SIGALRM, POSIX::SigAction->new(sub {
@@ -382,6 +374,7 @@ around dispatch => sub {
                 $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
 
+                my $context = $c->model('MB')->context;
                 if (my $sth = $context->sql->sth) {
                     $sth->cancel;
                 }
@@ -427,6 +420,13 @@ sub try_get_session {
     my ($c, $key) = @_;
     return $c->sessionid ? $c->session->{$key} : undef;
 }
+
+has json => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->convert_blessed;
+    }
+);
 
 =head1 NAME
 

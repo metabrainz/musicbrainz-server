@@ -60,5 +60,3 @@ INSERT INTO medium (id, release, track_count, position)
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
     VALUES (6, 'c0bc3e2c-a22a-40fd-818d-ca0e470b9c02', 'Track on recording', 3, 6, 1, 1, 1),
            (7, '0db74133-476a-4a60-b749-a92db4959a83', 'Track on recording', 3, 7, 1, 1, 1);
-
-ALTER SEQUENCE release_group_id_seq RESTART 6;

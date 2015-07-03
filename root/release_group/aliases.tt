@@ -1,0 +1,6 @@
+[%- WRAPPER "release_group/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=rg
+        delete_path='/release_group/delete_alias'
+        add_path='/release_group/add_alias'
+        edit_path='/release_group/edit_alias' -%]
+[%- END -%]

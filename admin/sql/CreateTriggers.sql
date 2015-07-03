@@ -391,6 +391,18 @@ CREATE TRIGGER a_upd_recording AFTER UPDATE ON recording
 CREATE TRIGGER a_del_recording AFTER DELETE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_del_recording();
 
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON recording_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_recording_alias BEFORE UPDATE ON recording_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON recording_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_recording_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON recording_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
 CREATE TRIGGER b_upd_recording_tag BEFORE UPDATE ON recording_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -405,6 +417,18 @@ CREATE TRIGGER a_del_release AFTER DELETE ON release
 
 CREATE TRIGGER b_upd_release BEFORE UPDATE ON release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_release_alias BEFORE UPDATE ON release_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON release_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_release_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON release_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
 CREATE TRIGGER a_ins_release_event AFTER INSERT ON release_country
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_event();
@@ -438,6 +462,18 @@ CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
 
 CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON release_group_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_release_group_alias BEFORE UPDATE ON release_group_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON release_group_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_release_group_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON release_group_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
 CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -792,6 +828,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_work_work DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 --------------------------------------------------------------------------------
+
+CREATE CONSTRAINT TRIGGER url_gc_a_upd_url
+AFTER UPDATE ON url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_area_url
 AFTER UPDATE ON l_area_url DEFERRABLE INITIALLY DEFERRED

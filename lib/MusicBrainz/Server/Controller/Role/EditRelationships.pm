@@ -11,13 +11,6 @@ use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
-    sub serialize_entity {
-        my ($source, $type) = @_;
-
-        my $method = "_$type";
-        return JSONSerializer->$method($source) if $source;
-    }
-
     sub load_entities {
         my ($c, $source_type, @rels) = @_;
 
@@ -72,8 +65,7 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $source_entity = $source ? serialize_entity($source, $source_type) :
-                                    { entityType => $source_type };
+        my $source_entity = $source ? JSONSerializer->$source_type($source) : {entityType => $source_type};
 
         if ($source) {
             my @existing_relationships =
@@ -153,10 +145,8 @@ role {
             if (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
                 $args{end_date} = $period->{end_date} if $period->{end_date};
-                $args{ended} = $period->{ended} if $period->{ended};
+                $args{ended} = $period->{ended} if defined $period->{ended};
             }
-
-            $args{ended} ||= 0;
 
             my $relationship;
             if ($field->{relationship_id}) {
@@ -197,6 +187,8 @@ role {
 
                 $args{entity0} = $field->{forward} ? $source : $target;
                 $args{entity1} = $field->{forward} ? $target : $source;
+                $args{entity0_credit} = $field->{entity0_credit};
+                $args{entity1_credit} = $field->{entity1_credit};
                 $args{link_order} = $field->{link_order} // 0;
             }
 

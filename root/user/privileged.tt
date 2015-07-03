@@ -19,7 +19,7 @@
     <p>[% l('Auto-editors are trusted users who have been given {url|auto-editor} privileges.
              These privileges allow them to make select edits that are automatically approved
              without going through the normal voting process, as well as the ability to
-             instantly approve other users\' edits.', { url => doc_link('Auto-Editor') }) %]</p>
+             instantly approve other users\' edits.', { url => doc_link('Editor') }) %]</p>
     <p>[% l('The following {count} users have auto-editor privileges:', { count => auto_editors.size }) %]</p>
     [%- INCLUDE results editors=auto_editors -%]
 

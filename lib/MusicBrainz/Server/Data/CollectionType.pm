@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::CollectionType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'collection_type' };
@@ -45,6 +46,12 @@ sub in_use {
         'SELECT 1 FROM editor_collection WHERE type = ? LIMIT 1',
         $id);
 }
+
+around '_get_all_from_db' => sub {
+    my ($orig, $self, @args) = @_;
+
+    return grep { $ENTITIES{$_->entity_type}{collections} } $self->$orig(@args);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

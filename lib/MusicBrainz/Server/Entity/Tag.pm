@@ -9,6 +9,10 @@ has 'name' => (
     isa => 'Str'
 );
 
+sub TO_JSON {
+    return shift->name;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

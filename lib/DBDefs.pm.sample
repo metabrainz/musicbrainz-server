@@ -52,7 +52,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -61,7 +60,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect to a test database
     TEST => {
         database    => "musicbrainz_test",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -70,7 +68,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
         database    => "musicbrainz_db",
-        schema          => "musicbrainz",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
@@ -84,6 +81,16 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
+    # How to connect when running maintenance scripts located under admin/.
+    # This defaults to READWRITE if left undefined, but should be configured if
+    # READWRITE points to a connection pooler that doesn't support session-based features.
+#   MAINTENANCE    => {
+#       database    => "musicbrainz_db",
+#       username    => "musicbrainz",
+#       password        => "musicbrainz",
+#       host            => "",
+#       port            => "5432",
+#   },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
 );
@@ -92,7 +99,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 21 }
+sub DB_SCHEMA_SEQUENCE { 22 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -108,6 +115,13 @@ sub DB_SCHEMA_SEQUENCE { 21 }
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 # sub REPLICATION_TYPE { RT_STANDALONE }
+
+# If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
+# you must sign in at https://metabrainz.org and generate an access token to access
+# the replication packets. Enter the access token below:
+# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
+#
+# sub REPLICATION_ACCESS_TOKEN { "" }
 
 ################################################################################
 # GPG Signature

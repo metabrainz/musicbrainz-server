@@ -44,9 +44,9 @@ $link_id = $test->c->model('Link')->find_or_insert({
     attributes => [ map +{ type => { id => $_ } }, (1, 3) ],
 });
 $test->c->sql->commit;
-is($link_id, 100);
+is($link_id, 5);
 
-my $link = $test->c->model('Link')->get_by_id(100);
+my $link = $test->c->model('Link')->get_by_id(5);
 is_deeply($link->begin_date, { year => 2009 });
 is_deeply($link->end_date, { year => 2010 });
 
@@ -59,7 +59,7 @@ $link_id = $test->c->model('Link')->find_or_insert({
     attributes => [ map +{ type => { id => $_ } }, (1, 3) ],
 });
 $test->c->sql->commit;
-is($link_id, 100, "find_or_insert() correctly re-uses a link with end date");
+is($link_id, 5, "find_or_insert() correctly re-uses a link with end date");
 
 $test->c->sql->begin;
 $link_id = $test->c->model('Link')->find_or_insert({

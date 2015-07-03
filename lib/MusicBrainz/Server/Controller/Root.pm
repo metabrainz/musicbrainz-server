@@ -197,8 +197,12 @@ sub begin : Private
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
     my $alert = '';
+    my $alert_mtime;
     try {
-        $alert = $c->model('MB')->context->redis->get('alert');
+        my $redis = $c->model('MB')->context->redis;
+
+        $alert = $redis->get('alert');
+        $alert_mtime = $redis->get('alert_mtime');
     } catch {
         $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
         warn "Redis connection to get alert failed: $_";
@@ -211,7 +215,8 @@ sub begin : Private
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
             is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
             read_only      => DBDefs->DB_READ_ONLY,
-            alert => $alert
+            alert => $alert,
+            alert_mtime => $alert_mtime
         },
         favicon_css_classes => FAVICON_CLASSES,
     );

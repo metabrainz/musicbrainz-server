@@ -31,6 +31,3 @@ INSERT INTO place_annotation (place, annotation) VALUES (1, 1);
 INSERT INTO place_annotation (place, annotation) VALUES (2, 2);
 
 INSERT INTO place_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 1);
-
-SELECT setval('place_id_seq', (SELECT MAX(id) FROM place));
-SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));

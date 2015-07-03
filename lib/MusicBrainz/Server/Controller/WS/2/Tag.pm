@@ -8,6 +8,8 @@ use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 my $ws_defs = Data::OptList::mkopt([
      tag => {
                          method   => 'GET',
@@ -64,7 +66,7 @@ sub tag_submit : Private
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
-    my @submit;
+    my $submit = {};
     for my $node ($xp->find('/mb:metadata/*/*')->get_nodelist)
     {
         my $type = $node->getLocalName;
@@ -80,17 +82,43 @@ sub tag_submit : Private
         my $entity = $c->model($model)->get_by_gid($gid);
         $self->_error($c, "Cannot find $type $gid.") unless $entity;
 
-        # postpone any updates until we've made some effort to parse the whole
-        # body and report possible errors in it.
-        push @submit, { model => $model,  entity => $entity, tags => [ map {
-                $_->string_value
-            } $xp->find('mb:user-tag-list/mb:user-tag/mb:name', $node)->get_nodelist ], };
+        my @new_user_tags = $xp->find('mb:user-tag-list/mb:user-tag', $node)->get_nodelist;
+        my $has_votes;
+
+        for (@new_user_tags) {
+            my $name = $xp->find('mb:name', $_)->string_value;
+            my $vote = 'upvote';
+
+            if ($xp->exists('@mb:vote', $_)) {
+                # If none of the user-tag nodes have 'vote' attributes, assume
+                # the legacy behavior of treating the submission as the entire
+                # set of 'upvoted' tags.
+                $has_votes = 1;
+
+                $vote = $xp->find('@mb:vote', $_)->string_value;
+                unless ($vote ~~ [qw(upvote downvote withdraw)]) {
+                    $self->_error($c, 'Unrecognized vote type: ' . $vote);
+                }
+            }
+
+            $submit->{$name} = [$model, $vote, $entity->id];
+        }
+
+        unless ($has_votes) {
+            # Legacy behavior: withdraw upvotes for tags not in the submission.
+            my @old_user_tags = $c->model($model)->tags->find_user_tags($c->user->id, $entity->id);
+
+            for (@old_user_tags) {
+                if (!exists($submit->{$_->tag->name}) && $_->is_upvote) {
+                    $submit->{$_->tag->name} = [$model, 'withdraw', $entity->id];
+                }
+            }
+        }
     }
 
-    for (@submit)
-    {
-        $c->model($_->{model})->tags->update(
-            $c->user->id, $_->{entity}->id, join(", ", @{ $_->{tags} }));
+    while (my ($tag, $args) = each %$submit) {
+        my ($model, $vote, $entity_id) = @$args;
+        $c->model($model)->tags->$vote($c->user->id, $entity_id, $tag);
     }
 
     $c->detach('success');

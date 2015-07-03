@@ -1,7 +1,7 @@
 [% BLOCK recording_row_checkbox %]
-  [% IF c.user_exists && !no_checkboxes %]
+  [% IF c.user_exists && checkboxes %]
   <td>
-    <input type="checkbox" name="add-to-merge" value="[% recording.id %]" />
+    <input type="checkbox" name="[% checkboxes %]" value="[% recording.id %]" />
   </td>
   [% END %]
 [% END %]
@@ -11,7 +11,7 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists && !no_checkboxes %]
+            [% IF c.user_exists && (checkboxes || merging) %]
             <th style="width: 1em">
               [% IF select_all %]
                 <input type="checkbox" />
@@ -24,17 +24,18 @@
             [%- IF show_video -%]
                 <th class="video c"></th>
             [%- END -%]
-            <th>[%- l('Name') -%]</th>
+            <th>[%~ sortable ? sortable_table_header('name', l('Name')) : l('Name') ~%]</th>
             [%- IF show_artists -%]
-                <th>[%- l('Artist') -%]</th>
+                <th>[%~ sortable ? sortable_table_header('artist', l('Artist')) : l('Artist') ~%]</th>
             [%- END -%]
             <th>[% l('ISRCs') %]</th>
             [% UNLESS no_ratings %]<th class="rating c">[% l('Rating') %]</th>[% END %]
-            <th>[%- l('Length') -%]</th>
+            <th>[%~ sortable ? sortable_table_header('length', l('Length')) : l('Length') -%]</th>
             [% IF instrument_credits.size %]<th>[% l('Instrument Credits') %]</th>[% END %]
         </tr>
     </thead>
     <tbody>
+        [%~ DEFAULT recordings=entities ~%]
         [%- FOR recording=recordings -%]
           [% IF recording.gid %]
           <tr class="[% loop.parity %]">

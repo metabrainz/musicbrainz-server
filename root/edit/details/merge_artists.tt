@@ -1,7 +1,7 @@
 <table class="details merge-artists">
   [% INCLUDE 'edit/details/merge_common.tt' %]
   <tr class="rename-artist-credits">
-    <th>[% l('Rename artist credits') %]</th>
+    <th>[% l('Rename artist and relationship credits') %]</th>
     <td>[% yesno(edit.data.rename) %]</td>
   </tr>
 </table>

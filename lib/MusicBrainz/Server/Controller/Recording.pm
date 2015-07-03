@@ -10,13 +10,17 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}}
+    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+};
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name => 'recording'
 };
 
 use MusicBrainz::Server::Constants qw(
@@ -106,6 +110,12 @@ sub show : Chained('load') PathPart('') {
 }
 
 sub fingerprints : Chained('load') PathPart('fingerprints') { }
+
+# Stuff that has the sidebar and needs collection info
+after [qw( show collections details tags aliases fingerprints )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 =head2 DESTRUCTIVE METHODS
 

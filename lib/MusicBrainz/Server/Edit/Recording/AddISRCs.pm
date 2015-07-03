@@ -98,7 +98,7 @@ sub accept
 
     my @new_isrcs = grep {
            my $data = $_;
-           !any { $_->isrc eq $data->{isrc} } $recordings->{$data->{recording_id}}->all_isrcs
+           $recordings->{$data->{recording_id}} && !any { $_->isrc eq $data->{isrc} } $recordings->{$data->{recording_id}}->all_isrcs
         } map +{
             recording_id => $_->{recording}{id},
             isrc => $_->{isrc},

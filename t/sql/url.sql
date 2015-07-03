@@ -1,6 +1,5 @@
 SET client_min_messages TO 'warning';
 
-
 INSERT INTO url (id, gid, url)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/'),
            (2, '9b3c5c67-572a-4822-82a3-bdd3f35cf152', 'http://microsoft.com'),
@@ -17,7 +16,3 @@ INSERT INTO link (id, link_type) VALUES (1, 1);
 INSERT INTO link (id, link_type) VALUES (2, 2);
 INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 1, 100, 3);
 INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (2, 2, 100, 4);
-
-SELECT setval('url_id_seq', (SELECT max(id) FROM url));
-SELECT setval('link_id_seq', (SELECT max(id) FROM link));
-SELECT setval('l_artist_url_id_seq', (SELECT max(id) FROM l_artist_url));

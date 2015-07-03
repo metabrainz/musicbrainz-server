@@ -32,6 +32,8 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Place';
+with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Edit place') }
 sub edit_type { $EDIT_PLACE_EDIT }
@@ -186,6 +188,19 @@ before restore => sub {
         $side->{coordinates} = undef
             if defined $side->{coordinates} && !defined $side->{coordinates}{latitude};
     }
+};
+
+override _is_disambiguation_needed => sub {
+    my ($self, %opts) = @_;
+
+    my ($name, $area_id) = $opts{qw(name area_id)};
+    my $duplicate_areas = $self->c->sql->select_single_column_array(
+        'SELECT area FROM place
+         WHERE id != ? AND musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
+        $self->current_instance->id, $name
+    );
+
+    return $self->_possible_duplicate_area($area_id, @$duplicate_areas);
 };
 
 __PACKAGE__->meta->make_immutable;

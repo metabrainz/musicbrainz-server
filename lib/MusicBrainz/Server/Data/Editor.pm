@@ -122,7 +122,7 @@ sub _get_tags_for_type
 
     my $query = "SELECT tag, count(tag)
         FROM ${type}_tag_raw
-        WHERE editor = ?
+        WHERE editor = ? AND is_upvote
         GROUP BY tag";
 
     my $results = $self->c->sql->select_list_of_hashes($query, $id);
@@ -313,16 +313,16 @@ sub update_privileges
 {
     my ($self, $editor, $values) = @_;
 
-    my $privs =   $values->{auto_editor}      * $AUTO_EDITOR_FLAG
-                + $values->{bot}              * $BOT_FLAG
-                + $values->{untrusted}        * $UNTRUSTED_FLAG
-                + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
-                + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
-                + $values->{no_nag}           * $DONT_NAG_FLAG
-                + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
-                + $values->{banner_editor}    * $BANNER_EDITOR_FLAG
-                + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
-                + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
+    my $privs =   ($values->{auto_editor}      // 0) * $AUTO_EDITOR_FLAG
+                + ($values->{bot}              // 0) * $BOT_FLAG
+                + ($values->{untrusted}        // 0) * $UNTRUSTED_FLAG
+                + ($values->{link_editor}      // 0) * $RELATIONSHIP_EDITOR_FLAG
+                + ($values->{location_editor}  // 0) * $LOCATION_EDITOR_FLAG
+                + ($values->{no_nag}           // 0) * $DONT_NAG_FLAG
+                + ($values->{wiki_transcluder} // 0) * $WIKI_TRANSCLUSION_FLAG
+                + ($values->{banner_editor}    // 0) * $BANNER_EDITOR_FLAG
+                + ($values->{mbid_submitter}   // 0) * $MBID_SUBMITTER_FLAG
+                + ($values->{account_admin}    // 0) * $ACCOUNT_ADMIN_FLAG;
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs=? WHERE id=?',
@@ -422,23 +422,15 @@ sub donation_check
                  $obj->is_location_editor);
 
     my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
+    if ($nag) {
+        my $response = $self->c->lwp->get(
+            'https://metabrainz.org/donations/nag-check/' . uri_escape_utf8($obj->name)
+        );
 
-        my $response = $ua->request(HTTP::Request->new(GET =>
-            'http://metabrainz.org/donations/nag-check/' .
-            uri_escape_utf8($obj->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/) {
             $nag = $1;
             $days = $2;
-        }
-        else
-        {
+        } else {
             return undef;
         }
     }
