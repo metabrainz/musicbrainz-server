@@ -100,7 +100,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
             ipi_codes => [],
             isni_codes => []
         );
-    }, 'The given values duplicate an existing row.');
+    }, 'A disambiguation comment is required for this entity.');
 
     $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_CREATE,
