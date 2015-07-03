@@ -51,6 +51,10 @@ END; -%]
     Translation.N_ln(text, plural);
 END; -%]
 
+[%~ MACRO expand(text, args) BLOCK;
+    Translation.expand(text, args);
+END; -%]
+
 [%~ MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -687,7 +691,7 @@ END -%]
         phrase = relationship.verbose_phrase;
         SET phrase = '{entity0} ' _ phrase UNLESS phrase.match('\{entity0\}');
         SET phrase = phrase _ ' {entity1}' UNLESS phrase.match('\{entity1\}');
-        l(phrase, {
+        expand(phrase, {
             entity0 => descriptive_link(relationship.source, relationship.source_credit),
             entity1 => descriptive_link(relationship.target, relationship.target_credit)
         });
