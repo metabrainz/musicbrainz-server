@@ -4,7 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -225,20 +225,15 @@ sub _serialize_collection
 
     my $entity_type = $collection->type->entity_type;
 
-    if ($entity_type eq 'release') {
-        if ($toplevel) {
-            $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash);
-        } elsif ($collection->loaded_entity_count) {
-            push @collection, $gen->release_list({ count => $collection->entity_count });
-        }
-    }
+    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
 
-    if ($entity_type eq 'event') {
-        if ($toplevel) {
-            $self->_serialize_event_list(\@collection, $gen, $opts->{events}, $inc, $stash);
-        } elsif ($collection->loaded_entity_count) {
-            push @collection, $gen->event_list({ count => $collection->entity_count });
-        }
+    my $ser = "_serialize_${entity_type}_list";
+    my $gen_list = "${entity_type}_list";
+
+    if ($toplevel) {
+        $self->$ser(\@collection, $gen, $opts->{$plural}, $inc, $stash);
+    } elsif ($collection->loaded_entity_count) {
+        push @collection, $gen->$gen_list({ count => $collection->entity_count });
     }
 
     push @$data, $gen->collection(\%attrs, @collection);
