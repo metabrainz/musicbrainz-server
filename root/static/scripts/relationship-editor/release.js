@@ -60,6 +60,9 @@ var request = require('../common/utility/request.js');
                 });
 
             window.addEventListener('beforeunload', function (event) {
+                if (self.redirecting) {
+                    return;
+                }
                 var $changes = $(".link-phrase")
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
@@ -147,9 +150,6 @@ var request = require('../common/utility/request.js');
                 edits: edits
             };
 
-            var beforeUnload = window.onbeforeunload;
-            if (beforeUnload) window.onbeforeunload = undefined;
-
             MB.edit.create(data, this)
                 .always(function () {
                     this.submissionLoading(false);
@@ -166,12 +166,11 @@ var request = require('../common/utility/request.js');
                     catch (e) {
                         this.submissionError(jqXHR.responseText);
                     }
-
-                    if (beforeUnload) window.onbeforeunload = beforeUnload;
                 });
         },
 
         submissionDone: function () {
+            this.redirecting = true;
             window.location.replace("/release/" + this.source.gid);
         },
 
