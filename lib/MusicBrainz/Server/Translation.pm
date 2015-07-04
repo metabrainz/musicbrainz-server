@@ -17,9 +17,9 @@ use MusicBrainz::Server::Validation qw( encode_entities );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l N_ln N_lp get_collator comma_list comma_only_list )],
+    exports => [qw( l lp ln N_l N_ln N_lp get_collator comma_list comma_only_list expand )],
     groups => {
-        default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list )]
+        default => [qw( l lp ln N_l N_ln N_lp comma_list comma_only_list expand )]
     }
 };
 
@@ -191,13 +191,12 @@ sub all_languages
     return \@languages;
 }
 
-sub _expand
-{
+sub expand {
     my ($self, $string, %args) = @_;
 
     my $make_link = sub {
         my ($var, $text) = @_;
-        my $final_text = defined $args{$text} ? $args{$text} : $self->_expand($text, %args);
+        my $final_text = defined $args{$text} ? $args{$text} : $self->expand($text, %args);
         if (defined $args{$var}) {
             if (ref($args{$var}) eq 'HASH') {
                 return '<a ' . join(' ', map { "$_=\"" . encode_entities($args{$var}->{$_}) . "\"" } sort keys %{ $args{$var} }) . '>' . $final_text . '</a>';

@@ -34,7 +34,7 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(decode('utf-8', dgettext($params->domain => $msgid)), %vars) if $msgid;
+        return $self->expand(decode('utf-8', dgettext($params->domain => $msgid)), %vars) if $msgid;
     };
 
     method 'pgettext' => sub
@@ -47,7 +47,7 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(decode('utf-8', dpgettext($params->domain => $msgctxt, $msgid)), %vars) if $msgid;
+        return $self->expand(decode('utf-8', dpgettext($params->domain => $msgctxt, $msgid)), %vars) if $msgid;
     };
 
     method 'ngettext' => sub
@@ -60,6 +60,6 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(decode('utf-8', dngettext($params->domain => $msgid, $msgid_plural, $n)), %vars);
+        return $self->expand(decode('utf-8', dngettext($params->domain => $msgid, $msgid_plural, $n)), %vars);
     };
 };

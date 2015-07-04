@@ -179,6 +179,15 @@ sub verbose_phrase
     return $self->_verbose_phrase->[0];
 }
 
+sub verbose_phrase_with_placeholders {
+    my ($self) = @_;
+
+    my $phrase = $self->_verbose_phrase->[0];
+    $phrase = "{entity0} $phrase" unless $phrase =~ /\{entity0\}/;
+    $phrase = "$phrase {entity1}" unless $phrase =~ /\{entity1\}/;
+    return $phrase;
+}
+
 sub extra_verbose_phrase_attributes
 {
     my ($self) = @_;
@@ -223,6 +232,10 @@ sub _interpolate {
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
+
+        # placeholders for entity names which are processed elsewhere
+        return "{$name}" if $name eq "entity0" || $name eq "entity1";
+
         delete $extra_attrs{$name} unless $type_is_orderable;
         if (!$alt) {
             return '' unless exists $attrs{$name};

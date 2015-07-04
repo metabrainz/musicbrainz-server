@@ -51,6 +51,10 @@ END; -%]
     Translation.N_ln(text, plural);
 END; -%]
 
+[%~ MACRO expand(text, args) BLOCK;
+    Translation.expand(text, args);
+END; -%]
+
 [%~ MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -683,9 +687,15 @@ END -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
-    relationship.${ phrase_field };
+    IF phrase_field == "verbose_phrase";
+        expand(relationship.verbose_phrase_with_placeholders, {
+            entity0 => descriptive_link(relationship.source, relationship.source_credit),
+            entity1 => descriptive_link(relationship.target, relationship.target_credit)
+        });
+    ELSE;
+        relationship.${ phrase_field }; ' '; descriptive_link(relationship.target, relationship.target_credit);
+    END;
     ' ';
-    descriptive_link(relationship.target, relationship.target_credit);
     IF !relationship.link.begin_date.is_empty;
         ' ';
         IF !relationship.link.end_date.is_empty;

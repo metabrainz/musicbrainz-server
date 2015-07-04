@@ -52,4 +52,10 @@ sub lp {
     }
 }
 
+sub expand {
+    my ($self, $string, $args) = @_;
+
+    return MusicBrainz::Server::Translation->instance->expand($string, %$args);
+}
+
 1;
