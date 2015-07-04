@@ -179,6 +179,15 @@ sub verbose_phrase
     return $self->_verbose_phrase->[0];
 }
 
+sub verbose_phrase_with_placeholders {
+    my ($self) = @_;
+
+    my $phrase = $self->_verbose_phrase->[0];
+    $phrase = "{entity0} $phrase" unless $phrase =~ /\{entity0\}/;
+    $phrase = "$phrase {entity1}" unless $phrase =~ /\{entity1\}/;
+    return $phrase;
+}
+
 sub extra_verbose_phrase_attributes
 {
     my ($self) = @_;

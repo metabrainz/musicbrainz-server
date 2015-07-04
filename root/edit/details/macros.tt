@@ -83,7 +83,8 @@
     <th rowspan="2">[% l('Relationship:') %]</th>
 
     <td class="old">
-      [% expand(Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+'), {
+      [% expand(Diff.diff_html_side(old_rel.verbose_phrase_with_placeholders,
+                                    new_rel.verbose_phrase_with_placeholders, '-', '\s+'), {
             entity0 => differences_span(old_rel, new_rel, 'source', 'old', 'diff-only-a'),
             entity1 => differences_span(old_rel, new_rel, 'target', 'old', 'diff-only-a')
         }) %]
@@ -93,7 +94,8 @@
   </tr>
   <tr>
     <td class="new">
-      [% expand(Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+'), {
+      [% expand(Diff.diff_html_side(old_rel.verbose_phrase_with_placeholders,
+                                    new_rel.verbose_phrase_with_placeholders, '-', '\s+'), {
             entity0 => differences_span(old_rel, new_rel, 'source', 'new', 'diff-only-b'),
             entity1 => differences_span(old_rel, new_rel, 'target', 'new', 'diff-only-b')
         }) %]
