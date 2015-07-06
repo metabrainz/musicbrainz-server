@@ -104,13 +104,13 @@ sub _cmp
     if ($a->year <= 0 || $b->year <= 0) {
         return
             $a->year <=> $b->year ||
-            (($a->month // 1) <=> ($b->month // 12)) ||
-            (($a->day // 1)   <=> ($b->day // 31));
+            (($a->month // 1) <=> ($b->month // 1)) ||
+            (($a->day // 1)   <=> ($b->day // 1));
     }
 
     # We have years for both dates, we can now assume real sorting
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
-    my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
+    my @end =   ($b->year, $b->month || 1, $b->day || 1);
 
     # Sort invalid dates first. Should make it obvious something is broken :)
     return  0 if (!Date::Calc::check_date(@begin) && !Date::Calc::check_date(@end));

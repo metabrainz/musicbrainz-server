@@ -58,6 +58,21 @@ is ($date->format, "????-??-01");
 
 my ($a, $b);
 
+$a = Date->new();
+$b = Date->new();
+ok(!($a < $b), "empty dates sort the same");
+ok(!($b > $a), "empty dates sort the same");
+
+$a = Date->new( year => 1995 );
+$b = Date->new( year => 1995 );
+ok(!($a < $b), "given only year, same year sorts the same");
+ok(!($b > $a), "given only year, same year sorts the same");
+
+$a = Date->new( year => -1995 );
+$b = Date->new( year => -1995 );
+ok(!($a < $b), "given only negative year, same year sorts the same");
+ok(!($b > $a), "given only negative year, same year sorts the same");
+
 $a = Date->new( year => 2000 );
 $b = Date->new( year => 2001 );
 ok($a < $b, "given only year, earlier sorts first");
