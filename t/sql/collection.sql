@@ -16,13 +16,11 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
            (3, 'b34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1),
            (4, 'c34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1);
 
-INSERT INTO event_type (id, name) VALUES (1, 'Festival');
-
 INSERT INTO event (id, gid, name, type) VALUES
-       (1, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 1),
-       (2, 'ebbfa8cc-a4b8-11e4-9e22-8f887e1ba67a', 'Better Festival', 1),
-       (3, 'bb857d0e-a4bc-11e4-a0f5-23485fda2851', 'Copy of the Better Festival', 1),
-       (4, 'e024804e-a4c4-11e4-884d-df918190e80e', 'Another Event', 1);
+       (1, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 2),
+       (2, 'ebbfa8cc-a4b8-11e4-9e22-8f887e1ba67a', 'Better Festival', 2),
+       (3, 'bb857d0e-a4bc-11e4-a0f5-23485fda2851', 'Copy of the Better Festival', 2),
+       (4, 'e024804e-a4c4-11e4-884d-df918190e80e', 'Another Event', 2);
 
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 
