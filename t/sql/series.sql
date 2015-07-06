@@ -20,6 +20,12 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
         'series', 'url', 0, 0, 'wikipedia',
         'Points to the Wikipedia page for this series.',
         'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'
+    ),
+    (
+        4, '707d947d-9563-328a-9a7d-0c5b9c3a9791',
+        'event', 'series', 0, 0, 'part of',
+        'Indicates that the event is part of a series.',
+        'part of', 'has parts', 'is a part of'
     );
 
 INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1);
