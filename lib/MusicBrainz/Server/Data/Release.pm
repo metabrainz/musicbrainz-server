@@ -761,7 +761,14 @@ sub update {
     $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
 
     if ($update->{events} || $update->{name}) {
-        $self->c->model('Series')->reorder_for_entities('Release', $release_id);
+        $self->c->model('Series')->reorder_for_entities('release', $release_id);
+    }
+
+    if ($update->{events} || $update->{release_group_id}) {
+        my $release_group_id = $update->{release_group_id} // $self->sql->select_single_value(
+            'SELECT release_group FROM release WHERE id = ?', $release_id
+        );
+        $self->c->model('Series')->reorder_for_entities('release_group', $release_group_id);
     }
 }
 

@@ -419,14 +419,17 @@ sub _insert_hook_after_each {
     $self->c->model('ReleaseGroupSecondaryType')->set_types($created->{id}, $rg->{secondary_type_ids});
 }
 
-sub update
-{
+sub update {
     my ($self, $group_id, $update) = @_;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
         if exists $update->{secondary_type_ids};
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('release_group', $group_id);
+    }
 }
 
 sub can_delete
@@ -651,6 +654,12 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub series_ordering {
+    my ($self, $a, $b) = @_;
+
+    return $a->entity0->first_release_date <=> $b->entity0->first_release_date;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -264,4 +264,118 @@ EOSQL
     is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3], 'releases are reordered after inserting release events');
 };
 
+test 'Release groups should be ordered by first release date, then name (MBS-7557)' => sub {
+    my $c = shift->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
+
+    $c->sql->do(<<EOSQL);
+      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 1, 1);
+
+      INSERT INTO area_type (id, name) VALUES (1, 'Country');
+
+      INSERT INTO area (id, gid, name, type)
+        VALUES
+          (1, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
+          (2, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
+
+      INSERT INTO country_area (area) VALUES (1), (2);
+
+      INSERT INTO iso_3166_1 (area, code) VALUES (1, 'GB'), (2, 'US');
+
+      INSERT INTO release_group (id, gid, name, artist_credit, type)
+        VALUES
+          (1, 'b11f4f4d-9feb-4487-85ee-79a3be288e2c', 'RG3', 1, 1),
+          (2, 'e54c7cbf-6130-426e-bca3-1b5ef85e75eb', 'RG2', 1, 1),
+          (3, '7441fe18-52c4-463c-a866-1e9cd94b689f', 'RG1', 1, 1);
+EOSQL
+
+    $c->model('Relationship')->insert('release_group', 'series', {
+        entity0_id      => 1,
+        entity1_id      => 4,
+        link_type_id    => 6,
+    });
+
+    $c->model('Relationship')->insert('release_group', 'series', {
+        entity0_id      => 2,
+        entity1_id      => 4,
+        link_type_id    => 6,
+    });
+
+    $c->model('Relationship')->insert('release_group', 'series', {
+        entity0_id      => 3,
+        entity1_id      => 4,
+        link_type_id    => 6,
+    });
+
+    my $series = $c->model('Series')->get_by_id(4);
+    $c->model('SeriesType')->load($series);
+
+    my ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
+    is_deeply([map { $_->{entity}->id } @$items], [3, 2, 1], 'release groups are ordered by name');
+
+    $c->model('ReleaseGroup')->update(1, {name => 'RG1'});
+    $c->model('ReleaseGroup')->update(3, {name => 'RG3'});
+
+    ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
+    is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3], 'release groups are re-ordered after names change');
+
+    $c->sql->do(<<EOSQL);
+      INSERT INTO release (id, gid, name, release_group, artist_credit)
+        VALUES
+          (1, '6fc3beb7-046f-4f45-b834-dc26c3254b49', 'E1', 1, 1),
+          (2, '6f77ac91-ba0a-4ddd-8d02-dcac6339ea83', 'E2', 1, 1),
+          (3, '8e56035e-7db9-4053-bc67-e2065c1bd54a', 'E3', 2, 1),
+          (4, '547e4b5c-d1d6-4224-9bbc-27448338a622', 'E4', 2, 1),
+          (5, 'ce7b51bc-74ba-4c59-a4e9-7fcb0d0f04f8', 'E5', 3, 1),
+          (6, '006758a6-1cb3-4e55-a278-d8c32d1c8afe', 'E6', 3, 1);
+EOSQL
+
+    $c->model('Release')->update(1, {
+        events => [
+            { date => { year => 2012 }, country_id => 1 },
+            { date => { year => 1988 }, country_id => 2 },
+        ]
+    });
+
+    $c->model('Release')->update(2, {
+        events => [
+            { date => { year => 1986 }, country_id => 1 },
+            { date => { year => 2013 }, country_id => 2 },
+        ]
+    });
+
+    $c->model('Release')->update(3, {
+        events => [
+            { date => { year => 2001 }, country_id => 1 },
+            { date => { year => 1977 }, country_id => 2 },
+        ]
+    });
+
+    $c->model('Release')->update(4, {
+        events => [
+            { date => { year => 2002 }, country_id => 1 },
+            { date => { year => 1976 }, country_id => 2 },
+        ]
+    });
+
+    $c->model('Release')->update(5, {
+        events => [
+            { date => { year => 1991 }, country_id => 1 },
+            { date => { year => 1990 }, country_id => 2 },
+        ]
+    });
+
+    $c->model('Release')->update(6, {
+        events => [
+            { date => { year => 1991 }, country_id => 1 },
+            { date => { year => 1990 }, country_id => 2 },
+        ]
+    });
+
+    ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
+    is_deeply([map { $_->{entity}->id } @$items], [2, 1, 3], 'release groups are reordered after inserting release events');
+};
+
 1;

@@ -32,9 +32,15 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
         'release', 'series', 0, 0, 'part of',
         'Indicates that the release is part of a series.',
         'part of', 'has parts', 'is a part of'
+    ),
+    (
+        6, '01018437-91d8-36b9-bf89-3f885d53b5bd',
+        'release_group', 'series', 0, 0, 'part of',
+        'Indicates that the release group is part of a series.',
+        'part of', 'has parts', 'is a part of'
     );
 
-INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (3, 1), (4, 2), (5, 2);
+INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (3, 1), (4, 2), (5, 2), (6, 2);
 
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
