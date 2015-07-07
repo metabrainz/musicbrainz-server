@@ -71,7 +71,7 @@ sub medium : Chained('root') PathPart Args(1) {
         }
     }
 
-    my $ret = $c->stash->{serializer}->medium($medium);
+    my $ret = $c->stash->{serializer}->_medium($medium);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($ret));
 }

@@ -162,7 +162,7 @@ sub _process_seeded_data
         if ($release_group) {
             $c->model('ArtistCredit')->load($release_group);
 
-            $result->{releaseGroup} = JSONSerializer->release_group($release_group);
+            $result->{releaseGroup} = JSONSerializer->_release_group($release_group);
 
             $result->{name} ||= $result->{releaseGroup}->{name};
             $result->{artistCredit} ||= $result->{releaseGroup}->{artistCredit};
@@ -359,7 +359,7 @@ sub _seeded_event
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {
-            $result->{country} = JSONSerializer->area($country);
+            $result->{country} = JSONSerializer->_area($country);
         } else {
             push @$errors, "Invalid $field_name.country: “$iso”.";
         }
@@ -379,7 +379,7 @@ sub _seeded_label
         my $label = $c->model('Label')->get_by_gid($gid);
 
         if ($label) {
-            $result->{label} = JSONSerializer->label($label);
+            $result->{label} = JSONSerializer->_label($label);
         }
         else {
             push @$errors, "Invalid $field_name.mbid: “$gid”."
@@ -503,7 +503,7 @@ sub _seeded_track
         if (my $recording = $c->model('Recording')->get_by_gid($gid)) {
             $c->model('ArtistCredit')->load($recording);
 
-            $result->{recording} = JSONSerializer->recording($recording);
+            $result->{recording} = JSONSerializer->_recording($recording);
         } else {
             push @$errors, "Invalid $field_name.recording: “$gid”.";
         }
@@ -543,7 +543,7 @@ sub _seeded_artist_credit_name
         my $entity = $c->model('Artist')->get_by_gid($gid);
 
         if ($entity) {
-            $result->{artist} = JSONSerializer->artist($entity);
+            $result->{artist} = JSONSerializer->_artist($entity);
             $result->{name} ||= $entity->name;
         } else {
             push @$errors, "Invalid $field_name.mbid: “$gid”.";

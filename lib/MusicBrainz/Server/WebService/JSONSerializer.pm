@@ -65,7 +65,8 @@ sub serialize_internal {
     load_class($js_model);
     $js_model->_load_entities($c, $entity);
 
-    return $self->$type($entity);
+    my $method = "_$type";
+    return $self->$method($entity);
 }
 
 sub serialize_relationships
@@ -78,7 +79,7 @@ sub serialize_relationships
 sub serialize_relationship {
     my ($self, $relationship) = @_;
 
-    my $entity = $relationship->target_type;
+    my $entity = '_' . $relationship->target_type;
     $entity =~ s/\-/_/g;
 
     my $link = $relationship->link;
@@ -111,7 +112,7 @@ sub autocomplete_generic
 {
     my ($self, $output, $pager) = @_;
 
-    my @output = map $self->generic($_), @$output;
+    my @output = map $self->_generic($_), @$output;
 
     push @output, {
         pages => $pager->last_page,
@@ -127,7 +128,7 @@ sub autocomplete_label
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->label( shift->{entity} ) }
+        sub { $self->_label( shift->{entity} ) }
     );
 
     push @$output, {
@@ -151,21 +152,21 @@ sub _generic
         $entity->meta->has_attribute('sort_name')
             ? (sortName => $entity->sort_name) : (),
         $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
-            ? (artistCredit => $self->artist_credit($entity->artist_credit)) : (),
+            ? (artistCredit => $self->_artist_credit($entity->artist_credit)) : (),
         $type ? (entityType => $type) : (),
     };
 }
 
-sub artist { _generic(@_, "artist") }
+sub _artist { _generic(@_, "artist") }
 
-sub label { _generic(@_, "label") }
+sub _label { _generic(@_, "label") }
 
 sub autocomplete_release {
     my ($self, $results, $pager) = @_;
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->release(shift->{entity}) }
+        sub { $self->_release(shift->{entity}) }
     );
 
     push @$output, {
@@ -176,7 +177,7 @@ sub autocomplete_release {
     return encode_json($output);
 }
 
-sub release {
+sub _release {
     my ($self, $release) = @_;
 
     my $data = $self->_with_relationships($release, {
@@ -194,18 +195,18 @@ sub release {
     });
 
     if ($release->release_group) {
-        $data->{releaseGroup} = $self->release_group($release->release_group);
+        $data->{releaseGroup} = $self->_release_group($release->release_group);
     }
 
     if ($release->artist_credit) {
-        $data->{artistCredit} = $self->artist_credit($release->artist_credit);
+        $data->{artistCredit} = $self->_artist_credit($release->artist_credit);
     }
 
     if (scalar($release->all_events)) {
         $data->{events} = [
             map {
                 date => $_->date->format,
-                country => defined($_->country) ? $self->area($_->country) : undef
+                country => defined($_->country) ? $self->_area($_->country) : undef
             }, $release->all_events
         ];
     }
@@ -214,21 +215,21 @@ sub release {
         $data->{labels} = [
             map {
                 id => $_->id,
-                label => $_->label ? $self->label($_->label) : undef,
+                label => $_->label ? $self->_label($_->label) : undef,
                 catalogNumber => $_->catalog_number
             }, $release->all_labels
         ];
     }
 
     if (scalar($release->all_mediums)) {
-        $data->{mediums} = [map $self->medium($_), $release->all_mediums];
+        $data->{mediums} = [map $self->_medium($_), $release->all_mediums];
         $data->{formats} = $release->combined_format_name;
     }
 
     return $data;
 }
 
-sub medium {
+sub _medium {
     my ($self, $medium) = @_;
 
     my $data = {
@@ -242,13 +243,13 @@ sub medium {
     };
 
     if ($medium->all_tracks) {
-        $data->{tracks} = [map { $self->track($_) } $medium->all_tracks];
+        $data->{tracks} = [map { $self->_track($_) } $medium->all_tracks];
     }
 
     return $data;
 }
 
-sub track {
+sub _track {
     my ($self, $track) = @_;
 
     my $output = {
@@ -259,12 +260,12 @@ sub track {
         position      => $track->position,
         number        => $track->number,
         length        => $track->length,
-        artistCredit  => $self->artist_credit( $track->artist_credit ),
+        artistCredit  => $self->_artist_credit( $track->artist_credit ),
         isDataTrack   => $track->is_data_track ? \1 : \0,
     };
 
     if ($track->recording) {
-        $output->{recording} = $self->recording( $track->recording,
+        $output->{recording} = $self->_recording( $track->recording,
             !MusicBrainz::Server::Entity::ArtistCredit::is_different(
                 $track->artist_credit, $track->recording->artist_credit) )
     }
@@ -278,7 +279,7 @@ sub autocomplete_area
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->area( shift->{entity} ) }
+        sub { $self->_area( shift->{entity} ) }
     );
 
     push @$output, {
@@ -295,7 +296,7 @@ sub autocomplete_artist
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->artist( shift->{entity} ) }
+        sub { $self->_artist( shift->{entity} ) }
     );
 
     push @$output, {
@@ -306,7 +307,7 @@ sub autocomplete_artist
     return encode_json($output);
 }
 
-sub area {
+sub _area {
     my ($self, $area) = @_;
 
     return {
@@ -352,7 +353,7 @@ sub autocomplete_release_group {
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->release_group(shift->{entity}) }
+        sub { $self->_release_group(shift->{entity}) }
     );
 
     push @$output, {
@@ -363,7 +364,7 @@ sub autocomplete_release_group {
     return encode_json($output);
 }
 
-sub release_group {
+sub _release_group {
     my ($self, $item) = @_;
 
     my $output = $self->_with_relationships($item, {
@@ -380,7 +381,7 @@ sub release_group {
 
     if ($item->artist_credit) {
         $output->{artist} = $item->artist_credit->name;
-        $output->{artistCredit} = $self->artist_credit($item->artist_credit);
+        $output->{artistCredit} = $self->_artist_credit($item->artist_credit);
     }
 
     return $output;
@@ -393,7 +394,7 @@ sub autocomplete_recording {
         $results,
         sub {
             my $item = shift;
-            my $out = $self->recording($item->{entity});
+            my $out = $self->_recording($item->{entity});
 
             $out->{appearsOn} = {
                 hits => $item->{appearsOn}{hits},
@@ -412,7 +413,7 @@ sub autocomplete_recording {
     return encode_json($output);
 }
 
-sub recording {
+sub _recording {
     my ($self, $recording, $hide_ac) = @_;
 
     my $output = $self->_with_relationships($recording, {
@@ -434,7 +435,7 @@ sub recording {
         $output->{artist} = $recording->artist_credit->name;
 
         $output->{artistCredit} =
-            $self->artist_credit($recording->artist_credit) unless $hide_ac;
+            $self->_artist_credit($recording->artist_credit) unless $hide_ac;
     }
 
     return $output;
@@ -449,7 +450,7 @@ sub autocomplete_work
         sub {
             my $result = shift;
 
-            my $out = $self->work( $result->{entity} );
+            my $out = $self->_work( $result->{entity} );
             $out->{artists} = $result->{artists};
 
             return $out;
@@ -507,7 +508,7 @@ sub _with_primary_alias {
     return \@output;
 }
 
-sub work {
+sub _work {
     my ($self, $work) = @_;
 
     return {
@@ -525,7 +526,7 @@ sub autocomplete_place {
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->place(shift->{entity}) }
+        sub { $self->_place(shift->{entity}) }
     );
 
     push @$output, {
@@ -536,7 +537,7 @@ sub autocomplete_place {
     return encode_json($output);
 }
 
-sub place {
+sub _place {
     my ($self, $place) = @_;
 
     return {
@@ -556,7 +557,7 @@ sub autocomplete_instrument {
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->instrument(shift->{entity}) }
+        sub { $self->_instrument(shift->{entity}) }
     );
 
     push @$output, {
@@ -567,7 +568,7 @@ sub autocomplete_instrument {
     return encode_json($output);
 }
 
-sub instrument {
+sub _instrument {
     my ($self, $instrument) = @_;
 
     return {
@@ -591,7 +592,7 @@ sub autocomplete_event
         sub {
             my $result = shift;
 
-            my $out = $self->event( $result->{entity} );
+            my $out = $self->_event( $result->{entity} );
             $out->{related_entities} = $result->{related_entities};
 
             return $out;
@@ -606,7 +607,7 @@ sub autocomplete_event
     return encode_json($output);
 }
 
-sub event {
+sub _event {
     my ($self, $event) = @_;
 
     return {
@@ -623,7 +624,7 @@ sub event {
     };
 }
 
-sub url {
+sub _url {
     my ($self, $url) = @_;
 
     return {
@@ -634,17 +635,17 @@ sub url {
     };
 }
 
-sub artist_credit {
+sub _artist_credit {
     my ($self, $ac) = @_;
 
     return [ map +{
-        artist      => $self->artist( $_->artist ),
+        artist      => $self->_artist( $_->artist ),
         joinPhrase  => $_->join_phrase,
         $_->artist->name eq $_->name ? () : ( name => $_->name )
     }, $ac->all_names ];
 }
 
-sub series {
+sub _series {
     my ($self, $series) = @_;
 
     return {
@@ -663,7 +664,7 @@ sub autocomplete_series {
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->series(shift->{entity}) }
+        sub { $self->_series(shift->{entity}) }
     );
 
     push @$output, {

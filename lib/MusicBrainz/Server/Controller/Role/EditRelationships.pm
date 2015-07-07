@@ -65,7 +65,8 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-        my $source_entity = $source ? JSONSerializer->$source_type($source) : {entityType => $source_type};
+        my $serialization_method = "_$source_type";
+        my $source_entity = $source ? JSONSerializer->$serialization_method($source) : {entityType => $source_type};
 
         if ($source) {
             my @existing_relationships =
