@@ -319,9 +319,9 @@ sub _area {
         typeID  => $area->type_id,
         code    => $area->primary_code,
         $area->type ? (typeName => $area->type->name) : (),
-        parent_country => $area->parent_country ? $self->area($area->parent_country) : undef,
-        parent_subdivision => $area->parent_subdivision ? $self->area($area->parent_subdivision) : undef,
-        parent_city => $area->parent_city ? $self->area($area->parent_city) : undef,
+        parent_country => $area->parent_country ? $self->_area($area->parent_country) : undef,
+        parent_subdivision => $area->parent_subdivision ? $self->_area($area->parent_subdivision) : undef,
+        parent_city => $area->parent_city ? $self->_area($area->parent_city) : undef,
     };
 }
 
@@ -548,7 +548,7 @@ sub _place {
         typeID      => $place->type_id,
         comment     => $place->comment,
         $place->type ? (typeName => $place->type->name) : (),
-        area        => $place->area ? $self->area($place->area) : undef,
+        area        => $place->area ? $self->_area($place->area) : undef,
     };
 }
 
