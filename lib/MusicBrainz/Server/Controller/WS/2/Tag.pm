@@ -100,8 +100,7 @@ sub tag_submit : Private
                     $self->_error($c, 'Unrecognized vote type: ' . $vote);
                 }
             }
-
-            $submit->{$name} = [$model, $vote, $entity->id];
+            push @{ $submit->{$name} //= [] }, [$model, $vote, $entity->id];
         }
 
         unless ($has_votes) {
@@ -110,15 +109,17 @@ sub tag_submit : Private
 
             for (@old_user_tags) {
                 if (!exists($submit->{$_->tag->name}) && $_->is_upvote) {
-                    $submit->{$_->tag->name} = [$model, 'withdraw', $entity->id];
+                    $submit->{$_->tag->name} = [[$model, 'withdraw', $entity->id]];
                 }
             }
         }
     }
 
     while (my ($tag, $args) = each %$submit) {
-        my ($model, $vote, $entity_id) = @$args;
-        $c->model($model)->tags->$vote($c->user->id, $entity_id, $tag);
+        for (@$args) {
+            my ($model, $vote, $entity_id) = @$_;
+            $c->model($model)->tags->$vote($c->user->id, $entity_id, $tag);
+        }
     }
 
     $c->detach('success');
