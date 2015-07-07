@@ -26,9 +26,15 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
         'event', 'series', 0, 0, 'part of',
         'Indicates that the event is part of a series.',
         'part of', 'has parts', 'is a part of'
+    ),
+    (
+        5, '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
+        'release', 'series', 0, 0, 'part of',
+        'Indicates that the release is part of a series.',
+        'part of', 'has parts', 'is a part of'
     );
 
-INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1);
+INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (3, 1), (4, 2), (5, 2);
 
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 

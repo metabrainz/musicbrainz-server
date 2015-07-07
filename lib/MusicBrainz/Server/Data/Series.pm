@@ -237,6 +237,7 @@ sub automatically_reorder {
 
     my $type0 = $entity_type lt 'series' ? $entity_type : 'series';
     my $type1 = $entity_type lt 'series' ? 'series' : $entity_type;
+    my $target_prop = $type0 eq 'series' ? 'entity1' : 'entity0';
 
     my $pairs = $self->c->sql->select_list_of_hashes("
         SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
@@ -295,7 +296,8 @@ sub automatically_reorder {
 
         $a->link->begin_date <=> $b->link->begin_date ||
         $a->link->end_date <=> $b->link->end_date ||
-        $target_ordering->($a, $b);
+        $target_ordering->($a, $b) ||
+        $a->$target_prop->name cmp $b->$target_prop->name
     };
 
     for my $text_value (@sorted_values) {

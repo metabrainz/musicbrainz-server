@@ -750,8 +750,7 @@ sub _release_events_from_spec {
     ];
 }
 
-sub update
-{
+sub update {
     my ($self, $release_id, $update) = @_;
 
     $self->set_release_events(
@@ -760,6 +759,10 @@ sub update
 
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
+
+    if ($update->{events} || $update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('Release', $release_id);
+    }
 }
 
 sub can_delete { 1 }
@@ -1324,6 +1327,24 @@ sub set_release_events {
             date_day => $_->date->day
         }, @$without_country
     );
+}
+
+sub series_ordering {
+    my ($self, $r1, $r2) = @_;
+
+    my @releases = ($r1->entity0, $r2->entity0);
+    $self->load_release_events(@releases);
+
+    my ($a_date) = sort { $a <=> $b } map { $_->date } $r1->entity0->all_events;
+    my ($b_date) = sort { $a <=> $b } map { $_->date } $r2->entity0->all_events;
+    my $empty = MusicBrainz::Server::Entity::PartialDate->new();
+    my $cmp = ($a_date // $empty) <=> ($b_date // $empty);
+    return $cmp if $cmp;
+
+    $self->c->model('ReleaseLabel')->load(@releases);
+    my ($a_catalog_number) = sort map { $_->catalog_number } $r1->entity0->all_labels;
+    my ($b_catalog_number) = sort map { $_->catalog_number } $r2->entity0->all_labels;
+    return ($a_catalog_number // '') cmp ($b_catalog_number // '');
 }
 
 __PACKAGE__->meta->make_immutable;
