@@ -39,9 +39,17 @@ $(document).on('submit', '#page form', function (event) {
 
 $(function () {
     $('#page form :input[required]').each(function () {
-        var error = exports.errorField(ko.observable(!clean(this.value)));
+        var $input = $(this);
 
-        $(this).on('input change', function () {
+        // XXX We can't handle artist credit fields here. They have separate
+        // hidden inputs that are injected by knockout.
+        if ($input.is('.artist-credit-input')) {
+            return;
+        }
+
+        var error = exports.errorField(ko.observable(!clean($input.val())));
+
+        $input.on('input change', function () {
             error(!clean(this.value));
         });
     });
