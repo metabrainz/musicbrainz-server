@@ -223,6 +223,9 @@ INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
+INSERT INTO tag (id, name, ref_count) VALUES (1, 'foo', 1);
+INSERT INTO area_tag (area, count, tag) VALUES (221, 1, 1);
+INSERT INTO area_tag_raw (area, editor, tag, is_upvote) VALUES (221, 1, 1, TRUE);
 EOSQL
 
     # Test deleting editors
@@ -266,6 +269,12 @@ EOSQL
                 "Preference " . $attribute->name . " was cleared");
         }
     }
+
+    # Ensure all tags are cleared
+    my $tags = $c->sql->select_single_column_array(
+        'SELECT tag FROM area_tag_raw WHERE editor = ?', 1
+    );
+    is(@$tags, 0);
 };
 
 test 'Deleting an editor cancels all open edits' => sub {

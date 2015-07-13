@@ -178,13 +178,15 @@ sub clear {
     my $entity_type = $self->type;
     my $table = $self->tag_table . '_raw';
 
-    for my $entity_id (@{
-        $self->sql->select_single_column_array(
-            "SELECT $entity_type FROM $table WHERE editor = ?",
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            "SELECT $entity_type, t.name AS tag FROM $table
+             JOIN tag t ON t.id = $table.tag
+             WHERE editor = ?",
             $editor_id
         )
     }) {
-        $self->update($editor_id, $entity_id, '');
+        $self->withdraw($editor_id, $row->{$entity_type}, $row->{tag});
     }
 }
 
