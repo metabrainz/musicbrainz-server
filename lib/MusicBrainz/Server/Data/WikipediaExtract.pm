@@ -35,11 +35,17 @@ sub get_extract
 
     if (defined $languages && scalar @$languages) {
         my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
-        my $english = first { $_->{lang} eq 'en' } @$languages;
+
+        my $fallbacks = [qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh)];
+        my $fallback;
+        for my $lang (@$fallbacks) {
+            $fallback = first { $_->{lang} eq $lang } @$languages;
+            last if $fallback;
+        }
 
         # Desired language, fallback to english,
         # fall back to languages that are explicitly linked, finally use "whatever we have"
-        my $lang_to_use = $lang_wanted || $english;
+        my $lang_to_use = $lang_wanted || $fallback;
         if (!$lang_to_use) {
             $link = first { $_->isa('MusicBrainz::Server::Entity::URL::Wikipedia') } @$links;
             $lang_to_use = {'title' => $link->page_name, 'lang' => $link->language} if defined $link;
