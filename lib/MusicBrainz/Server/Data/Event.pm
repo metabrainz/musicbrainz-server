@@ -1,8 +1,9 @@
 package MusicBrainz::Server::Data::Event;
 
+use DateTime;
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( uniq );
+use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Event;
@@ -74,6 +75,10 @@ sub update
     my $row = $self->_hash_to_row($update);
 
     $self->sql->update_row('event', $row, { id => $event_id }) if %$row;
+
+    if (any { exists $update->{$_} } qw( name begin_date end_date time )) {
+        $self->c->model('Series')->reorder_for_entities('event', $event_id);
+    }
 
     return 1;
 }
@@ -467,6 +472,16 @@ sub _find_areas
             entity => $areas->{$area_id}
         }
     }
+}
+
+sub series_ordering {
+    my ($self, $a, $b) = @_;
+
+    my $zero = DateTime->new(year => 0);
+
+    $a->entity0->begin_date <=> $b->entity0->begin_date ||
+    $a->entity0->end_date <=> $b->entity0->end_date ||
+    ($a->entity0->time // $zero) <=> ($b->entity0->time // $zero);
 }
 
 __PACKAGE__->meta->make_immutable;

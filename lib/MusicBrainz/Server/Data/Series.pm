@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Data::Series;
 
 use List::AllUtils qw( max );
-use List::UtilsBy qw( nsort_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
@@ -238,6 +237,7 @@ sub automatically_reorder {
 
     my $type0 = $entity_type lt 'series' ? $entity_type : 'series';
     my $type1 = $entity_type lt 'series' ? 'series' : $entity_type;
+    my $target_prop = $type0 eq 'series' ? 'entity1' : 'entity0';
 
     my $pairs = $self->c->sql->select_list_of_hashes("
         SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
@@ -250,7 +250,10 @@ sub automatically_reorder {
         $type1,
         map { $_->{relationship} } @$pairs
     );
-    $self->c->model('Link')->load(values %$relationships);
+    my @relationships = values %$relationships;
+    $self->c->model('Link')->load(@relationships);
+    $self->c->model('LinkType')->load(map { $_->link } @relationships);
+    $self->c->model('Relationship')->load_entities(@relationships);
 
     my %relationships_by_text_value;
     for my $pair (@$pairs) {
@@ -281,24 +284,38 @@ sub automatically_reorder {
     my @from_values;
     my $link_order = 1;
     my $prev_text_value = '';
+    my $target_model = $self->c->model(type_to_model($entity_type));
+    my $target_ordering = sub { 0 };
+
+    if ($target_model->can('series_ordering')) {
+        $target_ordering = sub { $target_model->series_ordering(@_) };
+    }
+
+    my $item_ordering = sub {
+        my ($a, $b) = @_;
+
+        $a->link->begin_date <=> $b->link->begin_date ||
+        $a->link->end_date <=> $b->link->end_date ||
+        $target_ordering->($a, $b) ||
+        $a->$target_prop->name cmp $b->$target_prop->name
+    };
 
     for my $text_value (@sorted_values) {
         # for each group of relationships with the same text attribute value,
         # sort by begin/end date.
-        my @group = nsort_by { $_->link->begin_date || $_->link->end_date }
-                    @{ $relationships_by_text_value{$text_value} };
+        my @group = sort { $item_ordering->($a, $b) } @{ $relationships_by_text_value{$text_value} };
 
-        my $prev_date_period = '';
+        my $prev_relationship;
         for my $relationship (@group) {
+            # increment link_order when the item sort order changes
+            if ($prev_relationship && $item_ordering->($prev_relationship, $relationship)) {
+                $link_order++;
+            }
+
             push @from_values, "(?, ?)";
             push @from_args, $relationship->id, $link_order;
 
-            # increment link_order when the date period changes
-            my $date_period = $relationship->link->formatted_date;
-            if ($prev_date_period ne $date_period) {
-                $link_order++;
-                $prev_date_period = $date_period;
-            }
+            $prev_relationship = $relationship;
         }
 
         # increment link_order when the text value changes
@@ -316,6 +333,16 @@ sub automatically_reorder {
         WHERE id = x.relationship::integer",
         @from_args
     );
+}
+
+sub reorder_for_entities {
+    my ($self, $type, @ids) = @_;
+
+    my $series = $self->sql->select_single_column_array(
+        "SELECT DISTINCT series FROM ${type}_series WHERE $type = any(?)", \@ids
+    );
+
+    $self->automatically_reorder($_) for @$series;
 }
 
 __PACKAGE__->meta->make_immutable;

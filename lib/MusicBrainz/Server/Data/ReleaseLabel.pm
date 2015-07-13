@@ -136,6 +136,8 @@ sub insert
     my $class = $self->_entity_class;
 
     push @created, $class->new(id => $self->sql->insert_row('release_label', $row, 'id'));
+;
+    $self->c->model('Series')->reorder_for_entities('release', $row->{release});
 
     return wantarray ? @created : $created[0];
 }
@@ -148,13 +150,23 @@ sub update
         label => 'label_id',
     });
     $self->sql->update_row('release_label', $row, { id => $id });
+
+    my $release_id = $row->{release} // $self->sql->select_single_value(
+        'SELECT release FROM release_label WHERE id = ?', $id
+    );
+
+    $self->c->model('Series')->reorder_for_entities('release', $release_id);
 }
 
-sub delete
-{
+sub delete {
     my ($self, @release_label_ids) = @_;
-    my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
-    $self->sql->do($query, @release_label_ids);
+
+    my $releases = $self->sql->select_single_column_array(
+        'DELETE FROM release_label WHERE id = any(?) RETURNING release',
+        \@release_label_ids
+    );
+
+    $self->c->model('Series')->reorder_for_entities('release', @$releases);
 }
 
 __PACKAGE__->meta->make_immutable;

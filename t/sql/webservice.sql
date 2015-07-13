@@ -32,8 +32,6 @@ INSERT INTO link_text_attribute_type (attribute_type) VALUES (788);
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 
-INSERT INTO event_type (id, name) VALUES (1, 'Festival');
-
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO label_type (id, name) VALUES (1, 'Distributor');
@@ -406,8 +404,8 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (305, 305, '', 'Blind Melon', 0);
 
 -- Events
-INSERT INTO event (id, gid, name, type) VALUES (7, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 1);
-INSERT INTO event (begin_date_day, begin_date_month, begin_date_year, cancelled, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, time, type) VALUES (12, 5, 2014, '1', 'A Comment', 0, 13, 5, 2014, '1', '166359d1-5a63-4033-945c-a6707844fb19', 8, '2014-08-01 22:16:44.339332+00', 'Sadly Cancelled Festival', '20:00', 1);
+INSERT INTO event (id, gid, name, type) VALUES (7, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 2);
+INSERT INTO event (begin_date_day, begin_date_month, begin_date_year, cancelled, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, time, type) VALUES (12, 5, 2014, '1', 'A Comment', 0, 13, 5, 2014, '1', '166359d1-5a63-4033-945c-a6707844fb19', 8, '2014-08-01 22:16:44.339332+00', 'Sadly Cancelled Festival', '20:00', 2);
 
 INSERT INTO event_alias (id, event, name, sort_name) VALUES
     (1, 7, 'El Festival Cool', 'Festival Cool, El'),

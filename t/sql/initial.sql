@@ -1,6 +1,12 @@
 BEGIN;
 SET client_min_messages TO 'WARNING';
 
+INSERT INTO event_type VALUES (1, 'Concert', NULL, 1, 'An individual concert by a single artist or collaboration, often with supporting artists who perform before the main act.');
+INSERT INTO event_type VALUES (2, 'Festival', NULL, 2, 'An event where a number of different acts perform across the course of the day. Larger festivals may be spread across multiple days.');
+INSERT INTO event_type VALUES (3, 'Launch event', NULL, 3, 'A party, reception or other event held specifically for the launch of a release.');
+INSERT INTO event_type VALUES (5, 'Masterclass/Clinic', NULL, 5, 'A masterclass or clinic is an event where an artist meets with a small to medium-sized audience and instructs them individually and/or takes questions intended to improve the audience members'' playing skills.');
+INSERT INTO event_type VALUES (4, 'Convention/Expo', NULL, 4, 'A convention, expo or trade fair is an event which is not typically orientated around music performances, but can include them as side activities.');
+
 INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL);
 INSERT INTO gender VALUES (2, 'Female', NULL, 2, NULL);
 INSERT INTO gender VALUES (3, 'Other', NULL, 3, NULL);
