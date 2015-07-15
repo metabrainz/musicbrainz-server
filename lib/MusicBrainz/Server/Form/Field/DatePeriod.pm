@@ -44,16 +44,12 @@ after 'validate' => sub {
 };
 
 sub is_date_range_valid {
-    my ($begin_date, $end_date) = @_;
+    my ($a, $b) = @_;
 
-    my ($by, $bm, $bd) = @$begin_date{qw( year month day )};
-    my ($ey, $em, $ed) = @$end_date{qw( year month day )};
+    my @a = ($a->{year}, $a->{month} || 1, $a->{day} || 1);
+    my @b = ($b->{year}, $b->{month} || 12, $b->{day} || Date::Calc::Days_in_Month($b->{year}, $b->{month} || 12));
 
-    if (!$by || !$ey || $by < $ey) { return 1 } elsif ($ey < $by) { return 0 }
-    if (!$bm || !$em || $bm < $em) { return 1 } elsif ($em < $bm) { return 0 }
-    if (!$bd || !$ed || $bd < $ed) { return 1 } elsif ($ed < $bd) { return 0 }
-
-    return 1;
+    return Date::Calc::Delta_Days(@a, @b) >= 0;
 }
 
 1;
