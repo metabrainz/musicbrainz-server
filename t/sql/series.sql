@@ -40,7 +40,7 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
         'part of', 'has parts', 'is a part of'
     );
 
-INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (3, 1), (4, 2), (5, 2), (6, 2);
+INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (4, 2), (5, 2), (6, 2);
 
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
