@@ -143,7 +143,7 @@ EOSQL
     my ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
     is_deeply([map { $_->{entity}->id } @$items], [6, 4, 2, 7, 5, 3, 1], 'events are ordered by name');
 
-    $c->model('Event')->update($_, { name => 'E${_}' }) for (1 .. 7);
+    $c->model('Event')->update($_, { name => "E${_}" }) for (1 .. 7);
 
     ($items, $count) = $c->model('Series')->get_entities($series, 7, 0);
     is_deeply([map { $_->{entity}->id } @$items], [1, 2, 3, 4, 5, 6, 7], 'events are re-ordered after name changes');
