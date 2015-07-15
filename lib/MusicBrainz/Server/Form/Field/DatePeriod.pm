@@ -36,11 +36,24 @@ after 'validate' => sub {
 
     return 1 unless $begin->{year} && $end->{year};
 
-    if (PartialDate->new($begin) > PartialDate->new($end)) {
+    unless (is_date_range_valid($begin, $end)) {
         return $self->field('end_date')->add_error(l('The end date must occur on or after the begin date'));
     }
 
     return 1;
 };
+
+sub is_date_range_valid {
+    my ($begin_date, $end_date) = @_;
+
+    my ($by, $bm, $bd) = @$begin_date{qw( year month day )};
+    my ($ey, $em, $ed) = @$end_date{qw( year month day )};
+
+    if (!$by || !$ey || $by < $ey) { return 1 } elsif ($ey < $by) { return 0 }
+    if (!$bm || !$em || $bm < $em) { return 1 } elsif ($em < $bm) { return 0 }
+    if (!$bd || !$ed || $bd < $ed) { return 1 } elsif ($ed < $bd) { return 0 }
+
+    return 1;
+}
 
 1;
