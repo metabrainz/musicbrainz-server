@@ -47,18 +47,61 @@ var validation = require('../edit/validation');
         },
 
         around$_sortedRelationships: function (supr, relationships, source) {
+            var result = supr(relationships, source);
+
             if (source.entityType === "series") {
-                return supr(relationships, source).sortBy(function (relationship) {
+                var sorted = ko.observableArray(result());
+
+                ko.computed(function () {
+                    var seriesType = source.type();
+
+                    if (seriesType) {
+                        sorted((seriesOrdering[seriesType.entityType] || _.identity)(result(), source));
+                    } else {
+                        sorted(result());
+                    }
+                });
+
+                return sorted.sortBy(function (relationship) {
                     if (+source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
                         return relationship.paddedSeriesNumber();
                     }
                     return "";
                 });
             }
-            return supr(relationships, source);
+
+            return result;
         }
     });
 
+    var seriesOrdering = {
+        event: function (relationships, series) {
+            return _.sortByAll(
+                relationships,
+                function (r) { return r.target(series).begin_date || '' },
+                function (r) { return r.target(series).end_date || '' },
+                function (r) { return r.target(series).time || '' }
+            );
+        },
+        release: function (relationships, series) {
+            return _.sortByAll(
+                relationships,
+                function (r) { return _(r.target(series).events).map(getDate).sort().first() },
+                function (r) { return _(r.target(series).labels).map(getCatalogNumber).sort().first() }
+            );
+        },
+        release_group: function (relationships, series) {
+            return _.sortBy(relationships, function (r) { return r.target(series).firstReleaseDate || '' });
+        }
+    };
+
+    function getDate(x) {
+        return x.date || '';
+    }
+
+    function getCatalogNumber(x) {
+        return x.catalogNumber || '';
+    }
 
     ko.bindingHandlers.relationshipStyling = {
 
