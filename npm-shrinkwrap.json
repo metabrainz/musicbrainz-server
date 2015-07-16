@@ -1801,13 +1801,12 @@
     },
     "knockout": {
       "version": "3.1.0",
-      "from": "git+https://github.com/mwiencek/knockout#a8f12df",
-      "resolved": "git+https://github.com/mwiencek/knockout#a8f12dfbafe1c06eda16dbb7711c14d72619ab03"
+      "from": "mwiencek/knockout#a8f12df",
+      "resolved": "git://github.com/mwiencek/knockout.git#a8f12dfbafe1c06eda16dbb7711c14d72619ab03"
     },
     "knockout-arraytransforms": {
-      "version": "1.0.0",
-      "from": "knockout-arraytransforms@1.0.0",
-      "dependencies": {}
+      "version": "2.0.0",
+      "from": "knockout-arraytransforms@>=2.0.0 <3.0.0"
     },
     "less-plugin-clean-css": {
       "version": "1.5.0",
