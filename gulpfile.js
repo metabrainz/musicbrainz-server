@@ -70,7 +70,7 @@ function runYarb(resourceName, callback) {
         .transform(babelify.configure({
             blacklist: ['strict'],
             nonStandard: true,
-            only: 'root/static/scripts/**/*.js',
+            only: /root\/static\/scripts\/.+\.js$/,
             optional: [
                 'es7.objectRestSpread'
             ],
