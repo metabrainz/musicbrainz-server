@@ -65,10 +65,18 @@ function runYarb(resourceName, callback) {
     }
 
     var bundle = yarb('./root/static/scripts/' + resourceName, {
-        debug: false // disable sourcemaps
-    });
-
-    callback && callback(bundle);
+            debug: false // disable sourcemaps
+        })
+        .transform(babelify.configure({
+            blacklist: ['strict'],
+            nonStandard: true,
+            only: 'root/static/scripts/**/*.js',
+            optional: [
+                'es7.objectRestSpread'
+            ],
+            sourceMap: false,
+        }))
+        .transform('envify', {global: true});
 
     if (process.env.DEVELOPMENT_SERVER == 0) {
         bundle.transform("uglifyify", {
@@ -80,6 +88,10 @@ function runYarb(resourceName, callback) {
             output: { max_line_len: 256 },
             sourcemap: false
         });
+    }
+
+    if (callback) {
+        callback(bundle);
     }
 
     CACHED_BUNDLES[resourceName] = bundle;
@@ -100,27 +112,11 @@ function langToPosix(lang) {
     });
 }
 
-function babel() {
-    return babelify.configure({
-        // https://babeljs.io/docs/usage/options/
-        nonStandard: true,
-        only: 'root/static/scripts/**/*.js',
-        sourceMap: false,
-        blacklist: ['strict'],
-
-        // http://babeljs.io/docs/advanced/transformers/
-        optional: [
-            'es7.objectRestSpread'
-        ]
-    });
-}
-
 function buildScripts() {
     process.env.NODE_ENV = process.env.DEVELOPMENT_SERVER == 1 ? 'development' : 'production';
 
     var commonBundle = runYarb('common.js', function (b) {
-        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet')
-         .transform(babel());
+        b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
     });
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -150,7 +146,7 @@ function buildScripts() {
     });
 
     var editBundle = runYarb('edit.js', function (b) {
-        b.external(commonBundle).transform('envify', {global: true}).transform(babel());
+        b.external(commonBundle);
     });
 
     var guessCaseBundle = runYarb('guess-case.js', function (b) {
@@ -158,11 +154,11 @@ function buildScripts() {
     });
 
     var placeBundle = runYarb('place.js', function (b) {
-        b.external(editBundle).external(guessCaseBundle).transform(babel());
+        b.external(editBundle).external(guessCaseBundle);
     });
 
     var releaseEditorBundle = runYarb('release-editor.js', function (b) {
-        b.external(commonBundle).external(editBundle).transform(babel());
+        b.external(commonBundle).external(editBundle);
     });
 
     var statisticsBundle = runYarb('statistics.js', function (b) {
@@ -221,9 +217,7 @@ gulp.task("tests", function () {
 
     return bundleScripts(
         runYarb('tests.js', function (b) {
-            b.transform('envify', {global: true})
-             .transform(babel())
-             .expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+            b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
     ).pipe(gulp.dest("./root/static/build/"));
