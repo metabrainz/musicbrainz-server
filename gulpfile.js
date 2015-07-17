@@ -84,8 +84,10 @@ function runYarb(resourceName, callback) {
             global: true,
 
             // Uglify options
-            preserveComments: "some",
-            output: { max_line_len: 256 },
+            output: {
+                comments: /@preserve|@license/,
+                max_line_len: 256
+            },
             sourcemap: false
         });
     }
