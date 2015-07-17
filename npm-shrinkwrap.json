@@ -2007,6 +2007,10 @@
             }
           }
         },
+        "through": {
+          "version": "2.3.8",
+          "from": "through@>=2.3.4 <2.4.0"
+        },
         "uglify-js": {
           "version": "2.4.23",
           "from": "uglify-js@>=2.0.0 <3.0.0",
