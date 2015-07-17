@@ -110,12 +110,6 @@ function babel() {
 
         // http://babeljs.io/docs/advanced/transformers/
         optional: [
-            'es6.arrowFunctions',
-            'es6.classes',
-            'es6.destructuring',
-            'es6.properties.shorthand',
-            'es6.spread',
-            'es6.templateLiterals',
             'es7.objectRestSpread'
         ]
     });
