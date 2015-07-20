@@ -140,17 +140,19 @@ my $email = $email_transport->shift_deliveries->{email};
 
 is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id, 'Subject explains a note was added to edit');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'Email is addressed to editor1');
-like($email->get_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
-like($email->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
-like($email->get_body, qr{to your edit #${\ $edit->id }}, 'Email body mentions "your edit #"');
-like($email->get_body, qr{This is my note!}, 'Email body has correct edit note text');
+my $email_body = $email->object->body_str;
+like($email_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email_body, qr{'editor3' has added}, 'Email body mentions editor3');
+like($email_body, qr{to your edit #${\ $edit->id }}, 'Email body mentions "your edit #"');
+like($email_body, qr{This is my note!}, 'Email body has correct edit note text');
 
 is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id, 'Subject explains a note was added to edit');
 is($email2->get_header('To'), '"editor2" <editor2@example.com>', 'Email is addressed to editor2');
-like($email2->get_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
-like($email2->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
-like($email2->get_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
-like($email2->get_body, qr{This is my note!}, 'Email body has correct edit note text');
+my $email2_body = $email2->object->body_str;
+like($email2_body, qr{$server/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email2_body, qr{'editor3' has added}, 'Email body mentions editor3');
+like($email2_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
+like($email2_body, qr{This is my note!}, 'Email body has correct edit note text');
 
 };
 

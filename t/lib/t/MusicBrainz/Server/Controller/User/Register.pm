@@ -44,9 +44,10 @@ test 'Registering and verifying an email address' => sub {
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Please verify your email address');
-    like($email->get_body, qr{/verify-email}, 'has a link to verify email address');
+    my $email_body = $email->object->body_str;
+    like($email_body, qr{/verify-email}, 'has a link to verify email address');
 
-    my ($verify_link) = $email->get_body =~ qr{http://localhost(/verify-email.*)};
+    my ($verify_link) = $email_body =~ qr{http://localhost(/verify-email.*)};
     $mech->get_ok($verify_link, 'verify account');
     $mech->content_like(qr/Thank you, your email address has now been verified/);
 

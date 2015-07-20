@@ -24,9 +24,11 @@ $mech->content_contains("We've sent you instructions on how to reset your passwo
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('Subject'), 'Password reset request');
-like($email->get_body, qr{http://localhost/reset-password.*});
 
-$email->get_body =~ qr{http://localhost(/reset-password.*)};
+my $email_body = $email->object->body_str;
+like($email_body, qr{http://localhost/reset-password.*});
+
+$email_body =~ qr{http://localhost(/reset-password.*)};
 my $reset_password_path = $1;
 $mech->get_ok($reset_password_path);
 html_ok($mech->content);

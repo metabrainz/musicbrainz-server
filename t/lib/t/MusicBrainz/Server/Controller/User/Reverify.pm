@@ -28,9 +28,10 @@ my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $reverify_email = $email_transport->shift_deliveries->{email};
 is($reverify_email->get_header('To'), 'new_email@example.com', 'email sent to right place');
 is($reverify_email->get_header('Subject'), 'Please verify your email address', 'email subject is correct');
-like($reverify_email->get_body, qr{http://localhost/verify-email.*}, 'email contains verify-email link');
+my $email_body = $reverify_email->object->body_str;
+like($email_body, qr{http://localhost/verify-email.*}, 'email contains verify-email link');
 
-$reverify_email->get_body =~ qr{http://localhost(/verify-email.*)};
+$email_body =~ qr{http://localhost(/verify-email.*)};
 my $reverify_email_path = $1;
 $mech->get_ok($reverify_email_path);
 $mech->content_contains("Thank you, your email address has now been verified!");

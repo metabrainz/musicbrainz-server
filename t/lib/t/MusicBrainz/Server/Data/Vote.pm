@@ -127,8 +127,9 @@ is($email->get_header('References'), sprintf '<edit-%d@%s>', $edit->id, DBDefs->
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
 
 my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
-like($email->get_body, qr{https://$server/edit/${\ $edit->id }}, 'body contains link to edit');
-like($email->get_body, qr{'editor2'}, 'body mentions editor2');
+my $email_body = $email->object->body_str;
+like($email_body, qr{https://$server/edit/${\ $edit->id }}, 'body contains link to edit');
+like($email_body, qr{'editor2'}, 'body mentions editor2');
 
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
