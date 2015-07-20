@@ -30,6 +30,16 @@ has 'release' => (
     isa => 'Release'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        label => defined($self->label) ? $self->label->TO_JSON : undef,
+        catalogNumber => $self->catalog_number,
+    };
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

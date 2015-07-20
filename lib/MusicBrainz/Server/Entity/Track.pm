@@ -6,6 +6,7 @@ use MusicBrainz::Server::Track qw( format_track_length );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
 has 'recording_id' => (
     is => 'rw',
@@ -44,11 +45,6 @@ has 'name' => (
     isa => 'Str'
 );
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 has 'length' => (
     is => 'rw',
     isa => 'Maybe[Int]',
@@ -59,15 +55,34 @@ sub formatted_length {
     format_track_length(shift->length);
 }
 
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
 has 'is_data_track' => (
     is => 'rw',
     isa => 'Bool',
 );
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $output = {
+        %{ $self->$orig },
+        isDataTrack     => $self->is_data_track ? \1 : \0,
+        length          => $self->length,
+        number          => $self->number,
+        position        => $self->position,
+    };
+
+    if ($self->recording) {
+        $output->{recording} = $self->recording->TO_JSON;
+
+        delete $output->{recording}->{artistCredit} unless (
+            MusicBrainz::Server::Entity::ArtistCredit::is_different(
+                $self->artist_credit,
+                $self->recording->artist_credit,
+            ));
+    }
+
+    return $output;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

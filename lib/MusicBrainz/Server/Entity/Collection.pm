@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'CollectionType' };
+
 has 'editor' => (
     is => 'ro',
     isa => 'Editor',
@@ -30,26 +32,6 @@ has entity_count => (
     isa => 'Int',
     predicate => 'loaded_entity_count'
 );
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'CollectionType',
-);
-
-sub type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

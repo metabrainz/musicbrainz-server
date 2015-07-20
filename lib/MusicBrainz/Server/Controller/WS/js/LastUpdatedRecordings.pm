@@ -29,10 +29,8 @@ sub recent : Chained('root') PathPart('last-updated-recordings')
     $c->model('ISRC')->load_for_recordings(@recent);
     $c->model('ArtistCredit')->load(@recent);
 
-    my @output = map { $c->stash->{serializer}->_recording($_) } @recent;
-
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json({ recordings => \@output }));
+    $c->res->body(encode_json({ recordings => [map { $_->TO_JSON } @recent] }));
 }
 
 1;

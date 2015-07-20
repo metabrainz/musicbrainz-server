@@ -1,3 +1,5 @@
+var {lp} = require('../common/i18n');
+
 MB.WorkAttributes = (function (WA) {
 
 // Private variables
@@ -17,6 +19,15 @@ WA.init = function (config) {
 
     attributeTypes = config.attributeTypes;
     allowedValues = config.allowedValues;
+
+    attributeTypes.forEach(type => {
+        type.name = lp(type.name, 'work_attribute_type');
+    });
+
+    allowedValues.forEach(value => {
+        value.value = lp(value.value, 'work_attribute_type_allowed_value');
+    });
+
     attributeTypesByID = _.transform(attributeTypes.children, byID, {});
 
     WA.viewModel = new ViewModel(config.attributes);

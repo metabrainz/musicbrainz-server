@@ -11,33 +11,8 @@ with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
-
-has type_id => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has type => (
-    is => 'rw',
-    isa => 'SeriesType'
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
-
-has comment => (
-    is => 'rw',
-    isa => 'Str'
-);
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'SeriesType' };
 
 has ordering_type_id => (
     is => 'rw',
@@ -65,6 +40,16 @@ sub display_relationships {
 
     return \%groups;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        orderingTypeID  => $self->ordering_type_id,
+        type            => $self->type->TO_JSON,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

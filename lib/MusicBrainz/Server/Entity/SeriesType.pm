@@ -10,11 +10,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'SeriesType',
 };
 
-has name => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_name {
     my $self = shift;
     return lp($self->name, 'series_type')
@@ -25,28 +20,19 @@ has entity_type => (
     isa => 'Str',
 );
 
-has description => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_description {
     my $self = shift;
     return lp($self->description, 'series_type');
 }
 
-sub to_json_hash {
-    my $self = shift;
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
 
     return {
-        id => +$self->id,
-        name => $self->l_name,
-        entityType => $self->entity_type,
-        parentID => $self->parent_id,
-        childOrder => +$self->child_order,
-        description => $self->l_description,
+        %{ $self->$orig },
+        series_entity_type => $self->entity_type,
     };
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

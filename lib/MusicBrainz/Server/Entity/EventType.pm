@@ -9,37 +9,14 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'EventType',
 };
 
-has name => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_name {
     my $self = shift;
     return lp($self->name, 'event_type')
 }
 
-has description => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_description {
     my $self = shift;
     return lp($self->description, 'event_type');
-}
-
-sub to_json_hash {
-    my $self = shift;
-
-    return {
-        id => +$self->id,
-        name => $self->l_name,
-        entityType => $self->entity_type,
-        parentID => $self->parent_id,
-        childOrder => +$self->child_order,
-        description => $self->l_description,
-    };
 }
 
 __PACKAGE__->meta->make_immutable;

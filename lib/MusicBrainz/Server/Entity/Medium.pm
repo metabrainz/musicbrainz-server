@@ -274,6 +274,24 @@ sub track_range {
     return $output;
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $data = {
+        %{ $self->$orig },
+        cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
+        format      => $self->l_format_name,
+        formatID    => $self->format_id,
+        position    => $self->position,
+    };
+
+    if ($self->all_tracks) {
+        $data->{tracks} = [map { $_->TO_JSON } $self->all_tracks];
+    }
+
+    return $data;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -23,6 +23,16 @@ has 'artist' => (
     isa => 'Artist'
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        artist      => $self->artist->TO_JSON,
+        joinPhrase  => $self->join_phrase,
+        name        => $self->name,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

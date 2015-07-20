@@ -767,7 +767,7 @@ MB.Control.autocomplete_formatters = {
                       _.escape(item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.parent_country || item.parent_subdivision || item.parent_city) {
+        if (item.typeName || item.containment.length) {
             var items = [];
             if (item.typeName) {
                 items.push(_.escape(item.typeName));
@@ -915,21 +915,7 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
-    var strings = [];
-
-    if (area.parent_city) {
-        strings.push(_.escape(area.parent_city.name));
-    }
-
-    if (area.parent_subdivision) {
-        strings.push(_.escape(area.parent_subdivision.name));
-    }
-
-    if (area.parent_country) {
-        strings.push(_.escape(area.parent_country.name));
-    }
-
-    return i18n.commaOnlyList(strings);
+    return i18n.commaOnlyList(_(area.containment).pluck('name').map(_.escape).value());
 }
 
 /*

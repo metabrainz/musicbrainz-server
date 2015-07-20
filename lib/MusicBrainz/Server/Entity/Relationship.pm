@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
@@ -269,6 +270,32 @@ sub _cmp {
     $a->link->type->child_order <=> $b->link->type->child_order ||
     $a_sortname cmp $b_sortname;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $link = $self->link;
+    my $target_type = $self->target_type;
+
+    my $json = {
+        attributes      => [map +{ (%{ $_->TO_JSON }, type => { gid => $_->type->gid }) }, $link->all_attributes],
+        editsPending    => $self->edits_pending ? \1 : \0,
+        ended           => $link->ended ? \1 : \0,
+        entity0_credit  => $self->entity0_credit,
+        entity1_credit  => $self->entity1_credit,
+        id              => $self->id,
+        linkOrder       => $self->link_order,
+        linkTypeID      => $link->type_id,
+        target          => $self->target->TO_JSON,
+        verbosePhrase   => $self->verbose_phrase,
+    };
+
+    $json->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
+    $json->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
+    $json->{direction} = 'backward' if $self->direction == $DIRECTION_BACKWARD;
+
+    return $json;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

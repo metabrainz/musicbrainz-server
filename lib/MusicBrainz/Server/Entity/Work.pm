@@ -11,31 +11,11 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkType' };
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-    );
-
-has 'type' => (
-    is => 'rw',
-    isa => 'WorkType'
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
 
 has 'language_id' => (
     is => 'rw',
@@ -45,11 +25,6 @@ has 'language_id' => (
 has 'language' => (
     is => 'rw',
     isa => 'Language'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
 );
 
 has 'artists' => (
@@ -106,6 +81,15 @@ sub sorted_attributes {
     my $self = shift;
     sort_by { $_->type->l_name } sort_by { $_->l_value } $self->all_attributes;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        language => $self->language ? $self->language->l_name : undef,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

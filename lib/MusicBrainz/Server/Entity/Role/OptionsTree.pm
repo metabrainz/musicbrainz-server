@@ -6,6 +6,11 @@ use MusicBrainz::Server::Entity::Types;
 
 use List::UtilsBy qw( sort_by );
 
+parameter name => (
+    isa => 'Str',
+    default => 'name',
+);
+
 parameter type => (
     isa => 'Str',
     required => 1,
@@ -16,9 +21,18 @@ parameter sort_criterion => (
     default => 'l_name',
 );
 
-
 role {
     my $params = shift;
+
+    has $params->name => (
+        is => 'rw',
+        isa => 'Str',
+    );
+
+    has description => (
+        is => 'rw',
+        isa => 'Maybe[Str]',
+    );
 
     has child_order => (
         is => 'rw',
@@ -58,6 +72,17 @@ role {
                             $coll->getSortKey($_->$attr)
                        }
             $self->all_children;
+    };
+
+    around TO_JSON => sub {
+        my ($orig, $self) = @_;
+
+        return {
+            %{ $self->$orig },
+            parentID    => $self->parent_id,
+            childOrder  => +$self->child_order,
+            description => $self->description,
+        };
     };
 };
 

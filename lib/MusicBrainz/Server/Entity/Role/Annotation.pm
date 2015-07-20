@@ -8,6 +8,15 @@ has 'latest_annotation' => (
     is  => 'rw',
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        annotation => defined $self->latest_annotation ? $self->latest_annotation->text : '',
+    };
+};
+
 no Moose::Role;
 1;
 

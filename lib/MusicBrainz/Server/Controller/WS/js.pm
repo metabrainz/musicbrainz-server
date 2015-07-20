@@ -71,9 +71,8 @@ sub medium : Chained('root') PathPart Args(1) {
         }
     }
 
-    my $ret = $c->stash->{serializer}->_medium($medium);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json($ret));
+    $c->res->body(encode_json($medium->TO_JSON));
 }
 
 sub freedb : Chained('root') PathPart Args(2) {
@@ -304,7 +303,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
     }
 
     my $data = $c->stash->{serializer}->serialize_internal($c, $entity);
-    my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
+    my $relationships = [map { $_->TO_JSON } $entity->all_relationships];
     $data->{relationships} = $relationships if @$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

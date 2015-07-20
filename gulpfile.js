@@ -163,6 +163,10 @@ function buildScripts() {
         b.external(commonBundle).external(editBundle);
     });
 
+    var seriesBundle = runYarb('series.js', function (b) {
+        b.external(editBundle).external(guessCaseBundle);
+    });
+
     var statisticsBundle = runYarb('statistics.js', function (b) {
         b.external(commonBundle);
     });
@@ -177,6 +181,7 @@ function buildScripts() {
         writeScript(guessCaseBundle, 'guess-case.js'),
         writeScript(placeBundle, 'place.js'),
         writeScript(releaseEditorBundle, 'release-editor.js'),
+        writeScript(seriesBundle, 'series.js'),
         writeScript(statisticsBundle, 'statistics.js'),
         writeScript(timelineBundle, 'timeline.js'),
         writeScript(runYarb('debug.js', function (b) {b.external(commonBundle)}), 'debug.js')

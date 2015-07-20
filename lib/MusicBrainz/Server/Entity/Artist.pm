@@ -14,33 +14,14 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
 with 'MusicBrainz::Server::Entity::Role::ISNI';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Area';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'ArtistType' };
 
 has 'sort_name' => (
     is => 'rw',
     isa => 'Str'
 );
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'ArtistType',
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
 
 has 'gender_id' => (
     is => 'rw',
@@ -64,16 +45,6 @@ sub l_gender_name
     return $self->gender ? $self->gender->l_name : undef;
 }
 
-has 'area_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'area' => (
-    is => 'rw',
-    isa => 'Area'
-);
-
 has 'begin_area_id' => (
     is => 'rw',
     isa => 'Int'
@@ -94,11 +65,6 @@ has 'end_area' => (
     isa => 'Area'
 );
 
-has 'comment' => (
-    is => 'rw',
-    isa => 'Maybe[Str]'
-);
-
 sub is_special_purpose {
     my $self = shift;
     return ($self->id && ($self->id == $DARTIST_ID ||
@@ -107,6 +73,12 @@ sub is_special_purpose {
 }
 
 sub _appearances_table_types { ("release", "release_group", "work", "recording") }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {%{ $self->$orig }, sortName => $self->sort_name};
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

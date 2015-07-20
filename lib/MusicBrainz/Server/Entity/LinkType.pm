@@ -26,11 +26,6 @@ has 'entity1_type' => (
     isa => 'Str',
 );
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has 'link_phrase' => (
     is => 'rw',
     isa => 'Str',
@@ -60,11 +55,6 @@ sub l_long_link_phrase {
     my $self = shift;
     return l($self->long_link_phrase);
 }
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Str',
-);
 
 sub l_description {
     my $self = shift;

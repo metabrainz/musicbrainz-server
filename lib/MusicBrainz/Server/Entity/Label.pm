@@ -13,28 +13,9 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
 with 'MusicBrainz::Server::Entity::Role::ISNI';
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'LabelType',
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Area';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LabelType' };
 
 has 'label_code' => (
     is => 'rw',
@@ -49,21 +30,6 @@ sub format_label_code
     }
     return "";
 }
-
-has 'area_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'area' => (
-    is => 'rw',
-    isa => 'Area'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
 
 sub _appearances_table_types { ("release", "release_group", "work", "recording") }
 

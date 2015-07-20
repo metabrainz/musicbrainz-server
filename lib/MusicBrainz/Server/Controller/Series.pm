@@ -146,11 +146,11 @@ before qw( edit create ) => sub {
     my ($self, $c) = @_;
 
     my $series_types = {
-        map { $_->id => $_->to_json_hash } $c->model('SeriesType')->get_all
+        map { $_->id => $_->TO_JSON } $c->model('SeriesType')->get_all
     };
 
     my $series_ordering_types = {
-        map { $_->id => $_->to_json_hash } $c->model('SeriesOrderingType')->get_all
+        map { $_->id => $_->TO_JSON } $c->model('SeriesOrderingType')->get_all
     };
 
     $c->stash(

@@ -134,6 +134,12 @@ sub from_array
     return $ret;
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return [map { $_->TO_JSON } @{$self->names}];
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

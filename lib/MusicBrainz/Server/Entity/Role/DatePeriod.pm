@@ -68,6 +68,17 @@ sub _build_formatted_date {
     return '';
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        begin_date  => $self->begin_date->format,
+        end_date    => $self->end_date->format,
+        ended       => $self->ended ? \1 : \0,
+    };
+};
+
 no Moose::Role;
 1;
 

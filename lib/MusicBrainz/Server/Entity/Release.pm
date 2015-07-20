@@ -14,6 +14,8 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Quality';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -74,11 +76,6 @@ sub l_packaging_name
     return $self->packaging ? $self->packaging->l_name : undef;
 }
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 has 'release_group' => (
     is => 'rw',
     isa => 'ReleaseGroup'
@@ -87,12 +84,6 @@ has 'release_group' => (
 has 'release_group_id' => (
     is => 'rw',
     isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit',
-    predicate => 'artist_credit_loaded',
 );
 
 has 'barcode' => (
@@ -120,11 +111,6 @@ has 'script_id' => (
 has 'script' => (
     is => 'rw',
     isa => 'Script'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
 );
 
 has 'labels' => (
@@ -265,6 +251,38 @@ sub length {
 
     return $length;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $data = {
+        %{ $self->$orig },
+        barcode     => $self->barcode->code,
+        languageID  => $self->language_id,
+        packagingID => $self->packaging_id,
+        scriptID    => $self->script_id,
+        statusID    => $self->status_id,
+    };
+
+    if ($self->release_group) {
+        $data->{releaseGroup} = $self->release_group->TO_JSON;
+    }
+
+    if ($self->all_events) {
+        $data->{events} = [map { $_->TO_JSON } $self->all_events];
+    }
+
+    if ($self->all_labels) {
+        $data->{labels} = [map { $_->TO_JSON } $self->all_labels];
+    }
+
+    if ($self->all_mediums) {
+        $data->{mediums} = [map { $_->TO_JSON } $self->all_mediums];
+        $data->{formats} = $self->combined_format_name;
+    }
+
+    return $data;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

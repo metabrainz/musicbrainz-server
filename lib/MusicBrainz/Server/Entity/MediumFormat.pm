@@ -9,11 +9,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'MediumFormat',
 };
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 sub l_name {
     my $self = shift;
     return lp($self->name, 'medium_format')
@@ -27,11 +22,6 @@ has 'year' => (
 has 'has_discids' => (
     is => 'rw',
     isa => 'Bool'
-);
-
-has 'description' => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
 );
 
 __PACKAGE__->meta->make_immutable;

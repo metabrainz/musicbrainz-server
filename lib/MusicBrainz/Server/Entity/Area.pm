@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use List::Util qw( first );
+use List::UtilsBy qw( nsort_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -13,6 +14,8 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Age';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AreaType' };
 
 sub l_name {
     my $self = shift;
@@ -22,33 +25,6 @@ sub l_name {
     } else {
         return $self->name;
     }
-}
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'AreaType',
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
 }
 
 has 'parent_country' => (
@@ -145,6 +121,23 @@ sub country_code
         return first { defined($_) } $self->iso_3166_1_codes;
     }
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $containment = [
+        map { $self->$_->TO_JSON }
+        nsort_by { $self->${ \"${_}_depth" } }
+        grep { $self->$_ }
+        qw( parent_city parent_subdivision parent_country )
+    ];
+
+    return {
+        %{ $self->$orig },
+        code        => $self->primary_code,
+        containment => $containment,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

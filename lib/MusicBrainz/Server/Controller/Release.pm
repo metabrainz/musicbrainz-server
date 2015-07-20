@@ -39,8 +39,6 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
-use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
-
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
 
@@ -655,14 +653,14 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load_cardinal($release->release_group);
 
-    my $json = JSON->new;
+    my $json = JSON->new->convert_blessed;
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
         work_languages  => build_grouped_options($c, language_options($c, 'work')),
-        source_entity   => $json->encode(JSONSerializer->_release($release)),
+        source_entity   => $json->encode($release),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
         type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
     );

@@ -11,38 +11,13 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+with 'MusicBrainz::Server::Entity::Role::Comment';
+with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'EventType' };
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
 use MusicBrainz::Server::Types qw( Time );
 use List::UtilsBy qw( uniq_by );
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'EventType',
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
-}
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
 
 has 'setlist' => (
     is => 'rw',
@@ -121,6 +96,15 @@ sub related_series {
         $_->link && $_->link->type && $_->link->type->entity1_type eq 'series'
     } $self->all_relationships;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        time => $self->formatted_time,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

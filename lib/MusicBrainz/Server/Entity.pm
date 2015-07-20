@@ -1,11 +1,24 @@
 package MusicBrainz::Server::Entity;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 
 has 'id' => (
     is => 'rw',
     isa => 'Int'
 );
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    my $entity_type = ref_to_type($self);
+
+    return {
+        entityType => $entity_type,
+        id => $self->id,
+        $self->can('name') ? (name => $self->name) : (),
+    };
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
