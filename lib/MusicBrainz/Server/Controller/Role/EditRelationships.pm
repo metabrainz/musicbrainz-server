@@ -112,6 +112,11 @@ role {
                 # properties may have changed and may be needed by
                 # edit_relationships, e.g. series ordering types.
                 $source = $c->model($model)->get_by_id($edit->entity_id);
+            } elsif (!$source) {
+                # If both $edit and $source are undefined, we're on a /create
+                # page and the entity wasn't created for some reason (usually
+                # because it requires a disambiguation comment).
+                return 0;
             }
 
             my $url_changes = 0;
