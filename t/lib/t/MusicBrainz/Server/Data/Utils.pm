@@ -175,6 +175,10 @@ test 'Test trim and sanitize' => sub {
     $run->("A\x{200F}\x{62F}\x{200E}B\x{200E}\x{5D1}\x{200F}C",
            "A\x{62F}B\x{5D1}C",
            'removes LRM/RLM from between strong characters of different directionality');
+
+    $run->("A \x{FDD0} B",
+           "A B",
+           'collapses spaces surrounding a non-printable character');
 };
 
 1;
