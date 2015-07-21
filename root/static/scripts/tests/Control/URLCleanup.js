@@ -179,6 +179,10 @@ test('Guess type', function (t) {
                 'label', 'https://soundcloud.com/dimmakrecords',
                 MB.constants.LINK_TYPES.soundcloud.label
             ],
+            [
+                'series', 'https://soundcloud.com/glastonburyofficial',
+                MB.constants.LINK_TYPES.soundcloud.series
+            ],
             // Purevolume
             [
                 'artist', 'http://www.purevolume.com/withbloodcomescleansing',
