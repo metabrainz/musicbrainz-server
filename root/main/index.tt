@@ -45,10 +45,10 @@
         <div class="sidebar">
           <div id="blog-feed" class="feature-column">
             <h2>[% l('MusicBrainz Blog') %]</h2>
-            [% IF blog.defined %]
+            [% IF blog_entries.defined %]
             <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
             <ul style="margin: 0; padding-left: 20px;">
-              [% FOR item IN blog.items %]
+              [% FOR item IN blog_entries %]
                 <li><a href="[% item.url %]">[% item.title %]</a></li>
                 [% LAST IF loop.count == 6 %]
               [% END %]

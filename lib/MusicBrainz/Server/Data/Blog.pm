@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Readonly;
 use XML::RSS::Parser::Lite;
 use Try::Tiny;
+use Encode qw( decode );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
@@ -16,26 +17,31 @@ sub get_latest_entries {
     my $key = 'blog:entries';
 
     my $cache = $self->c->cache_manager->cache('blog');
-    my $entry_parser = $cache->get($key);
+    my $entries = $cache->get($key);
 
-    if (!$entry_parser) {
+    if (!$entries) {
         my $xml;
         try {
             $xml = $self->c->lwp->get("http://blog.musicbrainz.org/?feed=rss2");
         };
         return undef unless $xml && $xml->is_success;
 
-        $entry_parser = XML::RSS::Parser::Lite->new;
+        my $entry_parser = XML::RSS::Parser::Lite->new;
         try {
             $entry_parser->parse($xml->content);
         } finally {
             unless (@_) {
-                $cache->set($key => $entry_parser, $BLOG_CACHE_TIMEOUT);
+                $entries = [
+                    map +{ title => decode('utf-8', $_->{title}), url => decode('utf-8', $_->{url}) },
+                        @{ $entry_parser->{items} }
+                ];
+
+                $cache->set($key => $entries, $BLOG_CACHE_TIMEOUT);
             }
         };
     }
 
-    return $entry_parser;
+    return $entries;
 }
 
 __PACKAGE__->meta->make_immutable;

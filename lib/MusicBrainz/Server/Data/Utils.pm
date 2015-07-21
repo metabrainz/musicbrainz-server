@@ -310,11 +310,14 @@ sub add_coordinates_to_row
 sub collapse_whitespace {
     my $t = shift;
 
-    # Compress whitespace
-    $t =~ s/\s+/ /g;
+    # Replace all spaces with U+0020
+    $t =~ s/\s/ /g;
 
     # Remove non-printable characters.
     $t =~ s/[^[:print:]]//g;
+
+    # Compress whitespace
+    $t =~ s/\s{2,}/ /g;
 
     return $t;
 }
