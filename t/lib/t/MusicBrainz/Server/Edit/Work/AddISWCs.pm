@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Edit::Work::AddISWCs;
+use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG );
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
@@ -43,7 +44,7 @@ test 'Enters set of ISWCs (no duplicates)' => sub {
     is($edit->status, $STATUS_APPLIED, 'The edit is applied');
 
     my @iswcs = $test->c->model('ISWC')->find_by_iswc('T-111.222.002-0');
-    is(@iswcs, 1, 'Found 1 ISWC objects with ISWC=T-111.222.002-0');
+    is(@iswcs, 1, 'Found 1 ISWC object with ISWC=T-111.222.002-0');
 
     iswc_ok($iswcs[0], 'T-111.222.002-0', 10);
 };
@@ -57,18 +58,47 @@ test 'Notices no changes' => sub {
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
 };
 
+test 'Fails if all the works have been deleted' => sub {
+    my $test = shift;
+
+    my $edit = _create_edit($test, [$valid_addition], privileges => $UNTRUSTED_FLAG);
+    $test->c->model('Work')->delete(10);
+    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Adds ISWCs to works that exist, even if some works were deleted' => sub {
+    my $test = shift;
+
+    my $edit = _create_edit(
+        $test,
+        [
+            $valid_addition,
+            { work => { id => 1, name => 'Foo' }, iswc => 'T-222.333.001-0' },
+        ],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    $test->c->model('Work')->delete(10);
+    $edit->accept;
+
+    my @iswcs = $test->c->model('ISWC')->find_by_iswc('T-222.333.001-0');
+    is(@iswcs, 1, 'Found 1 ISWC object with ISWC=T-222.333.001-0');
+    iswc_ok($iswcs[0], 'T-222.333.001-0', 1);
+};
+
 sub iswc_ok {
     my ($iswc_object, $iswc, $work_id) = @_;
     is($iswc_object->iswc, $iswc, 'Has correct ISWC');
-    is($iswc_object->work_id, $work_id, 'Is linked to work=10');
+    is($iswc_object->work_id, $work_id, "Is linked to work=$work_id");
 }
 
 sub _create_edit {
-    my ($test, $iswcs) = @_;
-    return$test->c->model('Edit')->create(
+    my ($test, $iswcs, %args) = @_;
+    return $test->c->model('Edit')->create(
         edit_type => $EDIT_WORK_ADD_ISWCS,
         editor_id => 1,
-        iswcs => $iswcs
+        iswcs => $iswcs,
+        %args,
     );
 }
 

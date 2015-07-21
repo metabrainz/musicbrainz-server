@@ -79,17 +79,27 @@ sub build_display_data
     }
 }
 
-sub accept
-{
+sub accept {
     my $self = shift;
 
-    my @iswcs = $self->c->model('ISWC')->filter_additions(@{ $self->data->{iswcs} });
+    my $existent_work_ids = $self->c->sql->select_single_column_array(
+        'SELECT id FROM work WHERE id = any(?)', [$self->work_ids]
+    );
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'All of the works in this edit are deleted.'
+    ) unless @$existent_work_ids;
+
+    my %existent_work_ids = map { $_ => 1 } @$existent_work_ids;
+
+    my @iswcs = $self->c->model('ISWC')->filter_additions(
+        grep { exists $existent_work_ids{$_->{work}{id}} } @{ $self->data->{iswcs} }
+    );
 
     if (@iswcs == 0) {
         MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable
             ->throw('All ISWCs added by this edit have already been added.');
-    }
-    else {
+    } else {
         $self->c->model('ISWC')->insert(
             map +{
                 work_id => $_->{work}{id},
