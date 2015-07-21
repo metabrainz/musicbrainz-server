@@ -10,11 +10,11 @@ around accept => sub {
     my @editors =
         map { $_->{editor} }
             @{ $self->subscription_model->delete($self->entity_id) };
-    my $artist = $self->c->model($self->_delete_model)->get_by_id($self->entity_id);
+    my $entity = $self->c->model($self->_delete_model)->get_by_id($self->entity_id);
 
     $self->$orig(@args);
 
-    $self->subscription_model->log_deletion_for_editors($self->id, $artist->gid, @editors);
+    $self->subscription_model->log_deletion_for_editors($self->id, $entity->gid, @editors);
 };
 
 1;
