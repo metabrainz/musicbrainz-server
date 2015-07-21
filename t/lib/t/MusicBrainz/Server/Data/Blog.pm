@@ -15,9 +15,9 @@ test 'Accessing the blog when its up does not die' => sub {
         playback => $Bin.'/lwp-sessions/data_blog.up.lwp-mock'
     );
 
-    my $blog = $test->c->model('Blog')->get_latest_entries;
-    ok(defined $blog);
-    ok($blog->count > 0);
+    my $entries = $test->c->model('Blog')->get_latest_entries;
+    ok(defined $entries);
+    ok(@$entries > 0);
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -29,8 +29,8 @@ test 'Accessing the blog when its down returns undef' => sub {
         playback => $Bin.'/lwp-sessions/data_blog.down.lwp-mock'
     );
 
-    my $blog = $test->c->model('Blog')->get_latest_entries;
-    ok(!defined $blog);
+    my $entries = $test->c->model('Blog')->get_latest_entries;
+    ok(!defined $entries);
 
     LWP::UserAgent::Mockable->finished;
 };
