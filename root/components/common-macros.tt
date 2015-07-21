@@ -787,8 +787,13 @@ END -%]
 //[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%~ MACRO script_manifest(manifest) BLOCK ~%]
-  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
+[%~ MACRO script_manifest(manifest, extra_attrs) BLOCK ~%]
+  [%~ attr_string = '';
+      FOREACH attr IN extra_attrs;
+        attr_string = "$attr_string ${attr.key}=\"" _ html_escape(attr.value) _ '"';
+      END
+  ~%]
+  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"[% attr_string %]></script>
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]

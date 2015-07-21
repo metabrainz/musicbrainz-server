@@ -175,6 +175,10 @@ function buildScripts() {
         b.external(commonBundle);
     });
 
+    var workBundle = runYarb('work.js', function (b) {
+        b.external(editBundle).external(guessCaseBundle);
+    });
+
     return Q.all([
         writeScript(commonBundle, 'common.js'),
         writeScript(editBundle, 'edit.js'),
@@ -184,6 +188,7 @@ function buildScripts() {
         writeScript(seriesBundle, 'series.js'),
         writeScript(statisticsBundle, 'statistics.js'),
         writeScript(timelineBundle, 'timeline.js'),
+        writeScript(workBundle, 'work.js'),
         writeScript(runYarb('debug.js', function (b) {b.external(commonBundle)}), 'debug.js')
     ]).then(writeManifest);
 }

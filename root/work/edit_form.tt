@@ -36,7 +36,7 @@
               </select>
             </td>
             <td>
-              <!-- ko if: allowsFreeText -->
+              <!-- ko if: allowsFreeText() -->
               <input type="text" data-bind="
                   value: attributeValue,
                   attr: { name: 'edit-work.attributes.' + $index() + '.value' }
@@ -105,21 +105,8 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript"
-    src="[% c.uri_for('/static/scripts/edit/WorkAttributes.js') %]">
-</script>
-
-<script type="text/javascript">
-  MB.WorkAttributes.init({
-      attributeTypes: [% workAttributeTypesJson %],
-      allowedValues: [% workAttributeValuesJson %],
-      attributes: [% form.attributes_json %]
-  });
-</script>
-
-<script type="text/javascript">//<![CDATA[
-  (function () {
-    MB.Control.initialize_guess_case("work", "id-edit-work");
-    MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
-  }());
-//]]></script>
+[%- script_manifest('work.js', {
+  'data-attribute-types' => workAttributeTypesJson,
+  'data-allowed-values' => workAttributeValuesJson,
+  'data-attributes' => form.attributes_json
+}) -%]

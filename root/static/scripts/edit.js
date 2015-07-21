@@ -29,5 +29,4 @@ require("./edit/MB/CoverArt.js");
 require("./edit/MB/edit.js");
 require("./edit/MB/reltypeslist.js");
 require("./edit/MB/TextList.js");
-require("./edit/WorkAttributes.js");
 require("./edit/check-duplicates.js");
