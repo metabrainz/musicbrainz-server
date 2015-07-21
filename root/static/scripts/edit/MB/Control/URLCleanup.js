@@ -944,7 +944,7 @@ MB.Control.URLCleanup = (function () {
         return url.match(/songkick\.com\/artists\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.songkick.event ] = function (url) {
-        return url.match(/songkick\.com\/concerts\//) != null;
+        return url.match(/songkick\.com\/(concerts|festivals)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.songkick.place ] = function (url) {
         return url.match(/songkick\.com\/(venues|festivals)\//) != null;
@@ -955,7 +955,7 @@ MB.Control.URLCleanup = (function () {
         return url.match(/setlist\.fm\/setlists\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.setlistfm.event ] = function (url) {
-        return url.match(/setlist\.fm\/setlist\//) != null;
+        return url.match(/setlist\.fm\/(setlist|festival)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.setlistfm.place ] = function (url) {
         return url.match(/setlist\.fm\/venue\//) != null;
