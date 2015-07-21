@@ -1445,12 +1445,12 @@ test('Cleanup', function (t) {
             // Sina Weibo
             [
                 'www.weibo.com/mchotdog2010#test',
-                'http://weibo.com/mchotdog2010',
+                'http://www.weibo.com/mchotdog2010',
                 'artist'
             ],
             [
                 'https://weibo.com/mchotdog2010?test',
-                'http://weibo.com/mchotdog2010',
+                'http://www.weibo.com/mchotdog2010',
                 'label'
             ]
         ];
