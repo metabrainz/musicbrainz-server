@@ -1230,7 +1230,7 @@ test('Cleanup', function (t) {
             ],
             [
                 'http://sv.m.wikipedia.org/wiki/Bullet',
-                'https://sv.wikipedia.org/wiki/Bullet',
+                'http://sv.wikipedia.org/wiki/Bullet',
             ],
             [
                 'http://wikipedia.org/wiki/Oberhofer',
