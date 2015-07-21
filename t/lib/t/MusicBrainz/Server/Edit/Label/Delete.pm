@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Label::Delete;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -44,6 +45,20 @@ test all => sub {
 
     my $isni_codes = $c->model('Artist')->isni->find_by_entity_id(2);
     is(scalar @$isni_codes, 0, "ISNI codes for deleted label removed from database");
+};
+
+test 'Edit is failed if label no longer exists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
+
+    my $label = $c->model('Label')->get_by_id(2);
+    my $edit1 = create_edit($c, $label);
+    my $edit2 = create_edit($c, $label);
+
+    $edit1->accept;
+    isa_ok exception { $edit2->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
 sub create_edit {

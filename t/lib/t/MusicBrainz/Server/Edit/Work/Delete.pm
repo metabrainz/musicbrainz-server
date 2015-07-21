@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Work::Delete;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -19,7 +20,7 @@ test 'Can delete works' => sub {
 
     my $work = $c->model('Work')->get_by_id(1);
 
-    my $edit = _create_edit($c, $work);
+    my $edit = create_edit($c, $work);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Delete');
 
     my ($edits, $hits) = $c->model('Edit')->find({ work => $work->id }, 10, 0);
@@ -56,7 +57,21 @@ test 'Can be entered as an auto-edit' => sub {
     ok(!defined $work);
 };
 
-sub _create_edit {
+test 'Edit is failed if work no longer exists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+work');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    my $edit1 = create_edit($c, $work);
+    my $edit2 = create_edit($c, $work);
+
+    $edit1->accept;
+    isa_ok exception { $edit2->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+sub create_edit {
     my ($c, $work) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_DELETE,

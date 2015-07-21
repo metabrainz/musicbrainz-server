@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Recording::Delete;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -38,6 +39,20 @@ test all => sub {
     accept_edit($c, $edit);
     $recording = $c->model('Recording')->get_by_id(1);
     ok(!defined $recording);
+};
+
+test 'Edit is failed if recording no longer exists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
+
+    my $recording = $c->model('Recording')->get_by_id(1);
+    my $edit1 = create_edit($c, $recording);
+    my $edit2 = create_edit($c, $recording);
+
+    $edit1->accept;
+    isa_ok exception { $edit2->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
 sub create_edit {

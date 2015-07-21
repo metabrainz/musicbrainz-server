@@ -86,14 +86,17 @@ sub initialize
     });
 }
 
-override 'accept' => sub
-{
+override accept => sub {
     my $self = shift;
-    my $model = $self->c->model( $self->_delete_model );
+    my $model = $self->c->model($self->_delete_model);
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This entity no longer exists.'
+    ) unless $model->get_by_id($self->entity_id);
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         'This entity cannot currently be deleted due to related data.'
-    ) unless $model->can_delete( $self->entity_id );
+    ) unless $model->can_delete($self->entity_id);
 
     $model->delete($self->entity_id);
 };

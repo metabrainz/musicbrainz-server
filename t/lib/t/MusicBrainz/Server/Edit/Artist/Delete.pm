@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Artist::Delete;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -19,7 +20,7 @@ test all => sub {
 
     my $artist = $c->model('Artist')->get_by_id(3);
 
-    my $edit = _create_edit($c, $artist);
+    my $edit = create_edit($c, $artist);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
 
     my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
@@ -37,7 +38,7 @@ test all => sub {
 
     # Test accepting the edit
     # This should fail as the artist has a recording linked
-    $edit = _create_edit($c, $artist);
+    $edit = create_edit($c, $artist);
     accept_edit($c, $edit);
     $artist = $c->model('Artist')->get_by_id(3);
     is($edit->status, $STATUS_FAILEDDEP);
@@ -47,7 +48,7 @@ test all => sub {
     my $sql = $c->sql;
     Sql::run_in_transaction(sub { $c->model('Recording')->delete(1) }, $sql);
 
-    $edit = _create_edit($c, $artist);
+    $edit = create_edit($c, $artist);
     accept_edit($c, $edit);
     $artist = $c->model('Artist')->get_by_id(3);
     ok(!defined $artist);
@@ -85,7 +86,24 @@ test 'Can be entered as an auto-edit' => sub {
     ok(!defined $artist);
 };
 
-sub _create_edit {
+test 'Edit is failed if artist no longer exists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $artist_row = $c->model('Artist')->insert({
+        name => 'Gonna B Deleted',
+        sort_name => 'Gonna B Deleted',
+    });
+
+    my $artist = $c->model('Artist')->get_by_id($artist_row->{id});
+    my $edit1 = create_edit($c, $artist);
+    my $edit2 = create_edit($c, $artist);
+
+    $edit1->accept;
+    isa_ok exception { $edit2->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+sub create_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_DELETE,
