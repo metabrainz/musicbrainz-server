@@ -1230,11 +1230,11 @@ test('Cleanup', function (t) {
             ],
             [
                 'http://sv.m.wikipedia.org/wiki/Bullet',
-                'http://sv.wikipedia.org/wiki/Bullet',
+                'https://sv.wikipedia.org/wiki/Bullet',
             ],
             [
                 'http://wikipedia.org/wiki/Oberhofer',
-                'http://en.wikipedia.org/wiki/Oberhofer',
+                'https://en.wikipedia.org/wiki/Oberhofer',
             ],
             // Open Library
             [

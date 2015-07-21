@@ -226,9 +226,8 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i") ],
         type: MB.constants.LINK_TYPES.wikipedia,
         clean: function (url) {
-            url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
-            url =  url.replace(/^https:\/\//, "http://");
-            url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
+            url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "https://$1.wikipedia.org/wiki/$2");
+            url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "https://en.wikipedia.org/$1");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
             var m;
@@ -604,7 +603,7 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i") ],
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function (url) {
-            return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
+            return url.replace(/^(https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "$1www.wikidata.org/wiki/$2");
         }
     },
     bandcamp: {
