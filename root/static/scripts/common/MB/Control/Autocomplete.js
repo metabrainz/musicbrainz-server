@@ -767,7 +767,7 @@ MB.Control.autocomplete_formatters = {
                       _.escape(item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.containment.length) {
+        if (item.typeName || (item.containment && item.containment.length)) {
             var items = [];
             if (item.typeName) {
                 items.push(_.escape(item.typeName));
