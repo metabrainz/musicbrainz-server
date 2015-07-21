@@ -20,11 +20,11 @@ WA.init = function (config) {
     attributeTypes = config.attributeTypes;
     allowedValues = config.allowedValues;
 
-    attributeTypes.forEach(type => {
+    attributeTypes.children.forEach(type => {
         type.name = lp(type.name, 'work_attribute_type');
     });
 
-    allowedValues.forEach(value => {
+    allowedValues.children.forEach(value => {
         value.value = lp(value.value, 'work_attribute_type_allowed_value');
     });
 
