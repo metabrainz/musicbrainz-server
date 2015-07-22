@@ -31,11 +31,11 @@ is($rel->link->end_date->year, undef, "no end date");
 my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
 is($hits, 1, "Found 1 edit for artist 1");
 is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
 
-($edits, $hits) = $c->model('Edit')->find({ artist => 2 }, 10, 0);
+($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
 is($hits, 1, "Found 1 edit for artist 2");
 is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
 
@@ -58,8 +58,8 @@ $c->model('LinkType')->load($rel->link);
 is($rel->link->type->id, 2, "... type id 2");
 is($rel->link->begin_date->year, 1994, "... begin year 1994");
 is($rel->link->end_date->year, 1995, "... end year 1995");
-is($rel->entity0_id, 1, '... entity 0 is artist 1');
-is($rel->entity1_id, 3, '... entity 1 is artist 3');
+is($rel->entity0_id, 3, '... entity 0 is artist 3');
+is($rel->entity1_id, 5, '... entity 1 is artist 5');
 
 $c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
 $c->sql->do('SET CONSTRAINTS ALL DEFERRED');
@@ -328,7 +328,7 @@ sub _create_edit {
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
-        entity1 => $c->model('Artist')->get_by_id(3),
+        entity1 => $c->model('Artist')->get_by_id(5),
         %args
     );
 }

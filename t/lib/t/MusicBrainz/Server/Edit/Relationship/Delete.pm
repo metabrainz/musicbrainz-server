@@ -32,11 +32,11 @@ subtest 'Test edit creation/rejection' => sub {
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Delete');
 
-    my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
+    my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
     is($hits, 1);
     is($edits->[0]->id, $edit->id);
 
-    ($edits, $hits) = $c->model('Edit')->find({ artist => 2 }, 10, 0);
+    ($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
     is($hits, 1);
     is($edits->[0]->id, $edit->id);
 
