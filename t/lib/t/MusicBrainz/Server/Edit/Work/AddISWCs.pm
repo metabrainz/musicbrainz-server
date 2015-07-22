@@ -63,7 +63,7 @@ test 'Fails if all the works have been deleted' => sub {
 
     my $edit = _create_edit($test, [$valid_addition], privileges => $UNTRUSTED_FLAG);
     $test->c->model('Work')->delete(10);
-    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable';
 };
 
 test 'Adds ISWCs to works that exist, even if some works were deleted' => sub {

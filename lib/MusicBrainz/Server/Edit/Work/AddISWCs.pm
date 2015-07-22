@@ -82,23 +82,13 @@ sub build_display_data
 sub accept {
     my $self = shift;
 
-    my $existent_work_ids = $self->c->sql->select_single_column_array(
-        'SELECT id FROM work WHERE id = any(?)', [$self->work_ids]
-    );
-
-    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'All of the works in this edit are deleted.'
-    ) unless @$existent_work_ids;
-
-    my %existent_work_ids = map { $_ => 1 } @$existent_work_ids;
-
-    my @iswcs = $self->c->model('ISWC')->filter_additions(
-        grep { exists $existent_work_ids{$_->{work}{id}} } @{ $self->data->{iswcs} }
-    );
+    my @iswcs = $self->c->model('ISWC')->filter_additions(@{ $self->data->{iswcs} });
 
     if (@iswcs == 0) {
-        MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable
-            ->throw('All ISWCs added by this edit have already been added.');
+        MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
+            'This edit no longer changes anything, either because all the ' .
+            'works are deleted, or all the ISWCs are already present.'
+        );
     } else {
         $self->c->model('ISWC')->insert(
             map +{
