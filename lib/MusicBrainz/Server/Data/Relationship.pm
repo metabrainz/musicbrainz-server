@@ -500,13 +500,16 @@ sub exists {
     my @props = qw(entity0 entity1 link_order link);
     my @values = @{$values}{qw(entity0_id entity1_id link_order)};
 
-    push @values, $self->c->model('Link')->find({
+    my $link = $self->c->model('Link')->find({
         link_type_id => $values->{link_type_id},
         begin_date => $values->{begin_date},
         end_date => $values->{end_date},
         ended => $values->{ended},
         attributes => $values->{attributes},
     });
+
+    return 0 unless $link;
+    push @values, $link;
 
     for (qw(entity0_credit entity1_credit)) {
         if (exists $values->{$_}) {
