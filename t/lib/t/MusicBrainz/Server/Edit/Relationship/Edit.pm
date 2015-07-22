@@ -106,6 +106,32 @@ test 'Editing a relationship fails if the relationship has been deleted' => sub 
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Editing a relationship fails if one of the old endpoints has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->delete(4);
+
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Editing a relationship fails if one of the new endpoints has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->delete(5);
+
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 test 'Editing a relationship refreshes existing cover art' => sub {
     my $test = shift;
     my $c = $test->c;
