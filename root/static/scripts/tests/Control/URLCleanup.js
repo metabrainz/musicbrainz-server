@@ -1234,7 +1234,7 @@ test('Cleanup', function (t) {
             ],
             [
                 'http://wikipedia.org/wiki/Oberhofer',
-                'http://en.wikipedia.org/wiki/Oberhofer',
+                'https://en.wikipedia.org/wiki/Oberhofer',
             ],
             // Open Library
             [
