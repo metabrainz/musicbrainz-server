@@ -130,7 +130,8 @@ MB.constants.LINK_TYPES = {
     },
     soundcloud: {
         artist: "89e4a949-0976-440d-bda1-5f772c1e5710",
-        label: "a31d05ba-3b82-47b2-ab8b-1fe73b5459e2"
+        label: "a31d05ba-3b82-47b2-ab8b-1fe73b5459e2",
+        series: "4789521b-57b9-4689-9644-46de63190f66"
     },
     blog: {
         artist: "eb535226-f8ca-499d-9b18-6a144df4ae6f",
@@ -298,7 +299,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br)|amzn\\.com)","i") ],
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx)|amzn\\.com)","i") ],
         type: MB.constants.LINK_TYPES.amazon,
         clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
@@ -891,7 +892,7 @@ MB.Control.URLCleanup = (function () {
 
     // allow only Amazon pages with the Amazon rel
     validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function (url) {
-        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br)\//) != null;
+        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//) != null;
     }
 
     // allow only IMDb pages with the IMDb rels
