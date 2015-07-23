@@ -215,7 +215,8 @@ sub filter_additions
                     SELECT TRUE FROM iswc
                      WHERE iswc.iswc = addition.iswc
                        AND iswc.work = addition.work
-                           )';
+                    )
+                AND work IN (SELECT id FROM work)';
 
     my @filtered = @{
         $self->sql->select_single_column_array(
