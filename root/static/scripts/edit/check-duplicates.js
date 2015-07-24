@@ -154,8 +154,9 @@ MB.initializeDuplicateChecker = function (type) {
   var currentDuplicates = [];
   var promise;
 
-  function makeRequest(name) {
-    if (!name || name === originalName) {
+  function makeRequest(name, forceRequest) {
+    // forceRequest only applies if name is non-empty
+    if (isBlank(name) || (name === originalName && !forceRequest)) {
       unmountDuplicates(dupeContainer);
       markCommentAsNotRequired(commentInput);
       return;
@@ -184,7 +185,7 @@ MB.initializeDuplicateChecker = function (type) {
       })
       .fail(function (jqXHR) {
         if (/^50/.test(jqXHR.status)) {
-          _.delay(_.partial(makeRequest, name), 3000);
+          _.delay(_.partial(makeRequest, name, false), 3000);
         }
       })
       .always(function () {
@@ -197,18 +198,19 @@ MB.initializeDuplicateChecker = function (type) {
     return clean(name).toLowerCase();
   }
 
-  var handleNameChange = _.debounce(function (name) {
-    if (normalize(name) !== normalize(currentName)) {
+  var handleNameChange = _.debounce(function (name, forceRequest) {
+    if (forceRequest || normalize(name) !== normalize(currentName)) {
       if (promise) {
         promise.abort();
       }
-      makeRequest(name);
+      makeRequest(name, forceRequest);
       currentName = name;
     }
   }, 300);
 
+  handleNameChange(currentName, true);
   $(nameInput).on('input', function () {
-    handleNameChange(this.value);
+    handleNameChange(this.value, false);
   });
 
   function checkForEmptyComment() {
