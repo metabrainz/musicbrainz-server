@@ -63,18 +63,17 @@ up, see HACKING-CAA.md
 Javascript
 ----------
 
-We have a set of javascript unittests (using QUnit), which we run
-using phantomjs (version 1.5 or higher). These will be skipped if phantomjs
-isn't found.
+We have a set of JavaScript unit tests (using https://github.com/substack/tape)
+which we run using phantomjs (version 1.5 or higher). These will be skipped if
+phantomjs isn't found.
 
-Currently we have a single QUnit test file to run javascript tests.
-It can be tested inside the browser by visiting
-http://test.musicbrainz.org/static/scripts/tests/all.html (or
-http://localhost:5000/static/scripts/tests/all.html on your local
-development checkout).
+Currently we have a single test file to run JavaScript tests. It can be opened
+inside a browser by visiting
+http://localhost:5000/static/scripts/tests/all.html on your local development
+server.
 
-It is more fun to be able to run those tests on the commandline, this
-can be done with phantomjs.
+It is more fun to be able to run those tests on the command line. This can be
+done with phantomjs.
 
 To install phantomjs:
 
@@ -86,7 +85,7 @@ To install phantomjs:
     ~/opt/phantomjs$ qmake
     ~/opt/phantomjs$ make
 
-Now you should be able to use it to run QUnit tests:
+Now you should be able to use it to run the tests:
 
     $ prove -l t/qunit.t
 
