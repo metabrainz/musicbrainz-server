@@ -367,4 +367,30 @@ EOSQL
     ok !exception { $work_data->delete($a->{id}); }
 };
 
+test 'Deleting a work that\'s in a collection' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+work');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+EOSQL
+
+    my $work = $c->model('Work')->insert({ name => 'Test123' });
+
+    my $collection = $c->model('Collection')->insert(5, {
+        description => '',
+        editor_id => 5,
+        name => 'Collection123',
+        public => 0,
+        type_id => 15,
+    });
+
+    $c->model('Collection')->add_entities_to_collection('work', $collection->{id}, $work->{id});
+    $c->model('Work')->delete($work->{id});
+
+    ok(!$c->model('Work')->get_by_id($work->{id}));
+};
+
 1;

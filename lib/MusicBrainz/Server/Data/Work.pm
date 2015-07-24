@@ -146,9 +146,10 @@ sub update
 # Works can be unconditionally removed
 sub can_delete { 1 }
 
-sub delete
-{
+sub delete {
     my ($self, $work_id) = @_;
+
+    $self->c->model('Collection')->delete_entities('work', $work_id);
     $self->c->model('Relationship')->delete_entities('work', $work_id);
     $self->annotation->delete($work_id);
     $self->alias->delete_entities($work_id);
