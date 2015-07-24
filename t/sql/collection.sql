@@ -33,17 +33,12 @@ INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6', 'foo@example.com', now()),
 (3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d', 'foo@example.com', now());
 
-INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
-    VALUES (1, 'Release', 'release', NULL, 1),
-           (2, 'Event', 'event', NULL, 2),
-           (3, 'Work', 'work', NULL, 3);
-
 INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
     VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE, '', 1),
            (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2', TRUE, 'Testy!', 1),
-           (3, 'f34c079d-374e-4436-9448-da92dedef3c9', 1, 'event_collection1', FALSE, '', 2),
-           (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 2),
-           (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 3);
+           (3, 'f34c079d-374e-4436-9448-da92dedef3c9', 1, 'event_collection1', FALSE, '', 4),
+           (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 4),
+           (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 15);
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);

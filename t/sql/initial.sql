@@ -1,6 +1,22 @@
 BEGIN;
 SET client_min_messages TO 'WARNING';
 
+INSERT INTO editor_collection_type VALUES (1, 'Release', 'release', NULL, 1, NULL);
+INSERT INTO editor_collection_type VALUES (2, 'Owned music', 'release', 1, 1, NULL);
+INSERT INTO editor_collection_type VALUES (3, 'Wishlist', 'release', 1, 2, NULL);
+INSERT INTO editor_collection_type VALUES (4, 'Event', 'event', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (5, 'Attending', 'event', 4, 1, NULL);
+INSERT INTO editor_collection_type VALUES (6, 'Maybe attending', 'event', 4, 2, NULL);
+INSERT INTO editor_collection_type VALUES (7, 'Area', 'area', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (8, 'Artist', 'artist', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (9, 'Instrument', 'instrument', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (10, 'Label', 'label', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (11, 'Place', 'place', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (12, 'Recording', 'recording', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (13, 'Release group', 'release_group', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (14, 'Series', 'series', NULL, 2, NULL);
+INSERT INTO editor_collection_type VALUES (15, 'Work', 'work', NULL, 2, NULL);
+
 INSERT INTO event_type VALUES (1, 'Concert', NULL, 1, 'An individual concert by a single artist or collaboration, often with supporting artists who perform before the main act.');
 INSERT INTO event_type VALUES (2, 'Festival', NULL, 2, 'An event where a number of different acts perform across the course of the day. Larger festivals may be spread across multiple days.');
 INSERT INTO event_type VALUES (3, 'Launch event', NULL, 3, 'A party, reception or other event held specifically for the launch of a release.');
