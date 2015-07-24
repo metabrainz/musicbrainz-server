@@ -30,6 +30,9 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]},
                   aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name => 'label'
+};
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
@@ -114,6 +117,11 @@ sub show : PathPart('') Chained('load')
 }
 
 sub relationships : Chained('load') PathPart('relationships') {}
+
+after [qw( show collections details tags aliases relationships )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collection($c);
+};
 
 sub _merge_load_entities
 {

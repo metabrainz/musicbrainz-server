@@ -2,12 +2,13 @@
     <thead>
         <tr>
             [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-            <th>[%~ lp('Series', 'singular') ~%]</th>
-            <th>[%~ l('Type') ~%]</th>
+            <th>[%~ sortable ? sortable_table_header('name', lp('Series', 'singular')) : lp('Series', 'singular') ~%]</th>
+            <th>[%~ sortable ? sortable_table_header('type', l('Type')) : l('Type') ~%]</th>
             <th>[%~ l('Ordering Type') ~%]</th>
         </tr>
     </thead>
     <tbody>
+        [%~ DEFAULT series=entities ~%]
         [%~ FOR entity IN series ~%]
         <tr class="[% loop.parity ~%]">
             [% IF c.user_exists && checkboxes %]

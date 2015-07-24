@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_string_attributes
     merge_table_attributes
+    order_by
 );
 use MusicBrainz::Server::Entity::Instrument;
 
@@ -18,6 +19,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'instrument' }
 
@@ -116,6 +118,20 @@ sub _hash_to_row {
     });
 
     return $row;
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 sub get_all {

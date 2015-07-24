@@ -30,6 +30,9 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]}, aliases => {copy_stash => ['aliases']}}
 };
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_name => 'release_group'
+};
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -80,6 +83,11 @@ sub show : Chained('load') PathPart('') {
         releases => group_by_release_status(@$releases),
     );
 }
+
+after [qw( show collections details tags aliases )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collection($c);
+};
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASEGROUP_DELETE,

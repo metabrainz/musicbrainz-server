@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_date_period
+    order_by
     placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
@@ -38,6 +39,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'label' }
 
@@ -121,6 +123,29 @@ sub find_by_release
                  ORDER BY musicbrainz_collate(label.name)";
 
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "code" => sub {
+            return "label_code, musicbrainz_collate(name)"
+        },
+        "begin_date" => sub {
+            return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
+        },
+        "end_date" => sub {
+            return "end_date_year, end_date_month, end_date_day, musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 sub _area_cols

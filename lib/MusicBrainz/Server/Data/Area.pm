@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_date_period
+    order_by
     placeholders
     object_to_ids
 );
@@ -28,6 +29,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
@@ -363,6 +365,21 @@ sub _get_by_iso {
     }
 
     return \%ret;
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 __PACKAGE__->meta->make_immutable;

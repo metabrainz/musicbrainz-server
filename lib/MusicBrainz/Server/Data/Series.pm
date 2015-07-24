@@ -34,6 +34,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::Subscription::Series',
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries'
 };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'series' }
 
@@ -70,6 +71,20 @@ sub _hash_to_row {
     });
 
     return $row;
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 sub _merge_impl {
