@@ -1349,8 +1349,8 @@ sub series_ordering {
     return $cmp if $cmp;
 
     $self->c->model('ReleaseLabel')->load(@releases);
-    my ($a_catalog_number) = sort map { $_->catalog_number } $r1->entity0->all_labels;
-    my ($b_catalog_number) = sort map { $_->catalog_number } $r2->entity0->all_labels;
+    my ($a_catalog_number) = sort map { $_->catalog_number // '' } $r1->entity0->all_labels;
+    my ($b_catalog_number) = sort map { $_->catalog_number // '' } $r2->entity0->all_labels;
     return ($a_catalog_number // '') cmp ($b_catalog_number // '');
 }
 
