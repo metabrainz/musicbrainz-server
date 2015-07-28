@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::Artist::EditExternalLinks;
+use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -40,7 +41,7 @@ isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Edit');
 isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
 isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Delete');
 
-is_deeply($edits[0]->data, {
+cmp_deeply($edits[0]->data, {
     'type1' => 'url',
     'link' => {
         'link_type' => {
@@ -53,7 +54,8 @@ is_deeply($edits[0]->data, {
         'ended' => '0',
         'entity1' => {
             'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
-            'id' => 3
+            'id' => 3,
+            'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d'
         },
         'end_date' => {
             'month' => undef,
@@ -62,7 +64,8 @@ is_deeply($edits[0]->data, {
         },
         'entity0' => {
             'name' => 'Faye Wong',
-            'id' => 100
+            'id' => 100,
+            'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
         },
         'begin_date' => {
             'month' => undef,
@@ -76,19 +79,21 @@ is_deeply($edits[0]->data, {
     'new' => {
         'entity1' => {
             'name' => 'http://musicbrainz.org/',
-            'id' => 1
+            'id' => 1,
+            'gid' => '9201840b-d810-4e0f-bb75-c791205f5b24'
         }
     },
     'old' => {
         'entity1' => {
             'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
-            'id' => 3
+            'id' => 3,
+            'gid' => '25d6b63a-12dc-41c9-858a-2f42ae610a7d'
         }
     },
     'edit_version' => 2,
 });
 
-is_deeply($edits[1]->data, {
+cmp_deeply($edits[1]->data, {
     'link_type' => {
         'long_link_phrase' => 'wikipedia',
         'link_phrase' => 'wikipedia',
@@ -99,18 +104,20 @@ is_deeply($edits[1]->data, {
     'type1' => 'url',
     'entity1' => {
         'name' => 'http://microsoft.com/',
-        'id' => 5
+        'id' => 5,
+        'gid' => ignore()
     },
     'ended' => 0,
     'entity0' => {
         'name' => 'Faye Wong',
-        'id' => 100
+        'id' => 100,
+        'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
     },
     'type0' => 'artist',
     'edit_version' => 2,
 });
 
-is_deeply($edits[2]->data, {
+cmp_deeply($edits[2]->data, {
     'relationship' => {
         'link' => {
             'end_date' => {
@@ -134,11 +141,13 @@ is_deeply($edits[2]->data, {
         },
         'entity1' => {
             'name' => 'http://www.allmusic.com/artist/faye-wong-mn0000515659',
-            'id' => 4
+            'id' => 4,
+            'gid' => '7bd45cc7-6189-4712-35e1-cdf3632cf1a9'
         },
         'entity0' => {
             'name' => 'Faye Wong',
-            'id' => 100
+            'id' => 100,
+            'gid' => 'acd58926-4243-40bb-a2e5-c7464b3ce577'
         },
         'id' => 2
     },

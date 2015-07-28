@@ -3,8 +3,9 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
-use List::MoreUtils qw( uniq );
+use List::MoreUtils qw( part uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Carp qw( confess );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -78,6 +79,23 @@ sub get_by_ids
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
+}
+
+sub get_by_any_id {
+    my ($self, $any_id) = @_;
+
+    return $self->get_by_id($any_id) if is_positive_integer($any_id);
+    return $self->get_by_gid($any_id);
+}
+
+sub get_by_any_ids {
+    my ($self, @any_ids) = @_;
+
+    my ($ids, $gids) = part { is_positive_integer($_) ? 0 : 1 } @any_ids;
+    my %result;
+    %result = %{ $self->get_by_ids(@$ids) } if $ids && @$ids;
+    %result = (%result, %{ $self->get_by_gids(@$gids) }) if $gids && @$gids;
+    return \%result;
 }
 
 sub _get_by_key

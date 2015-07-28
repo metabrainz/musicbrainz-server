@@ -140,6 +140,60 @@ test 'Editing a relationship fails if one of the new endpoints has been deleted'
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Editing a relationship succeeds despite an entity being merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $r = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($r);
+    $c->model('LinkType')->load($r->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        link_type => $c->model('LinkType')->get_by_id(2),
+        privileges => $UNTRUSTED_FLAG,
+        relationship => $r,
+    );
+
+    ok($edit->is_open);
+    $c->model('Artist')->merge(5, [4]);
+    ok !exception { $edit->accept };
+};
+
+test q(Editing a relationship fails if one of the entities is merged, and the
+       edited relationship already exists on the merge target) => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $r = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($r);
+    $c->model('LinkType')->load($r->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        link_type => $c->model('LinkType')->get_by_id(2),
+        privileges => $UNTRUSTED_FLAG,
+        relationship => $r,
+    );
+
+    ok($edit->is_open);
+    $c->model('Artist')->merge(5, [4]);
+    $c->model('Relationship')->insert('artist', 'artist', {
+        entity0_id      => 3,
+        entity1_id      => 5,
+        link_type_id    => 2,
+        attributes      => [{ type => { id => 1 } }],
+    });
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 test 'Editing a relationship refreshes existing cover art' => sub {
     my $test = shift;
     my $c = $test->c;

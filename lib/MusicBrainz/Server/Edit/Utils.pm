@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
+use Scalar::Util qw( blessed );
 use Set::Scalar;
 use Try::Tiny;
 
@@ -31,6 +32,7 @@ our @EXPORT_OK = qw(
     date_closure
     time_closure
     edit_status_name
+    gid_or_id
     hash_artist_credit
     hash_artist_credit_without_join_phrases
     large_spread
@@ -279,6 +281,13 @@ sub edit_status_name
 {
     my ($status) = @_;
     return $STATUS_NAMES{ $status };
+}
+
+sub gid_or_id {
+    my $entity = shift;
+
+    return $entity->gid // $entity->id if blessed($entity);
+    return $entity->{gid} // $entity->{id};
 }
 
 sub status_names

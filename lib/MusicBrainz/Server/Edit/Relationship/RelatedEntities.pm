@@ -16,7 +16,7 @@ around _build_related_entities => sub {
         next unless $expand{$type};
         my $model = type_to_model($type);
         my @ids = @{ $direct->{$type} };
-        my @entities = values %{ $self->c->model($model)->get_by_ids(@ids) };
+        my @entities = values %{ $self->c->model($model)->get_by_any_ids(@ids) };
         $self->c->model('ArtistCredit')->load(@entities);
         $direct->{artist} ||= [];
         push @{ $direct->{artist} }, map { $_->artist_id }

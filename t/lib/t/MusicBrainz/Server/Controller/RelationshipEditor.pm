@@ -105,8 +105,8 @@ test 'Can add relationship' => sub {
             long_link_phrase    => 'performer',
             reverse_link_phrase => 'has {additional} {instrument} performed by',
         },
-        entity1         => { id => 2, name => 'King of the Mountain' },
-        entity0         => { id => 3, name => 'Test Artist' },
+        entity1         => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
+        entity0         => { id => 3, gid => '745c079d-374e-4436-9448-da92dedef3ce', name => 'Test Artist' },
         begin_date      => { year => 1999, month => 1, day => 1 },
         end_date        => { year => 1999, month => 1, day => 1 },
         ended           => 1,
@@ -157,19 +157,48 @@ test 'Can edit relationship' => sub {
 
     ok(defined $edit);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
-    is($edit->data->{link}{entity0}{id}, 8);
-    is($edit->data->{link}{entity1}{id}, 2);
-    is($edit->data->{type0}, 'artist');
-    is($edit->data->{type1}, 'recording');
-    is($edit->data->{link}{link_type}{id}, 1);
-    cmp_deeply($edit->data->{new}{attributes}, [$additional_attribute, $string_instruments_attribute, $crazy_guitar]);
-    is($edit->data->{new}{begin_date}{year}, 1999);
-    is($edit->data->{new}{begin_date}{month}, 1);
-    is($edit->data->{new}{begin_date}{day}, 1);
-    is($edit->data->{new}{end_date}{year}, 2009);
-    is($edit->data->{new}{end_date}{month}, 9);
-    is($edit->data->{new}{end_date}{day}, 9);
-    is($edit->data->{new}{ended}, 1);
+
+    cmp_deeply($edit->data, {
+        edit_version => 2,
+        link => {
+            attributes => [$guitar_attribute],
+            begin_date => { year => undef, day => undef, month => undef },
+            end_date => { month => undef, day => undef, year => undef },
+            ended => 0,
+            entity0 => {
+                gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                id => 8,
+                name => 'Test Alias'
+            },
+            entity1 => {
+                gid => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                id => 2,
+                name => 'King of the Mountain'
+            },
+            link_type => {
+                id => 1,
+                link_phrase => 'performed {additional} {instrument} on',
+                long_link_phrase => 'performer',
+                name => 'instrument',
+                reverse_link_phrase => 'has {additional} {instrument} performed by',
+            },
+        },
+        new => {
+            attributes => [$additional_attribute, $string_instruments_attribute, $crazy_guitar],
+            begin_date => { month => 1, day => 1, year => 1999 },
+            end_date => { month => 9, day => 9, year => 2009 },
+            ended => 1,
+        },
+        old => {
+            ended => '0',
+            begin_date => { day => undef, year => undef, month => undef },
+            attributes => [$guitar_attribute],
+            end_date => { month => undef, day => undef, year => undef },
+        },
+        relationship_id => 1,
+        type0 => 'artist',
+        type1 => 'recording',
+    });
 };
 
 test 'Can remove relationship' => sub {

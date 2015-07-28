@@ -153,8 +153,21 @@ subtest 'Instrument credits can be added with a new relationship' => sub {
 
 };
 
+test 'Entities load correctly after being merged (MBS-2477)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->merge(5, [4]);
+    $c->model('Edit')->load_all($edit);
+
+    is($edit->display_data->{relationship}{entity1}->gid, '15a40343-ff6e-45d6-a5d2-110388d34858');
+};
+
 sub _create_edit {
-    my $c = shift;
+    my ($c, %args) = @_;
 
     my $e0 = $c->model('Artist')->get_by_id(3);
     my $e1 = $c->model('Artist')->get_by_id(4);
@@ -170,6 +183,7 @@ sub _create_edit {
         end_date => { year => 1995 },
         attributes => [ ],
         ended => 1,
+        %args,
     );
 }
 

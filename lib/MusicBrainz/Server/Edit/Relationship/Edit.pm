@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
 );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -110,38 +111,40 @@ sub foreign_keys
     my $model1 = type_to_model($self->data->{type1});
 
     my %load;
+    my $old = $self->data->{old};
+    my $new = $self->data->{new};
+    my $link = $self->data->{link};
 
     $load{LinkType} = [
-        $self->data->{link}->{link_type}{id},
-        $self->data->{new}{link_type} ? $self->data->{new}{link_type}{id} : (),
-        $self->data->{old}{link_type} ? $self->data->{old}{link_type}{id} : (),
+        $link->{link_type}{id},
+        $new->{link_type} ? $new->{link_type}{id} : (),
+        $old->{link_type} ? $old->{link_type}{id} : (),
     ];
     $load{LinkAttributeType} = {
         map { $_->{type}{id} => ['LinkAttributeType'] } (
-            @{ $self->data->{link}->{attributes} },
-            @{ $self->data->{new}->{attributes} || [] },
-            @{ $self->data->{old}->{attributes} || [] },
+            @{ $link->{attributes} },
+            @{ $new->{attributes} || [] },
+            @{ $old->{attributes} || [] },
         )
     };
-
-    my $old = $self->data->{old};
-    my $new = $self->data->{new};
 
     $load{$model0} = {};
     $load{$model1} = {};
 
-    $load{$model0}->{ $self->data->{link}->{entity0}{id} } = [ 'ArtistCredit' ];
-    $load{$model1}->{ $self->data->{link}->{entity1}{id} } = [ 'ArtistCredit' ];
-    $load{$model0}->{ $old->{entity0}{id} } = [ 'ArtistCredit' ] if $old->{entity0};
-    $load{$model1}->{ $old->{entity1}{id} } = [ 'ArtistCredit' ] if $old->{entity1};
-    $load{$model0}->{ $new->{entity0}{id} } = [ 'ArtistCredit' ] if $new->{entity0};
-    $load{$model1}->{ $new->{entity1}{id} } = [ 'ArtistCredit' ] if $new->{entity1};
+    $load{$model0}->{gid_or_id($link->{entity0})} = ['ArtistCredit'];
+    $load{$model1}->{gid_or_id($link->{entity1})} = ['ArtistCredit'];
+
+    # Autovivification can create subtle bugs elsewhere if the change data is modified,
+    # so guard these to where the properties exist.
+    $load{$model0}->{gid_or_id($old->{entity0})} = ['ArtistCredit'] if defined $old->{entity0};
+    $load{$model1}->{gid_or_id($old->{entity1})} = ['ArtistCredit'] if defined $old->{entity1};
+    $load{$model0}->{gid_or_id($new->{entity0})} = ['ArtistCredit'] if defined $new->{entity0};
+    $load{$model1}->{gid_or_id($new->{entity1})} = ['ArtistCredit'] if defined $new->{entity1};
 
     return \%load;
 }
 
-sub _build_relationship
-{
+sub _build_relationship {
     my ($self, $loaded, $data, $change) = @_;
 
     my $link = $data->{link};
@@ -157,6 +160,9 @@ sub _build_relationship
     my $lt         = defined $change->{link_type}    ? $change->{link_type}    : $link->{link_type};
 
     return unless $entity0 && $entity1;
+
+    my $entity0_id = gid_or_id($entity0) // 0;
+    my $entity1_id = gid_or_id($entity1) // 0;
 
     return Relationship->new(
         link => Link->new(
@@ -181,17 +187,16 @@ sub _build_relationship
                 } @$attributes
             ],
         ),
-        entity0 => $loaded->{$model0}{ $entity0->{id} } ||
+        entity0 => $loaded->{$model0}{ $entity0_id } ||
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
-        entity1 => $loaded->{$model1}{ $entity1->{id} } ||
+        entity1 => $loaded->{$model1}{ $entity1_id } ||
             $self->c->model($model1)->_entity_class->new( name => $entity1->{name} ),
         entity0_credit => $change->{entity0_credit} // '',
         entity1_credit => $change->{entity1_credit} // '',
     );
 }
 
-sub build_display_data
-{
+sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $old = $self->data->{old};
@@ -209,12 +214,12 @@ sub build_display_data
     };
 }
 
-sub directly_related_entities
-{
+sub directly_related_entities {
     my ($self) = @_;
 
     my $old = $self->data->{old};
     my $new = $self->data->{new};
+    my $link = $self->data->{link};
 
     my $type0 = $self->data->{type0};
     my $type1 = $self->data->{type1};
@@ -223,12 +228,12 @@ sub directly_related_entities
     $result{$type0} = [];
     $result{$type1} = [];
 
-    push @{ $result{$type0} }, $old->{entity0}{id} if $old->{entity0};
-    push @{ $result{$type0} }, $new->{entity0}{id} if $new->{entity0};
-    push @{ $result{$type0} }, $self->data->{link}{entity0}{id};
-    push @{ $result{$type1} }, $old->{entity1}{id} if $old->{entity1};
-    push @{ $result{$type1} }, $new->{entity1}{id} if $new->{entity1};
-    push @{ $result{$type1} }, $self->data->{link}{entity1}{id};
+    push @{ $result{$type0} }, gid_or_id($old->{entity0}) if $old->{entity0};
+    push @{ $result{$type0} }, gid_or_id($new->{entity0}) if $new->{entity0};
+    push @{ $result{$type0} }, gid_or_id($link->{entity0});
+    push @{ $result{$type1} }, gid_or_id($old->{entity1}) if $old->{entity1};
+    push @{ $result{$type1} }, gid_or_id($new->{entity1}) if $new->{entity1};
+    push @{ $result{$type1} }, gid_or_id($link->{entity1});
 
     return \%result;
 }
@@ -242,8 +247,7 @@ sub adjust_edit_pending
         $adjust, $self->data->{relationship_id});
 }
 
-sub _mapping
-{
+sub _mapping {
     my ($self) = @_;
 
     return (
@@ -264,11 +268,11 @@ sub _mapping
         },
         entity0 => sub {
             my $rel = shift;
-            return { id => $rel->entity0->id, name => $rel->entity0->name };
+            return { id => $rel->entity0->id, gid => $rel->entity0->gid, name => $rel->entity0->name };
         },
         entity1 => sub {
             my $rel = shift;
-            return { id => $rel->entity1->id, name => $rel->entity1->name };
+            return { id => $rel->entity1->id, gid => $rel->entity1->gid, name => $rel->entity1->name };
         },
         entity0_credit => sub { shift->entity0_credit },
         entity1_credit => sub { shift->entity1_credit },
@@ -340,11 +344,13 @@ sub initialize
 
     $opts{entity0} = {
         id => $opts{entity0}->id,
+        gid => $opts{entity0}->gid,
         name => $opts{entity0}->name
     } if $opts{entity0};
 
     $opts{entity1} = {
         id => $opts{entity1}->id,
+        gid => $opts{entity1}->gid,
         name => $opts{entity1}->name
     } if $opts{entity1};
 
@@ -391,10 +397,12 @@ sub initialize
             },
             entity0 => {
                 id => $relationship->entity0_id,
+                gid => $relationship->entity0->gid,
                 name => $relationship->entity0->name
             },
             entity1 => {
                 id => $relationship->entity1_id,
+                gid => $relationship->entity1->gid,
                 name => $relationship->entity1->name
             },
         },
@@ -448,7 +456,7 @@ sub accept
         begin_date      => $data->{new}{begin_date}     // $relationship->link->begin_date,
         end_date        => $data->{new}{end_date}       // $relationship->link->end_date,
         ended           => $data->{new}{ended}          // $relationship->link->ended,
-        link_order   => $relationship->link_order,
+        link_order      => $relationship->link_order,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
