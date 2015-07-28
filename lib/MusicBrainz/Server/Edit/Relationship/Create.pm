@@ -15,6 +15,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model non_empty );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -81,11 +82,13 @@ sub initialize
 
     $opts{entity0} = {
         id => $e0->id,
+        gid => $e0->gid,
         name => $e0->name,
     };
 
     $opts{entity1} = {
         id => $e1->id,
+        gid => $e1->gid,
         name => $e1->name,
     };
 
@@ -147,8 +150,8 @@ sub foreign_keys
     my $type0 = $self->data->{type0};
     my $type1 = $self->data->{type1};
 
-    my $entity0_id = $self->data->{entity0}{id};
-    my $entity1_id = $self->data->{entity1}{id};
+    my $entity0_id = gid_or_id($self->data->{entity0});
+    my $entity1_id = gid_or_id($self->data->{entity1});
 
     $load{ type_to_model($type0) } = { $entity0_id => ['ArtistCredit'] } if $entity0_id;
 
@@ -189,11 +192,11 @@ sub build_display_data
                     } @{ $self->data->{attributes} }
                 ],
             ),
-            entity0 => $loaded->{$model0}{ $self->data->{entity0}{id} } ||
+            entity0 => $loaded->{$model0}{gid_or_id($self->data->{entity0})} ||
                 $self->c->model($model0)->_entity_class->new(
                     name => $self->data->{entity0}{name}
                 ),
-            entity1 => $loaded->{$model1}{ $self->data->{entity1}{id} } ||
+            entity1 => $loaded->{$model1}{gid_or_id($self->data->{entity1})} ||
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
@@ -208,23 +211,14 @@ sub build_display_data
     }
 }
 
-sub directly_related_entities
-{
+sub directly_related_entities {
     my ($self) = @_;
 
+    my $data = $self->data;
     my $result;
-    if ($self->data->{type0} eq $self->data->{type1}) {
-        $result = {
-            $self->data->{type0} => [ $self->data->{entity0}{id},
-                                      $self->data->{entity1}{id} ]
-        };
-    }
-    else {
-        $result = {
-            $self->data->{type0} => [ $self->data->{entity0}{id} ],
-            $self->data->{type1} => [ $self->data->{entity1}{id} ]
-        };
-    }
+
+    push @{ $result->{$data->{type0}} //= [] }, gid_or_id($data->{entity0});
+    push @{ $result->{$data->{type1}} //= [] }, gid_or_id($data->{entity1});
 
     return $result;
 }
@@ -286,9 +280,7 @@ sub reject
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $release = $self->c->model('Release')->get_by_id(
-            $self->data->{entity0}{id}
-        );
+        my $release = $self->c->model('Release')->get_by_any_id(gid_or_id($self->data->{entity0}));
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }

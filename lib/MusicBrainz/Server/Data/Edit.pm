@@ -11,6 +11,7 @@ use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Editor;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw(
@@ -526,8 +527,11 @@ sub create {
 
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
-        $ids = [ uniq grep { defined } @$ids ];
+        @$ids = uniq map { $_->id } values %{
+            $self->c->model(type_to_model($type))->get_by_any_ids(grep { defined } @$ids)
+        };
         @$ids or next;
+
         my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
         $query .= join ", ", ("(?, ?)") x @$ids;
         my @all_ids = ($edit_id) x @$ids;
@@ -584,7 +588,7 @@ sub load_all
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
         my $m = ref $model ? $model : $self->c->model($model);
-        $loaded->{$model} = $m->get_by_ids(@$ids);
+        $loaded->{$model} = $m->get_by_any_ids(@$ids);
 
         # Now we need to load any extra information about each object
         for my $id (@$ids) {

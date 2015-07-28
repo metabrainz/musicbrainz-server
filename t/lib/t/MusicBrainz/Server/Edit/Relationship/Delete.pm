@@ -32,11 +32,11 @@ subtest 'Test edit creation/rejection' => sub {
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Delete');
 
-    my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
+    my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
     is($hits, 1);
     is($edits->[0]->id, $edit->id);
 
-    ($edits, $hits) = $c->model('Edit')->find({ artist => 2 }, 10, 0);
+    ($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
     is($hits, 1);
     is($edits->[0]->id, $edit->id);
 
@@ -115,6 +115,27 @@ test 'Removing URLs is an auto-edit for auto-editors (MBS-8332)' => sub {
     );
 
     is($edit->status, $STATUS_APPLIED);
+};
+
+test 'Entities load correctly after being merged (MBS-2477)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
+
+    my $relationship = _get_relationship($c, 'artist', 'url', 1);
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        editor => $c->model('Editor')->get_by_id(1),
+        type0 => 'artist',
+        type1 => 'url',
+        relationship => $relationship,
+    );
+
+    $c->model('Artist')->merge(4, [3]);
+    $c->model('Edit')->load_all($edit);
+
+    is($edit->display_data->{relationship}{entity0}->gid, '75a40343-ff6e-45d6-a5d2-110388d34858');
 };
 
 sub _get_relationship {

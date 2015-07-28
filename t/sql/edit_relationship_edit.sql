@@ -1,9 +1,9 @@
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Artist 1', 'Artist 1'),
-    (2, '75a40343-ff6e-45d6-a5d2-110388d34858', 'Artist 2', 'Artist 2'),
-    (3, '15a40343-ff6e-45d6-a5d2-110388d34858', 'Artist 3', 'Artist 3');
+    (3, '945c079d-374e-4436-9448-da92dedef3cf', 'Artist 1', 'Artist 1'),
+    (4, '75a40343-ff6e-45d6-a5d2-110388d34858', 'Artist 2', 'Artist 2'),
+    (5, '15a40343-ff6e-45d6-a5d2-110388d34858', 'Artist 3', 'Artist 3');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist 1', 1);
 
@@ -36,9 +36,9 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (1, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO link_attribute_text_value (link, attribute_type, text_value) VALUES (2, 3, 'tv1');
 
-INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 1, 2);
-INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (2, 2, 1, 2);
-INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (3, 3, 1, 2);
+INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 3, 4);
+INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (2, 2, 3, 4);
+INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (3, 3, 3, 4);
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1);

@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Controller::Series::Create;
 use utf8;
+use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok capture_edits );
@@ -51,7 +52,7 @@ test all => sub {
 
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Series::Create');
 
-    is_deeply($edits[0]->data, {
+    cmp_deeply($edits[0]->data, {
         name => 'totally nonexistent series',
         comment => 'a comment longer than the name :(',
         type_id => 4,
@@ -60,16 +61,18 @@ test all => sub {
 
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    is_deeply($edits[1]->data, {
+    cmp_deeply($edits[1]->data, {
         type0 => 'series',
         type1 => 'url',
         entity0 => {
             name => 'totally nonexistent series',
-            id => 4
+            id => 4,
+            gid => ignore()
         },
         entity1 => {
             name => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
-            id => 1
+            id => 1,
+            gid => ignore()
         },
         link_type => {
             long_link_phrase => 'has a Wikipedia page at',
@@ -97,16 +100,18 @@ test all => sub {
 
     isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    is_deeply($edits[2]->data, {
+    cmp_deeply($edits[2]->data, {
         type0 => 'series',
         type1 => 'work',
         entity0 => {
             name => 'totally nonexistent series',
-            id => 4
+            id => 4,
+            gid => ignore()
         },
         entity1 => {
             name => 'Wōrk1',
-            id => 1
+            id => 1,
+            gid => '7e0e3ea0-d674-11e3-9c1a-0800200c9a66'
         },
         link_type => {
             long_link_phrase => 'has part',
@@ -123,16 +128,18 @@ test all => sub {
 
     isa_ok($edits[3], 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    is_deeply($edits[3]->data, {
+    cmp_deeply($edits[3]->data, {
         type0 => 'series',
         type1 => 'work',
         entity0 => {
             name => 'totally nonexistent series',
-            id => 4
+            id => 4,
+            gid => ignore()
         },
         entity1 => {
             name => 'Wōrk2',
-            id => 2
+            id => 2,
+            gid => 'f89a8de8-f0e3-453c-9516-5bc3edd2fd88'
         },
         link_type => {
             long_link_phrase => 'has part',

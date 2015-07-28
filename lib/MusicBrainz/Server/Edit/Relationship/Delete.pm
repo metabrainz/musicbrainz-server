@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
 );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MooseX::Types::Moose qw( Int Str ArrayRef Bool );
@@ -79,8 +80,11 @@ sub foreign_keys
     $ids{ $self->model0 } ||= {};
     $ids{ $self->model1 } ||= {};
 
-    $ids{$self->model0}->{ $self->data->{relationship}{entity0}{id} } = [ 'ArtistCredit' ];
-    $ids{$self->model1}->{ $self->data->{relationship}{entity1}{id} } = [ 'ArtistCredit' ];
+    my $entity0 = $self->data->{relationship}{entity0};
+    my $entity1 = $self->data->{relationship}{entity1};
+
+    $ids{$self->model0}->{gid_or_id($entity0)} = [ 'ArtistCredit' ];
+    $ids{$self->model1}->{gid_or_id($entity1)} = [ 'ArtistCredit' ];
 
     return \%ids;
 }
@@ -89,7 +93,9 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $attrs = $self->data->{relationship}{phrase} ? [] : [
+    my $relationship = $self->data->{relationship};
+
+    my $attrs = $relationship->{phrase} ? [] : [
         map {
             my $type = $_->{type};
             MusicBrainz::Server::Entity::LinkAttribute->new(
@@ -102,34 +108,37 @@ sub build_display_data
                 credited_as => $_->{credited_as},
                 text_value => $_->{text_value},
             );
-        } @{ $self->data->{relationship}{link}{attributes} }
+        } @{ $relationship->{link}{attributes} }
     ];
 
     my $link = MusicBrainz::Server::Entity::Link->new(
-        begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
-        end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}),
-        ended => $self->data->{relationship}{link}{ended},
-        type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $self->data->{relationship}{link}{type}{long_link_phrase} // ''),
+        begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{begin_date}),
+        end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{end_date}),
+        ended => $relationship->{link}{ended},
+        type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $relationship->{link}{type}{long_link_phrase} // ''),
         attributes => $attrs
     );
 
+    my $entity0 = $relationship->{entity0};
+    my $entity1 = $relationship->{entity1};
+
     my %relationship_opts = (
-        entity0 => $loaded->{ $self->model0 }->{ $self->data->{relationship}{entity0}{id} } ||
+        entity0 => $loaded->{ $self->model0 }->{gid_or_id($entity0)} ||
             $self->c->model($self->model0)->_entity_class->new(
-                name => $self->data->{relationship}{entity0}{name}
+                name => $entity0->{name}
             ),
-        entity1 => $loaded->{ $self->model1 }->{ $self->data->{relationship}{entity1}{id} } ||
+        entity1 => $loaded->{ $self->model1 }->{gid_or_id($entity1)} ||
             $self->c->model($self->model1)->_entity_class->new(
-                name => $self->data->{relationship}{entity1}{name}
+                name => $entity1->{name}
             ),
-        entity0_credit => $self->data->{relationship}{entity0_credit} // '',
-        entity1_credit => $self->data->{relationship}{entity1_credit} // '',
+        entity0_credit => $relationship->{entity0_credit} // '',
+        entity1_credit => $relationship->{entity1_credit} // '',
         link => $link
     );
-    if ($self->data->{relationship}{phrase}) {
+    if ($relationship->{phrase}) {
         $relationship_opts{_verbose_phrase} = [
-                $self->data->{relationship}{phrase},
-                $self->data->{relationship}{extra_phrase_attributes},
+                $relationship->{phrase},
+                $relationship->{extra_phrase_attributes},
             ],
     }
 
@@ -140,30 +149,17 @@ sub build_display_data
     }
 }
 
-sub directly_related_entities
-{
+sub directly_related_entities {
     my ($self) = @_;
 
     my $result;
-    if ($self->data->{relationship}{link}{type}{entity0_type} eq
-        $self->data->{relationship}{link}{type}{entity1_type}) {
-        $result = {
-            $self->data->{relationship}{link}{type}{entity0_type} => [
-                $self->relationship->entity0_id,
-                $self->relationship->entity1_id
-            ]
-        };
-    }
-    else {
-        $result = {
-            $self->data->{relationship}{link}{type}{entity0_type} => [
-                $self->relationship->entity0_id
-            ],
-            $self->data->{relationship}{link}{type}{entity1_type} => [
-                $self->relationship->entity1_id
-            ]
-        };
-    }
+    my $relationship = $self->data->{relationship};
+    my $link_type = $relationship->{link}{type};
+    my $entity0 = $relationship->{entity0};
+    my $entity1 = $relationship->{entity1};
+
+    push @{ $result->{$link_type->{entity0_type}} //= [] }, gid_or_id($entity0);
+    push @{ $result->{$link_type->{entity1_type}} //= [] }, gid_or_id($entity1);
 
     return $result;
 }
@@ -196,10 +192,12 @@ sub initialize
             id => $relationship->id,
             entity0 => {
                 id => $relationship->entity0_id,
+                gid => $relationship->entity0->gid,
                 name => $relationship->entity0->name
             },
             entity1 => {
                 id => $relationship->entity1_id,
+                gid => $relationship->entity1->gid,
                 name => $relationship->entity1->name
             },
             $relationship->entity0_credit ? (entity0_credit => $relationship->entity0_credit) : (),
@@ -221,8 +219,7 @@ sub initialize
     });
 }
 
-sub accept
-{
+sub accept {
     my $self = shift;
 
     my $relationship = $self->c->model('Relationship')->get_by_id(
@@ -239,9 +236,7 @@ sub accept
     if ($self->data->{relationship}{link}{type}{entity0_type} eq 'release' &&
         $self->data->{relationship}{link}{type}{entity1_type} eq 'url')
     {
-        my $release = $self->c->model('Release')->get_by_id(
-            $relationship->entity0_id
-        );
+        my $release = $self->c->model('Release')->get_by_any_id(gid_or_id($relationship->entity0));
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }

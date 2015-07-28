@@ -22,11 +22,11 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
-($edits, $hits) = $c->model('Edit')->find({ artist => 2 }, 10, 0);
+($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
@@ -97,8 +97,8 @@ subtest 'creating asin relationships should update the releases coverart' => sub
 };
 
 subtest 'Text attributes of value 0 are supported' => sub {
-    my $e0 = $c->model('Artist')->get_by_id(1);
-    my $e1 = $c->model('Artist')->get_by_id(2);
+    my $e0 = $c->model('Artist')->get_by_id(3);
+    my $e1 = $c->model('Artist')->get_by_id(4);
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
@@ -124,8 +124,8 @@ subtest 'Text attributes of value 0 are supported' => sub {
 };
 
 subtest 'Instrument credits can be added with a new relationship' => sub {
-    my $e0 = $c->model('Artist')->get_by_id(1);
-    my $e1 = $c->model('Artist')->get_by_id(2);
+    my $e0 = $c->model('Artist')->get_by_id(3);
+    my $e1 = $c->model('Artist')->get_by_id(4);
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
@@ -153,11 +153,24 @@ subtest 'Instrument credits can be added with a new relationship' => sub {
 
 };
 
-sub _create_edit {
-    my $c = shift;
+test 'Entities load correctly after being merged (MBS-2477)' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-    my $e0 = $c->model('Artist')->get_by_id(1);
-    my $e1 = $c->model('Artist')->get_by_id(2);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->merge(5, [4]);
+    $c->model('Edit')->load_all($edit);
+
+    is($edit->display_data->{relationship}{entity1}->gid, '15a40343-ff6e-45d6-a5d2-110388d34858');
+};
+
+sub _create_edit {
+    my ($c, %args) = @_;
+
+    my $e0 = $c->model('Artist')->get_by_id(3);
+    my $e1 = $c->model('Artist')->get_by_id(4);
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
         editor_id => 1,
@@ -170,6 +183,7 @@ sub _create_edit {
         end_date => { year => 1995 },
         attributes => [ ],
         ended => 1,
+        %args,
     );
 }
 

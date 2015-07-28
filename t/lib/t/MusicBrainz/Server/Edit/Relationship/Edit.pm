@@ -13,68 +13,76 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT $AUTO_EDITOR_FLAG
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+    MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
-MusicBrainz::Server::Test->prepare_raw_test_database($c);
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    is($rel->edits_pending, 0, "no edit pending on the relationship");
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+    is($rel->link->type->id, 1, "link type id = 1");
+    is($rel->link->begin_date->year, undef, "no begin date");
+    is($rel->link->end_date->year, undef, "no end date");
 
-my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-is($rel->edits_pending, 0, "no edit pending on the relationship");
-$c->model('Link')->load($rel);
-$c->model('LinkType')->load($rel->link);
-is($rel->link->type->id, 1, "link type id = 1");
-is($rel->link->begin_date->year, undef, "no begin date");
-is($rel->link->end_date->year, undef, "no end date");
+    my $edit = _create_edit($c);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
-my $edit = _create_edit($c);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+    my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
+    is($hits, 1, "Found 1 edit for artist 1");
+    is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
-is($hits, 1, "Found 1 edit for artist 1");
-is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+    ($edits, $hits) = $c->model('Edit')->find({ artist => 4 }, 10, 0);
+    is($hits, 1, "Found 1 edit for artist 2");
+    is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
 
-($edits, $hits) = $c->model('Edit')->find({ artist => 2 }, 10, 0);
-is($hits, 1, "Found 1 edit for artist 2");
-is($edits->[0]->id, $edit->id, "... which has the same id as the edit just created");
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    is($rel->edits_pending, 1, "The relationship has 1 edit pending.");
 
-$rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-is($rel->edits_pending, 1, "The relationship has 1 edit pending.");
+    # Test rejecting the edit
+    reject_edit($c, $edit);
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    ok(defined $rel);
+    is($rel->edits_pending, 0, "After rejecting the edit, no edit pending on the relationship");
 
-# Test rejecting the edit
-reject_edit($c, $edit);
-$rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-ok(defined $rel);
-is($rel->edits_pending, 0, "After rejecting the edit, no edit pending on the relationship");
+    # Test accepting the edit
+    $edit = _create_edit($c);
+    accept_edit($c, $edit);
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    ok(defined $rel, "After accepting the edit, the relationship has...");
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+    is($rel->link->type->id, 2, "... type id 2");
+    is($rel->link->begin_date->year, 1994, "... begin year 1994");
+    is($rel->link->end_date->year, 1995, "... end year 1995");
+    is($rel->entity0_id, 3, '... entity 0 is artist 3');
+    is($rel->entity1_id, 5, '... entity 1 is artist 5');
+};
 
-# Test accepting the edit
-$edit = _create_edit($c);
-accept_edit($c, $edit);
-$rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-ok(defined $rel, "After accepting the edit, the relationship has...");
-$c->model('Link')->load($rel);
-$c->model('LinkType')->load($rel->link);
-is($rel->link->type->id, 2, "... type id 2");
-is($rel->link->begin_date->year, 1994, "... begin year 1994");
-is($rel->link->end_date->year, 1995, "... end year 1995");
-is($rel->entity0_id, 1, '... entity 0 is artist 1');
-is($rel->entity1_id, 3, '... entity 1 is artist 3');
+test 'The display data works even if and endpoint or link type is deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-$c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
-$c->sql->do('SET CONSTRAINTS ALL DEFERRED');
-$c->sql->do('TRUNCATE artist CASCADE');
-$c->sql->do('TRUNCATE link_type CASCADE');
-$c->model('Edit')->load_all($edit);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 
-ok(defined $edit->display_data->{old});
-is($edit->display_data->{old}->entity0->name, 'Artist 1');
-is($edit->display_data->{old}->entity1->name, 'Artist 2');
-is($edit->display_data->{old}->phrase, 'member');
-is($edit->display_data->{new}->entity0->name, 'Artist 1');
-is($edit->display_data->{new}->entity1->name, 'Artist 3');
-is($edit->display_data->{new}->phrase, 'support');
+    my $edit = _create_edit($c);
+    $edit->accept;
 
+    $c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
+    $c->sql->do('SET CONSTRAINTS ALL DEFERRED');
+    $c->sql->do('TRUNCATE artist CASCADE');
+    $c->sql->do('TRUNCATE link_type CASCADE');
+    $c->model('Edit')->load_all($edit);
+
+    ok(defined $edit->display_data->{old});
+    is($edit->display_data->{old}->entity0->name, 'Artist 1');
+    is($edit->display_data->{old}->entity1->name, 'Artist 2');
+    is($edit->display_data->{old}->phrase, 'member');
+    is($edit->display_data->{new}->entity0->name, 'Artist 1');
+    is($edit->display_data->{new}->entity1->name, 'Artist 3');
+    is($edit->display_data->{new}->phrase, 'support');
 };
 
 test 'Editing a relationship more than once fails subsequent edits' => sub {
@@ -103,6 +111,86 @@ test 'Editing a relationship fails if the relationship has been deleted' => sub 
     $c->model('Relationship')->delete('artist', 'artist', 1);
 
     isa_ok exception { $edit_1->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Editing a relationship fails if one of the old endpoints has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->delete(4);
+
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Editing a relationship fails if one of the new endpoints has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $c->model('Artist')->delete(5);
+
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Editing a relationship succeeds despite an entity being merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $r = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($r);
+    $c->model('LinkType')->load($r->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        link_type => $c->model('LinkType')->get_by_id(2),
+        privileges => $UNTRUSTED_FLAG,
+        relationship => $r,
+    );
+
+    ok($edit->is_open);
+    $c->model('Artist')->merge(5, [4]);
+    ok !exception { $edit->accept };
+};
+
+test q(Editing a relationship fails if one of the entities is merged, and the
+       edited relationship already exists on the merge target) => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $r = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($r);
+    $c->model('LinkType')->load($r->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        link_type => $c->model('LinkType')->get_by_id(2),
+        privileges => $UNTRUSTED_FLAG,
+        relationship => $r,
+    );
+
+    ok($edit->is_open);
+    $c->model('Artist')->merge(5, [4]);
+    $c->model('Relationship')->insert('artist', 'artist', {
+        entity0_id      => 3,
+        entity1_id      => 5,
+        link_type_id    => 2,
+        attributes      => [{ type => { id => 1 } }],
+    });
+    isa_ok exception { $edit->accept },
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
@@ -328,7 +416,7 @@ sub _create_edit {
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
-        entity1 => $c->model('Artist')->get_by_id(3),
+        entity1 => $c->model('Artist')->get_by_id(5),
         %args
     );
 }
