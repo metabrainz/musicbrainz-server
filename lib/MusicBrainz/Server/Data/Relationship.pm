@@ -511,17 +511,8 @@ sub exists {
     return 0 unless $link;
     push @values, $link;
 
-    for (qw(entity0_credit entity1_credit)) {
-        if (exists $values->{$_}) {
-            push @props, $_;
-            push @values, $values->{$_};
-        }
-    }
-
-    my $conditions = join(' AND ', map { "$_ = ?" } @props);
-
     return $self->sql->select_single_value(
-        "SELECT 1 FROM l_${type0}_${type1} WHERE $conditions",
+        "SELECT 1 FROM l_${type0}_${type1} WHERE " . join(' AND ', map { "$_ = ?" } @props),
         @values
     );
 }
