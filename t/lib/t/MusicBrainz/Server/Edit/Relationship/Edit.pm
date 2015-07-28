@@ -61,20 +61,30 @@ is($rel->link->end_date->year, 1995, "... end year 1995");
 is($rel->entity0_id, 3, '... entity 0 is artist 3');
 is($rel->entity1_id, 5, '... entity 1 is artist 5');
 
-$c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
-$c->sql->do('SET CONSTRAINTS ALL DEFERRED');
-$c->sql->do('TRUNCATE artist CASCADE');
-$c->sql->do('TRUNCATE link_type CASCADE');
-$c->model('Edit')->load_all($edit);
+};
 
-ok(defined $edit->display_data->{old});
-is($edit->display_data->{old}->entity0->name, 'Artist 1');
-is($edit->display_data->{old}->entity1->name, 'Artist 2');
-is($edit->display_data->{old}->phrase, 'member');
-is($edit->display_data->{new}->entity0->name, 'Artist 1');
-is($edit->display_data->{new}->entity1->name, 'Artist 3');
-is($edit->display_data->{new}->phrase, 'support');
+test 'The display data works even if and endpoint or link type is deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit = _create_edit($c);
+    $edit->accept;
+
+    $c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
+    $c->sql->do('SET CONSTRAINTS ALL DEFERRED');
+    $c->sql->do('TRUNCATE artist CASCADE');
+    $c->sql->do('TRUNCATE link_type CASCADE');
+    $c->model('Edit')->load_all($edit);
+
+    ok(defined $edit->display_data->{old});
+    is($edit->display_data->{old}->entity0->name, 'Artist 1');
+    is($edit->display_data->{old}->entity1->name, 'Artist 2');
+    is($edit->display_data->{old}->phrase, 'member');
+    is($edit->display_data->{new}->entity0->name, 'Artist 1');
+    is($edit->display_data->{new}->entity1->name, 'Artist 3');
+    is($edit->display_data->{new}->phrase, 'support');
 };
 
 test 'Editing a relationship more than once fails subsequent edits' => sub {
