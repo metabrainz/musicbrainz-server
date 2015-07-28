@@ -265,6 +265,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('recording', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('recording', $new_id, \@old_ids);
 
     # Move tracks to the new recording
