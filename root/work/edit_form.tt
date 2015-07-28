@@ -106,6 +106,7 @@
 [%- guesscase_options() -%]
 
 [%- script_manifest('work.js', {
+  'id' => 'work-bundle',
   'data-attribute-types' => workAttributeTypesJson,
   'data-allowed-values' => workAttributeValuesJson,
   'data-attributes' => form.attributes_json

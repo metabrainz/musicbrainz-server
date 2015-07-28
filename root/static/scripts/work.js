@@ -81,7 +81,7 @@ class ViewModel {
 }
 
 function getScriptParameter(name) {
-  return JSON.parse(document.currentScript.getAttribute(name));
+  return JSON.parse(document.getElementById('work-bundle').getAttribute(name));
 }
 
 function byID(result, parent) {
