@@ -217,24 +217,20 @@ sub _hash_to_row
 
 sub insert { confess "Should not be used for URLs" }
 
-sub find_or_insert
-{
+sub find_or_insert {
     my ($self, $url) = @_;
+
     $url = URI->new($url)->canonical;
-    my $id = $self->sql->select_single_value('SELECT id FROM url WHERE url = ?',
-                                             $url);
-    unless ($id) {
+    my $row = $self->sql->select_single_row_hash('SELECT * FROM url WHERE url = ?', $url);
+
+    unless ($row) {
         $self->sql->auto_commit(1);
-        $id = $self->sql->insert_row('url', {
-            url => $url,
-            gid => generate_gid()
-        }, 'id');
+
+        my $to_insert = { url => $url, gid => generate_gid() };
+        $row = { %$to_insert, id => $self->sql->insert_row('url', $to_insert, 'id') };
     }
 
-    return $self->_new_from_row({
-        id => $id,
-        url => $url
-    });
+    return $self->_new_from_row($row);
 }
 
 __PACKAGE__->meta->make_immutable;
