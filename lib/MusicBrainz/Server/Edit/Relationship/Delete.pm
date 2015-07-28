@@ -34,10 +34,12 @@ has '+data' => (
             id => Int,
             entity0 => Dict[
                 id => Int,
+                gid => Optional[Str],
                 name => Str,
             ],
             entity1 => Dict[
                 id => Int,
+                gid => Optional[Str],
                 name => Str,
             ],
             entity0_credit => Optional[Str],

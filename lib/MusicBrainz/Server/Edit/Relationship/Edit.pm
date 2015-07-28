@@ -48,10 +48,12 @@ subtype 'LinkHash'
         ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
         ]],
         entity1 => Nullable[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
         ]],
     ];
@@ -71,10 +73,12 @@ subtype 'RelationshipHash'
         ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => NullableOnPreview[Int],
+            gid => NullableOnPreview[Str],
             name => Str,
         ]],
         entity1 => Nullable[Dict[
             id => NullableOnPreview[Int],
+            gid => NullableOnPreview[Str],
             name => Str,
         ]],
         entity0_credit => Optional[Str],

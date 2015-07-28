@@ -30,10 +30,12 @@ has '+data' => (
     isa => Dict[
         entity0      => Dict[
             id   => NullableOnPreview[Int],
+            gid  => Optional[Str],
             name => Str
         ],
         entity1      => Dict[
             id   => NullableOnPreview[Int],
+            gid  => Optional[Str],
             name => Str
         ],
         entity0_credit => Optional[Str],
