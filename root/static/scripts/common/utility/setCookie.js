@@ -5,5 +5,5 @@ function oneYearFromNow() {
 }
 
 module.exports = function (name, value) {
-    document.cookie = cookie.serialize(name, value, {path: '/', date: oneYearFromNow()});
+    document.cookie = cookie.serialize(name, value, {path: '/', expires: oneYearFromNow()});
 };
