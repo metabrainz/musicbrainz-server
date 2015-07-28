@@ -220,6 +220,7 @@ sub delete
 {
     my ($self, @recording_ids) = @_;
 
+    $self->c->model('Collection')->delete_entities('recording', @recording_ids);
     $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
     $self->c->model('ISRC')->delete_recordings(@recording_ids);
     $self->alias->delete_entities(@recording_ids);

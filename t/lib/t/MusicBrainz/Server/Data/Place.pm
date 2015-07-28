@@ -228,5 +228,30 @@ $sql->commit;
 
 };
 
+test 'Deleting a place that\'s in a collection' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+data_place');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+EOSQL
+
+    my $place = $c->model('Place')->insert({ name => 'Test123' });
+
+    my $collection = $c->model('Collection')->insert(5, {
+        description => '',
+        editor_id => 5,
+        name => 'Collection123',
+        public => 0,
+        type_id => 11,
+    });
+
+    $c->model('Collection')->add_entities_to_collection('place', $collection->{id}, $place->{id});
+    $c->model('Place')->delete($place->{id});
+
+    ok(!$c->model('Place')->get_by_id($place->{id}));
+};
 
 1;

@@ -456,4 +456,30 @@ EOSQL
     );
 };
 
+test 'Deleting an artist that\'s in a collection' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+EOSQL
+
+    my $artist = $c->model('Artist')->insert({ name => 'Test123', sort_name => 'Test123' });
+
+    my $collection = $c->model('Collection')->insert(5, {
+        description => '',
+        editor_id => 5,
+        name => 'Collection123',
+        public => 0,
+        type_id => 8,
+    });
+
+    $c->model('Collection')->add_entities_to_collection('artist', $collection->{id}, $artist->{id});
+    $c->model('Artist')->delete($artist->{id});
+
+    ok(!$c->model('Artist')->get_by_id($artist->{id}));
+};
+
 1;

@@ -256,6 +256,7 @@ sub delete
     my ($self, @artist_ids) = @_;
     @artist_ids = grep { $self->can_delete($_) } @artist_ids;
 
+    $self->c->model('Collection')->delete_entities('artist', @artist_ids);
     $self->c->model('Relationship')->delete_entities('artist', @artist_ids);
     $self->annotation->delete(@artist_ids);
     $self->alias->delete_entities(@artist_ids);
