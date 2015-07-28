@@ -413,7 +413,9 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?decoda\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?kasi-time\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i"),
+            // TODO: remove recmusic.org once all lieder.net links are migrated
             new RegExp("^(https?://)?([^/]+\\.)?recmusic\\.org", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?lieder\\.net", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?utamap\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?j-lyric\\.net", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?lyricsnmusic\\.com", "i"),
