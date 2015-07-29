@@ -95,6 +95,7 @@ sub delete
 {
     my ($self, @place_ids) = @_;
 
+    $self->c->model('Collection')->delete_entities('place', @place_ids);
     $self->c->model('Relationship')->delete_entities('place', @place_ids);
     $self->annotation->delete(@place_ids);
     $self->alias->delete_entities(@place_ids);

@@ -71,6 +71,7 @@ sub can_delete {
 
 sub delete {
     my ($self, $instrument_id) = @_;
+
     $self->c->model('Relationship')->delete_entities('instrument', $instrument_id);
     $self->annotation->delete($instrument_id);
     $self->alias->delete_entities($instrument_id);
