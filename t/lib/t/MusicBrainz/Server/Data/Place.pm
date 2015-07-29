@@ -254,4 +254,31 @@ EOSQL
     ok(!$c->model('Place')->get_by_id($place->{id}));
 };
 
+test 'Merging a place that\'s in a collection' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+data_place');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+EOSQL
+
+    my $place1 = $c->model('Place')->insert({ name => 'Test123' });
+    my $place2 = $c->model('Place')->insert({ name => 'Test456' });
+
+    my $collection = $c->model('Collection')->insert(5, {
+        description => '',
+        editor_id => 5,
+        name => 'Collection123',
+        public => 0,
+        type_id => 11,
+    });
+
+    $c->model('Collection')->add_entities_to_collection('place', $collection->{id}, $place1->{id});
+    $c->model('Place')->merge($place2->{id}, $place1->{id});
+
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_place WHERE place = ?', $place2->{id}))
+};
+
 1;

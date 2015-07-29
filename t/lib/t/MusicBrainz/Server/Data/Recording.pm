@@ -156,4 +156,32 @@ EOSQL
     ok(!$c->model('Recording')->get_by_id($recording->{id}));
 };
 
+test 'Merging a recording that\'s in a collection' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+recording');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, ha1) VALUES (5, 'me', '{CLEARTEXT}mb', 'a152e69b4cf029912ac2dd9742d8a9fc');
+EOSQL
+
+    my $recording1 = $c->model('Recording')->insert({ name => 'Test123', artist_credit => 1 });
+    my $recording2 = $c->model('Recording')->insert({ name => 'Test456', artist_credit => 1 });
+
+    my $collection = $c->model('Collection')->insert(5, {
+        description => '',
+        editor_id => 5,
+        name => 'Collection123',
+        public => 0,
+        type_id => 12,
+    });
+
+    $c->model('Collection')->add_entities_to_collection('recording', $collection->{id}, $recording1->{id});
+    $c->model('Recording')->merge($recording2->{id}, $recording1->{id});
+
+    ok($c->sql->select_single_value('SELECT 1 FROM editor_collection_recording WHERE recording = ?', $recording2->{id}))
+};
+
 1;

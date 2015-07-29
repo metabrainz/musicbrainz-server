@@ -113,6 +113,7 @@ sub _merge_impl
     $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('place', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('place', $new_id, \@old_ids);
 
     my @merge_options = ($self->sql => (
