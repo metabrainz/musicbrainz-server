@@ -51,8 +51,6 @@ use constant FAVICON_CLASSES => {
     'spotify.com'               => 'spotify',
     'soundtrackcollector.com'   => 'STcollector',
     'wikidata.org'              => 'wikidata',
-    # TODO: remove recmusic once all links are migrated
-    'recmusic.org/lieder'       => 'lieder',
     'lieder.net'                => 'lieder',
     'genius.com'                => 'genius',
     'imvdb.com'                 => 'imvdb',
