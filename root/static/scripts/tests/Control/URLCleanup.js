@@ -314,11 +314,6 @@ test('Guess type', function (t) {
                 'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                 MB.constants.LINK_TYPES.lyrics.release
             ],
-            // TODO: remove recmusic once links are migrated
-            [
-                'work', 'http://www.recmusic.org/lieder/get_text.html?TextId=6448',
-                MB.constants.LINK_TYPES.lyrics.work
-            ],
             [
                 'work', 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
                 MB.constants.LINK_TYPES.lyrics.work
