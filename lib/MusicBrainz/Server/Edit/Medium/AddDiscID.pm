@@ -28,7 +28,7 @@ has '+data' => (
         medium_id       => NullableOnPreview[Int],
         medium_position => Optional[Int],
         release         => NullableOnPreview[Dict[
-            id => Int,
+            id => NullableOnPreview[Int],
             name => Str
         ]],
     ]
@@ -48,12 +48,9 @@ sub initialize {
 
     my $release_name = delete $opts{release_name} // "";
 
-    if ($self->preview)
-    {
-       $self->entity_id(0);
-       $opts{release} = { id => 0, name => $release_name };
-    }
-    else {
+    if ($self->preview) {
+       $opts{release} = { name => $release_name };
+    } else {
         my $release = $opts{release} or die 'Missing "release" argument';
         $opts{release} = {
             id => $release->id,
@@ -78,13 +75,23 @@ method _build_related_entities
     }
 }
 
-method foreign_keys
-{
-    return {
-        Release => { $self->release_id => [ 'ArtistCredit' ] },
-        MediumCDTOC => [ $self->entity_id => [ 'CDTOC' ] ],
-        Medium => { $self->data->{medium_id} => [ 'Release ArtistCredit', 'MediumFormat' ] }
+method foreign_keys {
+    my $data = {};
+
+    # May be undefined when previewing.
+    if ($self->data->{medium_id}) {
+        $data->{Medium} = { $self->data->{medium_id} => ['Release ArtistCredit', 'MediumFormat'] };
     }
+
+    if ($self->release_id) {
+        $data->{Release} = { $self->release_id => ['ArtistCredit'] };
+    }
+
+    if ($self->entity_id) {
+        $data->{MediumCDTOC} = { $self->entity_id => ['CDTOC'] },
+    }
+
+    return $data;
 }
 
 method build_display_data ($loaded)

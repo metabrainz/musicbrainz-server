@@ -76,7 +76,11 @@ test 'MBS-7459: Previewing without medium position works' => sub {
         release_name => 'Foo',
     );
 
-    ok !exception { $edit->build_display_data };
+    $test->c->model('Edit')->load_all($edit);
+
+    my $data = $edit->display_data;
+    is($data->{medium}->release->name, 'Foo');
+    is($data->{medium_cdtoc}->cdtoc->discid, 'T.zXjNrSm912UKYLu2S54TutQnU-');
 };
 
 test 'Adding a disc ID to a medium with a pregap track ' => sub {
