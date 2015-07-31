@@ -88,7 +88,7 @@ method foreign_keys {
     }
 
     if ($self->entity_id) {
-        $data->{MediumCDTOC} = { $self->entity_id => ['CDTOC'] },
+        $data->{MediumCDTOC} = { $self->entity_id => ['CDTOC'] };
     }
 
     return $data;
