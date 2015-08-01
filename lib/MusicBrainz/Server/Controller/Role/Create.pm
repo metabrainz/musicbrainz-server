@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Create;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 use JSON::Any;
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
