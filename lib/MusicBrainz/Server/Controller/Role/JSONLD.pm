@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::JSONLD;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 

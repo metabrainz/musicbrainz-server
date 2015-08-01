@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Delete;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 parameter 'edit_type' => (
