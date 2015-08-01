@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Load;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );

@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Collection;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
 parameter 'entity_name' => (

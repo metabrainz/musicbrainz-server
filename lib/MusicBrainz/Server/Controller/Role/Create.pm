@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Create;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use JSON::Any;
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
