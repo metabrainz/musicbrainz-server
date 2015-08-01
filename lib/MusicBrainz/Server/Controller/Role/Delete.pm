@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Delete;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 

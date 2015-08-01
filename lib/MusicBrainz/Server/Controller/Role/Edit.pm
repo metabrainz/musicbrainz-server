@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Edit;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
 parameter 'form' => (

@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::IdentifierSet;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 

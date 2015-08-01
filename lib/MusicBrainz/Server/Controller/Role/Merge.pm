@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Merge;
+use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Log qw( log_assertion );
