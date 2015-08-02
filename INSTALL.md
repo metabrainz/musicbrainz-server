@@ -183,12 +183,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         cpanm --installdeps --notest .
 
-    (Do not overlook the dot at the end of that command.) This may install an
-    incompatible version of MooseX::Role::Parameterized; to downgrade to a
-    suitable version, run:
-
-        cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
-
+    (Do not overlook the dot at the end of that command.)
 
 Installing Node.js dependencies
 -------------------------------
