@@ -20,7 +20,7 @@ echo `date` : "Checking npm dependencies"
 npm install
 
 echo `date` : "Rebuilding resources"
-script/compile_resources.pl
+script/compile_resources.sh
 
 echo `date` : "Building and installing translations"
 make -C po all_quiet && make -C po deploy
