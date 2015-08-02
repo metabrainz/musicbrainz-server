@@ -5,6 +5,7 @@ use warnings;
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -32,10 +33,12 @@ sub foreign_keys
             map { $_ => ['ArtistCredit'] } @{ $_->{release_ids} }
         } @{ $self->data->{old} } },
         Language => [
+            grep { is_positive_integer($_) }
             $self->data->{language_id},
             map { $_->{language_id} } @{ $self->data->{old} }
         ],
         Script => [
+            grep { is_positive_integer($_) }
             $self->data->{script_id},
             map { $_->{script_id} } @{ $self->data->{old} }
         ]
