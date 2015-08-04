@@ -11,16 +11,4 @@
     [% enter_edit() %]
 </form>
 
-<script type="text/javascript">//<![CDATA[
-$(function () {
-    var $urlControl = $("#id-edit-url\\.url");
-
-    MB.Control.URLCleanup.registerEvents($urlControl);
-
-    var vm = MB.sourceRelationshipEditor;
-    var source = vm.source;
-    source.name = ko.observable(source.name);
-
-    $urlControl.on("change", function () { source.name(this.value) });
-});
-//]]></script>
+[%- script_manifest('url.js') -%]
