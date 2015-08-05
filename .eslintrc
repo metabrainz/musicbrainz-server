@@ -45,7 +45,7 @@
     "brace-style": [2, "1tbs"],
     "camelcase": [1, {"properties": "never"}],
     "consistent-this": [0, "self"],
-    "indent": [2, 2, {"indentSwitchCase": true}],
+    "indent": [2, 2, {"SwitchCase": 1}],
     "linebreak-style": [2, "unix"],
     "new-cap": 0,
     "no-lonely-if": 1,
