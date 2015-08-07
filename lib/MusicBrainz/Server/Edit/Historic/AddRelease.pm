@@ -61,21 +61,26 @@ sub _build_related_entities
     }
 }
 
-sub foreign_keys
-{
+sub foreign_keys {
     my $self = shift;
-    return {
+
+    my $data = $self->data;
+
+    my $fks = {
         Artist        => [ $self->_artist_ids ],
         Area          => [ map { $_->{country_id} } $self->_release_events ],
         Label         => [ map { $_->{label_id} } $self->_release_events ],
-        Language      => [ $self->data->{language_id} ],
         MediumFormat  => [ map { $_->{format_id} } $self->_release_events ],
         Recording     => [ $self->_recording_ids ],
         Release       => [ $self->_release_ids ],
-        ReleaseStatus => [ $self->data->{status_id} ],
-        ReleaseGroupType => [ $self->data->{type_id} ],
-        Script        => [ $self->data->{script_id} ],
     };
+
+    $fks->{Language} = [$data->{language_id}] if $data->{language_id};
+    $fks->{ReleaseGroupType} = [$data->{type_id}] if $data->{type_id};
+    $fks->{ReleaseStatus} = [$data->{status_id}] if $data->{status_id};
+    $fks->{Script} = [$data->{script_id}] if $data->{script_id};
+
+    return $fks;
 }
 
 sub build_display_data
