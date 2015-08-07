@@ -2,6 +2,7 @@ var _ = require('lodash');
 var ko = require('knockout');
 var {lp} = require('./common/i18n');
 var initializeDuplicateChecker = require('./edit/check-duplicates');
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
 
 $(function () {
   var $type = $("#id-edit-series\\.type_id");
@@ -61,7 +62,7 @@ $(function () {
   $orderingType.on("change", function () {
     series.orderingTypeID(+this.value);
 
-    if (+this.value === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
+    if (+this.value === SERIES_ORDERING_TYPE_AUTOMATIC) {
       _.each(series.relationships(), function (r) {
         var target = r.target(series);
 

@@ -5,6 +5,7 @@
 
 var request = require('../common/utility/request.js');
 var debounce = require('../common/utility/debounce.js');
+import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
 
 (function (releaseEditor) {
 
@@ -132,8 +133,8 @@ var debounce = require('../common/utility/debounce.js');
         var duration = parseInt(track.length(), 10);
 
         if (duration) {
-            var a = duration - MB.constants.MAX_LENGTH_DIFFERENCE;
-            var b = duration + MB.constants.MAX_LENGTH_DIFFERENCE;
+            var a = duration - MAX_LENGTH_DIFFERENCE;
+            var b = duration + MAX_LENGTH_DIFFERENCE;
 
             duration = utils.constructLuceneField([`[${a} TO ${b}] OR \\-`], 'dur');
             query = "(" + query + ") AND " + duration;
@@ -368,10 +369,10 @@ var debounce = require('../common/utility/debounce.js');
                 // Prefer that recordings with a length be at the top of the
                 // suggestions list.
                 if (!recording.length) {
-                    return MB.constants.MAX_LENGTH_DIFFERENCE + 1;
+                    return MAX_LENGTH_DIFFERENCE + 1;
                 }
                 if (!trackLength) {
-                    return MB.constants.MAX_LENGTH_DIFFERENCE;
+                    return MAX_LENGTH_DIFFERENCE;
                 }
                 return Math.abs(trackLength - recording.length);
             })

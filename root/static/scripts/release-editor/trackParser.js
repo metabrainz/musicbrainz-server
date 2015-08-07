@@ -9,6 +9,7 @@ var clean = require('../common/utility/clean');
 var isBlank = require('../common/utility/isBlank');
 var getCookie = require('../common/utility/getCookie');
 var setCookie = require('../common/utility/setCookie');
+import {MIN_NAME_SIMILARITY} from '../common/constants';
 
 MB.releaseEditor = MB.releaseEditor || {};
 
@@ -389,7 +390,7 @@ MB.releaseEditor.trackParser = {
 
         var similarity = getSimilarity(data.name, track.name.peek());
 
-        if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
+        if (similarity >= MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };
         }
     }

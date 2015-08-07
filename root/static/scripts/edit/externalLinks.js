@@ -12,6 +12,7 @@ var RemoveButton = require('./components/RemoveButton.js');
 var i18n = require('../common/i18n.js');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
 import * as URLCleanup from './URLCleanup';
+import {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} from '../common/constants';
 
 var l = i18n.l;
 
@@ -122,9 +123,9 @@ class ExternalLinksEditor extends React.Component {
       pushInput(prefix, 'text', link.url);
 
       if (link.video) {
-        pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
       } else if ((oldLinks[relationship] || {}).video) {
-        pushInput(prefix + '.attributes.0', 'type.gid', MB.constants.VIDEO_ATTRIBUTE_GID);
+        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
         pushInput(prefix + '.attributes.0', 'removed', 1);
       }
 
@@ -270,7 +271,7 @@ class ExternalLink extends React.Component {
                  onChange={props.urlChangeCallback}
                  onBlur={props.urlBlurCallback} />
           {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {_.has(typeInfo.attributes, MB.constants.VIDEO_ATTRIBUTE_ID) &&
+          {_.has(typeInfo.attributes, VIDEO_ATTRIBUTE_ID) &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}
@@ -340,7 +341,7 @@ function parseRelationships(relationships) {
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
-        video: _.any(data.attributes, (attr) => attr.type.gid === MB.constants.VIDEO_ATTRIBUTE_GID)
+        video: _.any(data.attributes, (attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID)
       }));
     }
   });

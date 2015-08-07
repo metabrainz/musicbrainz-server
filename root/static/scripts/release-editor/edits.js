@@ -6,6 +6,7 @@
 var clean = require('../common/utility/clean');
 var debounce = require('../common/utility/debounce');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger');
+import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 
 (function (releaseEditor) {
 
@@ -354,7 +355,7 @@ var isPositiveInteger = require('../edit/utility/isPositiveInteger');
                             var editData = MB.edit.relationshipEdit(newData, original);
 
                             if (original.video && !newData.video) {
-                                editData.attributes = [{type: {gid: MB.constants.VIDEO_ATTRIBUTE_GID}, removed: true}];
+                                editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}, removed: true}];
                             }
 
                             edits.push(editData);

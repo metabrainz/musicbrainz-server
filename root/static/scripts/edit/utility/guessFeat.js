@@ -7,6 +7,7 @@ var _ = require('lodash');
 var balanced = require('balanced-match');
 var getSimilarity = require('./similarity');
 var clean = require('../../common/utility/clean');
+import {MIN_NAME_SIMILARITY} from '../../common/constants';
 
 var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
 var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
@@ -38,7 +39,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
                     // Check if the remaining text in the brackets is also an artist name.
                     var expandedCredits = expandCredit(m.name, artists, isProbablyClassical);
 
-                    if (_.any(expandedCredits, c => c.similarity >= MB.constants.MIN_NAME_SIMILARITY)) {
+                    if (_.any(expandedCredits, c => c.similarity >= MIN_NAME_SIMILARITY)) {
                         credits = credits.concat(expandedCredits);
                     } else {
                         name += pair[0] + m.name + pair[1];
@@ -82,7 +83,7 @@ function bestArtistMatch(artists, name, isProbablyClassical) {
     return _(artists)
         .map(function (a) {
             var similarity = getSimilarity(name, a.name);
-            if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
+            if (similarity >= MIN_NAME_SIMILARITY) {
                 return {similarity: similarity, artist: a, name: name};
             }
         })

@@ -5,6 +5,9 @@
 
 var i18n = require('../../common/i18n.js');
 var dates = require('../../edit/utility/dates.js');
+import {PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+
+const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
 (function (RE) {
 
@@ -353,8 +356,8 @@ var dates = require('../../edit/utility/dates.js');
                 options = _.reject(options, function (opt) {
                     var info = MB.typeInfoByID[opt.value];
 
-                    if (_.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, info.gid) &&
-                            info.gid !== MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[itemType]) {
+                    if (_.contains(PART_OF_SERIES_LINK_TYPE_GIDS, info.gid) &&
+                            info.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return true;
                     }
                 });
@@ -465,7 +468,7 @@ var dates = require('../../edit/utility/dates.js');
             }
 
             if (target.entityType === "series" &&
-                    _.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, typeInfo.gid) &&
+                    _.contains(PART_OF_SERIES_LINK_TYPE_GIDS, typeInfo.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }

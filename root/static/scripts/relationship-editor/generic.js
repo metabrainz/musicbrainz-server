@@ -5,6 +5,7 @@
 
 var clean = require('../common/utility/clean');
 var validation = require('../edit/validation');
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 
 (function (RE) {
 
@@ -63,7 +64,7 @@ var validation = require('../edit/validation');
                 });
 
                 return sorted.sortBy(function (relationship) {
-                    if (+source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
+                    if (+source.orderingTypeID() === SERIES_ORDERING_TYPE_AUTOMATIC) {
                         return relationship.paddedSeriesNumber();
                     }
                     return "";

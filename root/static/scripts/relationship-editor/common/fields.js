@@ -10,6 +10,8 @@ var request = require('../../common/utility/request');
 var linkPhrase = require('../../edit/utility/linkPhrase');
 var dates = require('../../edit/utility/dates');
 var mergeDates = require('./mergeDates');
+import {SERIES_ORDERING_ATTRIBUTE,
+        SERIES_ORDERING_TYPE_AUTOMATIC} from '../../common/constants';
 
 (function (RE) {
 
@@ -310,7 +312,7 @@ var mergeDates = require('./mergeDates');
             var attributes = this.attributes(), numberAttribute;
 
             for (var i = 0; numberAttribute = attributes[i]; i++) {
-                if (numberAttribute.type.gid === MB.constants.SERIES_ORDERING_ATTRIBUTE) {
+                if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
                     break;
                 }
             }
@@ -359,7 +361,7 @@ var mergeDates = require('./mergeDates');
             var target = this.target(entity);
 
             if (target.entityType === "series") {
-                return +target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+                return +target.orderingTypeID() !== SERIES_ORDERING_TYPE_AUTOMATIC;
             }
 
             return true;

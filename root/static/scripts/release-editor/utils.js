@@ -11,6 +11,7 @@
 var _ = require('lodash');
 var request = require('../common/utility/request');
 var similarity = require('../edit/utility/similarity');
+import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} from '../common/constants';
 
 (function (releaseEditor) {
 
@@ -143,11 +144,11 @@ var similarity = require('../edit/utility/similarity');
     // Metadata comparison utilities.
 
     function lengthsAreWithin10s(a, b) {
-        return Math.abs(a - b) <= MB.constants.MAX_LENGTH_DIFFERENCE;
+        return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
     }
 
     function namesAreSimilar(a, b) {
-        return similarity(a, b) >= MB.constants.MIN_NAME_SIMILARITY;
+        return similarity(a, b) >= MIN_NAME_SIMILARITY;
     }
 
     utils.similarNames = function (oldName, newName) {

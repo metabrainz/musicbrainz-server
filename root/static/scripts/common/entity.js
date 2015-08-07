@@ -6,6 +6,11 @@
 var i18n = require('./i18n');
 var clean = require('./utility/clean');
 var formatTrackLength = require('./utility/formatTrackLength');
+import {
+    PART_OF_SERIES_LINK_TYPES,
+    PROBABLY_CLASSICAL_LINK_TYPES,
+    VARTIST_GID,
+} from './constants';
 
 (function () {
 
@@ -243,7 +248,7 @@ var formatTrackLength = require('./utility/formatTrackLength');
             var type = this.type();
             if (!type) return [];
 
-            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.series_entity_type];
+            var gid = PART_OF_SERIES_LINK_TYPES[type.series_entity_type];
             var linkTypeID = MB.typeInfoByID[gid].id;
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
@@ -352,7 +357,7 @@ var formatTrackLength = require('./utility/formatTrackLength');
 
         isVariousArtists: function () {
             var artist = ko.unwrap(this.artist);
-            return artist && artist.gid === MB.constants.VARTIST_GID;
+            return artist && artist.gid === VARTIST_GID;
         },
 
         isEqual: function (other) {
@@ -495,7 +500,7 @@ var formatTrackLength = require('./utility/formatTrackLength');
 
     function isProbablyClassical(entity) {
         return classicalRoles.test(entity.name) || _.any(entity.relationships, function (r) {
-            return _.contains(MB.constants.PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+            return _.contains(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
         });
     }
 

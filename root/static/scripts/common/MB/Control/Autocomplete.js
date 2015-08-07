@@ -7,6 +7,7 @@ var i18n = require('../../i18n');
 var clean = require('../../utility/clean');
 var formatTrackLength = require('../../utility/formatTrackLength');
 var isBlank = require('../../utility/isBlank');
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -488,7 +489,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         }
 
         if (arguments.length) {
-            recentEntities[entityType] = _.take(arguments[0], MB.constants.MAX_RECENT_ENTITIES);
+            recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
             MB.localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
         } else {
             return recentEntities[entityType] || [];
@@ -947,7 +948,7 @@ MB.Control.EntityAutocomplete = function (options) {
 
     if (!options.entity) {
         // guess the entity from span classes.
-        $.each(MB.constants.ENTITIES, function (idx, entity) {
+        $.each(ENTITIES, function (idx, entity) {
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
             }

@@ -5,11 +5,11 @@
 
 var i18n = require('../../i18n.js');
 
-MB.constants.SELECTED_CLASS = {
+var SELECTED_CLASS = {
     '1':  'vote-yes',
     '0':  'vote-no',
     '-1': 'vote-abs'
-}
+};
 
 MB.Control.EditList = function (container) {
     var self = {};
@@ -58,7 +58,7 @@ MB.Control.EditList = function (container) {
 $(function () {
     $('div.vote input[type="radio"]').change(function () {
         $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-        $(this).parent('label').parent('.vote').addClass(MB.constants.SELECTED_CLASS[ $(this).val() ]);
+        $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
     })
 
     $('div.vote input[checked="checked"]').change();

@@ -7,6 +7,7 @@ var _ = require('lodash');
 var nonEmpty = require('../utility/nonEmpty');
 var clean = require('../../common/utility/clean');
 var request = require('../../common/utility/request');
+import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 
 (function (edit) {
 
@@ -100,7 +101,7 @@ var request = require('../../common/utility/request');
             }
 
             if (link.video) {
-                editData.attributes = [{ type: { gid: MB.constants.VIDEO_ATTRIBUTE_GID } }];
+                editData.attributes = [{ type: { gid: VIDEO_ATTRIBUTE_GID } }];
             }
 
             return editData;
