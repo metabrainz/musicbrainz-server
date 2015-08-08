@@ -3,9 +3,11 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
+use Data::Dumper;
+use Devel::StackTrace;
 use List::MoreUtils qw( part uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
 use Carp qw( confess );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -81,20 +83,34 @@ sub get_by_ids
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
 }
 
+sub _warn_about_invalid_ids {
+    my ($self, $ids) = @_;
+
+    $self->c->log->warning('Invalid IDs: ' . Dumper($ids));
+    $self->c->log->warning(Devel::StackTrace->new->as_string);
+    $self->c->log->_flush;
+}
+
 sub get_by_any_id {
     my ($self, $any_id) = @_;
 
     return $self->get_by_id($any_id) if is_positive_integer($any_id);
-    return $self->get_by_gid($any_id);
+    return $self->get_by_gid($any_id) if is_guid($any_id);
+    $self->_warn_about_invalid_ids([$any_id]);
 }
 
 sub get_by_any_ids {
     my ($self, @any_ids) = @_;
 
-    my ($ids, $gids) = part { is_positive_integer($_) ? 0 : 1 } @any_ids;
+    my ($ids, $gids, $invalid) = part {
+        is_positive_integer($_) ? 0 : (is_guid($_) ? 1 : 2)
+    } @any_ids;
+
     my %result;
     %result = %{ $self->get_by_ids(@$ids) } if $ids && @$ids;
     %result = (%result, %{ $self->get_by_gids(@$gids) }) if $gids && @$gids;
+    $self->_warn_about_invalid_ids($invalid) if $invalid && @$invalid;
+
     return \%result;
 }
 
