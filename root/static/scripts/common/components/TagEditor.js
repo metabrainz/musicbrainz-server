@@ -63,7 +63,7 @@ class VoteButton extends React.Component {
   }
 }
 
-class UpvoteButton extends VoteButton {};
+class UpvoteButton extends VoteButton {}
 
 UpvoteButton.defaultProps = {
   text: '+',
@@ -72,7 +72,7 @@ UpvoteButton.defaultProps = {
   vote: 1
 };
 
-class DownvoteButton extends VoteButton {};
+class DownvoteButton extends VoteButton {}
 
 DownvoteButton.defaultProps = {
   text: '\u2212',
@@ -104,7 +104,7 @@ class VoteButtons extends React.Component {
 
 class TagRow extends React.Component {
   render() {
-    var {tag, count, index} = this.props;
+    var {tag, index} = this.props;
 
     return (
       <li key={tag} className={(index + 1) % 2 ? 'odd' : 'even'}>
@@ -129,7 +129,7 @@ class TagEditor extends React.Component {
   flushPendingVotes(asap) {
     var actions = {};
 
-    _.each(this.pendingVotes, (item, tag) => {
+    _.each(this.pendingVotes, item => {
       var action = `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
       (actions[action] = actions[action] || []).push(item);
@@ -147,7 +147,7 @@ class TagEditor extends React.Component {
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => _.invoke(items, 'fail'))
+        .fail(() => _.invoke(items, 'fail'));
     });
   }
 
@@ -355,7 +355,7 @@ function init_tag_editor(Component, mountPoint) {
     });
 
     // Always show upvoted user tags (affects sidebar)
-    _.each(userTags, function (t, k) {
+    _.each(userTags, function (t) {
       if (t.vote > 0 && !t.used) {
         combined.push(Tag(t));
       }

@@ -30,7 +30,7 @@ class ExternalLinksEditor extends React.Component {
   }
 
   setLinkState(index, state, callback) {
-    this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], state), index) }, callback);
+    this.setState({links: withOneEmptyLink(this.state.links.mergeIn([index], state), index)}, callback);
   }
 
   handleUrlChange(index, event) {
@@ -40,17 +40,17 @@ class ExternalLinksEditor extends React.Component {
     // Allow adding spaces while typing, they'll be trimmed on blur
     if (url.trim() !== link.url.trim()) {
       if (url.match(/^\w+\./)) {
-          url = 'http://' + url;
+        url = 'http://' + url;
       }
       url = URLCleanup.cleanURL(url) || url;
     }
 
-    this.setLinkState(index, { url: url }, () => {
+    this.setLinkState(index, {url: url}, () => {
       if (!link.type) {
         var type = URLCleanup.guessType(this.props.sourceType, url);
 
         if (type) {
-          this.setLinkState(index, { type: MB.typeInfoByID[type].id });
+          this.setLinkState(index, {type: MB.typeInfoByID[type].id});
         }
       }
     });
@@ -61,20 +61,20 @@ class ExternalLinksEditor extends React.Component {
     var trimmed = url.trim();
 
     if (url !== trimmed) {
-      this.setLinkState(index, { url: trimmed });
+      this.setLinkState(index, {url: trimmed});
     }
   }
 
   handleTypeChange(index, event) {
-    this.setLinkState(index, { type: +event.target.value || null });
+    this.setLinkState(index, {type: +event.target.value || null});
   }
 
   handleVideoChange(index, event) {
-    this.setLinkState(index, { video: event.target.checked });
+    this.setLinkState(index, {video: event.target.checked});
   }
 
   removeLink(index) {
-    this.setState({ links: this.state.links.remove(index) }, () => {
+    this.setState({links: this.state.links.remove(index)}, () => {
       $(React.findDOMNode(this))
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
@@ -103,7 +103,7 @@ class ExternalLinksEditor extends React.Component {
   getFormData(startingPrefix, startingIndex, pushInput) {
     var index = 0;
     var backward = this.props.sourceType > 'url';
-    var { oldLinks, newLinks, allLinks } = this.getEditData();
+    var {oldLinks, newLinks, allLinks} = this.getEditData();
 
     _.each(allLinks, function (link, relationship) {
       if (!link.type) {
@@ -163,7 +163,7 @@ class ExternalLinksEditor extends React.Component {
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && link.type != oldLink.type))) {
+            } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if (checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -324,7 +324,7 @@ function withOneEmptyLink(links, dontRemove) {
   });
 
   if (emptyCount === 0) {
-    return links.push(new LinkState({ relationship: _.uniqueId('new-') }));
+    return links.push(new LinkState({relationship: _.uniqueId('new-')}));
   } else if (emptyCount > 1 && _.size(canRemove)) {
     return links.filter((link, index) => !canRemove[index]);
   } else {
@@ -351,28 +351,28 @@ var protocolRegex = /^(https?|ftp):$/;
 var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
 
 function isValidURL(url) {
-    var a = document.createElement("a");
-    a.href = url;
+  var a = document.createElement("a");
+  a.href = url;
 
-    var hostname = a.hostname;
+  var hostname = a.hostname;
 
-    if (url.indexOf(hostname) < 0) {
-        return false;
-    }
+  if (url.indexOf(hostname) < 0) {
+    return false;
+  }
 
-    if (!hostnameRegex.test(hostname)) {
-        return false;
-    }
+  if (!hostnameRegex.test(hostname)) {
+    return false;
+  }
 
-    if (hostname.indexOf(".") < 0) {
-        return false;
-    }
+  if (hostname.indexOf(".") < 0) {
+    return false;
+  }
 
-    if (!protocolRegex.test(a.protocol)) {
-        return false;
-    }
+  if (!protocolRegex.test(a.protocol)) {
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 MB.createExternalLinksEditor = function (options) {
@@ -396,7 +396,7 @@ MB.createExternalLinksEditor = function (options) {
     }
 
     _.each(urls, function (data) {
-      initialLinks.push(new LinkState({ url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-') }));
+      initialLinks.push(new LinkState({url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-')}));
     });
   }
 
@@ -417,7 +417,7 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   var typeOptions = (
-    MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
+    MB.forms.linkTypeOptions({children: MB.typeInfo[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
