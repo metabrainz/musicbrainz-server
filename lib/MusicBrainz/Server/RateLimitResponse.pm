@@ -20,6 +20,6 @@ sub msg {
         $_[0]->period;
 }
 
-sub _bool { warn $_[0]->is_over_limit; shift->is_over_limit }
+sub _bool { shift->is_over_limit }
 
 1;
