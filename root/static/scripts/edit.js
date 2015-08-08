@@ -24,7 +24,7 @@ require("./edit/MB/Control/Area.js");
 require("./edit/MB/Control/ArtistCredit.js");
 require("./edit/MB/Control/ArtistEdit.js");
 require("./edit/MB/Control/Bubble.js");
-require("./edit/MB/Control/URLCleanup.js");
+require("./edit/URLCleanup.js");
 require("./edit/MB/CoverArt.js");
 require("./edit/MB/edit.js");
 require("./edit/MB/reltypeslist.js");

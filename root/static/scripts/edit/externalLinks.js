@@ -11,7 +11,7 @@ var HelpIcon = require('./components/HelpIcon.js');
 var RemoveButton = require('./components/RemoveButton.js');
 var i18n = require('../common/i18n.js');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
-var URLCleanup = require('./MB/Control/URLCleanup.js');
+import * as URLCleanup from './URLCleanup';
 
 var l = i18n.l;
 
@@ -41,7 +41,7 @@ class ExternalLinksEditor extends React.Component {
       if (url.match(/^\w+\./)) {
           url = 'http://' + url;
       }
-      url = URLCleanup.cleanUrl(url) || url;
+      url = URLCleanup.cleanURL(url) || url;
     }
 
     this.setLinkState(index, { url: url }, () => {
@@ -408,7 +408,7 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   initialLinks = initialLinks.map(function (link) {
-    var newData = {url: URLCleanup.cleanUrl(link.url) || link.url};
+    var newData = {url: URLCleanup.cleanURL(link.url) || link.url};
     if (!_.isNumber(link.relationship)) {
       newData.relationship = _.uniqueId('new-');
     }
