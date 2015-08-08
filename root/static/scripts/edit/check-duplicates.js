@@ -155,8 +155,11 @@ MB.initializeDuplicateChecker = function (type) {
   var promise;
 
   function makeRequest(name, forceRequest) {
-    // forceRequest only applies if name is non-empty
-    if (isBlank(name) || (name === originalName && !forceRequest)) {
+    var nameChanged = name !== originalName;
+
+    // forceRequest only applies if name is non-empty.
+    // we should never check for duplicates of an existing entity, if the name hasn't changed.
+    if (isBlank(name) || !(nameChanged || forceRequest) || (MB.sourceEntityGID && !nameChanged)) {
       unmountDuplicates(dupeContainer);
       markCommentAsNotRequired(commentInput);
       return;
@@ -173,7 +176,7 @@ MB.initializeDuplicateChecker = function (type) {
         if (duplicates.length) {
           renderDuplicates(name, duplicates, dupeContainer);
 
-          if (isCommentRequired(type, duplicates)) {
+          if (isBlank(commentInput.value) && isCommentRequired(type, duplicates)) {
             markCommentAsRequired(commentInput);
           }
         } else {
@@ -208,6 +211,8 @@ MB.initializeDuplicateChecker = function (type) {
     }
   }, 300);
 
+  // Initiate the duplicate checker on the existing name, which may have been
+  // seeded via query parameters.
   handleNameChange(currentName, true);
   $(nameInput).on('input', function () {
     handleNameChange(this.value, false);
