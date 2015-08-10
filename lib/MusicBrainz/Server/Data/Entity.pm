@@ -86,9 +86,7 @@ sub get_by_ids
 sub _warn_about_invalid_ids {
     my ($self, $ids) = @_;
 
-    $self->c->log->warning('Invalid IDs: ' . Dumper($ids));
-    $self->c->log->warning(Devel::StackTrace->new->as_string);
-    $self->c->log->_flush;
+    warn 'Invalid IDs: ' . Dumper($ids) . "\n" . Devel::StackTrace->new->as_string . "\n";
 }
 
 sub get_by_any_id {
