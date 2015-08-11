@@ -3,10 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import Jed from 'jed';
-import jedData from 'jed-data';
-
-var jedInstance = new Jed(jedData);
+var jed = new (require('jed'))(MB_LANGUAGE === 'en' ? {} : require('jed-' + MB_LANGUAGE));
 var slice = Array.prototype.slice;
 
 function wrapGettext(method) {
@@ -20,7 +17,7 @@ function wrapGettext(method) {
             expandArgs = null;
         }
 
-        var string = jedInstance[method].apply(jedInstance, args);
+        var string = jed[method].apply(jed, args);
         return expandArgs ? exports.expand(string, expandArgs) : string;
     };
 }

@@ -74,6 +74,8 @@ window.addEventListener('error', function (event) {
     }
 });
 
+window.MB_LANGUAGE = 'en';
+
 require('./common.js');
 require('./edit.js');
 require('./guess-case.js');

@@ -59,18 +59,24 @@ function buildStyles() {
 
 var CACHED_BUNDLES = Object.create(null);
 
-function transformBundle(bundle) {
-    bundle.transform(babelify.configure({
-        blacklist: ['strict'],
-        nonStandard: true,
-        only: /root\/static\/scripts\/.+\.js$/,
-        optional: [
-            'es7.objectRestSpread'
-        ],
-        sourceMap: false,
-    }));
+function runYarb(resourceName, callback) {
+    if (resourceName in CACHED_BUNDLES) {
+        return CACHED_BUNDLES[resourceName];
+    }
 
-    bundle.transform('envify', {global: true});
+    var bundle = yarb('./root/static/scripts/' + resourceName, {
+            debug: false // disable sourcemaps
+        })
+        .transform(babelify.configure({
+            blacklist: ['strict'],
+            nonStandard: true,
+            only: /root\/static\/scripts\/.+\.js$/,
+            optional: [
+                'es7.objectRestSpread'
+            ],
+            sourceMap: false,
+        }))
+        .transform('envify', {global: true});
 
     if (process.env.DEVELOPMENT_SERVER == 0) {
         bundle.transform("uglifyify", {
@@ -85,18 +91,6 @@ function transformBundle(bundle) {
             sourcemap: false
         });
     }
-
-    return bundle;
-}
-
-function runYarb(resourceName, callback) {
-    if (resourceName in CACHED_BUNDLES) {
-        return CACHED_BUNDLES[resourceName];
-    }
-
-    var bundle = transformBundle(yarb('./root/static/scripts/' + resourceName, {
-        debug: false // disable sourcemaps
-    }));
 
     if (callback) {
         callback(bundle);
@@ -114,13 +108,6 @@ function writeScript(b, resourceName) {
     return writeResource(bundleScripts(b, resourceName));
 }
 
-function createLangVinyl(lang, jedOptions) {
-    return new File({
-        path: path.resolve('./root/static/scripts/jed-' + lang + '.js'),
-        contents: new Buffer('export default ' + JSON.stringify(jedOptions) + ';\n'),
-    });
-}
-
 function langToPosix(lang) {
     return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
         return l + '_' + c.toUpperCase()
@@ -136,29 +123,28 @@ function buildScripts() {
 
     var languages = (process.env.MB_LANGUAGES || "")
         .split(",")
-        .filter(function (lang) { return lang })
+        .filter(function (lang) { return lang && lang !== 'en' })
         .map(langToPosix);
 
     languages.forEach(function (lang) {
-        var jedOptions;
+        var srcPo = "./po/mb_server." + lang + ".po";
+        var tmpPo = "./po/javascript." + lang + ".po";
+        var scriptName = 'jed-' + lang + '.js';
 
-        if (lang === 'en') {
-            jedOptions = {};
-        } else {
-            var srcPo = './po/mb_server.' + lang + '.po';
-            var tmpPo = './po/javascript.' + lang + '.po';
+        // Create a temporary .po file containing only the strings used by root/static/scripts.
+        shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
 
-            // Create a temporary .po file containing only the strings used by root/static/scripts.
-            shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
+        var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+        fs.unlinkSync(tmpPo);
 
-            jedOptions = po2json.parseFileSync(tmpPo, {format: 'jed'});
-            fs.unlinkSync(tmpPo);
-        }
+        var langVinyl = new File({
+            path: path.resolve('./root/static/scripts/' + scriptName),
+            contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n')
+        });
 
-        var langVinyl = createLangVinyl(lang, jedOptions);
-        var bundle = transformBundle(yarb().expose(langVinyl, 'jed-data'));
-        commonBundle.external(bundle);
-        writeScript(bundle, 'jed-' + lang + '.js');
+        var bundle = yarb().expose(langVinyl, 'jed-' + lang);
+        commonBundle.require(langVinyl).external(bundle);
+        writeScript(bundle, scriptName);
     });
 
     var editBundle = runYarb('edit.js', function (b) {
@@ -248,7 +234,6 @@ gulp.task("tests", function () {
 
     return bundleScripts(
         runYarb('tests.js', function (b) {
-            b.expose(createLangVinyl('en', {}), 'jed-data');
             b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
         }),
         'tests.js'
