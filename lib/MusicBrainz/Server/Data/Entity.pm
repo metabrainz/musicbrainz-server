@@ -95,6 +95,7 @@ sub get_by_any_id {
     return $self->get_by_id($any_id) if is_positive_integer($any_id);
     return $self->get_by_gid($any_id) if is_guid($any_id);
     $self->_warn_about_invalid_ids([$any_id]);
+    return;
 }
 
 sub get_by_any_ids {
