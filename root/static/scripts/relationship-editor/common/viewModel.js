@@ -49,6 +49,9 @@ var request = require('../../common/utility/request.js');
             }
         }).value();
 
+        // Sort each list of types alphabetically.
+        _(MB.allowedRelations).values().invoke('sort').value();
+
         _.each(MB.attrInfoByID, function (attr) {
             attr.root = MB.attrInfoByID[attr.rootID];
         });
