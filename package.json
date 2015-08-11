@@ -13,7 +13,6 @@
     "balanced-match": "0.2.0",
     "cookie": "^0.1.2",
     "envify": "^3.4.0",
-    "extend": "^1.3.0",
     "filesize": "2.0.4",
     "gulp": "^3.8.7",
     "gulp-less": "^3.0.0",
