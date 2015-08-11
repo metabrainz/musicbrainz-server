@@ -1,4 +1,5 @@
-var babelify        = require('babelify'),
+var _               = require('lodash'),
+    babelify        = require('babelify'),
     extend          = require("extend"),
     File            = require('vinyl'),
     fs              = require("fs"),
@@ -134,32 +135,28 @@ function buildScripts() {
         b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
     });
 
-    var languages = (process.env.MB_LANGUAGES || "")
-        .split(",")
-        .filter(function (lang) { return lang })
-        .map(langToPosix);
-
-    languages.forEach(function (lang) {
-        var jedOptions;
-
-        if (lang === 'en') {
-            jedOptions = {};
-        } else {
-            var srcPo = './po/mb_server.' + lang + '.po';
-            var tmpPo = './po/javascript.' + lang + '.po';
+    _((process.env.MB_LANGUAGES || "").replace(/\s+/g, ''))
+        .split(',')
+        .compact()
+        .without('en')
+        .map(langToPosix)
+        .transform(function (result, lang) {
+            var tmpPo = `./po/javascript.${lang}.po`;
 
             // Create a temporary .po file containing only the strings used by root/static/scripts.
-            shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
+            shell.exec(`msggrep -N ../root/static/scripts/**/*.js ./po/mb_server.${lang}.po -o ${tmpPo}`);
 
-            jedOptions = po2json.parseFileSync(tmpPo, {format: 'jed'});
+            result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed'});
+
             fs.unlinkSync(tmpPo);
-        }
-
-        var langVinyl = createLangVinyl(lang, jedOptions);
-        var bundle = transformBundle(yarb().expose(langVinyl, 'jed-data'));
-        commonBundle.external(bundle);
-        writeScript(bundle, 'jed-' + lang + '.js');
-    });
+        }, {})
+        .assign('en', {})
+        .each(function (jedOptions, lang) {
+            var bundle = transformBundle(yarb().expose(createLangVinyl(lang, jedOptions), 'jed-data'));
+            commonBundle.external(bundle);
+            writeScript(bundle, 'jed-' + lang + '.js');
+        })
+        .value();
 
     var editBundle = runYarb('edit.js', function (b) {
         b.external(commonBundle);
