@@ -16,7 +16,12 @@ var watch = require('gulp-watch');
 var yarb = require('yarb');
 
 const CACHED_BUNDLES = new Map();
-const revManifestPath = './root/static/build/rev-manifest.json';
+const ROOT_DIR = path.resolve(__dirname, '../');
+const PO_DIR = path.resolve(__dirname, '../../po');
+const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
+const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
+const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
+const revManifestPath = path.resolve(BUILD_DIR, 'rev-manifest.json');
 const revManifest = {};
 
 if (fs.existsSync(revManifestPath)) {
@@ -32,7 +37,7 @@ function writeResource(stream) {
 
   stream
     .pipe(streamify(rev()))
-    .pipe(gulp.dest('./root/static/build/'))
+    .pipe(gulp.dest(BUILD_DIR))
     .pipe(rev.manifest())
     .pipe(through2.obj(function (chunk, encoding, callback) {
       _.assign(revManifest, JSON.parse(chunk.contents));
@@ -47,7 +52,7 @@ function writeResource(stream) {
 
 function buildStyles() {
   return writeResource(
-    gulp.src('./root/static/*.less')
+    gulp.src(path.resolve(STATIC_DIR, '*.less'))
     .pipe(less({
       rootpath: '/static/',
       relativeUrls: true,
@@ -94,7 +99,7 @@ function runYarb(resourceName, callback) {
     return CACHED_BUNDLES.get(resourceName);
   }
 
-  var bundle = transformBundle(yarb('./root/static/scripts/' + resourceName, {
+  var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
     debug: false // disable sourcemaps
   }));
 
@@ -116,7 +121,7 @@ function writeScript(b, resourceName) {
 
 function createLangVinyl(lang, jedOptions) {
   return new File({
-    path: path.resolve('./root/static/scripts/jed-' + lang + '.js'),
+    path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
     contents: new Buffer('export default ' + JSON.stringify(jedOptions) + ';\n'),
   });
 }
@@ -131,7 +136,7 @@ function buildScripts() {
   process.env.NODE_ENV = String(process.env.DEVELOPMENT_SERVER) === '1' ? 'development' : 'production';
 
   var commonBundle = runYarb('common.js', function (b) {
-    b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+    b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
   });
 
   _((process.env.MB_LANGUAGES || '').replace(/\s+/g, ''))
@@ -140,10 +145,11 @@ function buildScripts() {
     .without('en')
     .map(langToPosix)
     .transform(function (result, lang) {
-      var tmpPo = `./po/javascript.${lang}.po`;
+      var srcPo = path.resolve(PO_DIR, `mb_server.${lang}.po`);
+      var tmpPo = path.resolve(PO_DIR, `javascript.${lang}.po`);
 
       // Create a temporary .po file containing only the strings used by root/static/scripts.
-      shell.exec(`msggrep -N ../root/static/scripts/**/*.js ./po/mb_server.${lang}.po -o ${tmpPo}`);
+      shell.exec(`msggrep -N '../root/static/scripts/**/*.js' ${srcPo} -o ${tmpPo}`);
 
       result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed'});
 
@@ -214,7 +220,7 @@ gulp.task('styles', buildStyles);
 gulp.task('scripts', buildScripts);
 
 gulp.task('watch', ['styles', 'scripts'], function () {
-  watch('./root/static/**/*.less', buildStyles);
+  watch(path.resolve(STATIC_DIR, '**/*.less'), buildStyles);
 
   function rebundle(b, resourceName, file) {
     var rebuild = false;
@@ -234,7 +240,7 @@ gulp.task('watch', ['styles', 'scripts'], function () {
     }
   }
 
-  watch('./root/static/scripts/**/*.js', function (file) {
+  watch(path.resolve(SCRIPTS_DIR, '**/*.js'), function (file) {
     CACHED_BUNDLES.forEach(function (bundle, resourceName) {
       rebundle(bundle, resourceName, file);
     });
@@ -247,18 +253,18 @@ gulp.task('tests', function () {
   return bundleScripts(
     runYarb('tests.js', function (b) {
       b.expose(createLangVinyl('en', {}), 'jed-data');
-      b.expose('./root/static/lib/leaflet/leaflet-src.js', 'leaflet');
+      b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
     }),
     'tests.js'
-  ).pipe(gulp.dest('./root/static/build/'));
+  ).pipe(gulp.dest(BUILD_DIR));
 });
 
 gulp.task('clean', function () {
   var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/;
 
-  fs.readdirSync('./root/static/build/').forEach(function (file) {
+  fs.readdirSync(BUILD_DIR).forEach(function (file) {
     if (fileRegex.test(file) && revManifest[file.replace(fileRegex, '$1.$2')] !== file) {
-      fs.unlinkSync(`./root/static/build/${file}`);
+      fs.unlinkSync(path.resolve(BUILD_DIR, file));
     }
   });
 });
