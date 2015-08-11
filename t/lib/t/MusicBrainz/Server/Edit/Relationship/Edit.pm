@@ -402,6 +402,76 @@ test 'Edits that change endpoints are auto-editable by auto-editors' => sub {
     ok(!$edit->is_open, 'edit changing an endpoint was applied immediately by an auto-editor');
 };
 
+test 'Entity credits can be added to an existing relationship' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $relationship = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($relationship);
+    $c->model('LinkType')->load($relationship->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $relationship,
+        entity0_credit => 'Foo Credit',
+        entity1_credit => 'Bar Credit',
+    );
+
+    is_deeply($edit->data, {
+      edit_version => 2,
+      link => {
+            attributes => [
+                {
+                    type => {
+                        id => 1,
+                        gid => '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
+                        name => 'Attribute',
+                        root => {
+                            gid => '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
+                            id => 1,
+                            name => 'Attribute'
+                        }
+                    }
+                }
+            ],
+            begin_date => { month => undef, day => undef, year => undef },
+            end_date => { year => undef, month => undef, day => undef },
+            ended => '0',
+            entity0 => {
+               name => 'Artist 1',
+               gid => '945c079d-374e-4436-9448-da92dedef3cf',
+               id => 3
+            },
+            entity1 => {
+               gid => '75a40343-ff6e-45d6-a5d2-110388d34858',
+               id => 4,
+               name => 'Artist 2'
+            },
+           link_type => {
+                id => 1,
+                link_phrase => 'member',
+                long_link_phrase => 'f',
+                name => 'member',
+                reverse_link_phrase => 'oof',
+            },
+        },
+        new => {
+            entity1_credit => 'Bar Credit',
+            entity0_credit => 'Foo Credit'
+        },
+        old => {
+            entity1_credit => '',
+            entity0_credit => ''
+        },
+        relationship_id => 1,
+        type1 => 'artist',
+        type0 => 'artist',
+    });
+};
+
 sub _create_edit {
     my ($c, %args) = @_;
 

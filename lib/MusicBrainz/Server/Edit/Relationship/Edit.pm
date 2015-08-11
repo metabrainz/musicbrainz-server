@@ -362,21 +362,22 @@ sub initialize
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if $self->c->model('Relationship')->exists(
-            $new_link_type->entity0_type,
-            $new_link_type->entity1_type, {
-            link_type_id => $new_link_type->id,
-            begin_date   => $opts{begin_date},
-            end_date     => $opts{end_date},
-            ended        => $opts{ended},
-            attributes   => $opts{attributes},
-            entity0_id   => $new_entity0->id,
-            entity1_id   => $new_entity1->id,
-            link_order   => $relationship->link_order,
-            entity0_credit  => $opts{entity0_credit},
-            entity1_credit  => $opts{entity1_credit},
-        });
+    my $existent_id = $self->c->model('Relationship')->exists(
+        $new_link_type->entity0_type,
+        $new_link_type->entity1_type, {
+        link_type_id => $new_link_type->id,
+        begin_date   => $opts{begin_date},
+        end_date     => $opts{end_date},
+        ended        => $opts{ended},
+        attributes   => $opts{attributes},
+        entity0_id   => $new_entity0->id,
+        entity1_id   => $new_entity1->id,
+        link_order   => $relationship->link_order,
+    });
+
+    if ($existent_id && $relationship->id != $existent_id) {
+        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
+    }
 
     $self->relationship($relationship);
     $self->data({

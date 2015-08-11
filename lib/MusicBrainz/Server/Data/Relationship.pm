@@ -492,6 +492,16 @@ sub delete_entities
     }
 }
 
+=method exists
+
+Checks if a relationship with the given values already exists. This doesn't
+consider entity credits, because those don't determine uniqueness at the
+database level.
+
+Returns a relationship ID, if one exists.
+
+=cut
+
 sub exists {
     my ($self, $type0, $type1, $values) = @_;
 
@@ -512,7 +522,7 @@ sub exists {
     push @values, $link;
 
     return $self->sql->select_single_value(
-        "SELECT 1 FROM l_${type0}_${type1} WHERE " . join(' AND ', map { "$_ = ?" } @props),
+        "SELECT id FROM l_${type0}_${type1} WHERE " . join(' AND ', map { "$_ = ?" } @props),
         @values
     );
 }
