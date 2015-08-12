@@ -408,6 +408,27 @@ EOSQL
             }
         };
 
+        my $update_documentation_examples = sub {
+            my ($to_keep, @to_delete) = @_;
+
+            # MBS-8516
+            my $ids_to_delete = [map { $_->{id} } @to_delete];
+
+            $self->sql->do(
+                "UPDATE documentation.${table}_example
+                    SET id = \$1
+                  WHERE id = any(\$2)
+                    AND NOT EXISTS (SELECT 1 FROM documentation.${table}_example WHERE id = \$1)",
+                $to_keep->{id},
+                $ids_to_delete
+            );
+
+            $self->sql->do(
+                "DELETE FROM documentation.${table}_example WHERE id = any(?)",
+                $ids_to_delete
+            );
+        };
+
         my $delete_relationships = sub {
             $self->sql->do("DELETE FROM $table WHERE id = any(?)", [map { $_->{id} } @_]);
         };
@@ -420,6 +441,7 @@ EOSQL
             my ($to_keep, @to_delete) = nsort_by { $_->{$entity0} == $target_id ? 0 : $_->{id} } @_;
 
             $update_credit->($_, $to_keep, $determine_credit->($_, \@_, $to_keep)) for @credit_fields;
+            $update_documentation_examples->($to_keep, @to_delete);
             $delete_relationships->(@to_delete);
 
             return $to_keep;
@@ -460,6 +482,7 @@ EOSQL
                     }
                 }
 
+                $update_documentation_examples->($non_empty_dates[0], @empty_dates);
                 $delete_relationships->(@empty_dates);
             }
 
