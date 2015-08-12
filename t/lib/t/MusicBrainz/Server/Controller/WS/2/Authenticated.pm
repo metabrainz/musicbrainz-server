@@ -234,4 +234,35 @@ EOXML
     _compare_tags($c, 'Recording', '18c16c80-421d-476f-893c-0b02f964bd86', { 'foo-tag' => 1 });
 };
 
+test 'Tags are lowercased and trimmed by the server (MBS-8462)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478')
+EOSQL
+
+    my $content = <<'EOXML';
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording-list>
+        <recording id="581556f0-755f-11de-8a39-0800200c9a66">
+            <user-tag-list>
+                <user-tag><name> OMG </name></user-tag>
+            </user-tag-list>
+        </recording>
+    </recording-list>
+</metadata>
+EOXML
+
+    $mech->default_header('Accept' => 'application/xml');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
+    $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
+
+    _compare_tags($c, 'Recording', '581556f0-755f-11de-8a39-0800200c9a66', { 'omg' => 1 });
+};
+
 1;

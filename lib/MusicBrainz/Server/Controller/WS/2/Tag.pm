@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( trim type_to_model );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
@@ -86,7 +86,7 @@ sub tag_submit : Private
         my $has_votes;
 
         for (@new_user_tags) {
-            my $name = $xp->find('mb:name', $_)->string_value;
+            my $name = lc trim $xp->find('mb:name', $_)->string_value;
             my $vote = 'upvote';
 
             if ($xp->exists('@mb:vote', $_)) {
