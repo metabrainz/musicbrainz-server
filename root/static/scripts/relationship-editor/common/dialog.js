@@ -5,6 +5,7 @@
 
 var i18n = require('../../common/i18n.js');
 var dates = require('../../edit/utility/dates.js');
+import * as URLCleanup from '../../edit/URLCleanup';
 import {PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
@@ -446,7 +447,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             } else if (typeInfo.deprecated) {
                 return i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
-                var checker = MB.Control.URLCleanup.validationRules[typeInfo.gid];
+                var checker = URLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
