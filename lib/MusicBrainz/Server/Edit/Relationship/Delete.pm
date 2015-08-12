@@ -236,7 +236,7 @@ sub accept {
     if ($self->data->{relationship}{link}{type}{entity0_type} eq 'release' &&
         $self->data->{relationship}{link}{type}{entity1_type} eq 'url')
     {
-        my $release = $self->c->model('Release')->get_by_any_id(gid_or_id($relationship->entity0));
+        my $release = $self->c->model('Release')->get_by_id($relationship->entity0_id);
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }

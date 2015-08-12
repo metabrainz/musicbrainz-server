@@ -138,6 +138,26 @@ test 'Entities load correctly after being merged (MBS-2477)' => sub {
     is($edit->display_data->{relationship}{entity0}->gid, '75a40343-ff6e-45d6-a5d2-110388d34858');
 };
 
+test 'Deleting a release-url relationship' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    # Release-url relationships have special logic for caching cover artwork.
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
+
+    my $relationship = _get_relationship($c, 'release', 'url', 1);
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        editor => $c->model('Editor')->get_by_id(1),
+        type0 => 'release',
+        type1 => 'url',
+        relationship => $relationship,
+    );
+
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED);
+};
+
 sub _get_relationship {
     my ($c, $type0, $type1, $id) = @_;
 
