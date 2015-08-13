@@ -112,6 +112,52 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
     }, qr/The label and catalog number in this edit already exist on the release./;
 };
 
+test 'Displays correctly following label merges' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $c->model('Label')->get_by_id(4),
+        catalog_number => 'ABC-456',
+    );
+
+    $c->model('Label')->merge(3, 4);
+
+    # Check that the new label loads correctly.
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{label}->id, 3);
+};
+
+test 'Displays correctly following release merges' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $c->model('Label')->get_by_id(4),
+        catalog_number => 'ABC-456',
+    );
+
+    $c->model('Release')->merge(
+        new_id => 2,
+        old_ids => [1],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+    );
+
+    # Check that the new release loads correctly.
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{release}->id, 2);
+};
+
 sub create_edit {
     my $c = shift;
     return $c->model('Edit')->create(
