@@ -9,7 +9,12 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw(
+    $AUTO_EDITOR_FLAG
+    $EDIT_RELATIONSHIP_EDIT
+    $STATUS_APPLIED
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -419,6 +424,8 @@ test 'Entity credits can be added to an existing relationship' => sub {
         entity0_credit => 'Foo Credit',
         entity1_credit => 'Bar Credit',
     );
+
+    is($edit->status, $STATUS_APPLIED);
 
     is_deeply($edit->data, {
       edit_version => 2,

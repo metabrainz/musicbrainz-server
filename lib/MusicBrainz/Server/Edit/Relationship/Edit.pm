@@ -462,13 +462,11 @@ sub accept
         link_order      => $relationship->link_order,
     };
 
+    my $existent_id = $self->c->model('Relationship')->exists($data->{type0}, $data->{type1}, $values);
+
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This relationship already exists'
-    ) if $self->c->model('Relationship')->exists(
-        $data->{type0},
-        $data->{type1},
-        $values
-    );
+        'This relationship already exists.'
+    ) if $existent_id && $relationship->id != $existent_id;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         'One of the end points of this relationship no longer exists'

@@ -24,7 +24,7 @@ INSERT INTO link_attribute_type (id, root, gid, name)
 
 INSERT INTO link_text_attribute_type (attribute_type) VALUES (3);
 INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (229);
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 3, 0);
 INSERT INTO link_type_attribute_type (attribute_type, link_type, min, max) VALUES (1, 1, 0, NULL);
