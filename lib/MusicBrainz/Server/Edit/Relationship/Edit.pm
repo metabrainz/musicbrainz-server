@@ -454,8 +454,8 @@ sub accept
         entity1_credit  => $data->{new}{entity1_credit} // $relationship->entity1_credit,
         attributes      => $data->{new}{attributes}     // $self->serialize_link_attributes($relationship->link->all_attributes),
         link_type_id    => $data->{new}{link_type}{id}  // $relationship->link->type_id,
-        begin_date      => $data->{new}{begin_date}     // $relationship->link->begin_date,
-        end_date        => $data->{new}{end_date}       // $relationship->link->end_date,
+        begin_date      => $data->{new}{begin_date}     // partial_date_to_hash($relationship->link->begin_date),
+        end_date        => $data->{new}{end_date}       // partial_date_to_hash($relationship->link->end_date),
         ended           => $data->{new}{ended}          // $relationship->link->ended,
         link_order      => $relationship->link_order,
     };
