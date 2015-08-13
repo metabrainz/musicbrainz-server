@@ -6,6 +6,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Label';
@@ -47,49 +48,33 @@ around '_build_related_entities' => sub {
     my $self = shift;
     my $related = $self->$orig;
 
-    $related->{label} = [ $self->data->{label}{id} ] if $self->data->{label};
+    $related->{label} = [gid_or_id($self->data->{label})] if $self->data->{label};
 
     return $related;
 };
 
-sub foreign_keys
-{
+sub foreign_keys {
     my $self = shift;
 
-    my %fk = ( Release => { $self->release_id => [ 'ArtistCredit' ] } );
+    my $data = $self->data;
 
-    if ($self->data->{label} && $self->data->{label}{id})
-    {
-        $fk{Label} = { $self->data->{label}{id} => [] };
-    }
-
-    return \%fk;
-};
-
-sub build_display_data
-{
-    my ($self, $loaded) = @_;
-    my $label = $loaded->{Label}->{ $self->data->{label} };
-
-    my $data = {
-        release => $loaded->{Release}->{ $self->data->{release}{id} } ||
-            Release->new( name => $self->data->{release}{name} ),
-        catalog_number => $self->data->{catalog_number},
+    return {
+        Label => { gid_or_id($data->{label}) => [] },
+        Release => { gid_or_id($self->data->{release}) => ['ArtistCredit'] },
     };
+}
 
-    if (my $lbl = $self->data->{label}) {
-        if ($lbl->{id} && $lbl->{name})
-        {
-            $data->{label} = $loaded->{Label}{ $lbl->{id} } ||
-                Label->new( name => $lbl->{name}, id => $lbl->{id} );;
-        }
-        elsif ($lbl->{name})
-        {
-            $data->{label} = Label->new( name => $lbl->{name} );
-        }
-    }
+sub build_display_data {
+    my ($self, $loaded) = @_;
 
-    return $data;
+    my $data = $self->data;
+    return {
+        catalog_number => $data->{catalog_number},
+        label => ($loaded->{Label}{gid_or_id($data->{label})} //
+                  Label->new(name => $data->{label}{name})),
+        release => ($loaded->{Release}->{gid_or_id($data->{release})} //
+                    Release->new(name => $data->{release}{name})),
+    };
 }
 
 sub initialize
