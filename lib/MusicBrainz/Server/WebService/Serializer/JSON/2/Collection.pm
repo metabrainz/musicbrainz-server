@@ -1,30 +1,31 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Collection;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
-  count_of
-  list_of
-  number
-  serialize_entity
+    count_of
+    list_of
+    number
+    serialize_entity
 );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 
-sub serialize
-{
+sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
+
     my %body;
+    my $entity_type = $entity->type->entity_type;
 
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;
-    $body{type} = $entity->type ? $entity->type->name : JSON::null;
-    $body{"entity-type"} = $entity->type ? $entity->type->entity_type : JSON::null;
+    $body{type} = $entity->type->name;
+    $body{"entity-type"} = $entity_type;
 
-    my $entity_type = $entity->type->entity_type;
-    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
-    my $url = $ENTITIES{$entity_type}{url} // $entity_type;
-    my $plural_url = $ENTITIES{$entity_type}{plural} // $url . 's';
+    my $entity_properties = $ENTITIES{$entity_type};
+    my $plural = $entity_properties->{plural};
+    my $plural_url = $entity_properties->{plural_url};
+    my $url = $entity_properties->{url};
 
     if ($toplevel) {
         my $items = $stash->store($entity)->{$plural}->{items} // [];
@@ -40,7 +41,7 @@ sub serialize
     }
 
     return \%body;
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

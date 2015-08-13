@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
-use MusicBrainz::Server::Constants qw( :edit_status entities_with );
+use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 
@@ -133,6 +133,7 @@ sub show : Chained('load') PathPart('') {
         entities => $entities,
         collection => $collection,
         order => $order,
+        entity_list_template => 'components/' . $ENTITIES{$entity_type}->{plural} . '-list.tt',
         template => 'collection/index.tt'
     );
 }

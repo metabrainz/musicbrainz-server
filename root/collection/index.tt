@@ -1,10 +1,4 @@
-[%- MACRO plural_type_name(type_name) BLOCK -%]
-    [%-    IF type_name == 'series'; 'series';
-         ELSE ; type_name _ 's';
-       END -%]
-[% END %]
 [% WRAPPER "collection/layout.tt" page='index' %]
-
     <div class="description">
        [%- IF collection.description -%]
           <h2>[% l('Description') %]</h2>
@@ -16,8 +10,7 @@
 
     [%- IF entities.size -%]
     <form action="[% c.req.uri %]" method="post">
-      [%- list_tt = 'components/' _ plural_type_name(collection.type.entity_type) _ '-list.tt';
-          INCLUDE $list_tt show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
+      [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
             WRAPPER 'components/with-pager.tt' -%]
 
       [% form_submit(l('Remove selected items from collection')) WRAPPER form_row IF my_collection %]
@@ -25,5 +18,4 @@
     [%- ELSE -%]
     <p>[%- l('This collection is empty.') -%]</p>
     [%- END -%]
-
 [% END %]

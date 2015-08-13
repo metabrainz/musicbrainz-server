@@ -360,7 +360,8 @@ Readonly our %ENTITIES => (
         disambiguation => 1,
         date_period => 1,
         removal     => { manual => 1 },
-        tags        => 1
+        tags        => 1,
+        plural => 'areas',
     },
     artist => {
         mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
@@ -390,6 +391,9 @@ Readonly our %ENTITIES => (
                 extra_fks => { artist_credit_name => 'artist' },
             },
         },
+        plural => 'artists',
+        plural_url => 'artists',
+        url => 'artist',
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -409,7 +413,10 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         removal => { automatic => {} },
-        collections => 1
+        collections => 1,
+        plural => 'events',
+        plural_url => 'events',
+        url => 'event',
     },
     instrument => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -427,7 +434,10 @@ Readonly our %ENTITIES => (
         },
         disambiguation => 1,
         removal     => { manual => 1 },
-        tags        => 1
+        tags        => 1,
+        plural => 'instruments',
+        plural_url => 'instruments',
+        url => 'instrument',
     },
     label => {
         mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
@@ -455,6 +465,9 @@ Readonly our %ENTITIES => (
                 extra_fks => { release_label => 'label' },
             },
         },
+        plural => 'labels',
+        plural_url => 'labels',
+        url => 'label',
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -474,7 +487,10 @@ Readonly our %ENTITIES => (
         date_period => 1,
         tags       => 1,
         removal => { automatic => {} },
-        collections => 1
+        collections => 1,
+        plural => 'places',
+        plural_url => 'places',
+        url => 'place',
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -495,7 +511,10 @@ Readonly our %ENTITIES => (
         artist_credits => 1,
         report_filter => 1,
         collections => 1,
-        removal     => { manual => 1 }
+        removal     => { manual => 1 },
+        plural => 'recordings',
+        plural_url => 'recordings',
+        url => 'recording',
     },
     release => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -515,7 +534,10 @@ Readonly our %ENTITIES => (
         artist_credits => 1,
         removal     => { manual => 1 },
         report_filter => 1,
-        collections => 1
+        collections => 1,
+        plural => 'releases',
+        plural_url => 'releases',
+        url => 'release',
     },
     release_group => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -523,7 +545,6 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'ReleaseGroup',
         type => { complex => 1 },
-        url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         aliases     => {
             add_edit_type => $EDIT_RELEASEGROUP_ADD_ALIAS,
@@ -541,6 +562,9 @@ Readonly our %ENTITIES => (
                 extra_fks => { release => 'release_group' },
             },
         },
+        plural => 'release_groups',
+        plural_url => 'release-groups',
+        url => 'release-group',
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -549,6 +573,8 @@ Readonly our %ENTITIES => (
         model      => 'Series',
         type => { simple => 1 },
         plural => 'series',
+        plural_url => 'series',
+        url => 'series',
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
         aliases     => {
             add_edit_type => $EDIT_SERIES_ADD_ALIAS,
@@ -560,12 +586,15 @@ Readonly our %ENTITIES => (
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal => { automatic => {} },
-        tags        => 1
+        tags => 1,
     },
     url => {
         mbid => { relatable => 'overview', multiple => 1, no_details => 1 },
         edit_table => 1,
-        model => 'URL'
+        model => 'URL',
+        plural => 'urls',
+        plural_url => 'urls',
+        url => 'url',
     },
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -587,6 +616,9 @@ Readonly our %ENTITIES => (
         report_filter => 1,
         removal => { automatic => {} },
         collections => 1,
+        plural => 'works',
+        plural_url => 'works',
+        url => 'work',
     },
     track => {
         mbid => { multiple => 1 },

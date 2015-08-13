@@ -224,8 +224,7 @@ sub _serialize_collection
     push @collection, $gen->editor($collection->editor->name);
 
     my $entity_type = $collection->type->entity_type;
-
-    my $plural = $ENTITIES{$entity_type}{plural} // $entity_type . 's';
+    my $plural = $ENTITIES{$entity_type}{plural};
 
     my $ser = "_serialize_${entity_type}_list";
     my $gen_list = "${entity_type}_list";

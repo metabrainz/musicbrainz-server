@@ -14,8 +14,7 @@ use Moose::Util qw( find_meta );
 my $ws_defs = Data::OptList::mkopt([
      collection => {
                          method   => 'GET',
-                         inc      => [ entities_with('collections', take => sub { my $type = shift; my $props = shift; return $props->{plural} // ($props->{url} // $type) . 's' } ),
-                                       qw( tags ) ],
+                         inc      => [ entities_with('collections', take => 'plural_url'), qw( tags ) ],
                          optional => [ qw(fmt limit offset) ],
      },
      collection => {
@@ -41,12 +40,11 @@ Readonly our $MAX_ITEMS => 25;
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
 map {
-    my $entity_properties = $ENTITIES{$_};
     my $type = $_;
-    my $url = $entity_properties->{url} // $type;
-
-    my $plural = $entity_properties->{plural} // $type . 's';
-    my $plural_url = $entity_properties->{plural} // $url . 's';
+    my $entity_properties = $ENTITIES{$type};
+    my $url = $entity_properties->{url};
+    my $plural = $entity_properties->{plural};
+    my $plural_url = $entity_properties->{plural_url};
     my $mname = $plural . '_get';
 
     my $method = sub {
@@ -144,8 +142,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     }
 }
 
-sub list_list : Chained('base') PathPart('')
-{
+sub list_list : Chained('base') PathPart('') {
     my ($self, $c) = @_;
 
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
