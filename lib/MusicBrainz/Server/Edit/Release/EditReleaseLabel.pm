@@ -57,7 +57,7 @@ has '+data' => (
                 country => Nullable[Dict[
                     id => Optional[Int],
                     gid => Optional[Str],
-                    name => Str,
+                    name => Optional[Str],
                 ]],
             ]]]
         ],
@@ -304,33 +304,38 @@ around extract_property => sub {
     }
 };
 
+sub _get_country_hash_from_id_or_name {
+    my ($self, $id_or_name) = @_;
+
+    my $country_hash = {};
+    my $country;
+
+    if (looks_like_number($id_or_name)) {
+        $country_hash->{id} = $id_or_name;
+        $country = $self->c->model('Area')->get_by_id($id_or_name);
+    } else {
+        $country_hash->{name} = $id_or_name;
+        ($country) = $self->c->model('Area')->find_by_name($id_or_name);
+    }
+
+    if ($country) {
+        $country_hash->{id} = $country->id;
+        $country_hash->{gid} = $country->gid;
+        $country_hash->{name} = $country->name;
+    }
+
+    $country_hash;
+}
+
 sub restore {
     my ($self, $data) = @_;
 
     my $release_data = $data->{release};
 
     if (exists $release_data->{date} || exists $release_data->{country}) {
-        my $country_name = delete $release_data->{country};
-        my $country_hash = {};
-        my $country;
-
-        if (looks_like_number($country_name)) {
-            $country_hash->{id} = $country_name;
-            $country = $self->c->model('Area')->get_by_id($country_name);
-        } else {
-            $country_hash->{name} = $country_name;
-            ($country) = $self->c->model('Area')->find_by_name($country_name);
-        }
-
-        if ($country) {
-            $country_hash->{id} = $country->id;
-            $country_hash->{gid} = $country->gid;
-            $country_hash->{name} = $country->name;
-        }
-
         $release_data->{events} = [
             {
-                country => $country_hash,
+                country => $self->_get_country_hash_from_id_or_name(delete $release_data->{country}),
                 date => delete $data->{release}{date},
             },
         ];
@@ -341,10 +346,12 @@ sub restore {
             my $id = delete $event_data->{country_id};
             my $name = delete $event_data->{country_name};
 
-            if (defined($id) || defined($name)) {
-                $event_data->{country} = {};
-                $event_data->{country}->{id} = $id if defined $id;
-                $event_data->{country}->{name} = $name if defined $name;
+            if (defined($id)) {
+                $event_data->{country} = $self->_get_country_hash_from_id_or_name($id);
+            }
+
+            if (defined($name) && !defined($event_data->{country})) {
+                $event_data->{country} = $self->_get_country_hash_from_id_or_name($name);
             }
         }
     }
