@@ -47,7 +47,7 @@ $release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);
 is($release->label_count, 2, "Release has two labels after accepting edit");
 is($release->labels->[0]->id, 1, "First release label is unchanged");
-is($release->labels->[1]->label_id, 1, "Second release label has label_id 1");
+is($release->labels->[1]->label_id, 2, "Second release label has label_id 1");
 is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
 
 };
@@ -106,7 +106,7 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
             edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
             editor_id => 1,
             release => $c->model('Release')->get_by_id(1),
-            label => $c->model('Label')->get_by_id(1),
+            label => $c->model('Label')->get_by_id(2),
             catalog_number => 'ABC-123',
         );
     }, qr/The label and catalog number in this edit already exist on the release./;
@@ -118,7 +118,7 @@ sub create_edit {
         edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
         editor_id => 1,
         release => $c->model('Release')->get_by_id(1),
-        label => $c->model('Label')->get_by_id(1),
+        label => $c->model('Label')->get_by_id(2),
         catalog_number => 'AVCD-51002',
     );
 }
