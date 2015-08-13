@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::DeleteReleaseLabel;
 use Moose;
 
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
@@ -30,10 +30,12 @@ has '+data' => (
         release_label_id => Int,
         release => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ],
         label => Nullable[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ]],
         catalog_number => Nullable[Str]
@@ -110,10 +112,12 @@ sub initialize
         catalog_number => $release_label->catalog_number,
         label => $release_label->label ? {
             id => $release_label->label->id,
+            gid => $release_label->label->gid,
             name => $release_label->label->name
         } : undef,
         release => {
             id => $release_label->release->id,
+            gid => $release_label->release->gid,
             name => $release_label->release->name
         }
     });

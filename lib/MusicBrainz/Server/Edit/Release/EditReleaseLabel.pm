@@ -36,6 +36,7 @@ subtype 'ReleaseLabelHash'
     => as Dict[
         label => Nullable[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
         ]],
         catalog_number => Nullable[Str]
@@ -46,14 +47,18 @@ has '+data' => (
         release_label_id => Int,
         release => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
             barcode => Nullable[Str],
             combined_format => Nullable[Str],
             medium_formats => Nullable[ArrayRef[Str]],
             events => Optional[ArrayRef[Dict[
                 date => Nullable[Str],
-                country_id => Nullable[Int],
-                country_name => Nullable[Str]
+                country => Nullable[Dict[
+                    id => Optional[Int],
+                    gid => Optional[Str],
+                    name => Str,
+                ]],
             ]]]
         ],
         new => find_type_constraint('ReleaseLabelHash'),
@@ -73,8 +78,9 @@ sub foreign_keys
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
     $keys->{Area} = [
-        map { $_->{country_id} }
-           @{ $self->data->{release}{events} // [] }
+        map { $_->{country}{id} }
+        grep { exists $_->{country} && defined $_->{country}{id} }
+        @{ $self->data->{release}{events} // [] }
     ];
 
     return $keys;
@@ -112,14 +118,19 @@ sub build_display_data
     }
 
     $data->{extra}{events} = [
-        map +{
-            country => $loaded->{Area}->{ $_->{country_id} } //
-                (defined($_->{country_name}) &&
-                    MusicBrainz::Server::Entity::Area->new(
-                        name => $_->{country_name}
-                    )),
-            date => MusicBrainz::Server::Entity::PartialDate->new( $_->{date} )
-        }, @{ $data->{extra}{events} // [] }
+        map {
+            my $display = {};
+
+            if (exists $_->{country}) {
+                my $country = $_->{country};
+
+                $display->{country} = $loaded->{Area}->{$country->{id}} //
+                    (defined($country->{name}) && MusicBrainz::Server::Entity::Area->new($country));
+            }
+
+            $display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
+            $display;
+        } @{ $data->{extra}{events} // [] }
     ];
 
     for (qw( new old )) {
@@ -153,6 +164,7 @@ sub _mapping {
             my $rl = shift;
             return $rl->label ? {
                 id => $rl->label->id,
+                gid => $rl->label->gid,
                 name => $rl->label->name
             } : undef;
         }
@@ -186,6 +198,7 @@ sub initialize
     if (my $lbl = $opts{label}) {
         $opts{label} = {
             id => $lbl->id,
+            gid => $lbl->gid,
             name => $lbl->name
         }
     }
@@ -194,6 +207,7 @@ sub initialize
         release_label_id => $release_label->id,
         release => {
             id => $release_label->release->id,
+            gid => $release_label->release->gid,
             name => $release_label->release->name,
             medium_formats => [ map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums ]
         },
@@ -206,7 +220,11 @@ sub initialize
     $data->{release}{events} = [
         map +{
             date => $_->date->format,
-            country_id => $_->country_id
+            country => {
+                id => $_->country->id,
+                gid => $_->country->gid,
+                name => $_->country->name,
+            },
         }, $release->all_events
     ];
 
@@ -289,28 +307,45 @@ around extract_property => sub {
 sub restore {
     my ($self, $data) = @_;
 
-    if (exists $data->{release}{date} || exists $data->{release}{country}) {
-        my $country_name = delete $data->{release}{country};
-        if (looks_like_number($country_name)) {
-            my $area = $self->c->model('Area')->get_by_id($country_name);
-            $data->{release}{events} = [{
-                date => delete $data->{release}{date},
-                country_name => $area && $area->name,
-                country_id => $country_name
-            }];
-        }
-        else {
-            my @countries = $self->c->model('Area')->find_by_name(
-                $country_name);
-            $data->{release}{events} = [{
-                date => delete $data->{release}{date},
-                country_name => $country_name,
+    my $release_data = $data->{release};
 
-                # $countries will be undefined if there is no search result. It's
-                # not possible for $countries to be the empty list
-                # (Data::Role::Alias immediately pushes to it).
-                country_id => @countries && $countries[0]->id
-            }];
+    if (exists $release_data->{date} || exists $release_data->{country}) {
+        my $country_name = delete $release_data->{country};
+        my $country_hash = {};
+        my $country;
+
+        if (looks_like_number($country_name)) {
+            $country_hash->{id} = $country_name;
+            $country = $self->c->model('Area')->get_by_id($country_name);
+        } else {
+            $country_hash->{name} = $country_name;
+            ($country) = $self->c->model('Area')->find_by_name($country_name);
+        }
+
+        if ($country) {
+            $country_hash->{id} = $country->id;
+            $country_hash->{gid} = $country->gid;
+            $country_hash->{name} = $country->name;
+        }
+
+        $release_data->{events} = [
+            {
+                country => $country_hash,
+                date => delete $data->{release}{date},
+            },
+        ];
+    }
+
+    if (exists $release_data->{events}) {
+        for my $event_data (@{ $release_data->{events} }) {
+            my $id = delete $event_data->{country_id};
+            my $name = delete $event_data->{country_name};
+
+            if (defined($id) || defined($name)) {
+                $event_data->{country} = {};
+                $event_data->{country}->{id} = $id if defined $id;
+                $event_data->{country}->{name} = $name if defined $name;
+            }
         }
     }
 
