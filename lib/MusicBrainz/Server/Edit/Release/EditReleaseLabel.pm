@@ -6,6 +6,7 @@ use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
@@ -331,12 +332,14 @@ sub restore {
     my ($self, $data) = @_;
 
     my $release_data = $data->{release};
+    my $release_date  = delete $release_data->{date};
+    my $release_country = delete $release_data->{country};
 
-    if (exists $release_data->{date} || exists $release_data->{country}) {
+    if (non_empty($release_date) || non_empty($release_country)) {
         $release_data->{events} = [
             {
-                country => $self->_get_country_hash_from_id_or_name(delete $release_data->{country}),
-                date => delete $data->{release}{date},
+                country => $self->_get_country_hash_from_id_or_name($release_country),
+                date => $release_date,
             },
         ];
     }
