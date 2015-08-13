@@ -376,7 +376,9 @@ sub initialize
     });
 
     if ($existent_id && $relationship->id != $existent_id) {
-        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
+        MusicBrainz::Server::Edit::Exceptions::DuplicateViolation->throw(
+            'This relationship already exists.'
+        );
     }
 
     $self->relationship($relationship);
