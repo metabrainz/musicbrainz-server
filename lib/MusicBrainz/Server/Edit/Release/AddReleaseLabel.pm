@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::AddReleaseLabel;
 use Carp;
 use Moose;
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -34,10 +34,12 @@ has '+data' => (
     isa => Dict[
         release => NullableOnPreview[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ]],
         label => Nullable[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ]],
         catalog_number => Nullable[Str]
@@ -64,11 +66,13 @@ sub initialize {
 
     $opts{release} = {
         id => $release->id,
+        gid => $release->gid,
         name => $release->name
     } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,
+        gid => $opts{label}->gid,
         name => $opts{label}->name
     } if $opts{label};
 
