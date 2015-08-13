@@ -556,20 +556,20 @@ test 'previewing/creating/editing a release group and release' => sub {
     isa_ok($edits[2], 'MusicBrainz::Server::Edit::Release::AddReleaseLabel', 'release label 3 edit');
 
     cmp_deeply($edits[0]->data, {
-        release         => { name => 'Vision Creation Newsun', id => 4 },
-        label           => { name => 'Deleted Label', id => 1 },
+        release         => { name => 'Vision Creation Newsun', id => 4, gid => ignore() },
+        label           => { name => 'Deleted Label', id => 1, gid => 'f43e252d-9ebf-4e8e-bba8-36d080756cc1' },
         catalog_number  => 'FOO 123',
     });
 
     cmp_deeply($edits[1]->data, {
-        release         => { name => 'Vision Creation Newsun', id => 4 },
+        release         => { name => 'Vision Creation Newsun', id => 4, gid => ignore() },
         label           => undef,
         catalog_number  => 'BAR 456',
     });
 
     cmp_deeply($edits[2]->data, {
-        release         => { name => 'Vision Creation Newsun', id => 4 },
-        label           => { name => 'Warp Records', id => 2 },
+        release         => { name => 'Vision Creation Newsun', id => 4, gid => ignore() },
+        label           => { name => 'Warp Records', id => 2, gid => '46f0f4cd-8aab-4b33-b698-f459faf64190' },
         catalog_number  => undef,
     });
 };
