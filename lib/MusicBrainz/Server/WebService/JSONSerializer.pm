@@ -55,6 +55,12 @@ sub area_list          { shift->entity_list(@_, "area", "areas") };
 sub place_list         { shift->entity_list(@_, "place", "places") };
 sub event_list         { shift->entity_list(@_, "event", "events") };
 
+sub collection_list    {
+    my ($self, $list, $inc, $opts) = @_;
+
+    $self->entity_list({ items => $list }, $inc, $opts, 'collection', 'collections');
+}
+
 sub serialize_internal {
     my ($self, $c, $entity) = @_;
 

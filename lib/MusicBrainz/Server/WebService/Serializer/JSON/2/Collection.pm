@@ -27,8 +27,12 @@ sub serialize
     my $plural_url = $ENTITIES{$entity_type}{plural} // $url . 's';
 
     if ($toplevel) {
-        $body{"$url-count"} = count_of($entity, $inc, $stash, $plural);
-        $body{$plural_url} = list_of($entity, $inc, $stash, $plural);
+        my $items = $stash->store($entity)->{$plural}->{items} // [];
+
+        if (@$items) {
+            $body{"$url-count"} = count_of($entity, $inc, $stash, $plural);
+            $body{$plural_url} = list_of($entity, $inc, $stash, $plural);
+        }
     }
 
     if ($entity->loaded_entity_count) {
