@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Edit::Utils qw( merge_value );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id merge_value );
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Translation qw( N_l l );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
@@ -70,22 +70,22 @@ has '+data' => (
 sub release_id { shift->data->{release}{id} }
 sub release_label_id { shift->data->{release_label_id} }
 
-sub foreign_keys
-{
+sub foreign_keys {
     my $self = shift;
 
-    my $keys = { Release => { $self->release_id => [ 'ArtistCredit' ] } };
+    my $data = $self->data;
+    my $keys = { Release => { gid_or_id($data->{release}) => [ 'ArtistCredit' ] } };
 
-    $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
-    $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
+    $keys->{Label}->{ gid_or_id($data->{old}{label}) } = [] if $self->data->{old}{label};
+    $keys->{Label}->{ gid_or_id($data->{new}{label}) } = [] if $self->data->{new}{label};
+
     $keys->{Area} = [
-        map { $_->{country}{id} }
-        grep { exists $_->{country} && defined $_->{country}{id} }
-        @{ $self->data->{release}{events} // [] }
+        grep { $_ } map { gid_or_id($_->{country}) } grep { exists $_->{country} }
+        @{ $data->{release}{events} // [] }
     ];
 
     return $keys;
-};
+}
 
 sub process_medium_formats
 {
@@ -101,48 +101,48 @@ sub process_medium_formats
         } @$format_names);
 }
 
-sub build_display_data
-{
+sub build_display_data {
     my ($self, $loaded) = @_;
 
-    my $data = {
-        release => $loaded->{Release}->{ $self->release_id } // Release->new( name => $self->data->{release}{name} ),
+    my $data = $self->data;
+
+    my $display_data = {
+        release => $loaded->{Release}->{gid_or_id($data->{release})} // Release->new(name => $data->{release}{name}),
         catalog_number => {
-            new => $self->data->{new}{catalog_number},
-            old => $self->data->{old}{catalog_number},
+            new => $data->{new}{catalog_number},
+            old => $data->{old}{catalog_number},
         },
-        extra => $self->data->{release}
+        extra => $data->{release}
     };
 
-    if ($data->{extra}{medium_formats}) {
-        $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
+    if ($display_data->{extra}{medium_formats}) {
+        $display_data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
     }
 
-    $data->{extra}{events} = [
+    $display_data->{extra}{events} = [
         map {
-            my $display = {};
+            my $event_display = {};
 
             if (exists $_->{country}) {
                 my $country = $_->{country};
 
-                $display->{country} = $loaded->{Area}->{$country->{id}} //
+                $event_display->{country} = $loaded->{Area}->{gid_or_id($country)} //
                     (defined($country->{name}) && MusicBrainz::Server::Entity::Area->new($country));
             }
 
-            $display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
-            $display;
-        } @{ $data->{extra}{events} // [] }
+            $event_display->{date} = MusicBrainz::Server::Entity::PartialDate->new($_->{date});
+            $event_display;
+        } @{ $display_data->{extra}{events} // [] }
     ];
 
     for (qw( new old )) {
-        if (my $lbl = $self->data->{$_}{label}) {
-            next unless %$lbl;
-            $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} } ||
-                Label->new( name => $lbl->{name} );
+        if (my $label = $data->{$_}{label}) {
+            next unless %$label;
+            $display_data->{label}{$_} = $loaded->{Label}{gid_or_id($label)} // Label->new(name => $label->{name});
         }
     }
 
-    return $data;
+    return $display_data;
 }
 
 around '_build_related_entities' => sub {
@@ -151,8 +151,8 @@ around '_build_related_entities' => sub {
     my $related = $self->$orig;
 
     $related->{label} = [
-        $self->data->{new}{label} ? $self->data->{new}{label}{id} : (),
-        $self->data->{old}{label} ? $self->data->{old}{label}{id} : (),
+        $self->data->{new}{label} ? gid_or_id($self->data->{new}{label}) : (),
+        $self->data->{old}{label} ? gid_or_id($self->data->{old}{label}) : (),
     ];
 
     return $related;
@@ -232,43 +232,44 @@ sub initialize
     $data->{release}{barcode} = $release_label->release->barcode->format
         if $release_label->release->barcode;
 
-    $data->{old}{catalog_number} = $release_label->catalog_number;
-    $data->{old}{label} = $release_label->label ? {
-        'name' => $release_label->label->name,
-        'id' => $release_label->label->id
-    } : undef;
-
     $self->data($data);
 };
 
-sub accept
-{
+sub accept {
     my $self = shift;
 
-    if (!defined($self->release_label)) {
-        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'This release label no longer exists.'
-        );
-    }
+    my $release_label = $self->release_label;
 
-    my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
-    $self->c->model('ReleaseLabel')->load($release);
-
-    my ($old, $new) = ($self->data->{old}, $self->data->{new});
-    my $new_label = exists($new->{label}) ? $new->{label} : $old->{label};
-    my $new_catalog_number = exists($new->{catalog_number}) ? $new->{catalog_number} : $old->{catalog_number};
-
-    $self->throw_if_release_label_is_duplicate($release, $new_label ? $new_label->{id} : undef, $new_catalog_number);
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This release label no longer exists.'
+    ) unless defined $release_label;
 
     my %args = %{ $self->merge_changes };
-    $args{label_id} = delete $args{label}
-        if exists $args{label};
 
-    if (my $label_id = $args{label_id}) {
-        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The new label no longer exists'
-        ) unless $self->c->model('Label')->get_by_id($label_id);
+    if (exists $args{label}) {
+        if (defined $args{label}) {
+            my $label = $self->c->model('Label')->get_by_any_id(gid_or_id($args{label}));
+
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                'The new label no longer exists.'
+            ) unless $label;
+
+            $args{label_id} = $label->id;
+        } else {
+            $args{label_id} = undef;
+        }
+
+        delete $args{label};
     }
+
+    my $release = $self->c->model('Release')->get_by_any_id(gid_or_id($self->data->{release}));
+    $self->c->model('ReleaseLabel')->load($release);
+
+    $self->throw_if_release_label_is_duplicate(
+        $release,
+        exists($args{label_id}) ? $args{label_id} : $release_label->label_id,
+        exists($args{catalog_number}) ? $args{catalog_number} : $release_label->catalog_number,
+    );
 
     $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
@@ -277,10 +278,31 @@ has release_label => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        return $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+        my $release_label = $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+        $self->c->model('Label')->load($release_label);
+        return $release_label;
     },
     lazy => 1
 );
+
+sub ancestor_data {
+    my $self = shift;
+
+    my %data = %{ $self->data->{old} };
+
+    if ($data{label}) {
+        # Avoid conflicts by following merges.
+        my $label = $self->c->model('Label')->get_by_any_id(gid_or_id($data{label}));
+
+        $data{label} = {
+            id => $label->id,
+            gid => $label->gid,
+            name => $label->name,
+        } if $label;
+    }
+
+    return \%data;
+}
 
 sub current_instance {
     my $self = shift;
@@ -293,9 +315,13 @@ around extract_property => sub {
     given ($property) {
         when ('label') {
             return (
-                merge_value($ancestor->{label} && $ancestor->{label}{id}),
-                merge_value($current->label_id),
-                merge_value($new->{label} && $new->{label}{id})
+                merge_value($ancestor->{label}),
+                merge_value({
+                    id => $current->label->id,
+                    gid => $current->label->gid,
+                    name => $current->label->name,
+                }),
+                merge_value($new->{label}),
             );
         }
 

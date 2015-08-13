@@ -11,51 +11,51 @@ BEGIN { use MusicBrainz::Server::Edit::Release::EditReleaseLabel }
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDITRELEASELABEL
     $EDIT_RELEASE_ADDRELEASELABEL
+    $STATUS_APPLIED
+    $UNTRUSTED_FLAG
 );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    my $rl = $c->model('ReleaseLabel')->get_by_id(1);
 
-my $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    my $edit = create_edit($c, $rl);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditReleaseLabel');
 
-my $edit = create_edit($c, $rl);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditReleaseLabel');
+    my ($edits) = $c->model('Edit')->find({ release => 1 }, 10, 0);
+    is(scalar @$edits, 1);
+    is($edits->[0]->id, $edit->id);
 
-my ($edits) = $c->model('Edit')->find({ release => 1 }, 10, 0);
-is(scalar @$edits, 1);
-is($edits->[0]->id, $edit->id);
+    my $release = $c->model('Release')->get_by_id(1);
+    is($release->edits_pending, 1);
 
-my $release = $c->model('Release')->get_by_id(1);
-is($release->edits_pending, 1);
+    $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    is($rl->label_id, 2);
+    is($rl->catalog_number, 'ABC-123');
 
-$rl = $c->model('ReleaseLabel')->get_by_id(1);
-is($rl->label_id, 1);
-is($rl->catalog_number, 'ABC-123');
+    reject_edit($c, $edit);
 
-reject_edit($c, $edit);
+    $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    is($rl->label_id, 2);
+    is($rl->catalog_number, 'ABC-123');
 
-$rl = $c->model('ReleaseLabel')->get_by_id(1);
-is($rl->label_id, 1);
-is($rl->catalog_number, 'ABC-123');
+    $release = $c->model('Release')->get_by_id($rl->release_id);
+    is($release->edits_pending, 0);
 
-$release = $c->model('Release')->get_by_id($rl->release_id);
-is($release->edits_pending, 0);
+    $edit = create_edit($c, $rl);
+    accept_edit($c, $edit);
 
-$edit = create_edit($c, $rl);
-accept_edit($c, $edit);
+    $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    is($rl->label_id, 3);
+    is($rl->catalog_number, 'FOO');
 
-$rl = $c->model('ReleaseLabel')->get_by_id(1);
-is($rl->label_id, 2);
-is($rl->catalog_number, 'FOO');
-
-$release = $c->model('Release')->get_by_id($rl->release_id);
-is($release->edits_pending, 0);
-
+    $release = $c->model('Release')->get_by_id($rl->release_id);
+    is($release->edits_pending, 0);
 };
 
 test 'Editing the label can fail as a conflict' => sub {
@@ -65,7 +65,7 @@ test 'Editing the label can fail as a conflict' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(2));
+    my $edit1 = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
     my $edit2 = _create_edit($c, $rl, label => undef);
 
     ok !exception { $edit1->accept };
@@ -116,7 +116,7 @@ test 'Parallel edits that dont conflict merge' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
-    my $expected_label_id = 2;
+    my $expected_label_id = 3;
     my $expected_cat_no = 'Woof!';
 
     {
@@ -132,7 +132,7 @@ test 'Parallel edits that dont conflict merge' => sub {
     }
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    is($rl->label_id, 2);
+    is($rl->label_id, 3);
     is($rl->catalog_number, 'Woof!');
 };
 
@@ -144,7 +144,7 @@ test 'Editing a non-existant release label fails' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $model->get_by_id(1);
-    my $edit = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(2));
+    my $edit = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
 
     $model->delete(1);
 
@@ -158,7 +158,7 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
-    my $label = $c->model('Label')->get_by_id(1);
+    my $label = $c->model('Label')->get_by_id(2);
 
     $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
@@ -186,7 +186,7 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
-    my $label = $c->model('Label')->get_by_id(1);
+    my $label = $c->model('Label')->get_by_id(2);
 
     my $edit_edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
@@ -212,15 +212,76 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
     }, qr/The label and catalog number in this edit already exist on the release./;
 };
 
+test 'Can apply after labels are merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $label = $c->model('Label')->get_by_id(4);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
+        editor_id => 1,
+        release_label => $c->model('ReleaseLabel')->get_by_id(1),
+        label => $label,
+        catalog_number => 'ABC-456',
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->model('Label')->merge(3, 4);
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED);
+
+    # Check that the new label loads correctly.
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{label}{new}->id, 3);
+};
+
+test 'Can apply after release is merged' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $label = $c->model('Label')->get_by_id(4);
+    my $release_label = $c->model('ReleaseLabel')->get_by_id(1);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
+        editor_id => 1,
+        release_label => $release_label,
+        label => $label,
+        catalog_number => 'ABC-456',
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    is($release_label->release_id, 1);
+
+    $c->model('Release')->merge(
+        new_id => 2,
+        old_ids => [1],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+    );
+
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED);
+
+    # Check that the new release loads correctly.
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{release}->id, 2);
+};
+
 sub create_edit {
     my ($c, $rl) = @_;
     return _create_edit(
         $c, $rl,
-        label => $c->model('Label')->get_by_id(2),
+        label => $c->model('Label')->get_by_id(3),
         catalog_number => 'FOO',
     );
 }
-
 
 sub _create_edit {
     my ($c, $rl, %args) = @_;

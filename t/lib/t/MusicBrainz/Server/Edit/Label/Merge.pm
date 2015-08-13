@@ -100,8 +100,8 @@ test 'Duplicate release labels are merged' => sub {
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_MERGE,
         editor_id => 1,
-        old_entities => [ { id => 2, name => 'Label' } ],
-        new_entity => { id => 1, name => 'Label' },
+        old_entities => [ { id => 3, name => 'Label 3' } ],
+        new_entity => { id => 2, name => 'Label 2' },
     );
 
     $release = $c->model('Release')->get_by_id(1);

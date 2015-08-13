@@ -8,14 +8,16 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
     VALUES (1, 1, 'Name', 0, '');
 
 INSERT INTO label (id, gid, name, comment)
-    VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'Label', 'Label 1'),
-           (2, '7214c460-97d7-11de-8a39-0800200c9a66', 'Label', 'Label 2');
+    VALUES (2, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'Label', 'Label 2'),
+           (3, '7214c460-97d7-11de-8a39-0800200c9a66', 'Label', 'Label 3'),
+           (4, '7fd960bf-ed4e-464b-8410-101986004356', 'Label', 'Label 4');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release #1', 1);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Release #1', 1, 1);
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Release #1', 1, 1),
+           (2, 'a1e7d7dd-41ef-47bf-ae51-680257a2424f', 'Release #2', 1, 1);
 
 INSERT INTO release_label (id, release, label, catalog_number)
-    VALUES (1, 1, 1, 'ABC-123');
+    VALUES (1, 1, 2, 'ABC-123');

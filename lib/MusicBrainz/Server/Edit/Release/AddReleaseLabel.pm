@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -79,39 +80,37 @@ sub initialize {
     $self->data(\%opts);
 };
 
-sub foreign_keys
-{
+sub foreign_keys {
     my $self = shift;
+
     my %fk;
+    my $data = $self->data;
 
-    $fk{Release} = { $self->release_id => ['ArtistCredit'] } if $self->release_id;
-
-    if (my $lbl = $self->data->{label}) {
-        $fk{Label} = [ $lbl->{id} ]
-    }
+    $fk{Release} = { gid_or_id($data->{release}) => ['ArtistCredit'] } if $data->{release};
+    $fk{Label} = [gid_or_id($data->{label})] if $data->{label};
 
     return \%fk;
 };
 
-sub build_display_data
-{
+sub build_display_data {
     my ($self, $loaded) = @_;
 
-    my $data = {
+    my $data = $self->data;
+    my $display_data = {
         catalog_number => $self->data->{catalog_number},
     };
 
     unless ($self->preview) {
-        $data->{release} = $loaded->{Release}->{ $self->release_id }
-            || Release->new( name => $self->data->{release}{name} );
+        $display_data->{release} = $loaded->{Release}->{gid_or_id($data->{release})} //
+            Release->new(name => $data->{release}{name});
     }
 
-    if (my $lbl = $self->data->{label}) {
-        $data->{label} = $loaded->{Label}->{ $lbl->{id} } ||
-            Label->new( name => $lbl->{name} );
+    if ($data->{label}) {
+        $display_data->{label} = $loaded->{Label}->{gid_or_id($data->{label})} //
+            Label->new(name => $data->{label}{name});
     }
 
-    return $data;
+    return $display_data;
 }
 
 sub insert
