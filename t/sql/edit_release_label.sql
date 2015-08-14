@@ -19,3 +19,18 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'ABC-123');
+
+INSERT INTO area_type (id, name) VALUES (1, 'Country');
+
+INSERT INTO area (id, gid, name, type)
+    VALUES (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
+
+INSERT INTO country_area (area) VALUES (222);
+
+INSERT INTO iso_3166_1 (area, code) VALUES (222, 'US');
+
+INSERT INTO release_country (release, date_year, date_month, date_day, country)
+    VALUES (1, 1999, 1, 24, 222);
+
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
+    VALUES (1, 2006, 6, 6);
