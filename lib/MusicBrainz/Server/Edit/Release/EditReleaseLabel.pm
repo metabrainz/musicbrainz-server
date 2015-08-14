@@ -221,11 +221,11 @@ sub initialize
     $data->{release}{events} = [
         map +{
             date => $_->date->format,
-            country => {
+            country => (defined $_->country_id ? {
                 id => $_->country->id,
                 gid => $_->country->gid,
                 name => $_->country->name,
-            },
+            } : undef),
         }, $release->all_events
     ];
 
