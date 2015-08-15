@@ -21,19 +21,13 @@ test 'Viewing /relationship/artist-artist as admin' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name,
-    link_phrase, reverse_link_phrase, long_link_phrase)
-  VALUES (1, '77a0f1d3-f9ec-4055-a6e7-24d7258c21f7', 'artist', 'artist', 'member of band', '', '', '');
-EOSQL
-
     $mech->get_ok('/relationships/artist-artist');
     html_ok($mech->content);
     my $tx = test_xpath_html($mech->content);
 
-    $tx->ok('//a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
+    $tx->ok('//a[contains(@href,"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821/edit")]',
             'has a link to edit the relationship type');
-    $tx->ok('//a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
+    $tx->ok('//a[contains(@href,"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821/delete")]',
             'has a link to delete the relationship type');
     $tx->ok('//a[contains(@href,"/relationships/artist-artist/create")]',
             'has a link to create new relationship types');

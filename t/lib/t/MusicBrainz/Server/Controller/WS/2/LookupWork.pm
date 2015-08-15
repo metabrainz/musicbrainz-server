@@ -74,7 +74,7 @@ ws_test 'work lookup with recording relationships',
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     <relation-list target-type="recording">
-      <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+      <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
         <target>162630d9-36d2-4a8d-ade1-1c77440b34e7</target>
         <direction>backward</direction>
         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
@@ -82,7 +82,7 @@ ws_test 'work lookup with recording relationships',
           <length>296026</length>
         </recording>
       </relation>
-      <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+      <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
         <target>eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e</target>
         <direction>backward</direction>
         <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">

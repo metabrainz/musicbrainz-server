@@ -83,9 +83,6 @@ test 'Can update release_meta for ASINs with no artwork' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<'EOSQL');
-INSERT INTO link_type (id, gid, name, entity_type0, entity_type1, link_phrase, long_link_phrase, reverse_link_phrase)
-VALUES (77, 'b04b10e7-1467-4d1f-94fe-5b7798bf5753', 'amazon asin', 'release', 'url', '', '', '');
-
 INSERT INTO url (id, gid, url)
 VALUES (1, 'fbf96576-1c9c-4676-bb7d-7b9d3173edb8', 'http://www.amazon.co.uk/gp/product/B000057QPT');
 

@@ -326,8 +326,8 @@ test 'seeding url relationships' => sub {
     my $params = expand_hash({
         "urls.0.url" => 'http://foo.bar.baz/',
         "urls.1.url" => 'http://foo.bar.baz/foo/',
-        "urls.1.link_type" => '3',
-        "urls.2.link_type" => '4',
+        "urls.1.link_type" => '76',
+        "urls.2.link_type" => '77',
     });
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
@@ -343,14 +343,14 @@ test 'seeding url relationships' => sub {
                     },
                 },
                 {
-                    linkTypeID => 3,
+                    linkTypeID => 76,
                     target => {
                         name => 'http://foo.bar.baz/foo/',
                         entityType => 'url',
                     },
                 },
                 {
-                    linkTypeID => 4,
+                    linkTypeID => 77,
                     target => {
                         name => '',
                         entityType => 'url',

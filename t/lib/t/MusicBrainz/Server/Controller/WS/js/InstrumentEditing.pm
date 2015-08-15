@@ -21,11 +21,6 @@ sub prepare_test_database {
     $c->sql->do(q{
         INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1)
         VALUES (1, 'editor', '{CLEARTEXT}password', 0, 'noreply@example.com', '', '', '1999-09-09', '1999-09-09', 0, 0, 0, 0, '3a115bc4f05ea9856bd4611b75c80bca');
-
-        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
-        VALUES (1, 'instrument origin', '0b67183b-9f36-4b09-b561-0fa531508f91', 'instruments', 'has traditional instrument', 'from', 'area', 'instrument', ''),
-               (2, 'children', '12678b88-1adb-3536-890e-9b39b9a14b2d', 'childre', 'has children', 'child of', 'instrument', 'instrument', ''),
-               (3, 'wikipedia', 'b21fd997-c813-3bc6-99cc-c64323bd15d3', 'Wikipedia', 'Wikipedia', 'Wikipedia', 'instrument', 'url', '');
     });
 }
 
@@ -62,9 +57,9 @@ test 'Removing instruments is restricted to relationship editors' => forbidden_e
 });
 
 our @RELATIONSHIP_TESTS = (
-    { types => 'area-instrument', link_type => 1 },
-    { types => 'instrument-instrument', link_type => 2 },
-    { types => 'instrument-url', link_type => 3 },
+    { types => 'area-instrument', link_type => 752 },
+    { types => 'instrument-instrument', link_type => 739 },
+    { types => 'instrument-url', link_type => 731 },
 );
 
 for (@RELATIONSHIP_TESTS) {

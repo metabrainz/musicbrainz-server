@@ -2,13 +2,13 @@
 
 [%- MACRO print_type(type, indent, base, parent) BLOCK -%]
 <tr>
-    <th style="padding-left: [%- indent - 1 -%]em">[%- type.l_long_link_phrase -%]</th>
-    <td>[% add_commas(stats.statistic(base _ '.' _ type.name)) %]</td>
-    <td>[% add_commas(stats.statistic(base _ '.' _ type.name _ '.inclusive')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio(base _ '.' _ type.name _ '.inclusive', parent)) }) %]</td>
+    <th style="padding-left: [%- indent - 1 -%]em">[%- html_escape(type.l_long_link_phrase) -%]</th>
+    <td>[% add_commas(stats.statistic(base _ '.' _ html_escape(type.name))) %]</td>
+    <td>[% add_commas(stats.statistic(base _ '.' _ html_escape(type.name) _ '.inclusive')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio(base _ '.' _ html_escape(type.name) _ '.inclusive', parent)) }) %]</td>
 </tr>
 [% FOREACH child IN type.children.sort('l_long_link_phrase') -%]
-[%- print_type(child, indent + 1, base, base _ '.' _ type.name _ '.inclusive' ) -%]
+[%- print_type(child, indent + 1, base, base _ '.' _ html_escape(type.name) _ '.inclusive' ) -%]
 [%- END -%]
 [%- END -%]
 

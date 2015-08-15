@@ -31,7 +31,7 @@ test 'adding a relationship' => sub {
             'edit-artist.type_id' => '1',
             'edit-artist.gender_id' => '1',
             'edit-artist.period.ended' => '1',
-            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.link_type_id' => '148',
             'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
             'edit-artist.rel.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
             'edit-artist.rel.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
@@ -53,11 +53,11 @@ test 'adding a relationship' => sub {
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
-            id                  => 1,
+            id                  => 148,
             name                => 'instrument',
-            link_phrase         => 'performed {additional} {instrument} on',
-            long_link_phrase    => 'performer',
-            reverse_link_phrase => 'has {additional} {instrument} performed by',
+            link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
         },
         entity1         => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
         entity0         => { id => 3, gid => '745c079d-374e-4436-9448-da92dedef3ce', name => 'Test Artist' },
@@ -94,7 +94,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
-                'edit-artist.rel.0.link_type_id' => '1',
+                'edit-artist.rel.0.link_type_id' => '148',
                 'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
                 'edit-artist.rel.0.attributes.0.credited_as' => 'crazy guitar',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -117,11 +117,11 @@ test 'editing a relationship' => sub {
             type1 => 'recording',
             link => {
                 link_type => {
-                    id                  => 1,
+                    id                  => 148,
                     name                => 'instrument',
-                    link_phrase         => 'performed {additional} {instrument} on',
-                    long_link_phrase    => 'performer',
-                    reverse_link_phrase => 'has {additional} {instrument} performed by',
+                    link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                    long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                    reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
                 },
                 entity1 => { id => 3, gid => '659f405b-b4ee-4033-868a-0daa27784b89', name => 'π' },
                 entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -157,7 +157,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
-                'edit-artist.rel.0.link_type_id' => '1',
+                'edit-artist.rel.0.link_type_id' => '148',
                 'edit-artist.rel.0.attributes.0.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
                 'edit-artist.rel.0.attributes.0.removed' => '1',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -180,11 +180,11 @@ test 'editing a relationship' => sub {
             type1 => 'recording',
             link => {
                 link_type => {
-                    id                  => 1,
+                    id                  => 148,
                     name                => 'instrument',
-                    link_phrase         => 'performed {additional} {instrument} on',
-                    long_link_phrase    => 'performer',
-                    reverse_link_phrase => 'has {additional} {instrument} performed by',
+                    link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                    long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                    reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
                 },
                 entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
                 entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -214,7 +214,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
-                'edit-artist.rel.0.link_type_id' => '1',
+                'edit-artist.rel.0.link_type_id' => '148',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.begin_date.year' => '',
                 'edit-artist.rel.0.period.begin_date.month' => '',
@@ -232,11 +232,11 @@ test 'editing a relationship' => sub {
             type1 => 'recording',
             link => {
                 link_type => {
-                    id                  => 1,
+                    id                  => 148,
                     name                => 'instrument',
-                    link_phrase         => 'performed {additional} {instrument} on',
-                    long_link_phrase    => 'performer',
-                    reverse_link_phrase => 'has {additional} {instrument} performed by',
+                    link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                    long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                    reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
                 },
                 entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
                 entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -264,7 +264,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.name' => 'Test Alias',
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
-                'edit-artist.rel.0.link_type_id' => '1',
+                'edit-artist.rel.0.link_type_id' => '148',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.ended' => '0',
                 'edit-artist.make_votable' => '1',
@@ -280,11 +280,11 @@ test 'editing a relationship' => sub {
             type1 => 'recording',
             link => {
                 link_type => {
-                    id                  => 1,
+                    id                  => 148,
                     name                => 'instrument',
-                    link_phrase         => 'performed {additional} {instrument} on',
-                    long_link_phrase    => 'performer',
-                    reverse_link_phrase => 'has {additional} {instrument} performed by',
+                    link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                    long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                    reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
                 },
                 entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
                 entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -319,7 +319,7 @@ test 'removing a relationship' => sub {
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.rel.0.relationship_id' => '1',
             'edit-artist.rel.0.removed' => '1',
-            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.link_type_id' => '148',
         });
     } $c;
 
@@ -340,7 +340,7 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
         $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
-            'edit-artist.rel.0.link_type_id' => '2',
+            'edit-artist.rel.0.link_type_id' => '122',
             'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
         });
     } $c;
@@ -364,7 +364,7 @@ test 'Duplicate relationships are ignored' => sub {
         $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
-            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.link_type_id' => '148',
             'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
             'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
         });
@@ -389,14 +389,14 @@ test 'Duplicate link attribute types are ignored' => sub {
             'edit-artist.sort_name' => 'Kate Bush',
 
             # Adds a new relationship with a dupe guitar.
-            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.link_type_id' => '148',
             'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
             'edit-artist.rel.0.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
             'edit-artist.rel.0.target' => 'b1d58a57-a0f3-4db8-aa94-868cdc7bc3bb',
 
             # Edits an existing relationship to add a dupe guitar. Should be entirely ignored.
             'edit-artist.rel.1.relationship_id' => '1',
-            'edit-artist.rel.1.link_type_id' => '1',
+            'edit-artist.rel.1.link_type_id' => '148',
             'edit-artist.rel.1.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
             'edit-artist.rel.1.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
             'edit-artist.rel.1.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
@@ -422,7 +422,7 @@ test 'MBS-8322: URL relationship dates are not removed if not specified' => sub 
             'edit-artist.name' => 'Test Alias',
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.url.0.relationship_id' => '1',
-            'edit-artist.url.0.link_type_id' => '3',
+            'edit-artist.url.0.link_type_id' => '183',
             'edit-artist.url.0.text' => 'http://musicbrainz.org/',
         });
     } $c;

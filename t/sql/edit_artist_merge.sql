@@ -1,4 +1,3 @@
-
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
@@ -24,16 +23,6 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
 INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '123c079d-374e-4436-9448-da92dedef3ce', 'Test Recording', 101, 123456);
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-    VALUES (1,
-            '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
-            'artist',
-            'recording',
-            'performer',
-            'performed on',
-            'has performer',
-            'performer');
-
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 156, 0);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);

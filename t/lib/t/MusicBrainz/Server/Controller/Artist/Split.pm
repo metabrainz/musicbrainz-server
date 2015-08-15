@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::Artist::Split;
 use Test::Routine;
 use HTTP::Request::Common qw( POST );
-use MusicBrainz::Server::Constants qw( $ARTIST_ARTIST_COLLABORATION );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use Test::More;
 
@@ -32,11 +31,7 @@ test 'Split artist remove all collaboration relationships for that artist' => su
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
-    reverse_link_phrase, long_link_phrase) VALUES
-  (1, '$ARTIST_ARTIST_COLLABORATION', 'artist', 'artist', 'collaboration',
-   'link phrase', 'reverse link phrase', 'long link phrase');
-INSERT INTO link (id, link_type) VALUES (1, 1);
+INSERT INTO link (id, link_type) VALUES (1, 102);
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 11, 10);
 EOSQL
 

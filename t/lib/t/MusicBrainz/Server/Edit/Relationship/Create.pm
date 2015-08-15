@@ -45,24 +45,27 @@ $rel = $c->model('Relationship')->get_by_id('artist', 'artist', $edit->entity_id
 ok(defined $rel);
 $c->model('Link')->load($rel);
 $c->model('LinkType')->load($rel->link);
-is($rel->link->type->id, 2);
+is($rel->link->type->id, 104);
 is($rel->link->begin_date->year, 1994);
 is($rel->link->end_date->year, 1995);
 
 subtest 'creating cover art relationships should update the releases coverart' => sub {
     my $url = 'http://web.archive.org/web/20100820183338/wiki.jpopstop.com/images/8/8d/alan_-_Kaze_ni_Mukau_Hana_CDDVD_mu-mo.jpg';
 
-    my $e0 = $c->model('Release')->get_by_id(1);
+    $c->sql->do('UPDATE link_type SET is_deprecated = FALSE where id = 78');
+
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
         editor_id => 1,
         type0 => 'release',
         type1 => 'url',
-        entity0 => $e0,
+        entity0 => $c->model('Release')->get_by_id(1),
         entity1 => $c->model('URL')->find_or_insert($url),
-        link_type => $c->model('LinkType')->get_by_id(84),
+        link_type => $c->model('LinkType')->get_by_id(78),
         ended => 0,
     );
+
+    $c->sql->do('UPDATE link_type SET is_deprecated = TRUE where id = 78');
     accept_edit($c, $edit);
 
     my $release = $c->model('Release')->get_by_id(1);
@@ -81,7 +84,7 @@ subtest 'creating asin relationships should update the releases coverart' => sub
             type1 => 'url',
             entity0 => $e0,
             entity1 => $c->model('URL')->find_or_insert('http://www.amazon.co.jp/gp/product/B00005EIIB'),
-            link_type => $c->model('LinkType')->get_by_id(83),
+            link_type => $c->model('LinkType')->get_by_id(77),
             ended => 1
         );
         accept_edit($c, $edit);
@@ -105,7 +108,7 @@ subtest 'Text attributes of value 0 are supported' => sub {
         editor_id => 1,
         entity0 => $e0,
         entity1 => $e1,
-        link_type => $c->model('LinkType')->get_by_id(1),
+        link_type => $c->model('LinkType')->get_by_id(103),
         attributes => [
             {
                 type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
@@ -132,7 +135,7 @@ subtest 'Instrument credits can be added with a new relationship' => sub {
         editor_id => 1,
         entity0 => $e0,
         entity1 => $e1,
-        link_type => $c->model('LinkType')->get_by_id(1),
+        link_type => $c->model('LinkType')->get_by_id(103),
         attributes => [
             {
                 type => {
@@ -178,7 +181,7 @@ sub _create_edit {
         type1 => 'artist',
         entity0 => $e0,
         entity1 => $e1,
-        link_type => $c->model('LinkType')->get_by_id(2),
+        link_type => $c->model('LinkType')->get_by_id(104),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         attributes => [ ],

@@ -267,7 +267,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Reverend Charisma</title>
                             <length>256666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>e8d55116-1ea6-339a-a059-228d71c2f27d</target>
                                     <work id="e8d55116-1ea6-339a-a059-228d71c2f27d">
                                         <title>Reverend Charisma</title>
@@ -283,7 +283,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Dear Diary</title>
                             <length>86666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>2cd04f80-fbd7-343f-8499-bf0028f0f530</target>
                                     <work id="2cd04f80-fbd7-343f-8499-bf0028f0f530">
                                         <title>Dear Diary</title>
@@ -299,7 +299,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Black Sundress</title>
                             <length>213666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>b07e71c7-1cc7-3c6f-8c31-22be30a472dd</target>
                                     <work id="b07e71c7-1cc7-3c6f-8c31-22be30a472dd">
                                         <title>Black Sundress</title>
@@ -315,7 +315,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Allegiance?WTF?</title>
                             <length>266666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>c4a1c334-ccd3-37df-b248-40653cefb181</target>
                                     <work id="c4a1c334-ccd3-37df-b248-40653cefb181">
                                         <title>Allegiance?WTF?</title>
@@ -331,7 +331,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Maggie&amp;Heidi</title>
                             <length>254666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>b26203e5-73cb-3579-b575-a12d8b3f8209</target>
                                     <work id="b26203e5-73cb-3579-b575-a12d8b3f8209">
                                         <title>Maggie&amp;Heidi</title>
@@ -355,7 +355,7 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Still Unsatisfied</title>
                             <length>230666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>9c38c012-9b30-30a2-a2fb-4b44afdc3973</target>
                                     <work id="9c38c012-9b30-30a2-a2fb-4b44afdc3973">
                                         <title>Still Unsatisfied</title>
@@ -371,13 +371,13 @@ ws_test 'release lookup with recording-level relationships',
                             <title>Asseswaving</title>
                             <length>274666</length>
                             <relation-list target-type="work">
-                                <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+                                <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                                     <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
                                     <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                                         <title>Asseswaving</title>
                                         <language>jpn</language>
                                         <relation-list target-type="artist">
-                                            <relation type-id="21d842db-81d4-4d30-a0bd-8c6cc07e1dc2" type="composer">
+                                            <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                                                 <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
                                                 <direction>backward</direction>
                                                 <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -416,13 +416,13 @@ ws_test 'recording lookup with work-level relationships',
         <title>Asseswaving</title>
         <length>274666</length>
         <relation-list target-type="work">
-            <relation type-id="fdc57134-e05c-30bc-aff6-425684475276" type="performance">
+            <relation type-id="a3005666-a872-32c3-ad06-98af558e99b0" type="performance">
                 <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
                 <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                     <title>Asseswaving</title>
                     <language>jpn</language>
                     <relation-list target-type="artist">
-                        <relation type-id="21d842db-81d4-4d30-a0bd-8c6cc07e1dc2" type="composer">
+                        <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                             <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
                             <direction>backward</direction>
                             <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -447,7 +447,7 @@ ws_test 'recording lookup with instrument credit',
         <title>Orange Wedge</title>
         <length>186826</length>
         <relation-list target-type="artist">
-            <relation type-id="f8673e29-02a5-47b7-af61-dd4519328dd0" type="performance">
+            <relation type-id="628a9658-f54c-4142-b0c0-95f031b544da" type="performer">
                 <target>97fa3f6e-557c-4227-bc0e-95a7f9f3285d</target>
                 <direction>backward</direction>
                 <attribute-list>

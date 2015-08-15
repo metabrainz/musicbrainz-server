@@ -19,24 +19,24 @@ my $lt_data = $test->c->model('LinkType');
 
 my $sql = $test->c->sql;
 
-my $link_type = $lt_data->get_by_id(1);
-is($link_type->id, 1);
+my $link_type = $lt_data->get_by_id(148);
+is($link_type->id, 148);
 is($link_type->name, 'instrument');
-is($link_type->long_link_phrase, 'performer');
+is($link_type->long_link_phrase, 'performed {additional} {guest} {solo} {instrument:%|instruments} on');
 
 
 $sql->begin;
-$lt_data->update(1, { name => 'instrument test' });
+$lt_data->update(148, { name => 'instrument test' });
 $sql->commit;
 
-$link_type = $lt_data->get_by_id(1);
-is($link_type->id, 1);
+$link_type = $lt_data->get_by_id(148);
+is($link_type->id, 148);
 is($link_type->name, 'instrument test');
-is($link_type->long_link_phrase, 'performer');
+is($link_type->long_link_phrase, 'performed {additional} {guest} {solo} {instrument:%|instruments} on');
 
 $sql->begin;
 $link_type = $lt_data->insert({
-    parent_id => 1,
+    parent_id => 156,
     name => 'instrument test',
     link_phrase => 'link_phrase',
     entity0_type => 'artist',
@@ -69,7 +69,7 @@ is($row->{min}, undef);
 is($row->{max}, undef);
 
 $link_type = $lt_data->get_by_id($id);
-is($link_type->parent_id, 1);
+is($link_type->parent_id, 156);
 
 $sql->begin;
 $link_type = $lt_data->update($id, {
@@ -95,21 +95,18 @@ test 'Can load relationship documentation' => sub {
 
     my $expected_documentation = 'Documentation goes here';
     $test->c->sql->do(<<EOSQL, $expected_documentation);
-INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
-    (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b', 'performer', 'performer', 'performer'),
-    (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26', 'composer', 'composer', 'composer');
-INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (1, ?);
+INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (102, ?);
 EOSQL
 
-    my $link_types = $c->model('LinkType')->get_by_ids(1, 2);
+    my $link_types = $c->model('LinkType')->get_by_ids(102, 103);
     my @all_link_types = values %$link_types;
     $c->model('LinkType')->load_documentation(@all_link_types);
 
-    is($link_types->{1}->documentation, $expected_documentation, 'loaded documentation sucessfully');
-    is($link_types->{2}->documentation, '', 'default documentation string is empty');
+    is($link_types->{102}->documentation, $expected_documentation, 'loaded documentation sucessfully');
+    is($link_types->{103}->documentation, '', 'default documentation string is empty');
 
     my $new_documentation = 'newer documentation';
-    my $subject = $link_types->{1};
+    my $subject = $link_types->{102};
     $c->model('LinkType')->update($subject->id, { documentation => $new_documentation });
     $c->model('LinkType')->load_documentation(@all_link_types);
 
@@ -120,17 +117,9 @@ test 'Deprecated relationships are loaded as is_deprecated' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, long_link_phrase, is_deprecated) VALUES
-    (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b',
-    'performer', 'performer', 'performer', FALSE),
-    (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26',
-    'composer', 'composer', 'composer', TRUE);
-EOSQL
-
-    my $link_types = $c->model('LinkType')->get_by_ids(1, 2);
-    ok(!$link_types->{1}->is_deprecated, 'LT 1 is not deprecated');
-    ok($link_types->{2}->is_deprecated, 'LT 2 is deprecated');
+    my $link_types = $c->model('LinkType')->get_by_ids(102, 236);
+    ok(!$link_types->{102}->is_deprecated, 'LT 1 is not deprecated');
+    ok($link_types->{236}->is_deprecated, 'LT 2 is deprecated');
 };
 
 1;

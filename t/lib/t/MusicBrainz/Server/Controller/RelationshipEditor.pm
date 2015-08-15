@@ -72,7 +72,7 @@ test 'Can add relationship' => sub {
 
     my @edits = capture_edits {
         $mech->post("/relationship-editor", {
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
                 'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
@@ -99,11 +99,11 @@ test 'Can add relationship' => sub {
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
-            id                  => 1,
+            id                  => 148,
             name                => 'instrument',
-            link_phrase         => 'performed {additional} {instrument} on',
-            long_link_phrase    => 'performer',
-            reverse_link_phrase => 'has {additional} {instrument} performed by',
+            link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
         },
         entity1         => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
         entity0         => { id => 3, gid => '745c079d-374e-4436-9448-da92dedef3ce', name => 'Test Artist' },
@@ -136,7 +136,7 @@ test 'Can edit relationship' => sub {
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
                 'rel-editor.rels.0.id' => '1',
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'edit',
                 'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
                 'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
@@ -176,11 +176,11 @@ test 'Can edit relationship' => sub {
                 name => 'King of the Mountain'
             },
             link_type => {
-                id => 1,
-                link_phrase => 'performed {additional} {instrument} on',
-                long_link_phrase => 'performer',
+                id => 148,
+                link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
+                long_link_phrase => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
                 name => 'instrument',
-                reverse_link_phrase => 'has {additional} {instrument} performed by',
+                reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
             },
         },
         new => {
@@ -215,7 +215,7 @@ test 'Can remove relationship' => sub {
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
                 'rel-editor.rels.0.id' => '1',
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'remove',
                 'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
                 'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
@@ -242,7 +242,7 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -256,7 +256,7 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
     is($edit->data->{entity1}{id}, 2);
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
-    is($edit->data->{link_type}{id}, 1);
+    is($edit->data->{link_type}{id}, 148);
     is($edit->data->{ended}, 0);
 };
 
@@ -272,7 +272,7 @@ test 'Can submit a relationship with empty-string date values' => sub {
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -293,17 +293,13 @@ test 'mismatched link types are rejected' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c);
 
-    $c->sql->do(q{
-        INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
-            VALUES (4, '0f8731a9-0d70-4bd8-9db0-931f89f417ba', 'artist', 'release', 'blah', 'blah', 'blah', 'blah', 'blah');
-    });
-
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
-                'rel-editor.rels.0.link_type' => '4',
+                # artist-release concertmaster
+                'rel-editor.rels.0.link_type' => '759',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -326,11 +322,11 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
 
     my @edits = capture_edits {
         $mech->post("/relationship-editor", {
-                'rel-editor.rels.0.link_type' => '3',
+                'rel-editor.rels.0.link_type' => '183',
                 'rel-editor.rels.0.action' => 'add',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.1.url' => 'http://musicbrainz.org/',
-                'rel-editor.rels.1.link_type' => '3',
+                'rel-editor.rels.1.link_type' => '183',
                 'rel-editor.rels.1.action' => 'add',
                 'rel-editor.rels.1.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.1.entity.1.url' => 'http://example.com/',
@@ -343,14 +339,14 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
     is($edits[0]->data->{entity1}{id}, 1);
     is($edits[0]->data->{type0}, 'artist');
     is($edits[0]->data->{type1}, 'url');
-    is($edits[0]->data->{link_type}{id}, 3);
+    is($edits[0]->data->{link_type}{id}, 183);
 
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
     is($edits[1]->data->{entity0}{id}, 3);
     is($edits[1]->data->{entity1}{id}, 2);
     is($edits[1]->data->{type0}, 'artist');
     is($edits[1]->data->{type1}, 'url');
-    is($edits[1]->data->{link_type}{id}, 3);
+    is($edits[1]->data->{link_type}{id}, 183);
 };
 
 test 'Can clear all attributes from a relationship' => sub {
@@ -365,7 +361,7 @@ test 'Can clear all attributes from a relationship' => sub {
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
                 'rel-editor.rels.0.id' => '1',
-                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.link_type' => '148',
                 'rel-editor.rels.0.action' => 'edit',
                 'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
                 'rel-editor.rels.0.attributes.0.removed' => '1',

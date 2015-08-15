@@ -26,12 +26,12 @@ my @edits = capture_edits {
             'edit-artist.name' => 'Faye Wong',
             'edit-artist.sort_name' => 'Faye Wong',
             'edit-artist.url.0.relationship_id' => '1',
-            'edit-artist.url.0.link_type_id' => '1',
+            'edit-artist.url.0.link_type_id' => '179',
             'edit-artist.url.0.text' => 'http://musicbrainz.org/',
-            'edit-artist.url.1.link_type_id' => '1',
+            'edit-artist.url.1.link_type_id' => '179',
             'edit-artist.url.1.text' => 'http://microsoft.com',
             'edit-artist.url.2.relationship_id' => '2',
-            'edit-artist.url.2.link_type_id' => '2',
+            'edit-artist.url.2.link_type_id' => '283',
             'edit-artist.url.2.removed' => '1',
             'edit-artist.make_votable' => '1'
         });
@@ -45,11 +45,11 @@ cmp_deeply($edits[0]->data, {
     'type1' => 'url',
     'link' => {
         'link_type' => {
-            'long_link_phrase' => 'wikipedia',
-            'link_phrase' => 'wikipedia',
+            'long_link_phrase' => 'has a Wikipedia page at',
+            'link_phrase' => 'Wikipedia',
             'name' => 'wikipedia',
-            'id' => 1,
-            'reverse_link_phrase' => 'wikipedia'
+            'id' => 179,
+            'reverse_link_phrase' => 'Wikipedia page for'
         },
         'ended' => '0',
         'entity1' => {
@@ -95,11 +95,11 @@ cmp_deeply($edits[0]->data, {
 
 cmp_deeply($edits[1]->data, {
     'link_type' => {
-        'long_link_phrase' => 'wikipedia',
-        'link_phrase' => 'wikipedia',
+        'long_link_phrase' => 'has a Wikipedia page at',
+        'link_phrase' => 'Wikipedia',
         'name' => 'wikipedia',
-        'id' => 1,
-        'reverse_link_phrase' => 'wikipedia'
+        'id' => 179,
+        'reverse_link_phrase' => 'Wikipedia page for'
     },
     'type1' => 'url',
     'entity1' => {
@@ -133,9 +133,9 @@ cmp_deeply($edits[2]->data, {
             ended => 0,
             'type' => {
                 'entity0_type' => 'artist',
-                'long_link_phrase' => 'allmusic',
+                'long_link_phrase' => 'has an Allmusic page at',
                 'entity1_type' => 'url',
-                'id' => 2
+                'id' => 283
             },
             'attributes' => [],
         },
@@ -165,7 +165,7 @@ cmp_deeply($edits[2]->data, {
             'edit-artist.name' => 'Faye Wong!!!',
             'edit-artist.sort_name' => 'Faye Wong!!!',
             'edit-artist.url.0.relationship_id' => '1',
-            'edit-artist.url.0.link_type_id' => '1',
+            'edit-artist.url.0.link_type_id' => '179',
             'edit-artist.url.0.text' => 'http://zh-yue.wikipedia.org/wiki/王菲',
             'edit-artist.make_votable' => '1',
         });

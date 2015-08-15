@@ -40,11 +40,8 @@ INSERT INTO instrument_annotation (instrument, annotation) VALUES (4, 2);
 
 INSERT INTO instrument_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 3);
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument', 'performed {additional} {instrument} on', 'has {additional} {instrument} performed by', 'performer', 'description');
-
-INSERT INTO link_type_attribute_type(link_type, attribute_type) VALUES (1, 14);
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 2);
+INSERT INTO link_type_attribute_type (link_type, attribute_type) VALUES (148, 14);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 2);
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = '945c079d-374e-4436-9448-da92dedef3cf'));
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = '945c079d-374e-4436-9448-da92dedef3cf'), 'blah instrument');
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = 'a56d18ae-485f-5547-a559-eba3efef04d0'));

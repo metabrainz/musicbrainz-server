@@ -24,14 +24,7 @@ test 'Delete an artist-artist link type' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name,
-    link_phrase, reverse_link_phrase, long_link_phrase)
-  VALUES (1, '77a0f1d3-f9ec-4055-a6e7-24d7258c21f7', 'artist', 'artist',
-          'member of band', 'lt', 'r', 's');
-EOSQL
-
-    $mech->get_ok('/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete');
+    $mech->get_ok('/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821/delete');
     html_ok($mech->content);
     my @edits = capture_edits {
         $mech->request(POST $mech->uri, [ 'confirm.submit' => 1 ]);
@@ -42,7 +35,7 @@ EOSQL
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::RemoveLinkType');
     my $data = $edits[0]->data;
 
-    is($data->{link_type_id}, 1, 'edits correct link type');
+    is($data->{link_type_id}, 103, 'edits correct link type');
 };
 
 1;

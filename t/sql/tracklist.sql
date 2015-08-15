@@ -85,13 +85,6 @@ INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_off
               (2, 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-', '6309da09', 9, 189343,
               '{150,6614,32287,54041,61236,88129,92729,115276,153877}', FALSE);
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-       VALUES (151, '234670ce-5f22-4fd0-921b-ef1662695c5d',
-               'artist', 'recording', 'conductor',
-               '{additional:additionally} conducted',
-               '{additional} conductor',
-               '{additional:additionally} conducted');
-
 INSERT INTO link (id, link_type, attribute_count, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended)
        VALUES (1, 151, 0, 1971, 2, NULL, 1972, 2, NULL, true);
 

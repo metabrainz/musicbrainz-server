@@ -16,33 +16,15 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (3, 2, 2, '4f7bb10f-396c-466a-8221-8e93f5e454f9', 'string instruments'),
            (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
-    VALUES (1, 'ff68bcc0-5f88-11e0-80e3-0800200c9a66', 'label', 'label', 'label AR', 'phrase', 'reverse', 'short', 'label ar desc'),
-           (2, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'instrument',
-            'performed {additional} {instrument} on',
-            'has {additional} {instrument} performed by',
-            'performer', 'performed desc'),
-           (3, '8610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'liked',
-            'liked',
-            'is liked by',
-            'liked', 'liked desc'),
-           (4, '9610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'liked',
-            'liked grouper',
-            'is liked by',
-            'liked', ''),
-           (5, '577996f3-7ff9-45cf-877e-740fb1267a63', 'artist', 'label',
-            'label founder', 'founded', 'founders', 'founded',
-            'This relationship type can be used to link a label to the person(s) who founded it.');
-
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (2, 1, 0, 1),
-           (2, 2, 1, NULL);
+    VALUES (148, 1, 0, 1),
+           (148, 2, 1, NULL);
 
-INSERT INTO link (id, link_type) VALUES (1, 1);
-INSERT INTO link (id, link_type, begin_date_year) VALUES (2, 1, 1995);
-INSERT INTO link (id, link_type, attribute_count) VALUES (3, 2, 1),
-                                                         (4, 2, 2),
-                                                         (5, 5, 0);
+INSERT INTO link (id, link_type) VALUES (1, 200);
+INSERT INTO link (id, link_type, begin_date_year) VALUES (2, 200, 1995);
+INSERT INTO link (id, link_type, attribute_count) VALUES (3, 148, 1),
+                                                         (4, 148, 2),
+                                                         (5, 116, 0);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (3, 4),
                                                          (4, 1),

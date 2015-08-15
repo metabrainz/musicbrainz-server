@@ -256,12 +256,8 @@ test 'Relationships used as documentation examples are merged (MBS-8516)' => sub
 INSERT INTO url (id, gid, url) VALUES
     (1, '4ced912c-11a5-4d7d-b280-b5adf30d81b3', 'http://en.wikipedia.org/wiki/Release');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-    VALUES (1, '20452f6b-31c4-43de-b62f-3b3cba9a3a79', 'release', 'url', 'LT1', 'LT1', 'LT1', 'LT1'),
-           (2, '2efc4333-09bd-4b7a-9dcd-ff88067063f3', 'release', 'url', 'LT2', 'LT2', 'LT2', 'LT2');
-
 INSERT INTO link (id, link_type, attribute_count, begin_date_year)
-    VALUES (1, 1, 0, NULL), (2, 2, 0, NULL), (3, 2, 0, '1966');
+    VALUES (1, 76, 0, NULL), (2, 77, 0, NULL), (3, 77, 0, '1966');
 
 -- Exact duplicates where both are used as an example.
 INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 1, 6, 1), (2, 1, 7, 1);

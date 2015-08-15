@@ -73,27 +73,12 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
-            'performed {additional} {instrument} on',
-            'has {additional} {instrument} performed by',
-            'performer');
-
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-    VALUES (2, 'a610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
-            'performed {additional} {instrument} on',
-            'has {additional} {instrument} performed by',
-            'performer');
-
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (1, 1, 0, 1);
+    VALUES (148, 1, 0, 1), (148, 2, 1, NULL);
 
-INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (1, 2, 1, NULL);
-
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1);
-INSERT INTO link (id, link_type, attribute_count) VALUES (2, 1, 2);
-INSERT INTO link (id, link_type, attribute_count) VALUES (3, 2, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
+INSERT INTO link (id, link_type, attribute_count) VALUES (2, 148, 2);
+INSERT INTO link (id, link_type, attribute_count) VALUES (3, 282, 0);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);

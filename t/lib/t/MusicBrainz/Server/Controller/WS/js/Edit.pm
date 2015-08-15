@@ -586,7 +586,7 @@ test 'adding a relationship' => sub {
 
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
@@ -612,11 +612,11 @@ test 'adding a relationship' => sub {
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
-            id                  => 1,
+            id                  => 148,
             name                => 'instrument',
-            link_phrase         => 'performed {additional} {instrument} on',
-            long_link_phrase    => 'performer',
-            reverse_link_phrase => 'has {additional} {instrument} performed by',
+            link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+            long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+            reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
         },
         entity1         => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
         entity0         => { id => 3, gid => '745c079d-374e-4436-9448-da92dedef3ce', name => 'Test Artist' },
@@ -648,7 +648,7 @@ test 'adding a relationship with an invalid date' => sub {
 
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         attributes  => [],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -681,7 +681,7 @@ test 'editing a relationship' => sub {
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
@@ -708,11 +708,11 @@ test 'editing a relationship' => sub {
         type1 => 'recording',
         link => {
             link_type => {
-                id                  => 1,
+                id                  => 148,
                 name                => 'instrument',
-                link_phrase         => 'performed {additional} {instrument} on',
-                long_link_phrase    => 'performer',
-                reverse_link_phrase => 'has {additional} {instrument} performed by',
+                link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
             },
             entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
             entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -751,7 +751,7 @@ test 'editing a relationship with an unchanged attribute' => sub {
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
@@ -773,11 +773,11 @@ test 'editing a relationship with an unchanged attribute' => sub {
         type1 => 'recording',
         link => {
             link_type => {
-                id                  => 1,
+                id                  => 148,
                 name                => 'instrument',
-                link_phrase         => 'performed {additional} {instrument} on',
-                long_link_phrase    => 'performer',
-                reverse_link_phrase => 'has {additional} {instrument} performed by',
+                link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
             },
             entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
             entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -814,7 +814,7 @@ test 'removing an attribute from a relationship' => sub {
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
@@ -837,11 +837,11 @@ test 'removing an attribute from a relationship' => sub {
         type1 => 'recording',
         link => {
             link_type => {
-                id                  => 1,
+                id                  => 148,
                 name                => 'instrument',
-                link_phrase         => 'performed {additional} {instrument} on',
-                long_link_phrase    => 'performer',
-                reverse_link_phrase => 'has {additional} {instrument} performed by',
+                link_phrase         => '{additional} {guest} {solo} {instrument:%|instruments}',
+                long_link_phrase    => 'performed {additional} {guest} {solo} {instrument:%|instruments} on',
+                reverse_link_phrase => '{additional} {guest} {solo} {instrument:%|instruments}',
             },
             entity1 => { id => 2, gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', name => 'King of the Mountain' },
             entity0 => { id => 8, gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', name => 'Test Alias' },
@@ -874,7 +874,7 @@ test 'removing a relationship' => sub {
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_DELETE,
         id          => 1,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
@@ -905,7 +905,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $invalid_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 4,
+        linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'HAHAHA' }
@@ -923,7 +923,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $unsupported_protocol = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 4,
+        linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'gopher://example.com/' }
@@ -941,7 +941,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $non_canonical_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 4,
+        linkTypeID  => 179,
         entities => [
             { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
             { name => 'http://en.Wikipedia.org:80/wiki/Boredoms' }
@@ -992,7 +992,7 @@ test 'Duplicate relationships are ignored' => sub {
 
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         attributes  => [
             { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
@@ -1029,7 +1029,7 @@ test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub
 
     my $edit_data = {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         attributes  => [{ type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' } }],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -1046,7 +1046,7 @@ test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub
     $edit_data = {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => $edits[0]->entity_id,
-        linkTypeID  => 1,
+        linkTypeID  => 148,
         beginDate   => undef
         # implied undef endDate
     };

@@ -12,32 +12,15 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_text_attribute_type (attribute_type) VALUES (779);
 INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (3), (4);
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
-            'performed {additional} {instrument} on',
-            'has {additional} {instrument} performed by',
-            'performer', 'performed desc'),
-           (2, '8610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'liked',
-            'liked',
-            'is liked by',
-            'liked', 'liked desc'),
-           (3, '9610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'liked',
-            'liked grouper',
-            'is liked by',
-            'liked', ''),
-           (743, 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0', 'series', 'work',
-            'part of', 'has parts', 'part of', 'has part',
-            'Indicates that the work is part of a series.');
-
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (1, 1, 0, 1),
-           (1, 2, 1, NULL),
+    VALUES (148, 1, 0, 1),
+           (148, 2, 1, NULL),
            (743, 779, 0, 0);
 
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 1),
-                                                         (2, 1, 2),
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1),
+                                                         (2, 148, 2),
                                                          (3, 743, 1),
-                                                         (4, 1, 1);
+                                                         (4, 148, 1);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4),
                                                          (2, 1),

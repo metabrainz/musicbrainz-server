@@ -165,7 +165,7 @@ test 'Don\'t consider relationships with different link orders to be the same' =
         entity0_id => 1,
         entity1_id => 1,
         link_order => 1,
-        link_type_id => 1,
+        link_type_id => 148,
         attributes => [{ type => { id => 4 } }],
     });
 
@@ -380,7 +380,7 @@ is( scalar($artist1->all_relationships), 0, 'Relationship->delete deleted all AR
 
 $sql->begin;
 $rel = $rel_data->insert('artist', 'recording', {
-    link_type_id => 1,
+    link_type_id => 148,
     begin_date => { year => 2008, month => 2, day => 3 },
     end_date => { year => 2008, month => 2, day => 8 },
     attributes => [
@@ -411,11 +411,11 @@ is($rel->id, 4);
 is($rel->link->id, 5);
 is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
-is($rel->phrase, 'performed Additional guitar and string instruments on');
+is($rel->phrase, 'Additional guitar and string instruments');
 
 $sql->begin;
 $rel_data->update('artist', 'recording', 4, {
-    link_type_id => 1,
+    link_type_id => 148,
     begin_date => undef,
     end_date => undef,
     ended => 0,
@@ -434,7 +434,7 @@ is($rel->id, 4);
 is($rel->link->id, 6);
 is_deeply($rel->link->begin_date, { });
 is_deeply($rel->link->end_date, { });
-is($rel->phrase, 'performed string instruments on', 'phrase');
+is($rel->phrase, 'string instruments', 'phrase');
 
 $rel = $rel_data->get_by_id('artist', 'recording', 4);
 is($rel->edits_pending, 0);

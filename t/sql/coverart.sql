@@ -22,13 +22,9 @@ INSERT INTO url (id, gid, url)
            (2, '9413b5e0-2926-11df-8a39-0800200c9a66',
                'http://www.amazon.com/gp/product/B000W23HCY');
 
-INSERT INTO link_type (id, gid, name, link_phrase, reverse_link_phrase, long_link_phrase, entity_type0, entity_type1)
-    VALUES (1, '6538e340-2925-11df-8a39-0800200c9a66', 'cover art link', 'has coverart at', 'provides coverart for', 'coverart', 'release', 'url'),
-           (2, '6d47b930-2925-11df-8a39-0800200c9a66', 'amazon asin', 'has amazon asin', 'is an amazon asin for', 'asin', 'release', 'url');
-
-INSERT INTO link (id, link_type) VALUES (1, 1), (2, 2);
+UPDATE link_type SET is_deprecated = FALSE WHERE id = 78;
+INSERT INTO link (id, link_type) VALUES (1, 78), (2, 77);
+UPDATE link_type SET is_deprecated = TRUE WHERE id = 78;
 
 INSERT INTO l_release_url (link, entity0, entity1)
     VALUES (1, 1, 1), (2, 2, 2);
-
-

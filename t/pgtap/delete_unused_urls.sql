@@ -24,17 +24,12 @@ INSERT INTO recording (id, gid, name, artist_credit)
 INSERT INTO work (id, gid, name)
   VALUES (1, '6ed229cd-64b2-4029-a426-fe94f09a0875', 'Work');
 
-INSERT INTO link_type (id, name, link_phrase, long_link_phrase,
-    reverse_link_phrase, gid, entity_type0, entity_type1)
-  VALUES (1, '', '', '', '', '1684aa44-f019-4454-9011-eb9106bc0d60', 'artist', 'url'),
-         (2, '', '', '', '', '2684aa44-f019-4454-9011-eb9106bc0d60', 'label', 'url'),
-         (3, '', '', '', '', '3684aa44-f019-4454-9011-eb9106bc0d60', 'recording', 'url'),
-         (4, '', '', '', '', '4684aa44-f019-4454-9011-eb9106bc0d60', 'release', 'url'),
-         (5, '', '', '', '', '5684aa44-f019-4454-9011-eb9106bc0d60', 'release_group', 'url'),
-         (6, '', '', '', '', '6684aa44-f019-4454-9011-eb9106bc0d60', 'url', 'url'),
-         (7, '', '', '', '', '7684aa44-f019-4454-9011-eb9106bc0d60', 'work', 'url');
-
-INSERT INTO link (id, link_type) SELECT x, x FROM generate_series(1, 7) s(x);
+INSERT INTO link (id, link_type) VALUES (1, 188);
+INSERT INTO link (id, link_type) VALUES (2, 222);
+INSERT INTO link (id, link_type) VALUES (3, 306);
+INSERT INTO link (id, link_type) VALUES (4, 82);
+INSERT INTO link (id, link_type) VALUES (5, 96);
+INSERT INTO link (id, link_type) VALUES (6, 273);
 
 INSERT INTO url (id, gid, url)
   VALUES (1, '1783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://one.com'),
@@ -42,33 +37,30 @@ INSERT INTO url (id, gid, url)
          (3, '3783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://three.com'),
          (4, '4783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://four.com'),
          (5, '5783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://five.com'),
-         (6, '6783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://six.com'),
-         (7, '7783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://seven.com');
+         (6, '6783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://six.com');
 
 INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
 INSERT INTO l_label_url (id, link, entity0, entity1) VALUES (1, 2, 1, 2);
 INSERT INTO l_recording_url (id, link, entity0, entity1) VALUES (1, 3, 1, 3);
 INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 4, 1, 4);
 INSERT INTO l_release_group_url (id, link, entity0, entity1) VALUES (1, 5, 1, 5);
-INSERT INTO l_url_url (id, link, entity0, entity1) VALUES (1, 6, 1, 6);
-INSERT INTO l_url_work (id, link, entity0, entity1) VALUES (1, 7, 7, 1);
+INSERT INTO l_url_work (id, link, entity0, entity1) VALUES (1, 6, 6, 1);
 
 --------------------------------------------------------------------------------
 -- Test
 INSERT INTO url (id, gid, url)
-  VALUES (8, 'd452e3e3-8386-40e0-b04f-b780be2b369a', 'http://eight.com');
+  VALUES (7, 'd452e3e3-8386-40e0-b04f-b780be2b369a', 'http://seven.com');
 
-UPDATE l_artist_url SET entity1 = 8;
-UPDATE l_label_url SET entity1 = 8;
-UPDATE l_recording_url SET entity1 = 8;
-UPDATE l_release_url SET entity1 = 8;
-UPDATE l_release_group_url SET entity1 = 8;
-UPDATE l_url_url SET entity1 = 8;
-UPDATE l_url_work SET entity0 = 8;
+UPDATE l_artist_url SET entity1 = 7;
+UPDATE l_label_url SET entity1 = 7;
+UPDATE l_recording_url SET entity1 = 7;
+UPDATE l_release_url SET entity1 = 7;
+UPDATE l_release_group_url SET entity1 = 7;
+UPDATE l_url_work SET entity0 = 7;
 
 SELECT bag_eq(
     'SELECT id FROM url',
-    'VALUES (1), (2), (3), (4), (5), (6), (7), (8)',
+    'VALUES (1), (2), (3), (4), (5), (6), (7)',
     'No URLs delete until constraint triggers fire'
 );
 
@@ -77,7 +69,7 @@ SET CONSTRAINTS ALL IMMEDIATE;
 
 SELECT bag_eq(
     'SELECT id FROM url',
-    'VALUES (1), (8)',
+    'VALUES (7)',
     'All URLs except those in use deleted'
 );
 
@@ -90,12 +82,11 @@ DELETE FROM l_label_url;
 DELETE FROM l_recording_url;
 DELETE FROM l_release_url;
 DELETE FROM l_release_group_url;
-DELETE FROM l_url_url;
 DELETE FROM l_url_work;
 
 SELECT bag_eq(
     'SELECT id FROM url',
-    'VALUES (1), (8)',
+    'VALUES (7)',
     'All URLs except those in use deleted'
 );
 

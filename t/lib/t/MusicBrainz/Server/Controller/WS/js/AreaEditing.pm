@@ -21,10 +21,6 @@ sub prepare_test_database {
     $c->sql->do(q{
         INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1)
         VALUES (1, 'editor', '{CLEARTEXT}password', 0, 'noreply@example.com', '', '', '1999-09-09', '1999-09-09', 0, 0, 0, 0, '3a115bc4f05ea9856bd4611b75c80bca');
-
-        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
-        VALUES (1, 'part of', 'de7cc874-8b1b-3a05-8272-f3834c968fb7', 'part of', 'parts', 'has part', 'area', 'area', ''),
-               (2, 'wikipedia', '9228621d-9720-35c3-ad3f-327d789464ec', 'wikipedia', 'wikipedia', 'wikipedia', 'area', 'url', '');
     });
 }
 
@@ -61,8 +57,8 @@ test 'Removing areas is restricted to location editors' => forbidden_edit({
 });
 
 our @RELATIONSHIP_TESTS = (
-    { types => 'area-area', link_type => 1 },
-    { types => 'area-url', link_type => 2 },
+    { types => 'area-area', link_type => 356 },
+    { types => 'area-url', link_type => 355 },
 );
 
 for (@RELATIONSHIP_TESTS) {

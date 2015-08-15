@@ -11,14 +11,9 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 
 INSERT INTO url (id, gid, url) VALUES
     (1, '67ff507e-1239-40a7-9023-53621d701797', 'http://en.wikipedia.org/wiki/Artist1'),
-    (2, 'a803cfdd-b08f-4f51-893c-0784bb74a497', 'http://en.wikipedia.org/wiki/Release1');
+    (2, 'a803cfdd-b08f-4f51-893c-0784bb74a497', 'http://www.amazon.com/gp/product/Release1');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'member', 'foo', 'oof', 'f'),
-           (2, '110ef46e-c947-4224-b12a-ed4e0b6a33e1', 'artist', 'url', 'wiki', 'wiki', 'wiki', 'wiki'),
-           (3, '5750a8f5-6ec6-403d-9e4d-14ea4dec9633', 'release', 'url', 'wiki', 'wiki', 'wiki', 'wiki');
-
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0), (2, 2, 0), (3, 3, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 103, 0), (2, 179, 0), (3, 77, 0);
 
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 3, 4);
 

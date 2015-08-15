@@ -1,47 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
-                       entity1_cardinality, name, description, link_phrase,
-                       reverse_link_phrase, long_link_phrase) VALUES
-    (
-        1, 'ea6f0698-6782-30d6-b16d-293081b66774',
-        'recording', 'series', 0, 0, 'part of',
-        'Indicates that the recording is part of a series.',
-        'part of', 'has parts', 'is a part of'
-    ),
-    (
-        2, 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
-        'series', 'work', 0, 0, 'part of',
-        'Indicates that the work is part of a series.',
-        'has parts', 'part of', 'has part'
-    ),
-    (
-        3, '57681e8d-4b77-40bf-9932-4a8cda1484cd',
-        'series', 'url', 0, 0, 'wikipedia',
-        'Points to the Wikipedia page for this series.',
-        'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'
-    ),
-    (
-        4, '707d947d-9563-328a-9a7d-0c5b9c3a9791',
-        'event', 'series', 0, 0, 'part of',
-        'Indicates that the event is part of a series.',
-        'part of', 'has parts', 'is a part of'
-    ),
-    (
-        5, '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
-        'release', 'series', 0, 0, 'part of',
-        'Indicates that the release is part of a series.',
-        'part of', 'has parts', 'is a part of'
-    ),
-    (
-        6, '01018437-91d8-36b9-bf89-3f885d53b5bd',
-        'release_group', 'series', 0, 0, 'part of',
-        'Indicates that the release group is part of a series.',
-        'part of', 'has parts', 'is a part of'
-    );
-
-INSERT INTO orderable_link_type (link_type, direction) VALUES (1, 2), (2, 1), (4, 2), (5, 2), (6, 2);
-
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
 INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
@@ -52,7 +10,7 @@ INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, descr
 INSERT INTO link_text_attribute_type VALUES (1);
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
-    (1, 1, 0, 1), (2, 1, 0, 1);
+    (740, 1, 0, 1), (743, 1, 0, 1);
 
 INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
     VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1, 1),
@@ -63,8 +21,8 @@ INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES
-    (1, 1, 1), (2, 1, 1), (3, 1, 1), (4, 1, 1),
-    (5, 2, 1), (6, 2, 1), (7, 2, 1), (8, 2, 1);
+    (1, 740, 1), (2, 740, 1), (3, 740, 1), (4, 740, 1),
+    (5, 743, 1), (6, 743, 1), (7, 743, 1), (8, 743, 1);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES
     (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1);
