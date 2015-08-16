@@ -28,8 +28,8 @@ $mech->content_lacks('alice');
 
 my $tx = test_xpath_html($mech->content);
 $tx->is('count(//li//span[@class="inline-rating"])', 1, '1 rating is shown');
-$tx->is('//span[@class="current-rating"][1]', 1, 'user rating is shown');
-$tx->is('//span[@class="current-rating"][2]', 3.5, 'average rating is shown');
+$tx->is('(//span[@class="current-rating"])[1]', 1, 'user rating is shown');
+$tx->is('(//span[@class="current-rating"])[2]', 3.5, 'average rating is shown');
 
 $mech->content_contains('1 private rating not listed');
 
