@@ -140,14 +140,7 @@ INSERT INTO work (id, gid, name)
            (2, '245c079d-374e-4436-9448-da92dedef3cf', 'Merge 1'),
            (3, '345c079d-374e-4436-9448-da92dedef3cf', 'Merge 2');
 
-INSERT INTO link_type
-    (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
-     long_link_phrase)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
-            'performed',
-            'performed by',
-            'performer');
-INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (1, 167, 0);
 INSERT INTO l_artist_work (id, entity0, link, entity1)
     VALUES (1, 1, 1, 2),
            (2, 1, 1, 3);

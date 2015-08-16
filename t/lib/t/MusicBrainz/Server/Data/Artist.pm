@@ -35,16 +35,8 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Recording', 1);
 
-INSERT INTO link_type
-    (id, gid, entity_type0, entity_type1, name, link_phrase,
-     reverse_link_phrase, long_link_phrase, description)
-  VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
-          '', '', '', '', ''),
-         (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
-          '', '', '', '', '');
-
 INSERT INTO link (id, link_type, attribute_count)
-  VALUES (1, 1, 0), (2, 2, 0);
+  VALUES (1, 278, 0), (2, 167, 0);
 
 INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
 INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);

@@ -31,7 +31,7 @@ test all => sub {
     my ($vocal_performance) = grep { $_->{id} == 6751 } @$rels;
 
     cmp_deeply($vocal_performance, {
-        linkTypeID => 158,
+        linkTypeID => 149,
         direction => 'backward',
         ended => any('false', JSON::false),
         target => {
@@ -53,7 +53,7 @@ test all => sub {
         endDate => undef,
         beginDate => undef,
         id => 6751,
-        verbosePhrase => 'vocal',
+        verbosePhrase => 'performed guest vocals on',
         attributes => [
             {
                 typeID => 194,
