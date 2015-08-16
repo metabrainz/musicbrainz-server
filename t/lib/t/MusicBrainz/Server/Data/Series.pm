@@ -10,6 +10,8 @@ test 'Items should be ordered by relationship date' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $c->sql->do(<<EOSQL);
+      UPDATE link_type SET has_dates = TRUE WHERE id = 743;
+
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
         VALUES
           (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 4, 1, 1);
@@ -26,7 +28,7 @@ EOSQL
     $c->model('Relationship')->insert('series', 'work', {
         entity0_id      => 4,
         entity1_id      => 5,
-        link_type_id    => 2,
+        link_type_id    => 743,
         begin_date      => {year => 1977},
         end_date        => {year => 1995},
     });
@@ -34,7 +36,7 @@ EOSQL
     $c->model('Relationship')->insert('series', 'work', {
         entity0_id      => 4,
         entity1_id      => 6,
-        link_type_id    => 2,
+        link_type_id    => 743,
         begin_date      => undef,
         end_date        => {year => 1995},
     });
@@ -42,7 +44,7 @@ EOSQL
     $c->model('Relationship')->insert('series', 'work', {
         entity0_id      => 4,
         entity1_id      => 7,
-        link_type_id    => 2,
+        link_type_id    => 743,
         begin_date      => {year => 1977},
         end_date        => {year => 2001},
     });
@@ -50,7 +52,7 @@ EOSQL
     $c->model('Relationship')->insert('series', 'work', {
         entity0_id      => 4,
         entity1_id      => 8,
-        link_type_id    => 2,
+        link_type_id    => 743,
         begin_date      => {year => 1979},
         end_date        => undef,
     });
@@ -58,7 +60,7 @@ EOSQL
     $c->model('Relationship')->insert('series', 'work', {
         entity0_id      => 4,
         entity1_id      => 9,
-        link_type_id    => 2,
+        link_type_id    => 743,
         begin_date      => undef,
         end_date        => {year => 1991},
     });
@@ -98,43 +100,43 @@ EOSQL
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 1,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 2,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 3,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 4,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 5,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 6,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     $c->model('Relationship')->insert('event', 'series', {
         entity0_id      => 7,
         entity1_id      => 4,
-        link_type_id    => 4,
+        link_type_id    => 802,
     });
 
     my $series = $c->model('Series')->get_by_id(4);
@@ -199,19 +201,19 @@ EOSQL
     $c->model('Relationship')->insert('release', 'series', {
         entity0_id      => 1,
         entity1_id      => 4,
-        link_type_id    => 5,
+        link_type_id    => 741,
     });
 
     $c->model('Relationship')->insert('release', 'series', {
         entity0_id      => 2,
         entity1_id      => 4,
-        link_type_id    => 5,
+        link_type_id    => 741,
     });
 
     $c->model('Relationship')->insert('release', 'series', {
         entity0_id      => 3,
         entity1_id      => 4,
-        link_type_id    => 5,
+        link_type_id    => 741,
     });
 
     my $series = $c->model('Series')->get_by_id(4);
@@ -294,19 +296,19 @@ EOSQL
     $c->model('Relationship')->insert('release_group', 'series', {
         entity0_id      => 1,
         entity1_id      => 4,
-        link_type_id    => 6,
+        link_type_id    => 742,
     });
 
     $c->model('Relationship')->insert('release_group', 'series', {
         entity0_id      => 2,
         entity1_id      => 4,
-        link_type_id    => 6,
+        link_type_id    => 742,
     });
 
     $c->model('Relationship')->insert('release_group', 'series', {
         entity0_id      => 3,
         entity1_id      => 4,
-        link_type_id    => 6,
+        link_type_id    => 742,
     });
 
     my $series = $c->model('Series')->get_by_id(4);
