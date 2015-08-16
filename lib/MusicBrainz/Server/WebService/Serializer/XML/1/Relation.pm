@@ -64,9 +64,6 @@ sub serialize
     }
 
     return @body;
-
-#         $self->tracklevelrels / track-level-rels
-
 };
 
 __PACKAGE__->meta->make_immutable;

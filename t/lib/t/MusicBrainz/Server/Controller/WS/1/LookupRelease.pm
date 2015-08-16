@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::1::LookupRelease;
+use utf8;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -356,16 +357,66 @@ ws_test 'release with user ratings',
 </metadata>',
     { username => 'editor', password => 'password' };
 
-{
-local $TODO = 'Todo';
-
 ws_test 'release with track-level-relationships',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?type=xml&inc=track-level-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" />';
-};
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?type=xml&inc=tracks+track-level-rels+track-rels+artist-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7" type="Single Official">
+    <title>the Love Bug</title>
+    <text-representation script="Latn" language="ENG" />
+    <asin>B0001FAD2O</asin>
+    <track-list>
+      <track id="0cf3008f-e246-428f-abc1-35f87d584d60">
+        <title>the Love Bug</title>
+        <duration>243000</duration>
+        <relation-list target-type="Artist">
+          <relation direction="backward" target="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Producer">
+            <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+              <name>m-flo</name>
+              <sort-name>m-flo</sort-name>
+              <life-span begin="1998" />
+            </artist>
+          </relation>
+          <relation target="22dd2db3-88ea-4428-a7a8-5cd3acf23175" direction="backward" type="Programming">
+            <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+              <name>m-flo</name>
+              <sort-name>m-flo</sort-name>
+              <life-span begin="1998" />
+            </artist>
+          </relation>
+          <relation type="Vocal" target="a16d1433-ba89-4f72-a47b-a370add0bb55" direction="backward" attributes="Guest">
+            <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+              <name>BoA</name>
+              <sort-name>BoA</sort-name>
+              <life-span begin="1986-11-05" />
+            </artist>
+          </relation>
+        </relation-list>
+        <relation-list target-type="Track">
+          <relation target="0cf3008f-e246-428f-abc1-35f87d584d60" direction="backward" type="Performance">
+            <track id="0cf3008f-e246-428f-abc1-35f87d584d60">
+              <title>the Love Bug</title>
+              <duration>243000</duration>
+              <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                <name>m-flo♥BoA</name>
+                <sort-name>m-flo♥BoA</sort-name>
+              </artist>
+            </track>
+          </relation>
+        </relation-list>
+      </track>
+      <track id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
+        <title>the Love Bug (Big Bug NYC remix)</title>
+        <duration>222000</duration>
+      </track>
+      <track id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
+        <title>the Love Bug (cover)</title>
+        <duration>333000</duration>
+      </track>
+    </track-list>
+  </release>
+</metadata>';
 
 };
 
 1;
-

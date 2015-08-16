@@ -24,14 +24,12 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (3, 2, 100);
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/ratings', 'get artist ratings');
 html_ok($mech->content);
 $mech->content_contains('new_editor');
-{
-    local $TODO = 'MBS-1440';
-    $mech->content_contains('20 - ');
-}
 $mech->content_lacks('alice');
 
 my $tx = test_xpath_html($mech->content);
 $tx->is('count(//li//span[@class="inline-rating"])', 1, '1 rating is shown');
+$tx->is('//span[@class="current-rating"][1]', 1, 'user rating is shown');
+$tx->is('//span[@class="current-rating"][2]', 3.5, 'average rating is shown');
 
 $mech->content_contains('1 private rating not listed');
 
