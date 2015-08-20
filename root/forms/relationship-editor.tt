@@ -74,7 +74,7 @@
   </table>
 </fieldset>
 
-<script>
+<script>//<![CDATA[
   $(function () {
     MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.userIsLocationEditor = [% c.user.is_location_editor ? 'true' : 'false' %];
@@ -82,9 +82,9 @@
 
     MB.initRelationshipEditors({
         formName: "[% form.name | js %]",
-        sourceData: [% source_entity | html %],
-        typeInfo: [% type_info | html %],
-        attrInfo: [% attr_info | html %]
+        sourceData: [% source_entity %],
+        typeInfo: [% type_info %],
+        attrInfo: [% attr_info %]
     });
   });
-</script>
+//]]></script>
