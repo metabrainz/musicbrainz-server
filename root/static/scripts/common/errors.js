@@ -14,6 +14,7 @@ var request = require('./utility/request.js');
             (browser.safari && browserVersion >= "5.1") ||
             (browser.chrome && browserVersion >= "31") ||
             (browser.msie && browserVersion >= "8.0") ||
+            (browser.edge) ||
             (browser.mozilla && browserVersion >= "24") ||
             (browser.opera && browserVersion >= "12.10")
         );
