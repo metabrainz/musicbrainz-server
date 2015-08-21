@@ -132,8 +132,7 @@ sub delete
     return 1;
 }
 
-sub merge
-{
+sub merge {
     my ($self, $new_id, @old_ids) = @_;
 
     my $entity_type = $self->type;
@@ -141,35 +140,39 @@ sub merge
     my $assoc_table_raw = $self->tag_table . '_raw';
     my @ids = ($new_id, @old_ids);
 
-    $self->c->sql->do(
-        "INSERT INTO $assoc_table_raw ($entity_type, editor, tag)
-             SELECT ?, s.editor, s.tag
-               FROM (SELECT DISTINCT editor, tag FROM delete_tags('$entity_type', ?)) s",
-        $new_id, \@ids
-    );
-
-    my @tags = @{
-        $self->c->sql->select_list_of_hashes(
-            "SELECT tag, count(tag) AS count
-               FROM $assoc_table_raw
-              WHERE $entity_type = ?
-           GROUP BY tag",
-            $new_id
-        )
-    };
+    # FIXME: Due to the way DISTINCT ON works, if two entities have different
+    # votes for the same tag by the same editor, the vote that remains on the
+    # merge target is arbitrary. (ORDER BY doesn't work within the sub-select.)
+    $self->c->sql->do(<<"EOSQL", \@ids, $new_id);
+WITH deleted_tags AS (
+    DELETE FROM $assoc_table_raw
+     WHERE $entity_type = any(?)
+ RETURNING editor, tag, is_upvote
+)
+INSERT INTO $assoc_table_raw ($entity_type, editor, tag, is_upvote)
+SELECT ?, s.editor, s.tag, s.is_upvote
+  FROM (SELECT DISTINCT ON (editor, tag) editor, tag, is_upvote FROM deleted_tags) s
+EOSQL
 
     $self->c->sql->do(
-        "DELETE FROM $assoc_table WHERE $entity_type IN (" . placeholders(@ids) . ")",
-        @ids
+        "DELETE FROM $assoc_table WHERE $entity_type = any(?)",
+        \@ids
     );
 
-    if (@tags) {
+    my $tags = $self->c->sql->select_single_column_array(
+        "SELECT DISTINCT tag FROM $assoc_table_raw WHERE $entity_type = ?",
+        $new_id
+    );
+
+    for my $tag_id (@{$tags}) {
         $self->c->sql->do(
-            "INSERT INTO $assoc_table ($entity_type, tag, count)
-             VALUES " . join(',', ("(?, ?, ?)") x @tags),
-            map { ($new_id, $_->{tag}, $_->{count}) } @tags
+            "INSERT INTO $assoc_table ($entity_type, tag, count) VALUES (?, ?, 0)",
+            $new_id, $tag_id
         );
+        $self->_update_count($new_id, $tag_id);
     }
+
+    return;
 }
 
 sub clear {

@@ -119,6 +119,26 @@ test all => sub {
     is(scalar @$isni_codes, 4, "Merged Artist has all isni codes after accepting edit");
 };
 
+test 'Downvoted tags are preserved post-merge (MBS-8524)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO tag (id, name, ref_count) VALUES (1, 'electronic', 0);
+INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (3, 1, 1, FALSE);
+INSERT INTO artist_tag (artist, count, tag) VALUES (3, -1, 1);
+EOSQL
+
+    my $edit = create_edit($c);
+    accept_edit($c, $edit);
+
+    my @tags = $c->model('Artist')->tags->find_user_tags(1, 4);
+    is($tags[0]->tag->name, 'electronic');
+    is($tags[0]->is_upvote, 0);
+};
+
 sub create_edit {
     my ($c, $rename) = @_;
     return $c->model('Edit')->create(

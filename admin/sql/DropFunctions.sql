@@ -37,7 +37,6 @@ DROP FUNCTION del_collection_sub_on_delete();
 DROP FUNCTION del_collection_sub_on_private();
 DROP FUNCTION delete_orphaned_recordings();
 DROP FUNCTION delete_ratings(enttype TEXT, ids INTEGER[]);
-DROP FUNCTION delete_tags(enttype TEXT, ids INTEGER[]);
 DROP FUNCTION delete_unused_tag(tag_id INT);
 DROP FUNCTION delete_unused_url(ids INTEGER[]);
 DROP FUNCTION deny_deprecated_links();
