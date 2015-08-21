@@ -640,23 +640,6 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -------------------------------------------------------------------
--- Delete tags and return them for use in sub queries
--------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION delete_tags(enttype TEXT, ids INTEGER[])
-RETURNS TABLE(editor INT, tag INT) AS $$
-DECLARE
-    tablename TEXT;
-BEGIN
-    tablename = enttype || '_tag_raw';
-    RETURN QUERY
-       EXECUTE 'DELETE FROM ' || tablename || ' WHERE ' || enttype || ' = any($1)
-                RETURNING editor, tag'
-         USING ids;
-    RETURN;
-END;
-$$ LANGUAGE 'plpgsql';
-
--------------------------------------------------------------------
 -- Prevent link attributes being used on links that don't support them
 -------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION prevent_invalid_attributes()
