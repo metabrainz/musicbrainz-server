@@ -1,4 +1,5 @@
-var i18n = require('../common/i18n.js');
+var i18n = require('../common/i18n');
+var request = require('../common/utility/request');
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
@@ -106,13 +107,11 @@ RelationshipSearcher = function () {
     self.search = function () {
         var possible = this.currentExample.possibleRelationships;
 
-        var request = $.ajax(searchUrl(possible.query()));
-
-        request.fail(function (jqxhr, status, error) {
+        request({url: searchUrl(possible.query())})
+        .fail(function (jqxhr, status, error) {
             self.error('Lookup failed: ' + error);
-        });
-
-        request.done(function (data, status, jqxhr) {
+        })
+        .done(function (data, status, jqxhr) {
             var search_result_type = data.entityType.replace("-", "_");
 
             if (!(search_result_type === type0 || search_result_type === type1)) {

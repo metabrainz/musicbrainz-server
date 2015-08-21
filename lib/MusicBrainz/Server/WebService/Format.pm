@@ -39,7 +39,7 @@ role {
             # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
             my $accept = $c->req->header('Accept');
 
-            if (!$accept || $accept eq '*/*') {
+            if ((!$accept || $accept eq '*/*') && exists $accepted{'application/xml'}) {
                 $accept = 'application/xml';
             }
 
