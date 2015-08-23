@@ -1,6 +1,91 @@
 The Developer's Guide to the MusicBrainz Server
 ===============================================
 
+Organization
+------------
+
+Important folders are documented here, in alphabetical order.
+
+ * **admin/**
+
+   Various scripts for server maintenance and administration.
+
+ * **lib/**
+
+   The `-Ilib` in `plackup -Ilib` sets `@INC` to here on startup.
+
+    * **DBDefs/**
+
+      Server configuration.
+
+    * **MusicBrainz/Server/**
+
+      Perl code for the actual server.
+
+       * **Controller/**
+
+         [Catalyst](http://search.cpan.org/perldoc?Catalyst) actions.
+
+       * **Data/**
+
+         Methods for fetching data from the database. The results are typically
+         converted to instances of some Entity class found under
+         lib/MusicBrainz/Server/Entity/.
+
+         If you see something like `$c->model('Foo')` in the controllers,
+         that's accessing an instance of `MusicBrainz::Server::Data::Foo`.
+
+       * **Edit/**
+
+         Contains code relating to our edit system. There's a Moose class for
+         each edit type defining how to insert, apply, and reject the edit. The
+         classes also contain type constraints restricting what sort of data
+         can be contained in the edit (i.e. the data column in the edit table).
+
+       * **Entity/**
+
+         Moose classes for all of our entities.
+
+       * **Form/**
+
+         [HTML::FormHandler](http://search.cpan.org/dist/HTML-FormHandler/)
+         classes, where most forms rendered by Template Toolkit get handled.
+         The controller will create an instance of the corresponding class
+         here, and pass the request data to it. (See e.g.
+         `MusicBrainz::Server::Controller::edit_action`). The form acts to
+         validate the request data and return any errors.
+
+         We have some forms that are mostly rendered client-side and submit
+         JSON directly to some controller endpoint, which then performs its own
+         validation. (See e.g. `/ws/js/edit`.) Those have nothing to do with
+         the code here.
+
+ * **root/**
+
+   Mostly [Template Toolkit](http://www.template-toolkit.org/) templates (files
+   ending in .tt). The directory structure mostly corresponds to Catalyst
+   action paths.
+
+    * **static/**
+
+      Static resources used for the website.
+
+       * **scripts/**
+
+         Client-side JavaScript.
+
+          * **tests/**
+
+            JavaScript unit tests (see below).
+
+       * **styles/**
+
+         CSS/[Less](http://lesscss.org/).
+
+ * **t/**
+
+   Where the server tests live.
+
 Testing
 -------
 
