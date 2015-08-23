@@ -128,7 +128,7 @@ function createLangVinyl(lang, jedOptions) {
 
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
-    return l + '_' + c.toUpperCase()
+    return l + '_' + c.toUpperCase();
   });
 }
 
@@ -147,6 +147,20 @@ function buildScripts() {
     .transform(function (result, lang) {
       var srcPo = path.resolve(PO_DIR, `mb_server.${lang}.po`);
       var tmpPo = path.resolve(PO_DIR, `javascript.${lang}.po`);
+
+      try {
+        fs.statSync(srcPo);
+      } catch (err) {
+        if (err.code === 'ENOENT' && /_/.test(lang)) {
+          let newSrcPo = srcPo.replace(/_[a-zA-Z]+\.po/, '.po');
+
+          console.warn(`Warning: ${srcPo} does not exist, trying ${newSrcPo}`);
+
+          srcPo = newSrcPo;
+        } else {
+          throw err;
+        }
+      }
 
       // Create a temporary .po file containing only the strings used by root/static/scripts.
       shell.exec(`msggrep -N '../root/static/scripts/**/*.js' ${srcPo} -o ${tmpPo}`);
