@@ -85,7 +85,7 @@
 
         <div id="footer">
             <p class="left">
-                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
+                <a href="https://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
                 <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> |
                 <a href="http://tickets.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
@@ -113,7 +113,7 @@
                     { host => 'https://www.digitalwest.com/',
                       url1 => 'https://www.google.com/',
                       url2 => '//osuosl.org/',
-                      more => 'http://metabrainz.org/doc/Sponsors',
+                      more => 'https://metabrainz.org/sponsors',
                       caa  => '//coverartarchive.org/' }) %]
             </p>
         </div>

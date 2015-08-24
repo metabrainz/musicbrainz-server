@@ -36,7 +36,7 @@
 
             <p>
                 [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
-                    { uri => "http://metabrainz.org",
+                    { uri => "https://metabrainz.org",
                       free => doc_link('About/Data_License') }) %]
             </p>
 
