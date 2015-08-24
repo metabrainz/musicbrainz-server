@@ -29,10 +29,12 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
         my $child = fork();
         if ($child == 0) {
             alarm($ONE_HOUR);
-            POSIX::sigaction(
-                SIGALRM, POSIX::SigAction->new(sub {
-                    exit(42)
-                }));
+
+            my $action = POSIX::SigAction->new(sub {
+                exit(42);
+            });
+            $action->safe(1);
+            POSIX::sigaction(SIGALRM, $action);
 
             Sql::run_in_transaction(sub {
                 $report->run;

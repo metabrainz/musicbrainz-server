@@ -366,23 +366,24 @@ around dispatch => sub {
 
     if (defined($max_request_time) && $max_request_time > 0) {
         alarm($max_request_time);
-        POSIX::sigaction(
-            SIGALRM, POSIX::SigAction->new(sub {
-                $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                       $c->req->uri,
-                                       $max_request_time));
-                $c->log->error(Devel::StackTrace->new->as_string);
-                $c->log->_flush;
 
-                my $context = $c->model('MB')->context;
-                if (my $sth = $context->sql->sth) {
-                    $sth->cancel;
-                }
+        my $action = POSIX::SigAction->new(sub {
+            $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
+                                   $c->req->uri,
+                                   $max_request_time));
+            $c->log->error(Devel::StackTrace->new->as_string);
+            $c->log->_flush;
 
-                $context->connector->disconnect;
+            my $context = $c->model('MB')->context;
+            if (my $sth = $context->sql->sth) {
+                $sth->cancel;
+            }
 
-                exit(42)
-            }));
+            $context->connector->disconnect;
+            exit(42);
+        });
+        $action->safe(1);
+        POSIX::sigaction(SIGALRM, $action);
     }
 
     $c->$orig(@args);
