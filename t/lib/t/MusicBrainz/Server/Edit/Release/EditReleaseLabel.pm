@@ -274,6 +274,27 @@ test 'Can apply after release is merged' => sub {
     is($edit->display_data->{release}->id, 2);
 };
 
+test 'Can add a label where one is currently missing' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_label (id, release, label, catalog_number)
+    VALUES (2, 1, NULL, 'ABC-456');
+EOSQL
+
+    my $edit = _create_edit(
+        $c,
+        $c->model('ReleaseLabel')->get_by_id(2),
+        label => $c->model('Label')->get_by_id(4),
+    );
+
+    ok($edit->is_open);
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED);
+};
+
 sub create_edit {
     my ($c, $rl) = @_;
     return _create_edit(

@@ -316,11 +316,11 @@ around extract_property => sub {
         when ('label') {
             return (
                 merge_value($ancestor->{label}),
-                merge_value({
+                merge_value($current->label ? {
                     id => $current->label->id,
                     gid => $current->label->gid,
                     name => $current->label->name,
-                }),
+                } : undef),
                 merge_value($new->{label}),
             );
         }
