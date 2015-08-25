@@ -57,24 +57,37 @@ sub foreign_keys {
     my $self = shift;
 
     my $data = $self->data;
+    my $label = $data->{label};
 
-    return {
-        Label => { gid_or_id($data->{label}) => [] },
+    my $fks = {
         Release => { gid_or_id($self->data->{release}) => ['ArtistCredit'] },
     };
+
+    if ($label) {
+        $fks->{Label} = { gid_or_id($data->{label}) => [] };
+    }
+
+    return $fks;
 }
 
 sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $data = $self->data;
-    return {
+    my $label = $data->{label};
+
+    my $display_data = {
         catalog_number => $data->{catalog_number},
-        label => ($loaded->{Label}{gid_or_id($data->{label})} //
-                  Label->new(name => $data->{label}{name})),
         release => ($loaded->{Release}->{gid_or_id($data->{release})} //
                     Release->new(name => $data->{release}{name})),
     };
+
+    if ($label) {
+        $display_data->{label} = $loaded->{Label}{gid_or_id($label)} //
+                                 Label->new(name => $label->{name});
+    }
+
+    return $display_data;
 }
 
 sub initialize
