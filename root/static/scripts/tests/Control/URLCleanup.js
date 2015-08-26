@@ -415,6 +415,14 @@ test('Guess type', function (t) {
                 'release', 'http://www.e-onkyo.com/music/album/vpcd81809/',
                 LINK_TYPES.downloadpurchase.release
             ],
+            [
+                'artist', 'https://loudr.fm/artist/kyle-landry/Z77SM',
+                LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
+                LINK_TYPES.downloadpurchase.release
+            ],
             // Allmusic
             [
                 'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
@@ -1155,6 +1163,16 @@ test('Cleanup', function (t) {
             [
                 'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
                 'https://itunes.apple.com/us/album/id721686178',
+                'release'
+            ],
+            [
+                'https://loudr.fm/artist/kyle-landry/Z77SM?test',
+                'https://loudr.fm/artist/kyle-landry/Z77SM',
+                'artist'
+            ],
+            [
+                'http://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
+                'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
                 'release'
             ],
             [

@@ -362,13 +362,14 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?hd-music\\.info", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i"),
+      new RegExp("^(https?://)?loudr\.fm/", "i"),
     ],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      // Google Play
       url = url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, "https://play.google.com/store/music/$1?id=$2");
-      // iTunes cleanup
-      return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
+      url = url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
+      url = url.replace(/^https?:\/\/loudr\.fm\/(artist|release)\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]{5}).*$/, "https://loudr.fm/$1/$2/$3");
+      return url;
     }
   },
   jamendo: {
