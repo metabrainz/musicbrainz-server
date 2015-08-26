@@ -67,7 +67,7 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
 # you must sign in at https://metabrainz.org and generate an access token to access
 # the replication packets. Enter the access token below:
-# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
+# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY!
 #
 sub REPLICATION_ACCESS_TOKEN { "" }
 
@@ -288,7 +288,7 @@ sub SESSION_EXPIRE { return 36000; } # 10 hours
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
-        prefix => $self->MEMCACHED_NAMESPACE(),
+        prefix => 'MB:',
         database => 0,
         test_database => 1,
         redis_new_args => {
