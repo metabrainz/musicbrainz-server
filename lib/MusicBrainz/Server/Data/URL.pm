@@ -58,6 +58,7 @@ my %URL_SPECIALIZATIONS = (
     'Japameta'            => qr{^https?://(?:www.)?japanesemetal.gooside.com/}i,
     'LastFM'              => qr{^https?://(?:www.)?last.fm/}i,
     'Lieder'              => qr{^https?://(?:www.)?lieder.net/}i,
+    'Loudr'               => qr{^https?://(?:www.)?loudr.fm/}i,
     'LyricWiki'           => qr{^https?://lyrics.wikia.com/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www.)?mainlynorfolk.info/}i,
     'Maniadb'             => qr{^https?://(?:www.)?maniadb.com/}i,
