@@ -551,6 +551,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
+      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
       url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
       return url;
     }
