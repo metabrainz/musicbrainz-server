@@ -1029,6 +1029,16 @@ test('Cleanup', function (t) {
                 'artist'
             ],
             [
+                'http://www.deezer.com/artist/6509511?test',
+                'https://www.deezer.com/artist/6509511',
+                'streamingmusic'
+            ],
+            [
+                'https://deezer.com/album/8935347',
+                'https://www.deezer.com/album/8935347',
+                'streamingmusic'
+            ],
+            [
                 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                 'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
                 'streamingmusic'
