@@ -149,10 +149,12 @@ around '_build_related_entities' => sub {
     my $orig = shift;
     my $self = shift;
     my $related = $self->$orig;
+    my $current_label = $self->current_instance->label;
 
     $related->{label} = [
         $self->data->{new}{label} ? gid_or_id($self->data->{new}{label}) : (),
         $self->data->{old}{label} ? gid_or_id($self->data->{old}{label}) : (),
+        $current_label ? $current_label->gid : (),
     ];
 
     return $related;
