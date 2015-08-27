@@ -295,6 +295,25 @@ EOSQL
     is($edit->status, $STATUS_APPLIED);
 };
 
+test "Edits that only change the catalog number show up in the label's edit history (MBS-8533)" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_label (id, release, label, catalog_number)
+    VALUES (2, 1, 2, 'FOO');
+EOSQL
+
+    my $edit = _create_edit(
+        $c,
+        $c->model('ReleaseLabel')->get_by_id(2),
+        catalog_number => 'BAR',
+    );
+
+    ok($c->sql->select_single_value('SELECT 1 FROM edit_label WHERE edit = ?', $edit->id));
+};
+
 sub create_edit {
     my ($c, $rl) = @_;
     return _create_edit(
