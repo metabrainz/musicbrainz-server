@@ -55,19 +55,6 @@ def prepare_release():
     local("git merge beta")
     local("git push origin master")
 
-def socket_deploy():
-    """
-    Do a Unix FastCGI socket deployment of musicbrainz-server. This works by
-    restarting the process and taking down the old one if a new process could
-    successful be started.
-    """
-    with cd("~/musicbrainz-server"):
-        run("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git")
-        run("git pull --ff-only")
-        run("git submodule init")
-        run("git submodule update")
-        run("~/musicbrainz-server/admin/socket-deploy.sh")
-
 def no_local_changes():
     # The exit code of these will be 0 if there are no changes.
     # If there are changes, then the author should fix his damn code.
@@ -83,29 +70,7 @@ def beta():
     """
     env.host_string = "beta"
     no_local_changes()
-
-    with settings( hide("stdout", "stderr") ):
-        local("git checkout beta")
-        local("git merge master")
-        local("git push origin beta")
-
-    socket_deploy()
-
-def test():
-    """
-    Update the test.musicbrainz.org server
-
-    This requires you have a 'test' alias in your .ssh/config file.
-    """
-    env.host_string = "test"
-    no_local_changes()
-
-    with settings( hide("stdout", "stderr") ):
-        local("git checkout test")
-        local("git merge master")
-        local("git push origin test")
-
-    socket_deploy()
+    production()
 
 def production():
     """
@@ -134,21 +99,6 @@ def production():
     with settings(hide("stdout")):
         run("wget http://localhost -O -")
         run("wget http://localhost/ws/2/artist/?query=foo -O -")
-
-def reset_test():
-    """
-    Reset the 'test' branch, and do a socket update release
-    """
-    no_local_changes()
-    local("git checkout test")
-    local("git reset --hard origin/beta")
-    local("git push --force origin test")
-
-    with settings(host_string='test'):
-        with cd("/home/musicbrainz/musicbrainz-server"):
-            run("git fetch")
-            run("git reset --hard origin/test")
-        socket_deploy()
 
 def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
