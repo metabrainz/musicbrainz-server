@@ -92,13 +92,6 @@ def production():
 
     sudo("svc -h /etc/service/musicbrainz-server")
     sudo("svc -h /etc/service/musicbrainz-ws")
-    puts("Waiting 30 seconds for workers to start")
-    sleep(30)
-
-    # A non-0 exit code from any of these will cause the deployment to abort
-    with settings(hide("stdout")):
-        run("wget http://localhost -O -")
-        run("wget http://localhost/ws/2/artist/?query=foo -O -")
 
 def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
