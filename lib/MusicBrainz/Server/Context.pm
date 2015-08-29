@@ -52,13 +52,6 @@ has lwp => (
         $lwp->env_proxy;
         $lwp->timeout(5);
         $lwp->agent(DBDefs->LWP_USER_AGENT);
-        # XXX The version of libio-socket-ssl-perl in precise is apparently too
-        # old for SHA-2 certs:
-        # https://rt.cpan.org/Public/Bug/Display.html?id=85290
-        # libnet-ssleay-perl is even too old to support the fix mentioned in
-        # that bug, since OpenSSL_add_all_digests was added in 1.43 but precise
-        # only has 1.42.
-        $lwp->ssl_opts(verify_hostname => 0);
         return $lwp;
     }
 );
