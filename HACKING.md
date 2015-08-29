@@ -86,6 +86,7 @@ Important folders are documented here, in alphabetical order.
 
    Where the server tests live.
 
+
 Testing
 -------
 
@@ -115,8 +116,7 @@ While to run all Data:: tests you can do the following:
 
     $ prove -l t/tests.t :: --tests 'Data::'
 
-Database tests (pgTAP)
-----------------------
+### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu
 you can install pgtap like this:
@@ -138,29 +138,25 @@ Or all of them like this:
 
     $ prove --verbose --source pgTAP t/pgtap/* t/pgtap/unused-tags/*
 
-Cover art archive development
------------------------------
-
-The Cover Art features in musicbrainz are provided by
-coverartarchive.org.  To add cover art support to your development set
-up, see HACKING-CAA.md
-
-Javascript
-----------
+### JavaScript
 
 We have a set of JavaScript unit tests (using https://github.com/substack/tape)
-which we run using phantomjs (version 1.5 or higher). These will be skipped if
-phantomjs isn't found.
+which we run using [PhantomJS](http://phantomjs.org/) (version 1.5 or higher).
+These will be skipped if PhantomJS isn't found.
 
-Currently we have a single test file to run JavaScript tests. It can be opened
-inside a browser by visiting
+Currently we have a single test file to run JavaScript tests in browsers.
+Before using it you need to compile script containing all the tests:
+
+    $ script/compile_resources.sh tests
+
+After compilation has finished, open
 http://localhost:5000/static/scripts/tests/all.html on your local development
 server.
 
 It is more fun to be able to run those tests on the command line. This can be
-done with phantomjs.
+done with PhantomJS.
 
-To install phantomjs:
+To install PhantomJS:
 
     $ sudo apt-get install libqt4-dev libqt4-webkit     # on debian
     $ sudo apt-get install libqtwebkit-dev              # on ubuntu
@@ -173,6 +169,15 @@ To install phantomjs:
 Now you should be able to use it to run the tests:
 
     $ prove -l t/qunit.t
+
+
+Cover Art Archive development
+-----------------------------
+
+The Cover Art features in MusicBrainz are provided by
+[coverartarchive.org](https://coverartarchive.org/). Instructions for adding
+cover art support to your development setup are available in HACKING-CAA.md
+file.
 
 
 Cache
@@ -208,6 +213,7 @@ Keys:
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page
  * work_type:INT -- work type by ID
+
 
 Debug information
 -----------------
