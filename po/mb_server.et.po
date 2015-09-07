@@ -16,9 +16,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-27 04:29-0700\n"
-"PO-Revision-Date: 2015-03-27 11:33+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
+"PO-Revision-Date: 2015-04-18 12:10+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -665,7 +665,7 @@ msgstr "Lisa keel"
 msgid ""
 "Add a medium by clicking “Add Disc” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
+msgstr "Lisa helikandja klõpsates allpool „Lisa plaat” või märgista ruut, kui lugude nimekiri pole teada."
 
 #: ../root/components/aliases.tt:79
 msgid "Add a new alias"
@@ -2265,7 +2265,7 @@ msgstr "Artisti- jm teave"
 
 #: ../root/release_group/index.tt:77
 msgid "CritiqueBrainz Reviews"
-msgstr ""
+msgstr "Arvustused CritiqueBrainzis"
 
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
@@ -4575,11 +4575,11 @@ msgstr "Muutmiste arv:"
 
 #: ../root/release_group/index.tt:90
 msgid "Most Popular"
-msgstr ""
+msgstr "Populaarseim"
 
 #: ../root/release_group/index.tt:87
 msgid "Most Recent"
-msgstr ""
+msgstr "Uusim"
 
 #: ../root/cdtoc/list.tt:55 ../root/release/discids.tt:39
 msgid "Move"
@@ -4971,7 +4971,7 @@ msgstr "Ei tüüdata"
 msgid ""
 "No one has reviewed this release group yet. Be the first to "
 "{write_link|write a review}."
-msgstr ""
+msgstr "Keegi pole veel seda väljalaskerühma arvustanud. Võid olla esimene ja {write_link|kirjutada arvustuse}."
 
 #: ../root/tag/place.tt:1
 msgid "No places with this tag were found."
@@ -6245,7 +6245,7 @@ msgstr "Hinded väljalaskerühmadele"
 
 #: ../root/release/layout.tt:92
 msgid "Release group reviews"
-msgstr ""
+msgstr "Väljalaskerühma arvustused"
 
 #: ../root/release_group/layout.tt:1
 msgid "Release group “{name}” by {artist}"
@@ -6425,7 +6425,7 @@ msgstr "Väljalasked, millel on probleeme helikandjanumbritega"
 #: ../root/report/index.tt:90 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
-msgstr ""
+msgstr "Ilma helikandjateta väljalasked"
 
 #: ../root/report/index.tt:82
 msgid "Releases with non-sequential mediums"
@@ -7426,7 +7426,7 @@ msgstr "Vabandust, peegelserveris ei saa seda teha."
 msgid ""
 "Sorry, your query (<code>{query}</code>) does not contain enough information"
 " to carry out a search."
-msgstr ""
+msgstr "Vabandust, sinu päring „(<code>{query}</code>)” ei sisalda piisavalt infot, mille järgi otsida."
 
 #: ../root/search/error/uri-too-large.tt:3
 msgid "Sorry, your query was too large."
@@ -7924,7 +7924,7 @@ msgstr "häältearvestust näidatakse pärast valimise lõppu"
 
 #: ../root/release/edit/tracklist.tt:275 ../root/release/index.tt:30
 msgid "The tracklist for this release is currently unknown."
-msgstr ""
+msgstr "Selle väljalaske lugude nimekiri pole hetkel teada"
 
 #: ../root/freedb/show.tt:54
 msgid ""
@@ -8041,8 +8041,8 @@ msgid ""
 msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "CritiqueBrainzis leidub {reviews_link|{review_count} arvustus}. Võid {write_link|kirjutada ka oma arvustuse}."
+msgstr[1] "CritiqueBrainzis leidub {reviews_link|{review_count} arvustust}. Võid {write_link|kirjutada ka oma arvustuse}."
 
 #: ../root/place/edit_form.tt:49
 msgid "These coordinates could not be parsed."
@@ -8375,7 +8375,7 @@ msgstr "Sel plaadifirmal pole seoseid ega väljalaskeid, niisiis eemaldatakse se
 
 #: ../root/release/edit/information.tt:217
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "See plaadifirma ja katalooginumbri paar on juba olemas."
 
 #: ../root/cdtoc/attach_list.tt:24
 msgid "This medium format cannot have a disc ID attached"
@@ -8887,7 +8887,7 @@ msgstr "See aruanne loetleb väljalasked, millel on keel määramata. Kui keele 
 
 #: ../root/report/releases_with_no_mediums.tt:6
 msgid "This report shows releases that have no mediums added."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel pole ühtki helikandjat."
 
 #: ../root/report/releases_without_script.tt:6
 msgid ""
@@ -10331,7 +10331,7 @@ msgstr "Oled selle salvestise jaoks kasutanud eriotstarbelist artisti „{valink
 
 #: ../root/release/edit/information.tt:47
 msgid "You haven’t entered a complete artist credit."
-msgstr ""
+msgstr "Täielikku artistiteavet pole sisestatud."
 
 #: ../root/release/edit/editnote.tt:10
 #: ../root/static/scripts/relationship-editor/release.js:139
@@ -10386,7 +10386,7 @@ msgstr "Väljalaske lisamisel tuleb jätta toimetusmärge."
 msgid ""
 "You must select a relationship type and target entity for every "
 "relationship."
-msgstr ""
+msgstr "Iga seose jaoks tuleb valida tüüp ja sihtolem."
 
 #: ../root/release/edit/information.tt:67
 msgid "You must select an existing release group."
@@ -10740,11 +10740,11 @@ msgstr "kõigepealt uuemaid"
 
 #: ../root/forms/relationship-editor.tt:46
 msgid "no entity"
-msgstr ""
+msgstr "olem puudub"
 
 #: ../root/forms/relationship-editor.tt:25
 msgid "no type"
-msgstr ""
+msgstr "tüüp puudub"
 
 #: ../root/user/profile.tt:62
 msgid "nominate for auto-editor"
@@ -11054,15 +11054,15 @@ msgstr "{mbid|<abbr title=\"MusicBrainzi identifikaator\">MBID</abbr>}:"
 
 #: ../root/components/common-macros.tt:805
 msgid "{medium_format} {position}"
-msgstr ""
+msgstr "{medium_format} {position}"
 
 #: ../root/components/common-macros.tt:805
 msgid "{medium_format} {position}: {medium_name}"
-msgstr ""
+msgstr "{medium_format} {position}: „{medium_name}”"
 
 #: ../root/components/common-macros.tt:818
 msgid "{medium} on {release}"
-msgstr ""
+msgstr "{medium} väljalaskel „{release}”"
 
 #: ../root/components/common-macros.tt:339
 msgid "{name} – {additional_info}"
@@ -11249,7 +11249,7 @@ msgstr "„{release}” ei ole ühtegi kogusse lisatud."
 
 #: ../root/components/critiquebrainz.tt:4
 msgid "{review_link|Review} by {author} on {date}"
-msgstr ""
+msgstr "{review_link|Arvustas} {author}, {date}"
 
 #: ../root/relationship/linktype/index.tt:21
 msgid "{type0}-{type1}"
@@ -11321,7 +11321,7 @@ msgstr "« Tagasi"
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: ../lib/DBDefs/Default.pm:146
 msgid ""

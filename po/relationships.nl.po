@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:33+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
+"PO-Revision-Date: 2015-06-03 13:44+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgid ""
 "network</a> which only people involved with the label can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Een sociaalnetwerkpagina is een pagina van een platenmaatschappij op een <a href=\"https://nl.wikipedia.org/wiki/Sociaalnetwerksite\">sociaal netwerk</a> waar alleen mensen die bij de platenmaatschappij betrokken zijn, dingen kunnen plaatsen. Voorbeelden zijn Facebook-pagina’s en accounts op Twitter, Instagram of Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -34,7 +34,7 @@ msgid ""
 "network</a> which only people involved with the series can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Een sociaalnetwerkpagina is een pagina voor een serie op een <a href=\"https://nl.wikipedia.org/wiki/Sociaalnetwerksite\">sociaal netwerk</a> waar alleen mensen die bij de serie betrokken zijn, dingen kunnen plaatsen. Voorbeelden zijn Facebook-pagina’s en accounts op Twitter, Instagram of Flickr."
 
 #: DB:link_type/description:429
 msgid ""
@@ -43,7 +43,7 @@ msgid ""
 "network</a> which only people involved with the place can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Een sociaalnetwerkpagina is een pagina van een plaats op een <a href=\"https://nl.wikipedia.org/wiki/Sociaalnetwerksite\">sociaal netwerk</a> waar alleen mensen die bij de plasts betrokken zijn, dingen kunnen plaatsen. Voorbeelden zijn Facebook-pagina’s en accounts op Twitter, Instagram of Flickr."
 
 #: DB:link_type/description:192
 msgid ""
@@ -54,7 +54,7 @@ msgid ""
 "adding them as a friend or by commenting on the things that they post. "
 "Examples include Facebook pages and profiles, Last.fm users and accounts on "
 "Twitter, Instagram and Flickr."
-msgstr ""
+msgstr "Een sociaalnetwerkpagina is een pagina van een artiest op een <a href=\"https://nl.wikipedia.org/wiki/Sociaalnetwerksite\">sociaal netwerk</a> waar alleen mensen die bij de artiest betrokken zijn, dingen kunnen plaatsen. Voorbeelden zijn Facebook-pagina’s en accounts op Twitter, Instagram of Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -63,7 +63,7 @@ msgid ""
 "network</a> which only people involved with the event can post content to. "
 "Examples include Facebook pages and event entries, and accounts on Twitter, "
 "Instagram and Flickr."
-msgstr ""
+msgstr "Een sociaalnetwerkpagina is een pagina van een evenement op een <a href=\"https://nl.wikipedia.org/wiki/Sociaalnetwerksite\">sociaal netwerk</a> waar alleen mensen die bij het evenement betrokken zijn, dingen kunnen plaatsen. Voorbeelden zijn Facebook-pagina’s en accounts op Twitter, Instagram of Flickr."
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
@@ -193,7 +193,7 @@ msgstr "IMDb"
 
 #: DB:link_type/reverse_link_phrase:83 DB:link_type/reverse_link_phrase:258
 msgid "IMDb entry sampled in"
-msgstr "IMDb-lemma gesampeld in"
+msgstr "IMDb-lemma gesampled in"
 
 #: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:97
 #: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
@@ -249,7 +249,7 @@ msgstr "Geeft een afbeelding (JPEG, GIF of PNG) van een artiest aan"
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
-msgstr ""
+msgstr "Geeft een internetpagina aan met een recensie van het evenement."
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
@@ -313,7 +313,7 @@ msgstr "Geeft een orkest aan dat op deze uitgave speelde."
 msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
-msgstr ""
+msgstr "Geeft aan dat een artiest een compositie heeft herzien. In de meeste gevallen heeft de originele componist de compositie later aangepast."
 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
@@ -385,7 +385,7 @@ msgstr "Geeft de componist voor deze compositie aan, d.w.z. die persoon die de m
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
-msgstr ""
+msgstr "Geeft een evenement aan waar de compositie voor het eerst werd uitgevoerd."
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
@@ -452,12 +452,12 @@ msgstr "Geeft de uitgever van deze compositie aan. Dit is <strong>niet</strong> 
 #: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:838 DB:link_type/link_phrase:839
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:838 DB:link_type/reverse_link_phrase:839
 msgid "Last.fm page for"
-msgstr ""
+msgstr "last.fm-pagina van"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -473,7 +473,7 @@ msgstr ""
 msgid ""
 "Links a recording to the area it was engineered in. Use only when the place "
 "is unknown!"
-msgstr ""
+msgstr "Koppelt een opname aan het gebied waar de techniek voor de opname werd verzorgd. Gebruik dit alleen als de plaats niet bekend is!"
 
 #: DB:link_type/description:758
 msgid ""
@@ -509,7 +509,7 @@ msgstr ""
 
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr ""
+msgstr "Koppelt een opname aan de plaats waar de techniek voor de opname werd verzorgd."
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
@@ -541,7 +541,7 @@ msgstr ""
 msgid ""
 "Links a release to the area it was engineered in. Use only when the place is"
 " unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave aan het gebied waar de techniek voor de uitgave werd verzorgd. Gebruik dit alleen als de plaats niet bekend is!"
 
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
@@ -587,7 +587,7 @@ msgstr ""
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
-msgstr ""
+msgstr "Koppelt een uitgave aan de plaats waar de techniek voor de uitgave werd verzorgd."
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
@@ -1308,7 +1308,7 @@ msgstr "Dit geeft de rechtenorganisatie aan die met een uitgave is geassocieerd.
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "Dit geeft aan dat de compositie aan een specifieke persoon is opgedragen. Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
 #: DB:link_type/description:17
 msgid ""
@@ -1615,14 +1615,14 @@ msgid ""
 "This links a soundtrack release to the <a "
 "href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
 "which it is a soundtrack."
-msgstr "Dit koppelt een soundtrack aan de pagina op <a href=\"http://www.imdb.com/\">IMDb</a> van de film, show of het spel waarvan het een soundtrack is."
+msgstr "Dit koppelt een soundtrack aan een pagina op <a href=\"http://www.imdb.com/\">IMDb</a> over de film, show of het spel waarvan het een soundtrack is."
 
 #: DB:link_type/description:843
 msgid ""
 "This links a soundtrack work to the <a "
 "href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
 "which it is a soundtrack."
-msgstr ""
+msgstr "Dit koppelt een compositie voor een soundtrack aan een pagina op <a href=\"http://www.imdb.com/\">IMDb</a> over de film, show of het spel waarvan het een soundtrack is."
 
 #: DB:link_type/description:722
 msgid ""
@@ -1846,7 +1846,7 @@ msgstr "Deze relatie beschrijft een URL waar teksten van de compositie gevonden 
 #: DB:link_type/description:847
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een persoon de leraar of leerling van een andere persoon was."
 
 #: DB:link_type/description:710
 msgid ""
@@ -2089,12 +2089,12 @@ msgstr "Dit relatietype koppelt een platenmaatschappij aan haar overeenkomstige 
 #: DB:link_type/description:838
 msgid ""
 "This relationship type links a label to its corresponding page at Last.fm"
-msgstr ""
+msgstr "Dit relatietype koppelt een platenmaatschappij aan haar overeenkomstige pagina op Last.fm."
 
 #: DB:link_type/description:837
 msgid ""
 "This relationship type links a place to its corresponding page at Last.fm"
-msgstr ""
+msgstr "Dit relatietype koppelt een plaats aan zijn overeenkomstige pagina op Last.fm."
 
 #: DB:link_type/description:787
 msgid ""
@@ -2123,7 +2123,7 @@ msgstr "Dit relatietype koppelt een artiest aan zijn overeenkomstige pagina op <
 #: DB:link_type/description:840
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm"
-msgstr ""
+msgstr "Dit relatietype koppelt een artiest aan zijn overeenkomstige pagina op Last.fm."
 
 #: DB:link_type/description:785
 msgid ""
@@ -2148,7 +2148,7 @@ msgid ""
 "content. The artist may or may not be a member of the group. Examples "
 "include forums, LiveJournal communities and groups on Facebook, Last.fm and "
 "Flickr."
-msgstr ""
+msgstr "Dit relatietype koppelt een artiest aan zijn online gemeenschap. Een online gemeenschap is een groep waarbij elk lid kan reageren en dingen kan toevoegen. De artiest kan deel uitmaken van de groep. Voorbeelden zijn fora, LiveJournal-pagina’s en groepen op Facebook, Last.fm en Flickr."
 
 #: DB:link_type/description:808
 msgid ""
@@ -2165,7 +2165,7 @@ msgstr "Dit relatietype koppelt een evenement aan zijn overeenkomstige pagina op
 #: DB:link_type/description:839
 msgid ""
 "This relationship type links an event to its corresponding page at Last.fm"
-msgstr ""
+msgstr "Dit relatietype koppelt een evenement aan zijn overeenkomstige pagina op Last.fm"
 
 #: DB:link_type/description:786
 msgid ""
@@ -2218,7 +2218,7 @@ msgstr "Getranscribeerde nummerlijsten veranderen de taal niet, maar allen het s
 msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
 "soprano range"
-msgstr ""
+msgstr "Een jongenssopraan is een jongeman die met een onveranderde stem in de sopraanhoogte zingt."
 
 #: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
 #: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
@@ -2323,7 +2323,7 @@ msgstr "geassocieerd"
 
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
-msgstr ""
+msgstr "geassocieerde singles/EP’s"
 
 #: DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -2553,11 +2553,11 @@ msgstr "creatieve positie"
 
 #: DB:link_type/reverse_link_phrase:846
 msgid "dedicated to"
-msgstr ""
+msgstr "opgedragen aan"
 
 #: DB:link_type/link_phrase:846
 msgid "dedicated works"
-msgstr ""
+msgstr "opgedragen composities"
 
 #: DB:link_type/link_phrase:737
 msgid "derivations"
@@ -2665,11 +2665,11 @@ msgstr "technische positie bij"
 
 #: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "engineered at"
-msgstr ""
+msgstr "techniek verzorgd bij"
 
 #: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
 msgid "engineered in"
-msgstr ""
+msgstr "techniek verzorgd in"
 
 #: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
 #: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
@@ -2760,11 +2760,11 @@ msgstr "heeft een technische functie bij"
 
 #: DB:link_type/long_link_phrase:795
 msgid "had available releases"
-msgstr ""
+msgstr "had verkrijgbare uitgaves"
 
 #: DB:link_type/long_link_phrase:834
 msgid "had previous attribution"
-msgstr ""
+msgstr "had vroegere toeschrijving"
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
@@ -2795,7 +2795,7 @@ msgstr "heeft een Geonamespagina op"
 #: DB:link_type/long_link_phrase:840 DB:link_type/long_link_phrase:837
 #: DB:link_type/long_link_phrase:838 DB:link_type/long_link_phrase:839
 msgid "has a Last.fm page at"
-msgstr ""
+msgstr "heeft een Last.fm-pagina op"
 
 #: DB:link_type/long_link_phrase:215 DB:link_type/long_link_phrase:189
 #: DB:link_type/long_link_phrase:462
@@ -2904,7 +2904,7 @@ msgstr "heeft een sociaal netwerkpagina op"
 
 #: DB:link_type/long_link_phrase:287
 msgid "has a standalone website at"
-msgstr "heeft een losstaande website op"
+msgstr "heeft een eigen website op"
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -2972,7 +2972,7 @@ msgstr "heeft afbeeldingen op"
 
 #: DB:link_type/long_link_phrase:846
 msgid "has dedicated work"
-msgstr ""
+msgstr "heeft opgedragen compositie"
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
@@ -3136,7 +3136,7 @@ msgstr "vraaggesprek met"
 
 #: DB:link_type/link_phrase:707
 msgid "interviews"
-msgstr ""
+msgstr "interviews"
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
@@ -3198,7 +3198,7 @@ msgstr "is een remix van"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
-msgstr ""
+msgstr "is een single/EP die afkomstig is van"
 
 #: DB:link_type/long_link_phrase:728
 msgid "is a tribute to"
@@ -3220,7 +3220,7 @@ msgstr "is een Allmusicpagina over"
 
 #: DB:link_type/long_link_phrase:843
 msgid "is an IMDb page for"
-msgstr ""
+msgstr "is een IMDB-pagina over"
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
@@ -3617,7 +3617,7 @@ msgstr "orkestraties"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
-msgstr ""
+msgstr "oorspronkelijk gepland als"
 
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
 #: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
@@ -3721,7 +3721,7 @@ msgstr "fonografisch auteursrecht door"
 
 #: DB:link_type/link_phrase:173
 msgid "picture"
-msgstr ""
+msgstr "afbeelding"
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 msgid "picture of"
@@ -3746,7 +3746,7 @@ msgstr "had de première bij"
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
-msgstr ""
+msgstr "premières"
 
 #: DB:link_type/link_phrase:715 DB:link_type/link_phrase:716
 msgid "premieres hosted"
@@ -3977,7 +3977,7 @@ msgstr "hernoemd naar"
 
 #: DB:link_type/link_phrase:836
 msgid "rescheduled as"
-msgstr ""
+msgstr "opnieuw gepland als"
 
 #: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
 msgid "review page for"
@@ -3989,11 +3989,11 @@ msgstr "recensies"
 
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
 msgid "revised"
-msgstr ""
+msgstr "herzien"
 
 #: DB:link_type/reverse_link_phrase:844
 msgid "revised by"
-msgstr ""
+msgstr "herzien door"
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
@@ -4051,7 +4051,7 @@ msgstr "getekend door"
 
 #: DB:link_type/link_phrase:11
 msgid "single/EP which was taken from"
-msgstr ""
+msgstr "single/EP afkomstig van"
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
@@ -4079,11 +4079,11 @@ msgstr "gesproken vocalen"
 
 #: DB:link_type/link_phrase:287
 msgid "standalone website"
-msgstr "losstaande website"
+msgstr "eigen website"
 
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
-msgstr "losstaande website voor"
+msgstr "eigen website van"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
@@ -4091,11 +4091,11 @@ msgstr "gratis streamen"
 
 #: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
-msgstr "{video:video} gratis te streamen"
+msgstr "{video:video} gratis streamen"
 
 #: DB:link_type/link_phrase:847
 msgid "students"
-msgstr ""
+msgstr "leerlingen"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -4151,11 +4151,11 @@ msgstr "ondersteunend {instrument:instrument} voor"
 
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
-msgstr ""
+msgstr "onderwees"
 
 #: DB:link_type/reverse_link_phrase:847
 msgid "teachers"
-msgstr ""
+msgstr "leermeester"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
@@ -4167,7 +4167,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:517
 msgid "translated"
-msgstr "vertaalde"
+msgstr "vertaler"
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
@@ -4183,7 +4183,7 @@ msgstr "{transliterated:getranscribeerde|vertaalde} nummerlijsten"
 
 #: DB:link_attribute_type/name:834
 msgid "treble vocals"
-msgstr ""
+msgstr "jongenssopraanvocalen"
 
 #: DB:link_type/link_phrase:65
 msgid "tribute albums"
@@ -4267,7 +4267,7 @@ msgstr "werd hernoemd naar"
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
-msgstr ""
+msgstr "werd opnieuw gepland als"
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
@@ -4585,7 +4585,7 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:partner-} {co
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
 msgid "{additional} {assistant} {associate} {instrument} programming"
-msgstr "programmeerde {additional:aanvullend} {assistant:assisterend} {associate:als partner} {instrument:instrument}"
+msgstr "{additional:aanvullend} {assistant:assisterend} programmeur {instrument:(instrument)} {associate:(als partner)}"
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {founder:founding} member of"

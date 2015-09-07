@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:32+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
+"PO-Revision-Date: 2015-03-28 14:13+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
+"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1254,7 +1254,7 @@ msgstr "Vanuatu"
 #. iso.code:VA
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:227
 msgid "Vatican City"
-msgstr ""
+msgstr "Città del Vaticano"
 
 #. iso.code:VE
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:228

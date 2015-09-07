@@ -3,7 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
-# Ismael Olea <email address hidden>, 2012-2014
+# Ismael Olea <email address hidden>, 2012-2015
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -11,9 +11,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:32+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
+"PO-Revision-Date: 2015-03-27 11:48+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
+"Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -353,7 +353,7 @@ msgstr "Caddo"
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "Francés cajún"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
@@ -1623,7 +1623,7 @@ msgstr "Nepalí"
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
 msgid "Nhengatu"
-msgstr ""
+msgstr "Ñe'engatú"
 
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
@@ -2503,7 +2503,7 @@ msgstr "Yoruba"
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr ""
+msgstr "Yucateco"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

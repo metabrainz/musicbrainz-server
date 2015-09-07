@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-03 23:53+0000\n"
+"PO-Revision-Date: 2015-03-28 22:06+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -117,7 +117,7 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
-msgstr ""
+msgstr "Una pubblicazione omaggio o destinata a promuovere una futura pubblicazione ufficiale (per es. versioni non definitive, pubblicazioni incluse con una rivista, versioni fornite alle radio per essere mandate in onda)."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -285,7 +285,7 @@ msgctxt "work_type"
 msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
-msgstr ""
+msgstr "Una colonna sonora è la musica che accompagna un film, un programma TV, un videogioco o anche un libro."
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -313,7 +313,7 @@ msgstr ""
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr ""
+msgstr "Un jewel case più sottile, usato comunemente per i singoli su CD."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -374,7 +374,7 @@ msgid ""
 "An alternate version of a release where the titles have been changed. These "
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
-msgstr ""
+msgstr "Una versione alternativa di una pubblicazione in cui i titoli sono stati cambiati. Questi non correspondono a nessuna pubblicazione reale e dovrebbero essere collegati alla pubblicazione originale utilizzando la relazione di traduzione/traslitterazione."
 
 #: DB:work_type/description:1
 msgctxt "work_type"
@@ -436,7 +436,7 @@ msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company. This includes unofficial live recordings and "
 "pirated releases."
-msgstr ""
+msgstr "Una pubblicazione non ufficiale che non è stata autorizzata dall'artista né dalla sua etichetta, incluse registrazioni live non ufficiali e pubblicazioni piratate."
 
 #: DB:work_type/description:20
 msgctxt "work_type"
@@ -451,7 +451,7 @@ msgctxt "release_status"
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " Most releases will fit into this category."
-msgstr ""
+msgstr "Qualsiasi pubblicazione autorizzata ufficialmente dall'artista e/o dalla sua etichetta. La maggior parte delle pubblicazioni ricade in questa categoria."
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -809,7 +809,7 @@ msgstr "Città"
 msgctxt "area_type"
 msgid ""
 "City is used for settlements of any size, including towns and villages."
-msgstr ""
+msgstr "Città è utilizzato per luoghi abitati di qualsiasi dimensione, compresi paesi e villaggi."
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -841,12 +841,12 @@ msgctxt "area_type"
 msgid ""
 "Country is used for areas included (or previously included) in ISO 3166-1, "
 "e.g. United States."
-msgstr ""
+msgstr "Paese è utilizzato per le aree incluse (o incluse in passato) nello standard ISO 3166-1, per es. gli Stati Uniti."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
 msgid "County"
-msgstr "Contea"
+msgstr "Provincia"
 
 #: DB:area_type/description:7
 msgctxt "area_type"
@@ -855,7 +855,7 @@ msgid ""
 "not the main administrative divisions but are also not municipalities, e.g. "
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
-msgstr ""
+msgstr "Provincia è utilizzato per piccole suddivisioni amministrative di uno Stato che non siano le principali suddivisioni amministrative ma nemmeno i comuni, per es. le contee negli Stati Uniti. Queste non sono considerate nella visualizzazione delle aree superiori di una determinata area."
 
 #: DB:work_attribute_type_allowed_value/value:67
 msgctxt "work_attribute_type_allowed_value"
@@ -1015,7 +1015,7 @@ msgstr "Distretto"
 #: DB:area_type/description:5
 msgctxt "area_type"
 msgid "District is used for a division of a large city, e.g. Queens."
-msgstr ""
+msgstr "Quartiere è utilizzato per una suddivisione di una grande città, per es. Queens."
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -1183,7 +1183,7 @@ msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with"
 " a molded-in groove, designed to be playable on a normal phonograph "
 "turntable."
-msgstr ""
+msgstr "I flexi-disc sono dischi per fonografo realizzati con un foglio di vinile sottile e flessibile con un solco inciso, progettati per essere riprodotti su un normale piatto per fonografo."
 
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
@@ -1426,7 +1426,7 @@ msgid ""
 "Island is used for islands and atolls which don't form subdivisions of their"
 " own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
-msgstr ""
+msgstr "Isola è utilizzato per isole e atolli che non formano suddivisioni independenti, per es. Skye. Queste non sono considerate nella visualizzazione delle aree superiori di una determinata area."
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -1899,7 +1899,7 @@ msgid ""
 "Municipality is used for small administrative divisions which, for urban "
 "municipalities, often contain a single city and a few surrounding villages. "
 "Rural municipalities typically group several villages together."
-msgstr ""
+msgstr "Comune è utilizzato per piccole suddivisioni amministrative che, nel caso di comuni urbani, spesso contengono una singola città e diversi villaggi circostanti. I comuni rurali raggruppano di solito diversi villaggi."
 
 #: DB:medium_format/name:46
 msgctxt "medium_format"
@@ -2461,7 +2461,7 @@ msgctxt "medium_format"
 msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
-msgstr ""
+msgstr "I dischi di gommalacca erano il tipo predominante di dischi da grammofono durante la prima metà del XX secolo."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -2571,7 +2571,7 @@ msgid ""
 "Subdivision is used for the main administrative divisions of a country, e.g."
 " California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
-msgstr ""
+msgstr "Suddivisione è utilizzato per la principale suddivisione amministrativa di uno Stato, per es. la California, l'Ontario, Okinawa. Queste sono considerate nella visualizzazione delle aree superiori di una determinata area."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"
@@ -2661,7 +2661,7 @@ msgstr ""
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
-msgstr ""
+msgstr "La custodia per CD tradizionale, in plastica rigida e fragile."
 
 #: DB:work_type/description:23
 msgctxt "work_type"

@@ -2,14 +2,14 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salorock <email address hidden>, 2013-2014
+# salorock <email address hidden>, 2013-2015
 # salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:32+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
+"PO-Revision-Date: 2015-03-28 14:14+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
+"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -349,7 +349,7 @@ msgstr "Caddo"
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "Francese cajun"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
@@ -1619,7 +1619,7 @@ msgstr "Nepalese"
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
 msgid "Nhengatu"
-msgstr ""
+msgstr "Nheengatu"
 
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
@@ -2499,7 +2499,7 @@ msgstr "Yoruba"
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr ""
+msgstr "Yucateco"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

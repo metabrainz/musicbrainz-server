@@ -22,9 +22,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-27 04:29-0700\n"
-"PO-Revision-Date: 2015-03-27 11:33+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
+"PO-Revision-Date: 2015-05-03 14:21+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
+"Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -671,7 +671,7 @@ msgstr "Aggiungi una lingua"
 msgid ""
 "Add a medium by clicking “Add Disc” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
+msgstr "Aggiungi un supporto cliccando su \"Aggiungi disco\" in basso, oppure spunta la casella per confermare che l'elenco delle tracce è sconosciuto."
 
 #: ../root/components/aliases.tt:79
 msgid "Add a new alias"
@@ -2271,7 +2271,7 @@ msgstr "Accreditamenti"
 
 #: ../root/release_group/index.tt:77
 msgid "CritiqueBrainz Reviews"
-msgstr ""
+msgstr "Recensioni di CritiqueBrainz"
 
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
@@ -4581,11 +4581,11 @@ msgstr "Numero di modifiche:"
 
 #: ../root/release_group/index.tt:90
 msgid "Most Popular"
-msgstr ""
+msgstr "Più popolari"
 
 #: ../root/release_group/index.tt:87
 msgid "Most Recent"
-msgstr ""
+msgstr "Più recenti"
 
 #: ../root/cdtoc/list.tt:55 ../root/release/discids.tt:39
 msgid "Move"
@@ -4977,7 +4977,7 @@ msgstr "Nessuna scocciatura"
 msgid ""
 "No one has reviewed this release group yet. Be the first to "
 "{write_link|write a review}."
-msgstr ""
+msgstr "Nessuno ha ancora scritto una recensione per questo di gruppo di pubblicazioni. Vuoi essere il primo a {write_link|farlo}?"
 
 #: ../root/tag/place.tt:1
 msgid "No places with this tag were found."
@@ -6251,7 +6251,7 @@ msgstr "Valutazioni di gruppi di pubblicazioni"
 
 #: ../root/release/layout.tt:92
 msgid "Release group reviews"
-msgstr ""
+msgstr "Recensioni del gruppo di pubblicazioni"
 
 #: ../root/release_group/layout.tt:1
 msgid "Release group “{name}” by {artist}"
@@ -6431,7 +6431,7 @@ msgstr "Pubblicazioni con problemi nella numerazione dei supporti"
 #: ../root/report/index.tt:90 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
-msgstr ""
+msgstr "Pubblicazioni senza supporti"
 
 #: ../root/report/index.tt:82
 msgid "Releases with non-sequential mediums"
@@ -7432,7 +7432,7 @@ msgstr "Spiacenti, non è possibile eseguire quell'azione su un server mirror."
 msgid ""
 "Sorry, your query (<code>{query}</code>) does not contain enough information"
 " to carry out a search."
-msgstr ""
+msgstr "Spiacenti, ma la tua richiesta (<code>{query}</code>) non contiene abbastanza informazioni per portare a termine la ricerca."
 
 #: ../root/search/error/uri-too-large.tt:3
 msgid "Sorry, your query was too large."
@@ -7930,7 +7930,7 @@ msgstr "Il conteggio dei voti espressi sarà mostrato solo al termine dell'elezi
 
 #: ../root/release/edit/tracklist.tt:275 ../root/release/index.tt:30
 msgid "The tracklist for this release is currently unknown."
-msgstr ""
+msgstr "L'elenco delle tracce di questa pubblicazione è sconosciuto al momento."
 
 #: ../root/freedb/show.tt:54
 msgid ""
@@ -8047,8 +8047,8 @@ msgid ""
 msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "C'è {reviews_link|{review_count} recensione} su CritiqueBrainz. Puoi anche {write_link|scrivere la tua}!"
+msgstr[1] "Ci sono {reviews_link|{review_count} recensioni} su CritiqueBrainz. Puoi anche {write_link|scrivere la tua}!"
 
 #: ../root/place/edit_form.tt:49
 msgid "These coordinates could not be parsed."
@@ -8381,7 +8381,7 @@ msgstr "Questa etichetta non ha relazioni né pubblicazioni e sarà rimossa auto
 
 #: ../root/release/edit/information.tt:217
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "Questa combinazione di etichetta e numero di catalogo è già esistente."
 
 #: ../root/cdtoc/attach_list.tt:24
 msgid "This medium format cannot have a disc ID attached"
@@ -8893,7 +8893,7 @@ msgstr "Questo report mostra le pubblicazioni che non hanno alcuna lingua impost
 
 #: ../root/report/releases_with_no_mediums.tt:6
 msgid "This report shows releases that have no mediums added."
-msgstr ""
+msgstr "Questo report mostra le pubblicazioni che non hanno nessun supporto."
 
 #: ../root/report/releases_without_script.tt:6
 msgid ""
@@ -10337,7 +10337,7 @@ msgstr "Hai utilizzato l'artista speciale {valink|Artisti vari} su questa regist
 
 #: ../root/release/edit/information.tt:47
 msgid "You haven’t entered a complete artist credit."
-msgstr ""
+msgstr "Non hai inserito un accreditamento artista completo."
 
 #: ../root/release/edit/editnote.tt:10
 #: ../root/static/scripts/relationship-editor/release.js:139
@@ -10392,7 +10392,7 @@ msgstr "Devi inserire una nota di modifica quando aggiungi una pubblicazione."
 msgid ""
 "You must select a relationship type and target entity for every "
 "relationship."
-msgstr ""
+msgstr "Devi selezionare un tipo di relazione e un'entità di destinazione per ogni relazione."
 
 #: ../root/release/edit/information.tt:67
 msgid "You must select an existing release group."
@@ -10746,11 +10746,11 @@ msgstr "prima i più recenti"
 
 #: ../root/forms/relationship-editor.tt:46
 msgid "no entity"
-msgstr ""
+msgstr "nessuna entità"
 
 #: ../root/forms/relationship-editor.tt:25
 msgid "no type"
-msgstr ""
+msgstr "nessun tipo"
 
 #: ../root/user/profile.tt:62
 msgid "nominate for auto-editor"
@@ -11060,15 +11060,15 @@ msgstr "{mbid|<abbr title=\"Identificatore di MusicBrainz\">MBID</abbr>}:"
 
 #: ../root/components/common-macros.tt:805
 msgid "{medium_format} {position}"
-msgstr ""
+msgstr "{medium_format} {position}"
 
 #: ../root/components/common-macros.tt:805
 msgid "{medium_format} {position}: {medium_name}"
-msgstr ""
+msgstr "{medium_format} {position}: {medium_name}"
 
 #: ../root/components/common-macros.tt:818
 msgid "{medium} on {release}"
-msgstr ""
+msgstr "{medium} di {release}"
 
 #: ../root/components/common-macros.tt:339
 msgid "{name} – {additional_info}"
@@ -11255,7 +11255,7 @@ msgstr "{release} non è stata aggiunta a nessuna collezione."
 
 #: ../root/components/critiquebrainz.tt:4
 msgid "{review_link|Review} by {author} on {date}"
-msgstr ""
+msgstr "{review_link|Recensione} di {author} del {date}"
 
 #: ../root/relationship/linktype/index.tt:21
 msgid "{type0}-{type1}"
@@ -11327,12 +11327,12 @@ msgstr "« Precedente"
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: ../lib/DBDefs/Default.pm:146
 msgid ""
 "This beta test server allows testing of new features with the live database."
-msgstr "Questo server di beta testing permette di verificare le nuove funzioni sul database ufficiale di MusicBrainz."
+msgstr "Questo server di beta testing permette di provare le nuove funzioni sul database ufficiale di MusicBrainz."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:29
 #, perl-brace-format

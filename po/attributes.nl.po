@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-26 16:33+0000\n"
+"PO-Revision-Date: 2015-07-10 21:01+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +35,7 @@ msgstr "Sonate is een benaming die wordt gebruikt voor kleinschalige instrumenta
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr "10″ Shellac"
+msgstr "10″ Schellak"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
@@ -45,7 +45,7 @@ msgstr "10″ vinyl"
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr "12″ Shellac"
+msgstr "12″ Schellak"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
@@ -65,7 +65,7 @@ msgstr "7″ Flexi-disc"
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr "7″ Shellac"
+msgstr "7″ Schellak"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -840,12 +840,12 @@ msgctxt "area_type"
 msgid ""
 "Country is used for areas included (or previously included) in ISO 3166-1, "
 "e.g. United States."
-msgstr ""
+msgstr "Land wordt gebruikt voor gebieden die zijn of waren opgenomen in de ISO 3166-1, bijvoorbeeld Nederland."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
 msgid "County"
-msgstr ""
+msgstr "Gewest"
 
 #: DB:area_type/description:7
 msgctxt "area_type"
@@ -854,7 +854,7 @@ msgid ""
 "not the main administrative divisions but are also not municipalities, e.g. "
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
-msgstr ""
+msgstr "Gewest wordt gebruikt voor kleinere administratieve eenheden van een land die geen onderafdelingen, maar ook geen gemeentes zijn. Bijvoorbeeld graafschappen in Engeland of Kreise in Duitsland. Gewesten worden niet getoond als bovenliggende gebieden van andere gebieden."
 
 #: DB:work_attribute_type_allowed_value/value:67
 msgctxt "work_attribute_type_allowed_value"
@@ -934,7 +934,7 @@ msgstr "DVD-Video"
 #: DB:medium_format/name:47
 msgctxt "medium_format"
 msgid "DVDplus"
-msgstr ""
+msgstr "DVDplus"
 
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
@@ -1174,7 +1174,7 @@ msgstr "Festival"
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr ""
+msgstr "Flexidisc"
 
 #: DB:medium_format/description:51
 msgctxt "medium_format"
@@ -1182,7 +1182,7 @@ msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with"
 " a molded-in groove, designed to be playable on a normal phonograph "
 "turntable."
-msgstr ""
+msgstr "Flexidiscs zijn grammofoonplaten die zijn gemaakt van een dun, flexibel vel plastic met dezelfde groeven als normale grammofoonplaten, waardoor ze op een normale platenspeler kunnen worden afgespeeld."
 
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
@@ -1425,7 +1425,7 @@ msgid ""
 "Island is used for islands and atolls which don't form subdivisions of their"
 " own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
-msgstr "Eiland wordt gebruikt voor eilanden en atollen die geen eigen subdivisie vormen, zoals het Britse eiland Skye."
+msgstr "Eiland wordt gebruikt voor eilanden en atollen die geen eigen subdivisie vormen, zoals het Britse eiland Skye. Eilanden worden niet getoond als bovenliggende gebieden van andere gebieden."
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -2135,7 +2135,7 @@ msgstr "Ouverture"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr ""
+msgstr "Eigen muziek"
 
 #: DB:work_attribute_type_allowed_value/value:203
 msgctxt "work_attribute_type_allowed_value"
@@ -2300,7 +2300,7 @@ msgstr "Uitgave"
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release"
-msgstr ""
+msgstr "Uitgave"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
@@ -2310,7 +2310,7 @@ msgstr "Uitgavegroep"
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "Religieus gebouw"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
@@ -2570,7 +2570,7 @@ msgid ""
 "Subdivision is used for the main administrative divisions of a country, e.g."
 " California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
-msgstr ""
+msgstr "Onderafdeling wordt gebruikt voor de belangrijkste administratieve eenheden van een land, zoals Noord-Holland of Beieren. Onderafdelingen worden getoond als bovenliggende gebieden van andere gebieden."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"
