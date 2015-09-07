@@ -28,7 +28,7 @@ def pot():
     with lcd("po/"):
         with cd("~/musicbrainz-server/po"):
             run("touch extract_pot_db")
-            run("eval $(perl -Mlocal::lib) && make attributes.pot instruments.pot instrument_descriptions.pot relationships.pot statistics.pot languages.pot languages_notrim.pot scripts.pot countries.pot")
+            run("make attributes.pot instruments.pot instrument_descriptions.pot relationships.pot statistics.pot languages.pot languages_notrim.pot scripts.pot countries.pot")
             get("~/musicbrainz-server/po/*.pot", "./%(path)s")
             run("git checkout HEAD *.pot")
         stats_diff = local("git diff statistics.pot", capture=True)
