@@ -228,10 +228,12 @@ MB.CoverArt.upload_image = function (postfields, file) {
     var deferred = $.Deferred();
 
     var formdata = new FormData();
-    formdata.append("file", file);
+
     $.each(postfields.formdata, function (key, val) {
         formdata.append(key, val);
     });
+
+    formdata.append("file", file);
 
     var xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", function (event) {
