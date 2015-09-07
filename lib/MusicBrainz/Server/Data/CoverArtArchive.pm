@@ -3,7 +3,7 @@ use Moose;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
-use Net::Amazon::S3::Policy qw( starts_with );
+use Net::Amazon::S3::Policy;
 use Time::HiRes qw( time );
 
 sub get_stats_for_release {
