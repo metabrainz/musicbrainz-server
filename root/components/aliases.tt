@@ -1,6 +1,6 @@
 <h2>[% l("Aliases") %]</h2>
 <p>
-  [%- l('An alias is an alternate name for an entity. They typically contain contain
+  [%- l('An alias is an alternate name for an entity. They typically contain
         common mispellings or variations of the name and are also used to improve search results.
         View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') }) -%]
 </p>
