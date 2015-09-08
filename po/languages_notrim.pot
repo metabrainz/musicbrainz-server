@@ -18213,7 +18213,7 @@ msgstr ""
 msgid "Layakha"
 msgstr ""
 
-#. frequency:0 iso_code_3:lzz 
+#. frequency:1 iso_code_3:lzz 
 #: DB:language/name:4039
 msgid "Laz"
 msgstr ""

@@ -1293,6 +1293,11 @@ msgstr ""
 msgid "Latvian"
 msgstr ""
 
+#. frequency:1 iso_code_3:lzz 
+#: DB:language/name:4039
+msgid "Laz"
+msgstr ""
+
 #. frequency:1 iso_code_3:lez 
 #: DB:language/name:240
 msgid "Lezghian"

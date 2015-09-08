@@ -1766,6 +1766,13 @@ msgid ""
 "shaped body and resembles the pipa."
 msgstr ""
 
+#. name:luthéal 
+#: DB:instrument/description:737
+msgid ""
+"The luthéal is a kind of hybrid piano which extends the register "
+"possibilities of a standard piano, created by Georges Cloetens"
+msgstr ""
+
 #. name:mandocello 
 #: DB:instrument/description:600
 msgid ""
@@ -1806,6 +1813,11 @@ msgstr ""
 #: DB:instrument/description:684
 msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
+msgstr ""
+
+#. name:nadaswaram 
+#: DB:instrument/description:738
+msgid "The nadaswaram is a South Indian double reed wind instrument."
 msgstr ""
 
 #. name:nagadou-daiko 
@@ -2699,11 +2711,6 @@ msgstr ""
 msgid "Turkish pair of small, hemispherical drums"
 msgstr ""
 
-#. name:kemenche 
-#: DB:instrument/description:211
-msgid "Turkish three-stringed bowed instrument"
-msgstr ""
-
 #. name:valved brass instruments 
 #: DB:instrument/description:201
 msgid ""
@@ -2719,6 +2726,13 @@ msgstr ""
 #. name:não bạt / chập chõa 
 #: DB:instrument/description:272
 msgid "Various types of cymbal. Also called chũm chọe"
+msgstr ""
+
+#. name:kemenche 
+#: DB:instrument/description:211
+msgid ""
+"Various types of stringed bowed musical instruments having their origin in "
+"the Eastern Mediterranean"
 msgstr ""
 
 #. name:violone 
