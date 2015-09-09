@@ -18,11 +18,13 @@ EOSQL
         'mbid-cdbe40c5-192a-440c-8e68-888dcf884a60',
         'cdbe40c5-192a-440c-8e68-888dcf884a60',
         1000000,
-        {expiration => '2015-09-09T00:51:37.000Z'},
+        {expiration => '2015-09-09T00:51:37.000Z',
+         access_key => 'foo',
+         secret_key => 'bar'},
     );
 
     cmp_deeply($post_fields, {
-        'AWSAccessKeyId' => 'AKIAJLW34FSQIN4FNWJQ',
+        'AWSAccessKeyId' => 'foo',
         'acl' => 'public-read',
         'content-type' => 'image/jpeg',
         'key' => 'mbid-cdbe40c5-192a-440c-8e68-888dcf884a60-1000000.jpg',
@@ -36,7 +38,7 @@ EOSQL
                     'Jjb3ZlcmFydGFyY2hpdmUiXSxbImVxIiwiJHgtYXJjaGl2ZS1tZXRh' .
                     'LW1lZGlhdHlwZSIsImltYWdlIl1dLCJleHBpcmF0aW9uIjoiMjAxNS' .
                     '0wOS0wOVQwMDo1MTozNy4wMDBaIn0=',
-        'signature' => 'TAzJWfuoxlFhXlmHJFaoI4Bu89s=',
+        'signature' => 'gZnqIhkxf8Alfzbuwc9xlXiSpOk=',
         'x-archive-auto-make-bucket' => '1',
         'x-archive-meta-collection' => 'coverartarchive',
         'x-archive-meta-mediatype' => 'image',

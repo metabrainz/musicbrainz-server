@@ -37,8 +37,8 @@ sub post_fields {
     my $redirect = $opts->{redirect};
     my $suffix = $self->c->model('CoverArt')->image_type_suffix($mime_type);
 
-    my $access_key = DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
-    my $secret_key = DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
+    my $access_key = $opts->{access_key} // DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
+    my $secret_key = $opts->{secret_key} // DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my %extra_fields = (
