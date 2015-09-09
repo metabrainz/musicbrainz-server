@@ -3,7 +3,9 @@ use Moose;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
-use Net::Amazon::S3::Policy;
+use Digest::HMAC_SHA1;
+use JSON;
+use MIME::Base64 qw( encode_base64 );
 use Time::HiRes qw( time );
 
 sub get_stats_for_release {
@@ -28,8 +30,7 @@ Generate the policy and form values to upload cover art.
 
 =cut
 
-sub post_fields
-{
+sub post_fields {
     my ($self, $bucket, $mbid, $id, $opts) = @_;
 
     my $mime_type = $opts->{mime_type} // "image/jpeg";
@@ -38,8 +39,6 @@ sub post_fields
 
     my $access_key = DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
     my $secret_key = DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
-
-    my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my %extra_fields = (
@@ -48,20 +47,25 @@ sub post_fields
         "x-archive-meta-mediatype" => 'image',
     );
 
-    $policy->add({'bucket' => $bucket});
-    $policy->add({'acl' => 'public-read'});
-    $policy->add({'success_action_redirect' => $redirect}) if $redirect;
-    $policy->add('$key eq '.$filename);
-    $policy->add('$content-type starts-with '.$mime_type);
+    my $policy = {
+        expiration => $opts->{expiration},
+        conditions => [
+            {bucket => $bucket},
+            {acl => 'public-read'},
+            ($redirect ? {success_action_redirect => $redirect} : ()),
+            ['eq', '$key', $filename],
+            ['starts-with', '$content-type', $mime_type],
+            (map { ['eq', "\$$_", $extra_fields{$_}] } sort keys %extra_fields),
+        ]
+    };
 
-    for my $field (keys %extra_fields) {
-        $policy->add("$field eq " . $extra_fields{$field});
-    }
+    my $policy_base64 = encode_base64(JSON->new->canonical->utf8->encode($policy), '');
+    my $policy_signature_base64 = encode_base64(Digest::HMAC_SHA1::hmac_sha1($policy_base64, $secret_key), '');
 
     my $ret = {
         AWSAccessKeyId => $access_key,
-        policy => $policy->base64(),
-        signature => $policy->signature_base64($secret_key),
+        policy => $policy_base64,
+        signature => $policy_signature_base64,
         key => $filename,
         acl => 'public-read',
         "content-type" => $mime_type,

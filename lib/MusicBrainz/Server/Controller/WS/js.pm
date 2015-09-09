@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
+use Time::Piece;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -266,6 +267,9 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     $s3_policy{mime_type} = $c->request->params->{mime_type};
     $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string()
         if $c->request->params->{redirect};
+
+    my $expiration = gmtime() + 3600;
+    $s3_policy{expiration} = $expiration->datetime . '.000Z';
 
     my $data = {
         action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),

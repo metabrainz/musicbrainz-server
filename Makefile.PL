@@ -83,7 +83,6 @@ requires 'MooseX::Types::Structured'                  => '0.28';
 requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.11';
 requires 'Net::Amazon::AWSSign'                       => '0.12';
-requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'Unicode::ICU::Collator'                     => '0.002';
 requires 'REST::Utils'                                => '0.6';
 requires 'Readonly'                                   => '1.03';
