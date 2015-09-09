@@ -70,6 +70,10 @@ def beta():
     """
     env.host_string = "beta"
     no_local_changes()
+
+    # Build and install translations
+    sudo("su musicbrainz -c 'cd ~/musicbrainz-server && make -C po all_quiet && make -C po deploy'")
+
     production()
 
 def production():
