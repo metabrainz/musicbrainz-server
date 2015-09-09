@@ -32,12 +32,12 @@ EOSQL
                     'kyYS00NDBjLThlNjgtODg4ZGNmODg0YTYwLTEwMDAwMDAuanBnIl0s' .
                     'WyJzdGFydHMtd2l0aCIsIiRjb250ZW50LXR5cGUiLCJpbWFnZS9qcG' .
                     'VnIl0sWyJlcSIsIiR4LWFyY2hpdmUtYXV0by1tYWtlLWJ1Y2tldCIs' .
-                    'MV0sWyJlcSIsIiR4LWFyY2hpdmUtbWV0YS1jb2xsZWN0aW9uIiwiY2' .
-                    '92ZXJhcnRhcmNoaXZlIl0sWyJlcSIsIiR4LWFyY2hpdmUtbWV0YS1t' .
-                    'ZWRpYXR5cGUiLCJpbWFnZSJdXSwiZXhwaXJhdGlvbiI6IjIwMTUtMD' .
-                    'ktMDlUMDA6NTE6MzcuMDAwWiJ9',
-        'signature' => 'tt4mY6ZB4hg4/Q1l39YaBwVdghs=',
-        'x-archive-auto-make-bucket' => 1,
+                    'IjEiXSxbImVxIiwiJHgtYXJjaGl2ZS1tZXRhLWNvbGxlY3Rpb24iLC' .
+                    'Jjb3ZlcmFydGFyY2hpdmUiXSxbImVxIiwiJHgtYXJjaGl2ZS1tZXRh' .
+                    'LW1lZGlhdHlwZSIsImltYWdlIl1dLCJleHBpcmF0aW9uIjoiMjAxNS' .
+                    '0wOS0wOVQwMDo1MTozNy4wMDBaIn0=',
+        'signature' => 'TAzJWfuoxlFhXlmHJFaoI4Bu89s=',
+        'x-archive-auto-make-bucket' => '1',
         'x-archive-meta-collection' => 'coverartarchive',
         'x-archive-meta-mediatype' => 'image',
     });

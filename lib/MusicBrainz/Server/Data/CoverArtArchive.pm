@@ -42,7 +42,7 @@ sub post_fields {
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my %extra_fields = (
-        "x-archive-auto-make-bucket" => 1,
+        "x-archive-auto-make-bucket" => '1',
         "x-archive-meta-collection" => 'coverartarchive',
         "x-archive-meta-mediatype" => 'image',
     );
