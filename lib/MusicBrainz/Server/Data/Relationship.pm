@@ -33,7 +33,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-Readonly my @TYPES => entities_with(['mbid', 'relatable']);
+Readonly my @TYPES => sort (entities_with(['mbid', 'relatable']));
 
 my %TYPES = map { $_ => 1} @TYPES;
 
@@ -278,9 +278,8 @@ sub load_cardinal {
     return $self->_load_subset(\@TYPES, 1, @objs);
 }
 
-sub _generate_table_list
-{
-    my ($type, @end_types) = @_;
+sub generate_table_list {
+    my ($self, $type, @end_types) = @_;
     # Generate a list of all possible type combinations
     my @types;
     @end_types = @TYPES unless @end_types;
@@ -497,7 +496,7 @@ EOSQL
         );
     };
 
-    foreach my $t (_generate_table_list($type)) {
+    foreach my $t ($self->generate_table_list($type)) {
         $do_table_merge->(@$t);
     }
 }
@@ -506,7 +505,7 @@ sub delete_entities
 {
     my ($self, $type, @ids) = @_;
 
-    foreach my $t (_generate_table_list($type)) {
+    foreach my $t ($self->generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
         $self->sql->do("
             DELETE FROM $table a
