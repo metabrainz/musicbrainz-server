@@ -17,6 +17,7 @@ $mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-');
 html_ok($mech->content);
 $mech->content_like(qr{Aerial});
 $mech->content_like(qr{Kate Bush});
+$mech->content_like(qr{<td>\s*CD\s*</td>}, 'MBS-8370');
 
 $mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI');
 
