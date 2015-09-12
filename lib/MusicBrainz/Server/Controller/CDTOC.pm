@@ -47,6 +47,7 @@ sub _load_releases
     $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('Release')->load_related_info(@releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('MediumFormat')->load(@mediums);
     $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
