@@ -323,7 +323,7 @@ for $rel ($artist1->all_relationships) {
         ok( $rel->link->has_attribute('additional') );
         is( $rel->link->get_attribute('additional')->[0], 'additional' );
         ok( $rel->link->has_attribute('instrument') );
-        is( $rel->link->get_attribute('instrument')->[0], 'string instruments' );
+        is( $rel->link->get_attribute('instrument')->[0], 'plucked string instruments' );
         is( $rel->entity1->name, 'Track 2' );
         is( $rel->edits_pending, 0 );
         is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
@@ -385,8 +385,8 @@ $rel = $rel_data->insert('artist', 'recording', {
     end_date => { year => 2008, month => 2, day => 8 },
     attributes => [
         { type => { id => 1 } },
-        { type => { id => 3 } },
-        { type => { id => 4 } },
+        { type => { id => 302 } },
+        { type => { id => 229 } },
     ],
     entity0_id => 1,
     entity1_id => 1
@@ -411,7 +411,8 @@ is($rel->id, 4);
 is($rel->link->id, 5);
 is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
-is($rel->phrase, 'Additional guitar and string instruments');
+is($rel->phrase, 'additional <a href="/instrument/63021302-86cd-4aee-80df-2270d54f4978">guitar</a> and ' .
+                 '<a href="/instrument/b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea">plucked string instruments</a>');
 
 $sql->begin;
 $rel_data->update('artist', 'recording', 4, {
@@ -419,7 +420,7 @@ $rel_data->update('artist', 'recording', 4, {
     begin_date => undef,
     end_date => undef,
     ended => 0,
-    attributes => [{ type => { id => 3 } }],
+    attributes => [{ type => { id => 302 } }],
     entity0_id => 1,
     entity1_id => 1
 });
@@ -434,7 +435,12 @@ is($rel->id, 4);
 is($rel->link->id, 6);
 is_deeply($rel->link->begin_date, { });
 is_deeply($rel->link->end_date, { });
-is($rel->phrase, 'string instruments', 'phrase');
+is($rel->phrase,
+   '<a href="/instrument/b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea">' .
+       'plucked string instruments' .
+   '</a>',
+   'phrase'
+);
 
 $rel = $rel_data->get_by_id('artist', 'recording', 4);
 is($rel->edits_pending, 0);

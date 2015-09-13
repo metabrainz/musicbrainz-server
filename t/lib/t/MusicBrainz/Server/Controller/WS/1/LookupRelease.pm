@@ -243,13 +243,13 @@ ws_test 'release with release-relationships',
   <release id="757a1723-3769-4298-89cd-48d31177852a" type="Album Pseudo-Release">
     <title>LOVE &amp; HONESTY</title><text-representation script="Latn" language="JPN" /><asin>B0000YGBSG</asin>
     <relation-list target-type="Release">
-      <relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Transl-Tracklisting" attributes="Transliterated">
+      <relation direction="backward" target="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Transl-Tracklisting">
         <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e" type="Album Official">
           <title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" />
           <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name></artist>
         </release>
       </relation>
-      <relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Transl-Tracklisting" attributes="Transliterated">
+      <relation direction="backward" target="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Transl-Tracklisting">
         <release id="cacc586f-c2f2-49db-8534-6f44b55196f2" type="Album Official">
           <title>LOVE &amp; HONESTY</title><text-representation script="Jpan" language="JPN" />
           <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name></artist>

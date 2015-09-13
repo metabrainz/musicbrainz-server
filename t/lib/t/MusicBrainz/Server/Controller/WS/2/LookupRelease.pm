@@ -520,15 +520,16 @@ ws_test 'release lookup, barcode is empty string',
 </metadata>';
 
 ws_test 'release lookup, relation attributes',
-    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
+    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' =>
+    '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release id="757a1723-3769-4298-89cd-48d31177852a">
+    <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
         <title>LOVE &amp; HONESTY</title>
-        <status>Pseudo-Release</status>
+        <status>Official</status>
         <quality>normal</quality>
         <text-representation>
-            <language>jpn</language><script>Latn</script>
+            <language>jpn</language>
+            <script>Jpan</script>
         </text-representation>
         <date>2004-01-15</date>
         <country>JP</country>
@@ -544,50 +545,36 @@ ws_test 'release lookup, relation attributes',
                 </area>
             </release-event>
         </release-event-list>
+        <barcode>4988064173891</barcode>
         <asin>B0000YGBSG</asin>
         <cover-art-archive>
-            <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
         </cover-art-archive>
-        <relation-list target-type="release">
-            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
-                <target>28fc2337-985b-3da9-ac40-ad6f28ff0d8e</target>
+        <relation-list target-type="artist">
+            <relation type="producer" type-id="8bf377ba-8d71-4ecc-97f2-7bb2d8a2a75f">
+                <target>4d5ec626-2251-4bb1-b62a-f24f471e3f2c</target>
                 <direction>backward</direction>
                 <attribute-list>
-                    <attribute>transliterated</attribute>
+                    <attribute>executive</attribute>
                 </attribute-list>
-                <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
-                    <title>LOVE &amp; HONESTY</title>
-                    <quality>normal</quality>
-                    <text-representation>
-                        <language>jpn</language>
-                        <script>Jpan</script>
-                    </text-representation>
-                    <date>2004-01-15</date>
-                    <country>JP</country>
-                    <release-event-list count="1">
-                        <release-event>
-                            <date>2004-01-15</date>
-                            <area id="2db42837-c832-3c27-b4a3-08198f75693c">
-                              <name>Japan</name><sort-name>Japan</sort-name>
-                              <iso-3166-1-code-list><iso-3166-1-code>JP</iso-3166-1-code></iso-3166-1-code-list>
-                            </area>
-                        </release-event>
-                    </release-event-list>
-                    <barcode>4988064173891</barcode>
-                </release>
+                <artist id="4d5ec626-2251-4bb1-b62a-f24f471e3f2c">
+                    <name>이수만</name>
+                    <sort-name>Lee, Soo-Man</sort-name>
+                </artist>
             </relation>
-            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
-                <target>cacc586f-c2f2-49db-8534-6f44b55196f2</target>
-                <direction>backward</direction>
-                <attribute-list>
-                    <attribute>transliterated</attribute>
-                </attribute-list>
-                <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
+        </relation-list>
+        <relation-list target-type="release">
+            <relation type="transl-tracklisting" type-id="fc399d47-23a7-4c28-bfcf-0607a562b644">
+                <target>757a1723-3769-4298-89cd-48d31177852a</target>
+                <release id="757a1723-3769-4298-89cd-48d31177852a">
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
                     <text-representation>
                         <language>jpn</language>
-                        <script>Jpan</script>
+                        <script>Latn</script>
                     </text-representation>
                     <date>2004-01-15</date>
                     <country>JP</country>
@@ -595,12 +582,14 @@ ws_test 'release lookup, relation attributes',
                         <release-event>
                             <date>2004-01-15</date>
                             <area id="2db42837-c832-3c27-b4a3-08198f75693c">
-                              <name>Japan</name><sort-name>Japan</sort-name>
-                              <iso-3166-1-code-list><iso-3166-1-code>JP</iso-3166-1-code></iso-3166-1-code-list>
+                                <name>Japan</name>
+                                <sort-name>Japan</sort-name>
+                                <iso-3166-1-code-list>
+                                    <iso-3166-1-code>JP</iso-3166-1-code>
+                                </iso-3166-1-code-list>
                             </area>
                         </release-event>
                     </release-event-list>
-                    <barcode>4988064173907</barcode>
                 </release>
             </relation>
         </relation-list>

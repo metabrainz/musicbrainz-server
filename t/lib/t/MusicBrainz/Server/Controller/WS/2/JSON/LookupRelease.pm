@@ -624,126 +624,100 @@ test 'release lookup, relation attributes' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, relation attributes',
-    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' => encode_json(
+    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' => encode_json(
         {
-            id => "757a1723-3769-4298-89cd-48d31177852a",
-            title => "LOVE & HONESTY",
-            "cover-art-archive" => {
-                artwork => JSON::false,
-                count => 0,
-                front => JSON::false,
-                back => JSON::false,
-                darkened => JSON::false,
+            disambiguation => '',
+            'text-representation' => {
+                language => 'jpn',
+                script => 'Jpan'
             },
-            date => "2004-01-15",
-            country => "JP",
-            'release-events' => [
-                {
-                "area" => {
-                    disambiguation => '',
-                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
-                    "name" => "Japan",
-                    "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
-                date => '2004-01-15'
-                }
-            ],
-            barcode => JSON::null,
-            asin => "B0000YGBSG",
-            disambiguation => "",
+            quality => 'normal',
             packaging => JSON::null,
-            relations => [
-                {
-                    attributes => [ 'transliterated' ],
-                    "attribute-values" => {},
-                    begin => JSON::null,
-                    end => JSON::null,
-                    direction => 'backward',
-                    ended => JSON::false,
-                    release => {
-                        id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
-                        title => 'LOVE & HONESTY',
-                        barcode => '4988064173891',
-                        country => "JP",
-                        'release-events' => [
-                            {
-                            "area" => {
-                                disambiguation => '',
-                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
-                                "name" => "Japan",
-                                "sort-name" => "Japan",
-                                "iso_3166_1_codes" => ["JP"],
-                                "iso_3166_2_codes" => [],
-                                "iso_3166_3_codes" => []},
-                            date => '2004-01-15'
-                            }
-                        ],
-                        date => '2004-01-15',
-                        disambiguation => '',
-                        'text-representation' => {
-                            language => 'jpn',
-                            script => 'Jpan',
-                        },
-                        status => JSON::null,
-                        packaging => JSON::null,
-                        quality => 'normal',
-                        relations => []
-                    },
-                    type => 'transl-tracklisting',
-                    'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
-                    'source-credit' => '',
-                    'target-credit' => '',
-                },
-                {
-                    attributes => [ 'transliterated' ],
-                    "attribute-values" => {},
-                    begin => JSON::null,
-                    end => JSON::null,
-                    direction => 'backward',
-                    ended => JSON::false,
-                    release => {
-                        id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
-                        title => 'LOVE & HONESTY',
-                        barcode => '4988064173907',
-                        country => "JP",
-                        'release-events' => [
-                            {
-                            "area" => {
-                                disambiguation => '',
-                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
-                                "name" => "Japan",
-                                "sort-name" => "Japan",
-                                "iso_3166_1_codes" => ["JP"],
-                                "iso_3166_2_codes" => [],
-                                "iso_3166_3_codes" => []},
-                            date => '2004-01-15'
-                            }
-                        ],
-                        date => '2004-01-15',
-                        disambiguation => '',
-                        'text-representation' => {
-                            language => 'jpn',
-                            script => 'Jpan',
-                        },
-                        status => JSON::null,
-                        packaging => JSON::null,
-                        quality => 'normal',
-                        relations => []
-                    },
-                    type => 'transl-tracklisting',
-                    'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
-                    'source-credit' => '',
-                    'target-credit' => '',
-                }
-            ],
-            status => "Pseudo-Release",
-            quality => "normal",
-            "text-representation" => {
-                language => "jpn",
-                script => "Latn",
+            'cover-art-archive' => {
+                darkened => JSON::false,
+                back => JSON::false,
+                front => JSON::false,
+                count => 0,
+                artwork => JSON::false
             },
+            date => '2004-01-15',
+            asin => 'B0000YGBSG',
+            'release-events' => [{
+                area => {
+                    id => '2db42837-c832-3c27-b4a3-08198f75693c',
+                    iso_3166_3_codes => [],
+                    disambiguation => '',
+                    name => 'Japan',
+                    iso_3166_2_codes => [],
+                    iso_3166_1_codes => ['JP'],
+                    'sort-name' => 'Japan'
+                },
+                date => '2004-01-15'
+            }],
+            relations => [{
+                begin => JSON::null,
+                attributes => ['executive'],
+                type => 'producer',
+                direction => 'backward',
+                'type-id' => '8bf377ba-8d71-4ecc-97f2-7bb2d8a2a75f',
+                ended => JSON::false,
+                'attribute-values' => {},
+                'source-credit' => '',
+                'target-credit' => '',
+                end => JSON::null,
+                artist => {
+                    id => '4d5ec626-2251-4bb1-b62a-f24f471e3f2c',
+                    'sort-name' => 'Lee, Soo-Man',
+                    disambiguation => '',
+                    relations => [],
+                    name => '이수만'
+                }
+            },
+            {
+                begin => JSON::null,
+                type => 'transl-tracklisting',
+                attributes => [],
+                release => {
+                    disambiguation => '',
+                    'text-representation' => {
+                        language => 'jpn',
+                        script => 'Latn'
+                    },
+                    quality => 'normal',
+                    packaging => JSON::null,
+                    date => '2004-01-15',
+                    relations => [],
+                    'release-events' => [{
+                        area => {
+                            id => '2db42837-c832-3c27-b4a3-08198f75693c',
+                            iso_3166_3_codes => [],
+                            name => 'Japan',
+                            iso_3166_2_codes => [],
+                            disambiguation => '',
+                            'sort-name' => 'Japan',
+                            iso_3166_1_codes => ['JP']
+                        },
+                        date => '2004-01-15'
+                    }],
+                    title => 'LOVE & HONESTY',
+                    country => 'JP',
+                    status => JSON::null,
+                    id => '757a1723-3769-4298-89cd-48d31177852a',
+                    barcode => JSON::null
+                },
+                direction => 'forward',
+                ended => JSON::false,
+                'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
+                'attribute-values' => {},
+                end => JSON::null,
+                'target-credit' => '',
+                'source-credit' => ''
+            }],
+            title => 'LOVE & HONESTY',
+            country => 'JP',
+            status => 'Official',
+            id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
+            barcode => '4988064173891'
         });
 };
 

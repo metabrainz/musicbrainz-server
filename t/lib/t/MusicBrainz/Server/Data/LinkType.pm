@@ -57,14 +57,12 @@ is($row->{max}, 1);
 
 $sql->begin;
 $link_type = $lt_data->update($id, {
-    attributes => [
-        { type => 2 }
-    ],
+    attributes => [{ type => 14 }],
 });
 $sql->commit;
 
 $row = $sql->select_single_row_hash('SELECT * FROM link_type_attribute_type WHERE link_type = ?', $id);
-is($row->{attribute_type}, 2);
+is($row->{attribute_type}, 14);
 is($row->{min}, undef);
 is($row->{max}, undef);
 

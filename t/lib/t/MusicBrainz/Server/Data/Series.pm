@@ -14,7 +14,7 @@ test 'Items should be ordered by relationship date' => sub {
 
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
         VALUES
-          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 4, 1, 1);
+          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 4, 788, 1);
 
       INSERT INTO work (id, gid, name, type)
         VALUES
@@ -84,7 +84,7 @@ test 'Events should be ordered by event date, then name (MBS-7557, MBS-7987)' =>
     $c->sql->do(<<EOSQL);
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
         VALUES
-          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 8, 1, 1);
+          (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 8, 788, 1);
 
       INSERT INTO event (id, gid, name, type)
         VALUES
@@ -175,7 +175,7 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
 
     $c->sql->do(<<EOSQL);
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
-        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 1, 1);
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 788, 1);
 
       INSERT INTO area_type (id, name) VALUES (1, 'Country');
 
@@ -273,7 +273,7 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
 
     $c->sql->do(<<EOSQL);
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
-        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 1, 1);
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 788, 1);
 
       INSERT INTO area_type (id, name) VALUES (1, 'Country');
 

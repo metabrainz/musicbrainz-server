@@ -55,11 +55,6 @@ test 'Can create child relationship attribute using parentid' => sub {
     my $mech = $test->mech;
     my $gid = 'f6100277-c7b8-4c8d-aa26-d8cd014b6761';
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-  VALUES (14, NULL, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument'), (1, 14, 14, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'trombone');
-EOSQL
-
     $mech->get_ok('/relationship-attributes/create?parent=' . $gid);
     html_ok($mech->content);
 

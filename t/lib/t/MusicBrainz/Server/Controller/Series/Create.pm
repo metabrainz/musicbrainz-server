@@ -87,11 +87,11 @@ test all => sub {
 
     my $number_attribute = {
         type => {
-            id => 1,
+            id => 788,
             gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
             name => 'number',
             root => {
-                id => 1,
+                id => 788,
                 gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
                 name => 'number',
             }

@@ -21,17 +21,12 @@ test 'GET /relationship-attributes as admin' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_attribute_type (id, root, gid, name)
-  VALUES (1, 1, '77a0f1d3-f9ec-4055-a6e7-24d7258c21f7', 'Additional');
-EOSQL
-
     $mech->get_ok('/relationship-attributes');
     html_ok($mech->content);
     my $tx = test_xpath_html($mech->content);
-    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
+    $tx->ok('//a[contains(@href,"/relationship-attribute/0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f/edit")]',
             'has a link to edit the attribute');
-    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
+    $tx->ok('//a[contains(@href,"/relationship-attribute/0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f/delete")]',
             'has a link to delete the attribute');
     $tx->ok('//a[contains(@href,"/relationship-attributes/create")]',
             'has a link to create new attributes');

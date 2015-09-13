@@ -2,20 +2,10 @@ SET client_min_messages TO 'WARNING';
 
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
-INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
-    (1, 1, NULL, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number',
-        'This attribute indicates the number of a work in a series.'
-    );
-
-INSERT INTO link_text_attribute_type VALUES (1);
-
-INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
-    (740, 1, 0, 1), (743, 1, 0, 1);
-
 INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 1, 1),
-           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 1, 2),
-           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 1, 1);
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 788, 1),
+           (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 788, 2),
+           (3, 'dbb23c50-d4e4-11e3-9c1a-0800200c9a66', 'Dumb Recording Series', '', 3, 788, 1);
 
 INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
@@ -25,11 +15,17 @@ INSERT INTO link (id, link_type, attribute_count) VALUES
     (5, 743, 1), (6, 743, 1), (7, 743, 1), (8, 743, 1);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES
-    (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1);
+    (1, 788), (2, 788), (3, 788), (4, 788), (5, 788), (6, 788), (7, 788), (8, 788);
 
-INSERT INTO link_attribute_text_value (link, attribute_type, text_value) VALUES
-    (1, 1, 'A1'), (2, 1, 'A11'), (3, 1, 'A10'), (4, 1, 'A100'),
-    (5, 1, 'WTF 87'), (6, 1, 'WTF 21'), (7, 1, 'WTF 99'), (8, 1, 'WTF 12');
+INSERT INTO link_attribute_text_value (link, attribute_type, text_value)
+    VALUES (1, 788, 'A1'),
+           (2, 788, 'A11'),
+           (3, 788, 'A10'),
+           (4, 788, 'A100'),
+           (5, 788, 'WTF 87'),
+           (6, 788, 'WTF 21'),
+           (7, 788, 'WTF 99'),
+           (8, 788, 'WTF 12');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Shared Name', 1);
 

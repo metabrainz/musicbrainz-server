@@ -64,25 +64,13 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Test Work', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'additional');
-INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (2, 2, '108d76bd-95eb-4099-aed6-447e4ec78553', 'instrument');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-    VALUES (3, 2, 2, '4f7bb10f-396c-466a-8221-8e93f5e454f9', 'String Instruments');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-    VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
-
-INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (148, 1, 0, 1), (148, 2, 1, NULL);
-
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 148, 2);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 282, 0);
 
-INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
+INSERT INTO link_attribute (link, attribute_type) VALUES (1, 229);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
-INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
+INSERT INTO link_attribute (link, attribute_type) VALUES (2, 302);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
 INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);

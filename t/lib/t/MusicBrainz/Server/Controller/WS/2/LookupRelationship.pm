@@ -100,7 +100,6 @@ ws_test 'release lookup with release relationships',
         <relation-list target-type="release">
             <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
                 <target>b3b7e934-445b-4c68-a097-730c6a6d47e6</target>
-                <attribute-list><attribute>transliterated</attribute></attribute-list>
                 <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                     <title>Summer Reggae! Rainbow</title>
                     <text-representation>
@@ -447,7 +446,7 @@ ws_test 'recording lookup with instrument credit',
         <title>Orange Wedge</title>
         <length>186826</length>
         <relation-list target-type="artist">
-            <relation type-id="628a9658-f54c-4142-b0c0-95f031b544da" type="performer">
+            <relation type-id="59054b12-01ac-43ee-a618-285fd397e461" type="instrument">
                 <target>97fa3f6e-557c-4227-bc0e-95a7f9f3285d</target>
                 <direction>backward</direction>
                 <attribute-list>

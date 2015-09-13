@@ -32,9 +32,9 @@ test 'adding a relationship' => sub {
             'edit-artist.gender_id' => '1',
             'edit-artist.period.ended' => '1',
             'edit-artist.rel.0.link_type_id' => '148',
-            'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
-            'edit-artist.rel.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
-            'edit-artist.rel.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.attributes.0.type.gid' => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+            'edit-artist.rel.0.attributes.1.type.gid' => 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea',
+            'edit-artist.rel.0.attributes.2.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
             'edit-artist.rel.0.attributes.2.credited_as' => 'crazy guitar',
             'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
             'edit-artist.rel.0.period.begin_date.year' => '1999',
@@ -69,12 +69,12 @@ test 'adding a relationship' => sub {
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $string_instruments_attribute]
+        attributes => [$additional_attribute, $crazy_guitar]
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $crazy_guitar]
+        attributes => [$additional_attribute, $string_instruments_attribute]
     });
 };
 
@@ -95,7 +95,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '148',
-                'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+                'edit-artist.rel.0.attributes.0.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
                 'edit-artist.rel.0.attributes.0.credited_as' => 'crazy guitar',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.begin_date.year' => '1999',
@@ -136,7 +136,7 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 end_date    => { month => 9, day => 9, year => 2009 },
                 ended       => 1,
-                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar],
+                attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute],
             },
             old => {
                 entity1     => { id => 3, gid => '659f405b-b4ee-4033-868a-0daa27784b89', name => 'π' },
@@ -158,7 +158,7 @@ test 'editing a relationship' => sub {
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '148',
-                'edit-artist.rel.0.attributes.0.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'edit-artist.rel.0.attributes.0.type.gid' => 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea',
                 'edit-artist.rel.0.attributes.0.removed' => '1',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.begin_date.year' => '1999',
@@ -191,7 +191,7 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 end_date    => { month => 9, day => 9, year => 2009 },
                 ended       => 1,
-                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar],
+                attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute],
             },
             relationship_id => 3,
             new => {
@@ -200,7 +200,7 @@ test 'editing a relationship' => sub {
             },
             old => {
                 end_date    => { month => 9, day => 9, year => 2009 },
-                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar]
+                attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute]
             },
             edit_version => 2,
         });
@@ -366,7 +366,7 @@ test 'Duplicate relationships are ignored' => sub {
             'edit-artist.sort_name' => 'Kate Bush',
             'edit-artist.rel.0.link_type_id' => '148',
             'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-            'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.attributes.0.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
         });
     } $c;
 
@@ -390,16 +390,16 @@ test 'Duplicate link attribute types are ignored' => sub {
 
             # Adds a new relationship with a dupe guitar.
             'edit-artist.rel.0.link_type_id' => '148',
-            'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
-            'edit-artist.rel.0.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.attributes.0.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
+            'edit-artist.rel.0.attributes.1.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
             'edit-artist.rel.0.target' => 'b1d58a57-a0f3-4db8-aa94-868cdc7bc3bb',
 
             # Edits an existing relationship to add a dupe guitar. Should be entirely ignored.
             'edit-artist.rel.1.relationship_id' => '1',
             'edit-artist.rel.1.link_type_id' => '148',
             'edit-artist.rel.1.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-            'edit-artist.rel.1.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
-            'edit-artist.rel.1.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.1.attributes.0.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
+            'edit-artist.rel.1.attributes.1.type.gid' => '63021302-86cd-4aee-80df-2270d54f4978',
         });
     } $c;
 

@@ -101,26 +101,25 @@ subtest 'creating asin relationships should update the releases coverart' => sub
 
 subtest 'Text attributes of value 0 are supported' => sub {
     my $e0 = $c->model('Artist')->get_by_id(3);
-    my $e1 = $c->model('Artist')->get_by_id(4);
+    my $e1 = $c->model('Event')->get_by_id(1);
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_CREATE,
         editor_id => 1,
         entity0 => $e0,
         entity1 => $e1,
-        link_type => $c->model('LinkType')->get_by_id(103),
+        link_type => $c->model('LinkType')->get_by_id(798),
         attributes => [
             {
-                type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
+                type => { gid => 'ebd303c3-7f57-452a-aa3b-d780ebad868d' },
                 text_value => 0
             }
         ],
-        ended => 1,
     );
 
     accept_edit($c, $edit);
 
-    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', $edit->entity_id);
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'event', $edit->entity_id);
     $c->model('Link')->load($rel);
 
     is($rel->link->attributes->[0]->text_value, 0);

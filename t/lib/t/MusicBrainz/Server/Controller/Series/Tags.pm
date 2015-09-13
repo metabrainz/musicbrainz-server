@@ -12,13 +12,8 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c);
 
     $test->c->sql->do(q{
-        INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description)
-        VALUES (5, 1, NULL, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number', '');
-
-        INSERT INTO link_text_attribute_type VALUES (5);
-
         INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
-        VALUES (1, 'cd58b3e5-371c-484e-b3fd-4084a6861e62', 'Test', '', 4, 5, 1);
+        VALUES (1, 'cd58b3e5-371c-484e-b3fd-4084a6861e62', 'Test', '', 4, 788, 1);
     });
 
     $mech->get_ok('/series/cd58b3e5-371c-484e-b3fd-4084a6861e62/tags');

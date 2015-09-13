@@ -588,9 +588,9 @@ test 'adding a relationship' => sub {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 148,
         attributes  => [
-            { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
-            { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
+            { type => { gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f' } },
+            { type => { gid => 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea' } },
+            { type => { gid => '63021302-86cd-4aee-80df-2270d54f4978' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -628,12 +628,12 @@ test 'adding a relationship' => sub {
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $string_instruments_attribute]
+        attributes => [$additional_attribute, $crazy_guitar]
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => [$additional_attribute, $crazy_guitar]
+        attributes => [$additional_attribute, $string_instruments_attribute]
     });
 };
 
@@ -683,9 +683,9 @@ test 'editing a relationship' => sub {
         id          => 1,
         linkTypeID  => 148,
         attributes  => [
-            { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
-            { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
+            { type => { gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f' } },
+            { type => { gid => 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea' } },
+            { type => { gid => '63021302-86cd-4aee-80df-2270d54f4978' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
@@ -726,7 +726,7 @@ test 'editing a relationship' => sub {
             begin_date  => { month => 1, day => 1, year => 1999 },
             end_date    => { month => 9, day => 9, year => 2009 },
             ended       => 1,
-            attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar]
+            attributes  => [$additional_attribute, $crazy_guitar, $string_instruments_attribute]
         },
         old => {
             begin_date  => { month => undef, day => undef, year => undef },
@@ -994,7 +994,7 @@ test 'Duplicate relationships are ignored' => sub {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 148,
         attributes  => [
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
+            { type => { gid => '63021302-86cd-4aee-80df-2270d54f4978' }, credited_as => 'crazy guitar' },
         ],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
@@ -1030,7 +1030,7 @@ test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub
     my $edit_data = {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 148,
-        attributes  => [{ type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' } }],
+        attributes  => [{ type => { gid => '63021302-86cd-4aee-80df-2270d54f4978' } }],
         entities => [
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }

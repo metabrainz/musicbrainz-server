@@ -21,13 +21,8 @@ test 'Editing a relationship attribute /relationship-attribute/edit for a valid 
     my $test = shift;
     my $mech = $test->mech;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_attribute_type (id, root, gid, name)
-  VALUES (1, 1, '77a0f1d3-f9ec-4055-a6e7-24d7258c21f7', 'Additional');
-EOSQL
-
     $mech->get_ok(
-        '/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit');
+        '/relationship-attribute/0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f/edit');
     html_ok($mech->content);
 
     my ($new_name, $new_description) = (
@@ -58,11 +53,6 @@ EOSQL
 test 'Editing a relationship attribute /relationship-attribute/edit for a valid instrument' => sub {
     my $test = shift;
     my $mech = $test->mech;
-
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-  VALUES (14, NULL, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument'), (1, 14, 14, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'trombone');
-EOSQL
 
     $mech->get(
         '/relationship-attribute/f6100277-c7b8-4c8d-aa26-d8cd014b6761/edit');

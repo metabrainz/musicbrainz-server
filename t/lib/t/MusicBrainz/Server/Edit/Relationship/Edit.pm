@@ -59,7 +59,7 @@ test all => sub {
     ok(defined $rel, "After accepting the edit, the relationship has...");
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
-    is($rel->link->type->id, 104, "... type id 104");
+    is($rel->link->type->id, 102, "... type id 102");
     is($rel->link->begin_date->year, 1994, "... begin year 1994");
     is($rel->link->end_date->year, 1995, "... end year 1995");
     is($rel->entity0_id, 3, '... entity 0 is artist 3');
@@ -84,10 +84,10 @@ test 'The display data works even if and endpoint or link type is deleted' => su
     ok(defined $edit->display_data->{old});
     is($edit->display_data->{old}->entity0->name, 'Artist 1');
     is($edit->display_data->{old}->entity1->name, 'Artist 2');
-    is($edit->display_data->{old}->phrase, 'member of');
+    is($edit->display_data->{old}->phrase, 'additional member of');
     is($edit->display_data->{new}->entity0->name, 'Artist 1');
     is($edit->display_data->{new}->entity1->name, 'Artist 3');
-    is($edit->display_data->{new}->phrase, 'supporting artist for');
+    is($edit->display_data->{new}->phrase, 'additional collaborator on');
 };
 
 test 'Editing a relationship more than once fails subsequent edits' => sub {
@@ -158,7 +158,7 @@ test 'Editing a relationship succeeds despite an entity being merged' => sub {
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        link_type => $c->model('LinkType')->get_by_id(104),
+        link_type => $c->model('LinkType')->get_by_id(102),
         privileges => $UNTRUSTED_FLAG,
         relationship => $r,
     );
@@ -182,7 +182,7 @@ test q(Editing a relationship fails if one of the entities is merged, and the
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        link_type => $c->model('LinkType')->get_by_id(104),
+        link_type => $c->model('LinkType')->get_by_id(102),
         privileges => $UNTRUSTED_FLAG,
         relationship => $r,
     );
@@ -192,7 +192,7 @@ test q(Editing a relationship fails if one of the entities is merged, and the
     $c->model('Relationship')->insert('artist', 'artist', {
         entity0_id      => 3,
         entity1_id      => 5,
-        link_type_id    => 104,
+        link_type_id    => 102,
         attributes      => [{ type => { id => 1 } }],
     });
     isa_ok exception { $edit->accept },
@@ -268,7 +268,7 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
-        link_type => $c->model('LinkType')->get_by_id(104),
+        link_type => $c->model('LinkType')->get_by_id(102),
         privileges => $UNTRUSTED_FLAG,
     );
 
@@ -291,7 +291,7 @@ test 'Relationship link_order values are ignored' => sub {
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
-        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
+        attributes => [{ type => { gid => '4fd3b255-a7d7-4424-9a63-40fa543b601c' } }],
         link_order => 5,
     );
 
@@ -305,7 +305,7 @@ test 'Text attributes with undef values raise exceptions' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 
-    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 2);
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'event', 1);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
@@ -316,15 +316,12 @@ test 'Text attributes with undef values raise exceptions' => sub {
             relationship => $rel,
             attributes => [
                 {
-                    type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' },
-                },
-                {
-                    type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
+                    type => { gid => 'ebd303c3-7f57-452a-aa3b-d780ebad868d' },
                     text_value => undef
                 }
             ],
         );
-    }, qr/Attribute e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66 requires a text value/);
+    }, qr/Attribute ebd303c3-7f57-452a-aa3b-d780ebad868d requires a text value/);
 };
 
 test 'Attributes are validated against the new link type, not old one (MBS-7614)' => sub {
@@ -333,7 +330,7 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 
-    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
@@ -341,15 +338,15 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
-        link_type => $c->model('LinkType')->get_by_id(103),
-        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
+        link_type => $c->model('LinkType')->get_by_id(102),
+        attributes => [{ type => { gid => '5b66c85d-6963-4d4b-86e5-18d2caccb349' } }],
     );
 
-    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
-    is($rel->link->type_id, 103);
+    is($rel->link->type_id, 102);
     is_deeply([ map { $_->type_id } $rel->link->all_attributes ], [2]);
 
     # Make sure unchanged attributes are also validated against the new link type.
@@ -358,9 +355,9 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             editor_id => 1,
             relationship => $rel,
-            link_type => $c->model('LinkType')->get_by_id(102),
+            link_type => $c->model('LinkType')->get_by_id(104),
         );
-    }, qr/Attribute 2 is unsupported for link type 102/;
+    }, qr/Attribute 2 is unsupported for link type 104/;
 };
 
 test 'Instrument credits can be added to an existing relationship' => sub {
@@ -432,12 +429,12 @@ test 'Entity credits can be added to an existing relationship' => sub {
                 {
                     type => {
                         id => 1,
-                        gid => '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
-                        name => 'Attribute',
+                        gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
+                        name => 'additional',
                         root => {
-                            gid => '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e',
+                            gid => '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f',
                             id => 1,
-                            name => 'Attribute'
+                            name => 'additional'
                         }
                     }
                 }
@@ -488,7 +485,7 @@ sub _create_edit {
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
-        link_type => $c->model('LinkType')->get_by_id(104),
+        link_type => $c->model('LinkType')->get_by_id(102),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         entity1 => $c->model('Artist')->get_by_id(5),

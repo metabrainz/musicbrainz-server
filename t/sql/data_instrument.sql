@@ -1,10 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO link_attribute_type (id, root, child_order, gid, name, description, last_updated) VALUES
-    (14, 14, 3, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument', 'This attribute describes the possible instruments that can be captured as part of a performance.', '2011-09-21 11:29:05.11911-07');
-
-INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (14);
-
 INSERT INTO instrument_type (id, name) VALUES
     (1, 'Wind instrument'),
     (2, 'String instrument'),
@@ -40,7 +35,6 @@ INSERT INTO instrument_annotation (instrument, annotation) VALUES (4, 2);
 
 INSERT INTO instrument_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 3);
 
-INSERT INTO link_type_attribute_type (link_type, attribute_type) VALUES (148, 14);
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 2);
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = '945c079d-374e-4436-9448-da92dedef3cf'));
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (1, (SELECT id FROM link_attribute_type WHERE gid = '945c079d-374e-4436-9448-da92dedef3cf'), 'blah instrument');

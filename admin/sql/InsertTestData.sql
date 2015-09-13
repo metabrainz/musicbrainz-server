@@ -243,29 +243,13 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
 
-INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'additional');
-INSERT INTO link_attribute_type (id, root, gid, name)
-    VALUES (14, 14, '108d76bd-95eb-4099-aed6-447e4ec78553', 'instrument');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-    VALUES (3, 14, 14, '4f7bb10f-396c-466a-8221-8e93f5e454f9', 'String Instruments');
-INSERT INTO link_attribute_type (id, parent, root, gid, name)
-    VALUES (4, 3, 14, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
-
-INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (3), (4);
-
-INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (148, 1, 0, 1);
-INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
-    VALUES (148, 14, 1, NULL);
-
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 148, 2);
 INSERT INTO link (id, link_type, attribute_count, begin_date_year) VALUES (3, 183, 0, 2006);
 
-INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
+INSERT INTO link_attribute (link, attribute_type) VALUES (1, 229);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
-INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
+INSERT INTO link_attribute (link, attribute_type) VALUES (2, 302);
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES
