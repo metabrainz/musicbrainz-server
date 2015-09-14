@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::ReleaseGroup::Show;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 use utf8;
 
 with 't::Mechanize', 't::Context';
@@ -24,6 +24,27 @@ $mech->content_like(qr{/release-group/234c079d-374e-4436-9448-da92dedef3ce}, 'li
 $mech->content_like(qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to artist');
 $mech->content_like(qr/Test annotation 5/, 'has annotation');
 
+page_test_jsonld $mech => {
+    '@context' => 'http://schema.org',
+    'albumProductionType' => 'http://schema.org/StudioAlbum',
+    'byArtist' => {
+        'name' => 'ABBA',
+        '@id' => 'https://musicbrainz.org/artist/a45c079d-374e-4436-9448-da92dedef3cf',
+        '@type' => 'MusicGroup'
+    },
+    'albumRelease' => {
+        'name' => 'Arrival',
+        '@type' => 'MusicRelease',
+        '@id' => 'https://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce'
+    },
+    'albumReleaseType' => 'http://schema.org/AlbumRelease',
+    'name' => 'Arrival',
+    '@id' => 'https://musicbrainz.org/release-group/234c079d-374e-4436-9448-da92dedef3ce',
+    'creditedTo' => 'ABBA',
+    '@type' => 'MusicAlbum',
+    'sameAs' => 'https://musicbrainz.org/release-group/77637e8c-be66-46ea-87b3-73addc722fc9'
+};
+
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5', 'fetch Aerial release group');
 html_ok($mech->content);
 $mech->content_like(qr/Aerial/);
@@ -45,6 +66,33 @@ $mech->content_like(qr{Warp Records}, 'has uk label');
 $mech->content_like(qr{82796 97772 2}, 'has uk label');
 $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk label');
 $mech->content_like(qr{0094634396028}, 'has the us barcode');
+
+page_test_jsonld $mech => {
+    'albumRelease' => [
+        {
+            '@type' => 'MusicRelease',
+            'name' => 'Aerial',
+            '@id' => 'https://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80'
+        },
+        {
+            '@id' => 'https://musicbrainz.org/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
+            'name' => 'Aerial',
+            '@type' => 'MusicRelease'
+        }
+    ],
+    'albumProductionType' => 'http://schema.org/StudioAlbum',
+    'byArtist' => {
+        '@type' => 'MusicGroup',
+        '@id' => 'https://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
+        'name' => 'Kate Bush'
+    },
+    '@context' => 'http://schema.org',
+    'name' => 'Aerial',
+    '@id' => 'https://musicbrainz.org/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5',
+    'albumReleaseType' => 'http://schema.org/AlbumRelease',
+    'creditedTo' => 'Kate Bush',
+    '@type' => 'MusicAlbum'
+};
 
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );

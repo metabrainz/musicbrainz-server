@@ -38,7 +38,7 @@ around serialize => sub {
         for my $contributor (@contributors) {
             $seen_contributors{$contributor->target->gid} = contributor_relationship($contributor, $inc, $stash, $seen_contributors{$contributor->target->gid});
         }
-        $ret->{contributor} = [ values %seen_contributors ];
+        $ret->{contributor} = [ map { $seen_contributors{$_} } sort keys %seen_contributors ];
     }
 
     return $ret;

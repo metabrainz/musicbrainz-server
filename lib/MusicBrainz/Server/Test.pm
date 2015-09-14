@@ -9,6 +9,7 @@ use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
+use JSON qw( encode_json );
 use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -20,6 +21,7 @@ use Sql;
 use Template;
 use Test::Builder;
 use Test::Differences;
+use Test::JSON import => [qw( is_json is_valid_json )];
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
@@ -33,7 +35,7 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok test_xpath_html commandline_override
-            capture_edits post_json
+            capture_edits post_json page_test_jsonld
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
@@ -379,8 +381,6 @@ sub _build_ws_test_xml {
 }
 
 sub _build_ws_test_json {
-    use Test::JSON import => [ 'is_valid_json', 'is_json' ];
-
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
@@ -477,6 +477,16 @@ sub post_json {
     $req->content($json);
 
     return $mech->request($req);
+}
+
+sub page_test_jsonld {
+    my ($mech, $expected) = @_;
+
+    my $tx = test_xpath_html($mech->content);
+    my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
+
+    is_valid_json($jsonld, 'has valid JSON-LD');
+    is_json($jsonld, encode_json($expected), 'has expected JSON-LD');
 }
 
 1;

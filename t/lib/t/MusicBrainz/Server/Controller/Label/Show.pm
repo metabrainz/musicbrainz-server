@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Label::Show;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
@@ -31,6 +31,37 @@ $mech->content_like(qr/ABC-123-X/, 'has catalog of second release');
 $mech->content_like(qr/2009-05-08/, 'has release date');
 $mech->content_like(qr{GB}, 'has country in release list');
 $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to correct release');
+
+page_test_jsonld $mech => {
+    '@context' => 'http://schema.org',
+    'releasePublished' => [
+        {
+            'name' => 'Aerial',
+            '@id' => 'https://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
+            '@type' => 'MusicRelease'
+        },
+        {
+            '@id' => 'https://musicbrainz.org/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b',
+            '@type' => 'MusicRelease',
+            'name' => 'Aerial'
+        },
+        {
+            'name' => 'Arrival',
+            '@id' => 'https://musicbrainz.org/release/f34c079d-374e-4436-9448-da92dedef3ce',
+            '@type' => 'MusicRelease'
+        }
+    ],
+    'foundingLocation' => {
+        'name' => 'United Kingdom',
+        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@type' => 'Country'
+    },
+    'name' => 'Warp Records',
+    'foundingDate' => '2008-05-19',
+    'sameAs' => 'https://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
+    '@id' => 'https://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
+    '@type' => 'MusicLabel'
+};
 
 };
 
