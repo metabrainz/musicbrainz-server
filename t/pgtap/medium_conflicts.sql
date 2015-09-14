@@ -6,7 +6,6 @@ SELECT no_plan();
 --------------------------------------------------------------------------------
 -- Test setup. See below for tests.
 
-INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 INSERT INTO artist (gid, id, name, sort_name) VALUES ('678d88b2-87b0-403b-b63d-5da7465aecc3', 388, 'Led Zeppelin', 'Led Zeppelin');
 INSERT INTO artist_credit (id, artist_count, name, ref_count) VALUES (388, 1, 'Led Zeppelin', 9450);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (388, 388, '', 'Led Zeppelin', 0);

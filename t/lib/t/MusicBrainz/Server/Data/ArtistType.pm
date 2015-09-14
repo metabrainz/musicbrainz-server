@@ -12,10 +12,7 @@ use MusicBrainz::Server::Test;
 with 't::Context';
 
 test all => sub {
-
     my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
 
     my $at_data = MusicBrainz::Server::Data::ArtistType->new(c => $test->c);
 
@@ -34,9 +31,8 @@ test all => sub {
 
     does_ok($at_data, 'MusicBrainz::Server::Data::Role::SelectAll');
     my @types = $at_data->get_all;
-    is(@types, 3, "Expected number of types found");
-    pairwise { is($a->id, $b, "Found artisttype #".$a->id) } @types, @{[1..3]};
-
+    is(@types, 6, "Expected number of types found");
+    pairwise { is($a->id, $b, "Found artisttype #".$a->id) } @types, @{[1..6]};
 };
 
 1;

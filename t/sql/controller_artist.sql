@@ -7,7 +7,6 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES (221), (222);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB'), (222, 'US');
 
-INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, area,
      begin_area, end_area,

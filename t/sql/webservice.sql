@@ -26,9 +26,6 @@ INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222),
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
 -- Types, statuses, etc.
-INSERT INTO artist_type (id, name) VALUES (1, 'Person');
-INSERT INTO artist_type (id, name) VALUES (2, 'Group');
-
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO label_type (id, name) VALUES (1, 'Distributor');

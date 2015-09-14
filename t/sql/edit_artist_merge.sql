@@ -1,8 +1,5 @@
 SET client_min_messages TO 'warning';
 
-INSERT INTO artist_type (id, name) VALUES (1, 'Person');
-INSERT INTO artist_type (id, name) VALUES (2, 'Group');
-
 INSERT INTO artist (id, gid, name, sort_name, comment)
     VALUES (3, 'da34a170-7f7f-11de-8a39-0800200c9a66', 'Old Artist', 'Old Artist', 'Artist 3'),
            (4, 'e9f5fc80-7f7f-11de-8a39-0800200c9a66', 'New Artist', 'New Artist', 'Artist 4');

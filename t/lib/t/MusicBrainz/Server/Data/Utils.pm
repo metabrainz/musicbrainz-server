@@ -13,7 +13,6 @@ with 't::Context';
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
 
 my $date = MusicBrainz::Server::Entity::PartialDate->new_from_row(
     { a_year => 2008, a_month => 1, a_day => 2 }, 'a_');

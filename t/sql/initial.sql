@@ -10,6 +10,13 @@ ALTER TABLE link_type DROP CONSTRAINT link_type_fk_parent;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_attribute_type;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_link_type;
 
+INSERT INTO artist_type VALUES (1, 'Person', NULL, 1, NULL);
+INSERT INTO artist_type VALUES (2, 'Group', NULL, 2, NULL);
+INSERT INTO artist_type VALUES (3, 'Other', NULL, 99, NULL);
+INSERT INTO artist_type VALUES (4, 'Character', NULL, 3, NULL);
+INSERT INTO artist_type VALUES (5, 'Orchestra', 2, 0, NULL);
+INSERT INTO artist_type VALUES (6, 'Choir', 2, 0, NULL);
+
 INSERT INTO editor_collection_type VALUES (1, 'Release', 'release', NULL, 1, NULL);
 INSERT INTO editor_collection_type VALUES (2, 'Owned music', 'release', 1, 1, NULL);
 INSERT INTO editor_collection_type VALUES (3, 'Wishlist', 'release', 1, 2, NULL);
