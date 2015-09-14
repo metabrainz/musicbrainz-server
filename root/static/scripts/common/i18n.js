@@ -4,10 +4,16 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 import Jed from 'jed';
-import jedData from 'jed-data';
+import _ from 'lodash';
 import React from 'react';
 
-var jedInstance = new Jed(jedData);
+let jedInstance;
+if (typeof document !== 'undefined') {
+    jedInstance = new Jed(require('jed-data'));
+} else {
+    jedInstance = new Jed({});
+}
+
 var slice = Array.prototype.slice;
 
 function wrapGettext(method) {
@@ -164,16 +170,20 @@ exports.commaOnlyList = function (items) {
     return output;
 };
 
-var lang = document.documentElement.lang || "en";
+var documentLang = 'en';
+if (typeof document !== 'undefined') {
+    documentLang = document.documentElement.lang || documentLang;
+}
+
 var collatorOptions = { numeric: true };
 var collator;
 
 if (typeof Intl === "undefined") {
     exports.compare = function (a, b) {
-        return a.localeCompare(b, lang, collatorOptions);
+        return a.localeCompare(b, documentLang, collatorOptions);
     };
 } else {
-    collator = new Intl.Collator(lang, collatorOptions);
+    collator = new Intl.Collator(documentLang, collatorOptions);
     exports.compare = function (a, b) {
         return collator.compare(a, b);
     };
