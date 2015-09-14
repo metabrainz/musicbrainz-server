@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Release::EditReleaseLabel;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
+use Test::Deep qw( cmp_deeply ignore );
 
 with 't::Edit';
 with 't::Context';
@@ -24,7 +25,12 @@ test all => sub {
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
 
-    my $edit = create_edit($c, $rl);
+    my $edit = create_edit(
+        $c,
+        $rl,
+        label => $c->model('Label')->get_by_id(3),
+        catalog_number => 'FOO',
+    );
     isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditReleaseLabel');
 
     my ($edits) = $c->model('Edit')->find({ release => 1 }, 10, 0);
@@ -47,7 +53,12 @@ test all => sub {
     $release = $c->model('Release')->get_by_id($rl->release_id);
     is($release->edits_pending, 0);
 
-    $edit = create_edit($c, $rl);
+    $edit = create_edit(
+        $c,
+        $rl,
+        label => $c->model('Label')->get_by_id(3),
+        catalog_number => 'FOO',
+    );
     accept_edit($c, $edit);
 
     $rl = $c->model('ReleaseLabel')->get_by_id(1);
@@ -65,8 +76,8 @@ test 'Editing the label can fail as a conflict' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
-    my $edit2 = _create_edit($c, $rl, label => undef);
+    my $edit1 = create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
+    my $edit2 = create_edit($c, $rl, label => undef);
 
     ok !exception { $edit1->accept };
     ok  exception { $edit2->accept };
@@ -79,8 +90,8 @@ test 'Editing the catalog number can fail as a conflict' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = _create_edit($c, $rl, catalog_number => 'Woof!');
-    my $edit2 = _create_edit($c, $rl, catalog_number => 'Meow!');
+    my $edit1 = create_edit($c, $rl, catalog_number => 'Woof!');
+    my $edit2 = create_edit($c, $rl, catalog_number => 'Meow!');
 
     ok !exception { $edit1->accept };
     ok  exception { $edit2->accept };
@@ -93,7 +104,7 @@ test 'Editing to remove the label works correctly' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = _create_edit($c, $rl, label => undef);
+    my $edit1 = create_edit($c, $rl, label => undef);
 
     ok !exception { $edit1->accept };
 };
@@ -105,7 +116,7 @@ test 'Editing to remove the catalog number works correctly' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = _create_edit($c, $rl, catalog_number => undef);
+    my $edit1 = create_edit($c, $rl, catalog_number => undef);
 
     ok !exception { $edit1->accept };
 };
@@ -121,8 +132,8 @@ test 'Parallel edits that dont conflict merge' => sub {
 
     {
         my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-        my $edit1 = _create_edit($c, $rl, catalog_number => $expected_cat_no);
-        my $edit2 = _create_edit(
+        my $edit1 = create_edit($c, $rl, catalog_number => $expected_cat_no);
+        my $edit2 = create_edit(
             $c, $rl,
             label => $c->model('Label')->get_by_id($expected_label_id)
         );
@@ -144,7 +155,7 @@ test 'Editing a non-existant release label fails' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $model->get_by_id(1);
-    my $edit = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
+    my $edit = create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
 
     $model->delete(1);
 
@@ -284,7 +295,7 @@ INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (2, 1, NULL, 'ABC-456');
 EOSQL
 
-    my $edit = _create_edit(
+    my $edit = create_edit(
         $c,
         $c->model('ReleaseLabel')->get_by_id(2),
         label => $c->model('Label')->get_by_id(4),
@@ -305,7 +316,7 @@ INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (2, 1, 2, 'FOO');
 EOSQL
 
-    my $edit = _create_edit(
+    my $edit = create_edit(
         $c,
         $c->model('ReleaseLabel')->get_by_id(2),
         catalog_number => 'BAR',
@@ -314,21 +325,77 @@ EOSQL
     ok($c->sql->select_single_value('SELECT 1 FROM edit_label WHERE edit = ?', $edit->id));
 };
 
-sub create_edit {
-    my ($c, $rl) = @_;
-    return _create_edit(
-        $c, $rl,
-        label => $c->model('Label')->get_by_id(3),
-        catalog_number => 'FOO',
-    );
-}
+test "Edits that only change the catalog number still store and display the label" => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-sub _create_edit {
-    my ($c, $rl, %args) = @_;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_label (id, release, label, catalog_number)
+    VALUES (2, 1, 2, 'FOO');
+EOSQL
+
+    my $edit = create_edit(
+        $c,
+        $c->model('ReleaseLabel')->get_by_id(2),
+        catalog_number => 'BAR',
+    );
+
+    cmp_deeply($edit->data, {
+        new => {
+            catalog_number => 'BAR',
+        },
+        old => {
+            catalog_number => 'FOO',
+            label => { gid => 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', id => 2, name => 'Label' },
+        },
+        release => ignore(),
+        release_label_id => 2,
+    });
+
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{label}{old}->gid, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66');
+};
+
+test "Edits that only change the label still store and display the catalog number (MBS-8534)" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_label (id, release, label, catalog_number)
+    VALUES (2, 1, 2, 'FOO');
+EOSQL
+
+    my $edit = create_edit(
+        $c,
+        $c->model('ReleaseLabel')->get_by_id(2),
+        label => $c->model('Label')->get_by_id(3)
+    );
+
+    cmp_deeply($edit->data, {
+        new => {
+            label => { gid => '7214c460-97d7-11de-8a39-0800200c9a66', id => 3, name => 'Label' },
+        },
+        old => {
+            catalog_number => 'FOO',
+            label => { gid => 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', id => 2, name => 'Label' },
+        },
+        release => ignore(),
+        release_label_id => 2,
+    });
+
+    $c->model('Edit')->load_all($edit);
+    is($edit->display_data->{catalog_number}{old}, 'FOO');
+};
+
+sub create_edit {
+    my ($c, $release_label, %args) = @_;
+
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
         editor_id => 1,
-        release_label => $rl,
+        release_label => $release_label,
         %args
     );
 }

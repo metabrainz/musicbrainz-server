@@ -160,18 +160,20 @@ around '_build_related_entities' => sub {
     return $related;
 };
 
+sub _serialize_label {
+    my $label = shift;
+
+    $label ? {
+        gid => $label->gid,
+        id => $label->id,
+        name => $label->name,
+    } : undef;
+}
+
 sub _mapping {
-    my $self = shift;
     return (
-        label => sub {
-            my $rl = shift;
-            return $rl->label ? {
-                id => $rl->label->id,
-                gid => $rl->label->gid,
-                name => $rl->label->name
-            } : undef;
-        }
-    )
+        label => sub { _serialize_label(shift->label) }
+    );
 }
 
 sub initialize
@@ -198,12 +200,8 @@ sub initialize
         $self->c->model('Label')->load($release_label);
     }
 
-    if (my $lbl = $opts{label}) {
-        $opts{label} = {
-            id => $lbl->id,
-            gid => $lbl->gid,
-            name => $lbl->name
-        }
+    if ($opts{label}) {
+        $opts{label} = _serialize_label($opts{label});
     }
 
     my $data = {
@@ -216,6 +214,10 @@ sub initialize
         },
         $self->_change_data($release_label, %opts),
     };
+
+    # Keep old data for display (MBS-8534)
+    $data->{old}{label} = _serialize_label($release_label->label);
+    $data->{old}{catalog_number} = $release_label->catalog_number;
 
     my $release = $release_label->release;
     $self->c->model('Release')->load_release_events($release);
@@ -296,11 +298,7 @@ sub ancestor_data {
         # Avoid conflicts by following merges.
         my $label = $self->c->model('Label')->get_by_any_id(gid_or_id($data{label}));
 
-        $data{label} = {
-            id => $label->id,
-            gid => $label->gid,
-            name => $label->name,
-        } if $label;
+        $data{label} = _serialize_label($label) if $label;
     }
 
     return \%data;
@@ -318,11 +316,7 @@ around extract_property => sub {
         when ('label') {
             return (
                 merge_value($ancestor->{label}),
-                merge_value($current->label ? {
-                    id => $current->label->id,
-                    gid => $current->label->gid,
-                    name => $current->label->name,
-                } : undef),
+                merge_value(_serialize_label($current->label)),
                 merge_value($new->{label}),
             );
         }
