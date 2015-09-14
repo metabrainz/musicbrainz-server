@@ -47,7 +47,7 @@
     "eslint": "^0.24.0",
     "eslint-plugin-react": "^2.6.4",
     "gulp-watch": "^4.2.1",
-    "tape": "^4.0.0",
+    "tape": "4.2.1",
     "react-addons-test-utils": "0.14.0"
   },
   "private": true
