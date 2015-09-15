@@ -57,8 +57,6 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (4, '7348f3a0-454e-11de-8a39-0800200c9a66', 'Test RG 2', 4, 1);
 
-INSERT INTO work_type (id, name) VALUES (1, 'Composition');
-INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');

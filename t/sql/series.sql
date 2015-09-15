@@ -35,8 +35,6 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (3, '659f405b-b4ee-4033-868a-0daa27784b89', 'π', 1, 369680),
     (4, 'ae674299-2824-4500-9516-653ac1bc6f80', 'Bertie', 1, 258839);
 
-INSERT INTO work_type (id, name) VALUES (1, 'Song');
-
 INSERT INTO work (id, gid, name, type) VALUES
     (1, '7e0e3ea0-d674-11e3-9c1a-0800200c9a66', 'Wōrk1', 1),
     (2, 'f89a8de8-f0e3-453c-9516-5bc3edd2fd88', 'Wōrk2', 1),

@@ -22,8 +22,6 @@ INSERT INTO event (id, gid, name, type) VALUES
        (3, 'bb857d0e-a4bc-11e4-a0f5-23485fda2851', 'Copy of the Better Festival', 2),
        (4, 'e024804e-a4c4-11e4-884d-df918190e80e', 'Another Event', 2);
 
-INSERT INTO work_type (id, name) VALUES (1, 'Composition');
-
 INSERT INTO work (id, gid, name, type, edits_pending, comment) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1, 0, 'Work'),
     (2, '755c079d-374e-4436-9448-da92dedef3cf', 'Test', 1, 0, 'Another Work');

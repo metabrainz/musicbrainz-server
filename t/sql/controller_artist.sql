@@ -56,8 +56,6 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
 
 ALTER SEQUENCE artist_id_seq RESTART 5;
 
-INSERT INTO work_type (id, name) VALUES (1, 'Composition');
-INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Test Work', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');

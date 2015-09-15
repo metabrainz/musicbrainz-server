@@ -24,7 +24,7 @@ my @edits = capture_edits {
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-work.comment' => 'A comment!',
-        'edit-work.type_id' => 2,
+        'edit-work.type_id' => 26,
         'edit-work.name' => 'Another name',
         'edit-work.iswcs.0' => 'T-000.000.002-0'
     ];
@@ -47,7 +47,7 @@ cmp_deeply($edit->data, {
     },
     new => {
         name => 'Another name',
-        type_id => 2,
+        type_id => 26,
         comment => 'A comment!',
     },
     old => {
@@ -61,8 +61,8 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->text_contains('Another name', '..has new name');
 $mech->text_contains('Dancing Queen', '..has old name');
-$mech->text_contains('Symphony', '..has new work type');
-$mech->text_contains('Composition', '..has old work type');
+$mech->text_contains('Beijing opera', '..has new work type');
+$mech->text_contains('Aria', '..has old work type');
 $mech->text_contains('A comment!', '..has new comment');
 
 $edit = $edits[1];

@@ -29,8 +29,6 @@ INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
 
-INSERT INTO work_type (id, name) VALUES (17, 'Song');
-
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (0, '1', 1, 'CD', NULL, 1982);
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (4, '0', 2, 'DVD', NULL, 1995);
 INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (7, '0', 6, 'MiniDisc', NULL, 1992);

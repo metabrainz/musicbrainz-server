@@ -673,6 +673,36 @@ INSERT INTO series_type VALUES (7, 'Tour', 'event', 6, 0, 'A series of related c
 INSERT INTO series_type VALUES (8, 'Festival', 'event', 6, 1, 'A recurring festival, usually happening annually in the same location.');
 INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performances of the same show at the same venue.');
 
+INSERT INTO work_type VALUES (1, 'Aria', NULL, 2, 'An aria is a self-contained piece for one voice usually with orchestral accompaniment. They are most common inside operas, but also appear in cantatas, oratorios and even on their own (concert arias).');
+INSERT INTO work_type VALUES (2, 'Ballet', NULL, 2, 'A ballet is music composed to be used, together with a choreography, for a ballet dance production.');
+INSERT INTO work_type VALUES (3, 'Cantata', NULL, 2, 'A cantata is a vocal (often choral) composition with an instrumental (usually orchestral) accompaniment, typically in several movements.');
+INSERT INTO work_type VALUES (4, 'Concerto', NULL, 2, 'A concerto is a musical work for soloist(s) accompanied by an orchestra.');
+INSERT INTO work_type VALUES (5, 'Sonata', NULL, 2, '"Sonata" is a general term used to describe small scale (very often solo or solo + keyboard) instrumental works, initially in baroque music.');
+INSERT INTO work_type VALUES (6, 'Suite', NULL, 2, 'A suite is an ordered set of instrumental or orchestral pieces normally performed in a concert setting. They may be extracts from a ballet or opera, or entirely original movements.');
+INSERT INTO work_type VALUES (7, 'Madrigal', NULL, 2, 'The madrigal is a type of secular vocal music composition. In its original form, it had no instrumental accompaniment, although accompaniment is much more common in later madrigals.');
+INSERT INTO work_type VALUES (8, 'Mass', NULL, 2, 'A mass is a choral composition that sets the invariable portions of the Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus - Agnus Dei, with other portions sometimes added) to music.');
+INSERT INTO work_type VALUES (9, 'Motet', NULL, 2, '"Motet" is a term that applies to different types of (usually unaccompanied) choral works. What exactly is a motet depends quite a bit on the period.');
+INSERT INTO work_type VALUES (10, 'Opera', NULL, 2, 'An opera is a dramatised work (text + musical score) for singers and orchestra/ensemble. In true operas all dialog is sung, through arias and recitatives, but some styles of opera include spoken dialogue.');
+INSERT INTO work_type VALUES (11, 'Oratorio', NULL, 2, 'An oratorio is a large (usually sacred) musical composition including an orchestra, a choir, and soloists. While it has characters and a plot, it is usually not performed theatrically (it lacks costumes, props and strong character interaction).');
+INSERT INTO work_type VALUES (12, 'Overture', NULL, 2, 'An overture is, generally, the instrumental introduction to an opera. Independent ("concert") overtures also exist, which are generally programmatic works shorter than a symphonic poem.');
+INSERT INTO work_type VALUES (13, 'Partita', NULL, 2, 'A partita is an instrumental piece composed of a series of variations, and it''s by its current definition very similar to a suite.');
+INSERT INTO work_type VALUES (14, 'Quartet', NULL, 2, 'A quartet is a musical composition scored for four voices or instruments.');
+INSERT INTO work_type VALUES (15, 'Song-cycle', NULL, 2, 'A song cycle is a group of songs designed to be performed in a sequence as a single entity. In most cases, all of the songs are by the same composer, and often use words from the same poet or lyricist.');
+INSERT INTO work_type VALUES (16, 'Symphony', NULL, 2, 'A symphony is an extended composition, almost always scored for orchestra without soloists.');
+INSERT INTO work_type VALUES (17, 'Song', NULL, 1, 'A song is in its origin (and still in most cases) a composition for voice, with or without instruments, performed by singing. This is the most common form by far in folk and popular music, but also fairly common in a classical context ("art songs").');
+INSERT INTO work_type VALUES (18, 'Symphonic poem', NULL, 2, 'A symphonic poem is a piece of programmatic orchestral music, usually in a single movement, that evokes a painting, a landscape, the content of a poem, a story or novel, or other non-musical source.');
+INSERT INTO work_type VALUES (19, 'Zarzuela', NULL, 2, 'A zarzuela is a Spanish lyric-dramatic work that alternates between spoken and sung scenes, the latter incorporating operatic and popular song, as well as dance.');
+INSERT INTO work_type VALUES (20, 'Étude', NULL, 2, 'An étude is an instrumental musical composition, most commonly of considerable difficulty, usually designed to provide practice material for perfecting a particular technical skill.');
+INSERT INTO work_type VALUES (21, 'Poem', NULL, 2, 'A poem is a literary piece, generally short and in verse, where words are usually chosen for their sound and for the images and ideas they suggest.');
+INSERT INTO work_type VALUES (22, 'Soundtrack', NULL, 2, 'A soundtrack is the music that accompanies a film, TV program, videogame, or even book.');
+INSERT INTO work_type VALUES (23, 'Prose', NULL, 2, 'This represents literary works written in prose, that is, written in relatively ordinary language without metrical structure (e.g. novels, short stories, essays...).');
+INSERT INTO work_type VALUES (24, 'Operetta', NULL, 2, 'The operetta is a genre of light opera, in terms both of music and subject matter. Operettas are generally short and include spoken parts.');
+INSERT INTO work_type VALUES (25, 'Audio drama', NULL, 2, 'An audio drama is a dramatized, purely acoustic performance, broadcast on radio or published on an audio medium (tape, CD, etc.).');
+INSERT INTO work_type VALUES (26, 'Beijing opera', NULL, 2, 'Beijing opera is a form of traditional Chinese theatre which combines music, vocal performance, mime, dance, and acrobatics.');
+INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literature usually consisting of scripted dialogue between characters, and intended for theatrical performance rather than just reading.');
+INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.');
+INSERT INTO work_type VALUES (30, 'Incidental music', NULL, 2, 'Incidental music is music written as background for (usually) a theatre play.');
+
 -- Restore FK constraints.
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_fk_parent FOREIGN KEY (parent) REFERENCES link_attribute_type(id);
 ALTER TABLE link_creditable_attribute_type ADD CONSTRAINT link_creditable_attribute_type_fk_attribute_type FOREIGN KEY (attribute_type) REFERENCES link_attribute_type(id) ON DELETE CASCADE;

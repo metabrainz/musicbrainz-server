@@ -24,7 +24,7 @@ my @edits = capture_edits {
 
     my $request = POST $mech->uri, [
         'edit-work.comment' => 'A comment!',
-        'edit-work.type_id' => 1,
+        'edit-work.type_id' => 26,
         'edit-work.name' => 'Enchanted',
         'edit-work.iswcs.0' => 'T-000.000.003-0',
         'edit-work.iswcs.1' => 'T-000.000.004-0',
@@ -42,7 +42,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 is_deeply($edit->data, {
     name          => 'Enchanted',
     comment       => 'A comment!',
-    type_id       => 1,
+    type_id       => 26,
     language_id   => undef,
     attributes    => []
 });
@@ -51,7 +51,7 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->content_contains('Enchanted', '..has work name');
 $mech->content_contains('A comment!', '..has comment');
-$mech->content_contains('Composition', '..has type');
+$mech->content_contains('Beijing opera', '..has type');
 
 $edit = $edits[1];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddISWCs');
