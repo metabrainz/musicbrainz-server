@@ -10,6 +10,10 @@ ALTER TABLE link_type DROP CONSTRAINT link_type_fk_parent;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_attribute_type;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_link_type;
 
+INSERT INTO area_alias_type VALUES (1, 'Area name', NULL, 0, NULL);
+INSERT INTO area_alias_type VALUES (2, 'Formal name', NULL, 0, NULL);
+INSERT INTO area_alias_type VALUES (3, 'Search hint', NULL, 0, NULL);
+
 INSERT INTO area_type VALUES (1, 'Country', NULL, 1, 'Country is used for areas included (or previously included) in ISO 3166-1, e.g. United States.');
 INSERT INTO area_type VALUES (2, 'Subdivision', NULL, 2, 'Subdivision is used for the main administrative divisions of a country, e.g. California, Ontario, Okinawa. These are considered when displaying the parent areas for a given area.');
 INSERT INTO area_type VALUES (3, 'City', NULL, 3, 'City is used for settlements of any size, including towns and villages.');
@@ -17,6 +21,10 @@ INSERT INTO area_type VALUES (4, 'Municipality', NULL, 4, 'Municipality is used 
 INSERT INTO area_type VALUES (5, 'District', NULL, 5, 'District is used for a division of a large city, e.g. Queens.');
 INSERT INTO area_type VALUES (6, 'Island', NULL, 6, 'Island is used for islands and atolls which don''t form subdivisions of their own, e.g. Skye. These are not considered when displaying the parent areas for a given area.');
 INSERT INTO area_type VALUES (7, 'County', NULL, 7, 'County is used for smaller administrative divisions of a country which are not the main administrative divisions but are also not municipalities, e.g. counties in the USA. These are not considered when displaying the parent areas for a given area.');
+
+INSERT INTO artist_alias_type VALUES (1, 'Artist name', NULL, 0, NULL);
+INSERT INTO artist_alias_type VALUES (2, 'Legal name', NULL, 0, NULL);
+INSERT INTO artist_alias_type VALUES (3, 'Search hint', NULL, 0, NULL);
 
 INSERT INTO artist_type VALUES (1, 'Person', NULL, 1, NULL);
 INSERT INTO artist_type VALUES (2, 'Group', NULL, 2, NULL);
@@ -41,6 +49,9 @@ INSERT INTO editor_collection_type VALUES (13, 'Release group', 'release_group',
 INSERT INTO editor_collection_type VALUES (14, 'Series', 'series', NULL, 2, NULL);
 INSERT INTO editor_collection_type VALUES (15, 'Work', 'work', NULL, 2, NULL);
 
+INSERT INTO event_alias_type VALUES (1, 'Event name', NULL, 0, NULL);
+INSERT INTO event_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
 INSERT INTO event_type VALUES (1, 'Concert', NULL, 1, 'An individual concert by a single artist or collaboration, often with supporting artists who perform before the main act.');
 INSERT INTO event_type VALUES (2, 'Festival', NULL, 2, 'An event where a number of different acts perform across the course of the day. Larger festivals may be spread across multiple days.');
 INSERT INTO event_type VALUES (3, 'Launch event', NULL, 3, 'A party, reception or other event held specifically for the launch of a release.');
@@ -51,11 +62,17 @@ INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL);
 INSERT INTO gender VALUES (2, 'Female', NULL, 2, NULL);
 INSERT INTO gender VALUES (3, 'Other', NULL, 3, NULL);
 
+INSERT INTO instrument_alias_type VALUES (1, 'Instrument name', NULL, 0, NULL);
+INSERT INTO instrument_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
 INSERT INTO instrument_type VALUES (1, 'Wind instrument', NULL, 1, NULL);
 INSERT INTO instrument_type VALUES (2, 'String instrument', NULL, 2, NULL);
 INSERT INTO instrument_type VALUES (3, 'Percussion instrument', NULL, 3, NULL);
 INSERT INTO instrument_type VALUES (4, 'Electronic instrument', NULL, 4, NULL);
 INSERT INTO instrument_type VALUES (5, 'Other instrument', NULL, 5, NULL);
+
+INSERT INTO label_alias_type VALUES (1, 'Label name', NULL, 0, NULL);
+INSERT INTO label_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
 
 INSERT INTO label_type VALUES (1, 'Distributor', NULL, 0, NULL);
 INSERT INTO label_type VALUES (2, 'Holding', NULL, 0, NULL);
@@ -644,12 +661,24 @@ INSERT INTO orderable_link_type VALUES (742, 2);
 INSERT INTO orderable_link_type VALUES (743, 1);
 INSERT INTO orderable_link_type VALUES (802, 2);
 
+INSERT INTO place_alias_type VALUES (1, 'Place name', NULL, 0, NULL);
+INSERT INTO place_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
 INSERT INTO place_type VALUES (1, 'Studio', NULL, 1, 'A place designed for non-live production of music, typically a recording studio.');
 INSERT INTO place_type VALUES (2, 'Venue', NULL, 2, 'A place that has live artistic performances as one of its primary functions, such as a concert hall.');
 INSERT INTO place_type VALUES (3, 'Other', NULL, 99, NULL);
 INSERT INTO place_type VALUES (4, 'Stadium', NULL, 3, 'A place whose main purpose is to host outdoor sport events, typically consisting of a pitch surrounded by a structure for spectators with no roof, or a roof which can be retracted.');
 INSERT INTO place_type VALUES (5, 'Indoor arena', NULL, 4, 'A place consisting of a large enclosed area with a central event space surrounded by tiered seating for spectators, which can be used for indoor sports, concerts and other entertainment events.');
 INSERT INTO place_type VALUES (6, 'Religious building', NULL, 5, 'A place that has worship or religious studies as its main function. Religious buildings often host concerts and serve as recording locations, especially for classical music.');
+
+INSERT INTO recording_alias_type VALUES (1, 'Recording name', NULL, 0, NULL);
+INSERT INTO recording_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
+INSERT INTO release_alias_type VALUES (1, 'Release name', NULL, 0, NULL);
+INSERT INTO release_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
+INSERT INTO release_group_alias_type VALUES (1, 'Release group name', NULL, 0, NULL);
+INSERT INTO release_group_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
 
 INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL);
 INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL);
@@ -673,6 +702,9 @@ INSERT INTO release_status VALUES (2, 'Promotion', NULL, 2, NULL);
 INSERT INTO release_status VALUES (3, 'Bootleg', NULL, 3, NULL);
 INSERT INTO release_status VALUES (4, 'Pseudo-Release', NULL, 4, NULL);
 
+INSERT INTO series_alias_type VALUES (1, 'Series name', NULL, 0, NULL);
+INSERT INTO series_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
+
 INSERT INTO series_ordering_type VALUES (1, 'Automatic', NULL, 0, 'Sorts the items in the series automatically by their number attributes, using a natural sort order.');
 INSERT INTO series_ordering_type VALUES (2, 'Manual', NULL, 1, 'Allows for manually setting the position of each item in the series.');
 
@@ -685,6 +717,9 @@ INSERT INTO series_type VALUES (6, 'Event', 'event', NULL, 5, 'A series of event
 INSERT INTO series_type VALUES (7, 'Tour', 'event', 6, 0, 'A series of related concerts by an artist in different locations.');
 INSERT INTO series_type VALUES (8, 'Festival', 'event', 6, 1, 'A recurring festival, usually happening annually in the same location.');
 INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performances of the same show at the same venue.');
+
+INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL);
+INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL);
 
 INSERT INTO work_type VALUES (1, 'Aria', NULL, 2, 'An aria is a self-contained piece for one voice usually with orchestral accompaniment. They are most common inside operas, but also appear in cantatas, oratorios and even on their own (concert arias).');
 INSERT INTO work_type VALUES (2, 'Ballet', NULL, 2, 'A ballet is music composed to be used, together with a choreography, for a ballet dance production.');

@@ -1,7 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
-
 INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
     VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 3, 788, 1),
            (2, '2e8872b9-2745-4807-a84e-094d425ec267', 'Test Work Series', 'test comment 2', 4, 788, 2),

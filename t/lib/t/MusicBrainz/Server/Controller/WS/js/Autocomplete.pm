@@ -49,7 +49,7 @@ test all => sub {
                 "id" => 2,
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
-                "typeID" => 1,
+                "typeID" => 4,
               }, { "current" => 1, "pages" => 1 } ]);
 
 };

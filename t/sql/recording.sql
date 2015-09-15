@@ -28,7 +28,5 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
               (63, 'f89d2463-8c12-49cb-9c83-229f2a5d4028', 23, 1, 1, 1, 'King of the Mountain', 1, NULL),
               (64, '13103972-499f-4407-b248-3d04c1afcc24', 24, 1, 1, 1, 'King of the Mountain', 1, NULL);
 
-INSERT INTO recording_alias_type (id, name) VALUES (1, 'Recording name'), (2, 'Search hint');
-
 INSERT INTO recording_alias (id, recording, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Alias', 2, 'Test Recording Alias');

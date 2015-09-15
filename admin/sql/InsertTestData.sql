@@ -126,10 +126,8 @@ INSERT INTO artist_alias (id, name, sort_name, artist, edits_pending)
 INSERT INTO artist_alias (id, name, sort_name, artist)
     VALUES (2, 'Test Alias', 'Test Alias', 5);
 
-INSERT INTO label_alias_type (id, name) VALUES (1, 'Search hint');
 INSERT INTO label_alias (id, name, sort_name, label, edits_pending, type)
-    VALUES (1, 'Test Label Alias', 'Test Label Alias', 2, 2, 1);
-
+    VALUES (1, 'Test Label Alias', 'Test Label Alias', 2, 2, 2);
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, type)
     VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 'Kate Bush', 'Bush, Kate', 1958, 7, 30, 1);
@@ -142,11 +140,9 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (2, 'f205627f-b70a-409d-adbe-66289b614e80', 'Aerial', 3, 2, 1, '0094634396028');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (2, 221, 2005, 11, 7);
-;
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 3, 2, 1, '0827969777220');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (3, 222, 2005, 11, 8);
-;
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (3, 2, 2, '343 960 2');
