@@ -1,11 +1,8 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO place_type (id, name) VALUES (1, 'Venue');
-INSERT INTO place_type (id, name) VALUES (2, 'Studio');
-
 INSERT INTO area (id, gid, name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
-  (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 2),
+  (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 2);
 INSERT INTO country_area (area) VALUES (221), (222);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB'), (222, 'US');
 
@@ -15,7 +12,7 @@ INSERT INTO place
      end_date_year, end_date_month, end_date_day, comment,
      last_updated, address)
     VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Test Place', 1, 221,
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Test Place', 2, 221,
      '(0.11,0.1)', 2008, 01, 02, 2009, 03, 04, 'Yet Another Test Place',
      '2009-07-09', 'An Address');
 

@@ -644,6 +644,13 @@ INSERT INTO orderable_link_type VALUES (742, 2);
 INSERT INTO orderable_link_type VALUES (743, 1);
 INSERT INTO orderable_link_type VALUES (802, 2);
 
+INSERT INTO place_type VALUES (1, 'Studio', NULL, 1, 'A place designed for non-live production of music, typically a recording studio.');
+INSERT INTO place_type VALUES (2, 'Venue', NULL, 2, 'A place that has live artistic performances as one of its primary functions, such as a concert hall.');
+INSERT INTO place_type VALUES (3, 'Other', NULL, 99, NULL);
+INSERT INTO place_type VALUES (4, 'Stadium', NULL, 3, 'A place whose main purpose is to host outdoor sport events, typically consisting of a pitch surrounded by a structure for spectators with no roof, or a roof which can be retracted.');
+INSERT INTO place_type VALUES (5, 'Indoor arena', NULL, 4, 'A place consisting of a large enclosed area with a central event space surrounded by tiered seating for spectators, which can be used for indoor sports, concerts and other entertainment events.');
+INSERT INTO place_type VALUES (6, 'Religious building', NULL, 5, 'A place that has worship or religious studies as its main function. Religious buildings often host concerts and serve as recording locations, especially for classical music.');
+
 INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL);
 INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL);
 INSERT INTO release_group_primary_type VALUES (3, 'EP', NULL, 3, NULL);

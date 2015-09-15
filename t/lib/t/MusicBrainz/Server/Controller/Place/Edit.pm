@@ -12,9 +12,8 @@ test 'Remove coordinates from a place' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c);
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO place_type (id, name) VALUES (1, 'Venue');
 INSERT INTO place (gid, name, type, coordinates) VALUES
-    ('a24c9284-a9d2-428b-bacd-fa79cf9a9108', 'Sydney Opera House', 1, POINT(-33.858667,151.214028));
+    ('a24c9284-a9d2-428b-bacd-fa79cf9a9108', 'Sydney Opera House', 2, POINT(-33.858667,151.214028));
 EOSQL
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
