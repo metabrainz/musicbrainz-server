@@ -58,7 +58,7 @@ is ( $work->edits_pending, 0 );
 
 is ( $work->type, undef );
 MusicBrainz::Server::Data::WorkType->new(c => $test->c)->load($work);
-is ( $work->type->name, "Composition" );
+is ( $work->type->name, "Aria" );
 
 my $annotation = $work_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );

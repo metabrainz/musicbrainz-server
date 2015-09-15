@@ -32,7 +32,7 @@ test all => sub {
     is( $label->end_date->month, 5, "end date, month" );
     is( $label->end_date->day, 19, "end date, day" );
     is( $label->edits_pending, 0, "no edits pending" );
-    is( $label->type_id, 1, "type id" );
+    is( $label->type_id, 3, "type id" );
     is( $label->label_code, 2070, "label code" );
     is( $label->format_label_code, 'LC 02070', "formatted label code" );
     is( $label->comment, 'Sheffield based electronica label', "comment" );

@@ -77,7 +77,7 @@ is($edit->display_data->{name}->{new}, 'New Name');
 is($edit->display_data->{sort_name}->{old}, 'Artist Name');
 is($edit->display_data->{sort_name}->{new}, 'New Sort');
 is($edit->display_data->{type}->{old}, undef);
-is($edit->display_data->{type}->{new}->name, 'Group');
+is($edit->display_data->{type}->{new}->name, 'Person');
 is($edit->display_data->{gender}->{old}, undef);
 is($edit->display_data->{gender}->{new}->{name}, 'Male');
 is($edit->display_data->{area}->{old}, undef);
