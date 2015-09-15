@@ -75,17 +75,14 @@ INSERT INTO script (id, iso_code, iso_number, name, frequency)
     VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
            (2, 'Hebr', '125', 'Hebrew', 4);
 
-INSERT INTO label_type (id, name) VALUES (1, 'Production');
-INSERT INTO label_type (id, name) VALUES (2, 'Special MusicBrainz Label');
-
 -- Special Labels
 INSERT INTO label (id, gid, name, type) VALUES
-    (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 'Deleted Label', 2);
+    (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 'Deleted Label', 4);
 
 INSERT INTO label (id, gid, name, type, area, label_code,
                    begin_date_year, begin_date_month, begin_date_day,
                    end_date_year, end_date_month, end_date_day, comment)
-     VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 1, 221, 2070,
+     VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 4, 221, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
 
 INSERT INTO label (id, gid, name) VALUES

@@ -21,7 +21,7 @@ html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
-        'edit-label.type_id' => 2,
+        'edit-label.type_id' => 4,
         'edit-label.label_code' => 12345,
         'edit-label.area_id' => 221,
         'edit-label.period.begin_date.year' => 1990,
@@ -40,7 +40,7 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
 is_deeply($edit->data, {
         name => 'controller label',
-        type_id => 2,
+        type_id => 4,
         area_id => 221,
         label_code => 12345,
         comment => 'label created in controller_label.t',
@@ -65,7 +65,7 @@ $mech->content_contains('controller label', '..has name');
 $mech->content_contains('label created in controller_label.t', '..has comment');
 $mech->content_like(qr/1990\D+01\D+02/, '..has begin date');
 $mech->content_like(qr/2003\D+04\D+15/, '..has end date');
-$mech->content_contains('Special MusicBrainz Label', '..has type name');
+$mech->content_contains('Original Production', '..has type name');
 $mech->content_contains('United Kingdom', '..has area');
 $mech->content_contains('12345', '..has label code');
 

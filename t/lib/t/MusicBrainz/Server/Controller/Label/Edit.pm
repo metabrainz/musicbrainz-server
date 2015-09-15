@@ -62,7 +62,7 @@ cmp_deeply($edit->data, {
         },
         old => {
             name => 'Warp Records',
-            type_id => 1,
+            type_id => 4,
             area_id => 221,
             label_code => 2070,
             comment => 'Sheffield based electronica label',
@@ -83,7 +83,7 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->text_contains('controller label', '..has new name');
 $mech->text_contains('Warp Records', '..has old name');
-$mech->text_contains('Special MusicBrainz Label', '..has new type');
+$mech->text_contains('Original Production', '..has new type');
 $mech->text_contains('Production', '..has old type');
 $mech->text_contains('United States', '..has new area');
 $mech->text_contains('United Kingdom', '..has old area');

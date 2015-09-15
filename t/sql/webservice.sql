@@ -28,11 +28,6 @@ INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP')
 -- Types, statuses, etc.
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
-INSERT INTO label_type (id, name) VALUES (1, 'Distributor');
-INSERT INTO label_type (id, name) VALUES (4, 'Original Production');
-INSERT INTO label_type (id, name) VALUES (6, 'Reissue Production');
-INSERT INTO label_type (id, name) VALUES (7, 'Publisher');
-
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
 
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
