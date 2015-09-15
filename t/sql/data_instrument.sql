@@ -1,12 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO instrument_type (id, name) VALUES
-    (1, 'Wind instrument'),
-    (2, 'String instrument'),
-    (3, 'Percussion instrument'),
-    (4, 'Electronic instrument'),
-    (5, 'Other instrument');
-
 INSERT INTO instrument
     (id, gid, name, type, comment,
      description, last_updated)

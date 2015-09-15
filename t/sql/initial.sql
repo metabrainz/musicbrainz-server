@@ -51,6 +51,12 @@ INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL);
 INSERT INTO gender VALUES (2, 'Female', NULL, 2, NULL);
 INSERT INTO gender VALUES (3, 'Other', NULL, 3, NULL);
 
+INSERT INTO instrument_type VALUES (1, 'Wind instrument', NULL, 1, NULL);
+INSERT INTO instrument_type VALUES (2, 'String instrument', NULL, 2, NULL);
+INSERT INTO instrument_type VALUES (3, 'Percussion instrument', NULL, 3, NULL);
+INSERT INTO instrument_type VALUES (4, 'Electronic instrument', NULL, 4, NULL);
+INSERT INTO instrument_type VALUES (5, 'Other instrument', NULL, 5, NULL);
+
 INSERT INTO label_type VALUES (1, 'Distributor', NULL, 0, NULL);
 INSERT INTO label_type VALUES (2, 'Holding', NULL, 0, NULL);
 INSERT INTO label_type VALUES (3, 'Production', NULL, 0, NULL);
