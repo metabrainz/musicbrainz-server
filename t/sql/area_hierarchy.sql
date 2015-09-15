@@ -1,7 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO area_type (id, name) VALUES (2, 'Subdivision'), (3, 'City');
-
 INSERT INTO area (id, gid, name, type) VALUES
   ( 432, '9d5dd675-3cf4-4296-9e39-67865ebee758', 'England', 2),
   (1178, 'f03d09b3-39dc-4083-afd6-159e3f0d462f', 'London', 3);

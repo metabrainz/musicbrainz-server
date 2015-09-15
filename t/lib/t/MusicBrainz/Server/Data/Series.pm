@@ -177,8 +177,6 @@ test 'Releases should be ordered by date, then catalog number, then name (MBS-75
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
         VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 788, 1);
 
-      INSERT INTO area_type (id, name) VALUES (1, 'Country');
-
       INSERT INTO area (id, gid, name, type)
         VALUES
           (1, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
@@ -274,8 +272,6 @@ test 'Release groups should be ordered by first release date, then name (MBS-755
     $c->sql->do(<<EOSQL);
       INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
         VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 1, 788, 1);
-
-      INSERT INTO area_type (id, name) VALUES (1, 'Country');
 
       INSERT INTO area (id, gid, name, type)
         VALUES

@@ -1,6 +1,5 @@
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO area_type (id, name) VALUES (1, 'Country');
 INSERT INTO area (id, gid, name, type) VALUES
   ( 13, '106e0bec-b638-3b37-b731-f53d507dc00e', 'Australia', 1),
   ( 81, '85752fda-13c4-31a3-bee5-0e5cb1f51dad', 'Germany', 1),

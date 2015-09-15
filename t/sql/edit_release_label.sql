@@ -22,8 +22,6 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 2, 'ABC-123');
 
-INSERT INTO area_type (id, name) VALUES (1, 'Country');
-
 INSERT INTO area (id, gid, name, type)
     VALUES (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
 

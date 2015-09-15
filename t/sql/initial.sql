@@ -10,6 +10,14 @@ ALTER TABLE link_type DROP CONSTRAINT link_type_fk_parent;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_attribute_type;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_link_type;
 
+INSERT INTO area_type VALUES (1, 'Country', NULL, 1, 'Country is used for areas included (or previously included) in ISO 3166-1, e.g. United States.');
+INSERT INTO area_type VALUES (2, 'Subdivision', NULL, 2, 'Subdivision is used for the main administrative divisions of a country, e.g. California, Ontario, Okinawa. These are considered when displaying the parent areas for a given area.');
+INSERT INTO area_type VALUES (3, 'City', NULL, 3, 'City is used for settlements of any size, including towns and villages.');
+INSERT INTO area_type VALUES (4, 'Municipality', NULL, 4, 'Municipality is used for small administrative divisions which, for urban municipalities, often contain a single city and a few surrounding villages. Rural municipalities typically group several villages together.');
+INSERT INTO area_type VALUES (5, 'District', NULL, 5, 'District is used for a division of a large city, e.g. Queens.');
+INSERT INTO area_type VALUES (6, 'Island', NULL, 6, 'Island is used for islands and atolls which don''t form subdivisions of their own, e.g. Skye. These are not considered when displaying the parent areas for a given area.');
+INSERT INTO area_type VALUES (7, 'County', NULL, 7, 'County is used for smaller administrative divisions of a country which are not the main administrative divisions but are also not municipalities, e.g. counties in the USA. These are not considered when displaying the parent areas for a given area.');
+
 INSERT INTO artist_type VALUES (1, 'Person', NULL, 1, NULL);
 INSERT INTO artist_type VALUES (2, 'Group', NULL, 2, NULL);
 INSERT INTO artist_type VALUES (3, 'Other', NULL, 99, NULL);

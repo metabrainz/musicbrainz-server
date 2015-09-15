@@ -10,7 +10,6 @@ INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'U
 INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
     VALUES (1, 'deu', 'ger', 'de', 'deu', 'German');
 
-INSERT INTO area_type (id, name) VALUES (1, 'Country');
 INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO country_area (area) VALUES (221);

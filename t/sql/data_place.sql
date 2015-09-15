@@ -3,7 +3,6 @@ SET client_min_messages TO 'WARNING';
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
 INSERT INTO place_type (id, name) VALUES (2, 'Studio');
 
-INSERT INTO area_type (id, name) VALUES (1, 'Country');
 INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
   (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);

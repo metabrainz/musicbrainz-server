@@ -43,9 +43,8 @@ EOSQL
 test 'Test load_containment' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO area_type (id, name) VALUES (1, 'Country'), (2, 'Subdivision'), (3, 'City'), (4, 'District');
 INSERT INTO area (id, gid, name, type) VALUES
-    (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 4),
+    (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 5),
     (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 3),
     (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 2),
     (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 1),
