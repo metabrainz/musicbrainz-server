@@ -116,25 +116,25 @@ test 'All tests' => sub {
             qr/Cannot insert a missing or empty row/;
 
         $sql->auto_commit(1);
-        ok !exception { $sql->insert_row('artist_type', { id => 5, name => 'magical' }) }, 'can insert rows';
-        my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 5);
+        ok !exception { $sql->insert_row('artist_type', { id => 7, name => 'magical' }) }, 'can insert rows';
+        my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 7);
         is($rows, 1);
 
         my $id;
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('artist_type', { id => 6, name => 'live' }, 'id') }, 'can insert returning';
-        is($id, 6, 'can insert returning id');
-        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 6);
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 8, name => 'live' }, 'id') }, 'can insert returning';
+        is($id, 8, 'can insert returning id');
+        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 8);
         is($rows, 1);
 
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('artist_type', { id => 7, name => \"'calm'" }) }, 'can insert with literal sql';
-        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 7);
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 9, name => \"'calm'" }) }, 'can insert with literal sql';
+        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 9);
         is($rows, 1);
 
         # Updating rows
         $sql->_auto_commit(0);
-        like exception { $sql->update_row('tag', { name => 'magic' }, { id => 5 }) },
+        like exception { $sql->update_row('tag', { name => 'magic' }, { id => 7 }) },
             qr/do called while not in transaction, or marked to auto commit/,
                 'must be in some sort of transaction';
 
@@ -144,13 +144,13 @@ test 'All tests' => sub {
                 'must pass where clause';
 
         $sql->auto_commit(1);
-        ok !exception { $sql->update_row('artist_type', { name => 'magic' }, { id => 5 }) }, 'can update rows';
+        ok !exception { $sql->update_row('artist_type', { name => 'magic' }, { id => 7 }) }, 'can update rows';
         $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'magic');
         is($rows, 1);
 
         # Test automatic transactions
         my $sub = sub {
-            $sql->update_row('artist_type', { name => 'blah' }, { id => 5 });
+            $sql->update_row('artist_type', { name => 'blah' }, { id => 7 });
             my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'blah');
             is($rows, 1);
         };
