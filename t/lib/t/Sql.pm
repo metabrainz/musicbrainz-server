@@ -163,7 +163,7 @@ test 'All tests' => sub {
     }
     finally {
         $sql->auto_commit(1);
-        $sql->do('DELETE FROM artist_type');
+        $sql->do('DELETE FROM artist_type WHERE id IN (7, 8, 9)');
 
         $sql->auto_commit(1);
         $sql->do('DELETE FROM tag');
