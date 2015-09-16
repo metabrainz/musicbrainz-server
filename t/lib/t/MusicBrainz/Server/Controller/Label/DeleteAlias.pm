@@ -42,7 +42,7 @@ is_deeply($edit->data, {
         month => undef,
         day => undef
     },
-    type_id => 2,
+    type_id => 1,
     locale => undef,
     primary_for_locale => 0
 });
