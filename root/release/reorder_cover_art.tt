@@ -13,7 +13,7 @@
       [%- SET count = 0 -%]
       [% FOR image = images %]
         <div class="editimage thumb-position">
-          [%- display_artwork(image, undef, undef, 'mb-caa') -%]
+          [%- display_artwork(image, undef, undef) -%]
           <div>
             <button type="button" class="left">&larr;</button>
             <button type="button" class="right" style="float: right;">&rarr;</button>
