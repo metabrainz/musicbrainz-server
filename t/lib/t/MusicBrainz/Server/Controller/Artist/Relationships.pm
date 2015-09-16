@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Relationships;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
@@ -20,6 +20,35 @@ $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/relationships', 'get
 html_ok($mech->content);
 $mech->content_contains('guitar');
 $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce');
+
+page_test_jsonld $mech => {
+    'location' => {
+        'name' => 'United Kingdom',
+        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@type' => 'Country'
+    },
+    '@context' => 'http://schema.org',
+    'foundingDate' => '2009-03-04',
+    '@type' => ['Person', 'MusicGroup'],
+    'birthPlace' => {
+        '@type' => 'Country',
+        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        'name' => 'United Kingdom'
+    },
+    'name' => 'Test Artist',
+    'groupOrigin' => {
+        'name' => 'United Kingdom',
+        '@type' => 'Country',
+        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
+    },
+    'birthDate' => '2009-03-04',
+    'deathPlace' => {
+        'name' => 'United Kingdom',
+        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+        '@type' => 'Country'
+    },
+    '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce'
+};
 
 };
 

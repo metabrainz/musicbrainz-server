@@ -20,7 +20,8 @@ INSERT INTO artist
 UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
 
 INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (4, '60e5d080-c964-11de-8a39-0800200c9a66', 'Empty Artist', 'Empty Artist');
+    (4, '60e5d080-c964-11de-8a39-0800200c9a66', 'Empty Artist', 'Empty Artist'),
+    (5, '089302a3-dda1-4bdf-b996-c2e941b5c41f', 'Seekrit Identity', 'Seekrit Identity');
 
 INSERT INTO artist_alias
     (id, name, sort_name, artist, edits_pending, begin_date_year, begin_date_month, begin_date_day,
@@ -63,11 +64,13 @@ INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
 INSERT INTO link (id, link_type, attribute_count) VALUES (2, 148, 2);
 INSERT INTO link (id, link_type, attribute_count) VALUES (3, 282, 0);
+INSERT INTO link (id, link_type, attribute_count) VALUES (4, 108, 0);
 
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 229);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 302);
 
+INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 4, 3, 5);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
 INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 

@@ -116,8 +116,8 @@ test 'Deprecated relationships are loaded as is_deprecated' => sub {
     my $c = $test->c;
 
     my $link_types = $c->model('LinkType')->get_by_ids(102, 236);
-    ok(!$link_types->{102}->is_deprecated, 'LT 1 is not deprecated');
-    ok($link_types->{236}->is_deprecated, 'LT 2 is deprecated');
+    ok(!$link_types->{102}->is_deprecated, 'LT 102 is not deprecated');
+    ok($link_types->{236}->is_deprecated, 'LT 236 is deprecated');
 };
 
 1;

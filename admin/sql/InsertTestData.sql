@@ -57,6 +57,10 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (4, '7348f3a0-454e-11de-8a39-0800200c9a66', 'Test RG 2', 4, 1);
 
+INSERT INTO release_group_alias (id, name, sort_name, release_group, edits_pending)
+    VALUES (1, 'Test RG 1 Alias 1', 'Test RG 1 Alias Sort Name 1', 3, 0),
+           (2, 'Test RG 1 Alias 2', 'Test RG 1 Alias Sort Name 2', 3, 0);
+
 INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
@@ -82,6 +86,9 @@ INSERT INTO label (id, gid, name, type, area, label_code,
      VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 4, 221, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
 
+INSERT INTO label_alias (id, name, sort_name, label, edits_pending, type)
+    VALUES (1, 'Test Label Alias', 'Test Label Alias', 2, 2, 1);
+
 INSERT INTO label (id, gid, name) VALUES
     (3, '4b4ccf60-658e-11de-8a39-0800200c9a66', 'Another Label');
 
@@ -90,7 +97,6 @@ INSERT INTO label (id, gid, name) VALUES
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, barcode) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 2, 1, 1, 1, '731453398122');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (1, 221, 2009, 5, 8);
-;
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 2, 'ABC-123');
@@ -126,9 +132,6 @@ INSERT INTO artist_alias (id, name, sort_name, artist, edits_pending)
 INSERT INTO artist_alias (id, name, sort_name, artist)
     VALUES (2, 'Test Alias', 'Test Alias', 5);
 
-INSERT INTO label_alias (id, name, sort_name, label, edits_pending, type)
-    VALUES (1, 'Test Label Alias', 'Test Label Alias', 2, 2, 2);
-
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, type)
     VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 'Kate Bush', 'Bush, Kate', 1958, 7, 30, 1);
 
@@ -140,6 +143,9 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (2, 'f205627f-b70a-409d-adbe-66289b614e80', 'Aerial', 3, 2, 1, '0094634396028');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (2, 221, 2005, 11, 7);
+
+INSERT INTO release_alias (id, name, sort_name, release, edits_pending)
+    VALUES (1, 'Ærial', 'Ærial', 2, 0);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 3, 2, 1, '0827969777220');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (3, 222, 2005, 11, 8);
@@ -189,6 +195,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (16, 'd328d709-609c-4b88-90be-95815f041524', 'Nocturn', 3, 514679);
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (17, '1539ac10-5081-4469-b8f2-c5896132724e', 'Aerial', 3, 472880);
+
+INSERT INTO recording_alias (id, name, sort_name, recording, edits_pending)
+    VALUES (1, 'King of the Mt.', 'King of the Mt.', 2, 0);
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (4, '39164965-d4bd-49e6-925d-72026ad03dce', 3, 1, 1, 2, 'King of the Mountain', 3, 293720);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (5, '82edb036-4097-484d-ac8a-cf4971451ca0', 3, 2, 2, 3, 'π', 3, 369680);

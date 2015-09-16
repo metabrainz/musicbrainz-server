@@ -611,7 +611,7 @@ sub build_suffix_info {
         };
     }
     if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
-        my @tables = MusicBrainz::Server::Data::Relationship::_generate_table_list($entity_type, grep { $_ ne 'url' } entities_with(['mbid','relatable']));
+        my @tables = $c->model('Relationship')->generate_table_list($entity_type, grep { $_ ne 'url' } entities_with(['mbid','relatable']));
         my $select = join(' UNION ALL ', map { 'SELECT TRUE FROM ' . $_->[0] . ' WHERE ' . $_->[1] . " = ${entity_type}.id" } @tables);
         $suffix_info->{relationships} = {
             suffix => 'relationships',
