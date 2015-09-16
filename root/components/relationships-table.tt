@@ -14,7 +14,7 @@
         [%- FOREACH relationship IN entity.appearances.pairs -%]
                 <tr class="subh">
                     <th></th>
-                    <th colspan="4">[% l(relationship.key) %]</th>
+                    <th colspan="[% show_credits ? 4 : 3 %]">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.parity %]">
