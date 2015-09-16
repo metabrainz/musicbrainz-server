@@ -60,7 +60,7 @@ sub relationships_by_link_type_names
     my ($self, @names) = @_;
     my %names = map { $_ => 1 } @names;
 
-    return [ grep {
+    return [ sort_by { $_->id } grep {
         defined $_->link && defined $_->link->type &&
         defined $_->link->type->name &&
         exists $names{ $_->link->type->name };

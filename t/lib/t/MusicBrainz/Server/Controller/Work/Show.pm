@@ -83,14 +83,14 @@ test 'Embedded JSON-LD' => sub {
         'includedComposition' => [
             {
                 '@type' => 'MusicComposition',
-                '@id' => 'https://musicbrainz.org/work/11d4a39f-ee76-459f-aaf5-b84131d867f2',
-                'name' => 'W3'
+                '@id' => 'https://musicbrainz.org/work/aff4e1f7-d3dd-4621-bd4c-25d1b87bb286',
+                'name' => 'W2'
             },
             {
                 '@type' => 'MusicComposition',
-                '@id' => 'https://musicbrainz.org/work/aff4e1f7-d3dd-4621-bd4c-25d1b87bb286',
-                'name' => 'W2'
-            }
+                '@id' => 'https://musicbrainz.org/work/11d4a39f-ee76-459f-aaf5-b84131d867f2',
+                'name' => 'W3'
+            },
         ],
         'inLanguage' => 'en'
     };
