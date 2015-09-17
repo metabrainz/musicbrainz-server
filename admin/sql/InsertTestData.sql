@@ -11,6 +11,10 @@ INSERT INTO artist (id, gid, name, sort_name, type) VALUES
     (1, '89ad4ac3-39f7-470e-963a-56509c546377', 'Various Artists', 'Various Artists', 3),
     (2, 'c06aa285-520e-40c0-b776-83d2c9e8a6d1', 'Deleted Artist', 'Deleted Artist', 3);
 
+INSERT INTO artist (area, begin_area, begin_date_day, begin_date_month, begin_date_year, comment, edits_pending, end_area, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES
+    (222, NULL, NULL, NULL, 1983, '', 0, NULL, NULL, NULL, NULL, '0', 1, 'fa263cb3-205f-4a7f-91e1-94e3df52abe8', 196418, '2011-08-18 11:37:18.247651-05', 'Jimmy Edgar', 'Edgar, Jimmy', 1),
+    (221, NULL, NULL, NULL, NULL, 'UK electronic artist', 0, NULL, NULL, NULL, NULL, '0', 1, 'e4787c4e-0b1a-48bd-b9a0-b0427391d293', 514734, '2014-06-06 12:43:54.273108-05', 'patten', 'patten', 1);
+
 -- Test Artist
 INSERT INTO artist
     (id, gid, name, sort_name, type, gender, area,
@@ -85,6 +89,15 @@ INSERT INTO label (id, gid, name, type, area, label_code,
                    end_date_year, end_date_month, end_date_day, comment)
      VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 4, 221, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
+
+-- recording contract relationships for Warp Records
+INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
+    (0, NULL, NULL, NULL, '2014-01-12 18:00:27.843631-06', NULL, NULL, 2008, '1', 146318, 121),
+    (0, 5, 11, 2013, '2013-12-08 14:19:44.210478-06', NULL, NULL, NULL, '0', 141690, 121);
+
+INSERT INTO l_artist_label (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
+    (0, 196418, '', 2, '', 458, '2014-01-12 18:00:27.843631-06', 146318, 0),
+    (0, 514734, '', 2, '', 6340, '2013-12-15 15:00:13.130313-06', 141690, 0);
 
 INSERT INTO label_alias (id, name, sort_name, label, edits_pending, type)
     VALUES (1, 'Test Label Alias', 'Test Label Alias', 2, 2, 1);

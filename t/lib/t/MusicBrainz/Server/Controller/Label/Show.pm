@@ -51,6 +51,26 @@ page_test_jsonld $mech => {
             '@type' => 'MusicRelease'
         }
     ],
+    'artistSigned' => [
+        {
+            '@type' => 'Role',
+            'artistSigned' => {
+                '@id' => 'https://musicbrainz.org/artist/fa263cb3-205f-4a7f-91e1-94e3df52abe8',
+                '@type' => 'MusicGroup',
+                'name' => 'Jimmy Edgar',
+            },
+            'endDate' => '2008',
+        },
+        {
+            '@type' => 'Role',
+            'artistSigned' => {
+                '@id' => 'https://musicbrainz.org/artist/e4787c4e-0b1a-48bd-b9a0-b0427391d293',
+                '@type' => 'MusicGroup',
+                'name' => 'patten',
+            },
+            'startDate' => '2013-11-05',
+        },
+    ],
     'foundingLocation' => {
         'name' => 'United Kingdom',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
