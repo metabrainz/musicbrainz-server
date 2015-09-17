@@ -44,7 +44,7 @@ sub get_column_type {
 
     CORE::state $cache = {};
 
-    my ($schema, $table) = split /\./, $table;
+    (my $schema, $table) = split /\./, $table;
 
     unless (defined $table) {
         $table = $schema;
