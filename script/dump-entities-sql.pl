@@ -336,18 +336,6 @@ sub get_core_entities_by_gids {
     get_core_entities($c, $entity_type, $ids);
 }
 
-sub dump_recordings {
-    my ($c, $gids) = @_;
-
-    get_core_entities_by_gids($c, 'recording', $gids);
-}
-
-sub dump_releases {
-    my ($c, $gids) = @_;
-
-    get_core_entities_by_gids($c, 'release', $gids);
-}
-
 sub dump_release_groups {
     my ($c, $gids) = @_;
 
@@ -366,8 +354,6 @@ sub dump_release_groups {
 }
 
 our %DUMP_METHODS = (
-    recording => \&dump_recordings,
-    release => \&dump_releases,
     release_group => \&dump_release_groups,
 );
 
@@ -386,7 +372,12 @@ EOSQL
 
     my ($entity_type, @gids) = @ARGV;
 
-    $DUMP_METHODS{$entity_type}->($c, \@gids);
+    my $dump_method = $DUMP_METHODS{$entity_type} // sub {
+        my ($c, $gids) = @_;
+        get_core_entities_by_gids($c, $entity_type, $gids);
+    };
+
+    $dump_method->($c, \@gids);
 
     print <<'EOSQL';
 
