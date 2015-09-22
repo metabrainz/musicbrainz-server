@@ -5,11 +5,12 @@
 # Lotheric <email address hidden>, 2012
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
+# Trans-fr, 2015
 # Trans-fr, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-30 22:00+0000\n"
+"PO-Revision-Date: 2015-09-09 17:01+0000\n"
 "Last-Translator: Trans-fr\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -749,6 +750,10 @@ msgstr "cornet à bouquin"
 #: DB:instrument/name:158
 msgid "cowbell"
 msgstr "clarine"
+
+#: DB:instrument/name:736
+msgid "cristal Baschet"
+msgstr "cristal Baschet"
 
 #: DB:instrument/name:164
 msgid "crotales"
@@ -1594,6 +1599,10 @@ msgstr "whistle de concert"
 msgid "lute"
 msgstr "luth"
 
+#: DB:instrument/name:737
+msgid "luthéal"
+msgstr "luthéal"
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr "lyre"
@@ -1705,6 +1714,10 @@ msgstr "scie musicale"
 #: DB:instrument/name:684
 msgid "nabal"
 msgstr "nabal"
+
+#: DB:instrument/name:738
+msgid "nadaswaram"
+msgstr "nâgasvaram"
 
 #: DB:instrument/name:553
 msgid "nagadou-daiko"
@@ -2402,13 +2415,13 @@ msgstr "ruban"
 msgid "taphon"
 msgstr "taphon"
 
-#: DB:instrument/name:467
-msgctxt "lute"
+#: DB:instrument/name:607
+msgctxt "drum"
 msgid "tar"
 msgstr "tar"
 
-#: DB:instrument/name:607
-msgctxt "drum"
+#: DB:instrument/name:467
+msgctxt "lute"
 msgid "tar"
 msgstr "tar"
 

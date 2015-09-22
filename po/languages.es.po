@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:48+0000\n"
-"Last-Translator: Ismael Olea <email address hidden>\n"
+"PO-Revision-Date: 2015-09-08 18:59+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1304,6 +1304,11 @@ msgstr "Latín"
 #: DB:language/name:239
 msgid "Latvian"
 msgstr "Letón"
+
+#. frequency:1 iso_code_3:lzz
+#: DB:language/name:4039
+msgid "Laz"
+msgstr ""
 
 #. frequency:1 iso_code_3:lez
 #: DB:language/name:240

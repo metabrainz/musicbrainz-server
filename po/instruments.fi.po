@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-05-05 22:56+0000\n"
-"Last-Translator: Joonas Tamminen <email address hidden>\n"
+"PO-Revision-Date: 2015-09-08 18:58+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -751,6 +751,10 @@ msgstr "sinkki"
 #: DB:instrument/name:158
 msgid "cowbell"
 msgstr "lehmänkello"
+
+#: DB:instrument/name:736
+msgid "cristal Baschet"
+msgstr ""
 
 #: DB:instrument/name:164
 msgid "crotales"
@@ -1596,6 +1600,10 @@ msgstr ""
 msgid "lute"
 msgstr "luuttu"
 
+#: DB:instrument/name:737
+msgid "luthéal"
+msgstr ""
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr "lyyra"
@@ -1706,6 +1714,10 @@ msgstr "saha"
 
 #: DB:instrument/name:684
 msgid "nabal"
+msgstr ""
+
+#: DB:instrument/name:738
+msgid "nadaswaram"
 msgstr ""
 
 #: DB:instrument/name:553
@@ -2404,13 +2416,13 @@ msgstr ""
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:467
-msgctxt "lute"
+#: DB:instrument/name:607
+msgctxt "drum"
 msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:607
-msgctxt "drum"
+#: DB:instrument/name:467
+msgctxt "lute"
 msgid "tar"
 msgstr ""
 

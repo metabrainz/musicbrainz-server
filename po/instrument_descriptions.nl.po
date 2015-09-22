@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-04-10 12:04+0000\n"
+"PO-Revision-Date: 2015-09-15 15:21+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1783,6 +1783,13 @@ msgid ""
 "shaped body and resembles the pipa."
 msgstr "De liuqin (Chinees: : 柳琴, pinyin: liǔqín) is een Chinees snaarinstrument met vier snaren en een peervormige kast. Het lijkt op de pipa."
 
+#. name:luthéal
+#: DB:instrument/description:737
+msgid ""
+"The luthéal is a kind of hybrid piano which extends the register "
+"possibilities of a standard piano, created by Georges Cloetens"
+msgstr "De luthéal is een door Georges Cloetens ontworpen piano die zo is geprepareerd dat de klankkleur veranderd kan worden."
+
 #. name:mandocello
 #: DB:instrument/description:600
 msgid ""
@@ -1824,6 +1831,11 @@ msgstr "Een mukkuri is een mondharp die gebruikt wordt door de Ainu in Japan."
 msgid ""
 "The nabal is a long, straight brass horn used in Korean traditional music."
 msgstr "Een nabal is een lange koperen rechte hoorn die gebruikt wordt voor traditionele Koreaanse muziek."
+
+#. name:nadaswaram
+#: DB:instrument/description:738
+msgid "The nadaswaram is a South Indian double reed wind instrument."
+msgstr "Een nadaswaram is een dubbelrietinstrument uit het zuiden van India."
 
 #. name:nagadou-daiko
 #: DB:instrument/description:553
@@ -2719,11 +2731,6 @@ msgstr "Een Turkse doosvormige kemençhe die vooral gebruikt wordt voor volksmuz
 msgid "Turkish pair of small, hemispherical drums"
 msgstr "Kudüm zijn een paar kleine Turkse trommels in de vorm van een halve bol."
 
-#. name:kemenche
-#: DB:instrument/description:211
-msgid "Turkish three-stringed bowed instrument"
-msgstr "Een kemençhe is een Turks driesnarig strijkinstrument."
-
 #. name:valved brass instruments
 #: DB:instrument/description:201
 msgid ""
@@ -2740,6 +2747,13 @@ msgstr "Een natuurhoorn is een ventielloze voorganger van de moderne hoorn."
 #: DB:instrument/description:272
 msgid "Various types of cymbal. Also called chũm chọe"
 msgstr "Verschillende types bekken. Wordt ook chũm chọe genoemd."
+
+#. name:kemenche
+#: DB:instrument/description:211
+msgid ""
+"Various types of stringed bowed musical instruments having their origin in "
+"the Eastern Mediterranean"
+msgstr "Verschillende soorten strijkinstrumenten afkomstig uit het oosten van het Middellandse Zeegebied."
 
 #. name:violone
 #: DB:instrument/description:420

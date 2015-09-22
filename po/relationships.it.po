@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:33+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-09-08 18:59+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,6 +96,28 @@ msgstr "Bandcamp"
 #: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
 msgid "Bandcamp page for"
 msgstr "Pagina Bandcamp per"
+
+#: DB:link_type/link_phrase:860 DB:link_type/link_phrase:861
+#: DB:link_type/link_phrase:862
+msgid "Bandsintown"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:860 DB:link_type/reverse_link_phrase:861
+#: DB:link_type/reverse_link_phrase:862
+msgid "Bandsintown page for"
+msgstr ""
+
+#: DB:link_type/link_phrase:850 DB:link_type/link_phrase:851
+#: DB:link_type/link_phrase:852 DB:link_type/link_phrase:853
+#: DB:link_type/reverse_link_phrase:854
+msgid "BookBrainz"
+msgstr ""
+
+#: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:850
+#: DB:link_type/reverse_link_phrase:851 DB:link_type/reverse_link_phrase:852
+#: DB:link_type/reverse_link_phrase:853
+msgid "BookBrainz page for"
+msgstr ""
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -315,6 +337,12 @@ msgid ""
 "original composer revising the work at a later date."
 msgstr ""
 
+#: DB:link_type/description:887
+msgid ""
+"Indicates that an event was intended as a performance of a specific release "
+"group (usually an album)."
+msgstr ""
+
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr ""
@@ -427,11 +455,20 @@ msgstr ""
 msgid "Indicates the official homepage for an event."
 msgstr ""
 
+#: DB:link_type/description:871
+msgid ""
+"Indicates the person who translated the lyrics/libretto for this release."
+msgstr ""
+
+#: DB:link_type/description:872
+msgid "Indicates the person who translated the lyrics/libretto for this work."
+msgstr ""
+
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
 msgstr ""
 
-#: DB:link_type/description:127 DB:link_type/description:206
+#: DB:link_type/description:127
 msgid ""
 "Indicates the publisher of this recording. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
@@ -461,6 +498,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
+msgstr ""
+
+#: DB:link_type/description:864
+msgid ""
+"Links a recording to the area it was arranged in. Use only when the place is"
+" unknown!"
 msgstr ""
 
 #: DB:link_type/description:821
@@ -503,6 +546,10 @@ msgstr ""
 msgid "Links a recording to the event it was recorded at."
 msgstr ""
 
+#: DB:link_type/description:866
+msgid "Links a recording to the place it was arranged at."
+msgstr ""
+
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
 msgstr ""
@@ -529,6 +576,12 @@ msgstr ""
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
+msgstr ""
+
+#: DB:link_type/description:863
+msgid ""
+"Links a release to the area it was arranged in. Use only when the place is "
+"unknown!"
 msgstr ""
 
 #: DB:link_type/description:822
@@ -559,6 +612,10 @@ msgid ""
 "unknown!"
 msgstr ""
 
+#: DB:link_type/description:849
+msgid "Links a release to the area it was printed in."
+msgstr ""
+
 #: DB:link_type/description:826
 msgid ""
 "Links a release to the area it was produced in. Use only when the place is "
@@ -579,6 +636,10 @@ msgstr ""
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:865
+msgid "Links a release to the place it was arranged at."
 msgstr ""
 
 #: DB:link_type/description:820
@@ -679,6 +740,26 @@ msgstr "Pagina Myspace per"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
+msgstr ""
+
+#: DB:link_type/description:852
+msgid "Points to the BookBrainz page for this artist."
+msgstr ""
+
+#: DB:link_type/description:851
+msgid "Points to the BookBrainz page for this label."
+msgstr ""
+
+#: DB:link_type/description:853
+msgid "Points to the BookBrainz page for this release group."
+msgstr ""
+
+#: DB:link_type/description:850
+msgid "Points to the BookBrainz page for this release."
+msgstr ""
+
+#: DB:link_type/description:854
+msgid "Points to the BookBrainz page for this work."
 msgstr ""
 
 #: DB:link_type/description:713
@@ -785,11 +866,13 @@ msgstr ""
 msgid "Songkick page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:291 DB:link_type/link_phrase:290
+#: DB:link_type/link_phrase:870 DB:link_type/link_phrase:291
+#: DB:link_type/link_phrase:290
 msgid "SoundCloud"
 msgstr "SoundCloud"
 
-#: DB:link_type/reverse_link_phrase:291 DB:link_type/reverse_link_phrase:290
+#: DB:link_type/reverse_link_phrase:870 DB:link_type/reverse_link_phrase:291
+#: DB:link_type/reverse_link_phrase:290
 msgid "SoundCloud page for"
 msgstr "Pagina SoundCloud per"
 
@@ -1133,6 +1216,12 @@ msgid ""
 "suite broken into movements)"
 msgstr ""
 
+#: DB:link_type/description:858
+msgid ""
+"This indicates that an artist appears on a music video, but doesn't actually"
+" perform on the audio track."
+msgstr ""
+
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
 msgstr ""
@@ -1231,6 +1320,13 @@ msgstr ""
 msgid ""
 "This indicates the organization that manufactures (or contracts out manufacturing). \n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr ""
+
+#: DB:link_type/description:848
+msgid ""
+"This indicates the organization that markets a release. This is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
 msgstr ""
 
 #: DB:link_type/description:359
@@ -1359,6 +1455,11 @@ msgstr ""
 
 #: DB:link_type/description:216
 msgid "This is used to link a label to its corresponding Wikipedia page."
+msgstr ""
+
+#: DB:link_type/description:857
+msgid ""
+"This is used to link a music video to the corresponding audio recording."
 msgstr ""
 
 #: DB:link_type/description:705
@@ -1500,6 +1601,12 @@ msgid ""
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
 msgstr ""
 
+#: DB:link_type/description:855
+msgid ""
+"This links a group (often an orchestra) to a composer who has a composer-in-"
+"residence position with the group."
+msgstr ""
+
 #: DB:link_type/description:304
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
@@ -1566,14 +1673,23 @@ msgid ""
 "used samples as well."
 msgstr ""
 
+#: DB:link_type/description:868
+msgid ""
+"This links a release group to an artist it is dedicated to. This is for "
+"dedications such as \"This album is dedicated to the memory of Artist\" - "
+"for tribute albums consisting of covers of the artist, use the <a "
+"href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\">tribute "
+"relationship</a>."
+msgstr ""
+
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
 "album.​ Tribute albums often have a title in the form \"A Tribute to "
-"Artistname\". They normally consist of covers of songs by the target artist,"
-" played by other (sometimes very unknown) bands, to honor the target artist."
-" Often they are various artist compilations, but a single artist can perform"
-" the entire tribute album."
+"Artist\", and they consist of covers of songs by the target artist, played "
+"by other (sometimes very unknown) bands, to honor the target artist. Often "
+"they are various artist compilations, but a single artist can perform the "
+"entire tribute album."
 msgstr ""
 
 #: DB:link_type/description:301
@@ -1604,6 +1720,12 @@ msgid ""
 "used samples as well."
 msgstr ""
 
+#: DB:link_type/description:870
+msgid ""
+"This links a series (most commonly, but not necessarily always, a music "
+"festival) to its official page at SoundCloud."
+msgstr ""
+
 #: DB:link_type/description:805
 msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
@@ -1630,6 +1752,62 @@ msgid ""
 "relationship type is the functional equivalent of the <a "
 "href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
 "type</a> for group-group relationships."
+msgstr ""
+
+#: DB:link_type/description:885
+msgid "This links a work with the area it was arranged in."
+msgstr ""
+
+#: DB:link_type/description:875
+msgid "This links a work with the area it was composed in."
+msgstr ""
+
+#: DB:link_type/description:881
+msgid "This links a work with the area it was revised in."
+msgstr ""
+
+#: DB:link_type/description:884
+msgid "This links a work with the area it was translated in."
+msgstr ""
+
+#: DB:link_type/description:873
+msgid "This links a work with the area it was written in."
+msgstr ""
+
+#: DB:link_type/description:879
+msgid "This links a work with the area its libretto was written in."
+msgstr ""
+
+#: DB:link_type/description:877
+msgid "This links a work with the area its lyrics were written in."
+msgstr ""
+
+#: DB:link_type/description:886
+msgid "This links a work with the place it was arranged at."
+msgstr ""
+
+#: DB:link_type/description:876
+msgid "This links a work with the place it was composed at."
+msgstr ""
+
+#: DB:link_type/description:882
+msgid "This links a work with the place it was revised at."
+msgstr ""
+
+#: DB:link_type/description:883
+msgid "This links a work with the place it was translated at."
+msgstr ""
+
+#: DB:link_type/description:874
+msgid "This links a work with the place it was written at."
+msgstr ""
+
+#: DB:link_type/description:880
+msgid "This links a work with the place its libretto was written at."
+msgstr ""
+
+#: DB:link_type/description:878
+msgid "This links a work with the place its lyrics were written at."
 msgstr ""
 
 #: DB:link_type/description:292
@@ -1848,6 +2026,13 @@ msgid ""
 "This relationship indicates that a person was another's teacher/student."
 msgstr ""
 
+#: DB:link_type/description:869
+msgid ""
+"This relationship indicates the artist is the <a "
+"href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
+" copyright</a> holder for this recording."
+msgstr ""
+
 #: DB:link_type/description:710
 msgid ""
 "This relationship indicates the artist is the <a "
@@ -1873,6 +2058,13 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:867
+msgid ""
+"This relationship indicates the label is the <a "
+"href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
+" copyright</a> holder for this recording. ​"
+msgstr ""
+
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a "
@@ -1884,6 +2076,20 @@ msgstr ""
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release."
+msgstr ""
+
+#: DB:link_type/description:83
+msgid ""
+"This relationship is deprecated, since it's almost always misused. To specify that a recording on this release contains samples taken from a movie, show or game, use the recording - URL relationship. If you don't know what recording(s) use the samples, please just indicate it in the annotation.\n"
+"<br/><br/>\n"
+"To say that the release is a soundtrack, please use the <a href=\"/relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">IMDB relationship type for release groups</a>."
+msgstr ""
+
+#: DB:link_type/description:206
+msgid ""
+"This relationship is deprecated. To indicate work publishers, add label-work"
+" relationships. To indicate (P) holders, use the phonographic copyright "
+"relationship."
 msgstr ""
 
 #: DB:link_type/description:751
@@ -1914,6 +2120,17 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
+msgstr ""
+
+#: DB:link_type/description:859
+msgid ""
+"This relationship links a concert tour to the artist(s) the tour is by."
+msgstr ""
+
+#: DB:link_type/description:856
+msgid ""
+"This relationship links an organist to the place(s) (most commonly religious"
+" buildings) at which they are the resident organist."
 msgstr ""
 
 #: DB:link_type/description:729
@@ -1979,13 +2196,6 @@ msgid ""
 "This relationship type describes that the recording contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
 "<br/><br/>\n"
 "To say that the recording is part of a soundtrack, please use the <a href=\"/relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">IMDB relationship type for release groups</a>."
-msgstr ""
-
-#: DB:link_type/description:83
-msgid ""
-"This relationship type describes that the release contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
-"<br/><br/>\n"
-"To say that the release is a soundtrack, please use the <a href=\"/relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">IMDB relationship type for release groups</a>."
 msgstr ""
 
 #: DB:link_type/description:236
@@ -2091,6 +2301,12 @@ msgid ""
 "This relationship type links a label to its corresponding page at Last.fm"
 msgstr ""
 
+#: DB:link_type/description:861
+msgid ""
+"This relationship type links a place to its corresponding page at "
+"Bandsintown."
+msgstr ""
+
 #: DB:link_type/description:837
 msgid ""
 "This relationship type links a place to its corresponding page at Last.fm"
@@ -2118,6 +2334,12 @@ msgid ""
 "This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
+msgstr ""
+
+#: DB:link_type/description:862
+msgid ""
+"This relationship type links an artist to its corresponding page at "
+"Bandsintown."
 msgstr ""
 
 #: DB:link_type/description:840
@@ -2160,6 +2382,12 @@ msgid ""
 "This relationship type links an event to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
+msgstr ""
+
+#: DB:link_type/description:860
+msgid ""
+"This relationship type links an event to its corresponding page at "
+"Bandsintown."
 msgstr ""
 
 #: DB:link_type/description:839
@@ -2257,8 +2485,8 @@ msgid "Wikidata page for"
 msgstr "Pagina Wikidata per"
 
 #: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:179
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:731 DB:link_type/link_phrase:744
 #: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
 #: DB:link_type/long_link_phrase:731
@@ -2267,7 +2495,7 @@ msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
 #: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:216
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:744
 msgid "Wikipedia page for"
 msgstr "Pagina Wikipedia per"
@@ -2300,12 +2528,29 @@ msgstr ""
 msgid "anthem of"
 msgstr ""
 
+#: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
+msgid "appears on video"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
+msgid "arranged at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:864
+msgid "arranged in"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:350
 msgid "arrangement of"
 msgstr ""
 
 #: DB:link_type/link_phrase:350
 msgid "arrangements"
+msgstr ""
+
+#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:866
+msgid "arranging location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
@@ -2458,6 +2703,14 @@ msgstr ""
 msgid "compiler"
 msgstr ""
 
+#: DB:link_type/link_phrase:855
+msgid "composer-in-residence at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:855
+msgid "composers-in-residence"
+msgstr ""
+
 #: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
 #: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
 #: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
@@ -2551,12 +2804,16 @@ msgstr ""
 msgid "creative position"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:846
+#: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 msgid "dedicated to"
 msgstr ""
 
 #: DB:link_type/link_phrase:846
 msgid "dedicated works"
+msgstr ""
+
+#: DB:link_type/link_phrase:868
+msgid "dedications"
 msgstr ""
 
 #: DB:link_type/link_phrase:737
@@ -2782,6 +3039,16 @@ msgstr "ha l'ID VIAF"
 msgid "has a BBC Music page at"
 msgstr "ha la pagina di BBC Music"
 
+#: DB:link_type/long_link_phrase:860 DB:link_type/long_link_phrase:861
+#: DB:link_type/long_link_phrase:862
+msgid "has a Bandsintown page at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:850 DB:link_type/long_link_phrase:851
+#: DB:link_type/long_link_phrase:852 DB:link_type/long_link_phrase:853
+msgid "has a BookBrainz page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:705
@@ -2815,7 +3082,8 @@ msgstr "ha la pagina di SecondHandSongs"
 msgid "has a Songkick page at"
 msgstr "ha la pagina di Songkick"
 
-#: DB:link_type/long_link_phrase:291 DB:link_type/long_link_phrase:290
+#: DB:link_type/long_link_phrase:870 DB:link_type/long_link_phrase:291
+#: DB:link_type/long_link_phrase:290
 msgid "has a SoundCloud page at"
 msgstr "ha la pagina di SoundCloud"
 
@@ -2832,8 +3100,8 @@ msgid "has a Wikidata page at"
 msgstr "ha la pagina di Wikidata"
 
 #: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:179
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:744
 msgid "has a Wikipedia page at"
 msgstr "ha la pagina di Wikipedia"
@@ -2884,6 +3152,7 @@ msgid "has a page in a database at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
+#: DB:link_type/long_link_phrase:732
 msgid "has a picture at"
 msgstr "ha una foto su"
 
@@ -2974,6 +3243,10 @@ msgstr ""
 msgid "has dedicated work"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:868
+msgid "has dedication"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
 msgstr ""
@@ -2988,6 +3261,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:857
+msgid "has music video"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:316
@@ -3042,6 +3319,10 @@ msgstr ""
 msgid "has subtype"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:859
+msgid "has tour"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:752
 msgid "has traditional instrument"
 msgstr ""
@@ -3087,7 +3368,9 @@ msgstr ""
 msgid "holds copyright for"
 msgstr ""
 
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:867
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:867
 #: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright for"
 msgstr ""
@@ -3104,8 +3387,7 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
-#: DB:link_type/description:732 DB:link_type/link_phrase:732
-#: DB:link_type/reverse_link_phrase:732 DB:link_type/long_link_phrase:732
+#: DB:link_type/description:732
 msgid "image"
 msgstr "immagine"
 
@@ -3140,6 +3422,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:854
+msgid "is a BookBrainz page for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
@@ -3255,7 +3541,7 @@ msgid "is the earliest version of {translated} {parody}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:2
-msgid "is the original for the transl{transliterated:iter}ated track listing"
+msgid "is the original for the transliterated/translated track listing"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:109
@@ -3341,6 +3627,14 @@ msgstr "nome legale"
 msgid "legal representation"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:880
+msgid "libretto {additional:additionally} written at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:879
+msgid "libretto {additional:additionally} written in"
+msgstr ""
+
 #: DB:link_type/link_phrase:302 DB:link_type/link_phrase:301
 msgid "license"
 msgstr "licenza"
@@ -3421,6 +3715,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:835
 msgid "manufacturing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:848 DB:link_type/long_link_phrase:848
+msgid "marketed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:848
+msgid "marketed by"
 msgstr ""
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
@@ -3558,6 +3860,14 @@ msgstr ""
 msgid "music can be streamed for free at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:857
+msgid "music video for"
+msgstr ""
+
+#: DB:link_type/link_phrase:857
+msgid "music videos"
+msgstr ""
+
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
 msgid "musical relationship"
@@ -3613,6 +3923,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
+msgstr ""
+
+#: DB:link_type/link_phrase:856
+msgid "organist at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:856
+msgid "organists"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:836
@@ -3678,6 +3996,14 @@ msgstr ""
 msgid "performance"
 msgstr ""
 
+#: DB:link_type/link_phrase:887
+msgid "performance of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:887
+msgid "performed at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:292
 msgid "performed the voice of"
 msgstr ""
@@ -3715,20 +4041,19 @@ msgstr ""
 msgid "personal relationship"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:867
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright by"
 msgstr ""
 
-#: DB:link_type/link_phrase:173
+#: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
+#: DB:link_type/link_phrase:732
 msgid "picture"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
+#: DB:link_type/reverse_link_phrase:732
 msgid "picture of"
-msgstr ""
-
-#: DB:link_type/link_phrase:396
-msgid "pictures"
 msgstr ""
 
 #: DB:link_type/link_phrase:808
@@ -3774,6 +4099,14 @@ msgstr ""
 
 #: DB:link_attribute_type/name:618
 msgid "principal"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:849
+msgid "printed in"
+msgstr ""
+
+#: DB:link_type/link_phrase:849
+msgid "printing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
@@ -3851,17 +4184,17 @@ msgstr ""
 msgid "provided {additional} photography on"
 msgstr ""
 
-#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:362
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:362
-#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:127
+#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 msgid "published"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr ""
@@ -3991,8 +4324,20 @@ msgstr ""
 msgid "revised"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:882
+msgid "revised at"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:844
 msgid "revised by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:881
+msgid "revised in"
+msgstr ""
+
+#: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+msgid "revising location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:315
@@ -4165,8 +4510,24 @@ msgstr ""
 msgid "time"
 msgstr ""
 
-#: DB:link_attribute_type/name:517
+#: DB:link_type/reverse_link_phrase:859
+msgid "tour by"
+msgstr ""
+
+#: DB:link_type/link_phrase:859
+msgid "tours"
+msgstr ""
+
+#: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:883
+msgid "translated at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:884
+msgid "translated in"
 msgstr ""
 
 #: DB:link_attribute_type/name:477
@@ -4174,11 +4535,11 @@ msgid "transliterated"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:2
-msgid "transl{transliterated:iter}ated track listing of"
+msgid "transliterated/translated track listing of"
 msgstr ""
 
 #: DB:link_type/link_phrase:2
-msgid "transl{transliterated:iter}ated track listings"
+msgid "transliterated/translated track listings"
 msgstr ""
 
 #: DB:link_attribute_type/name:834
@@ -4217,6 +4578,10 @@ msgstr ""
 msgid "video channel for"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:858
+msgid "visual appearances"
+msgstr ""
+
 #: DB:link_attribute_type/name:3
 msgid "vocal"
 msgstr ""
@@ -4229,6 +4594,10 @@ msgstr ""
 msgid "voiced by"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:855
+msgid "was a composer-in-residence at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:806
 msgid "was a conductor at"
 msgstr ""
@@ -4239,6 +4608,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:798
 msgid "was a main performer at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:887
+msgid "was a performance of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:799
@@ -4257,6 +4630,10 @@ msgstr ""
 msgid "was held at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:856
+msgid "was organist at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -4267,6 +4644,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
+msgid "was the arranging location for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
@@ -4296,6 +4678,10 @@ msgstr ""
 msgid "was the mixing location for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:849
+msgid "was the printing location for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 #: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "was the producing location for"
@@ -4310,6 +4696,34 @@ msgstr ""
 #: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
 #: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
 msgid "was the remixing location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:882
+msgid "was the revising location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:886
+msgid "was the {additional} arranging location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:876
+msgid "was the {additional} composing location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:880
+msgid "was the {additional} libretto writing location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:878
+msgid "was the {additional} lyrics writing location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:884
+msgid "was the {additional} translating location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:874
+msgid "was the {additional} writing location for"
 msgstr ""
 
 #: DB:link_type/description:733
@@ -4346,6 +4760,14 @@ msgstr ""
 msgid "{additional:additionally} arranged"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:886
+msgid "{additional:additionally} arranged at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:885
+msgid "{additional:additionally} arranged in"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:282 DB:link_type/long_link_phrase:158
 #: DB:link_type/long_link_phrase:41
 msgid "{additional:additionally} arranged {instrument:%|instruments} on"
@@ -4359,6 +4781,14 @@ msgstr ""
 #: DB:link_type/link_phrase:55 DB:link_type/link_phrase:168
 #: DB:link_type/long_link_phrase:55 DB:link_type/long_link_phrase:168
 msgid "{additional:additionally} composed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:876
+msgid "{additional:additionally} composed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:875
+msgid "{additional:additionally} composed in"
 msgstr ""
 
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
@@ -4385,9 +4815,30 @@ msgstr ""
 msgid "{additional:additionally} sampled by"
 msgstr ""
 
+#: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
+#: DB:link_type/long_link_phrase:872
+msgid "{additional:additionally} translated"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:874
+msgid "{additional:additionally} written at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:873
+msgid "{additional:additionally} written in"
+msgstr ""
+
 #: DB:link_type/link_phrase:54 DB:link_type/link_phrase:167
 #: DB:link_type/long_link_phrase:54 DB:link_type/long_link_phrase:167
 msgid "{additional:additionally} wrote"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:57 DB:link_type/long_link_phrase:169
+msgid "{additional:additionally} wrote the libretto for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
+msgid "{additional:additionally} wrote the lyrics for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
@@ -4461,15 +4912,6 @@ msgstr ""
 msgid "{additional:additionally} {instrument:%|instruments} arranged"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:57 DB:link_type/long_link_phrase:169
-msgid ""
-"{additional:additionally} {translated:translated|wrote} the libretto for"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
-msgid "{additional:additionally} {translated:translated|wrote} the lyrics for"
-msgstr ""
-
 #: DB:link_type/link_phrase:296 DB:link_type/link_phrase:298
 #: DB:link_type/link_phrase:294
 msgid "{additional:additionally} {vocal:%|vocals} arranged"
@@ -4478,6 +4920,10 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:293 DB:link_type/reverse_link_phrase:295
 #: DB:link_type/reverse_link_phrase:297
 msgid "{additional} arranger"
+msgstr ""
+
+#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+msgid "{additional} arranging location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
@@ -4492,6 +4938,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
+msgstr ""
+
+#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+msgid "{additional} composing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
@@ -4513,8 +4963,41 @@ msgstr ""
 msgid "{additional} graphic design"
 msgstr ""
 
+#: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
+#: DB:link_type/reverse_link_phrase:169
+msgid "{additional} librettist"
+msgstr ""
+
+#: DB:link_type/link_phrase:169
+msgid "{additional} libretto"
+msgstr ""
+
+#: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+msgid "{additional} libretto writing location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
+msgid "{additional} lyricist"
+msgstr ""
+
+#: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
+msgid "{additional} lyrics"
+msgstr ""
+
+#: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+msgid "{additional} lyrics writing location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:878
+msgid "{additional} lyrics written at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:877
+msgid "{additional} lyrics written in"
 msgstr ""
 
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
@@ -4543,8 +5026,20 @@ msgstr ""
 msgid "{additional} samples from"
 msgstr ""
 
+#: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+msgid "{additional} translating location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:871 DB:link_type/reverse_link_phrase:872
+msgid "{additional} translator"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:54 DB:link_type/reverse_link_phrase:167
 msgid "{additional} writer"
+msgstr ""
+
+#: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+msgid "{additional} writing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
@@ -4620,23 +5115,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:102
 msgid "{additional} {minor} collaborators"
-msgstr ""
-
-#: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
-#: DB:link_type/reverse_link_phrase:169
-msgid "{additional} {translated:libretto translation|librettist}"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
-msgid "{additional} {translated:translator|lyricist}"
-msgstr ""
-
-#: DB:link_type/link_phrase:169
-msgid "{additional} {translated} libretto"
-msgstr ""
-
-#: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
-msgid "{additional} {translated} lyrics"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-28 17:42+0000\n"
+"PO-Revision-Date: 2015-09-10 14:11+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1299,6 +1299,11 @@ msgstr "Latijn"
 #: DB:language/name:239
 msgid "Latvian"
 msgstr "Lets"
+
+#. frequency:1 iso_code_3:lzz
+#: DB:language/name:4039
+msgid "Laz"
+msgstr "Lazisch"
 
 #. frequency:1 iso_code_3:lez
 #: DB:language/name:240

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-28 14:14+0000\n"
+"PO-Revision-Date: 2015-09-11 12:14+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1300,6 +1300,11 @@ msgstr "Latino"
 #: DB:language/name:239
 msgid "Latvian"
 msgstr "Lettone"
+
+#. frequency:1 iso_code_3:lzz
+#: DB:language/name:4039
+msgid "Laz"
+msgstr "Laz"
 
 #. frequency:1 iso_code_3:lez
 #: DB:language/name:240

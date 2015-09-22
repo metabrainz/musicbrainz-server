@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-03-27 11:32+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-09-08 18:58+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -753,6 +753,10 @@ msgstr "cornetto"
 #: DB:instrument/name:158
 msgid "cowbell"
 msgstr "cencerro"
+
+#: DB:instrument/name:736
+msgid "cristal Baschet"
+msgstr ""
 
 #: DB:instrument/name:164
 msgid "crotales"
@@ -1598,6 +1602,10 @@ msgstr ""
 msgid "lute"
 msgstr "laúd"
 
+#: DB:instrument/name:737
+msgid "luthéal"
+msgstr ""
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr "lira"
@@ -1708,6 +1716,10 @@ msgstr "sierra musical"
 
 #: DB:instrument/name:684
 msgid "nabal"
+msgstr ""
+
+#: DB:instrument/name:738
+msgid "nadaswaram"
 msgstr ""
 
 #: DB:instrument/name:553
@@ -2406,13 +2418,13 @@ msgstr "cinta"
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:467
-msgctxt "lute"
+#: DB:instrument/name:607
+msgctxt "drum"
 msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:607
-msgctxt "drum"
+#: DB:instrument/name:467
+msgctxt "lute"
 msgid "tar"
 msgstr ""
 
