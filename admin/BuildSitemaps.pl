@@ -667,11 +667,6 @@ sub build_one_batch {
     my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
     my $tables = $entity_type . $extra_sql{join};
 
-    if ($entity_properties->{lastmod_table}) {
-        $tables .= " LEFT JOIN ${entity_type}_lastmod lastmod ON ($entity_type.id = lastmod.id)";
-        $columns .= ", lastmod.last_modified AS lastmod";
-    }
-
     my $query = "SELECT $columns FROM $tables " .
                 "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
                 "ORDER BY ${entity_type}.id ASC";

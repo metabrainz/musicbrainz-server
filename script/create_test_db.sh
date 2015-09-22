@@ -23,12 +23,14 @@ echo "
   DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
   DROP SCHEMA IF EXISTS documentation CASCADE;
   DROP SCHEMA IF EXISTS wikidocs CASCADE;
+  DROP SCHEMA IF EXISTS sitemaps CASCADE;
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
   CREATE SCHEMA cover_art_archive;
   CREATE SCHEMA documentation;
-  CREATE SCHEMA wikidocs;" | ./admin/psql $DATABASE 2>&1
+  CREATE SCHEMA wikidocs;
+  CREATE SCHEMA sitemaps;" | ./admin/psql $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating MusicBrainz Schema
@@ -69,6 +71,11 @@ echo `date` : Creating documentation Schema
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating sitemaps Schema
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Set up pgtap extension
 OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )

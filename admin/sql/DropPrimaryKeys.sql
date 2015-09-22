@@ -276,7 +276,6 @@ ALTER TABLE work_attribute DROP CONSTRAINT IF EXISTS work_attribute_pkey;
 ALTER TABLE work_attribute_type DROP CONSTRAINT IF EXISTS work_attribute_type_pkey;
 ALTER TABLE work_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS work_attribute_type_allowed_value_pkey;
 ALTER TABLE work_gid_redirect DROP CONSTRAINT IF EXISTS work_gid_redirect_pkey;
-ALTER TABLE work_lastmod DROP CONSTRAINT IF EXISTS work_lastmod_pkey;
 ALTER TABLE work_meta DROP CONSTRAINT IF EXISTS work_meta_pkey;
 ALTER TABLE work_rating_raw DROP CONSTRAINT IF EXISTS work_rating_raw_pkey;
 ALTER TABLE work_tag DROP CONSTRAINT IF EXISTS work_tag_pkey;
