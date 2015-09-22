@@ -240,7 +240,9 @@ sub automatically_reorder {
     my $target_prop = $type0 eq 'series' ? 'entity1' : 'entity0';
 
     my $pairs = $self->c->sql->select_list_of_hashes("
-        SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
+        SELECT relationship, link_order, text_value
+          FROM ${entity_type}_series
+         WHERE series = ?",
         $series_id
     );
     return unless @$pairs;
@@ -256,8 +258,11 @@ sub automatically_reorder {
     $self->c->model('Relationship')->load_entities(@relationships);
 
     my %relationships_by_text_value;
+    my %relationships_by_link_order;
     for my $pair (@$pairs) {
-        push(@{ $relationships_by_text_value{$pair->{text_value}} }, $relationships->{$pair->{relationship}});
+        my $relationship = $relationships->{$pair->{relationship}};
+        push @{ $relationships_by_text_value{$pair->{text_value}} }, $relationship;
+        push @{ $relationships_by_link_order{$pair->{link_order}} }, $relationship;
     }
 
     my @sorted_values = map { $_->[0] } sort {
@@ -312,8 +317,14 @@ sub automatically_reorder {
                 $link_order++;
             }
 
-            push @from_values, "(?, ?)";
-            push @from_args, $relationship->id, $link_order;
+            my ($conflicting_relationship) = grep {
+                $_->$target_prop->id == $relationship->$target_prop->id
+            } @{ $relationships_by_link_order{$link_order} // [] };
+
+            unless ($conflicting_relationship) {
+                push @from_values, "(?, ?)";
+                push @from_args, $relationship->id, $link_order;
+            }
 
             $prev_relationship = $relationship;
         }
