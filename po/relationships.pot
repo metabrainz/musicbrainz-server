@@ -1592,6 +1592,12 @@ msgid ""
 "Cover_Art_Archive\">Cover Art Archive</a>."
 msgstr ""
 
+#: DB:link_type/description:888
+msgid ""
+"This links a concert tour with a release group (generally an album) the tour "
+"is connected with."
+msgstr ""
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -3020,6 +3026,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:834
 msgid "had previous attribution"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:888
+msgid "had supporting tour"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:77
@@ -4485,6 +4495,10 @@ msgstr ""
 msgid "supporting releases"
 msgstr ""
 
+#: DB:link_type/link_phrase:888
+msgid "supporting tours"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
 msgstr ""
@@ -4511,6 +4525,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:888
+msgid "tour in support of"
 msgstr ""
 
 #: DB:link_type/link_phrase:859
