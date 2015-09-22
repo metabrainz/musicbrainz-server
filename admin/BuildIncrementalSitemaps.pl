@@ -7,11 +7,13 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MooseX::Runnable::Run;
-run_application 'MusicBrainz::Server::Sitemap::Overall', @ARGV;
+run_application 'MusicBrainz::Server::Sitemap::Incremental', @ARGV;
 
 =head1 SYNOPSIS
 
-admin/BuildSitemaps.pl: build XML sitemaps/sitemap-indexes to a standard location.
+admin/BuildIncrementalSitemaps.pl: Build incremental sitemaps that contain all
+pages whose JSON-LD markup has changed since the overall sitemaps were built
+(see: admin/BuildSitemaps.pl).
 
 Options:
 
