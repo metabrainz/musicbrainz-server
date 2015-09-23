@@ -239,18 +239,18 @@ sub automatically_reorder {
     my $type1 = $entity_type lt 'series' ? 'series' : $entity_type;
     my $target_prop = $type0 eq 'series' ? 'entity1' : 'entity0';
 
-    my $pairs = $self->c->sql->select_list_of_hashes("
+    my $series_items = $self->c->sql->select_list_of_hashes("
         SELECT relationship, link_order, text_value
           FROM ${entity_type}_series
          WHERE series = ?",
         $series_id
     );
-    return unless @$pairs;
+    return unless @$series_items;
 
     my $relationships = $self->c->model('Relationship')->get_by_ids(
         $type0,
         $type1,
-        map { $_->{relationship} } @$pairs
+        map { $_->{relationship} } @$series_items
     );
     my @relationships = values %$relationships;
     $self->c->model('Link')->load(@relationships);
@@ -259,10 +259,10 @@ sub automatically_reorder {
 
     my %relationships_by_text_value;
     my %relationships_by_link_order;
-    for my $pair (@$pairs) {
-        my $relationship = $relationships->{$pair->{relationship}};
-        push @{ $relationships_by_text_value{$pair->{text_value}} }, $relationship;
-        push @{ $relationships_by_link_order{$pair->{link_order}} }, $relationship;
+    for my $item (@$series_items) {
+        my $relationship = $relationships->{$item->{relationship}};
+        push @{ $relationships_by_text_value{$item->{text_value}} }, $relationship;
+        push @{ $relationships_by_link_order{$item->{link_order}} }, $relationship;
     }
 
     my @sorted_values = map { $_->[0] } sort {
