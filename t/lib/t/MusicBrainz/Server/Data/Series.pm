@@ -376,4 +376,43 @@ EOSQL
     is_deeply([map { $_->{entity}->id } @$items], [2, 1, 3], 'release groups are reordered after inserting release events');
 };
 
+test 'Can reorder series with multiple of the same item without conflicts (MBS-8553)' => sub {
+    my $c = shift->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
+
+    $c->sql->do(<<EOSQL);
+      INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type)
+        VALUES (4, '8658de67-6bb3-4281-be04-1340604ecaae', 'S', 2, 788, 1);
+
+      INSERT INTO release_group (id, gid, name, artist_credit, type)
+        VALUES (1, 'b11f4f4d-9feb-4487-85ee-79a3be288e2c', 'RG', 1, 1);
+
+      INSERT INTO release (id, gid, name, release_group, artist_credit)
+        VALUES (1, 'f36b8255-5ad2-487b-a62d-c46db2f25f76', 'R', 1, 1);
+EOSQL
+
+    $c->model('Relationship')->insert('release', 'series', {
+        entity0_id      => 1,
+        entity1_id      => 4,
+        link_type_id    => 741,
+        link_order      => 1,
+    });
+
+    $c->model('Relationship')->insert('release', 'series', {
+        entity0_id      => 1,
+        entity1_id      => 4,
+        link_type_id    => 741,
+        link_order      => 2,
+    });
+
+    $c->model('Release')->update(1, {name => 'E3'});
+
+    my $series = $c->model('Series')->get_by_id(4);
+    $c->model('SeriesType')->load($series);
+    my ($items, $count) = $c->model('Series')->get_entities($series, 3, 0);
+
+    is_deeply([map { $_->{entity}->id } @$items], [1, 1]);
+};
+
 1;
