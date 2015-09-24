@@ -10,7 +10,7 @@ sub query {
     my ($self) = @_;
     my $entity_type = $self->entity_type;
     my $name_sort = $entity_type ne 'url' ? 'musicbrainz_collate(entity.name)' : 'entity.url';
-    my @tables = MusicBrainz::Server::Data::Relationship::_generate_table_list($entity_type);
+    my @tables = $self->c->model('Relationship')->generate_table_list($entity_type);
     my $query = "SELECT l.name AS link_name, l.gid AS link_gid, entity.id AS ${entity_type}_id, row_number() OVER (ORDER BY l.name, $name_sort)" .
                 "FROM $entity_type AS entity JOIN (";
     my $first = 1;
