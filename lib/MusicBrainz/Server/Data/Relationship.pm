@@ -677,7 +677,7 @@ sub delete
     my $deletes_area_part = $self->sql->select_single_value(
         "SELECT 1 FROM l_${type0}_${type1} r
            JOIN link l ON l.id = r.link
-           JOIN link_type lt ON lt.id = link.link_type
+           JOIN link_type lt ON lt.id = l.link_type
           WHERE r.id = any(?) AND lt.gid = ?",
         \@ids,
         $PART_OF_AREA_LINK_TYPE
