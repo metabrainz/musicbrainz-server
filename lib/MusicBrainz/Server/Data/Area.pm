@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Area;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any );
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
@@ -85,22 +86,61 @@ sub load_containment
         return any { !defined($obj->{$type_parent_attribute{$_}}) &&
                      (!defined($obj_type) || $obj_type != $_) } keys %type_parent_attribute;
     };
+
     my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
+    my %ids_to_load = map { $_ => 1 } @all_ids;
+    my @containments;
 
-    # See admin/sql/CreateViews.sql for a description of the area_containment view.
-    # If more types are added to %type_parent_attribute the view should be updated.
-    my $query = "SELECT descendant, parent, type, array_length(descendant_hierarchy,1) AS depth FROM area_containment WHERE descendant = any(?)";
-    my $containment = $self->sql->select_list_of_hashes($query, \@all_ids);
+    my $namespace_key = $self->c->redis->get('area_containment_memcached_key');
+    unless (defined $namespace_key) {
+        $namespace_key = $self->clear_containment_cache;
+    }
 
-    my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
+    my $cached_containments = $self->c->cache('area_containment')->get_multi(
+        map { "area_containment:$namespace_key:$_" } @all_ids
+    );
+
+    if (defined $cached_containments && %{$cached_containments}) {
+        for (keys %$cached_containments) {
+            $_ =~ /:([0-9]+)$/;
+            delete $ids_to_load{$1};
+        }
+        @containments = map { @{$_} } values %{$cached_containments};
+    }
+
+    my @ids_to_load = keys %ids_to_load;
+    if (@ids_to_load) {
+        # See admin/sql/CreateViews.sql for a description of the
+        # area_containment view. If more types are added to
+        # %type_parent_attribute the view should be updated.
+        my $query = q{
+            SELECT descendant, parent, type,
+                   array_length(descendant_hierarchy, 1) AS depth
+              FROM area_containment
+             WHERE descendant = any(?)
+        };
+        my $loaded_containments = $self->sql->select_list_of_hashes($query, \@ids_to_load);
+        my %parents_by_descendant = partition_by { $_->{descendant} } @{$loaded_containments};
+
+        $self->c->cache('area_containment')->set_multi(
+            map {
+                my $parents = $parents_by_descendant{$_} // [];
+                ["area_containment:$namespace_key:$_", $parents]
+            } @ids_to_load
+        );
+
+        push @containments, @{$loaded_containments};
+    }
+
+    my @parent_ids = grep { defined } map { $_->{parent} } @containments;
 
     # Having determined the IDs for all the parents, actually load them and attach to the
     # descendant objects.
     my $parent_objects = $self->get_by_ids(@parent_ids);
-    for my $data (@$containment) {
+    for my $data (@containments) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
             my $type = $type_parent_attribute{$data->{type}};
             my $type_depth = $type . '_depth';
@@ -111,6 +151,12 @@ sub load_containment
             }
         }
     }
+}
+
+sub clear_containment_cache {
+    my $key = time;
+    shift->c->redis->set('area_containment_memcached_key', $key);
+    return $key;
 }
 
 sub _set_codes
@@ -147,6 +193,10 @@ sub update
 
     $self->set_all_codes($area_id, $update);
 
+    if (exists $row->{type}) {
+        $self->clear_containment_cache;
+    }
+
     return 1;
 }
 
@@ -182,6 +232,7 @@ sub delete
         $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
     }
     $self->sql->do('DELETE FROM area WHERE id IN (' . placeholders(@area_ids) . ')', @area_ids);
+    $self->clear_containment_cache;
     return 1;
 }
 
@@ -247,6 +298,7 @@ sub _merge_impl
     );
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
+    $self->clear_containment_cache;
     return 1;
 }
 
