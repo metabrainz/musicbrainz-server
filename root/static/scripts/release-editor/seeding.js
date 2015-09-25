@@ -92,6 +92,10 @@
         }
 
         if (data.releaseGroup) {
+            // Need to convert secondary type IDs into strings because
+            // Knockout.js will do a strict comparison when rendering the
+            // input. See MBS-7828.
+            data.releaseGroup.secondaryTypeIDs = data.releaseGroup.secondaryTypeIDs.map(String);
             release.releaseGroup(fields.ReleaseGroup(data.releaseGroup));
         }
 
