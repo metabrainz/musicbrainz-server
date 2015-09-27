@@ -47,6 +47,7 @@ use constant FAVICON_CLASSES => {
     'plus.google.com'           => 'googleplus',
     'openlibrary.org'           => 'openlibrary',
     'bandcamp.com'              => 'bandcamp',
+    'play.google.com'           => 'googleplay',
     'itunes.apple.com'          => 'iTunes',
     'spotify.com'               => 'spotify',
     'soundtrackcollector.com'   => 'STcollector',
