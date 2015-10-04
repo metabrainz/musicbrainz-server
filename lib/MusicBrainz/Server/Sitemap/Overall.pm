@@ -17,7 +17,6 @@ use MusicBrainz::Server::Sitemap::Constants qw(
 );
 use POSIX;
 use Sql;
-use Try::Tiny;
 
 extends 'MusicBrainz::Server::Sitemap::Builder';
 

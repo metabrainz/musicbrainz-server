@@ -23,6 +23,7 @@ use MusicBrainz::Server::Sitemap::Constants qw(
 );
 use POSIX qw( ceil );
 use Readonly;
+use Try::Tiny;
 use URI;
 use URI::Escape qw( uri_escape_utf8 );
 use WWW::Sitemap::XML;
