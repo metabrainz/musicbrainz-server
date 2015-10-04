@@ -191,7 +191,7 @@ sub create : Local RequireAuth {
         if ($initial_entity_param) {
             if (ref($initial_entity_param) eq 'ARRAY') {
                 # Can only insert one item.
-                $initial_entity_id = ${$initial_entity_param}[0];
+                $initial_entity_id = $initial_entity_param->[0];
             } else {
                 $initial_entity_id = $initial_entity_param;
             }
