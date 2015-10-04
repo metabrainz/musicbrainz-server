@@ -461,7 +461,7 @@ sub follow_foreign_keys($$$$$$) {
     my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     # Continue traversing the schemas until we stop finding changes.
-    my $foreign_keys = get_foreign_keys($c, $direction, $pk_schema, $pk_table);
+    my $foreign_keys = $self->get_foreign_keys($c, $direction, $pk_schema, $pk_table);
     return unless @{$foreign_keys};
 
     for my $info (@{$foreign_keys}) {
