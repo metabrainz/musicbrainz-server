@@ -165,7 +165,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
             extra_sql => {columns => "(SELECT count(DISTINCT id) FROM medium WHERE medium.release = release.id) AS medium_count"},
             filename_suffix => 'disc',
             url_constructor => sub {
-                my ($self, $entity_type, $ids, %opts) = @_;
+                my ($self, $c, $entity_type, $ids, %opts) = @_;
 
                 my @paginated_urls;
                 for my $id_info (@$ids) {
@@ -175,6 +175,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
 
                         for (my $i = 1; $i < $id_info->{medium_count} + 1; $i++) {
                             push @paginated_urls, $self->create_url_opts(
+                                $c,
                                 'release',
                                 "$url_base/disc/$i",
                                 \%opts,

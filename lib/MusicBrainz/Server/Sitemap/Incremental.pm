@@ -74,22 +74,11 @@ my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
 
 my $pm = Parallel::ForkManager->new(10);
 
-# This should be refreshed for each new worker, as internal DBI handles would
-# otherwise be shared across processes (and are not advertized as MPSAFE).
-sub new_context() {
-    my $self = shift;
-
-    $self->c(MusicBrainz::Server::Context->create_script_context(
-        database => $self->database,
-        fresh_connector => 1,
-    ));
-}
-
 memoize('get_primary_keys');
 memoize('get_foreign_keys');
 
-sub build_and_check_urls($$$$) {
-    my ($self, $pk_schema, $pk_table, $update, $joins) = @_;
+sub build_and_check_urls($$$$$) {
+    my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
 
     # Returns whether we found any changes to JSON-LD markup (a page was
     # added, or an existing page's markup changed.)
@@ -99,6 +88,7 @@ sub build_and_check_urls($$$$) {
         my ($row_id, $url, $is_paginated, $sitemap_suffix_key) = @_;
 
         my $was_updated = $self->fetch_and_handle_jsonld(
+            $c,
             $pk_table,
             $row_id,
             $url,
@@ -115,7 +105,7 @@ sub build_and_check_urls($$$$) {
     };
 
     my $suffix_info = $SITEMAP_SUFFIX_INFO{$pk_table};
-    my $entity_rows = $self->get_linked_entities($pk_table, $update, $joins);
+    my $entity_rows = $self->get_linked_entities($c, $pk_table, $update, $joins);
 
     unless (@{$entity_rows}) {
         $self->log('No new entities found for sequence ID ' .
@@ -165,10 +155,10 @@ sub build_and_check_urls($$$$) {
 }
 
 # Declaration silences "called too early to check prototype" from recursive call.
-sub fetch_and_handle_jsonld($$$$$$);
+sub fetch_and_handle_jsonld($$$$$$$);
 
-sub fetch_and_handle_jsonld($$$$$$) {
-    my ($self, $entity_type, $row_id, $url, $update, $is_paginated, $suffix_key) = @_;
+sub fetch_and_handle_jsonld($$$$$$$) {
+    my ($self, $c, $entity_type, $row_id, $url, $update, $is_paginated, $suffix_key) = @_;
 
     CORE::state $attempts = {};
     CORE::state $canonical_json = JSON->new->canonical->utf8;
@@ -191,8 +181,6 @@ sub fetch_and_handle_jsonld($$$$$$) {
     }
 
     if ($response->is_success) {
-        my $c = $self->c;
-
         my $new_hash = sha1_hex($canonical_json->encode(decode_json($response->content)));
         my ($operation, $last_modified, $replication_sequence) =
             @{$update}{qw(operation last_modified replication_sequence)};
@@ -254,6 +242,7 @@ EOSQL
             sleep 10;
             $attempts->{$url}++;
             return $self->fetch_and_handle_jsonld(
+                $c,
                 $entity_type,
                 $row_id,
                 $url,
@@ -268,30 +257,30 @@ EOSQL
     return 0;
 }
 
-sub get_primary_keys($$) {
-    my ($self, $schema, $table) = @_;
+sub get_primary_keys($$$) {
+    my ($self, $c, $schema, $table) = @_;
 
     map {
         # Some columns are wrapped in quotes, others aren't...
         $_ =~ s/^"(.*?)"$/$1/; $_
-    } $self->c->sql->dbh->primary_key(undef, $schema, $table);
+    } $c->sql->dbh->primary_key(undef, $schema, $table);
 }
 
-sub get_foreign_keys($$$) {
-    my ($self, $direction, $schema, $table) = @_;
+sub get_foreign_keys($$$$) {
+    my ($self, $c, $direction, $schema, $table) = @_;
 
     my $foreign_keys = [];
     my ($sth, $all_keys);
 
     if ($direction == 1) {
         # Get FK columns in other tables that refer to PK columns in $table.
-        $sth = $self->c->sql->dbh->foreign_key_info(undef, $schema, $table, (undef) x 3);
+        $sth = $c->sql->dbh->foreign_key_info(undef, $schema, $table, (undef) x 3);
         if (defined $sth) {
             $all_keys = $sth->fetchall_arrayref;
         }
     } elsif ($direction == 2) {
         # Get FK columns in $table that refer to PK columns in other tables.
-        $sth = $self->c->sql->dbh->foreign_key_info((undef) x 4, $schema, $table);
+        $sth = $c->sql->dbh->foreign_key_info((undef) x 4, $schema, $table);
         if (defined $sth) {
             $all_keys = $sth->fetchall_arrayref;
         }
@@ -389,8 +378,8 @@ sub should_follow_foreign_key($$$) {
     return 1;
 }
 
-sub get_linked_entities($$$) {
-    my ($self, $entity_type, $update, $joins) = @_;
+sub get_linked_entities($$$$) {
+    my ($self, $c, $entity_type, $update, $joins) = @_;
 
     my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
         @{$update}{qw(schema table column value replication_sequence)};
@@ -406,9 +395,9 @@ sub get_linked_entities($$$) {
     my $table = "musicbrainz.$entity_type";
 
     Sql::run_in_transaction(sub {
-        $self->c->sql->do('LOCK TABLE sitemaps.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE');
+        $c->sql->do('LOCK TABLE sitemaps.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE');
 
-        my $entity_rows = $self->c->sql->select_list_of_hashes(
+        my $entity_rows = $c->sql->select_list_of_hashes(
             "SELECT DISTINCT $table.id, $table.gid
                FROM $table
                $joins_string
@@ -422,7 +411,7 @@ sub get_linked_entities($$$) {
 
         my @entity_rows = @{$entity_rows};
         if (@entity_rows) {
-            $self->c->sql->do(
+            $c->sql->do(
                 'INSERT INTO sitemaps.tmp_checked_entities (id, entity_type) ' .
                 'VALUES ' . (join ', ', ("(?, '$entity_type')") x scalar(@entity_rows)),
                 map { $_->{id} } @entity_rows,
@@ -430,41 +419,49 @@ sub get_linked_entities($$$) {
         }
 
         $entity_rows;
-    }, $self->c->sql);
+    }, $c->sql);
 }
 
 # Declaration silences "called too early to check prototype" from recursive call.
-sub find_entities_with_jsonld($$$$$);
-sub follow_foreign_keys($$$$$);
+sub find_entities_with_jsonld($$$$$$);
+sub follow_foreign_keys($$$$$$);
 
-sub find_entities_with_jsonld($$$$$) {
-    my ($self, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
+sub find_entities_with_jsonld($$$$$$) {
+    my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     if (should_fetch_jsonld($pk_schema, $pk_table)) {
         $pm->start and return;
 
-        $self->new_context;
-        my $any_updates = $self->build_and_check_urls($pk_schema, $pk_table, $update, $joins);
+        # This should be refreshed for each new worker, as internal DBI handles
+        # would otherwise be shared across processes (and are not advertized as
+        # MPSAFE).
+        my $new_c = MusicBrainz::Server::Context->create_script_context(
+            database => $self->database,
+            fresh_connector => 1,
+        );
+        my $any_updates = $self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins);
         my $exit_code = $any_updates ? 0 : 1;
         my $shared_data;
 
         if ($any_updates) {
             my @args = @_;
             shift @args;
+            shift @args;
             $shared_data = \@args;
         }
 
+        $new_c->connector->disconnect;
         $pm->finish($exit_code, $shared_data);
     } else {
         $self->follow_foreign_keys(@_);
     }
 }
 
-sub follow_foreign_keys($$$$$) {
-    my ($self, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
+sub follow_foreign_keys($$$$$$) {
+    my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     # Continue traversing the schemas until we stop finding changes.
-    my $foreign_keys = get_foreign_keys($direction, $pk_schema, $pk_table);
+    my $foreign_keys = get_foreign_keys($c, $direction, $pk_schema, $pk_table);
     return unless @{$foreign_keys};
 
     for my $info (@{$foreign_keys}) {
@@ -477,6 +474,7 @@ sub follow_foreign_keys($$$$$) {
         next unless should_follow_foreign_key($lhs, $rhs, $joins);
 
         $self->find_entities_with_jsonld(
+            $c,
             $direction,
             $fk_schema,
             $fk_table,
@@ -486,10 +484,9 @@ sub follow_foreign_keys($$$$$) {
     }
 }
 
-sub handle_replication_sequence($) {
-    my ($self, $sequence) = @_;
+sub handle_replication_sequence($$) {
+    my ($self, $c, $sequence) = @_;
 
-    my $c = $self->c;
     my $file = "replication-$sequence.tar.bz2";
     my $url = $self->replication_access_uri . "/$file";
     my $local_file = "/tmp/$file";
@@ -547,7 +544,7 @@ sub handle_replication_sequence($) {
 
         my @primary_keys = grep {
             should_follow_primary_key("$schema.$table.$_")
-        } $self->get_primary_keys($schema, $table);
+        } $self->get_primary_keys($c, $schema, $table);
 
         for my $pk_column (@primary_keys) {
             my $pk_value = $c->sql->dbh->quote(
@@ -565,7 +562,7 @@ sub handle_replication_sequence($) {
             };
 
             for (1...2) {
-                $self->find_entities_with_jsonld($_, $schema, $table, $update, []);
+                $self->find_entities_with_jsonld($c, $_, $schema, $table, $update, []);
             }
         }
     }
@@ -598,6 +595,7 @@ sub handle_replication_sequence($) {
 
             for my $update (@{$updates}) {
                 my $opts = $self->create_url_opts(
+                    $c,
                     $entity_type,
                     $update->{url},
                     $suffix_info,
@@ -625,7 +623,7 @@ sub handle_replication_sequence($) {
     }
 
     $self->write_index;
-    $self->ping_search_engines;
+    $self->ping_search_engines($c);
 }
 
 around do_not_delete => sub {
@@ -638,9 +636,10 @@ around do_not_delete => sub {
 sub run {
     my ($self) = @_;
 
-    $self->new_context;
-
-    my $c = $self->c;
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => $self->database,
+        fresh_connector => 1,
+    );
 
     $pm->run_on_finish(sub {
         my $shared_data = pop;
@@ -648,7 +647,7 @@ sub run {
         my ($pid, $exit_code) = @_;
 
         if ($exit_code == 0) {
-            $self->follow_foreign_keys(@{$shared_data});
+            $self->follow_foreign_keys($c, @{$shared_data});
         }
     });
 
@@ -708,7 +707,7 @@ sub run {
     }
 
     for my $sequence ($next_seq ... $current_seq) {
-        $self->handle_replication_sequence($sequence);
+        $self->handle_replication_sequence($c, $sequence);
 
         $c->sql->auto_commit(1);
         $c->sql->do('TRUNCATE sitemaps.tmp_checked_entities');

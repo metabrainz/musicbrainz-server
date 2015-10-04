@@ -30,9 +30,7 @@ tables used to assist in the process of creating sitemaps.
 =cut
 
 sub create_temporary_tables {
-    my ($self) = @_;
-
-    my $sql = $self->c->sql;
+    my ($self, $sql) = @_;
 
     $sql->begin;
     $sql->do(
@@ -100,9 +98,7 @@ sub create_temporary_tables {
 }
 
 sub fill_temporary_tables {
-    my ($self) = @_;
-
-    my $sql = $self->c->sql;
+    my ($self, $sql) = @_;
 
     my $is_official = "(EXISTS (SELECT TRUE FROM release where release.release_group = q.rg AND release.status = '1')
                         OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = q.rg AND release.status IS NOT NULL))";
@@ -210,9 +206,7 @@ sub fill_temporary_tables {
 }
 
 sub drop_temporary_tables {
-    my ($self) = @_;
-
-    my $sql = $self->c->sql;
+    my ($self, $sql) = @_;
 
     $sql->begin;
     for my $table (qw( artist_direct_rgs
@@ -236,9 +230,9 @@ and what to build for each batch, then calls out to do it.
 =cut
 
 sub build_one_entity {
-    my ($self, $entity_type) = @_;
+    my ($self, $c, $entity_type) = @_;
 
-    my $sql = $self->c->sql;
+    my $sql = $c->sql;
 
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
@@ -272,12 +266,12 @@ sub build_one_entity {
                     batches => [$last_batch->{batch}]};
 
     for my $batch_info (@batches) {
-        $self->build_one_batch($entity_type, $batch_info);
+        $self->build_one_batch($c, $entity_type, $batch_info);
     }
 }
 
-sub construct_url_lists($$@) {
-    my ($self, $entity_type, $ids, %suffix_info) = @_;
+sub construct_url_lists($$$@) {
+    my ($self, $c, $entity_type, $ids, %suffix_info) = @_;
 
     my @base_urls;
     my @paginated_urls;
@@ -286,7 +280,7 @@ sub construct_url_lists($$@) {
         my $id = $id_info->{main_id};
         my $url = $self->build_page_url($entity_type, $id, %suffix_info);
 
-        push @base_urls, $self->create_url_opts($entity_type, $url, \%suffix_info, $id_info);
+        push @base_urls, $self->create_url_opts($c, $entity_type, $url, \%suffix_info, $id_info);
 
         if ($suffix_info{paginated}) {
             # 50 items per page, and the first page is covered by the base.
@@ -302,7 +296,7 @@ sub construct_url_lists($$@) {
 
                 # Expand these all to full specifications for build_one_sitemap.
                 push @paginated_urls, map {
-                    $self->create_url_opts($entity_type, $_, \%suffix_info, $id_info);
+                    $self->create_url_opts($c, $entity_type, $_, \%suffix_info, $id_info);
                 } @new_paginated_urls;
             }
         }
@@ -319,7 +313,7 @@ and then builds the main sitemaps and any suffix sitemaps.
 =cut
 
 sub build_one_batch {
-    my ($self, $entity_type, $batch_info) = @_;
+    my ($self, $c, $entity_type, $batch_info) = @_;
 
     my $entity_suffix_info = $SITEMAP_SUFFIX_INFO{$entity_type};
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
@@ -341,12 +335,12 @@ sub build_one_batch {
     my $query = "SELECT $columns FROM $tables " .
                 "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
                 "ORDER BY ${entity_type}.id ASC";
-    my $ids = $self->c->sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
+    my $ids = $c->sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
 
     for my $suffix (sort keys %{$entity_suffix_info}) {
         my %suffix_info = %{$entity_suffix_info->{$suffix}};
         my $url_constructor = $suffix_info{url_constructor} // \&construct_url_lists;
-        my $urls = $url_constructor->($self, $entity_type, $ids, %suffix_info);
+        my $urls = $url_constructor->($self, $c, $entity_type, $ids, %suffix_info);
 
         $self->build_one_suffix($entity_type, $minimum_batch_number, $urls, %suffix_info);
     }
@@ -364,7 +358,11 @@ sub run {
 
     $self->log('Building sitemaps and sitemap index files');
 
-    my $sql = $self->c->sql;
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => $self->database,
+        fresh_connector => 1,
+    );
+    my $sql = $c->sql;
 
     my $sitemaps_control_exists = $sql->select_single_value(
         'SELECT 1 FROM sitemaps.control',
@@ -381,17 +379,17 @@ sub run {
     # calling `build_one_entity`. Runs in one repeatable-read transaction for
     # data consistency. Temporary tables are created and filled first.
 
-    $self->drop_temporary_tables; # Drop first, just in case.
-    $self->create_temporary_tables;
+    $self->drop_temporary_tables($sql); # Drop first, just in case.
+    $self->create_temporary_tables($sql);
 
     $sql->begin;
     $sql->do("SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ");
-    $self->fill_temporary_tables;
+    $self->fill_temporary_tables($sql);
     for my $entity_type (entities_with(['mbid', 'indexable']), 'cdtoc') {
-        $self->build_one_entity($entity_type);
+        $self->build_one_entity($c, $entity_type);
     }
     $sql->commit;
-    $self->drop_temporary_tables;
+    $self->drop_temporary_tables($sql);
 
     # Once all sitemaps are built, write a sitemap index file.
     $self->write_index;
@@ -407,7 +405,7 @@ UPDATE sitemaps.control
 EOSQL
 
     # Finally, ping search engines (if the option is turned on) and finish.
-    $self->ping_search_engines;
+    $self->ping_search_engines($c);
     $self->log('Done');
 }
 

@@ -42,19 +42,6 @@ sub BUILD {
     $self->add_sitemap_file('.gitkeep');
 }
 
-has c => (
-    is => 'rw',
-    isa => 'MusicBrainz::Server::Context',
-    lazy => 1,
-    default => sub {
-        MusicBrainz::Server::Context->create_script_context(
-            database => shift->database,
-            fresh_connector => 1,
-        );
-    },
-    traits => ['NoGetopt'],
-);
-
 has compression_enabled => (
     is => 'ro',
     isa => 'Bool',
@@ -226,8 +213,8 @@ sub build_page_url {
     return $url;
 }
 
-sub create_url_opts($$$$) {
-    my ($self, $entity_type, $url, $suffix_info, $id_info) = @_;
+sub create_url_opts($$$$$) {
+    my ($self, $c, $entity_type, $url, $suffix_info, $id_info) = @_;
 
     # Default priority is 0.5, per spec.
     my %add_opts = (loc => $url);
@@ -240,7 +227,7 @@ sub create_url_opts($$$$) {
     }
 
     if ($suffix_info->{jsonld_markup}) {
-        my $last_modified = $self->c->sql->select_single_value(
+        my $last_modified = $c->sql->select_single_value(
             "SELECT last_modified FROM sitemaps.${entity_type}_lastmod WHERE url = ?",
             $url,
         );
@@ -384,8 +371,8 @@ remove URL of the sitemap index.
 
 =cut
 
-sub ping_search_engines {
-    my ($self) = @_;
+sub ping_search_engines($) {
+    my ($self, $c) = @_;
 
     return unless $self->ping_enabled;
 
@@ -401,7 +388,7 @@ sub ping_search_engines {
     for my $prefix (@sitemap_prefixes) {
         try {
             my $ping_url = $prefix . uri_escape_utf8($url);
-            $self->c->lwp->get($ping_url);
+            $c->lwp->get($ping_url);
         } catch {
             $self->log("Failed to ping $prefix.");
         }
