@@ -17,12 +17,18 @@ pages whose JSON-LD markup has changed since the overall sitemaps were built
 
 Options:
 
-    --help             show this help
-    --compress         compress with gzip (default: true)
-    --ping             ping search engines once built (default: false)
-    --web-server       web server URL used as a base in sitemap-index
-                       files, without trailing slash (default:
-                       DBDefs->CANONICAL_SERVER)
+    --help                      show this help
+    --compress                  compress with gzip (default: true)
+    --ping                      ping search engines once built (default: false)
+    --web-server                web server URL used as a base in sitemap-index
+                                files, without trailing slash (default:
+                                DBDefs->CANONICAL_SERVER)
+    --database                  database to use (default: READWRITE)
+    --output-dir                directory to write sitemaps to (default:
+                                root/static/sitemaps/)
+    --replication-access-uri    URI to request replication packets from
+                                (default:
+                                https://metabrainz.org/api/musicbrainz)
 =cut
 
 =head1 COPYRIGHT
