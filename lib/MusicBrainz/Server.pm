@@ -158,7 +158,7 @@ __PACKAGE__->config->{form} = {
     form_name_space => 'MusicBrainz::Server::Forms',
 };
 
-if (DBDefs->_RUNNING_TESTS) {
+if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
     push @args, "Session::Store::Dummy";
 
     # /static is usually taken care of by Plack or nginx, but not when running
@@ -172,8 +172,7 @@ if (DBDefs->_RUNNING_TESTS) {
         dirs => [ 'static' ],
         no_logs => 1
     }
-}
-else {
+} else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }

@@ -90,12 +90,6 @@ test 'Extend expiration on first no vote' => sub {
 
 test all => sub {
 
-{
-    no warnings 'redefine';
-    use DBDefs;
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
-}
-
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+vote_stats');

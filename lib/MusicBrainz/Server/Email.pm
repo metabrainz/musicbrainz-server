@@ -492,7 +492,7 @@ sub _build_transport
 {
     my ($self) = @_;
 
-    if (DBDefs->_RUNNING_TESTS) { # XXX shouldn't be here
+    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) { # XXX shouldn't be here
         return $self->get_test_transport;
     }
 
