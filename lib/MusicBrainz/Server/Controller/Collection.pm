@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Collection;
 use Moose;
 use Scalar::Util qw( looks_like_number );
+use List::Util qw( first );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
@@ -180,19 +181,41 @@ sub _redirect_to_collection {
 sub create : Local RequireAuth {
     my ($self, $c) = @_;
 
-    my $form = $c->form( form => 'Collection' );
+    my $initial_entity_id;
+    my $initial_entity_type;
+
+    my @collection_types = $c->model('CollectionType')->get_all();
+
+    for my $entity_type (entities_with('collections')) {
+        my $initial_entity_param = $c->request->params->{$entity_type};
+        if ($initial_entity_param) {
+            if (ref($initial_entity_param) eq 'ARRAY') {
+                # Can only insert one item.
+                $initial_entity_id = ${$initial_entity_param}[0];
+            } else {
+                $initial_entity_id = $initial_entity_param;
+            }
+            $initial_entity_type = (first { $_->{entity_type} eq $entity_type } @collection_types);
+            last;  # can create a collection with only one type of entity
+        }
+    }
+
+    my $form;
+    if ($initial_entity_type) {
+        $form = $c->form( form => 'Collection', init_object => { type_id => $initial_entity_type->id } );
+    } else {
+        $form = $c->form( form => 'Collection' );
+    }
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %insert = $self->_form_to_hash($form);
-
         my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
-        for (entities_with('collections')) {
-            my $entity_id = $c->request->params->{$_};
-
-            if ($entity_id) {
-              $c->model('Collection')->add_entities_to_collection($_, $collection->{id}, $entity_id);
-            }
+        if ($initial_entity_id) {
+            $c->model('Collection')->add_entities_to_collection(
+                $initial_entity_type->entity_type, $collection->{id}, $initial_entity_id
+            );
         }
+
         $self->_redirect_to_collection($c, $collection->{gid});
     }
 }
