@@ -3,6 +3,7 @@ package t::MusicBrainz::Server::Sitemap;
 use DBDefs;
 use File::Spec;
 use File::Temp qw( tempdir );
+use List::UtilsBy qw( sort_by );
 use String::ShellQuote;
 use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
@@ -18,11 +19,16 @@ test 'Sitemap build scripts' => sub {
     my $root = DBDefs->MB_SERVER_ROOT;
     my $psql = File::Spec->catfile($root, 'admin/psql');
 
-    my $artist_sql = shell_quote(<<EOSQL);
+    my $exec_sql = sub {
+        my $sql = shell_quote(shift);
+
+        system 'sh', '-c' => "echo $sql | $psql TEST";
+    };
+
+    $exec_sql->(<<EOSQL);
 INSERT INTO artist (id, gid, name, sort_name)
 VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
 EOSQL
-    system 'sh', '-c' => "echo $artist_sql | $psql TEST";
 
     my $tmp = tempdir("t-sitemaps-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
 
@@ -40,7 +46,11 @@ EOSQL
         my $map = WWW::SitemapIndex::XML->new;
         $map->load(location => File::Spec->catfile($tmp, $file));
 
-        my $got = [map +{ loc => $_->loc, lastmod => $_->lastmod }, $map->urls];
+        my $got = [
+            sort_by { $_->{loc} }
+            (map +{ loc => $_->loc, lastmod => $_->lastmod }, $map->sitemaps)
+        ];
+
         $expected = [map +{ loc => "https://musicbrainz.org/$_", lastmod => ignore() }, @{$expected}];
 
         cmp_deeply($got, $expected, $file);
@@ -52,25 +62,31 @@ EOSQL
         my $map = WWW::Sitemap::XML->new;
         $map->load(location => File::Spec->catfile($tmp, $file));
 
-        my $got = [map +{ loc => $_->loc, priority => $_->priority, lastmod => $_->lastmod }, $map->urls];
+        my $got = [
+            sort_by { $_->{loc} }
+            (map +{ loc      => $_->loc,
+                    priority => $_->priority,
+                    lastmod  => $_->lastmod }, $map->urls)
+        ];
+
         cmp_deeply($got, $expected, $file);
     };
 
     $test_sitemap_index->([
         'sitemap-artist-1-aliases.xml',
         'sitemap-artist-1-all.xml',
-        'sitemap-artist-1-va-all.xml',
-        'sitemap-artist-1.xml',
         'sitemap-artist-1-details.xml',
         'sitemap-artist-1-events.xml',
-        'sitemap-artist-1-recordings.xml',
         'sitemap-artist-1-recordings-standalone.xml',
         'sitemap-artist-1-recordings-video.xml',
+        'sitemap-artist-1-recordings.xml',
         'sitemap-artist-1-relationships.xml',
-        'sitemap-artist-1-releases.xml',
         'sitemap-artist-1-releases-va.xml',
+        'sitemap-artist-1-releases.xml',
+        'sitemap-artist-1-va-all.xml',
         'sitemap-artist-1-va.xml',
         'sitemap-artist-1-works.xml',
+        'sitemap-artist-1.xml',
     ]);
 
     $test_sitemap->('sitemap-artist-1.xml', [{
@@ -157,55 +173,63 @@ EOSQL
         lastmod => undef,
     }]);
 
-    $artist_sql = shell_quote("UPDATE artist SET name = 'B' WHERE id = 1");
+    my $build_packet = sub {
+        my ($number, $pending, $pendingdata) = @_;
 
-    my $replication_info = shell_quote('{"last_packet": "replication-1.tar.bz2"}');
+        $pending = shell_quote($pending);
+        $pendingdata = shell_quote($pendingdata);
+        my $replication_info = shell_quote(qq({"last_packet": "replication-$number.tar.bz2"}));
 
-    my $dbmirror_pending = shell_quote(qq(1\t"musicbrainz"."artist"\tu\t1));
+        system "echo $replication_info > $tmp/replication-info";
+        system "mkdir -p $tmp/mbdump";
+        system "echo $pending > $tmp/mbdump/dbmirror_pending";
+        system "echo $pendingdata > $tmp/mbdump/dbmirror_pendingdata";
+        system "tar -C $tmp -cyf - mbdump > $tmp/replication-$number.tar.bz2";
+    };
+
+    my $build_incremental = sub {
+        system (
+            File::Spec->catfile($root, 'admin/BuildIncrementalSitemaps.pl'),
+            '--nocompress',
+            '--database' => 'TEST',
+            '--output-dir' => $tmp,
+            '--replication-access-uri' => "file://$tmp",
+        );
+    };
+
+    my $dbmirror_pending = qq(1\t"musicbrainz"."artist"\tu\t1);
 
     # Lines must have a trailing space.
     chomp (my $dbmirror_pendingdata = <<"EOF");
 1\tt\t"id"='1'\x{20}
 1\tf\t"id"='1' "name"='B' "last_updated"='2015-10-03 20:03:56.069908+00'\x{20}
 EOF
-    $dbmirror_pendingdata = shell_quote($dbmirror_pendingdata);
 
-    system 'sh', '-c' => "echo $artist_sql | $psql TEST";
-    system "echo $replication_info > $tmp/replication-info";
-    system "mkdir -p $tmp/mbdump";
-    system "echo $dbmirror_pending > $tmp/mbdump/dbmirror_pending";
-    system "echo $dbmirror_pendingdata > $tmp/mbdump/dbmirror_pendingdata";
-    system "tar -C $tmp -cyf - mbdump > $tmp/replication-1.tar.bz2";
-
-    system (
-        File::Spec->catfile($root, 'admin/BuildIncrementalSitemaps.pl'),
-        '--nocompress',
-        '--database' => 'TEST',
-        '--output-dir' => $tmp,
-        '--replication-access-uri' => "file://$tmp",
-    );
+    $exec_sql->("UPDATE artist SET name = 'B' WHERE id = 1;");
+    $build_packet->(1, $dbmirror_pending, $dbmirror_pendingdata);
+    $build_incremental->();
 
     $test_sitemap_index->([
         'sitemap-artist-1-aliases-incremental.xml',
+        'sitemap-artist-1-aliases.xml',
+        'sitemap-artist-1-all.xml',
+        'sitemap-artist-1-details.xml',
+        'sitemap-artist-1-events.xml',
         'sitemap-artist-1-incremental.xml',
         'sitemap-artist-1-recordings-incremental.xml',
         'sitemap-artist-1-recordings-standalone-incremental.xml',
-        'sitemap-artist-1-recordings-video-incremental.xml',
-        'sitemap-artist-1-relationships-incremental.xml',
-        'sitemap-artist-1-aliases.xml',
-        'sitemap-artist-1-all.xml',
-        'sitemap-artist-1-va-all.xml',
-        'sitemap-artist-1.xml',
-        'sitemap-artist-1-details.xml',
-        'sitemap-artist-1-events.xml',
-        'sitemap-artist-1-recordings.xml',
         'sitemap-artist-1-recordings-standalone.xml',
+        'sitemap-artist-1-recordings-video-incremental.xml',
         'sitemap-artist-1-recordings-video.xml',
+        'sitemap-artist-1-recordings.xml',
+        'sitemap-artist-1-relationships-incremental.xml',
         'sitemap-artist-1-relationships.xml',
-        'sitemap-artist-1-releases.xml',
         'sitemap-artist-1-releases-va.xml',
+        'sitemap-artist-1-releases.xml',
+        'sitemap-artist-1-va-all.xml',
         'sitemap-artist-1-va.xml',
         'sitemap-artist-1-works.xml',
+        'sitemap-artist-1.xml',
     ]);
 
     $test_sitemap->('sitemap-artist-1-aliases-incremental.xml', [{
@@ -244,12 +268,64 @@ EOF
         lastmod => '2015-10-03T20:03:56.069908Z',
     }]);
 
-    my $cleanup = shell_quote(<<EOSQL);
+    # Insert a work, make sure it's picked up as a change.
+    $dbmirror_pending = qq(1\t"musicbrainz"."work"\ti\t1);
+
+    chomp ($dbmirror_pendingdata = <<"EOF");
+1\tt\t"id"='1'\x{20}
+1\tf\t"id"='1' "name"='A' "gid"='daf4327f-19a0-450b-9448-e0ea1c707136' "last_updated"='2015-10-04 02:03:04.070000+00'\x{20}
+EOF
+
+    $exec_sql->(<<EOSQL);
+INSERT INTO work (id, gid, name)
+VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A');
+EOSQL
+    $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
+    $build_incremental->();
+
+    $test_sitemap_index->([
+        'sitemap-artist-1-aliases-incremental.xml',
+        'sitemap-artist-1-aliases.xml',
+        'sitemap-artist-1-all.xml',
+        'sitemap-artist-1-details.xml',
+        'sitemap-artist-1-events.xml',
+        'sitemap-artist-1-incremental.xml',
+        'sitemap-artist-1-recordings-incremental.xml',
+        'sitemap-artist-1-recordings-standalone-incremental.xml',
+        'sitemap-artist-1-recordings-standalone.xml',
+        'sitemap-artist-1-recordings-video-incremental.xml',
+        'sitemap-artist-1-recordings-video.xml',
+        'sitemap-artist-1-recordings.xml',
+        'sitemap-artist-1-relationships-incremental.xml',
+        'sitemap-artist-1-relationships.xml',
+        'sitemap-artist-1-releases-va.xml',
+        'sitemap-artist-1-releases.xml',
+        'sitemap-artist-1-va-all.xml',
+        'sitemap-artist-1-va.xml',
+        'sitemap-artist-1-works.xml',
+        'sitemap-artist-1.xml',
+        'sitemap-work-1-aliases-incremental.xml',
+        'sitemap-work-1-incremental.xml',
+    ]);
+
+    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [{
+        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
+        priority => '0.1',
+        lastmod => '2015-10-04T02:03:04.070000Z',
+    }]);
+
+    $test_sitemap->('sitemap-work-1-incremental.xml', [{
+        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
+        priority => undef,
+        lastmod => '2015-10-04T02:03:04.070000Z',
+    }]);
+
+    $exec_sql->(<<EOSQL);
 TRUNCATE artist CASCADE;
+TRUNCATE work CASCADE;
 TRUNCATE sitemaps.control;
 TRUNCATE sitemaps.tmp_checked_entities;
 EOSQL
-    system 'sh', '-c' => "echo $cleanup | $psql TEST";
 };
 
 1;
