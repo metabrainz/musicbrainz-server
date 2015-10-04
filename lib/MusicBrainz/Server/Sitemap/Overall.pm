@@ -365,6 +365,19 @@ sub run {
 
     $self->log('Building sitemaps and sitemap index files');
 
+    my $sql = $self->c->sql;
+
+    my $sitemaps_control_exists = $sql->select_single_value(
+        'SELECT 1 FROM sitemaps.control',
+    );
+
+    $sql->auto_commit(1);
+    if ($sitemaps_control_exists) {
+        $sql->do('UPDATE sitemaps.control SET building_overall_sitemaps = TRUE');
+    } else {
+        $sql->do('INSERT INTO sitemaps.control VALUES (NULL, NULL, TRUE)');
+    }
+
     # Build sitemaps by looping over each entity type that's applicable and
     # calling `build_one_entity`. Runs in one repeatable-read transaction for
     # data consistency. Temporary tables are created and filled first.
@@ -372,7 +385,6 @@ sub run {
     $self->drop_temporary_tables; # Drop first, just in case.
     $self->create_temporary_tables;
 
-    my $sql = $self->c->sql;
     $sql->begin;
     $sql->do("SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ");
     $self->fill_temporary_tables;
@@ -388,24 +400,12 @@ sub run {
     # Update the `overall_sitemaps_replication_sequence` column in table
     # `sitemaps.control` so that the incremental sitemap builds know what
     # changes to include.
-    my $sitemaps_control_exists = $sql->select_single_value(
-        'SELECT 1 FROM sitemaps.control',
-    );
-
     $sql->auto_commit(1);
-    if ($sitemaps_control_exists) {
-        $sql->do(<<'EOSQL');
+    $sql->do(<<'EOSQL');
 UPDATE sitemaps.control
-   SET overall_sitemaps_replication_sequence = last_processed_replication_sequence
+   SET overall_sitemaps_replication_sequence = last_processed_replication_sequence,
+       building_overall_sitemaps = FALSE
 EOSQL
-    } else {
-        $sql->do(<<'EOSQL');
-INSERT INTO sitemaps.control (
-    last_processed_replication_sequence,
-    overall_sitemaps_replication_sequence
-) VALUES (NULL, NULL)
-EOSQL
-    }
 
     # Finally, ping search engines (if the option is turned on) and finish.
     $self->ping_search_engines;

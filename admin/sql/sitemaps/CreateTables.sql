@@ -6,7 +6,8 @@ SET search_path = 'sitemaps';
 
 CREATE TABLE control (
     last_processed_replication_sequence     INTEGER,
-    overall_sitemaps_replication_sequence   INTEGER
+    overall_sitemaps_replication_sequence   INTEGER,
+    building_overall_sitemaps               BOOLEAN NOT NULL
 );
 
 CREATE TABLE tmp_checked_entities (

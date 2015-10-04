@@ -663,12 +663,17 @@ sub run {
         exit 1;
     }
 
-    my $sitemaps_control_exists = $c->sql->select_single_value(
-        'SELECT 1 FROM sitemaps.control',
+    my $building_overall_sitemaps = $c->sql->select_single_value(
+        'SELECT building_overall_sitemaps FROM sitemaps.control'
     );
 
-    unless (defined $sitemaps_control_exists) {
+    unless (defined $building_overall_sitemaps) {
         $self->log("ERROR: Table sitemaps.control is empty (has admin/BuildSitemaps.pl run yet?)");
+        exit 1;
+    }
+
+    if ($building_overall_sitemaps) {
+        $self->log("NOTICE: admin/BuildSitemaps.pl is still running, exiting so it can finish");
         exit 1;
     }
 
