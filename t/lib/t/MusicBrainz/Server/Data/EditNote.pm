@@ -21,12 +21,6 @@ BEGIN {
     sub edit_name { 'mock edit' }
 };
 
-BEGIN {
-    no warnings 'redefine';
-    use DBDefs;
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
-}
-
 with 't::Context';
 
 test all => sub {

@@ -497,6 +497,40 @@ sub select_list_of_hashes
     $self->_select_list($query, \@params, 'hashref');
 }
 
+sub get_column_info($$$) {
+    my ($self, $table, $column) = @_;
+
+    CORE::state $cache = {};
+
+    (my $schema, $table) = split /\./, $table;
+
+    unless (defined $table) {
+        $table = $schema;
+        $schema = 'musicbrainz';
+    }
+
+    my $column_info = $cache->{$schema}{$table};
+
+    unless (defined $column_info) {
+        $column_info = $self->dbh->column_info(undef, $schema, $table, undef)->fetchall_hashref('pg_column');
+        $cache->{$schema}{$table} = $column_info;
+    }
+
+    return $column_info->{$column};
+}
+
+sub get_column_type_name($$$) {
+    my ($self, $table, $column) = @_;
+
+    return $self->get_column_info($table, $column)->{TYPE_NAME};
+}
+
+sub get_column_data_type($$$) {
+    my ($self, $table, $column) = @_;
+
+    return $self->get_column_info($table, $column)->{DATA_TYPE};
+}
+
 ################################################################################
 
 package Sql::Timer;

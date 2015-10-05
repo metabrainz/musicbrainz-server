@@ -132,7 +132,7 @@ sub prepare_test_server
 {
     {
         no warnings 'redefine';
-        *DBDefs::_RUNNING_TESTS = sub { 1 };
+        $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
     };
 

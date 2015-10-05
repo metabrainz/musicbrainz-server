@@ -27,9 +27,19 @@ has 'database' => (
     default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
 );
 
+has 'fresh_connector' => (
+    is => 'ro',
+    isa => 'Bool',
+    default => sub { 0 },
+);
+
 sub _build_connector {
     my $self = shift;
-    my $conn = DatabaseConnectionFactory->get_connection($self->database);
+
+    my $conn = DatabaseConnectionFactory->get_connection(
+        $self->database,
+        fresh => $self->fresh_connector,
+    );
 
     if ($self->database eq 'MAINTENANCE') {
         $conn->sql->auto_commit;

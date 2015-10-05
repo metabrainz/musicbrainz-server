@@ -38,6 +38,7 @@ requires 'DateTime::TimeZone'                         => '1.42';
 requires 'DateTime::Format::Pg'                       => '0.16007';
 requires 'DateTime::Format::Natural'                  => '0.98';
 requires 'DateTime::Format::ISO8601'                  => '0.07';
+requires 'DateTime::Format::W3CDTF'                   => '0.06';
 requires 'DBIx::Connector'                            => '0.47';
 requires 'DBD::Pg'                                    => '2.19.0';
 requires 'DBI'                                        => '1.616';

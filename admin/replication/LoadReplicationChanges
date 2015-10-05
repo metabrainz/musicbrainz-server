@@ -33,13 +33,14 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
-use Try::Tiny;
-use LWP::UserAgent;
 use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
-use GnuPG qw( :algo );
-use URI::Escape qw( uri_escape );
 
-use MusicBrainz::Server::Replication qw( :replication_type );
+use MusicBrainz::Server::Replication qw(
+    :replication_type
+    REPLICATION_ACCESS_URI
+    retrieve_remote_file
+    decompress_packet
+);
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE
     or die "This is not a slave server!\n";
@@ -52,7 +53,7 @@ my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
-my $baseuri = "https://metabrainz.org/api/musicbrainz";
+my $baseuri = REPLICATION_ACCESS_URI;
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 my $fVerifySig = 0;
@@ -178,24 +179,18 @@ if ($period ne 'hourly') {
 my $url = "$baseuri/$file";
 my $localfile = "$tmpdir/$file";
 
-my $resp = retrieve_remote_file($url, $localfile);
+my $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
 # We only understand a limited set of responses:
 # OK, not found, and the rest.
 if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
     print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
     exit 0;
-}
-else {
-    if ($catchup) {
-        print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
-        $file = "replication-$iNextReplicationSequence.tar.bz2";
-        $url = "$baseuri/$file";
-        $localfile = "$tmpdir/$file";
-        $resp = retrieve_remote_file($url, $localfile);
-    }
-
-    # We do not want to validate signature for non-existent files
-    validate_file_signature($localfile) unless ($resp->code == RC_NOT_FOUND);
+} elsif ($catchup) {
+    print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
+    $file = "replication-$iNextReplicationSequence.tar.bz2";
+    $url = "$baseuri/$file";
+    $localfile = "$tmpdir/$file";
+    $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
 }
 
 if ($resp->code == RC_NOT_FOUND)
@@ -217,21 +212,14 @@ unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
 # We successfully retrieved the replication packet.
 # Decompress it to a temporary directory
 
-use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
-my $mydir = tempdir("loadrep-XXXXXX", DIR => $tmpdir, CLEANUP => not $fKeepFiles);
 
-print localtime() . " : Decompressing $localfile to $mydir\n";
-system "/bin/tar",
-    "-C", $mydir,
-    "--bzip2",
-    "-xvf",
+my $mydir = decompress_packet(
+    'loadrep-XXXXXX',
+    $tmpdir,
     $localfile,
-    ;
-exit $? if $?;
-
-unlink $localfile
-    or warn "unlink $localfile: $!\n";
+    not $fKeepFiles
+);
 
 # Read SCHEMA_SEQUENCE.  Check it matches the current_schema_sequence
 my $SCHEMA_SEQUENCE = read_file("SCHEMA_SEQUENCE");
@@ -362,75 +350,6 @@ if ($limit > 0 && $count >= $limit) {
 }
 # Loop back round and start again
 goto NEXT_PACKET;
-
-sub retrieve_remote_file {
-    my ($url, $file) = @_;
-
-    # Initialise User Agent
-    my $ua = LWP::UserAgent->new(
-        agent => '$Id$',
-    );
-    $ua->env_proxy;
-    $ua->ssl_opts( verify_hostname => 0 );
-
-    # Fetch the file and inform the user about what is being done
-    print localtime() . " : Downloading $url to $file\n";
-
-    my $f_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
-    my $f_resp = $ua->mirror($f_url_token, $file);
-
-    return $f_resp unless $fVerifySig;
-
-    # Identify signature URL and Local filename
-    $url .= '.asc';
-    my $signature = $file . '.asc';
-
-    # Fetch file signature and inform the user about what is being done
-    print localtime() . " : Downloading $url to $signature\n";
-    my $s_url_token = $url . "?token=" . uri_escape(DBDefs->REPLICATION_ACCESS_TOKEN);
-    my $s_resp = $ua->mirror($s_url_token, $signature);
-
-    return $f_resp;
-}
-
-sub validate_file_signature {
-    my ($file, $signature) = @_;
-
-    # Only proceed if signature verification was requested
-    return unless $fVerifySig;
-
-    # Make sure that the file to be tested exists
-    die "Can't find file $file: $!" unless (-e $file);
-
-    # Fall back to the default signature if one is not supplied
-    $signature = $file . ".asc" unless $signature;
-
-    # Make sure that the signature exists
-    unless (-e $signature) {
-        # React based on the configured mode for missing signature
-        (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
-            ? die "Can't find signature file $file: $!"
-            : return;
-    }
-
-    # Initialise GnuPG module in local scope
-    my $gpg = GnuPG->new;
-
-    # Attempt to verify file signature
-    try {
-        $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
-        $gpg->verify( signature => $signature, file => $file );
-        unlink $signature
-            or warn "unlink $signature: $!\n";
-    }
-
-    # Exist with and error if verification failed
-    catch {
-        printf STDERR "Failed to verify signature for $file \n"
-            . "GPG returned $_";
-        die;
-    };
-}
 
 sub read_file
 {
