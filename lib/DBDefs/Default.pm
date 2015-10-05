@@ -476,7 +476,7 @@ sub BACKUP_GROUP { "musicbrainz" }
 sub BACKUP_DIR_MODE { 700 }
 sub BACKUP_FILE_MODE { 600 }
 
-sub RSYNC_FULLEXPORT_SERVER { 'ftpowner@scooby.localdomain' }
+sub RSYNC_FULLEXPORT_SERVER { 'ftp-data@taz.localdomain' }
 sub RSYNC_REPLICATION_SERVER { 'metabrainz@sakura.localdomain' }
 
 1;
