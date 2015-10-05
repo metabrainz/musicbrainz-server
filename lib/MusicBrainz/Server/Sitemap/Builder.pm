@@ -96,6 +96,15 @@ has replication_access_uri => (
     documentation => 'URI to request replication packets from (default: https://metabrainz.org/api/musicbrainz)',
 );
 
+has current_time => (
+    is => 'ro',
+    isa => 'Str',
+    default => undef,
+    traits => ['Getopt'],
+    cmd_flag => 'current-time',
+    documentation => 'substitute for DateTime::now, for testing purposes (default: undef)',
+);
+
 has index => (
     is => 'ro',
     isa => 'WWW::SitemapIndex::XML',
@@ -269,7 +278,7 @@ sub build_one_sitemap {
     $map->write($local_filename);
     $self->add_sitemap_file($filename);
 
-    my $modtime = DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
+    my $modtime = $self->current_time // DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
     my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
 
     if ($existing_md5 && $existing_md5 eq hash_sitemap($map) && $old_sitemap_modtimes->{$remote_filename}) {
