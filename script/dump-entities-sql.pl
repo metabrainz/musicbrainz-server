@@ -1,9 +1,12 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+
+use feature 'state';
+use feature 'switch';
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use feature 'switch';
 use Carp qw( croak );
 use Data::Compare qw( Compare );
 use Encode qw( encode );
@@ -42,7 +45,7 @@ sub quote_column {
 sub print_inserts {
     my ($c, $table, $rows) = @_;
 
-    CORE::state $seen_values = {};
+    state $seen_values = {};
 
     my $seen_table_values = ($seen_values->{$table} //= {});
 

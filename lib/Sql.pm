@@ -1,6 +1,8 @@
 package Sql;
-use Moose;
 
+use feature 'state';
+
+use Moose;
 use DBDefs;
 use Carp qw( cluck croak carp );
 use Try::Tiny;
@@ -500,7 +502,7 @@ sub select_list_of_hashes
 sub get_column_info($$$) {
     my ($self, $table, $column) = @_;
 
-    CORE::state $cache = {};
+    state $cache = {};
 
     (my $schema, $table) = split /\./, $table;
 

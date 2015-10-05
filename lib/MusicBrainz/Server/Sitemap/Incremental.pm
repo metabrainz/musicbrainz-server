@@ -3,6 +3,8 @@ package MusicBrainz::Server::Sitemap::Incremental;
 use strict;
 use warnings;
 
+use feature 'state';
+
 use Catalyst::Test 'MusicBrainz::Server';
 use Data::Compare qw( Compare );
 use Digest::SHA qw( sha1_hex );
@@ -160,8 +162,8 @@ sub fetch_and_handle_jsonld($$$$$$$);
 sub fetch_and_handle_jsonld($$$$$$$) {
     my ($self, $c, $entity_type, $row_id, $url, $update, $is_paginated, $suffix_key) = @_;
 
-    CORE::state $attempts = {};
-    CORE::state $canonical_json = JSON->new->canonical->utf8;
+    state $attempts = {};
+    state $canonical_json = JSON->new->canonical->utf8;
 
     my $web_server = DBDefs->WEB_SERVER;
     my $canonical_server = DBDefs->CANONICAL_SERVER;
