@@ -552,12 +552,23 @@ sub handle_replication_sequence($$) {
                 $c->sql->get_column_data_type("$schema.$table", $pk_column)
             );
 
+            my $last_modified = $data->{last_updated};
+
+            # Some tables have a `created` column. Use that as a fallback if
+            # this is an insert.
+            if (!(defined $last_modified) && $change->{operation} eq 'i') {
+                $last_modified = $data->{created};
+            }
+
+            # Otherwise, use the current time.
+            $last_modified //= $last_updated_fallback;
+
             my $update = {
                 %{$change},
                 sequence_id             => $seq_id,
                 column                  => $pk_column,
                 value                   => $pk_value,
-                last_modified           => ($data->{last_updated} // $last_updated_fallback),
+                last_modified           => $last_modified,
                 replication_sequence    => $sequence,
             };
 
