@@ -427,7 +427,9 @@ sub find_entities_with_jsonld($$$$$$);
 sub follow_foreign_keys($$$$$$);
 
 sub find_entities_with_jsonld($$$$$$) {
-    my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
+    my $self = shift;
+
+    my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     if (should_fetch_jsonld($pk_schema, $pk_table)) {
         $pm->start and return;
@@ -445,7 +447,6 @@ sub find_entities_with_jsonld($$$$$$) {
 
         if ($any_updates) {
             my @args = @_;
-            shift @args;
             shift @args;
             $shared_data = \@args;
         }

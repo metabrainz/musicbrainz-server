@@ -320,6 +320,33 @@ EOSQL
         lastmod => '2015-10-04T02:03:04.070000Z',
     }]);
 
+    # Insert an ISWC for the added work, make sure it updates the work's lastmod.
+    $dbmirror_pending = qq(1\t"musicbrainz"."iswc"\ti\t1);
+
+    chomp ($dbmirror_pendingdata = <<"EOF");
+1\tt\t"id"='1'\x{20}
+1\tf\t"id"='1' "work"='1' "iswc"='T-100.000.000-1' "created"='2015-10-05 06:54:32.101234-05'\x{20}
+EOF
+
+    $exec_sql->(<<EOSQL);
+INSERT INTO iswc (id, work, iswc, created)
+VALUES (1, 1, 'T-100.000.000-1', '2015-10-05 06:54:32.101234-05');
+EOSQL
+    $build_packet->(3, $dbmirror_pending, $dbmirror_pendingdata);
+    $build_incremental->();
+
+    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [{
+        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
+        priority => '0.1',
+        lastmod => '2015-10-05T11:54:32.101234Z',
+    }]);
+
+    $test_sitemap->('sitemap-work-1-incremental.xml', [{
+        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
+        priority => undef,
+        lastmod => '2015-10-05T11:54:32.101234Z',
+    }]);
+
     $exec_sql->(<<EOSQL);
 TRUNCATE artist CASCADE;
 TRUNCATE work CASCADE;
