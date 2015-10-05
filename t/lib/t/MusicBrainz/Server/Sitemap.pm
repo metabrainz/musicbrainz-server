@@ -3,6 +3,7 @@ package t::MusicBrainz::Server::Sitemap;
 use DBDefs;
 use File::Spec;
 use File::Temp qw( tempdir );
+use List::AllUtils qw( first );
 use List::UtilsBy qw( sort_by );
 use String::ShellQuote;
 use Test::Deep qw( cmp_deeply ignore );
@@ -54,6 +55,7 @@ EOSQL
         $expected = [map +{ loc => "https://musicbrainz.org/$_", lastmod => ignore() }, @{$expected}];
 
         cmp_deeply($got, $expected, $file);
+        $map;
     };
 
     my $test_sitemap = sub {
@@ -70,6 +72,7 @@ EOSQL
         ];
 
         cmp_deeply($got, $expected, $file);
+        $map;
     };
 
     $test_sitemap_index->([
@@ -283,7 +286,7 @@ EOSQL
     $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
     $build_incremental->();
 
-    $test_sitemap_index->([
+    my $index_map = $test_sitemap_index->([
         'sitemap-artist-1-aliases-incremental.xml',
         'sitemap-artist-1-aliases.xml',
         'sitemap-artist-1-all.xml',
@@ -307,6 +310,9 @@ EOSQL
         'sitemap-work-1-aliases-incremental.xml',
         'sitemap-work-1-incremental.xml',
     ]);
+
+    my $work_sitemap1 = first { $_->loc =~ /work-1-incremental/ } $index_map->sitemaps;
+    my $work_aliases_sitemap1 = first { $_->loc =~ /work-1-aliases-incremental/ } $index_map->sitemaps;
 
     $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [{
         loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
@@ -346,6 +352,43 @@ EOSQL
         priority => undef,
         lastmod => '2015-10-05T11:54:32.101234Z',
     }]);
+
+    $index_map = $test_sitemap_index->([
+        'sitemap-artist-1-aliases-incremental.xml',
+        'sitemap-artist-1-aliases.xml',
+        'sitemap-artist-1-all.xml',
+        'sitemap-artist-1-details.xml',
+        'sitemap-artist-1-events.xml',
+        'sitemap-artist-1-incremental.xml',
+        'sitemap-artist-1-recordings-incremental.xml',
+        'sitemap-artist-1-recordings-standalone-incremental.xml',
+        'sitemap-artist-1-recordings-standalone.xml',
+        'sitemap-artist-1-recordings-video-incremental.xml',
+        'sitemap-artist-1-recordings-video.xml',
+        'sitemap-artist-1-recordings.xml',
+        'sitemap-artist-1-relationships-incremental.xml',
+        'sitemap-artist-1-relationships.xml',
+        'sitemap-artist-1-releases-va.xml',
+        'sitemap-artist-1-releases.xml',
+        'sitemap-artist-1-va-all.xml',
+        'sitemap-artist-1-va.xml',
+        'sitemap-artist-1-works.xml',
+        'sitemap-artist-1.xml',
+        'sitemap-work-1-aliases-incremental.xml',
+        'sitemap-work-1-incremental.xml',
+    ]);
+
+    my $work_sitemap2 = first { $_->loc =~ /work-1-incremental/ } $index_map->sitemaps;
+    my $work_aliases_sitemap2 = first { $_->loc =~ /work-1-aliases-incremental/ } $index_map->sitemaps;
+
+    ok(
+        $work_sitemap2->lastmod gt $work_sitemap1->lastmod,
+        'lastmod for sitemap-work-1-incremental.xml updated'
+    );
+    ok(
+        $work_aliases_sitemap2->lastmod gt $work_aliases_sitemap1->lastmod,
+        'lastmod for sitemap-work-1-aliases-incremental.xml updated'
+    );
 
     $exec_sql->(<<EOSQL);
 TRUNCATE artist CASCADE;
