@@ -1413,6 +1413,7 @@ msgid "kemençe of the Black Sea"
 msgstr ""
 
 #: DB:instrument/name:178
+msgctxt "electronic or digital keyboard"
 msgid "keyboard"
 msgstr ""
 
