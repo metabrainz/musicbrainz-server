@@ -208,7 +208,7 @@ sub build_page_url {
     my $entity_url = $entity_type;
 
     if (exists $ENTITIES{$entity_type}) {
-        $entity_type = $ENTITIES{$entity_type}{url} // $entity_type;
+        $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
     }
 
     my $url = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $id;
