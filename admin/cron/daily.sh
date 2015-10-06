@@ -92,7 +92,7 @@ fi
 ./admin/CalculateRelatedTags.sh
 
 echo `date`" : Building sitemaps"
-OUTPUT=`./admin/BuildSitemaps.pl -p` || echo "$OUTPUT"
+OUTPUT=`./admin/BuildSitemaps.pl --ping` || echo "$OUTPUT"
 
 echo `date`" : Nightly jobs complete!"
 
