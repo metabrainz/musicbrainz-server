@@ -185,9 +185,10 @@ sub fetch_and_handle_jsonld($$$$$$$) {
     state $attempts = {};
     state $canonical_json = JSON->new->canonical->utf8;
 
+    my $web_server = DBDefs->WEB_SERVER;
     my $canonical_server = DBDefs->CANONICAL_SERVER;
     my $request_url = $url;
-    $request_url =~ s{\Q$canonical_server\E}{http://localhost:80};
+    $request_url =~ s{\Q$canonical_server\E}{http://$web_server};
 
     my $response = make_jsonld_request($c, $request_url);
 
