@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 13:34-0500\n"
+"POT-Creation-Date: 2015-09-22 01:01-0500\n"
 "PO-Revision-Date: 2015-09-12 19:24+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
@@ -2038,7 +2038,7 @@ msgstr "Ordine dei figli"
 msgid "Child order:"
 msgstr "Ordine dei figli:"
 
-#: ../root/release/cover_art_uploader.tt:13
+#: ../root/release/cover_art_uploader.tt:14
 msgid "Choose file:"
 msgstr "Scegli un file:"
 
@@ -2075,7 +2075,8 @@ msgstr "Chiudi"
 msgid "Closed"
 msgstr "Chiuse"
 
-#: ../root/edit/info.tt:48
+#: ../root/edit/info.tt:48 ../root/place/index.tt:9 ../root/place/layout.tt:26
+#: ../root/place/layout.tt:33
 msgid "Closed:"
 msgstr "Chiusa:"
 
@@ -2388,8 +2389,7 @@ msgid ""
 msgstr "Le date sono nel formato AAAA-MM-GG. Date parziali come AAAA-MM o anche solo AAAA sono accettate, oppure puoi omettere del tutto la data."
 
 #: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35 ../root/place/index.tt:9
-#: ../root/place/layout.tt:26 ../root/place/layout.tt:33
+#: ../root/label/layout.tt:35
 msgid "Defunct:"
 msgstr "Sciolto:"
 
@@ -3393,8 +3393,7 @@ msgid "Founded in:"
 msgstr "Fondato in:"
 
 #: ../root/components/common-macros.tt:856 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20 ../root/place/index.tt:6
-#: ../root/place/layout.tt:18
+#: ../root/label/layout.tt:20
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Fondato:"
@@ -5359,7 +5358,7 @@ msgstr "Modifiche in corso"
 msgid "Open in tagger"
 msgstr "Apri nel tagger"
 
-#: ../root/edit/info.tt:40
+#: ../root/edit/info.tt:40 ../root/place/index.tt:6 ../root/place/layout.tt:18
 msgid "Opened:"
 msgstr "Aperta:"
 
@@ -5578,7 +5577,7 @@ msgstr "Cambia la tua password, per favore. Sfortunatamente abbiamo scoperto che
 msgid "Please choose a condition"
 msgstr "Scegli una condizione"
 
-#: ../root/release/cover_art_uploader.tt:17
+#: ../root/release/cover_art_uploader.tt:18
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
@@ -11449,34 +11448,34 @@ msgstr "'{id}' non è un ID elezione valido"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "Il parametro obbligatorio TOC non è valido o è assente"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:111
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:112
 msgid "Please provide a medium ID"
 msgstr "Inserisci un ID supporto"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:116
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:117
 msgid "Could not find medium"
 msgstr "Impossibile trovare il supporto"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:150
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:306
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:307
 msgid "The provided CD TOC is not valid"
 msgstr "Il CD TOC fornito non è valido"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:320
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
 msgid "The provided medium id is not valid"
 msgstr "L'ID supporto fornito non è valido"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
 msgstr "Questo CD TOC è già associato a questo supporto"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:178
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:328
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
 msgid "The selected medium cannot have disc IDs"
 msgstr "Il supporto selezionato non può possedere un ID disco"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:205
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid "The provided artist id is not valid"
 msgstr "L'ID artista fornito non è valido"
 

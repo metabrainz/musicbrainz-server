@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 13:34-0500\n"
+"POT-Creation-Date: 2015-09-22 01:01-0500\n"
 "PO-Revision-Date: 2015-09-08 18:59+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
@@ -2032,7 +2032,7 @@ msgstr "Alamobjektide järjestus"
 msgid "Child order:"
 msgstr "Alamobjektide järjestus:"
 
-#: ../root/release/cover_art_uploader.tt:13
+#: ../root/release/cover_art_uploader.tt:14
 msgid "Choose file:"
 msgstr "Vali fail:"
 
@@ -2069,7 +2069,8 @@ msgstr "Sulge"
 msgid "Closed"
 msgstr "Suletud"
 
-#: ../root/edit/info.tt:48
+#: ../root/edit/info.tt:48 ../root/place/index.tt:9 ../root/place/layout.tt:26
+#: ../root/place/layout.tt:33
 msgid "Closed:"
 msgstr "Suletud:"
 
@@ -2382,8 +2383,7 @@ msgid ""
 msgstr "Kuupäevade vorming on AAAA-KK-PP. Sobivad ka osalised kuupäevad nagu AAAA-KK või AAAA (või isegi KK-PP) ning kuupäev võib ka puududa."
 
 #: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35 ../root/place/index.tt:9
-#: ../root/place/layout.tt:26 ../root/place/layout.tt:33
+#: ../root/label/layout.tt:35
 msgid "Defunct:"
 msgstr "Tegevuse lõpetanud:"
 
@@ -3387,8 +3387,7 @@ msgid "Founded in:"
 msgstr "Loomiskoht:"
 
 #: ../root/components/common-macros.tt:856 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20 ../root/place/index.tt:6
-#: ../root/place/layout.tt:18
+#: ../root/label/layout.tt:20
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Loodud:"
@@ -5353,7 +5352,7 @@ msgstr "Lahtised toimetused"
 msgid "Open in tagger"
 msgstr "Ava sildistajas"
 
-#: ../root/edit/info.tt:40
+#: ../root/edit/info.tt:40 ../root/place/index.tt:6 ../root/place/layout.tt:18
 msgid "Opened:"
 msgstr "Loodud:"
 
@@ -5572,7 +5571,7 @@ msgstr "Palun vaheta oma salasõna. Avastasime, et kasutajate paroolide turvarä
 msgid "Please choose a condition"
 msgstr "Palun vali tingimus"
 
-#: ../root/release/cover_art_uploader.tt:17
+#: ../root/release/cover_art_uploader.tt:18
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
@@ -11443,34 +11442,34 @@ msgstr "„{id}” ei ole kehtiv valimiste ID"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "Kohustuslik sisukorra parameeter oli kas sobimatul kujul või puudu"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:111
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:112
 msgid "Please provide a medium ID"
 msgstr "Palun sisesta helikandja ID"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:116
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:117
 msgid "Could not find medium"
 msgstr "Helikandjat ei leitud"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:150
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:306
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:307
 msgid "The provided CD TOC is not valid"
 msgstr "Antud CD-sisukord pole korrektne"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:320
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
 msgid "The provided medium id is not valid"
 msgstr "Antud helikandja-ID pole korrektne"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
 msgstr "See CD-sisukord on sellele helikandjale juba omistatud"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:178
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:328
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
 msgid "The selected medium cannot have disc IDs"
 msgstr "Valitud helikandjal ei saa plaadi-ID-d olla"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:205
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid "The provided artist id is not valid"
 msgstr "Antud artisti-ID pole korrektne"
 

@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-10 21:15+0000\n"
-"Last-Translator: Trans-fr\n"
+"PO-Revision-Date: 2015-09-22 06:07+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1608,6 +1608,12 @@ msgid ""
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
 msgstr "Ceci relie une parution MusicBrainz à son entrée équivalente sur Amazon et fournira souvent l'illustration s'il n'y en a pas dans la <a href=\"/doc/Cover_Art_Archive\">« Cover Art Archive » (archive d'illustrations)</a>."
 
+#: DB:link_type/description:888
+msgid ""
+"This links a concert tour with a release group (generally an album) the tour"
+" is connected with."
+msgstr ""
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -3029,6 +3035,10 @@ msgstr "avait des parutions proposées"
 #: DB:link_type/long_link_phrase:834
 msgid "had previous attribution"
 msgstr "avait une attribution précédente"
+
+#: DB:link_type/long_link_phrase:888
+msgid "had supporting tour"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
@@ -4493,6 +4503,10 @@ msgstr "artistes de soutien"
 msgid "supporting releases"
 msgstr "parutions de soutien"
 
+#: DB:link_type/link_phrase:888
+msgid "supporting tours"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
 msgstr "soutien {instrument} par"
@@ -4519,6 +4533,10 @@ msgstr "heure"
 
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:888
+msgid "tour in support of"
 msgstr ""
 
 #: DB:link_type/link_phrase:859

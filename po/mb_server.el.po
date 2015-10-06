@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 13:34-0500\n"
+"POT-Creation-Date: 2015-09-22 01:01-0500\n"
 "PO-Revision-Date: 2015-09-08 18:59+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
@@ -2035,7 +2035,7 @@ msgstr ""
 msgid "Child order:"
 msgstr "Σειρά παιδιών:"
 
-#: ../root/release/cover_art_uploader.tt:13
+#: ../root/release/cover_art_uploader.tt:14
 msgid "Choose file:"
 msgstr "Επιλογή αρχείου:"
 
@@ -2072,7 +2072,8 @@ msgstr ""
 msgid "Closed"
 msgstr "Έκλεισε"
 
-#: ../root/edit/info.tt:48
+#: ../root/edit/info.tt:48 ../root/place/index.tt:9 ../root/place/layout.tt:26
+#: ../root/place/layout.tt:33
 msgid "Closed:"
 msgstr "Έκλεισε:"
 
@@ -2385,8 +2386,7 @@ msgid ""
 msgstr ""
 
 #: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35 ../root/place/index.tt:9
-#: ../root/place/layout.tt:26 ../root/place/layout.tt:33
+#: ../root/label/layout.tt:35
 msgid "Defunct:"
 msgstr "Ανενεργός:"
 
@@ -3390,8 +3390,7 @@ msgid "Founded in:"
 msgstr ""
 
 #: ../root/components/common-macros.tt:856 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20 ../root/place/index.tt:6
-#: ../root/place/layout.tt:18
+#: ../root/label/layout.tt:20
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Ιδρύθηκε:"
@@ -5356,7 +5355,7 @@ msgstr "Ανοιχτές τροποποιήσεις"
 msgid "Open in tagger"
 msgstr ""
 
-#: ../root/edit/info.tt:40
+#: ../root/edit/info.tt:40 ../root/place/index.tt:6 ../root/place/layout.tt:18
 msgid "Opened:"
 msgstr "Άνοιξε:"
 
@@ -5575,7 +5574,7 @@ msgstr ""
 msgid "Please choose a condition"
 msgstr ""
 
-#: ../root/release/cover_art_uploader.tt:17
+#: ../root/release/cover_art_uploader.tt:18
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
@@ -11446,34 +11445,34 @@ msgstr "Το '{id}' δεν είναι έγκυρο ID ψηφοφορίας"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "Η απαιτούμενη παράμετρος TOC δεν ήταν έγκυρη ή δεν υπήρχε"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:111
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:112
 msgid "Please provide a medium ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:116
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:117
 msgid "Could not find medium"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:150
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:306
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:307
 msgid "The provided CD TOC is not valid"
 msgstr "Το παρεχόμενο CD TOC δεν είναι έγκυρο"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:320
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
 msgid "The provided medium id is not valid"
 msgstr "Το παρεχόμενο id μέσου δεν είναι έγκυρο"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
 msgstr "Αυτό το CDTOC είναι πλήρως συνδεδεμένο με αυτό το μέσο"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:178
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:328
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
 msgid "The selected medium cannot have disc IDs"
 msgstr "Το επιλεγμένο μέσο δεν μπορεί να έχει disc IDs"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:205
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid "The provided artist id is not valid"
 msgstr "Το παρεχόμενο id καλλιτέχνη δεν είναι έγκυρο"
 

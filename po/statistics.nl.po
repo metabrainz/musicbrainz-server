@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-10 10:36+0000\n"
+"PO-Revision-Date: 2015-09-23 12:33+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -440,11 +440,11 @@ msgstr "De BBC wordt een klant van MetaBrainz en begint gegevens van MusicBrainz
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available"
-msgstr "De Cover Art Archive wordt voor het eerst beschikbaar"
+msgstr "Het Cover Art Archive wordt voor het eerst beschikbaar"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
-msgstr "De Cover Art Archive wordt officieel uitgebracht"
+msgstr "Het Cover Art Archive wordt officieel uitgebracht"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
