@@ -5,14 +5,11 @@ use warnings;
 
 use feature 'state';
 
-use Catalyst::Test 'MusicBrainz::Server';
 use Data::Compare qw( Compare );
 use Digest::SHA qw( sha1_hex );
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
 use File::Temp qw( tempdir );
-use HTTP::Headers;
-use HTTP::Request;
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
 use List::AllUtils qw( any );
@@ -78,6 +75,29 @@ my $pm = Parallel::ForkManager->new(10);
 
 memoize('get_primary_keys');
 memoize('get_foreign_keys');
+
+BEGIN {
+    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+        use Catalyst::Test 'MusicBrainz::Server';
+        use HTTP::Headers;
+        use HTTP::Request;
+
+        *make_jsonld_request = sub {
+            my ($c, $url) = @_;
+
+            request(HTTP::Request->new(
+                GET => $url,
+                HTTP::Headers->new(Accept => 'application/ld+json'),
+            ));
+        };
+    } else {
+        *make_jsonld_request = sub {
+            my ($c, $url) = @_;
+
+            $c->lwp->get($url, Accept => 'application/ld+json');
+        };
+    }
+}
 
 sub build_and_check_urls($$$$$) {
     my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
@@ -167,18 +187,15 @@ sub fetch_and_handle_jsonld($$$$$$$) {
 
     my $web_server = DBDefs->WEB_SERVER;
     my $canonical_server = DBDefs->CANONICAL_SERVER;
-    my $request_path = $url;
-    $request_path =~ s{\Q$canonical_server\E}{};
+    my $request_url = $url;
+    $request_url =~ s{\Q$canonical_server\E}{http://$web_server};
 
-    my $response = request(HTTP::Request->new(
-        GET => $request_path,
-        HTTP::Headers->new(Accept => 'application/ld+json'),
-    ));
+    my $response = make_jsonld_request($c, $request_url);
 
     # Responses should never redirect. If they do, we likely requested a page
     # number that doesn't exist.
     if ($response->previous) {
-        $self->log("Got redirect fetching $request_path, skipping");
+        $self->log("Got redirect fetching $request_url, skipping");
         return 0;
     }
 
@@ -255,7 +272,7 @@ EOSQL
         }
     }
 
-    $self->log("ERROR: Got response code $code fetching $request_path");
+    $self->log("ERROR: Got response code $code fetching $request_url");
     return 0;
 }
 
