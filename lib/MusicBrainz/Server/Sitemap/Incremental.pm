@@ -71,7 +71,7 @@ This script works by:
 my @LASTMOD_ENTITIES = entities_with('sitemaps_lastmod_table');
 my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
 
-my $pm = Parallel::ForkManager->new(10);
+my $pm = Parallel::ForkManager->new(5);
 
 memoize('get_primary_keys');
 memoize('get_foreign_keys');
