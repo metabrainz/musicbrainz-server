@@ -207,7 +207,7 @@ EOSQL
         system "mkdir -p $tmp/mbdump";
         system "echo $pending > $tmp/mbdump/dbmirror_pending";
         system "echo $pendingdata > $tmp/mbdump/dbmirror_pendingdata";
-        system "tar -C $tmp -cyf - mbdump > $tmp/replication-$number.tar.bz2";
+        system "tar -C $tmp -cf - mbdump | bzip2 > $tmp/replication-$number.tar.bz2";
     };
 
     my $dbmirror_pending = qq(1\t"musicbrainz"."artist"\tu\t1);
