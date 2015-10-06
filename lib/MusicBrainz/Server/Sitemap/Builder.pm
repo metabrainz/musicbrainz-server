@@ -278,7 +278,7 @@ sub build_one_sitemap {
     $map->write($local_filename);
     $self->add_sitemap_file($filename);
 
-    my $modtime = $self->current_time or DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
+    my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
     my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
 
     if ($existing_md5 && $existing_md5 eq hash_sitemap($map) && $old_sitemap_modtimes->{$remote_filename}) {
