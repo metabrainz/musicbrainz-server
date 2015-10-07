@@ -86,6 +86,15 @@ test('Guess type', function (t) {
                 'artist', 'https://www.linkedin.com/in/legselectric',
                 LINK_TYPES.socialnetwork.artist
             ],
+            // Foursquare
+            [
+                'place', 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
+                LINK_TYPES.socialnetwork.place
+            ],
+            [
+                'place', 'https://foursquare.com/taimmobile',
+                LINK_TYPES.socialnetwork.place
+            ],
             // WhoSampled
             [
                 'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
@@ -1500,6 +1509,17 @@ test('Cleanup', function (t) {
                 'http://www.linkedin.com/in/test',
                 'https://www.linkedin.com/in/test',
                 'artist'
+            ],
+            // Foursquare
+            [
+                'http://www.foursquare.com/test',
+                'https://foursquare.com/test',
+                'place'
+            ],
+            [
+                'http://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
+                'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
+                'place'
             ],
             // MBS-8457: Remove "?oldformat=true" from Wikipedia URLs
             [
