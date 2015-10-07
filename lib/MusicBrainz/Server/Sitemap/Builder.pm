@@ -7,7 +7,6 @@ use DBDefs;
 use Digest::MD5 qw( md5_hex );
 use File::Slurp qw( read_dir read_file );
 use File::Spec;
-use HTML::Entities qw( decode_entities );
 use IO::Uncompress::Gunzip qw( gunzip );
 use List::AllUtils qw( any );
 use List::MoreUtils qw( natatime );
@@ -464,8 +463,6 @@ sub load_sitemap {
                 if ($tag eq 'url') {
                     push @urls, $current_url;
                     $current_url = undef;
-                } elsif (defined $current_url) {
-                    $current_url->{$current_tag} = decode_entities($current_url->{$current_tag});
                 }
 
                 $current_tag = undef;
