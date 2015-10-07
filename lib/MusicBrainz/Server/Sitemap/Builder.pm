@@ -73,9 +73,9 @@ has web_server => (
 has database => (
     is => 'ro',
     isa => 'Str',
-    default => 'READWRITE',
+    default => 'MAINTENANCE',
     traits => ['Getopt'],
-    documentation => 'database to use (default: READWRITE)',
+    documentation => 'database to use (default: MAINTENANCE)',
 );
 
 has output_dir => (

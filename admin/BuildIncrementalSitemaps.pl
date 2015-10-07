@@ -23,7 +23,7 @@ Options:
     --web-server                web server URL used as a base in sitemap-index
                                 files, without trailing slash (default:
                                 DBDefs->CANONICAL_SERVER)
-    --database                  database to use (default: READWRITE)
+    --database                  database to use (default: MAINTENANCE)
     --output-dir                directory to write sitemaps to (default:
                                 root/static/sitemaps/)
     --replication-access-uri    URI to request replication packets from
