@@ -5,8 +5,10 @@ use DateTime::Format::Pg;
 use DateTime::Format::W3CDTF;
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
-use File::Slurp qw( read_dir );
+use File::Slurp qw( read_dir read_file );
 use File::Spec;
+use HTML::Entities qw( decode_entities );
+use IO::Uncompress::Gunzip qw( gunzip );
 use List::AllUtils qw( any );
 use List::MoreUtils qw( natatime );
 use List::UtilsBy qw( sort_by );
@@ -28,6 +30,7 @@ use URI;
 use URI::Escape qw( uri_escape_utf8 );
 use WWW::Sitemap::XML;
 use WWW::SitemapIndex::XML;
+use XML::Parser::Lite;
 
 with 'MooseX::Getopt';
 
@@ -406,6 +409,73 @@ sub ping_search_engines($) {
     return;
 }
 
+=sub load_sitemap
+
+WWW::Sitemap::XML::load regularly produces non-sensical parse errors for no
+apparent reason; a typical example looks something like:
+
+/home/musicbrainz/musicbrainz-server/root/static/sitemaps/sitemap-release_group-1-aliases-incremental.xml.gz:2: parser error : expected '>'
+3b85-b773-c2da5179586b/aliases</loc><lastmod>2015-10-06T23:41:05.157808Z</lastmo
+                                                                               ^
+
+Upon inspection, there is no such error in the file, and other tools load
+the file just fine. This happens frequently, but not consistently. The module
+versions are:
+
+       libwww-sitemap-xml-perl 1.121160-3~trusty1
+       libxml-libxml-perl      2.0108+dfsg-1ubuntu0.1
+
+So, we're falling back to a pure-perl implementation.
+
+=cut
+
+sub load_sitemap {
+    my ($filename) = @_;
+
+    my (@urls, $current_url, $current_tag, $current_val, $data);
+
+    if ($filename =~ /\.gz$/) {
+        gunzip $filename => \$data;
+    } else {
+        $data = read_file($filename);
+    }
+
+    my $parser = XML::Parser::Lite->new(
+        Handlers => {
+            Start => sub {
+                my ($cls, $tag) = @_;
+
+                if ($tag eq 'url') {
+                    $current_url = {};
+                } elsif (defined $current_url) {
+                    $current_url->{$tag} = '';
+                    $current_tag = $tag;
+                }
+            },
+            Char => sub {
+                my ($cls, $char) = @_;
+
+                $current_url->{$current_tag} .= $char;
+            },
+            End => sub {
+                my ($cls, $tag) = @_;
+
+                if ($tag eq 'url') {
+                    push @urls, $current_url;
+                    $current_url = undef;
+                } elsif (defined $current_url) {
+                    $current_url->{$current_tag} = decode_entities($current_url->{$current_tag});
+                }
+
+                $current_tag = undef;
+            },
+        },
+    );
+
+    $parser->parse($data);
+    \@urls;
+}
+
 =sub hash_sitemap
 
 Used by C<build_one_sitemap> to determine if a sitemap has changed since the
@@ -419,18 +489,19 @@ object.
 sub hash_sitemap {
     my ($filename_or_map) = @_;
 
-    my $map = $filename_or_map;
-    if (ref($filename_or_map) eq '') {
-        $map = WWW::Sitemap::XML->new;
-        $map->load(location => $filename_or_map);
+    my @urls;
+    if (ref $filename_or_map) {
+        @urls = $filename_or_map->urls;
+    } else {
+        @urls = @{ load_sitemap($filename_or_map) };
     }
 
     return md5_hex(join(
         '|',
         map {
-            join(',', $_->loc, $_->lastmod // '', $_->changefreq // '', $_->priority // '')
+            join(',', $_->{loc}, $_->{lastmod} // '', $_->{priority} // '')
         }
-        sort_by { $_->loc } $map->urls
+        sort_by { $_->{loc} } @urls
     ));
 }
 
