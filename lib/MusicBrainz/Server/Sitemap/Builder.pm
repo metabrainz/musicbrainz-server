@@ -5,9 +5,8 @@ use DateTime::Format::Pg;
 use DateTime::Format::W3CDTF;
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
-use File::Slurp qw( read_dir read_file );
+use File::Slurp qw( read_dir );
 use File::Spec;
-use IO::Uncompress::Gunzip qw( gunzip );
 use List::AllUtils qw( any );
 use List::MoreUtils qw( natatime );
 use List::UtilsBy qw( sort_by );
@@ -19,17 +18,15 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
-use MusicBrainz::Server::Sitemap::Constants qw(
-    $MAX_SITEMAP_SIZE
-);
+use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
+use MusicBrainz::Server::Sitemap::Utils qw( serialize_sitemap );
 use POSIX qw( ceil );
 use Readonly;
+use String::ShellQuote qw( shell_quote );
 use Try::Tiny;
 use URI;
 use URI::Escape qw( uri_escape_utf8 );
-use WWW::Sitemap::XML;
 use WWW::SitemapIndex::XML;
-use XML::Parser;
 
 with 'MooseX::Getopt';
 
@@ -265,25 +262,47 @@ sub build_one_sitemap {
     die "Too many URLs for one sitemap: $filename" if scalar @urls > $MAX_SITEMAP_SIZE;
 
     my $local_filename = File::Spec->catfile($self->output_dir, $filename);
+    my $local_xml_filename = $local_filename;
+    $local_xml_filename =~ s/\.gz$//;
     my $remote_filename = DBDefs->CANONICAL_SERVER . '/' . $filename;
     my $existing_md5;
 
     if (-f $local_filename) {
-        $existing_md5 = hash_sitemap($local_filename);
+        # Determine if the sitemap has changed since the previous build, for
+        # insertion to the sitemap index.
+        my $md5 = Digest::MD5->new;
+
+        if ($self->compression_enabled) {
+            my $quoted_filename = shell_quote($local_filename);
+            $md5->add(`gzip --decompress --stdout $quoted_filename`);
+        } else {
+            open my $fh, '<', $local_filename;
+            $md5->addfile($fh);
+            close $fh;
+        }
+
+        $existing_md5 = $md5->hexdigest;
     }
+
     local $| = 1; # autoflush stdout
     print localtime() . " : Building $filename...";
-    my $map = WWW::Sitemap::XML->new();
-    for my $url (@urls) {
-        $map->add(%$url);
+
+    my $data = serialize_sitemap(@urls);
+    open my $fh, '>', $local_xml_filename;
+    print $fh $$data;
+    close $fh;
+
+    if ($self->compression_enabled) {
+        # --force allows it to overwrite the existing files
+        system 'gzip', '--force', $local_xml_filename;
     }
-    $map->write($local_filename);
+
     $self->add_sitemap_file($filename);
 
     my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
     my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
 
-    if ($existing_md5 && $existing_md5 eq hash_sitemap($map) && $old_sitemap_modtimes->{$remote_filename}) {
+    if ($existing_md5 && $existing_md5 eq md5_hex($$data) && $old_sitemap_modtimes->{$remote_filename}) {
         print "using previous modtime, since file unchanged...";
         $modtime = $old_sitemap_modtimes->{$remote_filename};
     }
@@ -406,101 +425,6 @@ sub ping_search_engines($) {
     }
 
     return;
-}
-
-=sub load_sitemap
-
-WWW::Sitemap::XML::load regularly produces non-sensical parse errors for no
-apparent reason; a typical example looks something like:
-
-/home/musicbrainz/musicbrainz-server/root/static/sitemaps/sitemap-release_group-1-aliases-incremental.xml.gz:2: parser error : expected '>'
-3b85-b773-c2da5179586b/aliases</loc><lastmod>2015-10-06T23:41:05.157808Z</lastmo
-                                                                               ^
-
-Upon inspection, there is no such error in the file, and other tools load
-the file just fine. This happens frequently, but not consistently. The module
-versions are:
-
-       libwww-sitemap-xml-perl 1.121160-3~trusty1
-       libxml-libxml-perl      2.0108+dfsg-1ubuntu0.1
-
-So, we're falling back to an implementation using XML::Parser (expat) instead
-of XML::LibXML.
-
-=cut
-
-sub load_sitemap {
-    my ($filename) = @_;
-
-    my (@urls, $current_url, $current_tag, $current_val, $data);
-
-    if ($filename =~ /\.gz$/) {
-        gunzip $filename => \$data;
-    } else {
-        $data = read_file($filename);
-    }
-
-    my $parser = XML::Parser->new(
-        Handlers => {
-            Start => sub {
-                my ($expat, $tag) = @_;
-
-                if ($tag eq 'url') {
-                    $current_url = {};
-                } elsif (defined $current_url) {
-                    $current_url->{$tag} = '';
-                    $current_tag = $tag;
-                }
-            },
-            Char => sub {
-                my ($expat, $char) = @_;
-
-                $current_url->{$current_tag} .= $char;
-            },
-            End => sub {
-                my ($expat, $tag) = @_;
-
-                if ($tag eq 'url') {
-                    push @urls, $current_url;
-                    $current_url = undef;
-                }
-
-                $current_tag = undef;
-            },
-        },
-    );
-
-    $parser->parse($data);
-    \@urls;
-}
-
-=sub hash_sitemap
-
-Used by C<build_one_sitemap> to determine if a sitemap has changed since the
-previous build, for insertion to the sitemap index, by sorting consistenly,
-joining together applicable properties, and md5ing the URL contents of a
-sitemap. It's passed either a filename or an already-initialized C<$map>
-object.
-
-=cut
-
-sub hash_sitemap {
-    my ($filename_or_map) = @_;
-
-    my @urls;
-    if (ref $filename_or_map) {
-        @urls = $filename_or_map->urls;
-    } else {
-        @urls = @{ load_sitemap($filename_or_map) };
-    }
-
-    return md5_hex(join(
-        '|',
-        map {
-            join(',', $_->{loc}, $_->{lastmod} // '', $_->{priority} // '')
-        }
-        sort_by { $_->{loc} } @urls
-    ));
 }
 
 =method log
