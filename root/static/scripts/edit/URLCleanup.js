@@ -497,7 +497,8 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i")
+      new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i"),
+      new RegExp("^(https?://)?([^/]+\\.)?linkedin\\.com/", "i"),
     ],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
@@ -521,6 +522,7 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
       url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://www.weibo.com/$1");
+      url = url.replace(/^https?:\/\/(.+\.)?linkedin\.com/, "https://$1linkedin.com");
       return url;
     }
   },

@@ -68,7 +68,7 @@ test('Guess type', function (t) {
                 'label', 'http://idiotsikker.bandcamp.com/',
                 LINK_TYPES.bandcamp.label
             ],
-            //Last.fm
+            // Last.fm
             [
                 'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
                 LINK_TYPES.lastfm.artist
@@ -76,6 +76,15 @@ test('Guess type', function (t) {
             [
                 'event', 'http://www.last.fm/event/3291943+Pori+jazz',
                 LINK_TYPES.lastfm.event
+            ],
+            // LinkedIn
+            [
+                'artist', 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',
+                LINK_TYPES.socialnetwork.artist
+            ],
+            [
+                'artist', 'https://www.linkedin.com/in/legselectric',
+                LINK_TYPES.socialnetwork.artist
             ],
             // WhoSampled
             [
@@ -1485,6 +1494,12 @@ test('Cleanup', function (t) {
                 'https://weibo.com/mchotdog2010?test',
                 'http://www.weibo.com/mchotdog2010',
                 'label'
+            ],
+            // LinkedIn
+            [
+                'http://www.linkedin.com/in/test',
+                'https://www.linkedin.com/in/test',
+                'artist'
             ],
             // MBS-8457: Remove "?oldformat=true" from Wikipedia URLs
             [
