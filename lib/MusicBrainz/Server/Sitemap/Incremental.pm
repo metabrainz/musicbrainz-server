@@ -23,6 +23,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Sitemap::Constants qw( %SITEMAP_SUFFIX_INFO );
 use MusicBrainz::Server::Sitemap::Builder;
+use MusicBrainz::Server::Sitemap::Utils qw( log );
 use MusicBrainz::Server::Replication qw(
     retrieve_remote_file
     decompress_packet
@@ -127,8 +128,8 @@ sub build_and_check_urls($$$$$) {
     my $entity_rows = $self->get_linked_entities($c, $pk_table, $update, $joins);
 
     unless (@{$entity_rows}) {
-        $self->log('No new entities found for sequence ID ' .
-                   $update->{sequence_id} . " in table $pk_table");
+        log('No new entities found for sequence ID ' .
+            $update->{sequence_id} . " in table $pk_table");
         return 0;
     }
 
@@ -149,7 +150,7 @@ sub build_and_check_urls($$$$$) {
 
             my $is_first_of_many = ($current == 0 && $remaining > 0);
             if ($is_first_of_many && !$was_updated) {
-                $self->log("Skipping $remaining");
+                log("Skipping $remaining");
                 last;
             }
 
@@ -192,7 +193,7 @@ sub fetch_and_handle_jsonld($$$$$$$) {
     # Responses should never redirect. If they do, we likely requested a page
     # number that doesn't exist.
     if ($response->previous) {
-        $self->log("Got redirect fetching $request_url, skipping");
+        log("Got redirect fetching $request_url, skipping");
         return 0;
     }
 
@@ -208,7 +209,7 @@ EOSQL
 
             if (defined $old_hash) {
                 if ($old_hash ne $new_hash) {
-                    $self->log("Found change at $url");
+                    log("Found change at $url");
 
                     $c->sql->do(<<"EOSQL", "\\x$new_hash", $last_modified, $replication_sequence, $row_id, $url);
 UPDATE sitemaps.${entity_type}_lastmod
@@ -217,9 +218,9 @@ UPDATE sitemaps.${entity_type}_lastmod
 EOSQL
                     return 1;
                 }
-                $self->log("No change at $url");
+                log("No change at $url");
             } else {
-                $self->log("Inserting lastmod entry for $url");
+                log("Inserting lastmod entry for $url");
 
                 $c->sql->do(
                     qq{INSERT INTO sitemaps.${entity_type}_lastmod (
@@ -269,7 +270,7 @@ EOSQL
         }
     }
 
-    $self->log("ERROR: Got response code $code fetching $request_url");
+    log("ERROR: Got response code $code fetching $request_url");
     return 0;
 }
 
@@ -580,7 +581,7 @@ sub handle_replication_sequence($$) {
         }
     }
 
-    $self->log("Removing $output_dir");
+    log("Removing $output_dir");
     rmtree($output_dir);
 
     for my $entity_type (@LASTMOD_ENTITIES) {
@@ -657,9 +658,9 @@ sub run {
     );
 
     if ($checked_entities) {
-        $self->log("ERROR: " .
-                   "Table sitemaps.tmp_checked_entities is not empty " .
-                   "(is another instance of the script running?)");
+        log("ERROR: " .
+            "Table sitemaps.tmp_checked_entities is not empty " .
+            "(is another instance of the script running?)");
         exit 1;
     }
 
@@ -668,17 +669,17 @@ sub run {
     );
 
     unless (defined $building_overall_sitemaps) {
-        $self->log("ERROR: Table sitemaps.control is empty (has admin/BuildSitemaps.pl run yet?)");
+        log("ERROR: Table sitemaps.control is empty (has admin/BuildSitemaps.pl run yet?)");
         exit 1;
     }
 
     if ($building_overall_sitemaps) {
-        $self->log("NOTICE: admin/BuildSitemaps.pl is still running, exiting so it can finish");
+        log("NOTICE: admin/BuildSitemaps.pl is still running, exiting so it can finish");
         exit 1;
     }
 
     unless (-f $self->index_localname) {
-        $self->log("ERROR: No sitemap index file was found");
+        log("ERROR: No sitemap index file was found");
         exit 1;
     }
 
@@ -686,7 +687,7 @@ sub run {
     my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
 
     unless ($response->code == 200) {
-        $self->log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
+        log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
         exit 1;
     }
 
@@ -701,7 +702,7 @@ sub run {
     my $next_seq = $current_seq;
     if (defined $last_processed_seq) {
         if ($current_seq == $last_processed_seq) {
-            $self->log("Already up-to-date.");
+            log("Already up-to-date.");
             exit 0;
         }
         $next_seq = $last_processed_seq + 1;

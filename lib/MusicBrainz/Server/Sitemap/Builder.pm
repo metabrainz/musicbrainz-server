@@ -19,7 +19,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
-use MusicBrainz::Server::Sitemap::Utils qw( serialize_sitemap );
+use MusicBrainz::Server::Sitemap::Utils qw( serialize_sitemap log );
 use POSIX qw( ceil );
 use Readonly;
 use String::ShellQuote qw( shell_quote );
@@ -332,7 +332,7 @@ sub build_one_suffix {
 
     # If we can fit all the paginated stuff into the main sitemap file, why not do it?
     if (@paginated_urls && scalar @base_urls + scalar @paginated_urls <= $MAX_SITEMAP_SIZE) {
-        $self->log("Paginated plus base urls are fewer than 50k for $base_filename, combining into one...");
+        log("Paginated plus base urls are fewer than 50k for $base_filename, combining into one...");
         push(@base_urls, @paginated_urls);
         @paginated_urls = ();
     }
@@ -383,12 +383,12 @@ sub write_index {
     }
 
     $self->index->write($self->index_localname);
-    $self->log('Built index ' . $self->index_filename . ', deleting outdated files');
+    log('Built index ' . $self->index_filename . ', deleting outdated files');
 
     my @files = read_dir($self->output_dir);
     for my $file (@files) {
         unless ($self->do_not_delete($file)) {
-            $self->log("Removing $file");
+            log("Removing $file");
             unlink File::Spec->catfile($self->output_dir, $file);
         }
     }
@@ -406,7 +406,7 @@ sub ping_search_engines($) {
 
     return unless $self->ping_enabled;
 
-    $self->log('Pinging search engines');
+    log('Pinging search engines');
 
     my $url = $self->web_server . '/' . $self->index_filename;
 
@@ -420,22 +420,11 @@ sub ping_search_engines($) {
             my $ping_url = $prefix . uri_escape_utf8($url);
             $c->lwp->get($ping_url);
         } catch {
-            $self->log("Failed to ping $prefix.");
+            log("Failed to ping $prefix.");
         }
     }
 
     return;
-}
-
-=method log
-
-Log a message to stdout, prefixed with the local time and ending with a
-newline.
-
-=cut
-
-sub log($) {
-    print localtime . ' : ' . $_[1] . "\n";
 }
 
 =method do_not_delete

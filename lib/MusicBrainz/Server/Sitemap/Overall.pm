@@ -15,6 +15,7 @@ use MusicBrainz::Server::Sitemap::Constants qw(
     $MAX_SITEMAP_SIZE
     %SITEMAP_SUFFIX_INFO
 );
+use MusicBrainz::Server::Sitemap::Utils qw( log );
 use POSIX;
 use Sql;
 
@@ -104,18 +105,18 @@ sub fill_temporary_tables {
                         OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = q.rg AND release.status IS NOT NULL))";
 
     # Release groups that will appear on the non-VA listings, per artist
-    $self->log('Filling tmp_sitemaps_artist_direct_rgs');
+    log('Filling tmp_sitemaps_artist_direct_rgs');
     $sql->do("INSERT INTO tmp_sitemaps_artist_direct_rgs (artist, rg, is_official)
                   SELECT artist, rg, $is_official FROM
                   (SELECT DISTINCT artist_credit_name.artist AS artist, release_group.id AS rg
                     FROM release_group
                     JOIN artist_credit_name ON release_group.artist_credit = artist_credit_name.artist_credit) q");
 
-    $self->log('Analyzing tmp_sitemaps_artist_direct_rgs');
+    log('Analyzing tmp_sitemaps_artist_direct_rgs');
     $sql->do("ANALYZE tmp_sitemaps_artist_direct_rgs");
 
     # Release groups that will appear on the VA listings, per artist. Uses the above temporary table to exclude non-VA appearances.
-    $self->log('Filling tmp_sitemaps_artist_va_rgs');
+    log('Filling tmp_sitemaps_artist_va_rgs');
     $sql->do("INSERT INTO tmp_sitemaps_artist_va_rgs (artist, rg, is_official)
                   SELECT artist, rg, $is_official FROM
                   (SELECT DISTINCT artist_credit_name.artist AS artist, release_group.id AS rg
@@ -126,20 +127,20 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
                    WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_rgs WHERE artist = artist_credit_name.artist AND rg = release_group.id)) q");
 
-    $self->log('Analyzing tmp_sitemaps_artist_va_rgs');
+    log('Analyzing tmp_sitemaps_artist_va_rgs');
     $sql->do("ANALYZE tmp_sitemaps_artist_va_rgs");
 
     # Releases that will appear in the non-VA part of the artist releases tab, per artist
-    $self->log('Filling tmp_sitemaps_artist_direct_releases');
+    log('Filling tmp_sitemaps_artist_direct_releases');
     $sql->do("INSERT INTO tmp_sitemaps_artist_direct_releases (artist, release)
                   SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
                     FROM release JOIN artist_credit_name ON release.artist_credit = artist_credit_name.artist_credit");
 
-    $self->log('Analyzing tmp_sitemaps_artist_direct_releases');
+    log('Analyzing tmp_sitemaps_artist_direct_releases');
     $sql->do("ANALYZE tmp_sitemaps_artist_direct_releases");
 
     # Releases that will appear in the VA listings instead. Uses above table to exclude non-VA appearances.
-    $self->log('Filling tmp_sitemaps_artist_va_releases');
+    log('Filling tmp_sitemaps_artist_va_releases');
     $sql->do("INSERT INTO tmp_sitemaps_artist_va_releases (artist, release)
                   SELECT DISTINCT artist_credit_name.artist AS artist, release.id AS release
                     FROM release
@@ -148,10 +149,10 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
                    WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_releases WHERE artist = artist_credit_name.artist AND release = release.id)");
 
-    $self->log('Analyzing tmp_sitemaps_artist_va_releases');
+    log('Analyzing tmp_sitemaps_artist_va_releases');
     $sql->do("ANALYZE tmp_sitemaps_artist_va_releases");
 
-    $self->log('Filling tmp_sitemaps_artist_recordings');
+    log('Filling tmp_sitemaps_artist_recordings');
     $sql->do("INSERT INTO tmp_sitemaps_artist_recordings (artist, recording, is_video, is_standalone)
                   WITH track_recordings (recording) AS (
                       SELECT DISTINCT recording FROM track
@@ -163,11 +164,11 @@ sub fill_temporary_tables {
                     JOIN artist_credit_name ON recording.artist_credit = artist_credit_name.artist_credit
                     LEFT JOIN track_recordings ON recording.id = track_recordings.recording");
 
-    $self->log('Analyzing tmp_sitemaps_artist_recordings');
+    log('Analyzing tmp_sitemaps_artist_recordings');
     $sql->do("ANALYZE tmp_sitemaps_artist_recordings");
 
     # Works linked directly to artists as well as via recording ACs.
-    $self->log('Filling tmp_sitemaps_artist_works');
+    log('Filling tmp_sitemaps_artist_works');
     $sql->do("INSERT INTO tmp_sitemaps_artist_works (artist, work)
                   SELECT entity0 AS artist, entity1 AS work from l_artist_work
                    UNION DISTINCT
@@ -175,12 +176,12 @@ sub fill_temporary_tables {
                     FROM tmp_sitemaps_artist_recordings tsar
                     JOIN l_recording_work ON tsar.recording = l_recording_work.entity0");
 
-    $self->log('Analyzing tmp_sitemaps_artist_works');
+    log('Analyzing tmp_sitemaps_artist_works');
     $sql->do("ANALYZE tmp_sitemaps_artist_works");
 
     # Instruments linked to recordings via artist-recording relationship
     # attributes. Matches Data::Recording, which also ignores other tables
-    $self->log('Filling tmp_sitemaps_instrument_recordings');
+    log('Filling tmp_sitemaps_instrument_recordings');
     $sql->do("INSERT INTO tmp_sitemaps_instrument_recordings (instrument, recording)
                   SELECT DISTINCT instrument.id AS instrument, l_artist_recording.entity1 AS recording
                     FROM instrument
@@ -188,12 +189,12 @@ sub fill_temporary_tables {
                     JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
                     JOIN l_artist_recording ON l_artist_recording.link = link_attribute.link");
 
-    $self->log('Analyzing tmp_sitemaps_instrument_recordings');
+    log('Analyzing tmp_sitemaps_instrument_recordings');
     $sql->do("ANALYZE tmp_sitemaps_instrument_recordings");
 
     # Instruments linked to releases via artist-release relationship
     # attributes. Matches Data::Release, which also ignores other tables
-    $self->log('Filling tmp_sitemaps_instrument_releases');
+    log('Filling tmp_sitemaps_instrument_releases');
     $sql->do("INSERT INTO tmp_sitemaps_instrument_releases (instrument, release)
                   SELECT DISTINCT instrument.id AS instrument, l_artist_release.entity1 AS release
                     FROM instrument
@@ -201,7 +202,7 @@ sub fill_temporary_tables {
                     JOIN link_attribute ON link_attribute.attribute_type = link_attribute_type.id
                     JOIN l_artist_release ON l_artist_release.link = link_attribute.link");
 
-    $self->log('Analyzing tmp_sitemaps_instrument_releases');
+    log('Analyzing tmp_sitemaps_instrument_releases');
     $sql->do("ANALYZE tmp_sitemaps_instrument_releases");
 }
 
@@ -356,7 +357,7 @@ around do_not_delete => sub {
 sub run {
     my ($self) = @_;
 
-    $self->log('Building sitemaps and sitemap index files');
+    log('Building sitemaps and sitemap index files');
 
     my $c = MusicBrainz::Server::Context->create_script_context(
         database => $self->database,
@@ -406,7 +407,7 @@ EOSQL
 
     # Finally, ping search engines (if the option is turned on) and finish.
     $self->ping_search_engines($c);
-    $self->log('Done');
+    log('Done');
 }
 
 __PACKAGE__->meta->make_immutable;

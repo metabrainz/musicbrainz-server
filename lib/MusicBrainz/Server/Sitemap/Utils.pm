@@ -32,9 +32,7 @@ e.g. generating deterministic XML output to make hash comparisons easier.
 
 =cut
 
-our @EXPORT_OK = qw(
-    serialize_sitemap
-);
+our @EXPORT_OK = qw( serialize_sitemap log );
 
 Readonly our $SITEMAP_HEADER => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
@@ -72,3 +70,16 @@ sub serialize_sitemap {
     $data .= $SITEMAP_FOOTER;
     \$data;
 }
+
+=sub log
+
+Log a message to stdout, prefixed with the local time and ending with a
+newline.
+
+=cut
+
+sub log($) {
+    print localtime . ' : ' . $_[0] . "\n";
+}
+
+1;
