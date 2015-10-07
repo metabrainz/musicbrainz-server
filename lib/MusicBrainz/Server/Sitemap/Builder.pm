@@ -30,7 +30,7 @@ use URI;
 use URI::Escape qw( uri_escape_utf8 );
 use WWW::Sitemap::XML;
 use WWW::SitemapIndex::XML;
-use XML::Parser::Lite;
+use XML::Parser;
 
 with 'MooseX::Getopt';
 
@@ -425,7 +425,8 @@ versions are:
        libwww-sitemap-xml-perl 1.121160-3~trusty1
        libxml-libxml-perl      2.0108+dfsg-1ubuntu0.1
 
-So, we're falling back to a pure-perl implementation.
+So, we're falling back to an implementation using XML::Parser (expat) instead
+of XML::LibXML.
 
 =cut
 
@@ -440,10 +441,10 @@ sub load_sitemap {
         $data = read_file($filename);
     }
 
-    my $parser = XML::Parser::Lite->new(
+    my $parser = XML::Parser->new(
         Handlers => {
             Start => sub {
-                my ($cls, $tag) = @_;
+                my ($expat, $tag) = @_;
 
                 if ($tag eq 'url') {
                     $current_url = {};
@@ -453,12 +454,12 @@ sub load_sitemap {
                 }
             },
             Char => sub {
-                my ($cls, $char) = @_;
+                my ($expat, $char) = @_;
 
                 $current_url->{$current_tag} .= $char;
             },
             End => sub {
-                my ($cls, $tag) = @_;
+                my ($expat, $tag) = @_;
 
                 if ($tag eq 'url') {
                     push @urls, $current_url;
