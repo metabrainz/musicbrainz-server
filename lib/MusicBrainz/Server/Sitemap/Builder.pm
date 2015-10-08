@@ -269,44 +269,56 @@ sub build_one_sitemap {
 
     if (-f $local_filename) {
         # Determine if the sitemap has changed since the previous build, for
-        # insertion to the sitemap index.
-        my $md5 = Digest::MD5->new;
+        # insertion to the sitemap index. Since the file's already on disk,
+        # outsource the md5 calculation. It'll be faster than having perl read
+        # the file into memory to pass to Digest::MD5.
+        my $quoted_filename = shell_quote($local_filename);
+        chomp (my $md5_bin = `which md5` || `which md5sum`);
+        $md5_bin = shell_quote($md5_bin);
 
         if ($self->compression_enabled) {
-            my $quoted_filename = shell_quote($local_filename);
-            $md5->add(`gzip --decompress --stdout $quoted_filename`);
+            $existing_md5 = `gzip --decompress --stdout $quoted_filename | $md5_bin`;
         } else {
-            open my $fh, '<', $local_filename;
-            $md5->addfile($fh);
-            close $fh;
+            $existing_md5 = `cat $quoted_filename | $md5_bin`;
         }
 
-        $existing_md5 = $md5->hexdigest;
+        $existing_md5 =~ s/[^0-9a-f]//g;
     }
 
     local $| = 1; # autoflush stdout
     print localtime() . " : Building $filename...";
 
     my $data = serialize_sitemap(@urls);
-    open my $fh, '>', $local_xml_filename;
-    print $fh $$data;
-    close $fh;
+    my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
+    my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
+    my $write_sitemap = 1;
 
-    if ($self->compression_enabled) {
-        # --force allows it to overwrite the existing files
-        system 'gzip', '--force', $local_xml_filename;
+    if ($existing_md5) {
+        my $new_md5 = md5_hex($$data);
+
+        if ($existing_md5 eq $new_md5) {
+            # Don't write the file to disk unless we have to.
+            $write_sitemap = 0;
+
+            if ($old_sitemap_modtimes->{$remote_filename}) {
+                print "using previous modtime, since file unchanged...";
+                $modtime = $old_sitemap_modtimes->{$remote_filename};
+            }
+        }
+    }
+
+    if ($write_sitemap) {
+        open my $fh, '>', $local_xml_filename;
+        print $fh $$data;
+        close $fh;
+
+        if ($self->compression_enabled) {
+            # --force allows it to overwrite the existing files
+            system 'gzip', '--force', $local_xml_filename;
+        }
     }
 
     $self->add_sitemap_file($filename);
-
-    my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
-    my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
-
-    if ($existing_md5 && $existing_md5 eq md5_hex($$data) && $old_sitemap_modtimes->{$remote_filename}) {
-        print "using previous modtime, since file unchanged...";
-        $modtime = $old_sitemap_modtimes->{$remote_filename};
-    }
-
     $self->index->add(loc => $remote_filename, lastmod => $modtime);
     print " built.\n";
 }
