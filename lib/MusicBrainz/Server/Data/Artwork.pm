@@ -5,7 +5,6 @@ use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
-    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -91,8 +90,7 @@ sub find_by_release
         IN (" . placeholders(@ids) . ")
         ORDER BY cover_art_archive.index_listing.ordering";
 
-    my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                                $query, @ids);
+    my @artwork = $self->query_to_list($query, \@ids);
     for my $image (@artwork) {
         $image->release($id_to_release{$image->release_id}->[0]);
     }
@@ -130,8 +128,7 @@ sub find_front_cover_by_release
         IN (" . placeholders(@ids) . ")
         AND is_front = true";
 
-    my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                                $query, @ids);
+    my @artwork = $self->query_to_list($query, \@ids);
     foreach my $image (@artwork) {
         foreach my $release (@{ $id_to_release{$image->release_id} })
         {

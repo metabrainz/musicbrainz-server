@@ -6,7 +6,6 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
-    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -46,8 +45,7 @@ sub _find {
                   WHERE $field = any(?)
                   ORDER BY iswc, id";
 
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, \@ids);
+    $self->query_to_list($query, [\@ids]);
 }
 
 =method find_by_work

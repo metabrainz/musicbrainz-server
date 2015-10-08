@@ -1,9 +1,6 @@
 package MusicBrainz::Server::Data::Utils::Uniqueness;
 use Moose;
 
-use MusicBrainz::Server::Data::Utils qw(
-    query_to_list
-);
 use MusicBrainz::Server::Exceptions;
 
 use Sub::Exporter -setup => {
@@ -42,9 +39,7 @@ sub assert_uniqueness_conserved {
             " WHERE (name, comment) IN (SELECT $new_name, $new_comment)".
             " AND " . $model->_id_column . " != ?";
 
-        my ($conflict) = query_to_list(
-            $model->sql, sub { $model->_new_from_row(shift) }, $query, @params, $id
-        );
+        my ($conflict) = $model->query_to_list($query, [@params, $id]);
 
         if ($conflict) {
             MusicBrainz::Server::Exceptions::DuplicateViolation->throw({

@@ -12,6 +12,7 @@ use Carp qw( confess );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 with 'MusicBrainz::Server::Data::Role::NewFromRow';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 
 sub _columns
 {

@@ -14,8 +14,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_date_period
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -81,11 +79,8 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(label.name), label.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(label.name), label.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub find_by_area {
@@ -94,11 +89,8 @@ sub find_by_area {
                  FROM " . $self->_table . "
                     JOIN area ON label.area = area.id
                  WHERE area.id = ?
-                 ORDER BY musicbrainz_collate(label.name), label.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $area_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(label.name), label.id";
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
 sub find_by_artist
@@ -115,9 +107,7 @@ sub find_by_artist
                  )
                  ORDER BY label.id";
 
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $artist_id);
+    $self->query_to_list($query, [$artist_id]);
 }
 
 sub find_by_release
@@ -128,12 +118,9 @@ sub find_by_release
                  FROM " . $self->_table . "
                      JOIN release_label ON release_label.label = label.id
                  WHERE release_label.release = ?
-                 ORDER BY musicbrainz_collate(label.name)
-                 OFFSET ?";
+                 ORDER BY musicbrainz_collate(label.name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $release_id, $offset || 0);
+    $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
 
 sub _area_cols

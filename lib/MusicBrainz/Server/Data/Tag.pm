@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Tag;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Tag;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' };
@@ -53,14 +53,15 @@ sub get_cloud
     my $query = "SELECT " . $self->_columns . ", ref_count
                  FROM " . $self->_table . "
                  ORDER BY ref_count DESC";
-    return query_to_list_limited(
-        $self->c->sql, 0, $limit, sub {
-            my $row = shift;
-            return {
-                count => $row->{ref_count},
-                tag => $self->_new_from_row($row),
-            };
-        }, $query);
+
+    $self->query_to_list_limited($query, [], $limit, 0, sub {
+        my ($model, $row) = @_;
+
+        return {
+            count => $row->{ref_count},
+            tag => $model->_new_from_row($row),
+        };
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

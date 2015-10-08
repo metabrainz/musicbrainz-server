@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::CountryArea;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Area;
-use MusicBrainz::Server::Data::Utils qw( query_to_list );
 
 extends 'MusicBrainz::Server::Data::Area';
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
@@ -13,7 +12,7 @@ around '_get_all_from_db' => sub {
     my $query = "SELECT " . $self->_columns .
         " FROM " . $self->_table . " JOIN country_area ca ON ca.area = area.id " .
         " ORDER BY " . (join ", ", @{ $p->order_by });
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
+    $self->query_to_list($query);
 };
 
 sub sort_in_forms { 1 }

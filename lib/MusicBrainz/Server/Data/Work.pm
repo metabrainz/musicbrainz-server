@@ -11,8 +11,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     order_by
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
@@ -81,15 +79,10 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(work.name)
-         OFFSET ?';
+       ORDER BY musicbrainz_collate(work.name)';
 
     # We actually use this for the side effect in the closure
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            $self->_new_from_row(shift);
-        },
-        $query, $artist_id, $artist_id, $offset || 0);
+    $self->query_to_list_limited($query, [($artist_id) x 2], $limit, $offset);
 }
 
 =method find_by_iswc
@@ -110,9 +103,7 @@ sub find_by_iswc
                  WHERE iswc.iswc = ?
                  ORDER BY musicbrainz_collate(work.name)";
 
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $iswc);
+    $self->query_to_list($query, [$iswc]);
 }
 
 sub _order_by {

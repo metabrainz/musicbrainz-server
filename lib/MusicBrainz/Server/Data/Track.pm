@@ -10,8 +10,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     object_to_ids
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use Scalar::Util 'weaken';
 
@@ -77,8 +75,7 @@ sub load_for_mediums
                  FROM " . $self->_table . "
                  WHERE medium IN (" . placeholders(@ids) . ")
                  ORDER BY medium, position";
-    my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                               $query, @ids);
+    my @tracks = $self->query_to_list($query, \@ids);
 
     foreach my $track (@tracks) {
         my @media = @{ $id_to_medium{$track->medium_id} };
@@ -119,21 +116,25 @@ sub find_by_recording
           WHERE track.recording = ?
           ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release.name)
         ) s
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
-        OFFSET ?";
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row       = shift;
-            my $track     = $self->_new_from_row($row);
-            my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
-            my $release   = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
+    $self->query_to_list_limited(
+        $query,
+        [$recording_id],
+        $limit,
+        $offset,
+        sub {
+            my ($model, $row) = @_;
+
+            my $track = $model->_new_from_row($row);
+            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
             $medium->release($release);
             $track->medium($medium);
 
             return $track;
         },
-        $query, $recording_id, $offset || 0);
+    );
 }
 
 sub _insert_hook_prepare {

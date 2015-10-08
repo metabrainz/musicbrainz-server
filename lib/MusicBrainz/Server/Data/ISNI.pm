@@ -7,7 +7,6 @@ use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
-    query_to_list
     object_to_ids
 );
 
@@ -49,9 +48,7 @@ sub find_by_entity_id
                  WHERE $key IN (" . placeholders(@ids) . ")
                  ORDER BY isni";
 
-    return [ query_to_list($self->c->sql, sub {
-        $self->_new_from_row(@_)
-    }, $query, @ids) ];
+    [$self->query_to_list($query, \@ids)];
 }
 
 sub load_for

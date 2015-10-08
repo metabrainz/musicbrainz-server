@@ -53,7 +53,7 @@ sub discid : Chained('root') PathPart('discid') {
             my $opts = $stash->store($cdtoc);
 
             my @releases = $c->model('Release')->find_by_medium(
-                [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
+                map { $_->medium_id } @mediumcdtocs
             );
 
             $opts->{releases} = $self->make_list(\@releases);

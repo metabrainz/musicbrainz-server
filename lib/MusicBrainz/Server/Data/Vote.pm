@@ -5,11 +5,7 @@ use namespace::autoclean;
 use List::AllUtils qw( any );
 use List::Util qw( sum );
 use Carp qw( confess );
-use MusicBrainz::Server::Data::Utils qw(
-    map_query
-    placeholders
-    query_to_list
-);
+use MusicBrainz::Server::Data::Utils qw( map_query placeholders );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Translation qw( l lp );
 use MusicBrainz::Server::Constants qw( :vote );
@@ -225,14 +221,15 @@ sub load_for_edits
                  FROM " . $self->_table . "
                  WHERE edit IN (" . placeholders(@ids) . ")
                  ORDER BY vote_time";
-    my @votes = query_to_list($self->c->sql, sub {
-            my $vote = $self->_new_from_row(@_);
-            my $edit = $id_to_edit{$vote->edit_id};
-            $edit->add_vote($vote);
-            $vote->edit($edit);
+    my @votes = $self->query_to_list($query, \@ids, sub {
+        my ($model, $row) = @_;
 
-            return $vote
-        }, $query, @ids);
+        my $vote = $model->_new_from_row($row);
+        my $edit = $id_to_edit{$vote->edit_id};
+        $edit->add_vote($vote);
+        $vote->edit($edit);
+        $vote;
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -17,7 +17,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_string_attributes
     merge_date_period
     placeholders
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -174,11 +173,8 @@ sub find_by_area {
                  FROM " . $self->_table . "
                     JOIN area ON place.area = area.id
                  WHERE area.id = ?
-                 ORDER BY musicbrainz_collate(place.name), place.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $area_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(place.name), place.id";
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
 sub _order_by {

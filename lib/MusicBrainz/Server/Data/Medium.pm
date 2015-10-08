@@ -8,8 +8,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     object_to_ids
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -74,8 +72,7 @@ sub load_for_releases
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, position";
-    my @mediums = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                                $query, @ids);
+    my @mediums = $self->query_to_list($query, \@ids);
     foreach my $medium (@mediums) {
         foreach my $release (@{ $id_to_release{$medium->release_id} })
         {
@@ -185,15 +182,17 @@ sub find_for_cdstub {
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";
 
-    return query_to_list(
-        $self->sql, sub {
-            my $row = shift;
+    $self->query_to_list(
+        $query,
+        [$cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count],
+        sub {
+            my ($model, $row) = @_;
+
             my $release = $self->c->model('Release')->_new_from_row($row);
-            my $medium = $self->_new_from_row($row, 'm_');
+            my $medium = $model->_new_from_row($row, 'm_');
             $medium->release($release);
-            return $medium;
+            $medium;
         },
-        $query, $cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count
     );
 }
 

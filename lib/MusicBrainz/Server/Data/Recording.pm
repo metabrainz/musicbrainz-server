@@ -21,8 +21,6 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     load_subobjects
     order_by
-    query_to_list_limited
-    query_to_list
 );
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
@@ -110,11 +108,8 @@ sub find_by_artist
                          ON acn.artist_credit = recording.artist_credit
                  WHERE " . join(" AND ", @where_query) . "
                  ORDER BY musicbrainz_collate(recording.name),
-                          musicbrainz_collate(comment)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @where_args, $offset || 0);
+                          musicbrainz_collate(comment)";
+    $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
 
 sub find_by_instrument {
@@ -133,17 +128,19 @@ sub find_by_instrument {
                      )
                  WHERE instrument.id = ?
                  GROUP BY recording.id
-                 ORDER BY musicbrainz_collate(recording.name)
-                 OFFSET ?";
+                 ORDER BY musicbrainz_collate(recording.name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit,
+    $self->query_to_list_limited(
+        $query,
+        [$instrument_id],
+        $limit,
+        $offset,
         sub {
-            my ($row) = @_;
+            my ($model, $row) = @_;
             my $credits = delete $row->{instrument_credits};
-            return { recording => $self->_new_from_row($row), instrument_credits => $credits };
+            { recording => $model->_new_from_row($row), instrument_credits => $credits };
         },
-        $query, $instrument_id, $offset || 0);
+    );
 }
 
 sub find_by_release
@@ -156,12 +153,9 @@ sub find_by_release
                      JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
-                 ORDER BY musicbrainz_collate(recording.name)
-                 OFFSET ?";
+                 ORDER BY musicbrainz_collate(recording.name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $release_id, $offset || 0);
+    $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
 
 sub _order_by {
@@ -306,11 +300,8 @@ sub find_standalone
             ON acn.artist_credit = recording.artist_credit
          WHERE t.id IS NULL
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(recording.name)
-        OFFSET ?';
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+      ORDER BY musicbrainz_collate(recording.name)';
+    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
 
 sub find_video
@@ -323,11 +314,8 @@ sub find_video
             ON acn.artist_credit = recording.artist_credit
          WHERE video IS TRUE
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(recording.name)
-        OFFSET ?';
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+      ORDER BY musicbrainz_collate(recording.name)';
+    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
 =method appears_on
 
@@ -469,10 +457,7 @@ sub find_recent_by_artists
                          OR  acn.artist_credit = t.artist_credit)
                  WHERE acn.artist IN (" . placeholders(@artist_ids) . ")
                    AND recording.last_updated >= ?";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) }, $query, @artist_ids,
-        $last_updated->iso8601
-    );
+    $self->query_to_list($query, [@artist_ids, $last_updated->iso8601]);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -59,8 +59,6 @@ our @EXPORT_OK = qw(
     order_by
     partial_date_to_hash
     placeholders
-    query_to_list
-    query_to_list_limited
     ref_to_type
     remove_equal
     sanitize
@@ -217,42 +215,6 @@ sub load_everything_for_edits
         croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
               "Exception:\n" . Dumper($_) . "\n";
     };
-}
-
-sub query_to_list
-{
-    my ($sql, $builder, $query, @args) = @_;
-    my @result;
-    for my $row (@{ $sql->select_list_of_hashes($query, @args) }) {
-        my $obj = $builder->($row);
-        push @result, $obj;
-    }
-    return @result;
-}
-
-sub query_to_list_limited
-{
-    my ($sql, $offset, $limit, $builder, $query, @args) = @_;
-    my $wrapping_query = "
-        WITH x AS ($query)
-        SELECT x.*, c.count AS total_row_count
-        FROM x, (SELECT count(*) from x) c";
-    if (defined $limit) {
-        die "Query limit must be positive" if $limit < 0;
-        $wrapping_query = $wrapping_query . " LIMIT $limit";
-    }
-
-    my @result;
-    my $hits = 0;
-    for my $row (@{ $sql->select_list_of_hashes($wrapping_query, @args) }) {
-        $hits = $row->{total_row_count};
-        my $obj = $builder->($row);
-        push @result, $obj;
-    }
-
-    $hits = $hits + ($offset || 0);
-
-    return (\@result, $hits);
 }
 
 sub generate_gid

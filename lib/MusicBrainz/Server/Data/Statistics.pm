@@ -5,7 +5,7 @@ use namespace::autoclean;
 use warnings FATAL => 'all';
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
@@ -27,11 +27,9 @@ sub all_events {
 
     return [
         map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; }
-        query_to_list(
-            $self->sql,
-            sub { shift },
-            'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
-        )
+        @{$self->sql->select_list_of_hashes(
+            'SELECT * FROM statistics.statistic_event ORDER BY date ASC'
+        )},
     ];
 }
 

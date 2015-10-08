@@ -7,8 +7,6 @@ use DBDefs;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
     load_subobjects
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
@@ -64,12 +62,8 @@ sub load_top_cdstubs
     my $query = "SELECT release_raw." . $self->_columns . ", discid
                  FROM " . $self->_table . ", cdtoc_raw
                  WHERE release_raw.id = cdtoc_raw.release
-                 ORDER BY lookup_count desc, modify_count DESC
-                 OFFSET ?
-                 LIMIT  ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
+                 ORDER BY lookup_count desc, modify_count DESC";
+    $self->query_to_list_limited($query, [], $LIMIT_TOP_CDSTUBS, $offset);
 }
 
 sub increment_lookup_count
@@ -81,14 +75,13 @@ sub increment_lookup_count
     $self->sql->do('UPDATE release_raw SET lookup_count = lookup_count + 1 WHERE id = ?', $cdstub_id);
 }
 
-sub get_by_discid
-{
+sub get_by_discid {
     my ($self, $discid) = @_;
     my $query = 'SELECT release_raw.' . $self->_columns . ', discid
                    FROM ' . $self->_table . '
                    JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id
                   WHERE discid = ?';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $discid);
+    $self->query_to_list($query, [$discid]);
 }
 
 sub insert

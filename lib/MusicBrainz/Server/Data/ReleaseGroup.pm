@@ -11,8 +11,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
@@ -166,19 +164,22 @@ sub find_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
+                    musicbrainz_collate(rg.name)";
+    $self->query_to_list_limited(
+        $query,
+        $params,
+        $limit,
+        $offset,
+        sub {
+            my ($model, $row) = @_;
+            my $rg = $model->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
             $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, @$params, $offset || 0);
+    );
 }
 
 sub find_by_track_artist
@@ -231,19 +232,22 @@ sub find_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
+                    musicbrainz_collate(rg.name)";
+    $self->query_to_list_limited(
+        $query,
+        [$artist_id, $artist_id],
+        $limit,
+        $offset,
+        sub {
+            my ($model, $row) = @_;
+            my $rg = $model->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
             $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $artist_id, $offset || 0);
+    );
 }
 
 
@@ -276,17 +280,15 @@ sub filter_by_artist
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     musicbrainz_collate(rg.name)";
-    return query_to_list(
-        $self->c->sql, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
-            $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
-            $rg->release_count($row->{release_count} || 0);
-            return $rg;
-        },
-        $query, @$params);
+    $self->query_to_list($query, $params, sub {
+        my ($model, $row) = @_;
+        my $rg = $model->_new_from_row($row);
+        $rg->rating($row->{rating}) if defined $row->{rating};
+        $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
+        $rg->release_count($row->{release_count} || 0);
+        return $rg;
+    });
 }
 
 sub filter_by_track_artist
@@ -326,17 +328,15 @@ sub filter_by_track_artist
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     musicbrainz_collate(rg.name)";
-    return query_to_list(
-        $self->c->sql, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
-            $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
-            $rg->release_count($row->{release_count} || 0);
-            return $rg;
-        },
-        $query, @$params);
+    $self->query_to_list($query, $params, sub {
+        my ($model, $row) = @_;
+        my $rg = $model->_new_from_row($row);
+        $rg->rating($row->{rating}) if defined $row->{rating};
+        $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
+        $rg->release_count($row->{release_count} || 0);
+        return $rg;
+    });
 }
 
 sub find_by_release
@@ -354,16 +354,13 @@ sub find_by_release
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(rg.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
-            return $rg;
-        },
-        $query, $release_id, $offset || 0);
+                    musicbrainz_collate(rg.name)";
+    $self->query_to_list_limited($query, [$release_id], $limit, $offset, sub {
+        my ($model, $row) = @_;
+        my $rg = $model->_new_from_row($row);
+        $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
+        return $rg;
+    });
 }
 
 sub find_by_release_gids
@@ -382,14 +379,12 @@ sub find_by_release_gids
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     musicbrainz_collate(rg.name)";
-    return query_to_list(
-        $self->c->sql, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
-            return $rg;
-        },
-        $query, @release_gids);
+    $self->query_to_list($query, \@release_gids, sub {
+        my ($model, $row) = @_;
+        my $rg = $model->_new_from_row($row);
+        $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
+        return $rg;
+    });
 }
 
 sub find_by_recording
@@ -406,12 +401,7 @@ sub find_by_recording
                     rg.type,
                     musicbrainz_collate(rg.name)";
 
-    return query_to_list(
-        $self->c->sql, sub {
-            my $row = $_[0];
-            return $self->_new_from_row($row);
-        },
-        $query, $recording);
+    $self->query_to_list($query, [$recording]);
 }
 
 sub _insert_hook_after_each {
