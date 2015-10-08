@@ -2860,11 +2860,6 @@ CREATE TABLE work ( -- replicate (verbose)
     language            INTEGER  -- references language.id
 );
 
-CREATE TABLE work_lastmod (
-    id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
-    last_modified       TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 CREATE TABLE work_rating_raw
 (
     work                INTEGER NOT NULL, -- PK, references work.id

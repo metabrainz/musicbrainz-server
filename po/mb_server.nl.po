@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 13:34-0500\n"
-"PO-Revision-Date: 2015-09-18 11:43+0000\n"
+"POT-Creation-Date: 2015-09-22 01:01-0500\n"
+"PO-Revision-Date: 2015-09-23 12:38+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1712,7 +1712,7 @@ msgstr "Omdat u een e-mailadres heeft verstrekt, is er een verificatie-e-mail ve
 msgid ""
 "Become a part of our <strong>global community</strong> and <strong>start "
 "contributing!</strong>"
-msgstr "Word lid van onze <strong>wereldwijde gemeenschap</strong> en <strong>begin bij te dragen!</strong>"
+msgstr "Word lid van onze <strong>wereldwijde gemeenschap</strong> en <strong>begin met bijdragen!</strong>"
 
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
@@ -2039,7 +2039,7 @@ msgstr "Volgorde van kindelementen"
 msgid "Child order:"
 msgstr "Volgorde van kindelementen:"
 
-#: ../root/release/cover_art_uploader.tt:13
+#: ../root/release/cover_art_uploader.tt:14
 msgid "Choose file:"
 msgstr "Kies een bestand:"
 
@@ -2076,7 +2076,8 @@ msgstr "Afsluiten"
 msgid "Closed"
 msgstr "Afgesloten"
 
-#: ../root/edit/info.tt:48
+#: ../root/edit/info.tt:48 ../root/place/index.tt:9 ../root/place/layout.tt:26
+#: ../root/place/layout.tt:33
 msgid "Closed:"
 msgstr "Afgesloten:"
 
@@ -2389,8 +2390,7 @@ msgid ""
 msgstr "Data hebben de opmaak JJJJ-MM-DD. Gedeeltelijke data zoals JJJJ-MM of alleen JJJJ zijn ook goed, en de datum kan ook helemaal worden weggelaten."
 
 #: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35 ../root/place/index.tt:9
-#: ../root/place/layout.tt:26 ../root/place/layout.tt:33
+#: ../root/label/layout.tt:35
 msgid "Defunct:"
 msgstr "Opgeheven:"
 
@@ -3394,8 +3394,7 @@ msgid "Founded in:"
 msgstr "Opgericht in:"
 
 #: ../root/components/common-macros.tt:856 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20 ../root/place/index.tt:6
-#: ../root/place/layout.tt:18
+#: ../root/label/layout.tt:20
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Opgericht:"
@@ -5360,7 +5359,7 @@ msgstr "Openstaande bewerkingen"
 msgid "Open in tagger"
 msgstr "In de tagger openen"
 
-#: ../root/edit/info.tt:40
+#: ../root/edit/info.tt:40 ../root/place/index.tt:6 ../root/place/layout.tt:18
 msgid "Opened:"
 msgstr "Geopend:"
 
@@ -5579,7 +5578,7 @@ msgstr "Verander a.u.b. uw wachtwoord. We hebben helaas ontdekt dat de gehashte 
 msgid "Please choose a condition"
 msgstr "Kies een voorwaarde"
 
-#: ../root/release/cover_art_uploader.tt:17
+#: ../root/release/cover_art_uploader.tt:18
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG, PNG, GIF and PDF files."
@@ -11450,34 +11449,34 @@ msgstr "“{id}” is geen geldige verkiezings-ID"
 msgid "The required TOC parameter was invalid or not present"
 msgstr "De benodigde TOC-parameter was ongeldig of niet aanwezig"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:111
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:112
 msgid "Please provide a medium ID"
 msgstr "Geef een medium-ID op"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:116
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:117
 msgid "Could not find medium"
 msgstr "Kon geen medium vinden"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:150
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:306
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:307
 msgid "The provided CD TOC is not valid"
 msgstr "De ingevoerde TOC is niet geldig"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:320
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
 msgid "The provided medium id is not valid"
 msgstr "De ingevoerde medium-id is niet geldig"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:169
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
 msgstr "Deze TOC is al aan dit medium gekoppeld"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:178
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:328
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
 msgid "The selected medium cannot have disc IDs"
 msgstr "Het geselecteerde medium kan geen disc-id’s hebben"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:205
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid "The provided artist id is not valid"
 msgstr "De ingevoerde artiest-id is niet geldig"
 

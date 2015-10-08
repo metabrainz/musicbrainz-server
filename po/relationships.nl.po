@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-16 21:40+0000\n"
+"PO-Revision-Date: 2015-09-26 14:22+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1601,6 +1601,12 @@ msgid ""
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
 msgstr "Dit koppelt een uitgave op MusicBrainz aan het bijbehorende product op Amazon en wordt vaak gebruikt om afbeeldingen te leveren als er geen relevante afbeeldingen in de <a href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a> staan."
 
+#: DB:link_type/description:888
+msgid ""
+"This links a concert tour with a release group (generally an album) the tour"
+" is connected with."
+msgstr ""
+
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
@@ -2551,7 +2557,7 @@ msgstr "arrangementen"
 #: DB:link_type/link_phrase:863 DB:link_type/link_phrase:864
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:866
 msgid "arranging location for"
-msgstr ""
+msgstr "locatie waar {entity1} gearrangeerd werd."
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
@@ -2902,7 +2908,7 @@ msgstr "geëdit in"
 #: DB:link_type/link_phrase:821 DB:link_type/link_phrase:819
 #: DB:link_type/link_phrase:820 DB:link_type/link_phrase:822
 msgid "editing location for"
-msgstr ""
+msgstr "locatie waar {entity1} geëdit werd."
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
@@ -2931,7 +2937,7 @@ msgstr "techniek verzorgd in"
 #: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
 #: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
 msgid "engineering location for"
-msgstr ""
+msgstr "locatie waar de techniek van {entity1} verzorgd werd."
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
@@ -3022,6 +3028,10 @@ msgstr "had verkrijgbare uitgaves"
 #: DB:link_type/long_link_phrase:834
 msgid "had previous attribution"
 msgstr "had vroegere toeschrijving"
+
+#: DB:link_type/long_link_phrase:888
+msgid "had supporting tour"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
@@ -4107,7 +4117,7 @@ msgstr "gedrukt in"
 
 #: DB:link_type/link_phrase:849
 msgid "printing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} gedrukt werd."
 
 #: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "produced at"
@@ -4338,7 +4348,7 @@ msgstr "herzien in"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
 msgid "revising location for"
-msgstr ""
+msgstr "locatie waar {entity1} herzien werd."
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
@@ -4486,6 +4496,10 @@ msgstr "ondersteunende artiesten"
 msgid "supporting releases"
 msgstr "ondersteunende uitgaves"
 
+#: DB:link_type/link_phrase:888
+msgid "supporting tours"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
 msgstr "ondersteunend {instrument:instrument} door"
@@ -4513,6 +4527,10 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
 msgstr "tournee van"
+
+#: DB:link_type/reverse_link_phrase:888
+msgid "tour in support of"
+msgstr ""
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
@@ -4649,7 +4667,7 @@ msgstr "werd opnieuw gepland als"
 #: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
 msgid "was the arranging location for"
-msgstr "was de locatie waar {entity1} gearrangeerd werd"
+msgstr "{entity1} werd gearrangeerd bij {entity0}"
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
@@ -4658,12 +4676,12 @@ msgstr "was de concertmeester van"
 #: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:819
 #: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:822
 msgid "was the editing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} geëdit werd."
 
 #: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 #: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
 msgid "was the engineering location for"
-msgstr ""
+msgstr "is de locatie waar de techniek voor {entity1} verzorgd werd."
 
 #: DB:link_type/long_link_phrase:835
 msgid "was the manufacturing location for"
@@ -4680,7 +4698,7 @@ msgstr "was de mixlocatie van"
 
 #: DB:link_type/long_link_phrase:849
 msgid "was the printing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} gedrukt werd."
 
 #: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 #: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
@@ -4700,31 +4718,31 @@ msgstr "was de remixlocatie van"
 
 #: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:882
 msgid "was the revising location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} herzien werd."
 
 #: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:886
 msgid "was the {additional} arranging location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} gearrangeerd werd."
 
 #: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:876
 msgid "was the {additional} composing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} gecomponeerd werd."
 
 #: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:880
 msgid "was the {additional} libretto writing location for"
-msgstr ""
+msgstr "is de locatie waar het libretto van {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:878
 msgid "was the {additional} lyrics writing location for"
-msgstr ""
+msgstr "is de locatie waar de tekst van {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:884
 msgid "was the {additional} translating location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} vertaald werd."
 
 #: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:874
 msgid "was the {additional} writing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/description:733
 msgid "wikidata"
@@ -4924,7 +4942,7 @@ msgstr "{additional:aanvullend} arrangeur"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
@@ -4942,7 +4960,7 @@ msgstr "{additional:aanvullend} componist"
 
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} gecomponeerd werd."
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} conductor"
@@ -4974,7 +4992,7 @@ msgstr "{additional:aanvullend} libretto"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
 msgid "{additional} libretto writing location for"
-msgstr ""
+msgstr "is de locatie waar het libretto van {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
@@ -4990,7 +5008,7 @@ msgstr "{additional:aanvullende} teksten"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
-msgstr ""
+msgstr "is de locatie waar de tekst van {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/reverse_link_phrase:878
 msgid "{additional} lyrics written at"
@@ -5028,7 +5046,7 @@ msgstr "{additional:aanvullende} samples van"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} vertaald werd."
 
 #: DB:link_type/reverse_link_phrase:871 DB:link_type/reverse_link_phrase:872
 msgid "{additional} translator"
@@ -5040,7 +5058,7 @@ msgstr "{additional:aanvullend} schrijver"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
-msgstr ""
+msgstr "is de locatie waar {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"

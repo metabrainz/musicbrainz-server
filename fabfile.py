@@ -24,7 +24,7 @@ def pot():
     """
     Update .pot files
     """
-    env.host_string = "beta"
+    env.host_string = "musicbrainz@beta"
     with lcd("po/"):
         with cd("~/musicbrainz-server/po"):
             run("touch extract_pot_db")

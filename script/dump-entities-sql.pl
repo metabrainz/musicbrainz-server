@@ -1,9 +1,12 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+
+use feature 'state';
+use feature 'switch';
+
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use feature 'switch';
 use Carp qw( croak );
 use Data::Compare qw( Compare );
 use Encode qw( encode );
@@ -39,32 +42,10 @@ sub quote_column {
     return $ret;
 }
 
-sub get_column_type {
-    my ($c, $table, $column) = @_;
-
-    CORE::state $cache = {};
-
-    (my $schema, $table) = split /\./, $table;
-
-    unless (defined $table) {
-        $table = $schema;
-        $schema = 'musicbrainz';
-    }
-
-    my $column_info = $cache->{$schema}{$table};
-
-    unless (defined $column_info) {
-        $column_info = $c->sql->dbh->column_info(undef, $schema, $table, undef)->fetchall_hashref('pg_column');
-        $cache->{$schema}{$table} = $column_info;
-    }
-
-    return $column_info->{$column}{pg_type};
-}
-
 sub print_inserts {
     my ($c, $table, $rows) = @_;
 
-    CORE::state $seen_values = {};
+    state $seen_values = {};
 
     my $seen_table_values = ($seen_values->{$table} //= {});
 
@@ -77,7 +58,7 @@ sub print_inserts {
         my $row = $_;
 
         my $values_string = join ', ', map {
-            quote_column(get_column_type($c, $table, $_), $row->{$_})
+            quote_column($c->sql->get_column_type_name($table, $_), $row->{$_})
         } @columns;
 
         $values_string = "\t($values_string)";
@@ -101,7 +82,7 @@ sub get_rows {
 
     return unless @$values;
 
-    my $column_type = get_column_type($c, $table, $column);
+    my $column_type = $c->sql->get_column_type_name($table, $column);
     my $condition;
 
     if (scalar(@$values) > 1) {

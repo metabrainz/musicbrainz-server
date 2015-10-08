@@ -254,6 +254,7 @@ DROP TRIGGER remove_unused_links ON l_release_group_work;
 DROP TRIGGER remove_unused_links ON l_url_url;
 DROP TRIGGER remove_unused_links ON l_url_work;
 DROP TRIGGER remove_unused_links ON l_work_work;
+DROP TRIGGER url_gc_a_upd_url ON url;
 DROP TRIGGER url_gc_a_upd_l_area_url ON l_area_url;
 DROP TRIGGER url_gc_a_del_l_area_url ON l_area_url;
 DROP TRIGGER url_gc_a_upd_l_artist_url ON l_artist_url;

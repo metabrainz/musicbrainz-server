@@ -413,9 +413,6 @@ sub MB_LANGUAGES {qw()}
 # (note: will still only use languages in MB_LANGUAGES)
 sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
-# Private, please do not change
-sub _RUNNING_TESTS { 0 }
-
 # Set this to an email address and the server will email any bugs to you
 sub EMAIL_BUGS { undef }
 
@@ -479,7 +476,7 @@ sub BACKUP_GROUP { "musicbrainz" }
 sub BACKUP_DIR_MODE { 700 }
 sub BACKUP_FILE_MODE { 600 }
 
-sub RSYNC_FULLEXPORT_SERVER { 'ftpowner@scooby.localdomain' }
+sub RSYNC_FULLEXPORT_SERVER { 'ftp-data@taz.localdomain' }
 sub RSYNC_REPLICATION_SERVER { 'metabrainz@sakura.localdomain' }
 
 1;

@@ -396,6 +396,7 @@ Readonly our %ENTITIES => (
         plural => 'artists',
         plural_url => 'artists',
         url => 'artist',
+        sitemaps_lastmod_table => 1,
     },
     event => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -470,6 +471,7 @@ Readonly our %ENTITIES => (
         plural => 'labels',
         plural_url => 'labels',
         url => 'label',
+        sitemaps_lastmod_table => 1,
     },
     place => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -493,6 +495,7 @@ Readonly our %ENTITIES => (
         plural => 'places',
         plural_url => 'places',
         url => 'place',
+        sitemaps_lastmod_table => 1,
     },
     recording => {
         mbid => { relatable => 'overview', multiple => 1 },
@@ -517,6 +520,7 @@ Readonly our %ENTITIES => (
         plural => 'recordings',
         plural_url => 'recordings',
         url => 'recording',
+        sitemaps_lastmod_table => 1,
     },
     release => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -540,6 +544,7 @@ Readonly our %ENTITIES => (
         plural => 'releases',
         plural_url => 'releases',
         url => 'release',
+        sitemaps_lastmod_table => 1,
     },
     release_group => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -567,6 +572,7 @@ Readonly our %ENTITIES => (
         plural => 'release_groups',
         plural_url => 'release-groups',
         url => 'release-group',
+        sitemaps_lastmod_table => 1,
     },
     series => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
@@ -601,7 +607,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
-        lastmod_table => 1,
+        sitemaps_lastmod_table => 1,
         merging => 1,
         model      => 'Work',
         type => { simple => 1 },
@@ -701,9 +707,35 @@ sub entities_with {
 }
 
 Readonly our @FULL_TABLE_LIST => qw(
+    annotation
+    application
+    area
+    area_alias
+    area_alias_type
+    area_annotation
+    area_gid_redirect
+    area_tag
+    area_tag_raw
+    area_type
+    artist
+    artist_alias
+    artist_alias_type
+    artist_annotation
+    artist_credit
+    artist_credit_name
+    artist_gid_redirect
+    artist_ipi
+    artist_isni
+    artist_meta
     artist_rating_raw
+    artist_tag
     artist_tag_raw
+    artist_type
+    autoeditor_election
+    autoeditor_election_vote
+    cdtoc
     cdtoc_raw
+    country_area
     edit
     edit_area
     edit_artist
@@ -718,63 +750,23 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_series
     edit_url
     edit_work
-    event_tag_raw
-    event_rating_raw
-    label_rating_raw
-    label_tag_raw
-    place_tag_raw
-    recording_rating_raw
-    recording_tag_raw
-    release_group_rating_raw
-    release_group_tag_raw
-    release_tag_raw
-    release_raw
-    series
-    series_alias
-    series_alias_type
-    series_annotation
-    series_gid_redirect
-    series_ordering_type
-    series_type
-    series_tag
-    series_tag_raw
-    track_raw
-    vote
-    work_rating_raw
-    work_tag_raw
-    annotation
-    application
-    area
-    area_type
-    area_alias
-    area_alias_type
-    area_annotation
-    area_gid_redirect
-    area_tag
-    area_tag_raw
-    country_area
-    iso_3166_1
-    iso_3166_2
-    iso_3166_3
-    artist
-    artist_alias
-    artist_alias_type
-    artist_annotation
-    artist_credit
-    artist_credit_name
-    artist_gid_redirect
-    artist_ipi
-    artist_isni
-    artist_meta
-    artist_tag
-    artist_type
-    autoeditor_election
-    autoeditor_election_vote
-    cdtoc
     editor
+    editor_collection
+    editor_collection_area
+    editor_collection_artist
+    editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
+    editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_type
+    editor_collection_work
+    editor_language
     editor_oauth_token
     editor_preference
-    editor_language
     editor_sanitised
     editor_subscribe_artist
     editor_subscribe_collection
@@ -791,7 +783,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     event_annotation
     event_gid_redirect
     event_meta
+    event_rating_raw
     event_tag
+    event_tag_raw
     event_type
     gender
     instrument
@@ -799,9 +793,12 @@ Readonly our @FULL_TABLE_LIST => qw(
     instrument_alias_type
     instrument_annotation
     instrument_gid_redirect
-    instrument_type
     instrument_tag
     instrument_tag_raw
+    instrument_type
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     isrc
     iswc
     l_area_area
@@ -890,7 +887,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     label_ipi
     label_isni
     label_meta
+    label_rating_raw
     label_tag
+    label_tag_raw
     label_type
     language
     link
@@ -902,22 +901,10 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_text_attribute_type
     link_type
     link_type_attribute_type
-    editor_collection
-    editor_collection_area
-    editor_collection_artist
-    editor_collection_event
-    editor_collection_instrument
-    editor_collection_label
-    editor_collection_place
-    editor_collection_recording
-    editor_collection_release
-    editor_collection_release_group
-    editor_collection_series
-    editor_collection_work
-    editor_collection_type
     medium
     medium_cdtoc
     medium_format
+    medium_index
     orderable_link_type
     place
     place_alias
@@ -925,6 +912,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     place_annotation
     place_gid_redirect
     place_tag
+    place_tag_raw
     place_type
     recording
     recording_alias
@@ -932,12 +920,15 @@ Readonly our @FULL_TABLE_LIST => qw(
     recording_annotation
     recording_gid_redirect
     recording_meta
+    recording_rating_raw
     recording_tag
+    recording_tag_raw
     release
     release_alias
     release_alias_type
     release_annotation
     release_country
+    release_coverart
     release_gid_redirect
     release_group
     release_group_alias
@@ -945,28 +936,40 @@ Readonly our @FULL_TABLE_LIST => qw(
     release_group_annotation
     release_group_gid_redirect
     release_group_meta
-    release_group_tag
     release_group_primary_type
+    release_group_rating_raw
     release_group_secondary_type
     release_group_secondary_type_join
+    release_group_tag
+    release_group_tag_raw
     release_label
     release_meta
-    release_coverart
     release_packaging
+    release_raw
     release_status
     release_tag
+    release_tag_raw
     release_unknown_country
     replication_control
     script
+    series
+    series_alias
+    series_alias_type
+    series_annotation
+    series_gid_redirect
+    series_ordering_type
+    series_tag
+    series_tag_raw
+    series_type
     tag
     tag_relation
     track
     track_gid_redirect
-    medium_index
+    track_raw
     url
     url_gid_redirect
+    vote
     work
-    work_lastmod
     work_alias
     work_alias_type
     work_annotation
@@ -975,7 +978,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     work_attribute_type_allowed_value
     work_gid_redirect
     work_meta
+    work_rating_raw
     work_tag
+    work_tag_raw
     work_type
 
     cover_art_archive.art_type
@@ -1063,6 +1068,15 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_url_work_example
     documentation.l_work_work_example
     documentation.link_type_documentation
+
+    sitemaps.artist_lastmod
+    sitemaps.control
+    sitemaps.label_lastmod
+    sitemaps.place_lastmod
+    sitemaps.recording_lastmod
+    sitemaps.release_group_lastmod
+    sitemaps.release_lastmod
+    sitemaps.work_lastmod
 
     statistics.statistic
     statistics.statistic_event

@@ -35,4 +35,8 @@ OUTPUT=`
     ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
+OUTPUT=`
+    ./admin/BuildIncrementalSitemaps.pl --ping 2>&1
+` || echo "$OUTPUT"
+
 # eof
