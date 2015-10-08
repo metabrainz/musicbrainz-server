@@ -68,7 +68,9 @@ This script works by:
 
 =cut
 
-my @LASTMOD_ENTITIES = entities_with('sitemaps_lastmod_table');
+my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
+my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
+                       entities_with('sitemaps_lastmod_table');
 my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
 
 memoize('get_primary_keys');
