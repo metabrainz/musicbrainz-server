@@ -333,9 +333,7 @@ sub build_one_batch {
     }
     my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
     my $tables = $entity_type . $extra_sql{join};
-    my $query = "SELECT $columns FROM $tables " .
-                "WHERE ceil(${entity_type}.id / ?::float) = any(?) " .
-                "ORDER BY ${entity_type}.id ASC";
+    my $query = "SELECT $columns FROM $tables WHERE ceil($entity_type.id / ?::float) = any(?)";
     my $ids = $c->sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
 
     for my $suffix (sort keys %{$entity_suffix_info}) {
