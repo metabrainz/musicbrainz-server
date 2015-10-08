@@ -5,6 +5,7 @@
 
 var Immutable = require('immutable');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var PropTypes = React.PropTypes;
 var validation = require('./validation.js');
 var HelpIcon = require('./components/HelpIcon.js');
@@ -75,7 +76,7 @@ class ExternalLinksEditor extends React.Component {
 
   removeLink(index) {
     this.setState({links: this.state.links.remove(index)}, () => {
-      $(React.findDOMNode(this))
+      $(ReactDOM.findDOMNode(this))
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
         .eq(0).focus();
@@ -423,7 +424,7 @@ MB.createExternalLinksEditor = function (options) {
 
   var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
-  return React.render(
+  return ReactDOM.render(
     <ExternalLinksEditor
       sourceType={sourceData.entityType}
       typeOptions={typeOptions}

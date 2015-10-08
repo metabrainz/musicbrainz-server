@@ -7,6 +7,7 @@ var $ = require('jquery');
 var _ = require('lodash');
 var Immutable = require('immutable');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var {l, lp} = require('../i18n');
 var request = require('../utility/request');
 
@@ -202,7 +203,7 @@ class TagEditor extends React.Component {
   addTags(event) {
     event.preventDefault();
 
-    var input = React.findDOMNode(this.refs.tags);
+    var input = this.refs.tags;
     var tags = input.value;
 
     this.updateTags(
@@ -361,7 +362,7 @@ function init_tag_editor(Component, mountPoint) {
       }
     });
 
-    React.render(
+    ReactDOM.render(
       <Component entity={entity} more={more}
                  initialState={{tags: sortedTags(Immutable.List(combined))}} />,
       document.getElementById(mountPoint)

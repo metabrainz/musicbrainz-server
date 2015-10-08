@@ -7,8 +7,8 @@ var test = require('tape');
 var common = require('./common.js');
 var validation = require('../../edit/validation.js');
 
-var React = require('react/addons');
-var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
+var ReactDOM = require('react-dom');
+var ReactTestUtils = require('react-addons-test-utils');
 var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
 
 var releaseEditor = MB.releaseEditor;
@@ -526,11 +526,11 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
     );
 
     triggerChange(
-        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'input')[0],
         'http://www.amazon.co.jp/gp/product/B00003IQQD'
     );
 
-    triggerChange(scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
+    triggerChange(ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -562,7 +562,7 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
     );
 
     // Click remove button
-    triggerClick($(React.findDOMNode(component)).find('button')[0]);
+    triggerClick($(ReactDOM.findDOMNode(component)).find('button')[0]);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -605,7 +605,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
         document.createElement('div')
     );
 
-    var $mountPoint = $(React.findDOMNode(component));
+    var $mountPoint = $(ReactDOM.findDOMNode(component));
 
     // Remove first URL
     triggerClick($mountPoint.find('button:eq(0)')[0]);
