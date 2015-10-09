@@ -288,4 +288,60 @@ EOSQL
     is_deeply($examples, [1, 4]);
 };
 
+test 'Appended mediums that get removed don\'t prevent application of the edit (MBS-8571)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8571');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => { id => 1, name => 'Release 1' },
+        old_entities => [{ id => 2, name => 'Release 2' }],
+        medium_changes => [
+            {
+                mediums => [
+                    {
+                        id => 1,
+                        new_name => '',
+                        new_position => 1,
+                        old_name => '',
+                        old_position => 1,
+                    },
+                ],
+                release => { id => 1, name => 'Release 1' },
+            },
+            {
+                mediums => [
+                    {
+                        id => 2,
+                        new_name => '',
+                        new_position => 2,
+                        old_name => '',
+                        old_position => 1,
+                    },
+                    {
+                        id => 3,
+                        new_name => '',
+                        new_position => 3,
+                        old_name => '',
+                        old_position => 2,
+                    },
+                ],
+                release => { id => 2, name => 'Release 2' },
+            },
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+    );
+
+    $c->model('Medium')->delete(2);
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED, 'edit is applied');
+
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('Medium')->load_for_releases($release);
+    is_deeply([map { $_->id } $release->all_mediums], [1, 3], 'final medium positions are correct');
+};
+
 1;

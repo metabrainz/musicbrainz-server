@@ -5,6 +5,7 @@ use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
 use DBDefs;
+use List::AllUtils qw( all );
 use List::MoreUtils qw( part );
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
@@ -1056,7 +1057,7 @@ sub merge
         ) };
 
         confess('medium_positions does not account for all mediums in all releases')
-            if (keys %positions != grep { exists $positions{$_} } @medium_ids);
+            unless all { exists $positions{$_} } @medium_ids;
 
         # Set all medium positions in one query; otherwise medium_idx_uniq will
         # sometimes cause individual reorders to fail when they produce
