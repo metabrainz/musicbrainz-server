@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( model_to_type trim );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use Try::Tiny;
 
@@ -47,11 +47,17 @@ sub _build_related_entities
     }
 }
 
-sub initialize
-{
+sub initialize {
     my ($self, %opts) = @_;
+
     my $entity = delete $opts{to_edit};
     die "You must specify the object to edit" unless defined $entity;
+
+    my $entity_properties = $ENTITIES{model_to_type($self->_edit_model)};
+
+    if ($entity_properties->{disambiguation} && exists $opts{comment}) {
+        $opts{comment} = trim($opts{comment} // '');
+    }
 
     $self->data({
         entity => {
