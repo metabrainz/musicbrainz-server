@@ -323,6 +323,27 @@ test 'An artist with a non-empty comment is not a duplicate of itself' => sub {
     is($artist->name, 'artist name', 'artist renamed');
 };
 
+test 'Comments are trimmed (MBS-8573)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        comment => '  test  comment  ',
+        ipi_codes => [],
+        isni_codes => [],
+    );
+
+    $edit->accept;
+
+    my $artist = $c->model('Artist')->get_by_id(2);
+    is($artist->comment, 'test comment');
+};
+
 sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(
