@@ -64,19 +64,25 @@ function buildStyles() {
 }
 
 function transformBundle(bundle) {
+  let optionalTransforms = ['es7.objectRestSpread'];
+  let isDevelopmentServer = String(process.env.DEVELOPMENT_SERVER) === '0';
+
+  if (!isDevelopmentServer) {
+    optionalTransforms.push('optimisation.react.inlineElements');
+    optionalTransforms.push('optimisation.react.constantElements');
+  }
+
   bundle.transform(babelify.configure({
     blacklist: ['strict'],
     nonStandard: true,
     only: /root\/static\/scripts\/.+\.js$/,
-    optional: [
-      'es7.objectRestSpread'
-    ],
+    optional: optionalTransforms,
     sourceMap: false,
   }));
 
   bundle.transform('envify', {global: true});
 
-  if (String(process.env.DEVELOPMENT_SERVER) === '0') {
+  if (isDevelopmentServer) {
     bundle.transform('uglifyify', {
       // See https://github.com/substack/node-browserify#btransformtr-opts
       global: true,

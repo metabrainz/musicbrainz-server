@@ -5,8 +5,7 @@
 
 var test = require('tape');
 var externalLinks = require('../edit/externalLinks.js');
-var React = require('react/addons');
-var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
+var ReactTestUtils = require('react-addons-test-utils');
 var { triggerChange, triggerClick, addURL } = require('./external-links-editor/utils.js');
 
 MB.faviconClasses = { "wikipedia.org": "wikipedia" };
@@ -57,7 +56,7 @@ externalLinksTest("invalid URL detection", function (t, $mountPoint, component, 
     contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is shown for invalid URL');
 
     triggerChange(
-        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'input')[0],
         'http://en.wikipedia.org/wiki/No_Age'
     );
 
@@ -69,12 +68,12 @@ externalLinksTest("deprecated link type detection for new links", function (t, $
 
     addURL("http://www.example.com/");
 
-    var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
+    var selectComponent = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'select')[0];
     triggerChange(selectComponent, 666);
     contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
 
     triggerChange(
-        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'input')[0],
         'http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/'
     );
 
@@ -85,7 +84,7 @@ externalLinksTest("deprecated link type detection for new links", function (t, $
 externalLinksTest("deprecated link type detection for existing links (MBS-8408)", function (t, $mountPoint, component, addURL) {
     t.plan(2);
 
-    var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
+    var selectComponent = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'select')[0];
     triggerChange(selectComponent, 666);
     contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
 
