@@ -398,11 +398,11 @@ const URL_SHORTENERS = [
   "tinyurl.com",
   "u.nu",
   "yep.it",
-]
+].map(host => new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"));
 
 function isShortened(url) {
-  for (let host of URL_SHORTENERS) {
-    if (url.match(new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"))) {
+  for (let shortenerRegex of URL_SHORTENERS) {
+    if (url.match(shortenerRegex)) {
       return true;
     }
   }
