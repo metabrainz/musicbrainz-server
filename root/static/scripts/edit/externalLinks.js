@@ -401,7 +401,7 @@ const URL_SHORTENERS = [
 ]
 
 function isShortened(url) {
-  for (host of URL_SHORTENERS) {
+  for (let host of URL_SHORTENERS) {
     if (url.match(new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"))) {
       return true;
     }
