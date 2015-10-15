@@ -401,12 +401,9 @@ const URL_SHORTENERS = [
 ].map(host => new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"));
 
 function isShortened(url) {
-  for (let shortenerRegex of URL_SHORTENERS) {
-    if (url.match(shortenerRegex)) {
-      return true;
-    }
-  }
-  return false;
+  return URL_SHORTENERS.some(function(shortenerRegex) {
+    return url.match(shortenerRegex) !== null;
+  });
 }
 
 MB.createExternalLinksEditor = function (options) {
