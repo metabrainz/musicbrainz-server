@@ -162,6 +162,8 @@ class ExternalLinksEditor extends React.Component {
               error = l('Required field.');
             } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
+            } else if (isShortened(link.url)) {
+              error = l("Please don't use shortened URLs.");
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
             } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
@@ -374,6 +376,37 @@ function isValidURL(url) {
   }
 
   return true;
+}
+
+const URL_SHORTENERS = [
+  "adf.ly",
+  "bit.ly",
+  "cli.gs",
+  "deck.ly",
+  "fur.ly",
+  "goo.gl",
+  "is.gd",
+  "kl.am",
+  "lnk.co",
+  "mcaf.ee",
+  "moourl.com",
+  "owl.ly",
+  "rubyurl.com",
+  "su.pr",
+  "t.co",
+  "tiny.cc",
+  "tinyurl.com",
+  "u.nu",
+  "yep.it",
+].map(host => new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"));
+
+function isShortened(url) {
+  for (let shortenerRegex of URL_SHORTENERS) {
+    if (url.match(shortenerRegex)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 MB.createExternalLinksEditor = function (options) {

@@ -63,6 +63,20 @@ externalLinksTest("invalid URL detection", function (t, $mountPoint, component, 
     not_contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is removed after valid URL is entered');
 });
 
+externalLinksTest("shortened URL detection", function (t, $mountPoint, component, addURL) {
+    t.plan(2);
+
+    addURL("http://goo.gl/example");
+    contains(t, $mountPoint, ":contains(Please don't use shortened URLs)", 'error is shown for shortened URL');
+
+    triggerChange(
+        ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://google.com/example'
+    );
+
+    not_contains(t, $mountPoint, ":contains(Please don't use shortened URLs)", 'error is removed after valid URL is entered');
+});
+
 externalLinksTest("deprecated link type detection for new links", function (t, $mountPoint, component, addURL) {
     t.plan(2);
 
