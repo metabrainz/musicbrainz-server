@@ -11,7 +11,7 @@ with 't::Mechanize', 't::Context';
 test all => sub {
     my $test = shift;
     my $c = $test->c;
-    my $json = JSON::Any->new( utf8 => 1 );
+    my $json = JSON->new->utf8;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -82,7 +82,7 @@ test 'Release group types are serialized (MBS-8212)' => sub {
     $mech->default_header("Accept" => "application/json");
     $mech->get_ok('/ws/js/release/3b3d130a-87a8-4a47-b9fb-920f2530d134', 'fetching release');
 
-    my $json = JSON::Any->new(utf8 => 1);
+    my $json = JSON->new->utf8;
     my $data = $json->decode($mech->content);
 
     is($data->{releaseGroup}{typeID}, 1, "release group primary type is loaded");
