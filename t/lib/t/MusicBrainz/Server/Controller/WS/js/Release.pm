@@ -1,6 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
 use Test::More;
-use Test::Deep qw( cmp_deeply any );
+use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
@@ -33,7 +33,7 @@ test all => sub {
     cmp_deeply($vocal_performance, {
         linkTypeID => 149,
         direction => 'backward',
-        ended => any('false', JSON::false),
+        ended => JSON::false,
         target => {
             annotation => '',
             area => undef,
@@ -49,7 +49,7 @@ test all => sub {
             sortName => 'BoA',
             typeID => 1,
         },
-        editsPending => any('false', JSON::false),
+        editsPending => JSON::false,
         endDate => undef,
         beginDate => undef,
         id => 6751,
