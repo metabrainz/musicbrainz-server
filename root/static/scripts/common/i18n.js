@@ -4,9 +4,16 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 import Jed from 'jed';
-import jedData from 'jed-data';
+import _ from 'lodash';
+import React from 'react';
 
-var jedInstance = new Jed(jedData);
+let jedInstance;
+if (typeof document !== 'undefined') {
+    jedInstance = new Jed(require('jed-data'));
+} else {
+    jedInstance = new Jed({});
+}
+
 var slice = Array.prototype.slice;
 
 function wrapGettext(method) {
@@ -21,7 +28,15 @@ function wrapGettext(method) {
         }
 
         var string = jedInstance[method].apply(jedInstance, args);
-        return expandArgs ? exports.expand(string, expandArgs) : string;
+
+        if (expandArgs) {
+            if (expandArgs.__react) {
+                return exports.expandToArray(string, expandArgs);
+            }
+            return exports.expand(string, expandArgs);
+        }
+
+        return string;
     };
 }
 
@@ -45,37 +60,75 @@ function escapeRegExp(string) {
     return string.replace(regExpChars, "\\$1");
 }
 
+function getExpandRegExps(args) {
+    var re = _(args).keys().map(escapeRegExp).join('|');
+
+    return {
+        links: new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g'),
+        names: new RegExp(`\\{(${re})\\}`, 'g')
+    };
+}
+
+function varReplacement(args, key) {
+    return _.get(args, key, `{${key}}`);
+}
+
+function anchor(args, hrefProp, textProp, callback) {
+    let href = args[hrefProp];
+
+    if (href === undefined) {
+        return `{${hrefProp}|${textProp}}`;
+    }
+
+    return callback(_.isObject(href) ? href : {href: href}, _.get(args, textProp, textProp));
+}
+
+function textAnchor(props, text) {
+    let attributes = _(props).keys().sort().map(k => `${k}="${_.escape(props[k])}"`).join(' ');
+
+    return `<a ${attributes}>${_.escape(text)}</a>`;
+}
+
+function reactAnchor(props, text) {
+    return <a key={props.href} {...props}>{text}</a>;
+}
+
 // Adapted from `sub _expand` in lib/MusicBrainz/Server/Translation.pm
 exports.expand = function (string, args) {
-    var re = _(args).keys().map(escapeRegExp).join("|");
+    let {links, names} = getExpandRegExps(args);
 
-    var links = new RegExp("\\{(" + re + ")\\|(.*?)\\}", "g");
-    var names = new RegExp("\\{(" + re + ")\\}", "g");
+    return (string || '')
+        .replace(links, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
+        .replace(names, (match, p1) => varReplacement(args, p1));
+};
 
-    string = (string || "").replace(links, function (match, p1, p2) {
-        var v1 = args[p1];
-        var v2 = args[p2];
+exports.expandToArray = function (string, args) {
+    if (!string) {
+        return [];
+    }
 
-        if (v1 === undefined) return match;
+    let {links, names} = getExpandRegExps(args);
+    let parts = string.split(links);
 
-        var text = _.escape(v2 === undefined ? p2 : v2);
+    return parts.reduce(function (accum, part, index) {
+        if (index % 3 === 0) {
+            let nameParts = part.split(names).reduce(function (accum2, part2, index2) {
+                if (index2 % 2 === 0) {
+                    return part2 ? accum2.concat(part2) : accum2;
+                }
 
-        if (_.isObject(v1)) {
-            return "<a " + _(v1).keys().sort()
-                .map(function (key) { return key + '="' + _.escape(v1[key]) + '"' })
-                .join(" ") + ">" + text + "<\/a>";
-        } else {
-            return "<a href=\"" + _.escape(v1) + "\">" + text + "<\/a>";
+                return accum2.concat(varReplacement(args, part2));
+            }, []);
+
+            return accum.concat(nameParts);
         }
-    });
 
-    string = string.replace(names, function (match, p1) {
-        var v1 = args[p1];
+        if ((index - 1) % 3 === 0) {
+            return accum.concat(anchor(args, part, parts[index + 1], reactAnchor));
+        }
 
-        return v1 === undefined ? p1 : v1;
-    });
-
-    return string;
+        return accum;
+    }, []);
 };
 
 exports.commaList = function (items) {
@@ -117,16 +170,20 @@ exports.commaOnlyList = function (items) {
     return output;
 };
 
-var lang = document.documentElement.lang || "en";
+var documentLang = 'en';
+if (typeof document !== 'undefined') {
+    documentLang = document.documentElement.lang || documentLang;
+}
+
 var collatorOptions = { numeric: true };
 var collator;
 
 if (typeof Intl === "undefined") {
     exports.compare = function (a, b) {
-        return a.localeCompare(b, lang, collatorOptions);
+        return a.localeCompare(b, documentLang, collatorOptions);
     };
 } else {
-    collator = new Intl.Collator(lang, collatorOptions);
+    collator = new Intl.Collator(documentLang, collatorOptions);
     exports.compare = function (a, b) {
         return collator.compare(a, b);
     };

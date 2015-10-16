@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 var test = require('tape');
 var i18n = require('../common/i18n.js');
 
@@ -60,4 +62,25 @@ test("i18n.commaList", function (t) {
     t.equal(i18n.commaList(["a", "b"]), "a and b", "list with two items");
     t.equal(i18n.commaList(["a", "b", "c"]), "a, b and c", "list with three items");
     t.equal(i18n.commaList(["a", "b", "c", "d"]), "a, b, c and d", "list with four items");
+});
+
+test('Expanding links for React components', function (t) {
+    t.plan(1);
+
+    let href = 'http://www.apple.com/';
+    let someElement = <span key={'span'}>{'some element'}</span>;
+
+    function toString(children) {
+        return ReactDOMServer.renderToStaticMarkup(<div>{children}</div>);
+    }
+
+    t.equal(
+        toString(i18n.l('An {apple_fruit|Apple}, plus {some_element}', {
+            __react: true,
+            apple_fruit: href,
+            some_element: someElement,
+        })),
+        toString(['An ', <a href={href} key={href}>{'Apple'}</a>, ', plus ', someElement]),
+        'Replacement returns React links'
+    );
 });
