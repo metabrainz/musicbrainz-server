@@ -8,6 +8,7 @@
 // https://raw.githubusercontent.com/Khan/react-components/9984740/LICENSE
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var RCSS = require('rcss');
 var PropTypes = React.PropTypes;
 
@@ -75,7 +76,7 @@ RCSS.injectAll();
 
 class Tooltip extends React.Component {
   componentDidMount() {
-    $(React.findDOMNode(this)).find('a').attr('target', '_blank');
+    $(ReactDOM.findDOMNode(this)).find('a').attr('target', '_blank');
   }
 
   render() {

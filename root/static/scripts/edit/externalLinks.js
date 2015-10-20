@@ -5,6 +5,7 @@
 
 var Immutable = require('immutable');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var PropTypes = React.PropTypes;
 var validation = require('./validation.js');
 var HelpIcon = require('./components/HelpIcon.js');
@@ -75,7 +76,7 @@ class ExternalLinksEditor extends React.Component {
 
   removeLink(index) {
     this.setState({links: this.state.links.remove(index)}, () => {
-      $(React.findDOMNode(this))
+      $(ReactDOM.findDOMNode(this))
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
         .eq(0).focus();
@@ -161,6 +162,8 @@ class ExternalLinksEditor extends React.Component {
               error = l('Required field.');
             } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
+            } else if (isShortened(link.url)) {
+              error = l("Please don't use shortened URLs.");
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
             } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
@@ -375,6 +378,34 @@ function isValidURL(url) {
   return true;
 }
 
+const URL_SHORTENERS = [
+  "adf.ly",
+  "bit.ly",
+  "cli.gs",
+  "deck.ly",
+  "fur.ly",
+  "goo.gl",
+  "is.gd",
+  "kl.am",
+  "lnk.co",
+  "mcaf.ee",
+  "moourl.com",
+  "owl.ly",
+  "rubyurl.com",
+  "su.pr",
+  "t.co",
+  "tiny.cc",
+  "tinyurl.com",
+  "u.nu",
+  "yep.it",
+].map(host => new RegExp("^https?://([^/]+\\.)?" + host + "/", "i"));
+
+function isShortened(url) {
+  return URL_SHORTENERS.some(function(shortenerRegex) {
+    return url.match(shortenerRegex) !== null;
+  });
+}
+
 MB.createExternalLinksEditor = function (options) {
   var sourceData = options.sourceData;
   var sourceType = sourceData.entityType;
@@ -423,7 +454,7 @@ MB.createExternalLinksEditor = function (options) {
 
   var errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
 
-  return React.render(
+  return ReactDOM.render(
     <ExternalLinksEditor
       sourceType={sourceData.entityType}
       typeOptions={typeOptions}

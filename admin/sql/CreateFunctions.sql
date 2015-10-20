@@ -965,6 +965,7 @@ AS $$
       -- Remove references from tables that don't change whether or not this recording
       -- is orphaned.
       DELETE FROM isrc WHERE recording = OLD.recording;
+      DELETE FROM recording_alias WHERE recording = OLD.recording;
       DELETE FROM recording_annotation WHERE recording = OLD.recording;
       DELETE FROM recording_gid_redirect WHERE new_id = OLD.recording;
       DELETE FROM recording_rating_raw WHERE recording = OLD.recording;

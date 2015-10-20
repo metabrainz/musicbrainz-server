@@ -1,6 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
 use Test::More;
-use Test::Deep qw( cmp_deeply any );
+use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
@@ -11,7 +11,7 @@ with 't::Mechanize', 't::Context';
 test all => sub {
     my $test = shift;
     my $c = $test->c;
-    my $json = JSON::Any->new( utf8 => 1 );
+    my $json = JSON->new->utf8;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -33,7 +33,7 @@ test all => sub {
     cmp_deeply($vocal_performance, {
         linkTypeID => 149,
         direction => 'backward',
-        ended => any('false', JSON::false),
+        ended => JSON::false,
         target => {
             annotation => '',
             area => undef,
@@ -49,7 +49,7 @@ test all => sub {
             sortName => 'BoA',
             typeID => 1,
         },
-        editsPending => any('false', JSON::false),
+        editsPending => JSON::false,
         endDate => undef,
         beginDate => undef,
         id => 6751,
@@ -82,7 +82,7 @@ test 'Release group types are serialized (MBS-8212)' => sub {
     $mech->default_header("Accept" => "application/json");
     $mech->get_ok('/ws/js/release/3b3d130a-87a8-4a47-b9fb-920f2530d134', 'fetching release');
 
-    my $json = JSON::Any->new(utf8 => 1);
+    my $json = JSON->new->utf8;
     my $data = $json->decode($mech->content);
 
     is($data->{releaseGroup}{typeID}, 1, "release group primary type is loaded");

@@ -6,6 +6,7 @@
 var _ = require('lodash');
 var ko = require('knockout');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var i18n = require('../common/i18n');
 var clean = require('../common/utility/clean');
 var isBlank = require('../common/utility/isBlank');
@@ -32,7 +33,7 @@ var requestPending = validation.errorField(ko.observable(false));
 function renderDuplicates(name, duplicates, container) {
   needsConfirmation(true);
 
-  React.render(
+  ReactDOM.render(
     <PossibleDuplicates
       name={name}
       duplicates={duplicates}
@@ -43,7 +44,7 @@ function renderDuplicates(name, duplicates, container) {
 
 function unmountDuplicates(container) {
   needsConfirmation(false);
-  React.unmountComponentAtNode(container);
+  ReactDOM.unmountComponentAtNode(container);
 }
 
 function sortPlaceDuplicates(duplicates) {
