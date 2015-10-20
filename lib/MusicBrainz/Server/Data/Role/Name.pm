@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::Name;
 use MooseX::Role::Parameterized;
 
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 role
 {

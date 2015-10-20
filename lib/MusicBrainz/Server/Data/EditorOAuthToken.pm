@@ -7,7 +7,6 @@ use DateTime::Duration;
 #use MusicBrainz::Server::Entity::OAuthAuthorization;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
-    query_to_list_limited
     generate_token
 );
 
@@ -73,11 +72,8 @@ sub find_granted_by_editor
                     editor = ? AND
                     access_token IS NOT NULL
                  GROUP BY application, scope
-                 ORDER BY application, scope
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY application, scope";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub check_granted_token

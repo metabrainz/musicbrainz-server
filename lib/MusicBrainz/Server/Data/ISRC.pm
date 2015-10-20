@@ -6,7 +6,6 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
-    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -49,8 +48,7 @@ sub find_by_recordings
                    FROM ".$self->_table."
                   WHERE recording IN (" . placeholders(@ids) . ")
                   ORDER BY isrc";
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, @ids);
+    $self->query_to_list($query, \@ids);
 }
 
 sub load_for_recordings
@@ -77,8 +75,7 @@ sub find_by_isrc
                    FROM ".$self->_table."
                   WHERE isrc = ?
                ORDER BY id";
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, $isrc);
+    $self->query_to_list($query, [$isrc]);
 }
 
 sub delete

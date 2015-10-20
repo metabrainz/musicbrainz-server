@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Data::Role::Collection;
 use Moose::Role;
 
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
-
 requires '_order_by', '_table', '_type', '_columns', '_new_from_row', 'c';
 
 sub find_by_collection {
@@ -24,12 +22,9 @@ sub find_by_collection {
         WHERE ec.collection = ?
         ORDER BY id
       ) $type
-      ORDER BY $order_by
-      OFFSET ?";
+      ORDER BY $order_by";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $collection_id, $offset || 0);
+    $self->query_to_list_limited($query, [$collection_id], $limit, $offset);
 }
 
 no Moose::Role;

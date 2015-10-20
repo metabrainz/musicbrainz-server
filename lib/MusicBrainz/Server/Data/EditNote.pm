@@ -7,7 +7,6 @@ use MusicBrainz::Server::Entity::EditNote;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
-    query_to_list
 );
 use MusicBrainz::Server::Constants qw( :vote );
 
@@ -48,14 +47,14 @@ sub load_for_edits
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
                 ' ORDER BY post_time NULLS FIRST, id';
-    my @notes = query_to_list($self->c->sql, sub {
-            my $r = shift;
-            my $note = $self->_new_from_row($r);
-            my $edit = $id_to_edit{ $r->{edit} };
-            $note->edit($edit);
-            $edit->add_edit_note($note);
-            return $note;
-        }, $query, @ids);
+    $self->query_to_list($query, \@ids, sub {
+        my ($model, $r) = @_;
+        my $note = $model->_new_from_row($r);
+        my $edit = $id_to_edit{ $r->{edit} };
+        $note->edit($edit);
+        $edit->add_edit_note($note);
+        $note;
+    });
 }
 
 sub insert

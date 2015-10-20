@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report',
      'MusicBrainz::Server::Report::FilterForEditor';
 
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
-
 sub _add_artist {
     my ($store, $name, $gid, $row) = @_;
 
@@ -98,8 +96,7 @@ sub load_filtered {
 
     my $qualified_table = $self->qualified_table;
     my $ordering = $self->ordering;
-    my ($rows, $total) = query_to_list_limited(
-        $self->sql, $offset, $limit, sub { shift },
+    my ($rows, $total) = $self->c->model('Artist')->query_to_list_limited(
         "SELECT DISTINCT report.*
          FROM $qualified_table report
          WHERE (key) IN (
@@ -107,8 +104,11 @@ sub load_filtered {
              FROM $qualified_table
              JOIN editor_subscribe_artist esa ON esa.artist = artist_id
              WHERE esa.editor = ?
-         ) ORDER BY $ordering OFFSET ?",
-        $editor_id, $offset
+         ) ORDER BY $ordering",
+        [$editor_id],
+        $limit,
+        $offset,
+        sub { $_[1] },
     );
 
     $rows = $self->inflate_rows($rows);

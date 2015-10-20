@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
-    query_to_list
 );
 use MusicBrainz::Server::Log qw( log_error );
 
@@ -50,9 +49,7 @@ sub find_by_freedbid
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE freedb_id = ?";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $freedbid);
+    $self->query_to_list($query, [$freedbid]);
 }
 
 sub load

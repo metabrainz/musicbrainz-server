@@ -175,7 +175,8 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->releases) {
-        my @releases = $c->model('Release')->find_by_recording([ $track->id ]);
+        my ($releases, $hits) = $c->model('Release')->find_by_recording([ $track->id ]);
+        my @releases = @$releases;
         my %releases = map { $_->id => $_ } @releases;
 
         $c->model('ReleaseStatus')->load(@releases);

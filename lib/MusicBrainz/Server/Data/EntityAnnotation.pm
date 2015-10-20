@@ -9,7 +9,6 @@ use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT %ENTITIES );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
-    query_to_list_limited
     type_to_model
 );
 
@@ -45,11 +44,8 @@ sub get_history
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE ' . $self->type . ' = ?' .
-                ' ORDER BY created DESC OFFSET ?';
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $id, $offset || 0
-    );
+                ' ORDER BY created DESC';
+    $self->query_to_list_limited($query, [$id], $limit, $offset);
 }
 
 sub _column_mapping {

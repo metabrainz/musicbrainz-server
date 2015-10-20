@@ -99,8 +99,8 @@ test all => sub {
         my ($query, $expected_hits, $expected_array_size, $test_name) = @_;
         subtest $test_name => sub {
             my ($edits, $hits) = $edit_data->find($query, 2, 0);
-            is($hits, $expected_hits, "Got expected number of hits: $hits");
-            is(scalar @$edits, $expected_array_size, "Got expected array size: ".scalar @$edits);
+            is($hits, $expected_hits, "Got expected number of hits: $expected_hits");
+            is(scalar @$edits, $expected_array_size, "Got expected array size: $expected_array_size");
         };
     };
 

@@ -9,8 +9,6 @@ use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
@@ -50,11 +48,8 @@ sub find_by_subscribed_editor {
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
                  WHERE s.editor = ? AND s.available
-                 ORDER BY musicbrainz_collate(name), editor_collection.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(name), editor_collection.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub add_entities_to_collection {
@@ -144,9 +139,7 @@ sub find_all_by_editor {
                  WHERE editor=? $extra_conditions";
 
     $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $id);
+    $self->query_to_list($query, [$id]);
 }
 
 sub find_all_by_entity {
@@ -158,9 +151,7 @@ sub find_all_by_entity {
                  WHERE ce.$type = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $id);
+    $self->query_to_list($query, [$id]);
 }
 
 sub load {

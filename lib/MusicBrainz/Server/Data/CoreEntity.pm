@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::CoreEntity;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders query_to_list query_to_list_limited object_to_ids );
+use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
 
@@ -118,7 +118,7 @@ sub find_by_name
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
                   WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))";
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
+    $self->query_to_list($query, [$name]);
 }
 
 sub get_by_ids_sorted_by_name

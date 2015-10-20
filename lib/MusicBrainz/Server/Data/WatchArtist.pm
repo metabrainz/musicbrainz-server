@@ -7,7 +7,7 @@ use Carp;
 use DateTime::Duration;
 use DateTime::Format::Pg;
 use List::MoreUtils qw( mesh );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::EditorWatchPreferences';
@@ -29,11 +29,11 @@ sub find_watched_artists {
            JOIN artist ON editor_watch_artist.artist = artist.id
           WHERE editor = ?';
 
-    return query_to_list(
-        $self->c->sql,
-        sub { $self->c->model('Artist')->_new_from_row(shift, 'a_') },
-        $query, $editor_id
-    );
+    $self->c->model('Artist')->query_to_list($query, [$editor_id], sub {
+        my ($model, $row) = @_;
+
+        $model->_new_from_row($row, 'a_');
+    });
 }
 
 sub watch_artist {
@@ -115,9 +115,9 @@ sub find_new_releases {
                   BETWEEN (NOW() - ?::INTERVAL) AND
                           (NOW() + ewp.notification_timeframe)";
 
-    return query_to_list(
-        $self->c->sql, sub { $self->c->model('Release')->_new_from_row(shift) },
-        $query, $self->format_duration($past_threshold),
+    $self->c->model('Release')->query_to_list(
+        $query,
+        [$self->format_duration($past_threshold)],
     );
 }
 
@@ -129,9 +129,7 @@ sub find_editors_to_notify {
            JOIN editor_watch_preferences ewp ON ewp.editor = ewa.editor
           WHERE ewp.notify_via_email = TRUE';
 
-    return query_to_list(
-        $self->c->sql, sub { $self->c->model('Editor')->_new_from_row(shift) },
-        $query);
+    $self->c->model('Editor')->query_to_list($query);
 }
 
 sub update_last_checked {
@@ -188,23 +186,21 @@ sub load_preferences {
     my $prefs = $self->sql->select_single_row_hash(
         'SELECT * FROM editor_watch_preferences WHERE editor = ?', $editor_id);
 
-    my @types = query_to_list(
-        $self->c->sql,
-        sub { $self->c->model('ReleaseGroupType')->_new_from_row(shift) },
+    my @types = $self->c->model('ReleaseGroupType')->query_to_list(
         'SELECT id, name FROM release_group_type
            JOIN editor_watch_release_group_type wrgt
              ON wrgt.release_group_type = id
-          WHERE editor = ?', $editor_id
-      );
+          WHERE editor = ?',
+        [$editor_id],
+    );
 
-    my @statuses = query_to_list(
-        $self->c->sql,
-        sub { $self->c->model('ReleaseStatus')->_new_from_row(shift) },
+    my @statuses = $self->c->model('ReleaseStatus')->query_to_list(
         'SELECT id, name FROM release_status
            JOIN editor_watch_release_status wrs
              ON wrs.release_status = id
-          WHERE editor = ?', $editor_id
-      );
+          WHERE editor = ?',
+        [$editor_id],
+    );
 
     return EditorWatchPreferences->new(
         notify_via_email => $prefs->{notify_via_email},

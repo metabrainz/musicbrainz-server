@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited generate_gid take_while sanitize trim );
+use MusicBrainz::Server::Data::Utils qw( order_by generate_gid take_while sanitize trim );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Test;
 
@@ -21,30 +21,31 @@ is( $date->year, 2008 );
 is( $date->month, 1 );
 is( $date->day, 2 );
 
-my @result = query_to_list(
-    $test->c->sql, sub { $_[0] }, "SELECT * FROM artist_type
-                        WHERE id IN (1, 2) ORDER BY id");
+my $model = $test->c->model('ArtistType');
+my @result = $model->query_to_list(
+  'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id'
+);
 is( scalar(@result), 2 );
-is( $result[0]->{id}, 1 );
-is( $result[1]->{id}, 2 );
+is( $result[0]->id, 1 );
+is( $result[1]->id, 2 );
 
 my $offset = 0;
-my ($result, $hits) = query_to_list_limited(
-    $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
-                              WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
+my ($result, $hits) = $model->query_to_list_limited(
+    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset
+);
 @result = @{$result};
 is( scalar(@result), 1, 'got one result');
 is( $hits, 2, 'got two total' );
-is( $result[0]->{id}, 1, 'got result with id 1 as the first' );
+is( $result[0]->id, 1, 'got result with id 1 as the first' );
 
 $offset = 1;
-my ($result2, $hits2) = query_to_list_limited(
-    $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
-                              WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
+my ($result2, $hits2) = $model->query_to_list_limited(
+    'SELECT * FROM artist_type WHERE id IN (1, 2) ORDER BY id', [], 1, $offset
+);
 @result = @{$result2};
 is( scalar(@result), 1, 'got one result (with offset)' );
 is( $hits2, 2, 'got two total (with offset)' );
-is( $result[0]->{id}, 2, 'got result with id 2 as the first (with offset)' );
+is( $result[0]->id, 2, 'got result with id 2 as the first (with offset)' );
 
 my $order_by;
 

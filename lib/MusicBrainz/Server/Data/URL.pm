@@ -3,8 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils
-    qw( generate_gid hash_to_row query_to_list );
+use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 use URI;
 
@@ -178,10 +177,7 @@ sub find_by_url {
     my $normalized = URI->new($url)->canonical;
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
                 ' WHERE url = ?';
-    return query_to_list(
-        $self->sql, sub { $self->_new_from_row(@_) },
-        $query, $normalized
-    );
+    $self->query_to_list($query, [$normalized]);
 }
 
 sub update

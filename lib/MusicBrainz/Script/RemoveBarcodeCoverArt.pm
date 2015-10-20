@@ -5,7 +5,7 @@ use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_debug log_notice );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
@@ -36,16 +36,13 @@ sub find_releases
       WHERE NOT (url_link_types && ?);
     ";
 
-    return query_to_list($self->c->sql, sub {
-        my $row = shift;
-        return sub {
-            my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
-            $release->cover_art(
-                MusicBrainz::Server::CoverArt->new()
-            );
-            return $release;
-        }
-    }, $query, \@url_types);
+    $self->c->model('Release')->query_to_list($query, [\@url_types], sub {
+        my ($model, $row) = @_;
+
+        my $release = $model->_new_from_row($row, 'r_');
+        $release->cover_art(MusicBrainz::Server::CoverArt->new);
+        $release;
+    });
 }
 
 sub run

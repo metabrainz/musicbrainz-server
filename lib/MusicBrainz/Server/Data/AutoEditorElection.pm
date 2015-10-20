@@ -5,7 +5,7 @@ use namespace::autoclean;
 use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;
 use MusicBrainz::Server::Entity::AutoEditorElectionVote;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
+use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 use MusicBrainz::Server::Constants qw( :election_status :election_vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -220,10 +220,10 @@ sub _try_to_close_timeout
                  FROM " . $self->_table . "
                  WHERE now() - propose_time > INTERVAL ? AND
                        status IN (?, ?)";
-    my @elections = query_to_list($self->sql,
-        sub { $self->_new_from_row(@_) }, $query,
-        $PROPOSAL_TIMEOUT, $ELECTION_SECONDER_1,
-        $ELECTION_SECONDER_2);
+    my @elections = $self->query_to_list(
+        $query,
+        [$PROPOSAL_TIMEOUT, $ELECTION_SECONDER_1, $ELECTION_SECONDER_2],
+    );
 
     for my $election (@elections) {
         my %update = ( status => $ELECTION_REJECTED );
@@ -241,9 +241,10 @@ sub _try_to_close_voting
                  FROM " . $self->_table . "
                  WHERE now() - propose_time > INTERVAL ? AND
                        status = ?";
-    my @elections = query_to_list($self->sql,
-        sub { $self->_new_from_row(@_) }, $query,
-        $VOTING_TIMEOUT, $ELECTION_OPEN);
+    my @elections = $self->query_to_list(
+        $query,
+        [$VOTING_TIMEOUT, $ELECTION_OPEN],
+    );
 
     for my $election (@elections) {
         my %update = (
@@ -311,15 +312,13 @@ sub load_votes
     }
 }
 
-sub get_all
-{
+sub get_all {
     my ($self) = @_;
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  ORDER BY propose_time DESC";
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query);
+    $self->query_to_list($query);
 }
 
 __PACKAGE__->meta->make_immutable;

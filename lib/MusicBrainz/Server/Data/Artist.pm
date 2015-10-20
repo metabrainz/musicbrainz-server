@@ -19,7 +19,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_date_period
     order_by
     placeholders
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -96,11 +95,8 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(artist.sort_name), artist.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(artist.sort_name), artist.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub find_by_area {
@@ -111,11 +107,8 @@ sub find_by_area {
                     LEFT JOIN area begin_area ON artist.begin_area = begin_area.id
                     LEFT JOIN area end_area ON artist.end_area = end_area.id
                  WHERE ? IN (area.id, begin_area.id, end_area.id)
-                 ORDER BY musicbrainz_collate(artist.name), artist.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $area_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
 sub find_by_recording
@@ -126,11 +119,8 @@ sub find_by_recording
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN recording ON recording.artist_credit = acn.artist_credit
                  WHERE recording.id = ?
-                 ORDER BY musicbrainz_collate(artist.name), artist.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $recording_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+    $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
 sub find_by_release
@@ -149,11 +139,8 @@ sub find_by_release
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
                      wHERE release.id = ?)
-                 ORDER BY musicbrainz_collate(artist.name), artist.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $release_id, $release_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+    $self->query_to_list_limited($query, [($release_id) x 2], $limit, $offset);
 }
 
 sub find_by_release_group
@@ -164,11 +151,8 @@ sub find_by_release_group
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN release_group ON release_group.artist_credit = acn.artist_credit
                  WHERE release_group.id = ?
-                 ORDER BY musicbrainz_collate(artist.name), artist.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $recording_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(artist.name), artist.id";
+    $self->query_to_list_limited($query, [$recording_id], $limit, $offset);
 }
 
 sub find_by_work
@@ -186,11 +170,8 @@ sub find_by_work
                    JOIN l_artist_work law ON law.entity0 = artist.id
                    WHERE law.entity1 = ?
                  ) s
-                 ORDER BY musicbrainz_collate(name), id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $work_id, $work_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(name), id";
+    $self->query_to_list_limited($query, [($work_id) x 2], $limit, $offset);
 }
 
 sub _order_by {

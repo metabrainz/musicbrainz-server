@@ -6,7 +6,6 @@ use List::UtilsBy qw( rev_nsort_by uniq_by );
 use MusicBrainz::Server::Entity::EditorLanguage;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
-    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -40,11 +39,11 @@ sub _entity_class
 sub load_for_editor {
     my ($self, $editor) = @_;
 
-    my @languages = query_to_list(
-        $self->sql, sub { $self->_new_from_row(@_) },
+    my @languages = $self->query_to_list(
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE editor = ?' .
-        ' ORDER BY fluency DESC, musicbrainz_collate(language.name)',  $editor->id
+        ' ORDER BY fluency DESC, musicbrainz_collate(language.name)',
+        [$editor->id],
     );
 
     $editor->add_language($_) for @languages;

@@ -18,7 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_date_period
     order_by
     placeholders
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
@@ -201,14 +200,9 @@ sub find_by_area
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
-         OFFSET ?';
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            $self->_new_from_row(shift);
-        },
-        $query, $area_id, $offset || 0);
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
 sub find_by_artist
@@ -225,14 +219,9 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
-         OFFSET ?';
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            $self->_new_from_row(shift);
-        },
-        $query, $artist_id, $offset || 0);
+    $self->query_to_list_limited($query, [$artist_id], $limit, $offset);
 }
 
 sub _order_by {
@@ -267,14 +256,9 @@ sub find_by_place
                      WHERE entity1 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
-         OFFSET ?';
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            $self->_new_from_row(shift);
-        },
-        $query, $place_id, $offset || 0);
+    $self->query_to_list_limited($query, [$place_id], $limit, $offset);
 }
 
 =method find_related_entities

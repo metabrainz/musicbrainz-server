@@ -15,11 +15,11 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     is_special_label
     placeholders
-    query_to_list
 );
 use Sql;
 
 with 'MusicBrainz::Server::Data::Role::NewFromRow';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 has 'table' => (
@@ -126,16 +126,15 @@ sub find_subscribed_editors
     $extra_cond = " AND s.available"
         if ($column eq "collection");
 
+    my $editor_model = $self->c->model('Editor');
     my $query = "
-        SELECT " . MusicBrainz::Server::Data::Editor->_columns . "
-        FROM " . MusicBrainz::Server::Data::Editor->_table . "
+        SELECT " . $editor_model->_columns . "
+        FROM " . $editor_model->_table . "
             JOIN $table s ON editor.id = s.editor
         WHERE s.$column = ?" . $extra_cond . "
         ORDER BY editor.name, editor.id";
 
-    return query_to_list(
-        $self->c->sql, sub { MusicBrainz::Server::Data::Editor->_new_from_row(@_) },
-        $query, $entity_id);
+    $editor_model->query_to_list($query, [$entity_id]);
 }
 
 sub get_subscribed_editor_count
@@ -156,28 +155,15 @@ sub get_subscriptions
     my $column = $self->column;
 
     load_class($self->active_class);
-    my @subscriptions = query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(shift) },
-        "SELECT *
-         FROM $table
-         WHERE editor = ?",
-        $editor_id
+    my @subscriptions = $self->query_to_list(
+        "SELECT * FROM $table WHERE editor = ?",
+        [$editor_id],
     );
 
     if (my $deleted_class = $self->deleted_class) {
         load_class($self->deleted_class);
 
-        push @subscriptions, query_to_list(
-            $self->c->sql, sub {
-                my $row = shift;
-                return $deleted_class->new(
-                    edit_id => $row->{deleted_by},
-                    editor_id => $row->{editor},
-                    last_known_name => $row->{last_known_name},
-                    last_known_comment => $row->{last_known_comment},
-                    reason => $row->{reason}
-                );
-            },
+        push @subscriptions, $self->query_to_list(
             "SELECT
                sub.editor, last_known_name, last_known_comment, deleted_by,
                CASE
@@ -188,10 +174,23 @@ sub get_subscriptions
              JOIN ${column}_deletion del USING (gid)
              JOIN edit ON (edit.id = deleted_by)
              WHERE sub.editor = ?",
-            [ $EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE, $EDIT_SERIES_MERGE ],
-            [ $EDIT_ARTIST_DELETE, $EDIT_LABEL_DELETE, $EDIT_SERIES_DELETE ],
-            $editor_id
-        )
+            [
+                [$EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE, $EDIT_SERIES_MERGE],
+                [$EDIT_ARTIST_DELETE, $EDIT_LABEL_DELETE, $EDIT_SERIES_DELETE],
+                $editor_id,
+            ],
+            sub {
+                my ($model, $row) = @_;
+
+                $deleted_class->new(
+                    edit_id => $row->{deleted_by},
+                    editor_id => $row->{editor},
+                    last_known_name => $row->{last_known_name},
+                    last_known_comment => $row->{last_known_comment},
+                    reason => $row->{reason},
+                );
+            },
+        );
     }
 
     return @subscriptions;

@@ -10,7 +10,6 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     type_to_model
-    query_to_list_limited
     merge_table_attributes
     load_subobjects
 );
@@ -189,22 +188,17 @@ sub get_entities {
       FROM (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
       JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
       WHERE es.series = ?
-      ORDER BY es.link_order, musicbrainz_collate(e.name) ASC
-      OFFSET ?";
+      ORDER BY es.link_order, musicbrainz_collate(e.name) ASC";
 
-    my $form_row = sub {
-        my $row = shift;
+    $model->query_to_list_limited($query, [$series->id], $limit, $offset, sub {
+        my ($model, $row) = @_;
+
         my $ordering_key = delete $row->{ordering_key};
-
-        return {
+        {
             entity => $model->_new_from_row($row),
             ordering_key => $ordering_key,
         };
-    };
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, $form_row, $query, $series->id, $offset || 0
-    );
+    });
 }
 
 sub find_by_subscribed_editor
@@ -214,11 +208,8 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_series s ON series.id = s.series
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(series.name), series.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(series.name), series.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub automatically_reorder {

@@ -18,9 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     placeholders
-    query_to_list
-    query_to_list_limited
-    query_to_list
     type_to_model
 );
 use MusicBrainz::Server::Constants qw( :edit_status :privileges );
@@ -85,21 +82,6 @@ sub get_by_name
     my $editor = $self->_new_from_row($row);
     $self->load_preferences($editor);
     return $editor;
-}
-
-sub find_by_name
-{
-    my ($self, $name, $offset, $limit) = @_;
-    my $query = 'SELECT ' . $self->_columns .
-                '  FROM ' . $self->_table .
-                " WHERE musicbrainz_unaccent(lower(name)) LIKE musicbrainz_unaccent(lower(?)) || '%'
-                 OFFSET ?";
-    my @editors = query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $name, $offset
-    );
-    $self->load_preferences(@editors);
-    return @editors;
 }
 
 sub summarize_ratings
@@ -190,9 +172,7 @@ sub find_by_privileges
                  FROM " . $self->_table . "
                  WHERE (privs & ?) > 0
                  ORDER BY editor.name, editor.id";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $privs);
+    $self->query_to_list($query, [$privs]);
 }
 
 sub find_by_subscribed_editor
@@ -202,11 +182,8 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_editor s ON editor.id = s.subscribed_editor
                  WHERE s.editor = ?
-                 ORDER BY editor.name, editor.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY editor.name, editor.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub find_subscribers
@@ -216,11 +193,8 @@ sub find_subscribers
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_editor s ON editor.id = s.editor
                  WHERE s.subscribed_editor = ?
-                 ORDER BY editor.name, editor.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY editor.name, editor.id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 sub insert
@@ -456,15 +430,14 @@ sub editors_with_subscriptions {
                ORDER BY editor.id ASC
                   LIMIT ?";
 
-    return query_to_list(
-        $self->c->sql, sub {
-            my $editor = $self->_new_from_row(@_);
-            $editor->preferences->subscriptions_email_period($_[0]->{prefs_value})
-                if defined $_[0]->{prefs_value};
-            return $editor;
-        },
-        $query,
-        $after, $limit);
+    $self->query_to_list($query, [$after, $limit], sub {
+        my ($model, $row) = @_;
+
+        my $editor = $model->_new_from_row($row);
+        $editor->preferences->subscriptions_email_period($row->{prefs_value})
+            if defined $row->{prefs_value};
+        $editor;
+    });
 }
 
 sub delete {

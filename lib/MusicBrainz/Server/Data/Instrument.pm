@@ -6,7 +6,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_string_attributes
     merge_table_attributes
-    query_to_list
 );
 use MusicBrainz::Server::Entity::Instrument;
 
@@ -124,7 +123,7 @@ sub get_all {
 
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table;
 
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) }, $query);
+    $self->query_to_list($query);
 }
 
 __PACKAGE__->meta->make_immutable;
