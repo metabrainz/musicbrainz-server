@@ -46,8 +46,6 @@ our @EXPORT_OK = qw(
     load_artist_credit_definitions
     status_names
     verify_artist_credits
-    boolean_to_json
-    boolean_from_json
 );
 
 sub verify_artist_credits
@@ -460,20 +458,6 @@ sub large_spread {
 
     my ($min, $max) = minmax(@lengths);
     return 1 if $max - $min >= 15*1000; # 15 seconds
-}
-
-sub boolean_to_json {
-    my $bool = shift;
-
-    $bool = ref($bool) ? $$bool : $bool;
-    $bool ? \1 : \0;
-}
-
-sub boolean_from_json {
-    my $bool = shift;
-
-    $bool = ref($bool) ? $$bool : $bool;
-    $bool ? 1 : 0;
 }
 
 1;

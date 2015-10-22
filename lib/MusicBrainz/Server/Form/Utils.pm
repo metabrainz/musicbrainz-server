@@ -6,6 +6,7 @@ use warnings;
 use charnames ':full'; # only necessary before Perl 5.16
 
 use Encode;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l lp );
 use Text::Trim qw( trim );
 use Text::Unaccent qw( unac_string_utf16 );
@@ -169,8 +170,8 @@ sub build_type_info {
             gid                 => $root->gid,
             phrase              => $root->l_link_phrase,
             reversePhrase       => $root->l_reverse_link_phrase,
-            deprecated          => $root->is_deprecated ? \1 : \0,
-            hasDates            => $root->has_dates ? \1 : \0,
+            deprecated          => boolean_to_json($root->is_deprecated),
+            hasDates            => boolean_to_json($root->has_dates),
             type0               => $root->entity0_type,
             type1               => $root->entity1_type,
             cardinality0        => $root->entity0_cardinality,
@@ -205,8 +206,8 @@ sub build_attr_info {
             rootID      => $_->root_id,
             name        => $_->name,
             l_name      => $_->l_name,
-            freeText    => $_->free_text ? \1 : \0,
-            creditable  => $_->creditable ? \1 : \0,
+            freeText    => boolean_to_json($_->free_text),
+            creditable  => boolean_to_json($_->creditable),
         };
 
         $attr->{description} = $_->l_description if $_->description;

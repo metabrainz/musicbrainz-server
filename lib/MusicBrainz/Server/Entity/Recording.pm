@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Recording;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use List::UtilsBy qw( uniq_by );
 
@@ -61,7 +62,7 @@ around TO_JSON => sub {
         %{ $self->$orig },
         isrcs   => [map { $_->isrc } $self->all_isrcs],
         length  => $self->length,
-        video   => $self->video ? \1 : \0,
+        video   => boolean_to_json($self->video),
     };
 };
 

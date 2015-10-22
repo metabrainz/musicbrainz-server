@@ -1,0 +1,5 @@
+severity = 1
+include = lib
+
+[-Modules::RequireVersionVar]
+[-CodeLayout::RequireTidyCode]

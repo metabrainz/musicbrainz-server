@@ -428,6 +428,13 @@ has json => (
     }
 );
 
+has json_utf8 => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->utf8->allow_blessed->convert_blessed;
+    }
+);
+
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server

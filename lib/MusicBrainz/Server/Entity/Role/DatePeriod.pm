@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::DatePeriod;
 use Moose::Role;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( l );
@@ -75,7 +76,7 @@ around TO_JSON => sub {
         %{ $self->$orig },
         begin_date  => $self->begin_date->format,
         end_date    => $self->end_date->format,
-        ended       => $self->ended ? \1 : \0,
+        ended       => boolean_to_json($self->ended),
     };
 };
 

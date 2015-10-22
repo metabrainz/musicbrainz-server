@@ -110,7 +110,7 @@ this means serving a 404 error page.
 
 =cut
 
-sub default : Path
+sub default : Path NewTemplate
 {
     my ($self, $c) = @_;
     $c->detach('/error_404');
@@ -207,6 +207,11 @@ sub begin : Private
         $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
         warn "Redis connection to get alert failed: $_";
     };
+
+    # For displaying which git branch is active as well as last commit information
+    # (only shown on staging servers)
+    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_BRANCH;
+
     $c->stash(
         wiki_server => DBDefs->WIKITRANS_SERVER,
         server_languages => Translation->instance->all_languages(),
@@ -216,13 +221,20 @@ sub begin : Private
             is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $alert,
-            alert_mtime => $alert_mtime
+            alert_mtime => $alert_mtime,
+            git => {
+                branch => $git_branch,
+                sha => $git_sha,
+                msg => $git_msg,
+            },
         },
         favicon_css_classes => FAVICON_CLASSES,
     );
 
     # Setup the searchs on the sidebar
-    $c->form( sidebar_search => 'Search::Search' );
+    unless (exists $c->action->attributes->{NewTemplate}) {
+        $c->form(sidebar_search => 'Search::Search');
+    }
 
     # Edit implies RequireAuth
     if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
@@ -315,6 +327,10 @@ sub begin : Private
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
         $c->stash( last_replication_date => $c->model('Replication')->last_replication_date );
     }
+
+    if (exists $c->action->attributes->{NewTemplate}) {
+        MusicBrainz::Server::Renderer::handle_request($c);
+    }
 }
 
 =head2 end
@@ -339,13 +355,6 @@ sub end : ActionClass('RenderView')
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
         is_beta                    => DBDefs->IS_BETA
     };
-
-    # For displaying which git branch is active as well as last commit information
-    # (only shown on staging servers)
-    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_BRANCH;
-    $c->stash->{server_details}->{git}->{branch} = $git_branch;
-    $c->stash->{server_details}->{git}->{sha}    = $git_sha;
-    $c->stash->{server_details}->{git}->{msg}    = $git_msg;
 
     $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 

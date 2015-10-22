@@ -27,6 +27,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
+    boolean_from_json
     type_to_model
     model_to_type
     partial_date_to_hash
@@ -35,7 +36,6 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     non_empty
 );
-use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use Readonly;

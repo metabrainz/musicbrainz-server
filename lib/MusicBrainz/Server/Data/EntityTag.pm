@@ -2,7 +2,12 @@ package MusicBrainz::Server::Data::EntityTag;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    placeholders
+    query_to_list
+    query_to_list_limited
+);
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
 use MusicBrainz::Server::Entity::Tag;
@@ -323,7 +328,7 @@ sub withdraw {
         }
     }, $self->c->sql);
 
-    $result->{deleted} = $was_deleted ? \1 : \0;
+    $result->{deleted} = boolean_to_json($was_deleted);
     return $result;
 }
 

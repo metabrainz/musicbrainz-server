@@ -1,5 +1,6 @@
 package MusicBrainz::Server::MergeQueue;
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( model_to_type boolean_to_json );
 use namespace::autoclean;
 
 has 'type' => (
@@ -40,6 +41,16 @@ sub remove_entities {
     $self->entities([
         grep { !exists $to_remove{$_} } keys %all_existing
     ])
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        type => $self->type,
+        entities => $self->entities,
+        ready_to_merge => boolean_to_json($self->ready_to_merge),
+    };
 }
 
 1;
