@@ -3,8 +3,12 @@ package t::MusicBrainz::Server::Edit::Release::ReorderMediums;
 use Test::Deep qw( cmp_set );
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_REORDER_MEDIUMS
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 around run_test => sub {
@@ -107,6 +111,31 @@ test 'Edit properties' => sub {
     cmp_set($test->edit->related_entities->{release_group},
             [ 1 ],
             'is related to the release group of the release being reordered');
+};
+
+test 'MBS-8580' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_REORDER_MEDIUMS,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        medium_positions => [
+            {medium_id => 101, old => 1, new => 6},
+        ],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+
+    $c->sql->do(<<'EOSQL');
+        INSERT INTO medium (id, release, position, format, name)
+        VALUES (106, 1, 6, NULL, '');
+EOSQL
+
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
 sub position_ok {
