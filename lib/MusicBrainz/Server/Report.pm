@@ -28,6 +28,12 @@ sub template {
 sub load {
     my ($self, $limit, $offset) = @_;
 
+    $self->_load('', $limit, $offset);
+}
+
+sub _load {
+    my ($self, $join_sql, $limit, $offset, @params) = @_;
+
     my $qualified_table = $self->qualified_table;
     my $ordering = $self->ordering;
 
