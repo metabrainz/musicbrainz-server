@@ -151,7 +151,7 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT $LIMIT_FOR_EDIT_LISTING OFFSET ?";
+         LIMIT $LIMIT_FOR_EDIT_LISTING";
 }
 
 sub arguments {
