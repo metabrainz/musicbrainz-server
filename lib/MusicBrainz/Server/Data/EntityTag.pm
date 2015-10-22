@@ -5,8 +5,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
