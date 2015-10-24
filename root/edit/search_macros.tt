@@ -81,6 +81,8 @@
                predicate_link_type(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
                predicate_editor_flag(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
+               predicate_applied_edits(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -299,6 +301,23 @@
   </select>
 [% END %]
 
+[% MACRO predicate_applied_edits(field, field_contents) WRAPPER wfield predicate='id' %]
+  [% operators([ [ '=', l('equal to') ],
+                 [ '!=', l('not equal to') ],
+                 [ '>', l('more than') ],
+                 [ '<', l('less than') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input type="number" name="args.0" size="10" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &#x2013;
+    <input type="number" name="args.1" size="10" value="[% html_escape(field_contents.argument(1)) %]" />
+  </span>
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -331,6 +350,7 @@
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
                    [ 'editor_flag', l('Editor Flag') ],
+                   [ 'applied_edits', l('Applied Edit Count of Editor') ],
                    ] -%]
     <option
        [%~ ' selected="selected"' IF field_contents.field_name == field.0 =%]
