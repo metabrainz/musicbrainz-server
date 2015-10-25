@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::CoverArt;
 
 with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 
 has 'providers' => (
     isa => 'ArrayRef',
@@ -131,12 +132,12 @@ sub find_outdated_releases
     ORDER BY last_updated ASC';
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
-    $self->query_to_list($query, [\@url_types, $pg_date_formatter->format_duration($since)], sub {
-        my ($model, $row) = shift;
+    $self->query_to_list($query, [@url_types, $pg_date_formatter->format_duration($since)], sub {
+        my ($model, $row) = @_;
 
         # Construction of these rows is slow, so this is lazy
         return sub {
-            my $release = $model->_new_from_row($row, 'r_');
+            my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
             $release->cover_art(
                 MusicBrainz::Server::CoverArt->new(
                     $row->{c_last_updated} ? (last_updated => $row->{c_last_updated}) : ()
