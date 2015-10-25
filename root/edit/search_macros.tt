@@ -81,6 +81,8 @@
                predicate_link_type(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
                predicate_editor_flag(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
+               predicate_int(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -331,6 +333,7 @@
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
                    [ 'editor_flag', l('Editor Flag') ],
+                   [ 'applied_edits', l('Applied Edit Count of Editor') ],
                    ] -%]
     <option
        [%~ ' selected="selected"' IF field_contents.field_name == field.0 =%]
