@@ -10,22 +10,18 @@ extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    my $having;
+    my $subquery = "(SELECT edits_accepted + auto_edits_accepted FROM editor WHERE editor.id = edit.editor)";
+
+    my $sql;
     given ($self->operator) {
         when ('BETWEEN') {
-            $having = 'count(*) BETWEEN SYMMETRIC ? AND ?';
+            $sql = $subquery . ' BETWEEN SYMMETRIC ? AND ?';
         }
         default {
-            $having = join(' ', 'count(*)', $self->operator, '?');
-        }
+           $sql = join(' ', $subquery, $self->operator, '?');
+       }
     }
 
-    my $sql = "EXISTS (
-        SELECT 1
-        FROM edit edit_inner
-        WHERE edit_inner.editor = edit.editor AND edit_inner.status = $STATUS_APPLIED
-        HAVING $having
-    )";
     $query->add_where([ $sql, $self->sql_arguments ]);
 }
 
