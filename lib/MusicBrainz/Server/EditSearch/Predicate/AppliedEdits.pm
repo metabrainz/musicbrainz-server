@@ -23,9 +23,9 @@ sub combine_with_query {
     my $sql = "EXISTS (
         SELECT 1
         FROM edit edit_inner
-        WHERE edit_inner.editor = edit.editor AND edit_inner.status = " . $STATUS_APPLIED .
-        "HAVING " . $having .
-        ")";
+        WHERE edit_inner.editor = edit.editor AND edit_inner.status = $STATUS_APPLIED
+        HAVING $having
+    )";
     $query->add_where([ $sql, $self->sql_arguments ]);
 }
 
