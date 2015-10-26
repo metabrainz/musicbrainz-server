@@ -367,5 +367,6 @@
     [% predicate_country('release_country') %]
     [% predicate_link_type('link_type') %]
     [% predicate_editor_flag('editor_flag') %]
+    [% predicate_int('applied_edits') %]
   </div>
 [% END %]
