@@ -619,8 +619,8 @@ sub update
     my $new = {};
     $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
     $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
-    $new->{entity0_credit} = $values->{entity0_credit} if $values->{entity0_credit};
-    $new->{entity1_credit} = $values->{entity1_credit} if $values->{entity1_credit};
+    $new->{entity0_credit} = $values->{entity0_credit} if defined $values->{entity0_credit};
+    $new->{entity1_credit} = $values->{entity1_credit} if defined $values->{entity1_credit};
 
     my $series0 = $type0 eq "series";
     my $series1 = $type1 eq "series";
