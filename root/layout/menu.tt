@@ -284,5 +284,17 @@
     </li>
     <li class="contact">
         <a href="https://metabrainz.org/contact">[% l('Contact Us') %]</a>
+        <ul>
+            <li>
+                <a href="http://forums.musicbrainz.org" class="internal">
+                    [% l('Forums') %]
+                </a>
+            </li>
+            <li>
+                <a href="http://tickets.musicbrainz.org" class="internal">
+                    [% l('Report a Bug') %]
+                </a>
+            </li>
+        </ul>
     </li>
 </ul>
