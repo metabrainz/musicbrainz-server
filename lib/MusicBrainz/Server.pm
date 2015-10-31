@@ -367,19 +367,11 @@ around dispatch => sub {
         alarm($max_request_time);
 
         my $action = POSIX::SigAction->new(sub {
-            $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                   $c->req->uri,
-                                   $max_request_time));
-            $c->log->error(Devel::StackTrace->new->as_string);
-            $c->log->_flush;
-
             my $context = $c->model('MB')->context;
             if (my $sth = $context->sql->sth) {
                 $sth->cancel;
             }
-
-            $context->connector->disconnect;
-            exit(42);
+            MusicBrainz::Server::Exceptions::GenericTimeout->throw("Request took more than $max_request_time seconds");
         });
         $action->safe(1);
         POSIX::sigaction(SIGALRM, $action);

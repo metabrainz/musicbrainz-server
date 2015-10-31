@@ -22,6 +22,11 @@ with 'Throwable';
 
 has 'conflict' => ( is => 'ro', required => 1 );
 
+package MusicBrainz::Server::Exceptions::GenericTimeout;
+use Moose;
+extends 'Throwable::Error';
+with 'MusicBrainz::Server::Exceptions::Role::Timeout';
+
 package MusicBrainz::Server::Exceptions::DatabaseError;
 use Moose;
 extends 'Throwable::Error';
