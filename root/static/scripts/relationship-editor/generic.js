@@ -142,13 +142,6 @@ import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 
             pushInput(prefix, "target", relationship.target(vm.source).gid);
 
-            _.each(['entity0_credit', 'entity1_credit'], function (prop) {
-                var value = clean(relationship[prop]());
-                if (value) {
-                    pushInput(prefix, prop, value);
-                }
-            });
-
             var changeData = MB.edit.relationshipEdit(editData, relationship.original, relationship);
             _.each(changeData.attributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
@@ -165,6 +158,12 @@ import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 
                 if (attribute.removed) {
                     pushInput(attrPrefix, "removed", 1);
+                }
+            });
+
+            _.each(['entity0_credit', 'entity1_credit'], function (prop) {
+                if (typeof changeData[prop] === 'string') {
+                    pushInput(prefix, prop, changeData[prop]);
                 }
             });
 
