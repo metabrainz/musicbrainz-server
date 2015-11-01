@@ -52,7 +52,7 @@ var ln = wrapGettext("dngettext");
 var __dpgettext = wrapGettext("dpgettext");
 function lp() {
     // Swap order of context, msgid.
-    return __dpgettext.call(null, 'mb_server', arguments[1], arguments[0], arguments[2]);
+    return __dpgettext.call(null, arguments[1], arguments[0], arguments[2]);
 }
 
 exports.l = l;
