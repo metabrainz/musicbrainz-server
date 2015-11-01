@@ -10,6 +10,7 @@ with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -284,16 +285,6 @@ sub reject
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }
-}
-
-sub allow_auto_edit {
-    my ($self) = @_;
-
-    if ($self->data->{type0} eq "recording" && $self->data->{type1} eq "work") {
-        return 1;
-    }
-
-    return 0;
 }
 
 before restore => sub {
