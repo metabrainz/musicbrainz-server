@@ -8,7 +8,10 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Release::AddReleaseLabel }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_ADDRELEASELABEL
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -64,6 +67,7 @@ test 'Inserting just a catalog number' => sub {
             editor_id => 1,
             release => $c->model('Release')->get_by_id(1),
             catalog_number => 'AVCD-51002',
+            privileges => $UNTRUSTED_FLAG,
         );
 
         $edit = $c->model('Edit')->get_by_id_and_lock($edit->id);
@@ -82,8 +86,6 @@ test 'Inserting just a catalog number' => sub {
             release => $c->model('Release')->get_by_id(1),
             catalog_number => 'AVCD-51002',
         );
-
-        accept_edit($c, $edit);
 
         my $release = $c->model('Release')->get_by_id(1);
         $c->model('ReleaseLabel')->load($release);
@@ -166,6 +168,7 @@ sub create_edit {
         release => $c->model('Release')->get_by_id(1),
         label => $c->model('Label')->get_by_id(2),
         catalog_number => 'AVCD-51002',
+        privileges => $UNTRUSTED_FLAG,
     );
 }
 
