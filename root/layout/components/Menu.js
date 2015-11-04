@@ -324,28 +324,17 @@ const DocumentationMenu = () => (
 
 const ContactMenu = () => (
   <li className="contact">
-    <a href={doc_link('Contact_Us')}>{l('Contact Us')}</a>
+    <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
     <ul>
-      <li>
-        <a href={doc_link('Communication/Mailing_Lists')}>{l('Mailing Lists')}</a>
-      </li>
       <li>
         <a href="http://forums.musicbrainz.org" className="internal">
           {l('Forums')}
         </a>
       </li>
-      <li className="separator">
+      <li>
         <a href="http://tickets.musicbrainz.org" className="internal">
           {l('Report a Bug')}
         </a>
-      </li>
-      <li>
-        <a href={doc_link('Copyright_Violation_Notice')}>
-          {l('Report a Copyright Violation')}
-        </a>
-      </li>
-      <li>
-        <a href={doc_link('Data_Removal_Policy')}>{l('Data Removal Policy')}</a>
       </li>
     </ul>
   </li>
