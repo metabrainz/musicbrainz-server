@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-10-28 10:51+0000\n"
+"PO-Revision-Date: 2015-11-01 19:51+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2536,7 +2536,7 @@ msgstr "volkslied van"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr ""
+msgstr "{entity1} is te zien in de clip van {entity0}"
 
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
@@ -3255,7 +3255,7 @@ msgstr "heeft opgedragen compositie"
 
 #: DB:link_type/long_link_phrase:868
 msgid "has dedication"
-msgstr ""
+msgstr "{entity1} is opgedragen aan {entity0}"
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
@@ -3359,7 +3359,7 @@ msgstr "gehouden in"
 
 #: DB:link_type/long_link_phrase:845
 msgid "held premiere of"
-msgstr ""
+msgstr "{entity1} had een première bij {entity0}"
 
 #: DB:link_type/long_link_phrase:793
 msgid "held the event"
@@ -4530,7 +4530,7 @@ msgstr "tournee van"
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "tour in support of"
-msgstr ""
+msgstr "ondersteunende tournee van"
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
@@ -4598,7 +4598,7 @@ msgstr "videokanaal van"
 
 #: DB:link_type/reverse_link_phrase:858
 msgid "visual appearances"
-msgstr ""
+msgstr "te zien in de videoclips van"
 
 #: DB:link_attribute_type/name:3
 msgid "vocal"
