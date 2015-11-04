@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
     placeholders
-    query_to_list
 );
 use MusicBrainz::Server::Entity::PartialDate;
 

@@ -27,10 +27,23 @@ use warnings;
 
 package DBDefs::Default;
 
+use Class::MOP;
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Translation 'l';
+
+sub get_environment_hash {
+    my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
+
+    my %exclude = map { $_ => 1 }
+        qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES get_environment_hash );
+
+    return {
+        map { $_ => join(',', grep { defined } $export->{$_}->body->('DBDefs')) }
+        grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export
+    };
+}
 
 ################################################################################
 # Directories
@@ -421,6 +434,14 @@ sub EMAIL_BUGS { undef }
 # http://about.validator.nu/#src for instructions.
 sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
+
+# We use a small HTTP server (root/server.js) to render React.js templates.
+# These configure the host/port it listens on. If RENDERER_HOST is '', then
+# musicbrainz-server will fork & exec root/server.js for us (convenient on
+# development servers). Otherwise, it'll assume the service is running
+# separately.
+sub RENDERER_HOST { '' }
+sub RENDERER_PORT { 9009 }
 
 ################################################################################
 # Profiling

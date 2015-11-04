@@ -10,8 +10,6 @@ import React from 'react';
 let jedInstance;
 if (typeof document !== 'undefined') {
     jedInstance = new Jed(require('jed-data'));
-} else {
-    jedInstance = new Jed({});
 }
 
 var slice = Array.prototype.slice;
@@ -27,7 +25,15 @@ function wrapGettext(method) {
             expandArgs = null;
         }
 
-        var string = jedInstance[method].apply(jedInstance, args);
+        let gettext = jedInstance;
+        if (!gettext && typeof $c !== 'undefined') {
+            // Created by root/server.js during each request.
+            gettext = $c.gettext;
+        }
+
+        // FIXME support domains other than mb_server
+        args.unshift('mb_server');
+        var string = gettext[method].apply(gettext, args);
 
         if (expandArgs) {
             if (expandArgs.__react) {
@@ -40,13 +46,13 @@ function wrapGettext(method) {
     };
 }
 
-var l = wrapGettext("gettext");
-var ln = wrapGettext("ngettext");
+var l = wrapGettext("dgettext");
+var ln = wrapGettext("dngettext");
 
-var __pgettext = wrapGettext("pgettext");
+var __dpgettext = wrapGettext("dpgettext");
 function lp() {
     // Swap order of context, msgid.
-    return __pgettext.call(null, arguments[1], arguments[0], arguments[2]);
+    return __dpgettext.call(null, arguments[1], arguments[0], arguments[2]);
 }
 
 exports.l = l;

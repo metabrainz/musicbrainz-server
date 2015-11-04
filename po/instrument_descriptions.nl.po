@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-15 15:21+0000\n"
+"PO-Revision-Date: 2015-10-12 20:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Een Turkse versie van de tamboerijn / daf, gemaakt van dierenhuid en met
 msgid ""
 "A baroque trumpet is a natural trumpet modelled on the instruments used "
 "between the 1500s and the 1700s. It lacks valves but may have vents."
-msgstr "Een baroktrompet is een natuurkoperblazer dat gemodelleerd is naar instrumenten die in de zestiende tot de achttiende eeuw gebruikt werden. Het heeft geen ventielen, maar kan wel vingergaten hebben."
+msgstr "Een baroktrompet is een natuurkoperblazer die gemodelleerd is naar instrumenten die in de zestiende tot de achttiende eeuw gebruikt werden. Het heeft geen ventielen, maar kan wel vingergaten hebben."
 
 #. name:barrel organ
 #: DB:instrument/description:490
@@ -385,7 +385,7 @@ msgid ""
 "instrument, the most common being the bass guitar and the double bass "
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
-msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerdere instrumenten: de basgitaar en de contrabas. Gebruik het correcte instrument als u weet welke er bedoeld wordt."
+msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerdere instrumenten, vooral de basgitaar en de contrabas. Gebruik het correcte instrument als je weet welke er bedoeld wordt."
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -415,7 +415,7 @@ msgid ""
 "Chime or chimes can refer to multiple different instruments, including "
 "tubular bells, wind chime, chime bar and mark tree. Please use the correct "
 "instrument if you know which one is intended."
-msgstr "Klokkenspel of chimes kan verwijzen naar verschillende muziekinstrumenten, waaronder buisklokken, de windgong of de bellenboom. Gebruik het juiste instrument als u weet welke bedoeld wordt."
+msgstr "Klokkenspel of chimes kan verwijzen naar verschillende muziekinstrumenten, waaronder buisklokken, de windgong of de bellenboom. Gebruik het juiste instrument als je weet welke bedoeld wordt."
 
 #. name:ching
 #: DB:instrument/description:618
@@ -642,7 +642,7 @@ msgstr "Oboe d’amore / Liefdeshobo (mezzo-sopraan)."
 msgid ""
 "Other instruments. If you can't find an instrument, please <a "
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
-msgstr "Overige instrumenten. Als u een instrument niet kan vinden, kunt u <a href=\"http://tickets.musicbrainz.org/browse/INST\">een verzoek voor indienen</a>."
+msgstr "Overige instrumenten. Als je een instrument niet kan vinden, kan je <a href=\"http://tickets.musicbrainz.org/browse/INST\">kan je het aanvragen</a>."
 
 #. name:hang
 #: DB:instrument/description:512

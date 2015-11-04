@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Data::Role::Area;
 use Moose::Role;
 
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
-
 requires '_columns', '_table', '_area_cols';
 
 sub find_by_area
@@ -13,11 +11,8 @@ sub find_by_area
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE " . join(" OR ", map { $_ . " = ?" } @$area_cols ) . "
-                 ORDER BY musicbrainz_collate(name), id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, (map { $area_id } @$area_cols), $offset || 0);
+                 ORDER BY musicbrainz_collate(name), id";
+    $self->query_to_list_limited($query, [($area_id) x @$area_cols], $limit, $offset);
 }
 
 no Moose::Role;

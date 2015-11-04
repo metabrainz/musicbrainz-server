@@ -35,6 +35,8 @@ our @EXPORT_OK = qw(
     add_partial_date_to_row
     add_coordinates_to_row
     artist_credit_to_ref
+    boolean_from_json
+    boolean_to_json
     check_data
     copy_escape
     coordinates_to_hash
@@ -55,12 +57,11 @@ our @EXPORT_OK = qw(
     merge_partial_date
     merge_date_period
     model_to_type
+    non_empty
     object_to_ids
     order_by
     partial_date_to_hash
     placeholders
-    query_to_list
-    query_to_list_limited
     ref_to_type
     remove_equal
     sanitize
@@ -68,7 +69,6 @@ our @EXPORT_OK = qw(
     trim
     type_to_model
     split_relationship_by_attributes
-    non_empty
 );
 
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
@@ -217,42 +217,6 @@ sub load_everything_for_edits
         croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
               "Exception:\n" . Dumper($_) . "\n";
     };
-}
-
-sub query_to_list
-{
-    my ($sql, $builder, $query, @args) = @_;
-    my @result;
-    for my $row (@{ $sql->select_list_of_hashes($query, @args) }) {
-        my $obj = $builder->($row);
-        push @result, $obj;
-    }
-    return @result;
-}
-
-sub query_to_list_limited
-{
-    my ($sql, $offset, $limit, $builder, $query, @args) = @_;
-    my $wrapping_query = "
-        WITH x AS ($query)
-        SELECT x.*, c.count AS total_row_count
-        FROM x, (SELECT count(*) from x) c";
-    if (defined $limit) {
-        die "Query limit must be positive" if $limit < 0;
-        $wrapping_query = $wrapping_query . " LIMIT $limit";
-    }
-
-    my @result;
-    my $hits = 0;
-    for my $row (@{ $sql->select_list_of_hashes($wrapping_query, @args) }) {
-        $hits = $row->{total_row_count};
-        my $obj = $builder->($row);
-        push @result, $obj;
-    }
-
-    $hits = $hits + ($offset || 0);
-
-    return (\@result, $hits);
 }
 
 sub generate_gid
@@ -632,6 +596,20 @@ sub split_relationship_by_attributes {
 sub non_empty {
     my $value = shift;
     return defined($value) && $value ne "";
+}
+
+sub boolean_to_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? ${$bool} : $bool;
+    return $bool ? \1 : \0;
+}
+
+sub boolean_from_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? ${$bool} : $bool;
+    return $bool ? 1 : 0;
 }
 
 1;

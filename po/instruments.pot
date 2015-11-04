@@ -44,10 +44,6 @@ msgstr ""
 msgid "Denis d'or"
 msgstr ""
 
-#: DB:instrument/name:602
-msgid "Disk Drive"
-msgstr ""
-
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
 msgstr ""
@@ -64,10 +60,6 @@ msgstr ""
 msgid "English horn"
 msgstr ""
 
-#: DB:instrument/name:604
-msgid "Floppy Drive"
-msgstr ""
-
 #: DB:instrument/name:30
 msgid "French horn"
 msgstr ""
@@ -82,10 +74,6 @@ msgstr ""
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
-msgstr ""
-
-#: DB:instrument/name:603
-msgid "Harddisk"
 msgstr ""
 
 #: DB:instrument/name:323
@@ -460,6 +448,10 @@ msgstr ""
 msgid "bayan"
 msgstr ""
 
+#: DB:instrument/name:741
+msgid "bazooka"
+msgstr ""
+
 #: DB:instrument/name:479
 msgid "bell tree"
 msgstr ""
@@ -478,6 +470,10 @@ msgstr ""
 
 #: DB:instrument/name:69
 msgid "berimbau"
+msgstr ""
+
+#: DB:instrument/name:743
+msgid "bicycle bell"
 msgstr ""
 
 #: DB:instrument/name:380
@@ -844,6 +840,10 @@ msgstr ""
 msgid "ding tac ta"
 msgstr ""
 
+#: DB:instrument/name:602
+msgid "disk drive"
+msgstr ""
+
 #: DB:instrument/name:220
 msgid "diyingehu"
 msgstr ""
@@ -1048,8 +1048,16 @@ msgstr ""
 msgid "five-string banjo"
 msgstr ""
 
+#: DB:instrument/name:604
+msgid "floppy disk drive"
+msgstr ""
+
 #: DB:instrument/name:29
 msgid "flugelhorn"
+msgstr ""
+
+#: DB:instrument/name:742
+msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
@@ -1254,6 +1262,10 @@ msgstr ""
 
 #: DB:instrument/name:512
 msgid "hang"
+msgstr ""
+
+#: DB:instrument/name:603
+msgid "hard disk drive"
 msgstr ""
 
 #: DB:instrument/name:142
@@ -1527,6 +1539,10 @@ msgstr ""
 
 #: DB:instrument/name:311
 msgid "kèn lá"
+msgstr ""
+
+#: DB:instrument/name:739
+msgid "kös"
 msgstr ""
 
 #: DB:instrument/name:556
@@ -2865,6 +2881,10 @@ msgstr ""
 
 #: DB:instrument/name:407
 msgid "zurna"
+msgstr ""
+
+#: DB:instrument/name:740
+msgid "çevgen"
 msgstr ""
 
 #: DB:instrument/name:306

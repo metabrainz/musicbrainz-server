@@ -5,7 +5,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Application;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
-    query_to_list_limited
     generate_token
 );
 
@@ -59,11 +58,8 @@ sub find_by_owner
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE owner = ?
-                 ORDER BY id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $editor_id, $offset || 0);
+                 ORDER BY id";
+    $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
 }
 
 before 'insert' => sub

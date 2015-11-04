@@ -12,6 +12,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::EditorFlag;
+use MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
@@ -41,6 +42,7 @@ my %field_map = (
     release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
     editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
+    applied_edits => 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_)
@@ -151,7 +153,7 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT $LIMIT_FOR_EDIT_LISTING OFFSET ?";
+         LIMIT $LIMIT_FOR_EDIT_LISTING";
 }
 
 sub arguments {

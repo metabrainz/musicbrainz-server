@@ -700,6 +700,8 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.2.period.end_date.year" : "",
         "edit-artist.rel.2.period.ended": "1",
         "edit-artist.rel.2.backward": "1",
+        "edit-artist.rel.2.entity0_credit": "",
+        "edit-artist.rel.2.entity1_credit": "",
         "edit-artist.rel.2.link_type_id": "103"
     });
 });
@@ -772,18 +774,24 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
         "edit-series.rel.0.link_order": "1",
         "edit-series.rel.0.link_type_id": "742",
         "edit-series.rel.0.target": "0a95623a-08d1-41a6-9f0c-409e40ce4476",
+        "edit-series.rel.0.entity0_credit": "",
+        "edit-series.rel.0.entity1_credit": "",
         "edit-series.rel.1.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
         "edit-series.rel.1.attributes.0.text_value": "1",
         "edit-series.rel.1.backward": "1",
         "edit-series.rel.1.link_order": "2",
         "edit-series.rel.1.link_type_id": "742",
         "edit-series.rel.1.target": "4550586c-c886-483d-922b-4e810f7c85fc",
+        "edit-series.rel.1.entity0_credit": "",
+        "edit-series.rel.1.entity1_credit": "",
         "edit-series.rel.2.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
         "edit-series.rel.2.attributes.0.text_value": "2",
         "edit-series.rel.2.backward": "1",
         "edit-series.rel.2.link_order": "3",
         "edit-series.rel.2.link_type_id": "742",
-        "edit-series.rel.2.target": "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
+        "edit-series.rel.2.target": "3c8460ee-25ec-45b2-8990-0c1e78fe2ead",
+        "edit-series.rel.2.entity0_credit": "",
+        "edit-series.rel.2.entity1_credit": "",
     });
 });
 

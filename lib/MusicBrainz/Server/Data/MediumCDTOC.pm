@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
-    query_to_list
     hash_to_row
 );
 use MusicBrainz::Server::Constants qw(
@@ -50,9 +49,7 @@ sub find_by_medium
         SELECT " . $self->_columns . " FROM " . $self->_table . "
         WHERE medium IN (" . placeholders(@medium_ids) . ")
         ORDER BY id";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, @medium_ids);
+    $self->query_to_list($query, \@medium_ids);
 }
 
 sub load_for_mediums
@@ -75,9 +72,7 @@ sub find_by_discid
            JOIN cdtoc ON cdtoc = cdtoc.id
           WHERE discid = ?
        ORDER BY medium_cdtoc.id ASC';
-    return query_to_list(
-        $self->sql, sub { $self->_new_from_row(@_) },
-        $query, $discid);
+    $self->query_to_list($query, [$discid]);
 }
 
 sub get_by_medium_cdtoc

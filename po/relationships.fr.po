@@ -7,17 +7,19 @@
 # Dibou <email address hidden>, 2012
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
+# Nicolas HOUDELOT <email address hidden>, 2015
 # nikki, 2012-2013
 # nikki, 2013
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
+# R. G. <email address hidden>, 2015
 # Trans-fr, 2015
 # Trans-fr, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-22 06:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-01 20:39+0000\n"
+"Last-Translator: Nicolas HOUDELOT <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1612,7 +1614,7 @@ msgstr "Ceci relie une parution MusicBrainz à son entrée équivalente sur Amaz
 msgid ""
 "This links a concert tour with a release group (generally an album) the tour"
 " is connected with."
-msgstr ""
+msgstr "Cela lie une tournée à un groupe de parution (généralement, un album) auquel la tournée est liée."
 
 #: DB:link_type/description:855
 msgid ""
@@ -2318,7 +2320,7 @@ msgstr "Ce type de relation relie un label à sa page correspondante sur Last.fm
 msgid ""
 "This relationship type links a place to its corresponding page at "
 "Bandsintown."
-msgstr ""
+msgstr "Ce type de relation relie un lieu à sa page correspondante sur Bandsintown."
 
 #: DB:link_type/description:837
 msgid ""
@@ -2353,7 +2355,7 @@ msgstr "Ce type de relation relie un artiste à sa page correspondante sur <a hr
 msgid ""
 "This relationship type links an artist to its corresponding page at "
 "Bandsintown."
-msgstr ""
+msgstr "Ce type de relation relie un artiste à sa page correspondante sur Bandsintown."
 
 #: DB:link_type/description:840
 msgid ""
@@ -2401,7 +2403,7 @@ msgstr "Ce type de relation relie un événement à sa page correspondante sur <
 msgid ""
 "This relationship type links an event to its corresponding page at "
 "Bandsintown."
-msgstr ""
+msgstr "Ce type de relation relie un événement à sa page correspondante sur Bandsintown."
 
 #: DB:link_type/description:839
 msgid ""
@@ -2543,7 +2545,7 @@ msgstr "hymne de"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr ""
+msgstr "apparaît dans la vidéo"
 
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
@@ -3059,12 +3061,12 @@ msgstr "a une page musicale BBC sur"
 #: DB:link_type/long_link_phrase:860 DB:link_type/long_link_phrase:861
 #: DB:link_type/long_link_phrase:862
 msgid "has a Bandsintown page at"
-msgstr ""
+msgstr "a une page Bandsintown à"
 
 #: DB:link_type/long_link_phrase:850 DB:link_type/long_link_phrase:851
 #: DB:link_type/long_link_phrase:852 DB:link_type/long_link_phrase:853
 msgid "has a BookBrainz page at"
-msgstr ""
+msgstr "a une page BookBrainz à"
 
 #: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:180
@@ -3282,7 +3284,7 @@ msgstr "a des paroles proposées sur"
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
-msgstr ""
+msgstr "possède un clip"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
@@ -3443,7 +3445,7 @@ msgstr "impliqué avec"
 
 #: DB:link_type/long_link_phrase:854
 msgid "is a BookBrainz page for"
-msgstr ""
+msgstr "est une page BookBrainz pour"
 
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
@@ -3879,11 +3881,11 @@ msgstr " la musique peut-être diffusée en flux gratuit sur"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr ""
+msgstr "clip pour"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr ""
+msgstr "clips"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -4015,7 +4017,7 @@ msgstr "représentation"
 
 #: DB:link_type/link_phrase:887
 msgid "performance of"
-msgstr ""
+msgstr "représentation de"
 
 #: DB:link_type/reverse_link_phrase:887
 msgid "performed at"
@@ -4674,7 +4676,7 @@ msgstr "a été reprogrammé comme"
 #: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
 msgid "was the arranging location for"
-msgstr ""
+msgstr "était le lieu d'arrangement pour"
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
@@ -4705,7 +4707,7 @@ msgstr "était le lieu de mixage de"
 
 #: DB:link_type/long_link_phrase:849
 msgid "was the printing location for"
-msgstr ""
+msgstr "était le lieu d'impression pour"
 
 #: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 #: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
@@ -4729,11 +4731,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:886
 msgid "was the {additional} arranging location for"
-msgstr ""
+msgstr "était {additional:aussi} le lieu d'arrangement pour"
 
 #: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:876
 msgid "was the {additional} composing location for"
-msgstr ""
+msgstr "était {additional:aussi} le lieu de composition pour"
 
 #: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:880
 msgid "was the {additional} libretto writing location for"
@@ -4741,7 +4743,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:878
 msgid "was the {additional} lyrics writing location for"
-msgstr ""
+msgstr "était {additional:aussi} le lieu d'écriture des paroles pour"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:884
 msgid "was the {additional} translating location for"
@@ -4810,11 +4812,11 @@ msgstr "{additional:aussi} composé"
 
 #: DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
-msgstr ""
+msgstr "{additional:aussi} composé à"
 
 #: DB:link_type/reverse_link_phrase:875
 msgid "{additional:additionally} composed in"
-msgstr ""
+msgstr "{additional:aussi} composé en"
 
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -4843,15 +4845,15 @@ msgstr "{additional:aussi} échantillonné par"
 #: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
 #: DB:link_type/long_link_phrase:872
 msgid "{additional:additionally} translated"
-msgstr ""
+msgstr "{additional:aussi} traduit"
 
 #: DB:link_type/reverse_link_phrase:874
 msgid "{additional:additionally} written at"
-msgstr ""
+msgstr "{additional:aussi} écrit à"
 
 #: DB:link_type/reverse_link_phrase:873
 msgid "{additional:additionally} written in"
-msgstr ""
+msgstr "{additional:aussi} écrit en"
 
 #: DB:link_type/link_phrase:54 DB:link_type/link_phrase:167
 #: DB:link_type/long_link_phrase:54 DB:link_type/long_link_phrase:167

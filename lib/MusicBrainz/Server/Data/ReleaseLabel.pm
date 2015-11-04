@@ -8,8 +8,6 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     placeholders
     object_to_ids
-    query_to_list
-    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -51,8 +49,7 @@ sub load
                  LEFT JOIN label ON rl.label = label.id
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, rl_catalog_number, musicbrainz_collate(label.name)";
-    my @labels = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                               $query, @ids);
+    my @labels = $self->query_to_list($query, \@ids);
     foreach my $label (@labels) {
         foreach (@{ $id_to_release{$label->release_id} })
         {

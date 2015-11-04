@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Role::Editable;
 
 use Moose::Role;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 has 'edits_pending' => (
     is => 'rw',
@@ -12,7 +13,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        editsPending => $self->edits_pending ? \1 : \0,
+        editsPending => boolean_to_json($self->edits_pending),
     };
 };
 

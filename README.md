@@ -30,7 +30,7 @@ Please report issues on our [bug tracker](http://tickets.musicbrainz.org/).
 Contributing
 ------------
 
-Please submit all patches to [bitbucket](http://bitbucket.org/metabrainz/musicbrainz-server/pull-requests) for review.
+Please submit all patches to [GitHub](https://github.com/metabrainz/musicbrainz-server/pulls) for review.
 
 License
 -------

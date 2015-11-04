@@ -12,10 +12,11 @@ use aliased 'MusicBrainz::Server::Entity::URL';
 
 use DateTime::Format::Pg;
 use List::UtilsBy qw( rev_sort_by );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::CoverArt;
 
 with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 
 has 'providers' => (
     isa => 'ArrayRef',
@@ -131,8 +132,9 @@ sub find_outdated_releases
     ORDER BY last_updated ASC';
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
-    return query_to_list($self->c->sql, sub {
-        my $row = shift;
+    $self->query_to_list($query, [@url_types, $pg_date_formatter->format_duration($since)], sub {
+        my ($model, $row) = @_;
+
         # Construction of these rows is slow, so this is lazy
         return sub {
             my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
@@ -153,8 +155,8 @@ sub find_outdated_releases
             );
 
             return $release;
-        }
-    }, $query, @url_types, $pg_date_formatter->format_duration($since));
+        };
+    });
 }
 
 sub cache_cover_art

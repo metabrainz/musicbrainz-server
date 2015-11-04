@@ -2,8 +2,8 @@ package MusicBrainz::Server::Report;
 use Moose::Role;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 use String::CamelCase qw( decamelize );
 
 requires 'run';
@@ -27,7 +27,25 @@ sub template {
 
 sub load {
     my ($self, $limit, $offset) = @_;
-    return $self->_load('', $offset, $limit);
+
+    $self->_load('', $limit, $offset);
+}
+
+sub _load {
+    my ($self, $join_sql, $limit, $offset, @params) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+
+    my ($rows, $hits) = $self->query_to_list_limited(
+        "SELECT DISTINCT report.* FROM $qualified_table report ORDER BY $ordering",
+        [],
+        $limit,
+        $offset,
+        sub { $_[1] },
+    );
+
+    ($self->inflate_rows($rows), $hits);
 }
 
 sub ordering { "row_number" }
@@ -35,21 +53,6 @@ sub ordering { "row_number" }
 sub inflate_rows {
     my ($self, $rows) = @_;
     return $rows;
-}
-
-sub _load {
-    my ($self, $join_sql, $offset, $limit, @params) = @_;
-
-    my $qualified_table = $self->qualified_table;
-    my $ordering = $self->ordering;
-    my ($rows, $total) = query_to_list_limited(
-        $self->sql, $offset, $limit, sub { shift },
-        "SELECT DISTINCT report.* FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
-        @params, $offset
-    );
-
-    $rows = $self->inflate_rows($rows);
-    return ($rows, $total);
 }
 
 sub generated {

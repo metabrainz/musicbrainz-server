@@ -3,15 +3,15 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
 use MusicBrainz::Server::Entity::Tag;
 use Sql;
 
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 has parent => (
@@ -33,8 +33,7 @@ sub find_tags {
                 "WHERE " . $self->type . " = ?" .
                 "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
 
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, $entity_id);
+    $self->query_to_list($query, [$entity_id]);
 }
 
 sub find_tag_count
@@ -48,13 +47,12 @@ sub find_tag_count
 
 sub find_top_tags
 {
-    my ($self, $entity_id, $limit, $offset) = @_;
+    my ($self, $entity_id, $limit) = @_;
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
                 "WHERE " . $self->type . " = ? " .
                 "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name) LIMIT ?";
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, $entity_id, $limit);
+    $self->query_to_list($query, [$entity_id, $limit]);
 }
 
 sub find_tags_for_entities
@@ -70,10 +68,7 @@ sub find_tags_for_entities
                  WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
                  ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
 
-    return query_to_list(
-        $self->c->sql, sub {
-            $self->_new_from_row($_[0]);
-        }, $query, @ids);
+    $self->query_to_list($query, \@ids);
 }
 
 sub find_user_tags_for_entities
@@ -89,15 +84,15 @@ sub find_user_tags_for_entities
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")";
 
-    my @tags = query_to_list($self->c->sql, sub {
-        my $row = shift;
+    my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
+        my ($model, $row) = @_;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
             editor_id => $user_id,
             entity_id => $row->{entity},
             is_upvote => $row->{is_upvote},
         );
-    }, $query, $user_id, @ids);
+    });
 
     $self->c->model('Tag')->load(@tags);
 
@@ -331,7 +326,7 @@ sub withdraw {
         }
     }, $self->c->sql);
 
-    $result->{deleted} = $was_deleted ? \1 : \0;
+    $result->{deleted} = boolean_to_json($was_deleted);
     return $result;
 }
 
@@ -348,15 +343,15 @@ sub find_user_tags {
         WHERE editor = ? AND $type = ?
     };
 
-    my @tags = query_to_list($self->c->sql, sub {
-        my $row = shift;
+    my @tags = $self->query_to_list($query, [$user_id, $entity_id], sub {
+        my ($model, $row) = @_;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
             editor_id => $user_id,
             is_upvote => $row->{is_upvote},
             aggregate_count => $row->{aggregate_count},
         );
-    }, $query, $user_id, $entity_id);
+    });
 
     $self->c->model('Tag')->load(@tags);
 
@@ -372,19 +367,17 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column . "
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $entity = $self->parent->_new_from_row($row);
-            return MusicBrainz::Server::Entity::AggregatedTag->new(
-                count => $row->{tt_count},
-                entity_id => $entity->id,
-                entity => $entity,
-            );
-        },
-        $query, $tag_id, $offset || 0);
+                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column;
+    $self->query_to_list_limited($query, [$tag_id], $limit, $offset, sub {
+        my ($model, $row) = @_;
+
+        my $entity = $model->parent->_new_from_row($row);
+        return MusicBrainz::Server::Entity::AggregatedTag->new(
+            count => $row->{tt_count},
+            entity_id => $entity->id,
+            entity => $entity,
+        );
+    });
 }
 
 sub find_editor_entities

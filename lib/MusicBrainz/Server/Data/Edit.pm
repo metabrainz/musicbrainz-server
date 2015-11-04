@@ -25,7 +25,7 @@ use MusicBrainz::Server::Constants qw(
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 use JSON::Any;
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
@@ -95,9 +95,13 @@ sub _new_from_row
 
 sub run_query {
     my ($self, $query, $limit, $offset) = @_;
-    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
-            return $self->_new_from_row(shift);
-        }, $query->as_string, $query->arguments, $offset);
+
+    $self->query_to_list_limited(
+        $query->as_string,
+        [$query->arguments],
+        $limit,
+        $offset,
+    );
 }
 
 # Load an edit from the DB and try to get an exclusive lock on it
@@ -160,11 +164,9 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+    $query .= ' ORDER BY id DESC LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
-    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
-            return $self->_new_from_row(shift);
-        }, $query, @args, $offset);
+    $self->query_to_list_limited($query, \@args, $limit, $offset);
 }
 
 sub find_by_collection
@@ -178,7 +180,7 @@ sub find_by_collection
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
                   WHERE $EDIT_IN_COLLECTION_SQL $status_cond
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
+                  LIMIT $LIMIT_FOR_EDIT_LISTING";
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -192,9 +194,12 @@ sub find_by_collection
         # in the final order already, and thereby tricks the planner into preferring
         # the nested loop join.
 
-    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
-            return $self->_new_from_row(shift);
-        }, $query, ($collection_id) x entities_with('collections'), $offset);
+    $self->query_to_list_limited(
+        $query,
+        [($collection_id) x entities_with('collections')],
+        $limit,
+        $offset,
+    );
 }
 
 sub find_for_subscription
@@ -204,12 +209,14 @@ sub find_for_subscription
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
 
-        return query_to_list(
-            $self->c->sql,
-            sub { $self->_new_from_row(shift) },
-            $query, $subscription->last_edit_sent,
-            $subscription->subscribed_editor_id,
-            $STATUS_OPEN, $STATUS_APPLIED
+        $self->query_to_list(
+            $query,
+            [
+                $subscription->last_edit_sent,
+                $subscription->subscribed_editor_id,
+                $STATUS_OPEN,
+                $STATUS_APPLIED,
+            ],
         );
     }
     elsif ($subscription->isa(CollectionSubscription)) {
@@ -218,11 +225,14 @@ sub find_for_subscription
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
                       WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?) ORDER BY id";
 
-        return query_to_list(
-            $self->c->sql,
-            sub { $self->_new_from_row(shift) },
-            $query, ($subscription->target_id) x entities_with('collections'),
-            $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
+        $self->query_to_list(
+            $query,
+            [
+                ($subscription->target_id) x entities_with('collections'),
+                $subscription->last_edit_sent,
+                $STATUS_OPEN,
+                $STATUS_APPLIED,
+            ],
         );
     }
     elsif ($subscription->does(ActiveSubscription)) {
@@ -230,11 +240,14 @@ sub find_for_subscription
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
             "   AND id > ? AND status IN (?, ?) ORDER BY id";
-        return query_to_list(
-            $self->c->sql,
-            sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent,
-            $STATUS_OPEN, $STATUS_APPLIED
+        $self->query_to_list(
+            $query,
+            [
+                $subscription->target_id,
+                $subscription->last_edit_sent,
+                $STATUS_OPEN,
+                $STATUS_APPLIED,
+            ],
         );
     }
     else {
@@ -251,12 +264,13 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY vote_time DESC
-         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
-    return query_to_list_limited(
-        $self->sql, $offset, $limit,
-        sub { $self->_new_from_row(shift) },
-        $query, $voter_id, $offset
+    $self->query_to_list_limited(
+        $query,
+        [$voter_id],
+        $limit,
+        $offset,
     );
 }
 
@@ -274,31 +288,31 @@ sub find_open_for_editor
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
-    return query_to_list_limited(
-        $self->sql, $offset, $limit,
-        sub { $self->_new_from_row(shift) },
-        $query, $STATUS_OPEN, $editor_id, $offset
+    $self->query_to_list_limited(
+        $query,
+        [$STATUS_OPEN, $editor_id],
+        $limit,
+        $offset,
     );
 }
 
 sub find_creation_edit {
-   my ($self, $create_edit_type, $entity_id, %args) = @_;
-   $args{id_field} ||= 'entity_id';
-   my $query =
-       "SELECT " . $self->_columns . "
-          FROM " . $self->_table . "
-        WHERE edit.status = ?
-          AND edit.type = ?
-          AND extract_path_value(data, ?::text) = ?
-        ORDER BY edit.id ASC LIMIT 1";
-   my ($edit) = query_to_list(
-       $self->c->sql,
-       sub { $self->_new_from_row(shift) },
-       $query,
-       $STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id);
-   return $edit;
+    my ($self, $create_edit_type, $entity_id, %args) = @_;
+    $args{id_field} ||= 'entity_id';
+    my $query =
+        "SELECT " . $self->_columns . "
+           FROM " . $self->_table . "
+         WHERE edit.status = ?
+           AND edit.type = ?
+           AND extract_path_value(data, ?::text) = ?
+         ORDER BY edit.id ASC LIMIT 1";
+    my ($edit) = $self->query_to_list(
+        $query,
+        [$STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id],
+    );
+    return $edit;
 }
 
 sub subscribed_entity_edits
@@ -343,18 +357,19 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY id ASC
-OFFSET ? LIMIT $LIMIT_FOR_EDIT_LISTING";
+LIMIT $LIMIT_FOR_EDIT_LISTING";
 
-    return query_to_list_limited(
-        $self->sql, $offset, $limit,
-        sub {
-            return $self->_new_from_row(shift);
-        },
+    $self->query_to_list_limited(
         $query,
-        ($STATUS_OPEN, $editor_id) x scalar (entities_with(['subscriptions', 'entity'])),
-                                        # Above will fail if SQL is not updated
-        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
-        $editor_id, $offset             # Editor has not voted, offset
+        [
+            ($STATUS_OPEN, $editor_id) x scalar (entities_with(['subscriptions', 'entity'])),
+                            # Above will fail if SQL is not updated
+            $STATUS_OPEN,   # Edit is open
+            $editor_id,     # Editor (not current one)
+            $editor_id,     # Editor (has not voted)
+        ],
+        $limit,
+        $offset,
     );
 }
 
@@ -372,14 +387,14 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY id ASC
-         OFFSET ? LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
 
-    return query_to_list_limited(
-        $self->sql, $offset, $limit,
-        sub {
-            return $self->_new_from_row(shift);
-        },
-        $query, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+    $self->query_to_list_limited(
+        $query,
+        [$STATUS_OPEN, $editor_id, $editor_id],
+        $limit,
+        $offset,
+    );
 }
 
 sub merge_entities
@@ -815,8 +830,8 @@ sub get_related_entities {
     my ($self, $edit) = @_;
     my %result;
     for my $type (entities_with('edit_table')) {
-        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
-        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+        my $query = "SELECT $type FROM edit_$type WHERE edit = ?";
+        $result{$type} = $self->c->sql->select_single_column_array($query, $edit->id);
     }
     return \%result;
 }

@@ -25,6 +25,20 @@ BEGIN {
 
 use MusicBrainz::Server;
 
+BEGIN {
+    use LWP::UserAgent;
+    use MusicBrainz::Server::Renderer qw( create_request );
+
+    if (DBDefs->RENDERER_HOST eq '') {
+        # Check if the renderer is already running.
+        my $response = LWP::UserAgent->new->request(create_request('/', undef, ''));
+
+        if ($response->code == 500 && !fork) {
+            exec './script/start_renderer.pl';
+        }
+    }
+}
+
 debug_method_calls() if DBDefs->CATALYST_DEBUG;
 
 builder {

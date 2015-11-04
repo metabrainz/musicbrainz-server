@@ -21,8 +21,6 @@ use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     order_by
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Log qw( log_debug );
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -152,11 +150,9 @@ sub find_by_area {
                    JOIN release_event ON release.id = release_event.release
                    JOIN area ON release_event.country = area.id
                  WHERE area.id = ?
-                 ORDER BY musicbrainz_collate(release.name), release.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $area_id, $offset || 0);
+                 ORDER BY musicbrainz_collate(release.name), release.id";
+
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
 sub find_by_artist
@@ -184,11 +180,8 @@ sub find_by_artist
           country_name, barcode, musicbrainz_collate(release.name)
       ) release
       ORDER BY date_year, date_month, date_day,
-        country_name, barcode, musicbrainz_collate(name)
-      OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+        country_name, barcode, musicbrainz_collate(name)";
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_instrument {
@@ -227,16 +220,14 @@ sub find_by_instrument {
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name), country_name,
-        barcode
-      OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit,
-        sub {
-            my ($row) = @_;
-            my $credits = delete $row->{instrument_credits};
-            return { release => $self->_new_from_row($row), instrument_credits => $credits };
-        },
-        $query, @$params, $offset || 0);
+        barcode";
+
+    $self->query_to_list_limited($query, $params, $limit, $offset, sub {
+        my ($model, $row) = @_;
+
+        my $credits = delete $row->{instrument_credits};
+        { release => $model->_new_from_row($row), instrument_credits => $credits };
+    });
 }
 
 sub find_by_label
@@ -267,11 +258,8 @@ sub find_by_label
       ) s
       ORDER BY date_year, date_month, date_day, catalog_number,
         musicbrainz_collate(name), country_name,
-        barcode
-      OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+        barcode";
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_disc_id
@@ -296,9 +284,7 @@ sub find_by_disc_id
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name)";
 
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $disc_id);
+    $self->query_to_list($query, [$disc_id]);
 }
 
 sub find_by_release_group
@@ -326,12 +312,9 @@ sub find_by_release_group
       ) s
       ORDER BY date_year, date_month, date_day,
         country_name, barcode
-      OFFSET ?
     ";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_track_artist
@@ -370,12 +353,9 @@ sub find_by_track_artist
             musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(name)
-      OFFSET ?";
+        musicbrainz_collate(name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_for_various_artists
@@ -410,11 +390,9 @@ sub find_for_various_artists
         ORDER BY release.id,
           date_year, date_month, date_day, musicbrainz_collate(release.name)
       ) release
-      ORDER BY date_year, date_month, date_day, musicbrainz_collate(name)
-      OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+      ORDER BY date_year, date_month, date_day, musicbrainz_collate(name)";
+
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_recording
@@ -445,18 +423,9 @@ sub find_by_recording
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name)
-      OFFSET ?
     ";
 
-    if (!defined $limit) {
-        return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                             $query, @$params, $offset || 0);
-    }
-    else {
-        return query_to_list_limited(
-            $self->c->sql, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
-            $query, @$params, $offset || 0);
-    }
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_by_recordings
@@ -513,11 +482,9 @@ sub find_by_country
           country_name, barcode, musicbrainz_collate(release.name)
       ) release
       ORDER BY date_year, date_month, date_day,
-        country_name, barcode, musicbrainz_collate(name)
-      OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @$params, $offset || 0);
+        country_name, barcode, musicbrainz_collate(name)";
+
+    $self->query_to_list_limited($query, $params, $limit, $offset);
 }
 
 sub find_for_cdtoc
@@ -547,12 +514,9 @@ sub find_for_cdtoc
           date_year, date_month, date_day, musicbrainz_collate(release.name)
       ) s
       ORDER BY release_group,
-          date_year, date_month, date_day, musicbrainz_collate(name)
-      OFFSET ?";
+          date_year, date_month, date_day, musicbrainz_collate(name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $track_count, $artist_id, $offset || 0);
+    $self->query_to_list_limited($query, [$track_count, $artist_id], $limit, $offset);
 }
 
 sub find_gid_for_track
@@ -625,39 +589,34 @@ sub load_with_medium_for_recording
           musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
-        musicbrainz_collate(r_name)
-      OFFSET ?";
+        musicbrainz_collate(r_name)";
 
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = shift;
-            my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
-            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+    $self->query_to_list_limited($query, $params, $limit, $offset, sub {
+        my ($model, $row) = @_;
 
-            my $release = $self->_new_from_row($row, 'r_');
+        my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
+        my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
 
-            push @{ $release->mediums }, $medium;
-            push @{ $medium->tracks }, $track;
+        my $release = $model->_new_from_row($row, 'r_');
 
-            return $release;
-        },
-        $query, @$params, $offset || 0);
+        push @{ $release->mediums }, $medium;
+        push @{ $medium->tracks }, $track;
+
+        $release;
+    });
 }
 
-sub find_by_medium
-{
-    my ($self, $ids, $limit, $offset) = @_;
-    my @ids = ref $ids ? @$ids : ( $ids )
-        or return ();
+sub find_by_medium {
+    my ($self, @medium_ids) = @_;
+
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
-                     WHERE medium.id IN (' . placeholders(@ids) . ')
-                )
-                OFFSET ?';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query, @{ids}, $offset || 0);
+                     WHERE medium.id = any(?)
+                )';
+
+    $self->query_to_list($query, [\@medium_ids]);
 }
 
 sub _order_by {
@@ -1243,22 +1202,21 @@ sub newest_releases_with_artwork {
       LIMIT 10';
 
     my $FRONT = 1;
-    return query_to_list(
-        $self->c->sql, sub {
-            my $row = shift;
-            my $release = $self->_new_from_row($row);
-            my $mbid = $release->gid;
-            my $caa_id = $row->{cover_art_id};
-            return {
+    $self->query_to_list($query, [$FRONT, $EDIT_RELEASE_CREATE], sub {
+        my ($model, $row) = @_;
+
+        my $release = $model->_new_from_row($row);
+        my $mbid = $release->gid;
+        my $caa_id = $row->{cover_art_id};
+
+        {
+            release => $release,
+            artwork => Artwork->new(
+                id => $caa_id,
                 release => $release,
-                artwork => Artwork->new(
-                    id => $caa_id,
-                    release => $release
-                )
-            }
-        },
-        $query, $FRONT, $EDIT_RELEASE_CREATE
-    );
+            ),
+        };
+    });
 }
 
 sub load_release_events {

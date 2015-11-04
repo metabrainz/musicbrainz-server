@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
@@ -279,8 +279,8 @@ around TO_JSON => sub {
 
     my $json = {
         attributes      => [map +{ (%{ $_->TO_JSON }, type => { gid => $_->type->gid }) }, $link->all_attributes],
-        editsPending    => $self->edits_pending ? \1 : \0,
-        ended           => $link->ended ? \1 : \0,
+        editsPending    => boolean_to_json($self->edits_pending),
+        ended           => boolean_to_json($link->ended),
         entity0_credit  => $self->entity0_credit,
         entity1_credit  => $self->entity1_credit,
         id              => $self->id,

@@ -5,7 +5,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
-    query_to_list
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -52,8 +51,7 @@ sub load_for_cdstub
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, sequence";
-    my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                               $query, @ids);
+    my @tracks = $self->query_to_list($query, \@ids);
     foreach my $track (@tracks) {
         $id_to_cdstub{$track->cdstub_id}->add_track($track);
     }
