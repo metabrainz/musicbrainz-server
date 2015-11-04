@@ -44,23 +44,19 @@ $mech->content_like(qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66}, 're
 
 page_test_jsonld $mech => {
     '@type' => ['Person', 'MusicGroup'],
+    'deathDate' => '2009-03-04',
     'deathPlace' => {
         'name' => 'United Kingdom',
         '@type' => 'Country',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
     },
-    'birthDate' => '2009-03-04',
+    'birthDate' => '2008-01-02',
     'name' => 'Test Artist',
+    'sameAs' => 'https://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
     'location' => {
         '@type' => 'Country',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         'name' => 'United Kingdom'
-    },
-    'foundingDate' => '2009-03-04',
-    'groupOrigin' => {
-        'name' => 'United Kingdom',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        '@type' => 'Country'
     },
     'alternateName' => ['Seekrit Identity'],
     '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
@@ -80,7 +76,8 @@ page_test_jsonld $mech => {
             'byArtist' => {
                 '@type' => ['Person', 'MusicGroup'],
                 '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-                'name' => 'Test Artist'
+                'name' => 'Test Artist',
+                'sameAs' => 'https://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
             },
             'albumReleaseType' => 'http://schema.org/AlbumRelease'
         },
@@ -94,10 +91,16 @@ page_test_jsonld $mech => {
             'byArtist' => {
                 'name' => 'Test Artist',
                 '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
-                '@type' => ['Person', 'MusicGroup']
+                '@type' => ['Person', 'MusicGroup'],
+                'sameAs' => 'https://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
             }
         }
-    ]
+    ],
+    'performsAs' => {
+        '@id' => 'https://musicbrainz.org/artist/089302a3-dda1-4bdf-b996-c2e941b5c41f',
+        '@type' => 'MusicGroup',
+        'name' => 'Seekrit Identity',
+    },
 };
 
 $mech->get('/artist/2775611341');
@@ -126,7 +129,6 @@ EOSQL
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
         'name' => 'Group',
-        'alternateName' => [],
         '@type' => 'MusicGroup',
         '@id' => 'https://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
         'member' => [
@@ -179,7 +181,6 @@ EOSQL
     $mech->get_ok('/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9');
     page_test_jsonld $mech => {
         'name' => 'Group',
-        'alternateName' => [],
         '@type' => 'MusicGroup',
         '@id' => 'https://musicbrainz.org/artist/dcb48a49-b17d-49b9-aee5-4f168d8004d9',
         'track' => [
@@ -197,6 +198,207 @@ EOSQL
             }
         ],
         '@context' => 'http://schema.org'
+    };
+};
+
+test 'Embedded JSON-LD sameAs & performsAs' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+snoop-lion-slash-dogg');
+
+    $mech->get_ok('/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea');
+    page_test_jsonld $mech => {
+        '@context' => 'http://schema.org',
+        '@id' => 'https://musicbrainz.org/artist/960db060-0ba8-4f6c-9770-49b81dc6e5ea',
+        '@type' => ['Person', 'MusicGroup'],
+        'alternateName' => ['Calvin Broadus', 'Snoop Dogg'],
+        'birthDate' => '1971-10-20',
+        'birthPlace' => {
+            '@id' => 'https://musicbrainz.org/area/e183ffae-1d35-4c78-b552-957535e40af1',
+            '@type' => 'City',
+            'name' => 'Long Beach'
+        },
+        'location' => {
+            '@id' => 'https://musicbrainz.org/area/489ce91b-6658-3307-9877-795b68554c98',
+            '@type' => 'Country',
+            'name' => 'United States'
+        },
+        'name' => 'Snoop Lion',
+        'performsAs' => {
+            '@id' => 'https://musicbrainz.org/artist/f90e8b26-9e52-4669-a5c9-e28529c47894',
+            '@type' => ['Person', 'MusicGroup'],
+            'name' => 'Snoop Dogg',
+        },
+        'sameAs' => [
+            'http://en.wikipedia.org/wiki/Snoop_Dogg',
+            'http://snooplion.com/',
+            'http://www.allmusic.com/artist/mn0002979185',
+            'http://www.discogs.com/artist/2859872',
+            'http://www.wikidata.org/wiki/Q6096',
+            'https://musicbrainz.org/artist/965f5705-6eb1-49a1-b312-cd3d65bcc7c9',
+            'https://musicbrainz.org/artist/f90e8b26-9e52-4669-a5c9-e28529c47894',
+        ]
+    };
+};
+
+test 'Embedded JSON-LD dates & origins for people' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mozart');
+
+    $mech->get_ok('/artist/b972f589-fb0e-474e-b64a-803b0364fa75');
+    page_test_jsonld $mech => {
+        '@context' => 'http://schema.org',
+        '@id' => 'https://musicbrainz.org/artist/b972f589-fb0e-474e-b64a-803b0364fa75',
+        '@type' => ['Person', 'MusicGroup'],
+        'birthDate' => '1756-01-27',
+        'birthPlace' => {
+            '@id' => 'https://musicbrainz.org/area/f0590317-8b42-4498-a2e4-34cc5562fcf8',
+            '@type' => 'City',
+            'name' => 'Salzburg',
+        },
+        'deathDate' => '1791-12-05',
+        'deathPlace' => {
+            '@id' => 'https://musicbrainz.org/area/afff1a94-a98b-4322-8874-3148139ab6da',
+            '@type' => 'City',
+            'name' => 'Wien',
+        },
+        'location' => {
+            '@id' => 'https://musicbrainz.org/area/caac77d1-a5c8-3e6e-8e27-90b44dcc1446',
+            '@type' => 'Country',
+            'name' => 'Austria',
+        },
+        'name' => 'Wolfgang Amadeus Mozart',
+        'sameAs' => [
+            'http://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart',
+            'http://musicmoz.org/Composition/Composers/M/Mozart,_Wolfgang_Amadeus/',
+            'http://rateyourmusic.com/artist/wolfgang_amadeus_mozart',
+            'http://soundtrackcollector.com/composer/30/',
+            'http://vgmdb.net/artist/174',
+            'http://viaf.org/viaf/263782738',
+            'http://viaf.org/viaf/32197206',
+            'http://www.allmusic.com/artist/mn0000026350',
+            'http://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75',
+            'http://www.discogs.com/artist/95546',
+            'http://www.imdb.com/name/nm0003665/',
+            'http://www.last.fm/music/Wolfgang+Amadeus+Mozart',
+            'http://www.wikidata.org/wiki/Q254',
+        ],
+    };
+};
+
+test 'Embedded JSON-LD for groups' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+the-beatles');
+
+    $mech->get_ok('/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d');
+    page_test_jsonld $mech => {
+        '@context' => 'http://schema.org',
+        '@id' => 'https://musicbrainz.org/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
+        '@type' => 'MusicGroup',
+        'dissolutionDate' => '1970-04-10',
+        'foundingDate' => '1957-03',
+        'groupOrigin' => {
+            '@id' => 'https://musicbrainz.org/area/c249c30e-88ab-4b2f-a745-96a25bd7afee',
+            '@type' => 'City',
+            'name' => 'Liverpool',
+        },
+        'location' => {
+            '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+            '@type' => 'Country',
+            'name' => 'United Kingdom',
+        },
+        'member' => [
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1962-08-16',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/0d4ab0f9-bbda-4ab1-ae2c-f772ffcfbea9',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'Pete Best'
+                },
+                'roleName' => 'drums',
+                'startDate' => '1960-08-12',
+            },
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1970-04-10',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/300c4c73-33ac-4255-9d57-4e32627f5e13',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'Ringo Starr'
+                },
+                'roleName' => 'drums',
+                'startDate' => '1962-08',
+            },
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1970-04-10',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/42a8f507-8412-4611-854f-926571049fa0',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'George Harrison',
+                },
+                'roleName' => ['guitar', 'lead vocals'],
+                'startDate' => '1958-04',
+            },
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1962',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/49a51491-650e-44b3-8085-2f07ac2986dd',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'Stuart Sutcliffe',
+                },
+                'roleName' => 'bass guitar',
+                'startDate' => '1960-01',
+            },
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1970-04-10',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/4d5447d7-c61c-4120-ba1b-d7f471d385b9',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'John Lennon',
+                },
+                'roleName' => ['guitar', 'lead vocals'],
+            },
+            {
+                '@type' => 'OrganizationRole',
+                'endDate' => '1970-04-10',
+                'member' => {
+                    '@id' => 'https://musicbrainz.org/artist/ba550d0e-adac-4864-b88b-407cab5e76af',
+                    '@type' => ['Person', 'MusicGroup'],
+                    'name' => 'Paul McCartney',
+                },
+                'roleName' => ['bass guitar', 'lead vocals'],
+                'startDate' => '1957-07',
+            }
+        ],
+        'name' => 'The Beatles',
+        'sameAs' => [
+            'http://en.wikipedia.org/wiki/The_Beatles',
+            'http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/',
+            'http://rateyourmusic.com/artist/the_beatles',
+            'http://viaf.org/viaf/141205608',
+            'http://www.45cat.com/artist/the-beatles',
+            'http://www.allmusic.com/artist/mn0000754032',
+            'http://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
+            'http://www.discogs.com/artist/82730',
+            'http://www.imdb.com/name/nm1397313/',
+            'http://www.last.fm/music/The+Beatles',
+            'http://www.secondhandsongs.com/artist/41',
+            'http://www.thebeatles.com/',
+            'http://www.whosampled.com/The-Beatles/',
+            'http://www.wikidata.org/wiki/Q1299',
+        ],
     };
 };
 

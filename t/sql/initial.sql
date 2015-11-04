@@ -94,9 +94,11 @@ INSERT INTO link_attribute_type VALUES (40, 14, 14, 0, 'e798a2bd-a578-4c28-8eea-
 INSERT INTO link_attribute_type VALUES (46, 14, 14, 0, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'trombone', '', '2014-08-22 17:16:07.982204+00');
 INSERT INTO link_attribute_type VALUES (69, 14, 14, 0, '32eca297-dde6-45d0-9305-ae479947c2a8', 'strings', '', '2015-03-06 03:24:10.859287+00');
 INSERT INTO link_attribute_type VALUES (75, 14, 14, 0, 'f68936f2-194c-4bcd-94a9-81e1dd947b8d', 'guitars', '', '2014-08-22 17:24:11.020568+00');
+INSERT INTO link_attribute_type VALUES (125, 14, 14, 0, '3bccb7eb-cbca-42cd-b0ac-a5e959df7221', 'drums', '', '2014-08-22 17:09:23.855062+00');
 INSERT INTO link_attribute_type VALUES (194, NULL, 194, 0, 'b3045913-62ac-433e-9211-ac683cdf6b5c', 'guest', 'This attribute indicates a ''guest'' performance where the performer is not usually part of the band.', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (229, 14, 14, 0, '63021302-86cd-4aee-80df-2270d54f4978', 'guitar', '', '2014-08-22 17:24:01.678862+00');
 INSERT INTO link_attribute_type VALUES (232, 14, 14, 0, '95b0c3d2-9606-4ef5-a019-9b7437f3adda', 'keyboard', '', '2014-08-22 17:03:54.017921+00');
+INSERT INTO link_attribute_type VALUES (277, 14, 14, 0, '17f9f065-2312-4a24-8309-6f6dd63e2e33', 'bass guitar', 'Bass (modern, typically electrical, but not always)', '2014-08-22 17:21:00.771721+00');
 INSERT INTO link_attribute_type VALUES (302, 14, 14, 0, 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea', 'plucked string instruments', '', '2014-08-22 17:15:36.19547+00');
 INSERT INTO link_attribute_type VALUES (424, NULL, 424, 0, 'ac6f6b4c-a4ec-4483-a04e-9f425a914573', 'co', 'co-[role]', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (425, NULL, 425, 0, 'e0039285-6667-4f94-80d6-aa6520c6d359', 'executive', 'This attribute is to be used if the role was fulfilled in an executive capacity.', '2011-09-21 18:29:05.11911+00');

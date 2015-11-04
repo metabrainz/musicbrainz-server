@@ -82,7 +82,7 @@ page_test_jsonld $mech => {
     ],
     'albumProductionType' => 'http://schema.org/StudioAlbum',
     'byArtist' => {
-        '@type' => 'MusicGroup',
+        '@type' => ['Person', 'MusicGroup'],
         '@id' => 'https://musicbrainz.org/artist/4b585938-f271-45e2-b19a-91c634b5e396',
         'name' => 'Kate Bush'
     },

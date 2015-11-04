@@ -1,5 +1,6 @@
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, 'e46bb5a2-f4df-44a1-aafe-d07f4c998ba0', 'A', 'A', '');
+    VALUES (1, 'e46bb5a2-f4df-44a1-aafe-d07f4c998ba0', 'A', 'A', ''),
+           (2, '213d688f-2a10-463a-86b8-d50a1ae624ee', 'B', 'B', '');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'A', 1);
 
@@ -35,7 +36,8 @@ INSERT INTO link (id, link_type, attribute_count)
            (3, 165, 0), -- lyricist
            (4, 161, 0), -- publishing
            (5, 281, 0), -- parts
-           (6, 350, 0); -- arrangement
+           (6, 350, 0), -- arrangement
+           (7, 167, 0); -- writer
 
 -- performance
 INSERT INTO l_recording_work (id, link, entity0, entity1)
@@ -44,7 +46,8 @@ INSERT INTO l_recording_work (id, link, entity0, entity1)
 INSERT INTO l_artist_work (id, link, entity0, entity1)
     VALUES (1, 2, 1, 1), -- composer
            (2, 3, 1, 1), -- lyricist
-           (3, 4, 1, 1); -- publishing
+           (3, 4, 1, 1), -- publishing
+           (4, 7, 2, 1); -- writer
 
 INSERT INTO l_work_work (id, link, entity0, entity1)
     VALUES (1, 5, 1, 2), -- parts

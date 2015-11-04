@@ -56,7 +56,7 @@ page_test_jsonld $mech => {
             '@type' => 'Role',
             'artistSigned' => {
                 '@id' => 'https://musicbrainz.org/artist/fa263cb3-205f-4a7f-91e1-94e3df52abe8',
-                '@type' => 'MusicGroup',
+                '@type' => ['Person', 'MusicGroup'],
                 'name' => 'Jimmy Edgar',
             },
             'endDate' => '2008',
@@ -65,7 +65,7 @@ page_test_jsonld $mech => {
             '@type' => 'Role',
             'artistSigned' => {
                 '@id' => 'https://musicbrainz.org/artist/e4787c4e-0b1a-48bd-b9a0-b0427391d293',
-                '@type' => 'MusicGroup',
+                '@type' => ['Person', 'MusicGroup'],
                 'name' => 'patten',
             },
             'startDate' => '2013-11-05',
@@ -77,7 +77,8 @@ page_test_jsonld $mech => {
         '@type' => 'Country'
     },
     'name' => 'Warp Records',
-    'foundingDate' => '2008-05-19',
+    'foundingDate' => '1989-02-03',
+    'dissolutionDate' => '2008-05-19',
     'sameAs' => 'https://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
     '@id' => 'https://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
     '@type' => 'MusicLabel'
