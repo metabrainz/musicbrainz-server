@@ -171,6 +171,26 @@ Now you should be able to use it to run the tests:
     $ prove -l t/qunit.t
 
 
+Reports
+-------
+
+[Reports](https://beta.musicbrainz.org/reports) are lists of potential problems
+in MusicBrainz. These reports are generated daily by the
+*[daily.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/cron/daily.sh)*
+script.
+
+You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
+script:
+
+    $ ./admin/RunReports.pl
+
+To run a specific report (see https://github.com/metabrainz/musicbrainz-server/tree/master/lib/MusicBrainz/Server/Report),
+specify its name in an argument:
+
+
+    $ ./admin/RunReports.pl DuplicateArtists
+
+
 Cover Art Archive development
 -----------------------------
 
