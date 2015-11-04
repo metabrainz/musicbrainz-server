@@ -342,8 +342,12 @@ our %DUMP_METHODS = (
 sub main {
     my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
-    print <<'EOSQL';
+    my ($entity_type, @gids) = @ARGV;
+    my $arguments_string = $entity_type . ' ' . join(' ', @gids);
+
+    print <<"EOSQL";
 -- Automatically generated, do not edit.
+-- $arguments_string
 
 SET client_min_messages TO 'warning';
 
@@ -351,8 +355,6 @@ SET client_min_messages TO 'warning';
 DROP TRIGGER deny_deprecated ON link;
 
 EOSQL
-
-    my ($entity_type, @gids) = @ARGV;
 
     my $dump_method = $DUMP_METHODS{$entity_type} // sub {
         my ($c, $gids) = @_;
