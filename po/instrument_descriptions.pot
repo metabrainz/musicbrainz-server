@@ -13,6 +13,11 @@ msgstr ""
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr ""
 
+#. name:kös 
+#: DB:instrument/description:739
+msgid "A Turkish drum used in the traditional Ottoman military bands"
+msgstr ""
+
 #. name:tef 
 #: DB:instrument/description:531
 msgid ""
@@ -44,6 +49,13 @@ msgstr ""
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
+msgstr ""
+
+#. name:bicycle bell 
+#: DB:instrument/description:743
+msgid ""
+"A bicycle bell is a percussive signaling instrument mounted on a bicycle for "
+"warning pedestrians and other cyclists."
 msgstr ""
 
 #. name:bullroarer 
@@ -200,6 +212,12 @@ msgstr ""
 #. name:orpharion 
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
+msgstr ""
+
+#. name:çevgen 
+#: DB:instrument/description:740
+msgid ""
+"A pole with bells and/or zills used in the traditional Ottoman military bands"
 msgstr ""
 
 #. name:prepared piano 
@@ -460,7 +478,7 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
-#. name:Floppy Drive 
+#. name:floppy disk drive 
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
@@ -503,7 +521,7 @@ msgstr ""
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
 msgstr ""
 
-#. name:Harddisk 
+#. name:hard disk drive 
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
@@ -1057,6 +1075,13 @@ msgid ""
 "transverse (horizontal) manner."
 msgstr ""
 
+#. name:bazooka 
+#: DB:instrument/description:741
+msgid ""
+"The bazooka is a brass musical instrument several feet in length which "
+"incorporates telescopic tubing."
+msgstr ""
+
 #. name:bin-sasara 
 #: DB:instrument/description:380
 msgid ""
@@ -1344,6 +1369,13 @@ msgstr ""
 msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument"
+msgstr ""
+
+#. name:flumpet 
+#: DB:instrument/description:742
+msgid ""
+"The flumpet is a hybrid brass horn instrument that shares the construction "
+"and timbre qualities of a trumpet and flugelhorn."
 msgstr ""
 
 #. name:flûte d'amour 
@@ -2771,7 +2803,7 @@ msgstr ""
 msgid "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr ""
 
-#. name:Disk Drive 
+#. name:disk drive 
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
