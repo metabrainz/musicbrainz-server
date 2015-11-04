@@ -175,11 +175,11 @@ Reports
 -------
 
 [Reports](https://beta.musicbrainz.org/reports) are lists of potential problems
-in MusicBrainz. These reports are generated daily by
+in MusicBrainz. These reports are generated daily by the
 *[daily.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/cron/daily.sh)*
 script.
 
-You can generate all reports using *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
+You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
 script:
 
     $ ./admin/RunReports.pl
