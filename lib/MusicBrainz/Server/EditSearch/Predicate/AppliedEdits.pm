@@ -5,7 +5,7 @@ use feature 'switch';
 
 use MusicBrainz::Server::Constants qw( :edit_status );
 
-no warnings 'experimental::smartmatch';
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 
