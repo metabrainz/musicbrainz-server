@@ -245,11 +245,19 @@ sub merge
     my %target_count;
     $target_count{ $_->[1] }++ for @recording_merges;
 
+    # MBS-8614. Track recording merges, to resolve cases where a recording is
+    # a merge source on one track (after which it gets deleted), and a merge
+    # target on another track (in which case we should instead use the ID of
+    # the target from the first merge).
+    my %merge_targets;
+
     for my $recording_merge (@recording_merges) {
         my ($new, $old) = @$recording_merge;
         next if $target_count{$old} > 1;
 
-        $self->c->model('Recording')->merge(@$recording_merge);
+        $new = $merge_targets{$new} // $new;
+        $self->c->model('Recording')->merge($new, $old);
+        $merge_targets{$old} = $new;
     }
 
     $self->c->model('Track')->merge_mediums($new_medium_id, $old_medium_id);
