@@ -28,20 +28,15 @@ page_test_jsonld $mech => {
         '@type' => 'Country'
     },
     '@context' => 'http://schema.org',
-    'foundingDate' => '2009-03-04',
     '@type' => ['Person', 'MusicGroup'],
+    'birthDate' => '2008-01-02',
     'birthPlace' => {
         '@type' => 'Country',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         'name' => 'United Kingdom'
     },
     'name' => 'Test Artist',
-    'groupOrigin' => {
-        'name' => 'United Kingdom',
-        '@type' => 'Country',
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed'
-    },
-    'birthDate' => '2009-03-04',
+    'deathDate' => '2009-03-04',
     'deathPlace' => {
         'name' => 'United Kingdom',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',

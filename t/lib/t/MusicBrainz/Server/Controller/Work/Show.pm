@@ -69,11 +69,18 @@ test 'Embedded JSON-LD' => sub {
             '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
             'name' => 'A'
         },
-        'composer' => {
-            '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
-            'name' => 'A',
-            '@type' => 'MusicGroup'
-        },
+        'composer' => [
+            {
+                '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
+                '@type' => 'MusicGroup',
+                'name' => 'A',
+            },
+            {
+                '@id' => 'https://musicbrainz.org/artist/213d688f-2a10-463a-86b8-d50a1ae624ee',
+                '@type' => 'MusicGroup',
+                'name' => 'B',
+            },
+        ],
         'iswcCode' => ['T-000.000.001-0', 'T-000.000.002-0'],
         'lyricist' => {
             'name' => 'A',

@@ -3,7 +3,11 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID );
+use MusicBrainz::Server::Constants qw(
+    $ARTIST_TYPE_PERSON
+    $INSTRUMENT_ROOT_ID
+    $VOCAL_ROOT_ID
+);
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use List::MoreUtils qw( uniq );
 
@@ -11,19 +15,27 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan' =>
-    { begin_properties => sub { my $artist = shift; return ($artist->type && $artist->type->name eq 'Person') ? qw( foundingDate birthDate ) : qw( foundingDate ) },
-      end_properties   => sub { my $artist = shift; return ($artist->type && $artist->type->name eq 'Person')  ? qw( dissolutionDate deathDate ) : qw( dissolutionDate ) } };
+    { begin_properties => sub { is_person(shift) ? qw( birthDate ) : qw( foundingDate ) },
+      end_properties   => sub { is_person(shift) ? qw( deathDate ) : qw( dissolutionDate ) } };
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { include_birth_death => sub { my $artist = shift; return $artist->type && $artist->type->name eq 'Person' } };
+
+sub is_person {
+    my $artist = shift;
+    return ($artist->type_id && $artist->type_id == $ARTIST_TYPE_PERSON) ? 1 : 0;
+}
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
+    my $is_person = is_person($entity);
+    $ret->{'@type'} = $is_person ? ['Person', 'MusicGroup'] : 'MusicGroup';
 
     if ($toplevel) {
-        $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
+        if (!$is_person && $entity->begin_area) {
+            $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash);
+        }
 
         my @members = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('member of band') };
         if (@members) {
@@ -46,8 +58,14 @@ around serialize => sub {
             $ret->{track} = list_or_single(@recordings) if @recordings;
         }
 
-        if ($stash->store($entity)->{identities}) {
-            $ret->{alternateName} = [uniq map { $_->name } @{ $stash->store($entity)->{identities} }];
+        my @identities = @{ $stash->store($entity)->{identities} // [] };
+        if (@identities) {
+            $ret->{alternateName} = [uniq @{ $ret->{alternateName} // [] }, map { $_->name } @identities];
+        }
+
+        my @other_identities = @{ $stash->store($entity)->{other_identities} // [] };
+        if (@other_identities) {
+            $ret->{performsAs} = list_or_single(map { serialize_entity($_, $inc, $stash) } @other_identities);
         }
     }
 

@@ -20,7 +20,7 @@ test all => sub {
         '@id' => 'https://musicbrainz.org/release-group/ecc33260-454c-11de-8a39-0800200c9a66',
         'albumReleaseType' => 'http://schema.org/AlbumRelease',
         'byArtist' => {
-            '@type' => 'MusicGroup',
+            '@type' => ['Person', 'MusicGroup'],
             '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
             'name' => 'Test Artist'
         },
