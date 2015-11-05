@@ -73,7 +73,7 @@ sub set_language : Path('set-language') Args(1)
         $c->set_language_cookie($lang);
         $c->flash->{message} =
             l('Language set. If you find any problems with the translation, please {url|help us improve it}!',
-              {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/dashboard/', target => '_blank'}});
+              {url => {href => 'https://www.transifex.com/musicbrainz/musicbrainz/', target => '_blank'}});
     }
     $c->res->redirect($c->req->referer || $c->uri_for('/'));
     $c->detach;

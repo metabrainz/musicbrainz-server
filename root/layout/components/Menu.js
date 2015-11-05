@@ -43,7 +43,7 @@ const LanguageMenu = () => (
         </a>
       </li>
       <li class="separator">
-        <a href="https://www.transifex.com/musicbrainz/musicbrainz/dashboard/">
+        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
           {l('Help Translate')}
         </a>
       </li>
