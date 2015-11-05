@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use charnames ':alias' => {INFO_SEP => 'INFORMATION SEPARATOR ONE'};
 use DBDefs;
 use Encode;
 use HTML::Entities qw( encode_entities decode_entities );
@@ -13,9 +12,12 @@ use JSON -convert_blessed_universally;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use URI;
 
+# INFORMATION SEPARATOR ONE
+my $INFO_SEP = "\x{001F}";
+
 my %URI_DELIMITERS = (
-    uri_for => "\N{INFO_SEP}__URI_FOR__\N{INFO_SEP}",
-    uri_for_action => "\N{INFO_SEP}__URI_FOR_ACTION__\N{INFO_SEP}",
+    uri_for => "${INFO_SEP}__URI_FOR__${INFO_SEP}",
+    uri_for_action => "${INFO_SEP}__URI_FOR_ACTION__${INFO_SEP}",
 );
 
 our @EXPORT_OK = qw(
@@ -69,7 +71,7 @@ sub handle_request {
     for my $method (keys %URI_DELIMITERS) {
         my $delimiter = $URI_DELIMITERS{$method};
 
-        $content =~ s/$delimiter ([^\N{INFO_SEP}]+) $delimiter
+        $content =~ s/$delimiter ([^$INFO_SEP]+) $delimiter
                      /replace_uri($c, $method, $1)/xmseg;
     }
 
