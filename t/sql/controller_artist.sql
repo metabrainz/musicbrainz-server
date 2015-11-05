@@ -37,7 +37,6 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 
 INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Test Release', 1, 1);
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2009, 5, 8);
-;
 
 -- A full editor
 INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
@@ -71,6 +70,7 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (2, 302);
 
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 4, 3, 5);
+
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
 INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 

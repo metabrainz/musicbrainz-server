@@ -18,7 +18,8 @@ test all => sub {
     $mech->content_contains('Label name', 'has the label alias type');
 
     page_test_jsonld $mech => {
-        'foundingDate' => '2008-05-19',
+        'foundingDate' => '1989-02-03',
+        'dissolutionDate' => '2008-05-19',
         'sameAs' => 'https://musicbrainz.org/label/efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592',
         'name' => 'Warp Records',
         'foundingLocation' => {

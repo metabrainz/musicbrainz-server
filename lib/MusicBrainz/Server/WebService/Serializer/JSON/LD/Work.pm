@@ -25,7 +25,7 @@ around serialize => sub {
             $ret->{recordedAs} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @recordings);
         }
 
-        my @composers =  @{ $entity->relationships_by_link_type_names('composer') };
+        my @composers =  @{ $entity->relationships_by_link_type_names('composer', 'writer') };
         if (@composers) {
             $ret->{composer} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @composers);
         }

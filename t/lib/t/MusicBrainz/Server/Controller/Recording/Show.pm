@@ -63,7 +63,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/001363e3-f643-4aca-bb95-3075cdcf62c8',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Lori Holton-Nash'
                 },
                 'roleName' => 'choir vocals'
@@ -72,7 +72,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/0a51af30-5e31-470e-abd2-dd979a3e3d80',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Donnie Lyle'
                 },
                 'roleName' => 'guitars'
@@ -81,7 +81,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/134d3aac-76f7-4652-993e-932d01256d49',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Yvonne Gage'
                 },
                 'roleName' => 'choir vocals'
@@ -90,7 +90,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/19c882f5-a6ec-488f-b6ad-ab489eddc655',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Kendall Nesbitt'
                 },
                 'roleName' => 'keyboard'
@@ -99,7 +99,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/1c7a3225-2c5a-402e-a988-786b06ef5013',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Steve Robinson'
                 },
                 'roleName' => 'choir vocals'
@@ -108,7 +108,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/2373f554-6a1e-46f9-bac2-8bab5e86b7de',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Percy Bady'
                 },
                 'roleName' => 'keyboard'
@@ -117,7 +117,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/2387a257-4b30-4af0-af33-d7e5eaa0b5f9',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Paul Riser'
                 },
                 'roleName' => 'conductor'
@@ -126,7 +126,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/273d6cda-312f-41fa-bf7e-837d51181172',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Felicia Coleman-Evans'
                 },
                 'roleName' => 'choir vocals'
@@ -135,7 +135,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/2c92addd-868b-4c3c-b886-0ed7a6ee3a6b',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Jeffrey W. Morrow'
                 },
                 'roleName' => 'choir vocals'
@@ -144,7 +144,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/3de09330-f53d-4faa-ae92-726866ab9c96',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Deletrice Alexander'
                 },
                 'roleName' => 'choir vocals'
@@ -162,7 +162,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/690d39ad-7512-4abd-82b8-1885ed255a4b',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Paul Mabin'
                 },
                 'roleName' => 'choir vocals'
@@ -171,7 +171,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/99c9d990-6b02-4600-93a2-66ff9c078f34',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Robin Robinson'
                 },
                 'roleName' => 'choir vocals'
@@ -180,7 +180,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/b7ce9a76-0abc-4f3a-b841-4a7b06f56268',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Joan Collaso'
                 },
                 'roleName' => 'choir vocals'
@@ -189,7 +189,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/c7ea517c-efbb-453b-abd2-5e368f6e5475',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'John Rutledge'
                 },
                 'roleName' => 'choir vocals'
@@ -198,7 +198,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/c84ebed5-c70c-454f-9a66-31030d311e75',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Hart Hollman'
                 }
             },
@@ -215,7 +215,7 @@ test 'Embedded JSON-LD' => sub {
                 '@type' => 'OrganizationRole',
                 'contributor' => {
                     '@id' => 'https://musicbrainz.org/artist/f9231d98-6e7d-4afd-b2cf-9a656a260f85',
-                    '@type' => 'MusicGroup',
+                    '@type' => ['Person', 'MusicGroup'],
                     'name' => 'Simbryt Whittington'
                 },
                 'roleName' => 'choir vocals'
@@ -226,7 +226,7 @@ test 'Embedded JSON-LD' => sub {
         'name' => 'The World\'s Greatest',
         'producer' => {
             '@id' => 'https://musicbrainz.org/artist/c2d25856-a09a-4d15-b404-77dd19c19e63',
-            '@type' => 'MusicGroup',
+            '@type' => ['Person', 'MusicGroup'],
             'name' => 'R. Kelly'
         },
         'recordingOf' => {

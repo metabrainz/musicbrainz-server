@@ -27,7 +27,7 @@ page_test_jsonld $mech => {
     '@id' => 'https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
     '@type' => ['Person', 'MusicGroup'],
     'alternateName' => ['Test Alias'],
-    'birthDate' => '2009-03-04',
+    'birthDate' => '2008-01-02',
     'birthPlace' => {
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country',
@@ -38,12 +38,7 @@ page_test_jsonld $mech => {
         '@type' => 'Country',
         'name' => 'United Kingdom',
     },
-    'foundingDate' => '2009-03-04',
-    'groupOrigin' => {
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        '@type' => 'Country',
-        'name' => 'United Kingdom',
-    },
+    'deathDate' => '2009-03-04',
     'location' => {
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country',
@@ -59,7 +54,6 @@ $mech->content_unlike(qr/Test Alias/, 'other artist pages do not have the alias'
 page_test_jsonld $mech => {
     '@context' => 'http://schema.org',
     '@type' => 'MusicGroup',
-    'alternateName' => [],
     '@id' => 'https://musicbrainz.org/artist/60e5d080-c964-11de-8a39-0800200c9a66',
     'name' => 'Empty Artist'
 };

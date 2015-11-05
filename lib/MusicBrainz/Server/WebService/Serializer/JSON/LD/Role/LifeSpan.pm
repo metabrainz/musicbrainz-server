@@ -25,11 +25,9 @@ role {
         my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
         my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-        # Note: This uses foundingDate and dissolutionDate, which are
-        # technically only applicable to organizations, and should refer to
-        # the start/end dates of the career. This does not match our usage for
-        # Person-type artists, but we also still (as requested) mark these as
-        # MusicGroups, i.e. organizations.
+        # Note: For artist groups, This uses foundingDate and dissolutionDate,
+        # which are technically only applicable to organizations, and should
+        # refer to the start/end dates of the career.
         #
         # There may be a better way to do this, but I'm not really sure what
         # exactly it is.
@@ -40,7 +38,7 @@ role {
                 }
             }
             if (my $end_date = format_date($entity->end_date)) {
-                for my $property ($begin_properties->($entity)) {
+                for my $property ($end_properties->($entity)) {
                     $ret->{$property} = $end_date;
                 }
             }

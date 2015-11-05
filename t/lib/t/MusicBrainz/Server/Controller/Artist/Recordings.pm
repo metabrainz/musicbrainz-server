@@ -26,11 +26,6 @@ $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'has 
 
 page_test_jsonld $mech => {
     'birthDate' => '2009-03-04',
-    'groupOrigin' => {
-        '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-        '@type' => 'Country',
-        'name' => 'United Kingdom'
-    },
     'track' => {
         'duration' => 'PT02M03S',
         '@type' => 'MusicRecording',
@@ -38,7 +33,6 @@ page_test_jsonld $mech => {
         'name' => 'Test Recording'
     },
     'name' => 'Test Artist',
-    'foundingDate' => '2009-03-04',
     'location' => {
         'name' => 'United Kingdom',
         '@type' => 'Country',
@@ -46,11 +40,13 @@ page_test_jsonld $mech => {
     },
     '@type' => ['Person', 'MusicGroup'],
     '@context' => 'http://schema.org',
+    'birthDate' => '2008-01-02',
     'birthPlace' => {
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',
         '@type' => 'Country',
         'name' => 'United Kingdom'
     },
+    'deathDate' => '2009-03-04',
     'deathPlace' => {
         '@type' => 'Country',
         '@id' => 'https://musicbrainz.org/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed',

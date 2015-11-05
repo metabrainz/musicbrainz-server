@@ -29,7 +29,9 @@ with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'},
                                           {from => 'recordings_jsonld', to => 'recordings'},
-                                          {from => 'identities', to => 'identities'}]},
+                                          {from => 'identities', to => 'identities'},
+                                          {from => 'legal_name', to => 'legal_name'},
+                                          {from => 'other_identities', to => 'other_identities'}]},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
@@ -279,7 +281,7 @@ sub works : Chained('load')
 
 =head2 recordings
 
-Shows all recordings of an artist. 
+Shows all recordings of an artist.
 
 =cut
 
@@ -337,7 +339,7 @@ sub recordings : Chained('load')
 
 =head2 events
 
-Shows all events of an artist. 
+Shows all events of an artist.
 
 =cut
 
