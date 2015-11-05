@@ -28,14 +28,14 @@ const LanguageMenu = () => (
   <li className="language-selector">
     {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language))}
     <ul>
-      {$c.stash.server_languages.map(function (l) {
+      {$c.stash.server_languages.map(function (l, index) {
         let inner = languageLink(l);
 
         if (l[0] === $c.stash.current_language) {
           inner = <strong>{inner}</strong>;
         }
 
-        return <li>{inner}</li>;
+        return <li key={index}>{inner}</li>;
       })}
       <li>
         <a href={$c.uri_for_action('/set_language', ['unset'])}>
