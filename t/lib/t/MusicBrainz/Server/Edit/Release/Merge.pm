@@ -348,6 +348,11 @@ test 'Release merges should not fail if a recording is both a merge source and m
     my $test = shift;
     my $c = $test->c;
 
+    # Ignore the fact that the edit in this test case would ideally be voted
+    # down (it's merging recordings that are clearly different). The scenario
+    # by itself is still valid, because a release can definitely have the same
+    # recording appear multiple times, for example.
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8614');
 
     $c->sql->do(<<'EOSQL');
