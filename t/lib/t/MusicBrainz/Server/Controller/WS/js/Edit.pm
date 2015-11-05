@@ -1221,7 +1221,7 @@ test 'Releases can be added without any mediums' => sub {
         artist_credit => $artist_credit,
     }];
 
-    my @edits = capture_edits {
+    @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
     } $c;
 
