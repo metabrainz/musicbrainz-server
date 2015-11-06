@@ -7,7 +7,6 @@
     	      without "Various Artists" as the credited name.') %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
-    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/recording_list.tt' -%]

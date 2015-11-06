@@ -2,8 +2,7 @@ package MusicBrainz::Server::Report::NotVariousArtists;
 use Moose;
 use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
-with 'MusicBrainz::Server::Report::RecordingReport',
-     'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
+with 'MusicBrainz::Server::Report::RecordingReport';
 
 sub query {
     "
