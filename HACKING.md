@@ -179,6 +179,11 @@ in MusicBrainz. These reports are generated daily by the
 *[daily.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/cron/daily.sh)*
 script.
 
+Contents of reports are stored in separate tables in `report` schema of the
+database.
+
+### Generating reports
+
 You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
 script:
 
@@ -189,6 +194,10 @@ specify its name in an argument:
 
 
     $ ./admin/RunReports.pl DuplicateArtists
+
+### Adding a new report
+
+All reports are located in */lib/MusicBrainz/Server/Report/* directory. 
 
 
 Cover Art Archive development
