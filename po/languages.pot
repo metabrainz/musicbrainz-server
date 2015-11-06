@@ -518,6 +518,11 @@ msgstr ""
 msgid "Croatian"
 msgstr ""
 
+#. frequency:1 iso_code_3:xlu 
+#: DB:language/name:7303
+msgid "Cuneiform Luwian"
+msgstr ""
+
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:97
 msgid "Cushitic languages"
@@ -1068,6 +1073,11 @@ msgstr ""
 msgid "Kabardian"
 msgstr ""
 
+#. frequency:1 iso_code_3:kea 
+#: DB:language/name:3185
+msgid "Kabuverdianu"
+msgstr ""
+
 #. frequency:1 iso_code_3:kab 
 #: DB:language/name:202
 msgid "Kabyle"
@@ -1251,6 +1261,11 @@ msgstr ""
 #. frequency:1 iso_code_3:ksh 
 #: DB:language/name:3529
 msgid "Kölsch"
+msgstr ""
+
+#. frequency:1 iso_code_3:lld 
+#: DB:language/name:3885
+msgid "Ladin"
 msgstr ""
 
 #. frequency:1 iso_code_3:lad 

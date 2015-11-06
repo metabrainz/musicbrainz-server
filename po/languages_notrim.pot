@@ -7238,7 +7238,7 @@ msgstr ""
 msgid "Cun"
 msgstr ""
 
-#. frequency:0 iso_code_3:xlu 
+#. frequency:1 iso_code_3:xlu 
 #: DB:language/name:7303
 msgid "Cuneiform Luwian"
 msgstr ""
@@ -13818,7 +13818,7 @@ msgstr ""
 msgid "Kabutra"
 msgstr ""
 
-#. frequency:0 iso_code_3:kea 
+#. frequency:1 iso_code_3:kea 
 #: DB:language/name:3185
 msgid "Kabuverdianu"
 msgstr ""
@@ -17638,7 +17638,7 @@ msgstr ""
 msgid "Ladakhi"
 msgstr ""
 
-#. frequency:0 iso_code_3:lld 
+#. frequency:1 iso_code_3:lld 
 #: DB:language/name:3885
 msgid "Ladin"
 msgstr ""

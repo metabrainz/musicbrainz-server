@@ -105,6 +105,13 @@ msgid ""
 "often learnt by children."
 msgstr ""
 
+#. name:dolceola 
+#: DB:instrument/description:750
+msgid ""
+"A dolceola is a musical instrument resembling a miniature piano, but which "
+"is in fact a zither with a keyboard."
+msgstr ""
+
 #. name:duck call 
 #: DB:instrument/description:649
 msgid "A duck call is a tool used to emulate the sound of a duck."
@@ -777,6 +784,11 @@ msgstr ""
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr ""
 
+#. name:Guitaret 
+#: DB:instrument/description:751
+msgid "The Guitaret is an electric lamellophone made by Hohner."
+msgstr ""
+
 #. name:Lyricon 
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
@@ -874,6 +886,11 @@ msgstr ""
 #. name:ajaeng 
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
+msgstr ""
+
+#. name:akete 
+#: DB:instrument/description:747
+msgid "The akete are drums commonly used in Nyabinghi music."
 msgstr ""
 
 #. name:alfaia 
@@ -1096,6 +1113,12 @@ msgid ""
 "large triangular-shaped plectrum."
 msgstr ""
 
+#. name:bolon 
+#: DB:instrument/description:745
+msgid ""
+"The bolon is a traditional harp-lute played in several African countries."
+msgstr ""
+
 #. name:buk 
 #: DB:instrument/description:577
 msgid ""
@@ -1171,6 +1194,11 @@ msgstr ""
 msgid ""
 "The chikuzen biwa is a biwa with either four strings and frets or five "
 "strings and frets popularised during the Meiji period."
+msgstr ""
+
+#. name:chitra veena 
+#: DB:instrument/description:744
+msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
 msgstr ""
 
 #. name:concert flute 
@@ -1443,6 +1471,13 @@ msgstr ""
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
+msgstr ""
+
+#. name:gramorimba 
+#: DB:instrument/description:748
+msgid ""
+"The gramorimba is a lithophone, similar to a xylophone whose bars are made "
+"of stone."
 msgstr ""
 
 #. name:guan 
@@ -1824,6 +1859,13 @@ msgid ""
 "piano."
 msgstr ""
 
+#. name:minipiano 
+#: DB:instrument/description:752
+msgid ""
+"The minipiano is a type of piano in which the sound producing mechanism is "
+"positioned below the keyboard, allowing an economical use of space."
+msgstr ""
+
 #. name:morin khuur / matouqin 
 #: DB:instrument/description:224
 msgid ""
@@ -2110,6 +2152,13 @@ msgstr ""
 msgid ""
 "The saron is an Indonesian musical instrument which is used in the gamelan. "
 "It normally has seven bronze bars placed on top of a resonating frame."
+msgstr ""
+
+#. name:sarrusophone 
+#: DB:instrument/description:749
+msgid ""
+"The sarrusophone is a family of transposing musical instruments, intended to "
+"serve as a replacement in wind bands for the oboe and bassoon."
 msgstr ""
 
 #. name:satsuma biwa 
@@ -2400,6 +2449,13 @@ msgstr ""
 #. name:tiêu 
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
+msgstr ""
+
+#. name:tololoche 
+#: DB:instrument/description:746
+msgid ""
+"The tololoche is a traditional musical instrument from northern Mexico, "
+"similar but smaller than the European double bass."
 msgstr ""
 
 #. name:tonkori 

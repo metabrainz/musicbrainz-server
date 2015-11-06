@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-03 18:33-0600\n"
+"POT-Creation-Date: 2015-11-06 14:02-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,7 +410,7 @@ msgid ""
 "respectively."
 msgstr ""
 
-#: ../root/layout/menu.tt:122
+#: ../root/layout/menu.tt:127
 msgid "About"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Add Area"
 msgstr ""
 
-#: ../root/admin/index.tt:7 ../root/layout/menu.tt:85
+#: ../root/admin/index.tt:7 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr ""
@@ -504,7 +504,7 @@ msgstr ""
 msgid "Add Artist"
 msgstr ""
 
-#: ../root/layout/menu.tt:218
+#: ../root/layout/menu.tt:223
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr ""
@@ -537,7 +537,7 @@ msgstr ""
 msgid "Add Event"
 msgstr ""
 
-#: ../root/layout/menu.tt:245
+#: ../root/layout/menu.tt:250
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr ""
@@ -550,7 +550,7 @@ msgstr ""
 msgid "Add Instrument"
 msgstr ""
 
-#: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
+#: ../root/admin/index.tt:10 ../root/layout/menu.tt:95
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr ""
@@ -559,7 +559,7 @@ msgstr ""
 msgid "Add Label"
 msgstr ""
 
-#: ../root/layout/menu.tt:221 ../root/release/edit/information.tt:224
+#: ../root/layout/menu.tt:226 ../root/release/edit/information.tt:224
 #: ../root/release/edit/information.tt:225
 msgctxt "button/menu"
 msgid "Add Label"
@@ -578,12 +578,12 @@ msgstr ""
 msgid "Add Place"
 msgstr ""
 
-#: ../root/layout/menu.tt:239
+#: ../root/layout/menu.tt:244
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr ""
 
-#: ../root/layout/menu.tt:227
+#: ../root/layout/menu.tt:232
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr ""
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Add Release Group"
 msgstr ""
 
-#: ../root/layout/menu.tt:224
+#: ../root/layout/menu.tt:229
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr ""
@@ -612,12 +612,12 @@ msgstr ""
 msgid "Add Series"
 msgstr ""
 
-#: ../root/layout/menu.tt:242
+#: ../root/layout/menu.tt:247
 msgctxt "button/menu"
 msgid "Add Series"
 msgstr ""
 
-#: ../root/layout/menu.tt:233
+#: ../root/layout/menu.tt:238
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr ""
@@ -627,11 +627,11 @@ msgctxt "header"
 msgid "Add Standalone Recording"
 msgstr ""
 
-#: ../root/layout/menu.tt:230
+#: ../root/layout/menu.tt:235
 msgid "Add Various Artists Release"
 msgstr ""
 
-#: ../root/layout/menu.tt:236
+#: ../root/layout/menu.tt:241
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr ""
@@ -730,14 +730,14 @@ msgstr ""
 #: ../root/forms/relationship-editor.tt:7
 #: ../root/release/edit_relationships.tt:198
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
 msgstr ""
 
 #: ../root/artist/layout.tt:12 ../root/label/layout.tt:9
 #: ../root/release_group/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
 msgid "Add release"
 msgstr ""
 
@@ -839,7 +839,7 @@ msgstr ""
 msgid "Adjust User Account Flags"
 msgstr ""
 
-#: ../root/layout/menu.tt:81
+#: ../root/layout/menu.tt:86
 msgid "Admin"
 msgstr ""
 
@@ -887,7 +887,7 @@ msgstr ""
 msgid "All Edits"
 msgstr ""
 
-#: ../root/layout/menu.tt:69
+#: ../root/layout/menu.tt:74
 msgid "All My Edits"
 msgstr ""
 
@@ -1084,7 +1084,7 @@ msgid "Application"
 msgstr ""
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/menu.tt:43
+#: ../root/layout/menu.tt:48
 msgid "Applications"
 msgstr ""
 
@@ -1536,7 +1536,7 @@ msgstr ""
 msgid "Auto-editor"
 msgstr ""
 
-#: ../root/layout/menu.tt:143
+#: ../root/layout/menu.tt:148
 msgid "Auto-editor Elections"
 msgstr ""
 
@@ -1748,7 +1748,7 @@ msgstr ""
 msgid "Begin date:"
 msgstr ""
 
-#: ../root/layout/menu.tt:260
+#: ../root/layout/menu.tt:265
 msgid "Beginners Guide"
 msgstr ""
 
@@ -1772,7 +1772,7 @@ msgstr ""
 msgid "Birth date:"
 msgstr ""
 
-#: ../root/layout/menu.tt:158
+#: ../root/layout/menu.tt:163
 msgid "Blog"
 msgstr ""
 
@@ -1971,7 +1971,7 @@ msgid "Catalog#"
 msgstr ""
 
 #: ../root/account/change_password.tt:1 ../root/account/change_password.tt:3
-#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:37
+#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:42
 msgid "Change Password"
 msgstr ""
 
@@ -2067,7 +2067,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: ../root/layout/menu.tt:137
+#: ../root/layout/menu.tt:142
 msgid "Code of Conduct"
 msgstr ""
 
@@ -2161,7 +2161,7 @@ msgid ""
 "into MusicBrainz!"
 msgstr ""
 
-#: ../root/layout/menu.tt:286
+#: ../root/layout/menu.tt:291
 msgid "Contact Us"
 msgstr ""
 
@@ -2247,7 +2247,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../root/account/register.tt:43 ../root/layout/menu.tt:116
+#: ../root/account/register.tt:43 ../root/layout/menu.tt:121
 msgid "Create Account"
 msgstr ""
 
@@ -2305,7 +2305,7 @@ msgstr ""
 msgid "DD"
 msgstr ""
 
-#: ../root/layout/menu.tt:131
+#: ../root/layout/menu.tt:136
 msgid "Data Licenses"
 msgstr ""
 
@@ -2434,7 +2434,7 @@ msgstr ""
 msgid "Developer Applications"
 msgstr ""
 
-#: ../root/layout/menu.tt:184
+#: ../root/layout/menu.tt:189
 msgid "Developer Resources"
 msgstr ""
 
@@ -2442,7 +2442,7 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
-#: ../root/layout/menu.tt:281
+#: ../root/layout/menu.tt:286
 msgid "Development"
 msgstr ""
 
@@ -2602,7 +2602,7 @@ msgid ""
 "our {oauth2|OAuth documentation} for more details."
 msgstr ""
 
-#: ../root/layout/menu.tt:257
+#: ../root/layout/menu.tt:262
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
 msgid "Documentation"
 msgstr ""
@@ -2691,12 +2691,12 @@ msgstr ""
 msgid "Edit Attribute"
 msgstr ""
 
-#: ../root/admin/index.tt:20 ../root/layout/menu.tt:108
+#: ../root/admin/index.tt:20 ../root/layout/menu.tt:113
 msgid "Edit Attributes"
 msgstr ""
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/admin/index.tt:17 ../root/layout/menu.tt:103
+#: ../root/admin/index.tt:17 ../root/layout/menu.tt:108
 msgid "Edit Banner Message"
 msgstr ""
 
@@ -2719,7 +2719,7 @@ msgstr ""
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
-#: ../root/layout/menu.tt:34
+#: ../root/layout/menu.tt:39
 msgid "Edit Profile"
 msgstr ""
 
@@ -2733,7 +2733,7 @@ msgstr ""
 msgid "Edit Relationship Type"
 msgstr ""
 
-#: ../root/admin/index.tt:11 ../root/layout/menu.tt:93
+#: ../root/admin/index.tt:11 ../root/layout/menu.tt:98
 msgid "Edit Relationship Types"
 msgstr ""
 
@@ -2743,7 +2743,7 @@ msgstr ""
 
 #: ../root/doc/edit_type.tt:28 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/info.tt:67
-#: ../root/layout/menu.tt:272
+#: ../root/layout/menu.tt:277
 msgid "Edit Types"
 msgstr ""
 
@@ -2798,7 +2798,7 @@ msgid "Edited"
 msgstr ""
 
 #: ../root/account/preferences.tt:42 ../root/collection/layout.tt:19
-#: ../root/layout/menu.tt:215
+#: ../root/layout/menu.tt:220
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:18
 msgid "Editing"
 msgstr ""
@@ -2845,7 +2845,7 @@ msgstr ""
 msgid "Edits ({view_url|view})"
 msgstr ""
 
-#: ../root/layout/menu.tt:75
+#: ../root/layout/menu.tt:80
 msgid "Edits by Subscribed Editors"
 msgstr ""
 
@@ -2853,7 +2853,7 @@ msgstr ""
 msgid "Edits by {name}"
 msgstr ""
 
-#: ../root/layout/menu.tt:72
+#: ../root/layout/menu.tt:77
 msgid "Edits for Subscribed Entities"
 msgstr ""
 
@@ -3177,7 +3177,7 @@ msgstr ""
 msgid "External links"
 msgstr ""
 
-#: ../root/layout/menu.tt:269 ../root/main/index.tt:82
+#: ../root/layout/menu.tt:274 ../root/main/index.tt:82
 msgid "FAQs"
 msgstr ""
 
@@ -3292,7 +3292,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:290
+#: ../root/layout.tt:90 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr ""
 
@@ -3382,7 +3382,7 @@ msgstr ""
 msgid "FreeDB Entry Not Found"
 msgstr ""
 
-#: ../root/layout/menu.tt:193
+#: ../root/layout/menu.tt:198
 msgid "FreeDB Gateway"
 msgstr ""
 
@@ -3489,6 +3489,7 @@ msgstr ""
 #: ../root/report/mediums_with_sequence_issues.tt:8
 #: ../root/report/multiple_asins.tt:12
 #: ../root/report/multiple_discogs_links.tt:15
+#: ../root/report/not_various_artists.tt:9
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
@@ -3564,6 +3565,10 @@ msgstr ""
 msgid "Headings:"
 msgstr ""
 
+#: ../root/layout/menu.tt:28
+msgid "Help Translate"
+msgstr ""
+
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
 msgstr ""
@@ -3586,7 +3591,7 @@ msgstr ""
 msgid "Host:"
 msgstr ""
 
-#: ../root/layout/menu.tt:266
+#: ../root/layout/menu.tt:271
 msgid "How Tos"
 msgstr ""
 
@@ -3712,12 +3717,12 @@ msgstr ""
 msgid "ISRC:"
 msgstr ""
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:133
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:134
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr ""
 
-#: ../root/report/index.tt:136 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:137 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr ""
@@ -3750,11 +3755,11 @@ msgstr ""
 msgid "ISWC:"
 msgstr ""
 
-#: ../root/report/index.tt:139
+#: ../root/report/index.tt:140
 msgid "ISWCs"
 msgstr ""
 
-#: ../root/report/index.tt:142 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:143 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr ""
@@ -3941,7 +3946,7 @@ msgid "Instrument Details"
 msgstr ""
 
 #: ../root/instrument/list.tt:11 ../root/instrument/list.tt:13
-#: ../root/layout/menu.tt:278
+#: ../root/layout/menu.tt:283
 msgid "Instrument List"
 msgstr ""
 
@@ -4266,7 +4271,7 @@ msgstr ""
 msgid "Lists:"
 msgstr ""
 
-#: ../root/layout/menu.tt:190
+#: ../root/layout/menu.tt:195
 msgid "Live Data Feed"
 msgstr ""
 
@@ -4319,12 +4324,12 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: ../root/layout/menu.tt:115 ../root/user/login.tt:1 ../root/user/login.tt:3
+#: ../root/layout/menu.tt:120 ../root/user/login.tt:1 ../root/user/login.tt:3
 #: ../root/user/login.tt:34
 msgid "Log In"
 msgstr ""
 
-#: ../root/layout/menu.tt:49
+#: ../root/layout/menu.tt:54
 msgid "Log Out"
 msgstr ""
 
@@ -4399,7 +4404,7 @@ msgstr ""
 msgid "MM"
 msgstr ""
 
-#: ../root/layout/menu.tt:169 ../root/main/index.tt:71
+#: ../root/layout/menu.tt:174 ../root/main/index.tt:71
 msgid "Magic MP3 Tagger"
 msgstr ""
 
@@ -4661,15 +4666,15 @@ msgstr ""
 msgid "MusicBrainz Blog"
 msgstr ""
 
-#: ../root/layout/menu.tt:181 ../root/main/index.tt:98
+#: ../root/layout/menu.tt:186 ../root/main/index.tt:98
 msgid "MusicBrainz Database"
 msgstr ""
 
-#: ../root/layout/menu.tt:166 ../root/main/index.tt:70
+#: ../root/layout/menu.tt:171 ../root/main/index.tt:70
 msgid "MusicBrainz Picard"
 msgstr ""
 
-#: ../root/layout/menu.tt:178
+#: ../root/layout/menu.tt:183
 msgid "MusicBrainz Server"
 msgstr ""
 
@@ -4688,7 +4693,7 @@ msgstr ""
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr ""
 
-#: ../root/layout/menu.tt:175
+#: ../root/layout/menu.tt:180
 msgid "MusicBrainz for Android"
 msgstr ""
 
@@ -4727,23 +4732,23 @@ msgstr ""
 msgid "MusicBrainz: Track"
 msgstr ""
 
-#: ../root/layout/menu.tt:57
+#: ../root/layout/menu.tt:62
 msgid "My Collections"
 msgstr ""
 
-#: ../root/layout/menu.tt:54
+#: ../root/layout/menu.tt:59
 msgid "My Data"
 msgstr ""
 
-#: ../root/layout/menu.tt:66
+#: ../root/layout/menu.tt:71
 msgid "My Open Edits"
 msgstr ""
 
-#: ../root/layout/menu.tt:60
+#: ../root/layout/menu.tt:65
 msgid "My Ratings"
 msgstr ""
 
-#: ../root/layout/menu.tt:63
+#: ../root/layout/menu.tt:68
 msgid "My Tags"
 msgstr ""
 
@@ -5508,17 +5513,17 @@ msgstr ""
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:105 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:106 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr ""
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:110
 msgid "Places with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:109
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -5676,7 +5681,7 @@ msgstr ""
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences.tt:4
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
-#: ../root/layout/menu.tt:40
+#: ../root/layout/menu.tt:45
 msgid "Preferences"
 msgstr ""
 
@@ -5719,7 +5724,7 @@ msgstr ""
 msgid "Privacy"
 msgstr ""
 
-#: ../root/layout/menu.tt:140
+#: ../root/layout/menu.tt:145
 msgid "Privacy Policy"
 msgstr ""
 
@@ -5731,12 +5736,12 @@ msgstr ""
 msgid "Private collection"
 msgstr ""
 
-#: ../root/layout/menu.tt:146 ../root/user/privileged.tt:14
+#: ../root/layout/menu.tt:151 ../root/user/privileged.tt:14
 #: ../root/user/privileged.tt:16
 msgid "Privileged User Accounts"
 msgstr ""
 
-#: ../root/layout/menu.tt:163
+#: ../root/layout/menu.tt:168
 msgid "Products"
 msgstr ""
 
@@ -5882,6 +5887,11 @@ msgstr ""
 msgid "Recordings"
 msgstr ""
 
+#: ../root/report/index.tt:103 ../root/report/not_various_artists.tt:1
+#: ../root/report/not_various_artists.tt:3
+msgid "Recordings incorrectly linked to Various Artists"
+msgstr ""
+
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
 msgid "Recordings with Earliest Release Relationships"
@@ -6010,7 +6020,7 @@ msgstr ""
 msgid "Relationship Type In Use"
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:275
+#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:280
 #: ../root/relationship/header.tt:2 ../root/relationship/linktype/index.tt:1
 msgid "Relationship Types"
 msgstr ""
@@ -6638,11 +6648,11 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr ""
 
-#: ../root/layout/menu.tt:295
+#: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr ""
 
-#: ../root/layout/menu.tt:251 ../root/report/index.tt:1
+#: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
 msgid "Reports"
 msgstr ""
@@ -6768,7 +6778,7 @@ msgstr ""
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:107
 #: ../root/edit/search_macros.tt:234 ../root/edit/search_macros.tt:266
 #: ../root/label/edit_form.tt:21 ../root/layout.tt:16
-#: ../root/layout/menu.tt:198 ../root/otherlookup/form.tt:20
+#: ../root/layout/menu.tt:203 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:40
 #: ../root/release/edit/information.tt:63
@@ -6780,7 +6790,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../root/layout/menu.tt:202
+#: ../root/layout/menu.tt:207
 msgid "Search Edits"
 msgstr ""
 
@@ -7005,7 +7015,7 @@ msgstr ""
 msgid "Sentence"
 msgstr ""
 
-#: ../root/report/index.tt:112 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:113 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr ""
@@ -7050,7 +7060,7 @@ msgstr ""
 msgid "Series information"
 msgstr ""
 
-#: ../root/report/index.tt:115
+#: ../root/report/index.tt:116
 msgid "Series with annotations"
 msgstr ""
 
@@ -7200,7 +7210,7 @@ msgstr ""
 msgid "Slow Down!"
 msgstr ""
 
-#: ../root/layout/menu.tt:134
+#: ../root/layout/menu.tt:139
 msgid "Social Contract"
 msgstr ""
 
@@ -7441,7 +7451,7 @@ msgstr ""
 msgid "Split into separate artists"
 msgstr ""
 
-#: ../root/layout/menu.tt:125
+#: ../root/layout/menu.tt:130
 msgid "Sponsors"
 msgstr ""
 
@@ -7465,7 +7475,7 @@ msgstr ""
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/menu.tt:149 ../root/user/profile.tt:143
+#: ../root/layout/menu.tt:154 ../root/user/profile.tt:143
 msgid "Statistics"
 msgstr ""
 
@@ -7518,7 +7528,7 @@ msgstr ""
 msgid "Stop watching selected artists"
 msgstr ""
 
-#: ../root/layout/menu.tt:263
+#: ../root/layout/menu.tt:268
 msgid "Style Guidelines"
 msgstr ""
 
@@ -7588,7 +7598,7 @@ msgstr ""
 msgid "Subscribers:"
 msgstr ""
 
-#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:46
+#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:51
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
 #: ../root/user/profile/layout.tt:12
 msgid "Subscriptions"
@@ -7655,14 +7665,14 @@ msgid "Tagger"
 msgstr ""
 
 #: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
-#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:206
+#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:211
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
 #: ../root/user/tags.tt:1
 msgid "Tags"
 msgstr ""
 
-#: ../root/layout/menu.tt:128
+#: ../root/layout/menu.tt:133
 msgid "Team"
 msgstr ""
 
@@ -8766,6 +8776,12 @@ msgid ""
 "Merge Releases})."
 msgstr ""
 
+#: ../root/report/not_various_artists.tt:6
+msgid ""
+"This report shows recordings linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr ""
+
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
 "This report shows recordings that have the deprecated \"earliest release\" "
@@ -9016,7 +9032,7 @@ msgstr ""
 msgid "Time:"
 msgstr ""
 
-#: ../root/layout/menu.tt:152
+#: ../root/layout/menu.tt:157
 msgid "Timeline Graph"
 msgstr ""
 
@@ -9084,7 +9100,7 @@ msgid "To:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/menu.tt:209
+#: ../root/layout/menu.tt:214
 msgid "Top CD Stubs"
 msgstr ""
 
@@ -9142,6 +9158,7 @@ msgstr ""
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
+#: ../root/report/not_various_artists.tt:8
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_with_varying_track_lengths.tt:8
 msgid "Total recordings found: {count}"
@@ -9290,7 +9307,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/admin/index.tt:14 ../root/layout/menu.tt:98
+#: ../root/admin/index.tt:14 ../root/layout/menu.tt:103
 msgid "Transclude WikiDocs"
 msgstr ""
 
@@ -9434,12 +9451,12 @@ msgid "URL; [URL]; [URL|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:126
-#: ../root/components/common-macros.tt:606 ../root/report/index.tt:126
+#: ../root/components/common-macros.tt:606 ../root/report/index.tt:127
 msgid "URLs"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_urls.tt:1
-#: ../root/report/deprecated_relationship_urls.tt:3 ../root/report/index.tt:129
+#: ../root/report/deprecated_relationship_urls.tt:3 ../root/report/index.tt:130
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -9690,7 +9707,7 @@ msgstr ""
 msgid "Vote YES"
 msgstr ""
 
-#: ../root/layout/menu.tt:248
+#: ../root/layout/menu.tt:253
 msgid "Vote on Edits"
 msgstr ""
 
@@ -9969,24 +9986,24 @@ msgstr ""
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:118 ../root/series/index.tt:15
+#: ../root/report/index.tt:119 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr ""
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:124
 msgid "Works with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:122
+#: ../root/report/index.tt:123
 msgid "Works with deprecated relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:121
+#: ../root/report/index.tt:122
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -10001,7 +10018,7 @@ msgstr ""
 msgid "Writers:"
 msgstr ""
 
-#: ../root/layout/menu.tt:187
+#: ../root/layout/menu.tt:192
 msgid "XML Web Service"
 msgstr ""
 
@@ -10015,7 +10032,7 @@ msgstr ""
 msgid "YYYY"
 msgstr ""
 
-#: ../root/layout/menu.tt:172 ../root/main/index.tt:72
+#: ../root/layout/menu.tt:177 ../root/main/index.tt:72
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -11379,11 +11396,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:524
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:526
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:529
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:531
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -11454,7 +11471,13 @@ msgstr ""
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:207
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:75
+msgid ""
+"Language set. If you find any problems with the translation, please {url|"
+"help us improve it}!"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:210
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -11953,7 +11976,7 @@ msgstr ""
 msgid "Add cover art"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:18
 msgid "Add release label"
 msgstr ""
 
@@ -11961,7 +11984,7 @@ msgstr ""
 msgid "Remove release alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:20
 msgid "Remove release label"
 msgstr ""
 
