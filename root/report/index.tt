@@ -100,6 +100,7 @@
            <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithVaryingTrackLengths') %]">[% l('Recordings with varying track times') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipRecordings') %]">[% l('Recordings with deprecated relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsRecordings') %]">[% l('Recordings with annotations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'NotVariousArtists') %]">[% l('Recordings incorrectly linked to Various Artists') %]</a></li>
         </ul>
 
         <h2>[% l('Places') %]</h2>
