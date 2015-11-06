@@ -283,9 +283,9 @@ around TO_JSON => sub {
         ended           => boolean_to_json($link->ended),
         entity0_credit  => $self->entity0_credit,
         entity1_credit  => $self->entity1_credit,
-        id              => $self->id,
-        linkOrder       => $self->link_order,
-        linkTypeID      => $link->type_id,
+        id              => $self->id + 0,
+        linkOrder       => $self->link_order + 0,
+        linkTypeID      => $link->type_id + 0,
         target          => $self->target->TO_JSON,
         verbosePhrase   => $self->verbose_phrase,
     };
