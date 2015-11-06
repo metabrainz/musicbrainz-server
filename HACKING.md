@@ -197,10 +197,10 @@ specify its name in an argument:
 
 ### Adding a new report
 
-1. Create new nodule in */lib/MusicBrainz/Server/Report/* directory.
+1. Create new module in */lib/MusicBrainz/Server/Report/*.
 2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm)
    file (add into `@all` list and import module itself there).
-3. Create a new template for your report in *root/report/* directory.
+3. Create a new template for your report in *root/report/*.
 4. Add a link to report page in *root/report/index.tt* template.
 
 
