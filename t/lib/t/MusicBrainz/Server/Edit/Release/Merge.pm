@@ -344,6 +344,47 @@ test 'Appended mediums that get removed don\'t prevent application of the edit (
     is_deeply([map { $_->id } $release->all_mediums], [1, 3], 'final medium positions are correct');
 };
 
+test 'Non-conflicting mediums appended after a release merge is entered should not block the merge (MBS-8615)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8615');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => { id => 1, name => 'Release 1' },
+        old_entities => [{ id => 2, name => 'Release 2' }],
+        medium_changes => [
+            {
+                mediums => [{ id => 1, new_name => '', new_position => 1, old_name => '', old_position => 1 }],
+                release => { id => 1, name => 'Release 1' },
+            },
+            {
+                mediums => [{ id => 2, new_name => '', new_position => 2, old_name => '', old_position => 1 }],
+                release => { id => 2, name => 'Release 2' },
+            },
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+    );
+
+    ok($edit->is_open);
+
+    my $medium_row = $c->model('Medium')->insert({
+        release_id => 1,
+        position => 3,
+        tracklist => [],
+    });
+
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED, 'edit is applied');
+
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('Medium')->load_for_releases($release);
+    is_deeply([map { $_->id } $release->all_mediums], [1, 2, $medium_row->{id}], 'final medium ids are correct');
+    is_deeply([map { $_->position } $release->all_mediums], [1, 2, 3], 'final medium positions are correct');
+};
+
 test 'Release merges should not fail if a recording is both a merge source and merge target (MBS-8614)' => sub {
     my $test = shift;
     my $c = $test->c;
