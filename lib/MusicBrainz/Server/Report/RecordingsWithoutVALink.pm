@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::RecordingsNotVA;
+package MusicBrainz::Server::Report::RecordingsWithoutVALink;
 use Moose;
 use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
@@ -11,13 +11,15 @@ sub query {
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM recording r
         JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
-        WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
+        JOIN artist a on a.id = acn.artist
+        WHERE acn.name = 'Various Artists'
+          AND a.name != 'Various Artists'
     ";
 }
 
 sub template
 {
-    return 'report/recordings_not_va.tt';
+    return 'report/recordings_without_va_link.tt';
 }
 
 __PACKAGE__->meta->make_immutable;
