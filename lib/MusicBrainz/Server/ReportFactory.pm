@@ -56,6 +56,7 @@ use MusicBrainz::Server::PagedReport;
     PartOfSetRelationships
     PossibleCollaborations
     RecordingsNotVA
+    RecordingsNoVALink
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     ReleasedTooEarly
@@ -120,6 +121,7 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsNotVA;
+use MusicBrainz::Server::Report::RecordingsNoVALink;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
