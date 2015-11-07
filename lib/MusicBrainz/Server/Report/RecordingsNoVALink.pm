@@ -5,18 +5,15 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 with 'MusicBrainz::Server::Report::RecordingReport';
 
 sub query {
-	# Last two artists are actually named "Various Artists"
     "
         SELECT
             r.id AS recording_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM recording r
         JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
+        JOIN artist a on a.id = acn.artist
         WHERE acn.name = 'Various Artists'
-          AND acn.artist != $VARTIST_ID
-          AND acn.artist != 242879
-          AND acn.artist != 344239
-          AND acn.artist != 981120
+          AND a.name != 'Various Artists'
     ";
 }
 
