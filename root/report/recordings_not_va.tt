@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Recordings linked to Various Artists without
+                                 "Various Artists" as the artist credit') full_width=1 -%]
+
+<h1>[% l('Recordings linked to Various Artists without "Various Artists" as the artist credit') %]</h1>
+
+<ul>
+    <li>[% l('This report shows recordings linked to the Various Artists entity
+              without "Various Artists" as the credited name.') %]</li>
+    <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/recording_list.tt' -%]
+
+[%- END -%]

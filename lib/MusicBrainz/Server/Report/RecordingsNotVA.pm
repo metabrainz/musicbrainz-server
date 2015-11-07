@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::NotVariousArtists;
+package MusicBrainz::Server::Report::RecordingsNotVA;
 use Moose;
 use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
@@ -17,7 +17,7 @@ sub query {
 
 sub template
 {
-    return 'report/not_various_artists.tt';
+    return 'report/recordings_not_va.tt';
 }
 
 __PACKAGE__->meta->make_immutable;
