@@ -1,7 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Recordings linked to Various Artists without
-                                 "Various Artists" as the artist credit') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Recordings not credited to "Various Artists" but linked to VA') full_width=1 -%]
 
-<h1>[% l('Recordings linked to Various Artists without "Various Artists" as the artist credit') %]</h1>
+<h1>[% l('Recordings not credited to "Various Artists" but linked to VA') %]</h1>
 
 <ul>
     <li>[% l('This report shows recordings linked to the Various Artists entity
