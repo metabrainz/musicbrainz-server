@@ -1,10 +1,10 @@
-[%- WRAPPER 'layout.tt' title=l('Recordings incorrectly linked to Various Artists') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Recordings not credited to "Various Artists" but linked to VA') full_width=1 -%]
 
-<h1>[% l('Recordings incorrectly linked to Various Artists') %]</h1>
+<h1>[% l('Recordings not credited to "Various Artists" but linked to VA') %]</h1>
 
 <ul>
     <li>[% l('This report shows recordings linked to the Various Artists entity
-    	      without "Various Artists" as the credited name.') %]</li>
+              without "Various Artists" as the credited name.') %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
