@@ -60,6 +60,7 @@ use MusicBrainz::Server::PagedReport;
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     ReleasedTooEarly
+    ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
     ReleasesInCAAWithCoverArtRelationships
     ReleasesToConvert
@@ -128,6 +129,7 @@ use MusicBrainz::Server::Report::RecordingsWithoutVALink;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleasesToConvert;
