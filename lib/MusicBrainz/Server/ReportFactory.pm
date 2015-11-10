@@ -65,6 +65,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesToConvert
     ReleasesWithDownloadRelationships
     ReleasesWithNoMediums
+    ReleasesWithoutVACredit
     ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
@@ -132,6 +133,7 @@ use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
+use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
 use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
