@@ -32,7 +32,7 @@ sub process {
 
     my $user;
     if ($c->user_exists) {
-        $user = {%{$c->user->TO_JSON}, preferences => $c->user->preferences};
+        $user = $c->user->TO_JSON;
     }
 
     my %stash = %{$c->stash};

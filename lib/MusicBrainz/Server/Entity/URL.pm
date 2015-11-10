@@ -114,6 +114,16 @@ sub href_url {
     return $url->as_string;
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        href => $self->href_url,
+        pretty_name => $self->pretty_name,
+    };
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
