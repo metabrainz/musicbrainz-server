@@ -230,6 +230,7 @@ sub releases {
     core_entity($c, 'release', $ids, %opts, callback => sub {
         my ($c, $entity_type, $rows) = @_;
 
+        get_core_entities($c, 'release_group', pluck('release_group', $rows), link_path => ['release']);
         print_rows($c, 'release_status', 'id', pluck('status', $rows));
         print_rows($c, 'language', 'id', pluck('language', $rows));
         print_rows($c, 'script', 'id', pluck('script', $rows));
@@ -341,8 +342,12 @@ our %DUMP_METHODS = (
 sub main {
     my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
-    print <<'EOSQL';
+    my ($entity_type, @gids) = @ARGV;
+    my $arguments_string = $entity_type . ' ' . join(' ', @gids);
+
+    print <<"EOSQL";
 -- Automatically generated, do not edit.
+-- $arguments_string
 
 SET client_min_messages TO 'warning';
 
@@ -350,8 +355,6 @@ SET client_min_messages TO 'warning';
 DROP TRIGGER deny_deprecated ON link;
 
 EOSQL
-
-    my ($entity_type, @gids) = @ARGV;
 
     my $dump_method = $DUMP_METHODS{$entity_type} // sub {
         my ($c, $gids) = @_;

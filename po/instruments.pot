@@ -72,6 +72,10 @@ msgstr ""
 msgid "Greek baglama"
 msgstr ""
 
+#: DB:instrument/name:751
+msgid "Guitaret"
+msgstr ""
+
 #: DB:instrument/name:134
 msgid "Hammond organ"
 msgstr ""
@@ -226,6 +230,10 @@ msgstr ""
 
 #: DB:instrument/name:642
 msgid "ajaeng"
+msgstr ""
+
+#: DB:instrument/name:747
+msgid "akete"
 msgstr ""
 
 #: DB:instrument/name:718
@@ -496,6 +504,10 @@ msgstr ""
 msgid "body percussion"
 msgstr ""
 
+#: DB:instrument/name:745
+msgid "bolon"
+msgstr ""
+
 #: DB:instrument/name:431
 msgid "bombarde"
 msgstr ""
@@ -638,6 +650,10 @@ msgstr ""
 
 #: DB:instrument/name:618
 msgid "ching"
+msgstr ""
+
+#: DB:instrument/name:744
+msgid "chitra veena"
 msgstr ""
 
 #: DB:instrument/name:433
@@ -862,6 +878,10 @@ msgstr ""
 
 #: DB:instrument/name:399
 msgid "dohol"
+msgstr ""
+
+#: DB:instrument/name:750
+msgid "dolceola"
 msgstr ""
 
 #: DB:instrument/name:598
@@ -1182,6 +1202,10 @@ msgstr ""
 
 #: DB:instrument/name:582
 msgid "gralla"
+msgstr ""
+
+#: DB:instrument/name:748
+msgid "gramorimba"
 msgstr ""
 
 #: DB:instrument/name:138
@@ -1677,6 +1701,10 @@ msgstr ""
 msgid "metallophone"
 msgstr ""
 
+#: DB:instrument/name:752
+msgid "minipiano"
+msgstr ""
+
 #: DB:instrument/name:591
 msgid "mirliton"
 msgstr ""
@@ -2091,6 +2119,10 @@ msgstr ""
 
 #: DB:instrument/name:597
 msgid "saron"
+msgstr ""
+
+#: DB:instrument/name:749
+msgid "sarrusophone"
 msgstr ""
 
 #: DB:instrument/name:580
@@ -2521,6 +2553,10 @@ msgstr ""
 
 #: DB:instrument/name:324
 msgid "tiêu"
+msgstr ""
+
+#: DB:instrument/name:746
+msgid "tololoche"
 msgstr ""
 
 #: DB:instrument/name:462

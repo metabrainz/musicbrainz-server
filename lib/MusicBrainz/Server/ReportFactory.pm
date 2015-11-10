@@ -55,13 +55,19 @@ use MusicBrainz::Server::PagedReport;
     NoScript
     PartOfSetRelationships
     PossibleCollaborations
+    RecordingsWithoutVACredit
+    RecordingsWithoutVALink
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     ReleasedTooEarly
+    ReleaseGroupsWithoutVACredit
+    ReleaseGroupsWithoutVALink
     ReleasesInCAAWithCoverArtRelationships
     ReleasesToConvert
     ReleasesWithDownloadRelationships
     ReleasesWithNoMediums
+    ReleasesWithoutVACredit
+    ReleasesWithoutVALink
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
@@ -118,13 +124,19 @@ use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
+use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
+use MusicBrainz::Server::Report::RecordingsWithoutVALink;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
+use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
+use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
+use MusicBrainz::Server::Report::ReleasesWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;

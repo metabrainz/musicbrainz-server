@@ -179,6 +179,11 @@ in MusicBrainz. These reports are generated daily by the
 *[daily.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/cron/daily.sh)*
 script.
 
+Contents of reports are stored in separate tables in `report` schema of the
+database.
+
+### Generating reports
+
 You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
 script:
 
@@ -189,6 +194,14 @@ specify its name in an argument:
 
 
     $ ./admin/RunReports.pl DuplicateArtists
+
+### Adding a new report
+
+1. Create new module in */lib/MusicBrainz/Server/Report/*.
+2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm)
+   file (add into `@all` list and import module itself there).
+3. Create a new template for your report in *root/report/*.
+4. Add a link to report page in *root/report/index.tt* template.
 
 
 Cover Art Archive development

@@ -3,7 +3,9 @@ use Moose;
 use namespace::autoclean;
 use feature 'switch';
 
-use MusicBrainz::Server::Constants qw( :edit_status ); 
+use MusicBrainz::Server::Constants qw( :edit_status );
+
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 

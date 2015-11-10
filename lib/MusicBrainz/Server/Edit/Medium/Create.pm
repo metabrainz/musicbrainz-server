@@ -179,7 +179,7 @@ sub allow_auto_edit {
     my $self = shift;
 
     # Allow being an auto-edit if the release-add edit was opened by the same
-    # editor less than an hour ago, and it's still open.
+    # editor less than an hour ago.
 
     my $release_id = $self->data->{release}->{id};
 
@@ -189,9 +189,8 @@ sub allow_auto_edit {
          WHERE edit_release.release = ?
            AND edit.editor = ?
            AND edit.type = ?
-           AND edit.status = ?
            AND edit.open_time - now() < interval '1 hour'
-    ", $release_id, $self->editor_id, $EDIT_RELEASE_CREATE, $STATUS_OPEN);
+    ", $release_id, $self->editor_id, $EDIT_RELEASE_CREATE);
 
     return defined $open_release_edit;
 }

@@ -28,18 +28,23 @@ const LanguageMenu = () => (
   <li className="language-selector">
     {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language))}
     <ul>
-      {$c.stash.server_languages.map(function (l) {
+      {$c.stash.server_languages.map(function (l, index) {
         let inner = languageLink(l);
 
         if (l[0] === $c.stash.current_language) {
           inner = <strong>{inner}</strong>;
         }
 
-        return <li>{inner}</li>;
+        return <li key={index}>{inner}</li>;
       })}
       <li>
         <a href={$c.uri_for_action('/set_language', ['unset'])}>
           {l('(reset language)')}
+        </a>
+      </li>
+      <li class="separator">
+        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
+          {l('Help Translate')}
         </a>
       </li>
     </ul>
@@ -324,28 +329,17 @@ const DocumentationMenu = () => (
 
 const ContactMenu = () => (
   <li className="contact">
-    <a href={doc_link('Contact_Us')}>{l('Contact Us')}</a>
+    <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
     <ul>
-      <li>
-        <a href={doc_link('Communication/Mailing_Lists')}>{l('Mailing Lists')}</a>
-      </li>
       <li>
         <a href="http://forums.musicbrainz.org" className="internal">
           {l('Forums')}
         </a>
       </li>
-      <li className="separator">
+      <li>
         <a href="http://tickets.musicbrainz.org" className="internal">
           {l('Report a Bug')}
         </a>
-      </li>
-      <li>
-        <a href={doc_link('Copyright_Violation_Notice')}>
-          {l('Report a Copyright Violation')}
-        </a>
-      </li>
-      <li>
-        <a href={doc_link('Data_Removal_Policy')}>{l('Data Removal Policy')}</a>
       </li>
     </ul>
   </li>

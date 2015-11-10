@@ -1004,31 +1004,34 @@ sub merge
     );
 
     if ($merge_strategy == $MERGE_APPEND) {
-        my %positions = %{ $opts{medium_positions} || {} }
+        my %positions_by_medium = %{ $opts{medium_positions} || {} }
             or confess('Missing medium_positions parameter');
 
+        my %new_positions = map { $_ => 1 } values %positions_by_medium;
         my $update_names = defined $opts{medium_names};
         my %names = %{ $opts{medium_names} || {} };
 
-        my @medium_ids = @{ $self->sql->select_single_column_array(
-            'SELECT id FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
+        my @existing_mediums = @{ $self->sql->select_list_of_hashes(
+            'SELECT id, position FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
             $new_id, @old_ids
         ) };
 
         confess('medium_positions does not account for all mediums in all releases')
-            unless all { exists $positions{$_} } @medium_ids;
+            unless all {
+                exists $positions_by_medium{$_->{id}} || !exists $new_positions{$_->{position}}
+            } @existing_mediums;
 
         # Set all medium positions in one query; otherwise medium_idx_uniq will
         # sometimes cause individual reorders to fail when they produce
         # duplicate positions. (MBS-7736)
         my $q = "WITH new_positions (medium, position) AS " .
-                "(VALUES " . join(', ', ('(?::integer,?::integer)') x keys %positions) .") " .
+                "(VALUES " . join(', ', ('(?::integer,?::integer)') x keys %positions_by_medium) .") " .
                 "UPDATE medium SET release = ?, position = new_positions.position " .
                 "FROM new_positions WHERE medium.id = new_positions.medium";
-        $self->sql->do($q, %positions, $new_id);
+        $self->sql->do($q, %positions_by_medium, $new_id);
 
         if ($update_names) {
-            foreach my $id (@medium_ids) {
+            foreach my $id (map { $_->{id} } @existing_mediums) {
                 next unless exists $names{$id};
                 $self->sql->do('UPDATE medium SET name = ? WHERE id = ?', $names{$id}, $id);
             }

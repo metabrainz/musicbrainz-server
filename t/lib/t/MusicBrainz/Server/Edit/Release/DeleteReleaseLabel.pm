@@ -7,7 +7,10 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Release::DeleteReleaseLabel }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_DELETERELEASELABEL
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -113,6 +116,7 @@ sub create_edit {
         edit_type => $EDIT_RELEASE_DELETERELEASELABEL,
         editor_id => 1,
         release_label => $c->model('ReleaseLabel')->get_by_id($id),
+        privileges => $UNTRUSTED_FLAG,
     );
 }
 

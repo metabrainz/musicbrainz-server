@@ -12,7 +12,14 @@ my $new_env = DBDefs->get_environment_hash;
 local %ENV = (%ENV, %{$new_env});
 local $ENV{NODE_ENV} = DBDefs->DEVELOPMENT_SERVER ? 'development' : 'production';
 
-my $server_js_path = File::Spec->catfile(DBDefs->MB_SERVER_ROOT, 'root', 'server.js');
+chomp (my $node_version = `node --version`);
+my $server_js_file = 'server.js';
+
+if ($node_version lt 'v4.0.0') {
+    $server_js_file = 'server-compat.js';
+}
+
+my $server_js_path = File::Spec->catfile(DBDefs->MB_SERVER_ROOT, 'root', $server_js_file);
 
 exec 'node'         => $server_js_path,
     '--port'        => DBDefs->RENDERER_PORT,

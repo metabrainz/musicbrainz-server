@@ -157,7 +157,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     } $c;
 
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::Create', 'release created');
-    ok(!$edits[0]->auto_edit, 'new release should not be an auto edit');
+    ok($edits[0]->auto_edit, 'new release should be an auto edit');
 
     $response = from_json($mech->content);
 
@@ -236,7 +236,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     date => '1999-10-27'
                 }
             ],
-            editsPending => JSON::true,
+            editsPending => JSON::false,
         },
         message => 'OK',
     }, 'ws response contains serialized release data');
@@ -1221,7 +1221,7 @@ test 'Releases can be added without any mediums' => sub {
         artist_credit => $artist_credit,
     }];
 
-    my @edits = capture_edits {
+    @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
     } $c;
 

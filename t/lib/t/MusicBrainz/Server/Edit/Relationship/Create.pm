@@ -9,7 +9,10 @@ BEGIN { use MusicBrainz::Server::Edit::Relationship::Create }
 
 use DBDefs;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIP_CREATE
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -66,7 +69,6 @@ subtest 'creating cover art relationships should update the releases coverart' =
     );
 
     $c->sql->do('UPDATE link_type SET is_deprecated = TRUE where id = 78');
-    accept_edit($c, $edit);
 
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_meta($release);
@@ -87,7 +89,6 @@ subtest 'creating asin relationships should update the releases coverart' => sub
             link_type => $c->model('LinkType')->get_by_id(77),
             ended => 1
         );
-        accept_edit($c, $edit);
 
         my $release = $c->model('Release')->get_by_id(2);
         $c->model('Release')->load_meta($release);
@@ -117,8 +118,6 @@ subtest 'Text attributes of value 0 are supported' => sub {
         ],
     );
 
-    accept_edit($c, $edit);
-
     my $rel = $c->model('Relationship')->get_by_id('artist', 'event', $edit->entity_id);
     $c->model('Link')->load($rel);
 
@@ -144,8 +143,6 @@ subtest 'Instrument credits can be added with a new relationship' => sub {
             }
         ],
     );
-
-    accept_edit($c, $edit);
 
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', $edit->entity_id);
     $c->model('Link')->load($rel);
@@ -185,6 +182,7 @@ sub _create_edit {
         end_date => { year => 1995 },
         attributes => [ ],
         ended => 1,
+        privileges => $UNTRUSTED_FLAG,
         %args,
     );
 }

@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Authen::Passphrase;
 use DateTime;
 use Encode;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
@@ -249,6 +250,20 @@ sub new_privileged {
         privileges => $AUTO_EDITOR_FLAG | $LOCATION_EDITOR_FLAG,
     );
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{$self->$orig},
+        is_account_admin => boolean_to_json($self->is_account_admin),
+        is_admin => boolean_to_json($self->is_admin),
+        is_banner_editor => boolean_to_json($self->is_banner_editor),
+        is_location_editor => boolean_to_json($self->is_location_editor),
+        is_relationship_editor => boolean_to_json($self->is_relationship_editor),
+        is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
+    };
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

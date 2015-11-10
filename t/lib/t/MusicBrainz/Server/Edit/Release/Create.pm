@@ -8,7 +8,10 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Release::Create }
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_CREATE
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -112,6 +115,7 @@ sub create_edit
         comment => 'An empty release!',
         status_id => 1,
         release_group_id => 1,
+        privileges => $UNTRUSTED_FLAG,
     );
 }
 

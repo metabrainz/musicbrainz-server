@@ -344,4 +344,205 @@ test 'Appended mediums that get removed don\'t prevent application of the edit (
     is_deeply([map { $_->id } $release->all_mediums], [1, 3], 'final medium positions are correct');
 };
 
+test 'Non-conflicting mediums appended after a release merge is entered should not block the merge (MBS-8615)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8615');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        new_entity => { id => 1, name => 'Release 1' },
+        old_entities => [{ id => 2, name => 'Release 2' }],
+        medium_changes => [
+            {
+                mediums => [{ id => 1, new_name => '', new_position => 1, old_name => '', old_position => 1 }],
+                release => { id => 1, name => 'Release 1' },
+            },
+            {
+                mediums => [{ id => 2, new_name => '', new_position => 2, old_name => '', old_position => 1 }],
+                release => { id => 2, name => 'Release 2' },
+            },
+        ],
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+    );
+
+    ok($edit->is_open);
+
+    my $medium_row = $c->model('Medium')->insert({
+        release_id => 1,
+        position => 3,
+        tracklist => [],
+    });
+
+    $c->model('Edit')->accept($edit);
+    is($edit->status, $STATUS_APPLIED, 'edit is applied');
+
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('Medium')->load_for_releases($release);
+    is_deeply([map { $_->id } $release->all_mediums], [1, 2, $medium_row->{id}], 'final medium ids are correct');
+    is_deeply([map { $_->position } $release->all_mediums], [1, 2, 3], 'final medium positions are correct');
+};
+
+test 'Release merges should not fail if a recording is both a merge source and merge target (MBS-8614)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    # Ignore the fact that the edit in this test case would ideally be voted
+    # down (it's merging recordings that are clearly different). The scenario
+    # by itself is still valid, because a release can definitely have the same
+    # recording appear multiple times, for example.
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8614');
+
+    $c->sql->do(<<'EOSQL');
+        INSERT INTO editor (id, name, password, email, email_confirm_date, ha1)
+        VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
+EOSQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_MERGE,
+        editor_id => 1,
+        old_entities => [
+            {
+                events => [],
+                mediums => [{ format_name => 'CD', track_count => 18 }],
+                name => 'Diana',
+                id => 1231808,
+                labels => [],
+                artist_credit => {
+                    names => [
+                        {
+                            join_phrase => '',
+                            name => 'Paul Anka',
+                            artist => { id => 11617, name => 'Paul Anka' },
+                        },
+                    ],
+                },
+            },
+        ],
+        recording_merges => [
+            {
+                track => 4,
+                sources => [{ length => 148693, id => 14317522, name => 'Lonely Boy' }],
+                medium => 1,
+                destination => { name => 'Lonel boy', id => 14317504, length => 147960 },
+            },
+            {
+                destination => { id => 14317507, name => 'It\'s Time To Cry', length => 143573 },
+                sources => [{ length => 144173, id => 14317525, name => 'It\'s Time To Cry' }],
+                medium => 1,
+                track => 7,
+            },
+            {
+                sources => [{ id => 14317526, name => 'When I Stop Loving You', length => 107800 }],
+                medium => 1,
+                destination => { length => 108000, name => 'When I Stop Loving You', id => 14317508 },
+                track => 8,
+            },
+            {
+                sources => [{ length => 148773, name => 'Don\'t Gamble With Love', id => 14317528 }],
+                destination => { name => 'It Doesn\'t Matter Anymore', id => 14317510, length => 147600 },
+                medium => 1,
+                track => 10,
+            },
+            {
+                track => 11,
+                sources => [{ name => 'It Doesn\'t Matter Anymore', id => 1769019, length => 109334 }],
+                medium => 1,
+                destination => { length => 112333, id => 14317511, name => 'Midnight' },
+            },
+            {
+                sources => [{ length => 114000, name => 'Midnight', id => 14317530 }],
+                destination => { length => 114533, name => 'Time To Cry', id => 14317512 },
+                medium => 1,
+                track => 12,
+            },
+            {
+                medium => 1,
+                sources => [{ id => 1769008, name => 'Time to Cry', length => 150200 }],
+                destination => { length => 150240, name => 'The Longest Day', id => 14317513 },
+                track => 13,
+            },
+            {
+                destination => { id => 1769021, name => 'My Home Town', length => 126533 },
+                sources => [{ name => 'The Longest Day', id => 14317532, length => 124800 }],
+                medium => 1,
+                track => 14,
+            },
+            {
+                sources => [{ length => 126533, name => 'My Home Town', id => 1769021 }],
+                destination => { id => 1769020, name => 'Tonight, My Love, Tonight', length => 127400 },
+                medium => 1,
+                track => 15,
+            },
+            {
+                destination => { name => 'I Love You In The Same Old Way', id => 14317516, length => 129306 },
+                sources => [{ length => 127400, id => 1769020, name => 'Tonight, My Love, Tonight' }],
+                medium => 1,
+                track => 16,
+            },
+            {
+                sources => [{ length => 148066, id => 1769010, name => 'I Love You in the Same Old Way' }],
+                medium => 1,
+                destination => { name => 'I love in the same old way', id => 14317517, length => 149293 },
+                track => 17,
+            },
+        ],
+        _edit_version => 3,
+        new_entity => {
+            events => [],
+            mediums => [{ format_name => 'CD', track_count => 18 }],
+            name => 'Diana',
+            id => 1231807,
+            artist_credit => {
+                names => [
+                    {
+                        join_phrase => '',
+                        name => 'Paul Anka',
+                        artist => { id => 11617, name => 'Paul Anka' },
+                    },
+                ],
+            },
+            labels => [],
+        },
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+    );
+
+    ok($edit->is_open);
+    $c->model('Edit')->accept($edit);
+
+    my $release = $c->model('Release')->get_by_id(1231807);
+    $c->model('Medium')->load_for_releases($release);
+
+    my @mediums = $release->all_mediums;
+    $c->model('Track')->load_for_mediums(@mediums);
+
+    is_deeply(
+        [map { $_->recording_id } map { $_->all_tracks } @mediums],
+        [
+            518579,
+            518581,
+            518584,
+            14317504,
+            518585,
+            518587,
+            14317507,
+            14317508,
+            518586,
+            14317510,
+            14317511,
+            14317512,
+            14317513,
+            14317516,
+            14317516,
+            14317516,
+            14317517,
+            518591,
+        ],
+        'final recording ids are correct',
+    );
+};
+
 1;
