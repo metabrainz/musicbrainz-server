@@ -14,7 +14,8 @@ INSERT INTO work (id, gid, name, type, language, edits_pending, comment)
     VALUES (1, '559be0c1-2c87-45d6-ba43-1b1feb8f831e', 'W1', 1, 1, 0, ''),
            (2, 'aff4e1f7-d3dd-4621-bd4c-25d1b87bb286', 'W2', 1, 1, 0, ''),
            (3, '11d4a39f-ee76-459f-aaf5-b84131d867f2', 'W3', 1, 1, 0, ''),
-           (4, 'a72c9be6-5ef9-4bdf-afa1-6a3db697ff62', 'W4', 1, 1, 0, '');
+           (4, 'a72c9be6-5ef9-4bdf-afa1-6a3db697ff62', 'W4', 1, 1, 0, ''),
+           (5, '5c089ef8-ada9-4dc0-a2bc-f4d7e84df840', 'W5', 1, 1, 0, '');
 
 INSERT INTO iswc (id, work, iswc)
     VALUES (1, 1, 'T-000.000.001-0'),
@@ -37,7 +38,8 @@ INSERT INTO link (id, link_type, attribute_count)
            (4, 161, 0), -- publishing
            (5, 281, 0), -- parts
            (6, 350, 0), -- arrangement
-           (7, 167, 0); -- writer
+           (7, 167, 0), -- writer
+           (8, 239, 0); -- medley
 
 -- performance
 INSERT INTO l_recording_work (id, link, entity0, entity1)
@@ -52,4 +54,5 @@ INSERT INTO l_artist_work (id, link, entity0, entity1)
 INSERT INTO l_work_work (id, link, entity0, entity1)
     VALUES (1, 5, 1, 2), -- parts
            (2, 5, 1, 3),
-           (3, 6, 1, 4); -- arrangement
+           (3, 6, 1, 4), -- arrangement
+           (4, 8, 5, 1); -- medley
