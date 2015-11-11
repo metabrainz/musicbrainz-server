@@ -145,12 +145,10 @@ sub error_403 : Private
     $c->stash->{template} = 'main/403.tt';
 }
 
-sub error_404 : Private
-{
+sub error_404 : Private {
     my ($self, $c) = @_;
 
     $c->response->status(404);
-    $c->stash->{template} = 'main/404.tt';
 }
 
 sub error_500 : Private
