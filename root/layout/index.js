@@ -112,7 +112,7 @@ const Layout = (props) => {
 
         {!!server.alert &&
           <div className="banner warning-header">
-            <p>{server.alert}</p>
+            <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
           </div>}
 
         {!!server.read_only &&
@@ -129,7 +129,7 @@ const Layout = (props) => {
 
         {!!($c.sessionid && $c.flash.message) &&
           <div className="banner flash">
-            <p>{$c.flash.message}</p>
+            <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
           </div>}
 
         <div id="page" className={(props.fullwidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
