@@ -59,11 +59,18 @@ test 'Embedded JSON-LD' => sub {
         },
         'sameAs' => 'https://musicbrainz.org/work/a30a4245-a7ec-4979-8b1e-b549f2782239',
         '@context' => 'http://schema.org',
-        'musicArrangement' => {
-            '@id' => 'https://musicbrainz.org/work/a72c9be6-5ef9-4bdf-afa1-6a3db697ff62',
-            'name' => 'W4',
-            '@type' => 'MusicComposition'
-        },
+        'musicArrangement' => [
+            {
+                '@id' => 'https://musicbrainz.org/work/a72c9be6-5ef9-4bdf-afa1-6a3db697ff62',
+                'name' => 'W4',
+                '@type' => 'MusicComposition'
+            },
+            {
+              '@id' => 'https://musicbrainz.org/work/5c089ef8-ada9-4dc0-a2bc-f4d7e84df840',
+              '@type' => 'MusicComposition',
+              'name' => 'W5',
+            },
+        ],
         'publisher' => {
             '@type' => 'MusicGroup',
             '@id' => 'https://musicbrainz.org/artist/e46bb5a2-f4df-44a1-aafe-d07f4c998ba0',
