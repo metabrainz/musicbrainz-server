@@ -45,7 +45,11 @@ around serialize => sub {
             $ret->{includedComposition} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @subworks);
         }
 
-        my @arrangements = grep { $_->direction == 1 } @{ $entity->relationships_by_link_type_names('arrangement') };
+        my @arrangements = (
+            (grep { $_->direction == 1 } @{ $entity->relationships_by_link_type_names('arrangement') }),
+            (grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('medley') }),
+        );
+
         if (@arrangements) {
             $ret->{musicArrangement} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @arrangements);
         }
