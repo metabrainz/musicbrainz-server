@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Labels with disambiguation same as the name') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Labels with disambiguation the same as the name') full_width=1 -%]
 
-<h1>[% l('Labels with disambiguation same as the name') %]</h1>
+<h1>[% l('Labels with disambiguation the same as the name') %]</h1>
 
 <ul>
     <li>[% l('This report lists labels that have the disambiguation set to be the same
