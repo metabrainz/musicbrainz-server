@@ -49,6 +49,7 @@ use MusicBrainz::Server::PagedReport;
     FeaturingReleases
     ISRCsWithManyRecordings
     ISWCsWithManyWorks
+    LabelsDisambiguationSameName
     MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
@@ -115,6 +116,7 @@ use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
+use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
