@@ -20,10 +20,12 @@ export default function entityLink(entity, props) {
   ];
 
   if (entity.comment) {
+    elements.push(' ');
     elements.push(<span className="comment">{'(' + entity.comment + ')'}</span>);
   }
 
   if (entity.video) {
+    elements.push(' ');
     elements.push(<span className="comment">{l('(video)')}</span>);
   }
 
