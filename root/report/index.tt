@@ -26,6 +26,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsWithMultipleOccurancesInArtistCredits') %]">[% l('Artists occuring multiple times in the same artist credit') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipArtists') %]">[% l('Artists with deprecated relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsArtists') %]">[% l('Artists with annotations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsDisambiguationSameName') %]">[% l('Artists with disambiguation same as the name') %]</a></li>
         </ul>
 
         <h2>[% l('Events') %]</h2>

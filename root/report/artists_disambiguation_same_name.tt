@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Artists with disambiguation same as the name') full_width=1 -%]
+
+<h1>[% l('Artists with disambiguation same as the name') %]</h1>
+
+<ul>
+    <li>[% l('This report lists artists that have the disambiguation set to be the same
+              as their name. Disambiguation should not be filled in this case.') %]</li>
+    <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/artist_list.tt' -%]
+
+[%- END -%]
