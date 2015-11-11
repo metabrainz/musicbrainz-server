@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 import React from 'react';
-import {l} from '../../common/i18n';
+import {l} from '../i18n';
 
 export default function entityLink(entity, props) {
   props = props || {};
