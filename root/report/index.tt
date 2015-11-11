@@ -26,6 +26,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsWithMultipleOccurancesInArtistCredits') %]">[% l('Artists occuring multiple times in the same artist credit') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipArtists') %]">[% l('Artists with deprecated relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsArtists') %]">[% l('Artists with annotations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsDisambiguationSameName') %]">[% l('Artists with disambiguation the same as the name') %]</a></li>
         </ul>
 
         <h2>[% l('Events') %]</h2>
@@ -41,6 +42,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsLabels') %]">[% l('Labels with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipLabels') %]">[% l('Labels with deprecated relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsLabels') %]">[% l('Labels with annotations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'LabelsDisambiguationSameName') %]">[% l('Labels with disambiguation the same as the name') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>

@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Labels with disambiguation the same as the name') full_width=1 -%]
+
+<h1>[% l('Labels with disambiguation the same as the name') %]</h1>
+
+<ul>
+    <li>[% l('This report lists labels that have their disambiguation set to be the same
+              as their name. Disambiguation should not be filled in this case.') %]</li>
+    <li>[% l('Total labels found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/label_list.tt' -%]
+
+[%- END -%]

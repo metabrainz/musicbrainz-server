@@ -14,6 +14,7 @@ use MusicBrainz::Server::PagedReport;
     AnnotationsSeries
     AnnotationsWorks
     ArtistsContainingDisambiguationComments
+    ArtistsDisambiguationSameName
     ArtistsWithMultipleOccurancesInArtistCredits
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
@@ -48,6 +49,7 @@ use MusicBrainz::Server::PagedReport;
     FeaturingReleases
     ISRCsWithManyRecordings
     ISWCsWithManyWorks
+    LabelsDisambiguationSameName
     MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
@@ -83,6 +85,7 @@ use MusicBrainz::Server::PagedReport;
 use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::AnnotationReports;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
+use MusicBrainz::Server::Report::ArtistsDisambiguationSameName;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::ArtistsWithMultipleOccurancesInArtistCredits;
@@ -117,6 +120,7 @@ use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
+use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
