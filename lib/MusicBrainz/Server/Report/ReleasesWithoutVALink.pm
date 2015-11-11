@@ -6,14 +6,28 @@ with 'MusicBrainz::Server::Report::ReleaseReport';
 
 sub query {
     "
-        SELECT
+        SELECT DISTINCT ON (r.id)
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
-        FROM release r
-        JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
-        JOIN artist a on a.id = acn.artist
-        WHERE acn.name = 'Various Artists'
-          AND a.name != 'Various Artists'
+        FROM (
+            SELECT r.id, r.artist_credit, r.name
+            FROM release r
+            JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
+            JOIN artist a on a.id = acn.artist
+            WHERE acn.name = 'Various Artists'
+              AND a.name != 'Various Artists'
+
+            UNION
+
+            SELECT r.id, r.artist_credit, r.name
+            FROM track
+            JOIN artist_credit_name acn on acn.artist_credit = track.artist_credit
+            JOIN artist a on a.id = acn.artist
+            JOIN medium on medium.id = track.medium
+            JOIN release r on r.id = medium.release
+            WHERE acn.name = 'Various Artists'
+              AND a.name != 'Various Artists'
+        ) r
     ";
 }
 
