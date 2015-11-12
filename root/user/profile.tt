@@ -246,4 +246,13 @@
         </tfoot>
     </table>
 
+    [%- IF c.user.id != user.id -%]
+        <p style="clear: both;">
+            <h2>
+                <a href="[% c.uri_for_action('/user/report', [user.name]) %]">
+                    [% l('Report this user for bad behavior') %]
+                </a>
+            </h2>
+        </p>
+    [%- END -%]
 [% END %]

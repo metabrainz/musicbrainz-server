@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Email;
 
+use utf8;
 use Moose;
 use Readonly;
 use Encode qw( decode encode );
@@ -473,6 +474,56 @@ sub send_edit_note
 
     my $email = $self->_create_edit_note_email(%opts);
     return try { $self->_send_email($email) } catch { warn $_ };
+}
+
+sub send_editor_report {
+    my ($self, %opts) = @_;
+
+    my $reporter = $opts{reporter};
+    my $reported_user = $opts{reported_user};
+    my $subject = 'Editor ' . $reported_user->name . ' has been reported by ' . $reporter->name;
+    my $reason = $MusicBrainz::Server::Form::User::Report::REASONS{$opts{reason}};
+
+    my $body .= <<EOF;
+$subject for the following reason:
+
+“$reason”
+
+EOF
+
+    if ($opts{reveal_address}) {
+        $body .= "You can reply to this message directly.\n";
+    } else {
+        $body .= "The reporter chose not to reveal their email address. ";
+        $body .= "You’ll have to contact them through their user page if necessary.\n";
+    }
+
+    my $message = $opts{message};
+    if ($message) {
+        $body .= <<EOF;
+------------------------------------------------------------------------
+$message
+EOF
+    }
+
+    my $admin_addresses = join ', ', map { _user_address($_) } @{ $opts{admins} };
+
+    my @headers = (
+        'To'          => $admin_addresses,
+        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+        'Subject'     => $subject,
+        'Message-Id'  => _message_id('editor-report-%s-%s-%d', $reporter->id, $reported_user->id, time),
+    );
+
+    push @headers, 'From', _user_address($reporter, 1);
+    if ($opts{reveal_address}) {
+        push @headers, 'Reply-To', _user_address($reporter);
+    } else {
+        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
+    }
+
+    my $email = $self->_create_email(\@headers, $body);
+    $self->_send_email($email);
 }
 
 has 'transport' => (
