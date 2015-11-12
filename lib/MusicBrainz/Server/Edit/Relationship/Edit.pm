@@ -554,17 +554,18 @@ before restore => sub {
     }
 };
 
-sub editor_may_edit {
-    my ($self, $opts) = @_;
+around editor_may_edit => sub {
+    my ($orig, $self, $opts) = @_;
 
     my $old_lt = $opts->{relationship}->link->type;
     my $new_lt = $opts->{link_type} // $old_lt;
 
     return (
+        $self->$orig &&
         $self->editor_may_edit_types($old_lt->entity0_type, $old_lt->entity1_type) &&
         $self->editor_may_edit_types($new_lt->entity0_type, $new_lt->entity1_type)
     );
-}
+};
 
 sub allow_auto_edit {
     my ($self) = @_;

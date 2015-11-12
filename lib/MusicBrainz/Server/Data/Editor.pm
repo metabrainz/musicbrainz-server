@@ -283,8 +283,7 @@ sub update_profile
     }, $self->sql);
 }
 
-sub update_privileges
-{
+sub update_privileges {
     my ($self, $editor, $values) = @_;
 
     my $privs =   ($values->{auto_editor}      // 0) * $AUTO_EDITOR_FLAG
@@ -296,11 +295,11 @@ sub update_privileges
                 + ($values->{wiki_transcluder} // 0) * $WIKI_TRANSCLUSION_FLAG
                 + ($values->{banner_editor}    // 0) * $BANNER_EDITOR_FLAG
                 + ($values->{mbid_submitter}   // 0) * $MBID_SUBMITTER_FLAG
-                + ($values->{account_admin}    // 0) * $ACCOUNT_ADMIN_FLAG;
+                + ($values->{account_admin}    // 0) * $ACCOUNT_ADMIN_FLAG
+                + ($values->{editing_disabled} // 0) * $EDITING_DISABLED_FLAG;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET privs=? WHERE id=?',
-                 $privs, $editor->id);
+        $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
     }, $self->sql);
 }
 

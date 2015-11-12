@@ -296,12 +296,12 @@ before restore => sub {
     $self->restore_int_attributes($data) unless defined $data->{edit_version};
 };
 
-sub editor_may_edit {
-    my ($self, $opts) = @_;
+around editor_may_edit => sub {
+    my ($orig, $self, $opts) = @_;
 
     my $lt = $opts->{link_type};
-    return $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
-}
+    return $self->$orig && $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

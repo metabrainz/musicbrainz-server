@@ -50,6 +50,10 @@ has_field 'account_admin' => (
     type => 'Boolean',
 );
 
+has_field 'editing_disabled' => (
+    type => 'Boolean',
+);
+
 1;
 
 =head1 COPYRIGHT

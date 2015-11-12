@@ -24,10 +24,21 @@
 
 .warning-header,
 .server-details,
-.alert {
+.alert,
+.editing-disabled {
     font-weight: bold;
 }
 
 .server-details {
     color: @text-orange;
+}
+
+.editing-disabled {
+    background: @error-header;
+    color: @text-white;
+    font-size: @large-text;
+
+    a {
+        color: @text-orange;
+    }
 }

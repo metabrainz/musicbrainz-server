@@ -24,16 +24,17 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     my $form = $c->form(
         form => 'User::AdjustFlags',
         item => {
-            auto_editor     => $user->is_auto_editor,
-            bot             => $user->is_bot,
-            untrusted       => $user->is_untrusted,
-            link_editor     => $user->is_relationship_editor,
-            location_editor => $user->is_location_editor,
-            no_nag          => $user->is_nag_free,
-            wiki_transcluder=> $user->is_wiki_transcluder,
-            banner_editor   => $user->is_banner_editor,
-            mbid_submitter  => $user->is_mbid_submitter,
-            account_admin   => $user->is_account_admin,
+            auto_editor         => $user->is_auto_editor,
+            bot                 => $user->is_bot,
+            untrusted           => $user->is_untrusted,
+            link_editor         => $user->is_relationship_editor,
+            location_editor     => $user->is_location_editor,
+            no_nag              => $user->is_nag_free,
+            wiki_transcluder    => $user->is_wiki_transcluder,
+            banner_editor       => $user->is_banner_editor,
+            mbid_submitter      => $user->is_mbid_submitter,
+            account_admin       => $user->is_account_admin,
+            editing_disabled    => $user->is_editing_disabled,
         },
     );
 

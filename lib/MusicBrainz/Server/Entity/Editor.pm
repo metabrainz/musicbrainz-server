@@ -91,6 +91,14 @@ sub is_banner_editor
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_editing_disabled {
+    (shift->privileges & $EDITING_DISABLED_FLAG) > 0;
+}
+
+sub is_editing_enabled {
+    (shift->privileges & $EDITING_DISABLED_FLAG) == 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -259,6 +267,7 @@ around TO_JSON => sub {
         is_account_admin => boolean_to_json($self->is_account_admin),
         is_admin => boolean_to_json($self->is_admin),
         is_banner_editor => boolean_to_json($self->is_banner_editor),
+        is_editing_disabled => boolean_to_json($self->is_editing_disabled),
         is_location_editor => boolean_to_json($self->is_location_editor),
         is_relationship_editor => boolean_to_json($self->is_relationship_editor),
         is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
