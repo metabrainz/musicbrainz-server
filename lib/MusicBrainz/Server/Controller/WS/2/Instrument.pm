@@ -3,8 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use MusicBrainz::Server::Validation qw( is_guid );
-use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
     instrument => {
@@ -14,7 +12,6 @@ my $ws_defs = Data::OptList::mkopt([
     },
     instrument => {
         method   => 'GET',
-        linked   => [ qw(release) ],
         inc      => [ qw(aliases annotation _relations tags user-tags) ],
         optional => [ qw(fmt limit offset) ],
     },
@@ -32,8 +29,6 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Instrument'
 };
-
-Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('instrument') CaptureArgs(0) { }
 
@@ -67,34 +62,9 @@ sub instrument : Chained('load') PathPart('') {
     $c->res->body($c->stash->{serializer}->serialize('instrument', $instrument, $c->stash->{inc}, $stash));
 }
 
-sub instrument_browse : Private {
-    my ($self, $c) = @_;
-
-    my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset($c);
-
-    if (!is_guid($id)) {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $instruments;
-    my $total;
-
-    my $stash = WebServiceStash->new;
-
-    for (@{ $instruments->{items} }) {
-        $self->instrument_toplevel($c, $stash, $_);
-    }
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('instrument-list', $instruments, $c->stash->{inc}, $stash));
-}
-
 sub instrument_search : Chained('root') PathPart('instrument') Args(0) {
     my ($self, $c) = @_;
 
-    $c->detach('instrument_browse') if ($c->stash->{linked});
     $self->_search($c, 'instrument');
 }
 
