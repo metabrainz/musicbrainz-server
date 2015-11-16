@@ -61,7 +61,9 @@ export function loadMoFiles(lang) {
 
 export function getHandle(lang) {
   let handle;
-  if (GETTEXT_HANDLES.has(lang)) {
+  if (!lang) {
+    handle = new Gettext();
+  } else if (GETTEXT_HANDLES.has(lang)) {
     handle = GETTEXT_HANDLES.get(lang) || new Gettext();
   } else {
     try {

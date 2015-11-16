@@ -5,6 +5,7 @@ use Module::Pluggable::Object;
 use lib 't/lib';
 use Test::More;
 use Test::Routine::Util;
+use Try::Tiny;
 
 use MusicBrainz::Server::Test qw( commandline_override );
 
@@ -21,6 +22,8 @@ my @classes = (
 );
 
 MusicBrainz::Server::Test->prepare_test_server;
+my $renderer_pid = `./script/start_renderer.pl --daemonize`;
+$renderer_pid =~ s/[^0-9]//g;
 
 @classes = commandline_override("t::MusicBrainz::Server::", @classes);
 
@@ -28,5 +31,10 @@ MusicBrainz::Server::Test->prepare_test_server;
 @classes = grep { $_ !~ /WatchArtist/ } @classes;
 
 plan tests => scalar(@classes);
-run_tests($_ => $_) for (@classes);
 
+try {
+    run_tests($_ => $_) for @classes;
+}
+finally {
+    kill -9, $renderer_pid;
+};
