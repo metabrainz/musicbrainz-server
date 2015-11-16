@@ -34,11 +34,15 @@ sub process {
         $user = {%{$c->user->TO_JSON}, preferences => $c->user->preferences};
     }
 
+    my %stash = %{$c->stash};
+    # XXX contains code references which can't be encoded
+    delete $stash{sidebar_search};
+
     my $body = $c->json_utf8->encode({
         context => {
             user => $user,
             debug => boolean_to_json($c->debug),
-            stash => $c->stash,
+            stash => \%stash,
             sessionid => scalar($c->sessionid),
             session => $c->session,
             flash => $c->flash,

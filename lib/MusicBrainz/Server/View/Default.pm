@@ -18,10 +18,6 @@ sub process {
     my $c = $_[0];
 
     $self->next::method(@_) or return 0;
-
-    # Setup the searches on the sidebar.
-    $c->form(sidebar_search => 'Search::Search');
-
     $self->_post_process(@_);
 }
 

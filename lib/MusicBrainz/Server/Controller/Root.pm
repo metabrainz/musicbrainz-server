@@ -233,6 +233,9 @@ sub begin : Private
         favicon_css_classes => FAVICON_CLASSES,
     );
 
+    # Setup the searches on the sidebar.
+    $c->form(sidebar_search => 'Search::Search');
+
     # Edit implies RequireAuth
     if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
         $c->action->attributes->{RequireAuth} = 1;
