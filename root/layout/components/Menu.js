@@ -42,7 +42,7 @@ const LanguageMenu = () => (
           {l('(reset language)')}
         </a>
       </li>
-      <li class="separator">
+      <li className="separator">
         <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
           {l('Help Translate')}
         </a>
