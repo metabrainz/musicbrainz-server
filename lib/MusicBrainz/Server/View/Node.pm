@@ -1,9 +1,8 @@
-package MusicBrainz::Server::Renderer;
+package MusicBrainz::Server::View::Node;
 
 use strict;
 use warnings;
-
-use base 'Exporter';
+use base 'MusicBrainz::Server::View::Base';
 use DBDefs;
 use Encode;
 use HTML::Entities qw( encode_entities decode_entities );
@@ -20,22 +19,6 @@ my %URI_DELIMITERS = (
     uri_for_action => "${INFO_SEP}__URI_FOR_ACTION__${INFO_SEP}",
 );
 
-our @EXPORT_OK = qw(
-    create_request
-);
-
-sub create_request {
-    my ($path, $headers, $body) = @_;
-
-    my $uri = URI->new;
-    $uri->scheme('http');
-    $uri->host(DBDefs->RENDERER_HOST || '127.0.0.1');
-    $uri->port(DBDefs->RENDERER_PORT);
-    $uri->path($path);
-
-    HTTP::Request->new('GET', $uri, $headers, $body);
-}
-
 sub replace_uri {
     my ($c, $method, $args) = @_;
 
@@ -43,8 +26,8 @@ sub replace_uri {
     return encode_entities($c->$method(@{$args}));
 }
 
-sub handle_request {
-    my ($c) = @_;
+sub process {
+    my ($self, $c) = @_;
 
     my $user;
     if ($c->user_exists) {
@@ -61,8 +44,14 @@ sub handle_request {
             flash => $c->flash,
         }});
 
+    my $uri = URI->new;
+    $uri->scheme('http');
+    $uri->host(DBDefs->RENDERER_HOST || '127.0.0.1');
+    $uri->port(DBDefs->RENDERER_PORT);
+    $uri->path($c->req->path);
+
     my $response = $c->model('MB')->context->lwp->request(
-        create_request($c->req->path, $c->req->headers->clone, $body)
+        HTTP::Request->new('GET', $uri, $c->req->headers->clone, $body)
     );
 
     my $content = decode('utf-8', $response->content);
@@ -77,6 +66,7 @@ sub handle_request {
 
     $c->res->status($response->code);
     $c->res->body($content);
+    $self->_post_process($c);
 }
 
 1;

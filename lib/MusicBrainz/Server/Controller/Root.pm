@@ -113,9 +113,9 @@ this means serving a 404 error page.
 
 =cut
 
-sub default : Path NewTemplate
-{
+sub default : Path {
     my ($self, $c) = @_;
+
     $c->detach('/error_404');
 }
 
@@ -149,6 +149,7 @@ sub error_404 : Private {
     my ($self, $c) = @_;
 
     $c->response->status(404);
+    $c->stash->{current_view} = 'Node';
 }
 
 sub error_500 : Private
@@ -231,11 +232,6 @@ sub begin : Private
         },
         favicon_css_classes => FAVICON_CLASSES,
     );
-
-    # Setup the searchs on the sidebar
-    unless (exists $c->action->attributes->{NewTemplate}) {
-        $c->form(sidebar_search => 'Search::Search');
-    }
 
     # Edit implies RequireAuth
     if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
@@ -327,10 +323,6 @@ sub begin : Private
 
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
         $c->stash( last_replication_date => $c->model('Replication')->last_replication_date );
-    }
-
-    if (exists $c->action->attributes->{NewTemplate}) {
-        MusicBrainz::Server::Renderer::handle_request($c);
     }
 }
 
