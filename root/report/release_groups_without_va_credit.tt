@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Release groups not credited to "Various Artists" but linked to VA') full_width=1 -%]
 
-<h1>[% l('Relase groups not credited to "Various Artists" but linked to VA') %]</h1>
+<h1>[% l('Release groups not credited to "Various Artists" but linked to VA') %]</h1>
 
 <ul>
     <li>[% l('This report shows release groups linked to the Various Artists entity
