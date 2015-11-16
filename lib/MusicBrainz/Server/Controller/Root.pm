@@ -359,24 +359,6 @@ sub end : ActionClass('RenderView')
 
     $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 
-    # For displaying release attributes
-    $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
-    $c->stash->{plural_release_attribute} = \&MusicBrainz::Server::Release::attribute_name_as_plural;
-
-    # Working with quality levels
-    $c->stash->{data_quality} = \&ModDefs::GetQualityText;
-
-    # Displaying track lengths
-    $c->stash->{track_length} =\&MusicBrainz::Server::Track::FormatTrackLength;
-
-    $c->stash->{artist_type} = \&MusicBrainz::Server::Artist::type_name;
-    $c->stash->{begin_date_name} = \&MusicBrainz::Server::Artist::begin_date_name;
-    $c->stash->{end_date_name  } = \&MusicBrainz::Server::Artist::end_date_name;
-
-    $c->stash->{vote} = \&ModDefs::vote_name;
-
-    $c->stash->{release_format} = \&MusicBrainz::Server::ReleaseEvent::release_format_name;
-
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;

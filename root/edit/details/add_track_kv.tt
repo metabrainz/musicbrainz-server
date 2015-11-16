@@ -5,6 +5,6 @@
     </tr>
     <tr>
         <th>[% l('Length:') %]</th>
-        <td>[% track_length(new.TrackLength) %]</td>
+        <td>[% new.TrackLength | format_length %]</td>
     </tr>
 </table>
