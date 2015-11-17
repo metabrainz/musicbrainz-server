@@ -763,6 +763,11 @@ msgstr ""
 msgid "Ganda"
 msgstr ""
 
+#. frequency:1 iso_code_3:cab 
+#: DB:language/name:1591
+msgid "Garifuna"
+msgstr ""
+
 #. frequency:1 iso_code_3:gay 
 #: DB:language/name:141
 msgid "Gayo"

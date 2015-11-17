@@ -10218,7 +10218,7 @@ msgstr ""
 msgid "Garhwali"
 msgstr ""
 
-#. frequency:0 iso_code_3:cab 
+#. frequency:1 iso_code_3:cab 
 #: DB:language/name:1591
 msgid "Garifuna"
 msgstr ""
