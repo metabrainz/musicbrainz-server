@@ -34,7 +34,8 @@ plan tests => scalar(@classes);
 
 try {
     run_tests($_ => $_) for @classes;
-}
-finally {
+} catch {
+    die $_;
+} finally {
     kill -9, $renderer_pid;
 };
