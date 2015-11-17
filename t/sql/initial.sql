@@ -126,6 +126,7 @@ INSERT INTO link_attribute_type VALUES (582, NULL, 582, 0, '112054d5-e706-4dd8-9
 INSERT INTO link_attribute_type VALUES (596, NULL, 596, 0, '63daa0d3-9b63-4434-acff-4977c07808ca', 'solo', 'This should be used when an artist is credited in liner notes or a similar source as performing a solo part.', '2011-12-11 19:32:02.707134+00');
 INSERT INTO link_attribute_type VALUES (617, NULL, 617, 0, '65969e82-5ee5-4035-a211-00e6bf8a0f75', 'emeritus', 'This title indicates that a conductor has at least partially retired, and no longer plays an active role with the group.', '2012-05-10 11:55:43.372982+00');
 INSERT INTO link_attribute_type VALUES (618, NULL, 618, 0, 'd3362ce5-ea76-4cb4-854b-9540fc716078', 'principal', 'This indicates that the group had multiple conductors who were led by this conductor. This may be indicated by either the title of "principal conductor" or "first conductor".', '2012-05-10 11:56:58.200781+00');
+INSERT INTO link_attribute_type VALUES (700, 14, 14, 0, '1da1ca18-9d70-4217-9e3c-9e67c93b834a', 'other drums', 'variously sized drums', '2015-11-06 23:07:56.985481+00');
 INSERT INTO link_attribute_type VALUES (750, NULL, 750, 0, '37da3398-5d1b-4acb-be25-df95e33e423c', 'medley', 'This indicates that the recording is of a medley, of which the work is one part.', '2014-01-01 10:32:01.979531+00');
 INSERT INTO link_attribute_type VALUES (788, NULL, 788, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number', 'This attribute indicates the number of a work in a series.', '2014-05-14 16:39:54.654562+00');
 INSERT INTO link_attribute_type VALUES (830, NULL, 830, 0, 'ebd303c3-7f57-452a-aa3b-d780ebad868d', 'time', 'Local time a band''s performance is scheduled to start, formatted HH:MM.', '2014-11-18 14:34:00.964336+00');
@@ -133,8 +134,10 @@ INSERT INTO link_attribute_type VALUES (830, NULL, 830, 0, 'ebd303c3-7f57-452a-a
 INSERT INTO link_creditable_attribute_type VALUES (3);
 INSERT INTO link_creditable_attribute_type VALUES (14);
 INSERT INTO link_creditable_attribute_type VALUES (46);
+INSERT INTO link_creditable_attribute_type VALUES (125);
 INSERT INTO link_creditable_attribute_type VALUES (229);
 INSERT INTO link_creditable_attribute_type VALUES (302);
+INSERT INTO link_creditable_attribute_type VALUES (700);
 
 INSERT INTO link_text_attribute_type VALUES (788);
 INSERT INTO link_text_attribute_type VALUES (830);
