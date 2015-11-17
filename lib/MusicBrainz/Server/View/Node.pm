@@ -54,9 +54,22 @@ sub process {
     $uri->port(DBDefs->RENDERER_PORT);
     $uri->path($c->req->path);
 
-    my $response = $c->model('MB')->context->lwp->request(
-        HTTP::Request->new('GET', $uri, $c->req->headers->clone, $body)
-    );
+    my $response;
+    my $tries = 0;
+
+    while ($tries < 5) {
+        $response = $c->model('MB')->context->lwp->request(
+            HTTP::Request->new('GET', $uri, $c->req->headers->clone, $body)
+        );
+
+        # If the connection is refused, the service may be restarting.
+        if ($response->code == 500) {
+            sleep 2;
+            $tries++;
+        } else {
+            last;
+        }
+    }
 
     my $content = decode('utf-8', $response->content);
 
