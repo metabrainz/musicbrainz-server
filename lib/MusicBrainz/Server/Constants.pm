@@ -8,6 +8,7 @@ use base 'Exporter';
 use DateTime::Duration;
 use DBDefs;
 use File::Slurp qw( read_file );
+use File::Spec;
 use JSON qw( decode_json );
 use List::AllUtils qw( uniq );
 use Readonly;
@@ -351,7 +352,7 @@ Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 Readonly our $MAX_INITIAL_MEDIUMS => 10;
 
 Readonly our %ENTITIES => %{
-    decode_json(read_file(DBDefs->MB_SERVER_ROOT . '/entities.json'))
+    decode_json(read_file(File::Spec->catfile(DBDefs->MB_SERVER_ROOT, 'entities.json')))
 };
 
 sub entities_with {
