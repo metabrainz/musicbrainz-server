@@ -69,11 +69,6 @@ def beta():
     This requires you have a 'beta' alias in your .ssh/config file.
     """
     env.host_string = "beta"
-    no_local_changes()
-
-    # Build and install translations
-    sudo("su musicbrainz -c 'cd ~/musicbrainz-server && make -C po all_quiet && make -C po deploy'")
-
     production()
 
 def production():
@@ -90,9 +85,14 @@ def production():
     for "plackup" processes and also doing a wget against localhost.
     """
 
+    no_local_changes()
+
     sudo("su root -c 'cd /root/server-configs; git pull origin master'")
     sudo("su root -c 'cd /root/server-configs; git submodule update --init --recursive'")
     sudo('/root/server-configs/provision.sh')
+
+    # Build and install translations
+    sudo("su musicbrainz -c 'cd ~/musicbrainz-server && make -C po all_quiet && make -C po deploy'")
 
     sudo("svc -h /etc/service/musicbrainz-server")
     sudo("svc -t /etc/service/musicbrainz-server-renderer")
