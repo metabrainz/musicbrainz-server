@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-01 19:51+0000\n"
+"PO-Revision-Date: 2015-11-16 10:57+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -879,6 +879,28 @@ msgstr "SoundCloudpagina van"
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
 msgstr "Gesproken vocalen (spraak)"
+
+#: DB:link_type/long_link_phrase:880
+msgid ""
+"The libretto for {entity1} was {additional:additionally} written at "
+"{entity0}"
+msgstr "Het libretto van {entity1} werd {additional:aanvullend} geschreven bij {entity0}"
+
+#: DB:link_type/long_link_phrase:879
+msgid ""
+"The libretto for {entity1} was {additional:additionally} written in "
+"{entity0}"
+msgstr "Het libretto van {entity1} werd {additional:aanvullend} geschreven in {entity0}"
+
+#: DB:link_type/long_link_phrase:878
+msgid ""
+"The lyrics for {entity1} were {additional:additionally} written at {entity0}"
+msgstr "Het tekst van {entity1} werd {additional:aanvullend} geschreven bij {entity0}"
+
+#: DB:link_type/long_link_phrase:877
+msgid ""
+"The lyrics for {entity1} were {additional:additionally} written in {entity0}"
+msgstr "Het tekst van {entity1} werd {additional:aanvullend} geschreven in {entity0}"
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -1901,7 +1923,7 @@ msgstr "Dit koppelt een edit aan zijn originele opname. Een ‘edit’ kan een r
 msgid ""
 "This links an entity to the appropriate listing in the Songfacts database, a"
 " user contributed database concerned with the stories behind the songs."
-msgstr "Dit koppelt een object aan een toepasselijke lijst in de gegevensbank van Songfacts, een door gebruikers onderhouden gegevensbank over de verhalen achter nummers. "
+msgstr "Dit koppelt een object aan zijn overeenkomstige pagina op Songfacts, een door gebruikers onderhouden verzameling verhalen achter muzieknummers. "
 
 #: DB:link_type/description:746 DB:link_type/description:803
 #: DB:link_type/description:96 DB:link_type/description:730
@@ -1912,7 +1934,7 @@ msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
 "href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>."
-msgstr "Dit koppelt een object aan de overeenkomstige pagina in een andere gegevensbank. Respecteer hierbij de <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">witte lijst</a>."
+msgstr "Dit koppelt een object aan de overeenkomstige pagina in een andere database. Respecteer hierbij de <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">witte lijst</a>."
 
 #: DB:link_type/description:804
 msgid ""
@@ -2582,7 +2604,7 @@ msgstr "verkrijgbaar bij"
 
 #: DB:link_type/link_phrase:795
 msgid "available releases"
-msgstr "verkrijgbare uitgaves"
+msgstr "uitgaves die hier verkrijgbaar waren"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
@@ -2666,7 +2688,7 @@ msgstr "catalogussamensteller"
 
 #: DB:link_type/reverse_link_phrase:750
 msgid "catalogues work of"
-msgstr "catalogiseert het werk van"
+msgstr "is een catalogus van"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
@@ -2747,15 +2769,7 @@ msgstr "bestaat uit"
 msgid "contains samples from the IMDb entry at"
 msgstr "bevat samples van het dit lemma op IMDB:"
 
-#: DB:link_type/long_link_phrase:271
-msgid "contains the lyrics for"
-msgstr "bevat de teksten van"
-
-#: DB:link_type/long_link_phrase:274
-msgid "contains the score for"
-msgstr "bevat de partituur van"
-
-#: DB:link_type/reverse_link_phrase:49 DB:link_type/reverse_link_phrase:154
+#: DB:link_type/reverse_link_phrase:154 DB:link_type/reverse_link_phrase:49
 msgid "contains {additional} samples by"
 msgstr "bevat {additional:aanvullende} samples van"
 
@@ -2897,7 +2911,7 @@ msgstr "vroegste uitgave"
 msgid "edit of"
 msgstr "edit van"
 
-#: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
+#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
 msgid "edited at"
 msgstr "geëdit bij"
 
@@ -2905,8 +2919,8 @@ msgstr "geëdit bij"
 msgid "edited in"
 msgstr "geëdit in"
 
-#: DB:link_type/link_phrase:821 DB:link_type/link_phrase:819
-#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:822
+#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
+#: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
 msgstr "locatie waar {entity1} geëdit werd."
 
@@ -2934,8 +2948,8 @@ msgstr "techniek verzorgd bij"
 msgid "engineered in"
 msgstr "techniek verzorgd in"
 
-#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
+#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:814
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:815
 msgid "engineering location for"
 msgstr "locatie waar de techniek van {entity1} verzorgd werd."
 
@@ -3009,6 +3023,10 @@ msgstr "gastartiesten"
 msgid "had a creative position at"
 msgstr "heeft een creatieve functie bij"
 
+#: DB:link_type/long_link_phrase:162
+msgid "had a miscellaneous role on"
+msgstr "had een diverse rol op"
+
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr "heeft een producerende functie bij"
@@ -3020,18 +3038,6 @@ msgstr "had een platencontract met"
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "heeft een technische functie bij"
-
-#: DB:link_type/long_link_phrase:795
-msgid "had available releases"
-msgstr "had verkrijgbare uitgaves"
-
-#: DB:link_type/long_link_phrase:834
-msgid "had previous attribution"
-msgstr "had vroegere toeschrijving"
-
-#: DB:link_type/long_link_phrase:888
-msgid "had supporting tour"
-msgstr "had ondersteunende tournee"
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
@@ -3150,7 +3156,7 @@ msgid "has a logo at"
 msgstr "heeft een logo op"
 
 #: DB:link_type/long_link_phrase:25 DB:link_type/long_link_phrase:129
-#: DB:link_type/long_link_phrase:162 DB:link_type/long_link_phrase:270
+#: DB:link_type/long_link_phrase:270
 msgid "has a miscellaneous role on"
 msgstr "heeft een diverse rol op"
 
@@ -3159,7 +3165,7 @@ msgstr "heeft een diverse rol op"
 #: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
-msgstr "heeft een pagina in een gegevensbank op"
+msgstr "heeft een pagina in een database op"
 
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
@@ -3225,10 +3231,6 @@ msgstr "heeft een officieel videokanaal op"
 msgid "has an online community page at"
 msgstr "heeft een online gemeenschapspagina op"
 
-#: DB:link_type/long_link_phrase:357
-msgid "has anthem"
-msgstr "heeft anthem"
-
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
 msgstr "heeft arrangement"
@@ -3237,7 +3239,7 @@ msgstr "heeft arrangement"
 msgid "has business association with"
 msgstr "heeft een zakenrelatie met"
 
-#: DB:link_type/link_phrase:750 DB:link_type/long_link_phrase:750
+#: DB:link_type/link_phrase:750
 msgid "has catalogue"
 msgstr "heeft catalogus"
 
@@ -3248,14 +3250,6 @@ msgstr "heeft kind"
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
 msgstr "heeft afbeeldingen op"
-
-#: DB:link_type/long_link_phrase:846
-msgid "has dedicated work"
-msgstr "heeft opgedragen compositie"
-
-#: DB:link_type/long_link_phrase:868
-msgid "has dedication"
-msgstr "{entity1} is opgedragen aan {entity0}"
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
@@ -3283,7 +3277,6 @@ msgstr "heeft orkestratie"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
-#: DB:link_type/long_link_phrase:743
 msgid "has part"
 msgstr "heeft deel"
 
@@ -3305,10 +3298,6 @@ msgstr "heeft de persoonlijke uitgever"
 msgid "has poster at"
 msgstr "heeft een affiche op"
 
-#: DB:link_type/long_link_phrase:714
-msgid "has primary concert venue at"
-msgstr "heeft een primaire concertzaal bij"
-
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "heeft revisie"
@@ -3329,21 +3318,9 @@ msgstr "heeft subseries"
 msgid "has subtype"
 msgstr "heeft subtype"
 
-#: DB:link_type/long_link_phrase:859
-msgid "has tour"
-msgstr "heeft tournee"
-
-#: DB:link_type/long_link_phrase:752
-msgid "has traditional instrument"
-msgstr "heeft traditioneel instrument"
-
-#: DB:link_type/long_link_phrase:65
-msgid "has tribute album(s)"
-msgstr "heeft hommage-album(s)"
-
 #: DB:link_type/long_link_phrase:69
-msgid "has/had {additional} samples taken from"
-msgstr "heeft of had {additional:aanvullende} samples genomen van"
+msgid "has {additional} samples taken from"
+msgstr "bevat {additional:aanvullende} samples van"
 
 #: DB:link_type/link_phrase:794
 msgid "held at"
@@ -3351,19 +3328,11 @@ msgstr "gehouden bij"
 
 #: DB:link_type/link_phrase:793 DB:link_type/reverse_link_phrase:794
 msgid "held events"
-msgstr ""
+msgstr "was de locatie van"
 
 #: DB:link_type/reverse_link_phrase:793
 msgid "held in"
 msgstr "gehouden in"
-
-#: DB:link_type/long_link_phrase:845
-msgid "held premiere of"
-msgstr "{entity1} had een première bij {entity0}"
-
-#: DB:link_type/long_link_phrase:793
-msgid "held the event"
-msgstr ""
 
 #: DB:link_type/link_phrase:211
 msgid "history page"
@@ -3388,10 +3357,6 @@ msgstr "heeft fonografisch auteursrecht in bezit van"
 #: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
 msgid "host at"
 msgstr ""
-
-#: DB:link_type/long_link_phrase:715 DB:link_type/long_link_phrase:716
-msgid "hosted the premiere of"
-msgstr "was gastheer van de première van"
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
@@ -3434,29 +3399,9 @@ msgstr "interviews"
 msgid "involved with"
 msgstr "heeft een relatie met"
 
-#: DB:link_type/long_link_phrase:854
-msgid "is a BookBrainz page for"
-msgstr "is een BookBrainz-pagina over"
-
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
 msgstr "is een DJ-mix van"
-
-#: DB:link_type/long_link_phrase:280
-msgid "is a SecondHandSongs page for"
-msgstr "is een SecondHanSongspagina over"
-
-#: DB:link_type/long_link_phrase:289
-msgid "is a Songfacts page for"
-msgstr "is een Songfactspagina over"
-
-#: DB:link_type/long_link_phrase:351
-msgid "is a Wikidata page for"
-msgstr "is een Wikidatapagina over"
-
-#: DB:link_type/long_link_phrase:279
-msgid "is a Wikipedia page for"
-msgstr "is een Wikipediapagina over"
 
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
@@ -3475,9 +3420,8 @@ msgid "is a medley of"
 msgstr "is een medley van"
 
 #: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:730
-#: DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
-msgstr "is een pagina in een gegevensbank van"
+msgstr "is een pagina in een database van"
 
 #: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
 #: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
@@ -3510,14 +3454,6 @@ msgstr "is een {live:live-}{medley:medley met een }{partial:gedeeltelijke }{inst
 msgid "is a {translated} {parody} cover of"
 msgstr "is een {translated:vertaalde} {parody:parodie}cover van"
 
-#: DB:link_type/long_link_phrase:286
-msgid "is an Allmusic page for"
-msgstr "is een Allmusicpagina over"
-
-#: DB:link_type/long_link_phrase:843
-msgid "is an IMDb page for"
-msgstr "is een IMDB-pagina over"
-
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
 msgstr "is een edit van"
@@ -3533,10 +3469,6 @@ msgstr "is gelicenseerd onder"
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
 msgstr "is gerelateerd aan"
-
-#: DB:link_type/long_link_phrase:312
-msgid "is the VIAF ID for"
-msgstr "is de VIAF-ID van"
 
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
@@ -3959,7 +3891,7 @@ msgstr "oorspronkelijk gepland als"
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
 #: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:561
 msgid "other databases"
-msgstr "andere gegevensbanken"
+msgstr "andere databases"
 
 #: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
 #: DB:link_type/long_link_phrase:233
@@ -4074,10 +4006,13 @@ msgstr "affiche"
 msgid "poster for"
 msgstr "affiche van"
 
-#: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:715
-#: DB:link_type/reverse_link_phrase:716
+#: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:716
 msgid "premiered at"
 msgstr "had de première bij"
+
+#: DB:link_type/reverse_link_phrase:715
+msgid "premiered in"
+msgstr "had de première in"
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
@@ -4127,8 +4062,7 @@ msgstr "geproduceerd bij"
 msgid "produced in"
 msgstr "geproduceerd in"
 
-#: DB:link_type/link_phrase:49 DB:link_type/link_phrase:154
-#: DB:link_type/long_link_phrase:49 DB:link_type/long_link_phrase:154
+#: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
 msgid "produced material that was {additional:additionally} sampled in"
 msgstr "produceerde materiaal dat {additional:aanvullend} is gesampled in"
 
@@ -4190,10 +4124,6 @@ msgstr "verzorgde {additional:aanvullend} ontwerp/illustratie voor"
 msgid "provided {additional} graphic design on"
 msgstr "verzorgde {additional:aanvullend} grafisch ontwerp voor"
 
-#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
-msgid "provided {additional} photography on"
-msgstr "verzorgde {additional:aanvullende} fotografie voor"
-
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
@@ -4225,7 +4155,7 @@ msgstr "muziek tegen betaling downloaden"
 msgid "purchase music for mail-order"
 msgstr "koop muziek als post-order"
 
-#: DB:link_type/reverse_link_phrase:809 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
 msgstr "opgenomen bij"
@@ -4242,7 +4172,7 @@ msgstr "opnametechnische functie bij"
 msgid "recording engineers"
 msgstr "opnametechnici"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
 #: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
@@ -4305,8 +4235,8 @@ msgstr "remixes"
 msgid "remixes and compilations"
 msgstr "remixes en compilaties"
 
-#: DB:link_type/link_phrase:828 DB:link_type/link_phrase:829
-#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:831
+#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:828
+#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:831
 msgid "remixing location for"
 msgstr "remixlocatie van"
 
@@ -4544,10 +4474,6 @@ msgstr "vertaler"
 msgid "translated at"
 msgstr "vertaald bij"
 
-#: DB:link_type/reverse_link_phrase:884
-msgid "translated in"
-msgstr "vertaald in"
-
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
 msgstr "getranscribeerd"
@@ -4640,10 +4566,6 @@ msgstr "was een ondersteunende artiest op"
 msgid "was an orchestra at"
 msgstr "speelde als orkest op"
 
-#: DB:link_type/long_link_phrase:833
-msgid "was granted license for"
-msgstr "had een licentie voor"
-
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
 msgstr "werd gehouden bij"
@@ -4664,85 +4586,9 @@ msgstr "werd hernoemd naar"
 msgid "was rescheduled as"
 msgstr "werd opnieuw gepland als"
 
-#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
-#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
-msgid "was the arranging location for"
-msgstr "{entity1} werd gearrangeerd bij {entity0}."
-
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "was de concertmeester van"
-
-#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:819
-#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:822
-msgid "was the editing location for"
-msgstr "{entity1} werd geëdit bij {entity0}."
-
-#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
-msgid "was the engineering location for"
-msgstr "De techniek voor {entity1} werd verzorgd bij {entity0}."
-
-#: DB:link_type/long_link_phrase:835
-msgid "was the manufacturing location for"
-msgstr "{entity1} werd gefabriceerd in {entity0}."
-
-#: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
-msgid "was the mastering location for"
-msgstr "{entity1} werd gemasterd in {entity0}."
-
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:696
-#: DB:link_type/long_link_phrase:758 DB:link_type/long_link_phrase:694
-msgid "was the mixing location for"
-msgstr "{entity1} werd gemixt in {entity0}."
-
-#: DB:link_type/long_link_phrase:849
-msgid "was the printing location for"
-msgstr "{entity1} werd gedrukt in {entity0}."
-
-#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
-#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
-msgid "was the producing location for"
-msgstr "{entity1} werd geproduceerd in {entity0}."
-
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:699
-#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:693
-msgid "was the recording location for"
-msgstr "{entity1} werd opgenomen in {entity0}."
-
-#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
-#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
-msgid "was the remixing location for"
-msgstr "{entity1} werd geremixt in {entity0}."
-
-#: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:882
-msgid "was the revising location for"
-msgstr "{entity1} werd herzien bij {entity0}."
-
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:886
-msgid "was the {additional} arranging location for"
-msgstr "{entity1} werd {additional:aanvullend} gearrangeerd in {entity0}."
-
-#: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:876
-msgid "was the {additional} composing location for"
-msgstr "{entity1} werd {additional:aanvullend} gecomponeerd in {entity0}."
-
-#: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:880
-msgid "was the {additional} libretto writing location for"
-msgstr "Het libretto van {entity1} werd {additional:aanvullend} geschreven in {entity0}."
-
-#: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:878
-msgid "was the {additional} lyrics writing location for"
-msgstr "De tekst van {entity1} werd {additional:aanvullend} geschreven in {entity0}."
-
-#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:884
-msgid "was the {additional} translating location for"
-msgstr "{entity1} werd {additional:aanvullend} vertaald in {entity0}."
-
-#: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:874
-msgid "was the {additional} writing location for"
-msgstr "{entity1} werd {additional:aanvullend} geschreven in {entity0}."
 
 #: DB:link_type/description:733
 msgid "wikidata"
@@ -4837,6 +4683,10 @@ msgstr "{additional:aanvullend} gesampled in"
 #: DB:link_type/long_link_phrase:872
 msgid "{additional:additionally} translated"
 msgstr "{additional:aanvullend} vertaald"
+
+#: DB:link_type/reverse_link_phrase:884
+msgid "{additional:additionally} translated in"
+msgstr "{additional:aanvullend} vertaald in"
 
 #: DB:link_type/reverse_link_phrase:874
 msgid "{additional:additionally} written at"
@@ -5155,6 +5005,234 @@ msgstr "{bonus:bonus|volgende} medium"
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr "{bonus:is|is misschien} deel van een stel, het volgende medium van het stel is"
+
+#: DB:link_type/long_link_phrase:750
+msgid "{entity1} catalogues the work of {entity0}"
+msgstr "{entity1} is een catalogus van het werk van {entity0}"
+
+#: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49
+msgid "{entity1} contains {additional} samples by {entity0}"
+msgstr "{entity1} bevat {additional:aanvullende} samples van {entity0}"
+
+#: DB:link_type/long_link_phrase:312
+msgid "{entity1} has VIAF ID at {entity0}"
+msgstr "{entity1} heeft een VIAF-ID op {entity0}"
+
+#: DB:link_type/long_link_phrase:854
+msgid "{entity1} has a BookBrainz page at {entity0}"
+msgstr "{entity1} heeft een BookBrainz-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:280
+msgid "{entity1} has a SecondHandSongs page at {entity0}"
+msgstr "{entity1} heeft een SecondHandSongs-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:289
+msgid "{entity1} has a Songfacts page at {entity0}"
+msgstr "{entity1} heeft een SongFacts-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:351
+msgid "{entity1} has a Wikidata page at {entity0}"
+msgstr "{entity1} heeft een Wikidatapagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:279
+msgid "{entity1} has a Wikipedia page at {entity0}"
+msgstr "{entity1} heeft eenWikipediapagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:273
+msgid "{entity1} has a page in a database at {entity0}"
+msgstr "{entity1} heeft een pagina in een database op {entity0}"
+
+#: DB:link_type/long_link_phrase:286
+msgid "{entity1} has an Allmusic page at {entity0}"
+msgstr "{entity1} heeft een Allmusic-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:843
+msgid "{entity1} has an IMDb page at {entity0}"
+msgstr "{entity1} heeft een IMDb-pagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:271
+msgid "{entity1} has lyrics available at {entity0}"
+msgstr "De tekst van {entity1} is beschikbaar op {entity0}"
+
+#: DB:link_type/long_link_phrase:274
+msgid "{entity1} has score available at {entity0}"
+msgstr "De bladmuziek van {entity1} is beschikbaar op {entity0}"
+
+#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
+msgid "{entity1} has {additional} photography by {entity0}"
+msgstr "{entity1} heeft {additional:aanvullende} foto’s door {entity0}"
+
+#: DB:link_type/long_link_phrase:743
+msgid "{entity1} is a part of  {entity0}"
+msgstr "{entity1} is een deel van {entity0}"
+
+#: DB:link_type/long_link_phrase:859
+msgid "{entity1} is a tour by {entity0}"
+msgstr "{entity1} is een tournee van {entity0}"
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is a traditional instrument from {entity0}"
+msgstr "{entity1} is een traditioneel instrument uit {entity0}"
+
+#: DB:link_type/long_link_phrase:65
+msgid "{entity1} is a tribute to {entity0}"
+msgstr "{entity1} is een eerbetoon aan {entity0}"
+
+#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
+msgid "{entity1} is dedicated to {entity0}"
+msgstr "{entity1} is opgedragen aan {entity0}"
+
+#: DB:link_type/long_link_phrase:357
+msgid "{entity1} is/was an anthem of {entity0}"
+msgstr "{entity1} is of was het volkslied van {entity0}"
+
+#: DB:link_type/long_link_phrase:714
+msgid "{entity1} is/was the primary concert venue of {entity0}"
+msgstr "{entity1} is of was de standaard concertlocatie van {entity0}"
+
+#: DB:link_type/long_link_phrase:888
+msgid "{entity1} was a tour in support of {entity0}"
+msgstr "{entity1} was een tournee ter ondersteuning van {entity0}"
+
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
+msgid "{entity1} was arranged at {entity0}"
+msgstr "{entity1} werd gearrangeerd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
+msgid "{entity1} was arranged in {entity0}"
+msgstr "{entity1} werd gearrangeerd in {entity0}"
+
+#: DB:link_type/long_link_phrase:795
+msgid "{entity1} was available at {entity0}"
+msgstr "{entity1} was verkrijgbaar bij {entity0}"
+
+#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
+msgid "{entity1} was edited at {entity0}"
+msgstr "{entity1} werd geëdit bij {entity0}"
+
+#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:822
+msgid "{entity1} was edited in {entity0}"
+msgstr "{entity1} werd geëdit in {entity0}"
+
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
+msgid "{entity1} was engineered at {entity0}"
+msgstr "De techniek van {entity1} werd verzorgd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "{entity1} was engineered in {entity0}"
+msgstr "De techniek van {entity1} werd verzorgd in {entity0}"
+
+#: DB:link_type/long_link_phrase:793
+msgid "{entity1} was held in {entity0}"
+msgstr "{entity1} werd gehouden in {entity0}"
+
+#: DB:link_type/long_link_phrase:833
+msgid "{entity1} was licensed to {entity0}"
+msgstr "{entity0} had een licentie op {entity1}"
+
+#: DB:link_type/long_link_phrase:835
+msgid "{entity1} was manufactured in {entity0}"
+msgstr "{entity1} werd gefabriceerd in {entity0}"
+
+#: DB:link_type/long_link_phrase:697
+msgid "{entity1} was mastered at {entity0}"
+msgstr "{entity1} werd gemasterd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:756
+msgid "{entity1} was mastered in {entity0}"
+msgstr "{entity1} werd gemasterd in {entity0}"
+
+#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
+msgid "{entity1} was mixed at {entity0}"
+msgstr "{entity1} werd gemixt bij {entity0}"
+
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
+msgid "{entity1} was mixed in {entity0}"
+msgstr "{entity1} werd gemixt in {entity0}"
+
+#: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
+msgid "{entity1} was premiered at {entity0}"
+msgstr "De première van {entity1} was bij {entity0}"
+
+#: DB:link_type/long_link_phrase:715
+msgid "{entity1} was premiered in {entity0}"
+msgstr "De première van {entity1} was in {entity0}"
+
+#: DB:link_type/long_link_phrase:834
+msgid "{entity1} was previously attributed to {entity0}"
+msgstr "{entity1} werd eerder toegeschreven aan {entity0}"
+
+#: DB:link_type/long_link_phrase:849
+msgid "{entity1} was printed in {entity0}"
+msgstr "{entity1} werd gedrukt in {entity0}"
+
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
+msgid "{entity1} was produced at {entity0}"
+msgstr "{entity1} werd geproduceerd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
+msgid "{entity1} was produced in {entity0}"
+msgstr "{entity1} werd geproduceerd in {entity0}"
+
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+msgid "{entity1} was recorded at  {entity0}"
+msgstr "{entity1} werd opgenomen bij {entity0}"
+
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
+msgid "{entity1} was recorded at {entity0}"
+msgstr "{entity1} werd opgenomen bij {entity0}"
+
+#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:698
+msgid "{entity1} was recorded in {entity0}"
+msgstr "{entity1} werd opgenomen in {entity0}"
+
+#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
+msgid "{entity1} was remixed at {entity0}"
+msgstr "{entity1} werd geremixt bij {entity0}"
+
+#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
+msgid "{entity1} was remixed in {entity0}"
+msgstr "{entity1} werd geremixt in {entity0}"
+
+#: DB:link_type/long_link_phrase:882
+msgid "{entity1} was revised at {entity0}"
+msgstr "{entity1} werd herzien bij {entity0}"
+
+#: DB:link_type/long_link_phrase:881
+msgid "{entity1} was revised in {entity0}"
+msgstr "{entity1} werd herzien in {entity0}"
+
+#: DB:link_type/long_link_phrase:886
+msgid "{entity1} was {additional:additionally} arranged at {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} gearrangeerd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:885
+msgid "{entity1} was {additional:additionally} arranged in {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} gearrangeerd in {entity0}"
+
+#: DB:link_type/long_link_phrase:876
+msgid "{entity1} was {additional:additionally} composed at {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} gecomponeerd bij {entity0}"
+
+#: DB:link_type/long_link_phrase:875
+msgid "{entity1} was {additional:additionally} composed in {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} gecomponeerd in {entity0}"
+
+#: DB:link_type/long_link_phrase:883
+msgid "{entity1} was {additional:additionally} translated at {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} vertaald bij {entity0}"
+
+#: DB:link_type/long_link_phrase:884
+msgid "{entity1} was {additional:additionally} translated in {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} vertaald in {entity0}"
+
+#: DB:link_type/long_link_phrase:874
+msgid "{entity1} was {additional:additionally} written at {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} geschreven bij {entity0}"
+
+#: DB:link_type/long_link_phrase:873
+msgid "{entity1} was {additional:additionally} written in {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} geschreven in {entity0}"
 
 #: DB:link_type/link_phrase:278
 msgid ""

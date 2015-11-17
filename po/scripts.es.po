@@ -4,7 +4,7 @@
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Nicolás Tamargo <email address hidden>, 2011, 2012
-# kelopezcl <email address hidden>, 2012
+# Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""

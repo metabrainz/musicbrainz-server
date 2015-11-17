@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-22 01:01-0500\n"
-"PO-Revision-Date: 2015-09-08 18:59+0000\n"
+"POT-Creation-Date: 2015-11-06 14:02-0800\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -188,7 +188,7 @@ msgid "(none)"
 msgstr "(κανένα)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:328
+#: ../root/static/scripts/common/components/TagEditor.js:329
 msgctxt "tag"
 msgid "(none)"
 msgstr "(κανένα)"
@@ -420,7 +420,7 @@ msgid ""
 "respectively."
 msgstr ""
 
-#: ../root/layout/menu.tt:122
+#: ../root/layout/menu.tt:127
 msgid "About"
 msgstr "Σχετικά"
 
@@ -428,8 +428,8 @@ msgstr "Σχετικά"
 msgid "Abstain"
 msgstr "Αποχή"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:197
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:20
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Abstain"
 msgstr ""
@@ -506,7 +506,7 @@ msgstr ""
 msgid "Add Area"
 msgstr ""
 
-#: ../root/admin/index.tt:7 ../root/layout/menu.tt:85
+#: ../root/admin/index.tt:7 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr ""
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Add Artist"
 msgstr ""
 
-#: ../root/layout/menu.tt:218
+#: ../root/layout/menu.tt:223
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Προσθήκη καλλιτέχνη"
@@ -548,7 +548,7 @@ msgstr "Προσθήκη δίσκου"
 msgid "Add Event"
 msgstr ""
 
-#: ../root/layout/menu.tt:245
+#: ../root/layout/menu.tt:250
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr ""
@@ -561,7 +561,7 @@ msgstr ""
 msgid "Add Instrument"
 msgstr ""
 
-#: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
+#: ../root/admin/index.tt:10 ../root/layout/menu.tt:95
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr ""
@@ -570,7 +570,7 @@ msgstr ""
 msgid "Add Label"
 msgstr ""
 
-#: ../root/layout/menu.tt:221 ../root/release/edit/information.tt:224
+#: ../root/layout/menu.tt:226 ../root/release/edit/information.tt:224
 #: ../root/release/edit/information.tt:225
 msgctxt "button/menu"
 msgid "Add Label"
@@ -589,12 +589,12 @@ msgstr "Προσθήκη σελίδας"
 msgid "Add Place"
 msgstr ""
 
-#: ../root/layout/menu.tt:239
+#: ../root/layout/menu.tt:244
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr ""
 
-#: ../root/layout/menu.tt:227
+#: ../root/layout/menu.tt:232
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr "Προσθήκη κυκλοφορίας"
@@ -614,7 +614,7 @@ msgstr ""
 msgid "Add Release Group"
 msgstr ""
 
-#: ../root/layout/menu.tt:224
+#: ../root/layout/menu.tt:229
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "Προσθήκη ομάδας κυκλοφοριών"
@@ -623,12 +623,12 @@ msgstr "Προσθήκη ομάδας κυκλοφοριών"
 msgid "Add Series"
 msgstr ""
 
-#: ../root/layout/menu.tt:242
+#: ../root/layout/menu.tt:247
 msgctxt "button/menu"
 msgid "Add Series"
 msgstr ""
 
-#: ../root/layout/menu.tt:233
+#: ../root/layout/menu.tt:238
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr "Προσθήκη μεμονωμένης ηχογράφησης "
@@ -638,11 +638,11 @@ msgctxt "header"
 msgid "Add Standalone Recording"
 msgstr "Προσθήκη μεμονωμένης ηχογράφησης "
 
-#: ../root/layout/menu.tt:230
+#: ../root/layout/menu.tt:235
 msgid "Add Various Artists Release"
 msgstr "Προσθήκη κυκλοφορίας Διαφόρων Καλλιτεχνών"
 
-#: ../root/layout/menu.tt:236
+#: ../root/layout/menu.tt:241
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr "Προσθήκη έργου"
@@ -684,7 +684,7 @@ msgid "Add a new entry"
 msgstr "Προσθήκη μιας νέας καταχώρησης"
 
 #: ../root/release/edit/recordings.tt:195
-#: ../root/static/scripts/common/i18n.js:161
+#: ../root/static/scripts/common/i18n.js:224
 msgid "Add a new recording"
 msgstr "Προσθήκη μιας νέας ηχογράφησης"
 
@@ -709,7 +709,7 @@ msgid "Add annotation"
 msgstr "Προσθήκη σχολίου"
 
 #: ../root/components/relationship-editor.tt:193
-#: ../root/static/scripts/common/i18n.js:171
+#: ../root/static/scripts/common/i18n.js:234
 msgid "Add another instrument"
 msgstr ""
 
@@ -742,14 +742,14 @@ msgstr ""
 #: ../root/forms/relationship-editor.tt:7
 #: ../root/release/edit_relationships.tt:198
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
 msgstr "Προσθήκη σχέσης"
 
 #: ../root/artist/layout.tt:12 ../root/label/layout.tt:9
 #: ../root/release_group/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
 msgid "Add release"
 msgstr "Προσθήκη κυκλοφορίας"
 
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Adjust User Account Flags"
 msgstr "Ρύθμιση σημαιών λογαριασμού χρήστη"
 
-#: ../root/layout/menu.tt:81
+#: ../root/layout/menu.tt:86
 msgid "Admin"
 msgstr "Διαχειριστής"
 
@@ -900,7 +900,7 @@ msgstr "Ψευδώνυμα"
 msgid "All Edits"
 msgstr "Όλες οι επεξεργασίες"
 
-#: ../root/layout/menu.tt:69
+#: ../root/layout/menu.tt:74
 msgid "All My Edits"
 msgstr "Όλες οι επεξεργασίες μου"
 
@@ -1097,12 +1097,16 @@ msgid "Application"
 msgstr ""
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/menu.tt:43
+#: ../root/layout/menu.tt:48
 msgid "Applications"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:244
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:200
+#: ../root/edit/search_macros.tt:309
+msgid "Applied Edit Count of Editor"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:246
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:196
 msgctxt "vote"
 msgid "Approve"
 msgstr ""
@@ -1203,12 +1207,12 @@ msgstr ""
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:589 ../root/components/labels-list.tt:9
-#: ../root/edit/search_macros.tt:307 ../root/label/merge.tt:15
+#: ../root/edit/search_macros.tt:309 ../root/label/merge.tt:15
 #: ../root/place/merge.tt:14 ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/static/scripts/common/i18n.js:142
+#: ../root/static/scripts/common/i18n.js:205
 msgid "Area"
 msgstr ""
 
@@ -1260,7 +1264,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:58
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/edit_track.tt:13
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:309
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:365
@@ -1281,11 +1285,11 @@ msgstr ""
 #: ../root/search/results-release_group.tt:9 ../root/watch/list.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:33
-#: ../root/static/scripts/common/i18n.js:143
+#: ../root/static/scripts/common/i18n.js:206
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Artist Area"
 msgstr ""
 
@@ -1534,7 +1538,7 @@ msgstr ""
 msgid "Authorized Applications"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Auto-Editor"
 msgstr ""
 
@@ -1550,7 +1554,7 @@ msgstr ""
 msgid "Auto-editor"
 msgstr ""
 
-#: ../root/layout/menu.tt:143
+#: ../root/layout/menu.tt:148
 msgid "Auto-editor Elections"
 msgstr ""
 
@@ -1762,7 +1766,7 @@ msgstr ""
 msgid "Begin date:"
 msgstr "Ημερομηνία έναρξης:"
 
-#: ../root/layout/menu.tt:260
+#: ../root/layout/menu.tt:265
 msgid "Beginners Guide"
 msgstr "Οδηγός για αρχάριους"
 
@@ -1786,7 +1790,7 @@ msgstr ""
 msgid "Birth date:"
 msgstr "Ημερομηνία γέννησης:"
 
-#: ../root/layout/menu.tt:158
+#: ../root/layout/menu.tt:163
 msgid "Blog"
 msgstr "Blog"
 
@@ -1800,7 +1804,7 @@ msgstr ""
 msgid "Born:"
 msgstr "Γεννήθηκε:"
 
-#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:288
+#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:290
 msgid "Bot"
 msgstr "Bot"
 
@@ -1908,7 +1912,7 @@ msgstr "Ακύρωση επεξεργασίας"
 msgid "Cancel the election"
 msgstr "Ακύρωση ψηφοφορίας"
 
-#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:276
+#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -1986,7 +1990,7 @@ msgid "Catalog#"
 msgstr "# κατάλογου"
 
 #: ../root/account/change_password.tt:1 ../root/account/change_password.tt:3
-#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:37
+#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:42
 msgid "Change Password"
 msgstr "Αλλαγή κωδικού πρόσβασης"
 
@@ -2068,7 +2072,7 @@ msgstr "Πελάτης:"
 msgid "Close"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Closed"
 msgstr "Έκλεισε"
 
@@ -2082,7 +2086,7 @@ msgstr "Έκλεισε:"
 msgid "Code"
 msgstr "Κώδικας"
 
-#: ../root/layout/menu.tt:137
+#: ../root/layout/menu.tt:142
 msgid "Code of Conduct"
 msgstr "Κώδικας δεοντολογίας"
 
@@ -2176,7 +2180,7 @@ msgid ""
 "into MusicBrainz!"
 msgstr "Συγχαρητήρια, ο νέος σας λογαριασμός δημιουργήθηκε και είστε πλέον συνδεδεμένοι στο MusicBrainz!"
 
-#: ../root/layout/menu.tt:286
+#: ../root/layout/menu.tt:291
 msgid "Contact Us"
 msgstr "Επικοινωνήστε μαζί μας"
 
@@ -2262,7 +2266,7 @@ msgstr "Εξώφυλλο:"
 msgid "Create"
 msgstr "Δημιουργία"
 
-#: ../root/account/register.tt:43 ../root/layout/menu.tt:116
+#: ../root/account/register.tt:43 ../root/layout/menu.tt:121
 msgid "Create Account"
 msgstr "Δημιουργία λογαριασμού"
 
@@ -2286,7 +2290,7 @@ msgstr "Δημιουργία λογαριασμού"
 msgid "Create collection"
 msgstr "Δημιουργία συλλογής"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Created"
 msgstr "Δημιουργήθηκε"
 
@@ -2320,7 +2324,7 @@ msgstr ""
 msgid "DD"
 msgstr ""
 
-#: ../root/layout/menu.tt:131
+#: ../root/layout/menu.tt:136
 msgid "Data Licenses"
 msgstr "Άδειες δεδομένων"
 
@@ -2331,10 +2335,6 @@ msgstr "Άδειες δεδομένων"
 #: ../root/release/layout.tt:53
 msgid "Data Quality:"
 msgstr "Ποιότητα δεδομένων:"
-
-#: ../root/layout/menu.tt:305
-msgid "Data Removal Policy"
-msgstr "Πολιτική κατάργησης δεδομένων"
 
 #: ../root/components/medium.tt:83 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:378
@@ -2390,7 +2390,7 @@ msgstr ""
 msgid "Defunct:"
 msgstr "Ανενεργός:"
 
-#: ../root/edit/search_macros.tt:112
+#: ../root/edit/search_macros.tt:114
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -2453,7 +2453,7 @@ msgstr "Λεπτομέρειες"
 msgid "Developer Applications"
 msgstr ""
 
-#: ../root/layout/menu.tt:184
+#: ../root/layout/menu.tt:189
 msgid "Developer Resources"
 msgstr "Πηγές προγραμματιστών"
 
@@ -2461,7 +2461,7 @@ msgstr "Πηγές προγραμματιστών"
 msgid "Developers"
 msgstr "Προγραμματιστές"
 
-#: ../root/layout/menu.tt:281
+#: ../root/layout/menu.tt:286
 msgid "Development"
 msgstr "Ανάπτυξη"
 
@@ -2622,7 +2622,7 @@ msgid ""
 "our {oauth2|OAuth documentation} for more details."
 msgstr ""
 
-#: ../root/layout/menu.tt:257
+#: ../root/layout/menu.tt:262
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
 msgid "Documentation"
 msgstr "Τεκμηρίωση"
@@ -2711,12 +2711,12 @@ msgstr ""
 msgid "Edit Attribute"
 msgstr ""
 
-#: ../root/admin/index.tt:20 ../root/layout/menu.tt:108
+#: ../root/admin/index.tt:20 ../root/layout/menu.tt:113
 msgid "Edit Attributes"
 msgstr ""
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/admin/index.tt:17 ../root/layout/menu.tt:103
+#: ../root/admin/index.tt:17 ../root/layout/menu.tt:108
 msgid "Edit Banner Message"
 msgstr ""
 
@@ -2739,7 +2739,7 @@ msgstr "Σημείωση επεξεργασίας"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
-#: ../root/layout/menu.tt:34
+#: ../root/layout/menu.tt:39
 msgid "Edit Profile"
 msgstr "Επεξεργασία προφίλ"
 
@@ -2753,7 +2753,7 @@ msgstr "Επεξεργασία γνωρίσματος σχέσης"
 msgid "Edit Relationship Type"
 msgstr "Επεξεργασία τύπου σχέσης"
 
-#: ../root/admin/index.tt:11 ../root/layout/menu.tt:93
+#: ../root/admin/index.tt:11 ../root/layout/menu.tt:98
 msgid "Edit Relationship Types"
 msgstr "Επεξεργασία τύπων σχέσης"
 
@@ -2763,7 +2763,7 @@ msgstr ""
 
 #: ../root/doc/edit_type.tt:28 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/info.tt:67
-#: ../root/layout/menu.tt:272
+#: ../root/layout/menu.tt:277
 msgid "Edit Types"
 msgstr "Επεξεργασία τύπων"
 
@@ -2818,7 +2818,7 @@ msgid "Edited"
 msgstr "Έγινε επεξεργασία"
 
 #: ../root/account/preferences.tt:42 ../root/collection/layout.tt:19
-#: ../root/layout/menu.tt:215
+#: ../root/layout/menu.tt:220
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:18
 msgid "Editing"
 msgstr "Γίνεται επεξεργασία"
@@ -2836,12 +2836,12 @@ msgstr "Ιστορικό επεξεργασίας"
 msgid "Editing introduction"
 msgstr "Εισαγωγή στην επεξεργασία"
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:307
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 msgid "Editor"
 msgstr "Χρήστης"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Editor Flag"
 msgstr ""
 
@@ -2865,7 +2865,7 @@ msgstr "Τροποποιήσεις"
 msgid "Edits ({view_url|view})"
 msgstr "Τροποποιήσεις ({view_url|προβολή})"
 
-#: ../root/layout/menu.tt:75
+#: ../root/layout/menu.tt:80
 msgid "Edits by Subscribed Editors"
 msgstr "Επεξεργασίες των χρηστών που παρακολουθείτε"
 
@@ -2873,7 +2873,7 @@ msgstr "Επεξεργασίες των χρηστών που παρακολου
 msgid "Edits by {name}"
 msgstr "Τροποποιήσεις από {name}"
 
-#: ../root/layout/menu.tt:72
+#: ../root/layout/menu.tt:77
 msgid "Edits for Subscribed Entities"
 msgstr "Τροποποιήσεις των στοιχείων που παρακολουθείτε"
 
@@ -3039,7 +3039,7 @@ msgid "Entity types:"
 msgstr ""
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Error"
 msgstr "Σφάλμα"
 
@@ -3091,7 +3091,7 @@ msgstr "Ακόμα και η προσθήκη ενός ή δύο URL είναι 
 #: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
 #: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/static/scripts/common/i18n.js:144
+#: ../root/static/scripts/common/i18n.js:207
 msgid "Event"
 msgstr ""
 
@@ -3157,7 +3157,7 @@ msgstr "Ανάπτυξη όλων των περιγραφών"
 msgid "Expire action"
 msgstr "Ενέργεια λήξης"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Expired"
 msgstr "Έληξε"
 
@@ -3196,7 +3196,7 @@ msgstr ""
 msgid "External links"
 msgstr "Εξωτερικοί σύνδεσμοι"
 
-#: ../root/layout/menu.tt:269 ../root/main/index.tt:82
+#: ../root/layout/menu.tt:274 ../root/main/index.tt:82
 msgid "FAQs"
 msgstr "Συχνές ερωτήσεις"
 
@@ -3312,7 +3312,7 @@ msgstr "Μορφή"
 msgid "Format:"
 msgstr "Μορφή:"
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:293
+#: ../root/layout.tt:90 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr ""
 
@@ -3403,7 +3403,7 @@ msgstr ""
 msgid "FreeDB Entry Not Found"
 msgstr "Δε βρέθηκε καταχώρηση FreeDB"
 
-#: ../root/layout/menu.tt:193
+#: ../root/layout/menu.tt:198
 msgid "FreeDB Gateway"
 msgstr "Πύλη FreeDB"
 
@@ -3513,6 +3513,7 @@ msgstr "Γενικές πληροφορίες"
 #: ../root/report/mediums_with_sequence_issues.tt:8
 #: ../root/report/multiple_asins.tt:12
 #: ../root/report/multiple_discogs_links.tt:15
+#: ../root/report/not_various_artists.tt:9
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
@@ -3589,6 +3590,10 @@ msgstr ""
 msgid "Headings:"
 msgstr ""
 
+#: ../root/layout/menu.tt:28
+msgid "Help Translate"
+msgstr ""
+
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
 msgstr "Βοήθεια:"
@@ -3611,7 +3616,7 @@ msgstr "Αρχική σελίδα:"
 msgid "Host:"
 msgstr ""
 
-#: ../root/layout/menu.tt:266
+#: ../root/layout/menu.tt:271
 msgid "How Tos"
 msgstr ""
 
@@ -3628,7 +3633,7 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "Μόλις έκανα δωρεά! Γιατί το βλέπω αυτό;"
 
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
-#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:307
+#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:309
 msgid "ID"
 msgstr "ID"
 
@@ -3737,12 +3742,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:133
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:134
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRCs"
 
-#: ../root/report/index.tt:136 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:137 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRCs με πολλαπλές ηχογραφήσεις"
@@ -3775,11 +3780,11 @@ msgstr "ISWC “{iswc}”"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:139
+#: ../root/report/index.tt:140
 msgid "ISWCs"
 msgstr ""
 
-#: ../root/report/index.tt:142 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:143 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr ""
@@ -3945,11 +3950,11 @@ msgid "Installed Application"
 msgstr ""
 
 #: ../root/components/common-macros.tt:589
-#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:307
+#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:309
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/static/scripts/common/i18n.js:145
+#: ../root/static/scripts/common/i18n.js:208
 msgid "Instrument"
 msgstr ""
 
@@ -3967,7 +3972,7 @@ msgid "Instrument Details"
 msgstr ""
 
 #: ../root/instrument/list.tt:11 ../root/instrument/list.tt:13
-#: ../root/layout/menu.tt:278
+#: ../root/layout/menu.tt:283
 msgid "Instrument List"
 msgstr ""
 
@@ -4044,7 +4049,7 @@ msgstr "Να παραμείνω συνδεδεμένος"
 #: ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:309
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
@@ -4053,11 +4058,11 @@ msgstr "Να παραμείνω συνδεδεμένος"
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/static/scripts/common/i18n.js:146
+#: ../root/static/scripts/common/i18n.js:209
 msgid "Label"
 msgstr "Δισκογραφική εταιρεία"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Label Area"
 msgstr ""
 
@@ -4293,7 +4298,7 @@ msgstr ""
 msgid "Lists:"
 msgstr ""
 
-#: ../root/layout/menu.tt:190
+#: ../root/layout/menu.tt:195
 msgid "Live Data Feed"
 msgstr "Ζωντανή ροή δεδομένων"
 
@@ -4326,7 +4331,7 @@ msgstr "Τοπικότητα:"
 msgid "Location"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Location Editor"
 msgstr ""
 
@@ -4346,12 +4351,12 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: ../root/layout/menu.tt:115 ../root/user/login.tt:1 ../root/user/login.tt:3
+#: ../root/layout/menu.tt:120 ../root/user/login.tt:1 ../root/user/login.tt:3
 #: ../root/user/login.tt:34
 msgid "Log In"
 msgstr "Σύνδεση"
 
-#: ../root/layout/menu.tt:49
+#: ../root/layout/menu.tt:54
 msgid "Log Out"
 msgstr "Αποσύνδεση"
 
@@ -4426,7 +4431,7 @@ msgstr "MBID:"
 msgid "MM"
 msgstr ""
 
-#: ../root/layout/menu.tt:169 ../root/main/index.tt:71
+#: ../root/layout/menu.tt:174 ../root/main/index.tt:71
 msgid "Magic MP3 Tagger"
 msgstr "Magic MP3 Tagger"
 
@@ -4435,10 +4440,6 @@ msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr "Επικοινωνήστε μαζί μου με email όταν μια επεξεργασία μου παίρνει αρνητική ψήφο. (Σημείωση: το mail στέλνεται μόνο για την πρώτη αρνητική ψήφο και όχι για κάθε μια ξεχωριστά)"
-
-#: ../root/layout/menu.tt:289
-msgid "Mailing Lists"
-msgstr "Λίστες ταχυδρομείου"
 
 #: ../root/taglookup/nag.tt:24
 msgid "Make a donation now!"
@@ -4693,15 +4694,15 @@ msgstr "MusicBrainz - Η ανοιχτή μουσική εγκυκλοπαίδε�
 msgid "MusicBrainz Blog"
 msgstr "MusicBrainz Blog"
 
-#: ../root/layout/menu.tt:181 ../root/main/index.tt:98
+#: ../root/layout/menu.tt:186 ../root/main/index.tt:98
 msgid "MusicBrainz Database"
 msgstr "Βάση δεδομένων MusicBrainz"
 
-#: ../root/layout/menu.tt:166 ../root/main/index.tt:70
+#: ../root/layout/menu.tt:171 ../root/main/index.tt:70
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/menu.tt:178
+#: ../root/layout/menu.tt:183
 msgid "MusicBrainz Server"
 msgstr "Εξυπηρετητής MusicBrainz"
 
@@ -4720,7 +4721,7 @@ msgstr "Το MusicBrainz πιστεύει ακράδαντα στην προστ
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainz δεν έχει κανένα CD με το TOC:"
 
-#: ../root/layout/menu.tt:175
+#: ../root/layout/menu.tt:180
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz για Android"
 
@@ -4759,27 +4760,27 @@ msgstr "MusicBrainz: Κυκλοφορία"
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Κομμάτι"
 
-#: ../root/layout/menu.tt:57
+#: ../root/layout/menu.tt:62
 msgid "My Collections"
 msgstr "Οι συλλογές μου"
 
-#: ../root/layout/menu.tt:54
+#: ../root/layout/menu.tt:59
 msgid "My Data"
 msgstr "Τα δεδομένα μου"
 
-#: ../root/layout/menu.tt:66
+#: ../root/layout/menu.tt:71
 msgid "My Open Edits"
 msgstr "Οι ανοιχτές τροποποιήσεις μου"
 
-#: ../root/layout/menu.tt:60
+#: ../root/layout/menu.tt:65
 msgid "My Ratings"
 msgstr "Οι βαθμολογίες μου"
 
-#: ../root/layout/menu.tt:63
+#: ../root/layout/menu.tt:68
 msgid "My Tags"
 msgstr "Οι ετικέτες μου"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "My Vote"
 msgstr "Η ψήφος μου"
 
@@ -4964,8 +4965,8 @@ msgstr "Επόμενο »"
 msgid "No"
 msgstr "Όχι"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:198
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:17
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgctxt "vote"
 msgid "No"
 msgstr ""
@@ -5124,11 +5125,11 @@ msgstr ""
 msgid "No users found"
 msgstr "Δε βρέθηκαν χρήστες"
 
-#: ../root/edit/search_macros.tt:244
+#: ../root/edit/search_macros.tt:246
 msgid "No vote"
 msgstr "Καμία ψήφος"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "No vote count"
 msgstr "Καταμέτρηση αρνητικών ψήφων"
 
@@ -5141,7 +5142,7 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr "Δε βρέθηκαν τύποι σχέσης {type0}-{type1} ."
 
 #: ../root/entity/tags.tt:2
-#: ../root/static/scripts/common/components/TagEditor.js:284
+#: ../root/static/scripts/common/components/TagEditor.js:285
 msgid "Nobody has tagged this yet."
 msgstr ""
 
@@ -5197,7 +5198,7 @@ msgstr "Προσοχή! Αν δεν ξέρετε το μήνα ή τη μέρα 
 msgid "Note:"
 msgstr "Σημείωση:"
 
-#: ../root/edit/search_macros.tt:223
+#: ../root/edit/search_macros.tt:225
 msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08."
@@ -5310,7 +5311,7 @@ msgstr ""
 msgid "Only {doc|auto-editors} can approve an edit."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:92
+#: ../root/edit/search_macros.tt:94
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
@@ -5320,7 +5321,7 @@ msgstr "Όπα! Φαίνεται ότι οι παράμετροι αναζήτη
 msgid "Oops, something went wrong!"
 msgstr "Ουπς, κάτι πήγε στραβά!"
 
-#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
 msgstr ""
 
@@ -5505,11 +5506,11 @@ msgid "Phrase:"
 msgstr "Φράση:"
 
 #: ../root/components/common-macros.tt:589 ../root/components/places-list.tt:5
-#: ../root/edit/search_macros.tt:307 ../root/place/header.tt:5
+#: ../root/edit/search_macros.tt:309 ../root/place/header.tt:5
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/static/scripts/common/i18n.js:147
+#: ../root/static/scripts/common/i18n.js:210
 msgid "Place"
 msgstr ""
 
@@ -5541,17 +5542,17 @@ msgstr ""
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:105 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:106 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr ""
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:110
 msgid "Places with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:109
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -5570,7 +5571,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:305
+#: ../root/edit/search_macros.tt:307
 msgid "Please choose a condition"
 msgstr ""
 
@@ -5710,7 +5711,7 @@ msgstr ""
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences.tt:4
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
-#: ../root/layout/menu.tt:40
+#: ../root/layout/menu.tt:45
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
@@ -5753,7 +5754,7 @@ msgstr "Προτεραιότητα:"
 msgid "Privacy"
 msgstr "Προσωπικά δεδομένα"
 
-#: ../root/layout/menu.tt:140
+#: ../root/layout/menu.tt:145
 msgid "Privacy Policy"
 msgstr "Πολιτική προστασίας προσωπικών δεδομένων"
 
@@ -5765,12 +5766,12 @@ msgstr "Προσωπικό"
 msgid "Private collection"
 msgstr "Προσωπική συλλογή"
 
-#: ../root/layout/menu.tt:146 ../root/user/privileged.tt:14
+#: ../root/layout/menu.tt:151 ../root/user/privileged.tt:14
 #: ../root/user/privileged.tt:16
 msgid "Privileged User Accounts"
 msgstr "Προνομιούχοι λογαριασμοί χρηστών"
 
-#: ../root/layout/menu.tt:163
+#: ../root/layout/menu.tt:168
 msgid "Products"
 msgstr "Προϊόντα"
 
@@ -5852,12 +5853,12 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:589
 #: ../root/edit/details/merge_releases.tt:100
-#: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:309 ../root/release/edit_relationships.tt:50
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/static/scripts/common/i18n.js:148
+#: ../root/static/scripts/common/i18n.js:211
 msgid "Recording"
 msgstr "Ηχογράφηση"
 
@@ -5915,6 +5916,11 @@ msgstr "Ηχογράφηση:"
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Ηχογραφήσεις"
+
+#: ../root/report/index.tt:103 ../root/report/not_various_artists.tt:1
+#: ../root/report/not_various_artists.tt:3
+msgid "Recordings incorrectly linked to Various Artists"
+msgstr ""
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
@@ -6023,11 +6029,11 @@ msgstr "Σχέση"
 msgid "Relationship Attributes"
 msgstr "Γνωρίσματα σχέσης"
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Relationship Editor"
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:307
+#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:309
 #: ../root/report/deprecated_relationship_artists.tt:13
 #: ../root/report/deprecated_relationship_labels.tt:13
 #: ../root/report/deprecated_relationship_places.tt:13
@@ -6044,7 +6050,7 @@ msgstr "Τύπος σχέσης"
 msgid "Relationship Type In Use"
 msgstr "Τύπος σχέσης που χρησιμοποιείται"
 
-#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:275
+#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:280
 #: ../root/relationship/header.tt:2 ../root/relationship/linktype/index.tt:1
 msgid "Relationship Types"
 msgstr "Τύποι σχέσης"
@@ -6105,7 +6111,7 @@ msgstr "Σχέσεις:"
 #: ../root/components/common-macros.tt:589
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
-#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:309
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:71
 #: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
@@ -6114,7 +6120,7 @@ msgstr "Σχέσεις:"
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
-#: ../root/static/scripts/common/i18n.js:149
+#: ../root/static/scripts/common/i18n.js:212
 msgid "Release"
 msgstr "Κυκλοφορία"
 
@@ -6126,7 +6132,7 @@ msgstr "Καλλιτέχνης κυκλοφορίας"
 msgid "Release Collections"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Country"
 msgstr ""
 
@@ -6138,7 +6144,7 @@ msgstr "Διπλότυπες κυκλοφορίες"
 msgid "Release Events:"
 msgstr "Γεγονότα κυκλοφορίας:"
 
-#: ../root/components/common-macros.tt:589 ../root/edit/search_macros.tt:307
+#: ../root/components/common-macros.tt:589 ../root/edit/search_macros.tt:309
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
@@ -6188,7 +6194,7 @@ msgstr ""
 msgid "Release Information"
 msgstr "Πληροφορίες κυκλοφορίας"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Language"
 msgstr "Γλώσσα κυκλοφοριών"
 
@@ -6196,7 +6202,7 @@ msgstr "Γλώσσα κυκλοφοριών"
 msgid "Release Not Found"
 msgstr "Δε βρέθηκε κυκλοφορία"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Quality"
 msgstr "Ποιότητα κυκλοφορίας"
 
@@ -6232,7 +6238,7 @@ msgstr ""
 
 #: ../root/report/release_group_url_list.tt:6
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
-#: ../root/static/scripts/common/i18n.js:150
+#: ../root/static/scripts/common/i18n.js:213
 msgid "Release group"
 msgstr "Ομάδα κυκλοφοριών"
 
@@ -6674,15 +6680,11 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "Αναταξινόμηση εξωφύλλου"
 
-#: ../root/layout/menu.tt:298
+#: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr "Αναφορά σφάλματος"
 
-#: ../root/layout/menu.tt:302
-msgid "Report a Copyright Violation"
-msgstr "Αναφορά παραβίασης πνευματικών δικαιωμάτων"
-
-#: ../root/layout/menu.tt:251 ../root/report/index.tt:1
+#: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
 msgid "Reports"
 msgstr "Αναφορές"
@@ -6805,10 +6807,10 @@ msgstr "Γραφή:"
 #: ../root/components/forms.tt:341
 #: ../root/components/relationship-editor.tt:65
 #: ../root/components/relationship-editor.tt:182
-#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:105
-#: ../root/edit/search_macros.tt:232 ../root/edit/search_macros.tt:264
+#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:107
+#: ../root/edit/search_macros.tt:234 ../root/edit/search_macros.tt:266
 #: ../root/label/edit_form.tt:21 ../root/layout.tt:16
-#: ../root/layout/menu.tt:198 ../root/otherlookup/form.tt:20
+#: ../root/layout/menu.tt:203 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:40
 #: ../root/release/edit/information.tt:63
@@ -6820,7 +6822,7 @@ msgstr "Γραφή:"
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: ../root/layout/menu.tt:202
+#: ../root/layout/menu.tt:207
 msgid "Search Edits"
 msgstr "Αναζήτηση στις τροποποιήσεις"
 
@@ -7044,7 +7046,7 @@ msgstr "Να μου στέλνετε μηνύματα με τις τροποπο
 msgid "Sentence"
 msgstr ""
 
-#: ../root/report/index.tt:112 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:113 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr ""
@@ -7055,10 +7057,10 @@ msgid "Series"
 msgstr ""
 
 #: ../root/components/common-macros.tt:589 ../root/components/series-list.tt:5
-#: ../root/edit/search_macros.tt:307 ../root/series/header.tt:4
+#: ../root/edit/search_macros.tt:309 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/static/scripts/common/i18n.js:151
+#: ../root/static/scripts/common/i18n.js:214
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -7089,7 +7091,7 @@ msgstr ""
 msgid "Series information"
 msgstr ""
 
-#: ../root/report/index.tt:115
+#: ../root/report/index.tt:116
 msgid "Series with annotations"
 msgstr ""
 
@@ -7239,7 +7241,7 @@ msgstr "Παρόμοιες κυκλοφορίες"
 msgid "Slow Down!"
 msgstr "Πιο αργά!"
 
-#: ../root/layout/menu.tt:134
+#: ../root/layout/menu.tt:139
 msgid "Social Contract"
 msgstr "Κοινωνικό συμβόλαιο"
 
@@ -7482,7 +7484,7 @@ msgstr "Διαχωρισμός σε ξεχωριστούς καλλιτέχνε�
 msgid "Split into separate artists"
 msgstr "Διαχωρισμός σε ξεχωριστούς καλλιτέχνες"
 
-#: ../root/layout/menu.tt:125
+#: ../root/layout/menu.tt:130
 msgid "Sponsors"
 msgstr "Χορηγοί"
 
@@ -7506,7 +7508,7 @@ msgstr "Ημερομηνία έναρξης"
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/menu.tt:149 ../root/user/profile.tt:143
+#: ../root/layout/menu.tt:154 ../root/user/profile.tt:143
 msgid "Statistics"
 msgstr "Στατιστικά"
 
@@ -7515,7 +7517,7 @@ msgstr "Στατιστικά"
 msgid "Status"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgctxt "edit status"
 msgid "Status"
 msgstr ""
@@ -7560,7 +7562,7 @@ msgstr ""
 msgid "Stop watching selected artists"
 msgstr "Σταμάτημα παρακολούθησης των επιλεγμένων καλλιτεχνών"
 
-#: ../root/layout/menu.tt:263
+#: ../root/layout/menu.tt:268
 msgid "Style Guidelines"
 msgstr ""
 
@@ -7630,7 +7632,7 @@ msgstr "Χρήστες που παρακολουθούν"
 msgid "Subscribers:"
 msgstr "Παρακολουθούν:"
 
-#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:46
+#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:51
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
 #: ../root/user/profile/layout.tt:12
 msgid "Subscriptions"
@@ -7697,14 +7699,14 @@ msgid "Tagger"
 msgstr ""
 
 #: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
-#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:206
+#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:211
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
 #: ../root/user/tags.tt:1
 msgid "Tags"
 msgstr "Ετικέτες"
 
-#: ../root/layout/menu.tt:128
+#: ../root/layout/menu.tt:133
 msgid "Team"
 msgstr "Ομάδα"
 
@@ -8314,7 +8316,7 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:152
+#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:165
 msgid "This is a MusicBrainz development server."
 msgstr "Αυτός είναι ένας εξυπηρετητής ανάπτυξης του MusicBrainz."
 
@@ -8478,7 +8480,7 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr ""
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:167
+#: ../root/static/scripts/edit/externalLinks.js:170
 #: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -8810,6 +8812,12 @@ msgid ""
 "Merge Releases})."
 msgstr "Αυτή η λίστα εμφανίζει τα Discogs URLs τα οποία έχουν συνδεθεί με πολλαπλές κυκλοφορίες. Στις περισσότερες περιπτώσεις τα Discogs URLs πρέπει να αντιστοιχούν στις κυκλοφορίες του MusicBrainz ένα προς ένα, οπότε μόνο ένας από τους συνδέσμους είναι σωστός. Απλώς ελέγξτε αν η κυκλοφορία του MusicBrainz ταιριάζει με την κυκλοφορία στο Discogs (ψάξτε για τη μορφή, λίστα κομματιών, χώρα κυκλοφορίας κτλ). Επίσης μπορεί να βρείτε κάποια Discogs URLs να συνδέονται με πολλούς δίσκους μίας κυκλοφορίας πολλών δίσκων: απλά συγχωνεύστε τες (δείτε {how_to_merge_releases|Πως να συγχωνεύετε κυκλοφορίες})."
 
+#: ../root/report/not_various_artists.tt:6
+msgid ""
+"This report shows recordings linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr ""
+
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
 "This report shows recordings that have the deprecated \"earliest release\" "
@@ -9061,7 +9069,7 @@ msgstr "Ώρα"
 msgid "Time:"
 msgstr ""
 
-#: ../root/layout/menu.tt:152
+#: ../root/layout/menu.tt:157
 msgid "Timeline Graph"
 msgstr "Χρονογράφημα"
 
@@ -9130,7 +9138,7 @@ msgid "To:"
 msgstr "Προς:"
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/menu.tt:209
+#: ../root/layout/menu.tt:214
 msgid "Top CD Stubs"
 msgstr ""
 
@@ -9188,6 +9196,7 @@ msgstr ""
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
+#: ../root/report/not_various_artists.tt:8
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_with_varying_track_lengths.tt:8
 msgid "Total recordings found: {count}"
@@ -9338,7 +9347,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr "Κομμάτια:"
 
-#: ../root/admin/index.tt:14 ../root/layout/menu.tt:98
+#: ../root/admin/index.tt:14 ../root/layout/menu.tt:103
 msgid "Transclude WikiDocs"
 msgstr ""
 
@@ -9382,7 +9391,7 @@ msgstr "Twitter"
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_alias.tt:35 ../root/edit/details/edit_alias.tt:50
-#: ../root/edit/details/remove_alias.tt:33 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/remove_alias.tt:33 ../root/edit/search_macros.tt:309
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
@@ -9454,7 +9463,7 @@ msgstr "Τύποι:"
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/report/url_list.tt:7
 #: ../root/url/header.tt:8 ../lib/MusicBrainz/Server/Edit/URL.pm:7
-#: ../root/static/scripts/common/i18n.js:152
+#: ../root/static/scripts/common/i18n.js:215
 msgid "URL"
 msgstr "URL"
 
@@ -9482,13 +9491,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:126
-#: ../root/components/common-macros.tt:606 ../root/report/index.tt:126
+#: ../root/components/common-macros.tt:606 ../root/report/index.tt:127
 msgid "URLs"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:129
+#: ../root/report/index.tt:130
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -9533,7 +9542,7 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr "Μη παρακολούθηση"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:288
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
 msgid "Untrusted"
 msgstr "Μη έμπιστο"
 
@@ -9740,7 +9749,7 @@ msgstr "Ψηφίστε ΟΧΙ"
 msgid "Vote YES"
 msgstr "Ψηφίστε ΝΑΙ."
 
-#: ../root/layout/menu.tt:248
+#: ../root/layout/menu.tt:253
 msgid "Vote on Edits"
 msgstr "Ψήφος στις τροποποιήσεις"
 
@@ -9946,7 +9955,7 @@ msgstr "Όταν είστε έτοιμοι για να τα συγχωνεύσε
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Wiki Transcluder"
 msgstr ""
 
@@ -9969,11 +9978,11 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:589 ../root/components/works-list.tt:12
-#: ../root/edit/search_macros.tt:307 ../root/report/iswc_with_many_works.tt:25
+#: ../root/edit/search_macros.tt:309 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/static/scripts/common/i18n.js:153
+#: ../root/static/scripts/common/i18n.js:216
 msgid "Work"
 msgstr "Έργο"
 
@@ -10020,24 +10029,24 @@ msgstr "Έργο:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:118 ../root/series/index.tt:15
+#: ../root/report/index.tt:119 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Έργα"
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:124
 msgid "Works with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:122
+#: ../root/report/index.tt:123
 msgid "Works with deprecated relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:121
+#: ../root/report/index.tt:122
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -10052,7 +10061,7 @@ msgstr "Συγγραφείς"
 msgid "Writers:"
 msgstr ""
 
-#: ../root/layout/menu.tt:187
+#: ../root/layout/menu.tt:192
 msgid "XML Web Service"
 msgstr "Διαδικτυακή υπηρεσία XML"
 
@@ -10066,7 +10075,7 @@ msgstr "XML:"
 msgid "YYYY"
 msgstr ""
 
-#: ../root/layout/menu.tt:172 ../root/main/index.tt:72
+#: ../root/layout/menu.tt:177 ../root/main/index.tt:72
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -10084,13 +10093,13 @@ msgstr ""
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:199
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:14
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:195
 msgctxt "vote"
 msgid "Yes"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Yes vote count"
 msgstr "Καταμέτρηση θετικών ψήφων"
 
@@ -10483,7 +10492,7 @@ msgstr "[αφαιρέθηκε]"
 msgid "[unknown]"
 msgstr "[άγνωστο]"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "after"
 msgstr "μετά από"
 
@@ -10523,11 +10532,11 @@ msgstr ""
 msgid "automatically applied"
 msgstr "εφαρμόστηκε αυτόματα"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "before"
 msgstr "πριν από"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "between"
 msgstr "μεταξύ"
 
@@ -10656,43 +10665,43 @@ msgstr "πληροφορίες"
 msgid "instruments"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
-#: ../root/edit/search_macros.tt:178 ../root/edit/search_macros.tt:190
-#: ../root/edit/search_macros.tt:211 ../root/edit/search_macros.tt:228
-#: ../root/edit/search_macros.tt:240 ../root/edit/search_macros.tt:258
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
+#: ../root/edit/search_macros.tt:180 ../root/edit/search_macros.tt:192
+#: ../root/edit/search_macros.tt:213 ../root/edit/search_macros.tt:230
+#: ../root/edit/search_macros.tt:242 ../root/edit/search_macros.tt:260
+#: ../root/edit/search_macros.tt:275 ../root/edit/search_macros.tt:287
 msgid "is"
 msgstr "είναι"
 
-#: ../root/edit/search_macros.tt:127
+#: ../root/edit/search_macros.tt:129
 msgid "is after"
 msgstr "είναι μετά από"
 
-#: ../root/edit/search_macros.tt:127
+#: ../root/edit/search_macros.tt:129
 msgid "is before"
 msgstr "είναι πριν από"
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
 msgid "is between"
 msgstr "είναι μεταξύ"
 
-#: ../root/edit/search_macros.tt:258
+#: ../root/edit/search_macros.tt:260
 msgid "is in my subscriptions"
 msgstr "είναι στη λίστα παρακολουθήσεών μου"
 
-#: ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:146
 msgid "is less than"
 msgstr "είναι λιγότερο από"
 
-#: ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:146
 msgid "is more than"
 msgstr "είναι περισσότερο από"
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
-#: ../root/edit/search_macros.tt:161 ../root/edit/search_macros.tt:178
-#: ../root/edit/search_macros.tt:190 ../root/edit/search_macros.tt:228
-#: ../root/edit/search_macros.tt:240 ../root/edit/search_macros.tt:258
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
+#: ../root/edit/search_macros.tt:163 ../root/edit/search_macros.tt:180
+#: ../root/edit/search_macros.tt:192 ../root/edit/search_macros.tt:230
+#: ../root/edit/search_macros.tt:242 ../root/edit/search_macros.tt:260
+#: ../root/edit/search_macros.tt:275 ../root/edit/search_macros.tt:287
 msgid "is not"
 msgstr "δεν είναι"
 
@@ -10717,7 +10726,7 @@ msgid "more"
 msgstr "περισσότερα"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:325
+#: ../root/static/scripts/common/components/TagEditor.js:326
 msgid "more..."
 msgstr "περισσότερα..."
 
@@ -10749,7 +10758,7 @@ msgstr "κανένα"
 msgid "oldest first"
 msgstr "το παλιότερο πρώτο"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "on"
 msgstr "στις"
 
@@ -11000,6 +11009,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:268 ../root/main/index.tt:119
 #: ../root/release/edit/tracklist.tt:447
+#: ../root/static/scripts/common/utility/descriptiveLink.js:13
 msgid "{entity} by {artist}"
 msgstr "{entity} από {artist}"
 
@@ -11203,6 +11213,7 @@ msgid "{percentage}%"
 msgstr "{percentage}%"
 
 #: ../root/components/common-macros.tt:268
+#: ../root/static/scripts/common/utility/descriptiveLink.js:21
 msgid "{place} in {area}"
 msgstr ""
 
@@ -11283,7 +11294,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:1001
-#: ../root/static/scripts/common/i18n.js:136
+#: ../root/static/scripts/common/i18n.js:199
 msgid "{variable}:"
 msgstr ""
 
@@ -11300,7 +11311,7 @@ msgstr "« Προηγούμενο"
 msgid "…"
 msgstr ""
 
-#: ../lib/DBDefs/Default.pm:153
+#: ../lib/DBDefs/Default.pm:166
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
@@ -11428,11 +11439,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:524
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:526
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Δεν μπορείτε να συγχωνεύσετε έναν καλλιτέχνη ειδικού σκοπού με κάποιον άλλον καλλιτέχνη"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:529
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:531
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -11503,7 +11514,13 @@ msgstr ""
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Τα παλιά και καινούρια ids σχολίου πρέπει να είναι μοναδικοί, θετικοί ακέραιοι."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:207
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:75
+msgid ""
+"Language set. If you find any problems with the translation, please "
+"{url|help us improve it}!"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:210
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -11549,56 +11566,56 @@ msgid ""
 "cancelled instead of opening a new edit."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:101
 msgid "No title provided"
 msgstr "Δεν έχει δοθεί τίτλος"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:112
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:105
 msgid "No artist names provided"
 msgstr "Δεν έχει δοθεί όνομα καλλιτέχνη"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:116
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:109
 msgid "Not all tracks specify an artist"
 msgstr "Δεν έχει οριστεί καλλιτέχνης για όλα τα κομμάτια"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:120
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:113
 msgid "Not all tracks have a title"
 msgstr "Δεν έχει οριστεί τίτλος για όλα τα κομμάτια"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:124
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:117
 msgid "Cannot add a CD stub with no tracks"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:128
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:121
 msgid "Incomplete TOC data"
 msgstr "Ημιτελή δεδομένα TOC"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:132
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:125
 msgid "Missing disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:136
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:129
 msgid "Disc ID does match parsed TOC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:140
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:133
 msgid "Number of submitted tracks does not match track count in TOC"
 msgstr "Ο αριθμός των κομματιών που έχουν υποβληθεί δεν ταιριάζει με τον αριθμό κομματιών στο TOC"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:144
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:137
 msgid "Invalid barcode"
 msgstr "Μη έγκυρο barcode"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:147
 msgid "There are already MusicBrainz releases with this disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:161
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
 msgid "There is already a CD stub with this disc ID"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:55
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:44
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:45
 msgid "[No lyrics]"
 msgstr ""
 
@@ -11607,7 +11624,7 @@ msgstr ""
 msgid "{t0}-{t1} relationships"
 msgstr "σχέσεις {t0}-{t1}"
 
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:182
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:178
 msgid "Total"
 msgstr "Σύνολο"
 
@@ -11762,7 +11779,7 @@ msgstr "Επεξεργασία γεγονότων κυκλοφορίας (ιστ
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:20
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:35
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:37
 msgid "Edit recording"
 msgstr "Επεξεργασία ηχογράφησης"
 
@@ -12002,7 +12019,7 @@ msgstr ""
 msgid "Add cover art"
 msgstr "Προσθήκη εξωφύλλου"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:18
 msgid "Add release label"
 msgstr "Προσθήκη δισκογραφικής εταιρείας κυκλοφορίας"
 
@@ -12010,7 +12027,7 @@ msgstr "Προσθήκη δισκογραφικής εταιρείας κυκλ�
 msgid "Remove release alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:20
 msgid "Remove release label"
 msgstr "Κατάργηση δισκογραφικής εταιρείας κυκλοφορίας"
 
@@ -12038,7 +12055,7 @@ msgstr "Κατάργηση εξωφύλλου"
 msgid "Reorder cover art"
 msgstr "Αναταξινόμηση εξωφύλλου"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:12
 msgid "Reorder mediums"
 msgstr "Αναταξινόμηση μέσων"
 
@@ -12098,23 +12115,23 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Applied"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Failed vote"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Failed dependency"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Failed prerequisite"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "No votes"
 msgstr ""
 
@@ -12281,31 +12298,31 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:271
 #: ../lib/MusicBrainz/Server/Translation.pm:265
-#: ../root/static/scripts/common/i18n.js:114
+#: ../root/static/scripts/common/i18n.js:173
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:49
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:50
 msgid " &#x2013; ????"
 msgstr " &#x2013; ????"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:55
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:56
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
 msgstr "{begindate} &#x2013; {enddate}"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:59
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:60
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
 msgstr "&#x2013; {enddate}"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:63
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:64
 #, perl-brace-format
 msgid "{begindate} &#x2013; ????"
 msgstr "{begindate} &#x2013; ????"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:65
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:66
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
@@ -12445,7 +12462,7 @@ msgid "This is not a valid time."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:163
+#: ../root/static/scripts/edit/externalLinks.js:164
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Πληκτρολογήστε ένα έγκυρο url π.χ. \"http://google.com/\""
 
@@ -12580,22 +12597,22 @@ msgstr "2 βδομάδες"
 msgid "A month"
 msgstr "Ένας μήνας"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:57
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:57
 msgctxt "language optgroup"
 msgid "Other"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:81
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:81
 msgctxt "script optgroup"
 msgid "Other"
 msgstr ""
@@ -12700,19 +12717,19 @@ msgid ""
 msgstr "Μια ψευδο-κυκλοφορία είναι μία διπλότυπη κυκλοφορία για λόγους μετάφρασης/μεταγλώττισης."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:245
-#: ../root/static/scripts/common/i18n.js:88
+#: ../root/static/scripts/common/i18n.js:147
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Translation.pm:251
-#: ../root/static/scripts/common/i18n.js:97
+#: ../root/static/scripts/common/i18n.js:156
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Translation.pm:262
-#: ../root/static/scripts/common/i18n.js:110
+#: ../root/static/scripts/common/i18n.js:169
 #, perl-brace-format
 msgid "{last_list_item}"
 msgstr ""
@@ -12752,7 +12769,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:595
 #: ../root/static/scripts/common/entity.js:196
-#: ../root/static/scripts/edit/externalLinks.js:277
+#: ../root/static/scripts/edit/externalLinks.js:280
 msgid "video"
 msgstr ""
 
@@ -12780,121 +12797,125 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:70
+#: ../root/static/scripts/common/components/TagEditor.js:71
 msgid "Upvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:71
+#: ../root/static/scripts/common/components/TagEditor.js:72
 msgid "You’ve upvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:79
+#: ../root/static/scripts/common/components/TagEditor.js:80
 msgid "Downvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:80
+#: ../root/static/scripts/common/components/TagEditor.js:81
 msgid "You’ve downvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:293
+#: ../root/static/scripts/common/components/TagEditor.js:294
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:296
+#: ../root/static/scripts/common/components/TagEditor.js:297
 msgid "Show all tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:300
+#: ../root/static/scripts/common/components/TagEditor.js:301
 msgid "Add Tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:302
+#: ../root/static/scripts/common/components/TagEditor.js:303
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:309
+#: ../root/static/scripts/common/components/TagEditor.js:310
 msgid "Submit tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:333
+#: ../root/static/scripts/common/components/TagEditor.js:334
 msgid "Tag"
 msgstr "Ετικέτα"
 
-#: ../root/static/scripts/common/i18n.js:157
+#: ../root/static/scripts/common/i18n.js:220
 msgid "Add a new artist"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:158
+#: ../root/static/scripts/common/i18n.js:221
 msgid "Add a new event"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:159
+#: ../root/static/scripts/common/i18n.js:222
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:160
+#: ../root/static/scripts/common/i18n.js:223
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:162
+#: ../root/static/scripts/common/i18n.js:225
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:163
+#: ../root/static/scripts/common/i18n.js:226
 msgid "Add a new series"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:164
+#: ../root/static/scripts/common/i18n.js:227
 msgid "Add a new work"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:168
+#: ../root/static/scripts/common/i18n.js:231
 msgid "Add another area"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:169
+#: ../root/static/scripts/common/i18n.js:232
 msgid "Add another artist"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:170
+#: ../root/static/scripts/common/i18n.js:233
 msgid "Add another event"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:172
+#: ../root/static/scripts/common/i18n.js:235
 msgid "Add another label"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:173
+#: ../root/static/scripts/common/i18n.js:236
 msgid "Add another place"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:174
+#: ../root/static/scripts/common/i18n.js:237
 msgid "Add another recording"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:175
+#: ../root/static/scripts/common/i18n.js:238
 msgid "Add another release"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:176
+#: ../root/static/scripts/common/i18n.js:239
 msgid "Add another release group"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:177
+#: ../root/static/scripts/common/i18n.js:240
 msgid "Add another series"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:178
+#: ../root/static/scripts/common/i18n.js:241
 msgid "Add another work"
 msgstr ""
 
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show less..."
 msgstr "Εμφάνιση λιγότερων..."
+
+#: ../root/static/scripts/common/utility/entityLink.js:27
+msgid "(video)"
+msgstr ""
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:44
 msgid "Began:"
@@ -12908,14 +12929,10 @@ msgstr "Αυτό το άτομο απεβίωσε."
 msgid "This group has dissolved."
 msgstr "Αυτό το συγκρότημα διαλύθηκε."
 
-#: ../root/static/scripts/edit/check-duplicates.js:133
-#: ../root/static/scripts/edit/externalLinks.js:161
+#: ../root/static/scripts/edit/check-duplicates.js:134
+#: ../root/static/scripts/edit/externalLinks.js:162
 #: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
-msgstr ""
-
-#: ../root/static/scripts/edit/components/EntityLink.js:25
-msgid "(video)"
 msgstr ""
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:14
@@ -12926,11 +12943,11 @@ msgstr ""
 msgid "We found the following entities with very similar names:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:23
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
 msgid "Yes, I still want to enter “{entity_name}”."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
@@ -12942,35 +12959,39 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:165
+#: ../root/static/scripts/edit/externalLinks.js:166
+msgid "Please don't use shortened URLs."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:168
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/edit/externalLinks.js:172
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:171
+#: ../root/static/scripts/edit/externalLinks.js:174
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:237
+#: ../root/static/scripts/edit/externalLinks.js:240
 #: ../root/static/scripts/relationship-editor/common/dialog.js:334
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:264
+#: ../root/static/scripts/edit/externalLinks.js:267
 msgid "Add link:"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:264
+#: ../root/static/scripts/edit/externalLinks.js:267
 msgid "Add another link:"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:283
+#: ../root/static/scripts/edit/externalLinks.js:286
 msgid "Remove Link"
 msgstr ""
 
@@ -13121,3 +13142,7 @@ msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυ
 #: ../root/static/scripts/release-editor/validation.js:157
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Το barcode που έχετε εισάγει δεν είναι έγκυρος κωδικός UPC ή EAN."
+
+#: ../root/static/scripts/tests/i18n.js:78
+msgid "An {apple_fruit|Apple}, plus {some_element}"
+msgstr ""

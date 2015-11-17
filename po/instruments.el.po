@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-08 18:58+0000\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -51,10 +51,6 @@ msgstr "Κρητική λύρα"
 msgid "Denis d'or"
 msgstr ""
 
-#: DB:instrument/name:602
-msgid "Disk Drive"
-msgstr ""
-
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
 msgstr ""
@@ -71,10 +67,6 @@ msgstr ""
 msgid "English horn"
 msgstr ""
 
-#: DB:instrument/name:604
-msgid "Floppy Drive"
-msgstr ""
-
 #: DB:instrument/name:30
 msgid "French horn"
 msgstr ""
@@ -87,13 +79,13 @@ msgstr ""
 msgid "Greek baglama"
 msgstr "Ελληνικός μπαγλαμάς"
 
+#: DB:instrument/name:751
+msgid "Guitaret"
+msgstr ""
+
 #: DB:instrument/name:134
 msgid "Hammond organ"
 msgstr "Όργανο Hammond"
-
-#: DB:instrument/name:603
-msgid "Harddisk"
-msgstr ""
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
@@ -245,6 +237,10 @@ msgstr ""
 
 #: DB:instrument/name:642
 msgid "ajaeng"
+msgstr ""
+
+#: DB:instrument/name:747
+msgid "akete"
 msgstr ""
 
 #: DB:instrument/name:718
@@ -467,6 +463,10 @@ msgstr ""
 msgid "bayan"
 msgstr ""
 
+#: DB:instrument/name:741
+msgid "bazooka"
+msgstr ""
+
 #: DB:instrument/name:479
 msgid "bell tree"
 msgstr ""
@@ -485,6 +485,10 @@ msgstr "μπεντίρ"
 
 #: DB:instrument/name:69
 msgid "berimbau"
+msgstr ""
+
+#: DB:instrument/name:743
+msgid "bicycle bell"
 msgstr ""
 
 #: DB:instrument/name:380
@@ -506,6 +510,10 @@ msgstr ""
 #: DB:instrument/name:500
 msgid "body percussion"
 msgstr "κρουστά σώματος"
+
+#: DB:instrument/name:745
+msgid "bolon"
+msgstr ""
 
 #: DB:instrument/name:431
 msgid "bombarde"
@@ -649,6 +657,10 @@ msgstr "καμπανάκια"
 
 #: DB:instrument/name:618
 msgid "ching"
+msgstr ""
+
+#: DB:instrument/name:744
+msgid "chitra veena"
 msgstr ""
 
 #: DB:instrument/name:433
@@ -851,6 +863,10 @@ msgstr ""
 msgid "ding tac ta"
 msgstr ""
 
+#: DB:instrument/name:602
+msgid "disk drive"
+msgstr ""
+
 #: DB:instrument/name:220
 msgid "diyingehu"
 msgstr ""
@@ -870,6 +886,10 @@ msgstr ""
 #: DB:instrument/name:399
 msgid "dohol"
 msgstr "ντοχόλ"
+
+#: DB:instrument/name:750
+msgid "dolceola"
+msgstr ""
 
 #: DB:instrument/name:598
 msgid "dombra"
@@ -1055,9 +1075,17 @@ msgstr ""
 msgid "five-string banjo"
 msgstr "πεντάχορδο μπάντζο"
 
+#: DB:instrument/name:604
+msgid "floppy disk drive"
+msgstr ""
+
 #: DB:instrument/name:29
 msgid "flugelhorn"
 msgstr "φλικόρνο"
+
+#: DB:instrument/name:742
+msgid "flumpet"
+msgstr ""
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -1183,6 +1211,10 @@ msgstr "γκονγκς"
 msgid "gralla"
 msgstr ""
 
+#: DB:instrument/name:748
+msgid "gramorimba"
+msgstr ""
+
 #: DB:instrument/name:138
 msgid "grand piano"
 msgstr "γκραν πιάνο"
@@ -1261,6 +1293,10 @@ msgstr "παλαμάκια"
 
 #: DB:instrument/name:512
 msgid "hang"
+msgstr ""
+
+#: DB:instrument/name:603
+msgid "hard disk drive"
 msgstr ""
 
 #: DB:instrument/name:142
@@ -1420,8 +1456,9 @@ msgid "kemençe of the Black Sea"
 msgstr "κεμεντζές της Μαύρης Θάλασσας"
 
 #: DB:instrument/name:178
+msgctxt "electronic or digital keyboard"
 msgid "keyboard"
-msgstr "πλήκτρα"
+msgstr ""
 
 #: DB:instrument/name:362
 msgid "keyboard bass"
@@ -1533,6 +1570,10 @@ msgstr ""
 
 #: DB:instrument/name:311
 msgid "kèn lá"
+msgstr ""
+
+#: DB:instrument/name:739
+msgid "kös"
 msgstr ""
 
 #: DB:instrument/name:556
@@ -1666,6 +1707,10 @@ msgstr ""
 #: DB:instrument/name:349
 msgid "metallophone"
 msgstr "μεταλλόφωνο"
+
+#: DB:instrument/name:752
+msgid "minipiano"
+msgstr ""
 
 #: DB:instrument/name:591
 msgid "mirliton"
@@ -2081,6 +2126,10 @@ msgstr "σαρόντ"
 
 #: DB:instrument/name:597
 msgid "saron"
+msgstr ""
+
+#: DB:instrument/name:749
+msgid "sarrusophone"
 msgstr ""
 
 #: DB:instrument/name:580
@@ -2513,6 +2562,10 @@ msgstr ""
 msgid "tiêu"
 msgstr ""
 
+#: DB:instrument/name:746
+msgid "tololoche"
+msgstr ""
+
 #: DB:instrument/name:462
 msgid "tom-tom"
 msgstr "τομ"
@@ -2872,6 +2925,10 @@ msgstr ""
 #: DB:instrument/name:407
 msgid "zurna"
 msgstr "ζουρνάς"
+
+#: DB:instrument/name:740
+msgid "çevgen"
+msgstr ""
 
 #: DB:instrument/name:306
 msgid "đing buốt"

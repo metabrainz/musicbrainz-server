@@ -7,6 +7,7 @@
 #   <email address hidden>, 2012
 # Ettore Atalan <email address hidden>, 2014
 # Felix Kugler <email address hidden>, 2015
+# Frank <email address hidden>, 2015
 # Mineo <email address hidden>, 2011
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -23,8 +24,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-02 12:06+0000\n"
-"Last-Translator: Felix Kugler <email address hidden>\n"
+"PO-Revision-Date: 2015-11-14 21:12+0000\n"
+"Last-Translator: Frank <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "\"Motet\" beschreibt unterschiedliche Arten von (üblichweise nicht istrumental begleiteten) Choral-Werken. Die genaue Definition hängt stark vom Zeitalter ab."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
@@ -102,7 +103,7 @@ msgctxt "medium_format"
 msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to"
 " 1932."
-msgstr ""
+msgstr "90 U/m vertikal geschnittene Shellack-Platte hergestellt vom Label \"Pathé\" zwischen 1906 und 1932."
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -121,13 +122,13 @@ msgctxt "work_type"
 msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
-msgstr ""
+msgstr "Eine Kantate ist eine Komposition für Singstimme (üblicherweise Choral) und ein Begelitinstrument. Oft in mehreren Sätzen."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
-msgstr ""
+msgstr "Concerto beschreibt eine Komposition für Solisten mit Orchesterbegleitung"
 
 #: DB:event_type/description:4
 msgctxt "event_type"

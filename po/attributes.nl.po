@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-10-24 12:23+0000\n"
+"PO-Revision-Date: 2015-11-16 10:32+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3318,7 +3318,7 @@ msgctxt "work_type"
 msgid ""
 "Musical theatre is a form of theatrical performance that combines songs, "
 "spoken dialogue, acting, and dance."
-msgstr ""
+msgstr "Een musical is een vorm van theater waarin liedjes, gesproken dialogen, acteerwerk en dans gecombineerd worden."
 
 #: DB:work_attribute_type_allowed_value/value:748
 msgctxt "work_attribute_type_allowed_value"

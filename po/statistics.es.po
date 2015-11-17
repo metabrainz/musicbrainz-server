@@ -5,7 +5,7 @@
 # Héctor Arroyo <email address hidden>, 2012
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
-# kelopezcl <email address hidden>, 2012
+# Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""

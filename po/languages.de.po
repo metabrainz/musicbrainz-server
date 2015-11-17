@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-08 18:59+0000\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -530,6 +530,11 @@ msgstr "Krimtatarisch"
 #: DB:language/name:366
 msgid "Croatian"
 msgstr "Kroatisch"
+
+#. frequency:1 iso_code_3:xlu
+#: DB:language/name:7303
+msgid "Cuneiform Luwian"
+msgstr ""
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
@@ -1081,6 +1086,11 @@ msgstr "Jüdisch-Persisch"
 msgid "Kabardian"
 msgstr "Kabardinisch"
 
+#. frequency:1 iso_code_3:kea
+#: DB:language/name:3185
+msgid "Kabuverdianu"
+msgstr ""
+
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
 msgid "Kabyle"
@@ -1265,6 +1275,11 @@ msgstr "Kutenai-Sprache"
 #: DB:language/name:3529
 msgid "Kölsch"
 msgstr "Kölsch"
+
+#. frequency:1 iso_code_3:lld
+#: DB:language/name:3885
+msgid "Ladin"
+msgstr ""
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234

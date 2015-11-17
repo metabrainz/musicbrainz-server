@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-01 20:39+0000\n"
-"Last-Translator: Nicolas HOUDELOT <email address hidden>\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -888,6 +888,28 @@ msgstr "Page SoundCloud pour"
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
 msgstr "Mots parlés (discours)"
+
+#: DB:link_type/long_link_phrase:880
+msgid ""
+"The libretto for {entity1} was {additional:additionally} written at "
+"{entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:879
+msgid ""
+"The libretto for {entity1} was {additional:additionally} written in "
+"{entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:878
+msgid ""
+"The lyrics for {entity1} were {additional:additionally} written at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:877
+msgid ""
+"The lyrics for {entity1} were {additional:additionally} written in {entity0}"
+msgstr ""
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -2756,15 +2778,7 @@ msgstr "consiste en"
 msgid "contains samples from the IMDb entry at"
 msgstr "contient des échantillons de l'entrée IMDb à"
 
-#: DB:link_type/long_link_phrase:271
-msgid "contains the lyrics for"
-msgstr "contient les paroles pour"
-
-#: DB:link_type/long_link_phrase:274
-msgid "contains the score for"
-msgstr "contient la partition de "
-
-#: DB:link_type/reverse_link_phrase:49 DB:link_type/reverse_link_phrase:154
+#: DB:link_type/reverse_link_phrase:154 DB:link_type/reverse_link_phrase:49
 msgid "contains {additional} samples by"
 msgstr "contient des échantillons {additional:supplémentaires} par"
 
@@ -2906,7 +2920,7 @@ msgstr "première parution"
 msgid "edit of"
 msgstr "montage de"
 
-#: DB:link_type/reverse_link_phrase:819 DB:link_type/reverse_link_phrase:820
+#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
 msgid "edited at"
 msgstr "monté à"
 
@@ -2914,8 +2928,8 @@ msgstr "monté à"
 msgid "edited in"
 msgstr "monté à"
 
-#: DB:link_type/link_phrase:821 DB:link_type/link_phrase:819
-#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:822
+#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
+#: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
 msgstr "lieu de montage pour"
 
@@ -2943,8 +2957,8 @@ msgstr "techniquement conçu à"
 msgid "engineered in"
 msgstr "techniquement conçu à"
 
-#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
+#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:814
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:815
 msgid "engineering location for"
 msgstr "lieu de conception technique pour"
 
@@ -3018,6 +3032,10 @@ msgstr "interprètes invités"
 msgid "had a creative position at"
 msgstr "a eu un poste créatif"
 
+#: DB:link_type/long_link_phrase:162
+msgid "had a miscellaneous role on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr "a eu une poste de producteur"
@@ -3029,18 +3047,6 @@ msgstr "à eu un contrat d'enregistrement avec"
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "à eu un poste d'ingénieur"
-
-#: DB:link_type/long_link_phrase:795
-msgid "had available releases"
-msgstr "avait des parutions proposées"
-
-#: DB:link_type/long_link_phrase:834
-msgid "had previous attribution"
-msgstr "avait une attribution précédente"
-
-#: DB:link_type/long_link_phrase:888
-msgid "had supporting tour"
-msgstr ""
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
@@ -3159,7 +3165,7 @@ msgid "has a logo at"
 msgstr "à un logo à"
 
 #: DB:link_type/long_link_phrase:25 DB:link_type/long_link_phrase:129
-#: DB:link_type/long_link_phrase:162 DB:link_type/long_link_phrase:270
+#: DB:link_type/long_link_phrase:270
 msgid "has a miscellaneous role on"
 msgstr "a un rôle divers sur"
 
@@ -3234,10 +3240,6 @@ msgstr "à une chaîne vidéo officielle à"
 msgid "has an online community page at"
 msgstr "à une page de communauté en ligne sur"
 
-#: DB:link_type/long_link_phrase:357
-msgid "has anthem"
-msgstr "a un hymne"
-
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
 msgstr "a un arrangement"
@@ -3246,7 +3248,7 @@ msgstr "a un arrangement"
 msgid "has business association with"
 msgstr "à une association commerciale avec"
 
-#: DB:link_type/link_phrase:750 DB:link_type/long_link_phrase:750
+#: DB:link_type/link_phrase:750
 msgid "has catalogue"
 msgstr "a un catalogue"
 
@@ -3257,14 +3259,6 @@ msgstr "a un enfant"
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
 msgstr "à une illustration sur"
-
-#: DB:link_type/long_link_phrase:846
-msgid "has dedicated work"
-msgstr "a dédié une œuvre"
-
-#: DB:link_type/long_link_phrase:868
-msgid "has dedication"
-msgstr ""
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
@@ -3292,7 +3286,6 @@ msgstr "a une orchestration"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
-#: DB:link_type/long_link_phrase:743
 msgid "has part"
 msgstr "à une partie"
 
@@ -3314,10 +3307,6 @@ msgstr "a un éditeur personnel"
 msgid "has poster at"
 msgstr "a une affiche à"
 
-#: DB:link_type/long_link_phrase:714
-msgid "has primary concert venue at"
-msgstr "a une salle de concert principale à"
-
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "a une révision"
@@ -3338,21 +3327,9 @@ msgstr "a une sous-série"
 msgid "has subtype"
 msgstr "a un sous-type"
 
-#: DB:link_type/long_link_phrase:859
-msgid "has tour"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:752
-msgid "has traditional instrument"
-msgstr "a un instrument traditionnel"
-
-#: DB:link_type/long_link_phrase:65
-msgid "has tribute album(s)"
-msgstr "a un/des album(s) hommage"
-
 #: DB:link_type/long_link_phrase:69
-msgid "has/had {additional} samples taken from"
-msgstr "a/avait des échantillons {additional:additionnels} provenant de"
+msgid "has {additional} samples taken from"
+msgstr ""
 
 #: DB:link_type/link_phrase:794
 msgid "held at"
@@ -3365,14 +3342,6 @@ msgstr "a tenu des événements"
 #: DB:link_type/reverse_link_phrase:793
 msgid "held in"
 msgstr "tenu à"
-
-#: DB:link_type/long_link_phrase:845
-msgid "held premiere of"
-msgstr "a présenté la première de"
-
-#: DB:link_type/long_link_phrase:793
-msgid "held the event"
-msgstr "a tenu l'événement"
 
 #: DB:link_type/link_phrase:211
 msgid "history page"
@@ -3397,10 +3366,6 @@ msgstr "détient les droits phonographiques d'auteur pour"
 #: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
 msgid "host at"
 msgstr "hôte à"
-
-#: DB:link_type/long_link_phrase:715 DB:link_type/long_link_phrase:716
-msgid "hosted the premiere of"
-msgstr "a accueilli la première de"
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
@@ -3443,29 +3408,9 @@ msgstr "entrevues"
 msgid "involved with"
 msgstr "impliqué avec"
 
-#: DB:link_type/long_link_phrase:854
-msgid "is a BookBrainz page for"
-msgstr "est une page BookBrainz pour"
-
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
 msgstr "Est un DJ-mix de"
-
-#: DB:link_type/long_link_phrase:280
-msgid "is a SecondHandSongs page for"
-msgstr "Est une page SecondHandSongs pour"
-
-#: DB:link_type/long_link_phrase:289
-msgid "is a Songfacts page for"
-msgstr "Est une page SongFacts pour"
-
-#: DB:link_type/long_link_phrase:351
-msgid "is a Wikidata page for"
-msgstr "a une page Wikidata pour"
-
-#: DB:link_type/long_link_phrase:279
-msgid "is a Wikipedia page for"
-msgstr "est une page Wikipédia pour"
 
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
@@ -3484,7 +3429,6 @@ msgid "is a medley of"
 msgstr "est un pot-pourri de"
 
 #: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:730
-#: DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
 msgstr "est une page dans une base données à"
 
@@ -3519,14 +3463,6 @@ msgstr "est un {medley:pot-pourri} {live:en public} {medley:incluant un} enregis
 msgid "is a {translated} {parody} cover of"
 msgstr "est une reprise {translated:traduite} {parody:parodiée} de"
 
-#: DB:link_type/long_link_phrase:286
-msgid "is an Allmusic page for"
-msgstr "est une page Allmusic pour"
-
-#: DB:link_type/long_link_phrase:843
-msgid "is an IMDb page for"
-msgstr "est une page IMDb pour"
-
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
 msgstr "est un montage de"
@@ -3542,10 +3478,6 @@ msgstr "est sous licence"
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
 msgstr "est relié à"
-
-#: DB:link_type/long_link_phrase:312
-msgid "is the VIAF ID for"
-msgstr "est l'ID VIAF de"
 
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
@@ -4083,10 +4015,13 @@ msgstr "affiche"
 msgid "poster for"
 msgstr "affiche pour"
 
-#: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:715
-#: DB:link_type/reverse_link_phrase:716
+#: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:716
 msgid "premiered at"
 msgstr "première à"
+
+#: DB:link_type/reverse_link_phrase:715
+msgid "premiered in"
+msgstr ""
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
@@ -4136,8 +4071,7 @@ msgstr "produit à"
 msgid "produced in"
 msgstr "produit à"
 
-#: DB:link_type/link_phrase:49 DB:link_type/link_phrase:154
-#: DB:link_type/long_link_phrase:49 DB:link_type/long_link_phrase:154
+#: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
 msgid "produced material that was {additional:additionally} sampled in"
 msgstr "a produit du contenu qui a {additional:aussi} été échantillonné sur"
 
@@ -4199,10 +4133,6 @@ msgstr "a assuré la conception/l'illustration {additional:supplémentaire} sur"
 msgid "provided {additional} graphic design on"
 msgstr "a assuré la conception graphique {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
-msgid "provided {additional} photography on"
-msgstr "a assuré la photographie {additional:supplémentaire} sur"
-
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
@@ -4234,7 +4164,7 @@ msgstr "acheter de la musique pour la télécharger"
 msgid "purchase music for mail-order"
 msgstr "acheter de la musique par correspondance"
 
-#: DB:link_type/reverse_link_phrase:809 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
 msgstr "enregistré à"
@@ -4251,7 +4181,7 @@ msgstr "poste d'ingénieur du son à"
 msgid "recording engineers"
 msgstr "ingénieurs du son "
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
 #: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
@@ -4314,8 +4244,8 @@ msgstr "remixes"
 msgid "remixes and compilations"
 msgstr "remixes et compilations"
 
-#: DB:link_type/link_phrase:828 DB:link_type/link_phrase:829
-#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:831
+#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:828
+#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:831
 msgid "remixing location for"
 msgstr "lieu de remixage pour"
 
@@ -4553,10 +4483,6 @@ msgstr "traduit"
 msgid "translated at"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:884
-msgid "translated in"
-msgstr ""
-
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
 msgstr "translittéré"
@@ -4649,10 +4575,6 @@ msgstr "était un interprète de soutien à"
 msgid "was an orchestra at"
 msgstr "était un orchestre à"
 
-#: DB:link_type/long_link_phrase:833
-msgid "was granted license for"
-msgstr "a reçu une licence pour"
-
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
 msgstr "était tenu à"
@@ -4673,85 +4595,9 @@ msgstr "a été renommé en"
 msgid "was rescheduled as"
 msgstr "a été reprogrammé comme"
 
-#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
-#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
-msgid "was the arranging location for"
-msgstr "était le lieu d'arrangement pour"
-
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
-
-#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:819
-#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:822
-msgid "was the editing location for"
-msgstr "était le lieu de montage pour"
-
-#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
-msgid "was the engineering location for"
-msgstr "était le lieu de conception technique pour"
-
-#: DB:link_type/long_link_phrase:835
-msgid "was the manufacturing location for"
-msgstr "était le lieu de fabrication de"
-
-#: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
-msgid "was the mastering location for"
-msgstr "était le lieu de matriçage de"
-
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:696
-#: DB:link_type/long_link_phrase:758 DB:link_type/long_link_phrase:694
-msgid "was the mixing location for"
-msgstr "était le lieu de mixage de"
-
-#: DB:link_type/long_link_phrase:849
-msgid "was the printing location for"
-msgstr "était le lieu d'impression pour"
-
-#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
-#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
-msgid "was the producing location for"
-msgstr "était le lieu de production pour"
-
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:699
-#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:693
-msgid "was the recording location for"
-msgstr "était le lieu d'enregistrement de"
-
-#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
-#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
-msgid "was the remixing location for"
-msgstr "était le lieu de remixage pour"
-
-#: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:882
-msgid "was the revising location for"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:886
-msgid "was the {additional} arranging location for"
-msgstr "était {additional:aussi} le lieu d'arrangement pour"
-
-#: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:876
-msgid "was the {additional} composing location for"
-msgstr "était {additional:aussi} le lieu de composition pour"
-
-#: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:880
-msgid "was the {additional} libretto writing location for"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:878
-msgid "was the {additional} lyrics writing location for"
-msgstr "était {additional:aussi} le lieu d'écriture des paroles pour"
-
-#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:884
-msgid "was the {additional} translating location for"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:874
-msgid "was the {additional} writing location for"
-msgstr ""
 
 #: DB:link_type/description:733
 msgid "wikidata"
@@ -4846,6 +4692,10 @@ msgstr "{additional:aussi} échantillonné par"
 #: DB:link_type/long_link_phrase:872
 msgid "{additional:additionally} translated"
 msgstr "{additional:aussi} traduit"
+
+#: DB:link_type/reverse_link_phrase:884
+msgid "{additional:additionally} translated in"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:874
 msgid "{additional:additionally} written at"
@@ -5164,6 +5014,234 @@ msgstr "disque {bonus:bonus|suivant}"
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr "{bonus:fait peut-être|fait} partie d'un ensemble, le prochain disque de l'ensemble est"
+
+#: DB:link_type/long_link_phrase:750
+msgid "{entity1} catalogues the work of {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49
+msgid "{entity1} contains {additional} samples by {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:312
+msgid "{entity1} has VIAF ID at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:854
+msgid "{entity1} has a BookBrainz page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:280
+msgid "{entity1} has a SecondHandSongs page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:289
+msgid "{entity1} has a Songfacts page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:351
+msgid "{entity1} has a Wikidata page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:279
+msgid "{entity1} has a Wikipedia page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:273
+msgid "{entity1} has a page in a database at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:286
+msgid "{entity1} has an Allmusic page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:843
+msgid "{entity1} has an IMDb page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:271
+msgid "{entity1} has lyrics available at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:274
+msgid "{entity1} has score available at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
+msgid "{entity1} has {additional} photography by {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:743
+msgid "{entity1} is a part of  {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:859
+msgid "{entity1} is a tour by {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:752
+msgid "{entity1} is a traditional instrument from {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:65
+msgid "{entity1} is a tribute to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
+msgid "{entity1} is dedicated to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:357
+msgid "{entity1} is/was an anthem of {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:714
+msgid "{entity1} is/was the primary concert venue of {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:888
+msgid "{entity1} was a tour in support of {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
+msgid "{entity1} was arranged at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
+msgid "{entity1} was arranged in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:795
+msgid "{entity1} was available at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
+msgid "{entity1} was edited at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:822
+msgid "{entity1} was edited in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
+msgid "{entity1} was engineered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "{entity1} was engineered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:793
+msgid "{entity1} was held in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:833
+msgid "{entity1} was licensed to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:835
+msgid "{entity1} was manufactured in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:697
+msgid "{entity1} was mastered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:756
+msgid "{entity1} was mastered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
+msgid "{entity1} was mixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
+msgid "{entity1} was mixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
+msgid "{entity1} was premiered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:715
+msgid "{entity1} was premiered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:834
+msgid "{entity1} was previously attributed to {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:849
+msgid "{entity1} was printed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
+msgid "{entity1} was produced at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
+msgid "{entity1} was produced in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
+msgid "{entity1} was recorded at  {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
+msgid "{entity1} was recorded at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:698
+msgid "{entity1} was recorded in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
+msgid "{entity1} was remixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
+msgid "{entity1} was remixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:882
+msgid "{entity1} was revised at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:881
+msgid "{entity1} was revised in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:886
+msgid "{entity1} was {additional:additionally} arranged at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:885
+msgid "{entity1} was {additional:additionally} arranged in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:876
+msgid "{entity1} was {additional:additionally} composed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:875
+msgid "{entity1} was {additional:additionally} composed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:883
+msgid "{entity1} was {additional:additionally} translated at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:884
+msgid "{entity1} was {additional:additionally} translated in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:874
+msgid "{entity1} was {additional:additionally} written at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:873
+msgid "{entity1} was {additional:additionally} written in {entity0}"
+msgstr ""
 
 #: DB:link_type/link_phrase:278
 msgid ""

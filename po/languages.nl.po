@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-10 14:11+0000\n"
+"PO-Revision-Date: 2015-11-07 09:39+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -524,6 +524,11 @@ msgstr "Krim-Tataars (Krim-Turks)"
 #: DB:language/name:366
 msgid "Croatian"
 msgstr "Kroatisch"
+
+#. frequency:1 iso_code_3:xlu
+#: DB:language/name:7303
+msgid "Cuneiform Luwian"
+msgstr "Spijkerschrift-Luwisch"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
@@ -1075,6 +1080,11 @@ msgstr "Joods-Perzisch"
 msgid "Kabardian"
 msgstr "Kabardisch (Kabardijns)"
 
+#. frequency:1 iso_code_3:kea
+#: DB:language/name:3185
+msgid "Kabuverdianu"
+msgstr "Kaapverdisch Creools"
+
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
 msgid "Kabyle"
@@ -1259,6 +1269,11 @@ msgstr "Kutenai"
 #: DB:language/name:3529
 msgid "Kölsch"
 msgstr "Kölsch"
+
+#. frequency:1 iso_code_3:lld
+#: DB:language/name:3885
+msgid "Ladin"
+msgstr "Ladinisch"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234

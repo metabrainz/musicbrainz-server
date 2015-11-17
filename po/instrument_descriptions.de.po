@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-08 18:58+0000\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,11 @@ msgstr ""
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr "Eine Batá-Trommel ist eine beidseitig fellbespannte Sanduhrtrommel aus Nigeria "
+
+#. name:kös
+#: DB:instrument/description:739
+msgid "A Turkish drum used in the traditional Ottoman military bands"
+msgstr ""
 
 #. name:tef
 #: DB:instrument/description:531
@@ -54,6 +59,13 @@ msgstr ""
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
+msgstr ""
+
+#. name:bicycle bell
+#: DB:instrument/description:743
+msgid ""
+"A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
+" warning pedestrians and other cyclists."
 msgstr ""
 
 #. name:bullroarer
@@ -101,6 +113,13 @@ msgstr ""
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
 "often learnt by children."
+msgstr ""
+
+#. name:dolceola
+#: DB:instrument/description:750
+msgid ""
+"A dolceola is a musical instrument resembling a miniature piano, but which "
+"is in fact a zither with a keyboard."
 msgstr ""
 
 #. name:duck call
@@ -210,6 +229,13 @@ msgstr ""
 #. name:orpharion
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
+msgstr ""
+
+#. name:çevgen
+#: DB:instrument/description:740
+msgid ""
+"A pole with bells and/or zills used in the traditional Ottoman military "
+"bands"
 msgstr ""
 
 #. name:prepared piano
@@ -470,7 +496,7 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
-#. name:Floppy Drive
+#. name:floppy disk drive
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
@@ -513,7 +539,7 @@ msgstr "griechische Panflöte"
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
 msgstr "Die Gusli ist ein altrussisches Saiteninstrument. Ursprünglich gab es dieses in zwei Formen, eine, die der Zither entsprach und auf den Knien liegend gespielt wurde und eine andere, die in der Hand gehalten wurde. Es existiert auch eine modernere Variante als eine Art Tischharfe in Form eines Klaviers. Das Instrument besitzt 36 Saiten."
 
-#. name:Harddisk
+#. name:hard disk drive
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
@@ -769,6 +795,11 @@ msgstr "Die Kretische Lyra ist eine birnenförmige, mit dem Bogen gestrichene Ku
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr ""
 
+#. name:Guitaret
+#: DB:instrument/description:751
+msgid "The Guitaret is an electric lamellophone made by Hohner."
+msgstr ""
+
 #. name:Lyricon
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
@@ -867,6 +898,11 @@ msgstr "Der Agogô ist ein Aufschlagidiophon in der brasilianischen Musik, das a
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
 msgstr "Die ajaeng ist eine siebensaitige, mit einem Holzstab gestrichene Wölbbrettzither, die in der traditionellen koreanischen Hofmusik gespielt wird."
+
+#. name:akete
+#: DB:instrument/description:747
+msgid "The akete are drums commonly used in Nyabinghi music."
+msgstr ""
 
 #. name:alfaia
 #: DB:instrument/description:718
@@ -1072,6 +1108,13 @@ msgid ""
 " transverse (horizontal) manner."
 msgstr "Das Bawu ist ein chinesisches Musikinstrument. Es sieht aus wie eine Holzquerflöte, verwendet aber zur Tonerzeugung eine durchschlagende Stimmzunge und wird deshalb zu den Mundorgeln gezählt. Der Klang ist ähnlich dem der Klarinette."
 
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"The bazooka is a brass musical instrument several feet in length which "
+"incorporates telescopic tubing."
+msgstr ""
+
 #. name:bin-sasara
 #: DB:instrument/description:380
 msgid ""
@@ -1085,6 +1128,12 @@ msgid ""
 "The biwa is a short-necked Japanese fretted lute which is played with a "
 "large triangular-shaped plectrum."
 msgstr "Die Biwa ist ein klassisches japanisches Musikinstrument, eine vier- oder fünfsaitige, birnenförmige Kurzhalslaute, die mit einem großen Plektrum angeschlagen wird."
+
+#. name:bolon
+#: DB:instrument/description:745
+msgid ""
+"The bolon is a traditional harp-lute played in several African countries."
+msgstr ""
 
 #. name:buk
 #: DB:instrument/description:577
@@ -1162,6 +1211,11 @@ msgstr "Das Tamtam, auch Chau Gong, ist ein grosses ostasiatisches Aufschlag-Idi
 msgid ""
 "The chikuzen biwa is a biwa with either four strings and frets or five "
 "strings and frets popularised during the Meiji period."
+msgstr ""
+
+#. name:chitra veena
+#: DB:instrument/description:744
+msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
 msgstr ""
 
 #. name:concert flute
@@ -1363,6 +1417,13 @@ msgid ""
 "mostly used as an accompanying instrument"
 msgstr "Die Esraj ist eine nordindische gestrichene Schalenhalslaute mit vier bis fünf Spielsaiten und über ein Dutzend Resonanzsaiten."
 
+#. name:flumpet
+#: DB:instrument/description:742
+msgid ""
+"The flumpet is a hybrid brass horn instrument that shares the construction "
+"and timbre qualities of a trumpet and flugelhorn."
+msgstr ""
+
 #. name:flûte d'amour
 #: DB:instrument/description:415
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
@@ -1429,6 +1490,13 @@ msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
 msgstr "Die Gralla ist eine katalanische Schalmei. Sie gehört zu den Holzblasinstrumenten und wird mit einem Doppelrohrblatt gespielt. Sie hat sechs Grifflöcher und ein Daumenloch, das zum Oktavieren benutzt wird."
+
+#. name:gramorimba
+#: DB:instrument/description:748
+msgid ""
+"The gramorimba is a lithophone, similar to a xylophone whose bars are made "
+"of stone."
+msgstr ""
 
 #. name:guan
 #: DB:instrument/description:683
@@ -1812,6 +1880,13 @@ msgid ""
 "piano."
 msgstr ""
 
+#. name:minipiano
+#: DB:instrument/description:752
+msgid ""
+"The minipiano is a type of piano in which the sound producing mechanism is "
+"positioned below the keyboard, allowing an economical use of space."
+msgstr ""
+
 #. name:morin khuur / matouqin
 #: DB:instrument/description:224
 msgid ""
@@ -2099,6 +2174,13 @@ msgstr ""
 msgid ""
 "The saron is an Indonesian musical instrument which is used in the gamelan. "
 "It normally has seven bronze bars placed on top of a resonating frame."
+msgstr ""
+
+#. name:sarrusophone
+#: DB:instrument/description:749
+msgid ""
+"The sarrusophone is a family of transposing musical instruments, intended to"
+" serve as a replacement in wind bands for the oboe and bassoon."
 msgstr ""
 
 #. name:satsuma biwa
@@ -2389,6 +2471,13 @@ msgstr ""
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
+msgstr ""
+
+#. name:tololoche
+#: DB:instrument/description:746
+msgid ""
+"The tololoche is a traditional musical instrument from northern Mexico, "
+"similar but smaller than the European double bass."
 msgstr ""
 
 #. name:tonkori
@@ -2795,7 +2884,7 @@ msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr ""
 
-#. name:Disk Drive
+#. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-10-28 10:40+0000\n"
+"PO-Revision-Date: 2015-11-14 17:51+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr "Relaties die gebruikers objecten laat verbinden zijn uitgebracht en ongebruikte TRM’s zijn uit de gegevensbank verwijderd. Bewerkingen op dezelfde pagina is standaard uitgeschakeld waardoor er minder gestemd wordt."
+msgstr "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en ongebruikte TRM’s zijn uit de database verwijderd. Bewerkingen op dezelfde pagina is standaard uitgeschakeld waardoor er minder gestemd wordt."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
@@ -161,7 +161,7 @@ msgstr "Cover Art Uploader"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr "Toegewijde gegevensbankserver"
+msgstr "Toegewijde databaseserver"
 
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
@@ -187,7 +187,7 @@ msgstr "Folksonomie-etikettering en abonnementen op redacteurs worden uitgebrach
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
-msgstr "De automatische import vanuit FreeDB wordt uitgeschakeld en de verkiezing van autoredacteurs toegevoegd. Niet-gebruikte TRM’s worden uit de gegevensbank verwijderd."
+msgstr "De automatische import vanuit FreeDB wordt uitgeschakeld en de verkiezing van autoredacteurs toegevoegd. Niet-gebruikte TRM’s worden verwijderd."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
@@ -327,7 +327,7 @@ msgstr "De broncode voor de server van MusicBrainz verhuist van Subversion naar 
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr "MusicBrainz krijgt zijn eerste toegewijde server."
+msgstr "MusicBrainz krijgt zijn eerste toegewijde databaseserver."
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -418,7 +418,7 @@ msgstr "SoC 2008"
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
-msgstr "Er wordt een oplossing voor fouten in Stijlgids 5 geïntroduceerd en ongebruikte TRM’s worden uit de gegevensbank verwijderd."
+msgstr "Er wordt een oplossing voor fouten in Stijlgids 5 geïntroduceerd en ongebruikte TRM’s worden verwijderd."
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
@@ -1126,11 +1126,11 @@ msgstr "Gegevenskwaliteit"
 
 #: ../root/statistics/layout.tt:24 ../root/statistics/layout.tt:35
 msgid "Database Statistics"
-msgstr "Statistieken over de gegevensbank"
+msgstr "Statistieken over MusicBrainz"
 
 #: ../root/statistics/layout.tt:16
 msgid "Database Statistics - {title}"
-msgstr "Statistieken over de gegevensbank - {title}"
+msgstr "Statistieken over MusicBrainz - {title}"
 
 #: ../root/statistics/view_js.tt:165
 msgid "Default Data Quality"

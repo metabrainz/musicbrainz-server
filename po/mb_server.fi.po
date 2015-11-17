@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-22 01:01-0500\n"
-"PO-Revision-Date: 2015-09-08 18:59+0000\n"
+"POT-Creation-Date: 2015-11-06 14:02-0800\n"
+"PO-Revision-Date: 2015-11-06 22:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -195,7 +195,7 @@ msgid "(none)"
 msgstr "(ei mitään)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:328
+#: ../root/static/scripts/common/components/TagEditor.js:329
 msgctxt "tag"
 msgid "(none)"
 msgstr "(ei mitään)"
@@ -427,7 +427,7 @@ msgid ""
 "respectively."
 msgstr ""
 
-#: ../root/layout/menu.tt:122
+#: ../root/layout/menu.tt:127
 msgid "About"
 msgstr "Yleistä"
 
@@ -435,8 +435,8 @@ msgstr "Yleistä"
 msgid "Abstain"
 msgstr "Tyhjä"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:197
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:20
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Abstain"
 msgstr "Tyhjä"
@@ -513,7 +513,7 @@ msgstr ""
 msgid "Add Area"
 msgstr "Lisää alue"
 
-#: ../root/admin/index.tt:7 ../root/layout/menu.tt:85
+#: ../root/admin/index.tt:7 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr "Lisää alue"
@@ -522,7 +522,7 @@ msgstr "Lisää alue"
 msgid "Add Artist"
 msgstr "Lisää artisti"
 
-#: ../root/layout/menu.tt:218
+#: ../root/layout/menu.tt:223
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Lisää artisti"
@@ -555,7 +555,7 @@ msgstr "Lisää levy"
 msgid "Add Event"
 msgstr ""
 
-#: ../root/layout/menu.tt:245
+#: ../root/layout/menu.tt:250
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr "Lisää tapahtuma"
@@ -568,7 +568,7 @@ msgstr "Lisää esimerkki"
 msgid "Add Instrument"
 msgstr "Lisää soitin"
 
-#: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
+#: ../root/admin/index.tt:10 ../root/layout/menu.tt:95
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr "Lisää soitin"
@@ -577,7 +577,7 @@ msgstr "Lisää soitin"
 msgid "Add Label"
 msgstr "Lisää levymerkki"
 
-#: ../root/layout/menu.tt:221 ../root/release/edit/information.tt:224
+#: ../root/layout/menu.tt:226 ../root/release/edit/information.tt:224
 #: ../root/release/edit/information.tt:225
 msgctxt "button/menu"
 msgid "Add Label"
@@ -596,12 +596,12 @@ msgstr "Lisää sivu"
 msgid "Add Place"
 msgstr "Lisää paikka"
 
-#: ../root/layout/menu.tt:239
+#: ../root/layout/menu.tt:244
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr "Lisää paikka"
 
-#: ../root/layout/menu.tt:227
+#: ../root/layout/menu.tt:232
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr "Lisää julkaisu"
@@ -621,7 +621,7 @@ msgstr ""
 msgid "Add Release Group"
 msgstr "Lisää julkaisuryhmä"
 
-#: ../root/layout/menu.tt:224
+#: ../root/layout/menu.tt:229
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "Lisää julkaisuryhmä"
@@ -630,12 +630,12 @@ msgstr "Lisää julkaisuryhmä"
 msgid "Add Series"
 msgstr "Lisää sarja"
 
-#: ../root/layout/menu.tt:242
+#: ../root/layout/menu.tt:247
 msgctxt "button/menu"
 msgid "Add Series"
 msgstr "Lisää sarja"
 
-#: ../root/layout/menu.tt:233
+#: ../root/layout/menu.tt:238
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr "Lisää yksittäinen äänite"
@@ -645,11 +645,11 @@ msgctxt "header"
 msgid "Add Standalone Recording"
 msgstr "Lisää yksittäinen äänite"
 
-#: ../root/layout/menu.tt:230
+#: ../root/layout/menu.tt:235
 msgid "Add Various Artists Release"
 msgstr "Lisää eri esittäjien julkaisu"
 
-#: ../root/layout/menu.tt:236
+#: ../root/layout/menu.tt:241
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr "Lisää teos"
@@ -691,7 +691,7 @@ msgid "Add a new entry"
 msgstr "Lisää uusi merkintä"
 
 #: ../root/release/edit/recordings.tt:195
-#: ../root/static/scripts/common/i18n.js:161
+#: ../root/static/scripts/common/i18n.js:224
 msgid "Add a new recording"
 msgstr "Lisää uusi äänite"
 
@@ -716,7 +716,7 @@ msgid "Add annotation"
 msgstr "Lisää lisätietoja"
 
 #: ../root/components/relationship-editor.tt:193
-#: ../root/static/scripts/common/i18n.js:171
+#: ../root/static/scripts/common/i18n.js:234
 msgid "Add another instrument"
 msgstr "Lisää toinen soitin"
 
@@ -749,14 +749,14 @@ msgstr "Lisää yhteys teokseen"
 #: ../root/forms/relationship-editor.tt:7
 #: ../root/release/edit_relationships.tt:198
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:28
 msgid "Add relationship"
 msgstr "Lisää yhteys"
 
 #: ../root/artist/layout.tt:12 ../root/label/layout.tt:9
 #: ../root/release_group/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
 msgid "Add release"
 msgstr "Lisää julkaisu"
 
@@ -859,7 +859,7 @@ msgstr "Osoite:"
 msgid "Adjust User Account Flags"
 msgstr "Säädä käyttäjätunnuksen lippuja"
 
-#: ../root/layout/menu.tt:81
+#: ../root/layout/menu.tt:86
 msgid "Admin"
 msgstr "Järjestelmänvalvoja"
 
@@ -907,7 +907,7 @@ msgstr "Aliakset"
 msgid "All Edits"
 msgstr "Kaikki muokkaukset"
 
-#: ../root/layout/menu.tt:69
+#: ../root/layout/menu.tt:74
 msgid "All My Edits"
 msgstr "Kaikki muokkaukseni"
 
@@ -1104,12 +1104,16 @@ msgid "Application"
 msgstr "Sovellus"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/menu.tt:43
+#: ../root/layout/menu.tt:48
 msgid "Applications"
 msgstr "Sovellukset"
 
-#: ../root/edit/search_macros.tt:244
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:200
+#: ../root/edit/search_macros.tt:309
+msgid "Applied Edit Count of Editor"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:246
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:196
 msgctxt "vote"
 msgid "Approve"
 msgstr "Hyväksy"
@@ -1210,12 +1214,12 @@ msgstr "Haluatko varmasti poistaa sarjan {series} MusicBrainzista?"
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:589 ../root/components/labels-list.tt:9
-#: ../root/edit/search_macros.tt:307 ../root/label/merge.tt:15
+#: ../root/edit/search_macros.tt:309 ../root/label/merge.tt:15
 #: ../root/place/merge.tt:14 ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/static/scripts/common/i18n.js:142
+#: ../root/static/scripts/common/i18n.js:205
 msgid "Area"
 msgstr "Alue"
 
@@ -1267,7 +1271,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:58
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/edit_track.tt:13
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:309
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:365
@@ -1288,11 +1292,11 @@ msgstr ""
 #: ../root/search/results-release_group.tt:9 ../root/watch/list.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:33
-#: ../root/static/scripts/common/i18n.js:143
+#: ../root/static/scripts/common/i18n.js:206
 msgid "Artist"
 msgstr "Artisti"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Artist Area"
 msgstr "Artistin alue"
 
@@ -1541,7 +1545,7 @@ msgstr "Valtuutus"
 msgid "Authorized Applications"
 msgstr "Valtuutetut sovellukset"
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Auto-Editor"
 msgstr "Auto-editori"
 
@@ -1557,7 +1561,7 @@ msgstr "Käyttäjän {name} automaattiset muokkaukset"
 msgid "Auto-editor"
 msgstr "Auto-editori"
 
-#: ../root/layout/menu.tt:143
+#: ../root/layout/menu.tt:148
 msgid "Auto-editor Elections"
 msgstr "Auto-editori-vaalit"
 
@@ -1769,7 +1773,7 @@ msgstr "Alkanut"
 msgid "Begin date:"
 msgstr "Alkanut:"
 
-#: ../root/layout/menu.tt:260
+#: ../root/layout/menu.tt:265
 msgid "Beginners Guide"
 msgstr "Aloittelijan opas"
 
@@ -1793,7 +1797,7 @@ msgstr "Biografia:"
 msgid "Birth date:"
 msgstr "Syntymäpäivä:"
 
-#: ../root/layout/menu.tt:158
+#: ../root/layout/menu.tt:163
 msgid "Blog"
 msgstr "Blogi"
 
@@ -1807,7 +1811,7 @@ msgstr "Syntymäpaikka:"
 msgid "Born:"
 msgstr "Syntymäaika:"
 
-#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:288
+#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:290
 msgid "Bot"
 msgstr "Botti"
 
@@ -1915,7 +1919,7 @@ msgstr "Peruuta muokkaus"
 msgid "Cancel the election"
 msgstr "Peruuta vaalit"
 
-#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:276
+#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Cancelled"
 msgstr "Peruutettu"
 
@@ -1993,7 +1997,7 @@ msgid "Catalog#"
 msgstr "Luettelonumero"
 
 #: ../root/account/change_password.tt:1 ../root/account/change_password.tt:3
-#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:37
+#: ../root/account/change_password.tt:27 ../root/layout/menu.tt:42
 msgid "Change Password"
 msgstr "Vaihda salasana"
 
@@ -2075,7 +2079,7 @@ msgstr "Asiakas:"
 msgid "Close"
 msgstr "Sulje"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Closed"
 msgstr "Suljettu"
 
@@ -2089,7 +2093,7 @@ msgstr "Suljettu:"
 msgid "Code"
 msgstr "Koodi"
 
-#: ../root/layout/menu.tt:137
+#: ../root/layout/menu.tt:142
 msgid "Code of Conduct"
 msgstr "Järjestyssäännöt"
 
@@ -2183,7 +2187,7 @@ msgid ""
 "into MusicBrainz!"
 msgstr "Onnittelut! Uusi käyttäjätunnuksesi on luotu ja olet sisäänkirjautunut Musicbrainz:iin!"
 
-#: ../root/layout/menu.tt:286
+#: ../root/layout/menu.tt:291
 msgid "Contact Us"
 msgstr "Ota meihin yhteyttä"
 
@@ -2269,7 +2273,7 @@ msgstr "Kansitaide:"
 msgid "Create"
 msgstr "Luo"
 
-#: ../root/account/register.tt:43 ../root/layout/menu.tt:116
+#: ../root/account/register.tt:43 ../root/layout/menu.tt:121
 msgid "Create Account"
 msgstr "Luo käyttäjätunnus"
 
@@ -2293,7 +2297,7 @@ msgstr "Luo käyttäjätunnus"
 msgid "Create collection"
 msgstr "Luo kokoelma"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Created"
 msgstr "Luotu"
 
@@ -2327,7 +2331,7 @@ msgstr "Nykyinen versio:"
 msgid "DD"
 msgstr "PP"
 
-#: ../root/layout/menu.tt:131
+#: ../root/layout/menu.tt:136
 msgid "Data Licenses"
 msgstr "Datan lisenssit"
 
@@ -2338,10 +2342,6 @@ msgstr "Datan lisenssit"
 #: ../root/release/layout.tt:53
 msgid "Data Quality:"
 msgstr "Tiedon laatu:"
-
-#: ../root/layout/menu.tt:305
-msgid "Data Removal Policy"
-msgstr "Tietojenpoistamiskäytäntö"
 
 #: ../root/components/medium.tt:83 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:378
@@ -2397,7 +2397,7 @@ msgstr "Päiväykset ovat muotoa VVVV-KK-PP. Osittaiset päiväykset kuten VVVV-
 msgid "Defunct:"
 msgstr "Lopetettu:"
 
-#: ../root/edit/search_macros.tt:112
+#: ../root/edit/search_macros.tt:114
 msgid "Delete"
 msgstr "Poista"
 
@@ -2460,7 +2460,7 @@ msgstr "Lisätietoja"
 msgid "Developer Applications"
 msgstr "Kehityssovellukset"
 
-#: ../root/layout/menu.tt:184
+#: ../root/layout/menu.tt:189
 msgid "Developer Resources"
 msgstr "Resurssit sovelluskehittäjille"
 
@@ -2468,7 +2468,7 @@ msgstr "Resurssit sovelluskehittäjille"
 msgid "Developers"
 msgstr "Sovelluskehittäjät"
 
-#: ../root/layout/menu.tt:281
+#: ../root/layout/menu.tt:286
 msgid "Development"
 msgstr "Sovelluskehitys"
 
@@ -2629,7 +2629,7 @@ msgid ""
 "our {oauth2|OAuth documentation} for more details."
 msgstr "Aiotko kehittää sovelluksen joka hyödyntää {ws|MusicBrainzin palvelua}? {register|Rekisteröi sovellus} luodaksesi OAuth-vuoromerkkejä. Lisätietoa {oauth2|OAuth-valtuutuksen dokumentaatiossa}."
 
-#: ../root/layout/menu.tt:257
+#: ../root/layout/menu.tt:262
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
 msgid "Documentation"
 msgstr "Dokumentaatio"
@@ -2718,12 +2718,12 @@ msgstr "Muokkaa tekijänimeä"
 msgid "Edit Attribute"
 msgstr ""
 
-#: ../root/admin/index.tt:20 ../root/layout/menu.tt:108
+#: ../root/admin/index.tt:20 ../root/layout/menu.tt:113
 msgid "Edit Attributes"
 msgstr ""
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/admin/index.tt:17 ../root/layout/menu.tt:103
+#: ../root/admin/index.tt:17 ../root/layout/menu.tt:108
 msgid "Edit Banner Message"
 msgstr "Muokkaa banneriviestiä"
 
@@ -2746,7 +2746,7 @@ msgstr "Muokkausmerkintä"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
-#: ../root/layout/menu.tt:34
+#: ../root/layout/menu.tt:39
 msgid "Edit Profile"
 msgstr "Muokkaa profiilia"
 
@@ -2760,7 +2760,7 @@ msgstr "Muokkaa yhteyden määritettä"
 msgid "Edit Relationship Type"
 msgstr "Muokkaa yhteyden tyyppiä"
 
-#: ../root/admin/index.tt:11 ../root/layout/menu.tt:93
+#: ../root/admin/index.tt:11 ../root/layout/menu.tt:98
 msgid "Edit Relationship Types"
 msgstr "Muokkaa yhteyksien tyyppejä"
 
@@ -2770,7 +2770,7 @@ msgstr "Muokkaa yhteyksiä: {release}"
 
 #: ../root/doc/edit_type.tt:28 ../root/doc/edit_types.tt:1
 #: ../root/doc/edit_types.tt:3 ../root/edit/info.tt:67
-#: ../root/layout/menu.tt:272
+#: ../root/layout/menu.tt:277
 msgid "Edit Types"
 msgstr "Muokkaustyypit"
 
@@ -2825,7 +2825,7 @@ msgid "Edited"
 msgstr "Muokattu"
 
 #: ../root/account/preferences.tt:42 ../root/collection/layout.tt:19
-#: ../root/layout/menu.tt:215
+#: ../root/layout/menu.tt:220
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:18
 msgid "Editing"
 msgstr "Muokkaaminen"
@@ -2843,12 +2843,12 @@ msgstr "Muokkaushistoria"
 msgid "Editing introduction"
 msgstr "Johdanto muokkauksiin"
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:307
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 msgid "Editor"
 msgstr "Käyttäjä"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Editor Flag"
 msgstr "Käyttäjän lippu"
 
@@ -2872,7 +2872,7 @@ msgstr "Muokkaukset"
 msgid "Edits ({view_url|view})"
 msgstr "Muokkaukset ({view_url|näytä})"
 
-#: ../root/layout/menu.tt:75
+#: ../root/layout/menu.tt:80
 msgid "Edits by Subscribed Editors"
 msgstr "Seurattujen käyttäjien muokkaukset"
 
@@ -2880,7 +2880,7 @@ msgstr "Seurattujen käyttäjien muokkaukset"
 msgid "Edits by {name}"
 msgstr "Käyttäjän {name} muokkaukset"
 
-#: ../root/layout/menu.tt:72
+#: ../root/layout/menu.tt:77
 msgid "Edits for Subscribed Entities"
 msgstr "Seuratuille kohteille tehdyt muokkaukset"
 
@@ -3046,7 +3046,7 @@ msgid "Entity types:"
 msgstr "Entiteettityypit:"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Error"
 msgstr "Virhe"
 
@@ -3098,7 +3098,7 @@ msgstr "Pelkän URL-osoitteen antaminenkin helpottaa!"
 #: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
 #: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/static/scripts/common/i18n.js:144
+#: ../root/static/scripts/common/i18n.js:207
 msgid "Event"
 msgstr ""
 
@@ -3164,7 +3164,7 @@ msgstr "Laajenna kaikki kuvaukset"
 msgid "Expire action"
 msgstr "Päättymiskäytäntö"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Expired"
 msgstr "Vanhentunut"
 
@@ -3203,7 +3203,7 @@ msgstr "Ulkopuoliset linkit"
 msgid "External links"
 msgstr "Ulkopuoliset linkit"
 
-#: ../root/layout/menu.tt:269 ../root/main/index.tt:82
+#: ../root/layout/menu.tt:274 ../root/main/index.tt:82
 msgid "FAQs"
 msgstr "UKK"
 
@@ -3319,7 +3319,7 @@ msgstr "Tallenteen muoto"
 msgid "Format:"
 msgstr "Tallenteen muoto:"
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:293
+#: ../root/layout.tt:90 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr "Keskustelufoorumi"
 
@@ -3410,7 +3410,7 @@ msgstr ""
 msgid "FreeDB Entry Not Found"
 msgstr "FreeDB-merkintää ei löydy"
 
-#: ../root/layout/menu.tt:193
+#: ../root/layout/menu.tt:198
 msgid "FreeDB Gateway"
 msgstr "FreeDB-yhdyskäytävä"
 
@@ -3520,6 +3520,7 @@ msgstr "Yleistä tietoa"
 #: ../root/report/mediums_with_sequence_issues.tt:8
 #: ../root/report/multiple_asins.tt:12
 #: ../root/report/multiple_discogs_links.tt:15
+#: ../root/report/not_various_artists.tt:9
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
@@ -3596,6 +3597,10 @@ msgstr ""
 msgid "Headings:"
 msgstr "Otsikot:"
 
+#: ../root/layout/menu.tt:28
+msgid "Help Translate"
+msgstr ""
+
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
 msgstr "Apua: "
@@ -3618,7 +3623,7 @@ msgstr "Kotisivu:"
 msgid "Host:"
 msgstr "Isäntä:"
 
-#: ../root/layout/menu.tt:266
+#: ../root/layout/menu.tt:271
 msgid "How Tos"
 msgstr "Kuinka teen..."
 
@@ -3635,7 +3640,7 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "Lahjoitin juuri äskettäin! Miksi näen tämän silti?"
 
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
-#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:307
+#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:309
 msgid "ID"
 msgstr "Tunniste"
 
@@ -3744,12 +3749,12 @@ msgstr "ISRC-koodi \"{isrc}\""
 msgid "ISRC:"
 msgstr "ISRC-koodi:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:133
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:134
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC-koodit"
 
-#: ../root/report/index.tt:136 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:137 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC-koodeja, joista kukin liittyy useampaan äänitteeseen"
@@ -3782,11 +3787,11 @@ msgstr "ISWC \"{iswc}\""
 msgid "ISWC:"
 msgstr "ISWC-koodi:"
 
-#: ../root/report/index.tt:139
+#: ../root/report/index.tt:140
 msgid "ISWCs"
 msgstr "ISWC-koodit"
 
-#: ../root/report/index.tt:142 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:143 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr "ISWC-koodit, jotka viittaavat useaan teokseen"
@@ -3952,11 +3957,11 @@ msgid "Installed Application"
 msgstr "Asennetut sovellukset"
 
 #: ../root/components/common-macros.tt:589
-#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:307
+#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:309
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/static/scripts/common/i18n.js:145
+#: ../root/static/scripts/common/i18n.js:208
 msgid "Instrument"
 msgstr "Soitin"
 
@@ -3974,7 +3979,7 @@ msgid "Instrument Details"
 msgstr "Lisätietoja soittimesta"
 
 #: ../root/instrument/list.tt:11 ../root/instrument/list.tt:13
-#: ../root/layout/menu.tt:278
+#: ../root/layout/menu.tt:283
 msgid "Instrument List"
 msgstr "Soitinlista"
 
@@ -4051,7 +4056,7 @@ msgstr "Pidä minut sisäänkirjautuneena."
 #: ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:309
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
@@ -4060,11 +4065,11 @@ msgstr "Pidä minut sisäänkirjautuneena."
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/static/scripts/common/i18n.js:146
+#: ../root/static/scripts/common/i18n.js:209
 msgid "Label"
 msgstr "Levymerkki"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Label Area"
 msgstr "Levymerkin alue"
 
@@ -4300,7 +4305,7 @@ msgstr "Linkit:"
 msgid "Lists:"
 msgstr "Listat:"
 
-#: ../root/layout/menu.tt:190
+#: ../root/layout/menu.tt:195
 msgid "Live Data Feed"
 msgstr "Tietovirta"
 
@@ -4333,7 +4338,7 @@ msgstr "Lokaali:"
 msgid "Location"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Location Editor"
 msgstr "Sijanti-editori"
 
@@ -4353,12 +4358,12 @@ msgstr "Sijainti-editorit ovat käyttäjiä, jotka voivat lisätä ja muokata {u
 msgid "Location:"
 msgstr "Sijainti: "
 
-#: ../root/layout/menu.tt:115 ../root/user/login.tt:1 ../root/user/login.tt:3
+#: ../root/layout/menu.tt:120 ../root/user/login.tt:1 ../root/user/login.tt:3
 #: ../root/user/login.tt:34
 msgid "Log In"
 msgstr "Sisäänkirjaudu"
 
-#: ../root/layout/menu.tt:49
+#: ../root/layout/menu.tt:54
 msgid "Log Out"
 msgstr "Kirjaudu ulos"
 
@@ -4433,7 +4438,7 @@ msgstr "MBID:"
 msgid "MM"
 msgstr "KK"
 
-#: ../root/layout/menu.tt:169 ../root/main/index.tt:71
+#: ../root/layout/menu.tt:174 ../root/main/index.tt:71
 msgid "Magic MP3 Tagger"
 msgstr "Magic MP3 Tagger"
 
@@ -4442,10 +4447,6 @@ msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
 msgstr "Lähetä minulle sähköposti, kun jokin muokkauksistani saa ei-äänen. (Huomioi, että sähköposti lähetetään vain ensimmäisestä ei-äänestä, ei jokaisesta)"
-
-#: ../root/layout/menu.tt:289
-msgid "Mailing Lists"
-msgstr "Postituslistat"
 
 #: ../root/taglookup/nag.tt:24
 msgid "Make a donation now!"
@@ -4700,15 +4701,15 @@ msgstr "MusicBrainz - avoin musiikkitietosanakirja"
 msgid "MusicBrainz Blog"
 msgstr "MusicBrainz blogi"
 
-#: ../root/layout/menu.tt:181 ../root/main/index.tt:98
+#: ../root/layout/menu.tt:186 ../root/main/index.tt:98
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz-tietokanta"
 
-#: ../root/layout/menu.tt:166 ../root/main/index.tt:70
+#: ../root/layout/menu.tt:171 ../root/main/index.tt:70
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/menu.tt:178
+#: ../root/layout/menu.tt:183
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz-palvelin"
 
@@ -4727,7 +4728,7 @@ msgstr "MusicBrainz uskoo voimakkaasti käyttäjiensä yksityisyyteen! Mitään 
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainzissa ei ole yhtään CD-levyä tällä sisällysluettelolla:"
 
-#: ../root/layout/menu.tt:175
+#: ../root/layout/menu.tt:180
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz Androidille"
 
@@ -4766,27 +4767,27 @@ msgstr "MusicBrainz: Julkaisu"
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Kappale"
 
-#: ../root/layout/menu.tt:57
+#: ../root/layout/menu.tt:62
 msgid "My Collections"
 msgstr "Kokoelmani"
 
-#: ../root/layout/menu.tt:54
+#: ../root/layout/menu.tt:59
 msgid "My Data"
 msgstr "Minun tietoni"
 
-#: ../root/layout/menu.tt:66
+#: ../root/layout/menu.tt:71
 msgid "My Open Edits"
 msgstr "Avoimet muokkaukseni"
 
-#: ../root/layout/menu.tt:60
+#: ../root/layout/menu.tt:65
 msgid "My Ratings"
 msgstr "Arvosteluni"
 
-#: ../root/layout/menu.tt:63
+#: ../root/layout/menu.tt:68
 msgid "My Tags"
 msgstr "Luokitukseni"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "My Vote"
 msgstr "Oma ääneni"
 
@@ -4971,8 +4972,8 @@ msgstr "Seuraava »"
 msgid "No"
 msgstr "Ei"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:198
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:17
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgctxt "vote"
 msgid "No"
 msgstr "Ei"
@@ -5131,11 +5132,11 @@ msgstr "Ei kiitos"
 msgid "No users found"
 msgstr "Käyttäjiä ei löytynyt."
 
-#: ../root/edit/search_macros.tt:244
+#: ../root/edit/search_macros.tt:246
 msgid "No vote"
 msgstr "Ei ääntä"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "No vote count"
 msgstr "Ei-äänien määrä"
 
@@ -5148,7 +5149,7 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr "{type0}-{type1}-yhteystyyppejä ei löytynyt."
 
 #: ../root/entity/tags.tt:2
-#: ../root/static/scripts/common/components/TagEditor.js:284
+#: ../root/static/scripts/common/components/TagEditor.js:285
 msgid "Nobody has tagged this yet."
 msgstr ""
 
@@ -5204,7 +5205,7 @@ msgstr "Huomio! Jos et tiedä julkaisun kuukautta tai päivää, jätä ne täyt
 msgid "Note:"
 msgstr "Huomio:"
 
-#: ../root/edit/search_macros.tt:223
+#: ../root/edit/search_macros.tt:225
 msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08."
@@ -5317,7 +5318,7 @@ msgstr "Käytä tätä vaihtoehtoa vain jos olet jo etsinyt vastaavaa teosta ja 
 msgid "Only {doc|auto-editors} can approve an edit."
 msgstr "Vain {doc|auto-editorit} voivat hyväksyä muokkauksen."
 
-#: ../root/edit/search_macros.tt:92
+#: ../root/edit/search_macros.tt:94
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
@@ -5327,7 +5328,7 @@ msgstr "Hakuparametrisi vaikuttavat virheellisiltä. Tarkista syötteesi uudelle
 msgid "Oops, something went wrong!"
 msgstr "Jotakin taisi mennä pieleen!"
 
-#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
 msgstr "Avoimet"
 
@@ -5512,11 +5513,11 @@ msgid "Phrase:"
 msgstr "Fraasi:"
 
 #: ../root/components/common-macros.tt:589 ../root/components/places-list.tt:5
-#: ../root/edit/search_macros.tt:307 ../root/place/header.tt:5
+#: ../root/edit/search_macros.tt:309 ../root/place/header.tt:5
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/static/scripts/common/i18n.js:147
+#: ../root/static/scripts/common/i18n.js:210
 msgid "Place"
 msgstr "Paikka"
 
@@ -5548,17 +5549,17 @@ msgstr "Paikka:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:105 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:106 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Paikat"
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:110
 msgid "Places with annotations"
 msgstr "Paikat, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:109
 msgid "Places with deprecated relationships"
 msgstr "Paikat, joilla vanhentuneita yhteyksiä"
 
@@ -5577,7 +5578,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr "Vaihda salasanasi. Käyttäjien salasanojen suojatut tarkisteet päätyivät hetkellisesti ladattaviksi FTP-palvelimeltamme. Vaikka on erittäin epätodennäköistä, että kukaan saisi selville alkuperäisiä salasanoja tämän takia, kaikkia käyttäjiä vaaditaan vaihtamaan salasanansa. Pahoittelemme aiheutunutta haittaa. Lisätietoja {blog|blogikirjoituksessa}."
 
-#: ../root/edit/search_macros.tt:305
+#: ../root/edit/search_macros.tt:307
 msgid "Please choose a condition"
 msgstr "Valitse ehto"
 
@@ -5717,7 +5718,7 @@ msgstr ""
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences.tt:4
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
-#: ../root/layout/menu.tt:40
+#: ../root/layout/menu.tt:45
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -5760,7 +5761,7 @@ msgstr "Prioriteetti:"
 msgid "Privacy"
 msgstr "Yksityisyys"
 
-#: ../root/layout/menu.tt:140
+#: ../root/layout/menu.tt:145
 msgid "Privacy Policy"
 msgstr "Yksityisyyskäytäntö"
 
@@ -5772,12 +5773,12 @@ msgstr "Yksityinen"
 msgid "Private collection"
 msgstr "Yksityinen kokoelma"
 
-#: ../root/layout/menu.tt:146 ../root/user/privileged.tt:14
+#: ../root/layout/menu.tt:151 ../root/user/privileged.tt:14
 #: ../root/user/privileged.tt:16
 msgid "Privileged User Accounts"
 msgstr "Erikoiskäyttäjät"
 
-#: ../root/layout/menu.tt:163
+#: ../root/layout/menu.tt:168
 msgid "Products"
 msgstr "Tuotteet"
 
@@ -5859,12 +5860,12 @@ msgstr "Viimeisimmät lisäykset"
 
 #: ../root/components/common-macros.tt:589
 #: ../root/edit/details/merge_releases.tt:100
-#: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:309 ../root/release/edit_relationships.tt:50
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/static/scripts/common/i18n.js:148
+#: ../root/static/scripts/common/i18n.js:211
 msgid "Recording"
 msgstr "Äänite"
 
@@ -5922,6 +5923,11 @@ msgstr "Äänite:"
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Äänitteet"
+
+#: ../root/report/index.tt:103 ../root/report/not_various_artists.tt:1
+#: ../root/report/not_various_artists.tt:3
+msgid "Recordings incorrectly linked to Various Artists"
+msgstr ""
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
@@ -6030,11 +6036,11 @@ msgstr "Yhteys"
 msgid "Relationship Attributes"
 msgstr "Yhteyden määritteet"
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Relationship Editor"
 msgstr "Yhteys-editori"
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:307
+#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:309
 #: ../root/report/deprecated_relationship_artists.tt:13
 #: ../root/report/deprecated_relationship_labels.tt:13
 #: ../root/report/deprecated_relationship_places.tt:13
@@ -6051,7 +6057,7 @@ msgstr "Yhteyden tyyppi"
 msgid "Relationship Type In Use"
 msgstr "Yhteyden tyyppi käytössä"
 
-#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:275
+#: ../root/doc/relationship_type.tt:4 ../root/layout/menu.tt:280
 #: ../root/relationship/header.tt:2 ../root/relationship/linktype/index.tt:1
 msgid "Relationship Types"
 msgstr "Yhteyksien tyypit"
@@ -6112,7 +6118,7 @@ msgstr "Yhteydet:"
 #: ../root/components/common-macros.tt:589
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
-#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:309
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:71
 #: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
@@ -6121,7 +6127,7 @@ msgstr "Yhteydet:"
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
-#: ../root/static/scripts/common/i18n.js:149
+#: ../root/static/scripts/common/i18n.js:212
 msgid "Release"
 msgstr "Julkaisu"
 
@@ -6133,7 +6139,7 @@ msgstr "Julkaisun artisti"
 msgid "Release Collections"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Country"
 msgstr "Julkaisumaa"
 
@@ -6145,7 +6151,7 @@ msgstr "Julkaisun kaksoiskappaleet"
 msgid "Release Events:"
 msgstr "Julkaisutapahtumia:"
 
-#: ../root/components/common-macros.tt:589 ../root/edit/search_macros.tt:307
+#: ../root/components/common-macros.tt:589 ../root/edit/search_macros.tt:309
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
@@ -6195,7 +6201,7 @@ msgstr "Julkaisuryhmät, joilla vanhentuneita yhteyksiä"
 msgid "Release Information"
 msgstr "Tietoja julkaisusta"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Language"
 msgstr "Julkaisun kieli"
 
@@ -6203,7 +6209,7 @@ msgstr "Julkaisun kieli"
 msgid "Release Not Found"
 msgstr "Julkaisu ei löydy"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Release Quality"
 msgstr "Julkaisun laatu"
 
@@ -6239,7 +6245,7 @@ msgstr "Julkaisutapahtumat:"
 
 #: ../root/report/release_group_url_list.tt:6
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
-#: ../root/static/scripts/common/i18n.js:150
+#: ../root/static/scripts/common/i18n.js:213
 msgid "Release group"
 msgstr "Julkaisuryhmä"
 
@@ -6681,15 +6687,11 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "Uudelleenjärjestä kansitaide"
 
-#: ../root/layout/menu.tt:298
+#: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr "Ilmoita virheestä"
 
-#: ../root/layout/menu.tt:302
-msgid "Report a Copyright Violation"
-msgstr "Ilmoita tekijänoikeusloukkauksesta"
-
-#: ../root/layout/menu.tt:251 ../root/report/index.tt:1
+#: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
 msgid "Reports"
 msgstr "Raportit"
@@ -6812,10 +6814,10 @@ msgstr "Merkistö:"
 #: ../root/components/forms.tt:341
 #: ../root/components/relationship-editor.tt:65
 #: ../root/components/relationship-editor.tt:182
-#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:105
-#: ../root/edit/search_macros.tt:232 ../root/edit/search_macros.tt:264
+#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:107
+#: ../root/edit/search_macros.tt:234 ../root/edit/search_macros.tt:266
 #: ../root/label/edit_form.tt:21 ../root/layout.tt:16
-#: ../root/layout/menu.tt:198 ../root/otherlookup/form.tt:20
+#: ../root/layout/menu.tt:203 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:40
 #: ../root/release/edit/information.tt:63
@@ -6827,7 +6829,7 @@ msgstr "Merkistö:"
 msgid "Search"
 msgstr "Etsi"
 
-#: ../root/layout/menu.tt:202
+#: ../root/layout/menu.tt:207
 msgid "Search Edits"
 msgstr "Selaa muokkauksia"
 
@@ -7051,7 +7053,7 @@ msgstr "Lähetä sähköpostia muokkauksista seuraamiini kohteisiin:"
 msgid "Sentence"
 msgstr "lause"
 
-#: ../root/report/index.tt:112 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:113 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Sarjat"
@@ -7062,10 +7064,10 @@ msgid "Series"
 msgstr ""
 
 #: ../root/components/common-macros.tt:589 ../root/components/series-list.tt:5
-#: ../root/edit/search_macros.tt:307 ../root/series/header.tt:4
+#: ../root/edit/search_macros.tt:309 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/static/scripts/common/i18n.js:151
+#: ../root/static/scripts/common/i18n.js:214
 msgctxt "singular"
 msgid "Series"
 msgstr "Sarja"
@@ -7096,7 +7098,7 @@ msgstr "Sarjojen lisätietokenttiä"
 msgid "Series information"
 msgstr "Tietoja sarjasta"
 
-#: ../root/report/index.tt:115
+#: ../root/report/index.tt:116
 msgid "Series with annotations"
 msgstr "Sarjat, joilla lisätietokenttä"
 
@@ -7246,7 +7248,7 @@ msgstr "Samankaltaisia julkaisuja"
 msgid "Slow Down!"
 msgstr "Hidasta!"
 
-#: ../root/layout/menu.tt:134
+#: ../root/layout/menu.tt:139
 msgid "Social Contract"
 msgstr "Sosiaalinen sopimus"
 
@@ -7489,7 +7491,7 @@ msgstr "Jaa erillisiksi artististeiksi"
 msgid "Split into separate artists"
 msgstr "Jaa erillisiksi artisteiksi"
 
-#: ../root/layout/menu.tt:125
+#: ../root/layout/menu.tt:130
 msgid "Sponsors"
 msgstr "Sponsorit"
 
@@ -7513,7 +7515,7 @@ msgstr "Aloitus"
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/menu.tt:149 ../root/user/profile.tt:143
+#: ../root/layout/menu.tt:154 ../root/user/profile.tt:143
 msgid "Statistics"
 msgstr "Tilastot"
 
@@ -7522,7 +7524,7 @@ msgstr "Tilastot"
 msgid "Status"
 msgstr "Tila"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgctxt "edit status"
 msgid "Status"
 msgstr "Tila"
@@ -7567,7 +7569,7 @@ msgstr "Lopeta beta-sivuston käyttö"
 msgid "Stop watching selected artists"
 msgstr "Lopeta valittujen artistien seuraaminen"
 
-#: ../root/layout/menu.tt:263
+#: ../root/layout/menu.tt:268
 msgid "Style Guidelines"
 msgstr "Tyylioppaat"
 
@@ -7637,7 +7639,7 @@ msgstr "Seuraajat"
 msgid "Subscribers:"
 msgstr "Seuraajat:"
 
-#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:46
+#: ../root/collection/layout.tt:30 ../root/layout/menu.tt:51
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
 #: ../root/user/profile/layout.tt:12
 msgid "Subscriptions"
@@ -7704,14 +7706,14 @@ msgid "Tagger"
 msgstr "Luokittelija"
 
 #: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
-#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:206
+#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:211
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
 #: ../root/user/tags.tt:1
 msgid "Tags"
 msgstr "Luokitukset"
 
-#: ../root/layout/menu.tt:128
+#: ../root/layout/menu.tt:133
 msgid "Team"
 msgstr "Tiimi"
 
@@ -8321,7 +8323,7 @@ msgid ""
 "attributed to it."
 msgstr "Tätä soitinta ei voida poistaa, koska sille on vielä määriteltynä yhteyksiä."
 
-#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:152
+#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:165
 msgid "This is a MusicBrainz development server."
 msgstr "Tämä on MusicBrainzin ohjelmistokehitykseen tarkoitettu testipalvelin."
 
@@ -8485,7 +8487,7 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr "Tämä yhteystyyppi ei salli määritteitä."
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:167
+#: ../root/static/scripts/edit/externalLinks.js:170
 #: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Tämä yhteystyyppi on vanhentunut eikä sitä tulisi käyttää. "
@@ -8817,6 +8819,12 @@ msgid ""
 "Merge Releases})."
 msgstr "Tämä raportti näyttää Discogs-linkit, jotka on yhdistetty useisiin julkaisuihin. Yleensä Discogsin julkaisun tulisi vastata yksi yhteen MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. Tarkista mikä MusicBrainzin julkaisu sopii Discogsin julkaisuun (julkaisumuoto, kappalelista, julkaisumaa jne). Jotkut Discogs-linkit saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
 
+#: ../root/report/not_various_artists.tt:6
+msgid ""
+"This report shows recordings linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr ""
+
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
 "This report shows recordings that have the deprecated \"earliest release\" "
@@ -9068,7 +9076,7 @@ msgstr "Aika"
 msgid "Time:"
 msgstr "Aika:"
 
-#: ../root/layout/menu.tt:152
+#: ../root/layout/menu.tt:157
 msgid "Timeline Graph"
 msgstr "Aikajana"
 
@@ -9137,7 +9145,7 @@ msgid "To:"
 msgstr "Vastaanottaja:"
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/menu.tt:209
+#: ../root/layout/menu.tt:214
 msgid "Top CD Stubs"
 msgstr "Suosituimmat CD-tyngät"
 
@@ -9195,6 +9203,7 @@ msgstr "Paikkoja löytyi yhteensä: {count}"
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
+#: ../root/report/not_various_artists.tt:8
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_with_varying_track_lengths.tt:8
 msgid "Total recordings found: {count}"
@@ -9345,7 +9354,7 @@ msgstr "Kappaleet, joiden nimet sisältävät niiden järjestysnumeroita"
 msgid "Tracks:"
 msgstr "Kappaleet:"
 
-#: ../root/admin/index.tt:14 ../root/layout/menu.tt:98
+#: ../root/admin/index.tt:14 ../root/layout/menu.tt:103
 msgid "Transclude WikiDocs"
 msgstr "Sisällytä WikiDocsista"
 
@@ -9389,7 +9398,7 @@ msgstr "Twitter"
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_alias.tt:35 ../root/edit/details/edit_alias.tt:50
-#: ../root/edit/details/remove_alias.tt:33 ../root/edit/search_macros.tt:307
+#: ../root/edit/details/remove_alias.tt:33 ../root/edit/search_macros.tt:309
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
@@ -9461,7 +9470,7 @@ msgstr "Tyypit:"
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/report/url_list.tt:7
 #: ../root/url/header.tt:8 ../lib/MusicBrainz/Server/Edit/URL.pm:7
-#: ../root/static/scripts/common/i18n.js:152
+#: ../root/static/scripts/common/i18n.js:215
 msgid "URL"
 msgstr "URL"
 
@@ -9489,13 +9498,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|label]"
 
 #: ../root/components/common-macros.tt:126
-#: ../root/components/common-macros.tt:606 ../root/report/index.tt:126
+#: ../root/components/common-macros.tt:606 ../root/report/index.tt:127
 msgid "URLs"
 msgstr "URL-osoitteet"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:129
+#: ../root/report/index.tt:130
 msgid "URLs with deprecated relationships"
 msgstr "URL-osoitteet, joilla vanhentuneita yhteyksiä"
 
@@ -9540,7 +9549,7 @@ msgstr "Määrittelemätön tyyppi"
 msgid "Unsubscribe"
 msgstr "Lopeta seuraaminen"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:288
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
 msgid "Untrusted"
 msgstr "Epäluotettava"
 
@@ -9747,7 +9756,7 @@ msgstr "Äänestä EI"
 msgid "Vote YES"
 msgstr "Äänestä KYLLÄ"
 
-#: ../root/layout/menu.tt:248
+#: ../root/layout/menu.tt:253
 msgid "Vote on Edits"
 msgstr "Äänestä muokkauksista"
 
@@ -9953,7 +9962,7 @@ msgstr "Kun olet valmis sulauttamaan nämä, paina Sulauta-nappulaa. Voit yhä l
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:288
+#: ../root/edit/search_macros.tt:290
 msgid "Wiki Transcluder"
 msgstr "Wikin sisällyttäjä"
 
@@ -9976,11 +9985,11 @@ msgid ""
 msgstr "Wikipedian sisältö annettu käyttöön {license_link|Creative Commons BY-SA lisenssillä}"
 
 #: ../root/components/common-macros.tt:589 ../root/components/works-list.tt:12
-#: ../root/edit/search_macros.tt:307 ../root/report/iswc_with_many_works.tt:25
+#: ../root/edit/search_macros.tt:309 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/static/scripts/common/i18n.js:153
+#: ../root/static/scripts/common/i18n.js:216
 msgid "Work"
 msgstr "Teos"
 
@@ -10027,24 +10036,24 @@ msgstr "Teos:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:118 ../root/series/index.tt:15
+#: ../root/report/index.tt:119 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Teokset"
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:124
 msgid "Works with annotations"
 msgstr "Teokset, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:122
+#: ../root/report/index.tt:123
 msgid "Works with deprecated relationships"
 msgstr "Teokset, joilla vanhentuneita yhteyksiä"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:121
+#: ../root/report/index.tt:122
 msgid "Works with possible duplicate relationships"
 msgstr "Teokset, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -10059,7 +10068,7 @@ msgstr "Tekijät"
 msgid "Writers:"
 msgstr "Tekijät:"
 
-#: ../root/layout/menu.tt:187
+#: ../root/layout/menu.tt:192
 msgid "XML Web Service"
 msgstr "XML-verkkopalvelu"
 
@@ -10073,7 +10082,7 @@ msgstr "XML:"
 msgid "YYYY"
 msgstr "VVVV"
 
-#: ../root/layout/menu.tt:172 ../root/main/index.tt:72
+#: ../root/layout/menu.tt:177 ../root/main/index.tt:72
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
@@ -10091,13 +10100,13 @@ msgstr "Vuosi: "
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:199
+#: ../root/edit/search_macros.tt:246 ../root/edit/vote.tt:14
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:195
 msgctxt "vote"
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../root/edit/search_macros.tt:307
+#: ../root/edit/search_macros.tt:309
 msgid "Yes vote count"
 msgstr "Kyllä-äänien määrä"
 
@@ -10490,7 +10499,7 @@ msgstr "[poistettu]"
 msgid "[unknown]"
 msgstr "[tuntematon]"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "after"
 msgstr "jälkeen"
 
@@ -10530,11 +10539,11 @@ msgstr "automaattiset muokkaukset"
 msgid "automatically applied"
 msgstr "automaattisesti hyväksytty"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "before"
 msgstr "ennen"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "between"
 msgstr "välillä"
 
@@ -10663,43 +10672,43 @@ msgstr "tiedot"
 msgid "instruments"
 msgstr "soittimet"
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
-#: ../root/edit/search_macros.tt:178 ../root/edit/search_macros.tt:190
-#: ../root/edit/search_macros.tt:211 ../root/edit/search_macros.tt:228
-#: ../root/edit/search_macros.tt:240 ../root/edit/search_macros.tt:258
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
+#: ../root/edit/search_macros.tt:180 ../root/edit/search_macros.tt:192
+#: ../root/edit/search_macros.tt:213 ../root/edit/search_macros.tt:230
+#: ../root/edit/search_macros.tt:242 ../root/edit/search_macros.tt:260
+#: ../root/edit/search_macros.tt:275 ../root/edit/search_macros.tt:287
 msgid "is"
 msgstr "on"
 
-#: ../root/edit/search_macros.tt:127
+#: ../root/edit/search_macros.tt:129
 msgid "is after"
 msgstr "on jälkeen"
 
-#: ../root/edit/search_macros.tt:127
+#: ../root/edit/search_macros.tt:129
 msgid "is before"
 msgstr "on ennen"
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
 msgid "is between"
 msgstr "on välissä"
 
-#: ../root/edit/search_macros.tt:258
+#: ../root/edit/search_macros.tt:260
 msgid "is in my subscriptions"
 msgstr "on seuraamissani kohteissa"
 
-#: ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:146
 msgid "is less than"
 msgstr "on vähemmän kuin"
 
-#: ../root/edit/search_macros.tt:144
+#: ../root/edit/search_macros.tt:146
 msgid "is more than"
 msgstr "on enemmän kuin"
 
-#: ../root/edit/search_macros.tt:127 ../root/edit/search_macros.tt:144
-#: ../root/edit/search_macros.tt:161 ../root/edit/search_macros.tt:178
-#: ../root/edit/search_macros.tt:190 ../root/edit/search_macros.tt:228
-#: ../root/edit/search_macros.tt:240 ../root/edit/search_macros.tt:258
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:129 ../root/edit/search_macros.tt:146
+#: ../root/edit/search_macros.tt:163 ../root/edit/search_macros.tt:180
+#: ../root/edit/search_macros.tt:192 ../root/edit/search_macros.tt:230
+#: ../root/edit/search_macros.tt:242 ../root/edit/search_macros.tt:260
+#: ../root/edit/search_macros.tt:275 ../root/edit/search_macros.tt:287
 msgid "is not"
 msgstr "ei ole"
 
@@ -10724,7 +10733,7 @@ msgid "more"
 msgstr "lisää"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:325
+#: ../root/static/scripts/common/components/TagEditor.js:326
 msgid "more..."
 msgstr "lisää..."
 
@@ -10756,7 +10765,7 @@ msgstr "ei mitään"
 msgid "oldest first"
 msgstr "vanhin ensin"
 
-#: ../root/edit/search_macros.tt:161
+#: ../root/edit/search_macros.tt:163
 msgid "on"
 msgstr "päivänä"
 
@@ -11007,6 +11016,7 @@ msgstr "{entity_type} artistilta {artist}"
 
 #: ../root/components/common-macros.tt:268 ../root/main/index.tt:119
 #: ../root/release/edit/tracklist.tt:447
+#: ../root/static/scripts/common/utility/descriptiveLink.js:13
 msgid "{entity} by {artist}"
 msgstr "{entity} artistilta {artist}"
 
@@ -11210,6 +11220,7 @@ msgid "{percentage}%"
 msgstr "{percentage} %"
 
 #: ../root/components/common-macros.tt:268
+#: ../root/static/scripts/common/utility/descriptiveLink.js:21
 msgid "{place} in {area}"
 msgstr "{place} sijaitsee alueella {area}"
 
@@ -11290,7 +11301,7 @@ msgid ""
 msgstr "{valink|Eri esittäjiä} käytetään erittäin harvoin äänitteissä. Varmista artistin olevan oikein."
 
 #: ../root/components/common-macros.tt:1001
-#: ../root/static/scripts/common/i18n.js:136
+#: ../root/static/scripts/common/i18n.js:199
 msgid "{variable}:"
 msgstr "{variable}:"
 
@@ -11307,7 +11318,7 @@ msgstr "« Aiempi"
 msgid "…"
 msgstr ""
 
-#: ../lib/DBDefs/Default.pm:153
+#: ../lib/DBDefs/Default.pm:166
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "Tämä betatestaus-palvelin mahdollistaa uusien ominaisuuksien testaamisen live-tietokannalla. "
@@ -11435,11 +11446,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banneri päivitetty. Muista, että jokaisella palvelimella on oma, itsenäinen bannerinsa."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:524
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:526
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Erityistarkoituksellista artistia ei voi sulauttaa muihin artisteihin "
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:529
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:531
 msgid "You cannot merge into Deleted Artist"
 msgstr "Poistettuun artistiin ei voi sulauttaa"
 
@@ -11510,7 +11521,13 @@ msgstr "Lisätietokentän version tunnisteen tulee olla positiivinen kokonaisluk
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Vanhan, sekä uuden lisätietokentän tunnisteiden tulee olla ainutkertaisia, positiivisia kokonaislukuja."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:207
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:75
+msgid ""
+"Language set. If you find any problems with the translation, please "
+"{url|help us improve it}!"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:210
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -11556,56 +11573,56 @@ msgid ""
 "cancelled instead of opening a new edit."
 msgstr "Koska tämän kohteen lisää muokkauksesi oli vielä auki,  perutetaan se uuden muokkauksen sijasta."
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:101
 msgid "No title provided"
 msgstr "Nimeä ei ole annettu"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:112
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:105
 msgid "No artist names provided"
 msgstr "Artistien nimiä ei ole annettu"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:116
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:109
 msgid "Not all tracks specify an artist"
 msgstr "Joillekin kappaleille ei ole määritetty artistia"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:120
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:113
 msgid "Not all tracks have a title"
 msgstr "Joiltain kappaleilta puuttuu nimi."
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:124
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:117
 msgid "Cannot add a CD stub with no tracks"
 msgstr "CD-tynkää, jossa ei ole kappaleita, ei voida lisätä "
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:128
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:121
 msgid "Incomplete TOC data"
 msgstr "Sisällysluettelo tiedot ovat vaillinaiset"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:132
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:125
 msgid "Missing disc ID"
 msgstr "Levyn tunniste puuttuu"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:136
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:129
 msgid "Disc ID does match parsed TOC"
 msgstr "Levyn tunniste ei vastaa jäsennettyä sisällysluetteloa"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:140
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:133
 msgid "Number of submitted tracks does not match track count in TOC"
 msgstr "Lähetettyjen kappaleiden määrä ei täsmää sisällysluettelon kappalemäärään"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:144
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:137
 msgid "Invalid barcode"
 msgstr "Kelpaamaton viivakoodi"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:147
 msgid "There are already MusicBrainz releases with this disc ID"
 msgstr "Tällä levyn tunnisteella on jo MusicBrainz-julkaisuja"
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:161
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
 msgid "There is already a CD stub with this disc ID"
 msgstr "Tällä levyn tunnisteella on jo CD-tynkä"
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:55
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:44
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:45
 msgid "[No lyrics]"
 msgstr "[Ei sanoitusta]"
 
@@ -11614,7 +11631,7 @@ msgstr "[Ei sanoitusta]"
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1} -yhteydet"
 
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:182
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:178
 msgid "Total"
 msgstr "Yhteensä"
 
@@ -11769,7 +11786,7 @@ msgstr "Muokkaa julkaisutapahtumia (historiallinen)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:20
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:35
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:37
 msgid "Edit recording"
 msgstr "Muokkaa äänitettä"
 
@@ -12009,7 +12026,7 @@ msgstr ""
 msgid "Add cover art"
 msgstr "Lisää kansitaidetta"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:18
 msgid "Add release label"
 msgstr "Lisää julkaisun levymerkki"
 
@@ -12017,7 +12034,7 @@ msgstr "Lisää julkaisun levymerkki"
 msgid "Remove release alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:20
 msgid "Remove release label"
 msgstr "Poista julkaisun levymerkki"
 
@@ -12045,7 +12062,7 @@ msgstr "Poista kansitaidetta"
 msgid "Reorder cover art"
 msgstr "Uudelleenjärjestä kansitaide"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:12
 msgid "Reorder mediums"
 msgstr "Uudelleenjärjestä tallenteet"
 
@@ -12105,23 +12122,23 @@ msgstr "Muokkaa sarjan aliasta"
 msgid "Merge series"
 msgstr "Sulauta sarjat"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Applied"
 msgstr "Hyväksytty"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Failed vote"
 msgstr "Epäonnistunut äänestys"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Failed dependency"
 msgstr "Epäonnistunut riippuvuus"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Failed prerequisite"
 msgstr "Epäonnistunut edellytys"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "No votes"
 msgstr "Ei-äänet"
 
@@ -12288,31 +12305,31 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:271
 #: ../lib/MusicBrainz/Server/Translation.pm:265
-#: ../root/static/scripts/common/i18n.js:114
+#: ../root/static/scripts/common/i18n.js:173
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:49
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:50
 msgid " &#x2013; ????"
 msgstr " &#x2013; ????"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:55
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:56
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
 msgstr "{begindate} &#x2013; {enddate}"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:59
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:60
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
 msgstr "&#x2013; {enddate}"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:63
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:64
 #, perl-brace-format
 msgid "{begindate} &#x2013; ????"
 msgstr "{begindate} &#x2013; ????"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:65
+#: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:66
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
@@ -12452,7 +12469,7 @@ msgid "This is not a valid time."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:163
+#: ../root/static/scripts/edit/externalLinks.js:164
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Syötä kelvollinen url-osoite, esimerkiksi \"http://google.com/\""
 
@@ -12587,22 +12604,22 @@ msgstr "2 viikkoa"
 msgid "A month"
 msgstr "Kuukausi"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:57
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr "Usein käytettyjä"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:57
 msgctxt "language optgroup"
 msgid "Other"
 msgstr "Muu"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:81
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr "Usein käytettyjä"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:81
 msgctxt "script optgroup"
 msgid "Other"
 msgstr "Muu"
@@ -12707,19 +12724,19 @@ msgid ""
 msgstr "Vale-julkaisu on kahdennettu julkaisu käännöstä tai translitteraatiota varten."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:245
-#: ../root/static/scripts/common/i18n.js:88
+#: ../root/static/scripts/common/i18n.js:147
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} ja {last_list_item}"
 
 #: ../lib/MusicBrainz/Server/Translation.pm:251
-#: ../root/static/scripts/common/i18n.js:97
+#: ../root/static/scripts/common/i18n.js:156
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
 #: ../lib/MusicBrainz/Server/Translation.pm:262
-#: ../root/static/scripts/common/i18n.js:110
+#: ../root/static/scripts/common/i18n.js:169
 #, perl-brace-format
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
@@ -12759,7 +12776,7 @@ msgstr "Hidasta? Vaihda takaisin indeksoituun hakuun."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:595
 #: ../root/static/scripts/common/entity.js:196
-#: ../root/static/scripts/edit/externalLinks.js:277
+#: ../root/static/scripts/edit/externalLinks.js:280
 msgid "video"
 msgstr "video"
 
@@ -12787,121 +12804,125 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr "Kuva {current} / {total}"
 
-#: ../root/static/scripts/common/components/TagEditor.js:70
+#: ../root/static/scripts/common/components/TagEditor.js:71
 msgid "Upvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:71
+#: ../root/static/scripts/common/components/TagEditor.js:72
 msgid "You’ve upvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:79
+#: ../root/static/scripts/common/components/TagEditor.js:80
 msgid "Downvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:80
+#: ../root/static/scripts/common/components/TagEditor.js:81
 msgid "You’ve downvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:293
+#: ../root/static/scripts/common/components/TagEditor.js:294
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:296
+#: ../root/static/scripts/common/components/TagEditor.js:297
 msgid "Show all tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:300
+#: ../root/static/scripts/common/components/TagEditor.js:301
 msgid "Add Tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:302
+#: ../root/static/scripts/common/components/TagEditor.js:303
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:309
+#: ../root/static/scripts/common/components/TagEditor.js:310
 msgid "Submit tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:333
+#: ../root/static/scripts/common/components/TagEditor.js:334
 msgid "Tag"
 msgstr "Luokitus"
 
-#: ../root/static/scripts/common/i18n.js:157
+#: ../root/static/scripts/common/i18n.js:220
 msgid "Add a new artist"
 msgstr "Lisää uusi artisti"
 
-#: ../root/static/scripts/common/i18n.js:158
+#: ../root/static/scripts/common/i18n.js:221
 msgid "Add a new event"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:159
+#: ../root/static/scripts/common/i18n.js:222
 msgid "Add a new label"
 msgstr "Lisää uusi levymerkki"
 
-#: ../root/static/scripts/common/i18n.js:160
+#: ../root/static/scripts/common/i18n.js:223
 msgid "Add a new place"
 msgstr "Lisää uusi paikka"
 
-#: ../root/static/scripts/common/i18n.js:162
+#: ../root/static/scripts/common/i18n.js:225
 msgid "Add a new release group"
 msgstr "Lisää uusi julkaisuryhmä"
 
-#: ../root/static/scripts/common/i18n.js:163
+#: ../root/static/scripts/common/i18n.js:226
 msgid "Add a new series"
 msgstr "Lisää uusi sarja"
 
-#: ../root/static/scripts/common/i18n.js:164
+#: ../root/static/scripts/common/i18n.js:227
 msgid "Add a new work"
 msgstr "Lisää uusi teos"
 
-#: ../root/static/scripts/common/i18n.js:168
+#: ../root/static/scripts/common/i18n.js:231
 msgid "Add another area"
 msgstr "Lisää toinen alue"
 
-#: ../root/static/scripts/common/i18n.js:169
+#: ../root/static/scripts/common/i18n.js:232
 msgid "Add another artist"
 msgstr "Lisää toinen artisti"
 
-#: ../root/static/scripts/common/i18n.js:170
+#: ../root/static/scripts/common/i18n.js:233
 msgid "Add another event"
 msgstr ""
 
-#: ../root/static/scripts/common/i18n.js:172
+#: ../root/static/scripts/common/i18n.js:235
 msgid "Add another label"
 msgstr "Lisää toinen levymerkki"
 
-#: ../root/static/scripts/common/i18n.js:173
+#: ../root/static/scripts/common/i18n.js:236
 msgid "Add another place"
 msgstr "Lisää toinen paikka"
 
-#: ../root/static/scripts/common/i18n.js:174
+#: ../root/static/scripts/common/i18n.js:237
 msgid "Add another recording"
 msgstr "Lisää toinen äänite"
 
-#: ../root/static/scripts/common/i18n.js:175
+#: ../root/static/scripts/common/i18n.js:238
 msgid "Add another release"
 msgstr "Lisää toinen julkaisu"
 
-#: ../root/static/scripts/common/i18n.js:176
+#: ../root/static/scripts/common/i18n.js:239
 msgid "Add another release group"
 msgstr "Lisää toinen julkaisuryhmä"
 
-#: ../root/static/scripts/common/i18n.js:177
+#: ../root/static/scripts/common/i18n.js:240
 msgid "Add another series"
 msgstr "Lisää toinen sarja"
 
-#: ../root/static/scripts/common/i18n.js:178
+#: ../root/static/scripts/common/i18n.js:241
 msgid "Add another work"
 msgstr "Lisää toinen teos"
 
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show less..."
 msgstr "Näytä vähemmän..."
+
+#: ../root/static/scripts/common/utility/entityLink.js:27
+msgid "(video)"
+msgstr ""
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:44
 msgid "Began:"
@@ -12915,15 +12936,11 @@ msgstr "Tämä henkilö on kuollut."
 msgid "This group has dissolved."
 msgstr "Tämä yhtye on hajonnut."
 
-#: ../root/static/scripts/edit/check-duplicates.js:133
-#: ../root/static/scripts/edit/externalLinks.js:161
+#: ../root/static/scripts/edit/check-duplicates.js:134
+#: ../root/static/scripts/edit/externalLinks.js:162
 #: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "Pakollinen kenttä."
-
-#: ../root/static/scripts/edit/components/EntityLink.js:25
-msgid "(video)"
-msgstr ""
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:14
 msgid "Possible Duplicates"
@@ -12933,11 +12950,11 @@ msgstr ""
 msgid "We found the following entities with very similar names:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:23
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
 msgid "Yes, I still want to enter “{entity_name}”."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
@@ -12949,35 +12966,39 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Kaikki muutokset menetetään, jos jätät tämän sivun."
 
-#: ../root/static/scripts/edit/externalLinks.js:165
+#: ../root/static/scripts/edit/externalLinks.js:166
+msgid "Please don't use shortened URLs."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:168
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Valitse linkin tyyppi kirjoittamallesi URL-osoitteelle."
 
-#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/edit/externalLinks.js:172
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Tämä URL-osoite ei ole sallittu valitulle linkin tyypille, tai se on väärin muotoiltu."
 
-#: ../root/static/scripts/edit/externalLinks.js:171
+#: ../root/static/scripts/edit/externalLinks.js:174
 msgid "This relationship already exists."
 msgstr "Tämä yhteys on jo olemassa."
 
-#: ../root/static/scripts/edit/externalLinks.js:237
+#: ../root/static/scripts/edit/externalLinks.js:240
 #: ../root/static/scripts/relationship-editor/common/dialog.js:334
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|lisää dokumentaatiota})"
 
-#: ../root/static/scripts/edit/externalLinks.js:264
+#: ../root/static/scripts/edit/externalLinks.js:267
 msgid "Add link:"
 msgstr "Lisää linkki:"
 
-#: ../root/static/scripts/edit/externalLinks.js:264
+#: ../root/static/scripts/edit/externalLinks.js:267
 msgid "Add another link:"
 msgstr "Lisää linkki:"
 
-#: ../root/static/scripts/edit/externalLinks.js:283
+#: ../root/static/scripts/edit/externalLinks.js:286
 msgid "Remove Link"
 msgstr "Poista linkki"
 
@@ -13128,3 +13149,7 @@ msgstr "Syöttämäsi viivakoodi ei ole kelvollinen EAN-koodi."
 #: ../root/static/scripts/release-editor/validation.js:157
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Syöttämäsi viivakoodi ei ole kelvollinen UPC- tai EAN-koodi."
+
+#: ../root/static/scripts/tests/i18n.js:78
+msgid "An {apple_fruit|Apple}, plus {some_element}"
+msgstr ""

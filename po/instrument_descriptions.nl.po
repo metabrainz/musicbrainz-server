@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-10-12 20:55+0000\n"
+"PO-Revision-Date: 2015-11-16 10:13+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
+
+#. name:kös
+#: DB:instrument/description:739
+msgid "A Turkish drum used in the traditional Ottoman military bands"
+msgstr "Een Turkse trommel die wordt gebruikt bij traditionele Ottomaanse militaire muziek."
 
 #. name:tef
 #: DB:instrument/description:531
@@ -52,6 +57,13 @@ msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
 msgstr "Een bellenboom is een percussie-instrument, bestaande uit verticaal in elkaar passende omgekeerde metalen kommen."
+
+#. name:bicycle bell
+#: DB:instrument/description:743
+msgid ""
+"A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
+" warning pedestrians and other cyclists."
+msgstr "Een fietsbel kan naast het waarschuwen van voetgangers en andere fietsers ook gebruikt worden als percussie-instrument."
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -99,6 +111,13 @@ msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
 "often learnt by children."
 msgstr "De sopraanblokfluit is de meest gangbare blokfluit en wordt vaak door kinderen geleerd."
+
+#. name:dolceola
+#: DB:instrument/description:750
+msgid ""
+"A dolceola is a musical instrument resembling a miniature piano, but which "
+"is in fact a zither with a keyboard."
+msgstr "Een dolceola is een muziekinstrument dat lijkt op een minipiano, maar eigenlijk een citer met een toetsenbord is."
 
 #. name:duck call
 #: DB:instrument/description:649
@@ -208,6 +227,13 @@ msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon 
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
 msgstr "Een tokkelinstrument uit de Renaissance."
+
+#. name:çevgen
+#: DB:instrument/description:740
+msgid ""
+"A pole with bells and/or zills used in the traditional Ottoman military "
+"bands"
+msgstr "Een staf met bellen en/of schellen die wordt gebruikt bij traditionele Ottomaanse militaire muziek."
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -467,7 +493,7 @@ msgstr "Effecten staat voor apparaten die door een artiest worden gebruikt om he
 msgid "Electric guitar without frets."
 msgstr "Een elektrische gitaar zonder fretten."
 
-#. name:Floppy Drive
+#. name:floppy disk drive
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
@@ -510,7 +536,7 @@ msgstr "Griekse panfluit"
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
 msgstr "De Gusli (Russisch: гу́сли) is een Russisch tokkelinstrument."
 
-#. name:Harddisk
+#. name:hard disk drive
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
 msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
@@ -766,6 +792,11 @@ msgstr "De Kretenzische lier (Grieks: κρητική λύρα) is een Grieks pee
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr "De Es-klarinet is een lid van de familie van klarinetten."
 
+#. name:Guitaret
+#: DB:instrument/description:751
+msgid "The Guitaret is an electric lamellophone made by Hohner."
+msgstr "Een Guitaret is een elektrische lamellofoon die werd gemaakt door Hohner."
+
 #. name:Lyricon
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
@@ -864,6 +895,11 @@ msgstr "De agogô is een enkele of meervoudige bel die wordt gebruikt voor samba
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
 msgstr "De ajaeng is een Koreaanse citer met 7 (soms 8 of 9) snaren. Het wordt met een strijkstok bespeeld."
+
+#. name:akete
+#: DB:instrument/description:747
+msgid "The akete are drums commonly used in Nyabinghi music."
+msgstr "Akete zijn een stel trommels die worden gebruikt voor Nyabinghimuziek."
 
 #. name:alfaia
 #: DB:instrument/description:718
@@ -1069,6 +1105,13 @@ msgid ""
 " transverse (horizontal) manner."
 msgstr "De bawu (Traditioneel Chinees: 巴烏, Vereenvoudigd Chinees: 巴乌, pinyin: bāwū, ook wel ba wu of ba-wu genoemd) is een Chinees blaasinstrument. Hoewel het de vorm heeft van een fluit, is het een vrij rietinstrument, met een enkel metalen riet. Het wordt dwars gespeeld."
 
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"The bazooka is a brass musical instrument several feet in length which "
+"incorporates telescopic tubing."
+msgstr "Een bazooka is een koperblazer met een lengte van ongeveer een meter en een telescopische buis."
+
 #. name:bin-sasara
 #: DB:instrument/description:380
 msgid ""
@@ -1082,6 +1125,12 @@ msgid ""
 "The biwa is a short-necked Japanese fretted lute which is played with a "
 "large triangular-shaped plectrum."
 msgstr "De biwa (Japans: 琵琶) is een Japanse luit met fretten en een korte hals. Het wordt bespeeld met een groot driehoekig plectrum."
+
+#. name:bolon
+#: DB:instrument/description:745
+msgid ""
+"The bolon is a traditional harp-lute played in several African countries."
+msgstr "Een bolon is een traditionele basharp die in verschillende (West-)Afrikaanse landen wordt bespeeld."
 
 #. name:buk
 #: DB:instrument/description:577
@@ -1160,6 +1209,11 @@ msgid ""
 "The chikuzen biwa is a biwa with either four strings and frets or five "
 "strings and frets popularised during the Meiji period."
 msgstr "De chikuzen biwa (Japans: 筑前琵琶) is een biwa met vier of vijf snaren en fretten die populair werd in de Meiji-periode."
+
+#. name:chitra veena
+#: DB:instrument/description:744
+msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
+msgstr "Een gottuvadhyam (ook wel chitraveena genoemd, en met vele spellingvarianten) is een fretloze luit met 20 of 21 snaren die wordt gebruikt voor Carnatische muziek."
 
 #. name:concert flute
 #: DB:instrument/description:414
@@ -1360,6 +1414,13 @@ msgid ""
 "mostly used as an accompanying instrument"
 msgstr "De esraj (Bengaals: এস্রাজ, Hindi: इसराज) is een strijkinstrument uit Oost en Centraal India en wordt meestal gebruikt als begeleiding."
 
+#. name:flumpet
+#: DB:instrument/description:742
+msgid ""
+"The flumpet is a hybrid brass horn instrument that shares the construction "
+"and timbre qualities of a trumpet and flugelhorn."
+msgstr "Een flümpet is een blaasinstrument dat de constructie en kwaliteiten van een flügelhorn en een trompet combineert."
+
 #. name:flûte d'amour
 #: DB:instrument/description:415
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
@@ -1426,6 +1487,13 @@ msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
 msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
+
+#. name:gramorimba
+#: DB:instrument/description:748
+msgid ""
+"The gramorimba is a lithophone, similar to a xylophone whose bars are made "
+"of stone."
+msgstr "Een gramorimba is een lithofoon en lijkt op een xylofoon met staven van steen."
 
 #. name:guan
 #: DB:instrument/description:683
@@ -1809,6 +1877,13 @@ msgid ""
 "piano."
 msgstr "Een duimpiano (andere namen zijn mbira, kalimba en vele anderen) is een Afrikaanse lamellofoon van kleine metalen tongetjes die met de duim getokkeld worden."
 
+#. name:minipiano
+#: DB:instrument/description:752
+msgid ""
+"The minipiano is a type of piano in which the sound producing mechanism is "
+"positioned below the keyboard, allowing an economical use of space."
+msgstr "Een minipiano is een piano waarbij het mechanisme zich onder de toetsen bevindt, waardoor er efficiënt gebruik gemaakt wordt van de ruimte."
+
 #. name:morin khuur / matouqin
 #: DB:instrument/description:224
 msgid ""
@@ -2097,6 +2172,13 @@ msgid ""
 "The saron is an Indonesian musical instrument which is used in the gamelan. "
 "It normally has seven bronze bars placed on top of a resonating frame."
 msgstr "De saron is een Indonesisch muziekinstrument dat wordt gebruikt in de gamelan. Het heeft zeven bronzen staven op een resonerend onderstel."
+
+#. name:sarrusophone
+#: DB:instrument/description:749
+msgid ""
+"The sarrusophone is a family of transposing musical instruments, intended to"
+" serve as a replacement in wind bands for the oboe and bassoon."
+msgstr "Sarrusofoon is een familie van transponerende muziekinstrumenten. Het was bedoeld om de hobo en de fagot te vervangen in harmonieorkesten."
 
 #. name:satsuma biwa
 #: DB:instrument/description:580
@@ -2387,6 +2469,13 @@ msgstr "Een tinya is een kleine trommel die gebruikt wordt voor traditionele muz
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
 msgstr "De tiêu is een Japanse fluit en is gerelateerd aan de Chinese xiao."
+
+#. name:tololoche
+#: DB:instrument/description:746
+msgid ""
+"The tololoche is a traditional musical instrument from northern Mexico, "
+"similar but smaller than the European double bass."
+msgstr "Een tololoche is een traditioneel muziekinstrument uit het noorden van Mexico. Het lijkt op een contrabas, maar is kleiner."
 
 #. name:tonkori
 #: DB:instrument/description:575
@@ -2792,7 +2881,7 @@ msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met de mond bespeeld wordt."
 
-#. name:Disk Drive
+#. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "het gebruik van schijfstations van computers om muziek te maken."
