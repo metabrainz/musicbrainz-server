@@ -25,6 +25,10 @@ function pathTo(manifest) {
     }
   }
 
+  if (!MANIFEST_SIGNAUTRES[manifest]) {
+    throw new Error('no such manifest: ' + manifest);
+  }
+
   return path.join('/static/build/', MANIFEST_SIGNAUTRES[manifest]);
 }
 
