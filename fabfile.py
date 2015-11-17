@@ -95,6 +95,7 @@ def production():
     sudo('/root/server-configs/provision.sh')
 
     sudo("svc -h /etc/service/musicbrainz-server")
+    sudo("svc -t /etc/service/musicbrainz-server-renderer")
     sudo("svc -h /etc/service/musicbrainz-ws")
 
 def tag():
