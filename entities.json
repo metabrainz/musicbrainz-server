@@ -1,310 +1,167 @@
 {
+    "annotation": {
+        "model": "Annotation"
+    },
     "area": {
-        "mbid": {
-            "relatable": "overview",
-            "multiple": true
-        },
-        "custom_tabs": ["artists", "labels", "releases", "places"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Area",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 85},
         "aliases": {
             "add_edit_type": 86,
-            "edit_edit_type": 88,
             "delete_edit_type": 87,
+            "edit_edit_type": 88,
             "search_hint_type": 3
         },
-        "disambiguation": true,
+        "annotations": {
+            "edit_type": 85
+        },
+        "custom_tabs": ["artists", "labels", "releases", "places"],
         "date_period": true,
-        "removal": {"manual": true},
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Area",
+        "plural": "areas",
+        "removal": {
+            "manual": true
+        },
         "tags": true,
-        "plural": "areas"
+        "type": {
+            "simple": true
+        }
     },
     "artist": {
-        "mbid": {"relatable": "dedicated", "multiple": true, "indexable": true},
-        "custom_tabs": ["releases", "recordings", "works", "events"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Artist",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 5},
         "aliases": {
             "add_edit_type": 6,
-            "edit_edit_type": 8,
             "delete_edit_type": 7,
+            "edit_edit_type": 8,
             "search_hint_type": 3
         },
-        "sort_name": true,
-        "disambiguation": true,
-        "date_period": true,
-        "ratings": true,
-        "tags": true,
-        "subscriptions": {"entity": true, "deleted": true},
-        "report_filter": true,
+        "annotations": {
+            "edit_type": 5
+        },
         "collections": true,
+        "custom_tabs": ["releases", "recordings", "works", "events"],
+        "date_period": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "dedicated"
+        },
+        "merging": true,
+        "model": "Artist",
+        "plural": "artists",
+        "plural_url": "artists",
+        "ratings": true,
         "removal": {
             "automatic": {
                 "exempt": [1, 2],
-                "extra_fks": {"artist_credit_name": "artist"}
+                "extra_fks": {
+                    "artist_credit_name": "artist"
+                }
             }
         },
-        "plural": "artists",
-        "plural_url": "artists",
-        "url": "artist",
-        "sitemaps_lastmod_table": true
-    },
-    "event": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "edit_table": true,
-        "merging": true,
-        "model": "Event",
-        "type": { "simple": true },
-        "annotations": {"edit_type": 154},
-        "aliases": {
-            "add_edit_type": 155,
-            "edit_edit_type": 157,
-            "delete_edit_type": 156,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "date_period": true,
-        "ratings": true,
-        "tags": true,
-        "removal": {"automatic": {}},
-        "collections": true,
-        "plural": "events",
-        "plural_url": "events",
-        "url": "event"
-    },
-    "instrument": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "custom_tabs": ["releases", "recordings"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Instrument",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 135},
-        "aliases": {
-            "add_edit_type": 136,
-            "edit_edit_type": 138,
-            "delete_edit_type": 137,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "removal": {"manual": true},
-        "tags": true,
-        "plural": "instruments",
-        "plural_url": "instruments",
-        "url": "instrument"
-    },
-    "label": {
-        "mbid": {"relatable": "dedicated", "multiple": true, "indexable": true},
-        "edit_table": true,
-        "merging": true,
-        "model": "Label",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 15},
-        "aliases": {
-            "add_edit_type": 16,
-            "edit_edit_type": 18,
-            "delete_edit_type": 17,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "date_period": true,
-        "ratings": true,
-        "tags": true,
-        "subscriptions": {"entity": true, "deleted": true},
         "report_filter": true,
-        "removal": {
-            "manual": true,
-            "automatic": {
-                "exempt": [1],
-                "extra_fks": {"release_label": "label"}
-            }
-        },
-        "plural": "labels",
-        "plural_url": "labels",
-        "url": "label",
-        "sitemaps_lastmod_table": true
-    },
-    "place": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "custom_tabs": ["events", "performances", "map"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Place",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 65},
-        "aliases": {
-            "add_edit_type": 66,
-            "edit_edit_type": 68,
-            "delete_edit_type": 67,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "date_period": true,
-        "tags": true,
-        "removal": {"automatic": {}},
-        "collections": true,
-        "plural": "places",
-        "plural_url": "places",
-        "url": "place",
-        "sitemaps_lastmod_table": true
-    },
-    "recording": {
-        "mbid": {"relatable": "overview", "multiple": true},
-        "custom_tabs": ["fingerprints"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Recording",
-        "annotations": {"edit_type": 75},
-        "aliases": {
-            "add_edit_type": 711,
-            "edit_edit_type": 713,
-            "delete_edit_type": 712,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "ratings": true,
-        "tags": true,
-        "artist_credits": true,
-        "report_filter": true,
-        "collections": true,
-        "removal": {"manual": true},
-        "plural": "recordings",
-        "plural_url": "recordings",
-        "url": "recording",
-        "sitemaps_lastmod_table": true
-    },
-    "release": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "custom_tabs": ["discids", "cover_art"],
-        "edit_table": true,
-        "merging": true,
-        "model": "Release",
-        "annotations": {"edit_type": 35},
-        "aliases": {
-            "add_edit_type": 318,
-            "edit_edit_type": 320,
-            "delete_edit_type": 319,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "tags": true,
-        "artist_credits": true,
-        "removal": {"manual": true},
-        "report_filter": true,
-        "collections": true,
-        "plural": "releases",
-        "plural_url": "releases",
-        "url": "release",
-        "sitemaps_lastmod_table": true
-    },
-    "release_group": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "edit_table": true,
-        "merging": true,
-        "model": "ReleaseGroup",
-        "type": {"complex": true},
-        "annotations": {"edit_type": 25},
-        "aliases": {
-            "add_edit_type": 26,
-            "edit_edit_type": 28,
-            "delete_edit_type": 27,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "ratings": true,
-        "tags": true,
-        "artist_credits": true,
-        "report_filter": true,
-        "removal": {
-            "automatic": {
-                "extra_fks": {"release": "release_group"}
-            }
-        },
-        "plural": "release_groups",
-        "plural_url": "release-groups",
-        "url": "release-group",
-        "sitemaps_lastmod_table": true
-    },
-    "series": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "edit_table": true,
-        "merging": true,
-        "model": "Series",
-        "type": {"simple": true},
-        "plural": "series",
-        "plural_url": "series",
-        "url": "series",
-        "annotations": {"edit_type": 144},
-        "aliases": {
-            "add_edit_type": 145,
-            "edit_edit_type": 147,
-            "delete_edit_type": 146,
-            "search_hint_type": 2
-        },
-        "disambiguation": true,
-        "subscriptions": {"entity": true, "deleted": true},
-        "report_filter": true,
-        "removal": {"automatic": {}},
-        "tags": true
-    },
-    "url": {
-        "mbid": {"relatable": "overview", "multiple": true, "no_details": true},
-        "edit_table": true,
-        "model": "URL",
-        "plural": "urls",
-        "plural_url": "urls",
-        "url": "url"
-    },
-    "work": {
-        "mbid": {"relatable": "overview", "multiple": true, "indexable": true},
-        "edit_table": true,
         "sitemaps_lastmod_table": true,
-        "merging": true,
-        "model": "Work",
-        "type": {"simple": true},
-        "annotations": {"edit_type": 45},
-        "aliases": {
-            "add_edit_type": 46,
-            "edit_edit_type": 48,
-            "delete_edit_type": 47,
-            "search_hint_type": 2
+        "sort_name": true,
+        "subscriptions": {
+            "deleted": true,
+            "entity": true
         },
-        "disambiguation": true,
-        "ratings": true,
         "tags": true,
-        "report_filter": true,
-        "removal": {"automatic": {}},
-        "collections": true,
-        "plural": "works",
-        "plural_url": "works",
-        "url": "work"
-    },
-    "track": {
-        "mbid": {"multiple": true},
-        "model": "Track",
-        "artist_credits": 1
-    },
-    "editor": {
-        "model": "Editor",
-        "subscriptions": {"entity": false}
-    },
-    "collection": {
-        "mbid": {"relatable": false},
-        "table": "editor_collection",
-        "model": "Collection",
-        "subscriptions": {"entity": true}
+        "type": {
+            "simple": true
+        },
+        "url": "artist"
     },
     "cdstub": {
         "model": "CDStub"
     },
-    "annotation": {
-        "model": "Annotation"
+    "collection": {
+        "mbid": {
+            "relatable": false
+        },
+        "model": "Collection",
+        "subscriptions": {
+            "entity": true
+        },
+        "table": "editor_collection"
+    },
+    "editor": {
+        "model": "Editor",
+        "subscriptions": {
+            "entity": false
+        }
+    },
+    "event": {
+        "aliases": {
+            "add_edit_type": 155,
+            "delete_edit_type": 156,
+            "edit_edit_type": 157,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 154
+        },
+        "collections": true,
+        "date_period": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Event",
+        "plural": "events",
+        "plural_url": "events",
+        "ratings": true,
+        "removal": {
+            "automatic": {}
+        },
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "event"
+    },
+    "freedb": {
+        "model": "FreeDB"
+    },
+    "instrument": {
+        "aliases": {
+            "add_edit_type": 136,
+            "delete_edit_type": 137,
+            "edit_edit_type": 138,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 135
+        },
+        "custom_tabs": ["releases", "recordings"],
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Instrument",
+        "plural": "instruments",
+        "plural_url": "instruments",
+        "removal": {
+            "manual": true
+        },
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "instrument"
     },
     "isrc": {
         "model": "ISRC"
@@ -312,10 +169,275 @@
     "iswc": {
         "model": "ISWC"
     },
-    "freedb": {
-        "model": "FreeDB"
+    "label": {
+        "aliases": {
+            "add_edit_type": 16,
+            "delete_edit_type": 17,
+            "edit_edit_type": 18,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 15
+        },
+        "date_period": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "dedicated"
+        },
+        "merging": true,
+        "model": "Label",
+        "plural": "labels",
+        "plural_url": "labels",
+        "ratings": true,
+        "removal": {
+            "automatic": {
+                "exempt": [1],
+                "extra_fks": {
+                    "release_label": "label"
+                }
+            },
+            "manual": true
+        },
+        "report_filter": true,
+        "sitemaps_lastmod_table": true,
+        "subscriptions": {
+            "deleted": true,
+            "entity": true
+        },
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "label"
+    },
+    "place": {
+        "aliases": {
+            "add_edit_type": 66,
+            "delete_edit_type": 67,
+            "edit_edit_type": 68,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 65
+        },
+        "collections": true,
+        "custom_tabs": ["events", "performances", "map"],
+        "date_period": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Place",
+        "plural": "places",
+        "plural_url": "places",
+        "removal": {
+            "automatic": {}
+        },
+        "sitemaps_lastmod_table": true,
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "place"
+    },
+    "recording": {
+        "aliases": {
+            "add_edit_type": 711,
+            "delete_edit_type": 712,
+            "edit_edit_type": 713,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 75
+        },
+        "artist_credits": true,
+        "collections": true,
+        "custom_tabs": ["fingerprints"],
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Recording",
+        "plural": "recordings",
+        "plural_url": "recordings",
+        "ratings": true,
+        "removal": {
+            "manual": true
+        },
+        "report_filter": true,
+        "sitemaps_lastmod_table": true,
+        "tags": true,
+        "url": "recording"
+    },
+    "release": {
+        "aliases": {
+            "add_edit_type": 318,
+            "delete_edit_type": 319,
+            "edit_edit_type": 320,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 35
+        },
+        "artist_credits": true,
+        "collections": true,
+        "custom_tabs": ["discids", "cover_art"],
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Release",
+        "plural": "releases",
+        "plural_url": "releases",
+        "removal": {
+            "manual": true
+        },
+        "report_filter": true,
+        "sitemaps_lastmod_table": true,
+        "tags": true,
+        "url": "release"
+    },
+    "release_group": {
+        "aliases": {
+            "add_edit_type": 26,
+            "delete_edit_type": 27,
+            "edit_edit_type": 28,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 25
+        },
+        "artist_credits": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "ReleaseGroup",
+        "plural": "release_groups",
+        "plural_url": "release-groups",
+        "ratings": true,
+        "removal": {
+            "automatic": {
+                "extra_fks": {
+                    "release": "release_group"
+                }
+            }
+        },
+        "report_filter": true,
+        "sitemaps_lastmod_table": true,
+        "tags": true,
+        "type": {
+            "complex": true
+        },
+        "url": "release-group"
+    },
+    "series": {
+        "aliases": {
+            "add_edit_type": 145,
+            "delete_edit_type": 146,
+            "edit_edit_type": 147,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 144
+        },
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Series",
+        "plural": "series",
+        "plural_url": "series",
+        "removal": {
+            "automatic": {}
+        },
+        "report_filter": true,
+        "subscriptions": {
+            "deleted": true,
+            "entity": true
+        },
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "series"
     },
     "tag": {
         "model": "Tag"
+    },
+    "track": {
+        "artist_credits": 1,
+        "mbid": {
+            "multiple": true
+        },
+        "model": "Track"
+    },
+    "url": {
+        "edit_table": true,
+        "mbid": {
+            "multiple": true,
+            "no_details": true,
+            "relatable": "overview"
+        },
+        "model": "URL",
+        "plural": "urls",
+        "plural_url": "urls",
+        "url": "url"
+    },
+    "work": {
+        "aliases": {
+            "add_edit_type": 46,
+            "delete_edit_type": 47,
+            "edit_edit_type": 48,
+            "search_hint_type": 2
+        },
+        "annotations": {
+            "edit_type": 45
+        },
+        "collections": true,
+        "disambiguation": true,
+        "edit_table": true,
+        "mbid": {
+            "indexable": true,
+            "multiple": true,
+            "relatable": "overview"
+        },
+        "merging": true,
+        "model": "Work",
+        "plural": "works",
+        "plural_url": "works",
+        "ratings": true,
+        "removal": {
+            "automatic": {}
+        },
+        "report_filter": true,
+        "sitemaps_lastmod_table": true,
+        "tags": true,
+        "type": {
+            "simple": true
+        },
+        "url": "work"
     }
 }
