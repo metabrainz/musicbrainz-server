@@ -42,6 +42,10 @@ if ($daemonize) {
 }
 
 if ($child) {
+    $SIG{TERM} = sub {
+        kill 'TERM', $child;
+        exit;
+    };
     wait;
 } else {
     my $server_js_path = File::Spec->catfile(DBDefs->MB_SERVER_ROOT, 'root', $server_js_file);

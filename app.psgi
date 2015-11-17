@@ -26,8 +26,18 @@ BEGIN {
 use MusicBrainz::Server;
 
 BEGIN {
-    if (DBDefs->RENDERER_HOST eq '' && !fork) {
-        exec './script/start_renderer.pl';
+    if (DBDefs->RENDERER_HOST eq '') {
+        if (my $child = fork) {
+            use POSIX;
+            my $action = POSIX::SigAction->new(sub {
+                kill 'TERM', $child;
+                exit;
+            });
+            $action->safe(1);
+            POSIX::sigaction(SIGTERM, $action);
+        } else {
+            exec './script/start_renderer.pl';
+        }
     }
 }
 
