@@ -302,6 +302,7 @@ Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
 Readonly our $LOCATION_EDITOR_FLAG     => 256;
 Readonly our $BANNER_EDITOR_FLAG       => 512;
+Readonly our $EDITING_DISABLED_FLAG    => 1024;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;

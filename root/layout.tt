@@ -24,6 +24,16 @@
             </div>
         </div>
 
+        [%- IF c.user.is_editing_disabled -%]
+            <div class="banner editing-disabled">
+                <p>
+                    [% l('You’re currently not allowed to edit or vote because an admin has revoked your privileges.
+                          If you haven’t already been contacted about why, please {uri|send us a message}.',
+                        { uri => { href => 'https://metabrainz.org/contact', target => '_blank' } }) %]
+                </p>
+            </div>
+        [%- END -%]
+
         [%- IF !c.req.cookies.server_details_dismissed_mtime.value -%]
             [% IF server_details.staging_server %]
                 <div class="banner server-details">

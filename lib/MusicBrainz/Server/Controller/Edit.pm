@@ -80,7 +80,7 @@ sub data : Chained('load') RequireAuth
                template => 'edit/data.tt' );
 }
 
-sub enter_votes : Local RequireAuth DenyWhenReadonly
+sub enter_votes : Local RequireAuth(editing_enabled) DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -99,7 +99,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
     $c->detach;
 }
 
-sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
+sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabled) DenyWhenReadonly
 {
     my ($self, $c) = @_;
 

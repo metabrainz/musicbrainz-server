@@ -1,0 +1,29 @@
+[%- WRAPPER 'user/profile/layout.tt' title=l("Report User") full_width=1 -%]
+    <h2>[% l('Report User') %]</h2>
+
+    <p>[%- l('Please review our {uri|Code of Conduct} before sending a report.',
+            { uri => { href => doc_link('Code_of_Conduct'), target => '_blank' } }) -%]</p>
+
+    <p>[%- l('Your report will be sent to our {uri|account administrators}, who will decide what action to take.',
+            { uri => { href => c.uri_for_action('/user/privileged'), target => '_blank' } }) -%]</p>
+
+    <p>[%- l('If you’d like us to be able to easily respond to your report, please check “Reveal my email address” below.') -%]</p>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri %]" method="post" class="report-form">
+        [% form_row_select(r, 'reason', l('Reason:')) %]
+
+        [% WRAPPER form_row %]
+            [% r.label('message', l('Message:')) %]
+            [% r.textarea('message', { cols => 50, rows => 10 }) %]
+            [% field_errors(form, 'message') %]
+        [% END %]
+
+        [% form_row_checkbox(r, 'reveal_address', l('Reveal my email address')) %]
+
+        <div class="row no-label">
+            [% form_submit(l('Send')) %]
+        </div>
+    </form>
+[%- END -%]

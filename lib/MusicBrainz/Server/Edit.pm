@@ -6,8 +6,16 @@ use DateTime;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES $OPEN_EDIT_DURATION );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    :expire_action
+    :quality
+    :vote
+    $AUTO_EDITOR_FLAG
+    $EDITING_DISABLED_FLAG
+    $OPEN_EDIT_DURATION
+    $REQUIRED_VOTES
+);
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
@@ -145,12 +153,17 @@ sub is_open
     return shift->status == $STATUS_OPEN;
 }
 
-sub editor_may_vote
-{
+sub editor_may_vote {
     my ($self, $editor) = @_;
-    return $self->is_open &&
-           defined $editor && $editor->id != $self->editor_id &&
-           !$editor->is_limited && !$editor->is_bot;
+
+    return (
+        $self->is_open &&
+        defined $editor &&
+        $editor->id != $self->editor_id &&
+        !$editor->is_limited &&
+        !$editor->is_bot &&
+        !$editor->is_editing_disabled
+    );
 }
 
 sub editor_may_add_note
@@ -161,7 +174,9 @@ sub editor_may_add_note
         ($editor->id == $self->editor_id || !$editor->is_limited);
 }
 
-sub editor_may_edit { 1 }
+sub editor_may_edit {
+    shift->editor->is_editing_enabled;
+}
 
 # Subclasses should reimplement this, if they want different edit conditions.
 #
@@ -206,7 +221,8 @@ sub editor_may_approve {
     return
          $self->is_open
       && $conditions->{auto_edit}
-      && ($editor->privileges & $AUTO_EDITOR_FLAG);
+      && ($editor->privileges & $AUTO_EDITOR_FLAG)
+      && !($editor->privileges & $EDITING_DISABLED_FLAG);
 }
 
 sub editor_may_cancel {

@@ -237,6 +237,20 @@ after 'load' => sub {
     $c->model('Area')->load_containment($user->area);
 };
 
+sub _check_for_confirmed_email {
+    my ($c) = @_;
+
+    unless ($c->user->has_confirmed_email_address) {
+        $c->stash(
+            title    => l('Send Email'),
+            message  => l('You cannot contact other users because you have not {url|confirmed your email address}.',
+                          {url => $c->uri_for_action('/account/resend_verification')}),
+            template => 'user/message.tt',
+        );
+        $c->detach;
+    }
+}
+
 =head2 contact
 
 Allows users to contact other users via email
@@ -258,15 +272,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
         $c->detach;
     }
 
-    unless ($c->user->has_confirmed_email_address) {
-        $c->stash(
-            title    => l('Send Email'),
-            message  => l('You cannot contact other users because you have not {url|confirmed your email address}.',
-                          {url => $c->uri_for_action('/account/resend_verification')}),
-            template => 'user/message.tt',
-        );
-        $c->detach;
-    }
+    _check_for_confirmed_email($c);
 
     if (exists $c->req->params->{sent}) {
         $c->stash( template => 'user/email_sent.tt' );
@@ -490,7 +496,44 @@ sub privileged : Path('/privileged')
     );
 }
 
-1;
+sub report : Chained('load') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+
+    my $reporter = $c->user;
+    my $reported_user = $c->stash->{user};
+
+    if ($reporter->id == $reported_user->id) {
+        # A user can't report themselves
+        $c->detach('/user/profile', [$reported_user->name]);
+    }
+
+    _check_for_confirmed_email($c);
+
+    my $form = $c->form(form => 'User::Report');
+    if ($c->form_posted && $form->process(params => $c->req->params)) {
+        my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
+        my $result;
+        try {
+            $result = $c->model('Email')->send_editor_report(
+                reporter        => $reporter,
+                reported_user   => $reported_user,
+                admins          => \@account_admins,
+                reason          => $form->value->{reason},
+                message         => $form->value->{message},
+                reveal_address  => $form->value->{reveal_address},
+            );
+        } catch {
+            log_debug { "Couldn't send email: $_" } $_;
+            $c->flash->{message} = l('An error occurred while trying to send your report.');
+        };
+
+        if ($result) {
+            $c->flash->{message} = l('Your report has been sent.');
+        }
+
+        $c->detach('/user/profile', [$reported_user->name]);
+    }
+}
 
 1;
 

@@ -272,7 +272,7 @@ sub begin : Private
     }
 
     if (exists $c->action->attributes->{Edit} && $c->user_exists &&
-        !$c->user->has_confirmed_email_address)
+        (!$c->user->has_confirmed_email_address || $c->user->is_editing_disabled))
     {
         $c->forward('/error_401');
     }
