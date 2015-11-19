@@ -7,7 +7,10 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Work::DeleteAlias }
 
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE_ALIAS );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_WORK_DELETE_ALIAS
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test;
 
 test all => sub {
@@ -19,7 +22,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+workalias');
 
 my $alias = $c->model('Work')->alias->get_by_id(1);
 
-my $edit = _create_edit($c, $alias);
+my $edit = _create_edit($c, $alias, privileges => $UNTRUSTED_FLAG);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::DeleteAlias');
 
 my ($edits) = $c->model('Edit')->find({ work => 1 }, 10, 0);
@@ -52,7 +55,6 @@ ok(defined $alias);
 is($alias->edits_pending, 0);
 
 $edit = _create_edit($c, $alias);
-MusicBrainz::Server::Test::accept_edit($c, $edit);
 
 $work = $c->model('Work')->get_by_id(1);
 is($work->edits_pending, 0);
@@ -66,12 +68,13 @@ is(@$alias_set, 1);
 };
 
 sub _create_edit {
-    my ($c, $alias) = @_;
+    my ($c, $alias, %args) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_WORK_DELETE_ALIAS,
         editor_id => 1,
         entity    => $c->model('Work')->get_by_id(1),
         alias     => $alias,
+        %args,
     );
 }
 
