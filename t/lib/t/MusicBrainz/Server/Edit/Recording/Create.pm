@@ -3,7 +3,11 @@ use Test::Deep qw( cmp_set );
 use Test::Routine;
 use Test::More;
 
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_RECORDING_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_MODBOT
+    $EDIT_RECORDING_CREATE
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
@@ -23,58 +27,40 @@ INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
 ALTER SEQUENCE artist_id_seq RESTART 2;
 EOSQL
 
-    $test->clear_edit;
-
     $test->$orig(@args);
 };
 
 with 't::Edit';
 with 't::Context';
 
-has edit => (
-    is => 'ro', lazy => 1, clearer => 'clear_edit',
-    default => sub {
-        my $test = shift;
-        return $test->c->model('Edit')->create(
-            edit_type => $EDIT_RECORDING_CREATE,
-            editor_id => 1,
-            name => 'Standalone recording',
-            artist_credit => {
-                names => [
-                    { artist => { id => 1 }, name => 'Test artist' }
-                ] },
-            length => 12345,
-            comment => 'Recording comment'
-        );
-    }
-);
-
 test 'Accept edit' => sub {
     my $test = shift;
 
-    accept_edit($test->c, $test->edit);
+    # Edit should be accepted automatically.
+    my $edit = create_edit($test->c);
 
-    my $recording = created_recording_ok($test->c, $test->edit->entity_id);
+    my $recording = created_recording_ok($test->c, $edit->entity_id);
     is($recording->edits_pending, 0, 'has no edits pending');
 
-    is($test->edit->status => $STATUS_APPLIED);
+    is($edit->status => $STATUS_APPLIED);
 };
 
 test 'Reject edit' => sub {
     my $test = shift;
 
-    reject_edit($test->c, $test->edit);
+    my $edit = create_edit($test->c, privileges => $UNTRUSTED_FLAG);
+    reject_edit($test->c, $edit);
 
-    ok(!defined $test->c->model('Recording')->get_by_id($test->edit->entity_id),
+    ok(!defined $test->c->model('Recording')->get_by_id($edit->entity_id),
        'recording has been deleted');
 
-    is($test->edit->status => $STATUS_FAILEDVOTE);
+    is($edit->status => $STATUS_FAILEDVOTE);
 };
 
 test 'Reject when in use' => sub {
     my $test = shift;
 
-    my $edit = $test->edit;
+    my $edit = create_edit($test->c, privileges => $UNTRUSTED_FLAG);
 
     $test->c->sql->do("
 INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, number)
@@ -85,10 +71,10 @@ INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, nu
 
     reject_edit($test->c, $edit);
 
-    ok(defined $test->c->model('Recording')->get_by_id($test->edit->entity_id),
+    ok(defined $test->c->model('Recording')->get_by_id($edit->entity_id),
        'recording has not been deleted');
 
-    is($test->edit->status => $STATUS_APPLIED,
+    is($edit->status => $STATUS_APPLIED,
        'has to apply add recording edits when the recording is in use');
 
     $test->c->model('EditNote')->load_for_edits($edit);
@@ -99,19 +85,36 @@ INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, nu
 test 'Edit properties' => sub {
     my $test = shift;
 
-    isa_ok($test->edit => 'MusicBrainz::Server::Edit::Recording::Create');
+    my $edit = create_edit($test->c, privileges => $UNTRUSTED_FLAG);
+    isa_ok($edit => 'MusicBrainz::Server::Edit::Recording::Create');
 
-    cmp_set($test->edit->related_entities->{artist},
+    cmp_set($edit->related_entities->{artist},
             [ 1 ],
             'Is related to artist #1');
 
-    cmp_set($test->edit->related_entities->{recording},
-            [ $test->edit->entity_id ],
+    cmp_set($edit->related_entities->{recording},
+            [ $edit->entity_id ],
             'Is related to the recording it created');
 
-    my $recording = created_recording_ok($test->c, $test->edit->entity_id);
+    my $recording = created_recording_ok($test->c, $edit->entity_id);
     is($recording->edits_pending, 1, 'has an edit pending');
 };
+
+sub create_edit {
+    my ($c, %args) = @_;
+
+    $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_CREATE,
+        editor_id => 1,
+        name => 'Standalone recording',
+        artist_credit => {
+            names => [{ artist => { id => 1 }, name => 'Test artist' }]
+        },
+        length => 12345,
+        comment => 'Recording comment',
+        %args,
+    );
+}
 
 sub created_recording_ok {
     my ($c, $recording_id) = @_;
