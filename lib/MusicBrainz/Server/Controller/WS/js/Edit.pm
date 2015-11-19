@@ -51,6 +51,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
+Readonly our $ERROR_NO_CHANGES => 3;
 
 our $ALLOWED_EDIT_TYPES = [
     $EDIT_RELEASE_CREATE,
@@ -550,7 +551,9 @@ sub create_edits {
         } catch {
             if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
                 $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
-            } elsif (ref($_) =~ /^MusicBrainz::Server::Edit::Exceptions::(NoChanges|FailedDependency)$/) {
+            } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+                $c->forward('/ws/js/detach_with_error', [{errorCode => $ERROR_NO_CHANGES}]);
+            } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::FailedDependency') {
                 $c->forward('/ws/js/detach_with_error', ["$_"]);
             } else {
                 $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
