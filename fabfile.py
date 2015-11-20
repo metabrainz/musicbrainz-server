@@ -77,12 +77,8 @@ def production():
 
     fab -H host production
 
-    The Fabric deployment script will pull the server-configs repository, do
-    a Chef provision, send SIGHUP to the musicbrainz-server and
-    musicbrainz-ws services, and wait 30 seconds for them to restart.
-
-    It will attempt to check that the server started correctly by checking
-    for "plackup" processes and also doing a wget against localhost.
+    See https://github.com/metabrainz/chef-cookbooks/blob/master/musicbrainz-server/recipes/server.rb
+    for the steps taken during deployment.
     """
 
     no_local_changes()
