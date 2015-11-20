@@ -315,6 +315,7 @@ sub automatically_reorder {
             unless ($conflicting_relationship) {
                 push @from_values, "(?, ?)";
                 push @from_args, $relationship->id, $link_order;
+                push @{$relationships_by_link_order{$link_order}}, $relationship;
             }
 
             $prev_relationship = $relationship;
