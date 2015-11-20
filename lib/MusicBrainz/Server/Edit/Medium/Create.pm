@@ -6,7 +6,6 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
-    $EDIT_RELEASE_CREATE
     $STATUS_OPEN
 );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
@@ -23,6 +22,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -30,6 +30,7 @@ sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { N_l('Add medium') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
+sub release_id { shift->data->{release}->{id} }
 
 has '+data' => (
     isa => Dict[
@@ -174,26 +175,6 @@ override 'to_hash' => sub
 
     return $hash;
 };
-
-sub allow_auto_edit {
-    my $self = shift;
-
-    # Allow being an auto-edit if the release-add edit was opened by the same
-    # editor less than an hour ago.
-
-    my $release_id = $self->data->{release}->{id};
-
-    my $open_release_edit = $self->c->sql->select_single_value("
-        SELECT id FROM edit
-          JOIN edit_release ON edit.id = edit_release.edit
-         WHERE edit_release.release = ?
-           AND edit.editor = ?
-           AND edit.type = ?
-           AND edit.open_time - now() < interval '1 hour'
-    ", $release_id, $self->editor_id, $EDIT_RELEASE_CREATE);
-
-    return defined $open_release_edit;
-}
 
 before restore => sub {
     my ($self, $data) = @_;
