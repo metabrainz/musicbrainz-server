@@ -91,13 +91,6 @@ def production():
     sudo("su root -c 'cd /root/server-configs; git submodule update --init --recursive'")
     sudo('/root/server-configs/provision.sh')
 
-    # Build and install translations
-    sudo("su musicbrainz -c 'cd ~/musicbrainz-server && make -C po all_quiet && make -C po deploy'")
-
-    sudo("svc -h /etc/service/musicbrainz-server")
-    sudo("svc -t /etc/service/musicbrainz-server-renderer")
-    sudo("svc -h /etc/service/musicbrainz-ws")
-
 def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
     blog_url = prompt("Blog post URL", validate=r'^http.*')
