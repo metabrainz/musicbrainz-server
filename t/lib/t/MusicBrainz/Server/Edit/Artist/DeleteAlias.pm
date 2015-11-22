@@ -9,7 +9,11 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::DeleteAlias }
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE_ALIAS );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_DELETE_ALIAS
+    $STATUS_APPLIED
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test;
 
 test all => sub {
@@ -21,7 +25,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
 
 my $alias = $c->model('Artist')->alias->get_by_id(1);
 
-my $edit = _create_edit($c, $alias);
+my $edit = _create_edit($c, $alias, privileges => $UNTRUSTED_FLAG);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::DeleteAlias');
 
 my ($edits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
@@ -60,7 +64,6 @@ ok(defined $alias);
 is($alias->edits_pending, 0);
 
 $edit = _create_edit($c, $alias);
-MusicBrainz::Server::Test::accept_edit($c, $edit);
 
 $artist = $c->model('Artist')->get_by_id(1);
 is($artist->edits_pending, 0);
@@ -73,7 +76,7 @@ is(@$alias_set, 1);
 
 };
 
-test 'Not an auto-edit without auto-editors privileges' => sub {
+test 'Always an auto-edit (MBS-8388)' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -83,7 +86,8 @@ test 'Not an auto-edit without auto-editors privileges' => sub {
 
     my $edit = _create_edit($c, $alias);
 
-    ok($edit->is_open);
+    ok(!$edit->is_open);
+    is($edit->status, $STATUS_APPLIED);
 };
 
 sub _create_edit {
