@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
 sub edit_name { N_l('Add standalone recording') }
