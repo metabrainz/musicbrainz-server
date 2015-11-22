@@ -8,6 +8,8 @@ var debounce = require('../common/utility/debounce');
 var isPositiveInteger = require('../edit/utility/isPositiveInteger');
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 
+const ERROR_NO_CHANGES = 3;
+
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
@@ -494,15 +496,22 @@ import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
                 submitted = MB.edit.create($.extend({ edits: edits }, args));
             }
 
-            $.when(submitted)
-                .done(function (data) {
-                    if (data && current.callback) {
-                        current.callback(release, data.edits);
-                    }
+            let submissionDone = function (data) {
+                if (data && current.callback) {
+                    current.callback(release, data.edits);
+                }
 
-                    _.defer(nextSubmission, index);
-                })
-                .fail(submissionErrorOccurred);
+                _.defer(nextSubmission, index);
+            };
+
+            $.when(submitted)
+                .done(submissionDone)
+                .fail(function (data) {
+                    let errorOccurred = submissionErrorOccurred(data);
+                    if (!errorOccurred) {
+                        submissionDone(null);
+                    }
+                });
         }
         nextSubmission(0);
     }
@@ -513,12 +522,17 @@ import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
 
         try {
             error = JSON.parse(data.responseText).error;
+
+            if (_.isObject(error) && error.errorCode === ERROR_NO_CHANGES) {
+                return false;
+            }
         } catch (e) {
             error = data.statusText + ": " + data.status;
         }
 
         releaseEditor.submissionError(error);
         releaseEditor.submissionInProgress(false);
+        return true;
     }
 
 
