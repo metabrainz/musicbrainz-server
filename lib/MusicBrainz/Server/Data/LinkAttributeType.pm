@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Data::LinkAttributeType;
 
-use JSON;
 use Moose;
 use namespace::autoclean;
 use Sql;
@@ -13,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     generate_gid
     placeholders
+    non_empty
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -181,7 +181,7 @@ sub merge_instrument_attributes {
         SELECT link.id AS id, link_type AS link_type_id,
                begin_date_year, begin_date_month, begin_date_day,
                end_date_year, end_date_month, end_date_day, ended,
-               array_agg(CASE WHEN la.attribute_type = any(?) THEN ? ELSE la.attribute_type END) attributes,
+               array_agg(la.attribute_type) attributes,
                array_agg(latv.text_value) attribute_text_values,
                array_agg(lac.credited_as) attribute_credits,
                link_type.entity_type0, link_type.entity_type1
@@ -197,8 +197,9 @@ sub merge_instrument_attributes {
                begin_date_year, begin_date_month, begin_date_day,
                end_date_year, end_date_month, end_date_day, ended,
                entity_type0, entity_type1',
-        \@sources, $target, \@sources);
+        \@sources);
 
+    my %source_attributes = map { $_ => 1 } @sources;
     my @old_link_ids;
     for my $new_link (@$new_links) {
         my $old_link_id = delete $new_link->{id};
@@ -217,23 +218,90 @@ sub merge_instrument_attributes {
         my @attribute_text_values = @{ delete $new_link->{attribute_text_values} };
         my @attribute_credits = @{ delete $new_link->{attribute_credits} };
         my %new_attributes;
+        # @conflicting_attributes contains attributes that'll already exist
+        # on the link post-merge, with different credited_as values. We choose
+        # to preserve both credits by moving the source instrument credits to
+        # separate links/relationships.
+        my @conflicting_attributes;
 
         for (my $i = 0; $i < @attributes; $i++) {
+            my $attribute_id = $attributes[$i];
+
+            if ($attribute_id == $target) {
+                # If there's already a link_attribute for $target, it came from
+                # a source instrument attribute, which might have a different
+                # credited_as value. We prefer the link attribute associated
+                # with the target instrument for consistency, and handle other
+                # credits that exist below.
+                my $conflict = $new_attributes{$target};
+
+                if (defined $conflict) {
+                    delete $new_attributes{$target};
+                    push @conflicting_attributes, $conflict;
+                }
+            }
+
+            # Now use the attribute ID of the target instrument, if this is
+            # currently linked to a source instrument attribute.
+            if ($source_attributes{$attribute_id}) {
+                $attribute_id = $target;
+            }
+
             my $link_attribute = {
                 type => {
-                    id => $attributes[$i],
+                    id => $attribute_id,
                 },
                 text_value => $attribute_text_values[$i],
-                credited_as => $attribute_credits[$i]
+                credited_as => $attribute_credits[$i],
             };
-            $new_attributes{JSON->new->canonical->encode($link_attribute)} = $link_attribute;
+
+            if (exists $new_attributes{$attribute_id}) {
+                push @conflicting_attributes, $link_attribute;
+            } else {
+                $new_attributes{$attribute_id} = $link_attribute;
+            }
+        }
+
+        # If the target link attribute has no credit, and there's only one
+        # conflicting attribute that does, just copy the credit into the target
+        # attribute and don't bother adding a separate link.
+        if (@conflicting_attributes == 1) {
+            my $conflict = $conflicting_attributes[0];
+            my $new_attribute = $new_attributes{$target};
+
+            if (!non_empty($new_attribute->{credited_as}) && non_empty($conflict->{credited_as})) {
+                $new_attribute->{credited_as} = $conflict->{credited_as};
+                @conflicting_attributes = ();
+            }
         }
 
         $new_link->{attributes} = [values %new_attributes];
 
         my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
-        $self->sql->do("UPDATE l_${entity_type0}_${entity_type1} SET link = ? WHERE link = ?",
-                       $new_link_id, $old_link_id);
+        my $relationships = $self->sql->select_list_of_hashes(<<"EOSQL", $new_link_id, $old_link_id);
+            UPDATE l_${entity_type0}_${entity_type1} SET link = ? WHERE link = ? RETURNING *
+EOSQL
+
+        for my $conflict (@conflicting_attributes) {
+            for my $relationship (@$relationships) {
+                my @new_relationship = ($entity_type0, $entity_type1, {
+                    link_type_id => $new_link->{link_type_id},
+                    begin_date => $new_link->{begin_date},
+                    end_date => $new_link->{end_date},
+                    ended => $new_link->{ended},
+                    attributes => [$conflict],
+                    entity0_id => $relationship->{entity0},
+                    entity1_id => $relationship->{entity1},
+                    entity0_credit => $relationship->{entity0_credit},
+                    entity1_credit => $relationship->{entity1_credit},
+                    link_order => $relationship->{link_order},
+                });
+
+                unless ($self->c->model('Relationship')->exists(@new_relationship)) {
+                    $self->c->model('Relationship')->insert(@new_relationship);
+                }
+            }
+        }
     }
 
     # Constraint triggers run at the end of the transaction, so these must be done manually.
