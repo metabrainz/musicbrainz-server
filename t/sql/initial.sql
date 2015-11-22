@@ -84,6 +84,8 @@ INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL);
 INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL);
 INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL);
 
+INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
+
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
 INSERT INTO link_attribute_type VALUES (2, NULL, 2, 0, '5b66c85d-6963-4d4b-86e5-18d2caccb349', 'minor', 'This attribute describes if a particular collaboration was considered equal or minor.', '2011-09-28 20:29:34.86135+00');
 INSERT INTO link_attribute_type VALUES (3, NULL, 3, 2, 'd92884b7-ee0c-46d5-96f3-918196ba8c5b', 'vocal', 'This attribute describes a type of vocal performance.', '2011-09-21 18:29:05.11911+00');
