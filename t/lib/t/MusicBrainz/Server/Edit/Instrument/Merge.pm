@@ -37,7 +37,7 @@ test 'MBS-8639' => sub {
             entity1_credit => '',
             id => 1,
             last_updated => ignore(),
-            link => 3,
+            link => 5,
             link_order => 0,
         },
         {
@@ -48,7 +48,18 @@ test 'MBS-8639' => sub {
             entity1_credit => '',
             id => 2,
             last_updated => ignore(),
-            link => 5,
+            link => 7,
+            link_order => 0,
+        },
+        {
+            edits_pending => 0,
+            entity0 => 3,
+            entity0_credit => '',
+            entity1 => 1,
+            entity1_credit => '',
+            id => 3,
+            last_updated => ignore(),
+            link => 3,
             link_order => 0,
         },
         {
@@ -57,9 +68,9 @@ test 'MBS-8639' => sub {
             entity0_credit => '',
             entity1 => 1,
             entity1_credit => '',
-            id => 3,
+            id => 5,
             last_updated => ignore(),
-            link => 4,
+            link => 6,
             link_order => 0,
         },
     ]);
@@ -69,17 +80,17 @@ test 'MBS-8639' => sub {
         {
             attribute_type => 125,
             credited_as => 'drumz',
-            link => 3,
+            link => 5,
         },
         {
             attribute_type => 125,
             credited_as => 'crazy drums',
-            link => 4,
+            link => 6,
         },
         {
             attribute_type => 125,
             credited_as => 'kool drums',
-            link => 5,
+            link => 7,
         },
     ]);
 };

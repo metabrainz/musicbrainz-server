@@ -8,10 +8,13 @@ INSERT INTO instrument (id, gid, name, type)
            (588, '1da1ca18-9d70-4217-9e3c-9e67c93b834a', 'other drums', 3);
 
 INSERT INTO link (id, link_type, attribute_count)
-    VALUES (1, 148, 2), (2, 148, 2);
+    VALUES (1, 148, 2),
+           (2, 148, 2),
+           (3, 148, 1),
+           (4, 148, 1); -- link 4 should be deleted and replaced by link 3
 
 INSERT INTO link_attribute (link, attribute_type)
-    VALUES (1, 125), (1, 700), (2, 125), (2, 700);
+    VALUES (1, 125), (1, 700), (2, 125), (2, 700), (3, 125), (4, 700);
 
 INSERT INTO link_attribute_credit (link, attribute_type, credited_as)
     VALUES (1, 125, 'drumz'),
@@ -20,7 +23,8 @@ INSERT INTO link_attribute_credit (link, attribute_type, credited_as)
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '52bf0d89-9668-4cd4-95f3-3d9d87a54c5c', 'A1', 'A1'),
-           (2, 'd5359fdc-2601-4071-b6df-59394e353244', 'A2', 'A2');
+           (2, 'd5359fdc-2601-4071-b6df-59394e353244', 'A2', 'A2'),
+           (3, '7e3d2709-e232-4409-a917-c0ee07a7df6d', 'A3', 'A3');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'A1', 1);
 
@@ -31,7 +35,7 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '86368c22-3794-454f-8763-ba1d6279dae6', 'R1', 1, NULL);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1)
-    VALUES (1, 1, 1, 1), (2, 2, 2, 1);
+    VALUES (1, 1, 1, 1), (2, 2, 2, 1), (3, 3, 3, 1), (4, 4, 3, 1);
 
 CREATE TRIGGER a_ins_instrument AFTER INSERT ON instrument
     FOR EACH ROW EXECUTE PROCEDURE a_ins_instrument();
