@@ -315,86 +315,117 @@ sub find_creation_edit {
     return $edit;
 }
 
-sub subscribed_entity_edits
-{
-    my ($self, $editor_id, $limit, $offset) = @_;
+sub subscribed_entity_edits {
+    my ($self, $editor_id, $status, $limit, $offset) = @_;
 
     my $columns = $self->_columns;
     my $table = $self->_table;
-    my $query = "
-SELECT * FROM edit, (
-    SELECT edit FROM edit_artist ea
-    JOIN editor_subscribe_artist esa ON esa.artist = ea.artist
-    WHERE ea.status = ? AND esa.editor = ?
-    UNION
-    SELECT edit FROM edit_label el
-    JOIN editor_subscribe_label esl ON esl.label = el.label
-    WHERE el.status = ? AND esl.editor = ?
-    UNION
-    SELECT edit FROM (" . join(' UNION ', map {
+    my $order = 'DESC';
+    my @args;
+
+    if ($status) {
+        $order = 'ASC';
+    }
+
+    my $filter = sub {
+        my ($edit_table, $editor_subscribe_table) = @_;
+
+        my $result = '';
+
+        if ($status) {
+            $result .= "$edit_table.status = ? AND ";
+            push @args, $status;
+        }
+
+        $result .= "$editor_subscribe_table.editor = ?";
+        push @args, $editor_id;
+        $result;
+    };
+
+    my $subscriptions_sql = join(' UNION ', map {
         my $type = $_;
         my $coll_table = "editor_collection_${type}";
         my $edit_table = "edit_${type}";
+
         "SELECT edit, esc.editor FROM ${edit_table}
            JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
            JOIN editor_subscribe_collection esc ON esc.collection = ${coll_table}.collection
          WHERE esc.available"
-    } entities_with('collections')) . ") ce
+    } entities_with('collections'));
+
+    my $query = <<EOSQL;
+SELECT * FROM edit, (
+    SELECT edit FROM edit_artist ea
+    JOIN editor_subscribe_artist esa ON esa.artist = ea.artist
+    WHERE ${\($filter->('ea', 'esa'))}
+    UNION
+    SELECT edit FROM edit_label el
+    JOIN editor_subscribe_label esl ON esl.label = el.label
+    WHERE ${\($filter->('el', 'esl'))}
+    UNION
+    SELECT edit FROM ($subscriptions_sql) ce
       JOIN edit ON ce.edit = edit.id
-    WHERE edit.status = ? AND ce.editor = ?
+    WHERE ${\($filter->('edit', 'ce'))}
     UNION
     SELECT edit FROM edit_series es
     JOIN editor_subscribe_series ess ON ess.series = es.series
     JOIN edit ON es.edit = edit.id
-    WHERE edit.status = ? AND ess.editor = ?
+    WHERE ${\($filter->('edit', 'ess'))}
 ) edits
 WHERE edit.id = edits.edit
-AND edit.status = ?
+EOSQL
+
+    if ($status) {
+        $query .= 'AND edit.status = ?';
+        push @args, $status;
+    }
+
+    $query .= <<EOSQL;
 AND edit.editor != ?
 AND NOT EXISTS (
     SELECT TRUE FROM vote
     WHERE vote.edit = edit.id
     AND vote.editor = ?
 )
-ORDER BY id ASC
-LIMIT $LIMIT_FOR_EDIT_LISTING";
+ORDER BY id $order
+LIMIT $LIMIT_FOR_EDIT_LISTING
+EOSQL
 
-    $self->query_to_list_limited(
-        $query,
-        [
-            ($STATUS_OPEN, $editor_id) x scalar (entities_with(['subscriptions', 'entity'])),
-                            # Above will fail if SQL is not updated
-            $STATUS_OPEN,   # Edit is open
-            $editor_id,     # Editor (not current one)
-            $editor_id,     # Editor (has not voted)
-        ],
-        $limit,
-        $offset,
+    push @args, (
+        $editor_id, # Editor (not current one)
+        $editor_id, # Editor (has not voted)
     );
+
+    $self->query_to_list_limited($query, \@args, $limit, $offset);
 }
 
 sub subscribed_editor_edits {
-    my ($self, $editor_id, $limit, $offset) = @_;
+    my ($self, $editor_id, $status, $limit, $offset) = @_;
+
+    my @args = ($editor_id, $editor_id);
+    my $status_sql = '';
+    my $order = 'DESC';
+
+    if ($status) {
+        $status_sql = 'AND status = ?';
+        $order = 'ASC';
+        push @args, $status;
+    }
 
     my $query =
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-        ' WHERE status = ?
-            AND editor IN (SELECT subscribed_editor FROM editor_subscribe_editor WHERE editor = ?)
+        " WHERE editor IN (SELECT subscribed_editor FROM editor_subscribe_editor WHERE editor = ?)
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id ASC
-          LIMIT ' . $LIMIT_FOR_EDIT_LISTING;
+            $status_sql
+       ORDER BY id $order
+          LIMIT " . $LIMIT_FOR_EDIT_LISTING;
 
-    $self->query_to_list_limited(
-        $query,
-        [$STATUS_OPEN, $editor_id, $editor_id],
-        $limit,
-        $offset,
-    );
+    $self->query_to_list_limited($query, \@args, $limit, $offset);
 }
 
 sub merge_entities

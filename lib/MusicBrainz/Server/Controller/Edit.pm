@@ -235,11 +235,16 @@ sub search : Path('/search/edits') RequireAuth
     }
 }
 
-sub subscribed : Local RequireAuth
-{
+sub subscribed : Local RequireAuth {
     my ($self, $c) = @_;
+
+    my $status;
+    if ($c->req->query_params->{open} eq '1') {
+        $status = $STATUS_OPEN;
+    }
+
     my $edits = $self->_load_paged($c, sub {
-        $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
+        $c->model('Edit')->subscribed_entity_edits($c->user->id, $status, shift, shift);
     });
 
     $c->stash(
@@ -250,11 +255,16 @@ sub subscribed : Local RequireAuth
     load_everything_for_edits($c, $edits);
 }
 
-sub subscribed_editors : Local RequireAuth
-{
+sub subscribed_editors : Local RequireAuth {
     my ($self, $c) = @_;
+
+    my $status;
+    if ($c->req->query_params->{open} eq '1') {
+        $status = $STATUS_OPEN;
+    }
+
     my $edits = $self->_load_paged($c, sub {
-        $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
+        $c->model('Edit')->subscribed_editor_edits($c->user->id, $status, shift, shift);
     });
 
     $c->stash(

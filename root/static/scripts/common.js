@@ -16,8 +16,6 @@ require("./common/artworkViewer.js");
 require("./common/dialogs.js");
 require("./common/entity.js");
 require("./common/MB/Control/Autocomplete.js");
-require("./common/MB/Control/EditList.js");
-require("./common/MB/Control/EditSummary.js");
 require("./common/MB/Control/Filter.js");
 require("./common/MB/Control/Menu.js");
 require("./common/MB/Control/SelectAll.js");

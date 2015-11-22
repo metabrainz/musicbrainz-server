@@ -195,6 +195,10 @@ function buildScripts() {
     b.external(editBundle);
   });
 
+  var votingBundle = runYarb('voting.js', function (b) {
+    b.external(commonBundle);
+  });
+
   var workBundle = runYarb('work.js', function (b) {
     b.external(editBundle).external(guessCaseBundle);
   });
@@ -209,6 +213,7 @@ function buildScripts() {
     writeScript(statisticsBundle, 'statistics.js'),
     writeScript(timelineBundle, 'timeline.js'),
     writeScript(urlBundle, 'url.js'),
+    writeScript(votingBundle, 'voting.js'),
     writeScript(workBundle, 'work.js'),
     writeScript(runYarb('debug.js', function (b) {
       b.external(commonBundle);
