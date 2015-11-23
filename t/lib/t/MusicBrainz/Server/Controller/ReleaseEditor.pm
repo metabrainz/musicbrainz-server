@@ -181,8 +181,8 @@ test 'seeding a release with no tracklist' => sub {
         "date.day" => "19",
         "country" => "JP",
         "status" => "official",
-        "language" => "jpn",
-        "script" => "Jpan",
+        "language" => "kpn",
+        "script" => "Kpan",
         "type" => "single",
         "edit_note" => "http://www.helloproject.com/discography/berryz/s_036.html",
         "make_votable" => "1",
@@ -196,8 +196,8 @@ test 'seeding a release with no tracklist' => sub {
 
     cmp_deeply($result, {
         'errors' => [
-            "Invalid language: “jpn”.",
-            "Invalid script: “jpan”.",
+            "Invalid language: “kpn”.",
+            "Invalid script: “kpan”.",
             "labels.0 isn’t defined, do your indexes start at 0?",
             "Invalid labels.4.mbid: “9f142207-1a9e-4530-98a3-de23f50e8472”."
         ],

@@ -310,7 +310,7 @@ is( $release->release_group_id, 1 );
 is( $release->status_id, 1 );
 is( $release->packaging_id, 1 );
 is( $release->script_id, 1 );
-is( $release->language_id, 1 );
+is( $release->language_id, 145 );
 is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
 is( $release->edits_pending, 2 );
@@ -378,7 +378,7 @@ $release = $release_data->insert({
     status_id => 1,
     barcode => '0123456789',
     script_id => 1,
-    language_id => 1,
+    language_id => 145,
     comment => 'A comment',
     events => [
         MusicBrainz::Server::Entity::ReleaseEvent->new(
@@ -396,7 +396,7 @@ is($release->release_group_id, 1);
 is($release->packaging_id, 1);
 is($release->status_id, 1);
 is($release->script_id, 1);
-is($release->language_id, 1);
+is($release->language_id, 145);
 is($release->comment, 'A comment');
 
 $release_data->load_release_events($release);
