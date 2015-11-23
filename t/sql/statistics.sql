@@ -31,8 +31,6 @@ INSERT INTO edit_artist (edit, artist) VALUES (4, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 2);
 INSERT INTO edit_label (edit, label) VALUES (2, 1);
 
-INSERT INTO language (frequency, iso_code_1, iso_code_2t, name, id, iso_code_2b, iso_code_3) VALUES (2, 'de', 'deu', 'German', 145, 'ger', 'deu');
-
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00151894163');

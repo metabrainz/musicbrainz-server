@@ -84,11 +84,10 @@ my %args = (
     name => 'Edited name',
     comment => 'Edited comment',
     type_id => 1,
-    language_id => 1,
+    language_id => 145,
 );
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
-MusicBrainz::Server::Test->prepare_test_database($c, '+language');
 
 my $work = $c->model('Work')->get_by_id(1);
 is_unchanged($work);
@@ -118,7 +117,7 @@ $work = $c->model('Work')->get_by_id(1);
 is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
 is($work->type_id, 1);
-is($work->language_id, 1);
+is($work->language_id, 145);
 is($work->edits_pending, 0);
 
 };
@@ -128,12 +127,11 @@ test 'Adding a work language is an auto-edit for non-auto-editors' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+language');
 
     {
         my $edit = create_edit(
             $c, $c->model('Work')->get_by_id(1),
-            language_id => 1
+            language_id => 145,
         );
 
         ok(!$edit->is_open);
@@ -145,8 +143,7 @@ test 'Changing work language is not an auto-edit for non-auto-editors' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+language');
-    $c->sql->do('UPDATE work SET language = 1');
+    $c->sql->do('UPDATE work SET language = 145');
 
     {
         my $edit = create_edit(

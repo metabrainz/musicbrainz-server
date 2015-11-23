@@ -232,7 +232,6 @@ sub releases {
 
         get_core_entities($c, 'release_group', pluck('release_group', $rows), link_path => ['release']);
         print_rows($c, 'release_status', 'id', pluck('status', $rows));
-        print_rows($c, 'language', 'id', pluck('language', $rows));
         print_rows($c, 'script', 'id', pluck('script', $rows));
 
         print_inserts($c, $entity_type, $rows);
@@ -277,8 +276,6 @@ sub works {
 
     core_entity($c, 'work', $ids, %opts, callback => sub {
         my ($c, $entity_type, $rows) = @_;
-
-        print_rows($c, 'language', 'id', pluck('language', $rows));
 
         print_inserts($c, $entity_type, $rows);
 

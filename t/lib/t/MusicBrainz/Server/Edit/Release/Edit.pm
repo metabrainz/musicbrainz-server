@@ -88,7 +88,7 @@ is($release->events->[0]->country_id, 221, 'country id is 1');
 is($release->events->[0]->date->year, 1985, 'year is 1985');
 is($release->events->[0]->date->month, 4, 'month is 4');
 is($release->events->[0]->date->day, 13, 'day is 13');
-is($release->language_id, 1, 'language is 1');
+is($release->language_id, 145, 'language is 145');
 is($release->comment, 'Edited comment', 'disambiguation comment is Edited comment');
 is($release->artist_credit->name, 'New Artist', 'artist credit is New Artist');
 
@@ -211,7 +211,7 @@ sub create_edit {
                 }
             ],
         },
-        language_id => 1,
+        language_id => 145,
         script_id => 1,
     );
 }

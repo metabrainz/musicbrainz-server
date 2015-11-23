@@ -55,8 +55,6 @@ INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_upda
 	(11617, '', 0, 'ed83d825-391a-4556-a373-7d0e8f1fcf1c', 14317526, '2012-12-17 00:07:46.870065+00', 107800, 'When I Stop Loving You', '0'),
 	(11617, '', 0, 'a8961ceb-ef8d-419b-a408-b58740724939', 14317530, '2012-12-17 00:07:46.870065+00', 114000, 'Midnight', '0'),
 	(11617, '', 0, 'e8b9bda4-f166-4a1d-bd0c-1a39d30376f1', 14317532, '2012-12-17 00:07:46.870065+00', 124800, 'The Longest Day', '0');
-INSERT INTO language (frequency, id, iso_code_1, iso_code_2b, iso_code_2t, iso_code_3, name) VALUES
-	(2, 120, 'en', 'eng', 'eng', 'eng', 'English');
 INSERT INTO track (artist_credit, edits_pending, gid, id, is_data_track, last_updated, length, medium, name, number, position, recording) VALUES
 	(11617, 0, '6284aa85-9e55-325a-acdc-6f4b768fb488', 13806022, '0', '2015-10-26 20:04:20.16155+00', 143426, 1260623, 'I Love You Baby', '6', 6, 518587),
 	(11617, 0, 'e101f21a-1d89-3061-8420-98c5c8e3462b', 13806032, '0', '2015-10-22 20:16:15.116558+00', 129306, 1260623, 'I Love You in the Same Old Way', '16', 16, 14317516),

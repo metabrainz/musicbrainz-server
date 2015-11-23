@@ -7,15 +7,12 @@ INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'A', 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (1, 0, 1, 'A!', '');
 
-INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, name, frequency, iso_code_3)
-    VALUES (1, 'eng', 'eng', 'en', 'English', 2, 'eng');
-
 INSERT INTO work (id, gid, name, type, language, edits_pending, comment)
-    VALUES (1, '559be0c1-2c87-45d6-ba43-1b1feb8f831e', 'W1', 1, 1, 0, ''),
-           (2, 'aff4e1f7-d3dd-4621-bd4c-25d1b87bb286', 'W2', 1, 1, 0, ''),
-           (3, '11d4a39f-ee76-459f-aaf5-b84131d867f2', 'W3', 1, 1, 0, ''),
-           (4, 'a72c9be6-5ef9-4bdf-afa1-6a3db697ff62', 'W4', 1, 1, 0, ''),
-           (5, '5c089ef8-ada9-4dc0-a2bc-f4d7e84df840', 'W5', 1, 1, 0, '');
+    VALUES (1, '559be0c1-2c87-45d6-ba43-1b1feb8f831e', 'W1', 1, 120, 0, ''),
+           (2, 'aff4e1f7-d3dd-4621-bd4c-25d1b87bb286', 'W2', 1, 120, 0, ''),
+           (3, '11d4a39f-ee76-459f-aaf5-b84131d867f2', 'W3', 1, 120, 0, ''),
+           (4, 'a72c9be6-5ef9-4bdf-afa1-6a3db697ff62', 'W4', 1, 120, 0, ''),
+           (5, '5c089ef8-ada9-4dc0-a2bc-f4d7e84df840', 'W5', 1, 120, 0, '');
 
 INSERT INTO iswc (id, work, iswc)
     VALUES (1, 1, 'T-000.000.001-0'),

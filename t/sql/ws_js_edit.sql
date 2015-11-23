@@ -1,6 +1,3 @@
-INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
-    VALUES (486, 'zxx', 'zxx', '', 'zxx', 'No linguistic content');
-
 INSERT INTO script (id, iso_code, iso_number, name)
     VALUES (112, 'Zsym', '996', 'Symbols');
 

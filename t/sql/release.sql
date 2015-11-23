@@ -7,8 +7,6 @@ INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phra
 
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
-INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
-    VALUES (1, 'deu', 'ger', 'de', 'deu', 'German');
 
 INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
@@ -18,7 +16,7 @@ INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1, 1, 'Comment', 2);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1, 1, 1, 1, 1, '731453398122', 'Comment', 2);
+INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1, 1, 1, 145, 1, '731453398122', 'Comment', 2);
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (1, 221, 2009, 5, 8);
 ;
 

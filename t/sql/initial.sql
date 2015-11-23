@@ -84,6 +84,9 @@ INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL);
 INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL);
 INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL);
 
+INSERT INTO language VALUES (120, 'eng', 'eng', 'en', 'English', 2, 'eng');
+INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
+INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
 INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
 
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
