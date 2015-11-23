@@ -1,4 +1,4 @@
-require('babel/register');
+require('babel-core/register');
 
 if (typeof window === 'undefined') {
     global.document = require('jsdom').jsdom();

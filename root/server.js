@@ -5,7 +5,7 @@
 
 'use strict';
 
-require('babel/register');
+require('babel-core/register');
 
 let argv = require('yargs')
   .demand('port')
