@@ -511,16 +511,16 @@ sub create {
 
     $edit->insert;
 
-    my $now = DateTime->now;
     my $duration = DateTime::Duration->new( days => $conditions->{duration} );
+    my $interval = DateTime::Format::Pg->format_interval($duration);
 
     my $row = {
         editor => $edit->editor_id,
         data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
         status => $edit->status,
         type => $edit->edit_type,
-        open_time => $now,
-        expire_time => $now + $duration,
+        open_time => \"now()",
+        expire_time => \"now() + interval '$interval'",
         autoedit => $edit->auto_edit,
         quality => $edit->quality,
         close_time => $edit->close_time

@@ -469,7 +469,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            makeVotable => 0,
+            makeVotable => 1,
         }));
     } $c;
 

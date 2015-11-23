@@ -35,6 +35,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
 
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -45,6 +46,7 @@ sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }
+sub release_id { shift->data->{release}{id} }
 
 has '+data' => (
     isa => Dict[

@@ -30,6 +30,7 @@ test all => sub {
         $rl,
         label => $c->model('Label')->get_by_id(3),
         catalog_number => 'FOO',
+        privileges => $UNTRUSTED_FLAG,
     );
     isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditReleaseLabel');
 
@@ -59,7 +60,6 @@ test all => sub {
         label => $c->model('Label')->get_by_id(3),
         catalog_number => 'FOO',
     );
-    accept_edit($c, $edit);
 
     $rl = $c->model('ReleaseLabel')->get_by_id(1);
     is($rl->label_id, 3);
@@ -76,8 +76,8 @@ test 'Editing the label can fail as a conflict' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
-    my $edit2 = create_edit($c, $rl, label => undef);
+    my $edit1 = create_edit($c, $rl, label => $c->model('Label')->get_by_id(3), privileges => $UNTRUSTED_FLAG);
+    my $edit2 = create_edit($c, $rl, label => undef, privileges => $UNTRUSTED_FLAG);
 
     ok !exception { $edit1->accept };
     ok  exception { $edit2->accept };
@@ -90,8 +90,8 @@ test 'Editing the catalog number can fail as a conflict' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = create_edit($c, $rl, catalog_number => 'Woof!');
-    my $edit2 = create_edit($c, $rl, catalog_number => 'Meow!');
+    my $edit1 = create_edit($c, $rl, catalog_number => 'Woof!', privileges => $UNTRUSTED_FLAG);
+    my $edit2 = create_edit($c, $rl, catalog_number => 'Meow!', privileges => $UNTRUSTED_FLAG);
 
     ok !exception { $edit1->accept };
     ok  exception { $edit2->accept };
@@ -104,9 +104,10 @@ test 'Editing to remove the label works correctly' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = create_edit($c, $rl, label => undef);
 
-    ok !exception { $edit1->accept };
+    ok !exception {
+        create_edit($c, $rl, label => undef);
+    };
 };
 
 test 'Editing to remove the catalog number works correctly' => sub {
@@ -116,9 +117,10 @@ test 'Editing to remove the catalog number works correctly' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-    my $edit1 = create_edit($c, $rl, catalog_number => undef);
 
-    ok !exception { $edit1->accept };
+    ok !exception {
+        create_edit($c, $rl, catalog_number => undef);
+    };
 };
 
 test 'Parallel edits that dont conflict merge' => sub {
@@ -132,10 +134,17 @@ test 'Parallel edits that dont conflict merge' => sub {
 
     {
         my $rl = $c->model('ReleaseLabel')->get_by_id(1);
-        my $edit1 = create_edit($c, $rl, catalog_number => $expected_cat_no);
+        my $edit1 = create_edit(
+            $c,
+            $rl,
+            catalog_number => $expected_cat_no,
+            privileges => $UNTRUSTED_FLAG,
+        );
         my $edit2 = create_edit(
-            $c, $rl,
-            label => $c->model('Label')->get_by_id($expected_label_id)
+            $c,
+            $rl,
+            label => $c->model('Label')->get_by_id($expected_label_id),
+            privileges => $UNTRUSTED_FLAG,
         );
 
         ok !exception { $edit1->accept };
@@ -155,7 +164,12 @@ test 'Editing a non-existant release label fails' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
 
     my $rl = $model->get_by_id(1);
-    my $edit = create_edit($c, $rl, label => $c->model('Label')->get_by_id(3));
+    my $edit = create_edit(
+        $c,
+        $rl,
+        label => $c->model('Label')->get_by_id(3),
+        privileges => $UNTRUSTED_FLAG,
+    );
 
     $model->delete(1);
 
@@ -205,6 +219,7 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
         release_label => $c->model('ReleaseLabel')->get_by_id(1),
         label => $label,
         catalog_number => 'ABC-456',
+        privileges => $UNTRUSTED_FLAG,
     );
 
     # Another edit adds the same release label before the first edit is applied.
@@ -215,8 +230,6 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
         label => $label,
         catalog_number => 'ABC-456',
     );
-
-    $add_edit->accept;
 
     like exception {
         $edit_edit->accept;
@@ -301,8 +314,7 @@ EOSQL
         label => $c->model('Label')->get_by_id(4),
     );
 
-    ok($edit->is_open);
-    $c->model('Edit')->accept($edit);
+    ok(!$edit->is_open);
     is($edit->status, $STATUS_APPLIED);
 };
 
