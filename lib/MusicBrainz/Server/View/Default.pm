@@ -9,7 +9,6 @@ use DBDefs;
 use MRO::Compat;
 use Digest::MD5 qw( md5_hex );
 use MusicBrainz::Server::Translation;
-use Date::Calc qw( Today_and_Now Add_Delta_DHMS Date_to_Time );
 
 __PACKAGE__->config(TEMPLATE_EXTENSION => '.tt');
 
