@@ -22,9 +22,11 @@ use MusicBrainz::Server::Constants qw(
     $VOTE_APPROVE
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
+    $OPEN_EDIT_DURATION
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
-    entities_with );
+    entities_with
+    %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use JSON::Any;
 
@@ -316,31 +318,62 @@ sub find_creation_edit {
 }
 
 sub subscribed_entity_edits {
-    my ($self, $editor_id, $status, $limit, $offset) = @_;
+    my ($self, $editor_id, $only_open, $limit, $offset) = @_;
 
     my $columns = $self->_columns;
     my $table = $self->_table;
-    my $order = 'DESC';
-    my @args;
+    my @args = (
+        $STATUS_OPEN, # $1
+        $editor_id,   # $2
+    );
 
-    if ($status) {
-        $order = 'ASC';
+    unless ($only_open) {
+        # $3
+        push @args, DateTime::Format::Pg->format_interval(
+            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
+        );
     }
 
-    my $filter = sub {
-        my ($edit_table, $editor_subscribe_table) = @_;
+    my $edit_filter = sub {
+        my ($status_table, $editor_table, $editor_op) = @_;
 
-        my $result = '';
+        my $result;
 
-        if ($status) {
-            $result .= "$edit_table.status = ? AND ";
-            push @args, $status;
+        if ($only_open) {
+            $result = "$status_table.status = \$1\n";
+        } else {
+            $result = "($status_table.status = \$1 OR (now() - edit.open_time) < interval \$3)\n";
         }
 
-        $result .= "$editor_subscribe_table.editor = ?";
-        push @args, $editor_id;
+        $editor_op //= '=';
+        $result .= "AND $editor_table.editor $editor_op \$2\n";
         $result;
     };
+
+    my $entity_sql = join(' UNION ', map {
+        my $edit_entity_table = 'edit_' . $_;
+        my $edit_status_table = $edit_entity_table;
+        my $editor_subscribe_table = 'editor_subscribe_' . $_;
+        my $result = <<EOSQL;
+SELECT edit FROM $edit_entity_table
+JOIN $editor_subscribe_table ON $editor_subscribe_table.$_ = $edit_entity_table.$_
+EOSQL
+
+        # Join with the edit table if
+        # (1) this entity doesn't have a materialized edit status (e.g. series), or
+        # (2) we're showing recent closed edits too (needs edit.open_time).
+        unless ($ENTITIES{$_}{materialized_edit_status} && $only_open) {
+            $result .= "JOIN edit ON $edit_entity_table.edit = edit.id\n";
+        }
+
+        unless ($ENTITIES{$_}{materialized_edit_status}) {
+            $edit_status_table = 'edit';
+        }
+
+        $result .= 'WHERE ';
+        $result .= $edit_filter->($edit_status_table, $editor_subscribe_table);
+        $result;
+    } entities_with([['mbid', 'relatable'], ['subscriptions', 'entity']]));
 
     my $subscriptions_sql = join(' UNION ', map {
         my $type = $_;
@@ -355,61 +388,39 @@ sub subscribed_entity_edits {
 
     my $query = <<EOSQL;
 SELECT * FROM edit, (
-    SELECT edit FROM edit_artist ea
-    JOIN editor_subscribe_artist esa ON esa.artist = ea.artist
-    WHERE ${\($filter->('ea', 'esa'))}
-    UNION
-    SELECT edit FROM edit_label el
-    JOIN editor_subscribe_label esl ON esl.label = el.label
-    WHERE ${\($filter->('el', 'esl'))}
+    $entity_sql
     UNION
     SELECT edit FROM ($subscriptions_sql) ce
       JOIN edit ON ce.edit = edit.id
-    WHERE ${\($filter->('edit', 'ce'))}
-    UNION
-    SELECT edit FROM edit_series es
-    JOIN editor_subscribe_series ess ON ess.series = es.series
-    JOIN edit ON es.edit = edit.id
-    WHERE ${\($filter->('edit', 'ess'))}
+     WHERE ${\($edit_filter->('edit', 'ce'))}
 ) edits
 WHERE edit.id = edits.edit
-EOSQL
-
-    if ($status) {
-        $query .= 'AND edit.status = ?';
-        push @args, $status;
-    }
-
-    $query .= <<EOSQL;
-AND edit.editor != ?
+AND ${\($edit_filter->('edit', 'edit', '!='))}
 AND NOT EXISTS (
     SELECT TRUE FROM vote
     WHERE vote.edit = edit.id
-    AND vote.editor = ?
+    AND vote.editor = \$2
 )
-ORDER BY id $order
+ORDER BY id ASC
 LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
 
-    push @args, (
-        $editor_id, # Editor (not current one)
-        $editor_id, # Editor (has not voted)
-    );
-
-    $self->query_to_list_limited($query, \@args, $limit, $offset);
+    $self->query_to_list_limited($query, \@args, $limit, $offset, undef, 1);
 }
 
 sub subscribed_editor_edits {
-    my ($self, $editor_id, $status, $limit, $offset) = @_;
+    my ($self, $editor_id, $only_open, $limit, $offset) = @_;
 
-    my @args = ($editor_id, $editor_id);
-    my $status_sql = '';
-    my $order = 'DESC';
+    my @args = ($editor_id, $editor_id, $STATUS_OPEN);
+    my $status_sql;
 
-    if ($status) {
+    if ($only_open) {
         $status_sql = 'AND status = ?';
-        $order = 'ASC';
-        push @args, $status;
+    } else {
+        $status_sql = 'AND (status = ? OR (now() - open_time) < interval ?)';
+        push @args, DateTime::Format::Pg->format_interval(
+            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
+        );
     }
 
     my $query =
@@ -422,7 +433,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
             $status_sql
-       ORDER BY id $order
+       ORDER BY id ASC
           LIMIT " . $LIMIT_FOR_EDIT_LISTING;
 
     $self->query_to_list_limited($query, \@args, $limit, $offset);

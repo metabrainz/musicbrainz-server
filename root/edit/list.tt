@@ -18,7 +18,7 @@
     <p>
         <label>
             <input type="checkbox" id="only-open-edits"[% ' checked' IF c.req.query_params.open == 1 %] />
-            [% l('Only show open edits (oldest first).') %]
+            [% l('Only show open edits') %]
         </label>
     </p>
 [% END %]

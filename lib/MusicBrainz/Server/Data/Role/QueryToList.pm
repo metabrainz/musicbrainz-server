@@ -16,13 +16,19 @@ sub query_to_list {
 }
 
 sub query_to_list_limited {
-    my ($self, $query, $args, $limit, $offset, $builder) = @_;
+    my ($self, $query, $args, $limit, $offset, $builder, $dollar_placeholders) = @_;
 
     $builder //= $self->can('_new_from_row');
 
     my @args = @$args;
+    my $count = @args;
+
     if (defined $offset) {
-        $query .= " OFFSET ?";
+        if ($dollar_placeholders) {
+            $query .= ' OFFSET $' . (++$count);
+        } else {
+            $query .= ' OFFSET ?';
+        }
         push @args, $offset;
     }
 
@@ -33,7 +39,11 @@ sub query_to_list_limited {
     };
 
     if (defined $limit) {
-        $wrapping_query .= " LIMIT ?";
+        if ($dollar_placeholders) {
+            $wrapping_query .= ' LIMIT $' . (++$count);
+        } else {
+            $wrapping_query .= ' LIMIT ?';
+        }
         push @args, $limit;
     }
 
