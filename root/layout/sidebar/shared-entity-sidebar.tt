@@ -101,19 +101,11 @@
                     <li>
                     [%~ IF containment.${collection.id} ~%]
                         <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { $entity_type => entity.id }) ~%]">
-                            [%~ IF collections.size == 1 ~%]
-                                [%~ l('Remove from my collection') ~%]
-                            [%~ ELSE ~%]
-                                [%~ l('Remove from {collection}', { collection => collection.name }) ~%]
-                            [%~ END ~%]
+                            [%~ l('Remove from {collection}', { collection => collection.name }) ~%]
                         </a>
                     [%~ ELSE ~%]
                         <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { $entity_type => entity.id }) ~%]">
-                        [%~ IF collections.size == 1 ~%]
-                            [%~ l('Add to my collection') ~%]
-                        [%~ ELSE ~%]
                             [%~ l('Add to {collection}', {collection => collection.name }) ~%]
-                        [%~ END ~%]
                         </a>
                     [%~ END ~%]
                     </li>
