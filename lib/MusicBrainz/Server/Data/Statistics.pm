@@ -1477,7 +1477,7 @@ my %stats = (
         $name =~ s/_//; # release_group -> releasegroup
 
         my $entity_properties = $ENTITIES{$_};
-        my $url = $entity_properties->{url} // $_;
+        my $url = $entity_properties->{url};
 
         ("count.tag.raw.$name" => {
             DESC => "Count of all $url raw tags",

@@ -593,7 +593,7 @@ sub schema_fixup
         foreach my $rel (@{ $data->{"relations"} })
         {
             my $target_type;
-            for (entities_with(['mbid', 'relatable'], take => sub { my $type = shift; return shift->{url} // $type })) {
+            for (entities_with(['mbid', 'relatable'], take => 'url')) {
                 if (exists $rel->{$_}) {
                     $target_type = $_;
                     last;

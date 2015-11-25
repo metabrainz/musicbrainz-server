@@ -54,7 +54,7 @@ sub show : Chained('load') PathPart('')
 
 map {
     my $entity_properties = $ENTITIES{$_};
-    my $url = $entity_properties->{url} // $_;
+    my $url = $entity_properties->{url};
 
     my $method = sub {
         my ($self, $c) = @_;

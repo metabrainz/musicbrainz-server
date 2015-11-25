@@ -26,7 +26,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 };
 
 Readonly our %ratable => entities_with('ratings', take =>
-    sub { my ($type, $info) = @_; (($info->{url} // $type) => $info) });
+    sub { my (undef, $info) = @_; ($info->{url} => $info) });
 
 sub rating_submit : Private
 {
