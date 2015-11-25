@@ -48,7 +48,7 @@
             [% ELSIF server_details.is_slave_db %]
                 <div class="banner server-details">
                     <p>
-                        [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
+                        [% l('This is a MusicBrainz mirror server. To edit or make changes to the data, please
                               {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
                     </p>
                     [% dismiss_banner_button('server_details') %]
@@ -66,7 +66,7 @@
         [%- IF server_details.read_only -%]
             <div class="server-details">
                 <p>
-                    [% l('The server is temporary in read-only mode for database maintainance.') %]
+                    [% l('The server is temporarily in read-only mode for database maintenance.') %]
                 </p>
             </div>
         [%- END -%]
