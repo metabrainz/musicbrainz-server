@@ -39,8 +39,8 @@ our %relation_types = (
     },
     2 => { entities_with(['mbid', 'relatable'],
         take => sub {
-            my ($type, $info) = @_;
-            return (($info->{url} // $type) . '-rels' => 1)
+            my (undef, $info) = @_;
+            return ($info->{url} . '-rels' => 1)
         })
     }
 );
