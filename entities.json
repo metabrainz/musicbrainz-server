@@ -23,13 +23,15 @@
         "merging": true,
         "model": "Area",
         "plural": "areas",
+        "plural_url": "areas",
         "removal": {
             "manual": true
         },
         "tags": true,
         "type": {
             "simple": true
-        }
+        },
+        "url": "area"
     },
     "artist": {
         "aliases": {
