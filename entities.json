@@ -87,10 +87,13 @@
             "relatable": false
         },
         "model": "Collection",
+        "plural": "collections",
+        "plural_url": "collections",
         "subscriptions": {
             "entity": true
         },
-        "table": "editor_collection"
+        "table": "editor_collection",
+        "url": "collection"
     },
     "editor": {
         "model": "Editor",
@@ -394,7 +397,10 @@
         "mbid": {
             "multiple": true
         },
-        "model": "Track"
+        "model": "Track",
+        "plural": "tracks",
+        "plural_url": "tracks",
+        "url": "track"
     },
     "url": {
         "edit_table": true,
