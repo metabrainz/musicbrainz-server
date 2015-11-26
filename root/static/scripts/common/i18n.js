@@ -6,29 +6,31 @@
 import Jed from 'jed';
 import _ from 'lodash';
 import React from 'react';
+import sliced from 'sliced';
+import isNodeJS from 'detect-node';
 
-let jedInstance;
-if (typeof document !== 'undefined') {
-    jedInstance = new Jed(require('jed-data'));
+let gettext;
+if (isNodeJS) {
+    // Avoid bundling this module in the browser by using a dynamic require().
+    let nodeGettext = '../../../server/gettext';
+    gettext = require(nodeGettext).getHandle('en')
+} else {
+    gettext = new Jed(require('jed-data'));
 }
 
-var slice = Array.prototype.slice;
+exports.setGettextHandle = function (handle) {
+    gettext = handle;
+};
 
 function wrapGettext(method) {
     return function () {
-        var args = slice.call(arguments, 0);
+        var args = sliced(arguments);
         var expandArgs = args[args.length - 1];
 
         if (expandArgs && typeof expandArgs === "object") {
             args.pop();
         } else {
             expandArgs = null;
-        }
-
-        let gettext = jedInstance;
-        if (!gettext && typeof $c !== 'undefined') {
-            // Created by root/server.js during each request.
-            gettext = $c.gettext;
         }
 
         // FIXME support domains other than mb_server

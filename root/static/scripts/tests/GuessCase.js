@@ -188,8 +188,6 @@ test('Work', function (t) {
     ];
 
     $.each(tests, function (idx, test) {
-        var gc = window.gc;
-
         gc.CFG_UC_ROMANNUMERALS = test.roman;
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
         gc.mode = MB.GuessCase.Mode[test.mode];
@@ -304,7 +302,7 @@ test('BugFixes', function (t) {
     ];
 
     $.each(tests, function (idx, test) {
-        window.gc.mode = MB.GuessCase.Mode[test.mode];
+        gc.mode = MB.GuessCase.Mode[test.mode];
 
         var result = MB.GuessCase.work.guess(test.input);
         t.equal(result, test.expected, test.bug + ', ' + test.input);
@@ -314,7 +312,7 @@ test('BugFixes', function (t) {
 test("vinyl numbers are fixed", function (t) {
     t.plan(4);
 
-    window.gc.mode = MB.GuessCase.Mode.English;
+    gc.mode = MB.GuessCase.Mode.English;
 
     var tests = [
         {

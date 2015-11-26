@@ -56,4 +56,4 @@ $(function () {
 });
 
 // XXX needed by inline scripts
-window.MB.validation = exports;
+MB.validation = exports;

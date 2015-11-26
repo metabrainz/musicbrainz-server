@@ -124,7 +124,7 @@ function relationshipEditorTest(name, callback) {
         MB.sourceExternalLinksEditor = null;
         MB.releaseRelationshipEditor = null;
         MB.sourceEntity = null;
-        delete sessionStorage.submittedRelationships;
+        window.sessionStorage.removeItem('submittedRelationships');
 
         $fixture.remove();
     });
@@ -492,7 +492,7 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
             gid: fakeGID1
         };
 
-    sessionStorage.submittedRelationships = JSON.stringify([
+    window.sessionStorage.setItem('submittedRelationships', JSON.stringify([
         {
             id: 123,
             linkTypeID: 234,
@@ -500,7 +500,7 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
             entities: [target, source],
             direction: "backward"
         }
-    ]);
+    ]));
 
     // Pretend the form was posted.
     MB.formWasPosted = true;

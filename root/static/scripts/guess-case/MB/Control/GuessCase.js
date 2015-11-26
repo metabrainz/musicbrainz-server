@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import global from '../../../global';
 var i18n = require('../../../common/i18n');
 var setCookie = require('../../../common/utility/setCookie');
 
@@ -88,15 +89,15 @@ ko.bindingHandlers.guessCase = {
 
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         if (!guessCaseOptions.modeName.peek()) {
-            guessCaseOptions.modeName(window.gc.modeName);
+            guessCaseOptions.modeName(global.gc.modeName);
         }
 
         if (!guessCaseOptions.keepUpperCase.peek()) {
-            guessCaseOptions.keepUpperCase(window.gc.CFG_UC_UPPERCASED);
+            guessCaseOptions.keepUpperCase(global.gc.CFG_UC_UPPERCASED);
         }
 
         if (!guessCaseOptions.upperCaseRoman.peek()) {
-            guessCaseOptions.upperCaseRoman(window.gc.CFG_UC_ROMANNUMERALS);
+            guessCaseOptions.upperCaseRoman(global.gc.CFG_UC_ROMANNUMERALS);
         }
 
         var bindings = _.assign({}, guessCaseOptions);

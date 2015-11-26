@@ -141,11 +141,9 @@ Or all of them like this:
 ### JavaScript
 
 We have a set of JavaScript unit tests (using https://github.com/substack/tape)
-which we run using [PhantomJS](http://phantomjs.org/) (version 1.5 or higher).
-These will be skipped if PhantomJS isn't found.
+which can be run in a browser or under Node.js.
 
-Currently we have a single test file to run JavaScript tests in browsers.
-Before using it you need to compile script containing all the tests:
+To run the tests in a browser, they must be compiled first:
 
     $ script/compile_resources.sh tests
 
@@ -154,21 +152,9 @@ http://localhost:5000/static/scripts/tests/all.html on your local development
 server.
 
 It is more fun to be able to run those tests on the command line. This can be
-done with PhantomJS.
+done with the following command:
 
-To install PhantomJS:
-
-    $ sudo apt-get install libqt4-dev libqt4-webkit     # on debian
-    $ sudo apt-get install libqtwebkit-dev              # on ubuntu
-    $ cd ~/opt
-    ~/opt$ git clone git://github.com/ariya/phantomjs.git
-    ~/opt$ cd phantomjs
-    ~/opt/phantomjs$ qmake
-    ~/opt/phantomjs$ make
-
-Now you should be able to use it to run the tests:
-
-    $ prove -l t/qunit.t
+    $ prove -l t/js.t
 
 
 Reports
