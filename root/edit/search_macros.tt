@@ -316,6 +316,7 @@
                    [ 'yes_votes', l('Yes vote count') ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
+                   [ 'event', l('Event') ],
                    [ 'instrument', l('Instrument') ],
                    [ 'label', l('Label') ],
                    [ 'place', l('Place') ],
@@ -356,7 +357,7 @@
          predicate_subscription(linked_type);
        END %]
 
-    [% FOR linked_type=[ 'area', 'instrument', 'place', 'recording', 'release_group', 'release', 'work', 'editor' ];
+    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work', 'editor' ];
          predicate_link(linked_type);
        END %]
 

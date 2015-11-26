@@ -5,7 +5,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
-use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING );
+use MusicBrainz::Server::Constants qw( $LIMIT_FOR_EDIT_LISTING entities_with );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
@@ -21,7 +21,6 @@ use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::Log 'log_warning';
-use String::CamelCase qw( camelize );
 use Try::Tiny;
 
 my %field_map = (
@@ -44,9 +43,12 @@ my %field_map = (
     editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
     applied_edits => 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits',
 
-    map {
-        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_)
-    } qw( area artist instrument label place recording release release_group series work )
+    entities_with(['mbid', 'relatable'],
+        take => sub {
+            my ($type, $info) = @_;
+            ($type => 'MusicBrainz::Server::EditSearch::Predicate::' . $info->{model})
+        },
+    ),
 );
 
 has negate => (

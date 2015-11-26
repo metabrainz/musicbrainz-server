@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Relationship;
 use Moose;
 use Hash::Merge qw( merge );
 use List::AllUtils qw( any );
-use String::CamelCase qw( camelize );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
 
