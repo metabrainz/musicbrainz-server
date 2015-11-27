@@ -2108,8 +2108,8 @@
       "from": "vinyl-source-stream@>=1.0.0 <2.0.0"
     },
     "yarb": {
-      "version": "0.5.0",
-      "from": "yarb@0.5.0",
+      "version": "0.5.1",
+      "from": "yarb@0.5.1",
       "dependencies": {
         "array-uniq": {
           "version": "1.0.2",
@@ -2137,27 +2137,21 @@
               "version": "0.7.1",
               "from": "combine-source-map@>=0.7.1 <0.8.0",
               "dependencies": {
-                "source-map": {
-                  "version": "0.4.2",
-                  "from": "source-map@0.4.2"
-                },
                 "convert-source-map": {
                   "version": "1.1.2",
                   "from": "convert-source-map@>=1.1.0 <1.2.0"
                 },
                 "inline-source-map": {
                   "version": "0.6.1",
-                  "from": "inline-source-map@>=0.6.0 <0.7.0",
-                  "dependencies": {
-                    "source-map": {
-                      "version": "0.4.4",
-                      "from": "source-map@>=0.4.0 <0.5.0"
-                    }
-                  }
+                  "from": "inline-source-map@>=0.6.0 <0.7.0"
                 },
                 "lodash.memoize": {
                   "version": "3.0.4",
                   "from": "lodash.memoize@>=3.0.3 <3.1.0"
+                },
+                "source-map": {
+                  "version": "0.4.2",
+                  "from": "source-map@0.4.2"
                 }
               }
             },
@@ -2245,7 +2239,7 @@
         },
         "process": {
           "version": "0.11.2",
-          "from": "process@>=0.11.1 <0.12.0"
+          "from": "process@0.11.2"
         },
         "stream-browserify": {
           "version": "2.0.1",
