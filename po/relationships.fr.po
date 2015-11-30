@@ -4,7 +4,7 @@
 # Trans-fr, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
-# Dibou <email address hidden>, 2012
+# Dibou <email address hidden>, 2012,2015
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
 # Nicolas HOUDELOT <email address hidden>, 2015
@@ -15,11 +15,12 @@
 # R. G. <email address hidden>, 2015
 # Trans-fr, 2015
 # Trans-fr, 2013-2015
+# Youenn Piolet, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-22 08:14+0000\n"
+"Last-Translator: Dibou <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2742,7 +2743,7 @@ msgstr "compilateur"
 
 #: DB:link_type/link_phrase:855
 msgid "composer-in-residence at"
-msgstr ""
+msgstr "compositeur en résidence à"
 
 #: DB:link_type/reverse_link_phrase:855
 msgid "composers-in-residence"
@@ -3878,11 +3879,11 @@ msgstr "orchestrations"
 
 #: DB:link_type/link_phrase:856
 msgid "organist at"
-msgstr ""
+msgstr "organistes à"
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
-msgstr ""
+msgstr "organistes"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4057,7 +4058,7 @@ msgstr "principal"
 
 #: DB:link_type/reverse_link_phrase:849
 msgid "printed in"
-msgstr ""
+msgstr "imprimé en"
 
 #: DB:link_type/link_phrase:849
 msgid "printing location for"
@@ -4275,7 +4276,7 @@ msgstr "révisé"
 
 #: DB:link_type/reverse_link_phrase:882
 msgid "revised at"
-msgstr ""
+msgstr "révisé à"
 
 #: DB:link_type/reverse_link_phrase:844
 msgid "revised by"
@@ -4283,7 +4284,7 @@ msgstr "révisé par"
 
 #: DB:link_type/reverse_link_phrase:881
 msgid "revised in"
-msgstr ""
+msgstr "révisé en"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
 msgid "revising location for"
@@ -4481,7 +4482,7 @@ msgstr "traduit"
 
 #: DB:link_type/reverse_link_phrase:883
 msgid "translated at"
-msgstr ""
+msgstr "traduit à"
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
@@ -4533,7 +4534,7 @@ msgstr "chaîne vidéo pour"
 
 #: DB:link_type/reverse_link_phrase:858
 msgid "visual appearances"
-msgstr ""
+msgstr "apparitions visuelles"
 
 #: DB:link_attribute_type/name:3
 msgid "vocal"
@@ -4549,7 +4550,7 @@ msgstr "voix par"
 
 #: DB:link_type/long_link_phrase:855
 msgid "was a composer-in-residence at"
-msgstr ""
+msgstr "fut compositeur en résidence à"
 
 #: DB:link_type/long_link_phrase:806
 msgid "was a conductor at"
@@ -4565,7 +4566,7 @@ msgstr "était un interprète principal à"
 
 #: DB:link_type/long_link_phrase:887
 msgid "was a performance of"
-msgstr ""
+msgstr "fut une interprétation de"
 
 #: DB:link_type/long_link_phrase:799
 msgid "was a support act at"
@@ -4581,7 +4582,7 @@ msgstr "était tenu à"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was organist at"
-msgstr ""
+msgstr "était organiste à"
 
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
@@ -4716,7 +4717,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
-msgstr ""
+msgstr "{additional:aussi} écrit les paroles pour"
 
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
 msgid ""
@@ -4859,7 +4860,7 @@ msgstr "notes de livret {additional:supplémentaires}"
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
-msgstr ""
+msgstr "parolier {additional:additionnel}"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"

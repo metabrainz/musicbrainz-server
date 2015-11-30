@@ -1,13 +1,14 @@
 # 
 # Translators:
 # nikki, 2014
+# mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-03 07:45+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-11-28 20:28+0000\n"
+"Last-Translator: mai inoue\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +53,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon Coverart"
-msgstr ""
+msgstr "Amazonのカバーアート"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
@@ -111,7 +112,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2003-07-25
 #: DB:statistics.statistic_event/description:2003-09-04
 msgid "Bug fix/cleanup release."
-msgstr ""
+msgstr "バグ修正/クリーンアップリリース。"
 
 #: DB:statistics.statistic_event/title:2003-06-30
 #: DB:statistics.statistic_event/title:2003-07-25
@@ -139,12 +140,12 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2003-06-07
 #: DB:statistics.statistic_event/title:2003-06-15
 msgid "Cleanup"
-msgstr ""
+msgstr "クリーンアップ"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 #: DB:statistics.statistic_event/description:2003-06-15
 msgid "Cleanup release."
-msgstr ""
+msgstr "クリーンアップリリース。"
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"

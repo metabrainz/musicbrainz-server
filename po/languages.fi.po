@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"PO-Revision-Date: 2015-11-17 05:21+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -775,6 +775,11 @@ msgstr "galicia"
 #: DB:language/name:249
 msgid "Ganda"
 msgstr "ganda"
+
+#. frequency:1 iso_code_3:cab
+#: DB:language/name:1591
+msgid "Garifuna"
+msgstr ""
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141

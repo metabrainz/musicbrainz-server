@@ -8,10 +8,11 @@
 # murdos <email address hidden>, 2011-2012
 # Trans-fr, 2015
 # Trans-fr, 2013-2015
+# Youenn Piolet, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"PO-Revision-Date: 2015-11-17 05:21+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +29,7 @@ msgstr "Un batá est un tambour à deux têtes originaire du Nigeria."
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "Un instrument de percussion turc utilisé dans les troupes de musique militaire ottomane"
 
 #. name:tef
 #: DB:instrument/description:531
@@ -157,6 +158,13 @@ msgstr "Un banjo à cinq cordes."
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr "Un tambour gong basse est un grand tambour à une seule membrane qui ressemble à un gong."
+
+#. name:guitar synthesizer
+#: DB:instrument/description:763
+msgid ""
+"A guitar synthesizer is any one of a number of systems that allow a guitar "
+"player to play synthesizer sound."
+msgstr ""
 
 #. name:hi-hat
 #: DB:instrument/description:454
@@ -756,6 +764,18 @@ msgid ""
 " electric guitar"
 msgstr "Légèrement plus petite, version à quatre cordes de la guitare acoustique ou électrique à cordes d'acier"
 
+#. name:oktawka
+#: DB:instrument/description:759
+msgid "Small Polish traditional fiddle."
+msgstr ""
+
+#. name:sopilka
+#: DB:instrument/description:760
+msgid ""
+"Sopilka (generally) refers to a type of fife used in Ukrainian traditional "
+"music."
+msgstr ""
+
 #. name:struck idiophone
 #: DB:instrument/description:675
 msgid ""
@@ -1135,6 +1155,12 @@ msgstr "Le biwa est un luth japonais à manche court et avec frettes joué avec 
 #: DB:instrument/description:745
 msgid ""
 "The bolon is a traditional harp-lute played in several African countries."
+msgstr "Le bolon est une harpe-luth traditionnelle jouée dans de nombreux pays africains."
+
+#. name:buisine
+#: DB:instrument/description:762
+msgid ""
+"The buisine was a type of straight medieval trumpet usually made of metal."
 msgstr ""
 
 #. name:buk
@@ -1218,6 +1244,13 @@ msgstr "Le chikuzen biwa est un biwa avec quatre ou cinq cordes avec frettes pop
 #. name:chitra veena
 #: DB:instrument/description:744
 msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
+msgstr ""
+
+#. name:citole
+#: DB:instrument/description:761
+msgid ""
+"The citole is an archaic musical instrument, similar and a distant ancestor "
+"of the modern guitar."
 msgstr ""
 
 #. name:concert flute
@@ -1456,6 +1489,13 @@ msgid ""
 "The gaohu is a Chinese bowed string instrument developed from the erhu and "
 "tuned a fourth higher."
 msgstr "Le gaohu est un instrument chinois à cordes frottées développé à partir du erhu et accordé un quart plus haut."
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
+"Guatemala and Honduras."
+msgstr ""
 
 #. name:gayageum
 #: DB:instrument/description:75
@@ -1887,7 +1927,7 @@ msgstr "Le mbira ou kalimba (aussi connu sous d'autres noms) est un piano à pou
 msgid ""
 "The minipiano is a type of piano in which the sound producing mechanism is "
 "positioned below the keyboard, allowing an economical use of space."
-msgstr ""
+msgstr "Le minipiano est un type de piano dont le mécanisme de production du son est positionné sous le clavier, permettant une utilisation ergonomique de l'espace."
 
 #. name:morin khuur / matouqin
 #: DB:instrument/description:224
@@ -2050,6 +2090,11 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr "Le cor postal est un instrument en cuivre sans piston utilisé pour signaler l'arrivée ou le départ d'un porteur de courrier."
 
+#. name:primero
+#: DB:instrument/description:758
+msgid "The primero is a tenor garifuna drum."
+msgstr ""
+
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -2066,6 +2111,14 @@ msgstr "Le kilaut est un tambour inuit fait en peau de caribou tendue sur un cad
 #: DB:instrument/description:437
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "La quena est une flûte en bambou traditionnelle des Andes."
+
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"The quijada is a traditional Latin percussion instrument made from the "
+"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
+"teeth can loosen and act as a rattle."
+msgstr ""
 
 #. name:rammana
 #: DB:instrument/description:628
@@ -2096,6 +2149,13 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "Le ranat thum est un xylophone thaïlandais composé de 18 lames de bois suspendues par des cordes au-dessus d'un résonateur en forme de bateau. Il est semblable au ranat ek, mais plus grave."
+
+#. name:ravanahatha
+#: DB:instrument/description:754
+msgid ""
+"The ravanahatha is an ancient bowed violin, once popular in Western India "
+"and Sri Lanka."
+msgstr ""
 
 #. name:reco-reco
 #: DB:instrument/description:721
@@ -2215,6 +2275,11 @@ msgstr "Le saw u est un instrument Thaï à cordes frottées constitué d'un ré
 #: DB:instrument/description:472
 msgid "The saz is a long-necked fretted lute"
 msgstr "Le saz est luth à manche long avec frettes. (<a href=\"http://fr.wikipedia.org/wiki/Saz\">Wikipédia</a>)"
+
+#. name:segunda
+#: DB:instrument/description:757
+msgid "The segunda is a bass garifuna drum."
+msgstr ""
 
 #. name:setar
 #: DB:instrument/description:630
@@ -2480,7 +2545,7 @@ msgstr "Le tiêu est une flûte oblique à embouchure apparentée à la xiao chi
 msgid ""
 "The tololoche is a traditional musical instrument from northern Mexico, "
 "similar but smaller than the European double bass."
-msgstr ""
+msgstr "Le tololoche est un instrument de musique traditionnel du nord du Mexique, plus petit mais similaire à la contrebasse"
 
 #. name:tonkori
 #: DB:instrument/description:575

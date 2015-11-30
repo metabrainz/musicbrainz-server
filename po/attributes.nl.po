@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-16 10:32+0000\n"
+"PO-Revision-Date: 2015-11-28 14:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgctxt "work_type"
 msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
-msgstr "Een ballet is muziek die gecomponeerd is om samen met choreografie te worden gebruikt in een balletvoorstelling."
+msgstr "Een ballet is muziek die is gecomponeerd om samen met choreografie te worden gebruikt in een balletvoorstelling."
 
 #: DB:work_type/description:3
 msgctxt "work_type"

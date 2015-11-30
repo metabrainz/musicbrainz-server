@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-16 10:13+0000\n"
+"PO-Revision-Date: 2015-11-28 14:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -44,12 +44,12 @@ msgstr "Een baroktrompet is een natuurkoperblazer die gemodelleerd is naar instr
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr "Een draaiorgel is een mechanisch muziekinstrument dat meestal wordt bediend door iemand die aan een slinger draait waardoor er een cilinder wordt rondgedraaid waarop de muziek geprogrammeerd is."
+msgstr "Een draaiorgel is een mechanisch muziekinstrument dat meestal wordt bediend door iemand die aan een slinger draait waardoor er een cilinder wordt rondgedraaid waar de muziek op is geprogrammeerd."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr "Een bas synthesizer wordt gebruikt om geluiden in het basbereik te creëren."
+msgstr "Een bassynthesizer wordt gebruikt om geluiden in het basbereik te creëren."
 
 #. name:bell tree
 #: DB:instrument/description:479
@@ -152,6 +152,13 @@ msgstr "Een viersnarige banjo is een banjo met vier snaren."
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr "Een grote gongtrom is een grote enkele trom die op een gong lijkt."
+
+#. name:guitar synthesizer
+#: DB:instrument/description:763
+msgid ""
+"A guitar synthesizer is any one of a number of systems that allow a guitar "
+"player to play synthesizer sound."
+msgstr "Een gitaarsynthesizer is een systeem waarmee een gitarist het geluid van een synthesizer kan maken."
 
 #. name:hi-hat
 #: DB:instrument/description:454
@@ -751,6 +758,18 @@ msgid ""
 " electric guitar"
 msgstr "Een iets kleinere variant op de standaard akoestische of elektrische gitaar met vier snaren."
 
+#. name:oktawka
+#: DB:instrument/description:759
+msgid "Small Polish traditional fiddle."
+msgstr "Een oktawa is een kleine traditionele Poolse viool."
+
+#. name:sopilka
+#: DB:instrument/description:760
+msgid ""
+"Sopilka (generally) refers to a type of fife used in Ukrainian traditional "
+"music."
+msgstr "Sopilka verwijst (meestal) naar een soort pijperfluit die wordt gebruikt voor traditionele Oekraïense muziek."
+
 #. name:struck idiophone
 #: DB:instrument/description:675
 msgid ""
@@ -1132,6 +1151,12 @@ msgid ""
 "The bolon is a traditional harp-lute played in several African countries."
 msgstr "Een bolon is een traditionele basharp die in verschillende (West-)Afrikaanse landen wordt bespeeld."
 
+#. name:buisine
+#: DB:instrument/description:762
+msgid ""
+"The buisine was a type of straight medieval trumpet usually made of metal."
+msgstr "Een buisine is een soort rechte trompet uit de Middeleeuwen die meestal van metaal werd gemaakt."
+
 #. name:buk
 #: DB:instrument/description:577
 msgid ""
@@ -1214,6 +1239,13 @@ msgstr "De chikuzen biwa (Japans: 筑前琵琶) is een biwa met vier of vijf sna
 #: DB:instrument/description:744
 msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
 msgstr "Een gottuvadhyam (ook wel chitraveena genoemd, en met vele spellingvarianten) is een fretloze luit met 20 of 21 snaren die wordt gebruikt voor Carnatische muziek."
+
+#. name:citole
+#: DB:instrument/description:761
+msgid ""
+"The citole is an archaic musical instrument, similar and a distant ancestor "
+"of the modern guitar."
+msgstr "Een citole is een archaïsch muziekinstrument, dat lijkt op een moderne gitaar en ook een vroege voorganger is van dit instrument."
 
 #. name:concert flute
 #: DB:instrument/description:414
@@ -1451,6 +1483,13 @@ msgid ""
 "The gaohu is a Chinese bowed string instrument developed from the erhu and "
 "tuned a fourth higher."
 msgstr "De gaohu (Chinees: 高胡, pinyin: gāohú) is een Chinees strijkinstrument dat is is ontstaan uit de erhu en een kwart hoger gestemd is."
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
+"Guatemala and Honduras."
+msgstr "Een garifunatrommel is een membranofoon die gebruikt wordt door de Garifuna in Belize, Guatemala en Honduras."
 
 #. name:gayageum
 #: DB:instrument/description:75
@@ -2045,6 +2084,11 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr "Een posthoorn is een gekrulde koperblazer zonder ventielen. Traditioneel wordt het gebruikt om de aankomst of het vertrek van een koerier of postkoets aan te duiden."
 
+#. name:primero
+#: DB:instrument/description:758
+msgid "The primero is a tenor garifuna drum."
+msgstr "Een primero is een tenorgarifunatrommel."
+
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -2061,6 +2105,14 @@ msgstr "De qilaut (Inuit: ᕿᓚᐅᑦ) is een lijsttrommel met een handvat van 
 #: DB:instrument/description:437
 msgid "The quena is a traditional bamboo flute from the Andes."
 msgstr "Een quena is een traditionele bamboefluit uit de Andes."
+
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"The quijada is a traditional Latin percussion instrument made from the "
+"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
+"teeth can loosen and act as a rattle."
+msgstr "Een quijada is een traditioneel Latijns-Amerikaans percussie-instrument dat gemaakt wordt van het kaakbeen van een muildier, paard of ezel dat ontdaan is van weefsel en gedroogd is zodat de tanden los komen te zitten en als ratel werken."
 
 #. name:rammana
 #: DB:instrument/description:628
@@ -2091,6 +2143,13 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
 msgstr "De ranat thum (Thai: ระนาดทุ้ม) is een Thaise xylofoon bestaande uit 18 houten planken die met koorden boven een bootvormige klankkast zijn gespannen. Het lijkt op de ranat ek maar is lager gestemd en wordt vaak bespeeld in combinatie met dit instrument."
+
+#. name:ravanahatha
+#: DB:instrument/description:754
+msgid ""
+"The ravanahatha is an ancient bowed violin, once popular in Western India "
+"and Sri Lanka."
+msgstr "Een ravanahatha is een antieke viool die ooit populair was in West-Indiä en Sri Lanka."
 
 #. name:reco-reco
 #: DB:instrument/description:721
@@ -2210,6 +2269,11 @@ msgstr "Een saw u (Thais: ซออู้) is een Thais strijkinstrument met een
 #: DB:instrument/description:472
 msgid "The saz is a long-necked fretted lute"
 msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De term saz wordt vaak foutief gebruikt voor een bağlama."
+
+#. name:segunda
+#: DB:instrument/description:757
+msgid "The segunda is a bass garifuna drum."
+msgstr "Een segunda is een basgarifunatrommel."
 
 #. name:setar
 #: DB:instrument/description:630

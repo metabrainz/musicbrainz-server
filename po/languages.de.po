@@ -8,12 +8,13 @@
 # nikki, 2013
 # Shepard, 2011
 # Shepard, 2012-2013
+# TL, 2015
 # Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-17 07:52+0000\n"
+"Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -354,7 +355,7 @@ msgstr "Caddo-Sprachen"
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "Cajun französisch"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
@@ -534,7 +535,7 @@ msgstr "Kroatisch"
 #. frequency:1 iso_code_3:xlu
 #: DB:language/name:7303
 msgid "Cuneiform Luwian"
-msgstr ""
+msgstr "Luwisch"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
@@ -775,6 +776,11 @@ msgstr "Galizisch"
 #: DB:language/name:249
 msgid "Ganda"
 msgstr "Ganda"
+
+#. frequency:1 iso_code_3:cab
+#: DB:language/name:1591
+msgid "Garifuna"
+msgstr "Garifuna"
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141
@@ -1089,7 +1095,7 @@ msgstr "Kabardinisch"
 #. frequency:1 iso_code_3:kea
 #: DB:language/name:3185
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "Kapverdisches Kreol"
 
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
@@ -1279,7 +1285,7 @@ msgstr "Kölsch"
 #. frequency:1 iso_code_3:lld
 #: DB:language/name:3885
 msgid "Ladin"
-msgstr ""
+msgstr "Ladinisch"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234
@@ -1324,7 +1330,7 @@ msgstr "Lettisch"
 #. frequency:1 iso_code_3:lzz
 #: DB:language/name:4039
 msgid "Laz"
-msgstr ""
+msgstr "Lasisch"
 
 #. frequency:1 iso_code_3:lez
 #: DB:language/name:240
@@ -1644,7 +1650,7 @@ msgstr "Nepali"
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
 msgid "Nhengatu"
-msgstr ""
+msgstr "Nheengatu"
 
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
@@ -2524,7 +2530,7 @@ msgstr "Yoruba"
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr ""
+msgstr "Yukatekisch"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

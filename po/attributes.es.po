@@ -8,7 +8,7 @@
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Héctor Arroyo <email address hidden>, 2012
-# Ismael Olea <email address hidden>, 2013-2014
+# Ismael Olea <email address hidden>, 2013-2015
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2012
 # Nicolás Tamargo <email address hidden>, 2011-2013
@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-09-08 18:58+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-18 13:56+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr ""
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "Goma laca 10\""
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
@@ -56,7 +56,7 @@ msgstr "Vinilo 10\""
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "Goma laca 12\""
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
@@ -66,17 +66,17 @@ msgstr "Vinilo 12″"
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "Disquete 3,5\""
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "Flexi disco 7\""
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "Goma laca 7\""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -363,12 +363,12 @@ msgstr "LA sostenido menor"
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
 msgid "APRA ID"
-msgstr ""
+msgstr "Identificador APRA"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
-msgstr ""
+msgstr "Identificador ASCAP"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -773,7 +773,7 @@ msgstr "SI bemol menor"
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
-msgstr ""
+msgstr "Identificador BMI"
 
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
@@ -1886,12 +1886,12 @@ msgstr ""
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -1921,7 +1921,7 @@ msgstr ""
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr ""
+msgstr "Disco flexi"
 
 #: DB:medium_format/description:51
 msgctxt "medium_format"
@@ -1984,7 +1984,7 @@ msgstr "SOL sostenido menor"
 #: DB:work_attribute_type/name:9
 msgctxt "work_attribute_type"
 msgid "GEMA ID"
-msgstr ""
+msgstr "Identificador GEMA"
 
 #: DB:work_attribute_type_allowed_value/value:88
 msgctxt "work_attribute_type_allowed_value"
@@ -2444,7 +2444,7 @@ msgstr ""
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr ""
+msgstr "Identificadores"
 
 #: DB:label_type/name:9
 msgctxt "label_type"
@@ -2454,7 +2454,7 @@ msgstr ""
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr ""
+msgstr "Música incidental"
 
 #: DB:work_type/description:30
 msgctxt "work_type"
@@ -2471,7 +2471,7 @@ msgstr ""
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
 msgid "Instrument"
-msgstr ""
+msgstr "instrumento"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -2501,7 +2501,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:429
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahan"
-msgstr ""
+msgstr "Isfahán"
 
 #: DB:work_attribute_type_allowed_value/value:430
 msgctxt "work_attribute_type_allowed_value"
@@ -2536,7 +2536,7 @@ msgstr ""
 #: DB:area_type/name:6
 msgctxt "area_type"
 msgid "Island"
-msgstr ""
+msgstr "Isla"
 
 #: DB:area_type/description:6
 msgctxt "area_type"
@@ -2549,7 +2549,7 @@ msgstr ""
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
 msgid "JASRAC ID"
-msgstr ""
+msgstr "Identificador JASRAC"
 
 #: DB:work_attribute_type_allowed_value/value:114
 msgctxt "work_attribute_type_allowed_value"
@@ -2614,7 +2614,7 @@ msgstr ""
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
 msgid "KOMCA ID"
-msgstr ""
+msgstr "Identificador KOMCA"
 
 #: DB:work_attribute_type_allowed_value/value:621
 msgctxt "work_attribute_type_allowed_value"
@@ -3322,7 +3322,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Musical"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -3339,7 +3339,7 @@ msgstr ""
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
 msgid "MÜST ID"
-msgstr ""
+msgstr "Identificador MÜST"
 
 #: DB:work_attribute_type_allowed_value/value:463
 msgctxt "work_attribute_type_allowed_value"
@@ -3889,12 +3889,12 @@ msgstr "Rollo de pianola"
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place"
-msgstr ""
+msgstr "Lugar"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
 msgid "Place name"
-msgstr ""
+msgstr "Nombre de lugar"
 
 #: DB:work_type/name:28
 msgctxt "work_type"
@@ -4124,37 +4124,37 @@ msgstr ""
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release"
-msgstr ""
+msgstr "Publicación"
 
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release"
-msgstr ""
+msgstr "Publicación"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group"
-msgstr ""
+msgstr "Grupo de publicaciones"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group"
-msgstr ""
+msgstr "Grupo de publicaciones"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release group name"
-msgstr ""
+msgstr "Nombre de grupo de publicaciones"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release name"
-msgstr ""
+msgstr "Nombre de publicación"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "Edificio religioso"
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
@@ -4279,7 +4279,7 @@ msgstr "SACD"
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
 msgid "SESAC ID"
-msgstr ""
+msgstr "Identificador SESAC"
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
@@ -4294,7 +4294,7 @@ msgstr ""
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
-msgstr ""
+msgstr "Identificador SOCAN"
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -4454,7 +4454,7 @@ msgstr ""
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series"
-msgstr ""
+msgstr "Series"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -4469,14 +4469,14 @@ msgstr ""
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "Goma laca"
 
 #: DB:medium_format/description:53
 msgctxt "medium_format"
 msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
-msgstr ""
+msgstr "Los discos de goma laca fueron el tipo de grabación gramofónica predominante durante la primera mitad del siglo XX."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -4771,7 +4771,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:668
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tango"
-msgstr ""
+msgstr "Tango"
 
 #: DB:work_attribute_type_allowed_value/value:575
 msgctxt "work_attribute_type_allowed_value"
@@ -4865,7 +4865,7 @@ msgstr ""
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
-msgstr ""
+msgstr "La caja tradicional de CD, hecha de plástico duro transparente."
 
 #: DB:work_type/description:23
 msgctxt "work_type"
@@ -4893,7 +4893,7 @@ msgstr ""
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr ""
+msgstr "Gira"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
@@ -4993,7 +4993,7 @@ msgstr "VCD"
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr ""
+msgstr "VHD"
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
@@ -5068,7 +5068,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr ""
+msgstr "Sala"
 
 #: DB:medium_format/description:59
 msgctxt "medium_format"
@@ -5100,7 +5100,7 @@ msgstr "Vinilo"
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr ""
+msgstr "Disco de vinilo"
 
 #: DB:work_attribute_type_allowed_value/value:259
 msgctxt "work_attribute_type_allowed_value"
@@ -5135,7 +5135,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
 msgid "Watermark"
-msgstr ""
+msgstr "Marca de agua"
 
 #: DB:medium_format/name:14
 msgctxt "medium_format"
@@ -5155,12 +5155,12 @@ msgstr ""
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
 msgid "Work"
-msgstr ""
+msgstr "Obra"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work"
-msgstr ""
+msgstr "Obra"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
@@ -5273,7 +5273,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:681
 msgctxt "work_attribute_type_allowed_value"
 msgid "ambiguous"
-msgstr ""
+msgstr "ambiguo"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

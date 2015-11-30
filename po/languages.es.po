@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-07 14:15+0000\n"
+"PO-Revision-Date: 2015-11-18 13:55+0000\n"
 "Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgstr "Bashkir"
 #. frequency:1 iso_code_3:eus
 #: DB:language/name:41
 msgid "Basque"
-msgstr "Vasco"
+msgstr "Vascuence"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:59
@@ -774,6 +774,11 @@ msgstr "Gallego"
 #: DB:language/name:249
 msgid "Ganda"
 msgstr "Luganda"
+
+#. frequency:1 iso_code_3:cab
+#: DB:language/name:1591
+msgid "Garifuna"
+msgstr "Garífuna"
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141

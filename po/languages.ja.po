@@ -2,14 +2,15 @@
 # Translators:
 # nikki2 <email address hidden>, 2012
 # Keshav Kini <email address hidden>, 2013
+# mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013
 # nikki, 2012
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-28 16:48+0000\n"
+"Last-Translator: mai inoue\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -350,7 +351,7 @@ msgstr "カドー語"
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "ケイジャン・フランス語"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
@@ -370,7 +371,7 @@ msgstr "セブアノ語"
 #. frequency:1 iso_code_3:xce
 #: DB:language/name:7217
 msgid "Celtiberian"
-msgstr ""
+msgstr "ケルティベリア語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
@@ -530,7 +531,7 @@ msgstr "クロアチア語"
 #. frequency:1 iso_code_3:xlu
 #: DB:language/name:7303
 msgid "Cuneiform Luwian"
-msgstr ""
+msgstr "楔形文字ルヴィ語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
@@ -771,6 +772,11 @@ msgstr "ガリシア語"
 #: DB:language/name:249
 msgid "Ganda"
 msgstr "ガンダ語"
+
+#. frequency:1 iso_code_3:cab
+#: DB:language/name:1591
+msgid "Garifuna"
+msgstr "ガリフナ語"
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141
@@ -1275,7 +1281,7 @@ msgstr "ケルン語"
 #. frequency:1 iso_code_3:lld
 #: DB:language/name:3885
 msgid "Ladin"
-msgstr ""
+msgstr "ラディン語"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234
@@ -1640,7 +1646,7 @@ msgstr "ネパール語"
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
 msgid "Nhengatu"
-msgstr ""
+msgstr "ニェエンガトゥ語"
 
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
@@ -2520,7 +2526,7 @@ msgstr "ヨルバ語"
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr ""
+msgstr "ユカテコ語"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-16 10:57+0000\n"
+"PO-Revision-Date: 2015-11-28 20:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -504,13 +504,13 @@ msgstr "Lead- of solovocaal"
 msgid ""
 "Links a recording to the area it was arranged in. Use only when the place is"
 " unknown!"
-msgstr "Koppelt een opname aan het gebied waarin het gearrangeerd werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waarin hij gearrangeerd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:821
 msgid ""
 "Links a recording to the area it was edited in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een opname aan het gebied waar het geëdit werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waar hij geëdit werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:814
 msgid ""
@@ -522,25 +522,25 @@ msgstr "Koppelt een opname aan het gebied waar de techniek voor de opname werd v
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een opname aan het gebied waarin het gemixt werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waarin hij gemixt werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:827
 msgid ""
 "Links a recording to the area it was produced in. Use only when the place is"
 " unknown!"
-msgstr "Koppelt een opname aan het gebied waarin het geproduceerd werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waarin hij geproduceerd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:698
 msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is"
 " unknown!"
-msgstr "Koppelt een opname aan het gebied waarin het opgenomen werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waarin hij opgenomen werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:830
 msgid ""
 "Links a recording to the area it was remixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een opname aan het gebied waarin het geremixt werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een opname aan het gebied waarin hij geremixt werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
@@ -548,11 +548,11 @@ msgstr "Koppelt een opname aan het evenement waar het opgenomen is."
 
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr "Koppelt een opname aan de plaats waar het gearrangeerd werd."
+msgstr "Koppelt een opname aan de plaats waar hij gearrangeerd werd."
 
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr "Koppelt een opname aan de plaats waar het geëdit werd."
+msgstr "Koppelt een opname aan de plaats waar hij geëdit werd."
 
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
@@ -560,19 +560,19 @@ msgstr "Koppelt een opname aan de plaats waar de techniek voor de opname werd ve
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr "Koppelt een opname aan de plaats waar het gemixt is."
+msgstr "Koppelt een opname aan de plaats waar hij gemixt is."
 
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr "Koppelt een opname aan de plaats waar het geproduceerd werd."
+msgstr "Koppelt een opname aan de plaats waar hij geproduceerd werd."
 
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr "Koppelt een opname aan de plaats waar het opgenomen is."
+msgstr "Koppelt een opname aan de plaats waar hij opgenomen is."
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr "Koppelt een opname aan de plaats waar het geremixt werd."
+msgstr "Koppelt een opname aan de plaats waar hij geremixt werd."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
@@ -582,13 +582,13 @@ msgstr "Koppelt een uitgavegroep aan het evenement waarop het gelanceerd is."
 msgid ""
 "Links a release to the area it was arranged in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waarin het gearrangeerd werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan het gebied waarin hij gearrangeerd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:822
 msgid ""
 "Links a release to the area it was edited in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waar het geëdit werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan het gebied waar hij geëdit werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:815
 msgid ""
@@ -598,41 +598,41 @@ msgstr "Koppelt een uitgave aan het gebied waar de techniek voor de uitgave werd
 
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
-msgstr "Koppelt een uitgave aan het gebied waar het gefabriceerd werd."
+msgstr "Koppelt een uitgave aan het gebied waar hij gefabriceerd werd."
 
 #: DB:link_type/description:756
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waarin het gemasterd werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan het gebied waarin hij gemasterd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:757
 msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waarin het gemixt werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan het gebied waarin hij gemixt werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
-msgstr "Koppelt een uitgave aan het gebied waar het gedrukt werd."
+msgstr "Koppelt een uitgave aan het gebied waar het drukwerk voor de uitgave werd verzorgd."
 
 #: DB:link_type/description:826
 msgid ""
 "Links a release to the area it was produced in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waarin het geproduceerd werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan het gebied waarin hij geproduceerd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:699
 msgid ""
 "Links a release to the area it was recorded in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan een gebied waarin het opgenomen werd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr "Koppelt een uitgave aan een gebied waarin hij opgenomen werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:831
 msgid ""
 "Links a release to the area it was remixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt een uitgave aan het gebied waarin het geremixt werd. Gebruik dit alleen als de plaats onbekend is."
+msgstr "Koppelt een uitgave aan het gebied waarin hij geremixt werd. Gebruik dit alleen als de plaats onbekend is."
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
@@ -640,11 +640,11 @@ msgstr "Koppelt een uitgave aan het evenement waar het opgenomen werd."
 
 #: DB:link_type/description:865
 msgid "Links a release to the place it was arranged at."
-msgstr "Koppelt een uitgave aan de plaats waar het gearrangeerd werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij gearrangeerd werd."
 
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
-msgstr "Koppelt een uitgave aan de plaats waar het geëdit werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij geëdit werd."
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
@@ -652,23 +652,23 @@ msgstr "Koppelt een uitgave aan de plaats waar de techniek voor de uitgave werd 
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr "Koppelt een uitgave aan de plaats waar het gemasterd werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij gemasterd werd."
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr "Koppelt een uitgave aan de plaats waar het gemixt werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij gemixt werd."
 
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
-msgstr "Koppelt een uitgave aan de plaats waar het geproduceerd werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij geproduceerd werd."
 
 #: DB:link_type/description:695
 msgid "Links a release to the place it was recorded at."
-msgstr "Koppelt een uitgave aan de plaats waar het opgenomen werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij opgenomen werd."
 
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
-msgstr "Koppelt een uitgave aan de plaats waar het geremixt werd."
+msgstr "Koppelt een uitgave aan de plaats waar hij geremixt werd."
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
@@ -1784,23 +1784,23 @@ msgstr "Dit koppelt een subgroep aan de groep waaruit het is voortgekomen. Dit r
 
 #: DB:link_type/description:885
 msgid "This links a work with the area it was arranged in."
-msgstr "Dit koppelt een compositie aan het gebied waarin het gearrangeerd werd."
+msgstr "Dit koppelt een compositie aan het gebied waarin zij gearrangeerd werd."
 
 #: DB:link_type/description:875
 msgid "This links a work with the area it was composed in."
-msgstr "Dit koppelt een compositie aan het gebied waarin het gecomponeerd werd."
+msgstr "Dit koppelt een compositie aan het gebied waarin zij gecomponeerd werd."
 
 #: DB:link_type/description:881
 msgid "This links a work with the area it was revised in."
-msgstr "Dit koppelt een compositie aan het gebied waarin het herzien werd."
+msgstr "Dit koppelt een compositie aan het gebied waarin zij herzien werd."
 
 #: DB:link_type/description:884
 msgid "This links a work with the area it was translated in."
-msgstr "Dit koppelt een compositie aan het gebied waarin het vertaald werd."
+msgstr "Dit koppelt een compositie aan het gebied waarin zij vertaald werd."
 
 #: DB:link_type/description:873
 msgid "This links a work with the area it was written in."
-msgstr "Dit koppelt een compositie aan het gebied waarin het geschreven werd."
+msgstr "Dit koppelt een compositie aan het gebied waarin zij geschreven werd."
 
 #: DB:link_type/description:879
 msgid "This links a work with the area its libretto was written in."
@@ -1812,23 +1812,23 @@ msgstr "Dit koppelt een compositie aan het gebied waarin de tekst geschreven wer
 
 #: DB:link_type/description:886
 msgid "This links a work with the place it was arranged at."
-msgstr "Dit koppelt een compositie aan de plaats waar het gearrangeerd werd."
+msgstr "Dit koppelt een compositie aan de plaats waar zij gearrangeerd werd."
 
 #: DB:link_type/description:876
 msgid "This links a work with the place it was composed at."
-msgstr "Dit koppelt een compositie aan de plaats waar het gecomponeerd werd."
+msgstr "Dit koppelt een compositie aan de plaats waar zij gecomponeerd werd."
 
 #: DB:link_type/description:882
 msgid "This links a work with the place it was revised at."
-msgstr "Dit koppelt een compositie aan de plaats waar het herzien werd."
+msgstr "Dit koppelt een compositie aan de plaats waar zij herzien werd."
 
 #: DB:link_type/description:883
 msgid "This links a work with the place it was translated at."
-msgstr "Dit koppelt een compositie aan de plaats waar het vertaald werd."
+msgstr "Dit koppelt een compositie aan de plaats waar zij vertaald werd."
 
 #: DB:link_type/description:874
 msgid "This links a work with the place it was written at."
-msgstr "Dit koppelt een compositie aan de plaats waar het geschreven werd."
+msgstr "Dit koppelt een compositie aan de plaats waar zij geschreven werd."
 
 #: DB:link_type/description:880
 msgid "This links a work with the place its libretto was written at."

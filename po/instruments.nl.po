@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-16 10:19+0000\n"
+"PO-Revision-Date: 2015-11-28 13:43+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -556,6 +556,10 @@ msgstr "kwastjes"
 msgid "bugle"
 msgstr "natuurbugel"
 
+#: DB:instrument/name:762
+msgid "buisine"
+msgstr "buisine"
+
 #: DB:instrument/name:577
 msgid "buk"
 msgstr "buk"
@@ -671,6 +675,10 @@ msgstr "chromatische knopaccordeon"
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
 msgstr "chromatische mondharmonica"
+
+#: DB:instrument/name:761
+msgid "citole"
+msgstr "citole"
 
 #: DB:instrument/name:237
 msgid "cittern"
@@ -1082,7 +1090,7 @@ msgstr "Floppydrive"
 
 #: DB:instrument/name:29
 msgid "flugelhorn"
-msgstr "bugel of flügelhorn"
+msgstr "bugel"
 
 #: DB:instrument/name:742
 msgid "flumpet"
@@ -1164,6 +1172,10 @@ msgstr "ganzá"
 msgid "gaohu"
 msgstr "gaohu"
 
+#: DB:instrument/name:756
+msgid "garifuna drum"
+msgstr "garifunatrommel"
+
 #: DB:instrument/name:289
 msgid "garklein recorder"
 msgstr "garkleinblokfluit"
@@ -1239,6 +1251,10 @@ msgstr "gitalele"
 #: DB:instrument/name:177
 msgid "guitar"
 msgstr "gitaar"
+
+#: DB:instrument/name:763
+msgid "guitar synthesizer"
+msgstr "gitaarsynthesizer"
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1845,6 +1861,10 @@ msgstr "oceaantrommel"
 msgid "octave mandolin"
 msgstr "octaafmandoline"
 
+#: DB:instrument/name:759
+msgid "oktawka"
+msgstr "oktawka"
+
 #: DB:instrument/name:281
 msgid "omnichord"
 msgstr "omnichord"
@@ -1969,6 +1989,10 @@ msgstr "practice chanter"
 msgid "prepared piano"
 msgstr "geprepareerde piano"
 
+#: DB:instrument/name:758
+msgid "primero"
+msgstr "primero"
+
 #: DB:instrument/name:86
 msgid "psaltery"
 msgstr "psalterium"
@@ -1988,6 +2012,14 @@ msgstr "qilaut"
 #: DB:instrument/name:437
 msgid "quena"
 msgstr "quena"
+
+#: DB:instrument/name:755
+msgid "quijada"
+msgstr "quijada"
+
+#: DB:instrument/name:753
+msgid "quinto"
+msgstr "quinto"
 
 #: DB:instrument/name:375
 msgid "rainstick"
@@ -2020,6 +2052,10 @@ msgstr "rammelaar"
 #: DB:instrument/name:595
 msgid "rauschpfeife"
 msgstr "rauschpfeife"
+
+#: DB:instrument/name:754
+msgid "ravanahatha"
+msgstr "ravanahatha"
 
 #: DB:instrument/name:239
 msgid "rebab"
@@ -2161,6 +2197,10 @@ msgstr "saz"
 msgid "saó ôi flute"
 msgstr "saó ôi fluit"
 
+#: DB:instrument/name:757
+msgid "segunda"
+msgstr "segunda"
+
 #: DB:instrument/name:148
 msgid "serpent"
 msgstr "serpent"
@@ -2268,6 +2308,10 @@ msgstr "kleine trom"
 #: DB:instrument/name:284
 msgid "song loan"
 msgstr "song loan"
+
+#: DB:instrument/name:760
+msgid "sopilka"
+msgstr "sopilka"
 
 #: DB:instrument/name:290
 msgid "sopranino recorder"

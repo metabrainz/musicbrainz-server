@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"PO-Revision-Date: 2015-11-17 05:21+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -555,6 +555,10 @@ msgstr "βούρτσες"
 msgid "bugle"
 msgstr "σάλπιγγα"
 
+#: DB:instrument/name:762
+msgid "buisine"
+msgstr ""
+
 #: DB:instrument/name:577
 msgid "buk"
 msgstr ""
@@ -670,6 +674,10 @@ msgstr "ακορντεόν με χρωματικά κουμπιά"
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
 msgstr "χρωματική φυσαρμόνικα"
+
+#: DB:instrument/name:761
+msgid "citole"
+msgstr ""
 
 #: DB:instrument/name:237
 msgid "cittern"
@@ -1163,6 +1171,10 @@ msgstr ""
 msgid "gaohu"
 msgstr ""
 
+#: DB:instrument/name:756
+msgid "garifuna drum"
+msgstr ""
+
 #: DB:instrument/name:289
 msgid "garklein recorder"
 msgstr ""
@@ -1238,6 +1250,10 @@ msgstr ""
 #: DB:instrument/name:177
 msgid "guitar"
 msgstr "κιθάρα"
+
+#: DB:instrument/name:763
+msgid "guitar synthesizer"
+msgstr ""
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1844,6 +1860,10 @@ msgstr ""
 msgid "octave mandolin"
 msgstr ""
 
+#: DB:instrument/name:759
+msgid "oktawka"
+msgstr ""
+
 #: DB:instrument/name:281
 msgid "omnichord"
 msgstr ""
@@ -1968,6 +1988,10 @@ msgstr ""
 msgid "prepared piano"
 msgstr ""
 
+#: DB:instrument/name:758
+msgid "primero"
+msgstr ""
+
 #: DB:instrument/name:86
 msgid "psaltery"
 msgstr "ψαλτήρι"
@@ -1986,6 +2010,14 @@ msgstr ""
 
 #: DB:instrument/name:437
 msgid "quena"
+msgstr ""
+
+#: DB:instrument/name:755
+msgid "quijada"
+msgstr ""
+
+#: DB:instrument/name:753
+msgid "quinto"
 msgstr ""
 
 #: DB:instrument/name:375
@@ -2018,6 +2050,10 @@ msgstr "κουδουνίστρα"
 
 #: DB:instrument/name:595
 msgid "rauschpfeife"
+msgstr ""
+
+#: DB:instrument/name:754
+msgid "ravanahatha"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -2160,6 +2196,10 @@ msgstr "σάζι"
 msgid "saó ôi flute"
 msgstr ""
 
+#: DB:instrument/name:757
+msgid "segunda"
+msgstr ""
+
 #: DB:instrument/name:148
 msgid "serpent"
 msgstr ""
@@ -2266,6 +2306,10 @@ msgstr "ταμπούρο"
 
 #: DB:instrument/name:284
 msgid "song loan"
+msgstr ""
+
+#: DB:instrument/name:760
+msgid "sopilka"
 msgstr ""
 
 #: DB:instrument/name:290

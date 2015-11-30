@@ -3,6 +3,7 @@
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
 # Ettore Atalan <email address hidden>, 2014
+# Frank <email address hidden>, 2015
 # Ian McEwen <email address hidden>, 2012
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -14,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-02-03 07:45+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-11-27 00:43+0000\n"
+"Last-Translator: Frank <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -240,7 +241,7 @@ msgstr "Zur Vorbereitung auf die Veröffentlichung des NGS wird das Bearbeiten b
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
-msgstr ""
+msgstr "Vor dem Sprung auf das neue Schema wird Editoren empfohlen Bearbeitungen (offene Edits) zu vermeiden."
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"

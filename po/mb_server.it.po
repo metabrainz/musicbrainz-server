@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-06 14:02-0800\n"
-"PO-Revision-Date: 2015-11-13 17:54+0000\n"
+"POT-Creation-Date: 2015-11-16 19:31-0600\n"
+"PO-Revision-Date: 2015-11-17 22:49+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -999,7 +999,7 @@ msgstr "In alternativa, puoi {uri|aggiungere una nuova opera}."
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "URL di Amazon collegati a più pubblicazioni"
 
-#: ../root/report/index.tt:67
+#: ../root/report/index.tt:71
 msgid "Amazon URLs linked to multiple releases"
 msgstr "URL di Amazon collegati a più pubblicazioni"
 
@@ -1460,6 +1460,12 @@ msgstr "Artisti con annotazioni"
 #: ../root/report/index.tt:27
 msgid "Artists with deprecated relationships"
 msgstr "Artisti con relazioni obsolete"
+
+#: ../root/report/artists_disambiguation_same_name.tt:1
+#: ../root/report/artists_disambiguation_same_name.tt:3
+#: ../root/report/index.tt:29
+msgid "Artists with disambiguation the same as the name"
+msgstr "Artisti con commento di disambiguazione uguale al nome"
 
 #: ../root/report/artists_with_no_subscribers.tt:1
 #: ../root/report/artists_with_no_subscribers.tt:3 ../root/report/index.tt:19
@@ -2584,15 +2590,15 @@ msgstr "URL di Discogs collegati a più pubblicazioni"
 msgid "Discogs URLs linked to multiple artists"
 msgstr "URL di Discogs collegati a più artisti"
 
-#: ../root/report/index.tt:40
+#: ../root/report/index.tt:41
 msgid "Discogs URLs linked to multiple labels"
 msgstr "URL di Discogs collegati a più etichette"
 
-#: ../root/report/index.tt:51
+#: ../root/report/index.tt:53
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "URL di Discogs collegati a più gruppi di pubblicazioni"
 
-#: ../root/report/index.tt:68
+#: ../root/report/index.tt:72
 msgid "Discogs URLs linked to multiple releases"
 msgstr "URL di Discogs collegati a più pubblicazioni"
 
@@ -2600,7 +2606,7 @@ msgstr "URL di Discogs collegati a più pubblicazioni"
 msgid "Discs as Separate Releases"
 msgstr "Dischi come pubblicazioni separate"
 
-#: ../root/report/index.tt:70
+#: ../root/report/index.tt:74
 msgid "Discs entered as separate releases"
 msgstr "Dischi inseriti come pubblicazioni separate"
 
@@ -3059,7 +3065,7 @@ msgstr "Errore durante l'annullamento della modifica"
 msgid "Error loading release: {error}"
 msgstr "Errore nel caricamento della pubblicazione: {error}"
 
-#: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
+#: ../root/main/400.tt:8 ../root/main/500.tt:37
 msgid "Error message: "
 msgstr "Messaggio di errore: "
 
@@ -3127,7 +3133,7 @@ msgstr "Evento:"
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:31 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/index.tt:8
 msgid "Events"
 msgstr "Eventi"
 
@@ -3335,12 +3341,6 @@ msgid ""
 "bug}."
 msgstr "Hai trovato un collegamento non funzionante sul nostro sito? Faccelo sapere {report|segnalando un bug}."
 
-#: ../root/main/404.tt:24
-msgid ""
-"Found a broken link on our site? Please {report|report a bug} and include "
-"any error message that is shown above."
-msgstr "Hai trovato un collegamento non funzionante sul nostro sito? {report|Segnala un bug} includendo il messaggio di errore visualizzato qui sopra."
-
 #: ../root/main/400.tt:24
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
@@ -3479,6 +3479,7 @@ msgstr "Informazioni generali"
 #: ../root/report/annotations_series.tt:9
 #: ../root/report/annotations_works.tt:9
 #: ../root/report/artists_containing_disambiguation_comments.tt:9
+#: ../root/report/artists_disambiguation_same_name.tt:9
 #: ../root/report/artists_that_may_be_groups.tt:12
 #: ../root/report/artists_that_may_be_persons.tt:13
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:9
@@ -3513,14 +3514,18 @@ msgstr "Informazioni generali"
 #: ../root/report/featuring_releases.tt:13
 #: ../root/report/isrc_with_many_recordings.tt:15
 #: ../root/report/iswc_with_many_works.tt:16
+#: ../root/report/labels_disambiguation_same_name.tt:9
 #: ../root/report/mediums_with_sequence_issues.tt:8
 #: ../root/report/multiple_asins.tt:12
 #: ../root/report/multiple_discogs_links.tt:15
-#: ../root/report/not_various_artists.tt:9
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
 #: ../root/report/recordings_with_varying_track_lengths.tt:9
+#: ../root/report/recordings_without_va_credit.tt:9
+#: ../root/report/recordings_without_va_link.tt:9
+#: ../root/report/release_groups_without_va_credit.tt:9
+#: ../root/report/release_groups_without_va_link.tt:9
 #: ../root/report/released_too_early.tt:8
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
 #: ../root/report/releases_to_convert.tt:12
@@ -3530,6 +3535,8 @@ msgstr "Informazioni generali"
 #: ../root/report/releases_with_unlikely_language_script.tt:10
 #: ../root/report/releases_without_language.tt:11
 #: ../root/report/releases_without_script.tt:10
+#: ../root/report/releases_without_va_credit.tt:9
+#: ../root/report/releases_without_va_link.tt:9
 #: ../root/report/separate_discs.tt:10
 #: ../root/report/set_in_different_rg.tt:14
 #: ../root/report/single_medium_releases_with_medium_titles.tt:10
@@ -3745,12 +3752,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:134
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:141
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/report/index.tt:137 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:144 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC con più registrazioni"
@@ -3783,11 +3790,11 @@ msgstr "ISWC “{iswc}”"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:140
+#: ../root/report/index.tt:147
 msgid "ISWCs"
 msgstr "ISWC"
 
-#: ../root/report/index.tt:143 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:150 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr "ISWC con più opere"
@@ -4130,24 +4137,30 @@ msgstr "Etichetta:"
 
 #: ../root/area/labels.tt:1 ../root/area/labels.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/release/layout.tt:73 ../root/report/index.tt:37
+#: ../root/release/layout.tt:73 ../root/report/index.tt:38
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Labels"
 msgstr "Etichette"
 
-#: ../root/report/index.tt:43
+#: ../root/report/index.tt:44
 msgid "Labels with annotations"
 msgstr "Etichette con annotazioni"
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
-#: ../root/report/index.tt:42
+#: ../root/report/index.tt:43
 msgid "Labels with deprecated relationships"
 msgstr "Etichette con relazioni obsolete"
 
+#: ../root/report/index.tt:45
+#: ../root/report/labels_disambiguation_same_name.tt:1
+#: ../root/report/labels_disambiguation_same_name.tt:3
+msgid "Labels with disambiguation the same as the name"
+msgstr "Etichette con commento di disambiguazione uguale al nome"
+
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
-#: ../root/report/index.tt:41
+#: ../root/report/index.tt:42
 msgid "Labels with possible duplicate relationships"
 msgstr "Etichette che potrebbero avere relazioni doppie"
 
@@ -4384,7 +4397,6 @@ msgid "Long link phrase:"
 msgstr "Frase di collegamento lunga:"
 
 #: ../root/doc/bare_error.tt:11 ../root/doc/error.tt:17 ../root/main/400.tt:18
-#: ../root/main/404.tt:18
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr "Cerchi aiuto? Consulta la nostra {doc|documentazione} o le {faq|domande frequenti}."
 
@@ -5157,7 +5169,7 @@ msgstr "Nessuno parteciperà a {event}."
 msgid "Nominate a candidate for auto-editor"
 msgstr "Nomina un candidato al ruolo di auto-editor"
 
-#: ../root/report/index.tt:87
+#: ../root/report/index.tt:91
 #: ../root/report/releases_with_download_relationships.tt:1
 #: ../root/report/releases_with_download_relationships.tt:3
 msgid "Non-digital releases with download relationships"
@@ -5432,8 +5444,7 @@ msgid "Packaging:"
 msgstr "Confezione:"
 
 #: ../root/doc/bare_error.tt:1 ../root/doc/error.tt:1 ../root/doc/error.tt:7
-#: ../root/main/404.tt:4 ../root/main/404.tt:6 ../root/main/mirror_404.tt:1
-#: ../root/main/mirror_404.tt:3
+#: ../root/main/mirror_404.tt:1 ../root/main/mirror_404.tt:3
 msgid "Page Not Found"
 msgstr "Pagina non trovata"
 
@@ -5545,17 +5556,17 @@ msgstr "Luogo:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:106 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:113 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Luoghi"
 
-#: ../root/report/index.tt:110
+#: ../root/report/index.tt:117
 msgid "Places with annotations"
 msgstr "Luoghi con annotazioni"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:116
 msgid "Places with deprecated relationships"
 msgstr "Luoghi con relazioni obsolete"
 
@@ -5695,7 +5706,7 @@ msgid "Possible duplicate events"
 msgstr "Eventi che potrebbero essere doppioni"
 
 #: ../root/report/duplicate_release_groups.tt:1
-#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:54
+#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:56
 msgid "Possible duplicate release groups"
 msgstr "Gruppi di pubblicazioni che potrebbero essere doppioni"
 
@@ -5708,7 +5719,7 @@ msgstr "Valori possibili:"
 msgid "Possibly duplicate artists"
 msgstr "Artisti che potrebbero essere doppioni"
 
-#: ../root/report/index.tt:34
+#: ../root/report/index.tt:35
 msgid "Possibly duplicate events"
 msgstr "Eventi che potrebbero essere doppioni"
 
@@ -5914,16 +5925,22 @@ msgstr "Registrazione:"
 #: ../root/artist/recordings.tt:1 ../root/artist/recordings.tt:4
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:93
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:99
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Registrazioni"
 
-#: ../root/report/index.tt:103 ../root/report/not_various_artists.tt:1
-#: ../root/report/not_various_artists.tt:3
-msgid "Recordings incorrectly linked to Various Artists"
-msgstr "Registrazioni associate erroneamente ad Artisti Vari"
+#: ../root/report/index.tt:110 ../root/report/recordings_without_va_link.tt:1
+#: ../root/report/recordings_without_va_link.tt:3
+msgid "Recordings credited to \"Various Artists\" but not linked to VA"
+msgstr "Registrazioni accreditate ad \"Artisti Vari\" ma non collegate ad AV"
+
+#: ../root/report/index.tt:109
+#: ../root/report/recordings_without_va_credit.tt:1
+#: ../root/report/recordings_without_va_credit.tt:3
+msgid "Recordings not credited to \"Various Artists\" but linked to VA"
+msgstr "Registrazioni non accreditate ad \"Artisti Vari\" ma collegate ad AV"
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
@@ -5935,32 +5952,32 @@ msgstr "Registrazioni con relazioni di prima pubblicazione"
 msgid "Recordings with Varying Track Lengths"
 msgstr "Registrazioni con durata delle tracce variabile"
 
-#: ../root/report/index.tt:102
+#: ../root/report/index.tt:108
 msgid "Recordings with annotations"
 msgstr "Registrazioni con annotazioni"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:101
+#: ../root/report/index.tt:107
 msgid "Recordings with deprecated relationships"
 msgstr "Registrazioni con relazioni obsolete"
 
-#: ../root/report/index.tt:96
+#: ../root/report/index.tt:102
 msgid "Recordings with earliest release relationships"
 msgstr "Registrazioni con relazioni di prima pubblicazione"
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:99
+#: ../root/report/index.tt:105
 msgid "Recordings with possible duplicate relationships"
 msgstr "Registrazioni che potrebbero avere relazioni doppie"
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:98
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:104
 msgid "Recordings with titles containing featuring artists"
 msgstr "Registrazioni che contengono \"feat.\" nel titolo"
 
-#: ../root/report/index.tt:100
+#: ../root/report/index.tt:106
 msgid "Recordings with varying track times"
 msgstr "Registrazioni con durata delle tracce variabile"
 
@@ -6189,7 +6206,7 @@ msgstr "Gruppi di pubblicazioni"
 
 #: ../root/report/deprecated_relationship_release_groups.tt:1
 #: ../root/report/deprecated_relationship_release_groups.tt:3
-#: ../root/report/index.tt:53
+#: ../root/report/index.tt:55
 msgid "Release Groups with deprecated relationships"
 msgstr "Gruppi di pubblicazioni con relazioni obsolete"
 
@@ -6286,26 +6303,38 @@ msgstr "Gruppo di pubblicazioni \"{name}\" di {artist}"
 msgid "Release group:"
 msgstr "Gruppo di pubblicazioni:"
 
-#: ../root/report/index.tt:46
+#: ../root/report/index.tt:48
 msgid "Release groups"
 msgstr "Gruppi di pubblicazioni"
 
-#: ../root/report/index.tt:49
+#: ../root/report/index.tt:59
+#: ../root/report/release_groups_without_va_link.tt:1
+#: ../root/report/release_groups_without_va_link.tt:3
+msgid "Release groups credited to \"Various Artists\" but not linked to VA"
+msgstr "Gruppi di pubblicazioni accreditati ad \"Artisti Vari\" ma non collegati ad AV"
+
+#: ../root/report/index.tt:58
+#: ../root/report/release_groups_without_va_credit.tt:1
+#: ../root/report/release_groups_without_va_credit.tt:3
+msgid "Release groups not credited to \"Various Artists\" but linked to VA"
+msgstr "Gruppi di pubblicazioni non accreditati ad \"Artisti Vari\" ma collegati ad AV"
+
+#: ../root/report/index.tt:51
 msgid "Release groups that might need to be merged"
 msgstr "Gruppi di pubblicazioni che forse dovrebbero essere uniti"
 
-#: ../root/report/index.tt:55
+#: ../root/report/index.tt:57
 msgid "Release groups with annotations"
 msgstr "Gruppi di pubblicazioni con annotazioni"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
-#: ../root/report/index.tt:52
+#: ../root/report/index.tt:54
 msgid "Release groups with possible duplicate relationships"
 msgstr "Gruppi di pubblicazioni che potrebbero avere relazioni doppie"
 
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:50
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:52
 msgid "Release groups with titles containing featuring artists"
 msgstr "Gruppi di pubblicazioni che contengono \"feat.\" nel titolo"
 
@@ -6346,7 +6375,7 @@ msgstr "Pubblicazione:"
 #: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
 #: ../root/label/index.tt:29 ../root/release_group/merge.tt:16
-#: ../root/report/index.tt:58 ../root/series/index.tt:15
+#: ../root/report/index.tt:62 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Releases"
 msgstr "Pubblicazioni"
@@ -6375,42 +6404,52 @@ msgstr "Pubblicazioni con più collegamenti a Discogs"
 msgid "Releases With Some Formats Unset"
 msgstr "Pubblicazioni con alcuni formati non impostati"
 
-#: ../root/report/index.tt:79
+#: ../root/report/index.tt:96 ../root/report/releases_without_va_link.tt:1
+#: ../root/report/releases_without_va_link.tt:3
+msgid "Releases credited to \"Various Artists\" but not linked to VA"
+msgstr "Pubblicazioni accreditate ad \"Artisti Vari\" ma non collegate ad AV"
+
+#: ../root/report/index.tt:83
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Pubblicazioni nel Cover Art Archive che hanno ancora relazioni di copertina"
 
-#: ../root/report/index.tt:81
+#: ../root/report/index.tt:95 ../root/report/releases_without_va_credit.tt:1
+#: ../root/report/releases_without_va_credit.tt:3
+msgid "Releases not credited to \"Various Artists\" but linked to VA"
+msgstr "Pubblicazioni non accreditate ad \"Artisti Vari\" ma collegate ad AV"
+
+#: ../root/report/index.tt:85
 msgid "Releases of any sort that still have cover art relationships"
 msgstr "Pubblicazioni di qualsiasi tipo che hanno ancora relazioni di copertina"
 
-#: ../root/report/index.tt:74 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:78 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr "Pubblicazioni pubblicate troppo presto"
 
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:79
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr "Pubblicazioni in cui alcuni (ma non tutti) i supporti non hanno un formato impostato"
 
-#: ../root/report/index.tt:65
+#: ../root/report/index.tt:69
 msgid "Releases which have multiple ASINs"
 msgstr "Pubblicazioni che possiedono più ASIN"
 
-#: ../root/report/index.tt:66
+#: ../root/report/index.tt:70
 msgid "Releases which have multiple Discogs links"
 msgstr "Pubblicazioni che possiedono più collegamenti a Discogs"
 
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:73
 msgid "Releases which have part of set relationships"
 msgstr "Pubblicazioni che hanno relazioni di parte di un set"
 
-#: ../root/report/index.tt:64
+#: ../root/report/index.tt:68
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Pubblicazioni che hanno URL di Amazon non previsti"
 
-#: ../root/report/index.tt:61 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:65 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Pubblicazioni che potrebbero dover essere attribuite ad artisti multipli"
@@ -6420,23 +6459,23 @@ msgstr "Pubblicazioni che potrebbero dover essere attribuite ad artisti multipli
 msgid "Releases with Cover Art relationships"
 msgstr "Pubblicazioni con relazioni di copertina"
 
-#: ../root/report/index.tt:86
+#: ../root/report/index.tt:90
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
 msgstr "Pubblicazioni con un solo supporto che ha un titolo"
 
-#: ../root/report/index.tt:89
+#: ../root/report/index.tt:93
 msgid "Releases with annotations"
 msgstr "Pubblicazioni con annotazioni"
 
-#: ../root/report/index.tt:76
+#: ../root/report/index.tt:80
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Pubblicazioni con numeri di catalogo che sembrano ASIN"
 
 #: ../root/report/deprecated_relationship_releases.tt:1
 #: ../root/report/deprecated_relationship_releases.tt:3
-#: ../root/report/index.tt:88
+#: ../root/report/index.tt:92
 msgid "Releases with deprecated relationships"
 msgstr "Pubblicazioni con relazioni obsolete"
 
@@ -6445,31 +6484,31 @@ msgstr "Pubblicazioni con relazioni obsolete"
 msgid "Releases with medium number issues"
 msgstr "Pubblicazioni con problemi nella numerazione dei supporti"
 
-#: ../root/report/index.tt:90 ../root/report/releases_with_no_mediums.tt:1
+#: ../root/report/index.tt:94 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
 msgstr "Pubblicazioni senza supporti"
 
-#: ../root/report/index.tt:82
+#: ../root/report/index.tt:86
 msgid "Releases with non-sequential mediums"
 msgstr "Pubblicazioni con supporti non sequenziali"
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:75
 msgid "Releases with non-sequential track numbers"
 msgstr "Pubblicazioni con numeri di traccia non sequenziali"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:85
+#: ../root/report/index.tt:89
 msgid "Releases with possible duplicate relationships"
 msgstr "Pubblicazioni che potrebbero avere relazioni doppie"
 
-#: ../root/report/index.tt:72 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/index.tt:76 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "Pubblicazioni con tracce dati superflue"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:73
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:77
 msgid "Releases with titles containing featuring artists"
 msgstr "Pubblicazioni che contengono \"feat.\" nel titolo"
 
@@ -6478,23 +6517,23 @@ msgstr "Pubblicazioni che contengono \"feat.\" nel titolo"
 msgid "Releases with track number issues"
 msgstr "Pubblicazioni con problemi nella numerazione delle tracce"
 
-#: ../root/report/index.tt:84 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:88 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr "Pubblicazioni con tracce di durata sconosciuta"
 
-#: ../root/report/index.tt:83
+#: ../root/report/index.tt:87
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "Pubblicazioni con combinazioni lingua/script improbabili"
 
-#: ../root/report/index.tt:62 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:66 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "Pubblicazioni senza lingua"
 
-#: ../root/report/index.tt:63 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:67 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "Pubblicazioni senza script"
@@ -7049,7 +7088,7 @@ msgstr "Inviami email con le modifiche alle mie sottoscrizioni:"
 msgid "Sentence"
 msgstr "Frase"
 
-#: ../root/report/index.tt:113 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:120 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Serie"
@@ -7094,7 +7133,7 @@ msgstr "Annotazioni di serie"
 msgid "Series information"
 msgstr "Informazioni sulla serie"
 
-#: ../root/report/index.tt:116
+#: ../root/report/index.tt:123
 msgid "Series with annotations"
 msgstr "Serie con annotazioni"
 
@@ -7303,10 +7342,6 @@ msgstr "Spiacenti, non è stato possibile eseguire la tua ricerca (<code>{query}
 msgid ""
 "Sorry, but your requests are exceeding the allowable rate limit ({rlinfo})."
 msgstr "Spiacenti, ma le tue richieste stanno eccedendo i limiti di frequenza permessi ({rlinfo})."
-
-#: ../root/main/404.tt:8
-msgid "Sorry, the page you're looking for does not exist."
-msgstr "Spiacenti, la pagina che stai cercando non esiste."
 
 #: ../root/main/mirror_404.tt:5
 msgid ""
@@ -8583,6 +8618,12 @@ msgid ""
 "and more open edits are listed first."
 msgstr "Questo report elenca gli artisti a cui nessun editor è sottoscritto e le cui modifiche potrebbero quindi essere poco controllate. Gli artisti con più gruppi di pubblicazioni e più modifiche aperte sono elencati per primi."
 
+#: ../root/report/artists_disambiguation_same_name.tt:6
+msgid ""
+"This report lists artists that have their disambiguation set to be the same "
+"as their name. Disambiguation should not be filled in this case."
+msgstr "Questo report elenca gli artisti che hanno il commento di disambiguazione uguale al nome. In questo caso, il campo disambiguazione non dovrebbe essere completato."
+
 #: ../root/report/artists_that_may_be_groups.tt:6
 msgid ""
 "This report lists artists that have type set to other than <em>group</em>, "
@@ -8649,6 +8690,12 @@ msgid ""
 "they're duplicates (for example, if there are separate events for headliner "
 "and supporting artist) please merge them."
 msgstr "Questo report elenca gli eventi tenutisi nello stesso luogo e nella stessa data. Se si tratta di doppioni (per esempio, se ci sono eventi separati per l'esibizione principale e per il gruppo spalla) ti chiediamo di unirli."
+
+#: ../root/report/labels_disambiguation_same_name.tt:6
+msgid ""
+"This report lists labels that have their disambiguation set to be the same "
+"as their name. Disambiguation should not be filled in this case."
+msgstr "Questo report elenca le etichette che hanno il commento di disambiguazione uguale al nome. In questo caso, il campo disambiguazione non dovrebbe essere completato."
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8815,7 +8862,7 @@ msgid ""
 "Merge Releases})."
 msgstr "Questo report mostra gli URL di Discogs che sono collegati a più pubblicazioni. Nella maggior parte dei casi una pubblicazione di Discogs dovrebbe corrispondere ad una sola pubblicazione di MusicBrainz, quindi solo uno dei link sarà corretto. Controlla quale pubblicazione di MusicBrainz corrisponde a quella di Discogs (per formato, tracce, Paese, ecc.). Potresti anche trovare qualche URL di Discogs collegato a diversi dischi di una pubblicazione con più dischi: in quel caso, potrebbe essere necessario unirle (controlla {how_to_merge_releases|come unire le pubblicazioni})."
 
-#: ../root/report/not_various_artists.tt:6
+#: ../root/report/recordings_without_va_credit.tt:6
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
@@ -8836,6 +8883,12 @@ msgid ""
 " more than 30 seconds."
 msgstr "Questo report mostra le registrazioni in cui le tracce collegate hanno durate che variano di più di 30 secondi."
 
+#: ../root/report/recordings_without_va_link.tt:6
+msgid ""
+"This report shows recordings with \"Various Artists\" as the credited name "
+"but not linked to the Various Artists entity."
+msgstr "Questo report mostra le registrazioni che hanno \"Artisti Vari\" come nome accreditato ma che non sono associate all'entità Artisti Vari."
+
 #: ../root/report/featuring_recordings.tt:6
 msgid ""
 "This report shows recordings with (feat. Artist) in the title. For classical"
@@ -8844,6 +8897,18 @@ msgid ""
 "should be fixed (both on the recordings and on the tracks!). Consult the "
 "{featured_artists|page about featured artists} to know more."
 msgstr "Questo report mostra le registrazioni con (feat. Artista) nel titolo. Per le registrazioni di musica classica, consulta le {CSG|linee guida di stile sulla musica classica}. Per le altre registrazioni, ciò deriva da una versione precedente di MusicBrainz e deve essere sistemato (sia nelle registrazioni che nelle tracce!). Consulta la {featured_artists|pagina sugli artisti con \"feat.\"} per saperne di più."
+
+#: ../root/report/release_groups_without_va_credit.tt:6
+msgid ""
+"This report shows release groups linked to the Various Artists entity "
+"without \"Various Artists\" as the credited name."
+msgstr "Questo report mostra i gruppi di pubblicazioni associati all'entità Artisti Vari che non hanno \"Artisti Vari\" come nome accreditato."
+
+#: ../root/report/release_groups_without_va_link.tt:6
+msgid ""
+"This report shows release groups with \"Various Artists\" as the credited "
+"name but not linked to the Various Artists entity."
+msgstr "Questo report mostra i gruppi di pubblicazioni che hanno \"Artisti Vari\" come nome accreditato ma che non sono associati all'entità Artisti Vari."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -8863,6 +8928,12 @@ msgid ""
 "you might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr "Questo report mostra i gruppi di pubblicazioni con pubblicazioni che sono collegate ad altre pubblicazioni in gruppi diversi da relazioni di \"parte di un set\" o di traslitterazione. Se trovi elencata una coppia di gruppi di pubblicazioni, è probabile che essi debbano essere uniti. Se le pubblicazioni sono dischi collegati con relazioni di \"parte di un set\", potresti doverle unire in una pubblicazione con più dischi (controlla {how_to_merge_releases|come unire le pubblicazioni})."
+
+#: ../root/report/releases_without_va_credit.tt:6
+msgid ""
+"This report shows releases linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr "Questo report mostra le pubblicazioni associate all'entità Artisti Vari che non hanno \"Artisti Vari\" come nome accreditato."
 
 #: ../root/report/single_medium_releases_with_medium_titles.tt:6
 msgid ""
@@ -8968,6 +9039,12 @@ msgid ""
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
 msgstr "Questo report mostra le pubblicazioni che hanno ID disco nonostante siano state pubblicate troppo presto per averli, in cui uno dei formati dei supporti non esisteva all'epoca della pubblicazione o in cui un ID disco è associato a un supporto il cui formato non lo permette."
+
+#: ../root/report/releases_without_va_link.tt:6
+msgid ""
+"This report shows releases with \"Various Artists\" as the credited name but"
+" not linked to the Various Artists entity."
+msgstr "Questo report mostra le pubblicazioni che hanno \"Artisti Vari\" come nome accreditato ma che non sono associate all'entità Artisti Vari."
 
 #: ../root/report/featuring_releases.tt:6
 msgid ""
@@ -9159,6 +9236,7 @@ msgstr "Totale URL trovati: {count}"
 
 #: ../root/report/annotations_artists.tt:8
 #: ../root/report/artists_containing_disambiguation_comments.tt:8
+#: ../root/report/artists_disambiguation_same_name.tt:8
 #: ../root/report/artists_that_may_be_groups.tt:11
 #: ../root/report/artists_that_may_be_persons.tt:12
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:8
@@ -9183,6 +9261,7 @@ msgstr "Totale eventi trovati: {count}"
 #: ../root/report/deprecated_relationship_labels.tt:8
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
 #: ../root/report/duplicate_relationships_labels.tt:8
+#: ../root/report/labels_disambiguation_same_name.tt:8
 msgid "Total labels found: {count}"
 msgstr "Totale etichette trovate: {count}"
 
@@ -9199,9 +9278,10 @@ msgstr "Totale luoghi trovati: {count}"
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
-#: ../root/report/not_various_artists.tt:8
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_with_varying_track_lengths.tt:8
+#: ../root/report/recordings_without_va_credit.tt:8
+#: ../root/report/recordings_without_va_link.tt:8
 msgid "Total recordings found: {count}"
 msgstr "Totale registrazioni trovate: {count}"
 
@@ -9211,6 +9291,8 @@ msgstr "Totale registrazioni trovate: {count}"
 #: ../root/report/duplicate_relationships_release_groups.tt:8
 #: ../root/report/duplicate_release_groups.tt:13
 #: ../root/report/featuring_release_groups.tt:12
+#: ../root/report/release_groups_without_va_credit.tt:8
+#: ../root/report/release_groups_without_va_link.tt:8
 msgid "Total release groups found: {count}"
 msgstr "Totale gruppi di pubblicazioni trovati: {count}"
 
@@ -9237,6 +9319,8 @@ msgstr "Totale gruppi di pubblicazioni: {count}"
 #: ../root/report/releases_with_unlikely_language_script.tt:8
 #: ../root/report/releases_without_language.tt:10
 #: ../root/report/releases_without_script.tt:9
+#: ../root/report/releases_without_va_credit.tt:8
+#: ../root/report/releases_without_va_link.tt:8
 #: ../root/report/separate_discs.tt:9
 #: ../root/report/single_medium_releases_with_medium_titles.tt:9
 #: ../root/report/some_formats_unset.tt:9
@@ -9341,7 +9425,7 @@ msgstr "Elenco di tracce:"
 msgid "Tracks"
 msgstr "Tracce"
 
-#: ../root/report/index.tt:97
+#: ../root/report/index.tt:103
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Tracce i cui titoli includono il loro numero di traccia"
 
@@ -9376,7 +9460,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr "Gli editor di transclusione sono utenti che aggiungono e aggiornano le voci nella tabella di transclusione {uri|WikiDocs}."
 
-#: ../root/report/index.tt:77
+#: ../root/report/index.tt:81
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Pseudo-pubblicazioni tradotte/traslitterate non collegate a una versione originale"
@@ -9494,13 +9578,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|etichetta]"
 
 #: ../root/components/common-macros.tt:126
-#: ../root/components/common-macros.tt:606 ../root/report/index.tt:127
+#: ../root/components/common-macros.tt:606 ../root/report/index.tt:134
 msgid "URLs"
 msgstr "URL"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:130
+#: ../root/report/index.tt:137
 msgid "URLs with deprecated relationships"
 msgstr "URL con relazioni obsolete"
 
@@ -10032,24 +10116,24 @@ msgstr "Opera:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:606 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:119 ../root/series/index.tt:15
+#: ../root/report/index.tt:126 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Opere"
 
-#: ../root/report/index.tt:124
+#: ../root/report/index.tt:131
 msgid "Works with annotations"
 msgstr "Opere con annotazioni"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:130
 msgid "Works with deprecated relationships"
 msgstr "Opere con relazioni obsolete"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:122
+#: ../root/report/index.tt:129
 msgid "Works with possible duplicate relationships"
 msgstr "Opere che potrebbero avere relazioni doppie"
 
@@ -11523,7 +11607,7 @@ msgid ""
 "{url|help us improve it}!"
 msgstr "Lingua impostata correttamente. Se noti un problema con la traduzione, {url|aiutaci a migliorarla}!"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:210
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:209
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -12916,7 +13000,7 @@ msgstr "Aggiungi un'altra opera"
 msgid "Show less..."
 msgstr "Mostra meno..."
 
-#: ../root/static/scripts/common/utility/entityLink.js:27
+#: ../root/static/scripts/common/utility/entityLink.js:29
 msgid "(video)"
 msgstr "(video)"
 

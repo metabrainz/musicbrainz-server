@@ -2,14 +2,15 @@
 # Translators:
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
+# mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013
 # Osamu Takahashi, 2014
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-28 20:12+0000\n"
+"Last-Translator: mai inoue\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -557,6 +558,10 @@ msgstr ""
 msgid "bugle"
 msgstr ""
 
+#: DB:instrument/name:762
+msgid "buisine"
+msgstr ""
+
 #: DB:instrument/name:577
 msgid "buk"
 msgstr ""
@@ -672,6 +677,10 @@ msgstr ""
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
 msgstr "クロマティック・ハーモニカ"
+
+#: DB:instrument/name:761
+msgid "citole"
+msgstr ""
 
 #: DB:instrument/name:237
 msgid "cittern"
@@ -1165,6 +1174,10 @@ msgstr ""
 msgid "gaohu"
 msgstr "高胡"
 
+#: DB:instrument/name:756
+msgid "garifuna drum"
+msgstr ""
+
 #: DB:instrument/name:289
 msgid "garklein recorder"
 msgstr "ガークライン"
@@ -1240,6 +1253,10 @@ msgstr ""
 #: DB:instrument/name:177
 msgid "guitar"
 msgstr "ギター"
+
+#: DB:instrument/name:763
+msgid "guitar synthesizer"
+msgstr ""
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1840,10 +1857,14 @@ msgstr "オカリナ"
 
 #: DB:instrument/name:376
 msgid "ocean drum"
-msgstr ""
+msgstr "サーフドラム"
 
 #: DB:instrument/name:601
 msgid "octave mandolin"
+msgstr ""
+
+#: DB:instrument/name:759
+msgid "oktawka"
 msgstr ""
 
 #: DB:instrument/name:281
@@ -1970,6 +1991,10 @@ msgstr ""
 msgid "prepared piano"
 msgstr "プリペアド・ピアノ"
 
+#: DB:instrument/name:758
+msgid "primero"
+msgstr ""
+
 #: DB:instrument/name:86
 msgid "psaltery"
 msgstr ""
@@ -1989,6 +2014,14 @@ msgstr ""
 #: DB:instrument/name:437
 msgid "quena"
 msgstr "ケーナ"
+
+#: DB:instrument/name:755
+msgid "quijada"
+msgstr ""
+
+#: DB:instrument/name:753
+msgid "quinto"
+msgstr ""
 
 #: DB:instrument/name:375
 msgid "rainstick"
@@ -2020,6 +2053,10 @@ msgstr "ラトル"
 
 #: DB:instrument/name:595
 msgid "rauschpfeife"
+msgstr ""
+
+#: DB:instrument/name:754
+msgid "ravanahatha"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -2162,6 +2199,10 @@ msgstr "サズ"
 msgid "saó ôi flute"
 msgstr ""
 
+#: DB:instrument/name:757
+msgid "segunda"
+msgstr ""
+
 #: DB:instrument/name:148
 msgid "serpent"
 msgstr ""
@@ -2268,6 +2309,10 @@ msgstr "スネアドラム"
 
 #: DB:instrument/name:284
 msgid "song loan"
+msgstr ""
+
+#: DB:instrument/name:760
+msgid "sopilka"
 msgstr ""
 
 #: DB:instrument/name:290

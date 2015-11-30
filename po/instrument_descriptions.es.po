@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"PO-Revision-Date: 2015-11-17 05:21+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,13 @@ msgstr ""
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
+msgstr ""
+
+#. name:guitar synthesizer
+#: DB:instrument/description:763
+msgid ""
+"A guitar synthesizer is any one of a number of systems that allow a guitar "
+"player to play synthesizer sound."
 msgstr ""
 
 #. name:hi-hat
@@ -756,6 +763,18 @@ msgid ""
 " electric guitar"
 msgstr ""
 
+#. name:oktawka
+#: DB:instrument/description:759
+msgid "Small Polish traditional fiddle."
+msgstr ""
+
+#. name:sopilka
+#: DB:instrument/description:760
+msgid ""
+"Sopilka (generally) refers to a type of fife used in Ukrainian traditional "
+"music."
+msgstr ""
+
 #. name:struck idiophone
 #: DB:instrument/description:675
 msgid ""
@@ -1137,6 +1156,12 @@ msgid ""
 "The bolon is a traditional harp-lute played in several African countries."
 msgstr ""
 
+#. name:buisine
+#: DB:instrument/description:762
+msgid ""
+"The buisine was a type of straight medieval trumpet usually made of metal."
+msgstr ""
+
 #. name:buk
 #: DB:instrument/description:577
 msgid ""
@@ -1218,6 +1243,13 @@ msgstr ""
 #. name:chitra veena
 #: DB:instrument/description:744
 msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
+msgstr ""
+
+#. name:citole
+#: DB:instrument/description:761
+msgid ""
+"The citole is an archaic musical instrument, similar and a distant ancestor "
+"of the modern guitar."
 msgstr ""
 
 #. name:concert flute
@@ -1455,6 +1487,13 @@ msgstr ""
 msgid ""
 "The gaohu is a Chinese bowed string instrument developed from the erhu and "
 "tuned a fourth higher."
+msgstr ""
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
+"Guatemala and Honduras."
 msgstr ""
 
 #. name:gayageum
@@ -2050,6 +2089,11 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr ""
 
+#. name:primero
+#: DB:instrument/description:758
+msgid "The primero is a tenor garifuna drum."
+msgstr ""
+
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -2065,6 +2109,14 @@ msgstr ""
 #. name:quena
 #: DB:instrument/description:437
 msgid "The quena is a traditional bamboo flute from the Andes."
+msgstr ""
+
+#. name:quijada
+#: DB:instrument/description:755
+msgid ""
+"The quijada is a traditional Latin percussion instrument made from the "
+"jawbone a mule, horse, or donkey that is cleaned of tissue and dried so the "
+"teeth can loosen and act as a rattle."
 msgstr ""
 
 #. name:rammana
@@ -2095,6 +2147,13 @@ msgid ""
 "The ranat thum is a xylophone from Thailand consisting of 18 wooden bars "
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
+msgstr ""
+
+#. name:ravanahatha
+#: DB:instrument/description:754
+msgid ""
+"The ravanahatha is an ancient bowed violin, once popular in Western India "
+"and Sri Lanka."
 msgstr ""
 
 #. name:reco-reco
@@ -2214,6 +2273,11 @@ msgstr ""
 #. name:saz
 #: DB:instrument/description:472
 msgid "The saz is a long-necked fretted lute"
+msgstr ""
+
+#. name:segunda
+#: DB:instrument/description:757
+msgid "The segunda is a bass garifuna drum."
 msgstr ""
 
 #. name:setar

@@ -3,6 +3,7 @@
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
 # Ettore Atalan <email address hidden>, 2014
+# Felix Gruber <email address hidden>, 2015
 # Johannes Dewender <email address hidden>, 2014
 # nikki, 2013
 # Philipp Wolfer <email address hidden>, 2015
@@ -11,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-11-17 09:02+0000\n"
+"Last-Translator: Felix Gruber <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,24 +103,24 @@ msgstr "Bandcamp-Seite für"
 #: DB:link_type/link_phrase:860 DB:link_type/link_phrase:861
 #: DB:link_type/link_phrase:862
 msgid "Bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #: DB:link_type/reverse_link_phrase:860 DB:link_type/reverse_link_phrase:861
 #: DB:link_type/reverse_link_phrase:862
 msgid "Bandsintown page for"
-msgstr ""
+msgstr "Bandsintown-Seite für"
 
 #: DB:link_type/link_phrase:850 DB:link_type/link_phrase:851
 #: DB:link_type/link_phrase:852 DB:link_type/link_phrase:853
 #: DB:link_type/reverse_link_phrase:854
 msgid "BookBrainz"
-msgstr ""
+msgstr "BookBrainz"
 
 #: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:850
 #: DB:link_type/reverse_link_phrase:851 DB:link_type/reverse_link_phrase:852
 #: DB:link_type/reverse_link_phrase:853
 msgid "BookBrainz page for"
-msgstr ""
+msgstr "BookBrainz-Seite für"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -491,12 +492,12 @@ msgstr ""
 #: DB:link_type/link_phrase:840 DB:link_type/link_phrase:837
 #: DB:link_type/link_phrase:838 DB:link_type/link_phrase:839
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:840 DB:link_type/reverse_link_phrase:837
 #: DB:link_type/reverse_link_phrase:838 DB:link_type/reverse_link_phrase:839
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Last.fm-Seite für"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -746,23 +747,23 @@ msgstr "Andere Stimmformen"
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
-msgstr ""
+msgstr "Zeigt auf die BookBrainz-Seite für diesen Künstler."
 
 #: DB:link_type/description:851
 msgid "Points to the BookBrainz page for this label."
-msgstr ""
+msgstr "Zeigt auf die BookBrainz-Seite für dieses Label."
 
 #: DB:link_type/description:853
 msgid "Points to the BookBrainz page for this release group."
-msgstr ""
+msgstr "Zeigt auf die BookBrainz-Seite für diese Veröffentlichungsgruppe."
 
 #: DB:link_type/description:850
 msgid "Points to the BookBrainz page for this release."
-msgstr ""
+msgstr "Zeigt auf die BookBrainz-Seite für diese Veröffentlichung."
 
 #: DB:link_type/description:854
 msgid "Points to the BookBrainz page for this work."
-msgstr ""
+msgstr "Zeigt auf die BookBrainz-Seite für dieses Werk."
 
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
