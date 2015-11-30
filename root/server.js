@@ -24,6 +24,7 @@ let sliced = require('sliced');
 let URL = require('url');
 let gettext = require('./server/gettext');
 let getCookie = require('./static/scripts/common/utility/getCookie');
+let i18n = require('./static/scripts/common/i18n');
 
 const DOCTYPE = '<!DOCTYPE html>';
 const URI_FOR_DELIMITER = "\x1F__URI_FOR__\x1F";
@@ -89,8 +90,11 @@ function getResponse(req, requestBodyBuf) {
   // Emulate perl context/request API.
   req.query_params = url.query;
 
+  // We use a separate gettext handle for each language. Set the current handle
+  // to be used for this request based on the given 'lang' cookie.
+  i18n.setGettextHandle(gettext.getHandle(getCookie('lang', req.headers.cookie)));
+
   global.$c = _.assign(context, {
-    gettext: gettext.getHandle(getCookie('lang', req.headers.cookie)),
     req: req,
     relative_uri: url.path,
     uri_for: uriFor,

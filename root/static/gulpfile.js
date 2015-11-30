@@ -151,9 +151,7 @@ function langToPosix(lang) {
 function buildScripts() {
   process.env.NODE_ENV = String(process.env.DEVELOPMENT_SERVER) === '1' ? 'development' : 'production';
 
-  var commonBundle = runYarb('common.js', function (b) {
-    b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
-  });
+  var commonBundle = runYarb('common.js');
 
   _((process.env.MB_LANGUAGES || '').replace(/\s+/g, ''))
     .split(',')
@@ -267,9 +265,8 @@ gulp.task('tests', function () {
   process.env.NODE_ENV = 'development';
 
   return bundleScripts(
-    runYarb('tests.js', function (b) {
+    runYarb('tests/browser-runner.js', function (b) {
       b.expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data');
-      b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
     }),
     'tests.js'
   ).pipe(gulp.dest(BUILD_DIR));

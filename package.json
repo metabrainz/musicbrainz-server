@@ -15,6 +15,7 @@
     "balanced-match": "0.2.0",
     "concat-stream": "1.5.0",
     "cookie": "^0.1.2",
+    "detect-node": "2.0.3",
     "envify": "^3.4.0",
     "filesize": "2.0.4",
     "gulp": "^3.8.7",
@@ -47,15 +48,17 @@
     "uglifyify": "^3.0.1",
     "vinyl": "^0.4.6",
     "vinyl-source-stream": "^1.0.0",
-    "yarb": "^0.4.4",
+    "yarb": "0.5.1",
     "yargs": "3.27.0"
   },
   "devDependencies": {
     "eslint": "^0.24.0",
     "eslint-plugin-react": "^2.6.4",
     "gulp-watch": "^4.2.1",
-    "tape": "4.2.1",
-    "react-addons-test-utils": "0.14.0"
+    "jsdom": "7.0.2",
+    "node-storage-shim": "1.0.1",
+    "react-addons-test-utils": "0.14.0",
+    "tape": "4.2.1"
   },
   "private": true
 }

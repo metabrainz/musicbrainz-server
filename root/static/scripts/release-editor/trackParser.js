@@ -416,8 +416,8 @@ function fullWidthConverter(inputString) {
         return "";
     }
 
-    i = inputString.length;
-    newString = [];
+    let i = inputString.length;
+    let newString = [];
 
     do {
         newString.push(

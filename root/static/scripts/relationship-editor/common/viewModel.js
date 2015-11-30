@@ -194,14 +194,18 @@ function addSubmittedRelationship(data, source) {
 }
 
 function addPostedRelationships(source) {
-    if (MB.hasSessionStorage && sessionStorage.submittedRelationships) {
-        if (MB.formWasPosted) {
-            _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
-                addSubmittedRelationship(data, source);
-            });
-        }
-        delete sessionStorage.submittedRelationships;
+    if (!MB.hasSessionStorage) {
+        return;
     }
+
+    let submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
+    if (MB.formWasPosted && submittedRelationships) {
+        _.each(JSON.parse(submittedRelationships), function (data) {
+            addSubmittedRelationship(data, source);
+        });
+    }
+
+    window.sessionStorage.removeItem('submittedRelationships');
 }
 
 var loadingEntities = {};

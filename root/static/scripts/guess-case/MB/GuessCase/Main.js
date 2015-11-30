@@ -19,6 +19,7 @@
 
 */
 
+import global from '../../../global';
 var flags = require('../../flags');
 var getCookie = require('../../../common/utility/getCookie');
 
@@ -131,5 +132,5 @@ var getCookie = require('../../../common/utility/getCookie');
     };
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
-    window.gc = self;
+    global.gc = self;
 }());

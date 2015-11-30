@@ -1,8 +1,10 @@
-window.aclass = require("aclass");
-window.ko = require("knockout");
-window.L = require("leaflet");
-window._ = require("lodash");
-window.$ = window.jQuery = require("jquery");
+import global from './global';
+
+global.aclass = require("aclass");
+global.ko = require("knockout");
+global.L = require("../lib/leaflet/leaflet-src");
+global._ = require("lodash");
+global.$ = global.jQuery = require("jquery");
 
 require("jquery.browser");
 require("../lib/jquery.ui/ui/jquery-ui.custom.js");

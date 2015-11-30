@@ -18,7 +18,7 @@ function base64_to_blob(data, mime) {
         ia[i] = byteString.charCodeAt(i);
     }
 
-    return new Blob([ia], { type: mime });
+    return new window.Blob([ia], { type: mime });
 }
 
 var test_files = {
@@ -90,7 +90,7 @@ test('iframe mime type', function (t) {
 });
 
 test('multifile/ajax upload mime type', function (t) {
-    if (typeof Blob !== 'function') {
+    if (typeof window.Blob !== 'function') {
         console.log('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
         t.end();
         return;
@@ -116,7 +116,7 @@ test('cover art types', function (t) {
 });
 
 test('upload queue', function (t) {
-    if (typeof Blob !== 'function') {
+    if (typeof window.Blob !== 'function') {
         console.log('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
         t.end();
         return;
