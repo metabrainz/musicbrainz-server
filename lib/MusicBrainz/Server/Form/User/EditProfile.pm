@@ -32,9 +32,9 @@ has_field 'gender_id' => (
 );
 
 has_field 'area_id'   => ( type => 'Hidden' );
-
-has_field 'area'      => ( type => 'Compound' );
-has_field 'area.name' => ( type => 'Text' );
+has_field 'area'      => (
+    type => '+MusicBrainz::Server::Form::Field::Area'
+);
 
 has_field 'birth_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
