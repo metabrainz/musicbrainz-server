@@ -37,7 +37,8 @@ role
 
             my $jsonld_data = serialize_entity($entity, undef, $stash, 1);
 
-            if ($c->req->header('Accept') eq 'application/ld+json') {
+            my $accept = $c->req->header('Accept');
+            if (defined $accept && $accept eq 'application/ld+json') {
                 $c->res->content_type('application/ld+json; charset=utf-8');
                 $c->res->body(encode_json($jsonld_data));
                 $c->detach;
