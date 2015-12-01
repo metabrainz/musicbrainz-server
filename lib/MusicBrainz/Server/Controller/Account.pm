@@ -285,18 +285,26 @@ sub edit : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
-    if (exists $c->request->params->{ok}) {
-        $c->stash(
-            template => 'account/edit_ok.tt',
-            email_sent => $c->request->params->{email} ? 1 : 0,
-            email => $c->request->params->{email},
-        );
-        $c->detach;
-    }
-
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
     $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
+
+    if (exists $c->request->params->{ok}) {
+        $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
+
+        my $flash = l('Your profile has been updated.');
+
+        if ($c->request->params->{email}) {
+            $flash .= ' ';
+            $flash .= l('We have sent you a verification email to <code>{email}</code>.
+                         Please check your mailbox and click on the link in the email
+                         to verify the new email address.',
+                        { email => $c->request->params->{email} });
+        }
+
+        $c->flash->{message} = $flash;
+        $c->detach;
+    }
 
     my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
 
