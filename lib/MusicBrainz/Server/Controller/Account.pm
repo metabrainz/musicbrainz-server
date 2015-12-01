@@ -282,49 +282,30 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local RequireAuth DenyWhenReadonly
-{
+sub edit : Local RequireAuth DenyWhenReadonly {
     my ($self, $c) = @_;
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
     $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
 
-    if (exists $c->request->params->{ok}) {
-        $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
-
-        my $flash = l('Your profile has been updated.');
-
-        if ($c->request->params->{email}) {
-            $flash .= ' ';
-            $flash .= l('We have sent you a verification email to <code>{email}</code>.
-                         Please check your mailbox and click on the link in the email
-                         to verify the new email address.',
-                        { email => encode_entities($c->request->params->{email}) });
-        }
-
-        $c->flash->{message} = $flash;
-        $c->detach;
-    }
-
     my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-
         $c->model('Editor')->update_profile(
             $editor,
             $form->value
         );
 
-        my %args = ( ok => 1 );
         my $old_email = $editor->email || '';
         my $new_email = $form->field('email')->value || '';
+        my $verification_sent;
+
         if ($old_email ne $new_email) {
             if ($new_email) {
                 $self->_send_confirmation_email($c, $editor, $new_email);
-                $args{email} = $new_email;
-            }
-            else {
+                $verification_sent = 1;
+            } else {
                 $c->model('Editor')->update_email($editor, undef);
             }
         }
@@ -334,7 +315,18 @@ sub edit : Local RequireAuth DenyWhenReadonly
             $form->field('languages')->value
         );
 
-        $c->response->redirect($c->uri_for_action('/account/edit', \%args));
+        my $flash = l('Your profile has been updated.');
+
+        if ($verification_sent) {
+            $flash .= ' ';
+            $flash .= l('We have sent you a verification email to <code>{email}</code>.
+                         Please check your mailbox and click on the link in the email
+                         to verify the new email address.',
+                        { email => encode_entities($new_email) });
+        }
+
+        $c->flash->{message} = $flash;
+        $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
         $c->detach;
     }
 }
