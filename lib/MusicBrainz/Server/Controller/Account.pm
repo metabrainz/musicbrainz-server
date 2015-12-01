@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use HTML::Entities qw( encode_entities );
 use MusicBrainz::Server::Translation qw(l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
@@ -299,7 +300,7 @@ sub edit : Local RequireAuth DenyWhenReadonly
             $flash .= l('We have sent you a verification email to <code>{email}</code>.
                          Please check your mailbox and click on the link in the email
                          to verify the new email address.',
-                        { email => $c->request->params->{email} });
+                        { email => encode_entities($c->request->params->{email}) });
         }
 
         $c->flash->{message} = $flash;
