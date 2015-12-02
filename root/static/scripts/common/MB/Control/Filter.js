@@ -18,7 +18,7 @@
 
 */
 
-var getCookie = require('../../utility/getCookie');
+import getBooleanCookie from '../../utility/getBooleanCookie';
 var setCookie = require('../../utility/setCookie');
 
 MB.Control.FilterButton = function () {
@@ -50,7 +50,7 @@ MB.Control.FilterButton = function () {
     self.filter_ajax_form_url = $('#filter_ajax_form_url').val();
     self.$filter = $('#filter');
     self.loaded = self.$filter.find('button').length > 0;
-    self.state = getCookie('filter') == '1';
+    self.state = getBooleanCookie('filter');
 
     $('.filter-button').on('click', function () {
         if (self.state) {

@@ -30,10 +30,9 @@ var getCookie = require('../../../common/utility/getCookie');
     var self = {};
 
     self.modeName = getCookie("guesscase_mode") || "English";
-    self.mode = MB.GuessCase.Mode[self.modeName];
+    self.mode = require('../../modes')[self.modeName];
 
     /* config. */
-    self.CFG_UC_ROMANNUMERALS = getCookie("guesscase_roman") !== "false";
     self.CFG_UC_UPPERCASED = getCookie("guesscase_keepuppercase") !== "false";
 
     // ----------------------------------------------------------------------------

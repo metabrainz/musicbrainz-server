@@ -5,6 +5,8 @@
 
 var _ = require('lodash');
 var test = require('tape');
+var setCookie = require('../common/utility/setCookie');
+import * as modes from '../guess-case/modes';
 
 test('Sortname', function (t) {
     t.plan(6);
@@ -188,9 +190,9 @@ test('Work', function (t) {
     ];
 
     $.each(tests, function (idx, test) {
-        gc.CFG_UC_ROMANNUMERALS = test.roman;
+        setCookie('guesscase_roman', String(test.roman));
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
-        gc.mode = MB.GuessCase.Mode[test.mode];
+        gc.mode = modes[test.mode];
 
         var result = MB.GuessCase.work.guess(test.input);
         t.equal(result, test.expected, test.input);
@@ -302,7 +304,7 @@ test('BugFixes', function (t) {
     ];
 
     $.each(tests, function (idx, test) {
-        gc.mode = MB.GuessCase.Mode[test.mode];
+        gc.mode = modes[test.mode];
 
         var result = MB.GuessCase.work.guess(test.input);
         t.equal(result, test.expected, test.bug + ', ' + test.input);
@@ -312,7 +314,7 @@ test('BugFixes', function (t) {
 test("vinyl numbers are fixed", function (t) {
     t.plan(4);
 
-    gc.mode = MB.GuessCase.Mode.English;
+    gc.mode = modes.English;
 
     var tests = [
         {
