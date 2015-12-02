@@ -5,7 +5,7 @@
 
 var React = require('react');
 var i18n = require('../../common/i18n');
-var entityLink = require('../../common/utility/entityLink');
+import entityLink from '../../common/utility/entityLink';
 
 class PossibleDuplicates extends React.Component {
   render() {

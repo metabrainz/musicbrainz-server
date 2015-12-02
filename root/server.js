@@ -106,11 +106,11 @@ function getResponse(req, requestBodyBuf) {
   }
 
   try {
-    Page = require(pathFromRoot(url.path.replace(/^\//, '')));
+    Page = require(pathFromRoot(url.path.replace(/^\//, ''))).default;
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
-        Page = require(pathFromRoot('root/main/404'));
+        Page = require(pathFromRoot('root/main/404')).default;
         status = 404;
       } catch (err) {
         return badRequest(err);
