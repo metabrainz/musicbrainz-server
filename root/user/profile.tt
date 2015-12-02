@@ -252,7 +252,7 @@
         </tfoot>
     </table>
 
-    [%- IF c.user.id != user.id -%]
+    [%- IF c.user_exists AND !viewing_own_profile -%]
         <h2 style="clear: both;">
             <a href="[% c.uri_for_action('/user/report', [user.name]) %]">
                 [% l('Report this user for bad behavior') %]
