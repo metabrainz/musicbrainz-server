@@ -92,7 +92,7 @@
         [% END %]
 
         [% IF c.user_exists AND (viewing_own_profile OR c.user.is_account_admin);
-             WRAPPER property name=l('Last password login:');
+             WRAPPER property name=l('Last login:');
                UserDate.format(user.last_login_date);
              END;
            END %]
