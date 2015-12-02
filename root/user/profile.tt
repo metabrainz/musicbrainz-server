@@ -91,6 +91,12 @@
             [% END %]
         [% END %]
 
+        [% IF c.user_exists AND (viewing_own_profile OR c.user.is_account_admin);
+             WRAPPER property name=l('Last password login:');
+               UserDate.format(user.last_login_date);
+             END;
+           END %]
+
         [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]" rel="nofollow">
