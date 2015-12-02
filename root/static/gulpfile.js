@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var babelify = require('babelify');
 var File = require('vinyl');
 var fs = require('fs');
 var gulp = require('gulp');
@@ -74,22 +73,9 @@ function buildStyles() {
 }
 
 function transformBundle(bundle) {
-  let optionalTransforms = ['es7.objectRestSpread'];
   let isDevelopmentServer = String(process.env.DEVELOPMENT_SERVER) === '0';
 
-  if (!isDevelopmentServer) {
-    optionalTransforms.push('optimisation.react.inlineElements');
-    optionalTransforms.push('optimisation.react.constantElements');
-  }
-
-  bundle.transform(babelify.configure({
-    blacklist: ['strict'],
-    nonStandard: true,
-    only: /root\/static\/scripts\/.+\.js$/,
-    optional: optionalTransforms,
-    sourceMap: false,
-  }));
-
+  bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
   if (isDevelopmentServer) {
@@ -138,7 +124,7 @@ function writeScript(b, resourceName) {
 function createLangVinyl(lang, jedOptions) {
   return new File({
     path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
-    contents: new Buffer('export default ' + JSON.stringify(jedOptions) + ';\n'),
+    contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n'),
   });
 }
 
