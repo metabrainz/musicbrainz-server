@@ -93,7 +93,7 @@ $(function () {
     function filteredClassName($element, prefix) {
         var classList = $element.attr('class').split(/\s+/);
         var ret;
-        for (i = 0; i < classList.length; i++) {
+        for (var i = 0; i < classList.length; i++) {
             if (classList[i].substring(0, prefix.length) === prefix) {
                 ret = classList[i].substring(prefix.length);
                 break;
