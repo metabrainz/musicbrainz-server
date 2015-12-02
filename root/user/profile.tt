@@ -119,6 +119,7 @@
                     (<a href="[% c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
                 [% END %]
             [% END %]
+        [% END %]
 
         [% IF user.biography && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
@@ -134,8 +135,6 @@
               [% END %]
             </ul>
           [% END %]
-        [% END %]
-
         [% END %]
     </dl>
 
