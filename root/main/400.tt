@@ -4,15 +4,7 @@
 
         <p><strong>[%- l("Sorry, there was a problem with your request.") -%]</strong></p>
 
-        <p>
-            <strong>[%- l('Error message: ') -%]</strong>
-            [% IF message %]
-                <code>[%- message | html -%]</code>
-            [% ELSE %]
-                <code>[%- l('(No details about this error are available)') -%]</code>
-            [% END %]
-        </p>
-
+        [% INCLUDE 'main/info/error.tt' %]
 
         <p>
             [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',

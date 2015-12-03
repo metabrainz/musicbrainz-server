@@ -1,0 +1,38 @@
+[% IF stack_trace %]
+<p>
+  <strong>[% ln('Error:', 'Errors:', errors.size) %]</strong>
+  [% IF errors.size > 1 %]
+  <ul>
+    [% FOR error=errors %]<li><code>[% error %]</code></li>[% END %]
+  </ul>
+  [% ELSE %]
+    <p><pre>[% errors.0 %]</pre></p>
+  [% END %]
+</p>
+<p>
+    <strong>[%- l('Stack trace:') -%]</strong><br />
+    <ul>
+    [% FOR frame=stack_trace %]
+      <li><code>line [% frame.line %]&#10;[% frame.pkg %]</code></li>
+    [% END %]
+    </ul>
+</p>
+<p>
+    <strong>[% l('Request data:') %]</strong>
+    <pre>
+      [%- USE Dumper; Dumper.dump({
+          query_parameters => c.req.query_params,
+          body_parameters => c.req.body_params
+      }) -%]
+    </pre>
+</p>
+[% ELSE %]
+<p>
+    <strong>[%- l('Error message: ') -%]</strong>
+    [% IF message %]
+        <code>[%- message | html -%]</code>
+    [% ELSE %]
+        <code>[%- l('(No details about this error are available)') -%]</code>
+    [% END %]
+</p>
+[% END %]
