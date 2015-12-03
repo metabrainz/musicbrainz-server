@@ -71,7 +71,7 @@ var mode = ko.computed({
 
 guessCaseOptions.help = ko.computed({
     read: function () {
-        return mode().getDescription();
+        return mode().description;
     },
     deferEvaluation: true
 });
