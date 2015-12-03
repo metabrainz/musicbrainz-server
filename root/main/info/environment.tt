@@ -18,3 +18,13 @@
   <strong>[% l("URL:") %]</strong>
   <code>[% c.req.uri %]</code>
 </p>
+
+<p>
+    <strong>[% l('Request data:') %]</strong>
+    <pre>
+      [%- USE Dumper; Dumper.dump({
+          query_parameters => c.req.query_params,
+          body_parameters => c.req.body_params
+      }) -%]
+    </pre>
+</p>
