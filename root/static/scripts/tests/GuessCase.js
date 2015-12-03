@@ -312,7 +312,7 @@ test('BugFixes', function (t) {
 });
 
 test("vinyl numbers are fixed", function (t) {
-    t.plan(4);
+    t.plan(5);
 
     gc.mode = modes.English;
 
@@ -333,7 +333,11 @@ test("vinyl numbers are fixed", function (t) {
         {
             input: "7's 10's 12's",
             expected: "7's 10's 12's"
-        }
+        },
+        {
+            input: "greatest 80's hits",
+            expected: "Greatest 80's Hits",
+        },
     ];
 
     _.each(tests, function (test) {

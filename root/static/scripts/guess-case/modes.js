@@ -48,9 +48,8 @@ const PREPROCESS_FIXLIST = [
   [/(\s|^|\()(\d+)''(\s|$)/i,      '$2"'], // 12'' -> 12"
   [/(\s|^|\()(\d+)in(ch)?(\s|$)/i, '$2"'], // 12in -> 12"
 
-  // combined word hacks, e.g. replace spaces with underscores, (e.g.
-  // "a cappella" -> a_capella), such that it can be handled correctly in
-  // post-processing.
+  // combined word hacks, e.g. replace spaces with underscores ("a cappella"
+  // -> a_capella), such that it can be handled correctly in post-processing.
   [/(\b|^)a\s?c+ap+el+a(\b)/i, 'a_cappella'], // A Capella preprocess
   [/(\b|^)oc\sremix(\b)/i,     'oc_remix'],   // OC ReMix preprocess
   [/(\b|^)aka(\b)/ig,          'a_k_a_'],     // a.k.a. preprocess
@@ -69,7 +68,7 @@ const POSTPROCESS_FIXLIST = [
   // "fe" is considered a lowercase word, but "Santa Fe" is very common in
   // song titles, so change that "fe" back into "Fe".
   [/(\b|^)Santa fe(\b|$)/g,        'Santa Fe'],
-  [/(\b|^)R\s*&\s*B(\b)/i,         'R&B'], // whitespace in R&B
+  [/(\b|^)R\s*&\s*B(\b)/i,         'R&B'],
   [/(\b|^)\[live\](\b)/i,          '(live)'],
   [/(\b|^)Djs(\b)/i,               'DJs'],
   [/(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll"],
@@ -88,10 +87,10 @@ function replaceMatch(matches, is, regex, replacement) {
 }
 
 /*
- * Iterate through the list array and apply the fixes to string is
+ * Iterate through the `fixes` array and apply the fixes to string `is`.
  *
- * @param is        the input string
- * @param list      the list of fix objects to apply.
+ * @param is     the input string
+ * @param fixes  the list of fix objects to apply
  */
 function runFixes(is, fixes) {
   fixes.forEach(function (fix) {
@@ -131,7 +130,7 @@ let DefaultMode = {
   /*
    * Pre-process to find any lowercase_bracket word that needs to be put into
    * parentheses. Starts from the back and collects words that belong into the
-   * brackets: e.g.
+   * brackets, e.g.
    * My Track Extended Dub remix => My Track (extended dub remix)
    * My Track 12" remix => My Track (12" remix)
    */
@@ -145,7 +144,7 @@ let DefaultMode = {
       // skip whitespace
       (words[wi] === ' ') ||
 
-      // vinyl 7" or 12"
+      // vinyl (7" or 12")
       (words[wi] === '"' && (words[wi - 1] === '7' || words[wi - 1] === '12')) ||
       ((words[wi + 1] || '') === '"' && (words[wi] === '7' || words[wi] === '12')) ||
 
@@ -160,11 +159,10 @@ let DefaultMode = {
     // but are a single word which can occur at the end of the string.
     // therefore, we don't put the single word into parens.
 
-    // trackback the skipped spaces spaces, and then slurp the
-    // next word, so see which word we found.
+    // trackback the skipped spaces spaces, and then slurp the next word, so
+    // see which word we found.
     if (wi < lastWord) {
-      // the word at wi broke out of the loop above,
-      // is not extra title info.
+      // the word at wi broke out of the loop above, is not extra title info
       wi++;
       while (words[wi] === ' ' && wi < lastWord) {
         wi++; // skip whitespace
@@ -199,12 +197,11 @@ let DefaultMode = {
   },
 
   /*
-   * Take care of mis-spellings that need to be fixed before
-   * splitting the string into words.
-   * Note:    this function is run before release and track guess
-   *                  types (not for artist)
+   * Take care of misspellings that need to be fixed before splitting the
+   * string into words.
+   * Note: this function is run before release and track guess types (not for artist)
    *
-   * keschte          2005-11-10              first version
+   * keschte  2005-11-10  first version
    */
   preProcessTitles(is) {
     return runFixes(is, PREPROCESS_FIXLIST);
@@ -219,24 +216,11 @@ let DefaultMode = {
   },
 
   /*
-   * Look for, and convert vinyl expressions
-   * * look only at substrings which start with ' '  OR '('
-   * * convert 7',7'',7",7in,7inch TO '7"_' (with a following SPACE)
-   * * convert 12',12'',12",12in,12inch TO '12"_' (with a following SPACE)
-   * * do NOT handle strings like 80's
-   * Examples:
-   *  Original string: "Fine Day (Mike Koglin 12' mix)"
-   *          Last matched portion: " 12' "
-   *          Matched portion 1 = " "
-   *          Matched portion 2 = "12"
-   *          Matched portion 3 = " "
-   *  Original string: "Where Love Lives (Come on In) (12"Classic mix)"
-   *          Last matched portion: "(12"C"
-   *          Matched portion 1 = "("
-   *          Matched portion 2 = "12"
-   *          Matched portion 3 = "C"
-   *  Original string: "greatest 80's hits"
-   *          Match failed.
+   * Look for and convert vinyl expressions.
+   *  - Look only at substrings which start with ' ' or '('.
+   *  - Convert 7', 7'', 7", 7in, and 7inch to '7" ' (with a following space).
+   *  - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (with a following space).
+   *  - Do not convert strings like 80's.
    */
   fixVinylSizes(is) {
     return is
@@ -245,11 +229,11 @@ let DefaultMode = {
   },
 
   /*
-   * Delegate function for Mode specific word handling.
-   * This is mostly used for context based titling changes.
+   * Delegate function for mode-specific word handling. This is mostly used
+   * for context-based title changes.
    *
-   * @return  false, such that the normal word handling can take place for
-   *          the current word, if that should not be done, return true.
+   * @return  `false`, such that the normal word handling can take place for
+   *          the current word. If that should not be done, return `true`.
    */
   doWord() {
     return false;
