@@ -93,7 +93,7 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
 if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
         enable => 1,
-        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email',
+        emit_module => 'MusicBrainz::ErrorCatcherEmailWrapper',
         user_identified_by => 'identity_string'
     };
 
@@ -367,19 +367,11 @@ around dispatch => sub {
         alarm($max_request_time);
 
         my $action = POSIX::SigAction->new(sub {
-            $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                   $c->req->uri,
-                                   $max_request_time));
-            $c->log->error(Devel::StackTrace->new->as_string);
-            $c->log->_flush;
-
             my $context = $c->model('MB')->context;
             if (my $sth = $context->sql->sth) {
                 $sth->cancel;
             }
-
-            $context->connector->disconnect;
-            exit(42);
+            MusicBrainz::Server::Exceptions::GenericTimeout->throw("Request took more than $max_request_time seconds");
         });
         $action->safe(1);
         POSIX::sigaction(SIGALRM, $action);
@@ -396,11 +388,23 @@ around 'finalize_error' => sub {
     my @args = @_;
 
     $c->with_translations(sub {
+        my $errors = $c->error;
+
+        my $timed_out = 0;
+        $timed_out = 1
+            if scalar @$errors == 1 && blessed $errors->[0]
+                && $errors->[0]->does('MusicBrainz::Server::Exceptions::Role::Timeout');
+
+        # don't send mail about timeouts (ErrorCatcher will log instead)
+        local $MusicBrainz::ErrorCatcherEmailWrapper::suppress = 1
+            if $timed_out;
+
         $c->$orig(@args);
 
         if (!$c->debug && scalar @{ $c->error }) {
-            $c->stash->{errors} = $c->error;
-            $c->stash->{template} = 'main/500.tt';
+            $c->stash->{errors} = $errors;
+            $c->stash->{template} = $timed_out ?
+                'main/timeout.tt' : 'main/500.tt';
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
@@ -411,6 +415,8 @@ around 'finalize_error' => sub {
                 $c->res->{body} = 'clear';
                 $c->view('Default')->process($c);
                 $c->res->{body} = encode('utf-8', $c->res->{body});
+                $c->res->{status} = 503
+                    if $timed_out;
             }
         }
     });

@@ -217,8 +217,11 @@ sub search : Path('/search/edits') RequireAuth
                 return $c->model('Edit')->run_query($query, shift, shift);
             });
         } catch {
-            if ($c->model('MB')->context->sql->is_timeout($_)) { $timed_out = 1; }
-            else { die $_; }
+            unless (blessed $_
+                    && $_->does('MusicBrainz::Server::Exceptions::Role::Timeout')) {
+                die $_; # rethrow
+            }
+            $timed_out = 1;
         };
         if ($timed_out) {
             $c->stash( timed_out => 1 );
