@@ -1,4 +1,4 @@
-<table class="details remove-[%~ edit.display_data.entity_type ~%]-alias">
+<table class="details [% edit.edit_kind %]-[%~ edit.display_data.entity_type ~%]-alias">
     <tr>
         <th>[%~ entity_label(edit.display_data.entity_type) ~%]</th>
         <td>
@@ -12,38 +12,42 @@
         <th>[%~ add_colon(l('Alias')) ~%]</th>
         <td>[%~ isolate_text(edit.display_data.alias) ~%]</td>
     </tr>
-    [%~ IF edit.display_data.sort_name ~%]
+    [%~ IF edit.display_data.sort_name != '' ~%]
     <tr>
         <th>[%~ add_colon(l('Sort name')) ~%]</th>
         <td>[%~ edit.display_data.sort_name | html ~%]</td>
     </tr>
     [%~ END ~%]
-    [%~ IF edit.display_data.locale ~%]
+    [%~ IF edit.display_data.locale != '' ~%]
     <tr>
         <th>[%~ add_colon(l('Locale')) ~%]</th>
         <td>[%~ edit.display_data.locale | locale ~%]</td>
     </tr>
-    [%~ END ~%]
     <tr>
         <th>[%~ add_colon(l('Primary for locale')) ~%]</th>
         <td>[%~ yesno(edit.display_data.primary_for_locale) ~%]</td>
     </tr>
-    [%~ IF edit.display_data.type.name ~%]
+    [%~ END ~%]
+    [%~ IF edit.display_data.type ~%]
     <tr>
         <th>[%~ add_colon(l('Type')) ~%]</th>
         <td>[%~ edit.display_data.type.name | html ~%]</td>
     </tr>
     [%~ END ~%]
-    [%~ IF edit.display_data.begin_date.format ~%]
+    [%~ IF !edit.display_data.begin_date.is_empty ~%]
     <tr>
         <th>[%~ add_colon(l('Begin date')) ~%]</th>
         <td>[%~ edit.display_data.begin_date.format | html ~%]</td>
     </tr>
     [%~ END ~%]
-    [%~ IF edit.display_data.end_date.format ~%]
+    [%~ IF !edit.display_data.end_date.is_empty ~%]
     <tr>
         <th>[%~ add_colon(l('End date')) ~%]</th>
         <td>[%~ edit.display_data.end_date.format | html ~%]</td>
     </tr>
     [%~ END ~%]
+    <tr>
+        <th>[%~ add_colon(l('Ended')) ~%]</th>
+        <td>[%~ yesno(edit.display_data.ended) ~%]</td>
+    </tr>
 </table>
