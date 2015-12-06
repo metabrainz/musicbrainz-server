@@ -23,6 +23,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Alias';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
@@ -172,6 +173,8 @@ sub initialize
         delete $opts{sort_name};
         $opts{sort_name} = $opts{name} if non_empty($opts{name});
     }
+
+    $self->enforce_dependencies(\%opts);
 
     $self->data({
         alias_id => $alias->id,
