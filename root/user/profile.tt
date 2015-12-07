@@ -91,6 +91,12 @@
             [% END %]
         [% END %]
 
+        [% IF c.user_exists AND (viewing_own_profile OR c.user.is_account_admin);
+             WRAPPER property name=l('Last login:');
+               UserDate.format(user.last_login_date);
+             END;
+           END %]
+
         [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]" rel="nofollow">
@@ -113,6 +119,7 @@
                     (<a href="[% c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) %]">[% l('subscribe') %]</a>)
                 [% END %]
             [% END %]
+        [% END %]
 
         [% IF user.biography && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
@@ -128,8 +135,6 @@
               [% END %]
             </ul>
           [% END %]
-        [% END %]
-
         [% END %]
     </dl>
 
@@ -246,7 +251,7 @@
         </tfoot>
     </table>
 
-    [%- IF c.user.id != user.id -%]
+    [%- IF c.user_exists AND !viewing_own_profile -%]
         <h2 style="clear: both;">
             <a href="[% c.uri_for_action('/user/report', [user.name]) %]">
                 [% l('Report this user for bad behavior') %]

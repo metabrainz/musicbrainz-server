@@ -15,12 +15,14 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    if ($entity->type_id == $AREA_TYPE_COUNTRY) {
-        $ret->{'@type'} = 'Country';
-    } elsif ($entity->type_id == $AREA_TYPE_CITY) {
-        $ret->{'@type'} = 'City';
-    } else {
-        $ret->{'@type'} = 'AdministrativeArea';
+    if (defined $entity->type_id) {
+        if ($entity->type_id == $AREA_TYPE_COUNTRY) {
+            $ret->{'@type'} = 'Country';
+        } elsif ($entity->type_id == $AREA_TYPE_CITY) {
+            $ret->{'@type'} = 'City';
+        } else {
+            $ret->{'@type'} = 'AdministrativeArea';
+        }
     }
 
     if ($entity->parent_country || $entity->parent_subdivision || $entity->parent_city) {

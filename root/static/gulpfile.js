@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var babelify = require('babelify');
 var File = require('vinyl');
 var fs = require('fs');
 var gulp = require('gulp');
@@ -74,22 +73,9 @@ function buildStyles() {
 }
 
 function transformBundle(bundle) {
-  let optionalTransforms = ['es7.objectRestSpread'];
   let isDevelopmentServer = String(process.env.DEVELOPMENT_SERVER) === '0';
 
-  if (!isDevelopmentServer) {
-    optionalTransforms.push('optimisation.react.inlineElements');
-    optionalTransforms.push('optimisation.react.constantElements');
-  }
-
-  bundle.transform(babelify.configure({
-    blacklist: ['strict'],
-    nonStandard: true,
-    only: /root\/static\/scripts\/.+\.js$/,
-    optional: optionalTransforms,
-    sourceMap: false,
-  }));
-
+  bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
   if (isDevelopmentServer) {
@@ -138,7 +124,7 @@ function writeScript(b, resourceName) {
 function createLangVinyl(lang, jedOptions) {
   return new File({
     path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
-    contents: new Buffer('export default ' + JSON.stringify(jedOptions) + ';\n'),
+    contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n'),
   });
 }
 
@@ -151,9 +137,7 @@ function langToPosix(lang) {
 function buildScripts() {
   process.env.NODE_ENV = String(process.env.DEVELOPMENT_SERVER) === '1' ? 'development' : 'production';
 
-  var commonBundle = runYarb('common.js', function (b) {
-    b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
-  });
+  var commonBundle = runYarb('common.js');
 
   _((process.env.MB_LANGUAGES || '').replace(/\s+/g, ''))
     .split(',')
@@ -211,6 +195,10 @@ function buildScripts() {
     b.external(editBundle);
   });
 
+  var votingBundle = runYarb('voting.js', function (b) {
+    b.external(commonBundle);
+  });
+
   var workBundle = runYarb('work.js', function (b) {
     b.external(editBundle).external(guessCaseBundle);
   });
@@ -225,6 +213,7 @@ function buildScripts() {
     writeScript(statisticsBundle, 'statistics.js'),
     writeScript(timelineBundle, 'timeline.js'),
     writeScript(urlBundle, 'url.js'),
+    writeScript(votingBundle, 'voting.js'),
     writeScript(workBundle, 'work.js'),
     writeScript(runYarb('debug.js', function (b) {
       b.external(commonBundle);
@@ -267,9 +256,8 @@ gulp.task('tests', function () {
   process.env.NODE_ENV = 'development';
 
   return bundleScripts(
-    runYarb('tests.js', function (b) {
+    runYarb('tests/browser-runner.js', function (b) {
       b.expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data');
-      b.expose(path.resolve(STATIC_DIR, 'lib/leaflet/leaflet-src.js'), 'leaflet');
     }),
     'tests.js'
   ).pipe(gulp.dest(BUILD_DIR));

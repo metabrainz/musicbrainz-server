@@ -290,10 +290,10 @@ import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 
 
     function editConstructor(type, callback) {
-        return function (args, orig) {
+        return function (args, ...rest) {
             args = _.extend({ edit_type: type }, args);
 
-            callback && callback.apply(null, arguments);
+            callback && callback.apply(null, [args].concat(rest));
             args.hash = editHash(args);
 
             return args;

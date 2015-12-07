@@ -356,13 +356,6 @@ sub run_in_transaction
     }
 }
 
-# Given an error possibly thrown by DBI, does it represent a query timeout?
-sub is_timeout
-{
-    my ($self, $error) = @_;
-    return $error =~ /^57014 /;
-}
-
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,
 # run the given SELECT query using prepare_cached, retrieve the required data,
 # and then "finish" the statement handle.

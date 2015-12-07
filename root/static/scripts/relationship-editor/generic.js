@@ -228,7 +228,7 @@ import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
         }
 
         if (submitted.length && MB.hasSessionStorage) {
-            sessionStorage.submittedRelationships = JSON.stringify(
+            window.sessionStorage.setItem('submittedRelationships', JSON.stringify(
                 _.map(submitted, function (relationship) {
                     var data = relationship.editData();
 
@@ -241,14 +241,14 @@ import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 
                     return data;
                 })
-            );
+            ));
         }
 
         if (vm = MB.sourceExternalLinksEditor) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
             if (MB.hasSessionStorage && vm.state.links.size) {
-                sessionStorage.submittedLinks = JSON.stringify(vm.state.links.toJS());
+                window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links.toJS()));
             }
         }
 
