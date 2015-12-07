@@ -36,7 +36,7 @@ use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-my $EDIT_IN_COLLECTION_SQL = 'edit.id IN (' .
+my $EDIT_IDS_FOR_COLLECTION_SQL =
   join(' UNION ',
        map {
            my $type = $_;
@@ -46,7 +46,7 @@ my $EDIT_IN_COLLECTION_SQL = 'edit.id IN (' .
               JOIN ${coll_table} ON ${edit_table}.${type} = ${coll_table}.${type}
             WHERE ${coll_table}.collection = ?"
        } entities_with('collections')
-      ) . ')';
+      );
 
 sub _table
 {
@@ -177,24 +177,28 @@ sub find_by_collection
 
     my $status_cond = '';
 
-    $status_cond = ' AND status = ' . $status if defined($status);
+    $status_cond = 'WHERE status = ' . $status if defined $status;
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
-                  WHERE $EDIT_IN_COLLECTION_SQL $status_cond
-                  ORDER BY edit.id DESC, edit.editor
+                      JOIN ($EDIT_IDS_FOR_COLLECTION_SQL) relevant_edits
+                        ON relevant_edits.edit = edit.id
+                  $status_cond
+                  ORDER BY edit.id DESC
                   LIMIT $LIMIT_FOR_EDIT_LISTING";
-        # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
-        # clause, using its default value of 0.5 (i.e. every other row in the edit
-        # table is expected to match), even though the row estimate for the subquery is
-        # largely correct and would provide a (far lower) upper bound on the possible
-        # number of matched rows in the outer query. The bogus row estimate tempts the
-        # query planner into using a merge join between the subquery and the edit
-        # table that for small collections (less than 500 edits) requires a scan over
-        # the whole index on edit.id; in reality, a nested loop join is far faster.
-        # The redundant secondary sort on edit.editor eliminates (in the view of the
-        # planner) one advantage of the merge join, namely that it returns the rows
-        # in the final order already, and thereby tricks the planner into preferring
-        # the nested loop join.
+        # XXX Do not rewrite this query without extensive performance tests
+        # on both small and large collections!
+        # Various other forms have been tried (IN, EXISTS clauses both
+        # individually per entity type and on a UNION subquery, CTEs), but
+        # they all perform drastically worse on Postgres 9.1 at least. The
+        # reason is for clauses in the WHERE part that Postgres massively
+        # misestimates their selectivity, using its default value of 0.5
+        # (i.e. every other row in the edit table is expected to match),
+        # even though the row estimate for the subquery is largely correct
+        # and would provide a (far lower) upper bound on the possible
+        # number of matched rows in the outer query. The bogus row estimate
+        # then tempts the query planner into using a merge join between the
+        # subquery and the edit table that for small collections (less than
+        # 500 edits) will need to read the whole table.
 
     $self->query_to_list_limited(
         $query,
@@ -225,7 +229,9 @@ sub find_for_subscription
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
-                      WHERE $EDIT_IN_COLLECTION_SQL AND id > ? AND status IN (?, ?) ORDER BY id";
+                      JOIN ($EDIT_IDS_FOR_COLLECTION_SQL) relevant_edits
+                        ON relevant_edits.edit = edit.id
+                      WHERE id > ? AND status IN (?, ?) ORDER BY id";
 
         $self->query_to_list(
             $query,
@@ -385,6 +391,7 @@ EOSQL
            JOIN editor_subscribe_collection esc ON esc.collection = ${coll_table}.collection
          WHERE esc.available"
     } entities_with('collections'));
+    # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
     my $query = <<EOSQL;
 SELECT * FROM edit, (
