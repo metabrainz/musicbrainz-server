@@ -162,7 +162,7 @@ function buildScripts() {
       // Create a temporary .po file containing only the strings used by root/static/scripts.
       shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed', domain: 'mb_server'});
+      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed1.x', domain: 'mb_server'});
 
       fs.unlinkSync(tmpPo);
     }, {})
