@@ -10,11 +10,11 @@
 </div>
 
 <script type="text/html" id="template.relationship-dialog">
-  <!-- ko if: relationship().editsPending -->
+  <!-- ko if: $data.editing && $data.editing.editsPending -->
     <p class="msg warning">
       [% l('Warning: This relationship has pending edits.
             {show|Click here} to view these edits and make sure they do not conflict with your own.',
-           { show => { 'data-bind' => 'attr: { href: relationship().openEdits() }', target => '_blank' } }) %]
+           { show => { 'data-bind' => 'attr: { href: $data.editing.openEdits() }', target => '_blank' } }) %]
     </p>
   <!-- /ko -->
   <table>
