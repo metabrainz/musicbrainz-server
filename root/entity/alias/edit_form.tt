@@ -55,6 +55,7 @@
         var conditionalFields = $('#id-edit-alias\\\.sort_name')
             .add('#id-edit-alias\\\.locale')
             .add('#id-edit-alias\\\.primary_for_locale')
+            .add('#id-edit-alias\\\.period\\\.ended')
             .add('.partial-date input');
 
         conditionalFields.prop('disabled',
