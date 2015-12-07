@@ -7,6 +7,7 @@ use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
 use JSON;
+use Moose::Util qw( does_role );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -393,7 +394,7 @@ around 'finalize_error' => sub {
         my $timed_out = 0;
         $timed_out = 1
             if scalar @$errors == 1 && blessed $errors->[0]
-                && $errors->[0]->does('MusicBrainz::Server::Exceptions::Role::Timeout');
+                && does_role($errors->[0], 'MusicBrainz::Server::Exceptions::Role::Timeout');
 
         # don't send mail about timeouts (ErrorCatcher will log instead)
         local $MusicBrainz::ErrorCatcherEmailWrapper::suppress = 1
