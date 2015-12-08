@@ -335,9 +335,7 @@ sub subscribed_entity_edits {
 
     unless ($only_open) {
         # $3
-        push @args, DateTime::Format::Pg->format_interval(
-            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
-        );
+        push @args, DateTime::Format::Pg->format_interval($OPEN_EDIT_DURATION);
     }
 
     my $edit_filter = sub {
@@ -425,9 +423,7 @@ sub subscribed_editor_edits {
         $status_sql = 'AND status = ?';
     } else {
         $status_sql = 'AND (status = ? OR (now() - open_time) < interval ?)';
-        push @args, DateTime::Format::Pg->format_interval(
-            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
-        );
+        push @args, DateTime::Format::Pg->format_interval($OPEN_EDIT_DURATION);
     }
 
     my $query =
