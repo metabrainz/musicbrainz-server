@@ -489,6 +489,9 @@ $subject for the following reason:
 
 “$reason”
 
+Reported User's account : https://musicbrainz.org/user/$reported_user
+Reporter's account      : https://musicbrainz.org/user/$reporter 
+
 EOF
 
     if ($opts{reveal_address}) {
