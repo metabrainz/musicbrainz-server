@@ -6,7 +6,7 @@
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~ MACRO html_escape(url) BLOCK; url | html; END -%]
-[%~ MACRO bracketed(text) BLOCK; l(' ({text})', { text => text }); END -%]
+[%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO display_url(url) BLOCK; PROCESS _unescaped_display_url | html; END -%]
 [%~ BLOCK _unescaped_display_url;
@@ -23,7 +23,9 @@ END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
 [%~ MACRO isolate_text(text) BLOCK;
-    INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    ELSE; '';
+    END;
 END ~%]
 
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
@@ -316,7 +318,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'show_dates';
-                dates ? content _ bracketed(dates) : content;
+                content _ bracketed(dates);
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
@@ -397,8 +399,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_artist(artist, action, text) BLOCK;
-    hover = html_escape(artist.sort_name);
-    SET hover = hover _ bracketed(html_escape(artist.comment)) IF artist.comment;
+    hover = html_escape(artist.sort_name) _ bracketed(html_escape(artist.comment));
     INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1;
 END -%]
 
@@ -929,8 +930,8 @@ END ~%]
     ELSE;
         descriptive_link(rel.target, rel.target_credit);
     END;
-    bracketed(rel.extra_phrase_attributes) IF rel.extra_phrase_attributes;
-    bracketed(rel.link.formatted_date) IF rel.link.formatted_date;
+    bracketed(rel.extra_phrase_attributes);
+    bracketed(rel.link.formatted_date);
     '</span>' IF rel.edits_pending;
 END ~%]
 
