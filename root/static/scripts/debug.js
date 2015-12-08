@@ -5,10 +5,10 @@
 
 var $ = require('jquery');
 var _ = require('lodash');
-var getCookie = require('./common/utility/getCookie');
+import getBooleanCookie from './common/utility/getBooleanCookie';
 var setCookie = require('./common/utility/setCookie');
 
-if (getCookie('catalyst-stats-open') === '1') {
+if (getBooleanCookie('catalyst-stats-open')) {
     $('#catalyst-stats').show();
 }
 

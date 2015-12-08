@@ -4,12 +4,12 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var i18n = require('../i18n.js');
-var getCookie = require('../utility/getCookie');
+import getBooleanCookie from '../utility/getBooleanCookie';
 var setCookie = require('../utility/setCookie');
 
 $(function () {
   var $bottomCredits = $('#bottom-credits');
-  var bottomCreditsEnabled = getCookie('bottom-credits') === '1';
+  var bottomCreditsEnabled = getBooleanCookie('bottom-credits');
   var hasReleaseCredits = !!$('#release-relationships, #release-group-relationships').length;
 
   function switchToInlineCredits() {
