@@ -328,16 +328,17 @@ sub subscribed_entity_edits {
 
     my $columns = $self->_columns;
     my $table = $self->_table;
-    my @args = (
-        $STATUS_OPEN, # $1
-        $editor_id,   # $2
-    );
+    my @args = ($editor_id); # $1
 
-    unless ($only_open) {
+    if ($only_open) {
+        push @args, $STATUS_OPEN;
+    } else {
         # $3
-        push @args, DateTime::Format::Pg->format_interval(
-            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
-        );
+        # XXX This won't handle all cases in which an edit is stuck open, but
+        # it is significantly faster to leave out the "OR status = 1" filter
+        # when showing all recent edits.
+        my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
+        push @args, DateTime::Format::Pg->format_interval($max_open_duration);
     }
 
     my $edit_filter = sub {
@@ -346,13 +347,13 @@ sub subscribed_entity_edits {
         my $result;
 
         if ($only_open) {
-            $result = "$status_table.status = \$1\n";
+            $result = "$status_table.status = \$2\n";
         } else {
-            $result = "($status_table.status = \$1 OR (now() - edit.open_time) < interval \$3)\n";
+            $result = "edit.open_time > now() - interval \$2\n";
         }
 
         $editor_op //= '=';
-        $result .= "AND $editor_table.editor $editor_op \$2\n";
+        $result .= "AND $editor_table.editor $editor_op \$1\n";
         $result;
     };
 
@@ -406,7 +407,7 @@ AND ${\($edit_filter->('edit', 'edit', '!='))}
 AND NOT EXISTS (
     SELECT TRUE FROM vote
     WHERE vote.edit = edit.id
-    AND vote.editor = \$2
+    AND vote.editor = \$1
 )
 ORDER BY id ASC
 LIMIT $LIMIT_FOR_EDIT_LISTING
@@ -425,9 +426,7 @@ sub subscribed_editor_edits {
         $status_sql = 'AND status = ?';
     } else {
         $status_sql = 'AND (status = ? OR (now() - open_time) < interval ?)';
-        push @args, DateTime::Format::Pg->format_interval(
-            DateTime::Duration->new(days => $OPEN_EDIT_DURATION)
-        );
+        push @args, DateTime::Format::Pg->format_interval($OPEN_EDIT_DURATION);
     }
 
     my $query =
