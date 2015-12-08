@@ -87,7 +87,7 @@ sub initialize
     });
 }
 
-sub edit_template { "remove_alias" };
+sub edit_template { "add_remove_alias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

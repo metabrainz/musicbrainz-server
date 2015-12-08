@@ -147,6 +147,6 @@ role {
     };
 };
 
-sub edit_template { "add_alias" };
+sub edit_template { "add_remove_alias" };
 
 1;
