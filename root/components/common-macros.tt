@@ -23,7 +23,9 @@ END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
 [%~ MACRO isolate_text(text) BLOCK;
-    INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    ELSE; '';
+    END;
 END ~%]
 
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
