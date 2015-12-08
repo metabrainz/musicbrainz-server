@@ -98,10 +98,7 @@ sub _insert_edit {
         } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation') {
             $c->stash(duplicate_violation => 1);
         } else {
-            use Data::Dumper;
-            croak "The edit could not be created.\n" .
-                "POST: " . Dumper($c->req->params) . "\n" .
-                "Exception:" . Dumper($_);
+            croak 'The edit could not be created. Exception (' . (ref ne '' ? ref : 'string') . '): ' . $_;
         }
     };
 
