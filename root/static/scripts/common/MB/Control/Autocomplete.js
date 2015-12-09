@@ -216,15 +216,14 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         var name = clearAction ? "" : this._value();
         var currentSelection = this.currentSelection.peek();
 
-        // If the current entity doesn't have a GID, it's already "blank" and
+        // If the current entity doesn't have an id, it's already "blank" and
         // we don't need to unnecessarily create a new one. Doing so can even
         // have unintended effects, e.g. wiping other useful data on the
         // entity (like release group types).
 
-        if (currentSelection.gid) {
+        if (currentSelection.id) {
             this.currentSelection(this._dataToEntity({ name: name }));
-        }
-        else {
+        } else {
             currentSelection.name = name;
             this.currentSelection.notifySubscribers(currentSelection);
         }
@@ -273,7 +272,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         if (hasID) {
             // Add/move to the top of the recent entities menu.
             var recent = this.recentEntities();
-            var duplicate = _.find(recent, { gid: data.gid });
+            var entityProperties = ENTITIES[this.entityType()];
+            var duplicate = _.find(
+                recent,
+                _.pick(data, entityProperties.mbid ? 'gid' : 'id')
+            );
 
             duplicate && recent.splice(recent.indexOf(duplicate), 1);
             recent.unshift(data.toJSON());
@@ -473,8 +476,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         }
     },
 
+    entityType: function () {
+        return this.entity.replace('-', '_');
+    },
+
     recentEntities: function () {
-        var entityType = this.entity.replace("-", "_");
+        var entityType = this.entityType();
         var recentEntities = {};
         var storedRecentEntities = MB.localStorage("recentAutocompleteEntities");
 
