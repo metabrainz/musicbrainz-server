@@ -3,11 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import _ from 'lodash';
 var i18n = require('../../i18n');
 var clean = require('../../utility/clean');
 var formatTrackLength = require('../../utility/formatTrackLength');
 var isBlank = require('../../utility/isBlank');
-import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+import {MAX_RECENT_ENTITIES} from '../../constants';
+import ENTITIES from '../../../../../entities.json';
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -948,9 +950,10 @@ MB.Control.EntityAutocomplete = function (options) {
 
     if (!options.entity) {
         // guess the entity from span classes.
-        $.each(ENTITIES, function (idx, entity) {
+        _.any(_.keys(ENTITIES), function (entity) {
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
+                return true;
             }
         });
     }
