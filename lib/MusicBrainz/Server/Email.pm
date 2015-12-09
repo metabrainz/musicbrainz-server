@@ -490,9 +490,9 @@ $subject for the following reason:
 
 “$reason”
 
-Links to related accounts :
-	Reporter’s account: https://musicbrainz.org/user/$reporter_tolink
-	Reported user’s account: https://musicbrainz.org/user/$reported_user_tolink
+Reporter’s account: https://musicbrainz.org/user/$reporter_tolink
+Reported user’s account: https://musicbrainz.org/user/$reported_user_tolink
+
 EOF
 
     if ($opts{reveal_address}) {
