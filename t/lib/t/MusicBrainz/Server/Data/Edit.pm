@@ -19,7 +19,12 @@ BEGIN { use MusicBrainz::Server::Data::Edit };
 use Sql;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $VOTE_APPROVE );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $UNTRUSTED_FLAG
+    $VOTE_YES
+    $VOTE_APPROVE
+);
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
@@ -294,6 +299,29 @@ test 'default_includes function' => sub {
 
     is_deeply($objects_to_load, $expected_objects_to_load, 'objects_to_load unchanged');
     is_deeply($post_load_models, $expected_post_load_models, 'post_load_models correctly modified');
+};
+
+test 'Open edits expire in 7 days (MBS-8681)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, '+edit');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => 123,
+        editor_id => 1,
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    is($edit->edit_conditions->{duration}, 7);
+
+    my ($expire_time) = @{ $c->sql->select_list_of_hashes(<<'EOSQL', $edit->id) };
+SELECT expire_time as got,
+       (open_time + interval '@ 7 days') as expected
+  FROM edit WHERE id = ?
+EOSQL
+
+    is($expire_time->{got}, $expire_time->{expected});
 };
 
 1;
