@@ -1,9 +1,8 @@
 package MusicBrainz::Server::EditSearch::Predicate::ID;
 use Moose;
+use MusicBrainz::Server::Validation qw( is_database_row_id );
 use namespace::autoclean;
 use feature 'switch';
-
-use Scalar::Util qw( looks_like_number );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -38,7 +37,7 @@ sub valid {
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
         my $arg = $self->argument($arg_index - 1);
-        looks_like_number($arg) && $arg <= 2147483647 or return;
+        is_database_row_id($arg) or return;
     }
 
     return 1;

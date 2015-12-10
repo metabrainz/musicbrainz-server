@@ -24,6 +24,7 @@ use MusicBrainz::Server::Validation qw(
     is_valid_barcode
     is_valid_ean
     is_valid_partial_date
+    is_database_row_id
 );
 
 test 'Test trim_in_place' => sub {
@@ -52,6 +53,18 @@ test 'Test is_positive_integer' => sub {
     ok(!is_positive_integer(undef), "Passing undef to is_positive_integer");
     ok(!is_positive_integer([1, 2, 3, 4]), "Passing arrayref to is_positive_integer");
     ok(!is_positive_integer({blah => 'foo', bar => 3}), "Passing hashref to is_positive_integer");
+};
+
+test 'Test is_database_row_id' => sub {
+    ok(is_database_row_id(1), "1 is a row id");
+    ok(is_database_row_id(2147483647), 'max postgres int is a row id');
+    ok(!is_database_row_id(2147483648), '(max postgres int + 1) is not a row id');
+    ok(!is_database_row_id(0), 'zero is not a row id');
+    ok(!is_database_row_id('123 is a nice number'), 'number plus letters is not a row id');
+    ok(!is_database_row_id(-1), 'negative integer is not a row id');
+    ok(!is_database_row_id(undef), 'undef is not a row id');
+    ok(!is_database_row_id([1, 2, 3, 4]), 'arrayref is not a row id');
+    ok(!is_database_row_id({blah => 'foo', bar => 3}), 'hashref is not a row id');
 };
 
 test 'Test is_guid' => sub {
