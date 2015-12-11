@@ -292,6 +292,7 @@ sub CreateRelations
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
     RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
     RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
 
@@ -322,6 +323,7 @@ sub CreateRelations
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
+    RunSQLScript($DB, "sitemaps/CreateIndexes.sql", "Creating sitemaps indexes ...");
     RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
 
     RunSQLScript($DB, "CreateSlaveIndexes.sql", "Creating slave-only indexes ...")
@@ -335,6 +337,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "caa/CreateEditFKConstraints.sql", "Adding CAA foreign key constraint to edit table...")
         unless ($REPTYPE == RT_SLAVE || !HasEditData());
+
+    RunSQLScript($DB, "sitemaps/CreateFKConstraints.sql", "Adding sitemaps foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
