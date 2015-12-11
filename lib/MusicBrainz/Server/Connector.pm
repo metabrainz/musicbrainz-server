@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Connector;
 use Moose;
-
+use MusicBrainz::Server::Exceptions;
 use DBIx::Connector;
 use Sql;
 
