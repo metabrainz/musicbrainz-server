@@ -292,6 +292,7 @@ sub CreateRelations
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
     RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
     RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
 
