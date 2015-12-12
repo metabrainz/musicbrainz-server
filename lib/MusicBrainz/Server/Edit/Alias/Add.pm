@@ -101,7 +101,6 @@ role {
             name => $entity->name
         };
 
-        $opts{sort_name} = $opts{name} unless non_empty($opts{sort_name});
         $self->enforce_dependencies(\%opts);
 
         $self->data(\%opts);

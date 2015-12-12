@@ -169,11 +169,6 @@ sub initialize
     die "You must specify the alias object to edit" unless defined $alias;
     my $entity = delete $opts{entity} or die 'Missing "entity" argument';
 
-    unless (non_empty($opts{sort_name})) {
-        delete $opts{sort_name};
-        $opts{sort_name} = $opts{name} if non_empty($opts{name});
-    }
-
     $self->enforce_dependencies(\%opts);
 
     $self->data({

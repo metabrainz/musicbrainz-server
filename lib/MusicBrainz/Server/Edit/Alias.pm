@@ -14,6 +14,11 @@ sub enforce_dependencies {
         $opts->{primary_for_locale} = 0;
     }
 
+    unless (non_empty($opts->{sort_name})) {
+        # Sortname defaults to the name
+        $opts->{sort_name} = $opts->{name};
+    }
+
     my $search_hint_type = $ENTITIES{$self->_alias_model->type}->{aliases}{search_hint_type};
     my $type = $opts->{type_id};
     if (defined $type && $type == $search_hint_type) {
