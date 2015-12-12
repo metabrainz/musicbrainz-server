@@ -283,7 +283,15 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $DB->password;
 
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
-        for ('musicbrainz', 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
+        for (qw(
+            musicbrainz
+            cover_art_archive
+            documentation
+            report
+            sitemaps
+            statistics
+            wikidocs
+        ));
     die "\nFailed to create schema\n" if ($? >> 8);
 
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
