@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use Moose::Util qw( does_role );
 use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -217,8 +218,7 @@ sub search : Path('/search/edits') RequireAuth
                 return $c->model('Edit')->run_query($query, shift, shift);
             });
         } catch {
-            unless (blessed $_
-                    && $_->does('MusicBrainz::Server::Exceptions::Role::Timeout')) {
+            unless (blessed $_ && does_role($_, 'MusicBrainz::Server::Exceptions::Role::Timeout')) {
                 die $_; # rethrow
             }
             $timed_out = 1;
