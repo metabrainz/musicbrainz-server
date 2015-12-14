@@ -5,7 +5,7 @@
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
-[%~ MACRO html_escape(url) BLOCK; url | html; END -%]
+[%~ MACRO html_escape(text) BLOCK; text | html; END ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
 [%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
