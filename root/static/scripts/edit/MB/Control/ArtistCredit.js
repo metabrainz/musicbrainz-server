@@ -79,7 +79,7 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
             
         } else if (/^;$/.test(join)) {
 	    this.joinPhrase("; ");
-	}
+        }
 
         // this join phrase has been changed, it should no langer be automatic.
         this.automaticJoin = false;
