@@ -3002,7 +3002,7 @@ msgstr "trắng lu bassvariant"
 msgid "variety of bass guitars without frets"
 msgstr "basskitarr ilma astmetraatide ehk krihvideta"
 
-#. name:other drums
-#: DB:instrument/description:588
+#. name:drums
+#: DB:instrument/description:100
 msgid "variously sized drums"
 msgstr "mitmesuguses suuruses trummid"

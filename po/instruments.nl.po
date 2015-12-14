@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 13:43+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2015-11-30 00:56+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1884,10 +1884,6 @@ msgstr "orgel"
 #: DB:instrument/name:519
 msgid "orpharion"
 msgstr "orpharion"
-
-#: DB:instrument/name:588
-msgid "other drums"
-msgstr "overige trommels"
 
 #: DB:instrument/name:141
 msgid "other instruments"

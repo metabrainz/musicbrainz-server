@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 05:21+0000\n"
+"PO-Revision-Date: 2015-11-30 00:56+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1883,10 +1883,6 @@ msgstr "orel"
 #: DB:instrument/name:519
 msgid "orpharion"
 msgstr "orpharion"
-
-#: DB:instrument/name:588
-msgid "other drums"
-msgstr "muud trummid"
 
 #: DB:instrument/name:141
 msgid "other instruments"

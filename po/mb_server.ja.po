@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 19:31-0600\n"
-"PO-Revision-Date: 2015-11-28 17:30+0000\n"
-"Last-Translator: mai inoue\n"
+"POT-Creation-Date: 2015-11-29 18:52-0600\n"
+"PO-Revision-Date: 2015-11-30 00:55+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -212,7 +212,7 @@ msgstr "（スタンドアロンレコーディング）"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13 ../root/entity/details.tt:17
 #: ../root/recording/index.tt:24 ../root/release_group/index.tt:40
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:96
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:174
 msgid "(unknown)"
 msgstr "(不明)"
@@ -304,7 +304,7 @@ msgstr ""
 msgid "500px"
 msgstr ""
 
-#: ../root/admin/edit_user.tt:19
+#: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"MusicBrainz ID\">MBID</abbr> の提出者"
 
@@ -461,7 +461,7 @@ msgstr "アクセス"
 msgid "Account Created"
 msgstr "アカウント作成しました"
 
-#: ../root/admin/edit_user.tt:26 ../root/admin/edit_user.tt:30
+#: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
 msgstr "アカウント設定"
 
@@ -774,7 +774,7 @@ msgstr "選択されたリリースをマージ"
 msgid "Add selected works for merging"
 msgstr "選択されたワークをマージ"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:124
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:116
 msgid "Add to a new collection"
 msgstr "新しいコレクションに追加"
 
@@ -782,12 +782,8 @@ msgstr "新しいコレクションに追加"
 msgid "Add to a new list"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:113
-msgid "Add to my collection"
-msgstr "自分のコレクションに追加"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:84
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:115
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:108
 msgid "Add to {collection}"
 msgstr "{collection} に追加"
 
@@ -854,7 +850,7 @@ msgstr "アドミン"
 msgid "Administration"
 msgstr "経営"
 
-#: ../root/admin/edit_user.tt:18
+#: ../root/admin/edit_user.tt:19
 msgid "Administration flags"
 msgstr "経営フラグ"
 
@@ -1778,7 +1774,7 @@ msgid ""
 " sure to include it!"
 msgstr ""
 
-#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:37
+#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
 #: ../root/user/profile.tt:118
 msgid "Bio:"
 msgstr "プロフィール："
@@ -1801,7 +1797,7 @@ msgstr "出身："
 msgid "Born:"
 msgstr "出生："
 
-#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
 msgid "Bot"
 msgstr "ボット"
 
@@ -1809,7 +1805,7 @@ msgstr "ボット"
 msgid "Bots"
 msgstr "ボット"
 
-#: ../root/layout.tt:91
+#: ../root/layout.tt:101
 msgid "Bug Tracker"
 msgstr "バグ管理"
 
@@ -2005,7 +2001,7 @@ msgstr "リリース品質を変更"
 
 #: ../root/release/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:16
 msgid "Change release quality"
 msgstr "リリース品質を変更"
 
@@ -2241,7 +2237,7 @@ msgstr "国:"
 msgid "Cover Art"
 msgstr "カバーアート"
 
-#: ../root/layout.tt:111
+#: ../root/layout.tt:121
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
@@ -2638,7 +2634,7 @@ msgstr "ドキュメント："
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "アカウント登録がまだの場合は{uri|こちらへ作成}。"
 
-#: ../root/layout.tt:88
+#: ../root/layout.tt:98
 msgid "Donate"
 msgstr "寄付する"
 
@@ -2798,7 +2794,7 @@ msgstr "メモを編集："
 msgid "Edit notes"
 msgstr "メモを編集"
 
-#: ../root/admin/edit_user.tt:33
+#: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
 msgstr "プロフィールを編集"
 
@@ -2806,7 +2802,7 @@ msgstr "プロフィールを編集"
 msgid "Edit relationships"
 msgstr "関連を編集"
 
-#: ../root/admin/edit_user.tt:43
+#: ../root/admin/edit_user.tt:44
 msgid "Edit user"
 msgstr "ユーザーを編集"
 
@@ -2832,6 +2828,10 @@ msgstr "編集履歴"
 #: ../root/main/index.tt:80
 msgid "Editing introduction"
 msgstr "編集のはじめに"
+
+#: ../root/admin/edit_user.tt:12
+msgid "Editing/voting disabled"
+msgstr ""
 
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -2910,7 +2910,7 @@ msgstr "メール送信しました！"
 
 #: ../root/account/edit.tt:16 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:34 ../root/user/profile.tt:20
+#: ../root/admin/edit_user.tt:35 ../root/user/profile.tt:20
 msgid "Email:"
 msgstr "メール："
 
@@ -3083,9 +3083,10 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "URL等だけでも助かります。"
 
 #: ../root/components/common-macros.tt:589
-#: ../root/components/events-list.tt:13 ../root/event/header.tt:4
-#: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
-#: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:309
+#: ../root/event/header.tt:4 ../root/event/merge.tt:11
+#: ../root/report/event_list.tt:7 ../root/series/index.tt:15
+#: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 #: ../root/static/scripts/common/i18n.js:207
 msgid "Event"
@@ -3305,7 +3306,7 @@ msgstr "フォーマット"
 msgid "Format:"
 msgstr "フォーマット:"
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:295
+#: ../root/layout.tt:100 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr "フォーラム"
 
@@ -3341,7 +3342,7 @@ msgid "Found in {num} attendance list"
 msgid_plural "Found in {num} attendance lists"
 msgstr[0] ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:125
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:117
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "{num}のユーザーコレクションに発見"
@@ -3873,6 +3874,12 @@ msgid ""
 " up\" tasks are required."
 msgstr ""
 
+#: ../root/user/report.tt:10
+msgid ""
+"If you’d like us to be able to easily respond to your report, please check "
+"“Reveal my email address” below."
+msgstr ""
+
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
 msgstr ""
@@ -4198,11 +4205,11 @@ msgstr ""
 msgid "Last modified:"
 msgstr "最終変更:"
 
-#: ../root/layout.tt:105
+#: ../root/layout.tt:115
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:134
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:126
 msgid "Last updated on {date}"
 msgstr "{date} に最終更新"
 
@@ -4614,7 +4621,7 @@ msgstr "マージ戦略:"
 msgid "Merge:"
 msgstr "マージ:"
 
-#: ../root/user/contact.tt:11
+#: ../root/user/contact.tt:11 ../root/user/report.tt:18
 msgid "Message:"
 msgstr "メッセージ:"
 
@@ -5012,7 +5019,7 @@ msgstr ""
 msgid "No matching CDs were found for TOC {toc}."
 msgstr ""
 
-#: ../root/admin/edit_user.tt:16
+#: ../root/admin/edit_user.tt:17
 msgid "No nag"
 msgstr ""
 
@@ -5617,6 +5624,10 @@ msgstr ""
 msgid "Please note:"
 msgstr ""
 
+#: ../root/user/report.tt:4
+msgid "Please review our {uri|Code of Conduct} before sending a report."
+msgstr ""
+
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
@@ -5837,6 +5848,10 @@ msgid ""
 "Read the {doc|WikiDocs} documentation for an overview of how transclusion "
 "works."
 msgstr "トランスクルージョンの説明は{doc|WikiDocs}をご参照ください。"
+
+#: ../root/user/report.tt:15
+msgid "Reason:"
+msgstr ""
 
 #: ../root/main/index.tt:113
 msgid "Recent Additions"
@@ -6649,12 +6664,8 @@ msgstr "コレクションを削除"
 msgid "Remove disc"
 msgstr "ディスクを削除"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:105
-msgid "Remove from my collection"
-msgstr "自分のコレクションから外す"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:80
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:107
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:104
 msgid "Remove from {collection}"
 msgstr "{collection}から外しました"
 
@@ -6699,9 +6710,17 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "カバーアートの並べ替え"
 
+#: ../root/user/report.tt:1 ../root/user/report.tt:2
+msgid "Report User"
+msgstr ""
+
 #: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr "バグを報告"
+
+#: ../root/user/profile.tt:252
+msgid "Report this user for bad behavior"
+msgstr ""
 
 #: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
@@ -6748,7 +6767,7 @@ msgstr "結果："
 msgid "Reuse previous recordings"
 msgstr ""
 
-#: ../root/user/contact.tt:16
+#: ../root/user/contact.tt:16 ../root/user/report.tt:23
 msgid "Reveal my email address"
 msgstr "メルアドを表示して"
 
@@ -6782,7 +6801,7 @@ msgstr "アプリケーションの許可を取り消す"
 msgid "Role"
 msgstr ""
 
-#: ../root/layout.tt:98
+#: ../root/layout.tt:108
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
 
@@ -7032,13 +7051,13 @@ msgstr ""
 msgid "Select images..."
 msgstr ""
 
-#: ../root/user/contact.tt:20
+#: ../root/user/contact.tt:20 ../root/user/report.tt:26
 msgid "Send"
 msgstr "送信"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:253
-#: ../lib/MusicBrainz/Server/Controller/User.pm:263
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:245
+#: ../lib/MusicBrainz/Server/Controller/User.pm:267
 msgid "Send Email"
 msgstr "emilを送信"
 
@@ -7558,7 +7577,7 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "ステータス："
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Stop using beta site"
 msgstr "ベータサイトを使わない"
 
@@ -7714,7 +7733,7 @@ msgstr "タグ"
 msgid "Team"
 msgstr "チーム"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:14
 msgid "Technical flags"
 msgstr ""
 
@@ -7795,7 +7814,7 @@ msgid ""
 "and may not display correctly"
 msgstr ""
 
-#: ../root/layout.tt:66
+#: ../root/layout.tt:76
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7916,8 +7935,8 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr ""
 
-#: ../root/layout.tt:59
-msgid "The server is temporary in read-only mode for database maintainance."
+#: ../root/layout.tt:69
+msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
 #: ../root/main/503.tt:5
@@ -8313,13 +8332,13 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:165
+#: ../root/layout.tt:41 ../lib/DBDefs/Default.pm:165
 msgid "This is a MusicBrainz development server."
 msgstr "これはMusicBrainzの開発サーバーです。"
 
-#: ../root/layout.tt:41
+#: ../root/layout.tt:51
 msgid ""
-"This is a Musicbrainz mirror server. To edit or make changes to the data "
+"This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
 msgstr ""
 
@@ -9424,7 +9443,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
 
-#: ../root/layout.tt:92
+#: ../root/layout.tt:102
 msgid "Twitter"
 msgstr "ツイッター"
 
@@ -9588,7 +9607,7 @@ msgstr "タイプ未定"
 msgid "Unsubscribe"
 msgstr "購読解除"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:290
 msgid "Untrusted"
 msgstr "信頼されない"
 
@@ -9630,7 +9649,7 @@ msgstr ""
 msgid "Uppercase roman numerals"
 msgstr "大文字のローマ数字"
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Use beta site"
 msgstr "ベータサイトを使う"
 
@@ -9974,7 +9993,7 @@ msgstr ""
 msgid "Web Application"
 msgstr "Webアプリケーション"
 
-#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:35
+#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:36
 msgid "Website:"
 msgstr "ウェブサイト："
 
@@ -9997,7 +10016,7 @@ msgid ""
 "and following the merge link."
 msgstr ""
 
-#: ../root/layout.tt:89
+#: ../root/layout.tt:99
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -10348,7 +10367,7 @@ msgstr ""
 msgid "You have no attendance lists!"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:122
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:114
 msgid "You have no collections!"
 msgstr "コレクションがありません。"
 
@@ -10495,6 +10514,12 @@ msgstr ""
 msgid "Your profile has been updated."
 msgstr "プロフィール更新しました。"
 
+#: ../root/user/report.tt:7
+msgid ""
+"Your report will be sent to our {uri|account administrators}, who will "
+"decide what action to take."
+msgstr ""
+
 #: ../root/search/error/invalid.tt:3
 msgid "Your search query was deemed invalid by our ruthless search server."
 msgstr ""
@@ -10507,6 +10532,13 @@ msgstr ""
 
 #: ../root/account/register.tt:27
 msgid "Your username will be publicly visible."
+msgstr ""
+
+#: ../root/layout.tt:30
+msgid ""
+"You’re currently not allowed to edit or vote because an admin has revoked "
+"your privileges. If you haven’t already been contacted about why, please "
+"{uri|send us a message}."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:285
@@ -11274,7 +11306,7 @@ msgstr "{type}「{work}」"
 msgid "{uri|Delete my account}"
 msgstr ""
 
-#: ../root/layout.tt:32
+#: ../root/layout.tt:42
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
@@ -11438,11 +11470,11 @@ msgid ""
 "             {mail|support@musicbrainz.org}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
 msgid "User successfully edited."
 msgstr "ユーザー編集しました。"
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:130
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:131
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
@@ -11538,31 +11570,39 @@ msgstr ""
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:254
-#, perl-brace-format
-msgid "The editor {name} has no email address attached to their account."
-msgstr "この編集者 {name} は、アカウントに email アドレスを関連付けていません。"
-
-#: ../lib/MusicBrainz/Server/Controller/User.pm:264
+#: ../lib/MusicBrainz/Server/Controller/User.pm:246
 msgid ""
 "You cannot contact other users because you have not {url|confirmed your "
 "email address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:292
+#: ../lib/MusicBrainz/Server/Controller/User.pm:268
+#, perl-brace-format
+msgid "The editor {name} has no email address attached to their account."
+msgstr "この編集者 {name} は、アカウントに email アドレスを関連付けていません。"
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:298
 msgid "Your message could not be sent"
 msgstr "あなたのメッセージを送信できません"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:381
+#: ../lib/MusicBrainz/Server/Controller/User.pm:387
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:527
+msgid "An error occurred while trying to send your report."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
+msgid "Your report has been sent."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:89
 msgid "Invalid TOC"
 msgstr "不正なTOCです"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:570
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:573
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -11765,7 +11805,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:43
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:25
 msgid "Edit release"
 msgstr "リリースを編集"
@@ -11911,7 +11951,7 @@ msgstr "メディアを追加"
 msgid "Remove medium"
 msgstr "メディアを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:44
 msgid "Edit medium"
 msgstr "メディアを編集"
 
@@ -11967,7 +12007,7 @@ msgstr "ISRCを追加"
 msgid "Add PUIDs (historic)"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:25
 msgid "Add standalone recording"
 msgstr "スタンドアロンレコーディングを追加"
 
@@ -12051,7 +12091,7 @@ msgstr "バーコードを編集"
 msgid "Edit cover art"
 msgstr "カバーアートを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 msgid "Edit release label"
 msgstr "リリースレーベルを編集"
 
@@ -12588,6 +12628,30 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:49
 msgid "Please choose another username, this one is already taken"
 msgstr "このユーザー名は既に使用されてます。他のユーザー名をお選びください。"
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:28
+msgid "Editor is spamming"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
+msgid "Editor is unresponsive to edit notes"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
+msgid "Editor intentionally ignores accepted guidelines"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
+msgid "Editor is overzealous in enforcing guidelines as rules"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
+msgid "Editor engages in overzealous or abusive yes/no voting"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
+msgid "Editor has violated some other part of our Code of Conduct"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"
