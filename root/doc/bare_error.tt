@@ -3,7 +3,7 @@
 <p>
     <strong>
         [%- l('Sorry, “{id}” is not a valid documentation page.',
-             { id => replace(id,'_',' ') }) -%]
+             { id => html_escape(replace(id,'_',' ')) }) -%]
     </strong>
 </p>
 
