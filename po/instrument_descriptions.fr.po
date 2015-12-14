@@ -5,6 +5,7 @@
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # Frédéric Da Vitoria <email address hidden>, 2014
+# Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
 # Trans-fr, 2015
 # Trans-fr, 2013-2015
@@ -12,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 05:21+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-12-02 00:27+0000\n"
+"Last-Translator: Léonard Cardyn <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +70,7 @@ msgstr "Un « bell tree » est un instrument de percussion constitué de bols en
 msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
-msgstr ""
+msgstr "Sonnette de bicyclette"
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -3008,7 +3009,7 @@ msgstr "trắng jâu est la basse du trắng lu"
 msgid "variety of bass guitars without frets"
 msgstr "variété de guitares basse sans frette"
 
-#. name:other drums
-#: DB:instrument/description:588
+#. name:drums
+#: DB:instrument/description:100
 msgid "variously sized drums"
 msgstr "tambours de diverses tailles"

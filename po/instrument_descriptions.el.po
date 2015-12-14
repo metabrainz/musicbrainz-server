@@ -3001,7 +3001,7 @@ msgstr ""
 msgid "variety of bass guitars without frets"
 msgstr "ποικιλία μπάσων κιθάρων χωρίς τάστα"
 
-#. name:other drums
-#: DB:instrument/description:588
+#. name:drums
+#: DB:instrument/description:100
 msgid "variously sized drums"
 msgstr ""

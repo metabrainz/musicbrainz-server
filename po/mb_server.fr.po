@@ -12,6 +12,7 @@
 # Dibou  <email address hidden>, 2012
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
+# François F, 2015
 # Ian McEwen <email address hidden>, 2013
 # Laurent Monin <email address hidden>, 2014
 # Lotheric <email address hidden>, 2011
@@ -33,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 19:31-0600\n"
-"PO-Revision-Date: 2015-11-23 09:19+0000\n"
-"Last-Translator: Youenn Piolet\n"
+"POT-Creation-Date: 2015-11-29 18:52-0600\n"
+"PO-Revision-Date: 2015-12-02 12:20+0000\n"
+"Last-Translator: François F\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,7 +231,7 @@ msgstr "(enregistrement isolé)"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13 ../root/entity/details.tt:17
 #: ../root/recording/index.tt:24 ../root/release_group/index.tt:40
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:96
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:174
 msgid "(unknown)"
 msgstr "(inconnu)"
@@ -323,7 +324,7 @@ msgstr "4 : montrer dans la section d'usage habituel"
 msgid "500px"
 msgstr "500 px"
 
-#: ../root/admin/edit_user.tt:19
+#: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=« Identifiant MusicBrainz »>MBID</abbr> envoyeur"
 
@@ -482,7 +483,7 @@ msgstr "Accéder"
 msgid "Account Created"
 msgstr "Le compte a été créé"
 
-#: ../root/admin/edit_user.tt:26 ../root/admin/edit_user.tt:30
+#: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
 msgstr "Administration du compte"
 
@@ -795,7 +796,7 @@ msgstr "Ajouter les parutions choisies pour la fusion"
 msgid "Add selected works for merging"
 msgstr "Ajouter les œuvres choisies pour la fusion"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:124
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:116
 msgid "Add to a new collection"
 msgstr "Ajouter une nouvelle collection"
 
@@ -803,12 +804,8 @@ msgstr "Ajouter une nouvelle collection"
 msgid "Add to a new list"
 msgstr "Ajouter à une nouvelle liste"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:113
-msgid "Add to my collection"
-msgstr "Ajouter à ma collection"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:84
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:115
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:108
 msgid "Add to {collection}"
 msgstr "Ajouter à {collection}"
 
@@ -875,7 +872,7 @@ msgstr "Admin"
 msgid "Administration"
 msgstr "Administration"
 
-#: ../root/admin/edit_user.tt:18
+#: ../root/admin/edit_user.tt:19
 msgid "Administration flags"
 msgstr "Drapeaux d'administration"
 
@@ -1802,7 +1799,7 @@ msgid ""
 " sure to include it!"
 msgstr "Voici ci-dessous des informations sur l'erreur. Si vous désirez remplir un rapport de bogue, vous pouvez le faire avec {bugs|notre gestionnaire de bogues}. Les informations ci-dessous nous aiderons, veuillez donc vous assurer de les inclure."
 
-#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:37
+#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
 #: ../root/user/profile.tt:118
 msgid "Bio:"
 msgstr "Bio :"
@@ -1825,7 +1822,7 @@ msgstr "Lieu de naissance :"
 msgid "Born:"
 msgstr "Date de naissance :"
 
-#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
 msgid "Bot"
 msgstr "Robot"
 
@@ -1833,7 +1830,7 @@ msgstr "Robot"
 msgid "Bots"
 msgstr "Robots"
 
-#: ../root/layout.tt:91
+#: ../root/layout.tt:101
 msgid "Bug Tracker"
 msgstr "Gestionnaire  de bogues"
 
@@ -2029,7 +2026,7 @@ msgstr "Changer la qualité des données de parution"
 
 #: ../root/release/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:16
 msgid "Change release quality"
 msgstr "Modifier la qualité de la parution"
 
@@ -2265,7 +2262,7 @@ msgstr "Pays : "
 msgid "Cover Art"
 msgstr "Illustration"
 
-#: ../root/layout.tt:111
+#: ../root/layout.tt:121
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
@@ -2662,7 +2659,7 @@ msgstr "Documentation :"
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Vous n'avez pas de compte ? {uri|Créez en un maintenant} !"
 
-#: ../root/layout.tt:88
+#: ../root/layout.tt:98
 msgid "Donate"
 msgstr "Faites un don"
 
@@ -2822,7 +2819,7 @@ msgstr "Notes d'édition :"
 msgid "Edit notes"
 msgstr "Modifier les notes : "
 
-#: ../root/admin/edit_user.tt:33
+#: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
 msgstr "Modifier le profil"
 
@@ -2830,7 +2827,7 @@ msgstr "Modifier le profil"
 msgid "Edit relationships"
 msgstr "Modifier les relations"
 
-#: ../root/admin/edit_user.tt:43
+#: ../root/admin/edit_user.tt:44
 msgid "Edit user"
 msgstr "Modifier l'utilisateur"
 
@@ -2856,6 +2853,10 @@ msgstr "Historique des modifications"
 #: ../root/main/index.tt:80
 msgid "Editing introduction"
 msgstr "Introduction à l'édition"
+
+#: ../root/admin/edit_user.tt:12
+msgid "Editing/voting disabled"
+msgstr ""
 
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -2934,7 +2935,7 @@ msgstr "courriel envoyé !"
 
 #: ../root/account/edit.tt:16 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:34 ../root/user/profile.tt:20
+#: ../root/admin/edit_user.tt:35 ../root/user/profile.tt:20
 msgid "Email:"
 msgstr "Courriel :"
 
@@ -3108,9 +3109,10 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "Même nous fournir une URL ou deux est utile !"
 
 #: ../root/components/common-macros.tt:589
-#: ../root/components/events-list.tt:13 ../root/event/header.tt:4
-#: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
-#: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:309
+#: ../root/event/header.tt:4 ../root/event/merge.tt:11
+#: ../root/report/event_list.tt:7 ../root/series/index.tt:15
+#: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 #: ../root/static/scripts/common/i18n.js:207
 msgid "Event"
@@ -3333,7 +3335,7 @@ msgstr "Format"
 msgid "Format:"
 msgstr "Format : "
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:295
+#: ../root/layout.tt:100 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr "Forums"
 
@@ -3371,7 +3373,7 @@ msgid_plural "Found in {num} attendance lists"
 msgstr[0] "Trouvé dans {num} liste de présence"
 msgstr[1] "Trouvé dans {num} listes de présence"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:125
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:117
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "Trouvé dans {num} collection d'utilisateurs"
@@ -3907,6 +3909,12 @@ msgid ""
 " up\" tasks are required."
 msgstr "Si vous souhaitez participer au processus d'édition mais que vous ne savez pas par où commencer, les rapports ci-dessous pourraient vous être utiles. Ces rapports fouille la base de données à la recherche de données qui devraient peut-être être corrigées soit pour correspondre au {style|directives de style}, ou pour toute autre tache de « nettoyage administratif »."
 
+#: ../root/user/report.tt:10
+msgid ""
+"If you’d like us to be able to easily respond to your report, please check "
+"“Reveal my email address” below."
+msgstr ""
+
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
 msgstr "Images de Wikimedia Commons"
@@ -4232,11 +4240,11 @@ msgstr "Dernière modification"
 msgid "Last modified:"
 msgstr "Modifier en dernier :"
 
-#: ../root/layout.tt:105
+#: ../root/layout.tt:115
 msgid "Last replication packet received at {datetime}"
 msgstr "Dernier paquet de réplication reçu à {datetime}"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:134
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:126
 msgid "Last updated on {date}"
 msgstr "Modifié en dernier le {date}"
 
@@ -4648,7 +4656,7 @@ msgstr "Fusionner des stratégies : "
 msgid "Merge:"
 msgstr "Fusion : "
 
-#: ../root/user/contact.tt:11
+#: ../root/user/contact.tt:11 ../root/user/report.tt:18
 msgid "Message:"
 msgstr "Message : "
 
@@ -5046,7 +5054,7 @@ msgstr "Aucun label trouvé avec cette balise."
 msgid "No matching CDs were found for TOC {toc}."
 msgstr "Aucun CD n'a été trouvé ayant l'index {toc}."
 
-#: ../root/admin/edit_user.tt:16
+#: ../root/admin/edit_user.tt:17
 msgid "No nag"
 msgstr "Pas d'écran ennuyeux"
 
@@ -5651,6 +5659,10 @@ msgstr "Notez que tout contenu envoyés à MusicBrainz sera publié sous une lic
 msgid "Please note:"
 msgstr "Veuillez prendre note :"
 
+#: ../root/user/report.tt:4
+msgid "Please review our {uri|Code of Conduct} before sending a report."
+msgstr ""
+
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
@@ -5872,6 +5884,10 @@ msgid ""
 "Read the {doc|WikiDocs} documentation for an overview of how transclusion "
 "works."
 msgstr "Lisez la documentation {doc|WikiDocs} pour un aperçu sur comment fonctionne la transclusion."
+
+#: ../root/user/report.tt:15
+msgid "Reason:"
+msgstr ""
 
 #: ../root/main/index.tt:113
 msgid "Recent Additions"
@@ -6684,12 +6700,8 @@ msgstr "Enlever la collection"
 msgid "Remove disc"
 msgstr "Enlever le disque"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:105
-msgid "Remove from my collection"
-msgstr "Enlever de ma collection"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:80
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:107
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:104
 msgid "Remove from {collection}"
 msgstr "Enlever de {collection}"
 
@@ -6734,9 +6746,17 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "Réordonner les Illustrations"
 
+#: ../root/user/report.tt:1 ../root/user/report.tt:2
+msgid "Report User"
+msgstr "Signaler l'utilisateur"
+
 #: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr "Signaler un bogue"
+
+#: ../root/user/profile.tt:252
+msgid "Report this user for bad behavior"
+msgstr ""
 
 #: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
@@ -6783,7 +6803,7 @@ msgstr "Résultats :"
 msgid "Reuse previous recordings"
 msgstr "Réutiliser les enregistrements précédents"
 
-#: ../root/user/contact.tt:16
+#: ../root/user/contact.tt:16 ../root/user/report.tt:23
 msgid "Reveal my email address"
 msgstr "Montrer mon adresse courriel"
 
@@ -6817,7 +6837,7 @@ msgstr "Révoquer l'accès d'une application"
 msgid "Role"
 msgstr "Rôle"
 
-#: ../root/layout.tt:98
+#: ../root/layout.tt:108
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
@@ -7078,13 +7098,13 @@ msgstr "Choisissez la parution vers laquelle l'ID de disque <code>{discid}</code
 msgid "Select images..."
 msgstr "Choisir les images..."
 
-#: ../root/user/contact.tt:20
+#: ../root/user/contact.tt:20 ../root/user/report.tt:26
 msgid "Send"
 msgstr "Envoyer"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:253
-#: ../lib/MusicBrainz/Server/Controller/User.pm:263
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:245
+#: ../lib/MusicBrainz/Server/Controller/User.pm:267
 msgid "Send Email"
 msgstr "Envoyer un courriel"
 
@@ -7604,7 +7624,7 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "Statut :"
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Stop using beta site"
 msgstr "Ne plus utiliser le site bêta"
 
@@ -7760,7 +7780,7 @@ msgstr "Balises"
 msgid "Team"
 msgstr "Équipe"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:14
 msgid "Technical flags"
 msgstr "Drapeaux techniques"
 
@@ -7841,7 +7861,7 @@ msgid ""
 "and may not display correctly"
 msgstr "Les données issues de cette modification proviennent d'une ancienne version du système, et pourraient ne pas d'afficher correctement."
 
-#: ../root/layout.tt:66
+#: ../root/layout.tt:76
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7962,9 +7982,9 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr "Le serveur de recherche n'a pas pu compléter votre requête du fait d'une erreur interne. Ceci est habituellement seulement temporaire, alors veuillez ressayer votre recherche plus tard."
 
-#: ../root/layout.tt:59
-msgid "The server is temporary in read-only mode for database maintainance."
-msgstr "Le serveur est temporairement en lecture seule pour la maintenance. de la base de données."
+#: ../root/layout.tt:69
+msgid "The server is temporarily in read-only mode for database maintenance."
+msgstr "Le serveur est temporairement en lecture seule pour cause de maintenance de la base de données."
 
 #: ../root/main/503.tt:5
 msgid "The system is overloaded or you are making requests too fast."
@@ -8366,15 +8386,15 @@ msgid ""
 "attributed to it."
 msgstr "Cet instrument ne peut pas être supprimé, car il y a des relations qui lui sont attribuées."
 
-#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:165
+#: ../root/layout.tt:41 ../lib/DBDefs/Default.pm:165
 msgid "This is a MusicBrainz development server."
 msgstr "Ceci est un serveur de développement de MusicBrainz."
 
-#: ../root/layout.tt:41
+#: ../root/layout.tt:51
 msgid ""
-"This is a Musicbrainz mirror server. To edit or make changes to the data "
+"This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr "Ceci est un serveur mirroir de Musicbrainz. Pour modifier les données veuillez {uri|retourner vers musicbrainz.org}."
+msgstr ""
 
 #: ../root/components/common-macros.tt:104
 msgid ""
@@ -9477,7 +9497,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Pseudo-parutions traduites-translittérées sans lien vers une version originale."
 
-#: ../root/layout.tt:92
+#: ../root/layout.tt:102
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -9641,7 +9661,7 @@ msgstr "Type non spécifié"
 msgid "Unsubscribe"
 msgstr "Se désabonner "
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:290
 msgid "Untrusted"
 msgstr "Non-fiable"
 
@@ -9683,7 +9703,7 @@ msgstr "Téléversement de l'image en cours..."
 msgid "Uppercase roman numerals"
 msgstr "Mettre les chiffres romains en majuscule"
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Use beta site"
 msgstr "Utiliser le site bêta"
 
@@ -10027,7 +10047,7 @@ msgstr "Nous vous avons envoyé des instructions pour réinitialiser votre mot d
 msgid "Web Application"
 msgstr "Application Web"
 
-#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:35
+#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:36
 msgid "Website:"
 msgstr "Site Web : "
 
@@ -10050,7 +10070,7 @@ msgid ""
 "and following the merge link."
 msgstr "Lorsque vous êtes prêt à fusionner ces données, cliquez le bouton » Fusionner ». Vous pourrez toujours ajouter d'autres données à cette fusion en cherchant les autres entités et en cliquant sur le lien « fusionner »."
 
-#: ../root/layout.tt:89
+#: ../root/layout.tt:99
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -10402,7 +10422,7 @@ msgstr "Vous avez donné l'accès à {app}. Ensuite, retourner vers {app} et cop
 msgid "You have no attendance lists!"
 msgstr "Vous n'avez pas de liste de présence !"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:122
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:114
 msgid "You have no collections!"
 msgstr "Vous n'avez aucune collection !"
 
@@ -10549,6 +10569,12 @@ msgstr "Vos préférences ont été suvegardées. {link|Cliquez ici} pour contin
 msgid "Your profile has been updated."
 msgstr "Votre profil a été mis à jour."
 
+#: ../root/user/report.tt:7
+msgid ""
+"Your report will be sent to our {uri|account administrators}, who will "
+"decide what action to take."
+msgstr ""
+
 #: ../root/search/error/invalid.tt:3
 msgid "Your search query was deemed invalid by our ruthless search server."
 msgstr "Votre requête de recherche a été considérée comme invalide par notre impitoyable serveur de recherche."
@@ -10562,6 +10588,13 @@ msgstr "Votre recherche a pris trop de temps et a été annulée. Être plus sp�
 #: ../root/account/register.tt:27
 msgid "Your username will be publicly visible."
 msgstr "Votre nom d'utilisateur sera visible publiquement."
+
+#: ../root/layout.tt:30
+msgid ""
+"You’re currently not allowed to edit or vote because an admin has revoked "
+"your privileges. If you haven’t already been contacted about why, please "
+"{uri|send us a message}."
+msgstr ""
 
 #: ../root/release/edit/tracklist.tt:285
 msgid ""
@@ -11362,7 +11395,7 @@ msgstr "{type} “{work}”"
 msgid "{uri|Delete my account}"
 msgstr "{uri|Supprimez mon compte}"
 
-#: ../root/layout.tt:32
+#: ../root/layout.tt:42
 msgid "{uri|Return to musicbrainz.org}."
 msgstr "{uri|Retour vers musicbrainz.org}."
 
@@ -11529,11 +11562,11 @@ msgid ""
 "             {mail|support@musicbrainz.org}."
 msgstr "<strong>Nous n'avons pas pu vous envoyer un courriel de confirmation.</strong><br/>Veuillez confirmer que vous avez saisi une adresse valide en éditant vos {settings|paramètres de compte}. Si le problème persiste encore, veuillez nous contacter à {mail|support@musicbrainz.org}."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
 msgid "User successfully edited."
 msgstr "Utilisateur modifié avec succès."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:130
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:131
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "La bannière est mise à jour. Souvenez-vous que chaque serveur à sa propre bannière indépendante."
@@ -11629,31 +11662,39 @@ msgstr "Notre serveur Redis semble être hors service. Certaines fonctions pourr
 msgid "Series that have different entity types cannot be merged."
 msgstr "Les séries ayant des types d'entité différents ne peuvent pas être fusionnées."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:254
-#, perl-brace-format
-msgid "The editor {name} has no email address attached to their account."
-msgstr "L'éditeur nommé {name} n'a pas d'adresse courriel attaché à son compte."
-
-#: ../lib/MusicBrainz/Server/Controller/User.pm:264
+#: ../lib/MusicBrainz/Server/Controller/User.pm:246
 msgid ""
 "You cannot contact other users because you have not {url|confirmed your "
 "email address}."
 msgstr "Vous ne pouvez pas contacter d'autres utilisateurs car vous n'avez pas {url|confirmé votre adresse courriel}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:292
+#: ../lib/MusicBrainz/Server/Controller/User.pm:268
+#, perl-brace-format
+msgid "The editor {name} has no email address attached to their account."
+msgstr "L'éditeur nommé {name} n'a pas d'adresse courriel attaché à son compte."
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:298
 msgid "Your message could not be sent"
 msgstr "Votre message n'a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:381
+#: ../lib/MusicBrainz/Server/Controller/User.pm:387
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n'est pas un type d'entité qui peut avoir des évaluations."
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:527
+msgid "An error occurred while trying to send your report."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
+msgid "Your report has been sent."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:89
 msgid "Invalid TOC"
 msgstr "Index invalide"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:570
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:573
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -11856,7 +11897,7 @@ msgstr "Changer la qualité de l'artiste (historique)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:43
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:25
 msgid "Edit release"
 msgstr "Modifier la parution"
@@ -12002,7 +12043,7 @@ msgstr "Ajouter un support"
 msgid "Remove medium"
 msgstr "Enlever le support"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:44
 msgid "Edit medium"
 msgstr "Modifier le support"
 
@@ -12058,7 +12099,7 @@ msgstr "Ajouter des ISRC"
 msgid "Add PUIDs (historic)"
 msgstr "Ajouter des PUID (historique)"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:25
 msgid "Add standalone recording"
 msgstr "Ajouter un enregistrement isolé"
 
@@ -12142,7 +12183,7 @@ msgstr "Modifier les codes-barres"
 msgid "Edit cover art"
 msgstr "Modifier une Illustration"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 msgid "Edit release label"
 msgstr "Modifier le label de parution"
 
@@ -12679,6 +12720,30 @@ msgstr "Ce nom d'utilisateur est réservé pour un usage interne"
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:49
 msgid "Please choose another username, this one is already taken"
 msgstr "Veuillez choisir un autre nom d'utilisateur, celui-ci étant déjà pris"
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:28
+msgid "Editor is spamming"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
+msgid "Editor is unresponsive to edit notes"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
+msgid "Editor intentionally ignores accepted guidelines"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
+msgid "Editor is overzealous in enforcing guidelines as rules"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
+msgid "Editor engages in overzealous or abusive yes/no voting"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
+msgid "Editor has violated some other part of our Code of Conduct"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"

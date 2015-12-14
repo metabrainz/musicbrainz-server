@@ -5,6 +5,7 @@
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2015
+# Léonard Cardyn <email address hidden>, 2015
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
 # Nicolas HOUDELOT <email address hidden>, 2015
@@ -19,8 +20,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-22 08:14+0000\n"
-"Last-Translator: Dibou <email address hidden>\n"
+"PO-Revision-Date: 2015-12-02 00:31+0000\n"
+"Last-Translator: Léonard Cardyn <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -905,7 +906,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:878
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
-msgstr ""
+msgstr "Les paroles de (entity1) ont (addition:additionally) écrites à (entity0)"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
@@ -4470,7 +4471,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "tour in support of"
-msgstr ""
+msgstr "Tournée pour faire la promotion"
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
@@ -4864,7 +4865,7 @@ msgstr "parolier {additional:additionnel}"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
-msgstr ""
+msgstr "(additional) paroles"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
