@@ -1617,6 +1617,10 @@ msgstr ""
 msgid "launeddas"
 msgstr ""
 
+#: DB:instrument/name:764
+msgid "lautenwerck"
+msgstr ""
+
 #: DB:instrument/name:705
 msgid "lavta"
 msgstr ""
