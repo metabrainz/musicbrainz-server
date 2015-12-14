@@ -70,10 +70,10 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
 
         if (/^[A-Za-z]+\.?$/.test(join)) {
             this.joinPhrase(" " + join + " ");
-
+            
         } else if (/^,$/.test(join)) {
             this.joinPhrase(", ");
-
+            
         } else if (/^&$/.test(join)) {
             this.joinPhrase(" & ");
             
