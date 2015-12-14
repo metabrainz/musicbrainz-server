@@ -2,8 +2,11 @@ package t::MusicBrainz::Server::Controller::Edit::Cancel;
 use Test::Routine;
 use Test::More;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
-use MusicBrainz::Server::Constants qw( $STATUS_DELETED );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_EDIT
+    $STATUS_DELETED
+    $UNTRUSTED_FLAG
+);
 
 with 't::Context', 't::Mechanize';
 
@@ -75,6 +78,7 @@ EOSQL
         comment => 'Changed comment',
         ipi_codes => [],
         isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
     );
 
     $mech->get_ok('/login');

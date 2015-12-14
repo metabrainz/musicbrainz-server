@@ -10,6 +10,6 @@ require("./guess-case/MB/GuessCase/Handler/Place.js");
 require("./guess-case/MB/GuessCase/Handler/Release.js");
 require("./guess-case/MB/GuessCase/Handler/Track.js");
 require("./guess-case/MB/GuessCase/Handler/Work.js");
-require("./guess-case/MB/GuessCase/Mode/Base.js");
+require("./guess-case/modes.js");
 require("./guess-case/MB/GuessCase/Main.js");
 require("./guess-case/MB/Control/GuessCase.js");

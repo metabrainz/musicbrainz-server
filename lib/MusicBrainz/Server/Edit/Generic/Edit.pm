@@ -114,7 +114,7 @@ override allow_auto_edit => sub {
     for my $field (@text_fields) {
         my ($old, $new) = normalise_strings(
             $self->data->{old}{$field}, $self->data->{new}{$field});
-        return 0 if $old ne $new;
+        return 0 if $old ne $new && $old ne '';
     }
 
     # Adding a date is automatic if there was no date yet.
