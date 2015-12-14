@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 19:31-0600\n"
-"PO-Revision-Date: 2015-11-18 18:40+0000\n"
-"Last-Translator: phonebox\n"
+"POT-Creation-Date: 2015-11-29 18:52-0600\n"
+"PO-Revision-Date: 2015-11-30 00:55+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,7 +222,7 @@ msgstr "(yksittäinen äänite)"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13 ../root/entity/details.tt:17
 #: ../root/recording/index.tt:24 ../root/release_group/index.tt:40
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:96
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:174
 msgid "(unknown)"
 msgstr "(tuntematon)"
@@ -315,7 +315,7 @@ msgstr "4: Näytetään osiossa \"Usein käytetyt\"."
 msgid "500px"
 msgstr "500 pikseliä"
 
-#: ../root/admin/edit_user.tt:19
+#: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr>-lähettäjä"
 
@@ -474,7 +474,7 @@ msgstr "Pääsyoikeudet"
 msgid "Account Created"
 msgstr "Käyttäjätunnus luotu"
 
-#: ../root/admin/edit_user.tt:26 ../root/admin/edit_user.tt:30
+#: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
 msgstr "Käyttäjätunnuksien hallinnointi"
 
@@ -787,7 +787,7 @@ msgstr "Lisää valitut julkaisut sulautettaviksi"
 msgid "Add selected works for merging"
 msgstr "Lisää valitut teokset sulautettaviksi"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:124
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:116
 msgid "Add to a new collection"
 msgstr "Lisää uuteen kokoelmaan"
 
@@ -795,12 +795,8 @@ msgstr "Lisää uuteen kokoelmaan"
 msgid "Add to a new list"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:113
-msgid "Add to my collection"
-msgstr "Lisää kokoelmaani"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:84
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:115
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:108
 msgid "Add to {collection}"
 msgstr "Lisää kokoelmaan {collection}"
 
@@ -867,7 +863,7 @@ msgstr "Järjestelmänvalvoja"
 msgid "Administration"
 msgstr "Hallinto"
 
-#: ../root/admin/edit_user.tt:18
+#: ../root/admin/edit_user.tt:19
 msgid "Administration flags"
 msgstr "Hallintoliput"
 
@@ -1794,7 +1790,7 @@ msgid ""
 " sure to include it!"
 msgstr "Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraportin {bugs|virheidenseurantaamme}. Alta löytyvä tieto helpottaa vian paikallistamista, joten muistathan sisällyttää sen raporttiisi!"
 
-#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:37
+#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
 #: ../root/user/profile.tt:118
 msgid "Bio:"
 msgstr "Biografia:"
@@ -1817,7 +1813,7 @@ msgstr "Syntymäpaikka:"
 msgid "Born:"
 msgstr "Syntymäaika:"
 
-#: ../root/admin/edit_user.tt:14 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
 msgid "Bot"
 msgstr "Botti"
 
@@ -1825,7 +1821,7 @@ msgstr "Botti"
 msgid "Bots"
 msgstr "Botit"
 
-#: ../root/layout.tt:91
+#: ../root/layout.tt:101
 msgid "Bug Tracker"
 msgstr "Virheiden seuranta"
 
@@ -2021,7 +2017,7 @@ msgstr "Muuta julkaisun datan laatua"
 
 #: ../root/release/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:16
 msgid "Change release quality"
 msgstr "Vaihda julkaisun laatuluokitusta"
 
@@ -2257,7 +2253,7 @@ msgstr "Maa:"
 msgid "Cover Art"
 msgstr "Kansitaide"
 
-#: ../root/layout.tt:111
+#: ../root/layout.tt:121
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
@@ -2654,7 +2650,7 @@ msgstr "Dokumentaatio:"
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Puuttuuko sinulta käyttäjätunnus? {uri|Luo käyttäjätunnus heti}!"
 
-#: ../root/layout.tt:88
+#: ../root/layout.tt:98
 msgid "Donate"
 msgstr "Lahjoita"
 
@@ -2814,7 +2810,7 @@ msgstr "Muokkausmerkintä:"
 msgid "Edit notes"
 msgstr "Muokkausmerkinnät"
 
-#: ../root/admin/edit_user.tt:33
+#: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
 msgstr "Muokkaa profiilia"
 
@@ -2822,7 +2818,7 @@ msgstr "Muokkaa profiilia"
 msgid "Edit relationships"
 msgstr "Muokkaa yhteyksiä"
 
-#: ../root/admin/edit_user.tt:43
+#: ../root/admin/edit_user.tt:44
 msgid "Edit user"
 msgstr "Muokkaa käyttäjää"
 
@@ -2848,6 +2844,10 @@ msgstr "Muokkaushistoria"
 #: ../root/main/index.tt:80
 msgid "Editing introduction"
 msgstr "Johdanto muokkauksiin"
+
+#: ../root/admin/edit_user.tt:12
+msgid "Editing/voting disabled"
+msgstr ""
 
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -2926,7 +2926,7 @@ msgstr "Sähköposti lähetetty!"
 
 #: ../root/account/edit.tt:16 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:34 ../root/user/profile.tt:20
+#: ../root/admin/edit_user.tt:35 ../root/user/profile.tt:20
 msgid "Email:"
 msgstr "Sähköpostiosoite:"
 
@@ -3100,9 +3100,10 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "Pelkän URL-osoitteen antaminenkin helpottaa!"
 
 #: ../root/components/common-macros.tt:589
-#: ../root/components/events-list.tt:13 ../root/event/header.tt:4
-#: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
-#: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:309
+#: ../root/event/header.tt:4 ../root/event/merge.tt:11
+#: ../root/report/event_list.tt:7 ../root/series/index.tt:15
+#: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 #: ../root/static/scripts/common/i18n.js:207
 msgid "Event"
@@ -3325,7 +3326,7 @@ msgstr "Tallenteen muoto"
 msgid "Format:"
 msgstr "Tallenteen muoto:"
 
-#: ../root/layout.tt:90 ../root/layout/menu.tt:295
+#: ../root/layout.tt:100 ../root/layout/menu.tt:295
 msgid "Forums"
 msgstr "Keskustelufoorumi"
 
@@ -3363,7 +3364,7 @@ msgid_plural "Found in {num} attendance lists"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:125
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:117
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "Löytyy {num} kokoelmasta"
@@ -3899,6 +3900,12 @@ msgid ""
 " up\" tasks are required."
 msgstr "Jos haluaisit osallistua muokkaamiseen, mutta et tiedä mistä aloittaisit, näistä raporteista saattaa olla apua. Nämä raportit listaavat tietokannasta poimittuja kohteita, jotka voivat vaatia korjaamista. Osa vaatiinee muokkausta noudattaakseen {style|tyylioppaita}, ja joissakin tapauksissa saatetaan tarvita hallinnollista \"siivoamista\"."
 
+#: ../root/user/report.tt:10
+msgid ""
+"If you’d like us to be able to easily respond to your report, please check "
+"“Reveal my email address” below."
+msgstr ""
+
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
 msgstr "kuva Wikimedia Commonsista"
@@ -4224,11 +4231,11 @@ msgstr "Viimeksi muokattu"
 msgid "Last modified:"
 msgstr "Viimeksi muokattu:"
 
-#: ../root/layout.tt:105
+#: ../root/layout.tt:115
 msgid "Last replication packet received at {datetime}"
 msgstr "Viimeisin kopiointipaketti vastaanotettu {datetime}"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:134
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:126
 msgid "Last updated on {date}"
 msgstr "Viimeksi päivitetty {date}"
 
@@ -4640,7 +4647,7 @@ msgstr "Sulauttamismenetelmä:"
 msgid "Merge:"
 msgstr "Sulauta:"
 
-#: ../root/user/contact.tt:11
+#: ../root/user/contact.tt:11 ../root/user/report.tt:18
 msgid "Message:"
 msgstr "Viesti:"
 
@@ -5038,7 +5045,7 @@ msgstr "Tällä luokituksella ei löytynyt levymerkkejä."
 msgid "No matching CDs were found for TOC {toc}."
 msgstr "Sisällysluettelolle {toc} ei löytynyt yhtään vastaava CD-levyä."
 
-#: ../root/admin/edit_user.tt:16
+#: ../root/admin/edit_user.tt:17
 msgid "No nag"
 msgstr "Ei muistuttamisia"
 
@@ -5643,6 +5650,10 @@ msgstr "Huomioithan, että kaikki MusicBrainziin lähetetty materiaali julkaista
 msgid "Please note:"
 msgstr "Huomioi:"
 
+#: ../root/user/report.tt:4
+msgid "Please review our {uri|Code of Conduct} before sending a report."
+msgstr ""
+
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
@@ -5864,6 +5875,10 @@ msgid ""
 "Read the {doc|WikiDocs} documentation for an overview of how transclusion "
 "works."
 msgstr "Lue {doc|WikiDocin} dokumentaatiosta miten sisällyttäminen tapahtuu."
+
+#: ../root/user/report.tt:15
+msgid "Reason:"
+msgstr ""
 
 #: ../root/main/index.tt:113
 msgid "Recent Additions"
@@ -6676,12 +6691,8 @@ msgstr "Poista kokoelma"
 msgid "Remove disc"
 msgstr "Poista levy"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:105
-msgid "Remove from my collection"
-msgstr "Poista kokoelmastani"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:80
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:107
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:104
 msgid "Remove from {collection}"
 msgstr "Poista kokoelmasta {collection}"
 
@@ -6726,9 +6737,17 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "Uudelleenjärjestä kansitaide"
 
+#: ../root/user/report.tt:1 ../root/user/report.tt:2
+msgid "Report User"
+msgstr ""
+
 #: ../root/layout/menu.tt:300
 msgid "Report a Bug"
 msgstr "Ilmoita virheestä"
+
+#: ../root/user/profile.tt:252
+msgid "Report this user for bad behavior"
+msgstr ""
 
 #: ../root/layout/menu.tt:256 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
@@ -6775,7 +6794,7 @@ msgstr "Tulokset:"
 msgid "Reuse previous recordings"
 msgstr "Käytä uudelleen edellisiä äänitteitä"
 
-#: ../root/user/contact.tt:16
+#: ../root/user/contact.tt:16 ../root/user/report.tt:23
 msgid "Reveal my email address"
 msgstr "Paljasta sähköpostiosoitteeni"
 
@@ -6809,7 +6828,7 @@ msgstr "Poista sovelluksen pääsyoikeudet"
 msgid "Role"
 msgstr ""
 
-#: ../root/layout.tt:98
+#: ../root/layout.tt:108
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Ajossa: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
@@ -7070,13 +7089,13 @@ msgstr "Valitse julkaisu johon levyn tunniste <code>{discid}</code> tulisi muutt
 msgid "Select images..."
 msgstr "Valitse kuvat..."
 
-#: ../root/user/contact.tt:20
+#: ../root/user/contact.tt:20 ../root/user/report.tt:26
 msgid "Send"
 msgstr "Lähetä"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:253
-#: ../lib/MusicBrainz/Server/Controller/User.pm:263
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:245
+#: ../lib/MusicBrainz/Server/Controller/User.pm:267
 msgid "Send Email"
 msgstr "Lähetä sähköposti"
 
@@ -7596,7 +7615,7 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "Tila:"
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Stop using beta site"
 msgstr "Lopeta beta-sivuston käyttö"
 
@@ -7752,7 +7771,7 @@ msgstr "Luokitukset"
 msgid "Team"
 msgstr "Tiimi"
 
-#: ../root/admin/edit_user.tt:13
+#: ../root/admin/edit_user.tt:14
 msgid "Technical flags"
 msgstr "Tekniset ominaisuudet"
 
@@ -7833,7 +7852,7 @@ msgid ""
 "and may not display correctly"
 msgstr "Muokkauksen tiedot ovat alunperin tämän muokkauksen vanhemmasta versiosta ja eivätkä välttämättä näy oikein"
 
-#: ../root/layout.tt:66
+#: ../root/layout.tt:76
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7954,9 +7973,9 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr "Hakupalvelin ei voinut toteuttaa pyyntöäsi sisäisen virheen vuoksi. Tämä on yleensä vain väliaikaista, joten yritä hakuasi myöhemmin uudelleen."
 
-#: ../root/layout.tt:59
-msgid "The server is temporary in read-only mode for database maintainance."
-msgstr "Palvelin on väliaikaisesti vain luku-tilassa, tietokannan ylläpitotoimenpiteistä johtuen."
+#: ../root/layout.tt:69
+msgid "The server is temporarily in read-only mode for database maintenance."
+msgstr ""
 
 #: ../root/main/503.tt:5
 msgid "The system is overloaded or you are making requests too fast."
@@ -8358,15 +8377,15 @@ msgid ""
 "attributed to it."
 msgstr "Tätä soitinta ei voida poistaa, koska sille on vielä määriteltynä yhteyksiä."
 
-#: ../root/layout.tt:31 ../lib/DBDefs/Default.pm:165
+#: ../root/layout.tt:41 ../lib/DBDefs/Default.pm:165
 msgid "This is a MusicBrainz development server."
 msgstr "Tämä on MusicBrainzin ohjelmistokehitykseen tarkoitettu testipalvelin."
 
-#: ../root/layout.tt:41
+#: ../root/layout.tt:51
 msgid ""
-"This is a Musicbrainz mirror server. To edit or make changes to the data "
+"This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr "Tämä on MusicBrainzin peilipalvelin. Muokataksesi tai tehdäksesi muutoksia tietoihin {uri|palaa musicbrainz.org -sivulle}."
+msgstr ""
 
 #: ../root/components/common-macros.tt:104
 msgid ""
@@ -9469,7 +9488,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Käännetyt/translitteroidut valejulkaisut, joita ei ole linkitetty alkuperäiseen versioon"
 
-#: ../root/layout.tt:92
+#: ../root/layout.tt:102
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -9633,7 +9652,7 @@ msgstr "Määrittelemätön tyyppi"
 msgid "Unsubscribe"
 msgstr "Lopeta seuraaminen"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:290
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:290
 msgid "Untrusted"
 msgstr "Epäluotettava"
 
@@ -9675,7 +9694,7 @@ msgstr "Lähetetään kuvaa..."
 msgid "Uppercase roman numerals"
 msgstr "Roomalaiset numerot isoin kirjaimin "
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:104
 msgid "Use beta site"
 msgstr "Käytä beta-sivustoa"
 
@@ -10019,7 +10038,7 @@ msgstr "Sinulle on lähetty ohjeet salasanasi vaihtamiseksi. Jos et saa sähköp
 msgid "Web Application"
 msgstr "Verkkosovellus"
 
-#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:35
+#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:36
 msgid "Website:"
 msgstr "Kotisivu:"
 
@@ -10042,7 +10061,7 @@ msgid ""
 "and following the merge link."
 msgstr "Kun olet valmis sulauttamaan nämä, paina Sulauta-nappulaa. Voit yhä lisätä tähän jonoon enemmän kohteita menemällä niiden sivuille ja seuraamalla sulauta-linkkiä."
 
-#: ../root/layout.tt:89
+#: ../root/layout.tt:99
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -10394,7 +10413,7 @@ msgstr "Olet myöntänyt ohjelmalle {app} käyttöoikeudet. Seuraavaksi, palaa o
 msgid "You have no attendance lists!"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:122
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:114
 msgid "You have no collections!"
 msgstr "Sinulla ei ole kokoelmia!"
 
@@ -10541,6 +10560,12 @@ msgstr "Asetuksesi on tallennettu. Klikkaa {link|tästä} jatkaaksesi käyttäj�
 msgid "Your profile has been updated."
 msgstr "Profiilisi on päivitetty."
 
+#: ../root/user/report.tt:7
+msgid ""
+"Your report will be sent to our {uri|account administrators}, who will "
+"decide what action to take."
+msgstr ""
+
 #: ../root/search/error/invalid.tt:3
 msgid "Your search query was deemed invalid by our ruthless search server."
 msgstr "Säälimätön hakupalvelimemme totesi hakusi kelvottomaksi"
@@ -10554,6 +10579,13 @@ msgstr ""
 #: ../root/account/register.tt:27
 msgid "Your username will be publicly visible."
 msgstr "Käyttäjänimesi on julkisesti esillä."
+
+#: ../root/layout.tt:30
+msgid ""
+"You’re currently not allowed to edit or vote because an admin has revoked "
+"your privileges. If you haven’t already been contacted about why, please "
+"{uri|send us a message}."
+msgstr ""
 
 #: ../root/release/edit/tracklist.tt:285
 msgid ""
@@ -11354,7 +11386,7 @@ msgstr "{type} “{work}”"
 msgid "{uri|Delete my account}"
 msgstr "{uri|Poista käyttäjätilini}"
 
-#: ../root/layout.tt:32
+#: ../root/layout.tt:42
 msgid "{uri|Return to musicbrainz.org}."
 msgstr "{uri|Palaa musicbrainz.org -sivulle}."
 
@@ -11521,11 +11553,11 @@ msgid ""
 "             {mail|support@musicbrainz.org}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:78
 msgid "User successfully edited."
 msgstr "Käyttäjän muokattu onnistuneesti. "
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:130
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:131
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banneri päivitetty. Muista, että jokaisella palvelimella on oma, itsenäinen bannerinsa."
@@ -11621,31 +11653,39 @@ msgstr "Redis-palvelimemme tuntuu olevan kaatunut. Jotkin ominaisuudet eivät v�
 msgid "Series that have different entity types cannot be merged."
 msgstr "Sarjoja, joiden kokonaisuudet ovat erilaisia, ei voida sulauttaa."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:254
-#, perl-brace-format
-msgid "The editor {name} has no email address attached to their account."
-msgstr "Käyttäjä {name} ei ole antanut sähköpostiosoitetta tilitietoihinsa."
-
-#: ../lib/MusicBrainz/Server/Controller/User.pm:264
+#: ../lib/MusicBrainz/Server/Controller/User.pm:246
 msgid ""
 "You cannot contact other users because you have not {url|confirmed your "
 "email address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:292
+#: ../lib/MusicBrainz/Server/Controller/User.pm:268
+#, perl-brace-format
+msgid "The editor {name} has no email address attached to their account."
+msgstr "Käyttäjä {name} ei ole antanut sähköpostiosoitetta tilitietoihinsa."
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:298
 msgid "Your message could not be sent"
 msgstr "Viestiäsi ei voitu lähettää"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:381
+#: ../lib/MusicBrainz/Server/Controller/User.pm:387
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' ei ole kokonaisuus joka tukee arvosteluja."
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:527
+msgid "An error occurred while trying to send your report."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
+msgid "Your report has been sent."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:89
 msgid "Invalid TOC"
 msgstr "Sisällysluettelo ei ole kelvollinen"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:570
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:573
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -11848,7 +11888,7 @@ msgstr "Vaihda artistin laatua (historiallinen)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:43
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:25
 msgid "Edit release"
 msgstr "Muokkaa julkaisua"
@@ -11994,7 +12034,7 @@ msgstr "Lisää tallennemuoto"
 msgid "Remove medium"
 msgstr "Poista tallenne"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:44
 msgid "Edit medium"
 msgstr "Muokkaa tallennetta"
 
@@ -12050,7 +12090,7 @@ msgstr "Lisää ISRC-koodeja"
 msgid "Add PUIDs (historic)"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:25
 msgid "Add standalone recording"
 msgstr "Lisää yksittäinen äänite"
 
@@ -12134,7 +12174,7 @@ msgstr "Muokkaa viivakoodeja"
 msgid "Edit cover art"
 msgstr "Muokkaa kansitaidetta"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 msgid "Edit release label"
 msgstr "Muokkaa julkaisun levymerkkiä"
 
@@ -12671,6 +12711,30 @@ msgstr "Tämä käyttäjänimi on varattu sisäiseen käyttöön."
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:49
 msgid "Please choose another username, this one is already taken"
 msgstr "Valitse toinen käyttäjänimi, tämä on jo käytössä."
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:28
+msgid "Editor is spamming"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
+msgid "Editor is unresponsive to edit notes"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
+msgid "Editor intentionally ignores accepted guidelines"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
+msgid "Editor is overzealous in enforcing guidelines as rules"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
+msgid "Editor engages in overzealous or abusive yes/no voting"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
+msgid "Editor has violated some other part of our Code of Conduct"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"

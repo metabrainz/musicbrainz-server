@@ -3002,7 +3002,7 @@ msgstr "Trắng jâu, basvariant op de trắng lu"
 msgid "variety of bass guitars without frets"
 msgstr "Verschillende basgitaren zonder fretten."
 
-#. name:other drums
-#: DB:instrument/description:588
+#. name:drums
+#: DB:instrument/description:100
 msgid "variously sized drums"
 msgstr "Verschillende formaten trommels."
