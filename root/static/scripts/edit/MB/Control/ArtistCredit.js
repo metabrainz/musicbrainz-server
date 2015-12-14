@@ -53,7 +53,7 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
 
     // This should only run after the user explicitly edits the join phrase,
     // and a change event occurs.
-    joinChanged: function (value) {
+    joinChanged: function (element) {
         if (!this.automaticJoin) {
             return;
         }
@@ -65,7 +65,7 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
            those spaces automatically only this first time. Also standardise
            "feat." according to our guidelines.
         */
-        var join = clean(value);
+        var join = clean(element.value);
         join = join.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
 
         if (/^[A-Za-z]+\.?$/.test(join)) {

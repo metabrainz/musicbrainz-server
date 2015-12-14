@@ -189,7 +189,7 @@ sub editor_may_edit {
 sub edit_conditions
 {
     return {
-        duration      => $OPEN_EDIT_DURATION,
+        duration      => $OPEN_EDIT_DURATION->in_units('days'),
         votes         => $REQUIRED_VOTES,
         expire_action => $EXPIRE_ACCEPT,
         auto_edit     => 1

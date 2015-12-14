@@ -320,7 +320,7 @@ Readonly our $AREA_TYPE_CITY => 3;
 Readonly our $ARTIST_TYPE_PERSON => 1;
 
 Readonly our $REQUIRED_VOTES => 3;
-Readonly our $OPEN_EDIT_DURATION => 7;
+Readonly our $OPEN_EDIT_DURATION => DateTime::Duration->new(days => 7);
 Readonly our $MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
 Readonly our $MINIMUM_VOTING_PERIOD => DateTime::Duration->new(hours => 48);
 Readonly our $LIMIT_FOR_EDIT_LISTING => 500;

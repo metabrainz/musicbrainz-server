@@ -14,6 +14,15 @@
     [%~ END ~%]
 [%~ END ~%]
 
+[% IF show_open_filter %]
+    <p>
+        <label>
+            <input type="checkbox" id="only-open-edits"[% ' checked' IF c.req.query_params.open == 1 %] />
+            [% l('Only show open edits') %]
+        </label>
+    </p>
+[% END %]
+
 [% INCLUDE 'edit/list_header.tt' %]
 
 <div class="search-toggle c">
@@ -90,11 +99,9 @@
     [% END %]
 [% END %]
 
-<script type="text/javascript">//<![CDATA[
-  $(".edit-list").each(function () {
-      MB.Control.EditSummary(this);
-  });
+[% script_manifest('voting.js') %]
 
+<script type="text/javascript">//<![CDATA[
   [% IF c.user.is_auto_editor %]
     MB.Control.EditList("#edits");
   [% END %]

@@ -504,7 +504,8 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves {
 
     if ($reporter->id == $reported_user->id) {
         # A user can't report themselves
-        $c->detach('/user/profile', [$reported_user->name]);
+        $c->response->redirect($c->uri_for_action('/user/profile', [ $reported_user->name ]));
+        $c->detach;
     }
 
     _check_for_confirmed_email($c);

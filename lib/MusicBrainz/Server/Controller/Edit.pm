@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use Moose::Util qw( does_role );
 use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -8,7 +9,7 @@ use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality $REQUIRED_VOTES $OPEN_EDIT_DURATION );
+use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
@@ -217,8 +218,10 @@ sub search : Path('/search/edits') RequireAuth
                 return $c->model('Edit')->run_query($query, shift, shift);
             });
         } catch {
-            if ($c->model('MB')->context->sql->is_timeout($_)) { $timed_out = 1; }
-            else { die $_; }
+            unless (blessed $_ && does_role($_, 'MusicBrainz::Server::Exceptions::Role::Timeout')) {
+                die $_; # rethrow
+            }
+            $timed_out = 1;
         };
         if ($timed_out) {
             $c->stash( timed_out => 1 );
@@ -235,11 +238,16 @@ sub search : Path('/search/edits') RequireAuth
     }
 }
 
-sub subscribed : Local RequireAuth
-{
+sub subscribed : Local RequireAuth {
     my ($self, $c) = @_;
+
+    my $only_open = 0;
+    if ($c->req->query_params->{open} eq '1') {
+        $only_open = 1;
+    }
+
     my $edits = $self->_load_paged($c, sub {
-        $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
+        $c->model('Edit')->subscribed_entity_edits($c->user->id, $only_open, shift, shift);
     });
 
     $c->stash(
@@ -250,11 +258,16 @@ sub subscribed : Local RequireAuth
     load_everything_for_edits($c, $edits);
 }
 
-sub subscribed_editors : Local RequireAuth
-{
+sub subscribed_editors : Local RequireAuth {
     my ($self, $c) = @_;
+
+    my $only_open = 0;
+    if ($c->req->query_params->{open} eq '1') {
+        $only_open = 1;
+    }
+
     my $edits = $self->_load_paged($c, sub {
-        $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
+        $c->model('Edit')->subscribed_editor_edits($c->user->id, $only_open, shift, shift);
     });
 
     $c->stash(
@@ -290,8 +303,6 @@ sub edit_types : Path('/doc/Edit_Types')
     }
 
     $c->stash(
-        open_edit_duration => $OPEN_EDIT_DURATION,
-        required_votes => $REQUIRED_VOTES,
         by_category => \%by_category,
         template => 'doc/edit_types.tt'
     );

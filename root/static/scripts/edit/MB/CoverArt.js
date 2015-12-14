@@ -159,7 +159,7 @@ MB.CoverArt.upload_status_enum = {
 
 MB.CoverArt.validate_file = function (file) {
     var deferred = $.Deferred();
-    var reader = new FileReader();
+    var reader = new window.FileReader();
     reader.addEventListener("loadend", function () {
         var uint32view = new Uint32Array(reader.result);
 
@@ -194,7 +194,7 @@ MB.CoverArt.validate_file = function (file) {
 
 MB.CoverArt.file_data_uri = function (file) {
     var deferred = $.Deferred();
-    var reader = new FileReader();
+    var reader = new window.FileReader();
     reader.addEventListener("loadend", function () {
         deferred.resolve(reader.result);
     });
@@ -227,7 +227,7 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
 MB.CoverArt.upload_image = function (postfields, file) {
     var deferred = $.Deferred();
 
-    var formdata = new FormData();
+    var formdata = new window.FormData();
 
     $.each(postfields.formdata, function (key, val) {
         formdata.append(key, val);
@@ -278,7 +278,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
 MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position) {
     var deferred = $.Deferred();
 
-    var formdata = new FormData();
+    var formdata = new window.FormData();
     formdata.append('add-cover-art.id', postfields.image_id);
     formdata.append('add-cover-art.position', position);
     formdata.append('add-cover-art.mime_type', mime_type);
@@ -511,7 +511,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof(FormData) !== "undefined" && typeof(FileReader) !== 'undefined')
+    if (typeof(window.FormData) !== "undefined" && typeof(window.FileReader) !== 'undefined')
     {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 

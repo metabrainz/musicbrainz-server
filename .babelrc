@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "node_modules",
+    "root/static/lib",
+    "root/static/scripts/tests/typeInfo.js"
+  ],
+  "presets": ["es2015", "stage-2"],
+  "plugins": [
+    "transform-react-jsx",
+    "transform-react-constant-elements",
+    "transform-react-inline-elements"
+  ]
+}

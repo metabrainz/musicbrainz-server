@@ -55,7 +55,7 @@ sub manifest_signature {
         my @stat = stat($path);
         my $mtime = $stat[9];
 
-        if ($mtime > $instance->manifest_mtime) {
+        if (defined $mtime && $mtime > $instance->manifest_mtime) {
             $instance->manifest_mtime($mtime);
             $instance->manifest_signatures(decode_json(read_file($path)));
         }

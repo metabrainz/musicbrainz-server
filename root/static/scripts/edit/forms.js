@@ -7,6 +7,9 @@ var _ = require('lodash');
 var i18n = require('../common/i18n.js');
 var linkPhrase = require('../edit/utility/linkPhrase');
 
+const ELEMENT_NODE = window.Node.ELEMENT_NODE;
+const COMMENT_NODE = window.Node.COMMENT_NODE;
+
 MB.forms = {
 
     buildOptionsTree: function (root, textAttr, valueAttr, sortFunc) {
@@ -86,7 +89,7 @@ ko.bindingHandlers.loop = {
             template = [];
 
         _.each(ko.virtualElements.childNodes(parentNode), function (node) {
-            if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.COMMENT_NODE) {
+            if (node.nodeType === ELEMENT_NODE || node.nodeType === COMMENT_NODE) {
                 template.push(node);
             }
         });
@@ -94,7 +97,7 @@ ko.bindingHandlers.loop = {
         // For regular DOM nodes this is the same as parentNode; if parentNode
         // is a virtual element, this will be the parentNode of the comment.
         var actualParentNode = parentNode;
-        while (actualParentNode.nodeType !== Node.ELEMENT_NODE) {
+        while (actualParentNode.nodeType !== ELEMENT_NODE) {
             actualParentNode = actualParentNode.parentNode;
         }
 

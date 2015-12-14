@@ -17,8 +17,10 @@
 
 'use strict';
 
+import global from '../global';
+
 // Namespaces
-window.MB = {
+global.MB = {
     // Classes, common controls used throughout MusicBrainz
     Control: {},
 
@@ -50,7 +52,7 @@ MB.localStorage = function (name, value) {
 
         if (MB.hasLocalStorage) {
             try {
-                localStorage[name] = value;
+                window.localStorage.setItem(name, value);
                 inLocalStorage = true;
             } catch (e) {
                 // NS_ERROR_DOM_QUOTA_REACHED
@@ -65,7 +67,7 @@ MB.localStorage = function (name, value) {
 
         if (MB.hasLocalStorage) {
             try {
-                storedValue = localStorage[name];
+                storedValue = window.localStorage.getItem(name);
             } catch (e) {
                 // NS_ERROR_FILE_CORRUPTED?
             }

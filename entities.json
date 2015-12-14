@@ -48,6 +48,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -187,6 +188,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
             "multiple": true,

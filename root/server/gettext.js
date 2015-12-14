@@ -9,8 +9,8 @@ import fs from 'fs';
 import path from 'path';
 import Gettext from 'node-gettext';
 
+const EN_HANDLE = new Gettext();
 const GETTEXT_HANDLES = new Map();
-
 const PO_DIR = path.resolve(__dirname, '../../po');
 
 const TEXT_DOMAINS = [
@@ -62,16 +62,18 @@ export function loadMoFiles(lang) {
 export function getHandle(lang) {
   let handle;
   if (!lang) {
-    handle = new Gettext();
+    handle = EN_HANDLE;
   } else if (GETTEXT_HANDLES.has(lang)) {
-    handle = GETTEXT_HANDLES.get(lang) || new Gettext();
+    handle = GETTEXT_HANDLES.get(lang) || EN_HANDLE;
+  } else if (lang === 'en') {
+    handle = EN_HANDLE;
   } else {
     try {
       handle = loadMoFiles(lang);
     } catch (e) {
       console.warn(e);
       GETTEXT_HANDLES.set(lang, null);
-      handle = new Gettext();
+      handle = EN_HANDLE;
     }
   }
   return handle;
