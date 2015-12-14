@@ -91,5 +91,5 @@ def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
     blog_url = prompt("Blog post URL", validate=r'^http.*')
     no_local_changes()
-    local("git tag -u 'CE33CF04' %s -m '%s' master" % (tag, blog_url))
+    local("git tag -u 'CE33CF04' %s -m '%s' production" % (tag, blog_url))
     local("git push origin %s" % (tag))
