@@ -1104,3 +1104,9 @@ note-[%- edit.id -%]-[%- loop.count() -%]
     </div>
   </div>
 [%~ END ~%]
+
+[%~ MACRO bugtracker_url(description) BLOCK;
+    'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' _
+    'pid=10000&issuetype=1' _
+    (description == '' ? '' : '&description=' _ uri_escape(description));
+END ~%]

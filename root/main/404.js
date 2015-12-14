@@ -29,10 +29,9 @@ const _404 = (props) => (
       <p>
         {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
            {__react: true,
-            report: 'http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1&description=Broken+link:' +
-                    encodeURIComponent($c.req.url) +
-                    '+Referer:' +
-                    encodeURIComponent($c.req.headers.referer)})}
+            report: bugtracker_url('Nonexistent page: ' + $c.req.url + '\n' +
+                                   'Referrer: ' + ($c.req.headers.referer || ''))
+           })}
       </p>
     </div>
   </Layout>

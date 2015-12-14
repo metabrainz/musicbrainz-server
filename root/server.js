@@ -50,6 +50,11 @@ function uriForAction() {
 _.assign(global, {
   doc_link: function (to) {
     return uriFor('/doc', to);
+  },
+  bugtracker_url: function (description) {
+    return 'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' +
+           'pid=10000&issuetype=1' +
+           (!description ? '' : '&description=' + encodeURIComponent(description));
   }
 });
 
