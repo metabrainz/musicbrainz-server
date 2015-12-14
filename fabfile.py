@@ -43,18 +43,6 @@ def pot():
             commit_message = prompt("Commit message", default='Update pot files using current code and production database.')
             local("git commit -m '%s'" % (commit_message))
 
-def prepare_release():
-    """
-    Prepare for a new release.
-    """
-    no_local_changes()
-    local("git checkout beta")
-    local("git pull --ff-only origin beta")
-    local("git checkout master")
-    local("git pull --ff-only origin master")
-    local("git merge beta")
-    local("git push origin master")
-
 def no_local_changes():
     # The exit code of these will be 0 if there are no changes.
     # If there are changes, then the author should fix his damn code.
