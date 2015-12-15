@@ -17,6 +17,7 @@ role {
     my $entity_type = model_to_type($model);
     my $entity_id = "${entity_type}_id";
 
+    with 'MusicBrainz::Server::Edit::Alias';
     with "MusicBrainz::Server::Edit::$model";
     with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
     with 'MusicBrainz::Server::Edit::Role::DatePeriod';
@@ -99,7 +100,9 @@ role {
             id => $entity->id,
             name => $entity->name
         };
-        $opts{sort_name} = $opts{name} unless non_empty($opts{sort_name});
+
+        $self->enforce_dependencies(\%opts);
+
         $self->data(\%opts);
     };
 

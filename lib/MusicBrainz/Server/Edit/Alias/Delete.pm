@@ -8,7 +8,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit';
-
+with 'MusicBrainz::Server::Edit::Alias';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub _alias_model { die 'Not implemented' }

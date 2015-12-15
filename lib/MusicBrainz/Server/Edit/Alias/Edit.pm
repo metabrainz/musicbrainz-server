@@ -11,7 +11,6 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     non_empty
 );
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -19,9 +18,12 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::Alias';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
@@ -104,12 +106,12 @@ sub build_display_data
             old => $self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id}),
         },
         begin_date => {
-            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{begin_date}),
-            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date}),
+            new => PartialDate->new_from_row($self->data->{new}{begin_date}),
+            old => PartialDate->new_from_row($self->data->{old}{begin_date}),
         },
         end_date => {
-            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{end_date}),
-            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date}),
+            new => PartialDate->new_from_row($self->data->{new}{end_date}),
+            old => PartialDate->new_from_row($self->data->{old}{end_date}),
         },
         primary_for_locale => {
             new => $self->data->{new}{primary_for_locale},
@@ -167,10 +169,7 @@ sub initialize
     die "You must specify the alias object to edit" unless defined $alias;
     my $entity = delete $opts{entity} or die 'Missing "entity" argument';
 
-    unless (non_empty($opts{sort_name})) {
-        delete $opts{sort_name};
-        $opts{sort_name} = $opts{name} if non_empty($opts{name});
-    }
+    $self->enforce_dependencies(\%opts);
 
     $self->data({
         alias_id => $alias->id,
