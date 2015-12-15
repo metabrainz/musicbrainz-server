@@ -173,6 +173,7 @@ sub delete
     $self->isni->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
+    $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     $self->delete_returning_gids('label', @label_ids);
     return 1;
