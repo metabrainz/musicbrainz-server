@@ -35,9 +35,11 @@ test all => sub {
         alias_id  => 1,
         new => {
             name => 'brand new alias',
+            sort_name => 'brand new alias',
         },
         old => {
             name => 'Test Recording Series Alias',
+            sort_name => 'Test Recording Series Alias',
         }
     });
 
