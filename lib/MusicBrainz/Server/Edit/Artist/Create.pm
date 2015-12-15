@@ -53,6 +53,14 @@ before initialize => sub {
     die "You must specify isni_codes" unless defined $opts{isni_codes};
 };
 
+around initialize => sub {
+    my ($orig, $self, %opts) = @_;
+
+    $opts{ended} = 1 if $opts{end_area_id};
+
+    $self->$orig(%opts);
+};
+
 sub foreign_keys
 {
     my $self = shift;

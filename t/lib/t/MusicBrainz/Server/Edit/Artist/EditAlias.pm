@@ -3,6 +3,12 @@ use Test::Routine;
 use Test::Fatal;
 use Test::More;
 
+use Hash::Merge qw( merge );
+
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
 with 't::Edit';
 with 't::Context';
 
@@ -84,13 +90,21 @@ test 'Setting an alias as primary for a locale is an auto edit' => sub {
 
 sub create_edit {
     my $c = shift;
-    return $c->model('Edit')->create(
+    my $opts = merge({ @_ }, {
         edit_type => $EDIT_ARTIST_EDIT_ALIAS,
         editor_id => 1,
         entity    => $c->model('Artist')->get_by_id(1),
         alias     => $c->model('Artist')->alias->get_by_id(3),
-        @_,
-    );
+        name      => 'Alias 2',
+        sort_name => 'Alias 2',
+        locale    => undef,
+        primary_for_locale => 0,
+        begin_date => partial_date_to_hash(PartialDate->new),
+        end_date  => partial_date_to_hash(PartialDate->new),
+        ended     => 0,
+        type_id   => undef,
+    });
+    return $c->model('Edit')->create(%$opts);
 }
 
 1;
