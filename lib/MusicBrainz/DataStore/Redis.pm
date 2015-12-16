@@ -48,6 +48,14 @@ sub get {
     return defined $value ? $self->_json->decode($value) : undef;
 }
 
+sub mget {
+    my ($self, @keys) = @_;
+
+    map {
+        defined $_ ? $self->_json->decode($_) : undef
+    } $self->_connection->mget(map { encode('utf-8', $self->prefix . $_) } @keys);
+}
+
 sub set {
     my ($self, $key, $value) = @_;
 

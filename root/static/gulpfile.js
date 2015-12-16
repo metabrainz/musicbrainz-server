@@ -167,6 +167,10 @@ function buildScripts() {
     b.external(commonBundle);
   });
 
+  var editNotesReceivedBundle = runYarb('edit/notes-received.js', function (b) {
+    b.external(commonBundle);
+  });
+
   var guessCaseBundle = runYarb('guess-case.js', function (b) {
     b.external(commonBundle);
   });
@@ -206,6 +210,7 @@ function buildScripts() {
   return Q.all([
     writeScript(commonBundle, 'common.js'),
     writeScript(editBundle, 'edit.js'),
+    writeScript(editNotesReceivedBundle, 'edit-notes-received.js'),
     writeScript(guessCaseBundle, 'guess-case.js'),
     writeScript(placeBundle, 'place.js'),
     writeScript(releaseEditorBundle, 'release-editor.js'),

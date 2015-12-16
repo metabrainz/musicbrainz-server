@@ -198,13 +198,33 @@ sub begin : Private
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
+    # Can we automatically login?
+    if (!$c->user_exists) {
+        $c->forward('/user/cookie_login');
+    }
+
     my $alert = '';
     my $alert_mtime;
+    my ($new_edit_notes, $new_edit_notes_mtime);
     try {
         my $redis = $c->model('MB')->context->redis;
 
-        $alert = $redis->get('alert');
-        $alert_mtime = $redis->get('alert_mtime');
+        my @cache_keys = qw( alert alert_mtime );
+
+        if ($c->user_exists && $c->action->name ne 'notes_received') {
+            my $user_name = $c->user->name;
+            push @cache_keys, (
+                "edit_notes_received_last_viewed:$user_name",
+                "edit_notes_received_last_updated:$user_name",
+            );
+        }
+
+        my ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
+
+        if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
+            $new_edit_notes = 1;
+            $new_edit_notes_mtime = $notes_updated;
+        }
     } catch {
         $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
         warn "Redis connection to get alert failed: $_";
@@ -231,6 +251,8 @@ sub begin : Private
             },
         },
         favicon_css_classes => FAVICON_CLASSES,
+        new_edit_notes => $new_edit_notes,
+        new_edit_notes_mtime => $new_edit_notes_mtime,
     );
 
     # Setup the searches on the sidebar.
@@ -249,11 +271,6 @@ sub begin : Private
     # Anything that requires authentication isn't allowed on a mirror server (e.g. editing, registering)
     if (exists $c->action->attributes->{RequireAuth} || $c->action->attributes->{ForbiddenOnSlaves}) {
         $c->detach('/error_mirror') if ($c->stash->{server_details}->{is_slave_db});
-    }
-
-    # Can we automatically login?
-    if (!$c->user_exists) {
-        $c->forward('/user/cookie_login');
     }
 
     if (exists $c->action->attributes->{RequireAuth})
