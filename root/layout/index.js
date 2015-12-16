@@ -143,6 +143,17 @@ const Layout = (props) => {
             </p>
           </div>}
 
+        {!!($c.stash.new_edit_notes &&
+            $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
+            ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
+          <div className="banner new-edit-notes">
+            <p>
+              {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
+                 {__react: true, link: '/edit/notes-received'})}
+            </p>
+            <DismissBannerButton bannerName="new_edit_notes" />
+          </div>}
+
         {!!$c.stash.makes_no_changes &&
           <div className="banner warning-header">
             <p>{l('The data you have submitted does not make any changes to the data already present.')}</p>
