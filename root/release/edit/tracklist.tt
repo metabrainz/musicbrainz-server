@@ -90,7 +90,7 @@
   </table>
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
-  <p>[% l('Select a disc from the search results below and then click "Add Medium".') %]</p>
+  <p>[% l('Select a medium from the search results below and then click "Add Medium".') %]</p>
   <!-- /ko -->
 
   <!-- ko if: totalPages() > 1 -->
