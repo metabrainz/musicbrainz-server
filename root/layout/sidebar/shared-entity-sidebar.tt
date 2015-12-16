@@ -77,11 +77,11 @@
                     <li>
                     [%~ IF containment.${collection.id} ~%]
                         <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { event => event.id }) ~%]">
-                            [%~ l('Remove from {collection}', { collection => collection.name }) ~%]
+                            [%~ l('Remove from {collection}', { collection => html_escape(collection.name) }) ~%]
                         </a>
                     [%~ ELSE ~%]
                         <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { event => event.id }) ~%]">
-                        [%~ l('Add to {collection}', {collection => collection.name }) ~%]
+                        [%~ l('Add to {collection}', {collection => html_escape(collection.name) }) ~%]
                         </a>
                     [%~ END ~%]
                     </li>
@@ -101,11 +101,11 @@
                     <li>
                     [%~ IF containment.${collection.id} ~%]
                         <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { $entity_type => entity.id }) ~%]">
-                            [%~ l('Remove from {collection}', { collection => collection.name }) ~%]
+                            [%~ l('Remove from {collection}', { collection => html_escape(collection.name) }) ~%]
                         </a>
                     [%~ ELSE ~%]
                         <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { $entity_type => entity.id }) ~%]">
-                            [%~ l('Add to {collection}', {collection => collection.name }) ~%]
+                            [%~ l('Add to {collection}', {collection => html_escape(collection.name) }) ~%]
                         </a>
                     [%~ END ~%]
                     </li>
