@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
-use JSON::Any;
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 parameter 'form' => (
@@ -69,8 +68,7 @@ role {
 
                 return unless $args{within_dialog};
 
-                my $json = JSON::Any->new( utf8 => 1 );
-                $c->stash( dialog_result => $json->encode(JSONSerializer->serialize_internal($c, $entity)) );
+                $c->stash( dialog_result => $c->json->encode(JSONSerializer->serialize_internal($c, $entity)) );
 
                 # XXX Delete the "Thank you, your edit has been..." message
                 # so it doesn't weirdly show up on the next page.

@@ -5,7 +5,6 @@ use Moose;
 extends 'Class::Accessor::Fast::XS';
 
 use Class::Load qw( load_class );
-use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
 use URI::Escape qw( uri_escape uri_unescape );
@@ -66,35 +65,5 @@ sub decode_value
 }
 
 sub extra_parameters { () }
-
-sub for_copy {
-    my $edit = shift;
-    my $type = $edit->edit_type;
-    if ($edit->can('ngs_class')) {
-        load_class($edit->ngs_class);
-        $type = $edit->ngs_class->edit_type;
-    }
-
-    return join("\t",
-        $edit->id,
-        $edit->editor_id,
-        $type,
-        $edit->status,
-        copy_escape(
-            JSON::Any->new(utf8 => 1)->encode({
-                %{ $edit->data },
-                $edit->extra_parameters
-            })
-        ),
-        $edit->yes_votes,
-        $edit->no_votes,
-        $edit->auto_edit,
-        $edit->created_time,
-        $edit->close_time,
-        $edit->expires_time,
-        '\N',
-        1
-    );
-}
 
 1;

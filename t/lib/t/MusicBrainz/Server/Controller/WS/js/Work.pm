@@ -11,7 +11,7 @@ test all => sub {
 
     my $test = shift;
     my $c = $test->c;
-    my $json = JSON::Any->new( utf8 => 1 );
+    my $json = JSON->new;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     $c->sql->do(<<'EOSQL');

@@ -7,6 +7,18 @@ use Moose::Util qw( ensure_all_roles );
 use Plack::Builder;
 
 BEGIN {
+    # We've hit some pathological cases where different JSON backends are
+    # used on different systems (e.g. JSON::PP instead of JSON::XS, due to the
+    # latter not being installed despite existing in the Makefile), which
+    # then breaks the code in some opaque way (e.g. JSON::PP doesn't assign a
+    # ($) prototype to decode_json).
+    #
+    # The effect of the environment variable here is to force the use of
+    # JSON::XS as the JSON backend, and die if it's not available.
+    $ENV{PERL_JSON_BACKEND} = 2;
+}
+
+BEGIN {
     if (DBDefs->CATALYST_DEBUG) {
         require Plack::Middleware::Debug::DAOLogger;
         require Plack::Middleware::Debug::ExclusiveTime;
