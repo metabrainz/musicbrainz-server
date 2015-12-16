@@ -9,6 +9,7 @@ import Header from './components/Header';
 import MergeHelper from './components/MergeHelper';
 import * as manifest from '../static/manifest';
 import {l} from '../static/scripts/common/i18n';
+import getCookie from '../static/scripts/common/utility/getCookie';
 
 let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
 function canonicalize(url) {
@@ -28,6 +29,42 @@ const openSearchTags = [
   <link key={3} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Release")} href="/static/search_plugins/opensearch/musicbrainz_release.xml" />,
   <link key={4} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Track")} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />,
 ];
+
+const DismissBannerButton = ({bannerName}) => (
+  <button className="dismiss-banner remove-item icon"
+          data-banner-name={bannerName}
+          type="button">
+  </button>
+);
+
+const serverDetailsBanner = (server) => {
+  if (server.staging_server) {
+    return (
+      <div className="banner server-details">
+        <p>
+          {server.staging_server_description || l('This is a MusicBrainz development server.')}
+          {' '}
+          {l('{uri|Return to musicbrainz.org}.',
+             {__react: true,
+              uri: '//musicbrainz.org' + (server.beta_redirect === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
+        </p>
+        <DismissBannerButton bannerName="server_details" />
+      </div>
+    );
+  }
+
+  if (server.is_slave_db) {
+    return (
+      <div className="banner server-details">
+        <p>
+          {l('This is a Musicbrainz mirror server. To edit or make changes to the data please ' +
+             '{uri|return to musicbrainz.org}.', {uri: '//musicbrainz.org'})}
+        </p>
+        <DismissBannerButton bannerName="server_details" />
+      </div>
+    );
+  }
+};
 
 const Layout = (props) => {
   let {title, pager} = props;
@@ -91,28 +128,12 @@ const Layout = (props) => {
       <body>
         <Header {...props} />
 
-        {!!server.staging_server &&
-          <div className="banner server-details">
-            <p>
-              {server.staging_server_description || l('This is a MusicBrainz development server.')}
-              {' '}
-              {l('{uri|Return to musicbrainz.org}.',
-                 {__react: true,
-                  uri: '//musicbrainz.org' + (server.beta_redirect === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
-            </p>
-          </div>}
+        {!getCookie('server_details_dismissed_mtime') && serverDetailsBanner(server)}
 
-        {!!server.is_slave_db &&
-          <div className="banner server-details">
-            <p>
-              {l('This is a Musicbrainz mirror server. To edit or make changes to the data please ' +
-                 '{uri|return to musicbrainz.org}.', {uri: '//musicbrainz.org'})}
-            </p>
-          </div>}
-
-        {!!server.alert &&
+        {!!(server.alert && server_details.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
           <div className="banner warning-header">
             <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
+            <DismissBannerButton bannerName="alert" />
           </div>}
 
         {!!server.read_only &&
