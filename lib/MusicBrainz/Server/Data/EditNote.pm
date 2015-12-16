@@ -106,6 +106,21 @@ sub add_note
     }
 }
 
+sub find_by_recipient {
+    my ($self, $recipient_id, $limit, $offset) = @_;
+
+    my $query = <<EOSQL;
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE editor != \$1
+           AND edit IN (SELECT id FROM edit WHERE editor = \$1)
+         ORDER BY post_time DESC, edit DESC
+EOSQL
+    $self->query_to_list_limited(
+        $query, [$recipient_id], $limit, $offset, undef, 1
+    );
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

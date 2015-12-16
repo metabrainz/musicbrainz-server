@@ -1,0 +1,26 @@
+[% WRAPPER 'layout.tt' title=l('Notes Left on Your Edits') full_width=1 %]
+  <div id="content">
+    <h1>[% l('Notes Left on Your Edits') %]</h1>
+
+    [% IF edit_notes.size %]
+      <div class="edit-notes">
+        [% WRAPPER 'components/with-pager.tt' search=0 %]
+          [% FOR note = edit_notes %]
+            [% edit = note.edit %]
+            <div class="edit-list">
+              <div class="edit-header[%- edit_status_class(edit) -%] edit-[%~ edit.edit_kind =%]
+                          [%= css_class_name(edit.edit_name) ~%]">
+                <h2>
+                  [%~ link_edit(edit, show, l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name})) ~%]
+                </h2>
+              </div>
+              [% edit_note_display(note) %]
+            </div>
+          [% END %]
+        [% END %]
+      </div>
+    [% ELSE %]
+      <p>[% l('Nobody has left notes on any of your edits.') %]</p>
+    [% END %]
+  </div>
+[% END %]

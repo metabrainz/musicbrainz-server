@@ -278,6 +278,23 @@ sub subscribed_editors : Local RequireAuth {
     load_everything_for_edits($c, $edits);
 }
 
+sub notes_received : Path('/edit/notes-received') RequireAuth {
+    my ($self, $c) = @_;
+
+    my $edit_notes = $self->_load_paged($c, sub {
+        $c->model('EditNote')->find_by_recipient($c->user->id, shift, shift);
+    });
+
+    $c->model('Editor')->load(@$edit_notes);
+    $c->model('Edit')->load_for_edit_notes(@$edit_notes);
+    $c->model('Vote')->load_for_edits(map { $_->edit } @$edit_notes);
+
+    $c->stash(
+        edit_notes => $edit_notes,
+        template => 'edit/notes-received.tt',
+    );
+}
+
 =head2 conditions
 
 Display a table of all edit types, and their relative conditions

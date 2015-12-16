@@ -692,6 +692,23 @@ sub load_all
     }
 }
 
+sub load_for_edit_notes {
+    my ($self, @edit_notes) = @_;
+
+    my $edits_by_id = $self->get_by_ids(map { $_->edit_id } @edit_notes);
+
+    for my $note (@edit_notes) {
+        $note->edit($edits_by_id->{$note->edit_id});
+
+        # XXX Workaround weak_ref in Entity::EditNote.
+        my $tmp = $note->{edit};
+        undef $note->{edit};
+        $note->{edit} = $tmp;
+    }
+
+    return;
+}
+
 sub default_includes {
     # Additional models that should automatically be included with a model.
     # NB: A list, not a hash, because order may be important.

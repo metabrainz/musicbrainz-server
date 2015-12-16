@@ -650,6 +650,22 @@ END -%]
         CASE 9; l('This edit was cancelled.');
 END -%]
 
+[%~ MACRO edit_status_class(edit) BLOCK ~%]
+    [%~ IF edit.status == 1 ~%]
+        [%- " open" -%]
+    [%~ ELSIF edit.status == 2 ~%]
+        [%- " applied" -%]
+    [%~ ELSIF edit.status == 3 ~%]
+        [%- " failed" -%]
+    [%~ ELSIF edit.status == 8 %]
+        [%- " cancelling" -%]
+    [%~ ELSIF edit.status == 9 ~%]
+        [%- " cancelled" -%]
+    [%~ ELSE ~%]
+        [%- " edit-error" -%]
+    [%~ END ~%]
+[%~ END ~%]
+
 [%~ MACRO expiration_time(datetime) BLOCK -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
         [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
@@ -1053,4 +1069,35 @@ END -%]
       [%~ l('An entity with that name and disambiguation already exists. You must enter a unique disambiguation comment.') IF duplicate_violation ~%]
     </div>
   [%- END -%]
+[%~ END ~%]
+
+[%- MACRO note_anchor(edit, loop) BLOCK -%]
+note-[%- edit.id -%]-[%- loop.count() -%]
+[%- END -%]
+
+[% MACRO votename(note) BLOCK %]
+  [% edit = note.edit %]
+  [%- FOR vote=edit.votes -%]
+    [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
+  [%- END -%]
+  [%- 'owner' IF edit.editor_id == note.editor_id -%]
+[% END %]
+
+[%~ MACRO edit_note_display(edit_note) BLOCK ~%]
+  <div class="edit-note" id="[% note_anchor(note.edit, loop) %]">
+    <h3 class="[%- votename(note) -%]">
+      [%- link_entity(note.editor) -%]
+      [%- FOR vote=note.edit.votes;
+        IF (vote.editor_id == note.editor_id) &&
+           !vote.superseded &&
+           (vote.vote_name == 'No' || vote.vote_name == 'Yes');
+        '<div class="voting-icon"></div>'; LAST;
+      END; END; -%]
+      <a href="#[% note_anchor(note.edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
+      [%- editor_type_info(note.editor) -%]
+    </h3>
+    <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
+      [%- note.text | format_editnote -%]
+    </div>
+  </div>
 [%~ END ~%]

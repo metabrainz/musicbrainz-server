@@ -1,20 +1,4 @@
-[%~ BLOCK edit_status ~%]
-    [%~ IF edit.status == 1 ~%]
-        [%- " open" -%]
-    [%~ ELSIF edit.status == 2 ~%]
-        [%- " applied" -%]
-    [%~ ELSIF edit.status == 3 ~%]
-        [%- " failed" -%]
-    [%~ ELSIF edit.status == 8 %]
-        [%- " cancelling" -%]
-    [%~ ELSIF edit.status == 9 ~%]
-        [%- " cancelled" -%]
-    [%~ ELSE ~%]
-        [%- " edit-error" -%]
-    [%~ END ~%]
-[%~ END ~%]
-
-<div class="edit-header[%- PROCESS edit_status -%] edit-[%~ edit.edit_kind =%]
+<div class="edit-header[%- edit_status_class(edit) -%] edit-[%~ edit.edit_kind =%]
             [%= css_class_name(edit.edit_name) ~%]">
     [%~ IF summary ~%]
         <div class="edit-description">
