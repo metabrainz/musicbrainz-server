@@ -90,7 +90,7 @@
   </table>
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
-  <p>[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
+  <p>[% l('Select a disc from the search results below and then click "Add Medium".') %]</p>
   <!-- /ko -->
 
   <!-- ko if: totalPages() > 1 -->
@@ -260,13 +260,13 @@
 
   <div class="buttons">
     <button type="button" class="negative" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Disc') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
   </div>
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
   <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
-    [%~ l('Add a medium by clicking “Add Disc” below, or tick the box confirming the tracklist is unknown.') ~%]
+    [%~ l('Add a medium by clicking “Add Medium” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
 
   <!-- ko if: !mediums().length -->
