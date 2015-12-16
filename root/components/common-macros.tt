@@ -4,7 +4,6 @@
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
-[%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~# Use uri_escape for percent-encoding random text to be used as a parameter
    # in an external URL (use c.uri_for(_action) for making internal URLs).
    # A URL passed in from somewhere, on the other hand, should already be
