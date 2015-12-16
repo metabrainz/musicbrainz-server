@@ -249,7 +249,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
-      simple_link(html_escape(entity.url), display_url(entity.url));
+      simple_link(entity.href_url, entity.pretty_name);
       ' ';
       link_deleted(undef, '[' _ l('info') _ ']');
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
@@ -307,8 +307,8 @@ END -%]
             CASE 'escape';
                 html_escape(content);
             CASE 'link';  # add. parameter: link, hover
-                SET hover = ' title="' _ hover _ '"' IF hover != '';
-                '<a href="' _ link _ '"' _ hover _ '>' _ content _ '</a>';
+                SET hover = ' title="' _ html_escape(hover) _ '"' IF hover != '';
+                '<a href="' _ html_escape(link) _ '"' _ hover _ '>' _ content _ '</a>';
             CASE 'code';
                 '<code>' _ content _ '</code>';
             CASE 'edits_pending';
@@ -318,7 +318,7 @@ END -%]
             CASE 'flagclass';  # add. parameter: flag
                 '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
             CASE 'info_link';  # add. parameter: infolink
-                content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
+                content _ ' [<a href="' _ html_escape(infolink) _ '">' _ l('info') _ '</a>]';
             CASE 'show_dates';
                 content _ bracketed(dates);
             CASE 'avatar'; # add. parameter: avatar
@@ -344,8 +344,8 @@ END -%]
     IF namevar AND action == 'show' AND content != ''
             AND (noescape ? html_unescape(content.remove('</?span\b[^>]*>')) : content) != entity.name;
         options.unshift('name_variation');
-        hover = hover != '' ? l('{name} – {additional_info}', { name => html_escape(entity.name), additional_info => hover })
-                            : html_escape(entity.name);
+        hover = hover != '' ? l('{name} – {additional_info}', { name => entity.name, additional_info => hover })
+                            : entity.name;
     END;
 
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';
@@ -401,7 +401,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_artist(artist, action, text, no_escape) BLOCK;
-    hover = html_escape(artist.sort_name) _ bracketed(html_escape(artist.comment));
+    hover = artist.sort_name _ bracketed(artist.comment);
     INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1 noescape=no_escape;
 END -%]
 
@@ -520,8 +520,8 @@ END -%]
     c.uri_for_action('/account/register', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END -%]
 
-[%~ MACRO simple_link(url, text) BLOCK;
-    INCLUDE _wrap_text options=['link'] content=text link=url;
+[%~ MACRO simple_link(url, text) BLOCK; # url may be a string or a URI object
+    INCLUDE _wrap_text options=['link', 'escape'] content=text link=url;
 END -%]
 
 [%~ MACRO request_login(text) BLOCK;
