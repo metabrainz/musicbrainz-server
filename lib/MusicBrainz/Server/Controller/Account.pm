@@ -4,9 +4,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
-use HTML::Entities qw( encode_entities );
 use MusicBrainz::Server::Translation qw(l ln );
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
 use Captcha::reCAPTCHA;
 

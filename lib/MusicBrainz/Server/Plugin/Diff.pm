@@ -14,21 +14,9 @@ use HTML::Tiny;
 use HTML::TreeBuilder;
 use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( trim_in_place );
+use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
-
-sub html_filter {
-    my $text = shift;
-    return unless defined $text;
-    for ($text) {
-        s/&/&amp;/g;
-        s/</&lt;/g;
-        s/>/&gt;/g;
-        s/"/&quot;/g;
-    }
-    return $text;
-}
 
 sub new {
     my ($class, $context) = @_;
@@ -142,19 +130,19 @@ sub _link_artist_credit_name {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
             title => $acn->artist->sort_name . $comment
-        }, $name || html_filter($acn->name));
+        }, $name || encode_entities($acn->name));
     }
     else {
         return $h->span({
             class => 'deleted tooltip',
             title => l('This entity has been removed, and cannot be displayed correctly.')
-        }, $name || html_filter($acn->name));
+        }, $name || encode_entities($acn->name));
     }
 }
 
 sub _link_joined {
     my ($self, $acn) = @_;
-    return $self->_link_artist_credit_name($acn) . (html_filter($acn->join_phrase) || '');
+    return $self->_link_artist_credit_name($acn) . (encode_entities($acn->join_phrase) || '');
 }
 
 sub diff_artist_credits {

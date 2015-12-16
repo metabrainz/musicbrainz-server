@@ -5,10 +5,11 @@ use warnings;
 use base 'MusicBrainz::Server::View::Base';
 use DBDefs;
 use Encode;
-use HTML::Entities qw( encode_entities decode_entities );
+use HTML::Entities qw( decode_entities );
 use HTTP::Request;
 use JSON -convert_blessed_universally;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Validation qw( encode_entities );
 use URI;
 
 # INFORMATION SEPARATOR ONE
