@@ -250,7 +250,7 @@ var formatTrackLength = require('../common/utility/formatTrackLength');
 
     var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
-        title: i18n.l("Add Disc"),
+        title: i18n.l("Add Medium"),
 
         trackParser: releaseEditor.trackParserDialog,
         mediumSearch: mediumSearchTab,
