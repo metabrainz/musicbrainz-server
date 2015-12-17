@@ -133,6 +133,7 @@ sub prepare_test_server
     {
         no warnings 'redefine';
         $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
+        $ENV{PERL_JSON_BACKEND} = 2;
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
     };
 

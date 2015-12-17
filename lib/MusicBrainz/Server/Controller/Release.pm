@@ -282,7 +282,6 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit {
 sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
-    my $json = JSON::Any->new( utf8 => 1 );
 
     $c->model('Release')->load_meta($entity);
 
@@ -307,7 +306,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
         images => \@artwork,
         mime_types => \@mime_types,
         access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY // '',
-        cover_art_types_json => $json->encode(
+        cover_art_types_json => $c->json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }
             } $c->model('CoverArtType')->get_all() ]),
@@ -653,16 +652,15 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('Relationship')->load_cardinal($release->release_group);
 
-    my $json = JSON->new->convert_blessed;
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
         work_languages  => build_grouped_options($c, language_options($c, 'work')),
-        source_entity   => $json->encode($release),
-        attr_info       => $json->encode(build_attr_info($attr_tree)),
-        type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
+        source_entity   => $c->json->encode($release),
+        attr_info       => $c->json->encode(build_attr_info($attr_tree)),
+        type_info       => $c->json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
     );
 }
 

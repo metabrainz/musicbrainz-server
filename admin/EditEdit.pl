@@ -4,7 +4,7 @@ use warnings;
 
 use Encode;
 use FindBin;
-use JSON::Any;
+use JSON::XS;
 use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -23,7 +23,7 @@ my $new_data = <STDIN>;
 chomp($new_data);
 
 # will die if JSON is invalid
-JSON::Any->new(utf8 => 1)->jsonToObj($new_data);
+JSON::XS->new->decode($new_data);
 $new_data = decode('UTF-8', $new_data, Encode::FB_CROAK);
 
 $c->sql->auto_commit;
