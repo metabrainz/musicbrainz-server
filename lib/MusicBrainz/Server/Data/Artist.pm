@@ -245,6 +245,7 @@ sub delete
     $self->isni->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
+    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     $self->delete_returning_gids('artist', @artist_ids);
 
