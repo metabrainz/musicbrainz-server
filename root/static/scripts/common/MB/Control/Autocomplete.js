@@ -8,8 +8,7 @@ var i18n = require('../../i18n');
 var clean = require('../../utility/clean');
 var formatTrackLength = require('../../utility/formatTrackLength');
 var isBlank = require('../../utility/isBlank');
-import {MAX_RECENT_ENTITIES} from '../../constants';
-import ENTITIES from '../../../../../entities.json';
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 

@@ -1,3 +1,7 @@
+import ENTITIES from '../../../../entities.json';
+
+export {ENTITIES};
+
 export const PART_OF_SERIES_LINK_TYPES = {
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
