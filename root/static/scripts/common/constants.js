@@ -25,21 +25,6 @@ export const VIDEO_ATTRIBUTE_ID = 582;
 
 export const VIDEO_ATTRIBUTE_GID = '112054d5-e706-4dd8-99ea-09aabee36cd6';
 
-export const ENTITIES = [
-  'area',
-  'artist',
-  'editor',
-  'event',
-  'instrument',
-  'label',
-  'place',
-  'release',
-  'release-group',
-  'recording',
-  'series',
-  'work',
-];
-
 export const MAX_LENGTH_DIFFERENCE = 10500;
 
 export const MAX_RECENT_ENTITIES = 10;

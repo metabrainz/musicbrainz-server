@@ -18,7 +18,11 @@ $(function () {
         },
         'link_type': {
             '=': 1
-        }
+        },
+        'edit_note_author': {
+            '=': 1,
+            '!=': 1,
+        },
     };
 
     var conditionCounter = 0;

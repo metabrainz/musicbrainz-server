@@ -67,6 +67,8 @@
                predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
                predicate_link(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor';
+               predicate_link(field.field_name, field, 'editor');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
                predicate_vote(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
@@ -314,6 +316,7 @@
                    [ 'type', l('Type') ],
                    [ 'no_votes', l('No vote count') ],
                    [ 'yes_votes', l('Yes vote count') ],
+                   [ 'edit_note_author', l('Edit Note Author') ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
                    [ 'event', l('Event') ],
@@ -352,6 +355,7 @@
     [% predicate_set('release_quality', quality) %]
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
+    [% predicate_link('edit_note_author', undef, 'editor') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
