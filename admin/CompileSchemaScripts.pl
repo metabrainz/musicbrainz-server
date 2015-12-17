@@ -5,7 +5,7 @@ use strict;
 
 use FindBin;
 
-use JSON;
+use JSON::XS;
 use File::Slurp;
 
 my $schema_version = shift() or die('schema version required');

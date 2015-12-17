@@ -172,6 +172,7 @@ sub delete
     $self->annotation->delete(@ids);
     $self->alias->delete_entities(@ids);
     $self->tags->delete(@ids);
+    $self->subscription->delete(@ids);
     $self->remove_gid_redirects(@ids);
     $self->delete_returning_gids('series', @ids);
     return 1;

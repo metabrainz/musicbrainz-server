@@ -4,6 +4,7 @@ use namespace::autoclean -also => [qw( _parse_toc )];
 use Readonly;
 use MusicBrainz::Server::Entity::DurationLookupResult;
 use MusicBrainz::Server::Entity::Medium;
+use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -59,9 +60,8 @@ sub lookup
     for ($i = 0; $i < $toc_info{tracks}; $i++)
     {
         my $duration = int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
-        # Max size for an int in postgresql:
-        # http://www.postgresql.org/docs/current/static/datatype-numeric.html
-        return if $duration > 2147483647;
+
+        return if $duration > $MAX_POSTGRES_INT;
         push @durations, $duration;
     }
 

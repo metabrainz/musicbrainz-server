@@ -8,7 +8,6 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
-use JSON::Any;
 use List::UtilsBy qw( partition_by );
 use Try::Tiny;
 use Scalar::Util qw( looks_like_number );
@@ -33,14 +32,12 @@ sub _init_release_editor
 {
     my ($self, $c, %options) = @_;
 
-    my $json = JSON::Any->new( utf8 => 1, convert_blessed => 1 );
-
     $options{redirect_uri} = (
         $c->req->query_params->{redirect_uri} //
         $c->req->body_params->{redirect_uri}
     );
 
-    $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
+    $options{seeded_data} = $c->json->encode($self->_seeded_data($c) // {});
 
     my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
@@ -59,9 +56,9 @@ sub _init_release_editor
         packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
         formats         => select_options_tree($c, 'MediumFormat'),
-        type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
-        attr_info       => $json->encode(build_attr_info($attr_tree)),
-        discid_formats  => $json->encode($discid_formats),
+        type_info       => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
+        attr_info       => $c->json->encode(build_attr_info($attr_tree)),
+        discid_formats  => $c->json->encode($discid_formats),
         %options
     );
 }

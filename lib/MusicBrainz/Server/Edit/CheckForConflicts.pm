@@ -4,7 +4,6 @@ use Moose::Role;
 use namespace::autoclean;
 
 use Algorithm::Merge qw( merge );
-use JSON::Any;
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use Try::Tiny;
 

@@ -90,7 +90,7 @@
   </table>
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
-  <p>[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
+  <p>[% l('Select a medium from the search results below and then click "Add Medium".') %]</p>
   <!-- /ko -->
 
   <!-- ko if: totalPages() > 1 -->
@@ -230,11 +230,11 @@
 </div>
 
 <div id="add-disc-dialog" style="display: none;" data-bind="with: $root.addDiscDialog, delegatedHandler: ['click', 'keydown']">
-  <p>[% l('To create a new tracklist, use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]</p>
+  <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]</p>
 
   <ul>
     <li><a href="#add-disc-parser">[% l('Manual entry') %]</a></li>
-    <li><a href="#add-disc-medium">[% l('Existing tracklist') %]</a></li>
+    <li><a href="#add-disc-medium">[% l('Existing medium') %]</a></li>
     <li><a href="#add-disc-cdstub">[% l('CD stub import') %]</a></li>
     <li><a href="#add-disc-freedb">[% l('FreeDB import') %]</a></li>
   </ul>
@@ -244,7 +244,7 @@
   </div>
 
   <div id="add-disc-medium">
-    <p>[% l('Use the following fields to search for an existing tracklist.') %]</p>
+    <p>[% l('Use the following fields to search for an existing medium.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: mediumSearch } --><!-- /ko -->
   </div>
 
@@ -260,13 +260,13 @@
 
   <div class="buttons">
     <button type="button" class="negative" data-click="close">[% l('Close') %]</button>
-    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Disc') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Medium') %]</button>
   </div>
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
   <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
-    [%~ l('Add a medium by clicking “Add Disc” below, or tick the box confirming the tracklist is unknown.') ~%]
+    [%~ l('Add a medium by clicking “Add Medium” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
 
   <!-- ko if: !mediums().length -->

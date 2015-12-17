@@ -4,7 +4,6 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
@@ -112,7 +111,6 @@ before 'edit' => sub
 
 sub stash_work_attribute_json {
     my ($c) = @_;
-    state $json = JSON::Any->new( utf8 => 1 );
 
     my $build_json;
     my $coll = $c->get_collator();
@@ -130,10 +128,10 @@ sub stash_work_attribute_json {
     };
 
     $c->stash(
-        workAttributeTypesJson => $json->encode(
+        workAttributeTypesJson => $c->json->encode(
             $build_json->($c->model('WorkAttributeType')->get_tree)
         ),
-        workAttributeValuesJson => $json->encode(
+        workAttributeValuesJson => $c->json->encode(
             $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree)
         )
     );
