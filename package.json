@@ -46,6 +46,7 @@
     "rcss": "0.1.5",
     "react": "0.14.3",
     "react-dom": "0.14.3",
+    "shell-quote": "1.4.3",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
     "tablesorter": "Mottie/tablesorter#430f8c5",
