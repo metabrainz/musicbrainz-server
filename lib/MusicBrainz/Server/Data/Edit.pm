@@ -330,16 +330,7 @@ sub subscribed_entity_edits {
     my $table = $self->_table;
     my @args = ($editor_id); # $1
 
-    if ($only_open) {
-        push @args, $STATUS_OPEN;
-    } else {
-        # $3
-        # XXX This won't handle all cases in which an edit is stuck open, but
-        # it is significantly faster to leave out the "OR status = 1" filter
-        # when showing all recent edits.
-        my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
-        push @args, DateTime::Format::Pg->format_interval($max_open_duration);
-    }
+    push @args, $only_open ? $STATUS_OPEN : $self->_max_open_interval; # $2
 
     my $edit_filter = sub {
         my ($status_table, $editor_table, $editor_op) = @_;
@@ -351,6 +342,9 @@ sub subscribed_entity_edits {
         } else {
             $result = "edit.open_time > now() - interval \$2\n";
         }
+        # XXX This won't handle all cases in which an edit is stuck open, but
+        # it is significantly faster to leave out the "OR status = 1" filter
+        # when showing all recent edits.
 
         $editor_op //= '=';
         $result .= "AND $editor_table.editor $editor_op \$1\n";
@@ -419,14 +413,15 @@ EOSQL
 sub subscribed_editor_edits {
     my ($self, $editor_id, $only_open, $limit, $offset) = @_;
 
-    my @args = ($editor_id, $editor_id, $STATUS_OPEN);
+    my @args = ($editor_id, $editor_id);
     my $status_sql;
 
     if ($only_open) {
         $status_sql = 'AND status = ?';
+        push @args, $STATUS_OPEN;
     } else {
-        $status_sql = 'AND (status = ? OR (now() - open_time) < interval ?)';
-        push @args, DateTime::Format::Pg->format_interval($OPEN_EDIT_DURATION);
+        $status_sql = 'AND open_time > now() - interval ?';
+        push @args, $self->_max_open_interval;
     }
 
     my $query =
@@ -443,6 +438,12 @@ sub subscribed_editor_edits {
           LIMIT " . $LIMIT_FOR_EDIT_LISTING;
 
     $self->query_to_list_limited($query, \@args, $limit, $offset);
+}
+
+# The maximum time an edit can stay open in normal circumstances.
+sub _max_open_interval {
+    my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
+    return DateTime::Format::Pg->format_interval($max_open_duration);
 }
 
 sub merge_entities
