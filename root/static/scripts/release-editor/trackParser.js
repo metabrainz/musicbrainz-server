@@ -7,7 +7,7 @@ var _ = require('lodash');
 var getSimilarity = require('../edit/utility/similarity');
 var clean = require('../common/utility/clean');
 var isBlank = require('../common/utility/isBlank');
-var getCookie = require('../common/utility/getCookie');
+import getCookie from '../common/utility/getCookie';
 var setCookie = require('../common/utility/setCookie');
 import {MIN_NAME_SIMILARITY} from '../common/constants';
 

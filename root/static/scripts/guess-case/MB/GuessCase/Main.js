@@ -19,9 +19,9 @@
 
 */
 
+import getCookie from '../../../common/utility/getCookie';
 import global from '../../../global';
 var flags = require('../../flags');
-var getCookie = require('../../../common/utility/getCookie');
 
 /**
  * Main class of the GC functionality
