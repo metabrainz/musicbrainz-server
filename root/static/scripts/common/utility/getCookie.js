@@ -7,9 +7,11 @@ export default function getCookie(name, defaultValue = undefined) {
   } else {
     cookie = document.cookie;
   }
-  let values = parseCookie(cookie);
-  if (values.hasOwnProperty(name)) {
-    return values[name];
+  if (typeof cookie === 'string') {
+    let values = parseCookie(cookie);
+    if (values.hasOwnProperty(name)) {
+      return values[name];
+    }
   }
   return defaultValue;
 }
