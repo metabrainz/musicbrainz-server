@@ -278,6 +278,31 @@ sub subscribed_editors : Local RequireAuth {
     load_everything_for_edits($c, $edits);
 }
 
+sub notes_received : Path('/edit/notes-received') RequireAuth {
+    my ($self, $c) = @_;
+
+    # Log when the editor loaded the page, so that we know when to notify them
+    # again about new edits (see Data::EditNote::add_note).
+    my $redis = $c->model('MB')->context->redis;
+    my $notes_viewed_key = 'edit_notes_received_last_viewed:' . $c->user->name;
+    $redis->set($notes_viewed_key, time);
+    # Expire the notification in 30 days.
+    $redis->expire($notes_viewed_key, 60 * 60 * 24 * 30);
+
+    my $edit_notes = $self->_load_paged($c, sub {
+        $c->model('EditNote')->find_by_recipient($c->user->id, shift, shift);
+    });
+
+    $c->model('Editor')->load(@$edit_notes);
+    $c->model('Edit')->load_for_edit_notes(@$edit_notes);
+    $c->model('Vote')->load_for_edits(map { $_->edit } @$edit_notes);
+
+    $c->stash(
+        edit_notes => $edit_notes,
+        template => 'edit/notes-received.tt',
+    );
+}
+
 =head2 conditions
 
 Display a table of all edit types, and their relative conditions

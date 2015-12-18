@@ -483,8 +483,8 @@ sub send_editor_report {
     my $reported_user = $opts{reported_user};
     my $subject = 'Editor ' . $reported_user->name . ' has been reported by ' . $reporter->name;
     my $reason = $MusicBrainz::Server::Form::User::Report::REASONS{$opts{reason}};
-    my $reporter_tolink = uri_escape_utf8($reporter);
-    my $reported_user_tolink = uri_escape_utf8($reported_user);
+    my $reporter_tolink = uri_escape_utf8($reporter->name);
+    my $reported_user_tolink = uri_escape_utf8($reported_user->name);
     my $body .= <<EOF;
 $subject for the following reason:
 

@@ -7,6 +7,7 @@ var path = require('path');
 var po2json = require('po2json');
 var rev = require('gulp-rev');
 var shell = require('shelljs');
+var shellQuote = require('shell-quote');
 var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
 var through2 = require('through2');
@@ -145,13 +146,23 @@ function buildScripts() {
     .without('en')
     .map(langToPosix)
     .transform(function (result, lang) {
-      var srcPo = findObjectFile('mb_server', lang, 'po');
-      var tmpPo = path.resolve(PO_DIR, `javascript.${lang}.po`);
+      var srcPo = shellQuote.quote([findObjectFile('mb_server', lang, 'po')]);
+      var tmpPo = shellQuote.quote([path.resolve(PO_DIR, `javascript.${lang}.po`)]);
+
+      // msggrep's -N option supports wildcards which use fnmatch internally.
+      // The '*' cannot match path separators, so we must generate a list of
+      // possible terminal paths.
+      let scriptsDir = shellQuote.quote([SCRIPTS_DIR]);
+      let nestedDirs = shell.exec(`find ${scriptsDir} -type d`, {silent: true}).output.split('\n');
+      let msgLocations = _(nestedDirs)
+        .compact()
+        .map(dir => '-N ' + shellQuote.quote(['..' + dir.replace(CHECKOUT_DIR, '') + '/*.js']))
+        .join(' ');
 
       // Create a temporary .po file containing only the strings used by root/static/scripts.
-      shell.exec(`msggrep -N '../root/static/scripts/**/*.js' ${srcPo} -o ${tmpPo}`);
+      shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed', domain: 'mb_server'});
+      result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed1.x', domain: 'mb_server'});
 
       fs.unlinkSync(tmpPo);
     }, {})
@@ -164,6 +175,10 @@ function buildScripts() {
     .value();
 
   var editBundle = runYarb('edit.js', function (b) {
+    b.external(commonBundle);
+  });
+
+  var editNotesReceivedBundle = runYarb('edit/notes-received.js', function (b) {
     b.external(commonBundle);
   });
 
@@ -206,6 +221,7 @@ function buildScripts() {
   return Q.all([
     writeScript(commonBundle, 'common.js'),
     writeScript(editBundle, 'edit.js'),
+    writeScript(editNotesReceivedBundle, 'edit-notes-received.js'),
     writeScript(guessCaseBundle, 'guess-case.js'),
     writeScript(placeBundle, 'place.js'),
     writeScript(releaseEditorBundle, 'release-editor.js'),
