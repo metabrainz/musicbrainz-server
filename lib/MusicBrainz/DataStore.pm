@@ -12,7 +12,7 @@ Expire the specified key in $s seconds.
 
 =cut
 
-requires 'expireat';
+requires 'expire';
 
 =method expireat
 
