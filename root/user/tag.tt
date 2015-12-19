@@ -1,7 +1,7 @@
 [% WRAPPER 'user/profile/layout.tt' page='tags' %]
 
 [% IF tag_in_use %]
-    <h2>[% tag_name %]</h2>
+    <h2>[% tag_name | html %]</h2>
     [% FOR entity_type_name=entities_with_tags %]
         [% tagged_entities = tags.$entity_type_name %]
         [% IF tagged_entities.size %]
