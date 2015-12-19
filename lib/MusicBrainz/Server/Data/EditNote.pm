@@ -8,7 +8,7 @@ use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
-use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Constants qw( :vote $LIMIT_FOR_EDIT_LISTING );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -124,6 +124,7 @@ sub find_by_recipient {
          WHERE editor != \$1
            AND edit IN (SELECT id FROM edit WHERE editor = \$1)
          ORDER BY post_time DESC, edit DESC
+         LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
     $self->query_to_list_limited(
         $query, [$recipient_id], $limit, $offset, undef, 1
