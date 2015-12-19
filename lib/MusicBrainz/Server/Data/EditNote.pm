@@ -85,12 +85,14 @@ sub add_note
         (map { $_->editor_id } @{ $edit->edit_notes }));
     $self->c->model('Editor')->load_preferences(values %$editors);
 
-    # Inform the edit's author that a note was left.
-    my $edit_author = $editors->{$edit->editor_id}->name;
-    my $notes_updated_key = "edit_notes_received_last_updated:$edit_author";
-    $self->c->redis->set($notes_updated_key, time);
-    # Expire the notification in 30 days.
-    $self->c->redis->expire($notes_updated_key, 60 * 60 * 24 * 30);
+    # Inform the edit's author that a note was left, unless this is their own edit.
+    if ($note_hash->{editor_id} != $edit->editor_id) {
+        my $edit_author = $editors->{$edit->editor_id}->name;
+        my $notes_updated_key = "edit_notes_received_last_updated:$edit_author";
+        $self->c->redis->set($notes_updated_key, time);
+        # Expire the notification in 30 days.
+        $self->c->redis->expire($notes_updated_key, 60 * 60 * 24 * 30);
+    }
 
     my @to_email = grep { $_ != $note_hash->{editor_id} }
         map { $_->id } grep { $_->preferences->email_on_notes }
