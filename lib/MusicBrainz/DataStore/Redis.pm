@@ -93,30 +93,6 @@ sub expireat {
     return $self->_connection->expireat(encode('utf-8', $self->prefix.$key), $timestamp);
 }
 
-sub incr {
-    my ($self, $key, $increment) = @_;
-
-    return $self->_connection->incrby(encode('utf-8', $self->prefix.$key), $increment // 1);
-}
-
-=method add
-
-Store the $value on the server under the $key, but only if the key
-doesn't exists on the server.
-
-=cut
-
-sub add {
-    my ($self, $key, $value) = @_;
-
-    return $self->_connection->setnx(encode('utf-8', $self->prefix.$key), $self->_json->encode($value));
-}
-
-sub ttl {
-    my ($self, $key) = @_;
-    return $self->_connection->ttl(encode('utf-8', $self->prefix.$key));
-}
-
 sub _flushdb {
     my ($self) = @_;
 

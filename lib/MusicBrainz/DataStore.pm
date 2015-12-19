@@ -22,25 +22,6 @@ Expire the specified key at (unix) $timestamp.
 
 requires 'expireat';
 
-=method incr
-
-Increment the value for the $key.
-
-=cut
-
-requires 'incr';
-
-=method add
-
-Store the $value on the server under the $key, but only if the key
-doesn't exists on the server.
-
-=cut
-
-requires 'add';
-
-requires 'ttl';
-
 =head1 LICENSE
 
 Copyright (C) 2013 MetaBrainz Foundation
