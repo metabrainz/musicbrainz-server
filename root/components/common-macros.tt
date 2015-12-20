@@ -399,9 +399,9 @@ END -%]
     INCLUDE _link_mbid_entity entity=label type='label' action=action content=text;
 END -%]
 
-[%~ MACRO link_artist(artist, action, text) BLOCK;
+[%~ MACRO link_artist(artist, action, text, no_escape) BLOCK;
     hover = html_escape(artist.sort_name) _ bracketed(html_escape(artist.comment));
-    INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1;
+    INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1 noescape=no_escape;
 END -%]
 
 [%~ MACRO link_area(area, action, text) BLOCK;

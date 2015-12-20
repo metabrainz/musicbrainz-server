@@ -124,26 +124,11 @@ sub _render_side_diff {
 
 sub _link_artist_credit_name {
     my ($self, $acn, $name) = @_;
-    my $comment;
-    if ($acn->artist->comment) {
-        $comment = ' (' . $acn->artist->comment . ')';
-    }
-    else {
-        $comment = '';
-    }
 
-    if ($acn->artist->gid) {
-        return $h->a({
-            href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => encode_entities($acn->artist->sort_name . $comment),
-        }, $name || encode_entities($acn->name));
-    }
-    else {
-        return $h->span({
-            class => 'deleted tooltip',
-            title => l('This entity has been removed, and cannot be displayed correctly.')
-        }, $name || encode_entities($acn->name));
-    }
+    $name //= encode_entities($acn->name);
+
+    # defer to the template macro
+    return $self->{c}->stash->get('link_artist', [ $acn->artist, 'show', $name, 1 ]);
 }
 
 sub _link_joined {
