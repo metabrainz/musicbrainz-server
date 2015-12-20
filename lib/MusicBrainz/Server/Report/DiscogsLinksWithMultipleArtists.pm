@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
+
+use utf8;
+
 use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport',

@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Form::Field::ArtistCredit;
+
+use utf8;
+
 use Test::Routine;
 use Test::More;
 

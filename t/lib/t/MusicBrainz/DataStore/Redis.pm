@@ -1,4 +1,7 @@
 package t::MusicBrainz::DataStore::Redis;
+
+use utf8;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
