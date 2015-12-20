@@ -201,7 +201,6 @@ sub diff_artist_credits {
 
 sub diff {
     my ($self, $old, $new) = @_;
-    my $h = HTML::Tiny->new;
 
     my @spans;
 
