@@ -12,6 +12,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
 use HTML::TreeBuilder;
+use HTML::Entities qw( decode_entities );
 use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities trim_in_place );
@@ -41,9 +42,13 @@ sub diff_side {
     my ($self, $old, $new, $filter, $split) = @_;
     $split //= '';
 
+    # Make sure sdiff can't split up HTML entities
+    $old = decode_entities($old);
+    $new = decode_entities($new);
+
     my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
 
-    return $self->_render_side_diff($filter, @diffs);
+    return $self->_render_side_diff(1, $filter, @diffs);
 }
 
 sub diff_html_side {
@@ -61,7 +66,7 @@ sub diff_html_side {
 
     my @diffs = sdiff(\@old_tokens, \@new_tokens);
 
-    return $self->_render_side_diff($filter, @diffs);
+    return $self->_render_side_diff(0, $filter, @diffs);
 }
 
 sub _html_token {
@@ -77,7 +82,7 @@ sub _split_text {
 }
 
 sub _render_side_diff {
-    my ($self, $filter, @diffs) = @_;
+    my ($self, $escape_output, $filter, @diffs) = @_;
 
     my @stack;
     for my $diff (@diffs) {
@@ -111,6 +116,7 @@ sub _render_side_diff {
                                     $class_map{$_->{type}};
 
             my $text = $_->{str};
+            $text = encode_entities($text) if $escape_output;
             $h->span({ class => $class }, $text)
         } @stack
     )
@@ -129,7 +135,7 @@ sub _link_artist_credit_name {
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => $acn->artist->sort_name . $comment
+            title => encode_entities($acn->artist->sort_name . $comment),
         }, $name || encode_entities($acn->name));
     }
     else {
@@ -177,16 +183,16 @@ sub diff_artist_credits {
                 # Diff the credited names
                 $sides{old} .= $self->_link_artist_credit_name(
                     $old_name,
-                    $self->diff_side($old_name->name, $new_name->name, '-','\s+')
+                    $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '-','\s+')
                 );
                 $sides{new} .= $self->_link_artist_credit_name(
                     $new_name,
-                    $self->diff_side($old_name->name, $new_name->name, '+', '\s+')
+                    $self->diff_side(encode_entities($old_name->name), encode_entities($new_name->name), '+', '\s+')
                 );
 
                 # Diff the join phrases
-                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-', '\s+');
-                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+', '\s+');
+                $sides{old} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '-', '\s+');
+                $sides{new} .= $self->diff_side(encode_entities($old_name->join_phrase), encode_entities($new_name->join_phrase), '+', '\s+');
             }
 
             when ('-') {
@@ -234,7 +240,7 @@ sub diff {
 
         while (my ($key, $class) = each %classes) {
             next if $exclude eq $key || !$buffers{$key};
-            push @spans, $h->span({ class => $class }, $buffers{$key});
+            push @spans, $h->span({ class => $class }, encode_entities($buffers{$key}));
             $buffers{$key} = '';
         }
     };
