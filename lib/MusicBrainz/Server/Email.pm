@@ -141,8 +141,10 @@ sub _create_email_verification_email
 
     my $verification_link = $opts{verification_link};
     my $ip = $opts{ip};
-
+    my $user_id = $opts{user_id}->name;
     my $body = <<EOS;
+Hello $user_id,
+
 This is a verification email for your MusicBrainz account. Please click
 on the link below to verify your email address:
 
