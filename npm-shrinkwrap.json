@@ -3692,8 +3692,8 @@
       "resolved": "https://registry.npmjs.org/y18n/-/y18n-3.2.0.tgz"
     },
     "yarb": {
-      "version": "0.5.1",
-      "from": "yarb@0.5.1"
+      "version": "0.6.1",
+      "from": "yarb@0.6.1"
     },
     "yargs": {
       "version": "3.30.0",
