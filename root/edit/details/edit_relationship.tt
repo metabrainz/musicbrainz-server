@@ -7,6 +7,15 @@
 <table class="details edit-relationship">
   [%- display_relationship_differences(l('Relationship:'), old_rel, new_rel) -%]
 
+  [%- IF (edit.data.new.size == 1 && (edit.data.new.entity0_credit || edit.data.new.entity1_credit)) ||
+          (edit.data.new.size == 2 && edit.data.new.entity0_credit && edit.data.new.entity1_credit) -%]
+  <tr>
+    <th></th>
+    <td colspan="2">
+      [% l('This edit only changes the credited names.') %]
+    </td>
+  </tr>
+  [%- END -%]
   [% IF edit.display_data.unknown_attributes %]
   <tr>
     <th></th>
