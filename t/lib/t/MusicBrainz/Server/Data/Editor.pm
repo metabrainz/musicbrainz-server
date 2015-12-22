@@ -59,9 +59,6 @@ test 'Remember me tokens' => sub {
     ok(!$model->consume_remember_me_token($user_name, $token),
        'Remember me tokens with improper capitalization can\'t be consumed');
 
-    ok( $test->c->redis->ttl("$normalized_name|$token") <= 5 * 60,
-        'TTL of remember me token at most 5 minutes' );
-
     ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
        'It is not an exception to attempt to consume tokens for non-existant users');
 
