@@ -211,7 +211,7 @@ END -%]
         SET show_list = 0;
         FOR name=ac.names;
           IF name.artist.name != name.name;
-            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}));
+            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => html_escape(name.name)}));
             SET show_list = 1;
           ELSE;
             artist_list.push(descriptive_link(name.artist));

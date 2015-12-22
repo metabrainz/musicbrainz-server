@@ -36,7 +36,12 @@
         $('#edit-raw-data').each(function () {
             var $this = $(this);
             var json = JSON.parse($this.text());
-            if (json) { $this.html('<pre>'+JSON.stringify(json,null,2)+'</pre>') }
+            if (json) {
+                var $pre = $('<pre />');
+                $pre.text(JSON.stringify(json,null,2)); // .text() encodes HTML reserved characters
+                $this.parent().after($pre);
+                $this.remove();
+            }
         });
     </script>
 [%- END -%]
