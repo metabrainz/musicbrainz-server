@@ -12,7 +12,7 @@
                     [% doc = doc _ "/" _ link %]
                 [% END %]
 
-                <a href="[%- doc_link(doc.replace(' ', '_')) -%]" [% ' style="font-weight:bold;"' IF loop.last %]>[%- link -%]</a>
+                <a href="[%- doc_link(doc.replace(' ', '_')) | html -%]" [% ' style="font-weight:bold;"' IF loop.last %]>[%- link | html -%]</a>
                 [% ' / ' IF !loop.last %]
             [% END %]
         </h1>
@@ -31,8 +31,8 @@
                 [%- l('This page is {doc|transcluded} from revision {version} of {title}.',
                     {
                         doc => doc_link('WikiDocs'),
-                        version => '<a href="' _ wiki_history_link(wiki_server, id, page.version) _ '" class="internal">#' _ page.version _ '</a>',
-                        title => '<a href="' _ wiki_link(wiki_server, id) _ '" class="internal">' _ page.title _ '</a>',
+                        version => '<a href="' _ html_escape(wiki_history_link(wiki_server, id, page.version)) _ '" class="internal">#' _ page.version _ '</a>',
+                        title => '<a href="' _ html_escape(wiki_link(wiki_server, id)) _ '" class="internal">' _ html_escape(page.title) _ '</a>',
                     }
                 ) -%]
             </div>
@@ -40,7 +40,7 @@
             <div class="wikidocs-footer">
             [%- l('This page is {doc|transcluded} from {title}.',
                  { doc => doc_link('WikiDocs'),
-                   title => '<a href="//' _ wiki_server _ '/' _ id _ '" class="internal">' _ page.title _ '</a>' }) -%]
+                   title => '<a href="//' _ wiki_server _ '/' _ html_escape(id) _ '" class="internal">' _ html_escape(page.title) _ '</a>' }) -%]
             </div>
         [%- END -%]
     </div>
