@@ -16,6 +16,8 @@ necessary to re-run this script.
 use Moose;
 use namespace::autoclean;
 
+use POSIX qw( ceil );
+
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
@@ -34,6 +36,14 @@ has 'dry_run' => (
     cmd_flag => 'dry-run',
 );
 
+has 'batch_size' => (
+    isa => 'Int',
+    is => 'ro',
+    default => 10000,
+    traits => [ 'Getopt' ],
+    cmd_flag => 'batch-size',
+);
+
 sub run {
     my ($self, @args) = @_;
     die "Usage error ($0 takes no arguments)" if @args;
@@ -49,30 +59,46 @@ sub run {
         print "WARNING: No sessions found.\n";
         return 0;
     }
-    printf 'Retrieved %d keys,', $considered if $self->verbose;
-    my @values = $r->_connection->mget(@keys);
-    printf " %d values.\n", scalar @values if $self->verbose;
+    printf "Retrieved %d keys.\n", $considered if $self->verbose;
 
-    scalar @values == $considered or die 'Number of values from the database does not match keys';
-
-    my @remove;
-    while (my $key = shift @keys) {
-        my $expire_time = shift @values;
-        push @remove, $key
-            if $expire_time < $now;
+    unless ($considered < $self->batch_size) {
+        printf "Processing in %d batches.\n\n", ceil($considered/$self->batch_size) if $self->verbose;
     }
-    my $to_be_removed = scalar @remove;
-    printf "Found %d of the entries to be expired (%.2f %%).\n",
-            $to_be_removed, (100 * $to_be_removed / $considered)
+
+    my $total_expired = 0;
+
+    while (scalar @keys) {
+        my @batch_keys = splice @keys, 0, $self->batch_size;
+        my $size = scalar @batch_keys;
+
+        my @values = $r->_connection->mget(@batch_keys);
+        printf "Retrieved %d values.\n", scalar @values if $self->verbose;
+
+        scalar @values == $size or die 'Number of values from the database does not match keys';
+
+        my @remove;
+        while (my $key = shift @batch_keys) {
+            my $expire_time = shift @values;
+            push @remove, $key
+                if $expire_time < $now;
+        }
+        my $expired = scalar @remove;
+        $total_expired += $expired;
+
+        if ($expired && !$self->dry_run) {
+            print 'Deleting expired entries ...' if $self->verbose;
+            my $deleted = $r->_connection->del(@remove);
+            printf " deleted %d entries.\n", $deleted if $self->verbose;
+            $deleted == $expired
+                or printf "WARNING: Wanted to delete %d entries, but actually deleted %d!\n",
+                          $expired, $deleted;
+            print "\n" if $self->verbose;
+        }
+    }
+
+    printf "Found %d of %d entries to be expired (%.2f %%).\n",
+            $total_expired, $considered, (100 * $total_expired / $considered)
         if $self->verbose;
-
-    if ($to_be_removed && !$self->dry_run) {
-        print 'Deleting expired entries ...' if $self->verbose;
-        my $deleted = $r->_connection->del(@remove);
-        printf " deleted %d entries.\n", $deleted if $self->verbose;
-        $deleted == $to_be_removed
-            or printf "WARNING: Wanted to delete %d entries, but actually deleted %d!\n", $to_be_removed, $deleted;
-    }
 
     print "Finished.\n" if $self->verbose;
     return 0;
