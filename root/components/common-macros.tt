@@ -1054,3 +1054,5 @@ END -%]
     </div>
   [%- END -%]
 [%~ END ~%]
+
+[%~ MACRO non_empty(text) (text != '' && text.defined) ~%]
