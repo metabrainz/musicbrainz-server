@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Data::ArtistCredit;
+
+use utf8;
+
 use Test::Routine;
 use Test::Moose;
 use Test::Fatal;

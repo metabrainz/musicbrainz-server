@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Filters;
 
+use utf8;
+
 use strict;
 use warnings;
 

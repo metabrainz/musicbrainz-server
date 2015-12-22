@@ -1,4 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::1::LookupLabel;
+
+use utf8;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );

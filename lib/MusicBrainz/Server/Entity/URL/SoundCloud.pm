@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Entity::URL::SoundCloud;
 
+use utf8;
+
 use Moose;
 use MusicBrainz::Server::Filters;
 
