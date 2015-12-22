@@ -779,7 +779,7 @@ MB.Control.autocomplete_formatters = {
         if (item.typeName || (item.containment && item.containment.length)) {
             var items = [];
             if (item.typeName) {
-                items.push(_.escape(item.typeName));
+                items.push(item.typeName);
             }
             items.push(renderContainingAreas(item));
             a.append('<br /><span class="autocomplete-comment">' +
@@ -815,7 +815,7 @@ MB.Control.autocomplete_formatters = {
             a.append('<br /><span class="autocomplete-comment">' +
                      (item.typeName ? _.escape(item.typeName) : '') +
                      (item.typeName && item.area ? ', ' : '') +
-                     (area ? _.escape(area.name) + ', ' + renderContainingAreas(area) : '') +
+                     (area ? _.escape(area.name + ', ' + renderContainingAreas(area)) : '') +
                      '</span>');
         };
 
@@ -924,7 +924,7 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
-    return i18n.commaOnlyList(_(area.containment).pluck('name').map(_.escape).value());
+    return i18n.commaOnlyList(_(area.containment).pluck('name').value());
 }
 
 /*
