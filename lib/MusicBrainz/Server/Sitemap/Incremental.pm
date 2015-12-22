@@ -635,9 +635,6 @@ sub handle_replication_sequence($$) {
             $self->build_one_suffix($entity_type, 1, $urls, %opts);
         }
     }
-
-    $self->write_index;
-    $self->ping_search_engines($c);
 }
 
 around do_not_delete => sub {
@@ -647,6 +644,23 @@ around do_not_delete => sub {
     $self->$orig($file) || ($file !~ /incremental/);
 };
 
+sub get_current_replication_sequence {
+    my ($self, $c) = @_;
+
+    my $replication_info_uri = $self->replication_access_uri . '/replication-info';
+    my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
+
+    unless ($response->code == 200) {
+        log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
+        exit 1;
+    }
+
+    my $replication_info = decode_json($response->content);
+    my $current_seq = $replication_info->{last_packet};
+    $current_seq =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/;
+    return $current_seq;
+}
+
 sub run {
     my ($self) = @_;
 
@@ -654,17 +668,6 @@ sub run {
         database => $self->database,
         fresh_connector => 1,
     );
-
-    my $checked_entities = $c->sql->select_single_value(
-        'SELECT 1 FROM sitemaps.tmp_checked_entities'
-    );
-
-    if ($checked_entities) {
-        log("ERROR: " .
-            "Table sitemaps.tmp_checked_entities is not empty " .
-            "(is another instance of the script running?)");
-        exit 1;
-    }
 
     my $building_overall_sitemaps = $c->sql->select_single_value(
         'SELECT building_overall_sitemaps FROM sitemaps.control'
@@ -685,33 +688,52 @@ sub run {
         exit 1;
     }
 
-    my $replication_info_uri = $self->replication_access_uri . '/replication-info';
-    my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
-
-    unless ($response->code == 200) {
-        log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
-        exit 1;
-    }
-
-    my $replication_info = decode_json($response->content);
-    my $current_seq = $replication_info->{last_packet};
-    $current_seq =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/;
-
     my $last_processed_seq = $c->sql->select_single_value(
         'SELECT last_processed_replication_sequence FROM sitemaps.control'
     );
+    my $should_update_index = 0;
 
-    my $next_seq = $current_seq;
-    if (defined $last_processed_seq) {
-        if ($current_seq == $last_processed_seq) {
-            log("Already up-to-date.");
-            exit 0;
+    while (1) {
+        my $current_seq = $self->get_current_replication_sequence($c);
+
+        if (defined $last_processed_seq) {
+            if ($current_seq == $last_processed_seq) {
+                log("Up-to-date.");
+                last;
+            }
+        } else {
+            $last_processed_seq = $current_seq - 1;
         }
-        $next_seq = $last_processed_seq + 1;
-    }
 
-    for my $sequence ($next_seq ... $current_seq) {
-        $self->handle_replication_sequence($c, $sequence);
+        if ($should_update_index == 0) { # only executed on first iteration
+            my $checked_entities = $c->sql->select_single_value(
+                'SELECT 1 FROM sitemaps.tmp_checked_entities'
+            );
+
+            # If sitemaps.tmp_checked_entities is not empty, then another copy
+            # of the script is either still running (perhaps because it has to
+            # process a large number of changes), or has crashed unexpectedly
+            # (if it had completed normally, then the table would have been
+            # truncated below).
+
+            if ($checked_entities) {
+                # Don't generate cron email spam until we're more behind than
+                # usual, since that could indicate a problem.
+
+                if (($current_seq - $last_processed_seq) > 2) {
+                    log("ERROR: Table sitemaps.tmp_checked_entities is not " .
+                        "empty, and the script is more than two replication " .
+                        "packets behind. You should check that a previous " .
+                        "run of the script didn't unexpectedly die; this " .
+                        "script will not run again until " .
+                        "sitemaps.tmp_checked_entities is cleared.");
+                    exit 1;
+                }
+                exit 0;
+            }
+        }
+
+        $self->handle_replication_sequence($c, ++$last_processed_seq);
 
         $c->sql->auto_commit(1);
         $c->sql->do('TRUNCATE sitemaps.tmp_checked_entities');
@@ -719,8 +741,15 @@ sub run {
         $c->sql->auto_commit(1);
         $c->sql->do(
             'UPDATE sitemaps.control SET last_processed_replication_sequence = ?',
-            $sequence,
+            $last_processed_seq,
         );
+
+        $should_update_index = 1;
+    }
+
+    if ($should_update_index) {
+        $self->write_index;
+        $self->ping_search_engines($c);
     }
 }
 
