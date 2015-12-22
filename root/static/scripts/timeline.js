@@ -389,8 +389,19 @@ MB.Timeline.TimelineLine = aclass({
                 y = y.toFixed(fixed);
             }
 
-            if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-            if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+            let day;
+            if (date.getDate() < 10) {
+                day = '0' + date.getDate();
+            } else {
+                day = date.getDate();
+            }
+
+            let month;
+            if (date.getMonth() + 1 < 10) {
+                month = '0' + (date.getMonth() + 1);
+            } else {
+                month = date.getMonth() + 1;
+            }
 
             showTooltip(item.pageX, item.pageY,
                 date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
