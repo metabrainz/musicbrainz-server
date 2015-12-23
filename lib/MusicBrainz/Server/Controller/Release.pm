@@ -66,16 +66,23 @@ sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
 
 after 'load' => sub {
     my ($self, $c) = @_;
+
     my $release = $c->stash->{release};
-    $c->model('Release')->load_meta($release);
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    $c->model('Release')->load_meta($release)
+        unless $returning_jsonld;
 
     # Load release group
     $c->model('ReleaseGroup')->load($release);
-    $c->model('ReleaseGroup')->load_meta($release->release_group);
-    $c->model('Relationship')->load($release->release_group);
-    $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
-    if ($c->user_exists) {
-        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
+
+    unless ($returning_jsonld) {
+        $c->model('ReleaseGroup')->load_meta($release->release_group);
+        $c->model('Relationship')->load($release->release_group);
+        $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
+        if ($c->user_exists) {
+            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
+        }
     }
 
     my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
@@ -96,7 +103,8 @@ after 'load' => sub {
         $c->model('Release')->load_related_info($release);
 
         # Only needed by pages showing the sidebar
-        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group);
+        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group)
+            unless $returning_jsonld;
     }
 };
 
