@@ -367,10 +367,8 @@ sub run {
         'SELECT 1 FROM sitemaps.control',
     );
 
-    $sql->auto_commit(1);
-    if ($sitemaps_control_exists) {
-        $sql->do('UPDATE sitemaps.control SET building_overall_sitemaps = TRUE');
-    } else {
+    unless ($sitemaps_control_exists) {
+        $sql->auto_commit(1);
         $sql->do('INSERT INTO sitemaps.control VALUES (NULL, NULL, TRUE)');
     }
 
@@ -399,8 +397,7 @@ sub run {
     $sql->auto_commit(1);
     $sql->do(<<'EOSQL');
 UPDATE sitemaps.control
-   SET overall_sitemaps_replication_sequence = last_processed_replication_sequence,
-       building_overall_sitemaps = FALSE
+   SET overall_sitemaps_replication_sequence = last_processed_replication_sequence
 EOSQL
 
     # Finally, ping search engines (if the option is turned on) and finish.

@@ -669,17 +669,12 @@ sub run {
         fresh_connector => 1,
     );
 
-    my $building_overall_sitemaps = $c->sql->select_single_value(
-        'SELECT building_overall_sitemaps FROM sitemaps.control'
+    my $sitemaps_control = $c->sql->select_single_value(
+        'SELECT 1 FROM sitemaps.control'
     );
 
-    unless (defined $building_overall_sitemaps) {
+    unless (defined $sitemaps_control) {
         log("ERROR: Table sitemaps.control is empty (has admin/BuildSitemaps.pl run yet?)");
-        exit 1;
-    }
-
-    if ($building_overall_sitemaps) {
-        log("NOTICE: admin/BuildSitemaps.pl is still running, exiting so it can finish");
         exit 1;
     }
 

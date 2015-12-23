@@ -7,6 +7,7 @@ use DBDefs;
 use Digest::MD5 qw( md5_hex );
 use File::Slurp qw( read_dir );
 use File::Spec;
+use Fcntl qw( :flock );
 use List::AllUtils qw( any );
 use List::MoreUtils qw( natatime );
 use List::UtilsBy qw( sort_by );
@@ -19,7 +20,11 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
-use MusicBrainz::Server::Sitemap::Utils qw( serialize_sitemap log );
+use MusicBrainz::Server::Sitemap::Utils qw(
+    log
+    serialize_sitemap
+    serialize_sitemap_index
+);
 use POSIX qw( ceil );
 use Readonly;
 use String::ShellQuote qw( shell_quote );
@@ -38,6 +43,7 @@ sub BUILD {
 
     # These need adding or they'll get deleted by write_index.
     $self->add_sitemap_file($self->index_filename);
+    $self->add_sitemap_file($self->index_filename . '.lock');
     $self->add_sitemap_file('.gitkeep');
 }
 
@@ -105,10 +111,14 @@ has current_time => (
 );
 
 has index => (
-    is => 'ro',
-    isa => 'WWW::SitemapIndex::XML',
-    default => sub { WWW::SitemapIndex::XML->new },
-    traits => ['NoGetopt'],
+    is => 'rw',
+    isa => 'ArrayRef[HashRef]',
+    default => sub { [] },
+    traits => ['Array', 'NoGetopt'],
+    handles => {
+        add_sitemap => 'push',
+        all_sitemaps => 'elements',
+    },
 );
 
 has index_filename => (
@@ -158,47 +168,16 @@ has sitemap_files => (
     },
 );
 
-has old_index => (
-    is => 'ro',
-    isa => 'WWW::SitemapIndex::XML',
-    lazy => 1,
-    traits => ['NoGetopt'],
-    default => sub {
-        my $self = shift;
-        my $old_index = WWW::SitemapIndex::XML->new;
-
-        if (-f $self->index_localname) {
-            $old_index->load(location => $self->index_localname);
-        }
-
-        $old_index;
-    },
-);
-
-=attribute old_sitemap_modtimes
-
-Loads the old index (if present) to keep track of the modification times of
-sitemaps, in case they're unchanged.
-
-=cut
-
-has old_sitemap_modtimes => (
-    is => 'ro',
-    isa => 'HashRef',
-    lazy => 1,
-    builder => 'build_old_sitemap_modtimes',
-    traits => ['NoGetopt'],
-);
-
-sub build_old_sitemap_modtimes {
+sub read_index {
     my $self = shift;
 
-    my %old_sitemap_modtime =
-        map { $_->loc => $_->lastmod }
-        grep { $_->loc && $_->lastmod }
-        $self->old_index->sitemaps;
+    my $index = WWW::SitemapIndex::XML->new;
 
-    \%old_sitemap_modtime;
+    if (-f $self->index_localname) {
+        $index->load(location => $self->index_localname);
+    }
+
+    $index;
 }
 
 sub build_page_url {
@@ -290,22 +269,30 @@ sub build_one_sitemap {
 
     my $data = serialize_sitemap(@urls);
     my $modtime = $self->current_time || DateTime::Format::W3CDTF->new->format_datetime(DateTime->now);
-    my $old_sitemap_modtimes = $self->old_sitemap_modtimes;
     my $write_sitemap = 1;
 
-    if ($existing_md5) {
-        my $new_md5 = md5_hex($$data);
+    $self->lock_index(sub {
+        # Load the old index (if present) to keep track of the modification
+        # times of sitemaps, in case they're unchanged.
+        my %old_sitemap_modtimes =
+            map { $_->loc => $_->lastmod }
+            grep { $_->loc && $_->lastmod }
+            $self->read_index->sitemaps;
 
-        if ($existing_md5 eq $new_md5) {
-            # Don't write the file to disk unless we have to.
-            $write_sitemap = 0;
+        if ($existing_md5) {
+            my $new_md5 = md5_hex($$data);
 
-            if ($old_sitemap_modtimes->{$remote_filename}) {
-                print "using previous modtime, since file unchanged...";
-                $modtime = $old_sitemap_modtimes->{$remote_filename};
+            if ($existing_md5 eq $new_md5) {
+                # Don't write the file to disk unless we have to.
+                $write_sitemap = 0;
+
+                if ($old_sitemap_modtimes{$remote_filename}) {
+                    print "using previous modtime, since file unchanged...";
+                    $modtime = $old_sitemap_modtimes{$remote_filename};
+                }
             }
         }
-    }
+    });
 
     if ($write_sitemap) {
         open my $fh, '>', $local_xml_filename;
@@ -319,7 +306,7 @@ sub build_one_sitemap {
     }
 
     $self->add_sitemap_file($filename);
-    $self->index->add(loc => $remote_filename, lastmod => $modtime);
+    $self->add_sitemap({ loc => $remote_filename, lastmod => $modtime });
     print " built.\n";
 }
 
@@ -369,6 +356,19 @@ sub build_one_suffix {
     return;
 }
 
+sub lock_index {
+    my ($self, $callback) = @_;
+
+    # A separate lock file is used, because we can't create the sitemap index
+    # or check if it exists (required by read_index) until a lock is acquired.
+    # And we can't acquire a lock on a non-existent file.
+
+    open my $index_lock_fh, '>>', $self->index_localname . '.lock';
+    flock($index_lock_fh, LOCK_EX);
+    $callback->();
+    close $index_lock_fh;
+}
+
 =method write_index
 
 Writes the sitemap index file to disk and removes any leftover files in
@@ -379,22 +379,28 @@ C<output-dir> that aren't contained by the index.
 sub write_index {
     my ($self) = @_;
 
-    # Preserve entries added by the overall script after running the
-    # incremental script, or vice-versa.
-    for my $sitemap ($self->old_index->sitemaps) {
-        my $already_exists = any { $_->loc eq $sitemap->loc } $self->index->sitemaps;
+    $self->lock_index(sub {
+        # Preserve entries added by the overall script after running the
+        # incremental script, or vice-versa.
+        for my $sitemap ($self->read_index->sitemaps) {
+            my $already_exists = any { $_->{loc} eq $sitemap->loc } $self->all_sitemaps;
 
-        next if $already_exists;
+            next if $already_exists;
 
-        my @path = URI->new($sitemap->loc)->path_segments;
-        my $file = pop @path;
+            my @path = URI->new($sitemap->loc)->path_segments;
+            my $file = pop @path;
 
-        if ($self->do_not_delete($file)) {
-            $self->index->add(loc => $sitemap->loc, lastmod => $sitemap->lastmod);
+            if ($self->do_not_delete($file)) {
+                $self->add_sitemap({ loc => $sitemap->loc, lastmod => $sitemap->lastmod });
+            }
         }
-    }
 
-    $self->index->write($self->index_localname);
+        open my $index_fh, '>', $self->index_localname;
+        my $data = serialize_sitemap_index($self->all_sitemaps);
+        print $index_fh $$data;
+        close $index_fh;
+    });
+
     log('Built index ' . $self->index_filename . ', deleting outdated files');
 
     my @files = read_dir($self->output_dir);
