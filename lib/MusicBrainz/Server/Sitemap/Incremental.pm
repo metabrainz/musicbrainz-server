@@ -16,6 +16,7 @@ use List::AllUtils qw( any );
 use List::UtilsBy qw( partition_by );
 use Memoize;
 use Moose;
+use Parallel::ForkManager 0.7.6;
 use Sql;
 
 use MusicBrainz::Server::Constants qw( entities_with );
@@ -72,6 +73,8 @@ my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
 my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
                        entities_with('sitemaps_lastmod_table');
 my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
+
+my $pm = Parallel::ForkManager->new(2);
 
 memoize('get_primary_keys');
 memoize('get_foreign_keys');
@@ -452,11 +455,27 @@ sub find_entities_with_jsonld($$$$$$) {
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     if (should_fetch_jsonld($pk_schema, $pk_table)) {
-        my $any_updates = $self->build_and_check_urls($c, $pk_schema, $pk_table, $update, $joins);
+        $pm->start and return;
+
+        # This should be refreshed for each new worker, as internal DBI handles
+        # would otherwise be shared across processes (and are not advertized as
+        # MPSAFE).
+        my $new_c = MusicBrainz::Server::Context->create_script_context(
+            database => $self->database,
+            fresh_connector => 1,
+        );
+        my $any_updates = $self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins);
+        my $exit_code = $any_updates ? 0 : 1;
+        my $shared_data;
 
         if ($any_updates) {
-            $self->follow_foreign_keys(@_);
+            my @args = @_;
+            shift @args;
+            $shared_data = \@args;
         }
+
+        $new_c->connector->disconnect;
+        $pm->finish($exit_code, $shared_data);
     } else {
         $self->follow_foreign_keys(@_);
     }
@@ -583,6 +602,8 @@ sub handle_replication_sequence($$) {
         }
     }
 
+    $pm->wait_all_children;
+
     log("Removing $output_dir");
     rmtree($output_dir);
 
@@ -668,6 +689,16 @@ sub run {
         database => $self->database,
         fresh_connector => 1,
     );
+
+    $pm->run_on_finish(sub {
+        my $shared_data = pop;
+
+        my ($pid, $exit_code) = @_;
+
+        if ($exit_code == 0) {
+            $self->follow_foreign_keys($c, @{$shared_data});
+        }
+    });
 
     my $sitemaps_control = $c->sql->select_single_value(
         'SELECT 1 FROM sitemaps.control'
