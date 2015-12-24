@@ -21,8 +21,8 @@ END -%]
   <script>
     MB.init_sidebar_tag_editor(
       {entity_type: '[% entity_type %]', gid: '[% entity.gid %]'},
-      [% top_tags_json %],
-      [% user_tags_json %],
+      [% closing_tag_escape(top_tags_json) %],
+      [% closing_tag_escape(user_tags_json) %],
       [% more_tags ? 'true' : 'false' %]
     );
   </script>

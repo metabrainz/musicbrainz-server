@@ -43,12 +43,17 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $work = $c->stash->{work};
-    $c->model('Work')->load_meta($work);
-    $c->model('ISWC')->load_for_works($work);
+    my $returning_jsonld = $self->should_return_jsonld($c);
 
-    if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
+    unless ($returning_jsonld) {
+        $c->model('Work')->load_meta($work);
+
+        if ($c->user_exists) {
+            $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
+        }
     }
+
+    $c->model('ISWC')->load_for_works($work);
 };
 
 sub show : PathPart('') Chained('load')

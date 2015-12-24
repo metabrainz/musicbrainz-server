@@ -77,7 +77,10 @@
   [% PROCESS 'components/relationship-editor.tt' %]
 
   <script>
-    MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+    MB.relationshipEditor.exportTypeInfo(
+      [% closing_tag_escape(type_info) %],
+      [% closing_tag_escape(attr_info) %]
+    );
 
     MB.formatsWithDiscIDs = [% discid_formats %];
 
@@ -90,7 +93,7 @@
     [%- END %]
       returnTo: "[% return_to | js %]",
       redirectURI: "[% redirect_uri | js %]",
-      seed: [% seeded_data OR 'null' %]
+      seed: [% closing_tag_escape(seeded_data) OR 'null' %]
     });
   </script>
 [%- END -%]

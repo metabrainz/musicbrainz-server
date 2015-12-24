@@ -107,31 +107,38 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
-    if ($artist->id == $DARTIST_ID)
-    {
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    if ($artist->id == $DARTIST_ID) {
         $c->detach('/error_404');
     }
 
     my $artist_model = $c->model('Artist');
-    $artist_model->load_meta($artist);
-    if ($c->user_exists) {
-        $artist_model->rating->load_user_ratings($c->user->id, $artist);
 
-        $c->stash->{subscribed} = $artist_model->subscription->check_subscription(
-            $c->user->id, $artist->id);
+    unless ($returning_jsonld) {
+        $artist_model->load_meta($artist);
+
+        if ($c->user_exists) {
+            $artist_model->rating->load_user_ratings($c->user->id, $artist);
+
+            $c->stash->{subscribed} = $artist_model->subscription->check_subscription(
+                $c->user->id,
+                $artist->id,
+            );
+        }
+
+        $c->stash(
+            watching_artist => $c->user_exists && $c->model('WatchArtist')->is_watching(
+                editor_id => $c->user->id,
+                artist_id => $artist->id,
+            )
+        );
     }
 
     $c->model('ArtistType')->load($artist, map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
-
-    $c->stash(
-        watching_artist =>
-            $c->user_exists && $c->model('WatchArtist')->is_watching(
-                editor_id => $c->user->id, artist_id => $artist->id
-            )
-    );
 };
 
 after 'aliases' => sub

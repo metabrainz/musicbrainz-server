@@ -82,9 +82,9 @@
 
     MB.initRelationshipEditors({
         formName: "[% form.name | js %]",
-        sourceData: [% source_entity %],
-        typeInfo: [% type_info %],
-        attrInfo: [% attr_info %]
+        sourceData: [% closing_tag_escape(source_entity) %],
+        typeInfo: [% closing_tag_escape(type_info) %],
+        attrInfo: [% closing_tag_escape(attr_info) %]
     });
   });
 //]]></script>
