@@ -1,6 +1,6 @@
-[% WRAPPER 'layout.tt' title=l('Notes Left on Your Edits') full_width=1 %]
+[% WRAPPER 'layout.tt' title=l('Recent Notes Left on Your Edits') full_width=1 %]
   <div id="content">
-    <h1>[% l('Notes Left on Your Edits') %]</h1>
+    <h1>[% l('Recent Notes Left on Your Edits') %]</h1>
 
     [% IF !user.is_limited %]
       <p>
@@ -30,7 +30,7 @@
         [% END %]
       </div>
     [% ELSE %]
-      <p>[% l('Nobody has left notes on any of your edits.') %]</p>
+      <p>[% l('Nobody has left notes on any of your edits in the past three months.') %]</p>
     [% END %]
   </div>
 

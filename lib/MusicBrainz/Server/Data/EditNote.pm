@@ -123,6 +123,7 @@ sub find_by_recipient {
           FROM ${\($self->_table)}
          WHERE editor != \$1
            AND edit IN (SELECT id FROM edit WHERE editor = \$1)
+           AND post_time > now() - interval '3 months'
          ORDER BY post_time DESC, edit DESC
          LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
