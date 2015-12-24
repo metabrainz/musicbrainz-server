@@ -10,8 +10,8 @@ use Readonly;
 
 Utility methods for building sitemap files.
 
-WWW::Sitemap::XML is not used for writing anything other than the sitemap
-index, because it is prohibitively slow.
+WWW::Sitemap::XML is not used for writing anything because it is prohibitively
+slow.
 
 Additionally, WWW::Sitemap::XML::load regularly produces non-sensical parse
 errors for no apparent reason; a typical example looks something like:
@@ -32,7 +32,11 @@ e.g. generating deterministic XML output to make hash comparisons easier.
 
 =cut
 
-our @EXPORT_OK = qw( serialize_sitemap log );
+our @EXPORT_OK = qw(
+    log
+    serialize_sitemap
+    serialize_sitemap_index
+);
 
 Readonly our $SITEMAP_HEADER => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
@@ -45,6 +49,36 @@ Readonly our $SITEMAP_FOOTER => <<'EOXML';
 </urlset>
 EOXML
 
+Readonly our $SITEMAP_INDEX_HEADER => <<'EOXML';
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+EOXML
+
+Readonly our $SITEMAP_INDEX_FOOTER => <<'EOXML';
+</sitemapindex>
+EOXML
+
+sub _serialize_list {
+    my ($container_element_name, @items) = @_;
+
+    my $data = '';
+
+    for my $item (@items) {
+        $data .= "<$container_element_name>";
+        for my $key (sort keys %$item) {
+            my $text = $item->{$key};
+            if (non_empty($text)) {
+                $data .= "<$key>" . encode_entities($item->{$key}) . "</$key>";
+            }
+        }
+        $data .= "</$container_element_name>";
+    }
+
+    $data;
+}
+
 =sub serialize_sitemap
 
 Serializes the list of C<urls> to an XML string, returning a scalar ref to it.
@@ -55,19 +89,24 @@ sub serialize_sitemap {
     my (@urls) = @_;
 
     my $data = $SITEMAP_HEADER;
-
-    for my $url (sort_by { $_->{loc} } @urls) {
-        $data .= '<url>';
-        for my $key (sort keys %{$url}) {
-            my $text = $url->{$key};
-            if (non_empty($text)) {
-                $data .= "<$key>" . encode_entities($url->{$key}) . "</$key>";
-            }
-        }
-        $data .= '</url>';
-    }
-
+    $data .= _serialize_list('url', sort_by { $_->{loc} } @urls);
     $data .= $SITEMAP_FOOTER;
+    \$data;
+}
+
+=sub serialize_sitemap_index
+
+Serializes the list of C<sitemaps> to an XML string, returning a scalar ref to
+it. Each sitemap is a hash ref containing "loc" and "lastmod" keys.
+
+=cut
+
+sub serialize_sitemap_index {
+    my (@sitemaps) = @_;
+
+    my $data = $SITEMAP_INDEX_HEADER;
+    $data .= _serialize_list('sitemap', sort_by { $_->{loc} } @sitemaps);
+    $data .= $SITEMAP_INDEX_FOOTER;
     \$data;
 }
 

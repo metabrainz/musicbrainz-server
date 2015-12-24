@@ -43,14 +43,21 @@ after 'load' => sub {
     my ($self, $c) = @_;
 
     my $rg = $c->stash->{rg};
-    $c->model('ReleaseGroup')->load_meta($rg);
-    if ($c->user_exists) {
-        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $rg);
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    unless ($returning_jsonld) {
+        $c->model('ReleaseGroup')->load_meta($rg);
+
+        if ($c->user_exists) {
+            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $rg);
+        }
+
+        $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
     }
+
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
     $c->model('Artwork')->load_for_release_groups($rg);
-    $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
 sub show : Chained('load') PathPart('') {
@@ -64,7 +71,8 @@ sub show : Chained('load') PathPart('') {
 
     $c->model('Release')->load_related_info(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('CritiqueBrainz')->load_display_reviews($rg);
+    $c->model('CritiqueBrainz')->load_display_reviews($rg)
+        unless $self->should_return_jsonld($c);
 
     $c->stash(
         template => 'release_group/index.tt',

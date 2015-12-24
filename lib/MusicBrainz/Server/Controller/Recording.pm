@@ -67,10 +67,16 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $recording = $c->stash->{recording};
-    $c->model('Recording')->load_meta($recording);
-    if ($c->user_exists) {
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    unless ($returning_jsonld) {
+        $c->model('Recording')->load_meta($recording);
+
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);
+        }
     }
+
     $c->model('ISRC')->load_for_recordings($recording);
     $c->model('ArtistCredit')->load($recording);
 };

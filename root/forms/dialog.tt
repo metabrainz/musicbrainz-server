@@ -4,7 +4,7 @@
   [% IF dialog_result %]
     <head>
       <script>
-        var dialogResult = [% dialog_result %];
+        var dialogResult = [% closing_tag_escape(dialog_result) %];
       </script>
     </head>
   [% ELSE %]

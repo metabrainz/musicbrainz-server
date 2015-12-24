@@ -23,6 +23,13 @@ role
         $c->stash->{jsonld_stash} = WebServiceStash->new();
     };
 
+    method should_return_jsonld => sub {
+        my ($self, $c) = @_;
+
+        my $accept = $c->req->header('Accept');
+        return defined $accept && $accept =~ m(\b application/ld+json \b)x;
+    };
+
     for my $endpoint (keys %$endpoints) {
         after $endpoint => sub {
             my ($self, $c, @args) = @_;
@@ -37,8 +44,7 @@ role
 
             my $jsonld_data = serialize_entity($entity, undef, $stash, 1);
 
-            my $accept = $c->req->header('Accept');
-            if (defined $accept && $accept =~ m(\b application/ld+json \b)x) {
+            if ($self->should_return_jsonld($c)) {
                 $c->res->content_type('application/ld+json; charset=utf-8');
                 $c->res->body(encode_json($jsonld_data));
                 $c->detach;

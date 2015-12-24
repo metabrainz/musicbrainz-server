@@ -249,8 +249,11 @@
       $(function () {
         var RE = MB.relationshipEditor;
 
-        RE.exportTypeInfo([% type_info %], [% attr_info %]);
-        RE.ReleaseViewModel({ sourceData: [% source_entity %] });
+        RE.exportTypeInfo(
+          [% closing_tag_escape(type_info) %],
+          [% closing_tag_escape(attr_info) %]
+        );
+        RE.ReleaseViewModel({ sourceData: [% closing_tag_escape(source_entity) %] });
 
         MB.confirmNavigationFallback();
       });

@@ -60,18 +60,25 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $label = $c->stash->{label};
-    if ($label->id == $DLABEL_ID)
-    {
+    my $returning_jsonld = $self->should_return_jsonld($c);
+
+    if ($label->id == $DLABEL_ID) {
         $c->detach('/error_404');
     }
 
     my $label_model = $c->model('Label');
-    $label_model->load_meta($label);
-    if ($c->user_exists) {
-        $label_model->rating->load_user_ratings($c->user->id, $label);
 
-        $c->stash->{subscribed} = $label_model->subscription->check_subscription(
-            $c->user->id, $label->id);
+    unless ($returning_jsonld) {
+        $label_model->load_meta($label);
+
+        if ($c->user_exists) {
+            $label_model->rating->load_user_ratings($c->user->id, $label);
+
+            $c->stash->{subscribed} = $label_model->subscription->check_subscription(
+                $c->user->id,
+                $label->id,
+            );
+        }
     }
 
     $c->model('LabelType')->load($label);

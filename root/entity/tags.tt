@@ -5,8 +5,8 @@
         <script>
           MB.init_main_tag_editor(
             {entity_type: '[% entity_type %]', gid: '[% entity.gid %]'},
-            [% tags_json %],
-            [% user_tags_json %],
+            [% closing_tag_escape(tags_json) %],
+            [% closing_tag_escape(user_tags_json) %],
             [% more_tags ? 'true' : 'false' %]
           );
         </script>
