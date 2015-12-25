@@ -128,7 +128,7 @@ sub _link_artist_credit_name {
     $name //= encode_entities($acn->name);
 
     # defer to the template macro
-    return $self->{c}->stash->get('link_artist', [ $acn->artist, 'show', $name, 1 ]);
+    return $self->{c}->stash->get([ 'link_entity', [ $acn->artist, 'show', $name, undef, 1 ] ]);
 }
 
 sub _link_joined {
