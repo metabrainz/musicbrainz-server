@@ -8,8 +8,7 @@ use feature 'switch';
 use base 'Template::Plugin';
 
 use Algorithm::Diff qw( sdiff traverse_sequences );
-use Digest::MD5 qw( md5_hex );
-use Encode;
+use Carp qw( confess );
 use HTML::Tiny;
 use HTML::TreeBuilder;
 use HTML::Entities qw( decode_entities );
@@ -76,9 +75,10 @@ sub _html_token {
 
 sub _split_text {
     my ($text, $split) = @_;
-    my $hex = md5_hex(encode('utf-8', $text));
-    $text =~ s/($split)/$hex$1/g;
-    return split($hex,$text);
+    defined $split or confess "No split pattern";
+    $split = "($split)" unless $split eq '';
+       # the capture group becomes a separate part of the split output
+    return split /$split/, $text;
 }
 
 sub _render_side_diff {
