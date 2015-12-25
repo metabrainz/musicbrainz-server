@@ -1,6 +1,6 @@
 [%- PROCESS 'release/edit/macros.tt' -%]
 
-[%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 -%]
   [% IF release.name %]
     [%- INCLUDE "release/header.tt" page="edit" -%]
   [% ELSE %]
