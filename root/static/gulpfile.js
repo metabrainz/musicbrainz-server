@@ -15,7 +15,7 @@ var watch = require('gulp-watch');
 var yarb = require('yarb');
 var {findObjectFile} = require('../server/gettext');
 
-const CACHED_BUNDLES = new Map();
+const CACHED_BUNDLES = {};
 const CHECKOUT_DIR = path.resolve(__dirname, '../../');
 const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
 const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
@@ -97,8 +97,8 @@ function transformBundle(bundle) {
 }
 
 function runYarb(resourceName, callback) {
-  if (resourceName in CACHED_BUNDLES) {
-    return CACHED_BUNDLES.get(resourceName);
+  if (CACHED_BUNDLES[resourceName]) {
+    return CACHED_BUNDLES[resourceName];
   }
 
   var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
@@ -109,7 +109,7 @@ function runYarb(resourceName, callback) {
     callback(bundle);
   }
 
-  CACHED_BUNDLES.set(resourceName, bundle);
+  CACHED_BUNDLES[resourceName] = bundle;
   return bundle;
 }
 
@@ -246,7 +246,7 @@ gulp.task('watch', ['styles', 'scripts'], function () {
   }
 
   watch(path.resolve(SCRIPTS_DIR, '**/*.js'), function (file) {
-    CACHED_BUNDLES.forEach(function (bundle, resourceName) {
+    _.each(CACHED_BUNDLES, function (bundle, resourceName) {
       rebundle(bundle, resourceName, file);
     });
   });
