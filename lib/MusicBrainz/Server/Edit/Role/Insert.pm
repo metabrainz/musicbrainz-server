@@ -27,8 +27,10 @@ before 'restore' => sub
 {
     my ($self, $hash) = @_;
     # Sadly, we now have some edits (AddReleaseEdits) that didn't have an entity_id set
-    $self->entity_id(delete $hash->{entity_id})
-        if $hash->{entity_id};
+    # There are also a few edits where entity_id is 0; delete always
+    my $entity_id = delete $hash->{entity_id};
+    $self->entity_id($entity_id)
+        if $entity_id;
     $self->entity_gid(delete $hash->{entity_gid})
         if $hash->{entity_gid};
 };
