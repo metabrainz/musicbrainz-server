@@ -794,6 +794,8 @@ sub run {
         $self->write_index;
         $self->ping_search_engines($c);
     }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;
