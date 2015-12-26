@@ -46,7 +46,10 @@
          </tr>
          [%- END -%]
      [%- ELSE -%]
-         [%- release_events(edit.display_data.extra.events) -%]
+         <tr>
+           <th>[% l('Release events:') %]</th>
+           <td colspan="2">[% release_events(edit.display_data.extra.events) %]</td>
+         </tr>
      [%- END -%]
      [%- IF edit.display_data.extra.barcode -%]
      <tr>
