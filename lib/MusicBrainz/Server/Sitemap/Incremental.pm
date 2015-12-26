@@ -74,8 +74,6 @@ my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
                        entities_with('sitemaps_lastmod_table');
 my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
 
-my $pm = Parallel::ForkManager->new(2);
-
 memoize('get_primary_keys');
 memoize('get_foreign_keys');
 
@@ -101,6 +99,25 @@ BEGIN {
         };
     }
 }
+
+has worker_count => (
+    is => 'ro',
+    isa => 'Int',
+    default => 1,
+    traits => ['Getopt'],
+    cmd_flag => 'worker-count',
+    documentation => 'number of worker processes to use (default: 1)',
+);
+
+has pm => (
+    is => 'ro',
+    isa => 'Parallel::ForkManager',
+    lazy => 1,
+    default => sub {
+        Parallel::ForkManager->new(shift->worker_count);
+    },
+    traits => ['NoGetopt'],
+);
 
 sub build_and_check_urls($$$$$) {
     my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
@@ -455,7 +472,7 @@ sub find_entities_with_jsonld($$$$$$) {
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     if (should_fetch_jsonld($pk_schema, $pk_table)) {
-        $pm->start and return;
+        $self->pm->start and return;
 
         # This should be refreshed for each new worker, as internal DBI handles
         # would otherwise be shared across processes (and are not advertized as
@@ -475,7 +492,7 @@ sub find_entities_with_jsonld($$$$$$) {
         }
 
         $new_c->connector->disconnect;
-        $pm->finish($exit_code, $shared_data);
+        $self->pm->finish($exit_code, $shared_data);
     } else {
         $self->follow_foreign_keys(@_);
     }
@@ -602,7 +619,7 @@ sub handle_replication_sequence($$) {
         }
     }
 
-    $pm->wait_all_children;
+    $self->pm->wait_all_children;
 
     log("Removing $output_dir");
     rmtree($output_dir);
@@ -690,7 +707,7 @@ sub run {
         fresh_connector => 1,
     );
 
-    $pm->run_on_finish(sub {
+    $self->pm->run_on_finish(sub {
         my $shared_data = pop;
 
         my ($pid, $exit_code) = @_;
