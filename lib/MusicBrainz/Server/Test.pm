@@ -4,7 +4,7 @@ binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
 use DBDefs;
-use Encode qw( decode encode );
+use Encode qw( encode );
 use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
@@ -86,22 +86,21 @@ sub _load_query
 {
     my ($class, $query, $default) = @_;
 
-    if (defined $query) {
-        if ($query =~ /^\+/) {
-            my $file_name = "<t/sql/" . substr($query, 1) . ".sql";
-            open(FILE, $file_name) or die "Could not open $file_name";
-            $query = do { local $/; <FILE> };
-        }
-    }
-    else {
-        open(FILE, "<" . $default);
-        $query = do { local $/; <FILE> };
+    if (!defined $query || $query =~ /^\+/) {
+        # Load query from a file
+        my $file_name = defined $query ?
+            't/sql/' . substr($query, 1) . '.sql' : $default;
+
+        open my $fh, '< :encoding(UTF-8)', $file_name
+            or die "Could not open $file_name";
+        $query = do { local $/; <$fh> // die "Error reading $file_name" };
+        close $fh or die "Error closing $file_name";
     }
 
     # comment PostgreSQL interactive terminal commands.
     $query =~ s/^(\\.*)$/-- $1/mg;
 
-    return decode("utf-8", $query);
+    return $query;
 }
 
 sub _do_query {
