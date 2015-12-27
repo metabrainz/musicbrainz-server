@@ -37,7 +37,7 @@ sub valid {
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
         my $arg = $self->argument($arg_index - 1);
-        is_database_row_id($arg) or return;
+        is_database_row_id($arg) || $arg == 0 or return;
     }
 
     return 1;
