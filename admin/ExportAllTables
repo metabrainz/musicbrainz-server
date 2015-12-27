@@ -348,8 +348,6 @@ my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @FULL_TABLE_LIST;
 
 my @group_documentation = grep { $_ =~ /^documentation\./ } @FULL_TABLE_LIST;
 
-my @group_sitemaps = grep { $_ =~ /^sitemaps\./ } @FULL_TABLE_LIST;
-
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -361,7 +359,6 @@ my @groups = (
     \@group_cover_art_archive,
     \@group_wikidocs,
     \@group_documentation,
-    \@group_sitemaps,
 );
 
 ################################################################################
@@ -741,7 +738,6 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
     make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
     make_tar("mbdump-documentation.tar.bz2", @group_documentation);
-    make_tar("mbdump-sitemaps.tar.bz2", @group_sitemaps);
 
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
@@ -857,7 +853,6 @@ sub check_tables_completeness
     parse_create_tables('documentation', 'documentation', \@create_tables);
     parse_create_tables('wikidocs', 'wikidocs', \@create_tables);
     parse_create_tables('statistics', 'statistics', \@create_tables);
-    parse_create_tables('sitemaps', 'sitemaps', \@create_tables);
 
     my %exported_tables = map { $_ => 1 } @tables;
     my @not_exported_tables = grep { not exists $exported_tables{$_} } @create_tables;

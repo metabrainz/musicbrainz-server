@@ -403,6 +403,7 @@ EOSQL
     # Finally, ping search engines (if the option is turned on) and finish.
     $self->ping_search_engines($c);
     log('Done');
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

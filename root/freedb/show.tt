@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' full_width=1 title=html_escape(entity.title) %]
+[%- WRAPPER 'layout.tt' full_width=1 title=entity.title %]
 
 <h1>[% html_escape(entity.title _ ' - ' _ entity.artist) %]</h1>
 

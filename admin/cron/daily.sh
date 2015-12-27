@@ -91,9 +91,6 @@ fi
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh
 
-echo `date`" : Building sitemaps"
-OUTPUT=`./admin/BuildSitemaps.pl --ping` || echo "$OUTPUT"
-
 echo `date`" : Nightly jobs complete!"
 
 # eof
