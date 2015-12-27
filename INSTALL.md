@@ -195,13 +195,10 @@ the following inside the musicbrainz-server/ checkout:
 
 Node dependencies are installed under ./node\_modules.
 
-We use Gulp as our JavaScript/CSS build system. This will be installed after
-running the above. Calling `gulp` on its own will build everything necessary
-to access the server in a web browser. It can be invoked by:
+To build everything necessary to access the server in a web browser (CSS,
+JavaScript), run the following command:
 
-    ./node_modules/.bin/gulp
-
-If you'd like, you can add ./node\_modules/.bin to your $PATH.
+    ./script/compile_resources.sh
 
 
 Creating the database

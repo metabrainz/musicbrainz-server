@@ -29,6 +29,7 @@ Options:
     --replication-access-uri    URI to request replication packets from
                                 (default:
                                 https://metabrainz.org/api/musicbrainz)
+    --worker-count              number of worker processes to use (default: 1)
 =cut
 
 =head1 COPYRIGHT
