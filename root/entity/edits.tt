@@ -4,7 +4,7 @@
 
     SET name_for_title = entity.name;
     SET name_for_title = entity.l_name IF ent_type == 'instrument';
-    SET name_for_title = display_url(entity) IF ent_type == 'url';
+    SET name_for_title = entity.pretty_name IF ent_type == 'url';
 
     SET link_for_heading = link_entity(entity);
     SET link_for_heading = link_entity(entity, 'show', entity.url) IF ent_type == 'url';

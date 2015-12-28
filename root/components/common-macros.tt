@@ -10,12 +10,6 @@
 [%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END ~%]
-[%~ MACRO display_url(url) BLOCK; PROCESS _unescaped_display_url | html; END -%]
-[%~ BLOCK _unescaped_display_url;
-    IF url.pretty_name; url.pretty_name;
-    ELSE; url | uri_decode;
-    END;
-END -%]
 [%- USE UserDate(c.user.preferences, current_language) -%]
 [%- USE Countdown -%]
 [%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
@@ -361,7 +355,7 @@ END -%]
     END;
 
     IF type == 'url' AND content == '';
-        mod_content = INCLUDE _unescaped_display_url url=entity;
+        mod_content = entity.pretty_name;
         options.unshift('info_link');
         infolink = link;
         link = entity.href_url;
