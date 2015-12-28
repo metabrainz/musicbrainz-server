@@ -107,6 +107,9 @@ const DataMenu = () => {
         <li>
           <a href={$c.uri_for_action('/edit/subscribed_editors')}>{l('Edits by Subscribed Editors')}</a>
         </li>
+        <li>
+          <a href={$c.uri_for_action('/edit/notes_received')}>{l('Notes Left on My Edits')}</a>
+        </li>
       </ul>
     </li>
   );

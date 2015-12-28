@@ -14,8 +14,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
 
-use JSON::Any;
-
 use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
@@ -68,6 +66,14 @@ has '+data' => (
         old => change_fields(),
     ]
 );
+
+around initialize => sub {
+    my ($orig, $self, %opts) = @_;
+
+    $opts{ended} = 1 if $opts{end_area_id};
+
+    $self->$orig(%opts);
+};
 
 sub foreign_keys
 {

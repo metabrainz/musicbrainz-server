@@ -7,7 +7,7 @@ use Data::Dumper;
 use Devel::StackTrace;
 use List::MoreUtils qw( part uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
+use MusicBrainz::Server::Validation qw( is_guid is_database_row_id );
 use Carp qw( confess );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -76,9 +76,7 @@ sub get_by_ids
 {
     my ($self, @ids) = @_;
 
-    # Max size for an int in postgresql:
-    # http://www.postgresql.org/docs/current/static/datatype-numeric.html
-    @ids = grep { defined($_) && $_ <= 2147483647 } @ids;
+    @ids = grep { is_database_row_id($_) } @ids;
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
@@ -93,7 +91,7 @@ sub _warn_about_invalid_ids {
 sub get_by_any_id {
     my ($self, $any_id) = @_;
 
-    return $self->get_by_id($any_id) if is_positive_integer($any_id);
+    return $self->get_by_id($any_id) if is_database_row_id($any_id);
     return $self->get_by_gid($any_id) if is_guid($any_id);
     $self->_warn_about_invalid_ids([$any_id]);
     return;
@@ -103,7 +101,7 @@ sub get_by_any_ids {
     my ($self, @any_ids) = @_;
 
     my ($ids, $gids, $invalid) = part {
-        is_positive_integer($_) ? 0 : (is_guid($_) ? 1 : 2)
+        is_database_row_id($_) ? 0 : (is_guid($_) ? 1 : 2)
     } @any_ids;
 
     my %result;

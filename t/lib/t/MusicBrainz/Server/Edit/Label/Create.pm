@@ -3,22 +3,23 @@ use Test::Routine;
 use Test::More;
 use Test::Fatal;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Label::Create; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_LABEL_CREATE
+    $STATUS_APPLIED
+    $STATUS_FAILEDVOTE
+    $STATUS_OPEN
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
     my $test = shift;
     my $c = $test->c;
-
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', '', now());
-    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7', '', now());
-EOSQL
 
     my $edit = create_edit($c);
     isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
@@ -64,16 +65,9 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
 
     my $c = $test->c;
 
-    my $editor = $c->model('Editor')->insert({
-        name => 'dupe_creator',
-        password => '123'
-    });
-
-    $c->model('Editor')->update_email($editor, 'noreply@example.com');
-
     $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_CREATE,
-        editor => $editor,
+        editor_id => 1,
         name => 'I am a dupe without a comment',
         comment => '',
         ipi_codes => [],
@@ -83,7 +77,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
     is(exception {
         $c->model('Edit')->create(
             edit_type => $EDIT_LABEL_CREATE,
-            editor => $editor,
+            editor_id => 1,
             name => 'I am a dupe without a comment',
             comment => '',
             ipi_codes => [],
@@ -93,7 +87,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
 
     $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_CREATE,
-        editor => $editor,
+        editor_id => 1,
         name => 'I am a dupe with a comment',
         comment => 'a comment',
         ipi_codes => [],
@@ -103,7 +97,7 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
     is(exception {
         $c->model('Edit')->create(
             edit_type => $EDIT_LABEL_CREATE,
-            editor => $editor,
+            editor_id => 1,
             name => 'I am a dupe with a comment',
             comment => 'a comment',
             ipi_codes => [],
@@ -115,11 +109,6 @@ test 'Uniqueness violations are caught before insertion (MBS-6065)' => sub {
 test 'Rejected edits are applied if the label can\'t be deleted' => sub {
     my $test = shift;
     my $c = $test->c;
-
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', '', now());
-    INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7', '', now());
-EOSQL
 
     my $edit = create_edit($c, privileges => $UNTRUSTED_FLAG);
     my $label_id = $edit->entity_id;
@@ -143,6 +132,27 @@ EOSQL
 
     reject_edit($c, $edit);
     is($edit->status, $STATUS_APPLIED);
+};
+
+test 'Rejecting an "Add label" edit where the label has subscriptions (MBS-8690)' => sub {
+    my ($test) = @_;
+
+    my $c = $test->c;
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_CREATE,
+        editor_id => 1,
+        name => 'Label',
+        comment => '',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    is($edit->status, $STATUS_OPEN);
+    $c->model('Label')->subscription->subscribe(1, $edit->label_id);
+    reject_edit($c, $edit);
+    is($edit->status, $STATUS_FAILEDVOTE);
 };
 
 sub create_edit {

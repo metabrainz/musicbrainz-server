@@ -1,6 +1,6 @@
 [%- PROCESS 'release/edit/macros.tt' -%]
 
-[%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
+[%- WRAPPER 'layout.tt' full_width=1 edit=1 -%]
   [% IF release.name %]
     [%- INCLUDE "release/header.tt" page="edit" -%]
   [% ELSE %]
@@ -61,7 +61,7 @@
       <button type="button" data-bind="visible: activeTabIndex() < tabCount - 1" data-click="nextTab">[% l('Next »') | html_entity %]</button>
 
       <!-- ko template: { if: activeTabID() === "#tracklist", data: addDiscDialog } -->
-        <button type="button" data-click="open">[% l('Add Disc') %]</button>
+        <button type="button" data-click="open">[% l('Add Medium') %]</button>
       <!-- /ko -->
 
       <button type="button" class="positive" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', enable: allowsSubmission()">[% l('Enter edit') %]</button>

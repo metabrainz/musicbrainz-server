@@ -6,7 +6,7 @@
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~ MACRO html_escape(url) BLOCK; url | html; END -%]
-[%~ MACRO bracketed(text) BLOCK; l(' ({text})', { text => text }); END -%]
+[%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END ~%]
 [%~ MACRO display_url(url) BLOCK; PROCESS _unescaped_display_url | html; END -%]
@@ -24,7 +24,9 @@ END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
 [%~ MACRO isolate_text(text) BLOCK;
-    INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+    ELSE; '';
+    END;
 END ~%]
 
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
@@ -197,9 +199,9 @@ END -%]
         [%- IF name.artist.gid && !opts.plain -%]
             [%- link_artist(name.artist, 'show', name.name) -%]
         [%- ELSE -%]
-            [%- name.name | html -%]
+            [%- opts.plain ? name.name : html_escape(name.name) -%]
         [%- END -%]
-        [%- name.join_phrase | html -%]
+        [%- opts.plain ? name.join_phrase : html_escape(name.join_phrase) -%]
     [%- END -%]
 [%- END -%]
 
@@ -317,7 +319,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'show_dates';
-                dates ? content _ bracketed(dates) : content;
+                content _ bracketed(dates);
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
@@ -398,8 +400,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_artist(artist, action, text) BLOCK;
-    hover = html_escape(artist.sort_name);
-    SET hover = hover _ bracketed(html_escape(artist.comment)) IF artist.comment;
+    hover = html_escape(artist.sort_name) _ bracketed(html_escape(artist.comment));
     INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1;
 END -%]
 
@@ -649,6 +650,22 @@ END -%]
         CASE 8; l('This edit was recently cancelled.');
         CASE 9; l('This edit was cancelled.');
 END -%]
+
+[%~ MACRO edit_status_class(edit) BLOCK ~%]
+    [%~ IF edit.status == 1 ~%]
+        [%- " open" -%]
+    [%~ ELSIF edit.status == 2 ~%]
+        [%- " applied" -%]
+    [%~ ELSIF edit.status == 3 ~%]
+        [%- " failed" -%]
+    [%~ ELSIF edit.status == 8 %]
+        [%- " cancelling" -%]
+    [%~ ELSIF edit.status == 9 ~%]
+        [%- " cancelled" -%]
+    [%~ ELSE ~%]
+        [%- " edit-error" -%]
+    [%~ END ~%]
+[%~ END ~%]
 
 [%~ MACRO expiration_time(datetime) BLOCK -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
@@ -930,8 +947,8 @@ END ~%]
     ELSE;
         descriptive_link(rel.target, rel.target_credit);
     END;
-    bracketed(rel.extra_phrase_attributes) IF rel.extra_phrase_attributes;
-    bracketed(rel.link.formatted_date) IF rel.link.formatted_date;
+    bracketed(rel.extra_phrase_attributes);
+    bracketed(rel.link.formatted_date);
     '</span>' IF rel.edits_pending;
 END ~%]
 
@@ -1053,4 +1070,35 @@ END -%]
       [%~ l('An entity with that name and disambiguation already exists. You must enter a unique disambiguation comment.') IF duplicate_violation ~%]
     </div>
   [%- END -%]
+[%~ END ~%]
+
+[%- MACRO note_anchor(edit, loop) BLOCK -%]
+note-[%- edit.id -%]-[%- loop.count() -%]
+[%- END -%]
+
+[% MACRO votename(note) BLOCK %]
+  [% edit = note.edit %]
+  [%- FOR vote=edit.votes -%]
+    [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
+  [%- END -%]
+  [%- 'owner' IF edit.editor_id == note.editor_id -%]
+[% END %]
+
+[%~ MACRO edit_note_display(edit_note) BLOCK ~%]
+  <div class="edit-note" id="[% note_anchor(note.edit, loop) %]">
+    <h3 class="[%- votename(note) -%]">
+      [%- link_entity(note.editor) -%]
+      [%- FOR vote=note.edit.votes;
+        IF (vote.editor_id == note.editor_id) &&
+           !vote.superseded &&
+           (vote.vote_name == 'No' || vote.vote_name == 'Yes');
+        '<div class="voting-icon"></div>'; LAST;
+      END; END; -%]
+      <a href="#[% note_anchor(note.edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
+      [%- editor_type_info(note.editor) -%]
+    </h3>
+    <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
+      [%- note.text | format_editnote -%]
+    </div>
+  </div>
 [%~ END ~%]

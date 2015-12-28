@@ -49,6 +49,7 @@ sub _build_conn
         },
         RaiseError        => 0,
         PrintError        => 0,
+        ShowErrorStatement => 1,
     });
 
     # Make sure we notice the DB going down and attempt to reconnect

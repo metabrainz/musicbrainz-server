@@ -6,6 +6,7 @@
 import global from '../../../global';
 var i18n = require('../../../common/i18n');
 var setCookie = require('../../../common/utility/setCookie');
+import getBooleanCookie from '../../../common/utility/getBooleanCookie';
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -60,7 +61,7 @@ var mode = ko.computed({
 
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
-            gc.mode = MB.GuessCase.Mode[modeName];
+            gc.mode = require('../../modes')[modeName];
             setCookie("guesscase_mode", modeName);
         }
         return gc.mode;
@@ -70,7 +71,7 @@ var mode = ko.computed({
 
 guessCaseOptions.help = ko.computed({
     read: function () {
-        return mode().getDescription();
+        return mode().description;
     },
     deferEvaluation: true
 });
@@ -81,7 +82,6 @@ guessCaseOptions.keepUpperCase.subscribe(function (value) {
 });
 
 guessCaseOptions.upperCaseRoman.subscribe(function (value) {
-    gc.CFG_UC_ROMANNUMERALS = value;
     setCookie("guesscase_roman", value);
 });
 
@@ -97,7 +97,7 @@ ko.bindingHandlers.guessCase = {
         }
 
         if (!guessCaseOptions.upperCaseRoman.peek()) {
-            guessCaseOptions.upperCaseRoman(global.gc.CFG_UC_ROMANNUMERALS);
+            guessCaseOptions.upperCaseRoman(getBooleanCookie('guesscase_roman'));
         }
 
         var bindings = _.assign({}, guessCaseOptions);

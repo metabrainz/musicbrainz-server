@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import _ from 'lodash';
 var i18n = require('../../i18n');
 var clean = require('../../utility/clean');
 var formatTrackLength = require('../../utility/formatTrackLength');
@@ -214,15 +215,14 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         var name = clearAction ? "" : this._value();
         var currentSelection = this.currentSelection.peek();
 
-        // If the current entity doesn't have a GID, it's already "blank" and
+        // If the current entity doesn't have an id, it's already "blank" and
         // we don't need to unnecessarily create a new one. Doing so can even
         // have unintended effects, e.g. wiping other useful data on the
         // entity (like release group types).
 
-        if (currentSelection.gid) {
+        if (currentSelection.id) {
             this.currentSelection(this._dataToEntity({ name: name }));
-        }
-        else {
+        } else {
             currentSelection.name = name;
             this.currentSelection.notifySubscribers(currentSelection);
         }
@@ -271,7 +271,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         if (hasID) {
             // Add/move to the top of the recent entities menu.
             var recent = this.recentEntities();
-            var duplicate = _.find(recent, { gid: data.gid });
+            var entityProperties = ENTITIES[this.entityType()];
+            var duplicate = _.find(
+                recent,
+                _.pick(data, entityProperties.mbid ? 'gid' : 'id')
+            );
 
             duplicate && recent.splice(recent.indexOf(duplicate), 1);
             recent.unshift(data.toJSON());
@@ -471,8 +475,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         }
     },
 
+    entityType: function () {
+        return this.entity.replace('-', '_');
+    },
+
     recentEntities: function () {
-        var entityType = this.entity.replace("-", "_");
+        var entityType = this.entityType();
         var recentEntities = {};
         var storedRecentEntities = MB.localStorage("recentAutocompleteEntities");
 
@@ -771,7 +779,7 @@ MB.Control.autocomplete_formatters = {
         if (item.typeName || (item.containment && item.containment.length)) {
             var items = [];
             if (item.typeName) {
-                items.push(_.escape(item.typeName));
+                items.push(item.typeName);
             }
             items.push(renderContainingAreas(item));
             a.append('<br /><span class="autocomplete-comment">' +
@@ -807,7 +815,7 @@ MB.Control.autocomplete_formatters = {
             a.append('<br /><span class="autocomplete-comment">' +
                      (item.typeName ? _.escape(item.typeName) : '') +
                      (item.typeName && item.area ? ', ' : '') +
-                     (area ? _.escape(area.name) + ', ' + renderContainingAreas(area) : '') +
+                     (area ? _.escape(area.name + ', ' + renderContainingAreas(area)) : '') +
                      '</span>');
         };
 
@@ -916,7 +924,7 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
-    return i18n.commaOnlyList(_(area.containment).pluck('name').map(_.escape).value());
+    return i18n.commaOnlyList(_(area.containment).pluck('name').value());
 }
 
 /*
@@ -948,9 +956,10 @@ MB.Control.EntityAutocomplete = function (options) {
 
     if (!options.entity) {
         // guess the entity from span classes.
-        $.each(ENTITIES, function (idx, entity) {
+        _.any(_.keys(ENTITIES), function (entity) {
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
+                return true;
             }
         });
     }

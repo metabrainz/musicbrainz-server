@@ -1,7 +1,17 @@
-var cookie = require('cookie');
+import {parse as parseCookie} from 'cookie';
 
-module.exports = function (name, string) {
-    if (string || typeof document !== 'undefined') {
-        return cookie.parse(string || document.cookie)[name];
+export default function getCookie(name, defaultValue = undefined) {
+  let cookie;
+  if (typeof $c !== 'undefined') {
+    cookie = $c.req.headers.cookie;
+  } else {
+    cookie = document.cookie;
+  }
+  if (typeof cookie === 'string') {
+    let values = parseCookie(cookie);
+    if (values.hasOwnProperty(name)) {
+      return values[name];
     }
-};
+  }
+  return defaultValue;
+}

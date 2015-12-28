@@ -30,14 +30,16 @@ test all => sub {
     is_deeply($edit->data, {
         entity => {
             id => 1,
-            name => 'King of the Mountain'
+            name => 'King of the Mountain',
         },
         alias_id  => 1,
         new => {
             name => 'brand new alias',
+            sort_name => 'brand new alias',
         },
         old => {
             name => 'Test Recording Alias',
+            sort_name => 'Test Recording Alias',
         }
     });
 

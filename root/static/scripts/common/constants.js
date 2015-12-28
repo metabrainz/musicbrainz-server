@@ -1,3 +1,7 @@
+import ENTITIES from '../../../../entities.json';
+
+export {ENTITIES};
+
 export const PART_OF_SERIES_LINK_TYPES = {
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
@@ -24,21 +28,6 @@ export const VARTIST_NAME = 'Various Artists';
 export const VIDEO_ATTRIBUTE_ID = 582;
 
 export const VIDEO_ATTRIBUTE_GID = '112054d5-e706-4dd8-99ea-09aabee36cd6';
-
-export const ENTITIES = [
-  'area',
-  'artist',
-  'editor',
-  'event',
-  'instrument',
-  'label',
-  'place',
-  'release',
-  'release-group',
-  'recording',
-  'series',
-  'work',
-];
 
 export const MAX_LENGTH_DIFFERENCE = 10500;
 

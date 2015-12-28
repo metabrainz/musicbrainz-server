@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use 5.10.0;
 
+use JSON;
 use List::MoreUtils qw( minmax uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_hash sanitize trim partial_date_to_hash );
@@ -398,8 +399,8 @@ sub merge_time {
 
 sub merge_value {
     my $v = shift;
-    state $json = JSON::Any->new( utf8 => 1, allow_blessed => 1, canonical => 1 );
-    return [ ref($v) ? $json->objToJson($v) : defined($v) ? "'$v'" : 'undef', $v ];
+    state $json = JSON->new->allow_blessed->canonical;
+    return [ ref($v) ? $json->encode($v) : defined($v) ? "'$v'" : 'undef', $v ];
 }
 
 sub merge_set {

@@ -28,7 +28,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
     %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use JSON::Any;
+use JSON;
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
@@ -67,7 +67,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or confess"Could not look up class for type ".$row->{type};
-    my $data = JSON::Any->new(utf8 => 1)->jsonToObj($row->{data});
+    my $data = JSON->new->decode($row->{data});
 
     my $edit = $class->new({
         c => $self->c,
@@ -330,16 +330,7 @@ sub subscribed_entity_edits {
     my $table = $self->_table;
     my @args = ($editor_id); # $1
 
-    if ($only_open) {
-        push @args, $STATUS_OPEN;
-    } else {
-        # $3
-        # XXX This won't handle all cases in which an edit is stuck open, but
-        # it is significantly faster to leave out the "OR status = 1" filter
-        # when showing all recent edits.
-        my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
-        push @args, DateTime::Format::Pg->format_interval($max_open_duration);
-    }
+    push @args, $only_open ? $STATUS_OPEN : $self->_max_open_interval; # $2
 
     my $edit_filter = sub {
         my ($status_table, $editor_table, $editor_op) = @_;
@@ -351,6 +342,9 @@ sub subscribed_entity_edits {
         } else {
             $result = "edit.open_time > now() - interval \$2\n";
         }
+        # XXX This won't handle all cases in which an edit is stuck open, but
+        # it is significantly faster to leave out the "OR status = 1" filter
+        # when showing all recent edits.
 
         $editor_op //= '=';
         $result .= "AND $editor_table.editor $editor_op \$1\n";
@@ -419,14 +413,15 @@ EOSQL
 sub subscribed_editor_edits {
     my ($self, $editor_id, $only_open, $limit, $offset) = @_;
 
-    my @args = ($editor_id, $editor_id, $STATUS_OPEN);
+    my @args = ($editor_id, $editor_id);
     my $status_sql;
 
     if ($only_open) {
         $status_sql = 'AND status = ?';
+        push @args, $STATUS_OPEN;
     } else {
-        $status_sql = 'AND (status = ? OR (now() - open_time) < interval ?)';
-        push @args, DateTime::Format::Pg->format_interval($OPEN_EDIT_DURATION);
+        $status_sql = 'AND open_time > now() - interval ?';
+        push @args, $self->_max_open_interval;
     }
 
     my $query =
@@ -443,6 +438,12 @@ sub subscribed_editor_edits {
           LIMIT " . $LIMIT_FOR_EDIT_LISTING;
 
     $self->query_to_list_limited($query, \@args, $limit, $offset);
+}
+
+# The maximum time an edit can stay open in normal circumstances.
+sub _max_open_interval {
+    my $max_open_duration = $OPEN_EDIT_DURATION->clone->add_duration($MINIMUM_RESPONSE_PERIOD)->add(hours => 1);
+    return DateTime::Format::Pg->format_interval($max_open_duration);
 }
 
 sub merge_entities
@@ -564,7 +565,7 @@ sub create {
 
     my $row = {
         editor => $edit->editor_id,
-        data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+        data => JSON->new->encode($edit->to_hash),
         status => $edit->status,
         type => $edit->edit_type,
         open_time => \"now()",
@@ -579,7 +580,7 @@ sub create {
 
     $edit->post_insert;
     my $post_insert_update = {
-        data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+        data => JSON->new->encode($edit->to_hash),
         status => $edit->status,
         type => $edit->edit_type,
     };
@@ -690,6 +691,23 @@ sub load_all
     for my $edit (@edits) {
         $edit->display_data($edit->build_display_data($loaded));
     }
+}
+
+sub load_for_edit_notes {
+    my ($self, @edit_notes) = @_;
+
+    my $edits_by_id = $self->get_by_ids(map { $_->edit_id } @edit_notes);
+
+    for my $note (@edit_notes) {
+        $note->edit($edits_by_id->{$note->edit_id});
+
+        # XXX Workaround weak_ref in Entity::EditNote.
+        my $tmp = $note->{edit};
+        undef $note->{edit};
+        $note->{edit} = $tmp;
+    }
+
+    return;
 }
 
 sub default_includes {

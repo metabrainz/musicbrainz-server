@@ -8,7 +8,7 @@ use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
-use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Constants qw( :vote $LIMIT_FOR_EDIT_LISTING );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -85,6 +85,15 @@ sub add_note
         (map { $_->editor_id } @{ $edit->edit_notes }));
     $self->c->model('Editor')->load_preferences(values %$editors);
 
+    # Inform the edit's author that a note was left, unless this is their own edit.
+    if ($note_hash->{editor_id} != $edit->editor_id) {
+        my $edit_author = $editors->{$edit->editor_id}->name;
+        my $notes_updated_key = "edit_notes_received_last_updated:$edit_author";
+        $self->c->redis->set($notes_updated_key, time);
+        # Expire the notification in 30 days.
+        $self->c->redis->expire($notes_updated_key, 60 * 60 * 24 * 30);
+    }
+
     my @to_email = grep { $_ != $note_hash->{editor_id} }
         map { $_->id } grep { $_->preferences->email_on_notes }
         map { $editors->{$_->editor_id} }
@@ -104,6 +113,23 @@ sub add_note
             edit_id => $edit_id,
             own_edit => $edit->editor_id == $editor->id);
     }
+}
+
+sub find_by_recipient {
+    my ($self, $recipient_id, $limit, $offset) = @_;
+
+    my $query = <<EOSQL;
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE editor != \$1
+           AND edit IN (SELECT id FROM edit WHERE editor = \$1)
+           AND post_time > now() - interval '3 months'
+         ORDER BY post_time DESC, edit DESC
+         LIMIT $LIMIT_FOR_EDIT_LISTING
+EOSQL
+    $self->query_to_list_limited(
+        $query, [$recipient_id], $limit, $offset, undef, 1
+    );
 }
 
 no Moose;

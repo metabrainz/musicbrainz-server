@@ -7,7 +7,11 @@ use Test::More;
 use Authen::Passphrase::RejectAll;
 use DateTime;
 use DateTime::Format::Pg;
-use MusicBrainz::Server::Constants qw( :edit_status $EDIT_ARTIST_EDIT );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $EDIT_ARTIST_EDIT
+    $UNTRUSTED_FLAG
+);
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
 use Set::Scalar;
@@ -285,10 +289,10 @@ test 'Deleting an editor cancels all open edits' => sub {
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
     );
 
-    accept_edit($c, $applied_edit);
+    is($applied_edit->status, $STATUS_APPLIED);
 
     my $open_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
@@ -296,7 +300,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
     );
 
     is($open_edit->status, $STATUS_OPEN);
@@ -336,15 +341,14 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    accept_edit($c, $applied_edit);
-
     my $open_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
         ipi_codes => [],
-        isni_codes => []
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
     );
 
     is($open_edit->status, $STATUS_OPEN);
