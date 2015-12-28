@@ -7,37 +7,35 @@
 
     <h1>[% l("{user}", { user => link_editor(user, undef, '', 54) }) %]</h1>
 
-[% MACRO generic_link(url, text) BLOCK %]<a href="[% url %]">[% text %]</a>[% END %]
-
 [%- info_links = [
-    ['index', generic_link(c.uri_for_action("/user/profile", [ user.name ]), l('Profile'))],
-    ['subscriptions', generic_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
-    ['subscribers', generic_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
-    ['collections', generic_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
+    ['index', simple_link(c.uri_for_action("/user/profile", [ user.name ]), l('Profile'))],
+    ['subscriptions', simple_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
+    ['subscribers', simple_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
+    ['collections', simple_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
 ] -%]
 
 [%- info_links.push(
-    ['tags', generic_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
-    ['ratings', generic_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
-    ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
-    ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
+    ['tags', simple_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
+    ['ratings', simple_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
+    ['open_edits', simple_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
+    ['all_edits', simple_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
 
 [%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
 [%- info_links.push(
-    ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
+    ['edit_user', simple_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
 ) -%]
 [%- END -%]
 
 [%- IF viewing_own_profile -%]
 [%- info_links.push(
-    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
+    ['donation', simple_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
 ) -%]
 [%- END -%]
 
 [%- IF (c.user.is_account_admin || c.user.id == user.id) && !user.deleted -%]
 [%- info_links.push(
-    ['delete', generic_link(c.uri_for_action("/admin/delete_user", user.name), l('Delete Account'))],
+    ['delete', simple_link(c.uri_for_action("/admin/delete_user", user.name), l('Delete Account'))],
 ) -%]
 [%- END -%]
 
