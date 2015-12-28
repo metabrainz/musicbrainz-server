@@ -33,7 +33,7 @@
                 [%~ xml_inc.push('releases') IF entity_type == 'recording' || entity_type == 'release_group' ~%]
                 [%~ xml_inc.push('labels', 'discids', 'recordings') IF entity_type == 'release' ~%]
                 [%~ link = c.uri_for("/ws/2/$entity_type_for_url", entity.gid, { 'inc' => xml_inc.sort.join('+') }) ~%]
-                <a href="[%~ link ~%]">[%~ display_url(link) ~%]</a>
+                [%~ simple_link(link, link) ~%]
             </td>
         </tr>
     </table>

@@ -30,15 +30,11 @@ sub get_session_data {
 sub store_session_data {
     my ($self, $key, $data) = @_;
 
-    if (my ($sid) = $key =~ /^expires:(.*)/)
-    {
-        $self->_datastore->set($key, $data);
+    unless ($key =~ /^expires:/) {
+        $data = encode_base64(nfreeze($data));
     }
-    else
-    {
-        $self->_datastore->set($key, encode_base64(nfreeze($data)));
-        $self->_datastore->expireat($key, $self->session_expires);
-    }
+    $self->_datastore->set($key, $data);
+    $self->_datastore->expireat($key, $self->session_expires);
 }
 
 sub delete_session_data {

@@ -612,7 +612,7 @@ sub allocate_remember_me_token {
         my $token = generate_token();
 
         my $key = "$normalized_name|$token";
-        $self->redis->add($key, 1);
+        $self->redis->set($key, 1);
 
         # Expire tokens after 1 year.
         $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);

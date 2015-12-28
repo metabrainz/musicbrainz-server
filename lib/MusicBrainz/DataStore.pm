@@ -12,7 +12,7 @@ Expire the specified key in $s seconds.
 
 =cut
 
-requires 'expireat';
+requires 'expire';
 
 =method expireat
 
@@ -21,25 +21,6 @@ Expire the specified key at (unix) $timestamp.
 =cut
 
 requires 'expireat';
-
-=method incr
-
-Increment the value for the $key.
-
-=cut
-
-requires 'incr';
-
-=method add
-
-Store the $value on the server under the $key, but only if the key
-doesn't exists on the server.
-
-=cut
-
-requires 'add';
-
-requires 'ttl';
 
 =head1 LICENSE
 

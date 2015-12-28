@@ -1,4 +1,7 @@
 package t::MusicBrainz::DataStore::Redis;
+
+use utf8;
+
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -65,20 +68,11 @@ test all => sub {
     ok(! $redis->exists("does-not-exist"), "exists returns false for non-existent key");
     ok($redis->exists("string"), "exists returns true for existing key");
 
-    ok(! $redis->add("string", "Murió"), "add returns false when not adding a key");
-    is($redis->get("string"), "Esperándote", "string is unchanged");
-
     ok($redis->del("string"), "delete string");
     ok(! $redis->exists("strings"), "exists returns false for deleted key");
 
-    ok($redis->add("string", "Murió"), "add returns true when adding a key");
-    is($redis->get("string"), "Murió", "string is now changed");
-
     $redis->set("int", 23);
     is($redis->get("int"), 23, "retrieved expected integer");
-
-    $redis->incr("int", 2);
-    is($redis->get("int"), 25, "retrieved incremented integer");
 
     ok($redis->expireat("int", time() + 1), "expire int in one second");
     ok($redis->exists("int"), "int still exists");

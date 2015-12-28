@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Filters;
 
+use utf8;
+
 use strict;
 use warnings;
 
@@ -222,6 +224,7 @@ sub format_editnote
          [<a href="//$server/edit/$1">edit #$1</a>]gi;
 
     # links to wikidocs
+    # (only safe because \w doesn't match any of the HTML reserved characters)
     $html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
     $html =~ s/\[(\p{IsUpper}[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
 
