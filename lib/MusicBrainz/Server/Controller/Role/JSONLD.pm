@@ -27,7 +27,7 @@ role
         my ($self, $c) = @_;
 
         my $accept = $c->req->header('Accept');
-        return defined $accept && $accept =~ m(\b application/ld+json \b)x;
+        return defined $accept && $accept =~ m(\b application/ld\+json \b)x;
     };
 
     for my $endpoint (keys %$endpoints) {
