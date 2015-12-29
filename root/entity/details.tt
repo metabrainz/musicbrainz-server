@@ -21,7 +21,7 @@
             <td>
                 [%~ USE Canonicalize ~%]
                 [%~ perma = Canonicalize.canonicalize(c.uri_for_action(c.controller.action_for('show'), [ entity.gid ])) ~%]
-                <a href="[%~ perma | url ~%]">[%~ perma | html ~%]</a>
+                [%~ simple_link(perma, perma) ~%]
             </td>
         </tr>
         <tr>

@@ -4,7 +4,13 @@
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
-[%~ MACRO url_escape(url) BLOCK; url | url; END -%]
+[%~# Use uri_escape for percent-encoding random text to be used as a parameter
+   # in an external URL (use c.uri_for(_action) for making internal URLs).
+   # A URL passed in from somewhere, on the other hand, should already be
+   # percent-encoded and not be run through uri_escape; just use html_escape
+   # for entity-encoding reserved characters (the ampersand, in particular).
+   # ~%]
+[%~ MACRO uri_escape(text) BLOCK; text | uri; END ~%]
 [%~ MACRO html_escape(text) BLOCK; text | html; END ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
 [%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
@@ -1097,3 +1103,9 @@ note-[%- edit.id -%]-[%- loop.count() -%]
     </div>
   </div>
 [%~ END ~%]
+
+[%~ MACRO bugtracker_url(description) BLOCK;
+    'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' _
+    'pid=10000&issuetype=1' _
+    (description == '' ? '' : '&description=' _ uri_escape(description));
+END ~%]
