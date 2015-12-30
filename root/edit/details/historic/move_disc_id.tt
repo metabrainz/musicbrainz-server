@@ -14,7 +14,7 @@
           [% END %]
         </ul>
       [% ELSE %]
-        [% link_deleted(undef, undef) %]
+        [% link_entity() %]
       [% END %]
     </td>
   </tr>
@@ -29,7 +29,7 @@
           [% END %]
         </ul>
       [% ELSE %]
-        [% link_deleted(undef, undef) %]
+        [% link_entity() %]
       [% END %]
     </td>
   </tr>

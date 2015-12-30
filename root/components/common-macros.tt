@@ -252,16 +252,17 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
       simple_link(entity.href_url, entity.pretty_name);
       ' ';
-      link_deleted(undef, '[' _ l('info') _ ']');
+      INCLUDE '_link_deleted' text='[' _ l('info') _ ']';
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      link_deleted(entity, text, no_escape);
+      INCLUDE '_link_deleted' entity=entity text=text no_escape=no_escape;
     END;
     disambiguation(entity) IF show_disambiguation;
 END -%]
 
-[%~ MACRO link_deleted(entity, text, no_escape) BLOCK;
+[%~ BLOCK _link_deleted;
+    # parameters: entity, text, no_escape
       SET text = html_escape(text) UNLESS no_escape;
       SET text = html_escape(entity.name) IF text == '';
       SET text = html_escape(l('[removed]')) IF text == '';
