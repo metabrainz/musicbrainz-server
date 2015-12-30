@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
 use List::AllUtils qw( any );
-use Algorithm::Diff qw( diff sdiff );
+use Algorithm::Diff qw( sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
 use Set::Scalar;
