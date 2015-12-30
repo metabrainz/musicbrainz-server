@@ -228,13 +228,14 @@ END -%]
 
 [%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
-[%~ MACRO link_entity(entity, action, text, credited_as) BLOCK;
+[%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK;
+    # no_escape is only available for artists and recordings
     show_disambiguation = text == '';
     IF (NOT text.defined OR text == '');
         text = credited_as;
     END;
     IF entity.gid;
-      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text, no_escape);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
@@ -244,7 +245,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text, no_escape);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); link_series(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
@@ -255,12 +256,13 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      link_deleted(entity, text);
+      link_deleted(entity, text, no_escape);
     END;
     disambiguation(entity) IF show_disambiguation;
 END -%]
 
-[%~ MACRO link_deleted(entity, text) BLOCK;
+[%~ MACRO link_deleted(entity, text, no_escape) BLOCK;
+      SET text = html_escape(text) UNLESS no_escape;
       caption = allow_new
         ? l("This entity will be created when edits are entered.")
         : l("This entity has been removed, and cannot be displayed correctly.");
