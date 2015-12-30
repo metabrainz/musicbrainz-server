@@ -47,7 +47,7 @@ sub diff_side {
 
     my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
 
-    return $self->_render_side_diff(1, $filter, @diffs);
+    return $self->_render_side_diff(1, $filter, $split, @diffs);
 }
 
 sub diff_html_side {
@@ -65,7 +65,7 @@ sub diff_html_side {
 
     my @diffs = sdiff(\@old_tokens, \@new_tokens);
 
-    return $self->_render_side_diff(0, $filter, @diffs);
+    return $self->_render_side_diff(0, $filter, '\s+', @diffs);
 }
 
 sub _html_token {
@@ -82,10 +82,12 @@ sub _split_text {
 }
 
 sub _render_side_diff {
-    my ($self, $escape_output, $filter, @diffs) = @_;
+    my ($self, $escape_output, $filter, $split, @diffs) = @_;
 
     my @stack;
-    for my $diff (@diffs) {
+    while (my ($diff, $next) = @diffs) {
+        shift @diffs;
+
         my ($change_type, $old, $new) = @$diff;
 
         next unless
@@ -93,7 +95,16 @@ sub _render_side_diff {
             $change_type eq 'u' ||
             $change_type eq $filter;
 
-        unless ($stack[-1] && $stack[-1]->{type} eq $change_type) {
+        my $same_change_type_as_before =
+            $stack[-1] && $stack[-1]->{type} eq $change_type;
+        # If an unchanged separator is between two changed sections, mark
+        # it like its surroundings; it looks nicer to humans when there is
+        # no gap.
+        my $is_separator_between_changes =
+            $stack[-1] && $next && $stack[-1]->{type} eq $next->[0] &&
+            $split ne '' && $change_type eq 'u' && $new =~ /^(?:$split)$/;
+        unless ($same_change_type_as_before || $is_separator_between_changes) {
+            # start new section
             push @stack, { str => '', type => $change_type };
         }
 
