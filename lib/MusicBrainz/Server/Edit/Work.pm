@@ -10,7 +10,7 @@ sub edit_category { l('Work') }
 sub grouped_attributes_by_type {
     my ($self, $attributes) = @_;
 
-    return [] unless @{ $attributes // [] };
+    return unless @{ $attributes // [] };
 
     my $attribute_types = $self->c->model('WorkAttributeType')->get_by_ids(
         map { $_->{attribute_type_id} } @$attributes
