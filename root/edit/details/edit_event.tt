@@ -16,10 +16,9 @@
                   html_escape(edit.display_data.comment.new),
                   '\s+') %]
 
-  [% display_diff(l('Cancelled:'),
+  [% display_full_change(l('Cancelled:'),
                   yesno(edit.display_data.cancelled.old),
-                  yesno(edit.display_data.cancelled.new),
-                  '-') %]
+                  yesno(edit.display_data.cancelled.new)) %]
 
   [% display_full_change(l('Type:'),
                          html_escape(edit.display_data.type.old.name),

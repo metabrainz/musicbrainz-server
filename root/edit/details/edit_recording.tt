@@ -23,10 +23,9 @@
                   format_length(edit.display_data.length.old),
                   format_length(edit.display_data.length.new)) %]
 
-  [% display_diff(l('Video:'),
+  [% display_full_change(l('Video:'),
                   yesno(edit.display_data.video.old),
-                  yesno(edit.display_data.video.new),
-                  '-') %]
+                  yesno(edit.display_data.video.new)) -%]
 
   [%- IF edit.display_data.artist_credit -%]
   <tr>
