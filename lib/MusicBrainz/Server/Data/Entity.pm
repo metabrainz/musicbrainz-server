@@ -67,10 +67,15 @@ sub _id_column
     return 'id';
 }
 
+sub is_valid_id {
+    (undef, my $id) = @_;
+    is_database_row_id($id)
+}
+
 sub get_by_ids {
     my ($self, @ids) = @_;
 
-    @ids = grep { is_database_row_id($_) } @ids;
+    @ids = grep { $self->is_valid_id($_) } @ids;
     return {} unless @ids;
 
     my %result = map { $_->id => $_ } $self->_get_by_keys($self->_id_column, uniq(@ids));
@@ -86,7 +91,7 @@ sub _warn_about_invalid_ids {
 sub get_by_any_id {
     my ($self, $any_id) = @_;
 
-    return $self->get_by_id($any_id) if is_database_row_id($any_id);
+    return $self->get_by_id($any_id) if $self->is_valid_id($any_id);
     return $self->get_by_gid($any_id) if is_guid($any_id);
     $self->_warn_about_invalid_ids([$any_id]);
     return;
@@ -96,7 +101,7 @@ sub get_by_any_ids {
     my ($self, @any_ids) = @_;
 
     my ($ids, $gids, $invalid) = part {
-        is_database_row_id($_) ? 0 : (is_guid($_) ? 1 : 2)
+        $self->is_valid_id($_) ? 0 : (is_guid($_) ? 1 : 2)
     } @any_ids;
 
     my %result;
