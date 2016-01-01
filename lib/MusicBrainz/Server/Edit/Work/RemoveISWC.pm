@@ -43,7 +43,7 @@ sub foreign_keys {
     my ($self) = @_;
     return {
         ISWC => { $self->data->{iswc}{id} => [ 'Work' ] },
-        Work => { $self->data->{work}{id} => [ 'ArtistCredit'] }
+        Work => [ $self->data->{work}{id} ],
     }
 }
 
