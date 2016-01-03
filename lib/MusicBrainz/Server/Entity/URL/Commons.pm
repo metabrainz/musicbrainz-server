@@ -1,24 +1,13 @@
 package MusicBrainz::Server::Entity::URL::Commons;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::MediaWiki';
 
 sub show_in_sidebar { 0 }
 
 sub url_is_scheme_independent { 1 }
-
-sub page_name {
-    my $self = shift;
-    return undef if $self->uses_legacy_encoding;
-
-    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
-    $name =~ s{^/wiki/}{};
-    $name =~ s{_}{ }g;
-
-    return $name;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

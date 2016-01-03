@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Entity::URL::Wikipedia;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::MediaWiki';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 =method pretty_name
@@ -28,18 +28,6 @@ sub pretty_name
 }
 
 sub sidebar_name { shift->pretty_name }
-
-sub page_name
-{
-    my $self = shift;
-    return undef if $self->uses_legacy_encoding;
-
-    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
-    $name =~ s{^/wiki/}{};
-    $name =~ s{_}{ }g;
-
-    return $name;
-}
 
 sub language
 {
