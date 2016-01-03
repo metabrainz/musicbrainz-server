@@ -16,7 +16,6 @@ var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
 var through2 = require('through2');
 var Q = require('q');
-var watch = require('gulp-watch');
 var yarb = require('yarb');
 var {findObjectFile} = require('../server/gettext');
 
@@ -247,6 +246,8 @@ gulp.task('styles', buildStyles);
 gulp.task('scripts', buildScripts);
 
 gulp.task('watch', ['styles', 'scripts'], function () {
+  let watch = require('gulp-watch');
+
   watch(path.resolve(STATIC_DIR, '**/*.less'), buildStyles);
 
   function rebundle(b, resourceName, file) {
