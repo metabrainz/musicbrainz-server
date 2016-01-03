@@ -49,8 +49,7 @@
                   edit.display_data.end_date.new.format,
                   '-') %]
 
-  [% display_diff(l('Ended:'),
+  [% display_full_change(l('Ended:'),
                   yesno(edit.display_data.ended.old),
-                  yesno(edit.display_data.ended.new),
-                  '-') %]
+                  yesno(edit.display_data.ended.new)) %]
 </table>

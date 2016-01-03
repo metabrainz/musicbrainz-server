@@ -42,10 +42,10 @@ sub diff_side {
     $split //= '';
 
     # Make sure sdiff can't split up HTML entities
-    $old = decode_entities($old);
-    $new = decode_entities($new);
+    $old = decode_entities($old // '');
+    $new = decode_entities($new // '');
 
-    my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
+    my @diffs = sdiff([ _split_text($old, $split) ], [ _split_text($new, $split) ]);
 
     return $self->_render_side_diff(1, $filter, $split, @diffs);
 }

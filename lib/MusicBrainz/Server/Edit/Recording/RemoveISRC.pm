@@ -43,20 +43,19 @@ method alter_edit_pending
 method foreign_keys
 {
     return {
-        ISRC      => [ $self->data->{isrc}{id} ],
-        Recording => { $self->data->{recording}{id} => [ 'ArtistCredit'] }
+        ISRC      => { $self->data->{isrc}{id} => [ 'Recording ArtistCredit' ] },
+        Recording => { $self->data->{recording}{id} => [ 'ArtistCredit' ] },
     }
 }
 
 method build_display_data ($loaded)
 {
     my $isrc = $loaded->{ISRC}{ $self->data->{isrc}{id} } ||
-        ISRC->new( isrc => $self->data->{isrc}{isrc} );
-
-    my $recording = $loaded->{Recording}{ $self->data->{recording}{id} } ||
-        Recording->new( name => $self->data->{recording}{name} );
-
-    $isrc->recording($recording);
+        ISRC->new(
+            isrc => $self->data->{isrc}{isrc},
+            recording => $loaded->{Recording}{ $self->data->{recording}{id} } //
+                         Recording->new( name => $self->data->{recording}{name} ),
+        );
 
     return { isrc => $isrc };
 }
