@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::URL::VK;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -9,8 +8,8 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?vk.com/([^/]+)$}i) {
-        return MusicBrainz::Server::Filters::uri_decode($1);
+    if ($self->decoded =~ m{^https?://(?:www.)?vk.com/([^/]+)$}) {
+        return $1;
     } else {
         return "VK";
     }

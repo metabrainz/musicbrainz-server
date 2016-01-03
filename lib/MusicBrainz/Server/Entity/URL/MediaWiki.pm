@@ -7,9 +7,9 @@ sub page_name {
     my $self = shift;
     return undef if $self->uses_legacy_encoding;
 
-    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
-    $name =~ s{^/wiki/}{};
-    $name =~ s{_}{ }g;
+    my ($name) = $self->decoded_local_part =~ m{^/wiki/(.*)$}
+        or return undef;
+    $name =~ tr/_/ /;
 
     return $name;
 }

@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::URL::VIAF;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -9,9 +8,9 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub pretty_name
 {
     my $self = shift;
-    return $self->name if $self->uses_legacy_encoding;
+    return 'VIAF' if $self->uses_legacy_encoding;
 
-    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
+    my $name = $self->decoded_local_part;
     $name =~ s{^/viaf/}{};
 
     $name = "VIAF: $name";
