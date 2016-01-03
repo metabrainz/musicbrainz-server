@@ -77,7 +77,7 @@
                   <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>
               [%- END -%]
               <td>
-                [% link_deleted(recording) %]
+                [% link_entity(recording) %]
               </td>
               [%- IF show_artists -%]
                   <td></td>
