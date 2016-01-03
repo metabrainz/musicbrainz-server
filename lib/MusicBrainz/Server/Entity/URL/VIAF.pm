@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub pretty_name
 {
     my $self = shift;
-    return $self->url->as_string unless defined($self->utf8_decoded);
+    return $self->name if $self->uses_legacy_encoding;
 
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/viaf/}{};

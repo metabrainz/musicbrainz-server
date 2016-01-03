@@ -11,7 +11,7 @@ sub url_is_scheme_independent { 1 }
 
 sub page_name {
     my $self = shift;
-    return undef unless defined($self->utf8_decoded);
+    return undef if $self->uses_legacy_encoding;
 
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/wiki/}{};

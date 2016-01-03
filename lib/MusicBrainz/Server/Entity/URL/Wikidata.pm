@@ -16,7 +16,7 @@ happen if the URL can be decoded from utf-8. If not, the entire URL is used.
 sub pretty_name
 {
     my $self = shift;
-    return $self->url->as_string unless defined($self->utf8_decoded);
+    return $self->name if $self->uses_legacy_encoding;
 
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/wiki/}{};
@@ -29,7 +29,7 @@ sub sidebar_name { shift->pretty_name }
 sub page_name
 {
     my $self = shift;
-    return undef unless defined($self->utf8_decoded);
+    return undef if $self->uses_legacy_encoding;
 
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/wiki/}{};
