@@ -144,7 +144,7 @@ sub foreign_keys
         Area => [ map { $_->{country_id} } map { @{ $_->{events} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
         Label => [ map { $_->{label}{id} } map { @{ $_->{labels} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
         Artist => [ map { $_->{artist}{id} } map { @{ $_->{artist_credit}{names} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
-        Recording => [ map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->data->{recording_merges} // [] } ]
+        Recording => [ map { $_->{id} => [ 'ArtistCredit' ] } map { $_->{destination}, @{ $_->{sources} } } @{ $self->data->{recording_merges} // [] } ]
     };
 }
 

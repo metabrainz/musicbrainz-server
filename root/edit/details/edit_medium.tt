@@ -13,11 +13,9 @@
   [% END %]
 
   [% IF edit.display_data.name %]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
+    [%~ display_word_diff(l('Name:'),
+                          html_escape(edit.display_data.name.old),
+                          html_escape(edit.display_data.name.new)) ~%]
   [% END %]
 
   [% IF edit.display_data.position %]
@@ -85,14 +83,10 @@
             </td>
             <td>
               [%~ data_track_icon IF old_track.is_data_track %]
-              [% IF old_track.recording.gid;
-                   link_recording(
+              [%= link_entity(
                      old_track.recording, 'show',
-                     old_name_diff, no_escape=1
-                   );
-                 ELSE;
-                   old_name_diff;
-                 END %]
+                     old_name_diff, undef, 1
+                   ) ~%]
             </td>
             <td>
               [% artist_credit_differences.old %]
@@ -105,14 +99,10 @@
             </td>
             <td>
               [%~ data_track_icon IF new_track.is_data_track %]
-              [% IF new_track.recording.gid;
-                   link_recording(
+              [%= link_entity(
                      new_track.recording, 'show',
-                     new_name_diff, no_escape=1
-                   );
-                 ELSE;
-                   new_name_diff;
-                 END %]
+                     new_name_diff, undef, 1
+                   ) ~%]
             </td>
             <td>
               [% artist_credit_differences.new %]
@@ -133,11 +123,7 @@
             </td>
             <td>
               [%~ data_track_icon IF track.is_data_track %]
-              [% IF track.recording.gid;
-                   link_entity(track.recording, 'show', track.name);
-                 ELSE;
-                   html_escape(track.name);
-                 END %]
+              [%= link_entity(track.recording, 'show', track.name) ~%]
             </td>
             <td>
               [% artist_credit(track.artist_credit) %]
@@ -157,11 +143,7 @@
             </td>
             <td>
               [%~ data_track_icon IF track.is_data_track %]
-              [% IF track.recording.gid;
-                   link_entity(track.recording, 'show', track.name);
-                 ELSE;
-                   html_escape(track.name);
-                 END %]
+              [%= link_entity(track.recording, 'show', track.name) ~%]
             </td>
             <td>
               [% artist_credit(track.artist_credit) %]
