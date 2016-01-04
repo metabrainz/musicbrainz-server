@@ -868,7 +868,7 @@ function validateSoundCloud(url) {
 
 _.each(LINK_TYPES.soundcloud, function (id) {
   validationRules[id] = validateSoundCloud;
-}
+});
 
 // allow only VIAF pages with the VIAF rel
 validationRules[LINK_TYPES.viaf.artist] = function (url) {
