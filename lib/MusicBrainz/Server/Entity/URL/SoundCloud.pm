@@ -3,7 +3,6 @@ package MusicBrainz::Server::Entity::URL::SoundCloud;
 use utf8;
 
 use Moose;
-use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -11,14 +10,14 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    my $name = $self->url->path;
+    my $name = $self->decoded_local_part;
     # e.g. "/someartist/somesong" -> "someartist/somesong"
     $name =~ s{^/}{};
     # only show "SoundCloud" for URI parts containing slashes (e.g. songs),
     # since they are too long for the sidebar
     return "SoundCloud" if $name =~ /\//;
 
-    return MusicBrainz::Server::Filters::uri_decode($name);
+    return $name;
 }
 
 __PACKAGE__->meta->make_immutable;

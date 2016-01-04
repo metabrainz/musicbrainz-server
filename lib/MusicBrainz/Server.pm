@@ -59,7 +59,6 @@ __PACKAGE__->config(
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'format_setlist' => \&MusicBrainz::Server::Filters::format_setlist,
-            'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
             'gravatar' => \&MusicBrainz::Server::Filters::gravatar,

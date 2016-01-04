@@ -1,7 +1,7 @@
 <div class="urlheader">
 <h1>
   [% '<span class="mp">' IF url.edits_pending %]
-  [% link_entity(url, 'show', url.url) %]
+  [% link_entity(url, 'show', url.decoded) %]
   [% '</span>' IF url.edits_pending %]
 </h1>
 <p class="subheader">

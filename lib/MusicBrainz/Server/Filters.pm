@@ -237,25 +237,6 @@ sub format_editnote
     return $html;
 }
 
-=func uri_decode
-
-Attempt to decode a URL and unescape characters, assuming it's in UTF-8
-encoding. If this is not the case, the function behaves as the identity
-function.
-
-=cut
-
-sub uri_decode
-{
-    my $uri = shift;
-    try {
-        decode('utf-8', uri_unescape($uri), Encode::FB_CROAK);
-    }
-    catch {
-        $uri;
-    }
-}
-
 sub language
 {
     return code2language(shift);

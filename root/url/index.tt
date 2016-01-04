@@ -3,7 +3,7 @@
     <table class="details">
         <tr>
             <th>[% l('URL:') %]</th>
-            <td>[% simple_link(url.href_url, url.pretty_name) %]</a></td>
+            <td>[% simple_link(url.href_url, url.pretty_name) %]</td>
         </tr>
     </table>
     [%- INCLUDE "components/relationships.tt" source=url -%]

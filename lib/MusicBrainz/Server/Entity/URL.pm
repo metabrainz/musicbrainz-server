@@ -1,42 +1,72 @@
 package MusicBrainz::Server::Entity::URL;
 use Moose;
 
-use Encode 'decode';
 use MooseX::Types::URI qw( Uri );
-use MusicBrainz::Server::Filters;
-use URI::Escape;
-use Try::Tiny;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 
 has 'url' => (
-    is => 'rw',
+    is => 'ro',
     isa => Uri,
     coerce => 1
 );
 
-=attribute utf8_decoded
+has 'iri' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub { shift->url->as_iri },
+);
 
-Returns the URL, with entities unescaped and the string decoded from utf-8 into
-a Perl string. If the decoding fails, then the URL is probably not in utf-8
-encoding, and `undef` is returned.
+=attribute uses_legacy_encoding
+
+Indicates whether the URL contains bytes that can't be interpreted as UTF-8.
 
 =cut
 
-has utf8_decoded => (
+has 'uses_legacy_encoding' => (
     is => 'ro',
+    isa => 'Bool',
+    lazy => 1,
+    default => sub { shift->iri =~ /%[89A-F]/ },
+        # as_iri only leaves bytes with bit 7 set percent-encoded if they
+        # are not part of a valid UTF-8 sequence. ASCII characters may
+        # still be percent-encoded (e.g. %25, the percent sign itself).
+);
+
+=attribute decoded
+
+Returns a fully decoded form of the URL for display, except when the local
+part isn't in UTF-8.
+
+NB. This form cannot (reliably) be converted back into a working URL.
+
+=cut
+
+has 'decoded' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
     default => sub {
         my $self = shift;
-        try {
-            decode('utf-8', uri_unescape($self->url->as_string),
-                   Encode::FB_CROAK);
-        }
-        catch {
-            return undef;
-        }
+        my $name = $self->iri;
+        return $name if $self->uses_legacy_encoding;
+        $name =~ s/%([2-6][0-9A-F]|7[0-9A-E])/chr(hex($1))/eg;
+            # still don't decode control characters (00-1F, 7F)
+        return $name;
     },
-    lazy => 1
+);
+
+has 'decoded_local_part' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my ($lp) = $self->decoded =~ m{^(?:[^:]+:)?(?://[^/]*)?(.*)$};
+        return $lp // '';
+    },
 );
 
 # Some things that don't know what they are constructing may try and use
@@ -54,15 +84,16 @@ sub BUILDARGS {
 =method pretty_name
 
 Return a human readable display of this URL. This is usually the URL with
-character entities unescaped, however we only do this if the encoding is UTF-8.
-If decoding fails, the URL is displayed as it is in the database, complete with
+most character entities decoded, except when the URL uses a legacy encoding.
+In that case, the URL is displayed as it is in the database, complete with
 character entities.
 
 =cut
 
 sub pretty_name {
     my $self = shift;
-    return $self->utf8_decoded // $self->url->as_string;
+
+    $self->uses_legacy_encoding ? $self->name : $self->decoded
 }
 
 sub name { shift->url->as_string }
@@ -90,6 +121,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2016 Ulrich Klauer
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
