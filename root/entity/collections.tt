@@ -7,7 +7,7 @@
                  { entity => html_escape($entity_type.name), num => public_collections.size + private_collections }) %]</p>
         <ul>
             [% FOR col=public_collections %]
-                <li>[% l('{collection} by {owner}', { collection => link_collection(col),
+                <li>[% l('{collection} by {owner}', { collection => link_entity(col),
                                                       owner => link_editor(col.editor) } ) %]</li>
             [% END %]
 

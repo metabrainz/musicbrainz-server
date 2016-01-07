@@ -74,7 +74,7 @@
                 <ul class="links">
                     [%~ FOR label=release.labels ~%]
                         <li>
-                            [%~ link_label(label.label) _ '<br />' ~%]
+                            [%~ link_entity(label.label, 'show', '', { show_disambiguation => 0 }) _ '<br />' ~%]
                             <span class="catalog-number">[%~ html_escape(label.catalog_number) ~%]</span>
                         </li>
                     [%~ END ~%]

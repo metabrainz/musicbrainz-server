@@ -1,7 +1,7 @@
 [%- WRAPPER 'collection/layout.tt' title=l('Remove') page='delete' full_width=1 -%]
     <h2>[% l('Remove collection') %]</h2>
     <p>
-            [%- l('Are you sure you want to remove the collection {collection}?', { collection => link_collection(collection) }) -%]
+            [%- l('Are you sure you want to remove the collection {collection}?', { collection => link_entity(collection) }) -%]
     </p>
     <form action="[% c.req.uri %]" method="post">
         [% form_submit(l('Remove collection')) %]

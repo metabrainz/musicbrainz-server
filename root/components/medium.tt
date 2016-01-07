@@ -8,7 +8,7 @@
             [%- work = relationship.target %]
             <dt>[% add_colon(link_type_group.key) %]</dt>
             <dd>
-              [%- link_work(work, 'show', work.name) %]
+              [%- link_entity(work, 'show', work.name) %]
               [%- grouped_relationships(work) %]
             </dd>
           [%- END %]
@@ -38,7 +38,7 @@
       [% END %]
     [% END %]
     <td>
-      [%- link_recording(track.recording, 'show', track.name) -%]
+      [%- link_entity(track.recording, 'show', track.name) -%]
       <br/>
       <div class="ars" style="display: none;">
         [% grouped_relationships(track.recording) %]
