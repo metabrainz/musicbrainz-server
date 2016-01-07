@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Artist::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
+use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -184,7 +184,7 @@ around allow_auto_edit => sub {
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Artist')->get_by_id($self->entity_id),
+    $self->c->model('Artist')->get_by_id($self->entity_id);
 }
 
 sub _edit_hash {
@@ -207,6 +207,26 @@ around extract_property => sub {
             return ($self->$orig(@_));
         }
     }
+};
+
+around merge_changes => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $merged = $self->$orig(@args);
+    my $artist = $self->current_instance;
+    my $gender_id = $merged->{gender_id} // $artist->gender_id;
+    my $type_id = $merged->{type_id} // $artist->type_id;
+
+    if (defined $gender_id && defined $type_id) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'A group of artists cannot have a gender.'
+        ) if ($type_id == $ARTIST_TYPE_GROUP) || $self->c->sql->select_single_value(
+            'SELECT 1 FROM artist_type WHERE id = ? AND parent = ?',
+            $type_id, $ARTIST_TYPE_GROUP,
+        );
+    }
+
+    return $merged;
 };
 
 sub _conflicting_entity_path {
