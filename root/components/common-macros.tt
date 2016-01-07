@@ -229,14 +229,17 @@ END -%]
 
 [%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
-[%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK;
-    # no_escape is only available for artists and recordings
+[%~ MACRO link_entity(entity, action, text, opts) BLOCK;
+    # opts is an optional hash reference; possible keys:
+    # - show_disambiguation (omit for default behaviour)
+    # - already_html: the text argument is HTML; no entity encoding
+    #   will be done.
+    #   already_html is only available for artists and recordings.
     show_disambiguation = text == '';
-    IF (NOT text.defined OR text == '');
-        text = credited_as;
-    END;
+    SET show_disambiguation = opts.show_disambiguation
+      IF opts.show_disambiguation.exists;
     IF entity.gid;
-      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text, no_escape);
+      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text, opts.already_html);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
@@ -246,7 +249,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text, no_escape);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text, opts.already_html);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); link_series(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
@@ -275,18 +278,24 @@ END -%]
       '</span>';
     END; -%]
 
-[%~ MACRO descriptive_link(entity, credited_as)
+[%~ MACRO descriptive_link(entity, credited_as) BLOCK;
+    with_disamb = { show_disambiguation => 1 };
     IF entity.artist_credit.defined;
-        l('{entity} by {artist}', { entity => link_entity(entity, 'show', '', credited_as),
-                                    artist => artist_credit(entity.artist_credit) });
+        l('{entity} by {artist}', {
+            entity => link_entity(entity, 'show', credited_as, with_disamb),
+            artist => artist_credit(entity.artist_credit)
+        });
     ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
-        l('{place} in {area}', { place => link_entity(entity, 'show', '', credited_as),
-                                 area => link_area_with_containment(entity.area) });
+        l('{place} in {area}', {
+            place => link_entity(entity, 'show', credited_as, with_disamb),
+            area => link_area_with_containment(entity.area)
+        });
     ELSIF get_entity_type(entity) == 'area' && entity.gid;
-        link_area_with_containment(entity, 'show', '', credited_as);
+        link_area_with_containment(entity, 'show', credited_as, with_disamb);
     ELSE;
-        link_entity(entity, 'show', '', credited_as);
-    END; -%]
+        link_entity(entity, 'show', credited_as, with_disamb);
+    END;
+END ~%]
 
 [%~ MACRO get_entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
@@ -428,8 +437,8 @@ END -%]
     comma_only_list(link_areas);
 END -%]
 
-[%~ MACRO link_area_with_containment(area, action, text, credited_as) BLOCK;
-    link_entity(area, action, text, credited_as);
+[%~ MACRO link_area_with_containment(area, action, text, opts) BLOCK;
+    link_entity(area, action, text, opts);
     containment_link = link_area_containment(area);
     IF containment_link; ', ' _ containment_link; END;
 END -%]
@@ -950,7 +959,7 @@ END ~%]
 [%~ MACRO relationship_target_links(rel) BLOCK;
     '<span class="mp mp-rel">' IF rel.edits_pending;
     IF rel.target.artist_credit AND rel.target.artist_credit.name == hide_ac;
-        link_entity(rel.target, 'show', '', rel.target_credit);
+        link_entity(rel.target, 'show', rel.target_credit, { show_disambiguation => 1 });
     ELSE;
         descriptive_link(rel.target, rel.target_credit);
     END;

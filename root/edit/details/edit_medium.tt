@@ -85,7 +85,7 @@
               [%~ data_track_icon IF old_track.is_data_track %]
               [%= link_entity(
                      old_track.recording, 'show',
-                     old_name_diff, undef, 1
+                     old_name_diff, { already_html => 1 }
                    ) ~%]
             </td>
             <td>
@@ -101,7 +101,7 @@
               [%~ data_track_icon IF new_track.is_data_track %]
               [%= link_entity(
                      new_track.recording, 'show',
-                     new_name_diff, undef, 1
+                     new_name_diff, { already_html => 1 }
                    ) ~%]
             </td>
             <td>

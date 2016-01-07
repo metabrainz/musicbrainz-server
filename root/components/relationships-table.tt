@@ -21,7 +21,8 @@
                     <td>[% rel.link.formatted_date %]</td>
                     <td>
                         [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
-                        [% link_entity(rel.target, 'show', '', rel.target_credit) %]
+                        [% link_entity(rel.target, 'show', rel.target_credit,
+                               { show_disambiguation => 1 }) %]
                         [%~ '</span>' IF rel.edits_pending ~%]
                     </td>
                     [%~ IF show_credits ~%]
