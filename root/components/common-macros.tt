@@ -234,25 +234,19 @@ END -%]
     # - show_disambiguation (omit for default behaviour)
     # - already_html: the text argument is HTML; no entity encoding
     #   will be done.
-    #   already_html is only available for artists and recordings.
     show_disambiguation = text == '';
     SET show_disambiguation = opts.show_disambiguation
       IF opts.show_disambiguation.exists;
     IF entity.gid;
-      IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text, opts.already_html);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); link_event(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text, opts.already_html);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); link_series(entity, action, text);
-      ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
-      END;
+      ent_type = get_entity_type(entity);
+      INCLUDE _link_mbid_entity entity=entity
+          type=ent_type action=action content=text
+          noescape=opts.already_html
+          hover=ent_type == 'artist' ?
+              artist.sort_name _ bracketed(artist.comment) : ''
+          default_content=(ent_type == 'area' OR ent_type == 'instrument') ?
+              entity.l_name : ''
+          namevar=(ent_type == 'artist' OR ent_type == 'recording');
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
       simple_link(entity.href_url, entity.pretty_name);
       ' ';
@@ -403,27 +397,6 @@ END -%]
     INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar image_size=image_size;
 END -%]
 
-[%~ MACRO link_work(work, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=work type='work' action=action content=text;
-END -%]
-
-[%~ MACRO link_instrument(instrument, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=instrument type='instrument' action=action content=text default_content=instrument.l_name;
-END -%]
-
-[%~ MACRO link_label(label, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=label type='label' action=action content=text;
-END -%]
-
-[%~ MACRO link_artist(artist, action, text, no_escape) BLOCK;
-    hover = artist.sort_name _ bracketed(artist.comment);
-    INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1 noescape=no_escape;
-END -%]
-
-[%~ MACRO link_area(area, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=area type='area' action=action content=text default_content=area.l_name;
-END -%]
-
 [%~ MACRO link_area_containment(area) BLOCK;
     areas = [];
     IF area.parent_city; areas.push({link => link_area(area.parent_city), depth => area.parent_city_depth}); END;
@@ -441,38 +414,6 @@ END -%]
     link_entity(area, action, text, opts);
     containment_link = link_area_containment(area);
     IF containment_link; ', ' _ containment_link; END;
-END -%]
-
-[%~ MACRO link_place(place, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=place type='place' action=action content=text;
-END -%]
-
-[%~ MACRO link_collection(collection, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=collection type='collection' action=action content=text;
-END -%]
-
-[%~ MACRO link_event(event, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=event type='event' action=action content=text;
-END -%]
-
-[%~ MACRO link_release(release, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=release type='release' action=action content=text;
-END -%]
-
-[%~ MACRO link_release_group(rg, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=rg type='release_group' action=action content=text;
-END -%]
-
-[%~ MACRO link_recording(recording, action, text, no_escape) BLOCK;
-    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text namevar=1 noescape=no_escape;
-END -%]
-
-[%~ MACRO link_series(series, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=series type='series' action=action content=text;
-END -%]
-
-[%~ MACRO link_url(url, action, text) BLOCK;
-    INCLUDE _link_mbid_entity entity=url type='url' action=action content=text;
 END -%]
 
 [%~ MACRO link_tag(tag, action, text) BLOCK;
