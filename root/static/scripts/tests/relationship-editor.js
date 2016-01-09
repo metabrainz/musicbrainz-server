@@ -1003,3 +1003,80 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
         "edit-artist.rel.0.link_type_id": "103",
     });
 });
+
+relationshipEditorTest("only relationships of the same direction are ordered together (MBS-8730)", function (t) {
+    t.plan(1);
+
+    var relData = [
+        {
+            attributes:  [],
+            direction: "backward",
+            id: 55536,
+            linkOrder: 15,
+            linkTypeID: 281,
+            target: {
+                entityType: "work",
+                gid: "dce85d48-7ce6-4bd6-b21e-a7c1be6eb1b4",
+                id: 12600566,
+                name: "The Well-Tempered Clavier, Book I",
+            },
+            verbosePhrase: "has part",
+        },
+        {
+            attributes: [],
+            id: 27410,
+            linkOrder: 0,
+            linkTypeID: 281,
+            target: {
+                entityType: "work",
+                gid: "931c920e-c7ee-3644-9ff8-ddac0792d415",
+                id: 8131127,
+                name: "The Well-Tempered Clavier, Book I: Prelude and Fugue no. 15 in G major, BWV 860: Prelude",
+            },
+            verbosePhrase: "has part",
+        },
+        {
+            attributes: [],
+            id: 27411,
+            linkOrder: 0,
+            linkTypeID: 281,
+            target: {
+                entityType: "work",
+                gid: "306006c7-a946-33e2-b35c-add3a2c74638",
+                id: 8131128,
+                name: "The Well-Tempered Clavier, Book I: Prelude and Fugue no. 15 in G major, BWV 860: Fugue",
+            },
+            verbosePhrase: "has part",
+        },
+    ];
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: {
+            entityType: "work",
+            gid: "53abd6c3-621e-3d25-b7de-2a87d7d4fe1e",
+            id: 6693480,
+            name: "The Well-Tempered Clavier, Book I: Prelude and Fugue no. 15 in G major, BWV 860",
+            relationships: relData,
+        },
+    });
+
+    var relationship = vm.getRelationship(relData[2], vm.source);
+    relationship.moveEntityDown();
+
+    MB.relationshipEditor.prepareSubmission('edit-work');
+
+    t.deepEqual(formData(), {
+        'edit-work.rel.0.backward': '1',
+        'edit-work.rel.0.link_type_id': '281',
+        'edit-work.rel.0.relationship_id': '55536',
+        'edit-work.rel.0.target': 'dce85d48-7ce6-4bd6-b21e-a7c1be6eb1b4',
+        'edit-work.rel.1.link_order': '1',
+        'edit-work.rel.1.link_type_id': '281',
+        'edit-work.rel.1.relationship_id': '27410',
+        'edit-work.rel.1.target': '931c920e-c7ee-3644-9ff8-ddac0792d415',
+        'edit-work.rel.2.link_order': '2',
+        'edit-work.rel.2.link_type_id': '281',
+        'edit-work.rel.2.relationship_id': '27411',
+        'edit-work.rel.2.target': '306006c7-a946-33e2-b35c-add3a2c74638',
+    });
+});

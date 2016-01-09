@@ -369,7 +369,7 @@ import {SERIES_ORDERING_ATTRIBUTE,
 
         _moveEntity: function (offset) {
             var vm = this.parent;
-            var relationships = vm.source.getRelationshipGroup(this.linkTypeID(), vm);
+            var relationships = vm.source.getRelationshipGroup(this, vm);
             var index = _.indexOf(relationships, this);
             var newIndex = index + offset;
 
