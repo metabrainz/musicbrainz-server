@@ -199,7 +199,7 @@ sub begin : Private
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
     # Can we automatically login?
-    if (!$c->user_exists) {
+    if (!$c->user) {
         $c->forward('/user/cookie_login');
     }
 
