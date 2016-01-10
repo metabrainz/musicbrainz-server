@@ -4,8 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 // FIXME
-// var $ = require('jquery');
-var clean = require('../common/utility/clean');
+// const $ = require('jquery');
+
+const clean = require('../common/utility/clean');
 
 exports.errorFields = ko.observableArray([]);
 

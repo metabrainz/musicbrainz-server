@@ -3,15 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var L = require('../lib/leaflet/leaflet-src');
-var _ = require('lodash');
-var ko = require('knockout');
-var isBlank = require('./common/utility/isBlank');
-var initializeDuplicateChecker = require('./edit/check-duplicates');
-var {errorField} = require('./edit/validation');
-var initializeArea = require('./edit/MB/Control/Area').Area;
-var {initializeBubble} = require('./edit/MB/Control/Bubble');
-var {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+const L = require('../lib/leaflet/leaflet-src');
+const ko = require('knockout');
+const _ = require('lodash');
+
+const isBlank = require('./common/utility/isBlank');
+const initializeDuplicateChecker = require('./edit/check-duplicates');
+const initializeArea = require('./edit/MB/Control/Area').Area;
+const {initializeBubble} = require('./edit/MB/Control/Bubble');
+const {errorField} = require('./edit/validation');
+const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
 
 initialize_guess_case('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');

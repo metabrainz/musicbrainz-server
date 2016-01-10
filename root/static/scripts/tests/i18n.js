@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var test = require('tape');
-var i18n = require('../common/i18n.js');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const test = require('tape');
+
+const i18n = require('../common/i18n');
 
 test("i18n.expand", function (t) {
     t.plan(6);

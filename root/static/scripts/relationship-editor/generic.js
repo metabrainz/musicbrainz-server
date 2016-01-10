@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var clean = require('../common/utility/clean');
-var validation = require('../edit/validation');
-import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
+const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
+const clean = require('../common/utility/clean');
+const validation = require('../edit/validation');
 
 (function (RE) {
 

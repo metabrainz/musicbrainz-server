@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var test = require('tape');
-var setCookie = require('../common/utility/setCookie');
-import * as modes from '../guess-case/modes';
+const _ = require('lodash');
+const test = require('tape');
+
+const setCookie = require('../common/utility/setCookie');
+const modes = require('../guess-case/modes');
 
 test('Sortname', function (t) {
     t.plan(6);

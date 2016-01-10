@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
+const test = require('tape');
 
 var fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
 var fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";

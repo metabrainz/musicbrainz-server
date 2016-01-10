@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var test = require('tape');
-var common = require('./common.js');
+const _ = require('lodash');
+const test = require('tape');
+
+const common = require('./common');
 
 var releaseEditor = MB.releaseEditor;
 

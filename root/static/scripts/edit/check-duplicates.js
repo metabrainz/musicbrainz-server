@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var ko = require('knockout');
-var React = require('react');
-var ReactDOM = require('react-dom');
-var i18n = require('../common/i18n');
-var clean = require('../common/utility/clean');
-var isBlank = require('../common/utility/isBlank');
-var request = require('../common/utility/request');
-var validation = require('./validation');
-var PossibleDuplicates = require('./components/PossibleDuplicates');
+const ko = require('knockout');
+const _ = require('lodash');
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+const {l} = require('../common/i18n');
+const clean = require('../common/utility/clean');
+const isBlank = require('../common/utility/isBlank');
+const request = require('../common/utility/request');
+const PossibleDuplicates = require('./components/PossibleDuplicates');
+const validation = require('./validation');
 
 var commentRequired = ko.observable(false);
 var commentEmpty = ko.observable(false);
@@ -131,7 +132,7 @@ function markCommentAsRequired(input) {
     .parent();
 
   if (!$parent.next('div.comment-required').length) {
-    $parent.after($('<div>').addClass('no-label error comment-required').text(i18n.l('Required field.')));
+    $parent.after($('<div>').addClass('no-label error comment-required').text(l('Required field.')));
   }
 }
 

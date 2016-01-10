@@ -1,8 +1,9 @@
-var _ = require('lodash');
-var ko = require('knockout');
-var {lp} = require('./common/i18n');
-var initializeDuplicateChecker = require('./edit/check-duplicates');
-import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
+const _ = require('lodash');
+const ko = require('knockout');
+
+const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('./common/constants');
+const {lp} = require('./common/i18n');
+const initializeDuplicateChecker = require('./edit/check-duplicates');
 
 $(function () {
   var $type = $("#id-edit-series\\.type_id");

@@ -3,11 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var balanced = require('balanced-match');
-var getSimilarity = require('./similarity');
-var clean = require('../../common/utility/clean');
-import {MIN_NAME_SIMILARITY} from '../../common/constants';
+const balanced = require('balanced-match');
+const _ = require('lodash');
+
+const {MIN_NAME_SIMILARITY} = require('../../common/constants');
+const clean = require('../../common/utility/clean');
+const getSimilarity = require('./similarity');
 
 var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
 var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;

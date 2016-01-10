@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var $ = require('jquery');
-var setCookie = require('./utility/setCookie');
+const $ = require('jquery');
+
+const setCookie = require('./utility/setCookie');
 
 $(function () {
     $('.dismiss-banner').on('click', function () {

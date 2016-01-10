@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l} from '../../static/scripts/common/i18n';
-import formatUserDate from '../../utility/formatUserDate';
+const React = require('react');
+
+const {l} = require('../../static/scripts/common/i18n');
+const formatUserDate = require('../../utility/formatUserDate');
 
 const Footer = (props) => {
   let stash = $c.stash;
@@ -61,4 +62,4 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+module.exports = Footer;

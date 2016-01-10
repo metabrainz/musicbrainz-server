@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var nonEmpty = require('./nonEmpty');
-var parseInteger = require('./parseInteger');
-var parseIntegerOrNull = require('./parseIntegerOrNull');
+const _ = require('lodash');
+
+const nonEmpty = require('./nonEmpty');
+const parseInteger = require('./parseInteger');
+const parseIntegerOrNull = require('./parseIntegerOrNull');
 
 var daysInMonth = {
     "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],

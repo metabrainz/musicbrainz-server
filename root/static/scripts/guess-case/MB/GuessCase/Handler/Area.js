@@ -18,8 +18,8 @@
 
 */
 
-var flags = require('../../../flags.js');
-var utils = require('../../../utils.js');
+const flags = require('../../../flags');
+const utils = require('../../../utils');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};

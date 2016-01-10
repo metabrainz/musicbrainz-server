@@ -3,13 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var $ = require('jquery');
-var _ = require('lodash');
-var Immutable = require('immutable');
-var React = require('react');
-var ReactDOM = require('react-dom');
-var {l, lp} = require('../i18n');
-var request = require('../utility/request');
+const Immutable = require('immutable');
+const $ = require('jquery');
+const _ = require('lodash');
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+const {l, lp} = require('../i18n');
+const request = require('../utility/request');
 
 var Tag = Immutable.Record({tag: '', count: 0, vote: 0});
 

@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import entityLink from './entityLink';
-import artistCreditLink from './artistCreditLink';
-import areaWithContainmentLink from './areaWithContainmentLink';
-import {l} from '../i18n';
+const {l} = require('../i18n');
+const areaWithContainmentLink = require('./areaWithContainmentLink');
+const artistCreditLink = require('./artistCreditLink');
+const entityLink = require('./entityLink');
 
-export default function descriptiveLink(entity) {
+function descriptiveLink(entity) {
   if (entity.artist_credit) {
     return l('{entity} by {artist}', {
       __react: true,
@@ -31,3 +31,5 @@ export default function descriptiveLink(entity) {
 
   return entityLink(entity);
 }
+
+module.exports = descriptiveLink;

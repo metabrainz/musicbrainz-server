@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import crypto from 'crypto';
-import {trim} from 'lodash';
-import React from 'react';
+const crypto = require('crypto');
+const {trim} = require('lodash');
+const React = require('react');
 
 function gravatar(email) {
   let hex = crypto.createHash('md5').update(trim(email).toLowerCase()).digest('hex');
@@ -32,4 +32,4 @@ const EditorLink = ({editor, size}) => {
   );
 };
 
-export default EditorLink;
+module.exports = EditorLink;

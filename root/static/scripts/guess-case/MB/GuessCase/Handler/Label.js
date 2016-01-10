@@ -19,7 +19,7 @@
 
 */
 
-var flags = require('../../../flags.js');
+const flags = require('../../../flags');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};

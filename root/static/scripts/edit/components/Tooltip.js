@@ -7,10 +7,10 @@
 // be found in the original source code repository at
 // https://raw.githubusercontent.com/Khan/react-components/9984740/LICENSE
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var RCSS = require('rcss');
-var PropTypes = React.PropTypes;
+const React = require('react');
+const ReactDOM = require('react-dom');
+const RCSS = require('rcss');
+const PropTypes = React.PropTypes;
 
 var colors = {
   grayLight: '#aaa',

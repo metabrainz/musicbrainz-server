@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l} from '../i18n';
+const React = require('react');
 
-export default function entityLink(entity, props) {
+const {l} = require('../i18n');
+
+function entityLink(entity, props) {
   props = props || {};
 
   if (!props.hasOwnProperty('title')) {
@@ -35,3 +36,5 @@ export default function entityLink(entity, props) {
 
   return elements;
 }
+
+module.exports = entityLink;

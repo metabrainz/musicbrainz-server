@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
+const test = require('tape');
 
 test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
     t.plan(1);

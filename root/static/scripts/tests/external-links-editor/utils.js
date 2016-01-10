@@ -1,6 +1,5 @@
-var React = require('react');
-
-var ReactTestUtils = require('react-addons-test-utils');
+const React = require('react');
+const ReactTestUtils = require('react-addons-test-utils');
 
 exports.triggerChange = function (node, value) {
     ReactTestUtils.Simulate.change(node, { target: { value: value } });

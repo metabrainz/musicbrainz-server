@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import setCookie from '../common/utility/setCookie';
+const setCookie = require('../common/utility/setCookie');
 
 $('#alert-new-edit-notes')
   .on('change', function () {

@@ -2,22 +2,23 @@ if (!/^[01]$/.test(process.env.DEVELOPMENT_SERVER)) {
   throw new Error('error: DEVELOPMENT_SERVER should be set to either 0 or 1');
 }
 
-var _ = require('lodash');
-var File = require('vinyl');
-var fs = require('fs');
-var gulp = require('gulp');
-var less = require('gulp-less');
-var path = require('path');
-var po2json = require('po2json');
-var rev = require('gulp-rev');
-var shell = require('shelljs');
-var shellQuote = require('shell-quote');
-var source = require('vinyl-source-stream');
-var streamify = require('gulp-streamify');
-var through2 = require('through2');
-var Q = require('q');
-var yarb = require('yarb');
-var {findObjectFile} = require('../server/gettext');
+const fs = require('fs');
+const gulp = require('gulp');
+const less = require('gulp-less');
+const rev = require('gulp-rev');
+const streamify = require('gulp-streamify');
+const _ = require('lodash');
+const path = require('path');
+const po2json = require('po2json');
+const Q = require('q');
+const shellQuote = require('shell-quote');
+const shell = require('shelljs');
+const through2 = require('through2');
+const File = require('vinyl');
+const source = require('vinyl-source-stream');
+const yarb = require('yarb');
+
+const {findObjectFile} = require('../server/gettext');
 
 const CACHED_BUNDLES = {};
 const CHECKOUT_DIR = path.resolve(__dirname, '../../');
