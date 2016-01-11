@@ -3,14 +3,14 @@
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
 # mai inoue, 2015
-# Nozomu Kurasawa <email address hidden>, 2013
+# Nozomu Kurasawa <email address hidden>, 2013,2016
 # Osamu Takahashi, 2014
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-30 00:56+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-01-11 19:17+0000\n"
+"Last-Translator: Nozomu Kurasawa <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,11 +32,11 @@ msgstr "アパラチアン・ダルシマー"
 
 #: DB:instrument/name:421
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "バルティックプサルテリー"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
-msgstr ""
+msgstr "バタドラム"
 
 #: DB:instrument/name:260
 msgid "Chamberlin"
@@ -48,19 +48,19 @@ msgstr "チャップマン・スティック"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr ""
+msgstr "クレタン・リラ"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr ""
+msgstr "デニスドール"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "Dubreq スタイロフォン"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
-msgstr ""
+msgstr "E♭クラリネット"
 
 #: DB:instrument/name:441
 msgid "EWI"
@@ -68,11 +68,11 @@ msgstr "ＥＷＩ"
 
 #: DB:instrument/name:7
 msgid "English horn"
-msgstr ""
+msgstr "コーラングレ"
 
 #: DB:instrument/name:30
 msgid "French horn"
-msgstr ""
+msgstr "フレンチホルン"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: DB:instrument/name:751
 msgid "Guitaret"
-msgstr ""
+msgstr "ギタレット"
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
@@ -96,11 +96,11 @@ msgstr "ハワイのギター"
 
 #: DB:instrument/name:417
 msgid "Indian bamboo flutes"
-msgstr ""
+msgstr "バンスリ"
 
 #: DB:instrument/name:406
 msgid "Irish bouzouki"
-msgstr ""
+msgstr "アイリッシュ・ブズーキ"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
@@ -108,7 +108,7 @@ msgstr "アイリッシュハープ"
 
 #: DB:instrument/name:561
 msgid "Lyricon"
-msgstr ""
+msgstr "リリコン"
 
 #: DB:instrument/name:132
 msgid "Mellotron"
@@ -128,19 +128,19 @@ msgstr "モーグ・シンセサイザー"
 
 #: DB:instrument/name:358
 msgid "Northumbrian pipes"
-msgstr ""
+msgstr "ノーサンブリアンパイプ"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "アルパ"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
-msgstr ""
+msgstr "ポルトガルギター"
 
 #: DB:instrument/name:576
 msgid "Reactable"
-msgstr ""
+msgstr "リアクテーブル"
 
 #: DB:instrument/name:139
 msgid "Rhodes piano"
@@ -152,7 +152,7 @@ msgstr "サラスヴァティー・ヴィーナ"
 
 #: DB:instrument/name:679
 msgid "Schwyzerörgeli"
-msgstr ""
+msgstr "シュヴィッツァオルガリ"
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: DB:instrument/name:562
 msgid "Vienna horn"
-msgstr ""
+msgstr "ウィンナホルン"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -224,7 +224,7 @@ msgstr "アコースティック・ギター"
 
 #: DB:instrument/name:65
 msgid "aeolian harp"
-msgstr "エオリアン・ハープ"
+msgstr "エオリアンハープ"
 
 #: DB:instrument/name:717
 msgid "afoxé"
@@ -720,7 +720,7 @@ msgstr "コンサート・フルート"
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "コンサートハープ"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1004,7 +1004,7 @@ msgstr "エレクトリック・ギター"
 
 #: DB:instrument/name:352
 msgid "electric harp"
-msgstr "エレクトリック・ハープ"
+msgstr "エレクトリックハープ"
 
 #: DB:instrument/name:389
 msgid "electric lap steel guitar"
@@ -1627,6 +1627,10 @@ msgstr ""
 msgid "launeddas"
 msgstr ""
 
+#: DB:instrument/name:764
+msgid "lautenwerck"
+msgstr ""
+
 #: DB:instrument/name:705
 msgid "lavta"
 msgstr ""
@@ -1729,7 +1733,7 @@ msgstr ""
 
 #: DB:instrument/name:752
 msgid "minipiano"
-msgstr ""
+msgstr "ミニピアノ"
 
 #: DB:instrument/name:591
 msgid "mirliton"
@@ -1753,7 +1757,7 @@ msgstr "ムリダンガム"
 
 #: DB:instrument/name:710
 msgid "mukkuri"
-msgstr ""
+msgstr "ムックリ"
 
 #: DB:instrument/name:735
 msgid "musette de cour"
@@ -1801,7 +1805,7 @@ msgstr ""
 
 #: DB:instrument/name:522
 msgid "natural horn"
-msgstr ""
+msgstr "ナチュラルホルン"
 
 #: DB:instrument/name:540
 msgid "ney"
@@ -1977,7 +1981,7 @@ msgstr ""
 
 #: DB:instrument/name:626
 msgid "post horn"
-msgstr ""
+msgstr "ポストホルン"
 
 #: DB:instrument/name:429
 msgid "practice chanter"
@@ -2539,7 +2543,7 @@ msgstr "テナーギター"
 
 #: DB:instrument/name:31
 msgid "tenor horn / alto horn"
-msgstr ""
+msgstr "テナーホルン / アルトホルン"
 
 #: DB:instrument/name:292
 msgid "tenor recorder"

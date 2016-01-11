@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-30 00:56+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2015-12-16 22:08+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1624,6 +1624,10 @@ msgstr "lasso d’amore"
 #: DB:instrument/name:518
 msgid "launeddas"
 msgstr "launedda"
+
+#: DB:instrument/name:764
+msgid "lautenwerck"
+msgstr "luitklavecimbel"
 
 #: DB:instrument/name:705
 msgid "lavta"

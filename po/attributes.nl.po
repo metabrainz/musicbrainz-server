@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 14:49+0000\n"
+"PO-Revision-Date: 2015-12-16 22:13+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1066,6 +1066,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp minor"
 msgstr "Cis kleine terts"
 
+#: DB:work_attribute_type/name:19
+msgctxt "work_attribute_type"
+msgid "CASH ID"
+msgstr "CASH ID"
+
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
@@ -1377,6 +1382,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Darb-ı Türki"
 msgstr "Darb-ı Türki"
 
+#: DB:work_attribute_type_allowed_value/value:796
+msgctxt "work_attribute_type_allowed_value"
+msgid "Darbeyn"
+msgstr "Darbeyn"
+
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
 msgid "Darbār"
@@ -1446,6 +1456,11 @@ msgstr "Devr-i Süreyya Sofyanı"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Devr-i Turan"
 msgstr "Devr-i Turan"
+
+#: DB:work_attribute_type_allowed_value/value:797
+msgctxt "work_attribute_type_allowed_value"
+msgid "Devr-i Turan II"
+msgstr "Devr-i Turan II"
 
 #: DB:work_attribute_type_allowed_value/value:79
 msgctxt "work_attribute_type_allowed_value"
@@ -1862,15 +1877,15 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Ferahnakaşiran"
 msgstr "Ferahnakaşiran"
 
+#: DB:work_attribute_type_allowed_value/value:370
+msgctxt "work_attribute_type_allowed_value"
+msgid "Ferahnüma"
+msgstr "Ferahnüma"
+
 #: DB:work_attribute_type_allowed_value/value:371
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ferahzad"
 msgstr "Ferahzad"
-
-#: DB:work_attribute_type_allowed_value/value:370
-msgctxt "work_attribute_type_allowed_value"
-msgid "Feraznüma"
-msgstr "Feraznüma"
 
 #: DB:event_type/name:2
 msgctxt "event_type"
@@ -3990,6 +4005,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Raksaksağı"
 msgstr "Raksaksağı"
 
+#: DB:work_attribute_type_allowed_value/value:798
+msgctxt "work_attribute_type_allowed_value"
+msgid "Raksaksağı II"
+msgstr "Raksaksağı II"
+
 #: DB:work_attribute_type_allowed_value/value:764
 msgctxt "work_attribute_type_allowed_value"
 msgid "Raksan"
@@ -4265,10 +4285,20 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:work_attribute_type/name:21
+msgctxt "work_attribute_type"
+msgid "SACEM ID"
+msgstr "SACEM ID"
+
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
 msgid "SESAC ID"
 msgstr "SESAC ID"
+
+#: DB:work_attribute_type/name:20
+msgctxt "work_attribute_type"
+msgid "SGAE ID"
+msgstr "SGAE ID"
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
@@ -4284,6 +4314,11 @@ msgstr "SHM-SACD"
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
 msgstr "SOCAN ID"
+
+#: DB:work_attribute_type/name:18
+msgctxt "work_attribute_type"
+msgid "SUISA ID"
+msgstr "SUISA ID"
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -4908,6 +4943,11 @@ msgstr "Türkaksağı"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Türki Hicaz"
 msgstr "Türki Hicaz"
+
+#: DB:work_attribute_type_allowed_value/value:799
+msgctxt "work_attribute_type_allowed_value"
+msgid "Türkmen"
+msgstr "Türkmen"
 
 #: DB:work_attribute_type_allowed_value/value:675
 msgctxt "work_attribute_type_allowed_value"

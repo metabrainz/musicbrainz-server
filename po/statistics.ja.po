@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 20:28+0000\n"
+"PO-Revision-Date: 2016-01-03 14:41+0000\n"
 "Last-Translator: mai inoue\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -749,7 +749,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:872
 msgid "Cancelled:"
-msgstr ""
+msgstr "キャンセル:"
 
 #: ../root/statistics/view_js.tt:125
 msgid "Characters"
@@ -1234,7 +1234,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
 msgid "Events"
-msgstr ""
+msgstr "イベント"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
 msgid "Events:"
@@ -1432,7 +1432,7 @@ msgstr "最近7日間"
 #: ../root/statistics/languages_scripts.tt:23
 #: ../root/statistics/relationships.tt:20
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "最終更新日: {date}"
 
 #: ../root/statistics/timeline.tt:4
 msgid "Legend"
@@ -1589,7 +1589,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #: ../root/statistics/index.tt:74
 msgid "Other Entities"
@@ -1883,7 +1883,7 @@ msgstr "二次タイプ"
 #: ../root/statistics/index.tt:633 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "シリーズ"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Series Tags (raw)"
@@ -1892,7 +1892,7 @@ msgstr ""
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:640
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "シリーズ:"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""
