@@ -862,13 +862,13 @@ validationRules[LINK_TYPES.songfacts.work] = function (url) {
 };
 
 // allow only Soundcloud pages with the Soundcloud rel
-validationRules[LINK_TYPES.soundcloud.artist] = function (url) {
-  return /soundcloud\.com\//.test(url);
-};
+function validateSoundCloud(url) {
+  return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
+}
 
-validationRules[LINK_TYPES.soundcloud.label] = function (url) {
-  return /soundcloud\.com\//.test(url);
-};
+_.each(LINK_TYPES.soundcloud, function (id) {
+  validationRules[id] = validateSoundCloud;
+});
 
 // allow only VIAF pages with the VIAF rel
 validationRules[LINK_TYPES.viaf.artist] = function (url) {

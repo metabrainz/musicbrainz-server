@@ -61,7 +61,7 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        Work => { map { $_ => [ 'ArtistCredit' ] } $self->work_ids }
+        Work => [ $self->work_ids ],
     }
 }
 

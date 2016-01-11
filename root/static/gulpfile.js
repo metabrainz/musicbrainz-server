@@ -1,3 +1,7 @@
+if (!/^[01]$/.test(process.env.DEVELOPMENT_SERVER)) {
+  throw new Error('error: DEVELOPMENT_SERVER should be set to either 0 or 1');
+}
+
 var _ = require('lodash');
 var File = require('vinyl');
 var fs = require('fs');
@@ -72,13 +76,15 @@ function buildStyles() {
   ).done(writeManifest);
 }
 
-function transformBundle(bundle) {
-  let isDevelopmentServer = String(process.env.DEVELOPMENT_SERVER) === '0';
+function isDevelopmentServer() {
+  return String(process.env.DEVELOPMENT_SERVER) === '1';
+}
 
+function transformBundle(bundle) {
   bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
-  if (isDevelopmentServer) {
+  if (!isDevelopmentServer()) {
     bundle.transform('uglifyify', {
       // See https://github.com/substack/node-browserify#btransformtr-opts
       global: true,
@@ -102,7 +108,7 @@ function runYarb(resourceName, callback) {
   }
 
   var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
-    debug: false // disable sourcemaps
+    debug: isDevelopmentServer(),
   }));
 
   if (callback) {

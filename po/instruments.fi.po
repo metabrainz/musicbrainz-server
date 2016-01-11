@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-30 00:56+0000\n"
+"PO-Revision-Date: 2015-12-14 23:14+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1627,6 +1627,10 @@ msgstr ""
 
 #: DB:instrument/name:518
 msgid "launeddas"
+msgstr ""
+
+#: DB:instrument/name:764
+msgid "lautenwerck"
 msgstr ""
 
 #: DB:instrument/name:705

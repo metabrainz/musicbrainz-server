@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 14:30+0000\n"
+"PO-Revision-Date: 2015-12-19 11:44+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -629,7 +629,7 @@ msgstr "Artiesten zonder vermeldingen"
 
 #: ../root/statistics/view_js.tt:130
 msgid "Artists with at least one artist credit appearance"
-msgstr "Artiesten die ten minste in één vermelding voorkomen"
+msgstr "Artiesten die in ten minste in één nummer of opname vermeld worden"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Artists with gender set to female"
@@ -649,7 +649,7 @@ msgstr "Artiesten (geen groepen) waarbij het geslacht niet is ingesteld"
 
 #: ../root/statistics/view_js.tt:131
 msgid "Artists with no appearances in artist credits"
-msgstr "Artiesten die niet in een vermelding voorkomen"
+msgstr "Artiesten die niet in nummer of opname vermeld worden"
 
 #: ../root/statistics/view_js.tt:91
 msgid "Artists with no country set"

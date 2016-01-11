@@ -8,7 +8,7 @@ sub pretty_name { 'OZON.ru' }
 
 override affiliate_url => sub {
     my $self = shift;
-    my $url = super();
+    my $url = super()->clone;
     $url->query_form(partner => 'musicbrainz');
     return $url;
 };

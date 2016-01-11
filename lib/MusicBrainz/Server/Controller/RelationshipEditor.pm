@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Controller::RelationshipEditor;
+
+use utf8;
+
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }

@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
+
+use utf8;
+
 use Moose;
 
 with 'MusicBrainz::Server::Report::LabelReport',

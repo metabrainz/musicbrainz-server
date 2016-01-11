@@ -27,14 +27,16 @@ sub sidebar_name { shift->pretty_name }
 override affiliate_url => sub {
     my $self = shift;
 
-    my $url = super()->clone;
+    my $url = super();
     if ($url =~ m{^(?:https?:)?//(?:.*?\.)(amazon\.([a-z\.]+))(?:\:[0-9]+)?/[^?]+$}i) {
         my $ass_id = DBDefs->AWS_ASSOCIATE_ID($1);
         return $url unless $ass_id;
-        return URI->new("$url?tag=$ass_id");
-    } else {
+
+        $url = $url->clone;
+        $url->query_form(tag => $ass_id);
         return $url;
     }
+    return $url;
 };
 
 sub url_is_scheme_independent { 1 }

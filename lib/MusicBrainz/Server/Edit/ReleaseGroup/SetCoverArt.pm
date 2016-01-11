@@ -92,7 +92,7 @@ sub accept {
 sub foreign_keys {
     my ($self) = @_;
     return {
-        ReleaseGroup => { $self->data->{entity}{id} => [  ] },
+        ReleaseGroup => { $self->data->{entity}{id} => [ 'ArtistCredit' ] },
         Release => {
             $self->data->{old}{release_id} => [ 'ArtistCredit' ],
             $self->data->{new}{release_id} => [ 'ArtistCredit' ],

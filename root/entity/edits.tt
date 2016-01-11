@@ -4,10 +4,10 @@
 
     SET name_for_title = entity.name;
     SET name_for_title = entity.l_name IF ent_type == 'instrument';
-    SET name_for_title = display_url(entity) IF ent_type == 'url';
+    SET name_for_title = entity.pretty_name IF ent_type == 'url';
 
-    SET link_for_heading = link_entity(entity);
-    SET link_for_heading = link_entity(entity, 'show', entity.url) IF ent_type == 'url';
+    SET link_for_heading = ent_type == 'url' ?
+        link_entity(entity, 'show', entity.decoded) : link_entity(entity);
 
     SET layout_title = all_edits ? l('Edits for {name}', { name => name_for_title }) : l('Open Edits for {name}', { name => name_for_title });
     SET heading = all_edits ? l('Edits for {name}', { name => link_for_heading }) : l('Open Edits for {name}', { name => link_for_heading });

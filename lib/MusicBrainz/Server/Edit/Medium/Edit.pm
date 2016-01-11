@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
 use List::AllUtils qw( any );
-use Algorithm::Diff qw( diff sdiff );
+use Algorithm::Diff qw( sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
 use Set::Scalar;
@@ -263,13 +263,13 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
-                        $track->id,
-                        $track->name,
+                        $track->id // 0,
+                        $track->name // '',
                         format_track_length($track->length),
                         join(
                             '',
                             map {
-                                join('', $_->name, $_->join_phrase || '')
+                                join('', $_->name, $_->join_phrase // '')
                             } $track->artist_credit->all_names
                         ),
                         $track->is_data_track ? 1 : 0
@@ -322,15 +322,16 @@ sub build_display_data
             grep {
                 my $old = $_->[1];
                 my $new = $_->[2];
-                my $old_recording = $old ? ($old->recording_id // $old->recording->id) : 0;
-                my $new_recording = $new ? ($new->recording_id // $new->recording->id) : 0;
+                my $old_recording = $old ? ($old->recording_id // $old->recording->id // 0) : 0;
+                my $new_recording = $new ? ($new->recording_id // $new->recording->id // 0) : 0;
 
                 $new && ($new->id ? $old_recordings{$new->id} : $old_recording) != $new_recording;
             }
             @$tracklist_changes ];
 
         $data->{data_track_changes} = any {
-            ($_->[1] ? $_->[1]->{is_data_track} : 0) != ($_->[2] ? $_->[2]->{is_data_track} : 0)
+            ($_->[1] ? $_->[1]->{is_data_track} // 0 : 0) !=
+            ($_->[2] ? $_->[2]->{is_data_track} // 0 : 0)
         } @$tracklist_changes;
     }
 

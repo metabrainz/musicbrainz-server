@@ -1,4 +1,7 @@
 package Plack::Middleware::Debug::DAOLogger;
+
+use utf8;
+
 use parent qw(Plack::Middleware::Debug::Base);
 use List::Util qw( sum );
 use Scalar::Util qw( blessed );

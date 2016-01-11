@@ -6,7 +6,8 @@
 
         <p>
             [%- l('If you followed a link on our site to get here, please {report|report a bug} and the URL of the page that sent you here.',
-                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
+                 { report => bugtracker_url('Forbidden page: ' _ c.req.uri _ "\n" _
+                                            'Referrer: ' _ c.req.referer) }) -%]
         </p>
     </div>
 [% END %]

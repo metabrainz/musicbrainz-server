@@ -121,8 +121,9 @@ test all => sub {
     $email->send_email_verification(
         email => 'user@example.com',
         verification_link => "$server/verify-email",
-        ip => '127.0.0.1'
-        );
+        ip => '127.0.0.1',
+        editor => $user1,
+    );
 
     is($email->transport->delivery_count, 1);
     my $delivery = $email->transport->shift_deliveries;
@@ -134,6 +135,8 @@ test all => sub {
     is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
     like($e->get_header('Message-Id'), qr{<verify-email-\d+@.*>}, "Message-Id has right format");
     compare_body($e->object->body_str,
+                 "Hello Editor 1,\n".
+                 "\n".
                  "This is a verification email for your MusicBrainz account. Please click\n".
                  "on the link below to verify your email address:\n".
                  "\n".

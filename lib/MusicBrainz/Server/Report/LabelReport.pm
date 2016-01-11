@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Report::LabelReport;
+
+use utf8;
+
 use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';

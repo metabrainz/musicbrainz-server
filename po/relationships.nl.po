@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 20:17+0000\n"
+"PO-Revision-Date: 2015-12-19 12:15+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1588,7 +1588,7 @@ msgid ""
 "This is used to specify that an <a href=\"/doc/Artist\" "
 "title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
 "where artist credits can't be used."
-msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte op een kortdurend project, in gevallen waarbij vermeldingen niet kunnen worden gebruikt."
+msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte op een kortdurend project, als de naam van het project niet te splitsen is in de samenwerkende artiesten."
 
 #: DB:link_type/description:288
 msgid ""
@@ -2972,7 +2972,7 @@ msgstr "fanpagina’s"
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
 #: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:832
 msgid "founded"
-msgstr "richtte op"
+msgstr "oprichter van"
 
 #: DB:link_attribute_type/name:525
 msgid "founder"
@@ -3873,7 +3873,7 @@ msgstr "organist van"
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
-msgstr "organisten van"
+msgstr "organisten: "
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4960,12 +4960,12 @@ msgstr "{additional:aanvullende} {founder:oprichtende} leden"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
-msgstr "{additional:aanvullende} {guest:gast} {solo:solo} uitvoerend artiest"
+msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {guest:gast} {solo:solo} {instrument:%|instrumenten}"
+msgstr "{additional:aanvullend} {solo:solo} {guest:gast}{instrument:%|instrumenten}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

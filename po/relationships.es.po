@@ -8,14 +8,15 @@
 # Kevin López Brante <email address hidden>, 2012
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
+# Oscar Rivas Krucker <email address hidden>, 2015
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 21:42+0000\n"
-"Last-Translator: daniel plinplon <email address hidden>\n"
+"PO-Revision-Date: 2015-12-25 21:38+0000\n"
+"Last-Translator: Oscar Rivas Krucker <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgid ""
 "network</a> which only people involved with the label can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr "Una página de red social es la página de un sello discográfico en un una <a href=\"https://es.wikipedia.org/wiki/Servicio_de_red_social\">red social</a>, a la cual sólo el sello puede publicar contenido. Ejemplos incluyen páginas de Facebook, y cuentas en Twitter, Instagram y Flickr."
+msgstr "Una página de red social es la página de un sello discográfico en una <a href=\"https://es.wikipedia.org/wiki/Servicio_de_red_social\">red social</a>, a la cual sólo el sello puede publicar contenido. Ejemplos incluyen páginas de Facebook, y cuentas en Twitter, Instagram y Flickr."
 
 #: DB:link_type/description:784
 msgid ""

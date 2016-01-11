@@ -55,10 +55,9 @@
                          edit.display_data.end_area.old ? descriptive_link(edit.display_data.end_area.old): '',
                          edit.display_data.end_area.new ? descriptive_link(edit.display_data.end_area.new): '') %]
 
-  [% display_diff(l('Ended:'),
+  [% display_full_change(l('Ended:'),
                   yesno(edit.display_data.ended.old),
-                  yesno(edit.display_data.ended.new),
-                  '-') %]
+                  yesno(edit.display_data.ended.new)) %]
 
   [% display_diff(l('IPI codes:'),
                   comma_only_list(edit.display_data.ipi_codes.old),
