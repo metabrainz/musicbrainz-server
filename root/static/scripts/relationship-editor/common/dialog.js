@@ -511,17 +511,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     });
 
     function addRelationships(relationships, source, viewModel) {
-        var linkType = relationships[0].linkTypeInfo();
-
         _.each(relationships, function (relationship) {
             if (source.mergeRelationship(relationship)) {
                 return;
             }
 
-            var typeInfo = relationship.linkTypeInfo();
-
-            if (typeInfo.orderableDirection) {
-                var group = source.getRelationshipGroup(typeInfo.id, viewModel);
+            if (relationship.linkTypeInfo().orderableDirection) {
+                var group = source.getRelationshipGroup(relationship, viewModel);
                 var maxLinkOrder = -Infinity;
 
                 _.each(group, function (other) {
