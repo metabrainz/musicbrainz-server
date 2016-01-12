@@ -3,14 +3,14 @@
 # nikki2 <email address hidden>, 2012
 # Keshav Kini <email address hidden>, 2013
 # mai inoue, 2015
-# Nozomu Kurasawa <email address hidden>, 2013
+# Nozomu Kurasawa <email address hidden>, 2013,2015
 # nikki, 2012
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 16:48+0000\n"
-"Last-Translator: mai inoue\n"
+"PO-Revision-Date: 2015-12-31 11:32+0000\n"
+"Last-Translator: Nozomu Kurasawa <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1091,7 +1091,7 @@ msgstr "カバルド語"
 #. frequency:1 iso_code_3:kea
 #: DB:language/name:3185
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "カーボベルデ語"
 
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202

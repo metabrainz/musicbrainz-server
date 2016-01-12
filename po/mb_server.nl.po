@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-29 18:52-0600\n"
-"PO-Revision-Date: 2015-11-30 11:44+0000\n"
+"POT-Creation-Date: 2015-12-14 17:11-0600\n"
+"PO-Revision-Date: 2015-12-19 13:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,7 @@ msgstr "(<span class=\"comment\">primair</span>)"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>ongeverifieerd!</strong>)"
 
-#: ../root/main/400.tt:12 ../root/main/500.tt:41
+#: ../root/main/info/error.tt:26
 msgid "(No details about this error are available)"
 msgstr "(Over deze foutmelding zijn geen details beschikbaar)"
 
@@ -247,7 +247,7 @@ msgstr "* Geeft het totaal aantal secondes verschil aan tussen de cd die je opvr
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:106
+#: ../root/user/profile.tt:112
 msgid "0"
 msgstr "0"
 
@@ -264,7 +264,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "één stem"
 msgstr[1] "{n} unanieme stemmen"
 
-#: ../root/user/profile.tt:239 ../root/user/profile.tt:243
+#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
 msgid "100%"
 msgstr "100%"
 
@@ -450,7 +450,7 @@ msgstr "Bewerking accepteren"
 msgid "Accept upon expiration"
 msgstr "Na het verstrijken accepteren"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:157
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Geaccepteerd"
@@ -688,7 +688,7 @@ msgid "Add a new entry"
 msgstr "Nieuw lemma toevoegen"
 
 #: ../root/release/edit/recordings.tt:195
-#: ../root/static/scripts/common/i18n.js:224
+#: ../root/static/scripts/common/i18n.js:226
 msgid "Add a new recording"
 msgstr "Nieuwe opname toevoegen"
 
@@ -713,7 +713,7 @@ msgid "Add annotation"
 msgstr "Aantekening toevoegen"
 
 #: ../root/components/relationship-editor.tt:193
-#: ../root/static/scripts/common/i18n.js:234
+#: ../root/static/scripts/common/i18n.js:236
 msgid "Add another instrument"
 msgstr "Nog een instrument toevoegen"
 
@@ -1021,7 +1021,7 @@ msgid ""
 " unique disambiguation comment."
 msgstr "Er bestaat al een object met deze naam en verduidelijking. Je moet een unieke verduidelijking toevoegen."
 
-#: ../root/edit/list.tt:68
+#: ../root/edit/list.tt:77
 msgid "An error occured while loading this edit"
 msgstr "Er trad een fout op bij het laden van deze bewerking."
 
@@ -1212,7 +1212,7 @@ msgstr "Weet je zeker dat je de serie {series} wil verwijderen van MusicBrainz?"
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/static/scripts/common/i18n.js:205
+#: ../root/static/scripts/common/i18n.js:207
 msgid "Area"
 msgstr "Gebied"
 
@@ -1285,7 +1285,7 @@ msgstr "Gebieden"
 #: ../root/search/results-release_group.tt:9 ../root/watch/list.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:33
-#: ../root/static/scripts/common/i18n.js:206
+#: ../root/static/scripts/common/i18n.js:208
 msgid "Artist"
 msgstr "Artiest"
 
@@ -1348,7 +1348,7 @@ msgstr "Vermelding van de artiest:"
 
 #: ../root/artist/aliases.tt:8
 msgid "Artist credits"
-msgstr "Vermeldingen van de artiest"
+msgstr "Op MusicBrainz gebruikte naamvariaties en samenwerkingen"
 
 #: ../root/edit/details/edit_medium.tt:220
 msgid "Artist credits:"
@@ -1418,7 +1418,7 @@ msgstr "Artiesten met een verduidelijking in de naam"
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:3
 #: ../root/report/index.tt:26
 msgid "Artists occuring multiple times in the same artist credit"
-msgstr "Artiesten die meerdere keren in één vermelding staan."
+msgstr "Artiesten die meerdere keren als artiest in één nummer of opname vermeld worden."
 
 #: ../root/report/possible_collaborations.tt:1
 #: ../root/report/possible_collaborations.tt:3
@@ -1584,7 +1584,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Autoredacteurs zijn vertrouwde gebruikers die {url|autoredacteur}privileges hebben gekregen. Door deze privileges kunnen ze een select aantal bewerkingen maken die automatisch worden doorgevoerd zonder door de normale stemmingsprocedure te gaan. Ook geeft dit ze de mogelijkheid om bewerkingen van andere gebruikers direct goed te keuren."
 
-#: ../root/user/profile.tt:156
+#: ../root/user/profile.tt:161
 msgid "Auto-edits"
 msgstr "Automatische bewerkingen"
 
@@ -1788,7 +1788,7 @@ msgid ""
 msgstr "Hieronder staat informatie over de foutmelding. Als je deze fout wil rapporteren, kan je dat doen op {bugs|onze bugtracker}. Voeg de onderstaande informatie alsjeblieft toe aan het rapport. Dit help ons om het op te lossen!"
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:118
+#: ../root/user/profile.tt:125
 msgid "Bio:"
 msgstr "Biografie:"
 
@@ -1918,7 +1918,7 @@ msgstr "Bewerking annuleren"
 msgid "Cancel the election"
 msgstr "Annuleer de verkiezing"
 
-#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
@@ -2065,10 +2065,6 @@ msgstr "Klik hier om een vocaal te kiezen"
 msgid "Click here to choose an instrument"
 msgstr "Klik hier om een instrument te kiezen"
 
-#: ../root/account/edit_ok.tt:12
-msgid "Click {link|here} to continue to your user page."
-msgstr "Klik {link|hier} om verder te gaan naar de gebruikerspagina."
-
 #: ../root/edit/details/add_isrcs.tt:4 ../root/edit/details/edit_barcodes.tt:5
 #: ../root/edit/details/historic/add_puids.tt:3
 msgid "Client:"
@@ -2205,7 +2201,7 @@ msgstr "Coördinaten:"
 
 #: ../root/components/forms.tt:382 ../root/release/edit/tracklist.tt:499
 msgid "Copy Credits"
-msgstr "Vermeldingen kopiëren"
+msgstr "Artiesten kopiëren"
 
 #: ../root/release/edit/recordings.tt:132
 msgid "Copy all track artist credits to associated recordings."
@@ -2314,7 +2310,7 @@ msgstr "Vermeld als:"
 
 #: ../root/release/index.tt:61
 msgid "Credits"
-msgstr "Vermeldingen"
+msgstr "Relaties"
 
 #: ../root/release_group/index.tt:77
 msgid "CritiqueBrainz Reviews"
@@ -2744,7 +2740,6 @@ msgid "Edit Note"
 msgstr "Bewerkingsnotitie"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
-#: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
 #: ../root/layout/menu.tt:39
 msgid "Edit Profile"
 msgstr "Profiel bewerken"
@@ -2871,12 +2866,16 @@ msgstr "Redacteur ‘{user}’"
 msgid "Edits"
 msgstr "Bewerkingen"
 
-#: ../root/user/profile.tt:147
+#: ../root/user/profile.tt:152
 msgid "Edits ({view_url|view})"
 msgstr "Bewerkingen ({view_url|bekijken})"
 
 #: ../root/layout/menu.tt:80
 msgid "Edits by Subscribed Editors"
+msgstr "Bewerkingen door redacteurs waarop je bent geabonneerd"
+
+#: ../root/edit/subscribed-editors.tt:1 ../root/edit/subscribed-editors.tt:3
+msgid "Edits by Your Subscribed Editors"
 msgstr "Bewerkingen door redacteurs waarop je bent geabonneerd"
 
 #: ../root/user/edits.tt:1
@@ -2887,11 +2886,15 @@ msgstr "Bewerkingen door {name}"
 msgid "Edits for Subscribed Entities"
 msgstr "Bewerkingen van objecten waarop je bent geabonneerd"
 
+#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
+msgid "Edits for Your Subscribed Entities"
+msgstr "Bewerkingen van objecten waarop je bent geabonneerd"
+
 #: ../root/entity/edits.tt:1
 msgid "Edits for {name}"
 msgstr "Bewerkingen voor {name}"
 
-#: ../root/main/500.tt:48
+#: ../root/main/500.tt:11
 msgid "Edits loaded for the page:"
 msgstr "Bewerkingen geladen voor de pagina:"
 
@@ -3066,7 +3069,7 @@ msgstr "Fout bij het annuleren van de bewerking"
 msgid "Error loading release: {error}"
 msgstr "Fout bij het laden van de uitgave: {error}"
 
-#: ../root/main/400.tt:8 ../root/main/500.tt:37
+#: ../root/main/info/error.tt:22
 msgid "Error message: "
 msgstr "Foutmelding"
 
@@ -3074,7 +3077,7 @@ msgstr "Foutmelding"
 msgid "Error!"
 msgstr "Fout!"
 
-#: ../root/main/500.tt:9
+#: ../root/main/info/error.tt:3
 msgid "Error:"
 msgid_plural "Errors:"
 msgstr[0] "Foutmelding:"
@@ -3102,7 +3105,7 @@ msgstr "Alleen al één of twee URL’s toevoegen helpt!"
 #: ../root/report/event_list.tt:7 ../root/series/index.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/static/scripts/common/i18n.js:207
+#: ../root/static/scripts/common/i18n.js:209
 msgid "Event"
 msgstr "Evenement"
 
@@ -3211,7 +3214,7 @@ msgstr "Externe verwijzingen"
 msgid "FAQs"
 msgstr "Veelgestelde vragen"
 
-#: ../root/user/profile.tt:164
+#: ../root/user/profile.tt:169
 msgid "Failed"
 msgstr "Mislukt"
 
@@ -3337,19 +3340,19 @@ msgstr "Vooruit"
 msgid "Forward link phrase:"
 msgstr "Bewoording van de voorwaartse link:"
 
-#: ../root/doc/bare_error.tt:17 ../root/doc/error.tt:23
+#: ../root/doc/bare_error.tt:17
 msgid ""
 "Found a broken link on our site? Please let us know by {report|reporting a "
 "bug}."
 msgstr "Heb je een kapotte link gevonden op onze site? Laat het ons alsjeblieft weten door {report|een bug te rapporteren}."
 
-#: ../root/main/400.tt:24
+#: ../root/main/400.tt:16
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
 msgstr "Heb je een probleem gevonden op onze site? {report|Rapporteer het alsjeblieft} en voeg elke foutmelding toe die hierboven wordt weergegeven."
 
-#: ../root/edit/list.tt:36
+#: ../root/edit/list.tt:45
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Ten minste {n} bewerking gevonden"
@@ -3371,7 +3374,7 @@ msgstr[1] "Gevonden in {num} collecties van gebruikers"
 msgid "Found more than one match for the CD with TOC {toc}: "
 msgstr "Meer dan één overeenkomst gevonden voor de cd met TOC {toc}:"
 
-#: ../root/edit/list.tt:40
+#: ../root/edit/list.tt:49
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "{n} bewerking gevonden"
@@ -3611,7 +3614,7 @@ msgid "Help:"
 msgstr "Help:"
 
 #: ../root/components/common-macros.tt:622
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:201
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
 msgid "High"
 msgstr "Hoog"
 
@@ -3620,11 +3623,11 @@ msgstr "Hoog"
 msgid "Historic"
 msgstr "Historisch"
 
-#: ../root/user/profile.tt:95
+#: ../root/user/profile.tt:101
 msgid "Homepage:"
 msgstr "Thuispagina:"
 
-#: ../root/main/500.tt:62
+#: ../root/main/info/environment.tt:7
 msgid "Host:"
 msgstr "Host:"
 
@@ -3805,7 +3808,7 @@ msgstr "ISWC’s met meerdere composities"
 msgid "ISWCs:"
 msgstr "ISWC’s:"
 
-#: ../root/main/500.tt:80
+#: ../root/main/500.tt:25
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
@@ -3972,7 +3975,7 @@ msgstr "Geïnstalleerde applicatie"
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/static/scripts/common/i18n.js:208
+#: ../root/static/scripts/common/i18n.js:210
 msgid "Instrument"
 msgstr "Instrument"
 
@@ -4013,7 +4016,7 @@ msgstr "Instrument:"
 msgid "Instruments"
 msgstr "Instrumenten"
 
-#: ../root/main/500.tt:67
+#: ../root/main/info/environment.tt:13
 msgid "Interface language:"
 msgstr "Interfacetaal:"
 
@@ -4044,6 +4047,10 @@ msgstr "Naar:"
 #: ../root/cdstub/error.tt:5
 msgid "Invalid Disc ID"
 msgstr "Ongeldige disc-id"
+
+#: ../root/main/timeout.tt:6
+msgid "It may help to try again by reloading the page."
+msgstr "Het helpt misschien om de pagina te herladen."
 
 #: ../root/components/common-macros.tt:782
 msgid "Javascript is required for this page to work properly."
@@ -4076,7 +4083,7 @@ msgstr "Aangemeld blijven"
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/static/scripts/common/i18n.js:209
+#: ../root/static/scripts/common/i18n.js:211
 msgid "Label"
 msgstr "Platenmaatschappij"
 
@@ -4201,15 +4208,15 @@ msgstr "Taal: {language}, schrift: {script}"
 msgid "Languages Known:"
 msgstr "Bekende talen:"
 
-#: ../root/user/profile.tt:124
+#: ../root/user/profile.tt:131
 msgid "Languages:"
 msgstr "Talen:"
 
-#: ../root/user/profile.tt:176
+#: ../root/user/profile.tt:181
 msgid "Last 24 hours"
 msgstr "Afgelopen 24 uur"
 
-#: ../root/user/profile.tt:206
+#: ../root/user/profile.tt:211
 msgid "Last 28 days"
 msgstr "Afgelopen 28 dagen"
 
@@ -4223,6 +4230,10 @@ msgstr "Afgelopen 28 dagen"
 #: ../root/report/annotations_works.tt:13
 msgid "Last edited"
 msgstr "Laatst bewerkt op"
+
+#: ../root/user/profile.tt:94
+msgid "Last login:"
+msgstr "Laatste aanmelding:"
 
 #: ../root/cdstub/layout.tt:15
 msgid "Last modified:"
@@ -4404,7 +4415,7 @@ msgstr "Meld u aan om afbeeldingen te uploaden"
 msgid "Long link phrase:"
 msgstr "Lange koppelzin:"
 
-#: ../root/doc/bare_error.tt:11 ../root/doc/error.tt:17 ../root/main/400.tt:18
+#: ../root/doc/bare_error.tt:11 ../root/main/400.tt:10
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr "Op zoek naar hulp? Lees onze {doc|documentatie} of {faq|veelgestelde vragen}."
 
@@ -4435,7 +4446,7 @@ msgid "Lost Username"
 msgstr "Gebruikersnaam kwijt"
 
 #: ../root/components/common-macros.tt:622
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:201
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
 msgid "Low"
 msgstr "Laag"
 
@@ -5014,7 +5025,7 @@ msgstr "Geen afbeelding beschikbaar."
 msgid "No edit notes have been added."
 msgstr "Geen bewerkingsnotities toegevoegd."
 
-#: ../root/edit/list.tt:88
+#: ../root/edit/list.tt:97
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Er zijn geen bewerkingen gevonden die overeen komen met je zoekopdracht. {search|Probeer het opnieuw.}"
 
@@ -5195,7 +5206,7 @@ msgid ""
 msgstr "Geen van de gekoppelde disc-id’s past bij een pregapnummer met de opgegeven lengte."
 
 #: ../root/components/common-macros.tt:622
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:201
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
 msgid "Normal"
 msgstr "Normaal"
 
@@ -5318,6 +5329,10 @@ msgid ""
 "ID is currently attached to are shown."
 msgstr "Alleen uitgaves met hetzelfde aantal nummers ({n}) als de uitgave waar de Disc ID aan is gekoppeld, worden getoond."
 
+#: ../root/edit/list.tt:21
+msgid "Only show open edits"
+msgstr "Alleen openstaande bewerkingen tonen"
+
 #: ../root/edit/cannot_cancel.tt:6
 msgid ""
 "Only the user who created an edit can cancel it, either you did not create "
@@ -5344,7 +5359,7 @@ msgstr "Oeps! Het lijkt er op dat je zoekparameters niet correct waren, controle
 msgid "Oops, something went wrong!"
 msgstr "Oeps, er is iets foutgegaan!"
 
-#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
+#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
 msgstr "Geopend"
 
@@ -5353,17 +5368,9 @@ msgstr "Geopend"
 msgid "Open Edits"
 msgstr "Openstaande bewerkingen"
 
-#: ../root/edit/subscribed-editors.tt:1 ../root/edit/subscribed-editors.tt:3
-msgid "Open Edits by Your Subscribed Editors"
-msgstr "Openstaande bewerkingen door redacteurs waarop je geabonneerd bent."
-
 #: ../root/user/edits.tt:1
 msgid "Open Edits by {name}"
 msgstr "Openstaande bewerkingen door {name}"
-
-#: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
-msgid "Open Edits for Your Subscribed Entities"
-msgstr "Openstaande bewerkingen van objecten waarop je geabonneerd bent."
 
 #: ../root/entity/edits.tt:1
 msgid "Open Edits for {name}"
@@ -5420,7 +5427,7 @@ msgstr "Andere zoekmogelijkheden"
 msgid "Other lookups"
 msgstr "Andere zoekmogelijkheden"
 
-#: ../root/user/profile.tt:209
+#: ../root/user/profile.tt:214
 msgid "Overall"
 msgstr "Algemeen"
 
@@ -5451,7 +5458,7 @@ msgstr "PUID’s:"
 msgid "Packaging:"
 msgstr "Verpakking:"
 
-#: ../root/doc/bare_error.tt:1 ../root/doc/error.tt:1 ../root/doc/error.tt:7
+#: ../root/doc/bare_error.tt:1 ../root/doc/error.tt:1
 #: ../root/main/mirror_404.tt:1 ../root/main/mirror_404.tt:3
 msgid "Page Not Found"
 msgstr "Pagina niet gevonden"
@@ -5508,7 +5515,7 @@ msgstr "Wachtwoord:"
 
 #: ../root/components/forms.tt:383 ../root/release/edit/tracklist.tt:500
 msgid "Paste Credits"
-msgstr "Vermeldingen plakken"
+msgstr "Artiesten plakken"
 
 #: ../root/oauth2/authorize.tt:12
 msgid "Perform the above operations when I'm not using the application"
@@ -5532,7 +5539,7 @@ msgstr "Zin:"
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/static/scripts/common/i18n.js:210
+#: ../root/static/scripts/common/i18n.js:212
 msgid "Place"
 msgstr "Plaats"
 
@@ -5578,7 +5585,7 @@ msgstr "Plaatsen met aantekeningen"
 msgid "Places with deprecated relationships"
 msgstr "Plaatsen met verouderde relaties"
 
-#: ../root/main/500.tt:85
+#: ../root/main/500.tt:30
 msgid ""
 "Please be sure to include the stack trace and request data shown above!"
 msgstr "Vergeet niet de bovenstaande stacktrace en het gegevensverzoek te vermelden!"
@@ -5797,6 +5804,10 @@ msgstr "Privécollectie"
 msgid "Privileged User Accounts"
 msgstr "Geprivilegieerde gebruikers"
 
+#: ../root/main/timeout.tt:5
+msgid "Processing your request took too long and timed out."
+msgstr "Het verwerken van je verzoek duurde te lang en is afgebroken."
+
 #: ../root/layout/menu.tt:168
 msgid "Products"
 msgstr "Producten"
@@ -5888,7 +5899,7 @@ msgstr "Recent toegevoegd"
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/static/scripts/common/i18n.js:211
+#: ../root/static/scripts/common/i18n.js:213
 msgid "Recording"
 msgstr "Opname"
 
@@ -6156,7 +6167,7 @@ msgstr "Relaties:"
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
-#: ../root/static/scripts/common/i18n.js:212
+#: ../root/static/scripts/common/i18n.js:214
 msgid "Release"
 msgstr "Uitgave"
 
@@ -6274,7 +6285,7 @@ msgstr "Uitgavegebeurtenissen:"
 
 #: ../root/report/release_group_url_list.tt:6
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
-#: ../root/static/scripts/common/i18n.js:213
+#: ../root/static/scripts/common/i18n.js:215
 msgid "Release group"
 msgstr "Uitgavegroep"
 
@@ -6742,7 +6753,7 @@ msgstr "Gebruiker rapporteren"
 msgid "Report a Bug"
 msgstr "Programmeerfout rapporteren"
 
-#: ../root/user/profile.tt:252
+#: ../root/user/profile.tt:257
 msgid "Report this user for bad behavior"
 msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 
@@ -6751,7 +6762,11 @@ msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 msgid "Reports"
 msgstr "Rapporten"
 
-#: ../root/main/500.tt:27
+#: ../root/main/timeout.tt:1 ../root/main/timeout.tt:3
+msgid "Request Timed Out"
+msgstr "Verzoek duurde te lang"
+
+#: ../root/main/info/environment.tt:23
 msgid "Request data:"
 msgstr "Gegevensverzoek:"
 
@@ -7122,7 +7137,7 @@ msgstr "Series"
 #: ../root/edit/search_macros.tt:309 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/static/scripts/common/i18n.js:214
+#: ../root/static/scripts/common/i18n.js:216
 msgctxt "singular"
 msgid "Series"
 msgstr "Series"
@@ -7326,7 +7341,7 @@ msgstr "Sommige applicaties en websites ondersteunen toegang tot privégegevens 
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the tabs "
 "shaded red and correct any visible errors."
-msgstr "Er zijn fouten in de opmaak van de ingevoerde gegevens gedetecteerd. Klik op de rode tabbladen en verbeter alle fouten."
+msgstr "Er zijn fouten gevonden in de gegevens die je hebt ingevoerd. Klik op de rode tabbladen en verbeter alle fouten."
 
 #: ../root/cdstub/error.tt:11
 msgid ""
@@ -7507,7 +7522,7 @@ msgstr "Onze excuses, je zoekopdracht (<code>{query}</code>) bevat niet genoeg i
 msgid "Sorry, your query was too large."
 msgstr "Onze excuses, je zoekopdracht was te groot."
 
-#: ../root/doc/bare_error.tt:5 ../root/doc/error.tt:11
+#: ../root/doc/bare_error.tt:5
 msgid "Sorry, “{id}” is not a valid documentation page."
 msgstr "Onze excuses, ‘{id}’ is geen geldige documentatiepagina."
 
@@ -7546,7 +7561,7 @@ msgstr "In aparte artiesten splitsen"
 msgid "Sponsors"
 msgstr "Sponsors"
 
-#: ../root/main/500.tt:19
+#: ../root/main/info/error.tt:13
 msgid "Stack trace:"
 msgstr "Stacktrace:"
 
@@ -7566,7 +7581,7 @@ msgstr "Begindatum"
 msgid "Start:"
 msgstr "Aanvang:"
 
-#: ../root/layout/menu.tt:154 ../root/user/profile.tt:143
+#: ../root/layout/menu.tt:154 ../root/user/profile.tt:148
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -7648,7 +7663,7 @@ msgstr "Voeg dit medium met de eenvoudige methode toe."
 msgid "Submit vote and note"
 msgstr "Notitie en stem indienen"
 
-#: ../root/edit/list.tt:81
+#: ../root/edit/list.tt:90
 msgid "Submit votes &amp; edit notes"
 msgstr "Stemmen & bewerkingsnotities indienen"
 
@@ -7686,7 +7701,7 @@ msgstr "Geabonneerde objecten"
 msgid "Subscribers"
 msgstr "Abonnees"
 
-#: ../root/user/profile.tt:102
+#: ../root/user/profile.tt:108
 msgid "Subscribers:"
 msgstr "Abonnees:"
 
@@ -7767,6 +7782,10 @@ msgstr "Etiketten"
 #: ../root/layout/menu.tt:133
 msgid "Team"
 msgstr "Team"
+
+#: ../root/main/400.tt:20 ../root/main/timeout.tt:9
+msgid "Technical Information"
+msgstr "Technische informatie"
 
 #: ../root/admin/edit_user.tt:14
 msgid "Technical flags"
@@ -9111,7 +9130,7 @@ msgstr "Deze serie heeft geen relaties en zal in de komende paar dagen automatis
 msgid "This series is currently empty."
 msgstr "Deze serie is momenteel leeg."
 
-#: ../root/user/profile.tt:194
+#: ../root/user/profile.tt:199
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Deze tabel geeft een samenvatting van alle stemmen die door deze redacteur zijn uitgebracht."
 
@@ -9165,7 +9184,7 @@ msgstr "Duur"
 
 #: ../root/edit/details/add_event.tt:49 ../root/edit/details/edit_event.tt:38
 #: ../root/event/edit_form.tt:36 ../root/event/layout.tt:33
-#: ../root/main/500.tt:57
+#: ../root/main/info/environment.tt:2
 msgid "Time:"
 msgstr "Tijd:"
 
@@ -9214,7 +9233,7 @@ msgstr "Gebruik om een nieuwe nummerlijst te creëren een bestaande nummerlijst 
 
 #: ../root/release/edit/information.tt:117
 msgid "To edit types, please {edit_page|edit the release group}."
-msgstr "{edit_page|Bewerk de uitgavegroep} om de types te veranderen."
+msgstr "{edit_page|Bewerk de uitgavegroep} om het type te veranderen."
 
 #: ../root/elections/show.tt:96
 msgid "To find out if you can vote for this candidate, please {url|log in}."
@@ -9570,7 +9589,7 @@ msgstr "Types:"
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/report/url_list.tt:7
 #: ../root/url/header.tt:8 ../lib/MusicBrainz/Server/Edit/URL.pm:7
-#: ../root/static/scripts/common/i18n.js:215
+#: ../root/static/scripts/common/i18n.js:217
 msgid "URL"
 msgstr "URL"
 
@@ -9587,7 +9606,7 @@ msgid "URL Not Found"
 msgstr "URL niet gevonden"
 
 #: ../root/components/common-macros.tt:572 ../root/edit/details/edit_url.tt:5
-#: ../root/edit/details/edit_url.tt:11 ../root/main/500.tt:72
+#: ../root/edit/details/edit_url.tt:11 ../root/main/info/environment.tt:18
 #: ../root/otherlookup/form.tt:3 ../root/url/edit_form.tt:6
 #: ../root/url/index.tt:5
 msgid "URL:"
@@ -9864,7 +9883,7 @@ msgstr "Op bewerkingen stemmen"
 msgid "Vote tally:"
 msgstr "Telling:"
 
-#: ../root/user/profile.tt:160
+#: ../root/user/profile.tt:165
 msgid "Voted down"
 msgstr "Weggestemd"
 
@@ -9877,7 +9896,7 @@ msgstr "Stemmer"
 msgid "Votes"
 msgstr "Stemmen"
 
-#: ../root/user/profile.tt:198
+#: ../root/user/profile.tt:203
 msgid "Votes ({view_url|view})"
 msgstr "Stemmen ({view_url|bekijken})"
 
@@ -9994,13 +10013,6 @@ msgid ""
 "Please wait a few minutes and reload this page to check again."
 msgstr "We hebben de laatste tijd geen donatie meer van je gehad. Als je net een donatie hebt gedaan via PayPal, dan hebben we nog geen bericht van PayPal gehad. Wacht alsjeblieft een paar minuten en herlaad dan deze pagina om het opnieuw te controleren."
 
-#: ../root/account/edit_ok.tt:8
-msgid ""
-"We have sent you a verification email to <code>{email}</code>. Please check "
-"your mailbox and click on the link in the email to verify the new email "
-"address."
-msgstr "We hebben je een verificatie-e-mail gestuurd naar <code>{email}</code>. Kijk in je postvak en klik op de link in de e-mail om het nieuwe e-mailadres te verifiëren."
-
 #: ../root/cdtoc/lookup.tt:10
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr "We hebben de DiscID <code>{discid}</code> gebruikt om deze informatie op te zoeken."
@@ -10011,7 +10023,7 @@ msgid ""
 "page."
 msgstr "We zullen je geboortedatum gebruiken om je leeftijd op je profielpagina te tonen."
 
-#: ../root/main/500.tt:77
+#: ../root/main/500.tt:22
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
 "your request &#x2014; the problem may go away."
@@ -10089,7 +10101,7 @@ msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_li
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/static/scripts/common/i18n.js:216
+#: ../root/static/scripts/common/i18n.js:218
 msgid "Work"
 msgstr "Compositie"
 
@@ -10553,10 +10565,6 @@ msgid ""
 " page."
 msgstr "Je instellingen zijn bewaard. Klik {link|hier} om verder te gaan naar je gebruikerspagina."
 
-#: ../root/account/edit_ok.tt:6
-msgid "Your profile has been updated."
-msgstr "Je profiel is bijgewerkt"
-
 #: ../root/user/report.tt:7
 msgid ""
 "Your report will be sent to our {uri|account administrators}, who will "
@@ -10738,7 +10746,7 @@ msgstr "van {date} tot ????"
 msgid "from {date} to present"
 msgstr "vanaf {date} tot nu"
 
-#: ../root/main/500.tt:51
+#: ../root/main/500.tt:14
 msgid "fully loaded"
 msgstr "volledig geladen"
 
@@ -10930,7 +10938,7 @@ msgstr "primair voor {locale}"
 msgid "randomly"
 msgstr "willekeurig"
 
-#: ../root/main/500.tt:51
+#: ../root/main/500.tt:14
 msgid "raw edit data"
 msgstr "onbewerkte bewerkingsgegevens"
 
@@ -10985,7 +10993,7 @@ msgstr "toon nummerlijst"
 msgid "start date"
 msgstr "begindatum"
 
-#: ../root/user/profile.tt:113
+#: ../root/user/profile.tt:119
 msgid "subscribe"
 msgstr "abonneren"
 
@@ -11009,7 +11017,7 @@ msgstr[1] "nummers {tracks}"
 msgid "tracks"
 msgstr "nummers"
 
-#: ../root/user/profile.tt:111
+#: ../root/user/profile.tt:117
 msgid "unsubscribe"
 msgstr "abonnement opzeggen"
 
@@ -11062,14 +11070,14 @@ msgstr[1] "{artist} heeft geen uitgaves met maar {n} nummers."
 msgid "{collection} by {owner}"
 msgstr "{collection} van {owner}"
 
-#: ../root/user/profile.tt:104
+#: ../root/user/profile.tt:110
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|bekijk lijst})"
 
-#: ../root/user/profile.tt:153 ../root/user/profile.tt:157
-#: ../root/user/profile.tt:161 ../root/user/profile.tt:165
-#: ../root/user/profile.tt:169 ../root/user/profile.tt:173
-#: ../root/user/profile.tt:177
+#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
+#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
+#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
+#: ../root/user/profile.tt:182
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|bekijk lijst})"
 
@@ -11328,7 +11336,7 @@ msgstr "{num}. {relationship}"
 msgid "{owner} (in list {collection})"
 msgstr "{owner} (in de lijst {collection})"
 
-#: ../root/user/profile.tt:222 ../root/user/profile.tt:226
+#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
 msgid "{percentage}%"
 msgstr "{percentage}%"
 
@@ -11414,7 +11422,7 @@ msgid ""
 msgstr "{valink|Diverse Artiesten} moet zelden worden gebruikt op opnames. Zorg er voor dat de artiest goed is ingevoerd."
 
 #: ../root/components/common-macros.tt:1001
-#: ../root/static/scripts/common/i18n.js:199
+#: ../root/static/scripts/common/i18n.js:201
 msgid "{variable}:"
 msgstr "{variable}:"
 
@@ -11476,74 +11484,86 @@ msgid_plural ""
 msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is ingevoerd, met {num_open_edits} in de wachtrij voor collegiale toetsing. De rest is automatisch geaccepteerd en doorgevoerd."
 msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn ingevoerd, met {num_open_edits} in de wachtrij voor collegiale toetsing. De rest is automatisch geaccepteerd en doorgevoerd."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:45
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:46
 msgid "The user ID is missing or is in an invalid format."
 msgstr "Dit gebruikers ID ontbreekt of heeft een ongeldige opmaak."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:52
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:53
 msgid "The email address is missing."
 msgstr "Het e-mailadres ontbreekt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:59
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The time is missing or is in an invalid format."
 msgstr "De tijdsduur ontbreekt of heeft een ongeldige opmaak."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:67
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:68
 msgid "The verification key is missing."
 msgstr "De verificatiesleutel ontbreekt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:75
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:212
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:76
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:213
 msgid "The checksum is invalid, please double check your email."
 msgstr "Het controlegetal klopt niet, controleer je e-mail alsjeblieft opnieuw."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:83
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:84
 msgid "Sorry, this email verification link has expired."
 msgstr "Onze excuses, deze e-mailverificatielink is verlopen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:221
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:93
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "De gebruiker met het ID “{user_id}” kon niet worden gevonden."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:135
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
 msgid ""
 "We were unable to send login information to your email address.  Please try again,\n"
 "             however if you continue to experience difficulty contact us at support@musicbrainz.org."
 msgstr "Het is ons niet gelukt aanmeldinformatie naar je e-mailadres te sturen. Probeer het a.u.b. opnieuw,\nmaar neem contact met ons op via support@musicbrainz.org als je problemen blijft ondervinden."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:159
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:160
 msgid "There is no user with this username"
 msgstr "Er is geen gebruiker met deze gebruikersnaam"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:164
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:165
 msgid "There is no user with this username and email"
 msgstr "Er is geen gebruiker met deze gebruikersnaam en e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:167
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "We kunnen geen e-mail sturen met een nieuw wachtwoord omdat we van deze gebruiker geen e-mailadres hebben."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:196
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:197
 msgid "Missing one or more required parameters."
 msgstr "Eén of meerdere verplichte parameters ontbreekt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:205
 msgid "Sorry, this password reset link has expired."
 msgstr "Onze excuses, deze link om het wachtwoord opnieuw in te stellen is verlopen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:262
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
 msgid "There is no user with this email"
 msgstr "Er is geen gebruiker met dit e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:346
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:318
+msgid "Your profile has been updated."
+msgstr "Je profiel is bijgewerkt"
+
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:322
+#, perl-brace-format
+msgid ""
+"We have sent you a verification email to <code>{email}</code>.\n"
+"                         Please check your mailbox and click on the link in the email\n"
+"                         to verify the new email address."
+msgstr "We hebben je een verificatie-e-mail gestuurd naar <code>{email}</code>.\nKijk in je postvak en klik op de link in de e-mail om het nieuwe e-mailadres te verifiëren."
+
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:347
 msgid "Your password has been changed."
 msgstr "Je wachtwoord is veranderd."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:534
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:535
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
@@ -11607,7 +11627,7 @@ msgstr "Het geselecteerde medium kan geen disc-id’s hebben"
 msgid "The provided artist id is not valid"
 msgstr "De ingevoerde artiest-id is niet geldig"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:201
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
 msgid "Default"
 msgstr "Standaard"
 
@@ -11670,11 +11690,11 @@ msgstr "Je bericht kon niet verzonden worden"
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "“{type}” is geen type object dat een waardering kan hebben."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:527
+#: ../lib/MusicBrainz/Server/Controller/User.pm:528
 msgid "An error occurred while trying to send your report."
 msgstr "Tijdens het versturen van je rapport is een fout opgetreden."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:531
+#: ../lib/MusicBrainz/Server/Controller/User.pm:532
 msgid "Your report has been sent."
 msgstr "Je rapport is verstuurd."
 
@@ -11764,7 +11784,7 @@ msgstr "Alias aan gebied toevoegen"
 msgid "Add area annotation"
 msgstr "Aantekening aan het gebied toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:20
 msgid "Add area"
 msgstr "Gebied toevoegen"
 
@@ -11776,7 +11796,7 @@ msgstr "Gebied verwijderen"
 msgid "Remove area alias"
 msgstr "Alias van gebied verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:32
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:33
 msgid "Edit area"
 msgstr "Gebied bewerken"
 
@@ -12426,7 +12446,7 @@ msgstr "{start_track}&#x2013;{end_track}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:271
 #: ../lib/MusicBrainz/Server/Translation.pm:265
-#: ../root/static/scripts/common/i18n.js:173
+#: ../root/static/scripts/common/i18n.js:175
 #, perl-brace-format
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
@@ -12869,19 +12889,19 @@ msgid ""
 msgstr "Een pseudo-uitgave is een kopie van een uitgave voor vertalings- of transcriptiedoeleinden."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:245
-#: ../root/static/scripts/common/i18n.js:147
+#: ../root/static/scripts/common/i18n.js:149
 #, perl-brace-format
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} en {last_list_item}"
 
 #: ../lib/MusicBrainz/Server/Translation.pm:251
-#: ../root/static/scripts/common/i18n.js:156
+#: ../root/static/scripts/common/i18n.js:158
 #, perl-brace-format
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
 #: ../lib/MusicBrainz/Server/Translation.pm:262
-#: ../root/static/scripts/common/i18n.js:169
+#: ../root/static/scripts/common/i18n.js:171
 #, perl-brace-format
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
@@ -12900,7 +12920,7 @@ msgstr "Probeer het eens met een geïndexeerde zoekopdracht."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:90
 msgid "Type to search, or paste an MBID"
-msgstr "Type of plak een MBID om te zoeken"
+msgstr "Tik hier een naam om te zoeken, of plak een MBID"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:162
 msgid "Clear recent items"
@@ -12993,71 +13013,71 @@ msgstr "Etiketten indienen"
 msgid "Tag"
 msgstr "Etiket toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:220
+#: ../root/static/scripts/common/i18n.js:222
 msgid "Add a new artist"
 msgstr "Een nieuwe artiest toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:221
+#: ../root/static/scripts/common/i18n.js:223
 msgid "Add a new event"
 msgstr "Nieuw evenement toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:222
+#: ../root/static/scripts/common/i18n.js:224
 msgid "Add a new label"
 msgstr "Een nieuwe platenmaatschappij toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:223
+#: ../root/static/scripts/common/i18n.js:225
 msgid "Add a new place"
 msgstr "Een nieuwe plaats toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:225
+#: ../root/static/scripts/common/i18n.js:227
 msgid "Add a new release group"
 msgstr "Een nieuwe uitgavegroep toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:226
+#: ../root/static/scripts/common/i18n.js:228
 msgid "Add a new series"
 msgstr "Nieuwe serie toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:227
+#: ../root/static/scripts/common/i18n.js:229
 msgid "Add a new work"
 msgstr "Een nieuwe compositie toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:231
+#: ../root/static/scripts/common/i18n.js:233
 msgid "Add another area"
 msgstr "Nog een gebied toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:232
+#: ../root/static/scripts/common/i18n.js:234
 msgid "Add another artist"
 msgstr "Nog een artiest toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:233
+#: ../root/static/scripts/common/i18n.js:235
 msgid "Add another event"
 msgstr "Nog een evenement toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:235
+#: ../root/static/scripts/common/i18n.js:237
 msgid "Add another label"
 msgstr "Nog een platenmaatschappij toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:236
+#: ../root/static/scripts/common/i18n.js:238
 msgid "Add another place"
 msgstr "Nog een plaats toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:237
+#: ../root/static/scripts/common/i18n.js:239
 msgid "Add another recording"
 msgstr "Nog een opname toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:238
+#: ../root/static/scripts/common/i18n.js:240
 msgid "Add another release"
 msgstr "Nog een uitgave toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:239
+#: ../root/static/scripts/common/i18n.js:241
 msgid "Add another release group"
 msgstr "Nog een uitgavegroep toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:240
+#: ../root/static/scripts/common/i18n.js:242
 msgid "Add another series"
 msgstr "Nog een serie toevoegen"
 
-#: ../root/static/scripts/common/i18n.js:241
+#: ../root/static/scripts/common/i18n.js:243
 msgid "Add another work"
 msgstr "Nog een compositie toevoegen"
 
@@ -13147,7 +13167,7 @@ msgstr "Nog een koppeling toevoegen:"
 msgid "Remove Link"
 msgstr "Koppeling verwijderen"
 
-#: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:16
+#: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:17
 msgid "Guess Case Options"
 msgstr "Opties voor het gokken van hoofdlettergebruik"
 

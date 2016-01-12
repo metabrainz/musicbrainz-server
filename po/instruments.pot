@@ -1192,6 +1192,10 @@ msgstr ""
 msgid "glass harmonica"
 msgstr ""
 
+#: DB:instrument/name:765
+msgid "glass harp"
+msgstr ""
+
 #: DB:instrument/name:165
 msgid "glockenspiel"
 msgstr ""
@@ -1677,12 +1681,20 @@ msgstr ""
 msgid "mandolin"
 msgstr ""
 
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr ""
+
 #: DB:instrument/name:113
 msgid "maracas"
 msgstr ""
 
 #: DB:instrument/name:166
 msgid "marimba"
+msgstr ""
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
 msgstr ""
 
 #: DB:instrument/name:637

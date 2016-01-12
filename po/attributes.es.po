@@ -6,9 +6,10 @@
 #   <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # gr0uch0mars <email address hidden>, 2011
-# Héctor Arroyo <email address hidden>, 2012
+# Héctor Arroyo <email address hidden>, 2012,2015
 # Héctor Arroyo <email address hidden>, 2012
 # Ismael Olea <email address hidden>, 2013-2015
+# Kevin López Brante <email address hidden>, 2015
 # Marta PD <email address hidden>, 2014
 # Mathias Gonzalez <email address hidden>, 2015
 # Nicolás Tamargo <email address hidden>, 2011-2012
@@ -20,8 +21,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-09 14:07+0000\n"
-"Last-Translator: Mathias Gonzalez <email address hidden>\n"
+"PO-Revision-Date: 2015-12-24 23:56+0000\n"
+"Last-Translator: Héctor Arroyo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,14 +36,14 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "\"Motete\" es un término que se aplica a diferentes tipos de piezas corales (por lo general sin acompañamiento). Lo que es exactamente un motete depende un poco del período."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
 msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
-msgstr ""
+msgstr "\"Sonata\" es un término general usado para describir pequeñas piezas instrumentales (muy a menudo en solitario o en solitario + teclado), inicialmente en la música barroca."
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -111,14 +112,14 @@ msgctxt "work_type"
 msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
-msgstr ""
+msgstr "Un ballet es música compuesta principalmente para ser usado, junto con una coreografìa, en una producción de danza ballet."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
 msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
-msgstr ""
+msgstr "Una cantata es una composición vocal (a menudo coral) con acompañamiento instrumental (usualmente orquestral), típicamente en varios movimientos."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -132,7 +133,7 @@ msgid ""
 "A convention, expo or trade fair is an event which is not typically "
 "orientated around music performances, but can include them as side "
 "activities."
-msgstr ""
+msgstr "Una convención, exposición o feria es un evento que no está orientado típicamente alrededor de espectáculos de música, pero puede incluirla como actividades colaterales."
 
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -180,7 +181,7 @@ msgctxt "event_type"
 msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
-msgstr ""
+msgstr "Una fiesta, recepción u otro evento celebrado específicamente para el lanzamiento de una edición."
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -202,7 +203,7 @@ msgctxt "place_type"
 msgid ""
 "A place that has live artistic performances as one of its primary functions,"
 " such as a concert hall."
-msgstr ""
+msgstr "Una ubicación que tiene como una de sus funciones principales la realización de actuaciones artísticas en directo, como una sala de conciertos."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -254,7 +255,7 @@ msgstr "Una serie de eventos."
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Una serie de actuaciones del mismo show en la misma sala."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
@@ -331,7 +332,7 @@ msgctxt "work_type"
 msgid ""
 "A symphony is an extended composition, almost always scored for orchestra "
 "without soloists."
-msgstr ""
+msgstr "Una sinfonía es una composición extendida, casi siempre escrita para una orquesta sin solistas."
 
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
@@ -449,7 +450,7 @@ msgstr "Álbum"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Permite establecer manualmente la posición de cada elemento en la serie."
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
@@ -549,7 +550,7 @@ msgctxt "release_status"
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " Most releases will fit into this category."
-msgstr ""
+msgstr "Cualquier publicación autorizada oficialmente por el artista y/o su discográfica (la mayoría de las publicaciones son oficiales)."
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"
@@ -1078,6 +1079,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp minor"
 msgstr "do sostenido menor"
 
+#: DB:work_attribute_type/name:19
+msgctxt "work_attribute_type"
+msgid "CASH ID"
+msgstr ""
+
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
@@ -1389,6 +1395,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Darb-ı Türki"
 msgstr "Darb-ı Türki"
 
+#: DB:work_attribute_type_allowed_value/value:796
+msgctxt "work_attribute_type_allowed_value"
+msgid "Darbeyn"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
 msgid "Darbār"
@@ -1458,6 +1469,11 @@ msgstr "Devr-i Süreyya Sofyanı"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Devr-i Turan"
 msgstr "Devr-i Turan"
+
+#: DB:work_attribute_type_allowed_value/value:797
+msgctxt "work_attribute_type_allowed_value"
+msgid "Devr-i Turan II"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:79
 msgctxt "work_attribute_type_allowed_value"
@@ -1874,15 +1890,15 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Ferahnakaşiran"
 msgstr "Ferahnakaşiran"
 
+#: DB:work_attribute_type_allowed_value/value:370
+msgctxt "work_attribute_type_allowed_value"
+msgid "Ferahnüma"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:371
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ferahzad"
 msgstr "Ferahzad"
-
-#: DB:work_attribute_type_allowed_value/value:370
-msgctxt "work_attribute_type_allowed_value"
-msgid "Feraznüma"
-msgstr "Feraznüma"
 
 #: DB:event_type/name:2
 msgctxt "event_type"
@@ -2545,7 +2561,7 @@ msgid ""
 "Island is used for islands and atolls which don't form subdivisions of their"
 " own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
-msgstr ""
+msgstr "Una isla es un tipo de división usado para atolones e islas que no forman subdivisiones por si mismas, como por ejemplo Skye. Las islas no son tenidas en cuenta al mostrar las áreas padre de un área dada."
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -4002,6 +4018,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Raksaksağı"
 msgstr "Raksaksağı"
 
+#: DB:work_attribute_type_allowed_value/value:798
+msgctxt "work_attribute_type_allowed_value"
+msgid "Raksaksağı II"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:764
 msgctxt "work_attribute_type_allowed_value"
 msgid "Raksan"
@@ -4277,10 +4298,20 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:work_attribute_type/name:21
+msgctxt "work_attribute_type"
+msgid "SACEM ID"
+msgstr ""
+
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
 msgid "SESAC ID"
 msgstr "Identificador SESAC"
+
+#: DB:work_attribute_type/name:20
+msgctxt "work_attribute_type"
+msgid "SGAE ID"
+msgstr ""
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
@@ -4296,6 +4327,11 @@ msgstr "SHM-SACD"
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
 msgstr "Identificador SOCAN"
+
+#: DB:work_attribute_type/name:18
+msgctxt "work_attribute_type"
+msgid "SUISA ID"
+msgstr ""
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -4920,6 +4956,11 @@ msgstr "Türkaksağı"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Türki Hicaz"
 msgstr "Türki Hicaz"
+
+#: DB:work_attribute_type_allowed_value/value:799
+msgctxt "work_attribute_type_allowed_value"
+msgid "Türkmen"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:675
 msgctxt "work_attribute_type_allowed_value"
