@@ -4785,7 +4785,7 @@ MB.relationshipEditor.exportTypeInfo({
          "cardinality1" : 0,
          "deprecated" : false,
          "id" : 281,
-         "orderableDirection" : 0,
+         "orderableDirection" : 1,
          "phrase" : "parts",
          "gid" : "ca8d3642-ce5f-49f8-91f2-125d72524e6a"
       }

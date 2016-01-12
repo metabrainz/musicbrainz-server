@@ -9,6 +9,7 @@ test 'Delete account as a regular user' => sub {
 
     my $test = shift;
     my $mech = $test->mech;
+    my $second_session = $test->make_mech;
     my $c    = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
@@ -17,8 +18,16 @@ test 'Delete account as a regular user' => sub {
     $mech->tick('remember_me', '1');
     $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
+    $second_session->get('/account/edit');
+    $second_session->content_contains('You need to be logged in to view this page', 'not logged in in second session');
+    $second_session->get('/login');
+    $second_session->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
+
     $mech->get('/');
     $mech->content_contains('Alice', 'is logged in as regular user');
+
+    $second_session->get('/');
+    $second_session->content_contains('Alice', 'is logged in in second session');
 
     $mech->get('/admin/user/delete/new_editor');
     is($mech->status(), 403, 'cannot delete foreign account');
@@ -34,6 +43,11 @@ test 'Delete account as a regular user' => sub {
     html_ok($mech->content);
     $mech->content_contains('You need to be logged in to view this page');
 
+    $second_session->get('/');
+    is($second_session->status, 500, 'restoring deleted user fails');
+
+    $second_session->get_ok('/');
+    $second_session->content_contains('Log In', 'no longer logged in in second session');
 };
 
 test 'Delete account as an admin' => sub {

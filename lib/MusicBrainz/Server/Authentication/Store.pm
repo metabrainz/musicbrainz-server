@@ -43,7 +43,9 @@ sub for_session
 sub from_session
 {
     my ($self, $c, $frozen) = @_;
-    return _rebless_editor($c->model('Editor')->get_by_id($frozen->{id}));
+    my $editor = $c->model('Editor')->get_by_id($frozen->{id});
+    return unless ($editor && !$editor->deleted);
+    return _rebless_editor($editor);
 }
 
 sub _rebless_editor {
