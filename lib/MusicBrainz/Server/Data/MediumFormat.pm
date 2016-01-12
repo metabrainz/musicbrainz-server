@@ -6,10 +6,12 @@ use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'mf' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'medium_format' }
 
 sub _table
 {

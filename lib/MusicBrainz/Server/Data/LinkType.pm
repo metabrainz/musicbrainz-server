@@ -17,7 +17,9 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linktype' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
+
+sub _type { 'link_type' }
 
 sub _table
 {

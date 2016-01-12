@@ -7,10 +7,12 @@ use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'release_group_secondary_type' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'release_group_secondary_type' }
 
 sub _table
 {
