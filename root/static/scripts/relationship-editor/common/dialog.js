@@ -490,7 +490,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return i18n.l("The end date cannot preceed the begin date.");
+                    return i18n.l("The end date cannot precede the begin date.");
                 }
             }
 
