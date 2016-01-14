@@ -71,6 +71,9 @@ sub _fix_html_markup
     {
         my $src = $node->attr('src') || "";
         $node->attr('src', $src) if ($src =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,);
+        # Also re-write srcset values
+        my $srcset = $node->attr('srcset') || "";
+        $node->attr('srcset', $srcset) if ($srcset =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,g);
     }
 
     for my $node ($tree->findnodes('//table')->get_nodelist)
