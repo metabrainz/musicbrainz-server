@@ -146,7 +146,7 @@ sub _hash_to_row
 sub get_by_gid
 {
     my ($self, $gid) = @_;
-    my @result = values %{$self->_get_by_keys("gid", $gid)};
+    my @result = $self->_get_by_keys('gid', $gid);
     if (scalar(@result)) {
         return $result[0];
     }

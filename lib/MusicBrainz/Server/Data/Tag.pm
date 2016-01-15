@@ -34,7 +34,7 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my @result = values %{$self->_get_by_keys('name', $name)};
+    my @result = $self->_get_by_keys('name', $name);
     return $result[0];
 }
 
