@@ -8,10 +8,11 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
-var _ = require('lodash');
-var request = require('../common/utility/request');
-var similarity = require('../edit/utility/similarity');
-import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} from '../common/constants';
+const _ = require('lodash');
+
+const {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} = require('../common/constants');
+const request = require('../common/utility/request');
+const similarity = require('../edit/utility/similarity');
 
 (function (releaseEditor) {
 

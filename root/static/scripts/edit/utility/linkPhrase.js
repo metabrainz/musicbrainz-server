@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var i18n = require('../../common/i18n');
-var clean = require('../../common/utility/clean');
+const _ = require('lodash');
+
+const i18n = require('../../common/i18n');
+const clean = require('../../common/utility/clean');
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
 

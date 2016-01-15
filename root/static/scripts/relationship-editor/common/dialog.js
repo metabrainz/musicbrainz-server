@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../common/i18n.js');
-var dates = require('../../edit/utility/dates.js');
-import * as URLCleanup from '../../edit/URLCleanup';
-import {PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
+const i18n = require('../../common/i18n');
+const URLCleanup = require('../../edit/URLCleanup');
+const dates = require('../../edit/utility/dates');
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 

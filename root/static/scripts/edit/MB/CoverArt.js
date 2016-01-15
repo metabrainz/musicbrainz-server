@@ -18,7 +18,7 @@
 
 */
 
-var filesize = require('filesize');
+const filesize = require('filesize');
 
 MB.CoverArt = {};
 

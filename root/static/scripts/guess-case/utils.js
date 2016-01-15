@@ -4,8 +4,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var clean = require('../common/utility/clean');
-var flags = require('./flags');
+const clean = require('../common/utility/clean');
+const flags = require('./flags');
 
 // Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence.
 var preBracketSingleWordsList = [

@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var request = require('../common/utility/request.js');
-var debounce = require('../common/utility/debounce.js');
-import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
+const {MAX_LENGTH_DIFFERENCE} = require('../common/constants');
+const request = require('../common/utility/request');
+const debounce = require('../common/utility/debounce');
 
 (function (releaseEditor) {
 

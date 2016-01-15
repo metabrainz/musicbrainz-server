@@ -3,17 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var clean = require('../common/utility/clean');
-var debounce = require('../common/utility/debounce');
-var isPositiveInteger = require('../edit/utility/isPositiveInteger');
-import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
+const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
+const clean = require('../common/utility/clean');
+const debounce = require('../common/utility/debounce');
+const isPositiveInteger = require('../edit/utility/isPositiveInteger');
+const validation = require('../edit/validation');
 
 const ERROR_NO_CHANGES = 3;
 
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
-    var validation = require('../edit/validation.js');
 
 
     var releaseEditData = utils.withRelease(MB.edit.fields.release);

@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n');
-var clean = require('../common/utility/clean');
-var request = require('../common/utility/request');
-var externalLinks = require('../edit/externalLinks');
-var validation = require('../edit/validation');
+const i18n = require('../common/i18n');
+const clean = require('../common/utility/clean');
+const request = require('../common/utility/request');
+const externalLinks = require('../edit/externalLinks');
+const validation = require('../edit/validation');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
     activeTabID: ko.observable("#information"),

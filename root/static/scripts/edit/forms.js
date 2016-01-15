@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var i18n = require('../common/i18n.js');
-var linkPhrase = require('../edit/utility/linkPhrase');
+const _ = require('lodash');
+
+const i18n = require('../common/i18n');
+const linkPhrase = require('../edit/utility/linkPhrase');
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;

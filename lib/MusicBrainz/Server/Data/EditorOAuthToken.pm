@@ -45,21 +45,21 @@ sub _entity_class
 sub get_by_authorization_code
 {
     my ($self, $token) = @_;
-    my @result = values %{$self->_get_by_keys('authorization_code', $token)};
+    my @result = $self->_get_by_keys('authorization_code', $token);
     return $result[0];
 }
 
 sub get_by_access_token
 {
     my ($self, $token) = @_;
-    my @result = values %{$self->_get_by_keys('access_token', $token)};
+    my @result = $self->_get_by_keys('access_token', $token);
     return $result[0];
 }
 
 sub get_by_refresh_token
 {
     my ($self, $token) = @_;
-    my @result = values %{$self->_get_by_keys('refresh_token', $token)};
+    my @result = $self->_get_by_keys('refresh_token', $token);
     return $result[0];
 }
 

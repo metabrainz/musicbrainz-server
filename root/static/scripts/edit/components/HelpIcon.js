@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var React = require('react');
-var Tooltip = require('./Tooltip.js');
+const React = require('react');
+
+const Tooltip = require('./Tooltip');
 
 class HelpIcon extends React.Component {
   constructor(props) {

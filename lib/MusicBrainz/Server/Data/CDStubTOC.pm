@@ -44,7 +44,7 @@ sub load
 sub get_by_discid
 {
     my ($self, $discid) = @_;
-    my @result = values %{$self->_get_by_keys("discid", $discid)};
+    my @result = $self->_get_by_keys("discid", $discid);
     return $result[0];
 }
 

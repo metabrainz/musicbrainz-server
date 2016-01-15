@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import {trim} from 'lodash';
-import moment from 'moment';
+const {trim} = require('lodash');
+const moment = require('moment');
 
-import 'moment-timezone';
-import 'moment-strftime';
+require('moment-strftime');
+require('moment-timezone');
 
-export default function formatUserDate(user, dateString, options) {
+function formatUserDate(user, dateString, options) {
   let preferences = user.preferences;
   let result = moment(dateString);
   let format = '%Y-%m-%d %H:%M %Z';
@@ -29,3 +29,5 @@ export default function formatUserDate(user, dateString, options) {
 
   return result.strftime(format);
 }
+
+module.exports = formatUserDate;

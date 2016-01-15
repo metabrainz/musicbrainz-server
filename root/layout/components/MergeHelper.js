@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import descriptiveLink from '../../static/scripts/common/utility/descriptiveLink';
-import {l} from '../../static/scripts/common/i18n';
+const React = require('react');
+
+const {l} = require('../../static/scripts/common/i18n');
+const descriptiveLink = require('../../static/scripts/common/utility/descriptiveLink');
 
 const MergeHelper = () => (
   <div id="current-editing">
@@ -38,4 +39,4 @@ const MergeHelper = () => (
   </div>
 );
 
-export default MergeHelper;
+module.exports = MergeHelper;

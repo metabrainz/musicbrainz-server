@@ -18,8 +18,8 @@
 
 */
 
-import getBooleanCookie from '../../utility/getBooleanCookie';
-var setCookie = require('../../utility/setCookie');
+const getBooleanCookie = require('../../utility/getBooleanCookie');
+const setCookie = require('../../utility/setCookie');
 
 MB.Control.FilterButton = function () {
     var self = {};

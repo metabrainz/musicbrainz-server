@@ -1,6 +1,6 @@
-import {parse as parseCookie} from 'cookie';
+const parseCookie = require('cookie').parse;
 
-export default function getCookie(name, defaultValue = undefined) {
+function getCookie(name, defaultValue = undefined) {
   let cookie;
   if (typeof $c !== 'undefined') {
     cookie = $c.req.headers.cookie;
@@ -15,3 +15,5 @@ export default function getCookie(name, defaultValue = undefined) {
   }
   return defaultValue;
 }
+
+module.exports = getCookie;

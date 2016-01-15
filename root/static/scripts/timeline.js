@@ -1,8 +1,8 @@
-var debounce = require('./common/utility/debounce.js');
+const debounce = require('./common/utility/debounce');
 
-require('../lib/flot/jquery.flot.js');
-require('../lib/flot/jquery.flot.selection.js');
-require('./jquery.flot.musicbrainz_events.js');
+require('../lib/flot/jquery.flot');
+require('../lib/flot/jquery.flot.selection');
+require('./jquery.flot.musicbrainz_events');
 
 MB.Timeline = {};
 

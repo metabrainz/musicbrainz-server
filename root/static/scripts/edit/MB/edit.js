@@ -3,11 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var nonEmpty = require('../utility/nonEmpty');
-var clean = require('../../common/utility/clean');
-var request = require('../../common/utility/request');
-import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
+const _ = require('lodash');
+
+const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
+const clean = require('../../common/utility/clean');
+const request = require('../../common/utility/request');
+const nonEmpty = require('../utility/nonEmpty');
 
 (function (edit) {
 

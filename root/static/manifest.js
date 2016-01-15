@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import fs from 'fs';
-import path from 'path';
-import React from 'react';
+const fs = require('fs');
+const path = require('path');
+const React = require('react');
 
 let MANIFEST_MTIME = 0;
 let MANIFEST_LAST_CHECKED = 0;
@@ -32,10 +32,13 @@ function pathTo(manifest) {
   return path.join('/static/build/', MANIFEST_SIGNAUTRES[manifest]);
 }
 
-export function js(manifest) {
+function js(manifest) {
   return <script src={pathTo(manifest + '.js')}></script>;
 }
 
-export function css(manifest) {
+function css(manifest) {
   return <link rel="stylesheet" type="text/css" href={pathTo(manifest + '.css')} />;
 }
+
+exports.js = js;
+exports.css = css;

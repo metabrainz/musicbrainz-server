@@ -3,8 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var request = require('../common/utility/request.js');
+const i18n = require('../common/i18n');
+const request = require('../common/utility/request');
 
 (function (RE) {
 
