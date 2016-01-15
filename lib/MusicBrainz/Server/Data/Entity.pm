@@ -32,7 +32,7 @@ sub _get_by_keys {
     my ($self, $key, @ids) = @_;
 
     @ids = grep { defined && $_ } @ids;
-    return {} unless @ids;
+    return () unless @ids;
 
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
