@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import Menu from './Menu';
-import Search from './Search';
+const React = require('react');
+
+const Menu = require('./Menu');
+const Search = require('./Search');
 
 const Header = (props) => (
   <div id="header">
@@ -21,4 +22,4 @@ const Header = (props) => (
   </div>
 );
 
-export default Header;
+module.exports = Header;

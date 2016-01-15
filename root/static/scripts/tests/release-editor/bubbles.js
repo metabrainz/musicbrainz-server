@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var common = require('./common.js');
+const test = require('tape');
+
+const common = require('./common');
 
 function trackBubbleTest(name, callback) {
     test(name, function (t) {

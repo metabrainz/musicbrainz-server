@@ -4,10 +4,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import {assign} from 'lodash';
-import {l} from '../common/i18n';
-import getBooleanCookie from '../common/utility/getBooleanCookie';
-import {isPrepBracketWord, isPrepBracketSingleWord} from './utils';
+const {assign} = require('lodash');
+
+const {l} = require('../common/i18n');
+const getBooleanCookie = require('../common/utility/getBooleanCookie');
+const {isPrepBracketWord, isPrepBracketSingleWord} = require('./utils');
 
 /*
  * Words which are always written lowercase.
@@ -240,7 +241,7 @@ let DefaultMode = {
   },
 };
 
-export let English = assign({}, DefaultMode, {
+exports.English = assign({}, DefaultMode, {
   description: l(
     'This mode capitalises almost all words, with some words ' +
     '(mainly articles and short prepositions) lowercased. Some ' +
@@ -254,7 +255,7 @@ export let English = assign({}, DefaultMode, {
   },
 });
 
-export let French = assign({}, DefaultMode, {
+exports.French = assign({}, DefaultMode, {
   description: l(
     'This mode capitalises titles as sentence mode, but also ' +
     'inserts spaces before semicolons, colons, exclamation marks ' +
@@ -272,7 +273,7 @@ export let French = assign({}, DefaultMode, {
   },
 });
 
-export let Sentence = assign({}, DefaultMode, {
+exports.Sentence = assign({}, DefaultMode, {
   description: l(
     'This mode capitalises the first word of a sentence, most ' +
     'other words are lowercased. Some words, often proper nouns, ' +

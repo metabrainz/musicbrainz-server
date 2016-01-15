@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var parseStack = require('parse-stack');
-var request = require('./utility/request.js');
+const parseStack = require('parse-stack');
+
+const request = require('./utility/request');
 
 // https://wiki.musicbrainz.org/Development/Supported_browsers
 var browser = $.browser;

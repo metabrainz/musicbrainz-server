@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var formatTrackLength = require('../common/utility/formatTrackLength.js');
-var dates = require('../edit/utility/dates.js');
+const test = require('tape');
+
+const formatTrackLength = require('../common/utility/formatTrackLength');
+const dates = require('../edit/utility/dates');
 
 test('formatTrackLength', function (t) {
     t.plan(6);

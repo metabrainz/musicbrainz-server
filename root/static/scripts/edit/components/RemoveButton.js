@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var React = require('react');
+const React = require('react');
 
 class RemoveButton extends React.Component {
   render() {

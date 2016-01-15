@@ -1,6 +1,7 @@
-import _ from 'lodash';
-import ko from 'knockout';
-import {lp} from '../common/i18n';
+const ko = require('knockout');
+const _ = require('lodash');
+
+const {lp} = require('../common/i18n');
 
 class WorkAttribute {
   constructor(data, parent) {

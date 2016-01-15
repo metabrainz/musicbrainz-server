@@ -3,13 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import MergeHelper from './components/MergeHelper';
-import * as manifest from '../static/manifest';
-import {l} from '../static/scripts/common/i18n';
-import getCookie from '../static/scripts/common/utility/getCookie';
+const React = require('react');
+
+const Footer = require('./components/Footer');
+const Header = require('./components/Header');
+const MergeHelper = require('./components/MergeHelper');
+const manifest = require('../static/manifest');
+const {l} = require('../static/scripts/common/i18n');
+const getCookie = require('../static/scripts/common/utility/getCookie');
 
 let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
 function canonicalize(url) {
@@ -177,4 +178,4 @@ const Layout = (props) => {
   );
 };
 
-export default Layout;
+module.exports = Layout;

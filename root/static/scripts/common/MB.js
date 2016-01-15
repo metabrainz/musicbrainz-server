@@ -17,7 +17,7 @@
 
 'use strict';
 
-import global from '../global';
+const global = require('../global');
 
 // Namespaces
 global.MB = {
@@ -34,7 +34,7 @@ global.MB = {
     store: {},
 
     // Deprecated reference needed by knockout templates
-    i18n: require('./i18n.js')
+    i18n: require('./i18n')
 };
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772

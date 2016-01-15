@@ -1,4 +1,4 @@
-var parseInteger = require('./parseInteger');
+const parseInteger = require('./parseInteger');
 
 module.exports = function (str) {
     var integer = parseInteger(str);

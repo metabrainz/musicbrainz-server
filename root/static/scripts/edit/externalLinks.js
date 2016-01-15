@@ -3,19 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var Immutable = require('immutable');
-var React = require('react');
-var ReactDOM = require('react-dom');
-var PropTypes = React.PropTypes;
-var validation = require('./validation.js');
-var HelpIcon = require('./components/HelpIcon.js');
-var RemoveButton = require('./components/RemoveButton.js');
-var i18n = require('../common/i18n.js');
-var isPositiveInteger = require('../edit/utility/isPositiveInteger.js');
-import * as URLCleanup from './URLCleanup';
-import {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} from '../common/constants';
+const Immutable = require('immutable');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const PropTypes = React.PropTypes;
 
-var l = i18n.l;
+const {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} = require('../common/constants');
+const {compare, l} = require('../common/i18n');
+const isPositiveInteger = require('../edit/utility/isPositiveInteger');
+const HelpIcon = require('./components/HelpIcon');
+const RemoveButton = require('./components/RemoveButton');
+const URLCleanup = require('./URLCleanup');
+const validation = require('./validation');
 
 var LinkState = Immutable.Record({
   url: '',
@@ -438,8 +437,8 @@ MB.createExternalLinksEditor = function (options) {
     var typeA = MB.typeInfoByID[a.type];
     var typeB = MB.typeInfoByID[b.type];
 
-    return i18n.compare(typeA ? typeA.phrase.toLowerCase() : '',
-                        typeB ? typeB.phrase.toLowerCase() : '');
+    return compare(typeA ? typeA.phrase.toLowerCase() : '',
+                   typeB ? typeB.phrase.toLowerCase() : '');
   });
 
   initialLinks = initialLinks.map(function (link) {

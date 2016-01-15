@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import Jed from 'jed';
-import _ from 'lodash';
-import React from 'react';
-import sliced from 'sliced';
-import isNodeJS from 'detect-node';
+const isNodeJS = require('detect-node');
+const Jed = require('jed');
+const _ = require('lodash');
+const React = require('react');
+const sliced = require('sliced');
 
 let gettext;
 if (isNodeJS) {

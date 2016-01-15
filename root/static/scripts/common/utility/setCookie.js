@@ -1,4 +1,4 @@
-var cookie = require('cookie');
+const cookie = require('cookie');
 
 function oneYearFromNow() {
     return new Date(Date.now() + (1000 * 60 * 60 * 24 * 365));

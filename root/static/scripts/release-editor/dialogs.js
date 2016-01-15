@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n');
-var isBlank = require('../common/utility/isBlank');
-var request = require('../common/utility/request');
-var formatTrackLength = require('../common/utility/formatTrackLength');
+const i18n = require('../common/i18n');
+const formatTrackLength = require('../common/utility/formatTrackLength');
+const isBlank = require('../common/utility/isBlank');
+const request = require('../common/utility/request');
 
 (function (releaseEditor) {
 

@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('./i18n.js');
+const {l, ln} = require('./i18n');
 
 function ratingTooltip(rating) {
     if (rating == 0) {
-       return i18n.l("Remove your rating");
+       return l("Remove your rating");
     } else {
-       return i18n.ln("Rate: {rating} star", "Rate: {rating} stars", rating, { rating: rating });
+       return ln("Rate: {rating} star", "Rate: {rating} stars", rating, { rating: rating });
     }
 }
 

@@ -18,7 +18,7 @@
 
 */
 
-var clean = require('../../../common/utility/clean');
+const clean = require('../../../common/utility/clean');
 
 MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
 
