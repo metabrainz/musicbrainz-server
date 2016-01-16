@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::EntityCache;
 
+use DBDefs;
 use Moose::Role;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
@@ -85,7 +86,7 @@ sub _create_cache_entries {
             $id,
         );
         if ($got_lock) {
-            push @entries, [$cache_prefix . $id, $data->{$id}];
+            push @entries, [$cache_prefix . $id, $data->{$id}, DBDefs->ENTITY_CACHE_TTL];
         }
     }
     @entries;
