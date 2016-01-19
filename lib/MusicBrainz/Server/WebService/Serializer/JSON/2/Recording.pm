@@ -1,6 +1,10 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    number
+    serialize_entity
+    list_of
+);
 use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -18,7 +22,7 @@ sub serialize
 
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
-    $body{length} = $entity->length // JSON::null;
+    $body{length} = number($entity->length);
     $body{video} = $entity->video ? 1 : 0;
 
     $body{"artist-credit"} = serialize_entity($entity->artist_credit)
