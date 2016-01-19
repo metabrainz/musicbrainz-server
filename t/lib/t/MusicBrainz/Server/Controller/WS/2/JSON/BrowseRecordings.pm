@@ -25,7 +25,7 @@ test 'browse recordings via artist (first page)' => sub {
                     length => 217440,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "6f9c8c32-3aae-4dad-b023-56389361cf6b",
@@ -33,7 +33,7 @@ test 'browse recordings via artist (first page)' => sub {
                     length => 173960,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "7e379a1d-f2bc-47b8-964e-00723df34c8a",
@@ -41,7 +41,7 @@ test 'browse recordings via artist (first page)' => sub {
                     length => 208706,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 }]
         });
 };
@@ -62,7 +62,7 @@ test 'browse recordings via artist (second page)' => sub {
                     length => 267560,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
@@ -70,7 +70,7 @@ test 'browse recordings via artist (second page)' => sub {
                     length => 237133,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "791d9b27-ae1a-4295-8943-ded4284f2122",
@@ -78,7 +78,7 @@ test 'browse recordings via artist (second page)' => sub {
                     length => 229826,
                     puids => [ ],
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 }]
         });
 };
@@ -99,28 +99,28 @@ test 'browse recordings via release' => sub {
                     title => "Cella",
                     length => 334000,
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "9011e90d-b7e3-400b-b932-305f94608772",
                     title => "Delight",
                     length => 339000,
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "a4eb6323-519d-44e4-8ab7-df0a0f9df349",
                     title => "Cyclops",
                     length => 265000,
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 },
                 {
                     id => "e5a5847b-451b-4051-a09b-8295329097e3",
                     title => "Confined",
                     length => 314000,
                     disambiguation => "",
-                    video => 0,
+                    video => JSON::false,
                 }]
         });
 };

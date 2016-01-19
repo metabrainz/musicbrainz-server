@@ -559,7 +559,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                             joinphrase => ""
                         }
                     ],
-                    video => 0
+                    video => JSON::false,
                 },
                 {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
@@ -588,7 +588,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                             joinphrase => ""
                         }
                     ],
-                    video => 0
+                    video => JSON::false,
                 },
             ],
             ipis => [],

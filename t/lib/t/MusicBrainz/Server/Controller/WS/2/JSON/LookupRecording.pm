@@ -20,7 +20,7 @@ test 'basic recording lookup' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
-            video => 0,
+            video => JSON::false,
         });
 
 };
@@ -39,7 +39,7 @@ test 'basic recording lookup, inc=annotation' => sub {
             length => 237133,
             annotation => "this is a recording annotation",
             disambiguation => "",
-            video => 0,
+            video => JSON::false,
         });
 
 };
@@ -55,7 +55,7 @@ test 'recording lookup with releases' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
-            video => 0,
+            video => JSON::false,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -117,7 +117,7 @@ test 'lookup recording with official singles' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
-            video => 0,
+            video => JSON::false,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -156,7 +156,7 @@ test 'lookup recording with official singles (+media)' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
-            video => 0,
+            video => JSON::false,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -214,7 +214,7 @@ test 'recording lookup with artists' => sub {
             title => "the Love Bug",
             disambiguation => "",
             length => 243000,
-            video => 0,
+            video => JSON::false,
             "artist-credit" => [
                 {
                     name => "m-flo",
@@ -251,7 +251,7 @@ test 'recording lookup with puids and isrcs' => sub {
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             length => 296026,
-            video => 0,
+            video => JSON::false,
             puids => [ ],
             isrcs => [ "JPA600102450" ],
         });
@@ -268,7 +268,7 @@ test 'recording lookup with release relationships' => sub {
             title => "Dear Diary",
             disambiguation => "",
             length => 86666,
-            video => 0,
+            video => JSON::false,
             relations => [
                 {
                     attributes => [],
@@ -327,7 +327,7 @@ test 'recording lookup with work relationships' => sub {
             title => "the Love Bug",
             disambiguation => "",
             length => 243000,
-            video => 0,
+            video => JSON::false,
             relations => [
                 {
                     attributes => [],
@@ -365,7 +365,7 @@ test 'recording lookup with work-level relationships' => sub {
         disambiguation => '',
         id => '4878bc36-7306-497a-b45a-561d9f7f8573',
         length => 274666,
-        video => 0,
+        video => JSON::false,
         relations => [ {
             attributes => [],
             "attribute-values" => {},

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    boolean
     number
     serialize_entity
     list_of
@@ -23,7 +24,7 @@ sub serialize
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{length} = number($entity->length);
-    $body{video} = $entity->video ? 1 : 0;
+    $body{video} = boolean($entity->video);
 
     $body{"artist-credit"} = serialize_entity($entity->artist_credit)
         if ($entity->artist_credit &&
