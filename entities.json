@@ -37,6 +37,14 @@
         },
         "url": "area"
     },
+    "area_alias_type": {
+        "cache": {
+            "id": 39,
+            "prefix": "area_alias_type"
+        },
+        "model": "AreaAliasType",
+        "table": "area_alias_type"
+    },
     "area_type": {
         "cache": {
             "id": 2,
@@ -94,6 +102,14 @@
             "simple": true
         },
         "url": "artist"
+    },
+    "artist_alias_type": {
+        "cache": {
+            "id": 40,
+            "prefix": "artist_alias_type"
+        },
+        "model": "ArtistAliasType",
+        "table": "artist_alias_type"
     },
     "artist_credit": {
         "cache": {
@@ -182,6 +198,14 @@
         },
         "url": "event"
     },
+    "event_alias_type": {
+        "cache": {
+            "id": 41,
+            "prefix": "event_alias_type"
+        },
+        "model": "EventAliasType",
+        "table": "event_alias_type"
+    },
     "event_type": {
         "cache": {
             "id": 9,
@@ -233,6 +257,14 @@
             "simple": true
         },
         "url": "instrument"
+    },
+    "instrument_alias_type": {
+        "cache": {
+            "id": 42,
+            "prefix": "instrument_alias_type"
+        },
+        "model": "InstrumentAliasType",
+        "table": "instrument_alias_type"
     },
     "instrument_type": {
         "cache": {
@@ -295,6 +327,14 @@
             "simple": true
         },
         "url": "label"
+    },
+    "label_alias_type": {
+        "cache": {
+            "id": 43,
+            "prefix": "label_alias_type"
+        },
+        "model": "LabelAliasType",
+        "table": "label_alias_type"
     },
     "label_type": {
         "cache": {
@@ -376,6 +416,14 @@
         },
         "url": "place"
     },
+    "place_alias_type": {
+        "cache": {
+            "id": 44,
+            "prefix": "place_alias_type"
+        },
+        "model": "PlaceAliasType",
+        "table": "place_alias_type"
+    },
     "place_type": {
         "cache": {
             "id": 21,
@@ -419,6 +467,14 @@
         "tags": true,
         "url": "recording"
     },
+    "recording_alias_type": {
+        "cache": {
+            "id": 45,
+            "prefix": "recording_alias_type"
+        },
+        "model": "RecordingAliasType",
+        "table": "recording_alias_type"
+    },
     "release": {
         "aliases": {
             "add_edit_type": 318,
@@ -454,6 +510,14 @@
         "sitemaps_lastmod_table": true,
         "tags": true,
         "url": "release"
+    },
+    "release_alias_type": {
+        "cache": {
+            "id": 46,
+            "prefix": "release_alias_type"
+        },
+        "model": "ReleaseAliasType",
+        "table": "release_alias_type"
     },
     "release_group": {
         "aliases": {
@@ -496,6 +560,14 @@
             "complex": true
         },
         "url": "release-group"
+    },
+    "release_group_alias_type": {
+        "cache": {
+            "id": 47,
+            "prefix": "release_group_alias_type"
+        },
+        "model": "ReleaseGroupAliasType",
+        "table": "release_group_alias_type"
     },
     "release_group_secondary_type": {
         "cache": {
@@ -570,6 +642,14 @@
             "simple": true
         },
         "url": "series"
+    },
+    "series_alias_type": {
+        "cache": {
+            "id": 48,
+            "prefix": "series_alias_type"
+        },
+        "model": "SeriesAliasType",
+        "table": "series_alias_type"
     },
     "series_ordering_type": {
         "cache": {
@@ -651,6 +731,14 @@
             "simple": true
         },
         "url": "work"
+    },
+    "work_alias_type": {
+        "cache": {
+            "id": 49,
+            "prefix": "work_alias_type"
+        },
+        "model": "WorkAliasType",
+        "table": "work_alias_type"
     },
     "work_attribute": {
         "cache": {

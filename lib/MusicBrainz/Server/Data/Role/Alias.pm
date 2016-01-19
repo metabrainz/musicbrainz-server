@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::Alias;
 use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Alias;
-use MusicBrainz::Server::Data::AliasType;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Moose::Util qw( ensure_all_roles );
 
 parameter 'type' => (
@@ -50,12 +50,8 @@ role
     method '_build_alias_type' => sub
     {
         my $self = shift;
-        my $alias_type = MusicBrainz::Server::Data::AliasType->new(
-            c      => $self->c,
-            type => $params->type,
-            table => $params->table . '_type',
-        );
-        return $alias_type;
+
+        return $self->c->model(type_to_model($params->type) . 'AliasType');
     };
 
     around 'search_by_names' => sub {
