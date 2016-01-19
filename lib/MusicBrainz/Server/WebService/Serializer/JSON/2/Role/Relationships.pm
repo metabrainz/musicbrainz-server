@@ -14,8 +14,11 @@ around serialize => sub
     return $ret unless defined $inc && $inc->has_rels;
 
     my @rels = map { serialize_entity($_, $inc, $opts) }
-        sort_by { $_->target_key . $_->link->type->name }
-            @{ $entity->relationships };
+        sort_by { join("\t",
+                       $_->link->type->name,
+                       (sprintf "%09d", $_->link_order // 0),
+                       $_->target_key)
+                } $entity->all_relationships;
 
     $ret->{relations} = \@rels;
 

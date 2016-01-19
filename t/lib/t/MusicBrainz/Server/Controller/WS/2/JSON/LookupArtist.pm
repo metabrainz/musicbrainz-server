@@ -149,11 +149,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => {
                         relations => [],
-                        id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
-                        resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
+                        id => '37ad368b-d37d-46d4-be3a-349f78355253',
+                        resource => 'http://www.imdb.com/name/nm4057169/'
                     },
-                    type => "image",
-                    "type-id" => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
+                    type => "IMDb",
+                    'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -166,11 +166,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => {
                         relations => [],
-                        id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
-                        resource => 'http://members.boardhost.com/wedlock/'
+                        id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
+                        resource => 'http://www.paulallgood.com/'
                     },
-                    type => "online community",
-                    'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
+                    type => "blog",
+                    'type-id' => 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -200,11 +200,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => {
                         relations => [],
-                        id => '37ad368b-d37d-46d4-be3a-349f78355253',
-                        resource => 'http://www.imdb.com/name/nm4057169/'
+                        id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
+                        resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
                     },
-                    type => "IMDb",
-                    'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
+                    type => "image",
+                    "type-id" => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -217,17 +217,18 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => {
                         relations => [],
-                        id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
-                        resource => 'http://www.paulallgood.com/'
+                        id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
+                        resource => 'http://members.boardhost.com/wedlock/'
                     },
-                    type => "blog",
-                    'type-id' => 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
+                    type => "online community",
+                    'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
-                }],
+                },
+            ],
             ipis => [],
             gender => JSON::null,
         });
