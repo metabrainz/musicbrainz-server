@@ -20,6 +20,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "relatable": "overview"
@@ -71,6 +72,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
@@ -156,6 +158,7 @@
         "model": "CoverArtType"
     },
     "editor": {
+        "last_updated_column": true,
         "model": "Editor",
         "subscriptions": {
             "entity": false
@@ -179,6 +182,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -240,6 +244,7 @@
         "custom_tabs": ["releases", "recordings"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -296,6 +301,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
@@ -362,6 +368,7 @@
             "id": 17,
             "prefix": "linkattrtype"
         },
+        "last_updated_column": true,
         "model": "LinkAttributeType"
     },
     "link_type": {
@@ -369,6 +376,7 @@
             "id": 18,
             "prefix": "linktype"
         },
+        "last_updated_column": true,
         "model": "LinkType"
     },
     "medium_format": {
@@ -397,6 +405,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -450,6 +459,7 @@
         "custom_tabs": ["fingerprints"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "relatable": "overview"
@@ -494,6 +504,7 @@
         "custom_tabs": ["discids", "cover_art"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -536,6 +547,7 @@
         },
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -620,6 +632,7 @@
         },
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -674,6 +687,7 @@
     },
     "track": {
         "artist_credits": 1,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true
         },
@@ -684,6 +698,7 @@
     },
     "url": {
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "no_details": true,
@@ -711,6 +726,7 @@
         "collections": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,

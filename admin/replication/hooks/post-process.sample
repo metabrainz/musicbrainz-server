@@ -1,9 +1,9 @@
 #!/bin/bash
 # This is a sample post-process hook file. If moved to 'post-process' it
-# will run after every packet and clear memcached. It might be useful to
-# add calls to other scripts you'd like run, perhaps to update derived
-# information of some sort.
+# will run after every packet and clear recently-updated entities from
+# memcached. It might be useful to add calls to other scripts you'd like run,
+# perhaps to update derived information of some sort.
 
 cd "$(dirname $0)/../../../"
 
-./script/clear_external_cache.pl
+./admin/PruneCache --interval 7200
