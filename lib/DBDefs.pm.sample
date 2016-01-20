@@ -292,6 +292,10 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     return \%CACHE_MANAGER_OPTIONS
 # }
 
+# Sets the TTL for entities stored in memcached, in seconds. A value of 0
+# indicates that no expiration is set.
+# sub ENTITY_CACHE_TTL { 0 }
+
 ################################################################################
 # Rate-Limiting
 ################################################################################

@@ -1,8 +1,9 @@
 #!/bin/bash
-# This is a sample post-process hook file.
-# Obviously for now this does nothing real, but if moved to 'post-process'
-# it will run after every packet and cheerfully announce it's applied one.
-# It might be more useful to add calls to scripts you'd like run, perhaps
-# to update derived information of some sort.
+# This is a sample post-process hook file. If moved to 'post-process' it
+# will run after every packet and clear recently-updated entities from
+# memcached. It might be useful to add calls to other scripts you'd like run,
+# perhaps to update derived information of some sort.
 
-echo 'one packet processed!';
+cd "$(dirname $0)/../../../"
+
+./admin/PruneCache --interval 7200

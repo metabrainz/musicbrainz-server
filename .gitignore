@@ -3,6 +3,7 @@
 /admin/apache/vh_mb_backend.conf
 /admin/apache/vh_mb_frontend.conf
 /admin/apache/startup.pl
+/admin/replication/hooks/post-process
 /root/robots.txt
 /blib
 /lib/DBDefs.pm
