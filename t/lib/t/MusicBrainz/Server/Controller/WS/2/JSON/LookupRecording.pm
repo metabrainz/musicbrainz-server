@@ -14,15 +14,14 @@ test 'basic recording lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic recording lookup',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' => encode_json(
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' =>
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
             video => JSON::false,
-        });
-
+        };
 };
 
 test 'basic recording lookup, inc=annotation' => sub {
@@ -32,7 +31,7 @@ test 'basic recording lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic recording lookup, inc=annotation',
-    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' => encode_json(
+    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' =>
         {
             id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
             title => "Plock",
@@ -40,8 +39,7 @@ test 'basic recording lookup, inc=annotation' => sub {
             annotation => "this is a recording annotation",
             disambiguation => "",
             video => JSON::false,
-        });
-
+        };
 };
 
 test 'recording lookup with releases' => sub {
@@ -49,7 +47,7 @@ test 'recording lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with releases',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' => encode_json(
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' =>
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -103,7 +101,7 @@ test 'recording lookup with releases' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                 }]
-        });
+        };
 };
 
 test 'lookup recording with official singles' => sub {
@@ -111,7 +109,7 @@ test 'lookup recording with official singles' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'lookup recording with official singles',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' => encode_json(
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' =>
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -142,7 +140,7 @@ test 'lookup recording with official singles' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                 }]
-        });
+        };
 };
 
 test 'lookup recording with official singles (+media)' => sub {
@@ -150,7 +148,7 @@ test 'lookup recording with official singles (+media)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'lookup recording with official singles (+media)',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' => encode_json(
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' =>
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -199,8 +197,7 @@ test 'lookup recording with official singles (+media)' => sub {
                             ]
                         }]
                 }]
-        });
-
+        };
 };
 
 test 'recording lookup with artists' => sub {
@@ -208,7 +205,7 @@ test 'recording lookup with artists' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with artists',
-    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists' => encode_json(
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists' =>
         {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
@@ -237,7 +234,7 @@ test 'recording lookup with artists' => sub {
                     joinphrase => "",
                 }
                 ],
-        });
+        };
 };
 
 test 'recording lookup with puids and isrcs' => sub {
@@ -245,7 +242,7 @@ test 'recording lookup with puids and isrcs' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with puids and isrcs',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' => encode_json(
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' =>
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -254,7 +251,7 @@ test 'recording lookup with puids and isrcs' => sub {
             video => JSON::false,
             puids => [ ],
             isrcs => [ "JPA600102450" ],
-        });
+        };
 };
 
 test 'recording lookup with release relationships' => sub {
@@ -262,7 +259,7 @@ test 'recording lookup with release relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with release relationships',
-    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' => encode_json(
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' =>
         {
             id => "37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9",
             title => "Dear Diary",
@@ -313,7 +310,7 @@ test 'recording lookup with release relationships' => sub {
                     'target-credit' => '',
                 }
             ]
-        });
+        };
 };
 
 test 'recording lookup with work relationships' => sub {
@@ -321,7 +318,7 @@ test 'recording lookup with work relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with artists',
-    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' => encode_json(
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' =>
         {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
@@ -352,7 +349,7 @@ test 'recording lookup with work relationships' => sub {
                     'target-credit' => '',
                 }
             ],
-        });
+        };
 };
 
 test 'recording lookup with work-level relationships' => sub {
@@ -361,7 +358,7 @@ test 'recording lookup with work-level relationships' => sub {
 
     ws_test_json 'recording lookup with work-level relationships',
     '/recording/4878bc36-7306-497a-b45a-561d9f7f8573?inc=artist-rels+work-rels+work-level-rels' =>
-    encode_json({
+    {
         disambiguation => '',
         id => '4878bc36-7306-497a-b45a-561d9f7f8573',
         length => 274666,
@@ -407,7 +404,7 @@ test 'recording lookup with work-level relationships' => sub {
             'target-credit' => '',
         } ],
         title => 'Asseswaving'
-    });
+    };
 };
 
 1;

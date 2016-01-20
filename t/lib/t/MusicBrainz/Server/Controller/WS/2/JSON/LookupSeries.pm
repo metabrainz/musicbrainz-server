@@ -15,16 +15,16 @@ test 'basic series lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
     ws_test_json 'basic series lookup',
-        '/series/d977f7fd-96c9-4e3e-83b5-eb484a9e6582' => encode_json({
+        '/series/d977f7fd-96c9-4e3e-83b5-eb484a9e6582' => {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
-        });
+        };
 
     ws_test_json 'series lookup, inc=aliases',
         '/series/d977f7fd-96c9-4e3e-83b5-eb484a9e6582?inc=aliases' =>
-        encode_json({
+        {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
@@ -38,11 +38,11 @@ test 'basic series lookup' => sub {
                     locale => JSON::null,
                 }
             ],
-        });
+        };
 
     ws_test_json 'series lookup, inc=work-rels',
         '/series/d977f7fd-96c9-4e3e-83b5-eb484a9e6582?inc=work-rels' =>
-        encode_json({
+        {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
@@ -118,5 +118,5 @@ test 'basic series lookup' => sub {
                     },
                 },
             ],
-        });
+        };
 };

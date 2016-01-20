@@ -14,7 +14,7 @@ test 'basic release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic release lookup',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -48,7 +48,7 @@ test 'basic release lookup' => sub {
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'basic release lookup, inc=annotation' => sub {
@@ -58,7 +58,7 @@ test 'basic release lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic release lookup, inc=annotation',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' => encode_json(
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' =>
         {
             id => "adcf7b48-086e-48ee-b420-1001f88d672f",
             title => "My Demons",
@@ -93,7 +93,7 @@ test 'basic release lookup, inc=annotation' => sub {
             annotation => "this is a release annotation",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'basic release with tags' => sub {
@@ -105,7 +105,7 @@ test 'basic release with tags' => sub {
         $c, "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);");
 
     ws_test_json 'basic release with tags',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -140,7 +140,7 @@ test 'basic release with tags' => sub {
             disambiguation => "",
             packaging => JSON::null,
             tags => [ { count => 1, name => "hello project" } ]
-        });
+        };
 };
 
 test 'basic release with collections' => sub {
@@ -156,7 +156,7 @@ test 'basic release with collections' => sub {
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
     ws_test_json 'basic release with collections',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -199,7 +199,7 @@ test 'basic release with collections' => sub {
                     "entity-type" => "release",
                     "release-count" => 1
                 }]
-        });
+        };
 };
 
 test 'release lookup with artists + aliases' => sub {
@@ -207,7 +207,7 @@ test 'release lookup with artists + aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with artists + aliases',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -258,7 +258,7 @@ test 'release lookup with artists + aliases' => sub {
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             aliases => [],
-        });
+        };
 };
 
 test 'release lookup with labels and recordings' => sub {
@@ -266,7 +266,7 @@ test 'release lookup with labels and recordings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with labels and recordings',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -356,7 +356,7 @@ test 'release lookup with labels and recordings' => sub {
                             }
                         }]
                 }],
-        });
+        };
 };
 
 test 'release lookup with release-groups' => sub {
@@ -364,7 +364,7 @@ test 'release lookup with release-groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with release-groups',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -427,7 +427,7 @@ test 'release lookup with release-groups' => sub {
                     }
                 ],
             }
-        });
+        };
 };
 
 test 'release lookup with discids and puids' => sub {
@@ -435,7 +435,7 @@ test 'release lookup with discids and puids' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with discids and puids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -532,7 +532,7 @@ test 'release lookup with discids and puids' => sub {
                             }
                         }]
                 }]
-        });
+        };
 };
 
 test 'release lookup, barcode is NULL' => sub {
@@ -540,7 +540,7 @@ test 'release lookup, barcode is NULL' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is NULL',
-    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' => encode_json(
+    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' =>
         {
             id => "fbe4eb72-0f24-3875-942e-f581589713d4",
             title => "For Beginner Piano",
@@ -574,7 +574,7 @@ test 'release lookup, barcode is NULL' => sub {
             asin => "B00001IVAI",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'release lookup, barcode is  empty string' => sub {
@@ -582,7 +582,7 @@ test 'release lookup, barcode is  empty string' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is empty string',
-    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' => encode_json(
+    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' =>
         {
             id => "dd66bfdd-6097-32e3-91b6-67f47ba25d4c",
             title => "For Beginner Piano",
@@ -616,7 +616,7 @@ test 'release lookup, barcode is  empty string' => sub {
             asin => JSON::null,
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'release lookup, relation attributes' => sub {
@@ -624,7 +624,7 @@ test 'release lookup, relation attributes' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, relation attributes',
-    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' => encode_json(
+    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' =>
         {
             disambiguation => '',
             'text-representation' => {
@@ -718,7 +718,7 @@ test 'release lookup, relation attributes' => sub {
             status => 'Official',
             id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
             barcode => '4988064173891'
-        });
+        };
 };
 
 test 'release lookup, track artists have no tags' => sub {
@@ -727,7 +727,7 @@ test 'release lookup, track artists have no tags' => sub {
 
     ws_test_json 'release lookup, track artists have no tags',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels'
-    => encode_json({
+    => {
         'artist-credit' => [ {
             artist => {
                 disambiguation => '',
@@ -1123,7 +1123,7 @@ test 'release lookup, track artists have no tags' => sub {
             script => 'Latn'
         },
         title => 'For Beginner Piano'
-    });
+    };
 };
 
 test 'release lookup, pregap track' => sub {
@@ -1142,7 +1142,7 @@ test 'release lookup, pregap track' => sub {
 
     ws_test_json 'release lookup, pregap track',
     '/release/ec0d0122-b559-4aa1-a017-7068814aae57?inc=artists+recordings+artist-credits'
-    => encode_json({
+    => {
         %artist_credit,
         asin => undef,
         barcode => '0208311348266',
@@ -1217,7 +1217,7 @@ test 'release lookup, pregap track' => sub {
             script => 'Latn'
         },
         title => 'Soup'
-    });
+    };
 };
 
 1;

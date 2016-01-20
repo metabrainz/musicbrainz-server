@@ -14,7 +14,7 @@ test 'browse recordings via artist (first page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (first page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' => encode_json(
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' =>
         {
             "recording-count" => 10,
             "recording-offset" => 0,
@@ -43,7 +43,7 @@ test 'browse recordings via artist (first page)' => sub {
                     disambiguation => "",
                     video => JSON::false,
                 }]
-        });
+        };
 };
 
 test 'browse recordings via artist (second page)' => sub {
@@ -51,7 +51,7 @@ test 'browse recordings via artist (second page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (second page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' => encode_json(
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' =>
         {
             "recording-count" => 10,
             "recording-offset" => 3,
@@ -80,7 +80,7 @@ test 'browse recordings via artist (second page)' => sub {
                     disambiguation => "",
                     video => JSON::false,
                 }]
-        });
+        };
 };
 
 
@@ -89,7 +89,7 @@ test 'browse recordings via release' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via release',
-    '/recording?release=adcf7b48-086e-48ee-b420-1001f88d672f&limit=4' => encode_json(
+    '/recording?release=adcf7b48-086e-48ee-b420-1001f88d672f&limit=4' =>
         {
             "recording-count" => 12,
             "recording-offset" => 0,
@@ -122,7 +122,7 @@ test 'browse recordings via release' => sub {
                     disambiguation => "",
                     video => JSON::false,
                 }]
-        });
+        };
 };
 
 1;

@@ -19,7 +19,7 @@ test 'basic work lookup' => sub {
         'T-000.000.002-0');");
 
     ws_test_json 'basic work lookup',
-    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' => encode_json(
+    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
         {
             attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
@@ -28,7 +28,7 @@ test 'basic work lookup' => sub {
             iswcs => [ "T-000.000.002-0" ],
             language => 'jpn',
             type => 'Song',
-        });
+        };
 };
 
 test 'basic work lookup, inc=annotation' => sub {
@@ -38,7 +38,7 @@ test 'basic work lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic work lookup, inc=annotation',
-    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json(
+    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' =>
         {
             attributes => [],
             id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
@@ -48,7 +48,7 @@ test 'basic work lookup, inc=annotation' => sub {
             iswcs => [ ],
             language => JSON::null,
             type => JSON::null,
-        });
+        };
 };
 
 test 'work lookup via iswc' => sub {
@@ -62,7 +62,7 @@ test 'work lookup via iswc' => sub {
         "  'T-000.000.002-0');");
 
     ws_test_json 'work lookup via iswc',
-    '/iswc/T-000.000.002-0' => encode_json(
+    '/iswc/T-000.000.002-0' =>
         {
             "work-count" => 1,
             "work-offset" => 0,
@@ -76,7 +76,7 @@ test 'work lookup via iswc' => sub {
                     language => 'jpn',
                     type => "Song",
                 }]
-        });
+        };
 };
 
 test 'work lookup with recording relationships' => sub {
@@ -84,7 +84,7 @@ test 'work lookup with recording relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'work lookup with recording relationships',
-    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' => encode_json(
+    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' =>
         {
             attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
@@ -131,12 +131,11 @@ test 'work lookup with recording relationships' => sub {
                     'source-credit' => '',
                     'target-credit' => '',
                 }
-                ],
+            ],
             iswcs => [],
             language => 'jpn',
             type => "Song",
-        });
-
+        };
 };
 
 1;

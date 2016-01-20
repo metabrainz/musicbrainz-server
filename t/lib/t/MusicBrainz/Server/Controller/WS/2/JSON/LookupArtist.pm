@@ -37,7 +37,7 @@ test 'basic artist lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' => encode_json(
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' =>
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -55,7 +55,7 @@ test 'basic artist lookup' => sub {
             type => "Person",
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'basic artist lookup, inc=annotation' => sub {
@@ -65,7 +65,7 @@ test 'basic artist lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic artist lookup, inc=annotation',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json(
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' =>
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -84,7 +84,7 @@ test 'basic artist lookup, inc=annotation' => sub {
             },
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'basic artist lookup, inc=aliases' => sub {
@@ -92,7 +92,7 @@ test 'basic artist lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=aliases',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' => encode_json(
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' =>
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -117,8 +117,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 ],
             ipis => [],
             gender => JSON::null,
-        });
-
+        };
 };
 
 test 'basic artist lookup, inc=url-rels' => sub {
@@ -126,7 +125,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=url-rels',
-    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json(
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' =>
         {
             id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
             name => "Paul Allgood",
@@ -231,8 +230,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
-
+        };
 };
 
 test 'artist lookup with releases' => sub {
@@ -240,7 +238,7 @@ test 'artist lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json(
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' =>
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
@@ -306,7 +304,7 @@ test 'artist lookup with releases' => sub {
                 ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'artist lookup with pseudo-releases' => sub {
@@ -314,7 +312,7 @@ test 'artist lookup with pseudo-releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with pseudo-releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json(
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' =>
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
@@ -357,7 +355,7 @@ test 'artist lookup with pseudo-releases' => sub {
                 ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 
@@ -366,7 +364,7 @@ test 'artist lookup with releases and discids' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with releases and discids',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' => encode_json(
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' =>
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -508,7 +506,7 @@ test 'artist lookup with releases and discids' => sub {
                 }],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'artist lookup with recordings and artist credits' => sub {
@@ -516,7 +514,7 @@ test 'artist lookup with recordings and artist credits' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with recordings and artist credits',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json(
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' =>
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -594,7 +592,7 @@ test 'artist lookup with recordings and artist credits' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'artist lookup with release groups' => sub {
@@ -602,7 +600,7 @@ test 'artist lookup with release groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with release groups',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json(
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' =>
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -630,7 +628,7 @@ test 'artist lookup with release groups' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'single artist release lookup' => sub {
@@ -638,7 +636,7 @@ test 'single artist release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'single artist release lookup',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json(
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' =>
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -681,7 +679,7 @@ test 'single artist release lookup' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'various artists release lookup' => sub {
@@ -689,7 +687,7 @@ test 'various artists release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'various artists release lookup',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json(
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -732,7 +730,7 @@ test 'various artists release lookup' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'artist lookup with works (using l_artist_work)' => sub {
@@ -740,7 +738,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_artist_work)',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json(
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' =>
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -769,7 +767,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             ],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 test 'artist lookup with works (using l_recording_work)' => sub {
@@ -777,7 +775,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_recording_work)',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json(
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' =>
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -931,7 +929,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                 }],
             ipis => [],
             gender => JSON::null,
-        });
+        };
 };
 
 
@@ -940,7 +938,7 @@ test 'artist lookup with artist relations' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with artist relations',
-    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json(
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' =>
         {
             id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
             name => "後藤真希",
@@ -986,7 +984,7 @@ test 'artist lookup with artist relations' => sub {
             ],
             ipis => [],
             gender => 'Female',
-        });
+        };
 };
 
 1;

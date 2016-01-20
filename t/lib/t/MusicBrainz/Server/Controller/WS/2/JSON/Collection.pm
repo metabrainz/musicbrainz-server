@@ -23,7 +23,7 @@ INSERT INTO editor_collection_release (collection, release) VALUES (1, 123054);
 EOSQL
 
     ws_test_json 'collections lookup',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce' => encode_json({
+        '/collection/f34c079d-374e-4436-9448-da92dedef3ce' => {
             collections => [
                 {
                     id => "f34c079d-374e-4436-9448-da92dedef3ce",
@@ -34,10 +34,10 @@ EOSQL
                     "release-count" => 1,
                 }
             ]
-        }), { username => 'new_editor', password => 'password' };
+        }, { username => 'new_editor', password => 'password' };
 
     ws_test_json 'collection releases lookup',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' => encode_json(
+        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' =>
             {
                 id => "f34c079d-374e-4436-9448-da92dedef3ce",
                 name => "my collection",
@@ -72,7 +72,7 @@ EOSQL
                         disambiguation => "",
                         packaging => JSON::null,
                     }]
-            }), { username => 'new_editor', password => 'password' };
+            }, { username => 'new_editor', password => 'password' };
 };
 
 1;

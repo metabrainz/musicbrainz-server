@@ -14,7 +14,7 @@ test 'browse works via artist (first page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse works via artist (first page)',
-    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5' => encode_json(
+    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5' =>
         {
             "work-offset" => 0,
             "work-count" => 10,
@@ -64,7 +64,7 @@ test 'browse works via artist (first page)' => sub {
                     language => JSON::null,
                     type => JSON::null,
                 }]
-        });
+        };
 };
 
 
@@ -73,7 +73,7 @@ test 'browse works via artist (second page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse works via artist (second page)',
-    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5&offset=5' => encode_json(
+    '/work?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=5&offset=5' =>
         {
             "work-offset" => 5,
             "work-count" => 10,
@@ -123,7 +123,7 @@ test 'browse works via artist (second page)' => sub {
                     language => JSON::null,
                     type => JSON::null,
                 }]
-        });
+        };
 };
 
 1;

@@ -16,7 +16,7 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c);
 
     ws_test 'artist autocomplete response',
-        '/artist?q=David&direct=true' => encode_json(
+        '/artist?q=David&direct=true' =>
             [ {
                 "annotation" => '',
                 "area" => undef,
@@ -32,10 +32,10 @@ test all => sub {
                 "primaryAlias" => undef,
                 "sortName" => "David Bowie",
                 "typeID" => undef,
-              }, { "current" => 1, "pages" => 1 } ]);
+              }, { "current" => 1, "pages" => 1 } ];
 
     ws_test 'label autocomplete response',
-        '/label?q=Warp&direct=true' => encode_json(
+        '/label?q=Warp&direct=true' =>
             [ {
                 "annotation" => '',
                 "area" => undef,
@@ -50,7 +50,7 @@ test all => sub {
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
                 "typeID" => 4,
-              }, { "current" => 1, "pages" => 1 } ]);
+              }, { "current" => 1, "pages" => 1 } ];
 
 };
 
