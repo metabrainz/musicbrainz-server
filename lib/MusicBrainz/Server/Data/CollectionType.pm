@@ -7,10 +7,12 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'collection_type' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'collection_type' }
 
 sub _table {
     return 'editor_collection_type';

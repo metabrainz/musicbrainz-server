@@ -15,7 +15,7 @@ test 'basic event lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
     ws_test_json 'basic event lookup',
-    '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65' => encode_json(
+    '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65' =>
         {
             id => "eb668bdc-a928-49a1-beb7-8e37db2a5b65",
             name => "Cool Festival",
@@ -29,7 +29,7 @@ test 'basic event lookup' => sub {
                 end => JSON::null,
                 ended => JSON::false
             },
-        });
+        };
 };
 
 test 'basic event lookup, inc=aliases' => sub {
@@ -37,7 +37,7 @@ test 'basic event lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic event lookup, inc=aliases',
-    '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65?inc=aliases' => encode_json(
+    '/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65?inc=aliases' =>
         {
             id => "eb668bdc-a928-49a1-beb7-8e37db2a5b65",
             name => "Cool Festival",
@@ -55,7 +55,5 @@ test 'basic event lookup, inc=aliases' => sub {
                 { name => "El Festival Cool", "sort-name" => "Festival Cool, El", locale => JSON::null, primary => JSON::null, type => JSON::null },
                 { name => "Warm Festival", "sort-name" => "Warm Festival", locale => JSON::null, primary => JSON::null, type => JSON::null },
                 ],
-        });
-
+        };
 };
-

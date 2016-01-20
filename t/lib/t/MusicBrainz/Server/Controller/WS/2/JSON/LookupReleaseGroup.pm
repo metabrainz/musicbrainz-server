@@ -14,7 +14,7 @@ test 'basic release group lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic release group lookup',
-    '/release-group/b84625af-6229-305f-9f1b-59c0185df016' => encode_json(
+    '/release-group/b84625af-6229-305f-9f1b-59c0185df016' =>
         {
             id => "b84625af-6229-305f-9f1b-59c0185df016",
             title => "サマーれげぇ!レインボー",
@@ -22,7 +22,7 @@ test 'basic release group lookup' => sub {
             "first-release-date" => "2001-07-04",
             "primary-type" => "Single",
             "secondary-types" => [],
-        });
+        };
 };
 
 test 'basic release group lookup, inc=annotation' => sub {
@@ -32,7 +32,7 @@ test 'basic release group lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic release group lookup, inc=annotation',
-    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' => encode_json(
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' =>
         {
             id => "22b54315-6e51-350b-bb34-e6e16f7688bd",
             title => "My Demons",
@@ -41,7 +41,7 @@ test 'basic release group lookup, inc=annotation' => sub {
             "first-release-date" => "2007-01-29",
             "primary-type" => "Album",
             "secondary-types" => [],
-        });
+        };
 };
 
 test 'release group lookup with releases' => sub {
@@ -49,7 +49,7 @@ test 'release group lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with releases',
-    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' => encode_json(
+    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' =>
         {
             id => "56683a0b-45b8-3664-a231-5b68efe2e7e2",
             title => "Repercussions",
@@ -72,16 +72,15 @@ test 'release group lookup with releases' => sub {
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
-                            "iso_3166_1_codes" => ["GB"],
-                            "iso_3166_2_codes" => [],
-                            "iso_3166_3_codes" => []},
+                            "iso-3166-1-codes" => ["GB"],
+                        },
                     }],
                     barcode => "600116822123",
                     packaging => JSON::null,
                     disambiguation => "",
                 }],
             disambiguation => "",
-        });
+        };
 };
 
 test 'release group lookup with artists' => sub {
@@ -89,7 +88,7 @@ test 'release group lookup with artists' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with artists',
-    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' => encode_json(
+    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' =>
         {
             id => "56683a0b-45b8-3664-a231-5b68efe2e7e2",
             title => "Repercussions",
@@ -108,7 +107,7 @@ test 'release group lookup with artists' => sub {
                     joinphrase => "",
                 }],
             disambiguation => "",
-        });
+        };
 };
 
 test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
@@ -116,7 +115,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with inc=artists+releases+tags+ratings',
-    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' => encode_json(
+    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' =>
         {
             id => "153f0a09-fead-3370-9b17-379ebd09446b",
             title => "the Love Bug",
@@ -150,9 +149,8 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
-                            "iso_3166_1_codes" => ["JP"],
-                            "iso_3166_2_codes" => [],
-                            "iso_3166_3_codes" => []},
+                            "iso-3166-1-codes" => ["JP"],
+                        },
                     }],
                     barcode => "4988064451180",
                     packaging => JSON::null,
@@ -161,7 +159,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
             disambiguation => "",
             rating => { "votes-count" => 0, value => JSON::null },
             tags => [],
-        });
+        };
 };
 
 test 'release group lookup with pseudo-releases' => sub {
@@ -169,7 +167,7 @@ test 'release group lookup with pseudo-releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with pseudo-releases',
-    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' => encode_json(
+    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' =>
         {
             id => "153f0a09-fead-3370-9b17-379ebd09446b",
             title => "the Love Bug",
@@ -189,7 +187,7 @@ test 'release group lookup with pseudo-releases' => sub {
                 }],
             releases => [],
             disambiguation => "",
-        });
+        };
 };
 
 1;

@@ -6,9 +6,11 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 use aliased 'MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'watav' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+
+sub _type { 'work_attribute_type_allowed_value' }
 
 sub _table
 {

@@ -18,8 +18,6 @@ use Fcntl qw(:flock SEEK_END);
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
-sub _id_cache_prefix { 'stats' }
-
 sub _table { 'statistics.statistic' }
 
 sub all_events {
@@ -661,7 +659,7 @@ my %stats = (
                   UNION SELECT editor FROM editor_subscribe_series
                   UNION SELECT editor FROM editor_subscribe_series_deleted
                 ),
-                collection_editors AS (SELECT DISTINCT editor FROM editor_collection 
+                collection_editors AS (SELECT DISTINCT editor FROM editor_collection
                   WHERE } . join(' OR ', map {
                     "EXISTS (SELECT TRUE FROM editor_collection_$_ WHERE collection=editor_collection.id LIMIT 1)"
                   } entities_with('collections')) . qq{ ),

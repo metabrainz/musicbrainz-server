@@ -150,6 +150,7 @@ requires 'Locale::Messages' => '1.20';
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
 
+test_requires 'Coro';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';

@@ -16,9 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+
+sub _type { 'link_attribute_type' }
 
 sub _table
 {

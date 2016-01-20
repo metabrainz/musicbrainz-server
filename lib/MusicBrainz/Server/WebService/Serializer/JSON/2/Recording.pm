@@ -1,6 +1,11 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    boolean
+    number
+    serialize_entity
+    list_of
+);
 use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -18,8 +23,8 @@ sub serialize
 
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
-    $body{length} = $entity->length // JSON::null;
-    $body{video} = $entity->video ? 1 : 0;
+    $body{length} = number($entity->length);
+    $body{video} = boolean($entity->video);
 
     $body{"artist-credit"} = serialize_entity($entity->artist_credit)
         if ($entity->artist_credit &&
@@ -28,13 +33,12 @@ sub serialize
     $body{releases} = list_of($entity, $inc, $stash, "releases")
         if ($toplevel && $inc && $inc->releases);
 
-    return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
+    return \%body unless defined $inc && $inc->isrcs;
 
     my $opts = $stash->store($entity);
     $body{isrcs} = [
         map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
-        ] if $inc->isrcs;
-    $body{puids} = [ ] if $inc->puids;
+    ] if $inc->isrcs;
 
     return \%body;
 };

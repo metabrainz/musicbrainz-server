@@ -18,7 +18,7 @@ test 'direct disc id lookup' => sub {
         $test->c, "INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);");
 
     ws_test_json 'direct disc id lookup',
-    '/discid/IeldkVfIh1wep_M8CMuDvA0nQ7Q-' => encode_json(
+    '/discid/IeldkVfIh1wep_M8CMuDvA0nQ7Q-' =>
         {
             id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
             'offset-count' => 9,
@@ -93,7 +93,7 @@ test 'direct disc id lookup' => sub {
                     }]
                 }
             ]
-        });
+        };
 };
 
 
@@ -108,7 +108,7 @@ test 'lookup via toc' => sub {
     $test->c->model('DurationLookup')->update(4);
 
     ws_test_json 'lookup via toc',
-    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' => encode_json(
+    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' =>
         {
             releases => [
                 {
@@ -209,8 +209,7 @@ test 'lookup via toc' => sub {
                     }]
                 }
             ]
-        });
+        };
 };
 
 1;
-

@@ -11,7 +11,9 @@ use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_mo
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
+
+sub _type { 'artist_credit' }
 
 sub get_by_ids
 {

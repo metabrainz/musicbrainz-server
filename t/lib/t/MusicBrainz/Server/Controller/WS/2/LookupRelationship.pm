@@ -257,6 +257,7 @@ ws_test 'release lookup with recording-level relationships',
         </cover-art-archive>
         <medium-list count="1">
             <medium>
+                <format>CD</format>
                 <position>1</position>
                 <track-list count="9" offset="0">
                     <track id="719e1eba-920f-31da-9c45-9eb53f791aee">

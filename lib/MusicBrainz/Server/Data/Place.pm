@@ -25,7 +25,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'place' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };

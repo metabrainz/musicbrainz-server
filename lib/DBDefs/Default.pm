@@ -271,6 +271,15 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS
 }
 
+# Sets the TTL for entities stored in memcached, in seconds. On slave servers,
+# this is set to 1 hour by default, to mitigate MBS-8726. On standalone
+# servers, this is set to 0 (meaning no expiration is set), because cache
+# invalidation is already handled by the server in that case.
+sub ENTITY_CACHE_TTL {
+    return 3600 if shift->REPLICATION_TYPE == RT_SLAVE;
+    return 0;
+}
+
 ################################################################################
 # Rate-Limiting
 ################################################################################

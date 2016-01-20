@@ -1,38 +1,133 @@
 package MusicBrainz::Server::Data::Role::EntityCache;
 
-use MooseX::Role::Parameterized;
+use DBDefs;
+use Moose::Role;
+use List::MoreUtils qw( uniq );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use Scalar::Util qw( looks_like_number );
 
-parameter 'prefix' => (
-    isa => 'Str',
-    required => 1,
+requires '_type';
+
+sub _id_cache_info {
+    my ($self, $prop) = @_;
+
+    my $type = $self->_type;
+    if ($type && (my $entity_properties = $ENTITIES{$type})) {
+        if (exists $entity_properties->{cache}) {
+            return $entity_properties->{cache}{$prop};
+        }
+    }
+}
+
+has _id_cache_id => (
+    is => 'ro',
+    isa => 'Maybe[Str]',
+    lazy => 1,
+    default => sub { shift->_id_cache_info('id') },
 );
 
-role {
+has _id_cache_prefix => (
+    is => 'ro',
+    isa => 'Maybe[Str]',
+    lazy => 1,
+    default => sub { shift->_id_cache_info('prefix') },
+);
 
-    my $params = shift;
-
-    with 'MusicBrainz::Server::Data::Role::EntityCacheBase';
-
-    method '_id_cache_prefix' => sub { $params->{prefix} };
-
-    method '_add_to_cache' => sub
-    {
-        my ($self, $cache, %data) = @_;
-        my @tmp;
-        foreach my $id (keys %data) {
-            my $key = $self->_id_cache_prefix . ':' . $id;
-            push @tmp, [$key, $data{$id}];
+around get_by_ids => sub {
+    my ($orig, $self, @ids) = @_;
+    return {} unless grep { defined && $_ } @ids;
+    my %ids = map { $_ => 1 } @ids;
+    my @keys = map { $self->_id_cache_prefix . ':' . $_ } keys %ids;
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    my %data = %{$cache->get_multi(@keys)};
+    my %result;
+    foreach my $key (keys %data) {
+        my @key = split /:/, $key;
+        my $id = $key[1];
+        $result{$id} = $data{$key};
+        delete $ids{$id};
+    }
+    if (%ids) {
+        my $data = $self->$orig(keys %ids) || {};
+        foreach my $id (keys %$data) {
+            $result{$id} = $data->{$id};
         }
-        $cache->set_multi(@tmp);
-    };
-
+        $self->_add_to_cache($cache, %$data);
+    }
+    return \%result;
 };
+
+after update => sub {
+    my ($self, $id) = @_;
+    $self->_delete_from_cache($id);
+};
+
+after delete => sub {
+    my ($self, @ids) = @_;
+    $self->_delete_from_cache(@ids);
+};
+
+after merge => sub {
+    my ($self, @ids) = @_;
+    $self->_delete_from_cache(@ids);
+};
+
+sub _create_cache_entries {
+    my ($self, $data) = @_;
+
+    my $cache_id = $self->_id_cache_id;
+    my $cache_prefix = $self->_id_cache_prefix . ':';
+    my @entries;
+    for my $id (keys %{$data}) {
+        # MBS-7241
+        my $got_lock = $self->c->sql->select_single_value(
+            'SELECT pg_try_advisory_xact_lock(?, ?)',
+            $cache_id,
+            $id,
+        );
+        if ($got_lock) {
+            push @entries, [$cache_prefix . $id, $data->{$id}, DBDefs->ENTITY_CACHE_TTL];
+        }
+    }
+    @entries;
+}
+
+sub _add_to_cache {
+    my ($self, $cache, %data) = @_;
+
+    my @entries = $self->_create_cache_entries(\%data);
+    $cache->set_multi(@entries) if @entries;
+}
+
+sub _delete_from_cache {
+    my ($self, @ids) = @_;
+
+    @ids = uniq grep { defined } @ids;
+    return unless @ids;
+
+    my $cache_id = $self->_id_cache_id;
+    my $cache_prefix = $self->_id_cache_prefix . ':';
+    my @keys;
+
+    for my $id (@ids) {
+        if (looks_like_number($id)) {
+            # MBS-7241
+            $self->c->sql->do('SELECT pg_advisory_xact_lock(?, ?)', $cache_id, $id);
+        }
+        push @keys, $cache_prefix . $id;
+    }
+
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    my $method = @keys > 1 ? 'delete_multi' : 'delete';
+    $cache->$method(@keys);
+}
 
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2016 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

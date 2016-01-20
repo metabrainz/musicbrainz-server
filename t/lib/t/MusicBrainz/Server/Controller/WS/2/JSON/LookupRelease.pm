@@ -14,7 +14,7 @@ test 'basic release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic release lookup',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -40,15 +40,14 @@ test 'basic release lookup' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'basic release lookup, inc=annotation' => sub {
@@ -58,7 +57,7 @@ test 'basic release lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic release lookup, inc=annotation',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' => encode_json(
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' =>
         {
             id => "adcf7b48-086e-48ee-b420-1001f88d672f",
             title => "My Demons",
@@ -84,16 +83,15 @@ test 'basic release lookup, inc=annotation' => sub {
                     "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                     "name" => "United Kingdom",
                     "sort-name" => "United Kingdom",
-                    "iso_3166_1_codes" => ["GB"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["GB"],
+                },
             }],
             barcode => "600116817020",
             asin => "B000KJTG6K",
             annotation => "this is a release annotation",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'basic release with tags' => sub {
@@ -105,7 +103,7 @@ test 'basic release with tags' => sub {
         $c, "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);");
 
     ws_test_json 'basic release with tags',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -131,16 +129,15 @@ test 'basic release with tags' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
             tags => [ { count => 1, name => "hello project" } ]
-        });
+        };
 };
 
 test 'basic release with collections' => sub {
@@ -156,7 +153,7 @@ test 'basic release with collections' => sub {
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
     ws_test_json 'basic release with collections',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -182,9 +179,8 @@ test 'basic release with collections' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
@@ -199,7 +195,7 @@ test 'basic release with collections' => sub {
                     "entity-type" => "release",
                     "release-count" => 1
                 }]
-        });
+        };
 };
 
 test 'release lookup with artists + aliases' => sub {
@@ -207,7 +203,7 @@ test 'release lookup with artists + aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with artists + aliases',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -251,14 +247,13 @@ test 'release lookup with artists + aliases' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             aliases => [],
-        });
+        };
 };
 
 test 'release lookup with labels and recordings' => sub {
@@ -266,7 +261,7 @@ test 'release lookup with labels and recordings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with labels and recordings',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -291,9 +286,8 @@ test 'release lookup with labels and recordings' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
@@ -310,7 +304,7 @@ test 'release lookup with labels and recordings' => sub {
                 }],
             media => [
                 {
-                    format => JSON::null,
+                    format => 'CD',
                     title => '',
                     position => 1,
                     "track-offset" => 0,
@@ -326,7 +320,7 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug",
                                 length => 243000,
                                 disambiguation => "",
-                                video => 0,
+                                video => JSON::false,
                             }
                         },
                         {
@@ -339,7 +333,7 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug (Big Bug NYC remix)",
                                 length => 222000,
                                 disambiguation => "",
-                                video => 0,
+                                video => JSON::false,
                             }
                         },
                         {
@@ -352,11 +346,11 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug (cover)",
                                 length => 333000,
                                 disambiguation => "",
-                                video => 0,
+                                video => JSON::false,
                             }
                         }]
                 }],
-        });
+        };
 };
 
 test 'release lookup with release-groups' => sub {
@@ -364,7 +358,7 @@ test 'release lookup with release-groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with release-groups',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' => encode_json(
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' =>
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -389,9 +383,8 @@ test 'release lookup with release-groups' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
@@ -427,7 +420,7 @@ test 'release lookup with release-groups' => sub {
                     }
                 ],
             }
-        });
+        };
 };
 
 test 'release lookup with discids and puids' => sub {
@@ -435,7 +428,7 @@ test 'release lookup with discids and puids' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with discids and puids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' => encode_json(
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' =>
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -461,9 +454,8 @@ test 'release lookup with discids and puids' => sub {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
-                    "iso_3166_1_codes" => ["JP"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["JP"],
+                },
             }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
@@ -499,8 +491,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー",
                                 length => 296026,
                                 disambiguation => "",
-                                puids => [ ],
-                                video => 0,
+                                video => JSON::false,
                             }
                         },
                         {
@@ -513,8 +504,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "HELLO! また会おうね (7人祭 version)",
                                 length => 213106,
                                 disambiguation => "",
-                                puids => [ ],
-                                video => 0,
+                                video => JSON::false,
                             }
                         },
                         {
@@ -527,12 +517,11 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー (instrumental)",
                                 length => 292800,
                                 disambiguation => "",
-                                puids => [ ],
-                                video => 0,
+                                video => JSON::false,
                             }
                         }]
                 }]
-        });
+        };
 };
 
 test 'release lookup, barcode is NULL' => sub {
@@ -540,7 +529,7 @@ test 'release lookup, barcode is NULL' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is NULL',
-    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' => encode_json(
+    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' =>
         {
             id => "fbe4eb72-0f24-3875-942e-f581589713d4",
             title => "For Beginner Piano",
@@ -566,15 +555,14 @@ test 'release lookup, barcode is NULL' => sub {
                     "id" => "489ce91b-6658-3307-9877-795b68554c98",
                     "name" => "United States",
                     "sort-name" => "United States",
-                    "iso_3166_1_codes" => ["US"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["US"],
+                },
             }],
             barcode => JSON::null,
             asin => "B00001IVAI",
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'release lookup, barcode is  empty string' => sub {
@@ -582,7 +570,7 @@ test 'release lookup, barcode is  empty string' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is empty string',
-    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' => encode_json(
+    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' =>
         {
             id => "dd66bfdd-6097-32e3-91b6-67f47ba25d4c",
             title => "For Beginner Piano",
@@ -608,15 +596,14 @@ test 'release lookup, barcode is  empty string' => sub {
                     "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                     "name" => "United Kingdom",
                     "sort-name" => "United Kingdom",
-                    "iso_3166_1_codes" => ["GB"],
-                    "iso_3166_2_codes" => [],
-                    "iso_3166_3_codes" => []},
+                    "iso-3166-1-codes" => ["GB"],
+                },
             }],
             barcode => "",
             asin => JSON::null,
             disambiguation => "",
             packaging => JSON::null,
-        });
+        };
 };
 
 test 'release lookup, relation attributes' => sub {
@@ -624,7 +611,7 @@ test 'release lookup, relation attributes' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, relation attributes',
-    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' => encode_json(
+    '/release/28fc2337-985b-3da9-ac40-ad6f28ff0d8e?inc=release-rels+artist-rels' =>
         {
             disambiguation => '',
             'text-representation' => {
@@ -645,11 +632,9 @@ test 'release lookup, relation attributes' => sub {
             'release-events' => [{
                 area => {
                     id => '2db42837-c832-3c27-b4a3-08198f75693c',
-                    iso_3166_3_codes => [],
                     disambiguation => '',
                     name => 'Japan',
-                    iso_3166_2_codes => [],
-                    iso_3166_1_codes => ['JP'],
+                    'iso-3166-1-codes' => ['JP'],
                     'sort-name' => 'Japan'
                 },
                 date => '2004-01-15'
@@ -669,9 +654,9 @@ test 'release lookup, relation attributes' => sub {
                     id => '4d5ec626-2251-4bb1-b62a-f24f471e3f2c',
                     'sort-name' => 'Lee, Soo-Man',
                     disambiguation => '',
-                    relations => [],
                     name => '이수만'
-                }
+                },
+                'target-type' => 'artist',
             },
             {
                 begin => JSON::null,
@@ -686,16 +671,13 @@ test 'release lookup, relation attributes' => sub {
                     quality => 'normal',
                     packaging => JSON::null,
                     date => '2004-01-15',
-                    relations => [],
                     'release-events' => [{
                         area => {
                             id => '2db42837-c832-3c27-b4a3-08198f75693c',
-                            iso_3166_3_codes => [],
                             name => 'Japan',
-                            iso_3166_2_codes => [],
                             disambiguation => '',
                             'sort-name' => 'Japan',
-                            iso_3166_1_codes => ['JP']
+                            'iso-3166-1-codes' => ['JP']
                         },
                         date => '2004-01-15'
                     }],
@@ -711,14 +693,15 @@ test 'release lookup, relation attributes' => sub {
                 'attribute-values' => {},
                 end => JSON::null,
                 'target-credit' => '',
-                'source-credit' => ''
+                'source-credit' => '',
+                'target-type' => 'release',
             }],
             title => 'LOVE & HONESTY',
             country => 'JP',
             status => 'Official',
             id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
             barcode => '4988064173891'
-        });
+        };
 };
 
 test 'release lookup, track artists have no tags' => sub {
@@ -727,13 +710,12 @@ test 'release lookup, track artists have no tags' => sub {
 
     ws_test_json 'release lookup, track artists have no tags',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels'
-    => encode_json({
+    => {
         'artist-credit' => [ {
             artist => {
                 disambiguation => '',
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
-                relations => [],
                 'sort-name' => 'Plone'
             },
             joinphrase => '',
@@ -753,7 +735,7 @@ test 'release lookup, track artists have no tags' => sub {
         disambiguation => '',
         id => '4f5a6b97-a09b-4893-80d1-eae1f3bfa221',
         media => [ {
-            format => undef,
+            format => 'CD',
             title => '',
             'track-count' => 10,
             'track-offset' => 0,
@@ -764,29 +746,29 @@ test 'release lookup, track artists have no tags' => sub {
                     length => 267560,
                     number => '1',
                     recording => {
-                            disambiguation => '',
-                            id => '44704dda-b877-4551-a2a8-c1f764476e65',
-                            length => 267560,
-                            video => 0,
-                            relations => [
-                                {
-                                    artist => {
-                                        disambiguation => '',
-                                        id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
-                                        name => 'Plone',
-                                        'sort-name' => 'Plone',
-                                        relations => []
-                                    },
-                                    attributes => [],
-                                    "attribute-values" => {},
-                                    begin => undef,
-                                    direction => 'backward',
-                                    end => undef,
-                                    ended => JSON::false,
+                        disambiguation => '',
+                        id => '44704dda-b877-4551-a2a8-c1f764476e65',
+                        length => 267560,
+                        video => JSON::false,
+                        relations => [
+                            {
+                                artist => {
+                                    disambiguation => '',
+                                    id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                    name => 'Plone',
+                                    'sort-name' => 'Plone',
+                                },
+                                attributes => [],
+                                "attribute-values" => {},
+                                begin => undef,
+                                direction => 'backward',
+                                end => undef,
+                                ended => JSON::false,
                                 type => 'producer',
                                 'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                                 'source-credit' => '',
                                 'target-credit' => '',
+                                'target-type' => 'artist',
                             }
                         ],
                         title => 'On My Bus'
@@ -801,14 +783,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '8920288e-7541-48a7-b23b-f80447c8b1ab',
                         length => 230506,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                                 artist => {
                                     disambiguation => '',
                                     id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                     name => 'Plone',
                                     'sort-name' => 'Plone',
-                                    relations => []
                                 },
                                 attributes => [],
                                 "attribute-values" => {},
@@ -820,6 +801,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                                 'source-credit' => '',
                                 'target-credit' => '',
+                                'target-type' => 'artist',
                         } ],
                         title => 'Top & Low Rent'
                     },
@@ -833,14 +815,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '6e89c516-b0b6-4735-a758-38e31855dcb6',
                         length => 237133,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -852,6 +833,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Plock'
                     },
@@ -865,14 +847,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '791d9b27-ae1a-4295-8943-ded4284f2122',
                         length => 229826,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -884,6 +865,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Marbles'
                     },
@@ -897,14 +879,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '4f392ffb-d3df-4f8a-ba74-fdecbb1be877',
                         length => 217440,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -916,6 +897,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Busy Working'
                     },
@@ -929,14 +911,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => 'dc891eca-bf42-4103-8682-86068fe732a5',
                         length => 227293,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -948,6 +929,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'The Greek Alphabet'
                     },
@@ -961,14 +943,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '25e9ae0f-8b7d-4230-9cde-9a07f7680e4a',
                         length => 244506,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -980,6 +961,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Press a Key'
                     },
@@ -993,14 +975,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '6f9c8c32-3aae-4dad-b023-56389361cf6b',
                         length => 173960,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1012,6 +993,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Bibi Plone'
                     },
@@ -1025,14 +1007,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '7e379a1d-f2bc-47b8-964e-00723df34c8a',
                         length => 208706,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1044,6 +1025,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Be Rude to Your School'
                     },
@@ -1057,14 +1039,13 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => 'a8614bda-42dc-43c7-ac5f-4067acb6f1c5',
                         length => 320067,
-                        video => 0,
+                        video => JSON::false,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1076,6 +1057,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Summer Plays Out'
                     },
@@ -1091,7 +1073,6 @@ test 'release lookup, track artists have no tags' => sub {
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
                 'sort-name' => 'Plone',
-                relations => []
             },
             attributes => [],
             "attribute-values" => {},
@@ -1103,14 +1084,13 @@ test 'release lookup, track artists have no tags' => sub {
             'type-id' => '307e95dd-88b5-419b-8223-b146d4a0d439',
             'source-credit' => '',
             'target-credit' => '',
+            'target-type' => 'artist',
         } ],
         'release-events' => [ {
             area => {
                 disambiguation => '',
                 id => '8a754a16-0027-3a29-b6d7-2b40ea0481ed',
-                iso_3166_1_codes => [ 'GB' ],
-                iso_3166_2_codes => [],
-                iso_3166_3_codes => [],
+                'iso-3166-1-codes' => [ 'GB' ],
                 name => 'United Kingdom',
                 'sort-name' => 'United Kingdom'
             },
@@ -1123,7 +1103,7 @@ test 'release lookup, track artists have no tags' => sub {
             script => 'Latn'
         },
         title => 'For Beginner Piano'
-    });
+    };
 };
 
 test 'release lookup, pregap track' => sub {
@@ -1142,7 +1122,7 @@ test 'release lookup, pregap track' => sub {
 
     ws_test_json 'release lookup, pregap track',
     '/release/ec0d0122-b559-4aa1-a017-7068814aae57?inc=artists+recordings+artist-credits'
-    => encode_json({
+    => {
         %artist_credit,
         asin => undef,
         barcode => '0208311348266',
@@ -1156,7 +1136,7 @@ test 'release lookup, pregap track' => sub {
         disambiguation => '',
         id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
         media => [ {
-            format => undef,
+            format => 'CD',
             title => '',
             'track-count' => 2,
             'track-offset' => 0,
@@ -1172,7 +1152,7 @@ test 'release lookup, pregap track' => sub {
                     title => 'Hello Goodbye [hidden track]',
                     disambiguation => '',
                     length => 128000,
-                    video => 0,
+                    video => JSON::false,
                     %artist_credit,
                 }
             },
@@ -1188,7 +1168,7 @@ test 'release lookup, pregap track' => sub {
                         title => 'Hello Goodbye / Galaxie',
                         disambiguation => '',
                         length => 211133,
-                        video => 0,
+                        video => JSON::false,
                         %artist_credit,
                     }
                 },
@@ -1203,7 +1183,7 @@ test 'release lookup, pregap track' => sub {
                         title => '2 X 4',
                         disambiguation => '',
                         length => 240400,
-                        video => 0,
+                        video => JSON::false,
                         %artist_credit,
                     }
                 }
@@ -1217,7 +1197,7 @@ test 'release lookup, pregap track' => sub {
             script => 'Latn'
         },
         title => 'Soup'
-    });
+    };
 };
 
 1;

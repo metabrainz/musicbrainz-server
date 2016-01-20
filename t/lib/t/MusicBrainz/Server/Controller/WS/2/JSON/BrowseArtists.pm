@@ -14,7 +14,7 @@ test 'browse artists via release group' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via release group',
-    '/artist?release-group=22b54315-6e51-350b-bb34-e6e16f7688bd' => encode_json(
+    '/artist?release-group=22b54315-6e51-350b-bb34-e6e16f7688bd' =>
         {
             "artist-offset" => 0,
             "artist-count" => 1,
@@ -37,7 +37,7 @@ test 'browse artists via release group' => sub {
                     ipis => [],
                     gender => JSON::null,
                 }]
-        });
+        };
 };
 
 test 'browse artists via recording' => sub {
@@ -45,7 +45,7 @@ test 'browse artists via recording' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via recording',
-    '/artist?inc=aliases&recording=0cf3008f-e246-428f-abc1-35f87d584d60' => encode_json(
+    '/artist?inc=aliases&recording=0cf3008f-e246-428f-abc1-35f87d584d60' =>
         {
             "artist-offset" => 0,
             "artist-count" => 2,
@@ -101,7 +101,7 @@ test 'browse artists via recording' => sub {
                     ipis => [],
                     gender => JSON::null,
                 }]
-        });
+        };
 };
 
 test 'browse artists via release, inc=tags+ratings' => sub {
@@ -109,7 +109,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse artists via release, inc=tags+ratings',
-    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+ratings' => encode_json(
+    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+ratings' =>
         {
             "artist-offset" => 0,
             "artist-count" => 3,
@@ -182,7 +182,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     ipis => [],
                     gender => JSON::null,
                 }]
-        });
+        };
 };
 
 1;
