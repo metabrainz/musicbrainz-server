@@ -49,6 +49,7 @@ test 'basic url lookup' => sub {
                     end => JSON::null,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'artist',
                 }]
         };
 };

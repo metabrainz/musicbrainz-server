@@ -70,6 +70,7 @@ test 'basic series lookup' => sub {
                         title => "Kantate, BWV 1 \"Wie sch\x{f6}n leuchtet der Morgenstern\"",
                         type => JSON::null,
                     },
+                    'target-type' => 'work',
                 },
                 {
                     'attribute-values' => {number => 'BWV 2'},
@@ -93,6 +94,7 @@ test 'basic series lookup' => sub {
                         title => 'Kantate, BWV 2 "Ach Gott, vom Himmel sieh darein"',
                         type => JSON::null,
                     },
+                    'target-type' => 'work',
                 },
                 {
                     'attribute-values' => {number => 'BWV 3'},
@@ -116,6 +118,7 @@ test 'basic series lookup' => sub {
                         title => 'Kantate, BWV 3 "Ach Gott, wie manches Herzeleid"',
                         type => JSON::null,
                     },
+                    'target-type' => 'work',
                 },
             ],
         };

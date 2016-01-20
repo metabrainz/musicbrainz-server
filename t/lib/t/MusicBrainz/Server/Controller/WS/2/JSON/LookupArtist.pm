@@ -158,6 +158,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'url',
                 },
                 {
                     attributes => [],
@@ -175,6 +176,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'url',
                 },
                 {
                     attributes => [],
@@ -192,6 +194,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'url',
                 },
                 {
                     attributes => [],
@@ -209,6 +212,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'url',
                 },
                 {
                     attributes => [],
@@ -226,6 +230,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'url',
                 },
             ],
             ipis => [],
@@ -980,6 +985,7 @@ test 'artist lookup with artist relations' => sub {
                     begin => '2001',
                     end => JSON::null,
                     ended => JSON::false,
+                    'target-type' => 'artist',
                 }
             ],
             ipis => [],

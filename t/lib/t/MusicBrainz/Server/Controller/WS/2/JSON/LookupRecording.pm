@@ -308,6 +308,7 @@ test 'recording lookup with release relationships' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'release',
                 }
             ]
         };
@@ -347,6 +348,7 @@ test 'recording lookup with work relationships' => sub {
                     },
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'work',
                 }
             ],
         };
@@ -396,12 +398,14 @@ test 'recording lookup with work-level relationships' => sub {
                     'type-id' => 'd59d99ea-23d4-4a80-b066-edca32ee158f',
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'artist',
                 } ],
                 title => 'Asseswaving',
                 type => undef
             },
             'source-credit' => '',
             'target-credit' => '',
+            'target-type' => 'work',
         } ],
         title => 'Asseswaving'
     };

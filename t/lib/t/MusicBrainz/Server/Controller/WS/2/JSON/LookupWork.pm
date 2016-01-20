@@ -110,6 +110,7 @@ test 'work lookup with recording relationships' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'recording',
                 },
                 {
                     attributes => [],
@@ -130,6 +131,7 @@ test 'work lookup with recording relationships' => sub {
                     ended => JSON::false,
                     'source-credit' => '',
                     'target-credit' => '',
+                    'target-type' => 'recording',
                 }
             ],
             iswcs => [],

@@ -671,7 +671,8 @@ test 'release lookup, relation attributes' => sub {
                     disambiguation => '',
                     relations => [],
                     name => '이수만'
-                }
+                },
+                'target-type' => 'artist',
             },
             {
                 begin => JSON::null,
@@ -711,7 +712,8 @@ test 'release lookup, relation attributes' => sub {
                 'attribute-values' => {},
                 end => JSON::null,
                 'target-credit' => '',
-                'source-credit' => ''
+                'source-credit' => '',
+                'target-type' => 'release',
             }],
             title => 'LOVE & HONESTY',
             country => 'JP',
@@ -764,29 +766,30 @@ test 'release lookup, track artists have no tags' => sub {
                     length => 267560,
                     number => '1',
                     recording => {
-                            disambiguation => '',
-                            id => '44704dda-b877-4551-a2a8-c1f764476e65',
-                            length => 267560,
-                            video => JSON::false,
-                            relations => [
-                                {
-                                    artist => {
-                                        disambiguation => '',
-                                        id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
-                                        name => 'Plone',
-                                        'sort-name' => 'Plone',
-                                        relations => []
-                                    },
-                                    attributes => [],
-                                    "attribute-values" => {},
-                                    begin => undef,
-                                    direction => 'backward',
-                                    end => undef,
-                                    ended => JSON::false,
+                        disambiguation => '',
+                        id => '44704dda-b877-4551-a2a8-c1f764476e65',
+                        length => 267560,
+                        video => JSON::false,
+                        relations => [
+                            {
+                                artist => {
+                                    disambiguation => '',
+                                    id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                    name => 'Plone',
+                                    'sort-name' => 'Plone',
+                                    relations => []
+                                },
+                                attributes => [],
+                                "attribute-values" => {},
+                                begin => undef,
+                                direction => 'backward',
+                                end => undef,
+                                ended => JSON::false,
                                 type => 'producer',
                                 'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                                 'source-credit' => '',
                                 'target-credit' => '',
+                                'target-type' => 'artist',
                             }
                         ],
                         title => 'On My Bus'
@@ -820,6 +823,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                                 'source-credit' => '',
                                 'target-credit' => '',
+                                'target-type' => 'artist',
                         } ],
                         title => 'Top & Low Rent'
                     },
@@ -852,6 +856,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Plock'
                     },
@@ -884,6 +889,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Marbles'
                     },
@@ -916,6 +922,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Busy Working'
                     },
@@ -948,6 +955,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'The Greek Alphabet'
                     },
@@ -980,6 +988,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Press a Key'
                     },
@@ -1012,6 +1021,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Bibi Plone'
                     },
@@ -1044,6 +1054,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Be Rude to Your School'
                     },
@@ -1076,6 +1087,7 @@ test 'release lookup, track artists have no tags' => sub {
                             'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0',
                             'source-credit' => '',
                             'target-credit' => '',
+                            'target-type' => 'artist',
                         } ],
                         title => 'Summer Plays Out'
                     },
@@ -1103,6 +1115,7 @@ test 'release lookup, track artists have no tags' => sub {
             'type-id' => '307e95dd-88b5-419b-8223-b146d4a0d439',
             'source-credit' => '',
             'target-credit' => '',
+            'target-type' => 'artist',
         } ],
         'release-events' => [ {
             area => {
