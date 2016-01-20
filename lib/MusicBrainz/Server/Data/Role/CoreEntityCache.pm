@@ -1,59 +1,44 @@
 package MusicBrainz::Server::Data::Role::CoreEntityCache;
 
-use MooseX::Role::Parameterized;
+use Moose::Role;
 
-parameter 'prefix' => (
-    isa => 'Str',
-    required => 1,
-);
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 
-role {
+around get_by_gid => sub {
+    my ($orig, $self, $gid) = @_;
 
-    my $params = shift;
+    return undef
+        unless defined $gid;
 
-    with 'MusicBrainz::Server::Data::Role::EntityCacheBase';
-
-    method '_id_cache_prefix' => sub { $params->{prefix} };
-
-    method '_add_to_cache' => sub
-    {
-        my ($self, $cache, %data) = @_;
-        my @tmp;
-        foreach my $id (keys %data) {
-            my $obj = $data{$id};
-            my $key = $self->_id_cache_prefix . ':' . $id;
-            push @tmp, [$key, $obj];
-            $key = $self->_id_cache_prefix . ':' . $obj->gid;
-            push @tmp, [$key, $id];
+    my $key = $self->_id_cache_prefix . ':' . $gid;
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    my $id = $cache->get($key);
+    my $obj;
+    if (defined($id)) {
+        $obj = $self->get_by_id($id);
+    } else {
+        $obj = $self->$orig($gid);
+        if (defined($obj)) {
+            $self->_add_to_cache($cache, $obj->id => $obj);
         }
-        $cache->set_multi(@tmp);
-    };
+    }
+    return $obj;
+};
 
-    around 'get_by_gid' => sub
-    {
-        my ($orig, $self, $gid) = @_;
+around _create_cache_entries => sub {
+    my ($orig, $self, $data) = @_;
 
-        return undef
-            unless defined $gid;
-
-        my $key = $self->_id_cache_prefix . ':' . $gid;
-        my $cache = $self->c->cache($self->_id_cache_prefix);
-        my $id = $cache->get($key);
-        my $obj;
-        if (defined($id)) {
-            $obj = $self->get_by_id($id);
-        }
-        else {
-            $obj = $self->$orig($gid);
-            if (defined($obj)) {
-                $cache->set($key, $obj->id);
-                $key = $self->_id_cache_prefix . ':' . $obj->id;
-                $cache->set($key, $obj);
-            }
-        }
-        return $obj;
-    };
-
+    my $prefix = $self->_id_cache_prefix . ':';
+    my @orig_entries = $self->$orig($data);
+    my @entries = @orig_entries;
+    # Only add gid entries for entities returned from $self->$orig, which
+    # may be a subset of $data if any are being deleted in a concurrent
+    # transaction.
+    for my $entry (@orig_entries) {
+        my $entity = $entry->[1];
+        push @entries, [$prefix . $entity->gid, $entity->id];
+    }
+    @entries;
 };
 
 1;
@@ -61,6 +46,7 @@ role {
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2016 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

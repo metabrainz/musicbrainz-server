@@ -6,10 +6,12 @@ use MusicBrainz::Server::Entity::AreaType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'area_type' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'area_type' }
 
 sub _table
 {

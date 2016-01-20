@@ -6,7 +6,9 @@ use MusicBrainz::Server::Entity::Tag;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
+
+sub _type { 'tag' }
 
 sub _table
 {

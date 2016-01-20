@@ -6,7 +6,9 @@ use aliased 'MusicBrainz::Server::Entity::WorkAttribute';
 use aliased 'MusicBrainz::Server::Entity::WorkAttributeType';
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'workattr' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
+
+sub _type { 'work_attribute' }
 
 sub _table
 {

@@ -20,7 +20,7 @@ role {
         my ($self, $adjust, @ids) = @_;
         my $query = "UPDATE $table SET edits_pending = numeric_larger(0, edits_pending + ?) WHERE id IN (" . placeholders(@ids) . ")";
         $self->sql->do($query, $adjust, @ids);
-        if ($self->does('MusicBrainz::Server::Data::Role::EntityCacheBase')) {
+        if ($self->does('MusicBrainz::Server::Data::Role::EntityCache')) {
             $self->_delete_from_cache(@ids);
         }
     };
