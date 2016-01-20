@@ -310,7 +310,7 @@ test 'release lookup with labels and recordings' => sub {
                 }],
             media => [
                 {
-                    format => JSON::null,
+                    format => 'CD',
                     title => '',
                     position => 1,
                     "track-offset" => 0,
@@ -753,7 +753,7 @@ test 'release lookup, track artists have no tags' => sub {
         disambiguation => '',
         id => '4f5a6b97-a09b-4893-80d1-eae1f3bfa221',
         media => [ {
-            format => undef,
+            format => 'CD',
             title => '',
             'track-count' => 10,
             'track-offset' => 0,
@@ -1156,7 +1156,7 @@ test 'release lookup, pregap track' => sub {
         disambiguation => '',
         id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
         media => [ {
-            format => undef,
+            format => 'CD',
             title => '',
             'track-count' => 2,
             'track-offset' => 0,
