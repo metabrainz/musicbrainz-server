@@ -249,7 +249,6 @@ test 'recording lookup with puids and isrcs' => sub {
             disambiguation => "",
             length => 296026,
             video => JSON::false,
-            puids => [ ],
             isrcs => [ "JPA600102450" ],
         };
 };
