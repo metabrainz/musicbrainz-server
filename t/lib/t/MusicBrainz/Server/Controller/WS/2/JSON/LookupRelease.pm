@@ -669,7 +669,6 @@ test 'release lookup, relation attributes' => sub {
                     id => '4d5ec626-2251-4bb1-b62a-f24f471e3f2c',
                     'sort-name' => 'Lee, Soo-Man',
                     disambiguation => '',
-                    relations => [],
                     name => '이수만'
                 },
                 'target-type' => 'artist',
@@ -687,7 +686,6 @@ test 'release lookup, relation attributes' => sub {
                     quality => 'normal',
                     packaging => JSON::null,
                     date => '2004-01-15',
-                    relations => [],
                     'release-events' => [{
                         area => {
                             id => '2db42837-c832-3c27-b4a3-08198f75693c',
@@ -735,7 +733,6 @@ test 'release lookup, track artists have no tags' => sub {
                 disambiguation => '',
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
-                relations => [],
                 'sort-name' => 'Plone'
             },
             joinphrase => '',
@@ -777,7 +774,6 @@ test 'release lookup, track artists have no tags' => sub {
                                     id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                     name => 'Plone',
                                     'sort-name' => 'Plone',
-                                    relations => []
                                 },
                                 attributes => [],
                                 "attribute-values" => {},
@@ -811,7 +807,6 @@ test 'release lookup, track artists have no tags' => sub {
                                     id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                     name => 'Plone',
                                     'sort-name' => 'Plone',
-                                    relations => []
                                 },
                                 attributes => [],
                                 "attribute-values" => {},
@@ -844,7 +839,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -877,7 +871,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -910,7 +903,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -943,7 +935,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -976,7 +967,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1009,7 +999,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1042,7 +1031,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1075,7 +1063,6 @@ test 'release lookup, track artists have no tags' => sub {
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
                                 'sort-name' => 'Plone',
-                                relations => []
                             },
                             attributes => [],
                             "attribute-values" => {},
@@ -1103,7 +1090,6 @@ test 'release lookup, track artists have no tags' => sub {
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
                 'sort-name' => 'Plone',
-                relations => []
             },
             attributes => [],
             "attribute-values" => {},

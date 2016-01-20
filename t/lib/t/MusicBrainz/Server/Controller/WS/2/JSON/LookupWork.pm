@@ -103,7 +103,6 @@ test 'work lookup with recording relationships' => sub {
                         length => 296026,
                         video => JSON::false,
                         disambiguation => "",
-                        relations => []
                     },
                     begin => JSON::null,
                     end => JSON::null,
@@ -124,7 +123,6 @@ test 'work lookup with recording relationships' => sub {
                         length => 292800,
                         video => JSON::false,
                         disambiguation => "",
-                        relations => []
                     },
                     begin => JSON::null,
                     end => JSON::null,

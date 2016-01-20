@@ -40,7 +40,6 @@ test 'basic url lookup' => sub {
                         name => 'Paul Allgood',
                         'sort-name' => 'Allgood, Paul',
                         disambiguation => '',
-                        relations => []
                     },
                     ended => JSON::false,
                     begin => JSON::null,

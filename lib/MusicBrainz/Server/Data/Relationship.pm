@@ -188,6 +188,9 @@ sub _load
             }
         }
     }
+    for my $obj (@objs) {
+        $obj->has_loaded_relationships(1);
+    }
     return @rels;
 }
 

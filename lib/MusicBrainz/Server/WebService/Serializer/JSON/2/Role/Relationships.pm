@@ -11,7 +11,10 @@ around serialize => sub
     my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
 
-    return $ret unless defined $inc && $inc->has_rels;
+    return $ret unless
+        defined $inc &&
+        $inc->has_rels &&
+        $entity->has_loaded_relationships;
 
     my @rels = map { serialize_entity($_, $inc, $opts) }
         sort_by { join("\t",

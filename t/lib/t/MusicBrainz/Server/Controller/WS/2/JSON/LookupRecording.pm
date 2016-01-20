@@ -294,7 +294,6 @@ test 'recording lookup with release relationships' => sub {
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
-                        relations => [],
                         quality => 'normal',
                         status => JSON::null,
                         'text-representation' => {
@@ -344,7 +343,6 @@ test 'recording lookup with work relationships' => sub {
                         language => JSON::null,
                         title => 'the Love Bug',
                         type => JSON::null,
-                        relations => []
                     },
                     'source-credit' => '',
                     'target-credit' => '',
@@ -385,7 +383,6 @@ test 'recording lookup with work-level relationships' => sub {
                         disambiguation => 'UK dubstep artist Greg Sanders',
                         id => '472bc127-8861-45e8-bc9e-31e8dd32de7a',
                         name => 'Distance',
-                        relations => [],
                         'sort-name' => 'Distance'
                     },
                     attributes => [],
