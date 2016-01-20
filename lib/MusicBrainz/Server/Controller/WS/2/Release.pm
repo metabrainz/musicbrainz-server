@@ -103,13 +103,7 @@ sub release_toplevel
 
     if ($c->stash->{inc}->recordings)
     {
-        my @mediums;
-        if (!$c->stash->{inc}->media)
-        {
-            $c->model('Medium')->load_for_releases($release);
-        }
-
-        @mediums = $release->all_mediums;
+        my @mediums = $release->all_mediums;
 
         if (!$c->stash->{inc}->discids)
         {

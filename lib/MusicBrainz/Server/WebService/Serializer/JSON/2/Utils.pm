@@ -31,6 +31,7 @@ my %serializers =
         Collection
         Event
         Instrument
+        ISRC
         Label
         Place
         Medium
@@ -70,6 +71,10 @@ sub serializer
     my $entity = shift;
 
     my $serializer;
+
+    if (ref $entity eq 'ARRAY') {
+        $entity = $entity->[0];
+    }
 
     for my $class (keys %serializers) {
         if ($entity->isa($class)) {

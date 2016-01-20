@@ -9,7 +9,7 @@ use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
-use JSON qw( encode_json );
+use JSON qw( decode_json encode_json );
 use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -20,8 +20,9 @@ use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Template;
 use Test::Builder;
+use Test::Deep qw( cmp_deeply );
 use Test::Differences;
-use Test::JSON import => [qw( is_json is_valid_json )];
+use Test::JSON import => [qw( is_valid_json )];
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
@@ -404,8 +405,7 @@ sub _build_ws_test_json {
             $mech->get_ok($end_point . $url, 'fetching');
             is_valid_json($mech->content, "validating (is_valid_json)");
 
-            is_json($mech->content, $expected);
-            $Test->note($mech->content);
+            cmp_deeply(decode_json($mech->content), $expected);
         });
     };
 }
@@ -486,7 +486,7 @@ sub page_test_jsonld {
     my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
 
     is_valid_json($jsonld, 'has valid JSON-LD');
-    is_json($jsonld, encode_json($expected), 'has expected JSON-LD');
+    cmp_deeply(decode_json($jsonld), $expected, 'has expected JSON-LD');
 }
 
 1;

@@ -164,6 +164,7 @@ sub relationships {
         my $link_ids = pluck('link', $results);
         print_rows($c, 'link', 'id', $link_ids);
         print_rows($c, 'link_attribute', 'link', $link_ids);
+        print_rows($c, 'link_attribute_text_value', 'link', $link_ids);
 
         print_inserts($c, $table, $results);
     }

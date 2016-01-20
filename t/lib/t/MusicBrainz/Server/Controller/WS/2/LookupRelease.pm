@@ -276,6 +276,7 @@ ws_test 'release lookup with labels, recordings and tags',
         <medium-list count="1">
             <medium>
                 <position>1</position>
+                <format>CD</format>
                 <track-list count="3" offset="0">
                     <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
                         <position>1</position><number>1</number>
@@ -654,6 +655,7 @@ ws_test 'release lookup, related artists have no tags',
     <medium-list count="1">
       <medium>
         <position>1</position>
+        <format>CD</format>
         <track-list count="10" offset="0">
           <track id="9b9a84b5-0a41-38f6-859f-36cb22ac813c">
             <position>1</position><number>1</number><length>267560</length>
@@ -847,6 +849,7 @@ ws_test 'release lookup, track artists have no aliases',
     <medium-list count="1">
       <medium>
         <position>1</position>
+        <format>CD</format>
         <track-list count="3" offset="0">
           <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
             <position>1</position><number>1</number><length>243000</length>
@@ -1014,6 +1017,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
     <medium-list count="1">
       <medium>
         <position>1</position>
+        <format>CD</format>
         <track-list count="10" offset="0">
           <track id="9b9a84b5-0a41-38f6-859f-36cb22ac813c">
             <position>1</position>
@@ -1451,6 +1455,7 @@ ws_test 'release lookup, pregap track',
     <medium-list count="1">
       <medium>
         <position>1</position>
+        <format>CD</format>
         <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
           <position>0</position>
           <number>0</number>
