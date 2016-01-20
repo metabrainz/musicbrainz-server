@@ -34,8 +34,7 @@ test 'basic label lookup' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
-                "iso-3166-2-codes" => [],
-                "iso-3166-3-codes" => []},
+            },
             ipis => [],
         };
 };
@@ -68,8 +67,7 @@ test 'basic label lookup, inc=annotation' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
-                "iso-3166-2-codes" => [],
-                "iso-3166-3-codes" => []},
+            },
             ipis => [],
         };
 };
@@ -99,8 +97,7 @@ test 'label lookup, inc=aliases' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
-                "iso-3166-2-codes" => [],
-                "iso-3166-3-codes" => []},
+            },
             aliases => [
                 { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
             ],
@@ -133,8 +130,7 @@ test 'label lookup with releases, inc=media' => sub {
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso-3166-1-codes" => ["GB"],
-                "iso-3166-2-codes" => [],
-                "iso-3166-3-codes" => []},
+            },
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
@@ -152,8 +148,7 @@ test 'label lookup with releases, inc=media' => sub {
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso-3166-1-codes" => ["GB"],
-                            "iso-3166-2-codes" => [],
-                            "iso-3166-3-codes" => []},
+                        },
                     }],
                     barcode => "600116822123",
                     disambiguation => "",
@@ -189,8 +184,7 @@ test 'label lookup with releases, inc=media' => sub {
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso-3166-1-codes" => ["GB"],
-                            "iso-3166-2-codes" => [],
-                            "iso-3166-3-codes" => []},
+                        },
                     }],
                     barcode => "600116817020",
                     disambiguation => "",
