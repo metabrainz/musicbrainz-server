@@ -24,7 +24,7 @@ use MusicBrainz::Server::Edit::Types qw(
     NullableOnPreview
 );
 use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
-use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( N_l );
@@ -300,15 +300,6 @@ sub build_display_data
         if (scalar(@changes_with_track_ids) && any { $_->[2] && !$_->[2]->id } @$tracklist_changes) {
             $data->{changed_mbids} = 1;
         }
-
-        $data->{artist_credit_changes} = [
-            grep {
-                ($_->[1] && hash_artist_credit_without_join_phrases($_->[1]->artist_credit))
-                    ne
-                ($_->[2] && hash_artist_credit_without_join_phrases($_->[2]->artist_credit))
-            }
-            grep { $_->[0] ne '-' }
-            @$tracklist_changes ];
 
         # Generate a map of track id => old recording id, for edits that store
         # track ids, to detect if recordings have changed.
