@@ -3,7 +3,7 @@ use 5.10.0;
 use Moose::Role;
 use namespace::autoclean;
 
-use Algorithm::Merge qw( merge );
+use Text::Diff3 qw( merge );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use Try::Tiny;
 
@@ -123,23 +123,22 @@ sub merge_changes {
                 );
 
             # Stores a mapping of the JSON serialization to the object value
-            my %hashed = map { @$_ } ($ancestor, $current, $new);
+            my %hashed = map { @$_ } ($new, $ancestor, $current);
 
             # Attempt to merge all JSON values together
-            my ($json_val) = merge(
-                (map +[ $_->[0] ], ($ancestor, $current, $new)),
-                { CONFLICT => sub {
-                    die bless({
-                        property => $name,
-                        ancestor => $ancestor,
-                        current  => $current,
-                        new      => $new
-                    }, 'Conflict')
-                } }
-            );
+            my $merged_json = merge(map +[ $_->[0] ], ($new, $ancestor, $current));
+
+            if ($merged_json->{conflict}) {
+                die bless({
+                    property => $name,
+                    ancestor => $ancestor,
+                    current  => $current,
+                    new      => $new
+                }, 'Conflict');
+            }
 
             # Resolve that JSON value back to it's actual value
-            $merged->{$name} = $hashed{$json_val};
+            $merged->{$name} = $hashed{$merged_json->{body}->[0]};
         }
     }
     catch {
