@@ -3,13 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var getSimilarity = require('../edit/utility/similarity');
-var clean = require('../common/utility/clean');
-var isBlank = require('../common/utility/isBlank');
-import getCookie from '../common/utility/getCookie';
-var setCookie = require('../common/utility/setCookie');
-import {MIN_NAME_SIMILARITY} from '../common/constants';
+const _ = require('lodash');
+
+const {MIN_NAME_SIMILARITY} = require('../common/constants');
+const clean = require('../common/utility/clean');
+const isBlank = require('../common/utility/isBlank');
+const getCookie = require('../common/utility/getCookie');
+const setCookie = require('../common/utility/setCookie');
+const getSimilarity = require('../edit/utility/similarity');
 
 MB.releaseEditor = MB.releaseEditor || {};
 

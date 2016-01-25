@@ -6,7 +6,9 @@ use MusicBrainz::Server::Entity::Tag;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'tag' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
+
+sub _type { 'tag' }
 
 sub _table
 {
@@ -34,7 +36,7 @@ sub _entity_class
 sub get_by_name
 {
     my ($self, $name) = @_;
-    my @result = values %{$self->_get_by_keys('name', $name)};
+    my @result = $self->_get_by_keys('name', $name);
     return $result[0];
 }
 

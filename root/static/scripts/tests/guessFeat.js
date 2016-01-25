@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var _ = require('lodash');
-var guessFeat = require('../edit/utility/guessFeat');
+const _ = require('lodash');
+const test = require('tape');
+
+const guessFeat = require('../edit/utility/guessFeat');
 
 test('guessing feat. artists', function (t) {
     t.plan(17);

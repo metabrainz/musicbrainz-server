@@ -7,9 +7,11 @@ use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'scr' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => ['name'] };
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'script' }
 
 sub _table
 {

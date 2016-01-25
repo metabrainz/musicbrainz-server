@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('./i18n.js');
+const {l, strings} = require('./i18n');
 
 (function (MB) {
 
@@ -11,7 +11,7 @@ var i18n = require('./i18n.js');
 
         options: {
             width: 800,
-            title: i18n.l("Loading..."),
+            title: l("Loading..."),
             resizable: false
         },
 
@@ -89,7 +89,7 @@ var i18n = require('./i18n.js');
             }
 
             var entity = this.options.entity;
-            this.options.title = i18n.strings.addANewEntity[entity];
+            this.options.title = strings.addANewEntity[entity];
             this._super(event);
 
             if (this.options.name) {

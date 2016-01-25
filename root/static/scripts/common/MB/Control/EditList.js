@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../i18n.js');
+const {l} = require('../../i18n');
 
 var SELECTED_CLASS = {
     '1':  'vote-yes',
@@ -33,7 +33,7 @@ MB.Control.EditList = function (container) {
         $voteOptions.find('.vote').attr('class', 'vote');
 
         $voteOptions.prepend(
-            $('<div>').text(i18n.l("Vote on all edits:"))
+            $('<div>').text(l("Vote on all edits:"))
         );
 
         // :nth-child would make more sense, but I couldn't get it working

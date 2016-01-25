@@ -3,7 +3,11 @@ use Moose;
 use Hash::Merge qw( merge );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    date_period
+    number
+    serialize_entity
+);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -18,6 +22,7 @@ sub serialize
     $body->{type} = $entity->link->type->name;
     $body->{"type-id"} = $entity->link->type->gid;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
+    $body->{'ordering-key'} = number($entity->link_order) if $entity->link_order;
 
     $body = merge($body, date_period($entity->link));
     $body->{attributes} = [ map { $_->type->name } @attributes ];
@@ -36,6 +41,7 @@ sub serialize
         @attributes
     } if any { $_->type->creditable } @attributes;
 
+    $body->{'target-type'} = $entity->target_type;
     $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
     $body->{'source-credit'} = $entity->source_credit // '';
     $body->{'target-credit'} = $entity->target_credit // '';

@@ -7,24 +7,25 @@
 
 require('babel-core/register');
 
-let argv = require('yargs')
+const argv = require('yargs')
   .demand('port')
   .describe('port', 'port to listen on')
   .describe('development', 'disables module cache if set to 1')
   .argv;
 
-let _ = require('lodash');
-let concat = require('concat-stream');
-let fs = require('fs');
-let http = require('http');
-let path = require('path');
-let React = require('react');
-let ReactDOMServer = require('react-dom/server');
-let sliced = require('sliced');
-let URL = require('url');
-let gettext = require('./server/gettext');
-let getCookie = require('./static/scripts/common/utility/getCookie').default;
-let i18n = require('./static/scripts/common/i18n');
+const concat = require('concat-stream');
+const fs = require('fs');
+const http = require('http');
+const _ = require('lodash');
+const path = require('path');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const sliced = require('sliced');
+const URL = require('url');
+
+const gettext = require('./server/gettext');
+const i18n = require('./static/scripts/common/i18n');
+const getCookie = require('./static/scripts/common/utility/getCookie');
 
 const DOCTYPE = '<!DOCTYPE html>';
 const URI_FOR_DELIMITER = "\x1F__URI_FOR__\x1F";
@@ -111,11 +112,11 @@ function getResponse(req, requestBodyBuf) {
   }
 
   try {
-    Page = require(pathFromRoot(url.path.replace(/^\//, ''))).default;
+    Page = require(pathFromRoot(url.path.replace(/^\//, '')));
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
-        Page = require(pathFromRoot('root/main/404')).default;
+        Page = require(pathFromRoot('root/main/404'));
         status = 404;
       } catch (err) {
         return badRequest(err);

@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var validation = require('../../edit/validation.js');
+const test = require('tape');
+
+const validation = require('../../edit/validation');
 
 var releaseEditor = MB.releaseEditor;
 

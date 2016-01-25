@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import _ from 'lodash';
+const _ = require('lodash');
 
-export const LINK_TYPES = {
+const LINK_TYPES = {
   wikipedia: {
     area: "9228621d-9720-35c3-ad3f-327d789464ec",
     artist: "29651736-fa6d-48e4-aadc-a557c6add1cb",
@@ -755,7 +755,7 @@ function testAll(tests, text) {
   }
 }
 
-export const validationRules = {};
+const validationRules = {};
 
 // "has lyrics at" is only allowed for certain lyrics sites
 validationRules[LINK_TYPES.lyrics.artist] = function (url) {
@@ -1070,7 +1070,7 @@ validationRules[LINK_TYPES.image.artist] = validateImage;
 validationRules[LINK_TYPES.image.label] = validateImage;
 validationRules[LINK_TYPES.image.place] = validateImage;
 
-export function guessType(sourceType, currentURL) {
+function guessType(sourceType, currentURL) {
   var cleanup = _.find(CLEANUPS, function (cleanup) {
     return (cleanup.type || {})[sourceType] && testAll(cleanup.match, currentURL);
   });
@@ -1078,7 +1078,7 @@ export function guessType(sourceType, currentURL) {
   return cleanup && cleanup.type[sourceType];
 }
 
-export function cleanURL(dirtyURL) {
+function cleanURL(dirtyURL) {
   dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, "");
 
   var cleanup = _.find(CLEANUPS, function (cleanup) {
@@ -1088,7 +1088,7 @@ export function cleanURL(dirtyURL) {
   return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
 }
 
-export function registerEvents($url) {
+function registerEvents($url) {
   function urlChanged(event) {
     var url = $url.val();
     var clean = cleanURL(url) || url;
@@ -1110,3 +1110,9 @@ export function registerEvents($url) {
   })
   .parents('form').on('submit', urlChanged);
 }
+
+exports.LINK_TYPES = LINK_TYPES;
+exports.validationRules = validationRules;
+exports.guessType = guessType;
+exports.cleanURL = cleanURL;
+exports.registerEvents = registerEvents;

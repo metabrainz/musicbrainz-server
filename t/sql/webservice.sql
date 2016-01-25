@@ -1615,6 +1615,31 @@ INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALU
 INSERT INTO series_alias (id, series, name, sort_name) VALUES
     (7, 25, 'BWV', 'BWV');
 
+INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES
+    ('', 0, '13bb5d97-00db-4fd8-920c-14da7c11bdd4', 12488154, 145, '2014-07-09 15:10:16.494155-05', 'Kantate, BWV 1 "Wie schön leuchtet der Morgenstern"', 3),
+    ('', 0, 'fa97639c-ea29-47d6-9461-16b411322bac', 12488155, 145, '2014-07-09 14:59:14.107699-05', 'Kantate, BWV 2 "Ach Gott, vom Himmel sieh darein"', 3),
+    ('', 0, '3edf4a3f-2b11-4a61-a5cf-e193363ef55c', 12488156, 145, '2014-07-03 15:29:22.181908-05', 'Kantate, BWV 3 "Ach Gott, wie manches Herzeleid"', 3);
+
+INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
+    (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180865, 743),
+    (1, NULL, NULL, NULL, '2014-07-03 15:25:50.050958-05', NULL, NULL, NULL, '0', 180086, 743),
+    (1, NULL, NULL, NULL, '2014-06-24 07:16:41.33395-05', NULL, NULL, NULL, '0', 178448, 743);
+
+INSERT INTO link_attribute (attribute_type, created, link) VALUES
+    (788, '2014-07-09 15:10:16.494155-05', 180865),
+    (788, '2014-07-03 15:25:50.050958-05', 180086),
+    (788, '2014-06-24 07:16:41.33395-05', 178448);
+
+INSERT INTO link_attribute_text_value (attribute_type, link, text_value) VALUES
+    (788, 180865, 'BWV 1'),
+    (788, 180086, 'BWV 2'),
+    (788, 178448, 'BWV 3');
+
+INSERT INTO l_series_work (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
+    (0, 25, '', 12488154, '', 7760, '2014-07-09 15:10:16.494155-05', 180865, 1),
+    (0, 25, '', 12488155, '', 7494, '2014-07-03 15:25:50.050958-05', 180086, 2),
+    (0, 25, '', 12488156, '', 6668, '2014-06-24 07:16:41.33395-05', 178448, 3);
+
 -- Works
 
 INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8', 7905446, 198, NULL, 'Asseswaving', NULL);

@@ -34,7 +34,10 @@ with 't::Context' => { -excludes => '_build_context' };
     package t::CoreEntityCache::MyCachedEntityData;
     use Moose;
     extends 't::CoreEntityCache::MyEntityData';
-    with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'prefix' };
+    with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+    sub _type { 'my_cached_entity_data' }
+    has '+_id_cache_id' => ( default => 1 );
+    has '+_id_cache_prefix' => ( default => 'prefix' );
 
     package t::CoreEntityCache::MockCache;
     use Moose;
@@ -113,6 +116,67 @@ is ( $test->c->cache->_orig->get_called, 2 );
 is ( $test->c->cache->_orig->set_called, 2 );
 
 
+};
+
+test 'Cache is transactional (MBS-7241)' => sub {
+    # This test is of limited usefulness, since it only tests a *single* point
+    # in the transaction where an entity might be requested. But it at least
+    # detects cases where there is *no* transactionality, i.e. the situation we
+    # had before MBS-7241 was fixed.
+    my $test = shift;
+
+    use Coro;
+    use DBDefs;
+    use MusicBrainz::Server::Data::Artist;
+    use MusicBrainz::Server::Context;
+    use Sql;
+
+    no warnings 'redefine';
+
+    # Important: each context needs a separate database connection (fresh_connector).
+    my $c1 = MusicBrainz::Server::Context->create_script_context(database => 'TEST', fresh_connector => 1);
+    my $c2 = MusicBrainz::Server::Context->create_script_context(database => 'TEST', fresh_connector => 1);
+    my $_delete_from_cache = MusicBrainz::Server::Data::Artist->can('_delete_from_cache');
+
+    *MusicBrainz::Server::Data::Artist::_delete_from_cache = sub {
+        $_delete_from_cache->(@_);
+        # cede to the coroutine calling get_by_id, before this SQL transaction ends.
+        cede;
+    };
+
+    $c1->sql->auto_commit(1);
+    $c1->sql->do(<<'EOSQL');
+    INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (3, '31456bd3-0e1a-4c47-a5cc-e147a42965f2', 'Test', 'Test');
+EOSQL
+
+    async {
+        Sql::run_in_transaction(sub {
+            $c1->model('Artist')->delete(3);
+        }, $c1->sql);
+    };
+
+    async {
+        Sql::run_in_transaction(sub {
+            $c2->model('Artist')->get_by_id(3);
+        }, $c2->sql);
+    };
+
+    cede;
+    cede;
+
+    my $artist = $c1->model('Artist')->get_by_id(3);
+    ok(!defined $artist, 'get_by_id returns undef for deleted artist');
+
+    $c1->sql->auto_commit(1);
+    $c1->sql->do(<<'EOSQL');
+    DELETE FROM artist WHERE id = 3;
+    DELETE FROM artist_deletion WHERE gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
+EOSQL
+
+    *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
+    $c1->connector->disconnect;
+    $c2->connector->disconnect;
 };
 
 1;

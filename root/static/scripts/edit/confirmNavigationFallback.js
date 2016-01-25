@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
+const {l} = require('../common/i18n');
 
 MB.confirmNavigationFallback = function () {
     /* Every major browser supports onbeforeunload expect Opera. (This says
@@ -31,7 +31,7 @@ MB.confirmNavigationFallback = function () {
                 type = (node.type || "").toLowerCase(),
                 prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
 
-            if (prevent && !confirm(i18n.l("All of your changes will be lost if you leave this page."))) {
+            if (prevent && !confirm(l("All of your changes will be lost if you leave this page."))) {
                 prevented = true;
                 return false;
             }

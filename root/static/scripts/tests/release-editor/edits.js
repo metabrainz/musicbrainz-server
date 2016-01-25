@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var common = require('./common.js');
-var validation = require('../../edit/validation.js');
+const test = require('tape');
+const ReactTestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
 
-var ReactDOM = require('react-dom');
-var ReactTestUtils = require('react-addons-test-utils');
-var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
+const validation = require('../../edit/validation');
+const {triggerChange, triggerClick, addURL} = require('../external-links-editor/utils');
+const common = require('./common');
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];

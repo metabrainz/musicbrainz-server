@@ -18,6 +18,12 @@ has 'relationships' => (
     }
 );
 
+has has_loaded_relationships => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
+
 sub grouped_relationships
 {
     my ($self, @types) = @_;
@@ -86,8 +92,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
 
-    # FIXME: Need a way to distinguish between relationships not being loaded vs. not existing.
-    if ($self->all_relationships) {
+    if ($self->has_loaded_relationships) {
         $json->{relationships} = [map { $_->TO_JSON } $self->all_relationships];
     }
 

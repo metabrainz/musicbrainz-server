@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
-var deferFocus = require('../edit/utility/deferFocus.js');
-var guessFeat = require('../edit/utility/guessFeat');
+const i18n = require('../common/i18n');
+const deferFocus = require('../edit/utility/deferFocus');
+const guessFeat = require('../edit/utility/guessFeat');
 
 (function (releaseEditor) {
 

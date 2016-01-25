@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l, lp} from '../../static/scripts/common/i18n';
+const React = require('react');
+
+const {l, lp} = require('../../static/scripts/common/i18n');
 
 let TYPE_OPTIONS = {
   artist:         l('Artist'),
@@ -48,4 +49,4 @@ const Search = () => (
   </form>
 );
 
-export default Search;
+module.exports = Search;

@@ -3,8 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var mergeDates = require('./mergeDates.js');
-var deferFocus = require('../../edit/utility/deferFocus.js');
+const deferFocus = require('../../edit/utility/deferFocus');
+const mergeDates = require('./mergeDates');
+
+function getDirection(relationship, source) {
+  let entities = relationship.entities();
+
+  if (source === entities[0]) {
+    return 'forward';
+  }
+
+  if (source === entities[1]) {
+    return 'backward';
+  }
+}
 
 (function (RE) {
 
@@ -64,7 +76,7 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
                 var dialog = RE.UI.AddDialog({
                     source: self,
                     target: MB.entity({}, firstRelationship.target(self).entityType),
-                    direction: self === firstRelationship.entities()[1] ? "backward" : "forward",
+                    direction: getDirection(firstRelationship, self),
                     viewModel: vm
                 });
 
@@ -145,15 +157,19 @@ var deferFocus = require('../../edit/utility/deferFocus.js');
             return false;
         },
 
-        getRelationshipGroup: function (linkTypeID, viewModel) {
-            // Returns all relationships of the given linkTypeID. Used in
-            // fields.js to recalculate link orders when an item is moved.
-            // Since displayableRelationships is used, it should be in the
-            // same order as it appears in the UI.
+        getRelationshipGroup: function (relationship, viewModel) {
+            // Returns all relationships that belong to the same 'ordering'
+            // group as `relationship`, i.e. that have the same link type and
+            // direction. Used in fields.js to recalculate link orders when an
+            // item is moved. Since displayableRelationships is used, it should
+            // be in the same order as it appears in the UI.
+            let linkTypeID = String(relationship.linkTypeID());
+            let direction = getDirection(relationship, this);
 
-            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
-                return r.linkTypeID() == linkTypeID;
-            });
+            return _.filter(
+                this.displayableRelationships(viewModel)(),
+                r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction
+            );
         }
     });
 

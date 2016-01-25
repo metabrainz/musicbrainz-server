@@ -421,7 +421,7 @@ sub linked_releases
     $c->model('Release')->load_release_events(@$releases);
 
     my @mediums;
-    if ($c->stash->{inc}->media)
+    if ($c->stash->{inc}->media || $c->stash->{inc}->recordings)
     {
         @mediums = map { $_->all_mediums } @$releases;
 

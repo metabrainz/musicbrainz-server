@@ -3,12 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import _ from 'lodash';
-var i18n = require('../../i18n');
-var clean = require('../../utility/clean');
-var formatTrackLength = require('../../utility/formatTrackLength');
-var isBlank = require('../../utility/isBlank');
-import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+const _ = require('lodash');
+
+const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
+const i18n = require('../../i18n');
+const clean = require('../../utility/clean');
+const formatTrackLength = require('../../utility/formatTrackLength');
+const isBlank = require('../../utility/isBlank');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 

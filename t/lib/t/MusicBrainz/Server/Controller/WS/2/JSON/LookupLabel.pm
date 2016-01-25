@@ -14,7 +14,7 @@ test 'basic label lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic label lookup',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json(
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' =>
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -33,12 +33,10 @@ test 'basic label lookup' => sub {
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
-                "iso_3166_1_codes" => ["GB"],
-                "iso_3166_2_codes" => [],
-                "iso_3166_3_codes" => []},
+                "iso-3166-1-codes" => ["GB"],
+            },
             ipis => [],
-        });
-
+        };
 };
 
 test 'basic label lookup, inc=annotation' => sub {
@@ -48,7 +46,7 @@ test 'basic label lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic label lookup, inc=annotation',
-    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json(
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' =>
         {
             id => "46f0f4cd-8aab-4b33-b698-f459faf64190",
             name => "Warp Records",
@@ -68,12 +66,10 @@ test 'basic label lookup, inc=annotation' => sub {
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
-                "iso_3166_1_codes" => ["GB"],
-                "iso_3166_2_codes" => [],
-                "iso_3166_3_codes" => []},
+                "iso-3166-1-codes" => ["GB"],
+            },
             ipis => [],
-        });
-
+        };
 };
 
 test 'label lookup, inc=aliases' => sub {
@@ -81,7 +77,7 @@ test 'label lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup, inc=aliases',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json(
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' =>
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -100,15 +96,13 @@ test 'label lookup, inc=aliases' => sub {
                 "id"  => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
-                "iso_3166_1_codes" => ["GB"],
-                "iso_3166_2_codes" => [],
-                "iso_3166_3_codes" => []},
+                "iso-3166-1-codes" => ["GB"],
+            },
             aliases => [
                 { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
             ],
             ipis => [],
-        });
-
+        };
 };
 
 test 'label lookup with releases, inc=media' => sub {
@@ -116,7 +110,7 @@ test 'label lookup with releases, inc=media' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup with releases, inc=media',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' => encode_json(
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' =>
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -135,9 +129,8 @@ test 'label lookup with releases, inc=media' => sub {
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
-                "iso_3166_1_codes" => ["GB"],
-                "iso_3166_2_codes" => [],
-                "iso_3166_3_codes" => []},
+                "iso-3166-1-codes" => ["GB"],
+            },
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
@@ -154,9 +147,8 @@ test 'label lookup with releases, inc=media' => sub {
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
-                            "iso_3166_1_codes" => ["GB"],
-                            "iso_3166_2_codes" => [],
-                            "iso_3166_3_codes" => []},
+                            "iso-3166-1-codes" => ["GB"],
+                        },
                     }],
                     barcode => "600116822123",
                     disambiguation => "",
@@ -191,9 +183,8 @@ test 'label lookup with releases, inc=media' => sub {
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
-                            "iso_3166_1_codes" => ["GB"],
-                            "iso_3166_2_codes" => [],
-                            "iso_3166_3_codes" => []},
+                            "iso-3166-1-codes" => ["GB"],
+                        },
                     }],
                     barcode => "600116817020",
                     disambiguation => "",
@@ -208,8 +199,7 @@ test 'label lookup with releases, inc=media' => sub {
                 }
             ],
             ipis => [],
-        });
+        };
 };
 
 1;
-

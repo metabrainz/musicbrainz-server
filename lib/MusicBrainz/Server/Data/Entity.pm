@@ -6,7 +6,6 @@ use Class::MOP;
 use Data::Dumper;
 use Devel::StackTrace;
 use List::MoreUtils qw( part uniq );
-use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Validation qw( is_guid is_database_row_id );
 use Carp qw( confess );
 
@@ -29,28 +28,17 @@ sub _column_mapping
     return {};
 }
 
-sub _get_by_keys
-{
+sub _get_by_keys {
     my ($self, $key, @ids) = @_;
-    return $self->_get_by_keys_append_sql($key, '', @ids);
-}
 
-sub _get_by_keys_append_sql
-{
-    my ($self, $key, $extra_sql, @ids) = @_;
     @ids = grep { defined && $_ } @ids;
-    return {} unless @ids;
+    return () unless @ids;
+
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
-                " WHERE $key IN (" . placeholders(@ids) . ") " .
-                $extra_sql;
+                " WHERE $key = any(?)";
 
-    my %result;
-    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $obj = $self->_new_from_row($row);
-        $result{$obj->id} = $obj;
-    }
-    return \%result;
+    $self->query_to_list($query, [\@ids]);
 }
 
 sub get_by_id
@@ -60,11 +48,18 @@ sub get_by_id
     return $result[0];
 }
 
-sub get_by_id_locked
-{
+sub get_by_id_locked {
     my ($self, $id) = @_;
-    my @result = values %{$self->_get_by_keys_append_sql($self->_id_column, 'FOR UPDATE', $id)};
-    return $result[0];
+
+    return unless $id;
+
+    my $key = $self->_id_column;
+    my $query = "SELECT " . $self->_columns .
+                " FROM " . $self->_table .
+                " WHERE $key = ? FOR UPDATE";
+
+    my $rows = $self->c->sql->select_list_of_hashes($query, $id);
+    $self->_new_from_row($rows->[0]);
 }
 
 sub _id_column
@@ -72,14 +67,14 @@ sub _id_column
     return 'id';
 }
 
-sub get_by_ids
-{
+sub get_by_ids {
     my ($self, @ids) = @_;
 
     @ids = grep { is_database_row_id($_) } @ids;
     return {} unless @ids;
 
-    return $self->_get_by_keys($self->_id_column, uniq(@ids));
+    my %result = map { $_->id => $_ } $self->_get_by_keys($self->_id_column, uniq(@ids));
+    \%result;
 }
 
 sub _warn_about_invalid_ids {

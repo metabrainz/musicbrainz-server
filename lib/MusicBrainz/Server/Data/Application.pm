@@ -48,7 +48,7 @@ sub load
 sub get_by_oauth_id
 {
     my ($self, $oauth_id) = @_;
-    my @result = values %{$self->_get_by_keys('oauth_id', $oauth_id)};
+    my @result = $self->_get_by_keys('oauth_id', $oauth_id);
     return $result[0];
 }
 

@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var test = require('tape');
-var externalLinks = require('../edit/externalLinks.js');
-var ReactTestUtils = require('react-addons-test-utils');
-var { triggerChange, triggerClick, addURL } = require('./external-links-editor/utils.js');
+const test = require('tape');
+const ReactTestUtils = require('react-addons-test-utils');
+
+const externalLinks = require('../edit/externalLinks');
+const {triggerChange, triggerClick, addURL} = require('./external-links-editor/utils');
 
 MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 

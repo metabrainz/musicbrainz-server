@@ -3,8 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var request = require('../common/utility/request.js');
-var debounce = require('../common/utility/debounce.js');
+const debounce = require('../common/utility/debounce');
+const request = require('../common/utility/request');
 
 (function (releaseEditor) {
 
@@ -132,15 +132,9 @@ var debounce = require('../common/utility/debounce.js');
 
         clean.dates = pluck(events, "date").value();
 
-        // XXX annoying inconsistency!!!
-        // browse requests return iso_3166_1_codes, the search server returns
-        // iso-3166-1-codes.
-
-        var areas = pluck(events, "area");
-
-        clean.countries = areas.pluck("iso-3166-1-codes")
-                               .concat(areas.pluck("iso_3166_1_codes").value())
-                               .flatten().compact().uniq().value();
+        clean.countries = pluck(events, "area")
+            .pluck("iso-3166-1-codes")
+            .flatten().compact().uniq().value();
 
         clean.labels = pluck(labels, "label").map(function (info) {
             return MB.entity.Label({ gid: info.id, name: info.name });

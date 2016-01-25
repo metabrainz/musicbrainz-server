@@ -8,7 +8,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -342,6 +342,60 @@ test 'Comments are trimmed (MBS-8573)' => sub {
 
     my $artist = $c->model('Artist')->get_by_id(2);
     is($artist->comment, 'test comment');
+};
+
+test 'Fails edits trying to change the gender of a group (MBS-8722)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name, type)
+VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'group', 'group', 1);
+EOSQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        gender_id => 1,
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET type = 2 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'A group of artists cannot have a gender.';
+};
+
+test 'Fails edits trying to set an artist with a gender as a group' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name)
+VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+EOSQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        type_id => 5,
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET gender = 1 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'A group of artists cannot have a gender.';
 };
 
 sub _create_full_edit {

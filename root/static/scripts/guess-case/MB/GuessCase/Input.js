@@ -19,7 +19,7 @@
 
 */
 
-var utils = require('../../utils.js');
+const utils = require('../../utils');
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 

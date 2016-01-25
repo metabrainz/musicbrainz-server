@@ -7,6 +7,7 @@ use Test::More;
     package MyEntityData;
     use Moose;
     extends 'MusicBrainz::Server::Data::Entity';
+    sub _type { 'my_entity_data' }
     sub get_by_ids
     {
         my $self = shift;
@@ -17,7 +18,9 @@ use Test::More;
     package MyCachedEntityData;
     use Moose;
     extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'prefix' };
+    with 'MusicBrainz::Server::Data::Role::EntityCache';
+    has '+_id_cache_id' => ( default => 1 );
+    has '+_id_cache_prefix' => ( default => 'prefix' );
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
 
     package MockCache;

@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../common/i18n.js');
-var dates = require('../../edit/utility/dates.js');
-import * as URLCleanup from '../../edit/URLCleanup';
-import {PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
+const i18n = require('../../common/i18n');
+const URLCleanup = require('../../edit/URLCleanup');
+const dates = require('../../edit/utility/dates');
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -490,7 +490,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return i18n.l("The end date cannot preceed the begin date.");
+                    return i18n.l("The end date cannot precede the begin date.");
                 }
             }
 
@@ -511,17 +511,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     });
 
     function addRelationships(relationships, source, viewModel) {
-        var linkType = relationships[0].linkTypeInfo();
-
         _.each(relationships, function (relationship) {
             if (source.mergeRelationship(relationship)) {
                 return;
             }
 
-            var typeInfo = relationship.linkTypeInfo();
-
-            if (typeInfo.orderableDirection) {
-                var group = source.getRelationshipGroup(typeInfo.id, viewModel);
+            if (relationship.linkTypeInfo().orderableDirection) {
+                var group = source.getRelationshipGroup(relationship, viewModel);
                 var maxLinkOrder = -Infinity;
 
                 _.each(group, function (other) {

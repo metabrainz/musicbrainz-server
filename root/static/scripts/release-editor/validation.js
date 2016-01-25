@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n.js');
+const i18n = require('../common/i18n');
 
 (function (releaseEditor) {
 
@@ -11,7 +11,7 @@ var i18n = require('../common/i18n.js');
     var utils = releaseEditor.utils;
 
     // Allow for access in ko templates
-    validation.errorsExist = require('../edit/validation.js').errorsExist;
+    validation.errorsExist = require('../edit/validation').errorsExist;
 
     function markTabWithErrors($panel) {
         // Don't mark the edit note tab, because it's the last one and only

@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../../i18n.js');
+const {l} = require('../../i18n');
 
 MB.Control.EditSummary = function (container) {
     var self = {};
@@ -15,7 +15,7 @@ MB.Control.EditSummary = function (container) {
 
     self.addNote = function () {
         $toggleEditNote
-            .html(i18n.l("Delete Note"))
+            .html(l("Delete Note"))
             .unbind('click').click(self.deleteNote);
         $editNote.show();
         $editNoteField.focus();
@@ -23,7 +23,7 @@ MB.Control.EditSummary = function (container) {
 
     self.deleteNote = function () {
         $toggleEditNote
-            .html(i18n.l("Add Note"))
+            .html(l("Add Note"))
             .unbind('click').click(self.addNote);
         $editNote.hide();
         $editNoteField.val('');

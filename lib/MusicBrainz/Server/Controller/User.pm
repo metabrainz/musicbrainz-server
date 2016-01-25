@@ -440,7 +440,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     my $tag = $c->model('Tag')->get_by_name($tag_name);
     my %tags = ();
     my $tag_in_use = 0;
-    my @entities_with_tags = sort { $a <=> $b } entities_with('tags');
+    my @entities_with_tags = sort { $a cmp $b } entities_with('tags');
 
     # Determine whether this tag exists in the database
     if ($tag) {

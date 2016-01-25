@@ -1,6 +1,7 @@
-import $ from 'jquery';
-import ko from 'knockout';
-import {registerEvents} from './edit/URLCleanup';
+const $ = require('jquery');
+const ko = require('knockout');
+
+const {registerEvents} = require('./edit/URLCleanup');
 
 $(function () {
   var $urlControl = $("#id-edit-url\\.url");

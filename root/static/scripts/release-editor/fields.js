@@ -3,17 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var i18n = require('../common/i18n');
-var clean = require('../common/utility/clean');
-var request = require('../common/utility/request');
-var formatTrackLength = require('../common/utility/formatTrackLength');
-var dates = require('../edit/utility/dates');
+const i18n = require('../common/i18n');
+const clean = require('../common/utility/clean');
+const formatTrackLength = require('../common/utility/formatTrackLength');
+const request = require('../common/utility/request');
+const dates = require('../edit/utility/dates');
+const validation = require('../edit/validation');
 
 (function (releaseEditor) {
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-    var validation = require('../edit/validation.js');
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {

@@ -153,16 +153,16 @@ around '_get_by_keys' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig(@_);
-    $self->load_preferences(values %$ret);
+    my @ret = $self->$orig(@_);
+    $self->load_preferences(@ret);
 
-    return $ret;
+    return @ret;
 };
 
 sub find_by_email
 {
     my ($self, $email) = @_;
-    return values %{$self->_get_by_keys('email', $email)};
+    return $self->_get_by_keys('email', $email);
 }
 
 sub find_by_privileges

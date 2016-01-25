@@ -17,9 +17,9 @@ sub serialize
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
-    $body{iso_3166_1_codes} = $entity->iso_3166_1 ? [ map { $_ } @{ $entity->iso_3166_1 } ] : JSON::null;
-    $body{iso_3166_2_codes} = $entity->iso_3166_2 ? [ map { $_ } @{ $entity->iso_3166_2 } ] : JSON::null;
-    $body{iso_3166_3_codes} = $entity->iso_3166_3 ? [ map { $_ } @{ $entity->iso_3166_3 } ] : JSON::null;
+    $body{'iso-3166-1-codes'} = [$entity->iso_3166_1_codes] if $entity->iso_3166_1_codes;
+    $body{'iso-3166-2-codes'} = [$entity->iso_3166_2_codes] if $entity->iso_3166_2_codes;
+    $body{'iso-3166-3-codes'} = [$entity->iso_3166_3_codes] if $entity->iso_3166_3_codes;
 
     if ($toplevel)
     {

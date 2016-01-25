@@ -16,9 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+
+sub _type { 'link_attribute_type' }
 
 sub _table
 {
@@ -146,7 +148,7 @@ sub _hash_to_row
 sub get_by_gid
 {
     my ($self, $gid) = @_;
-    my @result = values %{$self->_get_by_keys("gid", $gid)};
+    my @result = $self->_get_by_keys('gid', $gid);
     if (scalar(@result)) {
         return $result[0];
     }

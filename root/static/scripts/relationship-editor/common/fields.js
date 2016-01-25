@@ -3,15 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var _ = require('lodash');
-var i18n = require('../../common/i18n');
-var clean = require('../../common/utility/clean');
-var request = require('../../common/utility/request');
-var linkPhrase = require('../../edit/utility/linkPhrase');
-var dates = require('../../edit/utility/dates');
-var mergeDates = require('./mergeDates');
-import {SERIES_ORDERING_ATTRIBUTE,
-        SERIES_ORDERING_TYPE_AUTOMATIC} from '../../common/constants';
+const _ = require('lodash');
+
+const {
+    SERIES_ORDERING_ATTRIBUTE,
+    SERIES_ORDERING_TYPE_AUTOMATIC
+} = require('../../common/constants');
+const i18n = require('../../common/i18n');
+const clean = require('../../common/utility/clean');
+const request = require('../../common/utility/request');
+const dates = require('../../edit/utility/dates');
+const linkPhrase = require('../../edit/utility/linkPhrase');
+const mergeDates = require('./mergeDates');
 
 (function (RE) {
 
@@ -369,7 +372,7 @@ import {SERIES_ORDERING_ATTRIBUTE,
 
         _moveEntity: function (offset) {
             var vm = this.parent;
-            var relationships = vm.source.getRelationshipGroup(this.linkTypeID(), vm);
+            var relationships = vm.source.getRelationshipGroup(this, vm);
             var index = _.indexOf(relationships, this);
             var newIndex = index + offset;
 

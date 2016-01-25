@@ -3,11 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import _ from 'lodash';
-import React from 'react';
-import {l, lp} from '../../static/scripts/common/i18n';
-import {VARTIST_GID} from '../../static/scripts/common/constants';
-import EditorLink from '../../static/scripts/common/components/EditorLink';
+const _ = require('lodash');
+const React = require('react');
+
+const EditorLink = require('../../static/scripts/common/components/EditorLink');
+const {VARTIST_GID} = require('../../static/scripts/common/constants');
+const {l, lp} = require('../../static/scripts/common/i18n');
 
 function languageLink(language) {
   let {id, native_language, native_territory} = language[1];
@@ -394,4 +395,4 @@ const Menu = () => (
   </div>
 );
 
-export default Menu;
+module.exports = Menu;

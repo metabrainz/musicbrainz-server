@@ -12,10 +12,15 @@
         "annotations": {
             "edit_type": 85
         },
+        "cache": {
+            "id": 1,
+            "prefix": "area"
+        },
         "custom_tabs": ["artists", "labels", "releases", "places"],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "relatable": "overview"
@@ -33,6 +38,21 @@
         },
         "url": "area"
     },
+    "area_alias_type": {
+        "cache": {
+            "id": 39,
+            "prefix": "area_alias_type"
+        },
+        "model": "AreaAliasType",
+        "table": "area_alias_type"
+    },
+    "area_type": {
+        "cache": {
+            "id": 2,
+            "prefix": "area_type"
+        },
+        "model": "AreaType"
+    },
     "artist": {
         "aliases": {
             "add_edit_type": 6,
@@ -43,11 +63,16 @@
         "annotations": {
             "edit_type": 5
         },
+        "cache": {
+            "id": 3,
+            "prefix": "artist"
+        },
         "collections": true,
         "custom_tabs": ["releases", "recordings", "works", "events"],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
@@ -80,6 +105,28 @@
         },
         "url": "artist"
     },
+    "artist_alias_type": {
+        "cache": {
+            "id": 40,
+            "prefix": "artist_alias_type"
+        },
+        "model": "ArtistAliasType",
+        "table": "artist_alias_type"
+    },
+    "artist_credit": {
+        "cache": {
+            "id": 4,
+            "prefix": "ac"
+        },
+        "model": "ArtistCredit"
+    },
+    "artist_type": {
+        "cache": {
+            "id": 5,
+            "prefix": "artist_type"
+        },
+        "model": "ArtistType"
+    },
     "cdstub": {
         "model": "CDStub"
     },
@@ -96,7 +143,22 @@
         "table": "editor_collection",
         "url": "collection"
     },
+    "collection_type": {
+        "cache": {
+            "id": 6,
+            "prefix": "collection_type"
+        },
+        "model": "CollectionType"
+    },
+    "cover_art_type": {
+        "cache": {
+            "id": 7,
+            "prefix": "cat"
+        },
+        "model": "CoverArtType"
+    },
     "editor": {
+        "last_updated_column": true,
         "model": "Editor",
         "subscriptions": {
             "entity": false
@@ -112,10 +174,15 @@
         "annotations": {
             "edit_type": 154
         },
+        "cache": {
+            "id": 8,
+            "prefix": "event"
+        },
         "collections": true,
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -135,8 +202,30 @@
         },
         "url": "event"
     },
+    "event_alias_type": {
+        "cache": {
+            "id": 41,
+            "prefix": "event_alias_type"
+        },
+        "model": "EventAliasType",
+        "table": "event_alias_type"
+    },
+    "event_type": {
+        "cache": {
+            "id": 9,
+            "prefix": "event_type"
+        },
+        "model": "EventType"
+    },
     "freedb": {
         "model": "FreeDB"
+    },
+    "gender": {
+        "cache": {
+            "id": 10,
+            "prefix": "g"
+        },
+        "model": "Gender"
     },
     "instrument": {
         "aliases": {
@@ -148,9 +237,14 @@
         "annotations": {
             "edit_type": 135
         },
+        "cache": {
+            "id": 11,
+            "prefix": "instrument"
+        },
         "custom_tabs": ["releases", "recordings"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -169,6 +263,21 @@
         },
         "url": "instrument"
     },
+    "instrument_alias_type": {
+        "cache": {
+            "id": 42,
+            "prefix": "instrument_alias_type"
+        },
+        "model": "InstrumentAliasType",
+        "table": "instrument_alias_type"
+    },
+    "instrument_type": {
+        "cache": {
+            "id": 12,
+            "prefix": "instrument_type"
+        },
+        "model": "InstrumentType"
+    },
     "isrc": {
         "model": "ISRC"
     },
@@ -185,9 +294,14 @@
         "annotations": {
             "edit_type": 15
         },
+        "cache": {
+            "id": 13,
+            "prefix": "label"
+        },
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
             "indexable": true,
@@ -220,6 +334,58 @@
         },
         "url": "label"
     },
+    "label_alias_type": {
+        "cache": {
+            "id": 43,
+            "prefix": "label_alias_type"
+        },
+        "model": "LabelAliasType",
+        "table": "label_alias_type"
+    },
+    "label_type": {
+        "cache": {
+            "id": 14,
+            "prefix": "label_type"
+        },
+        "model": "LabelType"
+    },
+    "language": {
+        "cache": {
+            "id": 15,
+            "prefix": "lng"
+        },
+        "model": "Language"
+    },
+    "link": {
+        "cache": {
+            "id": 16,
+            "prefix": "link"
+        },
+        "model": "Link"
+    },
+    "link_attribute_type": {
+        "cache": {
+            "id": 17,
+            "prefix": "linkattrtype"
+        },
+        "last_updated_column": true,
+        "model": "LinkAttributeType"
+    },
+    "link_type": {
+        "cache": {
+            "id": 18,
+            "prefix": "linktype"
+        },
+        "last_updated_column": true,
+        "model": "LinkType"
+    },
+    "medium_format": {
+        "cache": {
+            "id": 19,
+            "prefix": "mf"
+        },
+        "model": "MediumFormat"
+    },
     "place": {
         "aliases": {
             "add_edit_type": 66,
@@ -230,11 +396,16 @@
         "annotations": {
             "edit_type": 65
         },
+        "cache": {
+            "id": 20,
+            "prefix": "place"
+        },
         "collections": true,
         "custom_tabs": ["events", "performances", "map"],
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -254,6 +425,21 @@
         },
         "url": "place"
     },
+    "place_alias_type": {
+        "cache": {
+            "id": 44,
+            "prefix": "place_alias_type"
+        },
+        "model": "PlaceAliasType",
+        "table": "place_alias_type"
+    },
+    "place_type": {
+        "cache": {
+            "id": 21,
+            "prefix": "place_type"
+        },
+        "model": "PlaceType"
+    },
     "recording": {
         "aliases": {
             "add_edit_type": 711,
@@ -265,10 +451,15 @@
             "edit_type": 75
         },
         "artist_credits": true,
+        "cache": {
+            "id": 22,
+            "prefix": "recording"
+        },
         "collections": true,
         "custom_tabs": ["fingerprints"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "relatable": "overview"
@@ -286,6 +477,14 @@
         "tags": true,
         "url": "recording"
     },
+    "recording_alias_type": {
+        "cache": {
+            "id": 45,
+            "prefix": "recording_alias_type"
+        },
+        "model": "RecordingAliasType",
+        "table": "recording_alias_type"
+    },
     "release": {
         "aliases": {
             "add_edit_type": 318,
@@ -297,10 +496,15 @@
             "edit_type": 35
         },
         "artist_credits": true,
+        "cache": {
+            "id": 23,
+            "prefix": "release"
+        },
         "collections": true,
         "custom_tabs": ["discids", "cover_art"],
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -318,6 +522,14 @@
         "tags": true,
         "url": "release"
     },
+    "release_alias_type": {
+        "cache": {
+            "id": 46,
+            "prefix": "release_alias_type"
+        },
+        "model": "ReleaseAliasType",
+        "table": "release_alias_type"
+    },
     "release_group": {
         "aliases": {
             "add_edit_type": 26,
@@ -329,8 +541,13 @@
             "edit_type": 25
         },
         "artist_credits": true,
+        "cache": {
+            "id": 24,
+            "prefix": "release_group"
+        },
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -356,6 +573,49 @@
         },
         "url": "release-group"
     },
+    "release_group_alias_type": {
+        "cache": {
+            "id": 47,
+            "prefix": "release_group_alias_type"
+        },
+        "model": "ReleaseGroupAliasType",
+        "table": "release_group_alias_type"
+    },
+    "release_group_secondary_type": {
+        "cache": {
+            "id": 25,
+            "prefix": "release_group_secondary_type"
+        },
+        "model": "ReleaseGroupSecondaryType"
+    },
+    "release_group_type": {
+        "cache": {
+            "id": 26,
+            "prefix": "release_group_type"
+        },
+        "model": "ReleaseGroupType"
+    },
+    "release_packaging": {
+        "cache": {
+            "id": 27,
+            "prefix": "rp"
+        },
+        "model": "ReleasePackaging"
+    },
+    "release_status": {
+        "cache": {
+            "id": 28,
+            "prefix": "rs"
+        },
+        "model": "ReleaseStatus"
+    },
+    "script": {
+        "cache": {
+            "id": 29,
+            "prefix": "scr"
+        },
+        "model": "Script"
+    },
     "series": {
         "aliases": {
             "add_edit_type": 145,
@@ -366,8 +626,13 @@
         "annotations": {
             "edit_type": 144
         },
+        "cache": {
+            "id": 30,
+            "prefix": "series"
+        },
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -391,11 +656,38 @@
         },
         "url": "series"
     },
+    "series_alias_type": {
+        "cache": {
+            "id": 48,
+            "prefix": "series_alias_type"
+        },
+        "model": "SeriesAliasType",
+        "table": "series_alias_type"
+    },
+    "series_ordering_type": {
+        "cache": {
+            "id": 31,
+            "prefix": "series_ordering_type"
+        },
+        "model": "SeriesOrderingType"
+    },
+    "series_type": {
+        "cache": {
+            "id": 32,
+            "prefix": "series_type"
+        },
+        "model": "SeriesType"
+    },
     "tag": {
+        "cache": {
+            "id": 33,
+            "prefix": "tag"
+        },
         "model": "Tag"
     },
     "track": {
         "artist_credits": 1,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true
         },
@@ -406,6 +698,7 @@
     },
     "url": {
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "multiple": true,
             "no_details": true,
@@ -426,9 +719,14 @@
         "annotations": {
             "edit_type": 45
         },
+        "cache": {
+            "id": 34,
+            "prefix": "work"
+        },
         "collections": true,
         "disambiguation": true,
         "edit_table": true,
+        "last_updated_column": true,
         "mbid": {
             "indexable": true,
             "multiple": true,
@@ -449,5 +747,41 @@
             "simple": true
         },
         "url": "work"
+    },
+    "work_alias_type": {
+        "cache": {
+            "id": 49,
+            "prefix": "work_alias_type"
+        },
+        "model": "WorkAliasType",
+        "table": "work_alias_type"
+    },
+    "work_attribute": {
+        "cache": {
+            "id": 35,
+            "prefix": "workattr"
+        },
+        "model": "WorkAttribute"
+    },
+    "work_attribute_type": {
+        "cache": {
+            "id": 36,
+            "prefix": "workattrtype"
+        },
+        "model": "WorkAttributeType"
+    },
+    "work_attribute_type_allowed_value": {
+        "cache": {
+            "id": 37,
+            "prefix": "watav"
+        },
+        "model": "WorkAttributeTypeAllowedValue"
+    },
+    "work_type": {
+        "cache": {
+            "id": 38,
+            "prefix": "work_type"
+        },
+        "model": "WorkType"
     }
 }
