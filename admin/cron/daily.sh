@@ -88,9 +88,6 @@ fi
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
 
-# Recalculate related tags
-./admin/CalculateRelatedTags.sh
-
 echo `date`" : Nightly jobs complete!"
 
 # eof
