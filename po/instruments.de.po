@@ -9,12 +9,12 @@
 # Philipp Wolfer <email address hidden>, 2015
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2013-2014
-# TL, 2015
+# TL, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-14 23:14+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-01-21 11:20+0000\n"
+"Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,7 +248,7 @@ msgstr "Ajaeng"
 
 #: DB:instrument/name:747
 msgid "akete"
-msgstr ""
+msgstr "Akete"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -308,7 +308,7 @@ msgstr "Atabaque"
 
 #: DB:instrument/name:565
 msgid "atarigane"
-msgstr ""
+msgstr "Atarigane"
 
 #: DB:instrument/name:409
 msgid "autoharp"
@@ -572,7 +572,7 @@ msgstr "Buk"
 
 #: DB:instrument/name:528
 msgid "bulbul tarang"
-msgstr ""
+msgstr "Bulbul Tarang"
 
 #: DB:instrument/name:153
 msgid "bullroarer"
@@ -584,7 +584,7 @@ msgstr "Knopfgriffakkordeon"
 
 #: DB:instrument/name:655
 msgid "buzuq"
-msgstr ""
+msgstr "Buzuq"
 
 #: DB:instrument/name:336
 msgid "cajón"
@@ -620,7 +620,7 @@ msgstr "Cello"
 
 #: DB:instrument/name:335
 msgid "chacha"
-msgstr ""
+msgstr "Chacha"
 
 #: DB:instrument/name:627
 msgid "chakhe"
@@ -640,11 +640,11 @@ msgstr "Chande"
 
 #: DB:instrument/name:713
 msgid "chanzy"
-msgstr ""
+msgstr "Chanzy"
 
 #: DB:instrument/name:619
 msgid "chap"
-msgstr ""
+msgstr "Chap"
 
 #: DB:instrument/name:466
 msgid "charango"
@@ -660,7 +660,7 @@ msgstr "Chikuzen Biwa"
 
 #: DB:instrument/name:638
 msgid "chime bar"
-msgstr ""
+msgstr "Chime Bar"
 
 #: DB:instrument/name:338
 msgid "chimes"
@@ -916,7 +916,7 @@ msgstr "Domra"
 
 #: DB:instrument/name:706
 msgid "doshpuluur"
-msgstr ""
+msgstr "Doshpuluur"
 
 #: DB:instrument/name:48
 msgid "double bass"
@@ -1100,7 +1100,7 @@ msgstr "Flügelhorn"
 
 #: DB:instrument/name:742
 msgid "flumpet"
-msgstr ""
+msgstr "Flumpet"
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -1172,7 +1172,7 @@ msgstr "Gankogui"
 
 #: DB:instrument/name:644
 msgid "ganzá"
-msgstr ""
+msgstr "Ganzá"
 
 #: DB:instrument/name:216
 msgid "gaohu"
@@ -1180,7 +1180,7 @@ msgstr "Gaohu"
 
 #: DB:instrument/name:756
 msgid "garifuna drum"
-msgstr ""
+msgstr "Garifuna Trommel"
 
 #: DB:instrument/name:289
 msgid "garklein recorder"
@@ -1206,6 +1206,10 @@ msgstr "Ghatam"
 msgid "glass harmonica"
 msgstr "Glasharmonika"
 
+#: DB:instrument/name:765
+msgid "glass harp"
+msgstr "Glasharfe (Gläserspiel)"
+
 #: DB:instrument/name:165
 msgid "glockenspiel"
 msgstr "Glockenspiel"
@@ -1220,7 +1224,7 @@ msgstr "Gong"
 
 #: DB:instrument/name:639
 msgid "gong bass drum"
-msgstr ""
+msgstr "Bass-Gong (Trommel)"
 
 #: DB:instrument/name:269
 msgid "gongs"
@@ -1380,7 +1384,7 @@ msgstr "Horn"
 
 #: DB:instrument/name:709
 msgid "hotchiku"
-msgstr ""
+msgstr "Hotchiku"
 
 #: DB:instrument/name:585
 msgid "hourglass drum"
@@ -1436,7 +1440,7 @@ msgstr "Jug"
 
 #: DB:instrument/name:283
 msgid "k'lông pút"
-msgstr ""
+msgstr "K'lông pút"
 
 #: DB:instrument/name:503
 msgid "kamancheh"
@@ -1448,7 +1452,7 @@ msgstr "Kanjira"
 
 #: DB:instrument/name:422
 msgid "kanklės"
-msgstr ""
+msgstr "Kanklės"
 
 #: DB:instrument/name:424
 msgid "kantele"
@@ -1637,7 +1641,7 @@ msgstr ""
 
 #: DB:instrument/name:705
 msgid "lavta"
-msgstr ""
+msgstr "Lavta"
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -1673,7 +1677,7 @@ msgstr "Lyra"
 
 #: DB:instrument/name:186
 msgid "madal"
-msgstr ""
+msgstr "Madal"
 
 #: DB:instrument/name:537
 msgid "maddale"
@@ -1691,6 +1695,10 @@ msgstr "Mandola"
 msgid "mandolin"
 msgstr "Mandoline"
 
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr "Mandolaute"
+
 #: DB:instrument/name:113
 msgid "maracas"
 msgstr "Maracas / Rumba-Rasseln"
@@ -1698,6 +1706,10 @@ msgstr "Maracas / Rumba-Rasseln"
 #: DB:instrument/name:166
 msgid "marimba"
 msgstr "Marimba"
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
+msgstr "Marimba Lumina"
 
 #: DB:instrument/name:637
 msgid "mark tree"
@@ -1761,7 +1773,7 @@ msgstr "Mridangam"
 
 #: DB:instrument/name:710
 msgid "mukkuri"
-msgstr ""
+msgstr "Mukkuri"
 
 #: DB:instrument/name:735
 msgid "musette de cour"
@@ -1781,7 +1793,7 @@ msgstr "singende Säge"
 
 #: DB:instrument/name:684
 msgid "nabal"
-msgstr ""
+msgstr "Nabal"
 
 #: DB:instrument/name:738
 msgid "nadaswaram"
@@ -1833,7 +1845,7 @@ msgstr "Nasenflöte"
 
 #: DB:instrument/name:714
 msgid "nyatiti"
-msgstr ""
+msgstr "Nyatiti"
 
 #: DB:instrument/name:228
 msgid "nyckelharpa"
@@ -1869,7 +1881,7 @@ msgstr "Ozeantrommel"
 
 #: DB:instrument/name:601
 msgid "octave mandolin"
-msgstr ""
+msgstr "Mandola (Tenor- oder Oktav-Mandoline)"
 
 #: DB:instrument/name:759
 msgid "oktawka"
@@ -1929,7 +1941,7 @@ msgstr "Perkussion"
 
 #: DB:instrument/name:302
 msgid "phách"
-msgstr ""
+msgstr "Phách"
 
 #: DB:instrument/name:667
 msgid "pi"
@@ -2009,11 +2021,11 @@ msgstr ""
 
 #: DB:instrument/name:726
 msgid "pātē"
-msgstr ""
+msgstr "Pātē"
 
 #: DB:instrument/name:613
 msgid "qilaut"
-msgstr ""
+msgstr "Qilaut"
 
 #: DB:instrument/name:437
 msgid "quena"
@@ -2021,7 +2033,7 @@ msgstr "Quena / Andenflöte"
 
 #: DB:instrument/name:755
 msgid "quijada"
-msgstr ""
+msgstr "Quijada"
 
 #: DB:instrument/name:753
 msgid "quinto"
@@ -2033,19 +2045,19 @@ msgstr "Regenmacher"
 
 #: DB:instrument/name:628
 msgid "rammana"
-msgstr ""
+msgstr "Rammana"
 
 #: DB:instrument/name:614
 msgid "ranat ek"
-msgstr ""
+msgstr "Ranat Ek"
 
 #: DB:instrument/name:665
 msgid "ranat kaeo"
-msgstr ""
+msgstr "Ranat Kaeo"
 
 #: DB:instrument/name:620
 msgid "ranat thum"
-msgstr ""
+msgstr "Ranat Thum"
 
 #: DB:instrument/name:161
 msgid "ratchet"
@@ -2125,7 +2137,7 @@ msgstr "Ryūteki"
 
 #: DB:instrument/name:646
 msgid "sabar"
-msgstr ""
+msgstr "Sabar"
 
 #: DB:instrument/name:149
 msgid "sackbut"
@@ -2667,7 +2679,7 @@ msgstr "Posaune"
 
 #: DB:instrument/name:663
 msgid "tromboon"
-msgstr ""
+msgstr "Fasaune"
 
 #: DB:instrument/name:33
 msgid "trumpet"

@@ -2,12 +2,12 @@
 # Translators:
 # nikki, 2014
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2015
+# Maurits Meulenbelt <email address hidden>, 2013-2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-16 22:08+0000\n"
+"PO-Revision-Date: 2016-01-16 09:00+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1200,6 +1200,10 @@ msgstr "ghatam"
 msgid "glass harmonica"
 msgstr "glasharmonica"
 
+#: DB:instrument/name:765
+msgid "glass harp"
+msgstr "glasharp"
+
 #: DB:instrument/name:165
 msgid "glockenspiel"
 msgstr "glockenspiel"
@@ -1685,6 +1689,10 @@ msgstr "mandola"
 msgid "mandolin"
 msgstr "mandoline"
 
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr "mandoluit"
+
 #: DB:instrument/name:113
 msgid "maracas"
 msgstr "maracas"
@@ -1692,6 +1700,10 @@ msgstr "maracas"
 #: DB:instrument/name:166
 msgid "marimba"
 msgstr "marimba"
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
+msgstr "marimba lumina"
 
 #: DB:instrument/name:637
 msgid "mark tree"
