@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-11 19:17+0000\n"
-"Last-Translator: Nozomu Kurasawa <email address hidden>\n"
+"PO-Revision-Date: 2016-01-13 00:28+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -576,7 +576,7 @@ msgstr ""
 
 #: DB:instrument/name:360
 msgid "button accordion"
-msgstr ""
+msgstr "ボタンアコーディオン"
 
 #: DB:instrument/name:655
 msgid "buzuq"
@@ -996,7 +996,7 @@ msgstr ""
 
 #: DB:instrument/name:682
 msgid "electric grand piano"
-msgstr ""
+msgstr "電子グランドピアノ"
 
 #: DB:instrument/name:55
 msgid "electric guitar"
@@ -1200,6 +1200,10 @@ msgstr "ガタム"
 
 #: DB:instrument/name:285
 msgid "glass harmonica"
+msgstr ""
+
+#: DB:instrument/name:765
+msgid "glass harp"
 msgstr ""
 
 #: DB:instrument/name:165
@@ -1687,6 +1691,10 @@ msgstr "マンドラ"
 msgid "mandolin"
 msgstr "マンドリン"
 
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr ""
+
 #: DB:instrument/name:113
 msgid "maracas"
 msgstr "マラカス"
@@ -1694,6 +1702,10 @@ msgstr "マラカス"
 #: DB:instrument/name:166
 msgid "marimba"
 msgstr "マリンバ"
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
+msgstr ""
 
 #: DB:instrument/name:637
 msgid "mark tree"
@@ -1941,7 +1953,7 @@ msgstr "ピアノ"
 
 #: DB:instrument/name:359
 msgid "piano accordion"
-msgstr "ピアノ・アコーディオン"
+msgstr "ピアノアコーディオン"
 
 #: DB:instrument/name:17
 msgid "piccolo"
@@ -1949,7 +1961,7 @@ msgstr "ピッコロ"
 
 #: DB:instrument/name:733
 msgid "piccolo oboe"
-msgstr ""
+msgstr "ピッコロオーボエ"
 
 #: DB:instrument/name:401
 msgid "piccolo trumpet"

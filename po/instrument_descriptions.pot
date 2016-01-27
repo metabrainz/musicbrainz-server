@@ -1802,7 +1802,7 @@ msgstr ""
 #. name:kortholt 
 #: DB:instrument/description:264
 msgid ""
-"The kortholt ia a woodwind instrument that was popular in the Renaissance "
+"The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
 msgstr ""
 
