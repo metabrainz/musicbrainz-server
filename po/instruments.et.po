@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-14 23:14+0000\n"
+"PO-Revision-Date: 2016-01-12 23:09+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1199,6 +1199,10 @@ msgstr "ghatam"
 msgid "glass harmonica"
 msgstr ""
 
+#: DB:instrument/name:765
+msgid "glass harp"
+msgstr ""
+
 #: DB:instrument/name:165
 msgid "glockenspiel"
 msgstr "kellamäng"
@@ -1684,6 +1688,10 @@ msgstr "mandoola"
 msgid "mandolin"
 msgstr "mandoliin"
 
+#: DB:instrument/name:766
+msgid "mandolute"
+msgstr ""
+
 #: DB:instrument/name:113
 msgid "maracas"
 msgstr "marakad"
@@ -1691,6 +1699,10 @@ msgstr "marakad"
 #: DB:instrument/name:166
 msgid "marimba"
 msgstr "marimba (marimbafon)"
+
+#: DB:instrument/name:767
+msgid "marimba lumina"
+msgstr ""
 
 #: DB:instrument/name:637
 msgid "mark tree"

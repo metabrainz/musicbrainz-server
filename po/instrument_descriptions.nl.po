@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2015
+# Maurits Meulenbelt <email address hidden>, 2013-2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-28 23:00+0000\n"
+"PO-Revision-Date: 2016-01-16 09:00+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,11 @@ msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht l
 msgid "A four-string banjo is a banjo with four strings."
 msgstr "Een viersnarige banjo is een banjo met vier snaren."
 
+#. name:glass harp
+#: DB:instrument/description:765
+msgid "A glass harp is a musical instrument made of upright wine glasses."
+msgstr "Een glasharp is een muziekinstrument dat bestaat uit rechtopstaande wijnglazen."
+
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -201,6 +206,20 @@ msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
 msgstr "Een lithofoon is een muziekinstrument bestaande uit één of meer stukken steen die worden aangeslagen om muziek te maken."
+
+#. name:mandolute
+#: DB:instrument/description:766
+msgid ""
+"A mandolute is a North African fretted string instrument which combines a "
+"traditional oud string format with five pairs of metal strings"
+msgstr "Een mandoluit is een Noord-Afrikaans snaarinstrument met fretten. Het is een combinatie van een traditionele oed met vijf paar metalen snaren."
+
+#. name:marimba lumina
+#: DB:instrument/description:767
+msgid ""
+"A marimba lumina is a MIDI controller that lets a musician play music via a "
+"control surface based on the layout of a marimba."
+msgstr "Een marimba lumina is een MIDI-controller waarmee een muzikant een oppervlak kan bespelen met de indeling van een marimba."
 
 #. name:mark tree
 #: DB:instrument/description:637
