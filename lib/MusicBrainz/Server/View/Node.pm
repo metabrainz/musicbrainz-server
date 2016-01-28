@@ -9,23 +9,7 @@ use HTML::Entities qw( decode_entities );
 use HTTP::Request;
 use JSON -convert_blessed_universally;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
-use MusicBrainz::Server::Validation qw( encode_entities );
 use URI;
-
-# INFORMATION SEPARATOR ONE
-my $INFO_SEP = "\x{001F}";
-
-my %URI_DELIMITERS = (
-    uri_for => "${INFO_SEP}__URI_FOR__${INFO_SEP}",
-    uri_for_action => "${INFO_SEP}__URI_FOR_ACTION__${INFO_SEP}",
-);
-
-sub replace_uri {
-    my ($c, $method, $args) = @_;
-
-    $args = JSON->new->decode(decode_entities($args));
-    return encode_entities($c->$method(@{$args}));
-}
 
 sub process {
     my ($self, $c) = @_;
@@ -73,15 +57,6 @@ sub process {
     }
 
     my $content = decode('utf-8', $response->content);
-
-    # URI replacement magic.
-    for my $method (keys %URI_DELIMITERS) {
-        my $delimiter = $URI_DELIMITERS{$method};
-
-        $content =~ s/$delimiter ([^$INFO_SEP]+) $delimiter
-                     /replace_uri($c, $method, $1)/xmseg;
-    }
-
     $c->res->status($response->code);
     $c->res->body($content);
     $self->_post_process($c);

@@ -27,7 +27,7 @@ const Footer = (props) => {
 
         {!!server_details.beta_redirect && [
           ' | ',
-          <a href={$c.uri_for('/set-beta-preference')} className="internal">
+          <a href="/set-beta-preference" className="internal">
             {server_details.is_beta ? l('Stop using beta site') : l('Use beta site')}
           </a>
         ]}
