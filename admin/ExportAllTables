@@ -76,7 +76,6 @@ my @group_core = qw(
     instrument
     instrument_alias
     instrument_alias_type
-    instrument_annotation
     instrument_gid_redirect
     instrument_type
     isrc
@@ -238,6 +237,7 @@ my @group_derived = qw(
     event_annotation
     event_meta
     event_tag
+    instrument_annotation
     instrument_tag
     label_annotation
     label_meta
