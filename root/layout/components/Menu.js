@@ -22,7 +22,15 @@ function languageLink(language) {
     }
   }
 
-  return <a href={$c.uri_for_action('/set_language', [language[0]])}>{text}</a>;
+  return (
+    <a href={"/set-language/" + encodeURIComponent(language[0])}>
+      {text}
+    </a>
+  );
+}
+
+function userLink(userName, path) {
+  return `/user/${encodeURIComponent(userName)}${path}`;
 }
 
 const LanguageMenu = () => (
@@ -39,7 +47,7 @@ const LanguageMenu = () => (
         return <li key={index}>{inner}</li>;
       })}
       <li>
-        <a href={$c.uri_for_action('/set_language', ['unset'])}>
+        <a href="/set-language/unset">
           {l('(reset language)')}
         </a>
       </li>
@@ -57,24 +65,24 @@ const AccountMenu = () => (
     <EditorLink editor={$c.user} />
     <ul>
       <li>
-        <a href={$c.uri_for('/account/edit')}>{l('Edit Profile')}</a>
+        <a href="/account/edit">{l('Edit Profile')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/account/change_password')}>{l('Change Password')}</a>
+        <a href="/account/change-password">{l('Change Password')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/account/preferences')}>{l('Preferences')}</a>
+        <a href="/account/preferences">{l('Preferences')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/account/applications')}>{l('Applications')}</a>
+        <a href="/account/applications">{l('Applications')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/user/subscriptions/artist', [$c.user.name])}>
+        <a href={userLink($c.user.name, '/subscriptions/artist')}>
           {l('Subscriptions')}
         </a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/user/logout')}>{l('Log Out')}</a>
+        <a href="/logout">{l('Log Out')}</a>
       </li>
     </ul>
   </li>
@@ -85,31 +93,31 @@ const DataMenu = () => {
 
   return (
     <li className="data">
-      <a href={$c.uri_for_action('/user/profile', [userName])}>{l('My Data')}</a>
+      <a href={userLink(userName, '/profile')}>{l('My Data')}</a>
       <ul>
         <li>
-          <a href={$c.uri_for_action('/user/collections', [userName])}>{l('My Collections')}</a>
+          <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/user/ratings', [userName])}>{l('My Ratings')}</a>
+          <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/user/tags', [userName])}>{l('My Tags')}</a>
+          <a href={userLink(userName, '/tags')}>{l('My Tags')}</a>
         </li>
         <li className="separator">
-          <a href={$c.uri_for_action('/user/edits/open', [userName])}>{l('My Open Edits')}</a>
+          <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/user/edits/all', [userName])}>{l('All My Edits')}</a>
+          <a href={userLink(userName, '/edits/all')}>{l('All My Edits')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/edit/subscribed')}>{l('Edits for Subscribed Entities')}</a>
+          <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/edit/subscribed_editors')}>{l('Edits by Subscribed Editors')}</a>
+          <a href="/edit/subscribed_editors">{l('Edits by Subscribed Editors')}</a>
         </li>
         <li>
-          <a href={$c.uri_for_action('/edit/notes_received')}>{l('Notes Left on My Edits')}</a>
+          <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
         </li>
       </ul>
     </li>
@@ -118,34 +126,34 @@ const DataMenu = () => {
 
 const AdminMenu = () => (
   <li className="admin">
-    <a href={$c.uri_for_action('/admin/index')}>{l('Admin')}</a>
+    <a href="/admin">{l('Admin')}</a>
     <ul>
       {$c.user.is_location_editor &&
         <li>
-          <a href={$c.uri_for('/area/create')}>{lp('Add Area', 'button/menu')}</a>
+          <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
         </li>}
 
       {$c.user.is_relationship_editor && [
         <li key="1">
-          <a href={$c.uri_for('/instrument/create')}>{lp('Add Instrument', 'button/menu')}</a>
+          <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
         </li>,
         <li key="2">
-          <a href={$c.uri_for_action('/relationship/linktype/index')}>{l('Edit Relationship Types')}</a>
+          <a href="/relationships">{l('Edit Relationship Types')}</a>
         </li>]}
 
       {$c.user.is_wiki_transcluder &&
         <li>
-          <a href={$c.uri_for_action('/admin/wikidoc/index')}>{l('Transclude WikiDocs')}</a>
+          <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
         </li>}
 
       {$c.user.is_banner_editor &&
         <li>
-          <a href={$c.uri_for_action('/admin/edit_banner')}>{l('Edit Banner Message')}</a>
+          <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
         </li>}
 
       {$c.user.is_account_admin &&
         <li>
-          <a href={$c.uri_for_action('/admin/attributes/index')}>{l('Edit Attributes')}</a>
+          <a href="/admin/attributes">{l('Edit Attributes')}</a>
         </li>}
     </ul>
   </li>
@@ -153,37 +161,37 @@ const AdminMenu = () => (
 
 const AboutMenu = () => (
   <li className="about">
-    <a href={doc_link('About')}>{l('About')}</a>
+    <a href="/doc/About">{l('About')}</a>
     <ul>
       <li>
         <a href="//metabrainz.org/doc/Sponsors">{l('Sponsors')}</a>
       </li>
       <li>
-        <a href={doc_link('About/Team')}>{l('Team')}</a>
+        <a href="/doc/About/Team">{l('Team')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('About/Data_License')}>{l('Data Licenses')}</a>
+        <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
       </li>
       <li>
-        <a href={doc_link('Social_Contract')}>{l('Social Contract')}</a>
+        <a href="/doc/Social_Contract">{l('Social Contract')}</a>
       </li>
       <li>
-        <a href={doc_link('Code_of_Conduct')}>{l('Code of Conduct')}</a>
+        <a href="/doc/Code_of_Conduct">{l('Code of Conduct')}</a>
       </li>
       <li>
-        <a href={doc_link('About/Privacy_Policy')}>{l('Privacy Policy')}</a>
+        <a href="/doc/About/Privacy_Policy">{l('Privacy Policy')}</a>
       </li>
       <li className="separator">
-        <a href={$c.uri_for_action('/elections/index')}>{l('Auto-editor Elections')}</a>
+        <a href="/elections">{l('Auto-editor Elections')}</a>
       </li>
       <li>
-        <a href={$c.uri_for('/privileged')}>{l('Privileged User Accounts')}</a>
+        <a href="/privileged">{l('Privileged User Accounts')}</a>
       </li>
       <li>
-        <a href={$c.uri_for('/statistics')}>{l('Statistics')}</a>
+        <a href="/statistics">{l('Statistics')}</a>
       </li>
       <li>
-        <a href={$c.uri_for('/statistics/timeline')}>{l('Timeline Graph')}</a>
+        <a href="/statistics/timeline">{l('Timeline Graph')}</a>
       </li>
     </ul>
   </li>
@@ -199,37 +207,37 @@ const BlogMenu = () => (
 
 const ProductsMenu = () => (
   <li className="products">
-    <a href={doc_link('Products')}>{l('Products')}</a>
+    <a href="/doc/Products">{l('Products')}</a>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
       </li>
       <li>
-        <a href={doc_link('Magic_MP3_Tagger')}>{l('Magic MP3 Tagger')}</a>
+        <a href="/doc/Magic_MP3_Tagger">{l('Magic MP3 Tagger')}</a>
       </li>
       <li>
-        <a href={doc_link('Yate_Music_Tagger')}>{l('Yate Music Tagger')}</a>
+        <a href="/doc/Yate_Music_Tagger">{l('Yate Music Tagger')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('MusicBrainz_for_Android')}>{l('MusicBrainz for Android')}</a>
+        <a href="/doc/MusicBrainz_for_Android">{l('MusicBrainz for Android')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('MusicBrainz_Server')}>{l('MusicBrainz Server')}</a>
+        <a href="/doc/MusicBrainz_Server">{l('MusicBrainz Server')}</a>
       </li>
       <li>
-        <a href={doc_link('MusicBrainz_Database')}>{l('MusicBrainz Database')}</a>
+        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz Database')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('Developer_Resources')}>{l('Developer Resources')}</a>
+        <a href="/doc/Developer_Resources">{l('Developer Resources')}</a>
       </li>
       <li>
-        <a href={doc_link('XML_Web_Service')}>{l('XML Web Service')}</a>
+        <a href="/doc/XML_Web_Service">{l('XML Web Service')}</a>
       </li>
       <li>
-        <a href={doc_link('Live_Data_Feed')}>{l('Live Data Feed')}</a>
+        <a href="/doc/Live_Data_Feed">{l('Live Data Feed')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('FreeDB_Gateway')}>{l('FreeDB Gateway')}</a>
+        <a href="/doc/FreeDB_Gateway">{l('FreeDB Gateway')}</a>
       </li>
     </ul>
   </li>
@@ -241,13 +249,13 @@ const SearchMenu = () => (
     <ul>
       {$c.user &&
         <li>
-          <a href={$c.uri_for_action('/edit/search')}>{l('Search Edits')}</a>
+          <a href="/search/edits">{l('Search Edits')}</a>
         </li>}
       <li>
-        <a href={$c.uri_for('/tags')}>{l('Tags')}</a>
+        <a href="/tags">{l('Tags')}</a>
       </li>
       <li>
-        <a href={$c.uri_for('/cdstub/browse')}>{l('Top CD Stubs')}</a>
+        <a href="/cdstub/browse">{l('Top CD Stubs')}</a>
       </li>
     </ul>
   </li>
@@ -255,45 +263,45 @@ const SearchMenu = () => (
 
 const EditingMenu = () => (
   <li className="editing">
-    <a href={doc_link('How_Editing_Works')}>{l('Editing')}</a>
+    <a href="/doc/How_Editing_Works">{l('Editing')}</a>
     <ul>
       <li>
-        <a href={$c.uri_for('/artist/create')}>{lp('Add Artist', 'button/menu')}</a>
+        <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for('/label/create')}>{lp('Add Label', 'button/menu')}</a>
+        <a href="/label/create">{lp('Add Label', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/release_group/create')}>{lp('Add Release Group', 'button/menu')}</a>
+        <a href="/release-group/create">{lp('Add Release Group', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/release_editor/add')}>{lp('Add Release', 'button/menu')}</a>
+        <a href="/release/add">{lp('Add Release', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/release_editor/add', {artist: VARTIST_GID})}>
+        <a href={"/release/add?artist=" + encodeURIComponent(VARTIST_GID)}>
           {l('Add Various Artists Release')}
         </a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/recording/create')}>{lp('Add Standalone Recording', 'button/menu')}</a>
+        <a href="/recording/create">{lp('Add Standalone Recording', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/work/create')}>{lp('Add Work', 'button/menu')}</a>
+        <a href="/work/create">{lp('Add Work', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/place/create')}>{lp('Add Place', 'button/menu')}</a>
+        <a href="/place/create">{lp('Add Place', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/series/create')}>{lp('Add Series', 'button/menu')}</a>
+        <a href="/series/create">{lp('Add Series', 'button/menu')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/event/create')}>{lp('Add Event', 'button/menu')}</a>
+        <a href="/event/create">{lp('Add Event', 'button/menu')}</a>
       </li>
       <li className="separator">
-        <a href={$c.uri_for('/edit/open')}>{l('Vote on Edits')}</a>
+        <a href="/edit/open">{l('Vote on Edits')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/report/index')}>{l('Reports')}</a>
+        <a href="/reports">{l('Reports')}</a>
       </li>
     </ul>
   </li>
@@ -301,31 +309,31 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation">
-    <a href={doc_link('MusicBrainz_Documentation')}>{l('Documentation')}</a>
+    <a href="/doc/MusicBrainz_Documentation">{l('Documentation')}</a>
     <ul>
       <li>
-        <a href={doc_link('Beginners_Guide')}>{l('Beginners Guide')}</a>
+        <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
       </li>
       <li>
-        <a href={doc_link('Style')}>{l('Style Guidelines')}</a>
+        <a href="/doc/Style">{l('Style Guidelines')}</a>
       </li>
       <li>
-        <a href={doc_link('How_To')}>{l('How Tos')}</a>
+        <a href="/doc/How_To">{l('How Tos')}</a>
       </li>
       <li>
-        <a href={doc_link('Frequently_Asked_Questions')}>{l('FAQs')}</a>
+        <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
       </li>
       <li className="separator">
-        <a href={$c.uri_for_action('/edit/edit_types')}>{l('Edit Types')}</a>
+        <a href='/doc/Edit_Types'>{l('Edit Types')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/relationship/linktype/index')}>{l('Relationship Types')}</a>
+        <a href="/relationships">{l('Relationship Types')}</a>
       </li>
       <li>
-        <a href={$c.uri_for_action('/instrument/list')}>{l('Instrument List')}</a>
+        <a href="/instruments">{l('Instrument List')}</a>
       </li>
       <li className="separator">
-        <a href={doc_link('Development')}>{l('Development')}</a>
+        <a href="/doc/Development">{l('Development')}</a>
       </li>
     </ul>
   </li>
@@ -373,12 +381,12 @@ const RightMenu = (props) => (
 
     {!$c.user && [
       <li key={4}>
-        <a href={$c.uri_for_action('/user/login', {uri: $c.req.query_params.uri || $c.relative_uri})}>
+        <a href={"/login?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
           {l('Log In')}
         </a>
       </li>,
       <li key={5}>
-        <a href={$c.uri_for_action('/account/register', {uri: $c.req.query_params.uri || $c.relative_uri})}>
+        <a href={"/register?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
           {l('Create Account')}
         </a>
       </li>

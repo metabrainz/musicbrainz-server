@@ -28,8 +28,6 @@ const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
 const DOCTYPE = '<!DOCTYPE html>';
-const URI_FOR_DELIMITER = "\x1F__URI_FOR__\x1F";
-const URI_FOR_ACTION_DELIMITER = "\x1F__URI_FOR_ACTION__\x1F";
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -39,19 +37,8 @@ function badRequest(err) {
   return {status: 400, body: err.stack, contentType: 'text/plain'};
 }
 
-function uriFor() {
-  return URI_FOR_DELIMITER + JSON.stringify(sliced(arguments)) + URI_FOR_DELIMITER;
-}
-
-function uriForAction() {
-  return URI_FOR_ACTION_DELIMITER + JSON.stringify(sliced(arguments)) + URI_FOR_ACTION_DELIMITER;
-}
-
 // Common macros
 _.assign(global, {
-  doc_link: function (to) {
-    return uriFor('/doc', to);
-  },
   bugtracker_url: function (description) {
     return 'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' +
            'pid=10000&issuetype=1' +
@@ -99,8 +86,6 @@ function getResponse(req, requestBodyBuf) {
   global.$c = _.assign(context, {
     req: req,
     relative_uri: url.path,
-    uri_for: uriFor,
-    uri_for_action: uriForAction
   });
 
   // We use a separate gettext handle for each language. Set the current handle

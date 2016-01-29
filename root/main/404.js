@@ -25,7 +25,7 @@ const _404 = (props) => (
         </p>}
       <p>
         {l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
-           {__react: true, doc: '/doc/MusicBrainz_Documentation', faq: doc_link('FAQ')})}
+           {__react: true, doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
       </p>
       <p>
         {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
