@@ -262,8 +262,9 @@ test 'Accept/failure conditions regarding links' => sub {
         is(@{ $edit->display_data->{tracklist_changes} }, 1, '1 tracklist change');
         is($edit->display_data->{tracklist_changes}->[0][0], '+', 'tracklist change is an addition');
 
-        is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
-        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
+        my @artist_credit_changes = artist_credit_changes($edit->display_data);
+        is(@artist_credit_changes, 1, '1 artist credit change');
+        is($artist_credit_changes[0][0], '+', 'artist credit change is an addition');
     };
 
     subtest 'Can change the recording to another existing recording' => sub {
@@ -289,7 +290,8 @@ test 'Accept/failure conditions regarding links' => sub {
 
         $c->model('Edit')->load_all($edit);
         is(@{ $edit->display_data->{tracklist_changes} }, 0, '0 tracklist changes');
-        is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
+        my @artist_credit_changes = artist_credit_changes($edit->display_data);
+        is(@artist_credit_changes, 0, '0 artist credit changes');
         is(@{ $edit->display_data->{recording_changes} }, 1, '1 recording change');
 
         is($edit->display_data->{recording_changes}[0][1]->recording_id, 3, 'was recording 3');
@@ -375,8 +377,9 @@ test 'Accept/failure conditions regarding links' => sub {
         is((grep { $_->[0] ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');
         is($edit->display_data->{tracklist_changes}->[1][0], '+', 'tracklist change is an addition');
 
-        is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
-        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
+        my @artist_credit_changes = artist_credit_changes($edit->display_data);
+        is(@artist_credit_changes, 1, '1 artist credit change');
+        is($artist_credit_changes[0][0], '+', 'artist credit change is an addition');
     };
 
     subtest 'Changes that dont touch recording IDs can pass merges' => sub {
@@ -409,7 +412,8 @@ test 'Accept/failure conditions regarding links' => sub {
         is($edit->display_data->{tracklist_changes}->[0][0], 'c', 'tracklist change 1 is a change');
         is($edit->display_data->{tracklist_changes}->[1][0], 'c', 'tracklist change 2 is a change');
 
-        is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
+        my @artist_credit_changes = artist_credit_changes($edit->display_data);
+        is(@artist_credit_changes, 0, '0 artist credit changes');
     };
 };
 
@@ -602,6 +606,98 @@ test 'Tracks can be reordered' => sub {
     })
 };
 
+test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8752');
+
+    my $artist_credit = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                artist => Artist->new( id => 9113, name => 'Meat Loaf' ),
+                join_phrase => '',
+                name => 'Meat Loaf',
+            ),
+        ],
+    );
+
+    my $medium = $c->model('Medium')->get_by_id(1819308);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $expected_tracklist = [
+        Track->new(
+            artist_credit => $artist_credit,
+            is_data_track => '0',
+            length => 481000,
+            name => 'Life Is a Lemon and I Want My Money Back (live)',
+            number => '1',
+            position => 1,
+            recording_id => 9724192,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036049,
+            is_data_track => '0',
+            length => 507000,
+            name => 'Rock and Roll Dreams Come Through (live)',
+            number => '2',
+            position => 2,
+            recording_id => 9724193,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036047,
+            is_data_track => '0',
+            length => 522000,
+            name => 'Out of the Frying Pan (And Into the Fire) (live)',
+            number => '3',
+            position => 3,
+            recording_id => 9724194,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            is_data_track => '0',
+            length => 583000,
+            name => 'Everything Louder Than Everything Else (live)',
+            number => '4',
+            position => 4,
+            recording_id => 9724195,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036050,
+            is_data_track => '0',
+            length => 356000,
+            name => 'Objects in the Rear View Mirror May Appear Closer Than They Are (edit)',
+            number => '5',
+            position => 5,
+            recording_id => 9724196,
+        ),
+    ];
+
+    my $expected_tracklist_hash = tracks_to_hash($expected_tracklist);
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => $EDIT_MEDIUM_EDIT,
+        to_edit => $medium,
+        tracklist => $expected_tracklist,
+    );
+
+    accept_edit($c, $edit);
+
+    $medium = $c->model('Medium')->get_by_id(1819308);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $got_tracklist_hash = tracks_to_hash($medium->tracks);
+    $expected_tracklist_hash->[0]{id} = 20036051;
+    $expected_tracklist_hash->[3]{id} = 20036052;
+    cmp_deeply($got_tracklist_hash, $expected_tracklist_hash);
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
@@ -641,6 +737,14 @@ sub is_unchanged {
     is($medium->format_id, undef);
     is($medium->release_id, 1);
     is($medium->position, 1);
+}
+
+sub artist_credit_changes {
+    my $tracklist_changes = shift->{tracklist_changes};
+
+    grep { $_->[1] ? $_->[1]->artist_credit != $_->[2]->artist_credit : 1 }
+    grep { $_->[0] ne '-' }
+    @$tracklist_changes;
 }
 
 1;
