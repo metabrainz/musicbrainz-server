@@ -11,7 +11,6 @@ version_from 'lib/MusicBrainz/Server.pm';
 
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
-requires 'Algorithm::Merge'                           => '0.08';
 requires 'Authen::Passphrase'                         => '0.007';
 requires 'Cache::Memcached'                           => '1.29';
 requires 'Captcha::reCAPTCHA'                         => '0.93';
@@ -97,6 +96,7 @@ requires 'Sys::Hostname';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
+requires 'Text::Diff3'                                => '0.10';
 requires 'Text::Markdown'                             => '1.000026';
 requires 'Text::WikiFormat'                           => '0.81';
 requires 'Text::Unaccent'                             => '1.08';

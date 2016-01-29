@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
-    hash_artist_credit
 );
 
 around initialize => sub {

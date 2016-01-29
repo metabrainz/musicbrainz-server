@@ -39,7 +39,7 @@ const searchOptions = (
 );
 
 const Search = () => (
-  <form action={$c.uri_for('/search')} method="get">
+  <form action="/search" method="get">
     <input type="text" id="headerid-query" name="query" placeholder={l('search')} required={true} />
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />

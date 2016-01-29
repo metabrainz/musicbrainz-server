@@ -3,7 +3,7 @@ use Carp;
 use Clone 'clone';
 use List::AllUtils qw( any );
 use Algorithm::Diff qw( sdiff );
-use Algorithm::Merge qw( merge );
+use Text::Diff3 qw( merge );
 use Data::Compare;
 use Set::Scalar;
 use Moose;
@@ -24,7 +24,7 @@ use MusicBrainz::Server::Edit::Types qw(
     NullableOnPreview
 );
 use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
-use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( N_l );
@@ -301,15 +301,6 @@ sub build_display_data
             $data->{changed_mbids} = 1;
         }
 
-        $data->{artist_credit_changes} = [
-            grep {
-                ($_->[1] && hash_artist_credit_without_join_phrases($_->[1]->artist_credit))
-                    ne
-                ($_->[2] && hash_artist_credit_without_join_phrases($_->[2]->artist_credit))
-            }
-            grep { $_->[0] ne '-' }
-            @$tracklist_changes ];
-
         # Generate a map of track id => old recording id, for edits that store
         # track ids, to detect if recordings have changed.
 
@@ -340,8 +331,12 @@ sub build_display_data
 
 my $UNDEF_MARKER = time();
 sub track_column {
-    my ($column, $tracklist) = @_;
-    return [ map { $_->{$column} // $UNDEF_MARKER } @$tracklist ];
+    my ($column, $tracklist, $key_generation) = @_;
+
+    [ map {
+        my $value = $_->{$column};
+        ($key_generation ? $key_generation->($value) : $value) // $UNDEF_MARKER
+    } @$tracklist ];
 }
 
 sub accept {
@@ -373,6 +368,15 @@ sub accept {
         my (@merged_row_ids, @merged_numbers, @merged_names, @merged_recordings,
             @merged_lengths, @merged_artist_credits, @merged_is_data_tracks);
 
+        my %hashed_artist_credits;
+        my $hash_artist_credit = sub {
+            my ($artist_credit) = @_;
+
+            my $hash = hash_artist_credit($artist_credit);
+            $hashed_artist_credits{$hash} = $artist_credit;
+            $hash;
+        };
+
         my $current_tracklist = tracks_to_hash($medium->tracks);
         try {
             for my $merge (
@@ -381,17 +385,17 @@ sub accept {
                 [ name => \@merged_names ],
                 [ recording_id => \@merged_recordings ],
                 [ length => \@merged_lengths ],
-                [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ],
+                [ artist_credit => \@merged_artist_credits, $hash_artist_credit ],
                 [ is_data_track => \@merged_is_data_tracks ]
             ) {
                 my ($property, $container, $key_generation) = @$merge;
-                push @$container, merge(
-                    track_column($property, $self->data->{old}{tracklist}),
-                    track_column($property, $current_tracklist),
-                    track_column($property, $data_new_tracklist),
-                    { CONFLICT => sub { die } },
-                    $key_generation // ()
+                my $merged = merge(
+                    track_column($property, $data_new_tracklist, $key_generation),
+                    track_column($property, $self->data->{old}{tracklist}, $key_generation),
+                    track_column($property, $current_tracklist, $key_generation),
                 );
+                die if $merged->{conflict};
+                push @$container, @{ $merged->{body} };
             }
         }
         catch {
@@ -455,7 +459,7 @@ sub accept {
                 number => $number eq $UNDEF_MARKER ? undef : $number,
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
-                artist_credit => shift(@merged_artist_credits),
+                artist_credit => $hashed_artist_credits{shift(@merged_artist_credits)},
                 is_data_track => $is_data_track
             }
         }
