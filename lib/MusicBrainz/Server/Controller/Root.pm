@@ -219,7 +219,8 @@ sub begin : Private
             );
         }
 
-        my ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
+        my ($notes_viewed, $notes_updated);
+        ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
 
         if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
             $new_edit_notes = 1;
