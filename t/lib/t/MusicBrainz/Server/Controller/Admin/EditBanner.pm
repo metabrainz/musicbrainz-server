@@ -19,6 +19,9 @@ test 'Setting a banner message' => sub {
 
     $mech->get('/');
     $mech->content_contains('hey everybody!!', 'homepage contains banner message');
+
+    $mech->get('/admin/banner/edit');
+    $mech->submit_form(with_fields => { 'banner.message' => '' });
 };
 
 1;
