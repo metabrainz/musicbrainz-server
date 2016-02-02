@@ -131,7 +131,7 @@ const Layout = (props) => {
 
         {!getCookie('server_details_dismissed_mtime') && serverDetailsBanner(server)}
 
-        {!!(server.alert && server_details.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
+        {!!(server.alert && server.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
           <div className="banner warning-header">
             <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
             <DismissBannerButton bannerName="alert" />
