@@ -112,7 +112,7 @@ sub footer {
     my $self = shift;
     return strip tt q{
 Please do not reply to this message.  If you need help, please see
-[% self.server %]/doc/ContactUs
+https://metabrainz.org/contact
 };
 }
 

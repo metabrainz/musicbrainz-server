@@ -265,7 +265,7 @@ sub _create_password_reset_request_email
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = $url_prefix . '/doc/Contact_Us';
+    my $contact_url = "https://metabrainz.org/contact";
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
