@@ -262,9 +262,8 @@ test 'Accept/failure conditions regarding links' => sub {
         is(@{ $edit->display_data->{tracklist_changes} }, 1, '1 tracklist change');
         is($edit->display_data->{tracklist_changes}->[0][0], '+', 'tracklist change is an addition');
 
-        my @artist_credit_changes = artist_credit_changes($edit->display_data);
-        is(@artist_credit_changes, 1, '1 artist credit change');
-        is($artist_credit_changes[0][0], '+', 'artist credit change is an addition');
+        is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
+        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
     };
 
     subtest 'Can change the recording to another existing recording' => sub {
@@ -290,8 +289,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
         $c->model('Edit')->load_all($edit);
         is(@{ $edit->display_data->{tracklist_changes} }, 0, '0 tracklist changes');
-        my @artist_credit_changes = artist_credit_changes($edit->display_data);
-        is(@artist_credit_changes, 0, '0 artist credit changes');
+        is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
         is(@{ $edit->display_data->{recording_changes} }, 1, '1 recording change');
 
         is($edit->display_data->{recording_changes}[0][1]->recording_id, 3, 'was recording 3');
@@ -377,9 +375,8 @@ test 'Accept/failure conditions regarding links' => sub {
         is((grep { $_->[0] ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');
         is($edit->display_data->{tracklist_changes}->[1][0], '+', 'tracklist change is an addition');
 
-        my @artist_credit_changes = artist_credit_changes($edit->display_data);
-        is(@artist_credit_changes, 1, '1 artist credit change');
-        is($artist_credit_changes[0][0], '+', 'artist credit change is an addition');
+        is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
+        is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');
     };
 
     subtest 'Changes that dont touch recording IDs can pass merges' => sub {
@@ -412,8 +409,7 @@ test 'Accept/failure conditions regarding links' => sub {
         is($edit->display_data->{tracklist_changes}->[0][0], 'c', 'tracklist change 1 is a change');
         is($edit->display_data->{tracklist_changes}->[1][0], 'c', 'tracklist change 2 is a change');
 
-        my @artist_credit_changes = artist_credit_changes($edit->display_data);
-        is(@artist_credit_changes, 0, '0 artist credit changes');
+        is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
     };
 };
 
@@ -737,14 +733,6 @@ sub is_unchanged {
     is($medium->format_id, undef);
     is($medium->release_id, 1);
     is($medium->position, 1);
-}
-
-sub artist_credit_changes {
-    my $tracklist_changes = shift->{tracklist_changes};
-
-    grep { $_->[1] ? $_->[1]->artist_credit != $_->[2]->artist_credit : 1 }
-    grep { $_->[0] ne '-' }
-    @$tracklist_changes;
 }
 
 1;
