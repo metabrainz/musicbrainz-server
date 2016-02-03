@@ -30,7 +30,7 @@
             <div class="linkbar">
                 [% l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}',
                     { about => doc_link('About'),
-                      contact => "https://metabrainz.org/contact",
+                      contact => contact_url,
                       faq => doc_link('Frequently_Asked_Questions') }) %]
             </div>
 

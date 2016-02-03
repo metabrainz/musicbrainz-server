@@ -7,6 +7,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
+use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
@@ -254,6 +255,7 @@ sub begin : Private
         favicon_css_classes => FAVICON_CLASSES,
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
+        contact_url => $CONTACT_URL,
     );
 
     # Setup the searches on the sidebar.
