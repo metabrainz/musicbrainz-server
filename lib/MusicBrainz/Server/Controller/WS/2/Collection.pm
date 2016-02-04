@@ -66,6 +66,7 @@ map {
 
         $self->linked_collections($c, $stash, [ $collection ]);
 
+        $c->model('Collection')->load_entity_count($collection);
         $c->model('CollectionType')->load($collection);
 
         $self->_error($c, "This is not a $url collection."),
