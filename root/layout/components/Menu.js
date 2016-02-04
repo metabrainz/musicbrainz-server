@@ -164,10 +164,10 @@ const AboutMenu = () => (
     <a href="/doc/About">{l('About')}</a>
     <ul>
       <li>
-        <a href="//metabrainz.org/doc/Sponsors">{l('Sponsors')}</a>
+        <a href="https://metabrainz.org/sponsors">{l('Sponsors')}</a>
       </li>
       <li>
-        <a href="//metabrainz.org/team">{l('Team')}</a>
+        <a href="https://metabrainz.org/team">{l('Team')}</a>
       </li>
       <li className="separator">
         <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
