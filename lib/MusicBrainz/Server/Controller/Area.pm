@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'area'
+    entity_type => 'area'
 };
 
 use Data::Page;
@@ -162,7 +162,7 @@ sub places : Chained('load')
 
 after [qw( show collections details tags aliases artists labels releases places )] => sub {
     my ($self, $c) = @_;
-    $self->_stash_collection($c);
+    $self->_stash_collections($c);
 };
 
 =head2 WRITE METHODS

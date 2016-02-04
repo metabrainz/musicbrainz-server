@@ -12,7 +12,7 @@
         <tr class="[% loop.parity %]">
             [%~ IF c.user_exists && checkboxes ~%]
             <td>
-              <input type="checkbox" name="[% checkboxes %]" value="[% area.id %]" />
+              <input type="checkbox" name="[% checkboxes %]" value="[% entity.id %]" />
             </td>
             [%~ END ~%]
             <td>

@@ -13,11 +13,11 @@ sub find_by_collection {
     my $query = "
       SELECT *
       FROM (
-      SELECT DISTINCT ON ($type.id)
+      SELECT DISTINCT ON (" . $self->_id_column . ")
         " . $self->_columns .
           ($also_select ? ", $also_select" : "") . "
         FROM $table
-        JOIN editor_collection_$type ec ON $type.id = ec.$type
+        JOIN editor_collection_$type ec ON " . $self->_id_column . " = ec.$type
         $extra_join
         WHERE ec.collection = ?
         ORDER BY id

@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'instrument'
+    entity_type => 'instrument'
 };
 
 sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
@@ -105,7 +105,7 @@ sub releases : Chained('load') {
 
 after [qw( show collections details tags aliases recordings releases )] => sub {
     my ($self, $c) = @_;
-    $self->_stash_collection($c);
+    $self->_stash_collections($c);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

@@ -92,7 +92,7 @@ sub show : Chained('load') PathPart('') {
 
     my $model = $c->model(type_to_model($entity_type));
     my $entities = $self->_load_paged($c, sub {
-            $model->find_by_collection($collection->id, shift, shift, $order);
+        $model->find_by_collection($collection->id, shift, shift, $order);
     });
 
     if ($model->can('load_related_info')) {
@@ -103,9 +103,16 @@ sub show : Chained('load') PathPart('') {
         $model->load_meta(@$entities);
     }
 
-    if ($entity_type eq 'artist') {
+    if ($entity_type eq 'area') {
+        $c->model('AreaType')->load(@$entities);
+    } elsif ($entity_type eq 'artist') {
         $c->model('ArtistType')->load(@$entities);
         $c->model('Gender')->load(@$entities);
+    } elsif ($entity_type eq 'instrument') {
+        $c->model('InstrumentType')->load(@$entities);
+    } elsif ($entity_type eq 'label') {
+        $c->model('LabelType')->load(@$entities);
+        $c->model('Area')->load(@$entities);
     } elsif ($entity_type eq 'release') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroup')->load(@$entities);
@@ -113,6 +120,10 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$entities);
         }
+    } elsif ($entity_type eq 'release_group') {
+        $c->model('ArtistCredit')->load(@$entities);
+        $c->model('ReleaseGroupType')->load(@$entities);
+        $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
     } elsif ($entity_type eq 'event') {
         $c->model('EventType')->load(@$entities);
         $model->load_performers(@$entities);
@@ -128,6 +139,9 @@ sub show : Chained('load') PathPart('') {
         if ($c->user_exists) {
             $c->model('Recording')->rating->load_user_ratings($c->user->id, @$entities);
         }
+    } elsif ($entity_type eq 'series') {
+        $c->model('SeriesType')->load(@$entities);
+        $c->model('SeriesOrderingType')->load(@$entities);
     }
 
     $c->stash(

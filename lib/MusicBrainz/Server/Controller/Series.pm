@@ -31,7 +31,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'series'
+    entity_type => 'series'
 };
 
 sub base : Chained('/') PathPart('series') CaptureArgs(0) { }
@@ -106,7 +106,7 @@ sub show : PathPart('') Chained('load') {
 
 after [qw( show collections details tags aliases )] => sub {
     my ($self, $c) = @_;
-    $self->_stash_collection($c);
+    $self->_stash_collections($c);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {

@@ -8,12 +8,12 @@
         </tr>
     </thead>
     <tbody>
-        [%~ DEFAULT instrument=entities ~%]
+        [%~ DEFAULT instruments=entities ~%]
         [%~ FOR entity IN instruments ~%]
         <tr class="[% loop.parity %]">
             [%~ IF c.user_exists && checkboxes ~%]
             <td>
-              <input type="checkbox" name="[% checkboxes %]" value="[% instrument.id %]" />
+              <input type="checkbox" name="[% checkboxes %]" value="[% entity.id %]" />
             </td>
             [%~ END ~%]
             <td>

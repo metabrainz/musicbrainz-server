@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     merge_table_attributes
     load_subobjects
+    order_by
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
