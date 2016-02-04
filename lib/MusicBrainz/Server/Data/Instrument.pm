@@ -73,6 +73,7 @@ sub can_delete {
 sub delete {
     my ($self, $instrument_id) = @_;
 
+    $self->c->model('Collection')->delete_entities('instrument', $instrument_id);
     $self->c->model('Relationship')->delete_entities('instrument', $instrument_id);
     $self->annotation->delete($instrument_id);
     $self->alias->delete_entities($instrument_id);
@@ -93,6 +94,7 @@ sub _merge_impl {
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('instrument', $new_id, \@old_ids);
     $self->c->model('LinkAttributeType')->merge_instrument_attributes($new_id, @old_ids);

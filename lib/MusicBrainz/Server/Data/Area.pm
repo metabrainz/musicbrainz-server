@@ -225,6 +225,7 @@ sub delete
 {
     my ($self, @area_ids) = @_;
 
+    $self->c->model('Collection')->delete_entities('area', @area_ids);
     $self->c->model('Relationship')->delete_entities('area', @area_ids);
     $self->annotation->delete(@area_ids);
     $self->alias->delete_entities(@area_ids);
@@ -245,6 +246,7 @@ sub _merge_impl
     $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('area', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('area', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('area', $new_id, \@old_ids);
     $self->merge_codes($new_id, @old_ids);

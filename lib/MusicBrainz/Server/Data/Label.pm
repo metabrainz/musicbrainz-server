@@ -191,6 +191,7 @@ sub delete
     my ($self, @label_ids) = @_;
     @label_ids = grep { $self->can_delete($_) } @label_ids;
 
+    $self->c->model('Collection')->delete_entities('label', @label_ids);
     $self->c->model('Relationship')->delete_entities('label', @label_ids);
     $self->annotation->delete(@label_ids);
     $self->alias->delete_entities(@label_ids);
@@ -215,6 +216,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('label', $new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('label', $new_id, \@old_ids);

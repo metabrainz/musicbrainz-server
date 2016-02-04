@@ -455,6 +455,7 @@ sub delete
     @group_ids = grep { $self->can_delete($_) } @group_ids
         or return;
 
+    $self->c->model('Collection')->delete_entities('release_group', @group_ids);
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->alias->delete_entities(@group_ids);
     $self->annotation->delete(@group_ids);
@@ -511,6 +512,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, \@old_ids);
     $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);

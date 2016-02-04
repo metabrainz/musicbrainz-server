@@ -94,6 +94,7 @@ sub _merge_impl {
     $self->tags->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('series', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('series', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('series', $new_id, \@old_ids);
 
@@ -184,6 +185,7 @@ sub delete
     @ids = grep { $self->can_delete($_) } @ids;
 
     # No deleting relationship-related stuff because it should probably fail if it's trying to do that
+    $self->c->model('Collection')->delete_entities('series', @ids);
     $self->annotation->delete(@ids);
     $self->alias->delete_entities(@ids);
     $self->tags->delete(@ids);
