@@ -1,7 +1,10 @@
 POTFILES=$(sort $(shell find ../lib -type f -name \*.pm)) \
          $(sort $(shell find ../lib -type f -name \*.pl))
 
-JSFILES=$(sort $(shell find ../root/static/scripts -type f -name \*.js -not -path '../root/static/scripts/tests/*'))
+JSFILES=$(sort $(shell find ../root -type f -name \*.js \
+	-not -path '../root/static/scripts/tests/*' \
+	-not -path '../root/static/build/*' \
+	-not -path '../root/static/lib/*'))
 
 TT=$(sort $(shell find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print))
 STATTT=$(sort $(shell find ../root/statistics -type f -name \*.tt -print))
