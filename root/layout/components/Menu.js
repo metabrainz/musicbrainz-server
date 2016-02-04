@@ -167,7 +167,7 @@ const AboutMenu = () => (
         <a href="//metabrainz.org/doc/Sponsors">{l('Sponsors')}</a>
       </li>
       <li>
-        <a href="/doc/About/Team">{l('Team')}</a>
+        <a href="//metabrainz.org/team">{l('Team')}</a>
       </li>
       <li className="separator">
         <a href="/doc/About/Data_License">{l('Data Licenses')}</a>

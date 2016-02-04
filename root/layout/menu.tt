@@ -133,7 +133,7 @@
                 <a href="https://metabrainz.org/sponsors">[% l('Sponsors') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('About/Team') %]">[% l('Team') %]</a>
+                <a href="https://metabrainz.org/team">[% l('Team') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
