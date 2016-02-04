@@ -50,12 +50,11 @@ const Footer = (props) => {
       </p>
 
       <p className="right">
-        {l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}.',
+        {l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
            {__react: true,
-            host: 'https://www.digitalwest.com/',
-            url1: 'https://www.google.com/',
-            url2: '//osuosl.org/',
-            more: 'http://metabrainz.org/doc/Sponsors',
+            MeB: 'https://metabrainz.org/',
+            spon: 'https://metabrainz.org/sponsors',
+            supp: 'https://metabrainz.org/supporters',
             caa: '//coverartarchive.org/'})}
       </p>
     </div>
