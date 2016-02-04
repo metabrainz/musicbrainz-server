@@ -89,6 +89,17 @@ sub contains_entity {
         $collection_id, $id) ? 1 : 0;
 }
 
+sub is_empty {
+    my ($self, $type, $collection_id) = @_;
+
+    my $non_empty = $self->sql->select_single_value(
+        "SELECT 1 FROM editor_collection_$type WHERE collection = ?",
+        $collection_id,
+    );
+
+    return $non_empty ? 0 : 1;
+}
+
 sub merge_entities {
     my ($self, $type, $new_id, @old_ids) = @_;
 
@@ -194,13 +205,18 @@ sub load_entity_count {
 sub update {
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
+
     my $row = $self->_hash_to_row($update);
+    my $collection = $self->get_by_id($collection_id);
+    $self->c->model('CollectionType')->load($collection);
+    my $old_entity_type = $collection->type->entity_type;
 
-    my $collection = $self->c->model('Collection')->get_by_id($collection_id);
-    $self->c->model('Collection')->load_entity_count($collection);
+    if (defined($row->{type}) && $collection->type_id != $row->{type} &&
+            !$self->is_empty($old_entity_type, $collection->id)) {
+        my $new_type = $self->c->model('CollectionType')->get_by_id($row->{type});
 
-    if (defined($row->{type}) && $collection->type_id != $row->{type}) {
-        die "Cannot change the type of a non-empty collection" if $collection->entity_count != 0;
+        die "The collection type must match the type of entities it contains."
+            if $old_entity_type ne $new_type->entity_type;
     }
 
     $self->sql->auto_commit;

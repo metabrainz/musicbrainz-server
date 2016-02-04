@@ -3,8 +3,7 @@
     <fieldset>
         <legend>[% l('Collection details') %]</legend>
         [% form_row_text_long(r, 'name', l('Name:')) %]
-        [%~ form_row_select(r, 'type_id', l('Type:'), '', collection.entity_count ? { disabled => 'disabled' } : {}) ~%]
-        [% r.hidden(form.field('type_id')) IF collection.entity_count %]
+        [%~ form_row_select(r, 'type_id', l('Type:'), '', {}) ~%]
         [% WRAPPER form_row %]
                 [% r.label('description', l('Description:')) %]
                 [% r.textarea('description', { cols => 80, rows => 5 }) %]
