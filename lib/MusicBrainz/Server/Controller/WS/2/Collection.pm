@@ -166,8 +166,8 @@ sub list_list : Chained('base') PathPart('') {
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     my $stash = WebServiceStash->new;
-
-    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1);
+    my @result = $c->model('Collection')->find_by_editor($c->user->id, 1);
+    my @collections = @{ $result[0] };
     $c->model('Editor')->load(@collections);
     $c->model('Collection')->load_entity_count(@collections);
     $c->model('CollectionType')->load(@collections);

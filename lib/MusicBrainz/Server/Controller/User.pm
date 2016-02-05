@@ -311,13 +311,13 @@ sub collections : Chained('load') PathPart('collections')
     my $show_private = $c->stash->{viewing_own_profile};
     my $no_collections = 1;
 
-    my @collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private);
-    $c->model('Collection')->load_entity_count(@collections);
-    $c->model('CollectionType')->load(@collections);
+    my ($collections) = $c->model('Collection')->find_by_editor($user->id, $show_private);
+    $c->model('Collection')->load_entity_count(@$collections);
+    $c->model('CollectionType')->load(@$collections);
 
-    $no_collections = 0 if ($no_collections && @collections);
+    $no_collections = 0 if ($no_collections && @$collections);
 
-    for my $collection (@collections) {
+    for my $collection (@$collections) {
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
