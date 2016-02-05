@@ -37,7 +37,36 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 
 Readonly our $MAX_ITEMS => 25;
 
+sub get_collection_from_stash {
+    my ($self, $c) = @_;
+
+    my $collection = $c->stash->{entity} // $c->detach('not_found');
+    if (!$collection->public) {
+        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+        if ($c->user_exists) {
+            $self->_error($c, 'You do not have permission to view this collection')
+                unless $c->user->id == $collection->editor_id;
+        }
+    }
+    return $collection;
+}
+
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
+
+sub collection : Chained('load') PathPart('') {
+    my ($self, $c) = @_;
+
+    my $collection = $self->get_collection_from_stash($c);
+    my $stash = WebServiceStash->new;
+    my $opts = $stash->store($collection);
+
+    $c->model('Collection')->load_entity_count($collection);
+    $c->model('CollectionType')->load($collection);
+    $c->model('Editor')->load($collection);
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
+}
 
 map {
     my $type = $_;
@@ -50,18 +79,8 @@ map {
     my $method = sub {
         my ($self, $c) = @_;
 
-        my $collection = $c->stash->{entity} // $c->detach('not_found');
-
-        if (!$collection->public) {
-            $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-            if ($c->user_exists) {
-                $self->_error($c, 'You do not have permission to view this collection')
-                    unless $c->user->id == $collection->editor_id;
-            }
-        }
-
+        my $collection = $self->get_collection_from_stash($c);
         my $stash = WebServiceStash->new;
-
         my $opts = $stash->store($collection);
 
         $self->linked_collections($c, $stash, [ $collection ]);
@@ -92,11 +111,9 @@ map {
 
 sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;
-    my $collection = $c->stash->{entity} // $c->detach('not_found');
 
+    my $collection = $self->get_collection_from_stash($c);
     $c->model('CollectionType')->load($collection);
-
-    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     $self->_error($c, 'You do not have permission to modify this collection')
         unless ($c->user->id == $collection->editor_id);

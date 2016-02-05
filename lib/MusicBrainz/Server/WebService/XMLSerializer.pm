@@ -228,9 +228,10 @@ sub _serialize_collection
 
     my $ser = "_serialize_${entity_type}_list";
     my $gen_list = "${entity_type}_list";
+    my $list = $opts->{$plural};
 
-    if ($toplevel) {
-        $self->$ser(\@collection, $gen, $opts->{$plural}, $inc, $stash);
+    if ($toplevel && defined($list->{items}) && @{ $list->{items} }) {
+        $self->$ser(\@collection, $gen, $list, $inc, $stash);
     } elsif ($collection->loaded_entity_count) {
         push @collection, $gen->$gen_list({ count => $collection->entity_count });
     }

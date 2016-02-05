@@ -25,6 +25,17 @@ INSERT INTO editor_collection_release (collection, release) VALUES (1, 123054);
 EOSQL
 
     ws_test 'collection lookup',
+        '/collection/f34c079d-374e-4436-9448-da92dedef3ce' =>
+        '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <collection entity-type="release" type="Release" id="f34c079d-374e-4436-9448-da92dedef3ce">
+    <name>my collection</name>
+    <editor>new_editor</editor>
+    <release-list count="1" />
+  </collection>
+</metadata>', { username => 'new_editor', password => 'password' };
+
+    ws_test 'collection releases lookup',
         '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
