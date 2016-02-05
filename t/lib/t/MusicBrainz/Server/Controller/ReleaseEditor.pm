@@ -165,6 +165,7 @@ our $japan = {
     'id' => 107,
     'name' => 'Japan',
     'typeID' => 1,
+    'iso_3166_1_codes' => ['JP'],
 };
 
 test 'seeding a release with no tracklist' => sub {

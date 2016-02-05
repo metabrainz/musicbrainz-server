@@ -221,7 +221,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     country => {
                         annotation => '',
                         begin_date => '',
-                        code => undef,
+                        code => 'JP',
                         comment => '',
                         containment => [],
                         editsPending => JSON::false,
@@ -232,6 +232,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                         id => 107,
                         name => 'Japan',
                         typeID => 1,
+                        iso_3166_1_codes => ['JP'],
                     },
                     date => '1999-10-27'
                 }
