@@ -1269,9 +1269,8 @@
       }
     },
     "jsx-control-statements": {
-      "version": "3.0.0",
-      "from": "alexgilleran/jsx-control-statements#0b47bb9",
-      "resolved": "git://github.com/alexgilleran/jsx-control-statements.git#0b47bb95b661946c255db493796ace826d9dbccc"
+      "version": "3.1.0",
+      "from": "jsx-control-statements@3.1.0"
     },
     "kind-of": {
       "version": "2.0.1",
