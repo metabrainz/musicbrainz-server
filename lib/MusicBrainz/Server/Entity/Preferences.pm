@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Preferences;
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 has 'public_ratings' => (
     isa => 'Bool',
@@ -71,6 +72,7 @@ sub TO_JSON {
 
     return {
         datetime_format => $self->datetime_format,
+        show_gravatar => boolean_to_json($self->show_gravatar),
         timezone => $self->timezone,
     };
 }
