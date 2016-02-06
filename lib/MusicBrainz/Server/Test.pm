@@ -327,6 +327,8 @@ sub _build_ws_test_xml {
     my $validator = schema_validator($args->{version});
 
     return sub {
+        use Test::More;
+
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
@@ -337,10 +339,16 @@ sub _build_ws_test_xml {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
             }
 
-            $Test->plan(tests => 4);
-
-            $mech->get_ok($end_point . $url, 'fetching');
-            $validator->($mech->content, 'validating');
+            $mech->get($end_point . $url, 'fetching');
+            if ($opts->{response_code}) {
+                $Test->plan(tests => 2);
+                is($mech->res->code, $opts->{response_code});
+            } else {
+                $Test->plan(tests => 4);
+                ok($mech->success);
+                # only do this on success, there's no schema for error messages
+                $validator->($mech->content, 'validating');
+            }
 
             is_xml_same($expected, $mech->content);
             $Test->note($mech->content);

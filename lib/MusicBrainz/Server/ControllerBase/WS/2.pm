@@ -122,6 +122,7 @@ sub forbidden : Private
     $c->res->status(401);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("You are not authorized to access this resource."));
+    $c->detach;
 }
 
 sub unauthorized : Private
@@ -130,9 +131,10 @@ sub unauthorized : Private
     $c->res->status(401);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
-        "could not be verified.\nEither you supplied the wrong credentials ".
+        "could not be verified. Either you supplied the wrong credentials ".
         "(e.g., bad password), or your client doesn't understand how to ".
         "supply the credentials required."));
+    $c->detach;
 }
 
 sub not_found : Private
@@ -173,12 +175,34 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
         if ($c->stash->{authorization_required});
 }
 
-sub authenticate
-{
+sub authenticate {
     my ($self, $c, $scope) = @_;
 
-    $c->authenticate({}, 'musicbrainz.org');
-    $self->forbidden($c) unless $c->user->is_authorized($scope);
+    try {
+        $c->authenticate({}, 'musicbrainz.org');
+    } catch {
+        # A 400 response code is already set in this case.
+        $c->detach if $c->stash->{bad_auth_encoding};
+
+        # $c->authenticate will try to detach on its own if it can't
+        # authenticate using any method. But we want to return our own custom
+        # error messages, via $self->forbidden or $self->unauthorized. So, we
+        # catch Catalyst::Exception::Detach and handle that below.
+        my $error = $_;
+        unless (eval { $error->isa('Catalyst::Exception::Detach') }) {
+            eval { $error = $error->message };
+            $self->_error($c, $error);
+        }
+    };
+
+    if (!$c->user || !$c->user->is_authorized($scope)) {
+        my @authorization = $c->req->headers->header('Authorization');
+        if (@authorization || exists $c->req->params->{access_token}) {
+            $self->unauthorized($c);
+        } else {
+            $self->forbidden($c);
+        }
+    }
 }
 
 sub _error

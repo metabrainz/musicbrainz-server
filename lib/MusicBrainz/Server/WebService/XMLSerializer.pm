@@ -245,7 +245,7 @@ sub _serialize_collection_list
 
     my @list;
     map { $self->_serialize_collection(\@list, $gen, $_, $inc, $stash, 0) }
-        sort_by { $_->gid } @$collections;
+        @$collections;
 
     push @$data, $gen->collection_list(@list);
 }
