@@ -707,6 +707,7 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?spirit-of-rock\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?tunearch\\.org", "i"),
       new RegExp("^(https?://)?(www\\.)?videogam\\.in", "i"),
+      new RegExp("^(https?://)?(www\\.)?triplejunearthed\\.com", "i"),
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
