@@ -7,27 +7,34 @@ const crypto = require('crypto');
 const {trim} = require('lodash');
 const React = require('react');
 
+const entityHREF = require('../utility/entityHREF');
+const isolateText = require('../utility/isolateText');
+
 function gravatar(email) {
   let hex = crypto.createHash('md5').update(trim(email).toLowerCase()).digest('hex');
   return `//gravatar.com/avatar/${hex}?d=mm`;
 }
 
-const EditorLink = ({editor, size}) => {
-  size = size || 12;
+const EditorLink = ({editor, content, avatarSize, subPath}) => {
+  if (!content) {
+    content = editor.name;
+  }
 
-  let editorName = editor.name;
+  if (!avatarSize) {
+    avatarSize = 12;
+  }
+
   let imageURL;
-
   if (editor.preferences.show_gravatar) {
-    imageURL = gravatar(editor.email) + '&amp;s=' + (size * 2);
+    imageURL = gravatar(editor.email) + '&s=' + (avatarSize * 2);
   } else {
-    imageURL = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' + (size * 2);
+    imageURL = '//gravatar.com/avatar/placeholder?d=mm&s=' + (avatarSize * 2);
   }
 
   return (
-    <a href={`/user/${editorName}`}>
-      <img src={imageURL} height={size} width={size} className="gravatar" />
-      <bdi>{editorName}</bdi>
+    <a href={entityHREF('editor', editor.name, subPath)}>
+      <img src={imageURL} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+      {isolateText(content)}
     </a>
   );
 };

@@ -80,7 +80,7 @@ isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'not a editor');
 is($editor->id, 1, 'id');
 is($editor->name, 'new_editor', 'name');
 ok($editor->match_password('password'));
-is($editor->privileges, 1+8+32, 'privileges');
+is($editor->privileges, 1+8+32+512, 'privileges');
 is($editor->accepted_edits, 12, 'accepted edits');
 is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');

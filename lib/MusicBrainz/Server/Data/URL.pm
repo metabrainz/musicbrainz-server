@@ -95,6 +95,7 @@ my %URL_SPECIALIZATIONS = (
     'Theatricalia'        => qr{^https?://(?:www.)?theatricalia.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www.)?thedancegypsy.com/}i,
     'TheSession'          => qr{^https?://(?:www.)?thesession.org/}i,
+    'TripleJUnearthed'    => qr{^https?://(?:www.)?triplejunearthed.com/}i,
     'Trove'               => qr{^https?://(?:www.)?(?:trove.)?nla.gov.au/}i,
     'Tunearch'            => qr{^https?://(?:www.)?tunearch.org/}i,
     'Twitter'             => qr{^https?://(?:www.)?twitter.com/}i,

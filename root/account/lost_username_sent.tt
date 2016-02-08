@@ -4,6 +4,6 @@
 
     <p>[% l("We've sent you information about your MusicBrainz account. If you don't
 receive this email or still have problems logging in, please
-{link|contact us}.", { link => c.uri_for('/doc/Contact_Us') }) %]</p>
+{link|contact us}.", { link => contact_url }) %]</p>
 
 [% END %]

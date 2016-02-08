@@ -162,7 +162,8 @@
         "model": "Editor",
         "subscriptions": {
             "entity": false
-        }
+        },
+        "url": "user"
     },
     "event": {
         "aliases": {

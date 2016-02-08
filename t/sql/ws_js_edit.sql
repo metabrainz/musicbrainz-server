@@ -6,6 +6,8 @@ INSERT INTO area (id, gid, name, type)
 
 INSERT INTO country_area (area) VALUES (107);
 
+INSERT INTO iso_3166_1 (area, code) VALUES (107, 'JP');
+
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms'),
            (66666, '1e6092a0-73d3-465a-b06a-99c81f7bec37', 'a fake artist', 'a fake artist');

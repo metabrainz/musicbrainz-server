@@ -38,8 +38,13 @@ function wrapGettext(method) {
         var string = gettext[method].apply(gettext, args);
 
         if (expandArgs) {
-            if (expandArgs.__react) {
-                return exports.expandToArray(string, expandArgs);
+            let react = expandArgs.__react;
+            if (react) {
+                let parts = expandToArray(string, expandArgs);
+                if (react === 'frag') {
+                    return <frag>{parts}</frag>;
+                }
+                return parts;
             }
             return exports.expand(string, expandArgs);
         }
@@ -110,7 +115,7 @@ exports.expand = function (string, args) {
         .replace(names, (match, p1) => varReplacement(args, p1));
 };
 
-exports.expandToArray = function (string, args) {
+function expandToArray(string, args) {
     if (!string) {
         return [];
     }
@@ -137,46 +142,7 @@ exports.expandToArray = function (string, args) {
 
         return accum;
     }, []);
-};
-
-exports.commaList = function (items) {
-    var count = items.length;
-
-    if (count <= 1) {
-        return items[0] || "";
-    }
-
-    var output = l("{almost_last_list_item} and {last_list_item}", {
-        last_list_item: items[count - 1],
-        almost_last_list_item: items[count - 2]
-    });
-
-    items = items.slice(0, -2).reverse();
-    count -= 2;
-
-    for (var i = 0; i < count; i++) {
-        output = l("{list_item}, {rest}", { list_item: items[i], rest: output });
-    }
-
-    return output;
-};
-
-exports.commaOnlyList = function (items) {
-    var output = '';
-
-    if (!items.length) {
-        return output;
-    }
-
-    output = l('{last_list_item}', {last_list_item: items.pop()});
-    items.reverse();
-
-    _.each(items.reverse(), function (item) {
-        output = l('{commas_only_list_item}, {rest}', {commas_only_list_item: item, rest: output});
-    });
-
-    return output;
-};
+}
 
 var documentLang = 'en';
 if (typeof document !== 'undefined') {

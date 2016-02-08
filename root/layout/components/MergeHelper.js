@@ -6,7 +6,7 @@
 const React = require('react');
 
 const {l} = require('../../static/scripts/common/i18n');
-const descriptiveLink = require('../../static/scripts/common/utility/descriptiveLink');
+const DescriptiveLink = require('../../static/scripts/common/components/DescriptiveLink');
 
 const MergeHelper = () => (
   <div id="current-editing">
@@ -17,7 +17,9 @@ const MergeHelper = () => (
         {$c.stash.to_merge.map(entity =>
           <li>
             <input type="checkbox" id={`remove.${entity.id}`} name="remove" value={entity.id} />
-            <label htmlFor={`remove.${entity.id}`}>{descriptiveLink(entity)}</label>
+            <label htmlFor={`remove.${entity.id}`}>
+              <DescriptiveLink entity={entity} />
+            </label>
           </li>
         )}
       </ul>

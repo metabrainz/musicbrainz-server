@@ -5,8 +5,8 @@
 
 const React = require('react');
 
+const EntityLink = require('../../common/components/EntityLink');
 const i18n = require('../../common/i18n');
-const entityLink = require('../../common/utility/entityLink');
 
 class PossibleDuplicates extends React.Component {
   render() {
@@ -17,7 +17,7 @@ class PossibleDuplicates extends React.Component {
         <ul>
           {this.props.duplicates.map(dupe =>
             <li key={dupe.gid}>
-              {entityLink(dupe, {target: '_blank'})}
+              <EntityLink entity={dupe} target="_blank" />
             </li>
           )}
         </ul>

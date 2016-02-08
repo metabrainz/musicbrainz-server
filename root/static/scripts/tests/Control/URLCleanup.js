@@ -137,6 +137,10 @@ test('Guess type', function (t) {
                 LINK_TYPES.otherdatabases.artist
             ],
             [
+                'artist', 'https://www.triplejunearthed.com/artist/sampa-great',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
                 'event', 'http://thesession.org/events/3811',
                 LINK_TYPES.otherdatabases.event
             ],

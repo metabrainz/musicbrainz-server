@@ -48,7 +48,7 @@
                   before {con|contacting us}. ',
                   { faq => doc_link('Frequently_Asked_Questions'),
                     doc => doc_link('MusicBrainz_Documentation'),
-                    con => doc_link('Contact_Us') }) -%]</p>
+                    con => contact_url }) -%]</p>
 
         <p>[% l("Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try the {fo|forums} or {irc|IRC}.",
                  { bl => 'http://blog.musicbrainz.org/',
