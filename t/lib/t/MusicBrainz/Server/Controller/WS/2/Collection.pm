@@ -124,6 +124,44 @@ EOSQL
     <release-list count="1" />
   </collection>
 </metadata>';
+
+    ws2_test_xml 'browse by editor name, no credentials',
+        '/collection/?editor=new_editor' =>
+        '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <collection-list>
+    <collection entity-type="release" type="Release" id="32bb90e3-aa68-4e3c-9f7a-338096a20ae3">
+      <name>my public collection</name>
+      <editor>new_editor</editor>
+      <release-list count="1" />
+    </collection>
+  </collection-list>
+</metadata>';
+
+    ws2_test_xml 'browse by editor name, inc=user-collections',
+        '/collection/?editor=new_editor&inc=user-collections' =>
+        '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <collection-list>
+    <collection entity-type="release" type="Release" id="f34c079d-374e-4436-9448-da92dedef3ce">
+      <name>my collection</name>
+      <editor>new_editor</editor>
+      <release-list count="1" />
+    </collection>
+    <collection entity-type="release" type="Release" id="32bb90e3-aa68-4e3c-9f7a-338096a20ae3">
+      <name>my public collection</name>
+      <editor>new_editor</editor>
+      <release-list count="1" />
+    </collection>
+  </collection-list>
+</metadata>', { username => 'new_editor', password => 'password' };
+
+    ws2_test_xml_forbidden 'browse by editor name, inc=user-collections, no credentials',
+        '/collection/?editor=new_editor&inc=user-collections';
+
+    ws2_test_xml_unauthorized 'browse by editor name, inc=user-collections, bad credentials',
+        '/collection/?editor=new_editor&inc=user-collections',
+        { username => 'new_editor', password => 'wrong_password' };
 };
 
 1;

@@ -12,6 +12,12 @@ use Readonly;
 use Moose::Util qw( find_meta );
 
 my $ws_defs = Data::OptList::mkopt([
+    collection => {
+        method => 'GET',
+        linked => [ qw(editor) ],
+        inc => [ qw(user-collections) ],
+        optional => [ qw(fmt limit offset) ],
+    },
      collection => {
                          method   => 'GET',
                          inc      => [ entities_with('collections', take => 'plural_url'), qw( tags ) ],
@@ -160,8 +166,11 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     }
 }
 
-sub list_list : Chained('base') PathPart('') {
+sub collection_list : Chained('base') PathPart('') {
     my ($self, $c) = @_;
+
+    $c->detach('collection_browse')
+        if $c->stash->{linked};
 
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
@@ -175,6 +184,44 @@ sub list_list : Chained('base') PathPart('') {
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
                                                      $c->stash->{inc}, $stash));
+}
+
+sub collection_browse : Private {
+    my ($self, $c) = @_;
+
+    my ($resource, $id) = @{ $c->stash->{linked} };
+    my ($limit, $offset) = $self->_limit_and_offset($c);
+
+    my $collections;
+    my $total;
+    my $stash = WebServiceStash->new;
+
+    if ($resource eq 'editor') {
+        my $editor = $c->model('Editor')->get_by_name($id);
+        $c->detach('not_found') unless $editor;
+
+        my $show_private = 0;
+        if ($c->stash->{inc}->user_collections) {
+            $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+            $self->unauthorized($c) unless $c->user->id == $editor->id;
+            $show_private = 1;
+        }
+
+        ($collections, $total) = $c->model('Collection')->find_by_editor(
+            $editor->id,
+            $show_private,
+            undef, # entity_type
+            $limit,
+            $offset,
+        );
+
+        $_->editor($editor) for @$collections;
+        $c->model('Collection')->load_entity_count(@$collections);
+        $c->model('CollectionType')->load(@$collections);
+    }
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection-list', $collections, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;
