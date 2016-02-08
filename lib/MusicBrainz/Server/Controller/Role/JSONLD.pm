@@ -46,6 +46,7 @@ role
 
             if ($self->should_return_jsonld($c)) {
                 $c->res->content_type('application/ld+json; charset=utf-8');
+                $c->res->header('Access-Control-Allow-Origin' => '*');
                 $c->res->body(encode_json($jsonld_data));
                 $c->detach;
             } else {
