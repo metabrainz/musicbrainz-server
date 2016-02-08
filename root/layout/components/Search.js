@@ -40,11 +40,11 @@ const searchOptions = (
 
 const Search = () => (
   <form action="/search" method="get">
-    <input type="text" id="headerid-query" name="query" placeholder={l('search')} required={true} />
+    <input type="text" id="headerid-query" name="query" placeholder={l('Search')} required={true} />
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />
     <span className="buttons inline">
-      <button type="submit">{l('Search')}</button>
+      <button type="submit"><img src="/static/images/icons/search.svg" /></button>
     </span>
   </form>
 );

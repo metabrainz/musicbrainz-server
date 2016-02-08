@@ -24,16 +24,16 @@ MB.Control.HeaderMenu = function () {
     self.timeout = null;
     self.timeout_msecs = 200;
 
-    $('#header-menu > div > ul > li').bind('mouseenter.mb', function (event) {
+    $('.header ul.menu > li').bind('mouseenter.mb', function (event) {
         if (self.timeout) {
             clearTimeout(self.timeout);
-            $('#header-menu ul li ul').css('left', '-10000px');
+            $('.header ul.menu li ul').css('left', '-10000px');
         }
 
         $(this).children('ul').css('left', 'auto');
     });
 
-    $('#header-menu ul li').bind('mouseleave.mb', function (event) {
+    $('.header ul.menu li').bind('mouseleave.mb', function (event) {
         var ul = $(this).children('ul');
 
         self.timeout = setTimeout(function () {
