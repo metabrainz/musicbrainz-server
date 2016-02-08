@@ -74,6 +74,7 @@ use constant FAVICON_CLASSES => {
     'tunearch.org'              => 'tunearch',
     'castalbums.org'            => 'castalbums',
     'smdb.kb.se'                => 'SMDB',
+    'triplejunearthed.com'      => 'triplejunearthed',
     'cdbaby.com'                => 'cdbaby',
 };
 
