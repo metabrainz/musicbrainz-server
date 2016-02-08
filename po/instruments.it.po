@@ -1,5 +1,6 @@
 # 
 # Translators:
+# Alex DM <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Monica <email address hidden>, 2014
@@ -7,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-12 23:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-02-04 22:19+0000\n"
+"Last-Translator: Alex DM <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,19 +23,19 @@ msgstr "Chitarra a 12 corde"
 
 #: DB:instrument/name:516
 msgid "17-string koto"
-msgstr ""
+msgstr "Koto a 17 stringhe."
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
-msgstr ""
+msgstr "Salterio appalachiano"
 
 #: DB:instrument/name:421
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "Salteri baltici"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
-msgstr ""
+msgstr "Tamburo Batá"
 
 #: DB:instrument/name:260
 msgid "Chamberlin"
@@ -42,7 +43,7 @@ msgstr ""
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
-msgstr ""
+msgstr "Bastone Chapman"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -66,15 +67,15 @@ msgstr ""
 
 #: DB:instrument/name:7
 msgid "English horn"
-msgstr ""
+msgstr "Corno inglese"
 
 #: DB:instrument/name:30
 msgid "French horn"
-msgstr ""
+msgstr "Corno francese"
 
 #: DB:instrument/name:356
 msgid "German harp"
-msgstr ""
+msgstr "Arpa tedesca"
 
 #: DB:instrument/name:236
 msgid "Greek baglama"
@@ -130,11 +131,11 @@ msgstr ""
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "Arpa paraguaiana"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
-msgstr ""
+msgstr "Chitarra portoghese"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -170,7 +171,7 @@ msgstr ""
 
 #: DB:instrument/name:691
 msgid "Swedish bagpipes"
-msgstr ""
+msgstr "Cornamusa svedese"
 
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
@@ -478,7 +479,7 @@ msgstr ""
 
 #: DB:instrument/name:116
 msgid "bells"
-msgstr ""
+msgstr "Campane"
 
 #: DB:instrument/name:343
 msgid "bendir"
@@ -718,7 +719,7 @@ msgstr ""
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "Arpa per concerto"
 
 #: DB:instrument/name:42
 msgid "concertina"

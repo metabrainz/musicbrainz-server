@@ -1,13 +1,14 @@
 # 
 # Translators:
+# Alex DM <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-12 23:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-02-04 22:33+0000\n"
+"Last-Translator: Alex DM <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,38 +19,38 @@ msgstr ""
 #. name:Batá drum
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr ""
+msgstr "Un tamburo Batá è un tamburo a due punte originario della Nigeria."
 
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "Un tamburo turco usato dalle tradizionali bande militari ottomane"
 
 #. name:tef
 #: DB:instrument/description:531
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
+msgstr "Una versione turca del tamburino / daf, fatto di pelle animale e suonato con le dita."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
 msgid ""
 "A baroque trumpet is a natural trumpet modelled on the instruments used "
 "between the 1500s and the 1700s. It lacks valves but may have vents."
-msgstr ""
+msgstr "Una tromba barocca è una tromba naturale sul modello degli strumenti utilizzati tra il 1500 e il 1700. Manca di valvole, ma può avere prese d'aria."
 
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Un organetto è uno strumento meccanico musicale tipicamente fatto funzionare da una persona girando una manovella che fa girare un barile, che ha la musica codificata in esso."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "Un sintetizzatore di bassi è usato per creare suoni nella gamma bassa."
 
 #. name:bell tree
 #: DB:instrument/description:479
@@ -63,7 +64,7 @@ msgstr ""
 msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
-msgstr ""
+msgstr "Un campanello di bicicletta è uno strumento di segnalazione montato su una bicicletta che permette di avvertire pedoni e altri ciclisti."
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -75,7 +76,7 @@ msgstr ""
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "Un organo da camera è un piccolo organo a canne."
 
 #. name:chime bar
 #: DB:instrument/description:638
@@ -88,22 +89,22 @@ msgstr ""
 #. name:cuatro
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Una classe di chitarre sudamericane"
 
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "A classical guitar strung with gut strings."
-msgstr ""
+msgstr "Una chitarra classica fatta con stringhe di budello."
 
 #. name:nylon guitar
 #: DB:instrument/description:566
 msgid "A classical guitar strung with nylon strings."
-msgstr ""
+msgstr "Una chitarra classica fatta con stringhe di nylon."
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr ""
+msgstr "Un tamburo cilindrico è un tamburo diritto unilaterale e generalmente a due punte."
 
 #. name:descant recorder / soprano recorder
 #: DB:instrument/description:469
@@ -117,19 +118,19 @@ msgstr ""
 msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
-msgstr ""
+msgstr "Una dolceola è uno strumento musicale simile a un pianoforte in miniatura, ma che in realtà è una cetra con una tastiera."
 
 #. name:duck call
 #: DB:instrument/description:649
 msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr ""
+msgstr "Una richiamo per anatra è uno strumento utilizzato per emulare il suono di un'anatra."
 
 #. name:fife
 #: DB:instrument/description:514
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore."
-msgstr ""
+msgstr "Un piffero è un piccolo flauto acuto trasversale, che è simile al piccolo, ma più forte e acuto a causa del suo foro più stretto."
 
 #. name:five-string banjo
 #: DB:instrument/description:523
@@ -156,7 +157,7 @@ msgstr ""
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr ""
+msgstr "Una grancassa Gong è un grande tamburo, che assomiglia ad un gong."
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
@@ -379,7 +380,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Un'arpa Irlandese/Scozzese"
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -706,7 +707,7 @@ msgstr ""
 #. name:body percussion
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Percussione eseguita con parti del corpo."
 
 #. name:foot percussion
 #: DB:instrument/description:478
@@ -799,7 +800,7 @@ msgstr ""
 #. name:Swedish bagpipes
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
-msgstr ""
+msgstr "Le cornamusa svedesi sono un tipo di cornamusa originarie della Svezia."
 
 #. name:tambura
 #: DB:instrument/description:391
@@ -1820,7 +1821,7 @@ msgstr ""
 #. name:kortholt
 #: DB:instrument/description:264
 msgid ""
-"The kortholt ia a woodwind instrument that was popular in the Renaissance "
+"The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
 msgstr ""
 

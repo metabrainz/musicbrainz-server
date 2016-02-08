@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-18 12:54+0000\n"
-"Last-Translator: TL\n"
+"PO-Revision-Date: 2016-01-27 20:38+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1825,9 +1825,9 @@ msgstr "Die Komuz ist eine zwei- oder dreisaitige, gezupfte Langhalslaute ohne B
 #. name:kortholt
 #: DB:instrument/description:264
 msgid ""
-"The kortholt ia a woodwind instrument that was popular in the Renaissance "
+"The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
-msgstr "Das Kortholt ist ein historisches Musikinstrument aus der Familie der Holzblasinstrumente. Der Name des Instruments bedeutet im Plattdeutschen „kurzes Holz“ und bezieht sich auf die in Bezug auf seine Stimmlage geringe Baugrösse."
+msgstr ""
 
 #. name:koto
 #: DB:instrument/description:82
