@@ -12,13 +12,13 @@
 # Shepard, 2013-2014
 # TL, 2016
 # Tobias Quathamer <email address hidden>, 2007
-# Ulrich Klauer <email address hidden>, 2015
+# Ulrich Klauer <email address hidden>, 2015-2016
 # Wieland Hoffmann <email address hidden>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-17 15:20+0000\n"
-"Last-Translator: TL\n"
+"PO-Revision-Date: 2016-01-29 14:17+0000\n"
+"Last-Translator: Ulrich Klauer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,11 +132,11 @@ msgstr "Bugfixes"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr "CAA initiale Veröffentlichung"
+msgstr "CAA erstmals herausgebracht"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr "CAA offizielle Veröffentlichung"
+msgstr "CAA offiziell herausgebracht"
 
 #: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
@@ -144,7 +144,7 @@ msgstr "Caching (memcached) und Fehler behoben."
 
 #: DB:statistics.statistic_event/title:2004-03-09
 msgid "Caching/bug fixes"
-msgstr "Caching / Fehler behoben"
+msgstr "Caching/Fehlerkorrekturen"
 
 #: DB:statistics.statistic_event/title:2003-03-02
 #: DB:statistics.statistic_event/title:2003-06-07
@@ -155,7 +155,7 @@ msgstr "Bereinigung"
 #: DB:statistics.statistic_event/description:2003-06-07
 #: DB:statistics.statistic_event/description:2003-06-15
 msgid "Cleanup release."
-msgstr "Bereinigte Veröffentlichung."
+msgstr "Aufräumversion."
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
@@ -187,7 +187,7 @@ msgstr "Bearbeitungssuche"
 msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
-msgstr "Bearbeiter ojnkpjg lässt ein Script zum Setzen der Titellängen aus DiscID-Werten laufen. Dies verursacht einen grossen Bearbeitungs-Ausschlag."
+msgstr "Bearbeiter ojnkpjg lässt ein Script zum Setzen der Titellängen aus DiscID-Werten laufen. Dies verursacht einen großen Bearbeitungs-Ausschlag."
 
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
@@ -233,21 +233,21 @@ msgid ""
 "In an effort to reduce the size of the open edit queue and force less "
 "waiting for changes, the length of time edits stay open before expiration is"
 " reduced from 14 to 7 days."
-msgstr "Im Bemühen die Größe der offenen Bearbeitungs-Warteschlange zu reduzieren und um das Warten auf Änderungen zu verkürzen, wurde der Zeitraum, für den Änderungen offen bleiben, von 14 auf 7 Tage reduziert bevor sie verfallen."
+msgstr "Der Zeitraum, für den Bearbeitungen offen bleiben, wird von 14 auf 7 Tage reduziert, um die Schlange mit offenen Bearbeitungen zu verkürzen und Nutzer weniger lang auf Änderungen warten zu lassen."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
-msgstr "Zur Vorbereitung auf die Veröffentlichung des NGS wird das Bearbeiten bis zur Veröffentlichung deaktiviert."
+msgstr "Zur Vorbereitung auf die Veröffentlichung von NGS wird das Bearbeiten bis zur Veröffentlichung deaktiviert."
 
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
-msgstr "Vor dem Sprung auf das neue Schema wird Editoren empfohlen Bearbeitungen (offene Edits) zu vermeiden."
+msgstr "Zur Vorbereitung auf die Veröffentlichung von NGS wird Bearbeitern empfohlen, nur unbedingt notwendige Bearbeitungen vorzunehmen."
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr "Indexierte Suche / XML WS"
+msgstr "Indexierte Suche/XML-WS"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
@@ -317,7 +317,7 @@ msgstr "MetaBrainz gestartet"
 
 #: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
-msgstr "MetaBrainz unterschreibt mit dem ersten Kunden"
+msgstr "MetaBrainz schließt Vertrag mit erstem Kunden ab"
 
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb comes MusicBrainz data user."
@@ -337,7 +337,7 @@ msgstr "Der MusicBrainz-Server-Quellcode wurde von Subversion nach Git umgezogen
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr "MusicBrainz kriegt seinen ersten dedizierten Datenbankserver."
+msgstr "MusicBrainz bekommt seinen ersten dedizierten Datenbankserver."
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -356,11 +356,11 @@ msgstr "MusicIP PUID"
 
 #: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
-msgstr "NGS Phase \"Keine-Bearbeitung-möglich\""
+msgstr "Phase ohne Bearbeitungen wegen NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-02
 msgid "NGS Reduced Editing Phase"
-msgstr "NGS verkürzte Bearbeitungsphase"
+msgstr "Phase reduzierter Bearbeitungen wegen NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
@@ -376,7 +376,7 @@ msgstr "Titel ohne Album"
 
 #: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
-msgstr "Titel ohne Album wurden veröffentlicht."
+msgstr "Titel ohne Album werden veröffentlicht."
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
@@ -405,7 +405,7 @@ msgstr "Albeneditor"
 
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
-msgstr "Albeneditor und \"Gross-/Kleinschrift vorschlagen\" werden veröffentlicht."
+msgstr "Albeneditor und „Groß-/Kleinschreibung erraten“ werden veröffentlicht."
 
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
@@ -428,7 +428,7 @@ msgstr "SoC 2008"
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
-msgstr "Umgehungslösung für Style Richtlinie 5 eingeführt und nicht benötigte TRMs aus der Datenbank entfernt."
+msgstr "Umgehungslösung für Stilrichtlinie 5 eingeführt und unbenutzte TRMs aus der Datenbank entfernt."
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
@@ -476,7 +476,7 @@ msgstr "Die Suchfunktion und Web-Service-Verbesserungen wurden freigegeben."
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
 "editing features released."
-msgstr "Navigation im Hauptmenu verbessert, Möglichkeiten für doppelte Künstler, Album bearbeiten, Titellängen bearbeiten veröffentlicht."
+msgstr "Navigation im Hauptmenü verbessert; Funktionen doppelte Künstler, alles an einem Album bearbeiten, Titellängen bearbeiten herausgebracht."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
@@ -488,7 +488,7 @@ msgstr "Benutzerverbesserungen"
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
-msgstr "Abstimm-Logik wurde verbessert, webbasierte Wahl der Autobearbeiter veröffentlicht."
+msgstr "Abstimm-Logik wurde verbessert, webbasierte Wahl der Autobearbeiter herausgebracht."
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"

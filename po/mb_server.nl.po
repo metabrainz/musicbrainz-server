@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 16:22-0600\n"
-"PO-Revision-Date: 2016-01-16 08:57+0000\n"
+"POT-Creation-Date: 2016-01-27 14:36-0600\n"
+"PO-Revision-Date: 2016-01-28 18:32+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +192,7 @@ msgid "(none)"
 msgstr "(geen)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:329
+#: ../root/static/scripts/common/components/TagEditor.js:330
 msgctxt "tag"
 msgid "(none)"
 msgstr "(geen)"
@@ -5114,7 +5114,7 @@ msgid "No releases with this tag were found."
 msgstr "Geen uitgaves met dit etiket gevonden."
 
 #: ../root/release/edit/tracklist.tt:110
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:398
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:399
 msgid "No results"
 msgstr "Geen resultaten"
 
@@ -5178,7 +5178,7 @@ msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "De afgelopen drie maanden heeft niemand notities achtergelaten bij je bewerkingen."
 
 #: ../root/entity/tags.tt:2
-#: ../root/static/scripts/common/components/TagEditor.js:285
+#: ../root/static/scripts/common/components/TagEditor.js:286
 msgid "Nobody has tagged this yet."
 msgstr "Nog niemand heeft dit een etiket gegeven."
 
@@ -8568,7 +8568,7 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr "Dit relatietype kan geen eigenschappen hebben."
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:170
+#: ../root/static/scripts/edit/externalLinks.js:169
 #: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Dit relatietype is verouderd en moet niet meer worden gebruikt."
@@ -9240,7 +9240,7 @@ msgstr "Om het testen te vergemakkelijken zijn de volgende mogelijkheden beschik
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub or FreeDB, select the appropriate tab."
-msgstr ""
+msgstr "Gebruik om een nieuwe nummerlijst te creëren een bestaand medium of importeer een medium van een cd-beginsel of FreeDB. Selecteer het bijbehorende tabblad."
 
 #: ../root/release/edit/information.tt:117
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -9747,7 +9747,7 @@ msgstr "Gebruik de volgende velden om een lemma in FreeDB te zoeken."
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Use the following fields to search for an existing medium."
-msgstr ""
+msgstr "Gebruik de volgende velden om naar een bestaand medium te zoeken."
 
 #: ../root/release/edit/tracklist.tt:47
 msgid "Use track artists"
@@ -10865,7 +10865,7 @@ msgid "more"
 msgstr "meer"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:326
+#: ../root/static/scripts/common/components/TagEditor.js:327
 msgid "more..."
 msgstr "meer …"
 
@@ -11164,7 +11164,7 @@ msgstr "{entity} is nog niet aan een collectie toegevoegd."
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
-msgstr ""
+msgstr "Er zijn {link|nieuwe notities} geplaatst bij je bewerkingen. Lees ze even en reageer erop als dat nodig is."
 
 #: ../root/entity/ratings.tt:22
 msgid "{link} has no ratings."
@@ -11753,12 +11753,12 @@ msgstr "Er zijn al uitgaves in MusicBrainz met deze disc-id"
 msgid "There is already a CD stub with this disc ID"
 msgstr "Er is al een cd-beginsel met deze disc-id"
 
-#: ../lib/MusicBrainz/Server/Data/Language.pm:55
+#: ../lib/MusicBrainz/Server/Data/Language.pm:57
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:45
 msgid "[No lyrics]"
 msgstr "[Geen tekst]"
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:154
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:156
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1}-relaties"
@@ -12419,13 +12419,13 @@ msgid "Submit new barcodes to the database"
 msgstr "Nieuwe streepjescodes in te dienen."
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:33
-#: ../root/static/scripts/edit/utility/linkPhrase.js:66
+#: ../root/static/scripts/edit/utility/linkPhrase.js:67
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
 msgstr "{attribute} [{credited_as}]"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:37
-#: ../root/static/scripts/edit/utility/linkPhrase.js:59
+#: ../root/static/scripts/edit/utility/linkPhrase.js:60
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
@@ -12466,7 +12466,7 @@ msgstr "{begindate} &#x2013; ????"
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:35
+#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:41
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
 msgstr ""
@@ -12536,8 +12536,9 @@ msgid "These coordinates could not be parsed"
 msgstr "Deze coördinaten konden niet worden ingevoerd"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-msgid "The end date must occur on or after the begin date"
-msgstr "De einddatum moet na de begindatum zijn"
+#: ../root/static/scripts/relationship-editor/common/dialog.js:493
+msgid "The end date cannot precede the begin date."
+msgstr "De einddatum kan niet voor de begindatum zijn."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:12
 msgid "This is not a valid disc ID"
@@ -12601,7 +12602,7 @@ msgid "This is not a valid time."
 msgstr "Dit is geen geldig tijdstip."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:164
+#: ../root/static/scripts/edit/externalLinks.js:163
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Voer een geldige URL in, bijv. ‘http://google.nl/’"
 
@@ -12897,42 +12898,42 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:54
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:55
 msgid "An error occurred while searching. Click here to try again."
 msgstr "Er is een fout opgetreden bij het zoeken. Klik hier om het nogmaals te proberen."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:58
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
 msgid "Try with direct search instead."
 msgstr "Probeer het eens met een directe zoekopdracht."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:60
 msgid "Try with indexed search instead."
 msgstr "Probeer het eens met een geïndexeerde zoekopdracht."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:91
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:92
 msgid "Type to search, or paste an MBID"
 msgstr "Tik hier een naam om te zoeken, of plak een MBID"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:163
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:164
 msgid "Clear recent items"
 msgstr "Recente objecten leegmaken"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:405
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:406
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show more..."
 msgstr "Laat meer zien …"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:411
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
 msgid "Not found? Try again with direct search."
 msgstr "Niet gevonden? Probeer direct in de gegevensbank te zoeken."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:413
 msgid "Slow? Switch back to indexed search."
 msgstr "Langzaam? Schakel terug naar het geïndexeerd zoeken."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:603
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:604
 #: ../root/static/scripts/common/entity.js:196
-#: ../root/static/scripts/edit/externalLinks.js:280
+#: ../root/static/scripts/edit/externalLinks.js:279
 msgid "video"
 msgstr "video"
 
@@ -12960,47 +12961,47 @@ msgstr "Medium laden is mislukt."
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
 
-#: ../root/static/scripts/common/components/TagEditor.js:71
+#: ../root/static/scripts/common/components/TagEditor.js:72
 msgid "Upvote"
 msgstr "Plussen"
 
-#: ../root/static/scripts/common/components/TagEditor.js:72
+#: ../root/static/scripts/common/components/TagEditor.js:73
 msgid "You’ve upvoted this tag"
 msgstr "Je hebt dit etiket omhoog gestemd."
 
-#: ../root/static/scripts/common/components/TagEditor.js:80
+#: ../root/static/scripts/common/components/TagEditor.js:81
 msgid "Downvote"
 msgstr "Minnen"
 
-#: ../root/static/scripts/common/components/TagEditor.js:81
+#: ../root/static/scripts/common/components/TagEditor.js:82
 msgid "You’ve downvoted this tag"
 msgstr "Je hebt dit etiket omlaag gestemd."
 
-#: ../root/static/scripts/common/components/TagEditor.js:294
+#: ../root/static/scripts/common/components/TagEditor.js:295
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr "Etiketten met een score van nul of lager, of die je omlaag gestemd hebt, zijn verborgen."
 
-#: ../root/static/scripts/common/components/TagEditor.js:297
+#: ../root/static/scripts/common/components/TagEditor.js:298
 msgid "Show all tags."
 msgstr "Alle etiketten tonen."
 
-#: ../root/static/scripts/common/components/TagEditor.js:301
+#: ../root/static/scripts/common/components/TagEditor.js:302
 msgid "Add Tags"
 msgstr "Etiketten toevoegen"
 
-#: ../root/static/scripts/common/components/TagEditor.js:303
+#: ../root/static/scripts/common/components/TagEditor.js:304
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr "Je kan hieronder je eigen {tagdocs|etiketten} toevoegen. Gebruik komma’s tussen verschillende etiketten."
 
-#: ../root/static/scripts/common/components/TagEditor.js:310
+#: ../root/static/scripts/common/components/TagEditor.js:311
 msgid "Submit tags"
 msgstr "Etiketten indienen"
 
-#: ../root/static/scripts/common/components/TagEditor.js:334
+#: ../root/static/scripts/common/components/TagEditor.js:335
 msgid "Tag"
 msgstr "Etiket toevoegen"
 
@@ -13076,7 +13077,7 @@ msgstr "Nog een compositie toevoegen"
 msgid "Show less..."
 msgstr "Laat minder zien …"
 
-#: ../root/static/scripts/common/utility/entityLink.js:29
+#: ../root/static/scripts/common/utility/entityLink.js:30
 msgid "(video)"
 msgstr "(video)"
 
@@ -13092,25 +13093,25 @@ msgstr "Deze persoon is overleden."
 msgid "This group has dissolved."
 msgstr "Deze groep is opgeheven."
 
-#: ../root/static/scripts/edit/check-duplicates.js:134
-#: ../root/static/scripts/edit/externalLinks.js:162
+#: ../root/static/scripts/edit/check-duplicates.js:135
+#: ../root/static/scripts/edit/externalLinks.js:161
 #: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "Vereist veld."
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:14
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
 msgid "Possible Duplicates"
 msgstr "Mogelijke dubbelen"
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:16
 msgid "We found the following entities with very similar names:"
 msgstr "We hebben de volgende objecten met sterk gelijkende namen gevonden:"
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:28
 msgid "Yes, I still want to enter “{entity_name}”."
 msgstr "Ja, ik wil “{entity_name}” nog steeds toevoegen."
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:32
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
@@ -13122,39 +13123,39 @@ msgstr "Voeg een {doc_disambiguation|verduidelijking} toe om dit object van ande
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Al je veranderingen zullen verloren gaan als je deze pagina verlaat."
 
-#: ../root/static/scripts/edit/externalLinks.js:166
+#: ../root/static/scripts/edit/externalLinks.js:165
 msgid "Please don't use shortened URLs."
 msgstr "Gebruik geen verkorte URL’s."
 
-#: ../root/static/scripts/edit/externalLinks.js:168
+#: ../root/static/scripts/edit/externalLinks.js:167
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Selecteer een koppelingstype voor de URL die je hebt ingevoerd."
 
-#: ../root/static/scripts/edit/externalLinks.js:172
+#: ../root/static/scripts/edit/externalLinks.js:171
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Deze URL is niet toegestaan bij het geselecteerde koppelingstype, of is niet correct opgemaakt."
 
-#: ../root/static/scripts/edit/externalLinks.js:174
+#: ../root/static/scripts/edit/externalLinks.js:173
 msgid "This relationship already exists."
 msgstr "De relatie bestaat al."
 
-#: ../root/static/scripts/edit/externalLinks.js:240
+#: ../root/static/scripts/edit/externalLinks.js:239
 #: ../root/static/scripts/relationship-editor/common/dialog.js:334
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|meer documentatie})"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add link:"
 msgstr "Koppeling toevoegen:"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add another link:"
 msgstr "Nog een koppeling toevoegen:"
 
-#: ../root/static/scripts/edit/externalLinks.js:286
+#: ../root/static/scripts/edit/externalLinks.js:285
 msgid "Remove Link"
 msgstr "Koppeling verwijderen"
 
@@ -13162,14 +13163,14 @@ msgstr "Koppeling verwijderen"
 msgid "Guess Case Options"
 msgstr "Opties voor het gokken van hoofdlettergebruik"
 
-#: ../root/static/scripts/guess-case/modes.js:245
+#: ../root/static/scripts/guess-case/modes.js:246
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Deze methode schrijft bijna alle woorden met een hoofdletter (met uitzondering van sommige lidwoorden en korte voorzetsels). Voor sommige woorden moet het hoofdlettergebruik handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Engels}."
 
-#: ../root/static/scripts/guess-case/modes.js:259
+#: ../root/static/scripts/guess-case/modes.js:260
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13177,7 +13178,7 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Deze methode schrijft hoofdletters zoals in zinnen, maar voegt ook spaties toe voor puntkomma’s, dubbele punten, uitroeptekens en vraagtekens en binnen guillemets. Sommige woorden moeten misschien handmatig van hoofdletters worden voorzien, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Frans}. "
 
-#: ../root/static/scripts/guess-case/modes.js:277
+#: ../root/static/scripts/guess-case/modes.js:278
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
@@ -13214,11 +13215,7 @@ msgstr "Selecteer een subtype van het nu gebruikte relatietype. Het geselecteerd
 msgid "Entities in a relationship cannot be the same."
 msgstr "Objecten in een relatie kunnen niet hetzelfde zijn."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:493
-msgid "The end date cannot preceed the begin date."
-msgstr "De einddatum kan niet voor de begindatum zijn."
-
-#: ../root/static/scripts/relationship-editor/common/fields.js:288
+#: ../root/static/scripts/relationship-editor/common/fields.js:291
 msgid "This attribute is required."
 msgstr "Deze eigenschap is verplicht"
 

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 16:22-0600\n"
-"PO-Revision-Date: 2016-01-12 23:09+0000\n"
+"POT-Creation-Date: 2016-01-27 14:36-0600\n"
+"PO-Revision-Date: 2016-01-27 20:38+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -185,7 +185,7 @@ msgid "(none)"
 msgstr "(pole)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:329
+#: ../root/static/scripts/common/components/TagEditor.js:330
 msgctxt "tag"
 msgid "(none)"
 msgstr "(pole)"
@@ -5107,7 +5107,7 @@ msgid "No releases with this tag were found."
 msgstr "Selle sildiga väljalaskeid ei leitud."
 
 #: ../root/release/edit/tracklist.tt:110
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:398
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:399
 msgid "No results"
 msgstr "Tulemusi pole"
 
@@ -5171,7 +5171,7 @@ msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr ""
 
 #: ../root/entity/tags.tt:2
-#: ../root/static/scripts/common/components/TagEditor.js:285
+#: ../root/static/scripts/common/components/TagEditor.js:286
 msgid "Nobody has tagged this yet."
 msgstr "Keegi pole seda veel sildistanud."
 
@@ -8561,7 +8561,7 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr "See seosetüüp ei luba ühtegi atribuuti."
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:170
+#: ../root/static/scripts/edit/externalLinks.js:169
 #: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr "See seosetüüp on iganenud ja seda ei tohiks enam kasutada."
@@ -10858,7 +10858,7 @@ msgid "more"
 msgstr "veel"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:326
+#: ../root/static/scripts/common/components/TagEditor.js:327
 msgid "more..."
 msgstr "veel..."
 
@@ -11746,12 +11746,12 @@ msgstr "MusicBrainzis on juba selle plaadi-ID-ga väljalaskeid"
 msgid "There is already a CD stub with this disc ID"
 msgstr "MusicBrainzis on juba selle plaadi-ID-ga CD-mustand"
 
-#: ../lib/MusicBrainz/Server/Data/Language.pm:55
+#: ../lib/MusicBrainz/Server/Data/Language.pm:57
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:45
 msgid "[No lyrics]"
 msgstr "[sõnu pole]"
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:154
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:156
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}–{t1} seosed"
@@ -12412,13 +12412,13 @@ msgid "Submit new barcodes to the database"
 msgstr "Edastada andmebaasi uusi vöötkoode"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:33
-#: ../root/static/scripts/edit/utility/linkPhrase.js:66
+#: ../root/static/scripts/edit/utility/linkPhrase.js:67
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
 msgstr "{attribute} [{credited_as}]"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:37
-#: ../root/static/scripts/edit/utility/linkPhrase.js:59
+#: ../root/static/scripts/edit/utility/linkPhrase.js:60
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
@@ -12459,7 +12459,7 @@ msgstr "{begindate} – ?"
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} –"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:35
+#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:41
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
 msgstr ""
@@ -12529,8 +12529,9 @@ msgid "These coordinates could not be parsed"
 msgstr "Antud koordinaate polnud võimalik parsida."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-msgid "The end date must occur on or after the begin date"
-msgstr "Lõppkuupäev ei saa olla enne alguskuupäeva."
+#: ../root/static/scripts/relationship-editor/common/dialog.js:493
+msgid "The end date cannot precede the begin date."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:12
 msgid "This is not a valid disc ID"
@@ -12594,7 +12595,7 @@ msgid "This is not a valid time."
 msgstr "See pole korrektne aeg."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:164
+#: ../root/static/scripts/edit/externalLinks.js:163
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Sisesta korrektne URL, nagu nt „http://google.com/”"
 
@@ -12890,42 +12891,42 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:54
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:55
 msgid "An error occurred while searching. Click here to try again."
 msgstr "Otsimisel ilmnes viga. Uuestiproovimiseks klõpsa siin."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:58
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
 msgid "Try with direct search instead."
 msgstr "Proovi selle asemel otsese otsinguga."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:60
 msgid "Try with indexed search instead."
 msgstr "Proovi selle asemel indekseeritud otsinguga."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:91
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:92
 msgid "Type to search, or paste an MBID"
 msgstr "Kirjuta otsitav sõna või kopeeri MBID"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:163
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:164
 msgid "Clear recent items"
 msgstr "Puhasta loend"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:405
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:406
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show more..."
 msgstr "Näita rohkem..."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:411
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
 msgid "Not found? Try again with direct search."
 msgstr "Tulemusteta? Proovi otsese otsinguga."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:413
 msgid "Slow? Switch back to indexed search."
 msgstr "Aeglane? Lülita tagasi indekseeritud otsingule."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:603
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:604
 #: ../root/static/scripts/common/entity.js:196
-#: ../root/static/scripts/edit/externalLinks.js:280
+#: ../root/static/scripts/edit/externalLinks.js:279
 msgid "video"
 msgstr "video"
 
@@ -12953,47 +12954,47 @@ msgstr "Helikandja laadimine ei õnnestunud."
 msgid "Image {current} of {total}"
 msgstr "Pilt {current} / {total}"
 
-#: ../root/static/scripts/common/components/TagEditor.js:71
+#: ../root/static/scripts/common/components/TagEditor.js:72
 msgid "Upvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:72
+#: ../root/static/scripts/common/components/TagEditor.js:73
 msgid "You’ve upvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:80
+#: ../root/static/scripts/common/components/TagEditor.js:81
 msgid "Downvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:81
+#: ../root/static/scripts/common/components/TagEditor.js:82
 msgid "You’ve downvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:294
+#: ../root/static/scripts/common/components/TagEditor.js:295
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:297
+#: ../root/static/scripts/common/components/TagEditor.js:298
 msgid "Show all tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:301
+#: ../root/static/scripts/common/components/TagEditor.js:302
 msgid "Add Tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:303
+#: ../root/static/scripts/common/components/TagEditor.js:304
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:310
+#: ../root/static/scripts/common/components/TagEditor.js:311
 msgid "Submit tags"
 msgstr "Sildista"
 
-#: ../root/static/scripts/common/components/TagEditor.js:334
+#: ../root/static/scripts/common/components/TagEditor.js:335
 msgid "Tag"
 msgstr "Sildista"
 
@@ -13069,7 +13070,7 @@ msgstr "Lisa veel üks teos"
 msgid "Show less..."
 msgstr "Näita vähem..."
 
-#: ../root/static/scripts/common/utility/entityLink.js:29
+#: ../root/static/scripts/common/utility/entityLink.js:30
 msgid "(video)"
 msgstr ""
 
@@ -13085,25 +13086,25 @@ msgstr "See isik on surnud (aga surmakuupäeva ei tea)"
 msgid "This group has dissolved."
 msgstr "See grupp on laiali läinud"
 
-#: ../root/static/scripts/edit/check-duplicates.js:134
-#: ../root/static/scripts/edit/externalLinks.js:162
+#: ../root/static/scripts/edit/check-duplicates.js:135
+#: ../root/static/scripts/edit/externalLinks.js:161
 #: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "Kohustuslik väli"
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:14
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
 msgid "Possible Duplicates"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:16
 msgid "We found the following entities with very similar names:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:28
 msgid "Yes, I still want to enter “{entity_name}”."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:32
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
@@ -13115,39 +13116,39 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Sellelt lehelt lahkudes lähevad kõik tehtud muudatused kaotsi."
 
-#: ../root/static/scripts/edit/externalLinks.js:166
+#: ../root/static/scripts/edit/externalLinks.js:165
 msgid "Please don't use shortened URLs."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:168
+#: ../root/static/scripts/edit/externalLinks.js:167
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Palun vali sisestatud URL-ile lingitüüp."
 
-#: ../root/static/scripts/edit/externalLinks.js:172
+#: ../root/static/scripts/edit/externalLinks.js:171
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Valitud lingitüüp kas ei luba seda URL-i või pole see korrektsel kujul."
 
-#: ../root/static/scripts/edit/externalLinks.js:174
+#: ../root/static/scripts/edit/externalLinks.js:173
 msgid "This relationship already exists."
 msgstr "See seos on juba olemas."
 
-#: ../root/static/scripts/edit/externalLinks.js:240
+#: ../root/static/scripts/edit/externalLinks.js:239
 #: ../root/static/scripts/relationship-editor/common/dialog.js:334
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|Veel dokumentatsiooni})"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add link:"
 msgstr "Lisatav link:"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add another link:"
 msgstr "Veel üks lisatav link:"
 
-#: ../root/static/scripts/edit/externalLinks.js:286
+#: ../root/static/scripts/edit/externalLinks.js:285
 msgid "Remove Link"
 msgstr "Eemalda link"
 
@@ -13155,14 +13156,14 @@ msgstr "Eemalda link"
 msgid "Guess Case Options"
 msgstr "Suurtähestuse oletamise seaded"
 
-#: ../root/static/scripts/guess-case/modes.js:245
+#: ../root/static/scripts/guess-case/modes.js:246
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "See režiim muudab suureks enamiku sõnade esitähe ja väikseks ülejäänud tähed, (inglise) artiklid ja lühemad eessõnad. Mõned sõnad tuleb võibolla siiski käsitsi {url|inglise algustähejuhistega} vastavusse viia."
 
-#: ../root/static/scripts/guess-case/modes.js:259
+#: ../root/static/scripts/guess-case/modes.js:260
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13170,7 +13171,7 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "See toimib nagu lauserežiim, aga lisab tühiku kooloni, semikooloni, hüüu- ja küsimärgi ette ning «hanejalgade» sisse. Mõned sõnad tuleb võibolla käsitsi {url|prantsuse algustähejuhistega} vastavusse viia."
 
-#: ../root/static/scripts/guess-case/modes.js:277
+#: ../root/static/scripts/guess-case/modes.js:278
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
@@ -13207,11 +13208,7 @@ msgstr "Palun vali praeguse seosetüübi asemel sobiv alltüüp. Valitud seoset�
 msgid "Entities in a relationship cannot be the same."
 msgstr "Iseendaga ei saa midagi seostada."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:493
-msgid "The end date cannot preceed the begin date."
-msgstr "Lõppkuupäev ei saa olla enne alguskuupäeva."
-
-#: ../root/static/scripts/relationship-editor/common/fields.js:288
+#: ../root/static/scripts/relationship-editor/common/fields.js:291
 msgid "This attribute is required."
 msgstr "See on kohustuslik atribuut."
 

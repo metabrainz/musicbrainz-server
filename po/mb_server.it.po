@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 16:22-0600\n"
-"PO-Revision-Date: 2016-01-16 14:20+0000\n"
+"POT-Creation-Date: 2016-01-27 14:36-0600\n"
+"PO-Revision-Date: 2016-02-07 18:35+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -191,7 +191,7 @@ msgid "(none)"
 msgstr "(nessuno)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:329
+#: ../root/static/scripts/common/components/TagEditor.js:330
 msgctxt "tag"
 msgid "(none)"
 msgstr "(nessuno)"
@@ -5113,7 +5113,7 @@ msgid "No releases with this tag were found."
 msgstr "Nessuna pubblicazione trovata con questo tag."
 
 #: ../root/release/edit/tracklist.tt:110
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:398
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:399
 msgid "No results"
 msgstr "Nessun risultato"
 
@@ -5177,7 +5177,7 @@ msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "Nessuno ha lasciato note sulle tue modifiche negli ultimi tre mesi."
 
 #: ../root/entity/tags.tt:2
-#: ../root/static/scripts/common/components/TagEditor.js:285
+#: ../root/static/scripts/common/components/TagEditor.js:286
 msgid "Nobody has tagged this yet."
 msgstr "Nessuna ha ancora taggato questo."
 
@@ -8567,7 +8567,7 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr "Questo tipo di relazione non consente nessun attributo."
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:170
+#: ../root/static/scripts/edit/externalLinks.js:169
 #: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Questo tipo di relazione è obsoleto e non dovrebbe essere utilizzato."
@@ -10864,7 +10864,7 @@ msgid "more"
 msgstr "più"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:326
+#: ../root/static/scripts/common/components/TagEditor.js:327
 msgid "more..."
 msgstr "altri..."
 
@@ -11752,12 +11752,12 @@ msgstr "Ci sono già pubblicazioni con questo ID disco su MusicBrainz"
 msgid "There is already a CD stub with this disc ID"
 msgstr "C'è già una bozza CD con questo ID disco"
 
-#: ../lib/MusicBrainz/Server/Data/Language.pm:55
+#: ../lib/MusicBrainz/Server/Data/Language.pm:57
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:45
 msgid "[No lyrics]"
 msgstr "[Nessun testo]"
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:154
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:156
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1} relazioni"
@@ -12418,13 +12418,13 @@ msgid "Submit new barcodes to the database"
 msgstr "Invia nuovi codici a barre al database"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:33
-#: ../root/static/scripts/edit/utility/linkPhrase.js:66
+#: ../root/static/scripts/edit/utility/linkPhrase.js:67
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
 msgstr "{attribute} [{credited_as}]"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:37
-#: ../root/static/scripts/edit/utility/linkPhrase.js:59
+#: ../root/static/scripts/edit/utility/linkPhrase.js:60
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
@@ -12465,7 +12465,7 @@ msgstr "{begindate} &#x2013; ????"
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
 
-#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:35
+#: ../lib/MusicBrainz/Server/Entity/Role/Linkable.pm:41
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
 msgstr "{role} (come {credited_name})"
@@ -12535,8 +12535,9 @@ msgid "These coordinates could not be parsed"
 msgstr "Non è stato possibile analizzare queste coordinate"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-msgid "The end date must occur on or after the begin date"
-msgstr "La data finale non può essere anteriore a quella iniziale."
+#: ../root/static/scripts/relationship-editor/common/dialog.js:493
+msgid "The end date cannot precede the begin date."
+msgstr "La data finale non può precedere quella iniziale."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:12
 msgid "This is not a valid disc ID"
@@ -12600,7 +12601,7 @@ msgid "This is not a valid time."
 msgstr "Questo non è un orario valido."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:164
+#: ../root/static/scripts/edit/externalLinks.js:163
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Inserisci un URL valido, ad es. \"http://google.com/\""
 
@@ -12896,42 +12897,42 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:54
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:55
 msgid "An error occurred while searching. Click here to try again."
 msgstr "Si è verificato un errore durante la ricerca. Clicca qui per riprovare."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:58
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
 msgid "Try with direct search instead."
 msgstr "Prova a usare la ricerca diretta."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:59
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:60
 msgid "Try with indexed search instead."
 msgstr "Prova a usare la ricerca indicizzata."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:91
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:92
 msgid "Type to search, or paste an MBID"
 msgstr "Digita per cercare o incolla un MBID"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:163
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:164
 msgid "Clear recent items"
 msgstr "Cancella elementi recenti"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:405
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:406
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show more..."
 msgstr "Mostra di più..."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:411
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
 msgid "Not found? Try again with direct search."
 msgstr "Non l'hai trovato? Riprova con la ricerca diretta."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:412
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:413
 msgid "Slow? Switch back to indexed search."
 msgstr "Lento? Torna alla ricerca indicizzata."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:603
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:604
 #: ../root/static/scripts/common/entity.js:196
-#: ../root/static/scripts/edit/externalLinks.js:280
+#: ../root/static/scripts/edit/externalLinks.js:279
 msgid "video"
 msgstr "video"
 
@@ -12959,47 +12960,47 @@ msgstr "Non è stato possibile caricare il supporto."
 msgid "Image {current} of {total}"
 msgstr "Immagine {current} di {total}"
 
-#: ../root/static/scripts/common/components/TagEditor.js:71
+#: ../root/static/scripts/common/components/TagEditor.js:72
 msgid "Upvote"
 msgstr "Vota a favore"
 
-#: ../root/static/scripts/common/components/TagEditor.js:72
+#: ../root/static/scripts/common/components/TagEditor.js:73
 msgid "You’ve upvoted this tag"
 msgstr "Hai votato a favore di questo tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:80
+#: ../root/static/scripts/common/components/TagEditor.js:81
 msgid "Downvote"
 msgstr "Vota contro"
 
-#: ../root/static/scripts/common/components/TagEditor.js:81
+#: ../root/static/scripts/common/components/TagEditor.js:82
 msgid "You’ve downvoted this tag"
 msgstr "Hai votato contro questo tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:294
+#: ../root/static/scripts/common/components/TagEditor.js:295
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr "I tag con un punteggio di zero o minore e i tag cui hai votato contro sono nascosti."
 
-#: ../root/static/scripts/common/components/TagEditor.js:297
+#: ../root/static/scripts/common/components/TagEditor.js:298
 msgid "Show all tags."
 msgstr "Visualizza tutti i tag."
 
-#: ../root/static/scripts/common/components/TagEditor.js:301
+#: ../root/static/scripts/common/components/TagEditor.js:302
 msgid "Add Tags"
 msgstr "Aggiungi tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:303
+#: ../root/static/scripts/common/components/TagEditor.js:304
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr "Puoi aggiungere i tuoi {tagdocs|tag} qui sotto. Usa una virgola per separare tag diversi."
 
-#: ../root/static/scripts/common/components/TagEditor.js:310
+#: ../root/static/scripts/common/components/TagEditor.js:311
 msgid "Submit tags"
 msgstr "Invia tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:334
+#: ../root/static/scripts/common/components/TagEditor.js:335
 msgid "Tag"
 msgstr "Tag"
 
@@ -13075,7 +13076,7 @@ msgstr "Aggiungi un'altra opera"
 msgid "Show less..."
 msgstr "Mostra meno..."
 
-#: ../root/static/scripts/common/utility/entityLink.js:29
+#: ../root/static/scripts/common/utility/entityLink.js:30
 msgid "(video)"
 msgstr "(video)"
 
@@ -13091,25 +13092,25 @@ msgstr "Questa persona è deceduta."
 msgid "This group has dissolved."
 msgstr "Questo gruppo si è sciolto."
 
-#: ../root/static/scripts/edit/check-duplicates.js:134
-#: ../root/static/scripts/edit/externalLinks.js:162
+#: ../root/static/scripts/edit/check-duplicates.js:135
+#: ../root/static/scripts/edit/externalLinks.js:161
 #: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "Campo necessario."
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:14
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
 msgid "Possible Duplicates"
 msgstr "Possibili doppioni"
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:15
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:16
 msgid "We found the following entities with very similar names:"
 msgstr "Sono state trovate le seguenti entità con nomi molto simili:"
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:27
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:28
 msgid "Yes, I still want to enter “{entity_name}”."
 msgstr "Sì, voglio comunque inserire “{entity_name}”."
 
-#: ../root/static/scripts/edit/components/PossibleDuplicates.js:31
+#: ../root/static/scripts/edit/components/PossibleDuplicates.js:32
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
@@ -13121,39 +13122,39 @@ msgstr "Inserisci una {doc_disambiguation|disambiguazione} per distinguere quest
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Se lasci questa pagina perderai tutte le tue modifiche."
 
-#: ../root/static/scripts/edit/externalLinks.js:166
+#: ../root/static/scripts/edit/externalLinks.js:165
 msgid "Please don't use shortened URLs."
 msgstr "Non utilizzare URL abbreviati."
 
-#: ../root/static/scripts/edit/externalLinks.js:168
+#: ../root/static/scripts/edit/externalLinks.js:167
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Seleziona un tipo di collegamento per l'URL che hai inserito."
 
-#: ../root/static/scripts/edit/externalLinks.js:172
+#: ../root/static/scripts/edit/externalLinks.js:171
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Questo URL non è consentito per il tipo di collegamento selezionato o è formattato in modo non corretto."
 
-#: ../root/static/scripts/edit/externalLinks.js:174
+#: ../root/static/scripts/edit/externalLinks.js:173
 msgid "This relationship already exists."
 msgstr "Questa relazione è già esistente."
 
-#: ../root/static/scripts/edit/externalLinks.js:240
+#: ../root/static/scripts/edit/externalLinks.js:239
 #: ../root/static/scripts/relationship-editor/common/dialog.js:334
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|altra documentazione})"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add link:"
 msgstr "Aggiungi collegamento:"
 
-#: ../root/static/scripts/edit/externalLinks.js:267
+#: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add another link:"
 msgstr "Aggiungi un altro collegamento:"
 
-#: ../root/static/scripts/edit/externalLinks.js:286
+#: ../root/static/scripts/edit/externalLinks.js:285
 msgid "Remove Link"
 msgstr "Rimuovi collegamento"
 
@@ -13161,14 +13162,14 @@ msgstr "Rimuovi collegamento"
 msgid "Guess Case Options"
 msgstr "Opzioni ritocco maiuscolo/minuscolo"
 
-#: ../root/static/scripts/guess-case/modes.js:245
+#: ../root/static/scripts/guess-case/modes.js:246
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Questa modalità rende maiuscole quasi tutte le parole, con solo alcune parole (principalmente articoli e preposizioni brevi) in minuscolo. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per l'inglese}."
 
-#: ../root/static/scripts/guess-case/modes.js:259
+#: ../root/static/scripts/guess-case/modes.js:260
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13176,7 +13177,7 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Questa modalità gestisce maiuscole e minuscole come la modalità frase, ma in più inserisce gli spazi prima di punto e virgola, due punti, punti esclamativi, punti interrogativi e all'interno delle virgolette. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per il francese}."
 
-#: ../root/static/scripts/guess-case/modes.js:277
+#: ../root/static/scripts/guess-case/modes.js:278
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
@@ -13213,11 +13214,7 @@ msgstr "Seleziona un sottotipo del tipo di relazione attualmente selezionato. Qu
 msgid "Entities in a relationship cannot be the same."
 msgstr "Le entità in una relazione non possono essere le stesse."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:493
-msgid "The end date cannot preceed the begin date."
-msgstr "La data finale non può precedere quella iniziale."
-
-#: ../root/static/scripts/relationship-editor/common/fields.js:288
+#: ../root/static/scripts/relationship-editor/common/fields.js:291
 msgid "This attribute is required."
 msgstr "Questo attributo è necessario."
 
