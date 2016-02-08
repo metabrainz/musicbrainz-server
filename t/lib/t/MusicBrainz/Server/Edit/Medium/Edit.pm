@@ -602,6 +602,98 @@ test 'Tracks can be reordered' => sub {
     })
 };
 
+test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-8752');
+
+    my $artist_credit = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                artist => Artist->new( id => 9113, name => 'Meat Loaf' ),
+                join_phrase => '',
+                name => 'Meat Loaf',
+            ),
+        ],
+    );
+
+    my $medium = $c->model('Medium')->get_by_id(1819308);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $expected_tracklist = [
+        Track->new(
+            artist_credit => $artist_credit,
+            is_data_track => '0',
+            length => 481000,
+            name => 'Life Is a Lemon and I Want My Money Back (live)',
+            number => '1',
+            position => 1,
+            recording_id => 9724192,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036049,
+            is_data_track => '0',
+            length => 507000,
+            name => 'Rock and Roll Dreams Come Through (live)',
+            number => '2',
+            position => 2,
+            recording_id => 9724193,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036047,
+            is_data_track => '0',
+            length => 522000,
+            name => 'Out of the Frying Pan (And Into the Fire) (live)',
+            number => '3',
+            position => 3,
+            recording_id => 9724194,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            is_data_track => '0',
+            length => 583000,
+            name => 'Everything Louder Than Everything Else (live)',
+            number => '4',
+            position => 4,
+            recording_id => 9724195,
+        ),
+        Track->new(
+            artist_credit => $artist_credit,
+            id => 20036050,
+            is_data_track => '0',
+            length => 356000,
+            name => 'Objects in the Rear View Mirror May Appear Closer Than They Are (edit)',
+            number => '5',
+            position => 5,
+            recording_id => 9724196,
+        ),
+    ];
+
+    my $expected_tracklist_hash = tracks_to_hash($expected_tracklist);
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => $EDIT_MEDIUM_EDIT,
+        to_edit => $medium,
+        tracklist => $expected_tracklist,
+    );
+
+    accept_edit($c, $edit);
+
+    $medium = $c->model('Medium')->get_by_id(1819308);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my $got_tracklist_hash = tracks_to_hash($medium->tracks);
+    $expected_tracklist_hash->[0]{id} = 20036051;
+    $expected_tracklist_hash->[3]{id} = 20036052;
+    cmp_deeply($got_tracklist_hash, $expected_tracklist_hash);
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 

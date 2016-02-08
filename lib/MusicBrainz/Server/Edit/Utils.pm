@@ -309,7 +309,7 @@ sub _hash_artist_credit {
             join(',',
                  $_->{name},
                  $_->{artist}{id} // -1)
-            . (!$visible_only ? ',' . $_->{join_phrase} || '' : '')
+            . (!$visible_only ? ',' . $_->{join_phrase} // '' : '')
             .
         ']'
     } @{ $artist_credit->{names} });
