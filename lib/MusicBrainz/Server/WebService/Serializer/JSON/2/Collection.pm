@@ -31,15 +31,11 @@ sub serialize {
         my $items = $stash->store($entity)->{$plural}->{items} // [];
 
         if (@$items) {
-            $body{"$url-count"} = count_of($entity, $inc, $stash, $plural);
             $body{$plural_url} = list_of($entity, $inc, $stash, $plural);
         }
     }
 
-    if ($entity->loaded_entity_count) {
-        $body{"$url-count"} = number($entity->entity_count);
-    }
-
+    $body{"$url-count"} = number($entity->entity_count);
     return \%body;
 }
 
