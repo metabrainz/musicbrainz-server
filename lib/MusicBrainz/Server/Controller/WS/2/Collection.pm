@@ -118,7 +118,9 @@ map {
 sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;
 
-    my $collection = $self->get_collection_from_stash($c);
+    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+
+    my $collection = $c->stash->{entity} // $c->detach('not_found');
     $c->model('CollectionType')->load($collection);
 
     $self->_error($c, 'You do not have permission to modify this collection')

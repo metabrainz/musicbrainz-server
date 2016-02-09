@@ -15,43 +15,205 @@ test "collection lookup" => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478');
-INSERT INTO editor_collection (id, gid, editor, name, public, type)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 'my collection', FALSE, 1);
-INSERT INTO editor_collection_release (collection, release) VALUES (1, 123054);
-EOSQL
 
     ws_test_json 'collection lookup',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce' => {
-            id => "f34c079d-374e-4436-9448-da92dedef3ce",
-            name => "my collection",
-            editor => "new_editor",
-            type => "Release",
-            "entity-type" => "release",
-            "release-count" => 1,
+        '/collection/05febe0a-a9df-414a-a2c9-7dc366b0de9b' => {
+            "event-count" => 1,
+            "id" => "05febe0a-a9df-414a-a2c9-7dc366b0de9b",
+            "type" => "Event",
+            "editor" => "the-anti-kuno",
+            "name" => "public event collection",
+            "entity-type" => "event"
         }, { username => 'new_editor', password => 'password' };
 
     ws_test_json 'collections lookup',
         '/collection/' => {
-            collections => [
+            "collections" => [
                 {
-                    id => "f34c079d-374e-4436-9448-da92dedef3ce",
-                    name => "my collection",
-                    editor => "new_editor",
-                    type => "Release",
+                    "event-count" => 1,
+                    "id" => "05febe0a-a9df-414a-a2c9-7dc366b0de9b",
+                    "type" => "Event",
+                    "editor" => "the-anti-kuno",
+                    "name" => "public event collection",
+                    "entity-type" => "event"
+                },
+                {
+                    "entity-type" => "event",
+                    "name" => "private event collection",
+                    "type" => "Event",
+                    "editor" => "the-anti-kuno",
+                    "id" => "13b1d199-a79e-40fe-bd7c-0ecc3ca52d73",
+                    "event-count" => 1
+                },
+                {
+                    "editor" => "the-anti-kuno",
+                    "type" => "Release",
                     "entity-type" => "release",
+                    "name" => "private release collection",
+                    "id" => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
+                    "release-count" => 1
+                },
+                {
+                    "entity-type" => "work",
+                    "name" => "public work collection",
+                    "type" => "Work",
+                    "editor" => "the-anti-kuno",
+                    "id" => "3529acda-c0c1-4b13-9761-a4a8dedb64be",
+                    "work-count" => 1
+                },
+                {
+                    "type" => "Recording",
+                    "editor" => "the-anti-kuno",
+                    "entity-type" => "recording",
+                    "recording-count" => 1,
+                    "name" => "public recording collection",
+                    "id" => "38a6a0ec-f4a9-4424-80fd-bd4f9eb2e880"
+                },
+                {
+                    "id" => "5adf966d-d82f-4ae9-a9a3-e5e187ed2c34",
+                    "series-count" => 1,
+                    "entity-type" => "series",
+                    "name" => "public series collection",
+                    "editor" => "the-anti-kuno",
+                    "type" => "Series"
+                },
+                {
+                    "name" => "private artist collection",
+                    "entity-type" => "artist",
+                    "type" => "Artist",
+                    "artist-count" => 1,
+                    "editor" => "the-anti-kuno",
+                    "id" => "5f0831af-c84c-44a3-849d-abdf0a18cdd9"
+                },
+                {
+                    "editor" => "the-anti-kuno",
+                    "type" => "Place",
+                    "place-count" => 1,
+                    "entity-type" => "place",
+                    "name" => "private place collection",
+                    "id" => "65e18c7a-0958-4066-9c3e-7c1474c623d1"
+                },
+                {
+                    "id" => "7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f",
+                    "entity-type" => "instrument",
+                    "name" => "public instrument collection",
+                    "type" => "Instrument",
+                    "editor" => "the-anti-kuno",
+                    "instrument-count" => 1
+                },
+                {
+                    "id" => "870dbdcf-e047-4da5-9c80-c39e964da96f",
+                    "series-count" => 1,
+                    "entity-type" => "series",
+                    "name" => "private series collection",
+                    "editor" => "the-anti-kuno",
+                    "type" => "Series"
+                },
+                {
+                    "entity-type" => "artist",
+                    "name" => "public artist collection",
+                    "editor" => "the-anti-kuno",
+                    "artist-count" => 1,
+                    "type" => "Artist",
+                    "id" => "9c782444-f9f4-4a4f-93cb-92d132c79887"
+                },
+                {
+                    "id" => "9ece2fbd-3f4e-431d-9424-da8af38374e0",
+                    "name" => "private area collection",
+                    "entity-type" => "area",
+                    "editor" => "the-anti-kuno",
+                    "type" => "Area",
+                    "area-count" => 1
+                },
+                {
+                    "type" => "Release group",
+                    "editor" => "the-anti-kuno",
+                    "name" => "private release group collection",
+                    "entity-type" => "release_group",
+                    "release-group-count" => 1,
+                    "id" => "b0f09ccf-a777-4c17-a917-28e01b0e66a3"
+                },
+                {
+                    "type" => "Label",
+                    "editor" => "the-anti-kuno",
+                    "entity-type" => "label",
+                    "name" => "private label collection",
+                    "id" => "b0f57375-7009-47ab-a631-469aaba34885",
+                    "label-count" => 1
+                },
+                {
+                    "editor" => "the-anti-kuno",
+                    "type" => "Recording",
+                    "recording-count" => 1,
+                    "name" => "private recording collection",
+                    "entity-type" => "recording",
+                    "id" => "b5486110-906e-4c0c-a6e6-e16baf4e18e2"
+                },
+                {
+                    "id" => "b69030b0-911e-4f7d-aa59-c488b2c8fe8e",
+                    "work-count" => 1,
+                    "name" => "private work collection",
+                    "entity-type" => "work",
+                    "type" => "Work",
+                    "editor" => "the-anti-kuno"
+                },
+                {
+                    "id" => "cc8cd8ee-6477-47d5-a16d-adac11ed9f30",
+                    "type" => "Area",
+                    "area-count" => 1,
+                    "editor" => "the-anti-kuno",
+                    "entity-type" => "area",
+                    "name" => "public area collection"
+                },
+                {
+                    "id" => "cdef54c4-2798-4d39-a0c9-5074191f9b6e",
+                    "type" => "Instrument",
+                    "instrument-count" => 1,
+                    "editor" => "the-anti-kuno",
+                    "name" => "private instrument collection",
+                    "entity-type" => "instrument"
+                },
+                {
+                    "id" => "d8c9f799-9255-45ca-93fa-88f7c438d0d8",
+                    "label-count" => 1,
+                    "type" => "Label",
+                    "editor" => "the-anti-kuno",
+                    "entity-type" => "label",
+                    "name" => "public label collection"
+                },
+                {
+                    "release-group-count" => 1,
+                    "id" => "dadae81b-ff9e-464e-8c38-51156557bc36",
+                    "editor" => "the-anti-kuno",
+                    "type" => "Release group",
+                    "entity-type" => "release_group",
+                    "name" => "public release group collection"
+                },
+                {
+                    "id" => "dd07ea8b-0ec3-4b2d-85cf-80e523de4902",
                     "release-count" => 1,
+                    "editor" => "the-anti-kuno",
+                    "type" => "Release",
+                    "entity-type" => "release",
+                    "name" => "public release collection"
+                },
+                {
+                    "id" => "e6fac30e-28c9-46ed-9cbc-5aabce8170e8",
+                    "type" => "Place",
+                    "place-count" => 1,
+                    "editor" => "the-anti-kuno",
+                    "entity-type" => "place",
+                    "name" => "public place collection"
                 }
             ]
-        }, { username => 'new_editor', password => 'password' };
+        }, { username => 'the-anti-kuno', password => 'notreally' };
 
     ws_test_json 'collection releases lookup',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' =>
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/' =>
             {
-                id => "f34c079d-374e-4436-9448-da92dedef3ce",
-                name => "my collection",
-                editor => "new_editor",
+                id => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
+                name => "private release collection",
+                editor => "the-anti-kuno",
                 type => "Release",
                 "entity-type" => "release",
                 "release-count" => 1,
@@ -81,18 +243,18 @@ EOSQL
                         disambiguation => "",
                         packaging => JSON::null,
                     }]
-            }, { username => 'new_editor', password => 'password' };
+            }, { username => 'the-anti-kuno', password => 'notreally' };
 
     ws_test_json 'collection release-count (MBS-8776)',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/?limit=1&offset=1' =>
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/?limit=1&offset=1' =>
             {
-                id => "f34c079d-374e-4436-9448-da92dedef3ce",
-                name => "my collection",
-                editor => "new_editor",
+                id => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
+                name => "private release collection",
+                editor => "the-anti-kuno",
                 type => "Release",
                 "entity-type" => "release",
                 "release-count" => 1,
-            }, { username => 'new_editor', password => 'password' };
+            }, { username => 'the-anti-kuno', password => 'notreally' };
 };
 
 1;
