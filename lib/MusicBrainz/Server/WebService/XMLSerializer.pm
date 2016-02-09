@@ -774,15 +774,12 @@ sub _serialize_label_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $label (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $label (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->label_list($self->_list_attributes($list), @list);
+        $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->label_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_label
@@ -836,15 +833,12 @@ sub _serialize_area_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $area (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $area (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->area_list($self->_list_attributes($list), @list);
+        $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->area_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_area_inner
@@ -922,15 +916,12 @@ sub _serialize_place_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $place (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $place (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->place_list($self->_list_attributes($list), @list);
+        $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->place_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_place
@@ -968,13 +959,11 @@ sub _serialize_place
 sub _serialize_instrument_list {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} }) {
-        my @list;
-        foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
-            $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
+    my @list;
+    foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
+        $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_instrument {
@@ -1078,15 +1067,12 @@ sub _serialize_series_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $series (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $series (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->series_list($self->_list_attributes($list), @list);
+        $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->series_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_series
@@ -1120,15 +1106,12 @@ sub _serialize_event_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $event (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $event (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->event_list($self->_list_attributes ($list), @list);
+        $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->event_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_event
