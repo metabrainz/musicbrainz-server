@@ -80,7 +80,6 @@ map {
     my $url = $entity_properties->{url};
     my $plural = $entity_properties->{plural};
     my $plural_url = $entity_properties->{plural_url};
-    my $mname = $plural . '_get';
 
     my $method = sub {
         my ($self, $c) = @_;
@@ -111,62 +110,66 @@ map {
         $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
     };
 
-    find_meta(__PACKAGE__)->add_method($mname => $method);
+    my $submission_method = sub {
+        my ($self, $c, $entities) = @_;
+
+        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+
+        my $collection = $c->stash->{entity} // $c->detach('not_found');
+        $c->model('CollectionType')->load($collection);
+
+        $self->_error($c, 'You do not have permission to modify this collection')
+            unless ($c->user->id == $collection->editor_id);
+
+        $self->_error($c, "This is not a $url collection")
+            unless ($collection->type->entity_type eq $type);
+
+        my $client = $c->req->query_params->{client}
+            or $self->_error($c, 'You must provide information about your client, by the client query parameter');
+        $self->bad_req($c, 'Invalid argument "client"') if ref($client);
+
+        my @gids = split /;/, $entities;
+
+        $self->_error($c, "All $plural_url must have an MBID present")
+            unless all { defined } (@gids);
+
+        for my $gid (@gids) {
+            $self->_error($c, "$gid is not a valid MBID") unless is_guid($gid);
+        }
+
+        my %entities = %{ $c->model($entity_properties->{model})->get_by_gids(@gids) };
+
+        if ($c->req->method eq 'PUT') {
+            $self->deny_readonly($c);
+            $c->model('Collection')->add_entities_to_collection(
+                $type,
+                $collection->id,
+                map { $_->id } grep { defined } map { $entities{$_} } @gids
+            );
+            $c->detach('success');
+        } elsif ($c->req->method eq 'DELETE') {
+            $self->deny_readonly($c);
+            $c->model('Collection')->remove_entities_from_collection(
+                $type,
+                $collection->id,
+                map { $_->id } grep { defined } map { $entities{$_} } @gids
+            );
+            $c->detach('success');
+        } else {
+            $self->_error($c, 'You can only PUT or DELETE this resource');
+        }
+    };
+
+    my $method_name = $plural . '_get';
+    find_meta(__PACKAGE__)->add_method($method_name => $method);
     find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$plural_url')", "Args(0)"]);
+
+    find_meta(__PACKAGE__)->add_method($plural => $submission_method);
+    find_meta(__PACKAGE__)->register_method_attributes(
+        $submission_method,
+        ["Chained('load')", "PathPart('$plural_url')", "Args(1)"],
+    );
 } entities_with('collections');
-
-sub releases : Chained('load') PathPart('releases') Args(1) {
-    my ($self, $c, $releases) = @_;
-
-    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-
-    my $collection = $c->stash->{entity} // $c->detach('not_found');
-    $c->model('CollectionType')->load($collection);
-
-    $self->_error($c, 'You do not have permission to modify this collection')
-        unless ($c->user->id == $collection->editor_id);
-
-    $self->_error($c, 'This is not a release collection')
-        unless ($collection->type->entity_type eq 'release');
-
-    my $client = $c->req->query_params->{client}
-        or $self->_error($c, 'You must provide information about your client, by the client query parameter');
-    $self->bad_req($c, 'Invalid argument "client"') if ref($client);
-
-    my @gids = split /;/, $releases;
-
-    $self->_error($c, "All releases must have an MBID present")
-        unless all { defined } (@gids);
-
-    for my $gid (@gids) {
-        $self->_error($c, "$gid is not a valid MBID")
-            unless is_guid($gid);
-    }
-
-    my %releases = %{ $c->model('Release')->get_by_gids(@gids) };
-
-    if ($c->req->method eq 'PUT') {
-        $self->deny_readonly($c);
-        $c->model('Collection')->add_entities_to_collection('release',
-            $collection->id,
-            map { $_->id } grep { defined } map { $releases{$_} } @gids
-        );
-
-        $c->detach('success');
-    }
-    elsif ($c->req->method eq 'DELETE') {
-        $self->deny_readonly($c);
-        $c->model('Collection')->remove_entities_from_collection('release',
-            $collection->id,
-            map { $_->id } grep { defined } map { $releases{$_} } @gids
-        );
-
-        $c->detach('success');
-    }
-    else {
-        $self->_error($c, 'You can only PUT or DELETE this resource');
-    }
-}
 
 sub collection_list : Chained('base') PathPart('') {
     my ($self, $c) = @_;
