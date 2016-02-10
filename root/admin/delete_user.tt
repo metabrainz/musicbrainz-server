@@ -2,7 +2,6 @@
 
  <h2>[% l('Delete Account') %]</h2>
 [% IF c.user.is_account_admin && c.user.id != user.id %]
-    <h2>[% l('Delete Account') %]</h2>
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
         { e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
