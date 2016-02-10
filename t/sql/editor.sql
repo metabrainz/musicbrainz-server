@@ -15,7 +15,8 @@ INSERT INTO editor_preference (editor, name, value)
            (1, 'timezone', 'UTC'),
            (2, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (2, 'timezone', 'UTC'),
-           (2, 'public_ratings', '0');
+           (2, 'public_ratings', '0'),
+           (2, 'public_tags', '0');
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 1);

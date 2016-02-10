@@ -4,7 +4,7 @@
 
 <h2>[% l("Tags") %]</h2>
 
-[%- IF tags.size OR c.user_exists -%]
+[%- IF tags.size -%]
   <div id="all-tags">
     <ul class="tag-list">
       [%- FOREACH tag IN tags -%]
