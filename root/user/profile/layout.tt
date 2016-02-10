@@ -20,7 +20,7 @@
 ) -%]
 
 [%- IF viewing_own_profile -%]
-[%- info_links.push (
+[%- info_links.push(
     ['edit_profile', simple_link(c.uri_for_action("/account/edit"), l('Edit Profile'))],
     ['preferences', simple_link(c.uri_for_action("/account/preferences"), l('Preferences'))],
     ['change_password', simple_link(c.uri_for_action("/account/change_password"), l('Change Password'))],
