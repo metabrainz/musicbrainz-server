@@ -49,12 +49,6 @@ sub in_use {
         $id);
 }
 
-around '_get_all_from_db' => sub {
-    my ($orig, $self, @args) = @_;
-
-    return grep { $ENTITIES{$_->entity_type}{collections} } $self->$orig(@args);
-};
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

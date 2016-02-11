@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     merge_table_attributes
     load_subobjects
+    order_by
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -34,6 +35,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::Subscription::Series',
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries'
 };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'series' }
 
@@ -72,6 +74,20 @@ sub _hash_to_row {
     return $row;
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
+}
+
 sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;
 
@@ -79,6 +95,7 @@ sub _merge_impl {
     $self->tags->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('series', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('series', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('series', $new_id, \@old_ids);
 
@@ -169,6 +186,7 @@ sub delete
     @ids = grep { $self->can_delete($_) } @ids;
 
     # No deleting relationship-related stuff because it should probably fail if it's trying to do that
+    $self->c->model('Collection')->delete_entities('series', @ids);
     $self->annotation->delete(@ids);
     $self->alias->delete_entities(@ids);
     $self->tags->delete(@ids);

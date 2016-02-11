@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    order_by
     placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
@@ -26,6 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'release_group' }
 
@@ -404,6 +406,23 @@ sub find_by_recording
     $self->query_to_list($query, [$recording]);
 }
 
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "primary_type" => sub {
+            return "primary_type_id, musicbrainz_collate(name)"
+        },
+        "year" => sub {
+            return "first_release_date_year, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
+}
+
 sub _insert_hook_after_each {
     my ($self, $created, $rg) = @_;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($created->{id}, $rg->{secondary_type_ids});
@@ -436,6 +455,7 @@ sub delete
     @group_ids = grep { $self->can_delete($_) } @group_ids
         or return;
 
+    $self->c->model('Collection')->delete_entities('release_group', @group_ids);
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->alias->delete_entities(@group_ids);
     $self->annotation->delete(@group_ids);
@@ -492,6 +512,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, \@old_ids);
     $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);

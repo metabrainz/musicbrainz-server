@@ -1,30 +1,31 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-            <th>[% l('Instrument') %]</th>
-            <th>[% l('Type') %]</th>
+            [%~ IF c.user_exists && checkboxes %]<th class="pos"></th>[% END ~%]
+            <th>[% sortable ? sortable_table_header('name', l('Instrument')) : l('Instrument') %]</th>
+            <th>[% sortable ? sortable_table_header('type', l('Type')) : l('Type') %]</th>
             <th>[% l('Description') %]</th>
         </tr>
     </thead>
     <tbody>
-        [% FOR entity IN instruments %]
+        [%~ DEFAULT instruments=entities ~%]
+        [%~ FOR entity IN instruments ~%]
         <tr class="[% loop.parity %]">
-            [% IF c.user_exists && checkboxes %]
+            [%~ IF c.user_exists && checkboxes ~%]
             <td>
-              <input type="checkbox" name="[% checkboxes %]" value="[% instrument.id %]" />
+              <input type="checkbox" name="[% checkboxes %]" value="[% entity.id %]" />
             </td>
-            [% END %]
+            [%~ END ~%]
             <td>
-                [% descriptive_link(entity) %]
-            </td>
-            <td>
-                [% entity.l_type_name %]
+                [%~ descriptive_link(entity) ~%]
             </td>
             <td>
-                [% entity.l_description %]
+                [%~ entity.l_type_name ~%]
+            </td>
+            <td>
+                [%~ entity.l_description ~%]
             </td>
         </tr>
-        [% END %]
+        [%~ END ~%]
     </tbody>
 </table>

@@ -5,13 +5,13 @@
       [% IF series_item_numbers %]
       <th style="width: 1em">[% l('#') %]</th>
       [% END %]
-      <th class="year c">[% l('Year') %]</th>
-      <th>[% l('Title') %]</th>
+      <th class="year c">[% sortable ? sortable_table_header('year', l('Year')) : l('Year') %]</th>
+      <th>[% sortable ? sortable_table_header('name', l('Title')) : l('Title') %]</th>
       [% IF show_artists %]
       <th class="artist">[% l('Artist') %]</th>
       [% END %]
       [% IF no_grouping %]
-      <th>[% l('Type') %]</th>
+      <th>[% sortable ? sortable_table_header('primary_type', l('Type')) : l('Type') %]</th>
       [% END %]
       [%~ UNLESS no_ratings ~%]
       <th class="rating c">[% l('Rating') %]</th>
@@ -27,6 +27,7 @@
   <tbody>
 [% END %]
 
+[%~ DEFAULT release_groups=entities ~%]
 [%- FOR rg=release_groups -%]
     [% rgtype = rg.type_name || 'undefined' %]
     [% IF !no_grouping && last_rg_type != rgtype %]

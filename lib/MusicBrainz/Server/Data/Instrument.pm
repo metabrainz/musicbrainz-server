@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_string_attributes
     merge_table_attributes
+    order_by
 );
 use MusicBrainz::Server::Entity::Instrument;
 
@@ -18,6 +19,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
+with 'MusicBrainz::Server::Data::Role::Collection';
 
 sub _type { 'instrument' }
 
@@ -71,6 +73,7 @@ sub can_delete {
 sub delete {
     my ($self, $instrument_id) = @_;
 
+    $self->c->model('Collection')->delete_entities('instrument', $instrument_id);
     $self->c->model('Relationship')->delete_entities('instrument', $instrument_id);
     $self->annotation->delete($instrument_id);
     $self->alias->delete_entities($instrument_id);
@@ -91,6 +94,7 @@ sub _merge_impl {
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('instrument', $new_id, \@old_ids);
     $self->c->model('LinkAttributeType')->merge_instrument_attributes($new_id, @old_ids);
@@ -116,6 +120,20 @@ sub _hash_to_row {
     });
 
     return $row;
+}
+
+sub _order_by {
+    my ($self, $order) = @_;
+    my $order_by = order_by($order, "name", {
+        "name" => sub {
+            return "musicbrainz_collate(name)"
+        },
+        "type" => sub {
+            return "type, musicbrainz_collate(name)"
+        }
+    });
+
+    return $order_by
 }
 
 sub get_all {

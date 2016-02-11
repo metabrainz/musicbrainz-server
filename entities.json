@@ -16,6 +16,7 @@
             "id": 1,
             "prefix": "area"
         },
+        "collections": true,
         "custom_tabs": ["artists", "labels", "releases", "places"],
         "date_period": true,
         "disambiguation": true,
@@ -242,6 +243,7 @@
             "id": 11,
             "prefix": "instrument"
         },
+        "collections": true,
         "custom_tabs": ["releases", "recordings"],
         "disambiguation": true,
         "edit_table": true,
@@ -299,6 +301,7 @@
             "id": 13,
             "prefix": "label"
         },
+        "collections": true,
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
@@ -546,6 +549,7 @@
             "id": 24,
             "prefix": "release_group"
         },
+        "collections": true,
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,
@@ -631,6 +635,7 @@
             "id": 30,
             "prefix": "series"
         },
+        "collections": true,
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,
