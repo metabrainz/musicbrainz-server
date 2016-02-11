@@ -49,6 +49,15 @@ sub in_use {
         $id);
 }
 
+sub find_by_entity_type {
+    my ($self, $entity_type) = @_;
+
+    $self->query_to_list(
+        'SELECT * FROM editor_collection_type WHERE entity_type = ?',
+        [$entity_type],
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
