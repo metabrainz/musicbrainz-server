@@ -4,6 +4,11 @@ use MooseX::Role::Parameterized;
 
 parameter 'entity_name' => (
     isa => 'Str',
+    required => 0
+);
+
+parameter 'entity_type' => (
+    isa => 'Str',
     required => 1
 );
 
@@ -16,7 +21,8 @@ role
 {
     my $params = shift;
     my %extra = @_;
-    my $entity_name = $params->entity_name;
+    my $entity_type = $params->entity_type;
+    my $entity_name = $params->entity_name // $entity_type;
     my $method_name = $params->method_name // 'collections';
 
     $extra{consumer}->name->config(
@@ -27,7 +33,7 @@ role
 
     method _all_collections => sub {
         my ($self, $c) = @_;
-        return [ $c->model('Collection')->find_all_by_entity($entity_name, $c->stash->{$entity_name}->id) ];
+        return [ $c->model('Collection')->find_all_by_entity($entity_type, $c->stash->{$entity_name}->id) ];
     };
 
     # Stuff that has the side bar and thus needs to display collection information
@@ -38,10 +44,10 @@ role
         my %containment;
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
-            @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, $entity_name);
+            @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, $entity_type);
             foreach my $collection (@collections) {
                 $containment{$collection->id} = 1
-                  if ($c->model('Collection')->contains_entity($entity_name, $collection->id, $c->stash->{$entity_name}->id));
+                  if ($c->model('Collection')->contains_entity($entity_type, $collection->id, $c->stash->{$entity_name}->id));
             }
         }
 
@@ -77,7 +83,7 @@ View a list of collections that this work has been added to.
         $c->model('Editor')->load(@public_collections);
 
         $c->stash
-          (entity_type => $entity_name,
+          (entity_type => $entity_type,
            public_collections => \@public_collections,
            private_collections => $private_collections,
            template => 'entity/collections.tt',

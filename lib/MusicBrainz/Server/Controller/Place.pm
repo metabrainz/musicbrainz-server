@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'place'
+    entity_type => 'place'
 };
 
 use Data::Page;

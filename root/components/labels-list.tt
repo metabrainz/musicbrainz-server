@@ -2,20 +2,21 @@
   <thead>
     <tr>
       [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-      <th>[% l('Label') %]</th>
-      <th>[% l('Type') %]</th>
-      <th>[% l('Code') %]</th>
+      <th>[% sortable ? sortable_table_header('name', l('Label')) : l('Label') %]</th>
+      <th>[% sortable ? sortable_table_header('type', l('Type')) : l('Type') %]</th>
+      <th>[% sortable ? sortable_table_header('code', l('Code')) : l('Code') %]</th>
       [%~ UNLESS no_areas ~%]
       <th>[% l('Area') %]</th>
       [%~ END ~%]
-      <th>[% l('Begin') %]</th>
-      <th>[% l('End') %]</th>
+      <th>[% sortable ? sortable_table_header('begin_date', l('Begin')) : l('Begin') %]</th>
+      <th>[% sortable ? sortable_table_header('end_date', l('End')) : l('End') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
       [% END %]
     </tr>
   </thead>
   <tbody>
+    [%~ DEFAULT labels=entities ~%]
     [% FOR label IN labels %]
     <tr class="[% loop.parity %]">
       [% IF c.user_exists && checkboxes %]

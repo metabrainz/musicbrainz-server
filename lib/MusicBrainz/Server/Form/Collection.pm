@@ -2,7 +2,6 @@ package MusicBrainz::Server::Form::Collection;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -33,19 +32,40 @@ sub edit_field_names
     return qw( name description public type_id );
 }
 
-sub options_type_id { select_options_tree(shift->ctx, 'CollectionType') }
+sub options_type_id {
+    my $self = shift;
+
+    my $types = select_options_tree($self->ctx, 'CollectionType');
+    my $collection = $self->init_object;
+
+    if ($collection && blessed $collection) {
+        my $entity_type = $collection->type->entity_type;
+        my %valid_types =
+            map { $_->id => 1 }
+            $self->ctx->model('CollectionType')->find_by_entity_type($entity_type);
+        $types = [grep { $valid_types{$_->{value}} } @$types];
+    }
+
+    return $types;
+}
 
 sub validate_type_id {
     my $self = shift;
 
-    my $request = $self->ctx->request;
+    my $collection = $self->init_object;
+    return unless $collection && blessed $collection;
 
-    my $type = $self->ctx->model('CollectionType')->get_by_id($self->field('type_id')->value);
-
-    for my $entity_type (entities_with('collections')) {
-        if ($request->params->{$entity_type} && $type->entity_type ne $entity_type) {
-            return $self->field('type_id')->add_error(l('The collection type does not apply to the given entity.'));
+    my $entity_type = $collection->type->entity_type;
+    if (!$self->ctx->model('Collection')->is_empty($entity_type, $collection->id)) {
+        my $new_type = $self->ctx->model('CollectionType')->get_by_id(
+            $self->field('type_id')->value
+        );
+        if ($entity_type ne $new_type->entity_type) {
+            return $self->field('type_id')->add_error(
+                l('The collection type must match the type of entities it contains.')
+            );
         }
     }
 }
+
 1;

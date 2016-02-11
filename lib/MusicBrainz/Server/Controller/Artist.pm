@@ -37,7 +37,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                   aliases => {copy_stash => ['aliases']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'artist'
+    entity_type => 'artist'
 };
 
 use Data::Page;
