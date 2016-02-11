@@ -38,7 +38,7 @@ sub options_type_id {
     my $types = select_options_tree($self->ctx, 'CollectionType');
     my $collection = $self->init_object;
 
-    if ($collection) {
+    if ($collection && blessed $collection) {
         my $entity_type = $collection->type->entity_type;
         my %valid_types =
             map { $_->id => 1 }
@@ -52,9 +52,10 @@ sub options_type_id {
 sub validate_type_id {
     my $self = shift;
 
-    my $collection = $self->init_object or return;
-    my $entity_type = $collection->type->entity_type;
+    my $collection = $self->init_object;
+    return unless $collection && blessed $collection;
 
+    my $entity_type = $collection->type->entity_type;
     if (!$self->ctx->model('Collection')->is_empty($entity_type, $collection->id)) {
         my $new_type = $self->ctx->model('CollectionType')->get_by_id(
             $self->field('type_id')->value
