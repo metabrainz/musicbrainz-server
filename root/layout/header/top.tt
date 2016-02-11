@@ -2,16 +2,10 @@
     <ul class="menu">
     [%- IF c.user_exists -%]
         <li class="account">
-            [% link_entity(c.user) %]
+            <span class="menu-header">[%- c.user.name -%]</span>
             <ul>
                 <li>
-                    <a href="[% c.uri_for('/account/edit') %]">[% l('Edit Profile') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/account/change_password') %]">[% l('Change Password') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/account/preferences') %]">[% l('Preferences') %]</a>
+                    <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('Profile') %]</a>
                 </li>
                 <li>
                     <a href="[% c.uri_for_action('/account/applications') %]">[% l('Applications') %]</a>
@@ -25,7 +19,7 @@
             </ul>
         </li>
         <li class="data">
-            <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('My Data') %]</a>
+            <span class="menu-header">[%- l('My Data') -%]</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for_action('/user/collections', [ c.user.name ]) %]">[% l('My Collections') %]</a>
