@@ -1,7 +1,7 @@
-[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") %]
     [% script_manifest('edit.js') %]
 
-    <h1>[% l("Edit Profile") %]</h1>
+    <h2>[% l("Edit Profile") %]</h2>
 
     <p>
         [%- l('See also your {uri|user preferences}, which include your privacy settings.', {uri => c.uri_for_action('/account/preferences')}) %]
@@ -106,10 +106,6 @@
         </span>
       </div>
     </form>
-
-    <h2>
-        [%- l('{uri|Delete my account}',  {uri => c.uri_for_action("/admin/delete_user", user.name) })%]
-    </h2>
 
     <script type="text/javascript">//<![CDATA[
       MB.Control.EntityAutocomplete({ inputs: $("span.area.autocomplete") });

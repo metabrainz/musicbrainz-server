@@ -17,19 +17,20 @@
 [%- info_links.push(
     ['tags', simple_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
     ['ratings', simple_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
-    ['open_edits', simple_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
-    ['all_edits', simple_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
+
+[%- IF viewing_own_profile -%]
+[%- info_links.push(
+    ['edit_profile', simple_link(c.uri_for_action("/account/edit"), l('Edit Profile'))],
+    ['preferences', simple_link(c.uri_for_action("/account/preferences"), l('Preferences'))],
+    ['change_password', simple_link(c.uri_for_action("/account/change_password"), l('Change Password'))],
+    ['donation', simple_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
+) -%]
+[%- END -%]
 
 [%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
 [%- info_links.push(
     ['edit_user', simple_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
-) -%]
-[%- END -%]
-
-[%- IF viewing_own_profile -%]
-[%- info_links.push(
-    ['donation', simple_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
 ) -%]
 [%- END -%]
 
