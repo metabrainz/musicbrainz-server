@@ -6,11 +6,10 @@
 const _ = require('lodash');
 const React = require('react');
 
-const EditorLink = require('../../static/scripts/common/components/EditorLink');
 const {VARTIST_GID} = require('../../static/scripts/common/constants');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
-function languageLink(language) {
+function languageLink(language, selected) {
   let {id, native_language, native_territory} = language[1];
   let text = `[${id}]`;
 
@@ -25,17 +24,14 @@ function languageLink(language) {
   return (
     <a href={"/set-language/" + encodeURIComponent(language[0])}>
       {text}
+      <If condition={selected}>{' \u25be'}</If>
     </a>
   );
 }
 
-function userLink(userName, path) {
-  return `/user/${encodeURIComponent(userName)}${path}`;
-}
-
 const LanguageMenu = () => (
   <li className="language-selector">
-    {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language))}
+    {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
     <ul>
       {$c.stash.server_languages.map(function (l, index) {
         let inner = languageLink(l);
@@ -56,105 +52,6 @@ const LanguageMenu = () => (
           {l('Help Translate')}
         </a>
       </li>
-    </ul>
-  </li>
-);
-
-const AccountMenu = () => (
-  <li className="account">
-    <EditorLink editor={$c.user} />
-    <ul>
-      <li>
-        <a href="/account/edit">{l('Edit Profile')}</a>
-      </li>
-      <li>
-        <a href="/account/change-password">{l('Change Password')}</a>
-      </li>
-      <li>
-        <a href="/account/preferences">{l('Preferences')}</a>
-      </li>
-      <li>
-        <a href="/account/applications">{l('Applications')}</a>
-      </li>
-      <li>
-        <a href={userLink($c.user.name, '/subscriptions/artist')}>
-          {l('Subscriptions')}
-        </a>
-      </li>
-      <li>
-        <a href="/logout">{l('Log Out')}</a>
-      </li>
-    </ul>
-  </li>
-);
-
-const DataMenu = () => {
-  let userName = $c.user.name;
-
-  return (
-    <li className="data">
-      <a href={userLink(userName, '/profile')}>{l('My Data')}</a>
-      <ul>
-        <li>
-          <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/tags')}>{l('My Tags')}</a>
-        </li>
-        <li className="separator">
-          <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/edits/all')}>{l('All My Edits')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed_editors">{l('Edits by Subscribed Editors')}</a>
-        </li>
-        <li>
-          <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
-        </li>
-      </ul>
-    </li>
-  );
-};
-
-const AdminMenu = () => (
-  <li className="admin">
-    <a href="/admin">{l('Admin')}</a>
-    <ul>
-      {$c.user.is_location_editor &&
-        <li>
-          <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
-        </li>}
-
-      {$c.user.is_relationship_editor && [
-        <li key="1">
-          <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
-        </li>,
-        <li key="2">
-          <a href="/relationships">{l('Edit Relationship Types')}</a>
-        </li>]}
-
-      {$c.user.is_wiki_transcluder &&
-        <li>
-          <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
-        </li>}
-
-      {$c.user.is_banner_editor &&
-        <li>
-          <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
-        </li>}
-
-      {$c.user.is_account_admin &&
-        <li>
-          <a href="/admin/attributes">{l('Edit Attributes')}</a>
-        </li>}
     </ul>
   </li>
 );
@@ -194,14 +91,6 @@ const AboutMenu = () => (
         <a href="/statistics/timeline">{l('Timeline Graph')}</a>
       </li>
     </ul>
-  </li>
-);
-
-const BlogMenu = () => (
-  <li className="blog">
-    <a href="http://blog.musicbrainz.org" className="internal">
-      {l('Blog')}
-    </a>
   </li>
 );
 
@@ -339,68 +228,17 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const ContactMenu = () => (
-  <li className="contact">
-    <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
-    <ul>
-      <li>
-        <a href="http://forums.musicbrainz.org" className="internal">
-          {l('Forums')}
-        </a>
-      </li>
-      <li>
-        <a href="http://tickets.musicbrainz.org" className="internal">
-          {l('Report a Bug')}
-        </a>
-      </li>
+const BottomMenu = () => (
+  <div className="bottom">
+    <ul className="menu">
+      <AboutMenu />
+      <ProductsMenu />
+      <SearchMenu />
+      {$c.user && <EditingMenu />}
+      <DocumentationMenu />
+      {$c.stash.server_languages.length > 1 && <LanguageMenu />}
     </ul>
-  </li>
-);
-
-const LeftMenu = () => (
-  <ul>
-    <AboutMenu />
-    <BlogMenu />
-    <ProductsMenu />
-    <SearchMenu />
-    {$c.user && <EditingMenu />}
-    <DocumentationMenu />
-    <ContactMenu />
-  </ul>
-);
-
-const RightMenu = (props) => (
-  <ul className="r">
-    {$c.stash.server_languages.length > 1 && <LanguageMenu />}
-
-    {$c.user && [
-      <AccountMenu key={1} />,
-      <DataMenu key={2} />,
-      $c.user.is_admin && <AdminMenu key={3} />
-    ]}
-
-    {!$c.user && [
-      <li key={4}>
-        <a href={"/login?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Log In')}
-        </a>
-      </li>,
-      <li key={5}>
-        <a href={"/register?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Create Account')}
-        </a>
-      </li>
-    ]}
-  </ul>
-);
-
-const Menu = () => (
-  <div id="header-menu">
-    <div>
-      <RightMenu />
-      <LeftMenu />
-    </div>
   </div>
 );
 
-module.exports = Menu;
+module.exports = BottomMenu;
