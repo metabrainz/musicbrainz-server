@@ -41,6 +41,10 @@ MB.Control.HeaderMenu = function () {
         }, self.timeout_msecs);
     });
 
+    $('.header .menu-header').click(function () {
+        $(this).siblings('ul').toggle();
+    });
+
     return self;
 }
 
