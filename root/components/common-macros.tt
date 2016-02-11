@@ -746,7 +746,7 @@ END -%]
         l('until {date}', { date => relationship.link.end_date.format });
     ELSIF relationship.link.ended;
         ' ';
-        l('ended');
+        bracketed(l('ended'));
     END;
     IF relationship.${extra_attributes_field};
         ' (' _ relationship.${extra_attributes_field} _ ')';
