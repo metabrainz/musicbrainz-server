@@ -1,9 +1,13 @@
-[%- MACRO print_language_link(language, selected) BLOCK -%]
-    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+[%- MACRO print_language_name(language, selected) BLOCK -%]
     [%- IF language.1.native_language != '' -%]
         [%- language.1.native_language | ucfirst -%][%- IF language.1.native_territory != '' %] ([%- language.1.native_territory | ucfirst -%])[%- END -%]
     [%- ELSE -%][[%- language.1.id -%]][%- END -%]
     [%- IF selected -%]&nbsp;&#x25BE;[%- END -%]
+[%- END -%]
+
+[%- MACRO print_language_link(language) BLOCK -%]
+    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+        [%- print_language_name(language) -%]
     </a>
 [%- END -%]
 
@@ -178,11 +182,13 @@
             </li>
         </ul>
     </li>
-    
+
     [% IF server_languages.size > 1 -%]
     <li class="language-selector">
         [% FOREACH language = server_languages; IF language.0 == current_language -%]
-            [%- print_language_link(language, 1) -%]
+            <span class="menu-header">
+                [%- print_language_name(language, 1) -%]
+            </span>
             [%- LAST; END -%]
         [%- END %]
         <ul>
