@@ -43,9 +43,9 @@ const Search = () => (
     <input type="text" id="headerid-query" name="query" placeholder={l('Search')} required={true} />
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />
-    <span className="buttons inline">
-      <button type="submit"><img src="/static/images/icons/search.svg" /></button>
-    </span>
+    <button type="submit">
+      <img src="/static/images/icons/search.svg" />
+    </button>
   </form>
 );
 

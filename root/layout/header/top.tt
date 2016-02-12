@@ -101,6 +101,8 @@
         [% sidebar.text('query', { placeholder => l('Search') }) %]
         [% sidebar.select('type') %]
         [% sidebar.hidden('method', { value => 'indexed' }) %]
-        [% form_submit('<img src="/static/images/icons/search.svg" />', 'inline') %]
+        <button type="submit">
+            <img src="/static/images/icons/search.svg">
+        </button>
     </form>
 </div>

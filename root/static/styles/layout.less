@@ -170,6 +170,7 @@ pre code {
                 form {
                     width: 302px;
                     margin-top: 3px;
+                    position: relative;
                     input#headerid-query {
                         width: 150px;
                         height: @item-height;
@@ -178,6 +179,7 @@ pre code {
                         font-size: 1rem;
                         border: 1px solid @outer-border-color;
                         border-right-color: @inner-border-color;
+                        position: absolute;
                     }
                     select#headerid-type {
                         width: 116px;
@@ -189,18 +191,19 @@ pre code {
                         border-right-color: @inner-border-color;
                         padding-left: 6px;
                         padding-right: 22px;
-                        margin-left: -5px;
                         -webkit-appearance: none;
                         -moz-appearance: none;
                         border-radius: 0;
                         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1…0px'><text x='0' y='15' fill='black' font-size='15'>&#x25BE;</text></svg>");
                         background-position-x: 100px;
                         background-position-y: 1px;
+                        position: absolute;
+                        left: 149px;
                     }
                     input#headerid-method {
                         display: none;
                     }
-                    .buttons button {
+                    button {
                         width: 30px;
                         height: @item-height;
                         border-radius: 0;
@@ -208,9 +211,12 @@ pre code {
                         background-color: #fff;
                         border: 1px solid @outer-border-color;
                         border-left-color: @inner-border-color;
-                        margin-left: -5px;
+                        position: absolute;
+                        left: 264px;
                         img {
-                            margin: 0 -1px -4px 0px !important;
+                            margin: 0 -1px -4px 0px;
+                            width: 16px;
+                            height: 16px;
                         }
                     }
                 }
