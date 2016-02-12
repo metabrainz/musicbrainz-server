@@ -20,6 +20,9 @@
             <li>
                 <a href="https://metabrainz.org/team">[% l('Team') %]</a>
             </li>
+            <li>
+                <a href="[% contact_url %]">[% l('Contact Us') %]</a>
+            </li>
             <li class="separator">
                 <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
             </li>
@@ -85,7 +88,7 @@
         <span class="menu-header">[% l('Search') %]</span>
         <ul>
             <li>
-                <a href="[% c.uri_for('/search') %]">[% l('Search') %]</a>
+                <a href="[% c.uri_for('/search') %]">[% l('Search Entities') %]</a>
             </li>
             [%- IF c.user_exists -%]
                 <li>

@@ -2,7 +2,7 @@
     <ul class="menu">
     [%- IF c.user_exists -%]
         <li class="account">
-            <span class="menu-header">[%- c.user.name -%]</span>
+            <span class="menu-header">[%- c.user.name | html -%]</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('Profile') %]</a>
