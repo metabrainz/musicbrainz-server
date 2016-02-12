@@ -9,7 +9,7 @@ const React = require('react');
 const {VARTIST_GID} = require('../../static/scripts/common/constants');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
-function languageLink(language, selected) {
+function languageName(language, selected) {
   let {id, native_language, native_territory} = language[1];
   let text = `[${id}]`;
 
@@ -21,17 +21,26 @@ function languageLink(language, selected) {
     }
   }
 
+  if (selected) {
+    text += ' \u25be';
+  }
+
+  return text;
+}
+
+function languageLink(language) {
   return (
     <a href={"/set-language/" + encodeURIComponent(language[0])}>
-      {text}
-      <If condition={selected}>{' \u25be'}</If>
+      {languageName(language, false)}
     </a>
   );
 }
 
 const LanguageMenu = () => (
   <li className="language-selector">
-    {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
+    <span className="menu-header">
+      {languageName(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
+    </span>
     <ul>
       {$c.stash.server_languages.map(function (l, index) {
         let inner = languageLink(l);
@@ -58,13 +67,19 @@ const LanguageMenu = () => (
 
 const AboutMenu = () => (
   <li className="about">
-    <a href="/doc/About">{l('About')}</a>
+    <span className="menu-header">{l('About Us')}</span>
     <ul>
+      <li>
+        <a href="/doc/About">{l('About MusicBrainz')}</a>
+      </li>
       <li>
         <a href="https://metabrainz.org/sponsors">{l('Sponsors')}</a>
       </li>
       <li>
         <a href="https://metabrainz.org/team">{l('Team')}</a>
+      </li>
+      <li>
+        <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
       </li>
       <li className="separator">
         <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
@@ -96,7 +111,7 @@ const AboutMenu = () => (
 
 const ProductsMenu = () => (
   <li className="products">
-    <a href="/doc/Products">{l('Products')}</a>
+    <span className="menu-header">{l('Products')}</span>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
@@ -134,8 +149,11 @@ const ProductsMenu = () => (
 
 const SearchMenu = () => (
   <li className="search">
-    <a href="/search">{l('Search')}</a>
+    <span className="menu-header">{l('Search')}</span>
     <ul>
+      <li>
+        <a href="/search">{l('Search Entities')}</a>
+      </li>
       {$c.user &&
         <li>
           <a href="/search/edits">{l('Search Edits')}</a>
@@ -152,7 +170,7 @@ const SearchMenu = () => (
 
 const EditingMenu = () => (
   <li className="editing">
-    <a href="/doc/How_Editing_Works">{l('Editing')}</a>
+    <span className="menu-header">{l('Editing')}</span>
     <ul>
       <li>
         <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
@@ -198,7 +216,7 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation">
-    <a href="/doc/MusicBrainz_Documentation">{l('Documentation')}</a>
+    <span className="menu-header">{l('Documentation')}</span>
     <ul>
       <li>
         <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
@@ -211,6 +229,9 @@ const DocumentationMenu = () => (
       </li>
       <li>
         <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
+      </li>
+      <li>
+        <a href="/doc/MusicBrainz_Documentation">{l('Documentation Index')}</a>
       </li>
       <li className="separator">
         <a href='/doc/Edit_Types'>{l('Edit Types')}</a>
