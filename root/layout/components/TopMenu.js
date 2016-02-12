@@ -7,7 +7,6 @@ const _ = require('lodash');
 const React = require('react');
 
 const Search = require('./Search');
-const EditorLink = require('../../static/scripts/common/components/EditorLink');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
 function userLink(userName, path) {
@@ -16,13 +15,10 @@ function userLink(userName, path) {
 
 const AccountMenu = () => (
   <li className="account">
-    <EditorLink editor={$c.user} />
+    <span className="menu-header">{$c.user.name}</span>
     <ul>
       <li>
-        <a href="/account/edit">{l('Edit Profile')}</a>
-      </li>
-      <li>
-        <a href="/account/change-password">{l('Change Password')}</a>
+        <a href={userLink($c.user.name, '')}>{l('Profile')}</a>
       </li>
       <li>
         <a href="/account/preferences">{l('Preferences')}</a>
@@ -47,7 +43,7 @@ const DataMenu = () => {
 
   return (
     <li className="data">
-      <a href={userLink(userName, '/profile')}>{l('My Data')}</a>
+      <span className="menu-header">{l('My Data')}</span>
       <ul>
         <li>
           <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
@@ -80,7 +76,7 @@ const DataMenu = () => {
 
 const AdminMenu = () => (
   <li className="admin">
-    <a href="/admin">{l('Admin')}</a>
+    <span className="menu-header">{l('Admin')}</span>
     <ul>
       {$c.user.is_location_editor &&
         <li>
