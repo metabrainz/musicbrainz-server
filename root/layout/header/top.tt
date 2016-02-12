@@ -102,7 +102,7 @@
         [% sidebar.select('type') %]
         [% sidebar.hidden('method', { value => 'indexed' }) %]
         <button type="submit">
-            <img src="/static/images/icons/search.svg">
+            <img src="/static/images/icons/search.svg" />
         </button>
     </form>
 </div>
