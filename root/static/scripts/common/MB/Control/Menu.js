@@ -41,6 +41,14 @@ MB.Control.HeaderMenu = function () {
         }, self.timeout_msecs);
     });
 
+    $('.header .menu-header').on('click touchend', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var ul = $(this).siblings('ul');
+        $('.header ul.menu li ul').not(ul).css('left', '-10000px');
+        ul.css('left', ul.css('left') === 'auto' ? '-10000px' : 'auto');
+    });
+
     return self;
 }
 

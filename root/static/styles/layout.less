@@ -247,18 +247,19 @@ pre code {
                 list-style-image: none;
                 &:hover {
                     background-color: @musicbrainz-orange;
-                    > a {
+                    > .menu-header {
                         color: @text-white;
                     }
                 }
-                a {
+                a, .menu-header {
                     display: block;
                     padding: @menu-item-text-padding;
                     text-decoration: none;
                     font-weight: bold;
                 }
-                > a {
+                > .menu-header {
                     color: @musicbrainz-purple;
+                    cursor: default;
                 }
                 ul {
                     position: absolute;

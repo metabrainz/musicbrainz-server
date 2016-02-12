@@ -84,7 +84,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Admin::delete_user",
   "Controller::Admin::edit_banner",
   "Controller::Admin::edit_user",
-  "Controller::Admin::index",
   "Controller::Ajax::filter_artist_recordings_form",
   "Controller::Ajax::filter_artist_release_groups_form",
   "Controller::Ajax::filter_artist_releases_form",
