@@ -5,14 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
 
-sub index : Path Args(0) RequireAuth
-{
-    my ($self, $c) = @_;
-
-    $c->detach('/error_403')
-        unless $c->user->is_admin;
-}
-
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;

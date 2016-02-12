@@ -9,13 +9,19 @@
 
 <ul class="menu">
     <li class="about">
-        <a href="[% doc_link('About') %]">[% l('About') %]</a>
+        <span class="menu-header">[% l('About Us') %]</span>
         <ul>
+            <li>
+                <a href="[% doc_link('About') %]">[% l('About MusicBrainz') %]</a>
+            </li>
             <li>
                 <a href="https://metabrainz.org/sponsors">[% l('Sponsors') %]</a>
             </li>
             <li>
                 <a href="https://metabrainz.org/team">[% l('Team') %]</a>
+            </li>
+            <li>
+                <a href="[% contact_url %]">[% l('Contact Us') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
@@ -44,7 +50,7 @@
         </ul>
     </li>
     <li class="products">
-        <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
+        <span class="menu-header">[% l('Products') %]</span>
         <ul>
             <li>
                 <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
@@ -79,8 +85,11 @@
         </ul>
     </li>
     <li class="search">
-        <a href="[% c.uri_for('/search') %]">[% l('Search') %]</a>
+        <span class="menu-header">[% l('Search') %]</span>
         <ul>
+            <li>
+                <a href="[% c.uri_for('/search') %]">[% l('Search Entities') %]</a>
+            </li>
             [%- IF c.user_exists -%]
                 <li>
                     <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search Edits') %]</a>
@@ -96,7 +105,7 @@
     </li>
     [%- IF c.user_exists -%]
         <li class="editing">
-            <a href="[% doc_link('How_Editing_Works') %]">[% l('Editing') %]</a>
+            <span class="menu-header">[% l('Editing') %]</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for('/artist/create') %]">[% lp('Add Artist', 'button/menu') %]</a>
@@ -138,7 +147,7 @@
         </li>
     [%- END -%]
     <li class="documentation">
-        <a href="[% doc_link('MusicBrainz_Documentation') %]">[% l('Documentation') %]</a>
+        <span class="menu-header">[% l('Documentation') %]</span>
         <ul>
             <li>
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
@@ -151,6 +160,9 @@
             </li>
             <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
+            </li>
+            <li>
+                <a href="[% doc_link('MusicBrainz_Documentation') %]">[% l('Documentation Index') %]</a>
             </li>
             <li class="separator">
                 <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a>
