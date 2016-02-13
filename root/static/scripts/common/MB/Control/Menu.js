@@ -47,6 +47,10 @@ MB.Control.HeaderMenu = function () {
         var ul = $(this).siblings('ul');
         $('.header ul.menu li ul').not(ul).css('left', '-10000px');
         ul.css('left', ul.css('left') === 'auto' ? '-10000px' : 'auto');
+        if ($.browser.android) {
+            $(this).parent().siblings().removeClass('fake-active');
+            $(this).parent().toggleClass('fake-active');
+        }
     });
 
     return self;

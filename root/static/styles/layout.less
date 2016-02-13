@@ -245,9 +245,9 @@ pre code {
                 float: left;
                 list-style-type: none;
                 list-style-image: none;
-                &:hover {
+                &:hover, &:active, &.fake-active {
                     background-color: @musicbrainz-orange;
-                    > .menu-header {
+                    > a, .menu-header {
                         color: @text-white;
                     }
                 }
@@ -257,7 +257,7 @@ pre code {
                     text-decoration: none;
                     font-weight: bold;
                 }
-                > .menu-header {
+                > a, .menu-header {
                     color: @musicbrainz-purple;
                     cursor: default;
                 }
