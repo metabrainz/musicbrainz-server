@@ -2,7 +2,7 @@
     [%- IF language.1.native_language != '' -%]
         [%- language.1.native_language | ucfirst -%][%- IF language.1.native_territory != '' %] ([%- language.1.native_territory | ucfirst -%])[%- END -%]
     [%- ELSE -%][[%- language.1.id -%]][%- END -%]
-    [%- IF selected -%]&nbsp;&#x25BE;[%- END -%]
+    [%- IF selected -%]&#xA0;&#x25BE;[%- END -%]
 [%- END -%]
 
 [%- MACRO print_language_link(language) BLOCK -%]
@@ -13,7 +13,7 @@
 
 <ul class="menu">
     <li class="about">
-        <span class="menu-header">[% l('About Us') %]&nbsp;&#x25BE;</span>
+        <span class="menu-header">[% l('About Us') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="[% doc_link('About') %]">[% l('About MusicBrainz') %]</a>
@@ -54,7 +54,7 @@
         </ul>
     </li>
     <li class="products">
-        <span class="menu-header">[% l('Products') %]&nbsp;&#x25BE;</span>
+        <span class="menu-header">[% l('Products') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
@@ -89,7 +89,7 @@
         </ul>
     </li>
     <li class="search">
-        <span class="menu-header">[% l('Search') %]&nbsp;&#x25BE;</span>
+        <span class="menu-header">[% l('Search') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="[% c.uri_for('/search') %]">[% l('Search Entities') %]</a>
@@ -109,7 +109,7 @@
     </li>
     [%- IF c.user_exists -%]
         <li class="editing">
-            <span class="menu-header">[% l('Editing') %]&nbsp;&#x25BE;</span>
+            <span class="menu-header">[% l('Editing') %]&#xA0;&#x25BE;</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for('/artist/create') %]">[% lp('Add Artist', 'button/menu') %]</a>
@@ -151,7 +151,7 @@
         </li>
     [%- END -%]
     <li class="documentation">
-        <span class="menu-header">[% l('Documentation') %]&nbsp;&#x25BE;</span>
+        <span class="menu-header">[% l('Documentation') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>

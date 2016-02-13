@@ -2,7 +2,7 @@
     <ul class="menu">
     [%- IF c.user_exists -%]
         <li class="account">
-            <span class="menu-header">[%- c.user.name | html -%]&nbsp;&#x25BE;</span>
+            <span class="menu-header">[%- c.user.name | html -%]&#xA0;&#x25BE;</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('Profile') %]</a>
@@ -19,7 +19,7 @@
             </ul>
         </li>
         <li class="data">
-            <span class="menu-header">[%- l('My Data') -%]&nbsp;&#x25BE;</span>
+            <span class="menu-header">[%- l('My Data') -%]&#xA0;&#x25BE;</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for_action('/user/collections', [ c.user.name ]) %]">[% l('My Collections') %]</a>
@@ -49,7 +49,7 @@
         </li>
         [% IF c.user_exists && c.user.is_admin %]
             <li class="admin">
-                <span class="menu-header">[% l('Admin') %]&nbsp;&#x25BE;</span>
+                <span class="menu-header">[% l('Admin') %]&#xA0;&#x25BE;</span>
                 <ul>
                     [% IF c.user.is_location_editor %]
                         <li>
