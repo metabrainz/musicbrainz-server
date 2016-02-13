@@ -15,7 +15,7 @@ function userLink(userName, path) {
 
 const AccountMenu = () => (
   <li className="account">
-    <span className="menu-header">{$c.user.name}</span>
+    <span className="menu-header">{$c.user.name}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href={userLink($c.user.name, '')}>{l('Profile')}</a>
@@ -43,7 +43,7 @@ const DataMenu = () => {
 
   return (
     <li className="data">
-      <span className="menu-header">{l('My Data')}</span>
+      <span className="menu-header">{l('My Data')}{'\xA0\u25BE'}</span>
       <ul>
         <li>
           <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
@@ -76,7 +76,7 @@ const DataMenu = () => {
 
 const AdminMenu = () => (
   <li className="admin">
-    <span className="menu-header">{l('Admin')}</span>
+    <span className="menu-header">{l('Admin')}{'\xA0\u25BE'}</span>
     <ul>
       {$c.user.is_location_editor &&
         <li>

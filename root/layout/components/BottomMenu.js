@@ -67,7 +67,7 @@ const LanguageMenu = () => (
 
 const AboutMenu = () => (
   <li className="about">
-    <span className="menu-header">{l('About Us')}</span>
+    <span className="menu-header">{l('About Us')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/doc/About">{l('About MusicBrainz')}</a>
@@ -111,7 +111,7 @@ const AboutMenu = () => (
 
 const ProductsMenu = () => (
   <li className="products">
-    <span className="menu-header">{l('Products')}</span>
+    <span className="menu-header">{l('Products')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
@@ -149,7 +149,7 @@ const ProductsMenu = () => (
 
 const SearchMenu = () => (
   <li className="search">
-    <span className="menu-header">{l('Search')}</span>
+    <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/search">{l('Search Entities')}</a>
@@ -170,7 +170,7 @@ const SearchMenu = () => (
 
 const EditingMenu = () => (
   <li className="editing">
-    <span className="menu-header">{l('Editing')}</span>
+    <span className="menu-header">{l('Editing')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
@@ -216,7 +216,7 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation">
-    <span className="menu-header">{l('Documentation')}</span>
+    <span className="menu-header">{l('Documentation')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
