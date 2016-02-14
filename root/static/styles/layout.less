@@ -691,11 +691,10 @@ table.details table.tbl th {
 /* Paginator */
 nav .pagination {
     display: table;
-    border-collapse: collapse;
+    padding: 0px;
 
     li {
         display: table-cell;
-        border: solid 1px @light-border;
 
         &.separator {
             border-top-style: none;
@@ -709,6 +708,9 @@ nav .pagination {
         padding: 0.25em 0.55em;
         min-width: 1em; /* ensure that even single digits are a reasonable size */
         text-align: center;
+        margin-right: 2px;
+        border: solid 1px @light-border;
+        border-radius: 4px;
     }
 
     a {
@@ -716,15 +718,15 @@ nav .pagination {
         background-color: #FFF;
         color: @text-black;
 
-        &:hover {
-            background-color: @musicbrainz-purple;
-            color: @text-white;
-        }
-
         &.sel {
             background-color: @musicbrainz-orange;
+            border-color: @musicbrainz-orange;
             color: @text-white;
             font-weight: bold;
+        }
+
+        &:hover {
+            border-color: @musicbrainz-purple;
         }
     }
 
