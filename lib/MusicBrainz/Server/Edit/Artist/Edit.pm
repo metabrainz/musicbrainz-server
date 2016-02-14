@@ -214,8 +214,10 @@ around merge_changes => sub {
 
     my $merged = $self->$orig(@args);
     my $artist = $self->current_instance;
-    my $gender_id = $merged->{gender_id} // $artist->gender_id;
-    my $type_id = $merged->{type_id} // $artist->type_id;
+    my $gender_id = exists $merged->{gender_id} ?
+            $merged->{gender_id} : $artist->gender_id;
+    my $type_id = exists $merged->{type_id} ?
+            $merged->{type_id} : $artist->type_id;
 
     if (defined $gender_id && defined $type_id) {
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(

@@ -398,6 +398,29 @@ EOSQL
     is $exception->message, 'A group of artists cannot have a gender.';
 };
 
+test 'Type can be set to group when gender is removed (MBS-8801)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name, gender)
+VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'Foo Baz', 'Foo Baz', 2);
+EOSQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        gender_id => undef,
+        type_id => 2,
+        ipi_codes => [],
+        isni_codes => [],
+    );
+    accept_edit($c, $edit);
+
+    is($c->model('Artist')->get_by_id(2)->type_id, 2);
+};
+
 sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(
