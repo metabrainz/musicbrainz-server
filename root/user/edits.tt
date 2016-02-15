@@ -1,4 +1,4 @@
-[%- param = { name => user.name };
+[%- param = { name => link_editor(user) };
     SWITCH c.action.name;
         CASE 'votes';
             page_title = l('Votes');
@@ -26,7 +26,7 @@
             page_heading = l('Edits by {name}', param);
     END ~%]
 
-[% WRAPPER 'user/profile/layout.tt' title=page_title %]
-   <h2>[% page_heading | html %]</h2>
+[% WRAPPER 'layout.tt' title=page_title %]
+   <h2>[% page_heading %]</h2>
    [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]
