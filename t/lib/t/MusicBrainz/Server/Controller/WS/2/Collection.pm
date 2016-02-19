@@ -24,7 +24,7 @@ test "collection lookup" => sub {
         '/collection/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list>
+  <collection-list count="22">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>
@@ -221,7 +221,7 @@ test "collection lookup" => sub {
         '/collection/?editor=the-anti-kuno' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list>
+  <collection-list count="11">
     <collection id="cc8cd8ee-6477-47d5-a16d-adac11ed9f30" type="Area" entity-type="area">
       <name>public area collection</name>
       <editor>the-anti-kuno</editor>
@@ -284,7 +284,7 @@ test "collection lookup" => sub {
         '/collection/?editor=the-anti-kuno&inc=user-collections&limit=3' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection-list>
+  <collection-list count="22">
     <collection type="Area" id="9ece2fbd-3f4e-431d-9424-da8af38374e0" entity-type="area">
       <name>private area collection</name>
       <editor>the-anti-kuno</editor>

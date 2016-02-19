@@ -169,7 +169,7 @@ ws_test 'basic release with collections',
         </release-event-list>
         <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
-        <collection-list>
+        <collection-list count="1">
             <collection type="Release" entity-type="release" id="f34c079d-374e-4436-9448-da92dedef3cd">
                 <name>My Collection</name>
                 <editor>editor</editor>

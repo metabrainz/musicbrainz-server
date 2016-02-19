@@ -186,8 +186,9 @@ sub collection_list : Chained('base') PathPart('') {
     $c->model('Collection')->load_entity_count(@collections);
     $c->model('CollectionType')->load(@collections);
 
+    my $collections = $self->make_list(@result);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
+    $c->res->body($c->stash->{serializer}->serialize('collection-list', $collections,
                                                      $c->stash->{inc}, $stash));
 }
 
@@ -198,7 +199,6 @@ sub collection_browse : Private {
     my ($limit, $offset) = $self->_limit_and_offset($c);
 
     my $collections;
-    my $total;
     my $stash = WebServiceStash->new;
 
     if ($resource eq 'editor') {
@@ -212,7 +212,7 @@ sub collection_browse : Private {
             $show_private = 1;
         }
 
-        ($collections, $total) = $c->model('Collection')->find_by_editor(
+        my @result = $c->model('Collection')->find_by_editor(
             $editor->id,
             $show_private,
             undef, # entity_type
@@ -220,9 +220,11 @@ sub collection_browse : Private {
             $offset,
         );
 
-        $_->editor($editor) for @$collections;
-        $c->model('Collection')->load_entity_count(@$collections);
-        $c->model('CollectionType')->load(@$collections);
+        $collections = $self->make_list(@result, $offset);
+        my @collections = @{ $result[0] };
+        $_->editor($editor) for @collections;
+        $c->model('Collection')->load_entity_count(@collections);
+        $c->model('CollectionType')->load(@collections);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

@@ -28,6 +28,8 @@ test "collection lookup" => sub {
 
     ws_test_json 'collections lookup',
         '/collection/' => {
+            "collection-count" => 22,
+            "collection-offset" => 0,
             "collections" => [
                 {
                     "event-count" => 1,

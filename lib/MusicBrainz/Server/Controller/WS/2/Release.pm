@@ -133,7 +133,8 @@ sub release_toplevel
     $self->load_relationships($c, $stash, @rels_entities);
 
     if ($c->stash->{inc}->collections) {
-        my ($collections) = $c->model('Collection')->find_by_entity('release', $release->id);
+        my ($collections, $total) =
+            $c->model('Collection')->find_by_entity('release', $release->id);
         my @collections =
             grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
             @$collections;
@@ -142,7 +143,8 @@ sub release_toplevel
         $c->model('Collection')->load_entity_count(@collections);
         $c->model('CollectionType')->load(@collections);
 
-        $stash->store($release)->{collections} = \@collections;
+        $stash->store($release)->{collections} =
+            $self->make_list(\@collections, scalar @collections);
     }
 }
 

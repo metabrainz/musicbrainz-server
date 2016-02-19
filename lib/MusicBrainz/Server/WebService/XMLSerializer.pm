@@ -241,13 +241,13 @@ sub _serialize_collection
 
 sub _serialize_collection_list
 {
-    my ($self, $data, $gen, $collections, $inc, $stash, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    map { $self->_serialize_collection(\@list, $gen, $_, $inc, $stash, 0) }
-        @$collections;
-
-    push @$data, $gen->collection_list(@list);
+    foreach my $collection (@{ $list->{items} }) {
+        $self->_serialize_collection(\@list, $gen, $collection, $inc, $stash, $toplevel);
+    }
+    push @$data, $gen->collection_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_release_group_list
@@ -441,7 +441,7 @@ sub _serialize_release
     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
     $self->_serialize_collection_list(\@list, $gen, $opts->{collections}, $inc, $stash, 0)
-        if ($opts->{collections} && @{ $opts->{collections} });
+        if $opts->{collections};
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }
