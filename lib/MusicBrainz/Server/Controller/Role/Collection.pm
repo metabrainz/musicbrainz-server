@@ -33,10 +33,10 @@ role
 
     method _all_collections => sub {
         my ($self, $c) = @_;
-        my ($collections) = $c->model('Collection')->find_by_entity(
-            $entity_type,
-            $c->stash->{$entity_name}->id,
-        );
+        my ($collections) = $c->model('Collection')->find_by({
+            entity_id => $c->stash->{$entity_name}->id,
+            entity_type => $entity_type,
+        });
         $collections;
     };
 
@@ -51,7 +51,11 @@ role
 
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
-            ($collections) = $c->model('Collection')->find_by_editor($c->user->id, 1, $entity_type);
+            ($collections) = $c->model('Collection')->find_by({
+                editor_id => $c->user->id,
+                entity_type => $entity_type,
+                show_private => $c->user->id,
+            });
             foreach my $collection (@$collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }

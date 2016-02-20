@@ -136,43 +136,48 @@ sub get_first_collection {
     return $self->sql->select_single_value($query, $editor_id);
 }
 
-sub find_by_editor {
-    my ($self, $editor_id, $show_private, $entity_type, $limit, $offset) = @_;
+sub find_by {
+    my ($self, $opts, $limit, $offset) = @_;
 
-    my $extra_conditions = '';
-    $extra_conditions .= " AND ct.entity_type = '$entity_type'" if $entity_type;
-    $extra_conditions .= " AND editor_collection.public = true" unless $show_private;
+    my (@joins, @conditions, @args);
 
-    my $query = "SELECT " . $self->_columns . "
-                   FROM " . $self->_table . "
-                   JOIN editor_collection_type ct ON editor_collection.type = ct.id
-                  WHERE editor = ?
-                  $extra_conditions
-                  ORDER BY musicbrainz_collate(editor_collection.name),
-                           editor_collection.id";
-
-    if (defined $limit) {
-        return $self->query_to_list_limited($query, [$editor_id], $limit, $offset);
-    } else {
-        my @result = $self->query_to_list($query, [$editor_id]);
-        return (\@result, scalar @result);
+    if (my $editor_id = $opts->{editor_id}) {
+        push @conditions, 'editor = ?';
+        push @args, $editor_id;
     }
-}
 
-sub find_by_entity {
-    my ($self, $type, $id, $limit, $offset) = @_;
+    if (my $entity_type = $opts->{entity_type}) {
+        push @joins, 'JOIN editor_collection_type ct ON editor_collection.type = ct.id';
+        push @conditions, 'ct.entity_type = ?';
+        push @args, $entity_type;
 
-    my $query = "SELECT " . $self->_columns . "
-                   FROM " . $self->_table . "
-                   JOIN editor_collection_$type ce ON editor_collection.id = ce.collection
-                  WHERE ce.$type = ?
-                  ORDER BY musicbrainz_collate(editor_collection.name),
-                           editor_collection.id";
+        if (my $entity_id = $opts->{entity_id}) {
+            push @joins,
+                "JOIN editor_collection_$entity_type ce ".
+                "ON editor_collection.id = ce.collection";
+            push @conditions, "ce.$entity_type = ?";
+            push @args, $entity_id;
+        }
+    }
+
+    if (my $editor_id = $opts->{show_private}) {
+        push @conditions, '(editor_collection.public = true OR editor = ?)';
+        push @args, $editor_id;
+    } else {
+        push @conditions, 'editor_collection.public = true';
+    }
+
+    my $query =
+        'SELECT ' . $self->_columns .
+        '  FROM ' . $self->_table . ' ' .
+        join(' ', @joins) .
+        ' WHERE ' . join(' AND ', @conditions) .
+        ' ORDER BY musicbrainz_collate(editor_collection.name), editor_collection.id';
 
     if (defined $limit) {
-        return $self->query_to_list_limited($query, [$id], $limit, $offset);
+        return $self->query_to_list_limited($query, \@args, $limit, $offset);
     } else {
-        my @result = $self->query_to_list($query, [$id]);
+        my @result = $self->query_to_list($query, \@args);
         return (\@result, scalar @result);
     }
 }

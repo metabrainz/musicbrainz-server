@@ -360,13 +360,12 @@ sub _build_ws_test_json {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
-    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header("Accept" => "application/json");
-
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
+        my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header("Accept" => "application/json");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -377,7 +376,13 @@ sub _build_ws_test_json {
 
             $Test->plan(tests => 3);
 
-            $mech->get_ok($end_point . $url, 'fetching');
+            $mech->get($end_point . $url, 'fetching');
+            if ($opts->{response_code}) {
+                is($mech->res->code, $opts->{response_code});
+            } else {
+                ok($mech->success);
+            }
+
             is_valid_json($mech->content, "validating (is_valid_json)");
 
             cmp_deeply(decode_json($mech->content), $expected);

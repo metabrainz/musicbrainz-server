@@ -4,9 +4,11 @@ use JSON;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
-use MusicBrainz::Server::Test ws_test_json => {
-    version => 2
-};
+use MusicBrainz::Server::Test::WS qw(
+    ws2_test_json
+    ws2_test_json_forbidden
+    ws2_test_json_unauthorized
+);
 
 with 't::Mechanize', 't::Context';
 
@@ -16,7 +18,7 @@ test "collection lookup" => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
-    ws_test_json 'collection lookup',
+    ws2_test_json 'collection lookup',
         '/collection/05febe0a-a9df-414a-a2c9-7dc366b0de9b' => {
             "event-count" => 1,
             "id" => "05febe0a-a9df-414a-a2c9-7dc366b0de9b",
@@ -26,7 +28,7 @@ test "collection lookup" => sub {
             "entity-type" => "event"
         }, { username => 'new_editor', password => 'password' };
 
-    ws_test_json 'collections lookup',
+    ws2_test_json 'collections lookup',
         '/collection/' => {
             "collection-count" => 22,
             "collection-offset" => 0,
@@ -210,7 +212,7 @@ test "collection lookup" => sub {
             ]
         }, { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws_test_json 'collection releases lookup',
+    ws2_test_json 'collection releases lookup',
         '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/' =>
             {
                 id => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
@@ -247,7 +249,7 @@ test "collection lookup" => sub {
                     }]
             }, { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws_test_json 'collection release-count (MBS-8776)',
+    ws2_test_json 'collection release-count (MBS-8776)',
         '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/?limit=1&offset=1' =>
             {
                 id => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
@@ -257,6 +259,166 @@ test "collection lookup" => sub {
                 "entity-type" => "release",
                 "release-count" => 1,
             }, { username => 'the-anti-kuno', password => 'notreally' };
+};
+
+
+test "browsing by area" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    ws2_test_json 'browse by area',
+        '/collection/?area=106e0bec-b638-3b37-b731-f53d507dc00e' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "area-count" => 1,
+                    "id" => "cc8cd8ee-6477-47d5-a16d-adac11ed9f30",
+                    "type" => "Area",
+                    "editor" => "the-anti-kuno",
+                    "name" => "public area collection",
+                    "entity-type" => "area"
+                },
+            ],
+        };
+
+    ws2_test_json 'browse by area, no public collections',
+        '/collection/?area=85752fda-13c4-31a3-bee5-0e5cb1f51dad' => {
+            "collection-count" => 0,
+            "collection-offset" => 0,
+            "collections" => [],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json 'browse by area, inc=user-collections',
+        '/collection/?area=85752fda-13c4-31a3-bee5-0e5cb1f51dad&inc=user-collections' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "area-count" => 1,
+                    "id" => "9ece2fbd-3f4e-431d-9424-da8af38374e0",
+                    "type" => "Area",
+                    "editor" => "the-anti-kuno",
+                    "name" => "private area collection",
+                    "entity-type" => "area"
+                },
+            ],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json_forbidden 'browse by area, inc=user-collections, no credentials',
+        '/collection/?area=85752fda-13c4-31a3-bee5-0e5cb1f51dad&inc=user-collections';
+
+    ws2_test_json_unauthorized 'browse by area, inc=user-collections, bad credentials',
+        '/collection/?area=85752fda-13c4-31a3-bee5-0e5cb1f51dad&inc=user-collections',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
+};
+
+test "browsing by release" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    ws2_test_json 'browse by release',
+        '/collection/?release=0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "release-count" => 1,
+                    "id" => "dd07ea8b-0ec3-4b2d-85cf-80e523de4902",
+                    "type" => "Release",
+                    "editor" => "the-anti-kuno",
+                    "name" => "public release collection",
+                    "entity-type" => "release"
+                },
+            ],
+        };
+
+    ws2_test_json 'browse by release, no public collections',
+        '/collection/?release=b3b7e934-445b-4c68-a097-730c6a6d47e6' => {
+            "collection-count" => 0,
+            "collection-offset" => 0,
+            "collections" => [],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json 'browse by release, inc=user-collections',
+        '/collection/?release=b3b7e934-445b-4c68-a097-730c6a6d47e6&inc=user-collections' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "release-count" => 1,
+                    "id" => "1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5",
+                    "type" => "Release",
+                    "editor" => "the-anti-kuno",
+                    "name" => "private release collection",
+                    "entity-type" => "release"
+                },
+            ],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json_forbidden 'browse by release, inc=user-collections, no credentials',
+        '/collection/?release=b3b7e934-445b-4c68-a097-730c6a6d47e6&inc=user-collections';
+
+    ws2_test_json_unauthorized 'browse by release, inc=user-collections, bad credentials',
+        '/collection/?release=b3b7e934-445b-4c68-a097-730c6a6d47e6&inc=user-collections',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
+};
+
+test "browsing by release group" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    ws2_test_json 'browse by release group',
+        '/collection/?release-group=b84625af-6229-305f-9f1b-59c0185df016' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "release-group-count" => 1,
+                    "id" => "dadae81b-ff9e-464e-8c38-51156557bc36",
+                    "type" => "Release group",
+                    "editor" => "the-anti-kuno",
+                    "name" => "public release group collection",
+                    "entity-type" => "release_group"
+                },
+            ],
+        };
+
+    ws2_test_json 'browse by release group, no public collections',
+        '/collection/?release-group=202cad78-a2e1-3fa7-b8bc-77c1f737e3da' => {
+            "collection-count" => 0,
+            "collection-offset" => 0,
+            "collections" => [],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json 'browse by release group, inc=user-collections',
+        '/collection/?release-group=202cad78-a2e1-3fa7-b8bc-77c1f737e3da&inc=user-collections' => {
+            "collection-count" => 1,
+            "collection-offset" => 0,
+            "collections" => [
+                {
+                    "release-group-count" => 1,
+                    "id" => "b0f09ccf-a777-4c17-a917-28e01b0e66a3",
+                    "type" => "Release group",
+                    "editor" => "the-anti-kuno",
+                    "name" => "private release group collection",
+                    "entity-type" => "release_group"
+                },
+            ],
+        }, { username => 'the-anti-kuno', password => 'notreally' };
+
+    ws2_test_json_forbidden 'browse by releasegroup, inc=user-collections, no credentials',
+        '/collection/?release-group=202cad78-a2e1-3fa7-b8bc-77c1f737e3da&inc=user-collections';
+
+    ws2_test_json_unauthorized 'browse by release group, inc=user-collections, bad credentials',
+        '/collection/?release-group=202cad78-a2e1-3fa7-b8bc-77c1f737e3da&inc=user-collections',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
 };
 
 1;

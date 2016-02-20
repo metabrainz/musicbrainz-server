@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
 use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION %ENTITIES entities_with );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
@@ -14,7 +15,7 @@ use Moose::Util qw( find_meta );
 my $ws_defs = Data::OptList::mkopt([
     collection => {
         method => 'GET',
-        linked => [ qw(editor) ],
+        linked => [ entities_with('collections', take => 'url'), qw(editor) ],
         inc => [ qw(user-collections) ],
         optional => [ qw(fmt limit offset) ],
     },
@@ -180,7 +181,10 @@ sub collection_list : Chained('base') PathPart('') {
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     my $stash = WebServiceStash->new;
-    my @result = $c->model('Collection')->find_by_editor($c->user->id, 1);
+    my @result = $c->model('Collection')->find_by({
+        editor_id => $c->user->id,
+        show_private => $c->user->id,
+    });
     my @collections = @{ $result[0] };
     $c->model('Editor')->load(@collections);
     $c->model('Collection')->load_entity_count(@collections);
@@ -200,32 +204,44 @@ sub collection_browse : Private {
 
     my $collections;
     my $stash = WebServiceStash->new;
+    my @result;
+    my $show_private;
+
+    if ($c->stash->{inc}->user_collections) {
+        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+        $show_private = $c->user->id;
+    }
 
     if ($resource eq 'editor') {
         my $editor = $c->model('Editor')->get_by_name($id);
         $c->detach('not_found') unless $editor;
 
-        my $show_private = 0;
-        if ($c->stash->{inc}->user_collections) {
-            $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+        if ($show_private) {
             $self->unauthorized($c) unless $c->user->id == $editor->id;
-            $show_private = 1;
         }
 
-        my @result = $c->model('Collection')->find_by_editor(
-            $editor->id,
-            $show_private,
-            undef, # entity_type
-            $limit,
-            $offset,
-        );
+        @result = $c->model('Collection')->find_by({
+            editor_id => $editor->id,
+            show_private => $show_private,
+        }, $limit, $offset);
+    } else {
+        my $entity_type = $resource;
+        $entity_type =~ s/-/_/g;
+        my $entity = $c->model(type_to_model($entity_type))->get_by_gid($id);
+        $c->detach('not_found') unless $entity;
 
-        $collections = $self->make_list(@result, $offset);
-        my @collections = @{ $result[0] };
-        $_->editor($editor) for @collections;
-        $c->model('Collection')->load_entity_count(@collections);
-        $c->model('CollectionType')->load(@collections);
+        @result = $c->model('Collection')->find_by({
+            entity_type => $entity_type,
+            entity_id => $entity->id,
+            show_private => $show_private,
+        }, $limit, $offset);
     }
+
+    $collections = $self->make_list(@result, $offset);
+    my @collections = @{ $result[0] };
+    $c->model('Editor')->load(@collections);
+    $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection-list', $collections, $c->stash->{inc}, $stash));

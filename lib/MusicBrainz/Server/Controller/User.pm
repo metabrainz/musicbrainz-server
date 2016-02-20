@@ -308,10 +308,13 @@ sub collections : Chained('load') PathPart('collections')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
-    my $show_private = $c->stash->{viewing_own_profile};
+    my $viewing_own_profile = $c->stash->{viewing_own_profile};
     my $no_collections = 1;
 
-    my ($collections) = $c->model('Collection')->find_by_editor($user->id, $show_private);
+    my ($collections) = $c->model('Collection')->find_by({
+        editor_id => $user->id,
+        show_private => $viewing_own_profile ? $user->id : undef,
+    });
     $c->model('Collection')->load_entity_count(@$collections);
     $c->model('CollectionType')->load(@$collections);
 
