@@ -40,8 +40,7 @@
             [% ELSIF server_details.is_slave_db %]
                 <div class="banner server-details">
                     <p>
-                        [% l('This is a MusicBrainz mirror server. To edit or make changes to the data, please
-                              {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
+                        [% l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
                     </p>
                     [% dismiss_banner_button('server_details') %]
                 </div>
