@@ -58,8 +58,8 @@ const serverDetailsBanner = (server) => {
     return (
       <div className="banner server-details">
         <p>
-          {l('This is a Musicbrainz mirror server. To edit or make changes to the data please ' +
-             '{uri|return to musicbrainz.org}.', {uri: '//musicbrainz.org'})}
+          {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
+             {uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
@@ -140,7 +140,7 @@ const Layout = (props) => {
         {!!server.read_only &&
           <div className="banner server-details">
             <p>
-              {l('The server is temporary in read-only mode for database maintainance.')}
+              {l('The server is temporarily in read-only mode for database maintenance.')}
             </p>
           </div>}
 
