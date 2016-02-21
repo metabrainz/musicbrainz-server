@@ -1,5 +1,9 @@
 [%- WRAPPER "$entity_type/layout.tt" title=l('Tags') page='tags' -%]
-    [%- INCLUDE "components/tags.tt" entity=entity no_tags_text=l('Nobody has tagged this yet.') -%]
+    [%- INCLUDE "components/tags.tt" entity=entity -%]
+
+    [%- UNLESS tags.size OR c.user_exists -%]
+        <p>[% l('Nobody has tagged this yet.') %]</p>
+    [%- END -%]
 
     [% IF c.user_exists %]
         <script>
