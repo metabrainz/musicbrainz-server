@@ -2,12 +2,12 @@
 # Translators:
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2015
+# Maurits Meulenbelt <email address hidden>, 2013-2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-19 11:44+0000\n"
+"PO-Revision-Date: 2016-02-15 14:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -199,7 +199,7 @@ msgstr "Grote Schisma"
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
-msgstr "Catalogus van CS Baby geïmporteerd als cd-beginsels"
+msgstr "Catalogus van CD Baby geïmporteerd als cd-beginsels"
 
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
