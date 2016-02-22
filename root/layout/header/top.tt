@@ -1,0 +1,102 @@
+<div class="links-container">
+    <ul class="menu">
+    [%- IF c.user_exists -%]
+        <li class="account">
+            <span class="menu-header">[%- c.user.name | html -%]&#xA0;&#x25BE;</span>
+            <ul>
+                <li>
+                    <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('Profile') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/account/applications') %]">[% l('Applications') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/subscriptions/artist', [ c.user.name ]) %]">[% l('Subscriptions') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/logout') %]">[% l('Log Out') %]</a>
+                </li>
+            </ul>
+        </li>
+        <li class="data">
+            <span class="menu-header">[%- l('My Data') -%]&#xA0;&#x25BE;</span>
+            <ul>
+                <li>
+                    <a href="[% c.uri_for_action('/user/collections', [ c.user.name ]) %]">[% l('My Collections') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/ratings', [ c.user.name ]) %]">[% l('My Ratings') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/tags', [ c.user.name ]) %]">[% l('My Tags') %]</a>
+                </li>
+                <li class="separator">
+                    <a href="[% c.uri_for_action('/user/edits/open', [ c.user.name ]) %]">[% l('My Open Edits') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/edits/all', [ c.user.name ]) %]">[% l('All My Edits') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Edits for Subscribed Entities') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Edits by Subscribed Editors') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/edit/notes_received') %]">[% l('Notes Left on My Edits') %]</a>
+                </li>
+            </ul>
+        </li>
+        [% IF c.user_exists && c.user.is_admin %]
+            <li class="admin">
+                <span class="menu-header">[% l('Admin') %]&#xA0;&#x25BE;</span>
+                <ul>
+                    [% IF c.user.is_location_editor %]
+                        <li>
+                            <a href="[% c.uri_for('/area/create') %]">[% lp('Add Area', 'button/menu') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            <a href="[% c.uri_for('/instrument/create') %]">[% lp('Add Instrument', 'button/menu') %]</a>
+                        </li>
+                        <li>
+                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_banner_editor %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_account_admin %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Edit Attributes') %]</a>
+                        </li>
+                    [% END %]
+                </ul>
+            </li>
+        [% END %]
+    [%- ELSE -%]
+        <li>[% request_login(l('Log In')) %]</li>
+        <li><a href="[% register_url() %]">[% l('Create Account') %]</a></li>
+    [%- END -%]
+    </ul>
+</div>
+
+<div class="search-container">
+    [% USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') ~%]
+    <form action="[% c.uri_for('/search') %]" method="get">
+        [% sidebar.text('query', { placeholder => l('Search') }) %]
+        [% sidebar.select('type') %]
+        [% sidebar.hidden('method', { value => 'indexed' }) %]
+        <button type="submit">
+            <img src="/static/images/icons/search.svg" />
+        </button>
+    </form>
+</div>

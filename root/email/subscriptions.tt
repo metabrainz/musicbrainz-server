@@ -59,4 +59,4 @@ Open edits: http://127.0.0.1:3000/edit/search/?editor=[%sub.sub.subscribededitor
 
 ------------------------------------------------------------------------
 Please do not reply to this message.  If you need help, please see
-http://musicbrainz.org/doc/ContactUs
+[% contact_url %]

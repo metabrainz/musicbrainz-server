@@ -5,14 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Translation qw(l ln );
 
-sub index : Path Args(0) RequireAuth
-{
-    my ($self, $c) = @_;
-
-    $c->detach('/error_403')
-        unless $c->user->is_admin;
-}
-
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
@@ -21,6 +13,8 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
         unless $c->user->is_account_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
 
     my $user = $c->model('Editor')->get_by_name($user_name);
+    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
+
     my $form = $c->form(
         form => 'User::AdjustFlags',
         item => {
@@ -92,6 +86,8 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     my ($self, $c, $name) = @_;
 
     my $editor = $c->model('Editor')->get_by_name($name);
+    $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $editor->id;
+
     $c->detach('/error_404') if !$editor || $editor->deleted;
 
     my $id = $editor->id;

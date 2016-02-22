@@ -7,8 +7,8 @@ const _ = require('lodash');
 
 const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
 const clean = require('../../common/utility/clean');
+const nonEmpty = require('../../common/utility/nonEmpty');
 const request = require('../../common/utility/request');
-const nonEmpty = require('../utility/nonEmpty');
 
 (function (edit) {
 

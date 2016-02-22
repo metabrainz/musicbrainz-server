@@ -18,12 +18,10 @@ use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Test::HTML5 qw( xhtml_ok html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;
-use Template;
 use Test::Builder;
 use Test::Deep qw( cmp_deeply );
 use Test::Differences;
 use Test::JSON import => [qw( is_valid_json )];
-use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
 use Test::XPath;
@@ -247,37 +245,6 @@ sub reject_edit
     $c->sql->begin;
     $c->model('Edit')->reject($edit);
     $c->sql->commit;
-}
-
-our $mock;
-sub mock_context
-{
-    $mock ||= do {
-        my $meta_c = Test::Mock::Class->create_mock_anon_class();
-        $meta_c->add_mock_method('uri_for_action');
-        $meta_c->new_object;
-    };
-    return $mock;
-}
-
-our $tt;
-sub evaluate_template
-{
-    my ($class, $template, %vars) = @_;
-    $tt ||= Template->new({
-        INCLUDE_PATH => "$Bin/../root",
-        TEMPLATE_EXTENSION => '.tt',
-        PLUGIN_BASE => 'MusicBrainz::Server::Plugin',
-        PRE_PROCESS => [
-            'components/common-macros.tt',
-        ]
-    });
-
-    $vars{c} ||= mock_context();
-
-    my $out = '';
-    $tt->process(\$template, \%vars, \$out) || die $tt->error();
-    return $out;
 }
 
 sub old_edit_row

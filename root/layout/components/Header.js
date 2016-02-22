@@ -5,20 +5,18 @@
 
 const React = require('react');
 
-const Menu = require('./Menu');
-const Search = require('./Search');
+const TopMenu = require('./TopMenu');
+const BottomMenu = require('./BottomMenu');
 
 const Header = (props) => (
-  <div id="header">
-    <div id="header-logo">
-      <a href="/" className="logo" title="MusicBrainz">
-        <strong>MusicBrainz</strong>
-      </a>
-      <div>
-        <Search {...props} />
-      </div>
+  <div className="header">
+    <a href="/" className="logo" title="MusicBrainz">
+      <img src="/static/images/layout/header-logo.svg" className="logo" />
+    </a>
+    <div className="right">
+      <TopMenu {...props} />
+      <BottomMenu {...props} />
     </div>
-    <Menu {...props} />
   </div>
 );
 

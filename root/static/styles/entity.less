@@ -3,9 +3,8 @@
  */
 
 div.tabs {
-    border-bottom: solid 1px @dark-border;
+    border-bottom: solid 1px @light-border;
     padding-top: 1em;
-    font-size: @small-text;
 
     ul {
         overflow: hidden;
@@ -22,24 +21,29 @@ div.tabs {
 
             a {
                 display: block;
-                padding: 0.1em 0.5em;
-                margin-left: 4px;
+                padding: .25em .55em;
+                margin-right: 2px;
                 text-decoration: none;
-                background: @very-light-bg;
                 color: @text-black;
-                border: solid 1px @dark-border;
-                border-bottom: solid 1px @dark-border;
+                border: solid 1px @light-border;
+                border-radius: 4px 4px 0 0;
+                &:hover {
+                    border-color: @musicbrainz-purple;
+                }
             }
-
-            &.sel a, a:hover {
-                background: #fff;
-                color: @text-black;
-            }
-
             &.sel a {
-                font-weight: bold;
-                border-bottom: solid 1px #fff;
+                &,
+                &:hover,
+                &:focus {
+                    color: @text-white;
+                    font-weight: bold;
+                    background-color: @musicbrainz-orange;
+                    border-color: @musicbrainz-orange;
+                    border-bottom-color: transparent;
+                    cursor: default;
+                }
             }
+
         }
     }
 }

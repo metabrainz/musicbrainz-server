@@ -4,8 +4,8 @@
 
 <h2>[% l("Tags") %]</h2>
 
-[%- IF tags.size OR c.user_exists -%]
-  <div id="all-tags">
+<div id="all-tags">
+  [%- IF tags.size -%]
     <ul class="tag-list">
       [%- FOREACH tag IN tags -%]
         <li class="[% loop.parity %]">
@@ -16,7 +16,5 @@
         </li>
       [%- END -%]
     </ul>
-  </div>
-[%- ELSE -%]
-  <p>[% no_tags_text %]</p>
-[%- END -%]
+  [%- END -%]
+</div>

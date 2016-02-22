@@ -1,7 +1,7 @@
 INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
         email_confirm_date, last_login_date, edits_accepted, edits_rejected,
         auto_edits_accepted, edits_failed, ha1)
-    VALUES (1, 'new_editor', '{CLEARTEXT}password', 1+8+32, 'test@email.com', 'http://test.website',
+    VALUES (1, 'new_editor', '{CLEARTEXT}password', 1+8+32+512, 'test@email.com', 'http://test.website',
         'biography', '1989-07-23', '2005-10-20', '2013-04-05', 12, 2, 59, 9, 'aa550c5b01407ef1f3f0d16daf9ec3c8'),
          (2, 'Alice', '{CLEARTEXT}secret1', 0, 'alice@example.com', 'http://example.com',
         'second biography', '2007-07-23', '2007-10-20', now(), 11, 3, 41, 8, 'e7f46e4f25ae38fcc952ef2b7edf0de9'),
@@ -15,7 +15,8 @@ INSERT INTO editor_preference (editor, name, value)
            (1, 'timezone', 'UTC'),
            (2, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (2, 'timezone', 'UTC'),
-           (2, 'public_ratings', '0');
+           (2, 'public_ratings', '0'),
+           (2, 'public_tags', '0');
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 1);

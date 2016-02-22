@@ -156,7 +156,7 @@
       (<!-- ko text: $data --><!-- /ko -->)
     <!-- /ko -->
     <!-- ko if: relationship.period.ended() && !relationship.formatDatePeriod() -->
-      ([% l('ended') %])
+      [% bracketed(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
   <!-- ko with: relationship.phraseAndExtraAttributes()[2] -->

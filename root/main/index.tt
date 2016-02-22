@@ -30,7 +30,7 @@
             <div class="linkbar">
                 [% l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}',
                     { about => doc_link('About'),
-                      contact => doc_link('Contact_Us'),
+                      contact => contact_url,
                       faq => doc_link('Frequently_Asked_Questions') }) %]
             </div>
 
@@ -89,9 +89,11 @@
     <div id="triple">
         <div id="community" class="feature-column">
             <h2 class="community">[% l('Community') %]</h2>
-            <p>
-                <a href="[% doc_link('How_to_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
-            </p>
+            <ul>
+                <li><a href="[% doc_link('How_to_Contribute') %]">[% l('How to Contribute') %]</a></li>
+                <li><a href="http://tickets.musicbrainz.org/">[% l('Bug Tracker') %]</a></li>
+                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a></li>
+            </ul>
         </div>
 
         <div id="products" class="feature-column">

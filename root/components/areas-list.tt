@@ -1,27 +1,27 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists && checkboxes %]<th class="pos"></th>[% END %]
-            <th>[% l('Area') %]</th>
-            <th>[% l('Type') %]</th>
+            [%~ IF c.user_exists && checkboxes %]<th class="pos"></th>[% END ~%]
+            <th>[% sortable ? sortable_table_header('name', l('Area')) : l('Area') %]</th>
+            <th>[% sortable ? sortable_table_header('type', l('Type')) : l('Type') %]</th>
         </tr>
     </thead>
     <tbody>
-        [% DEFAULT areas=entities %]
-        [% FOR entity IN areas %]
+        [%~ DEFAULT areas=entities ~%]
+        [%~ FOR entity IN areas ~%]
         <tr class="[% loop.parity %]">
-            [% IF c.user_exists && checkboxes %]
+            [%~ IF c.user_exists && checkboxes ~%]
             <td>
-              <input type="checkbox" name="[% checkboxes %]" value="[% area.id %]" />
+              <input type="checkbox" name="[% checkboxes %]" value="[% entity.id %]" />
             </td>
-            [% END %]
+            [%~ END ~%]
             <td>
-                [% descriptive_link(entity) %]
+                [%~ descriptive_link(entity) ~%]
             </td>
             <td>
-                [% entity.l_type_name %]
+                [%~ entity.l_type_name ~%]
             </td>
         </tr>
-        [% END %]
+        [%~ END ~%]
     </tbody>
 </table>

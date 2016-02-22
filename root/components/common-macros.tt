@@ -337,7 +337,7 @@ END -%]
 [%~ BLOCK _link_mbid_entity;
     # parameters: content, entity, type, action, default_content, hover, namevar, noescape
     DEFAULT action = 'show';
-    link = c.uri_for_action('/' _ type _ '/' _ action, [ entity.gid ]);
+    link = c.get_relative_uri(c.uri_for_action('/' _ type _ '/' _ action, [ entity.gid ]));
     mod_content = content;
 
     options = ['link', 'isolate'];
@@ -381,7 +381,7 @@ END -%]
     DEFAULT action = 'show';
     SET action_params = [] UNLESS action_params.size;
     action_params.push(default_content);
-    link = c.uri_for_action('/' _ type _ '/' _ action, action_params);
+    link = c.get_relative_uri(c.uri_for_action('/' _ type _ '/' _ action, action_params));
     mod_content = content != '' ? content : default_content;
 
     options = ['escape'];
@@ -746,7 +746,7 @@ END -%]
         l('until {date}', { date => relationship.link.end_date.format });
     ELSIF relationship.link.ended;
         ' ';
-        l('ended');
+        bracketed(l('ended'));
     END;
     IF relationship.${extra_attributes_field};
         ' (' _ relationship.${extra_attributes_field} _ ')';

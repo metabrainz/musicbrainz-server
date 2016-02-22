@@ -5,7 +5,7 @@
 
 const _ = require('lodash');
 
-const nonEmpty = require('./nonEmpty');
+const nonEmpty = require('../../common/utility/nonEmpty');
 const parseInteger = require('./parseInteger');
 const parseIntegerOrNull = require('./parseIntegerOrNull');
 

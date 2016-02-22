@@ -10,7 +10,7 @@ const Gettext = require('node-gettext');
 const path = require('path');
 
 const EN_HANDLE = new Gettext();
-const GETTEXT_HANDLES = new Map();
+const GETTEXT_HANDLES = {};
 const PO_DIR = path.resolve(__dirname, '../../po');
 
 const TEXT_DOMAINS = [
@@ -55,7 +55,7 @@ function loadMoFiles(lang) {
     );
   });
 
-  GETTEXT_HANDLES.set(lang, gettext);
+  GETTEXT_HANDLES[lang] = gettext;
   return gettext;
 }
 
@@ -63,8 +63,8 @@ function getHandle(lang) {
   let handle;
   if (!lang) {
     handle = EN_HANDLE;
-  } else if (GETTEXT_HANDLES.has(lang)) {
-    handle = GETTEXT_HANDLES.get(lang) || EN_HANDLE;
+  } else if (GETTEXT_HANDLES[lang]) {
+    handle = GETTEXT_HANDLES[lang] || EN_HANDLE;
   } else if (lang === 'en') {
     handle = EN_HANDLE;
   } else {
@@ -72,7 +72,7 @@ function getHandle(lang) {
       handle = loadMoFiles(lang);
     } catch (e) {
       console.warn(e);
-      GETTEXT_HANDLES.set(lang, null);
+      GETTEXT_HANDLES[lang] = null;
       handle = EN_HANDLE;
     }
   }
@@ -80,7 +80,11 @@ function getHandle(lang) {
 }
 
 function clearHandles() {
-  GETTEXT_HANDLES.clear();
+  for (let key in GETTEXT_HANDLES) {
+    if (GETTEXT_HANDLES.hasOwnProperty(key)) {
+      delete GETTEXT_HANDLES[key];
+    }
+  }
 }
 
 exports.findObjectFile = findObjectFile;

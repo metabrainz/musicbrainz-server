@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}, cover_art => {copy_stash => ['cover_art']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name     => 'release'
+    entity_type => 'release'
 };
 
 use List::Util qw( first );

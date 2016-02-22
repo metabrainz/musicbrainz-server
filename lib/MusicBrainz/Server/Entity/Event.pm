@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'EventType' };
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Types qw( Time );
 use List::UtilsBy qw( uniq_by );
 
@@ -102,6 +103,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
+        cancelled => boolean_to_json($self->cancelled),
         time => $self->formatted_time,
     };
 };

@@ -7,7 +7,7 @@
         [%- l('We have not received a donation from you recently. If you have just made a PayPal donation, then we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.') -%]
       </p>
       <p>
-        [%- l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.', {contact => doc_link("Contact_Us"), donate="https://metabrainz.org/donate"}) -%]
+        [%- l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.', {contact => contact_url, donate="https://metabrainz.org/donate"}) -%]
       </p>
    [% ELSE %]
       <p>

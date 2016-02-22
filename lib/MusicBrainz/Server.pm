@@ -12,6 +12,7 @@ use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
 use Try::Tiny;
+use URI;
 use aliased 'MusicBrainz::Server::Translation';
 
 # Set flags and add plugins for the application
@@ -250,6 +251,18 @@ sub relative_uri
     $uri->path_query($self->req->uri->path_query);
 
     return $uri;
+}
+
+sub get_relative_uri {
+    my ($c, $uri_string) = @_;
+
+    my $uri = URI->new($uri_string);
+    my $path = $uri->path_query;
+    my $frag = $uri->fragment;
+
+    $path = '/' . $path unless $path =~ /^\//;
+    $path .= '#' . $frag if $frag;
+    $path;
 }
 
 sub gettext  { shift; Translation->instance->gettext(@_) }

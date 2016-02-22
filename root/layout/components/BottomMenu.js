@@ -6,11 +6,10 @@
 const _ = require('lodash');
 const React = require('react');
 
-const EditorLink = require('../../static/scripts/common/components/EditorLink');
 const {VARTIST_GID} = require('../../static/scripts/common/constants');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
-function languageLink(language) {
+function languageName(language, selected) {
   let {id, native_language, native_territory} = language[1];
   let text = `[${id}]`;
 
@@ -22,20 +21,26 @@ function languageLink(language) {
     }
   }
 
+  if (selected) {
+    text += ' \u25be';
+  }
+
+  return text;
+}
+
+function languageLink(language) {
   return (
     <a href={"/set-language/" + encodeURIComponent(language[0])}>
-      {text}
+      {languageName(language, false)}
     </a>
   );
 }
 
-function userLink(userName, path) {
-  return `/user/${encodeURIComponent(userName)}${path}`;
-}
-
 const LanguageMenu = () => (
   <li className="language-selector">
-    {languageLink(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language))}
+    <span className="menu-header">
+      {languageName(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
+    </span>
     <ul>
       {$c.stash.server_languages.map(function (l, index) {
         let inner = languageLink(l);
@@ -60,114 +65,21 @@ const LanguageMenu = () => (
   </li>
 );
 
-const AccountMenu = () => (
-  <li className="account">
-    <EditorLink editor={$c.user} />
-    <ul>
-      <li>
-        <a href="/account/edit">{l('Edit Profile')}</a>
-      </li>
-      <li>
-        <a href="/account/change-password">{l('Change Password')}</a>
-      </li>
-      <li>
-        <a href="/account/preferences">{l('Preferences')}</a>
-      </li>
-      <li>
-        <a href="/account/applications">{l('Applications')}</a>
-      </li>
-      <li>
-        <a href={userLink($c.user.name, '/subscriptions/artist')}>
-          {l('Subscriptions')}
-        </a>
-      </li>
-      <li>
-        <a href="/logout">{l('Log Out')}</a>
-      </li>
-    </ul>
-  </li>
-);
-
-const DataMenu = () => {
-  let userName = $c.user.name;
-
-  return (
-    <li className="data">
-      <a href={userLink(userName, '/profile')}>{l('My Data')}</a>
-      <ul>
-        <li>
-          <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/tags')}>{l('My Tags')}</a>
-        </li>
-        <li className="separator">
-          <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/edits/all')}>{l('All My Edits')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed_editors">{l('Edits by Subscribed Editors')}</a>
-        </li>
-        <li>
-          <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
-        </li>
-      </ul>
-    </li>
-  );
-};
-
-const AdminMenu = () => (
-  <li className="admin">
-    <a href="/admin">{l('Admin')}</a>
-    <ul>
-      {$c.user.is_location_editor &&
-        <li>
-          <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
-        </li>}
-
-      {$c.user.is_relationship_editor && [
-        <li key="1">
-          <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
-        </li>,
-        <li key="2">
-          <a href="/relationships">{l('Edit Relationship Types')}</a>
-        </li>]}
-
-      {$c.user.is_wiki_transcluder &&
-        <li>
-          <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
-        </li>}
-
-      {$c.user.is_banner_editor &&
-        <li>
-          <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
-        </li>}
-
-      {$c.user.is_account_admin &&
-        <li>
-          <a href="/admin/attributes">{l('Edit Attributes')}</a>
-        </li>}
-    </ul>
-  </li>
-);
-
 const AboutMenu = () => (
   <li className="about">
-    <a href="/doc/About">{l('About')}</a>
+    <span className="menu-header">{l('About Us')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
-        <a href="//metabrainz.org/doc/Sponsors">{l('Sponsors')}</a>
+        <a href="/doc/About">{l('About MusicBrainz')}</a>
       </li>
       <li>
-        <a href="/doc/About/Team">{l('Team')}</a>
+        <a href="https://metabrainz.org/sponsors">{l('Sponsors')}</a>
+      </li>
+      <li>
+        <a href="https://metabrainz.org/team">{l('Team')}</a>
+      </li>
+      <li>
+        <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
       </li>
       <li className="separator">
         <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
@@ -197,17 +109,9 @@ const AboutMenu = () => (
   </li>
 );
 
-const BlogMenu = () => (
-  <li className="blog">
-    <a href="http://blog.musicbrainz.org" className="internal">
-      {l('Blog')}
-    </a>
-  </li>
-);
-
 const ProductsMenu = () => (
   <li className="products">
-    <a href="/doc/Products">{l('Products')}</a>
+    <span className="menu-header">{l('Products')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
@@ -245,8 +149,11 @@ const ProductsMenu = () => (
 
 const SearchMenu = () => (
   <li className="search">
-    <a href="/search">{l('Search')}</a>
+    <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
     <ul>
+      <li>
+        <a href="/search">{l('Search Entities')}</a>
+      </li>
       {$c.user &&
         <li>
           <a href="/search/edits">{l('Search Edits')}</a>
@@ -263,7 +170,7 @@ const SearchMenu = () => (
 
 const EditingMenu = () => (
   <li className="editing">
-    <a href="/doc/How_Editing_Works">{l('Editing')}</a>
+    <span className="menu-header">{l('Editing')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
@@ -309,7 +216,7 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation">
-    <a href="/doc/MusicBrainz_Documentation">{l('Documentation')}</a>
+    <span className="menu-header">{l('Documentation')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
@@ -322,6 +229,9 @@ const DocumentationMenu = () => (
       </li>
       <li>
         <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
+      </li>
+      <li>
+        <a href="/doc/MusicBrainz_Documentation">{l('Documentation Index')}</a>
       </li>
       <li className="separator">
         <a href='/doc/Edit_Types'>{l('Edit Types')}</a>
@@ -339,68 +249,17 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const ContactMenu = () => (
-  <li className="contact">
-    <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
-    <ul>
-      <li>
-        <a href="http://forums.musicbrainz.org" className="internal">
-          {l('Forums')}
-        </a>
-      </li>
-      <li>
-        <a href="http://tickets.musicbrainz.org" className="internal">
-          {l('Report a Bug')}
-        </a>
-      </li>
+const BottomMenu = () => (
+  <div className="bottom">
+    <ul className="menu">
+      <AboutMenu />
+      <ProductsMenu />
+      <SearchMenu />
+      {$c.user && <EditingMenu />}
+      <DocumentationMenu />
+      {$c.stash.server_languages.length > 1 && <LanguageMenu />}
     </ul>
-  </li>
-);
-
-const LeftMenu = () => (
-  <ul>
-    <AboutMenu />
-    <BlogMenu />
-    <ProductsMenu />
-    <SearchMenu />
-    {$c.user && <EditingMenu />}
-    <DocumentationMenu />
-    <ContactMenu />
-  </ul>
-);
-
-const RightMenu = (props) => (
-  <ul className="r">
-    {$c.stash.server_languages.length > 1 && <LanguageMenu />}
-
-    {$c.user && [
-      <AccountMenu key={1} />,
-      <DataMenu key={2} />,
-      $c.user.is_admin && <AdminMenu key={3} />
-    ]}
-
-    {!$c.user && [
-      <li key={4}>
-        <a href={"/login?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Log In')}
-        </a>
-      </li>,
-      <li key={5}>
-        <a href={"/register?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Create Account')}
-        </a>
-      </li>
-    ]}
-  </ul>
-);
-
-const Menu = () => (
-  <div id="header-menu">
-    <div>
-      <RightMenu />
-      <LeftMenu />
-    </div>
   </div>
 );
 
-module.exports = Menu;
+module.exports = BottomMenu;

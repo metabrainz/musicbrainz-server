@@ -215,7 +215,7 @@ test all => sub {
                  "disregard this email.\n".
                  "\n".
                  "If you still have problems logging in, please drop us a line - see\n".
-                 "$server/doc/Contact_Us for details.\n".
+                 "https://metabrainz.org/contact for details.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
 

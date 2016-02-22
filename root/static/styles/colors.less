@@ -25,16 +25,16 @@
 @dark-button-border: @medium-border;                 // the darker of the button border colors (for shading)
 @light-button-border: @very-light-border;            // the lighter of the button border colors (for shading)
 
-@musicbrainz-purple: #736DAB;                        // the purple used in the top header and some subheaders
-@musicbrainz-orange: #FFBA58;                        // the orange used alongside that purple
+@musicbrainz-purple: #BA478F;                        // the purple used in the top header and some subheaders
+@musicbrainz-orange: #EB743B;                        // the orange used alongside that purple
 
-@text-orange: #FC6714;                               // the orange we use for text (headers, link hovers, etc.)
+@text-orange: @musicbrainz-orange;                   // the orange we use for text (headers, link hovers, etc.)
 @edit-orange: #FFDD99;                               // the edits-pending color. also used other random spots
 
 @text-purple: darken(@musicbrainz-purple, 10%);      // a darker purple better suited to text
 
 @link-default: #002BBA;                              // default link color
-@link-visited: #632D9B;                              // visited link color
+@link-visited: @text-purple;                         // visited link color
 
 @light-border-blue: #ADB9CC;                         // the thin-bordered table borders (e.g. statistics)
 @light-border-background: @very-light-border;        // the background for the light-border tables

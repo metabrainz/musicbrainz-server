@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use String::TT qw( strip tt );
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
+use MusicBrainz::Server::Constants qw( $CONTACT_URL $EMAIL_SUPPORT_ADDRESS );
 use MusicBrainz::Server::Email;
 
 has 'editor' => (
@@ -55,9 +55,9 @@ future.
 
 sub footer {
     my $self = shift;
-    return strip tt q{
+    return strip tt qq{
 Please do not reply to this message.  If you need help, please see
-[% self.server %]/doc/ContactUs
+$CONTACT_URL
 };
 }
 

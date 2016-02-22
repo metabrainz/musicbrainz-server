@@ -30,6 +30,7 @@
     "jed": "1.1.0",
     "jquery": "1.11.2",
     "jquery.browser": "gabceb/jquery-browser-plugin#e4a01fd",
+    "jsx-control-statements": "3.1.0",
     "knockout": "mwiencek/knockout#a8f12df",
     "knockout-arraytransforms": "2.0.0",
     "less-plugin-clean-css": "1.5.1",
@@ -44,8 +45,8 @@
     "q": "1.4.1",
     "querystring": "0.2.0",
     "rcss": "0.1.5",
-    "react": "0.14.3",
-    "react-dom": "0.14.3",
+    "react": "https://github.com/mwiencek/react-packages/raw/master/react.tgz",
+    "react-dom": "https://github.com/mwiencek/react-packages/raw/master/react-dom.tgz",
     "shell-quote": "1.4.3",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
@@ -63,7 +64,7 @@
     "gulp-watch": "4.3.5",
     "jsdom": "7.0.2",
     "node-storage-shim": "1.0.1",
-    "react-addons-test-utils": "0.14.3",
+    "react-addons-test-utils": "https://github.com/mwiencek/react-packages/raw/master/react-addons-test-utils.tgz",
     "tape": "4.2.2"
   },
   "private": true

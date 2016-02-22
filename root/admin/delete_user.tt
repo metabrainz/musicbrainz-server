@@ -1,6 +1,7 @@
+[% WRAPPER "user/profile/layout.tt" title=l('Delete User') page='delete' %]
+
+ <h2>[% l('Delete Account') %]</h2>
 [% IF c.user.is_account_admin && c.user.id != user.id %]
-    [% WRAPPER "user/profile/layout.tt" title=l('Delete User') page='delete' %]
-    <h2>[% l('Delete Account') %]</h2>
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
         { e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
@@ -8,11 +9,7 @@
         <button class="negative" type="submit">[% l('Delete {e}', { e => user.name } ) %]</button>
       </span>
     </form>
-    [% END %]
 [% ELSE %]
-    [% WRAPPER 'layout.tt' title=l('Delete Account') full_width=1 %]
-    <h1>[% l('Delete Account') %]</h1>
-
     <p>[% l('For information about the account deletion process, please read the {uri|account FAQ}.',
            { uri => 'http://wiki.musicbrainz.org/Account_FAQ#How_do_I_delete_my_account.3F' }) %]
     </p>
@@ -23,5 +20,6 @@
         <button class="negative" type="submit">[% l('Delete my account') %]</button>
       </span>
     </form>
-    [% END %]
+[% END %]
+
 [% END %]

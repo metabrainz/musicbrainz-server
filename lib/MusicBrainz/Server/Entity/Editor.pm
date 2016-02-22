@@ -264,6 +264,7 @@ around TO_JSON => sub {
 
     return {
         %{$self->$orig},
+        email => $self->email,
         is_account_admin => boolean_to_json($self->is_account_admin),
         is_admin => boolean_to_json($self->is_admin),
         is_banner_editor => boolean_to_json($self->is_banner_editor),
@@ -271,6 +272,7 @@ around TO_JSON => sub {
         is_location_editor => boolean_to_json($self->is_location_editor),
         is_relationship_editor => boolean_to_json($self->is_relationship_editor),
         is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
+        preferences => $self->preferences->TO_JSON,
     };
 };
 

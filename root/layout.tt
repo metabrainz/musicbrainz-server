@@ -4,22 +4,14 @@
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
-        <div id="header">
-            <div id="header-logo">
-                <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
-                <div>
-                    [% USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') ~%]
-                    <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query', { placeholder => l('search') }) %]
-                        [% sidebar.select('type') %]
-                        [% sidebar.hidden('method', { value => 'indexed' }) %]
-                        [% form_submit(l('Search'), 'inline') %]
-                    </form>
+        <div class="header">
+            <a href="/" title="MusicBrainz"><img src="/static/images/layout/header-logo.svg" class="logo" /></a>
+            <div class="right">
+                <div class="top">
+                    [%- INCLUDE "layout/header/top.tt" -%]
                 </div>
-            </div>
-            <div id="header-menu">
-                <div>
-                    [%- INCLUDE "layout/menu.tt" -%]
+                <div class="bottom">
+                    [%- INCLUDE "layout/header/bottom.tt" -%]
                 </div>
             </div>
         </div>
@@ -48,8 +40,7 @@
             [% ELSIF server_details.is_slave_db %]
                 <div class="banner server-details">
                     <p>
-                        [% l('This is a MusicBrainz mirror server. To edit or make changes to the data, please
-                              {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
+                        [% l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
                     </p>
                     [% dismiss_banner_button('server_details') %]
                 </div>
@@ -130,12 +121,10 @@
             </p>
 
             <p class="right">
-                [% l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google},
-                      {url2|OSUOSL} and {more|others...}. ',
-                    { host => 'https://www.digitalwest.com/',
-                      url1 => 'https://www.google.com/',
-                      url2 => '//osuosl.org/',
-                      more => 'https://metabrainz.org/sponsors',
+                [% l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
+                    { MeB  => 'https://metabrainz.org/',
+                      spon => 'https://metabrainz.org/sponsors',
+                      supp => 'https://metabrainz.org/supporters',
                       caa  => '//coverartarchive.org/' }) %]
             </p>
         </div>

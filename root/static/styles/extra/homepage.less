@@ -8,11 +8,6 @@
         font-size: @small-text;
         padding-left: 1em;
         width: 218px;
-
-        ul {
-            padding-left: 85px;
-            min-height: 65px;
-        }
     }
 }
 
@@ -37,11 +32,17 @@
     }
 }
 
-.feature-column h2 {
-    color: @text-purple;
-    padding: 5px 0 5px 0;
-    margin: 0;
-    border-bottom: 2px solid @musicbrainz-orange;
+.feature-column {
+    h2 {
+        color: @text-orange;
+        padding: 5px 0 5px 0;
+        margin: 0;
+        border-bottom: 2px solid @musicbrainz-purple;
+    }
+    ul {
+        padding-left: 85px;
+        min-height: 65px;
+    }
 }
 
 .linkbar {
@@ -58,7 +59,7 @@
     background: url(/static/images/layout/quick-start.png) no-repeat top left;
 }
 
-#community p {
+#community ul {
     background: url(/static/images/layout/community.png) no-repeat top left;
 }
 

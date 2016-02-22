@@ -5,7 +5,9 @@
 
 const _ = require('lodash');
 
-const i18n = require('../../common/i18n');
+const {l} = require('../../common/i18n');
+const commaList = require('../../common/i18n/commaList');
+const commaOnlyList = require('../../common/i18n/commaOnlyList');
 const clean = require('../../common/utility/clean');
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
@@ -57,14 +59,14 @@ exports.interpolate = function (linkType, attributes) {
         if (type.freeText) {
             value = clean(attribute.textValue());
             if (value) {
-                value = i18n.l('{attribute}: {value}', {attribute: type.l_name, value: value});
+                value = l('{attribute}: {value}', {attribute: type.l_name, value: value});
             }
         }
 
         if (type.creditable) {
             var credit = clean(attribute.creditedAs());
             if (credit) {
-                value = i18n.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
+                value = l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
             }
         }
 
@@ -78,7 +80,7 @@ exports.interpolate = function (linkType, attributes) {
         usedAttributes.push(name);
 
         var values = attributesByName[name] || [];
-        var replacement = i18n.commaList(values)
+        var replacement = commaList(values)
 
         if (alts && (alts = alts.split('|'))) {
             replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || '';
@@ -90,6 +92,6 @@ exports.interpolate = function (linkType, attributes) {
     return [
         clean(phrase.replace(attributeRegex, interpolate)),
         clean(reversePhrase.replace(attributeRegex, interpolate)),
-        i18n.commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value())
+        commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value())
     ];
 };

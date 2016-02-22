@@ -134,8 +134,9 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        code        => $self->primary_code,
+        code => $self->primary_code,
         containment => $containment,
+        iso_3166_1_codes => [$self->iso_3166_1_codes],
     };
 };
 

@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
 use URI::Escape;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
+use MusicBrainz::Server::Constants qw( $CONTACT_URL $EMAIL_SUPPORT_ADDRESS );
 use MusicBrainz::Server::Email;
 
 has 'editor' => (
@@ -110,9 +110,9 @@ To see all open edits for your subscribed entities, see this link:
 
 sub footer {
     my $self = shift;
-    return strip tt q{
+    return strip tt qq{
 Please do not reply to this message.  If you need help, please see
-[% self.server %]/doc/ContactUs
+$CONTACT_URL
 };
 }
 

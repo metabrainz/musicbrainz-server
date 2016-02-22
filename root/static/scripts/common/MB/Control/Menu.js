@@ -24,21 +24,41 @@ MB.Control.HeaderMenu = function () {
     self.timeout = null;
     self.timeout_msecs = 200;
 
-    $('#header-menu > div > ul > li').bind('mouseenter.mb', function (event) {
+    function getLeft(li) {
+        var $li = $(li);
+        if ($li.hasClass('language-selector')) {
+            return '-' + ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) + 'px';
+        }
+        return 'auto';
+    }
+
+    $('.header ul.menu > li').bind('mouseenter.mb', function (event) {
         if (self.timeout) {
             clearTimeout(self.timeout);
-            $('#header-menu ul li ul').css('left', '-10000px');
+            $('.header ul.menu li ul').css('left', '-10000px');
         }
 
-        $(this).children('ul').css('left', 'auto');
+        $(this).children('ul').css('left', getLeft(this));
     });
 
-    $('#header-menu ul li').bind('mouseleave.mb', function (event) {
+    $('.header ul.menu li').bind('mouseleave.mb', function (event) {
         var ul = $(this).children('ul');
 
         self.timeout = setTimeout(function () {
             ul.css('left', '-10000px');
         }, self.timeout_msecs);
+    });
+
+    $('.header .menu-header').on('click touchend', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var ul = $(this).siblings('ul');
+        $('.header ul.menu li ul').not(ul).css('left', '-10000px');
+        ul.css('left', ul.css('left') !== '-10000px' ? '-10000px' : getLeft(this.parentNode));
+        if ($.browser.android) {
+            $(this).parent().siblings().removeClass('fake-active');
+            $(this).parent().toggleClass('fake-active');
+        }
     });
 
     return self;

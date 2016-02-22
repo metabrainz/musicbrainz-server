@@ -1,139 +1,31 @@
-[%- MACRO print_language_link(language) BLOCK -%]
-    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+[%- MACRO print_language_name(language, selected) BLOCK -%]
     [%- IF language.1.native_language != '' -%]
         [%- language.1.native_language | ucfirst -%][%- IF language.1.native_territory != '' %] ([%- language.1.native_territory | ucfirst -%])[%- END -%]
     [%- ELSE -%][[%- language.1.id -%]][%- END -%]
+    [%- IF selected -%]&#xA0;&#x25BE;[%- END -%]
+[%- END -%]
+
+[%- MACRO print_language_link(language) BLOCK -%]
+    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+        [%- print_language_name(language) -%]
     </a>
 [%- END -%]
-<ul class="r">
-    [% IF server_languages.size > 1 -%]
-    <li class="language-selector">
-        [% FOREACH language = server_languages; IF language.0 == current_language -%]
-            [%- print_language_link(language) -%]
-            [%- LAST; END -%]
-        [%- END %]
-        <ul>
-        [%- FOREACH language = server_languages -%]
-            [%- IF language.0 == current_language; selected_language = 1; ELSE; selected_language = 0; END %]
-            <li>[%- IF selected_language == 1 -%]<strong>[%- END %]
-                [%- print_language_link(language) -%]
-                [%- IF selected_language == 1 -%]</strong>[%- END %]
-            </li>
-        [%- END %]
-            <li>
-                <a href="[% c.uri_for_action('/set_language', [ 'unset' ] ) %]">[%- l('(reset language)') -%]</a>
-            </li>
-            <li class="separator">
-                <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
-                    [% l('Help Translate') %]
-                </a>
-            </li>
-        </ul>
-    </li>
-    [%- END %]
-    [%- IF c.user_exists -%]
-        <li class="account">
-            [% link_entity(c.user) %]
-            <ul>
-                <li>
-                    <a href="[% c.uri_for('/account/edit') %]">[% l('Edit Profile') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/account/change_password') %]">[% l('Change Password') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/account/preferences') %]">[% l('Preferences') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/account/applications') %]">[% l('Applications') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/subscriptions/artist', [ c.user.name ]) %]">[% l('Subscriptions') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/logout') %]">[% l('Log Out') %]</a>
-                </li>
-            </ul>
-        </li>
-        <li class="data">
-            <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('My Data') %]</a>
-            <ul>
-                <li>
-                    <a href="[% c.uri_for_action('/user/collections', [ c.user.name ]) %]">[% l('My Collections') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/ratings', [ c.user.name ]) %]">[% l('My Ratings') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/tags', [ c.user.name ]) %]">[% l('My Tags') %]</a>
-                </li>
-                <li class="separator">
-                    <a href="[% c.uri_for_action('/user/edits/open', [ c.user.name ]) %]">[% l('My Open Edits') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/user/edits/all', [ c.user.name ]) %]">[% l('All My Edits') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Edits for Subscribed Entities') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Edits by Subscribed Editors') %]</a>
-                </li>
-                <li>
-                    <a href="[% c.uri_for_action('/edit/notes_received') %]">[% l('Notes Left on My Edits') %]</a>
-                </li>
-            </ul>
-        </li>
-        [% IF c.user_exists && c.user.is_admin %]
-            <li class="admin">
-                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
-                <ul>
-                    [% IF c.user.is_location_editor %]
-                        <li>
-                            <a href="[% c.uri_for('/area/create') %]">[% lp('Add Area', 'button/menu') %]</a>
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_relationship_editor %]
-                        <li>
-                            <a href="[% c.uri_for('/instrument/create') %]">[% lp('Add Instrument', 'button/menu') %]</a>
-                        </li>
-                        <li>
-                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_wiki_transcluder %]
-                        <li>
-                            <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_banner_editor %]
-                        <li>
-                            <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_account_admin %]
-                        <li>
-                            <a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Edit Attributes') %]</a>
-                        </li>
-                    [% END %]
-                </ul>
-            </li>
-        [% END %]
-    [%- ELSE -%]
-        <li>[% request_login(l('Log In')) %]</li>
-        <li><a href="[% register_url() %]">[% l('Create Account') %]</a></li>
-    [%- END -%]
-</ul>
 
-<ul>
+<ul class="menu">
     <li class="about">
-        <a href="[% doc_link('About') %]">[% l('About') %]</a>
+        <span class="menu-header">[% l('About Us') %]&#xA0;&#x25BE;</span>
         <ul>
+            <li>
+                <a href="[% doc_link('About') %]">[% l('About MusicBrainz') %]</a>
+            </li>
             <li>
                 <a href="https://metabrainz.org/sponsors">[% l('Sponsors') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('About/Team') %]">[% l('Team') %]</a>
+                <a href="https://metabrainz.org/team">[% l('Team') %]</a>
+            </li>
+            <li>
+                <a href="[% contact_url %]">[% l('Contact Us') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
@@ -161,14 +53,8 @@
             </li>
         </ul>
     </li>
-    <li class="blog">
-        <a href="http://blog.musicbrainz.org" class="internal">
-            [% l('Blog') %]
-        </a>
-    </li>
-
     <li class="products">
-        <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
+        <span class="menu-header">[% l('Products') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
@@ -203,8 +89,11 @@
         </ul>
     </li>
     <li class="search">
-        <a href="[% c.uri_for('/search') %]">[% l('Search') %]</a>
+        <span class="menu-header">[% l('Search') %]&#xA0;&#x25BE;</span>
         <ul>
+            <li>
+                <a href="[% c.uri_for('/search') %]">[% l('Search Entities') %]</a>
+            </li>
             [%- IF c.user_exists -%]
                 <li>
                     <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search Edits') %]</a>
@@ -220,7 +109,7 @@
     </li>
     [%- IF c.user_exists -%]
         <li class="editing">
-            <a href="[% doc_link('How_Editing_Works') %]">[% l('Editing') %]</a>
+            <span class="menu-header">[% l('Editing') %]&#xA0;&#x25BE;</span>
             <ul>
                 <li>
                     <a href="[% c.uri_for('/artist/create') %]">[% lp('Add Artist', 'button/menu') %]</a>
@@ -262,7 +151,7 @@
         </li>
     [%- END -%]
     <li class="documentation">
-        <a href="[% doc_link('MusicBrainz_Documentation') %]">[% l('Documentation') %]</a>
+        <span class="menu-header">[% l('Documentation') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
@@ -275,6 +164,9 @@
             </li>
             <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
+            </li>
+            <li>
+                <a href="[% doc_link('MusicBrainz_Documentation') %]">[% l('Documentation Index') %]</a>
             </li>
             <li class="separator">
                 <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a>
@@ -290,19 +182,32 @@
             </li>
         </ul>
     </li>
-    <li class="contact">
-        <a href="https://metabrainz.org/contact">[% l('Contact Us') %]</a>
+
+    [% IF server_languages.size > 1 -%]
+    <li class="language-selector">
+        [% FOREACH language = server_languages; IF language.0 == current_language -%]
+            <span class="menu-header">
+                [%- print_language_name(language, 1) -%]
+            </span>
+            [%- LAST; END -%]
+        [%- END %]
         <ul>
-            <li>
-                <a href="http://forums.musicbrainz.org" class="internal">
-                    [% l('Forums') %]
-                </a>
+        [%- FOREACH language = server_languages -%]
+            [%- IF language.0 == current_language; selected_language = 1; ELSE; selected_language = 0; END %]
+            <li>[%- IF selected_language == 1 -%]<strong>[%- END %]
+                [%- print_language_link(language) -%]
+                [%- IF selected_language == 1 -%]</strong>[%- END %]
             </li>
+        [%- END %]
             <li>
-                <a href="http://tickets.musicbrainz.org" class="internal">
-                    [% l('Report a Bug') %]
+                <a href="[% c.uri_for_action('/set_language', [ 'unset' ] ) %]">[%- l('(reset language)') -%]</a>
+            </li>
+            <li class="separator">
+                <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
+                    [% l('Help Translate') %]
                 </a>
             </li>
         </ul>
     </li>
+    [%- END %]
 </ul>

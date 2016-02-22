@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_name => 'recording'
+    entity_type => 'recording'
 };
 
 use MusicBrainz::Server::Constants qw(

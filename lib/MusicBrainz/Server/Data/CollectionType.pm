@@ -49,11 +49,14 @@ sub in_use {
         $id);
 }
 
-around '_get_all_from_db' => sub {
-    my ($orig, $self, @args) = @_;
+sub find_by_entity_type {
+    my ($self, $entity_type) = @_;
 
-    return grep { $ENTITIES{$_->entity_type}{collections} } $self->$orig(@args);
-};
+    $self->query_to_list(
+        'SELECT * FROM editor_collection_type WHERE entity_type = ?',
+        [$entity_type],
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -6,6 +6,7 @@
   ],
   "presets": ["es2015", "stage-2"],
   "plugins": [
+    "jsx-control-statements",
     "transform-react-jsx",
     "transform-react-constant-elements",
     "transform-react-inline-elements"

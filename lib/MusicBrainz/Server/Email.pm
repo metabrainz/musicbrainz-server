@@ -14,7 +14,12 @@ use DBDefs;
 use Try::Tiny;
 use List::UtilsBy qw( sort_by );
 
-use MusicBrainz::Server::Constants qw( :edit_status :email_addresses $MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    :email_addresses
+    $CONTACT_URL
+    $MINIMUM_RESPONSE_PERIOD
+);
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -265,7 +270,6 @@ sub _create_password_reset_request_email
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = $url_prefix . '/doc/Contact_Us';
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
@@ -282,7 +286,7 @@ error, don't worry, you don't need to take any further action and can safely
 disregard this email.
 
 If you still have problems logging in, please drop us a line - see
-$contact_url for details.
+$CONTACT_URL for details.
 
 -- The MusicBrainz Team
 EOS
