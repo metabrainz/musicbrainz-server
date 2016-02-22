@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-28 18:09+0000\n"
+"PO-Revision-Date: 2016-02-14 12:40+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -620,7 +620,7 @@ msgid ""
 "long thin plates - \"lamella\" or \"tongues\" - which are fixed at one end "
 "and free at the other end. The free end is plucked, causing the plate to "
 "vibrate."
-msgstr "Lamellofonen zijn muziekinstrumenten met één of meer lange dunne plaatjes (lamellen of tongen) die aan één kant vast zitten en waarvan de andere kant vrij kan bewegen. Door deze aan te slaan gaan de plaatjes vibreren, waardoor geluid ontstaat."
+msgstr "Lamellofonen zijn muziekinstrumenten met één of meer lange dunne plaatjes (lamellen of tongen) die aan één kant vast zitten en waarvan de andere kant vrij kan bewegen. Door deze plaatjes aan te slaan, gaan ze vibreren, waardoor geluid ontstaat."
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
