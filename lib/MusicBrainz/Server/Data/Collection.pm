@@ -147,8 +147,9 @@ sub find_by {
     }
 
     if (my $entity_type = $opts->{entity_type}) {
-        push @joins, 'JOIN editor_collection_type ct ON editor_collection.type = ct.id';
-        push @conditions, 'ct.entity_type = ?';
+        push @conditions,
+            'EXISTS (SELECT 1 FROM editor_collection_type ct' .
+                    ' WHERE ct.id = editor_collection.type AND ct.entity_type = ?)';
         push @args, $entity_type;
 
         if (my $entity_id = $opts->{entity_id}) {
