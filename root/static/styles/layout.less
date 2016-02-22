@@ -230,6 +230,10 @@ pre code {
                 }
                 li.language-selector {
                     float: right;
+                    position: relative;
+                    > ul {
+                        width: 150px;
+                    }
                 }
             }
         }
@@ -240,6 +244,13 @@ pre code {
             height: 100%;
             list-style-type: none;
             list-style-image: none;
+            > li {
+                > a, .menu-header {
+                    color: @musicbrainz-purple;
+                    cursor: default;
+                    height: 15px;
+                }
+            }
             li {
                 float: left;
                 list-style-type: none;
@@ -253,13 +264,8 @@ pre code {
                 a, .menu-header {
                     display: block;
                     padding: 10px @menu-item-text-padding;
-                    height: 15px;
                     text-decoration: none;
                     font-weight: bold;
-                }
-                > a, .menu-header {
-                    color: @musicbrainz-purple;
-                    cursor: default;
                 }
                 ul {
                     position: absolute;
