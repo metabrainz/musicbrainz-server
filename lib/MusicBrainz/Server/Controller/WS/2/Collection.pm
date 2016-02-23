@@ -63,6 +63,9 @@ sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 sub collection : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
+    $c->detach('method_not_allowed')
+        unless $c->req->method eq 'GET';
+
     my $collection = $self->get_collection_from_stash($c);
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($collection);
@@ -81,9 +84,13 @@ map {
     my $url = $entity_properties->{url};
     my $plural = $entity_properties->{plural};
     my $plural_url = $entity_properties->{plural_url};
+    my $singular_with_article = $entity_properties->{singular_with_article};
 
     my $method = sub {
         my ($self, $c) = @_;
+
+        $c->detach('method_not_allowed')
+            unless $c->req->method eq 'GET';
 
         my $collection = $self->get_collection_from_stash($c);
         my $stash = WebServiceStash->new;
@@ -94,7 +101,7 @@ map {
         $c->model('Collection')->load_entity_count($collection);
         $c->model('CollectionType')->load($collection);
 
-        $self->_error($c, "This is not a $url collection."),
+        $self->_error($c, "This is not $singular_with_article collection."),
             unless ($collection->type->entity_type eq $type);
 
         $c->model('Editor')->load($collection);
@@ -114,6 +121,9 @@ map {
     my $submission_method = sub {
         my ($self, $c, $entities) = @_;
 
+        $c->detach('method_not_allowed')
+            unless $c->req->method eq 'PUT' || $c->req->method eq 'DELETE';
+
         $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
         my $collection = $c->stash->{entity} // $c->detach('not_found');
@@ -122,7 +132,7 @@ map {
         $self->_error($c, 'You do not have permission to modify this collection')
             unless ($c->user->id == $collection->editor_id);
 
-        $self->_error($c, "This is not a $url collection")
+        $self->_error($c, "This is not $singular_with_article collection.")
             unless ($collection->type->entity_type eq $type);
 
         my $client = $c->req->query_params->{client}
@@ -174,6 +184,9 @@ map {
 
 sub collection_list : Chained('base') PathPart('') {
     my ($self, $c) = @_;
+
+    $c->detach('method_not_allowed')
+        unless $c->req->method eq 'GET';
 
     $c->detach('collection_browse')
         if $c->stash->{linked};

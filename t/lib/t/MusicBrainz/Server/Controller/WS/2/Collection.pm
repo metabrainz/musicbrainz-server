@@ -5,6 +5,8 @@ use MusicBrainz::Server::Test qw( html_ok );
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
     ws2_test_xml_forbidden
+    ws2_test_xml_invalid_mbid
+    ws2_test_xml_not_found
     ws2_test_xml_unauthorized
 );
 
@@ -138,13 +140,6 @@ test "collection lookup" => sub {
   </collection-list>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws2_test_xml_forbidden 'all collections, no credentials',
-        '/collection/';
-
-    ws2_test_xml_unauthorized 'all collections, bad credentials',
-        '/collection/',
-        { username => 'the-anti-kuno', password => 'wrong_password' };
-
     ws2_test_xml 'private collection lookup',
         '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5' =>
         '<?xml version="1.0" encoding="UTF-8"?>
@@ -155,13 +150,6 @@ test "collection lookup" => sub {
     <release-list count="1" />
   </collection>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
-
-    ws2_test_xml_forbidden 'private collection lookup, no credentials',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5';
-
-    ws2_test_xml_unauthorized 'private collection lookup, bad credentials',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5',
-        { username => 'the-anti-kuno', password => 'wrong_password' };
 
     ws2_test_xml 'private collection releases lookup',
         '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/' =>
@@ -198,13 +186,6 @@ test "collection lookup" => sub {
     </release-list>
   </collection>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
-
-    ws2_test_xml_forbidden 'private collection releases lookup, no credentials',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/';
-
-    ws2_test_xml_unauthorized 'private collection releases lookup, bad credentials',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/',
-        { username => 'the-anti-kuno', password => 'wrong_password' };
 
     ws2_test_xml 'public collection lookup',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902' =>
@@ -302,6 +283,34 @@ test "collection lookup" => sub {
     </collection>
   </collection-list>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
+};
+
+test "collection lookup errors" => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    ws2_test_xml_forbidden 'all collections, no credentials',
+        '/collection/';
+
+    ws2_test_xml_unauthorized 'all collections, bad credentials',
+        '/collection/',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
+
+    ws2_test_xml_forbidden 'private collection lookup, no credentials',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5';
+
+    ws2_test_xml_unauthorized 'private collection lookup, bad credentials',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
+
+    ws2_test_xml_forbidden 'private collection releases lookup, no credentials',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/';
+
+    ws2_test_xml_unauthorized 'private collection releases lookup, bad credentials',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/',
+        { username => 'the-anti-kuno', password => 'wrong_password' };
 
     ws2_test_xml_forbidden 'browse by editor name, inc=user-collections, no credentials',
         '/collection/?editor=the-anti-kuno&inc=user-collections';
@@ -309,6 +318,67 @@ test "collection lookup" => sub {
     ws2_test_xml_unauthorized 'browse by editor name, inc=user-collections, bad credentials',
         '/collection/?editor=the-anti-kuno&inc=user-collections',
         { username => 'the-anti-kuno', password => 'wrong_password' };
+
+    ws2_test_xml_not_found 'lookup 404s if mbid is not found',
+        '/collection/c1f75626-bff2-499d-b8f3-1a8ade05cb70';
+
+    ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
+        '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
+
+    ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
+        '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
+
+    my $bad_entity_response = sub {
+        my ($singular_with_article) = @_;
+
+        <<EOXML;
+<?xml version="1.0" encoding="UTF-8"?>
+<error>
+  <text>This is not $singular_with_article collection.</text>
+  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+</error>
+EOXML
+    };
+
+    ws2_test_xml 'GET /areas on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/areas',
+        $bad_entity_response->('an area'), { response_code => 400 };
+
+    ws2_test_xml 'GET /artists on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/artists',
+        $bad_entity_response->('an artist'), { response_code => 400 };
+
+    ws2_test_xml 'GET /events on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/events',
+        $bad_entity_response->('an event'), { response_code => 400 };
+
+    ws2_test_xml 'GET /instruments on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/instruments',
+        $bad_entity_response->('an instrument'), { response_code => 400 };
+
+    ws2_test_xml 'GET /labels on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/labels',
+        $bad_entity_response->('a label'), { response_code => 400 };
+
+    ws2_test_xml 'GET /places on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/places',
+        $bad_entity_response->('a place'), { response_code => 400 };
+
+    ws2_test_xml 'GET /releases on a release group collection 400s',
+        '/collection/dadae81b-ff9e-464e-8c38-51156557bc36/releases',
+        $bad_entity_response->('a release'), { response_code => 400 };
+
+    ws2_test_xml 'GET /release-groups on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/release-groups',
+        $bad_entity_response->('a release group'), { response_code => 400 };
+
+    ws2_test_xml 'GET /series on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/series',
+        $bad_entity_response->('a series'), { response_code => 400 };
+
+    ws2_test_xml 'GET /works on a release collection 400s',
+        '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/works',
+        $bad_entity_response->('a work'), { response_code => 400 };
 };
 
 test "browsing by area" => sub {

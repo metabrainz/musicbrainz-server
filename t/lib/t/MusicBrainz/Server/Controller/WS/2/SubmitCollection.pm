@@ -8,10 +8,11 @@ with 't::Mechanize', 't::Context';
 use utf8;
 use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
+use Test::XML::SemanticCompare;
 use XML::SemanticDiff;
 use XML::XPath;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::Test qw( xml_ok xml_post );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
@@ -105,6 +106,14 @@ test all => sub {
             $mech->put_ok($uri);
             note($mech->content);
             xml_ok($mech->content);
+            is_xml_same($mech->content, <<'EOXML');
+<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <message>
+        <text>OK</text>
+    </message>
+</metadata>
+EOXML
 
             ok($c->model('Collection')->contains_entity($entity_type, $collection->id, $entity->id));
         };
@@ -122,10 +131,37 @@ test all => sub {
             $mech->request($req);
             is($mech->status, HTTP_OK);
             xml_ok($mech->content);
+            is_xml_same($mech->content, <<'EOXML');
+<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <message>
+        <text>OK</text>
+    </message>
+</metadata>
+EOXML
 
             ok(!$c->model('Collection')->contains_entity($entity_type, $collection->id, $entity->id));
         };
     }
+
+    subtest 'PUT request to an invalid entity subpath 405s' => sub {
+        $mech->credentials('localhost:80', 'musicbrainz.org', 'the-anti-kuno', 'notreally');
+
+        my $bad_entity_uri =
+            '/ws/2/collection/cc8cd8ee-6477-47d5-a16d-adac11ed9f30/foo/' .
+            '89a675c2-3e37-3518-b83c-418bad59a85a?client=test-1.0';
+
+        $mech->put($bad_entity_uri);
+        is($mech->status, 405);
+        xml_ok($mech->content);
+        is_xml_same($mech->content, <<'EOXML');
+<?xml version="1.0" encoding="UTF-8"?>
+<error>
+    <text>PUT is not allowed on this endpoint.</text>
+    <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+</error>
+EOXML
+    };
 };
 
 1;

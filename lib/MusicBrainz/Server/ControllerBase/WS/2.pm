@@ -152,6 +152,16 @@ sub invalid_mbid : Private
     $c->detach('bad_req');
 }
 
+sub method_not_allowed : Private {
+    my ($self, $c) = @_;
+
+    $c->res->status(405);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->output_error(
+        $c->req->method . ' is not allowed on this endpoint.'
+    ));
+}
+
 sub begin : Private { }
 sub end : Private { }
 
