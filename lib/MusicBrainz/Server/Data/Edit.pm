@@ -407,7 +407,8 @@ ORDER BY id ASC
 LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
 
-    $self->query_to_list_limited($query, \@args, $limit, $offset, undef, 1);
+    $self->query_to_list_limited($query, \@args, $limit, $offset, undef,
+                                 dollar_placeholders => 1);
 }
 
 sub subscribed_editor_edits {
