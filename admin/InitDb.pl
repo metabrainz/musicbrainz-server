@@ -228,7 +228,7 @@ sub Create
     $system_sql->do(
         "CREATE DATABASE $dbname WITH OWNER = $dbuser ".
         "TEMPLATE template0 ENCODING = 'UNICODE' ".
-        "LC_CTYPE='C' LC_COLLATE='C'"
+        "LC_CTYPE='en_US.UTF-8' LC_COLLATE='en_US.UTF-8'"
     );
 
     # We frequently use DateTime->now to populate 'TIMESTAMP WITH TIME ZONE'
