@@ -14,7 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      "release-group" => {
                          method   => 'GET',
-                         linked   => [ qw(artist release) ],
+                         linked   => [ qw(artist release collection) ],
                          inc      => [ qw(aliases artist-credits annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -35,6 +35,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'ReleaseGroup'
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -114,6 +116,9 @@ sub release_group_browse : Private
         my @tmp = $c->model('ReleaseGroup')->find_by_artist(
             $artist->id, $show_all, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list(@tmp, $offset);
+    }
+    elsif ($resource eq 'collection') {
+        $rgs = $self->browse_by_collection($c, 'release_group', $id, $limit, $offset);
     }
     elsif ($resource eq 'release')
     {

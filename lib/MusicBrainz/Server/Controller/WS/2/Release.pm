@@ -21,7 +21,9 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         linked   => [ qw(area track_artist artist label recording release-group track) ],
+                         linked   => [ qw(area track_artist artist label
+                                          recording release-group track
+                                          collection) ],
                          inc      => [ qw(aliases artist-credits labels recordings discids
                                           release-groups media _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
@@ -48,6 +50,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Release',
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -128,17 +132,19 @@ sub release_toplevel
 
     $self->load_relationships($c, $stash, @rels_entities);
 
-    if ($c->stash->{inc}->collections)
-    {
-        my @collections =
-            grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
-            $c->model('Collection')->find_all_by_entity('release', $release->id);
+    if ($c->stash->{inc}->collections) {
+        my ($collections, $total) = $c->model('Collection')->find_by({
+            entity_type => 'release',
+            entity_id => $release->id,
+            show_private => $c->user_exists ? $c->user->id : undef,
+        });
 
-        $c->model('Editor')->load(@collections);
-        $c->model('Collection')->load_entity_count(@collections);
-        $c->model('CollectionType')->load(@collections);
+        $c->model('Editor')->load(@$collections);
+        $c->model('Collection')->load_entity_count(@$collections);
+        $c->model('CollectionType')->load(@$collections);
 
-        $stash->store($release)->{collections} = \@collections;
+        $stash->store($release)->{collections} =
+            $self->make_list($collections, $total);
     }
 }
 
@@ -193,6 +199,8 @@ sub release_browse : Private
         my @tmp = $c->model('Release')->find_by_artist(
             $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'collection') {
+        $releases = $self->browse_by_collection($c, 'release', $id, $limit, $offset);
     } elsif ($resource eq 'track_artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);

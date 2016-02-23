@@ -17,7 +17,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( artist ) ]
+                         linked   => [ qw( artist collection ) ]
      },
      work => {
                          method   => 'GET',
@@ -35,6 +35,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Work'
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 sub work_toplevel
 {
@@ -94,6 +96,8 @@ sub work_browse : Private
 
         my @tmp = $c->model('Work')->find_by_artist($artist->id, $limit, $offset);
         $works = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'collection') {
+        $works = $self->browse_by_collection($c, 'work', $id, $limit, $offset);
     }
 
     my $stash = WebServiceStash->new;

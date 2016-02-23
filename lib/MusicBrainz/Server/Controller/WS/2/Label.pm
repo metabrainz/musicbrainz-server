@@ -14,7 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      label => {
                          method   => 'GET',
-                         linked   => [ qw(area release) ],
+                         linked   => [ qw(area release collection) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -35,6 +35,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Label'
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -105,6 +107,8 @@ sub label_browse : Private
 
         my @tmp = $c->model('Label')->find_by_area($area->id, $limit, $offset);
         $labels = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'collection') {
+        $labels = $self->browse_by_collection($c, 'label', $id, $limit, $offset);
     } elsif ($resource eq 'release') {
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);

@@ -128,7 +128,8 @@ sub find_by_recipient {
          LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
     $self->query_to_list_limited(
-        $query, [$recipient_id], $limit, $offset, undef, 1
+        $query, [$recipient_id], $limit, $offset, undef,
+        dollar_placeholders => 1,
     );
 }
 
