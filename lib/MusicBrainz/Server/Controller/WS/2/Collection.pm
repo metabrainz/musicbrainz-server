@@ -84,7 +84,6 @@ map {
     my $url = $entity_properties->{url};
     my $plural = $entity_properties->{plural};
     my $plural_url = $entity_properties->{plural_url};
-    my $singular_with_article = $entity_properties->{singular_with_article};
 
     my $method = sub {
         my ($self, $c) = @_;
@@ -101,7 +100,7 @@ map {
         $c->model('Collection')->load_entity_count($collection);
         $c->model('CollectionType')->load($collection);
 
-        $self->_error($c, "This is not $singular_with_article collection."),
+        $self->_error($c, "This is not a collection for entity type $url."),
             unless ($collection->type->entity_type eq $type);
 
         $c->model('Editor')->load($collection);
@@ -132,7 +131,7 @@ map {
         $self->_error($c, 'You do not have permission to modify this collection')
             unless ($c->user->id == $collection->editor_id);
 
-        $self->_error($c, "This is not $singular_with_article collection.")
+        $self->_error($c, "This is not a collection for entity type $url.")
             unless ($collection->type->entity_type eq $type);
 
         my $client = $c->req->query_params->{client}
