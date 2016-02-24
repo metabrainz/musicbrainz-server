@@ -139,7 +139,7 @@ sub get_first_collection {
 sub find_by {
     my ($self, $opts, $limit, $offset) = @_;
 
-    my (@joins, @conditions, @args);
+    my (@conditions, @args);
 
     if (my $editor_id = $opts->{editor_id}) {
         push @conditions, 'editor = ?';
@@ -153,10 +153,9 @@ sub find_by {
         push @args, $entity_type;
 
         if (my $entity_id = $opts->{entity_id}) {
-            push @joins,
-                "JOIN editor_collection_$entity_type ce ".
-                "ON editor_collection.id = ce.collection";
-            push @conditions, "ce.$entity_type = ?";
+            push @conditions,
+                "EXISTS (SELECT 1 FROM editor_collection_$entity_type ce" .
+                        " WHERE editor_collection.id = ce.collection AND ce.$entity_type = ?)";
             push @args, $entity_id;
         }
     }
@@ -171,7 +170,6 @@ sub find_by {
     my $query =
         'SELECT ' . $self->_columns .
         '  FROM ' . $self->_table . ' ' .
-        join(' ', @joins) .
         ' WHERE ' . join(' AND ', @conditions) .
         ' ORDER BY musicbrainz_collate(editor_collection.name), editor_collection.id';
 
