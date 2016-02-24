@@ -16,7 +16,7 @@ sub query_to_list {
 }
 
 sub query_to_list_limited {
-    my ($self, $query, $args, $limit, $offset, $builder, $dollar_placeholders) = @_;
+    my ($self, $query, $args, $limit, $offset, $builder, %opts) = @_;
 
     $builder //= $self->can('_new_from_row');
 
@@ -24,7 +24,7 @@ sub query_to_list_limited {
     my $count = @args;
 
     if (defined $offset) {
-        if ($dollar_placeholders) {
+        if ($opts{dollar_placeholders}) {
             $query .= ' OFFSET $' . (++$count);
         } else {
             $query .= ' OFFSET ?';
@@ -39,7 +39,7 @@ sub query_to_list_limited {
     };
 
     if (defined $limit) {
-        if ($dollar_placeholders) {
+        if ($opts{dollar_placeholders}) {
             $wrapping_query .= ' LIMIT $' . (++$count);
         } else {
             $wrapping_query .= ' LIMIT ?';

@@ -58,7 +58,7 @@ sub event_list         { shift->entity_list(@_, "event", "events") };
 sub collection_list    {
     my ($self, $list, $inc, $opts) = @_;
 
-    $self->entity_list({ items => $list }, $inc, $opts, 'collection', 'collections');
+    $self->entity_list($list, $inc, $opts, 'collection', 'collections');
 }
 
 sub serialize_internal {

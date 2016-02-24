@@ -136,33 +136,51 @@ sub get_first_collection {
     return $self->sql->select_single_value($query, $editor_id);
 }
 
-sub find_all_by_editor {
-    my ($self, $id, $show_private, $entity_type) = @_;
-    my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
-    if (!$show_private) {
-        $extra_conditions .= "AND editor_collection.public=true ";
+sub find_by {
+    my ($self, $opts, $limit, $offset) = @_;
+
+    my (@joins, @conditions, @args);
+
+    if (my $editor_id = $opts->{editor_id}) {
+        push @conditions, 'editor = ?';
+        push @args, $editor_id;
     }
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_type ct
-                        ON editor_collection.type = ct.id
-                 WHERE editor=? $extra_conditions";
+    if (my $entity_type = $opts->{entity_type}) {
+        push @conditions,
+            'EXISTS (SELECT 1 FROM editor_collection_type ct' .
+                    ' WHERE ct.id = editor_collection.type AND ct.entity_type = ?)';
+        push @args, $entity_type;
 
-    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
-    $self->query_to_list($query, [$id]);
-}
+        if (my $entity_id = $opts->{entity_id}) {
+            push @joins,
+                "JOIN editor_collection_$entity_type ce ".
+                "ON editor_collection.id = ce.collection";
+            push @conditions, "ce.$entity_type = ?";
+            push @args, $entity_id;
+        }
+    }
 
-sub find_all_by_entity {
-    my ($self, $type, $id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_$type ce
-                        ON editor_collection.id = ce.collection
-                 WHERE ce.$type = ? ";
+    if (my $editor_id = $opts->{show_private}) {
+        push @conditions, '(editor_collection.public = true OR editor = ?)';
+        push @args, $editor_id;
+    } else {
+        push @conditions, 'editor_collection.public = true';
+    }
 
-    $query .= "ORDER BY musicbrainz_collate(name)";
-    $self->query_to_list($query, [$id]);
+    my $query =
+        'SELECT ' . $self->_columns .
+        '  FROM ' . $self->_table . ' ' .
+        join(' ', @joins) .
+        ' WHERE ' . join(' AND ', @conditions) .
+        ' ORDER BY musicbrainz_collate(editor_collection.name), editor_collection.id';
+
+    if (defined $limit) {
+        return $self->query_to_list_limited($query, \@args, $limit, $offset);
+    } else {
+        my @result = $self->query_to_list($query, \@args);
+        return (\@result, scalar @result);
+    }
 }
 
 sub load {

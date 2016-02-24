@@ -17,7 +17,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( area artist place ) ]
+                         linked   => [ qw( area artist place collection ) ]
      },
      event => {
                          method   => 'GET',
@@ -34,6 +34,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Event'
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 sub base : Chained('root') PathPart('event') CaptureArgs(0) { }
 
@@ -84,7 +86,6 @@ sub event_browse : Private {
     }
 
     my $events;
-    my $total;
 
     if ($resource eq 'area') {
         my $area = $c->model('Area')->get_by_gid($id);
@@ -100,6 +101,10 @@ sub event_browse : Private {
 
         my @tmp = $c->model('Event')->find_by_artist($artist->id, $limit, $offset);
         $events = $self->make_list(@tmp, $offset);
+    }
+
+    if ($resource eq 'collection') {
+        $events = $self->browse_by_collection($c, 'event', $id, $limit, $offset);
     }
 
     if ($resource eq 'place') {

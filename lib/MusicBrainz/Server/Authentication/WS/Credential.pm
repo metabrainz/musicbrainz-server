@@ -22,6 +22,7 @@ sub authenticate
         decode('utf-8', $c->req->header('Authorization'), Encode::FB_CROAK)
     }
     catch {
+        $c->stash->{bad_auth_encoding} = 1;
         $c->response->status(HTTP_BAD_REQUEST);
         $c->detach;
     };
