@@ -33,7 +33,6 @@
         "removal": {
             "manual": true
         },
-        "singular_with_article": "an area",
         "tags": true,
         "type": {
             "simple": true
@@ -95,7 +94,6 @@
             }
         },
         "report_filter": true,
-        "singular_with_article": "an artist",
         "sitemaps_lastmod_table": true,
         "sort_name": true,
         "subscriptions": {
@@ -200,7 +198,6 @@
         "removal": {
             "automatic": {}
         },
-        "singular_with_article": "an event",
         "tags": true,
         "type": {
             "simple": true
@@ -263,7 +260,6 @@
         "removal": {
             "manual": true
         },
-        "singular_with_article": "an instrument",
         "tags": true,
         "type": {
             "simple": true
@@ -331,7 +327,6 @@
             "manual": true
         },
         "report_filter": true,
-        "singular_with_article": "a label",
         "sitemaps_lastmod_table": true,
         "subscriptions": {
             "deleted": true,
@@ -427,7 +422,6 @@
         "removal": {
             "automatic": {}
         },
-        "singular_with_article": "a place",
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {
@@ -483,7 +477,6 @@
             "manual": true
         },
         "report_filter": true,
-        "singular_with_article": "a recording",
         "sitemaps_lastmod_table": true,
         "tags": true,
         "url": "recording"
@@ -529,7 +522,6 @@
             "manual": true
         },
         "report_filter": true,
-        "singular_with_article": "a release",
         "sitemaps_lastmod_table": true,
         "tags": true,
         "url": "release"
@@ -579,7 +571,6 @@
             }
         },
         "report_filter": true,
-        "singular_with_article": "a release group",
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {
@@ -661,7 +652,6 @@
             "automatic": {}
         },
         "report_filter": true,
-        "singular_with_article": "a series",
         "subscriptions": {
             "deleted": true,
             "entity": true
@@ -757,7 +747,6 @@
             "automatic": {}
         },
         "report_filter": true,
-        "singular_with_article": "a work",
         "sitemaps_lastmod_table": true,
         "tags": true,
         "type": {

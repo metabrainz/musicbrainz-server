@@ -329,12 +329,12 @@ test "collection lookup errors" => sub {
         '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
 
     my $bad_entity_response = sub {
-        my ($singular_with_article) = @_;
+        my ($entity_type) = @_;
 
         <<EOXML;
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
-  <text>This is not $singular_with_article collection.</text>
+  <text>This is not a collection for entity type $entity_type.</text>
   <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
@@ -342,43 +342,43 @@ EOXML
 
     ws2_test_xml 'GET /areas on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/areas',
-        $bad_entity_response->('an area'), { response_code => 400 };
+        $bad_entity_response->('area'), { response_code => 400 };
 
     ws2_test_xml 'GET /artists on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/artists',
-        $bad_entity_response->('an artist'), { response_code => 400 };
+        $bad_entity_response->('artist'), { response_code => 400 };
 
     ws2_test_xml 'GET /events on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/events',
-        $bad_entity_response->('an event'), { response_code => 400 };
+        $bad_entity_response->('event'), { response_code => 400 };
 
     ws2_test_xml 'GET /instruments on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/instruments',
-        $bad_entity_response->('an instrument'), { response_code => 400 };
+        $bad_entity_response->('instrument'), { response_code => 400 };
 
     ws2_test_xml 'GET /labels on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/labels',
-        $bad_entity_response->('a label'), { response_code => 400 };
+        $bad_entity_response->('label'), { response_code => 400 };
 
     ws2_test_xml 'GET /places on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/places',
-        $bad_entity_response->('a place'), { response_code => 400 };
+        $bad_entity_response->('place'), { response_code => 400 };
 
     ws2_test_xml 'GET /releases on a release group collection 400s',
         '/collection/dadae81b-ff9e-464e-8c38-51156557bc36/releases',
-        $bad_entity_response->('a release'), { response_code => 400 };
+        $bad_entity_response->('release'), { response_code => 400 };
 
     ws2_test_xml 'GET /release-groups on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/release-groups',
-        $bad_entity_response->('a release group'), { response_code => 400 };
+        $bad_entity_response->('release-group'), { response_code => 400 };
 
     ws2_test_xml 'GET /series on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/series',
-        $bad_entity_response->('a series'), { response_code => 400 };
+        $bad_entity_response->('series'), { response_code => 400 };
 
     ws2_test_xml 'GET /works on a release collection 400s',
         '/collection/dd07ea8b-0ec3-4b2d-85cf-80e523de4902/works',
-        $bad_entity_response->('a work'), { response_code => 400 };
+        $bad_entity_response->('work'), { response_code => 400 };
 };
 
 test "browsing by area" => sub {
