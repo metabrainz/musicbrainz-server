@@ -1,0 +1,24 @@
+[%- WRAPPER 'area/layout.tt' page='users' title=l('Users') %]
+
+    <h2 id="users">[%- l('Users') -%]</h2>
+
+    [% IF pager.total_entries > 0 %]
+        <p>[% ln('There is currently {num} user in this area.',
+                 'There are currently {num} users in this area.',
+                 editors.size,
+                 { num => pager.total_entries }) %]</p>
+    [% ELSE %]
+        <p>[% l('There are currently no users in this area.') %]</p>
+    [% END %]
+
+    [% WRAPPER 'components/with-pager.tt' %]
+        [% IF editors.size > 0 %]
+            <ul>
+                [% FOR editor=editors %]
+                    <li>[% link_editor(editor) %]</li>
+                [% END %]
+            </ul>
+        [% END %]
+    [% END %]
+
+[%- END -%]
