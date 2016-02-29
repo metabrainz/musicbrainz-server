@@ -24,6 +24,8 @@
             l('Disc IDs');
         CASE 'cover_art';
             l('Cover Art');
+        CASE 'users';
+            l('Users');
         CASE DEFAULT;
             l('Error: Unknown Tab Type');
     END ~%]
