@@ -174,7 +174,9 @@ Shows editors located in this area.
 sub users : Chained('load') {
     my ($self, $c) = @_;
     my $editors = $self->_load_paged($c, sub {
-        $c->model('Editor')->find_by_area($c->stash->{area}->id, shift, shift);
+        my ($editors, $total) = $c->model('Editor')->find_by_area($c->stash->{area}->id, shift, shift);
+        $c->model('Editor')->load_preferences(@$editors);
+        ($editors, $total);
     });
     $c->stash( editors => $editors );
 }
