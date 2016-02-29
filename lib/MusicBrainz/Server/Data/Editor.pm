@@ -165,6 +165,15 @@ sub find_by_email
     return $self->_get_by_keys('email', $email);
 }
 
+sub find_by_area {
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE area = ?
+                 ORDER BY name, id";
+    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
+}
+
 sub find_by_privileges
 {
     my ($self, $privs) = @_;
