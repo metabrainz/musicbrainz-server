@@ -452,6 +452,15 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 sub RENDERER_HOST { '' }
 sub RENDERER_PORT { 9009 }
 
+# Base URL of external Discourse instance.
+sub DISCOURSE_SERVER { '' }
+# Used to authenticate when synchronizing SSO records.
+# See https://meta.discourse.org/t/discourse-api-documentation/22706
+sub DISCOURSE_API_KEY { '' }
+sub DISCOURSE_API_USERNAME { '' }
+# See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
+sub DISCOURSE_SSO_SECRET { '' }
+
 ################################################################################
 # Profiling
 ################################################################################
