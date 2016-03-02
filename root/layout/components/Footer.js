@@ -19,7 +19,7 @@ const Footer = (props) => {
         {' | '}
         <a href="//wiki.musicbrainz.org/" className="internal">{l('Wiki')}</a>
         {' | '}
-        <a href="http://forums.musicbrainz.org/" className="internal">{l('Forums')}</a>
+        <a href="https://community.metabrainz.org/" className="internal">{l('Forums')}</a>
         {' | '}
         <a href="http://tickets.musicbrainz.org/" className="internal">{l('Bug Tracker')}</a>
         {' | '}
