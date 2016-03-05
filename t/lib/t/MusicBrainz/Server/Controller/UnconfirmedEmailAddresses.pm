@@ -140,6 +140,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Collection::edits",
   "Controller::Collection::open_edits",
   "Controller::Collection::show",
+  "Controller::Discourse::sso",
   "Controller::Doc::relationship_type",
   "Controller::Doc::show",
   "Controller::Edit::base",
