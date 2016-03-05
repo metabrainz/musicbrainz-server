@@ -1,0 +1,10 @@
+[% WRAPPER 'layout.tt' title=l("Account Created") %]
+    <h2>[%- l('Account Created') -%]</h2>
+    <p style="font-size: 1.2em">
+        [% l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
+              { discourse => 'https://community.metabrainz.org/' }) %]
+    </p>
+    <p>
+        [% l('An email has been sent to <code>{addr}</code>. Please check your mailbox and click on the link in the email to verify your email address.', { addr => email_address }) %]
+    </p>
+[% END %]
