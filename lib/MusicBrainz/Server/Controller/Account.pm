@@ -104,6 +104,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
         $c->persist_user();
     }
 
+    $c->forward('/discourse/sync_sso', [$editor]);
     $c->stash->{template} = 'account/verified.tt';
 }
 
@@ -465,6 +466,14 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
             my $redirect = defined $c->req->query_params->{uri}
               ? $c->req->query_params->{uri}
               : $c->uri_for_action('/user/profile', [ $user->name ]);
+
+            if ($redirect =~ /^\/discourse\/sso/) {
+                $c->stash(
+                    email_address => $email,
+                    template => 'account/registered_discourse.tt',
+                );
+                $c->detach;
+            }
 
             $c->response->redirect($redirect);
             $c->detach;
