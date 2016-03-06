@@ -65,6 +65,42 @@ ws_test 'basic release lookup',
     </release>
 </metadata>';
 
+ws_test 'MBS-8845',
+    '/release/8268c2f8-bfc3-4079-9c25-fad0d69a38df?inc=collections' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="8268c2f8-bfc3-4079-9c25-fad0d69a38df">
+        <title>Surrender</title>
+        <status>Promotion</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>eng</language>
+            <script>Latn</script>
+        </text-representation>
+        <date>1999</date>
+        <country>US</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>1999</date>
+                <area id="489ce91b-6658-3307-9877-795b68554c98">
+                    <name>United States</name>
+                    <sort-name>United States</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>US</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <asin>B00000J8EK</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
+    </release>
+</metadata>';
+
 ws_test 'release lookup, inc=annotation',
     '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' =>
     '<?xml version="1.0" encoding="UTF-8"?>
