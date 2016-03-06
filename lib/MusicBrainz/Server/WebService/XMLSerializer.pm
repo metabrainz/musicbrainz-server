@@ -441,7 +441,8 @@ sub _serialize_release
     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
     $self->_serialize_collection_list(\@list, $gen, $opts->{collections}, $inc, $stash, 0)
-        if $opts->{collections};
+        if $opts->{collections} && @{ $opts->{collections}{items} };
+        # MBS-8845: Don't output <collection-list count="0" />, since at breaks (at least) Picard.
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }
