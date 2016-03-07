@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-21 09:01-0600\n"
-"PO-Revision-Date: 2016-02-22 13:56+0000\n"
+"PO-Revision-Date: 2016-02-23 09:02+0000\n"
 "Last-Translator: Ulrich Klauer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -366,7 +366,7 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "<strong>Bitte beachte, dass alle Beiträge, die du an MusicBrainz erbringst, in die Gemeinfreiheit (Public Domain) entlassen werden und/oder unter einer Creative-Commons-BY-NC-SA-Lizenz lizenziert werden. Desweiteren gibst du der MetaBrainz Foundation das Recht, diese Daten zur kommerziellen Nutzung zu lizenzieren. Weitere Details findest Du auf unserer {doc|Lizenzseite}.</strong>"
+msgstr "<strong>Beachte, dass alles, was du zu MusicBrainz beiträgst, in die Gemeinfreiheit (Public Domain) entlassen und/oder unter einer Creative-Commons-BY-NC-SA-Lizenz lizenziert wird. Darüber hinaus gibst du der MetaBrainz-Stiftung das Recht, diese Daten zur kommerziellen Nutzung zu lizenzieren. Weitere Details findest du auf unserer {doc|Lizenzseite}.</strong>"
 
 #: ../root/admin/wikidoc/index.tt:16
 msgid ""
@@ -4835,7 +4835,7 @@ msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainz wird von der {uri|MetaBrainz Foundation} betrieben, einer in Kalifornien sitzenden, nach 501(c)(3) von Steuern ausgenommenen gemeinnützigen Organisation, die bestrebt ist, MusicBrainz {free|frei und Open Source} zu lassen."
+msgstr "MusicBrainz wird von der {uri|MetaBrainz-Stiftung} betrieben, einer nach 501(c)(3) steuerbefreiten gemeinnützigen Organisation mit Sitz in Kalifornien, deren Ziel es ist, MusicBrainz {free|frei und Open Source} zu erhalten."
 
 #: ../root/layout/head.tt:16 ../root/layout/index.js:28
 msgid "MusicBrainz: Artist"
@@ -11390,7 +11390,7 @@ msgstr[1] "{num} Veröffentlichungen gefunden"
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} release found matching your query."
-msgstr[0] "{num} auf deine Anfrage zutreffende Veröffentlichung gefunden"
+msgstr[0] "Eine auf deine Anfrage zutreffende Veröffentlichung gefunden."
 msgstr[1] "{num} auf deine Anfrage zutreffende Veröffentlichungen gefunden."
 
 #: ../root/tag/release_group.tt:1

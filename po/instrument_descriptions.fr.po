@@ -3,7 +3,7 @@
 # Trans-fr, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
-# Dibou <email address hidden>, 2012
+# Dibou <email address hidden>, 2012,2016
 # Frédéric Da Vitoria <email address hidden>, 2014
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-27 20:38+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-03-01 05:50+0000\n"
+"Last-Translator: Dibou <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1155,7 +1155,7 @@ msgstr "Le bawu est un instrument à vent chinois. Bien qu'en forme de flûte, c
 msgid ""
 "The bazooka is a brass musical instrument several feet in length which "
 "incorporates telescopic tubing."
-msgstr ""
+msgstr "Le bazooka est un instrument de la famille des cuivres, de plusieurs dizaines de centimètres de long doté d'un tube télescopique."
 
 #. name:bin-sasara
 #: DB:instrument/description:380
@@ -1271,7 +1271,7 @@ msgstr ""
 msgid ""
 "The citole is an archaic musical instrument, similar and a distant ancestor "
 "of the modern guitar."
-msgstr ""
+msgstr "La citole est un est un instrument à cordes pincées archaïque, lointain ancêtre de la guitare moderne et similaire à la celle-ci."
 
 #. name:concert flute
 #: DB:instrument/description:414
