@@ -41,6 +41,16 @@ sub _create_payload {
     return ($sso, $sig);
 }
 
+sub _create_uri {
+    my ($path) = @_;
+
+    my $uri = URI->new(DBDefs->DISCOURSE_SERVER);
+    $uri->path($path);
+    $uri->query_param_append('api_key', DBDefs->DISCOURSE_API_KEY);
+    $uri->query_param_append('api_username', DBDefs->DISCOURSE_API_USERNAME);
+    $uri;
+}
+
 sub sso : Path('/discourse/sso') Args(0) RequireAuth {
     my ($self, $c) = @_;
 
@@ -81,11 +91,7 @@ sub sync_sso : Private {
 
     return unless DBDefs->DISCOURSE_SERVER;
 
-    my $uri = URI->new(DBDefs->DISCOURSE_SERVER);
-    $uri->path('/admin/users/sync_sso');
-    $uri->query_param_append('api_key', DBDefs->DISCOURSE_API_KEY);
-    $uri->query_param_append('api_username', DBDefs->DISCOURSE_API_USERNAME);
-
+    my $uri = _create_uri('/admin/users/sync_sso');
     my ($sso, $sig) = _create_payload(undef, $user);
     $self->lwp->request(POST $uri, [sso => uri_escape_utf8($sso), sig => uri_escape_utf8($sig)]);
 }
@@ -95,17 +101,12 @@ sub log_out : Private {
 
     return unless DBDefs->DISCOURSE_SERVER;
 
-    my $uri = URI->new(DBDefs->DISCOURSE_SERVER);
-    $uri->path('/users/by-external/' . $user->id . '.json');
-
+    my $uri = _create_uri('/users/by-external/' . $user->id . '.json');
     my $response = $self->lwp->request(GET $uri);
     my $user_json = decode_json($response->content);
     my $user_id = $user_json->{user}{id};
 
-    $uri = URI->new(DBDefs->DISCOURSE_SERVER);
-    $uri->path('/admin/users/' . $user_id . '/log_out');
-    $uri->query_param_append('api_key', DBDefs->DISCOURSE_API_KEY);
-    $uri->query_param_append('api_username', DBDefs->DISCOURSE_API_USERNAME);
+    $uri = _create_uri('/admin/users/' . $user_id . '/log_out');
     $self->lwp->request(POST $uri);
 }
 
