@@ -12,7 +12,7 @@ has $_ => (
 ) for (qw(
           aliases discids isrcs media puids various_artists artist_credits
           artists labels recordings releases release_groups works
-          tags ratings user_tags user_ratings collections
+          tags ratings user_tags user_ratings collections user_collections
           recording_level_rels work_level_rels rels annotation release_events
 ), map { $_ . '_rels' } entities_with(['mbid', 'relatable']));
 

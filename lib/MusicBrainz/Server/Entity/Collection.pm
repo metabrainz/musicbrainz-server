@@ -8,7 +8,7 @@ extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'CollectionType' };
 
 has 'editor' => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Editor',
 );
 

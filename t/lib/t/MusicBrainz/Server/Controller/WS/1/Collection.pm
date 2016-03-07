@@ -18,18 +18,13 @@ my $c = $test->c;
 my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
-INSERT INTO editor_collection (id, gid, editor, name, type)
-    VALUES (1, 'b33f3e54-caab-4ad4-94a6-a598e0e52eec', 1, 'My Collection', 1);
-EOSQL
 
 subtest 'Add a release to a collection' => sub {
     my $request = POST '/ws/1/collection/?type=xml', [
         add => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec,980e0f65-930e-4743-95d3-602665c25c15',
     ];
 
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'the-anti-kuno', 'notreally');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -41,7 +36,7 @@ subtest 'Add a release to a collection' => sub {
            <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" />
            <release id="980e0f65-930e-4743-95d3-602665c25c15" />
         </release-list></metadata>',
-        { username => 'editor', password => 'password' };
+        { username => 'the-anti-kuno', password => 'notreally' };
 
     done_testing;
 };
@@ -51,7 +46,7 @@ subtest 'Remove releases from collections' => sub {
         remove => '980e0f65-930e-4743-95d3-602665c25c15',
     ];
 
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'the-anti-kuno', 'notreally');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -62,7 +57,7 @@ subtest 'Remove releases from collections' => sub {
          <release-list count="1">
           <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec" />
         </release-list></metadata>',
-        { username => 'editor', password => 'password' };
+        { username => 'the-anti-kuno', password => 'notreally' };
 
     done_testing;
 };

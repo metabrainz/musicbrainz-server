@@ -228,9 +228,10 @@ sub _serialize_collection
 
     my $ser = "_serialize_${entity_type}_list";
     my $gen_list = "${entity_type}_list";
+    my $list = $opts->{$plural};
 
-    if ($toplevel) {
-        $self->$ser(\@collection, $gen, $opts->{$plural}, $inc, $stash);
+    if ($toplevel && defined($list->{items}) && @{ $list->{items} }) {
+        $self->$ser(\@collection, $gen, $list, $inc, $stash);
     } elsif ($collection->loaded_entity_count) {
         push @collection, $gen->$gen_list({ count => $collection->entity_count });
     }
@@ -240,13 +241,13 @@ sub _serialize_collection
 
 sub _serialize_collection_list
 {
-    my ($self, $data, $gen, $collections, $inc, $stash, $toplevel) = @_;
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
     my @list;
-    map { $self->_serialize_collection(\@list, $gen, $_, $inc, $stash, 0) }
-        sort_by { $_->gid } @$collections;
-
-    push @$data, $gen->collection_list(@list);
+    foreach my $collection (@{ $list->{items} }) {
+        $self->_serialize_collection(\@list, $gen, $collection, $inc, $stash, $toplevel);
+    }
+    push @$data, $gen->collection_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_release_group_list
@@ -440,7 +441,8 @@ sub _serialize_release
     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
     $self->_serialize_collection_list(\@list, $gen, $opts->{collections}, $inc, $stash, 0)
-        if ($opts->{collections} && @{ $opts->{collections} });
+        if $opts->{collections} && @{ $opts->{collections}{items} };
+        # MBS-8845: Don't output <collection-list count="0" />, since at breaks (at least) Picard.
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }
@@ -773,15 +775,12 @@ sub _serialize_label_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $label (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $label (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->label_list($self->_list_attributes($list), @list);
+        $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->label_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_label
@@ -835,15 +834,12 @@ sub _serialize_area_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $area (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $area (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->area_list($self->_list_attributes($list), @list);
+        $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->area_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_area_inner
@@ -921,15 +917,12 @@ sub _serialize_place_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $place (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $place (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->place_list($self->_list_attributes($list), @list);
+        $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->place_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_place
@@ -967,13 +960,11 @@ sub _serialize_place
 sub _serialize_instrument_list {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} }) {
-        my @list;
-        foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
-            $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
+    my @list;
+    foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
+        $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_instrument {
@@ -1077,15 +1068,12 @@ sub _serialize_series_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $series (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $series (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->series_list($self->_list_attributes($list), @list);
+        $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->series_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_series
@@ -1119,15 +1107,12 @@ sub _serialize_event_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
 
-    if (@{ $list->{items} })
+    my @list;
+    foreach my $event (sort_by { $_->gid } @{ $list->{items} })
     {
-        my @list;
-        foreach my $event (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
-        }
-        push @$data, $gen->event_list($self->_list_attributes ($list), @list);
+        $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
     }
+    push @$data, $gen->event_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_event

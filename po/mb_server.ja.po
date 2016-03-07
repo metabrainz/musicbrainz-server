@@ -13,6 +13,7 @@
 # Nozomu Kurasawa <email address hidden>, 2012-2013,2015-2016
 # nikki, 2013
 # PATATE12, 2014
+# Shunsuke Shimizu <email address hidden>, 2016
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
 msgid ""
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-21 09:01-0600\n"
-"PO-Revision-Date: 2016-02-21 15:05+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-02-26 17:02+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +96,7 @@ msgstr "&#10005;"
 
 #: ../root/release/add_cover_art.tt:67
 msgid "&#x26a0; Error creating edit"
-msgstr "&#x26a0; 編集作成中にエラーが発生しました"
+msgstr "&#x26a0; 編集の作成中にエラーが発生しました"
 
 #: ../root/release/add_cover_art.tt:64
 msgid "&#x26a0; Error requesting signature"
@@ -131,7 +132,7 @@ msgstr "「{tag}」は{num}回使用されてます"
 
 #: ../root/components/aliases.tt:54
 msgid "(<span class=\"comment\">primary</span>)"
-msgstr ""
+msgstr "(<span class=\"comment\">プライマリ</span>)"
 
 #: ../root/user/profile.tt:33
 msgid "(<strong>unverified!</strong>)"
@@ -320,7 +321,7 @@ msgstr "<em>更新履歴未特定</em>"
 
 #: ../root/edit/edit_header.tt:45
 msgid "<strong>Approved:</strong> {date}"
-msgstr ""
+msgstr "<strong>承認済:</strong> {date}"
 
 #: ../root/edit/edit_header.tt:43
 msgid "<strong>Closed:</strong> <em>Cancelling</em>"
@@ -474,7 +475,7 @@ msgstr "アカウント管理者"
 
 #: ../root/user/privileged.tt:53
 msgid "Account administrators can edit and delete user accounts."
-msgstr ""
+msgstr "アカウント管理者はユーザーアカウントを編集・削除できます。"
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -574,7 +575,7 @@ msgstr "レーベルを追加"
 #: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:263
 #: ../root/static/scripts/release-editor/dialogs.js:253
 msgid "Add Medium"
-msgstr ""
+msgstr "メディアを追加"
 
 #: ../root/edit/info.tt:13
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:26
@@ -944,7 +945,7 @@ msgstr "既に締め切りました"
 
 #: ../root/artist/index.tt:43
 msgid "Also performs as"
-msgstr ""
+msgstr "他の活動名"
 
 #: ../root/search/results-area.tt:42
 msgid "Alternatively, you may {uri|add a new area}."
@@ -1152,7 +1153,7 @@ msgstr "本当にこのアプリケーションの許可を取り消しますか
 
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
-msgstr "本当に編集 #{n} をキャンセルしますか? 元に戻す事はできません!"
+msgstr "本当に編集 #{n} をキャンセルしますか? 元に戻す事はできません！"
 
 #: ../root/admin/wikidoc/delete.tt:4
 msgid ""
@@ -1178,7 +1179,7 @@ msgstr ""
 
 #: ../root/area/delete.tt:5
 msgid "Are you sure you wish to remove the area {area} from MusicBrainz?"
-msgstr "本当にMusicBrainzから{area}の地域を削除しますか？"
+msgstr "本当にMusicBrainzから{area}という地域を削除しますか？"
 
 #: ../root/release/remove_cover_art.tt:4
 msgid ""
@@ -1585,15 +1586,15 @@ msgstr "自動編集"
 
 #: ../root/account/preferences.tt:41
 msgid "Automatically subscribe me to artists I create."
-msgstr "自分で追加したアーティストを自動的に購読。"
+msgstr "自分が追加したアーティストを自動的に購読する。"
 
 #: ../root/account/preferences.tt:43
 msgid "Automatically subscribe me to labels I create."
-msgstr "自分で追加したレーベルを自動的に購読。"
+msgstr "自分が追加したレーベルを自動的に購読する。"
 
 #: ../root/account/preferences.tt:45
 msgid "Automatically subscribe me to series I create."
-msgstr ""
+msgstr "自分が追加したシリーズを自動的に購読する。"
 
 #: ../root/entity/ratings.tt:20
 msgid "Average rating:"
@@ -1635,7 +1636,7 @@ msgstr "バナーメッセージ編集者"
 msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, e.g. to warn users about upcoming site maintenance."
-msgstr ""
+msgstr "バナーメッセージ編集者は、全てのページにバナーとして表示されるメッセージを設定することができます。例えばサイトメンテナンスの予定に関する注意などです。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:20
 #: ../root/cdtoc/attach_filter_release.tt:34 ../root/cdtoc/list.tt:12
@@ -1817,7 +1818,7 @@ msgstr "バグ管理"
 
 #: ../root/release/lookup.tt:1
 msgid "CD Lookup"
-msgstr "CD読み込み"
+msgstr "CD検索"
 
 #: ../root/release/lookup.tt:2
 msgid "CD Lookup results"
@@ -1825,7 +1826,7 @@ msgstr "CD読み込みの結果"
 
 #: ../root/cdtoc/lookup.tt:83
 msgid "CD Not Found"
-msgstr "CD見つかりません"
+msgstr "CDが見つかりません"
 
 #: ../root/search/results-cdstub.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
@@ -1839,15 +1840,15 @@ msgstr "CDスタブ見つかりません"
 
 #: ../root/cdtoc/lookup.tt:18
 msgid "CD Stub found"
-msgstr "CDスタブ発見しました"
+msgstr "CDスタブを発見しました"
 
 #: ../root/cdtoc/not_found.tt:1 ../root/cdtoc/not_found.tt:2
 msgid "CD TOC Not Found"
-msgstr "CD TOC見つかりません"
+msgstr "CD TOCが見つかりません"
 
 #: ../root/cdtoc/info.tt:1
 msgid "CD TOC details"
-msgstr "CD TOC の詳細"
+msgstr "CD TOCの詳細"
 
 #: ../root/edit/details/historic/add_disc_id.tt:13
 msgid "CD TOC:"
@@ -1901,32 +1902,32 @@ msgstr "キャンセル"
 
 #: ../root/edit/cancel.tt:1 ../root/edit/cancel.tt:2
 msgid "Cancel Edit"
-msgstr "編集キャンセル"
+msgstr "編集をキャンセル"
 
 #: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:64
 #: ../root/edit/info.tt:21
 msgid "Cancel edit"
-msgstr "編集キャンセル"
+msgstr "編集をキャンセル"
 
 #: ../root/elections/show.tt:105
 msgid "Cancel the election"
-msgstr "選挙キャンセル"
+msgstr "選挙をキャンセル"
 
 #: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
-msgstr "キャンセルされた"
+msgstr "キャンセル済み"
 
 #: ../root/user/edits.tt:1
 msgid "Cancelled Edits"
-msgstr "キャンセルされた編集"
+msgstr "キャンセル済みの編集"
 
 #: ../root/user/edits.tt:1
 msgid "Cancelled Edits by {name}"
-msgstr "{name}によるキャンセルされた編集"
+msgstr "{name}によるキャンセル済みの編集"
 
 #: ../root/edit/details/add_event.tt:22 ../root/edit/details/edit_event.tt:19
 msgid "Cancelled:"
-msgstr "キャンセル:"
+msgstr "キャンセル済み:"
 
 #: ../root/elections/index.tt:9
 msgid "Candidate"
@@ -2000,7 +2001,7 @@ msgstr ""
 
 #: ../root/components/relationship-editor.tt:87
 msgid "Change direction"
-msgstr "方向を変える"
+msgstr "向きを入れ替える"
 
 #: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
 msgid "Change release data quality"
@@ -2183,7 +2184,7 @@ msgstr "お問い合わせ"
 
 #: ../root/components/wikipedia_extract.tt:6
 msgid "Continue reading at Wikipedia..."
-msgstr "Wikipediaで読み続けて…"
+msgstr "Wikipediaで続きを読む…"
 
 #: ../root/place/edit_form.tt:29
 msgid "Coordinates"
@@ -2304,7 +2305,7 @@ msgstr "クレジット"
 
 #: ../root/release_group/index.tt:77
 msgid "CritiqueBrainz Reviews"
-msgstr ""
+msgstr "CritiqueBrainzでのレビュー"
 
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
@@ -2376,7 +2377,7 @@ msgstr "日付:"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "日付のフォーマットはYYYY-MM-DD（年月日）です。YYYY-MMやYYYYの部分でも、省略も可能です。"
+msgstr "日付はYYYY-MM-DD（年月日）のフォーマットで表記します。YYYY-MM（年月）やYYYY（年）の部分だけでも構いませんし、日付を省略することも可能です。"
 
 #: ../root/label/index.tt:10 ../root/label/layout.tt:28
 #: ../root/label/layout.tt:35
@@ -3104,7 +3105,7 @@ msgstr "エラー: {error}"
 
 #: ../root/components/forms.tt:29
 msgid "Even just providing a URL or two is helpful!"
-msgstr "URL等だけでも助かります。"
+msgstr "一つか二つのURLだけでも役立ちます！"
 
 #: ../root/components/common-macros.tt:598
 #: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:311
@@ -3161,7 +3162,7 @@ msgstr "例:"
 
 #: ../root/release/edit/tracklist.tt:237
 msgid "Existing medium"
-msgstr ""
+msgstr "既存のメディア"
 
 #: ../root/release/edit/tracklist.tt:121
 msgid "Expand"
@@ -3262,7 +3263,7 @@ msgstr "フィンガープリント"
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
-msgstr ""
+msgstr "レコーディングを編集する前に、タイトルやアーティストを含む全てのトラック情報を入力してください。"
 
 #: ../root/account/register.tt:53
 msgid ""
@@ -3351,13 +3352,13 @@ msgstr ""
 msgid ""
 "Found a broken link on our site? Please let us know by {report|reporting a "
 "bug}."
-msgstr "リンク切れが発見した場合は{report|バグ報告}でお知らせください。"
+msgstr "リンク切れを発見した場合は、お手数ですが{report|バグ報告}でお知らせください。"
 
 #: ../root/main/400.tt:16
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "サイトの問題が発見した場合は以上で表示してるエラーメッセージを含み、{report|バグ報告}でお知らせください。"
+msgstr "サイトに問題が見つかった場合は、お手数ですが{report|バグ報告}でお知らせください。表示されたどのようなエラーメッセージも報告に含めてください。"
 
 #: ../root/edit/list.tt:29
 msgid "Found at least {n} edit"
@@ -3916,7 +3917,7 @@ msgstr ""
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
-msgstr ""
+msgstr "ウィキメディア・コモンズからの画像"
 
 #: ../root/components/common-macros.tt:101
 msgid "Image not available yet, please try again in a few minutes."
@@ -3964,11 +3965,11 @@ msgstr "ユーザー名もしくはパスワードが無効でした。"
 #: ../root/search/form.tt:24
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:59
 msgid "Indexed search"
-msgstr ""
+msgstr "インデックス検索"
 
 #: ../root/search/form.tt:29
 msgid "Indexed search with {doc|advanced query syntax}"
-msgstr ""
+msgstr "{doc|高度なクエリ構文}を使ってインデックス検索"
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Infer track durations from associated recordings"
@@ -4176,7 +4177,7 @@ msgstr "注釈のあるレーベル"
 #: ../root/report/deprecated_relationship_labels.tt:3
 #: ../root/report/index.tt:43
 msgid "Labels with deprecated relationships"
-msgstr ""
+msgstr "旧形式の関係があるレーベル"
 
 #: ../root/report/index.tt:45
 #: ../root/report/labels_disambiguation_same_name.tt:1
@@ -4272,7 +4273,7 @@ msgstr "最新投稿:"
 
 #: ../root/artist/index.tt:38 ../root/artist/index.tt:41
 msgid "Legal name"
-msgstr ""
+msgstr "正式名称"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
 #: ../root/components/medium.tt:72 ../root/components/recordings-list.tt:33
@@ -4491,11 +4492,11 @@ msgstr ""
 
 #: ../root/taglookup/nag.tt:24
 msgid "Make a donation now!"
-msgstr "今すぐ寄付!"
+msgstr "今すぐ寄付！"
 
 #: ../root/components/forms.tt:13 ../root/components/forms.tt:18
 msgid "Make all edits votable."
-msgstr ""
+msgstr "全ての編集を投票可能にする"
 
 #: ../root/release/merge.tt:108
 msgid ""
@@ -4598,7 +4599,7 @@ msgstr "アーティストをマージ"
 
 #: ../root/event/merge.tt:1 ../root/event/merge.tt:3
 msgid "Merge Events"
-msgstr ""
+msgstr "イベントをマージ"
 
 #: ../root/instrument/merge.tt:1 ../root/instrument/merge.tt:3
 msgid "Merge Instruments"
@@ -4610,7 +4611,7 @@ msgstr "レーベルをマージ"
 
 #: ../root/place/merge.tt:1 ../root/place/merge.tt:3
 msgid "Merge Places"
-msgstr ""
+msgstr "場所をマージ"
 
 #: ../root/layout/merge-helper.tt:3
 #: ../root/layout/components/MergeHelper.js:14
@@ -4768,11 +4769,11 @@ msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
-msgstr ""
+msgstr "MusicBrainzは利用者のプライバシーを本当に尊重しています！あなたが提供したどのような個人情報も他者に共有したり売ったりはしません。全ての詳細については、{doc|プライバシーポリシー}をお読みください。"
 
 #: ../root/cdtoc/lookup.tt:84
 msgid "MusicBrainz does not have any CDs with the TOC:"
-msgstr ""
+msgstr "MusicBrainzにはこのTOCを持つCDが登録されていません:"
 
 #: ../root/layout/header/bottom.tt:69
 #: ../root/layout/components/BottomMenu.js:126
@@ -4924,7 +4925,7 @@ msgstr "新しいアーティストクレジット"
 
 #: ../root/admin/attributes/create.tt:1 ../root/admin/attributes/create.tt:3
 msgid "New Attribute"
-msgstr ""
+msgstr "新しい属性"
 
 #: ../root/release/add_cover_art.tt:127
 msgid "New Image Goes Here"
@@ -5039,7 +5040,7 @@ msgstr ""
 
 #: ../root/release/layout.tt:32
 msgid "No cover art available."
-msgstr "カバーアートありません。"
+msgstr "カバーアートがありません。"
 
 #: ../root/edit/notes.tt:13
 msgid "No edit notes have been added."
@@ -5355,7 +5356,7 @@ msgstr "ディスクIDが接続してるリリースと同じトラック数（{
 
 #: ../root/edit/list.tt:5
 msgid "Only show open edits"
-msgstr ""
+msgstr "オープン中編集のみを表示"
 
 #: ../root/edit/cannot_cancel.tt:6
 msgid ""
@@ -5385,24 +5386,24 @@ msgstr "ああっ、なにかおかしいです!"
 
 #: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
-msgstr ""
+msgstr "未確定"
 
 #: ../root/edit/open.tt:1 ../root/edit/open.tt:3 ../root/user/edits.tt:1
 msgid "Open Edits"
-msgstr "オープン中編集"
+msgstr "未確定の編集"
 
 #: ../root/user/edits.tt:1
 msgid "Open Edits by {name}"
-msgstr ""
+msgstr "{name}による未確定の編集"
 
 #: ../root/entity/edits.tt:1
 msgid "Open Edits for {name}"
-msgstr ""
+msgstr "{name}に対する未確定の編集"
 
 #: ../root/collection/layout.tt:22 ../root/edit/list_header.tt:16
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:50
 msgid "Open edits"
-msgstr "オープン中編集"
+msgstr "未確定の編集"
 
 #: ../root/components/common-macros.tt:541
 #: ../root/components/common-macros.tt:546
@@ -5574,31 +5575,31 @@ msgstr "場所のコレクション"
 
 #: ../root/place/edit_form.tt:11
 msgid "Place Details"
-msgstr ""
+msgstr "場所の詳細"
 
 #: ../root/place/not_found.tt:1 ../root/place/not_found.tt:2
 msgid "Place Not Found"
-msgstr ""
+msgstr "場所が見つかりません"
 
 #: ../root/report/annotations_places.tt:1
 #: ../root/report/annotations_places.tt:3
 msgid "Place annotations"
-msgstr ""
+msgstr "場所の注釈"
 
 #: ../root/place/layout.tt:11
 msgid "Place information"
-msgstr ""
+msgstr "場所の情報"
 
 #: ../root/components/common-macros.tt:581 ../root/edit/details/add_place.tt:3
 #: ../root/edit/details/edit_place.tt:5
 msgid "Place:"
-msgstr ""
+msgstr "場所:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/report/index.tt:113 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
-msgstr ""
+msgstr "場所"
 
 #: ../root/report/index.tt:117
 msgid "Places with annotations"
@@ -5653,7 +5654,7 @@ msgstr "古いパスワードと新しいパスワードを入力してくださ
 
 #: ../root/freedb/show.tt:47 ../root/freedb/show.tt:104
 msgid "Please login to import this FreeDB disc."
-msgstr ""
+msgstr "このFreeDBディスクをインポートするためにはログインしてください。"
 
 #: ../root/recording/delete.tt:5
 msgid ""
@@ -6900,7 +6901,7 @@ msgstr "スコア"
 
 #: ../root/admin/attributes/script.tt:1 ../root/admin/attributes/script.tt:3
 msgid "Script"
-msgstr ""
+msgstr "文字"
 
 #: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:37

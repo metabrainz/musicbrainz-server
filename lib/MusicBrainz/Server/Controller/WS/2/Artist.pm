@@ -14,7 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
-                         linked   => [ qw(area recording release release-group work) ],
+                         linked   => [ qw(area recording release release-group work collection) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -36,6 +36,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Artist'
 };
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
@@ -143,6 +145,8 @@ sub artist_browse : Private
 
         my @tmp = $c->model('Artist')->find_by_area($area->id, $limit, $offset);
         $artists = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'collection') {
+        $artists = $self->browse_by_collection($c, 'artist', $id, $limit, $offset);
     } elsif ($resource eq 'recording') {
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);

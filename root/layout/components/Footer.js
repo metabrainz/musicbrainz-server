@@ -19,7 +19,7 @@ const Footer = (props) => {
         {' | '}
         <a href="//wiki.musicbrainz.org/" className="internal">{l('Wiki')}</a>
         {' | '}
-        <a href="http://forums.musicbrainz.org/" className="internal">{l('Forums')}</a>
+        <a href="https://community.metabrainz.org/" className="internal">{l('Forums')}</a>
         {' | '}
         <a href="http://tickets.musicbrainz.org/" className="internal">{l('Bug Tracker')}</a>
         {' | '}
@@ -42,11 +42,16 @@ const Footer = (props) => {
             })
         ]}
 
-        {!!stash.last_replication_date && [
-          <br />,
-          l('Last replication packet received at {datetime}',
-            {datetime: formatUserDate($c.user, stash.last_replication_date)})
-        ]}
+        <If condition={stash.last_replication_date}>
+          <frag>
+            <br />
+            {l('Last replication packet received at {datetime}', {
+                datetime: $c.user ?
+                  formatUserDate($c.user, stash.last_replication_date) :
+                  stash.last_replication_date
+            })}
+          </frag>
+        </If>
       </p>
 
       <p className="right">

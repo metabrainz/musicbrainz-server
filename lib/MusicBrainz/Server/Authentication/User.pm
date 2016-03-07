@@ -33,6 +33,8 @@ sub new_from_editor
     return Class::MOP::Class->initialize($class)->rebless_instance($editor);
 }
 
+sub is_authorized { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -55,7 +55,7 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
 
 $mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 is ($mech->status, 401, 'Tags rejected without authentication');
-$mech->content_contains('Authorization required');
+$mech->content_contains('You are not authorized');
 
 $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 

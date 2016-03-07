@@ -2988,6 +2988,52 @@ INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link
 INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2988, 195251, 21646, '2011-01-18 16:23:37.789736+00', 23776);
 INSERT INTO l_label_url (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 2988, 195250, 17124, '2011-01-18 16:23:37.789736+00', 23778);
 
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (1, 'cc8cd8ee-6477-47d5-a16d-adac11ed9f30', 95821, 'public area collection', TRUE, '', 7);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (2, '9ece2fbd-3f4e-431d-9424-da8af38374e0', 95821, 'private area collection', FALSE, '', 7);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (3, '9c782444-f9f4-4a4f-93cb-92d132c79887', 95821, 'public artist collection', TRUE, '', 8);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (4, '5f0831af-c84c-44a3-849d-abdf0a18cdd9', 95821, 'private artist collection', FALSE, '', 8);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (5, '05febe0a-a9df-414a-a2c9-7dc366b0de9b', 95821, 'public event collection', TRUE, '', 4);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (6, '13b1d199-a79e-40fe-bd7c-0ecc3ca52d73', 95821, 'private event collection', FALSE, '', 4);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (7, '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f', 95821, 'public instrument collection', TRUE, '', 9);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (8, 'cdef54c4-2798-4d39-a0c9-5074191f9b6e', 95821, 'private instrument collection', FALSE, '', 9);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (9, 'd8c9f799-9255-45ca-93fa-88f7c438d0d8', 95821, 'public label collection', TRUE, '', 10);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (10, 'b0f57375-7009-47ab-a631-469aaba34885', 95821, 'private label collection', FALSE, '', 10);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (11, 'e6fac30e-28c9-46ed-9cbc-5aabce8170e8', 95821, 'public place collection', TRUE, '', 11);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (12, '65e18c7a-0958-4066-9c3e-7c1474c623d1', 95821, 'private place collection', FALSE, '', 11);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (13, '38a6a0ec-f4a9-4424-80fd-bd4f9eb2e880', 95821, 'public recording collection', TRUE, '', 12);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (14, 'b5486110-906e-4c0c-a6e6-e16baf4e18e2', 95821, 'private recording collection', FALSE, '', 12);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (15, 'dd07ea8b-0ec3-4b2d-85cf-80e523de4902', 95821, 'public release collection', TRUE, '', 1);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (16, '1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5', 95821, 'private release collection', FALSE, '', 1);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (17, 'dadae81b-ff9e-464e-8c38-51156557bc36', 95821, 'public release group collection', TRUE, '', 13);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (18, 'b0f09ccf-a777-4c17-a917-28e01b0e66a3', 95821, 'private release group collection', FALSE, '', 13);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (19, '5adf966d-d82f-4ae9-a9a3-e5e187ed2c34', 95821, 'public series collection', TRUE, '', 14);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (20, '870dbdcf-e047-4da5-9c80-c39e964da96f', 95821, 'private series collection', FALSE, '', 14);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (21, '3529acda-c0c1-4b13-9761-a4a8dedb64be', 95821, 'public work collection', TRUE, '', 15);
+INSERT INTO editor_collection (id, gid, editor, name, public, description, type) VALUES (22, 'b69030b0-911e-4f7d-aa59-c488b2c8fe8e', 95821, 'private work collection', FALSE, '', 15);
+
+INSERT INTO editor_collection_area (collection, area) VALUES (1, 13);
+INSERT INTO editor_collection_area (collection, area) VALUES (2, 81);
+INSERT INTO editor_collection_artist (collection, artist) VALUES (3, 9496);
+INSERT INTO editor_collection_artist (collection, artist) VALUES (4, 135345);
+INSERT INTO editor_collection_event (collection, event) VALUES (5, 7);
+INSERT INTO editor_collection_event (collection, event) VALUES (6, 8);
+INSERT INTO editor_collection_instrument (collection, instrument) VALUES (7, 7);
+INSERT INTO editor_collection_instrument (collection, instrument) VALUES (8, 7);
+INSERT INTO editor_collection_label (collection, label) VALUES (9, 8092);
+INSERT INTO editor_collection_label (collection, label) VALUES (10, 395);
+INSERT INTO editor_collection_place (collection, place) VALUES (11, 1);
+INSERT INTO editor_collection_place (collection, place) VALUES (12, 1);
+INSERT INTO editor_collection_recording (collection, recording) VALUES (13, 1542682);
+INSERT INTO editor_collection_recording (collection, recording) VALUES (14, 1542683);
+INSERT INTO editor_collection_release (collection, release) VALUES (15, 49161);
+INSERT INTO editor_collection_release (collection, release) VALUES (16, 123054);
+INSERT INTO editor_collection_release_group (collection, release_group) VALUES (17, 377462);
+INSERT INTO editor_collection_release_group (collection, release_group) VALUES (18, 155364);
+INSERT INTO editor_collection_series (collection, series) VALUES (19, 25);
+INSERT INTO editor_collection_series (collection, series) VALUES (20, 25);
+INSERT INTO editor_collection_work (collection, work) VALUES (21, 12488154);
+INSERT INTO editor_collection_work (collection, work) VALUES (22, 12488155);
+
 UPDATE medium
 SET track_count = tc.count
 FROM (SELECT count(id),medium FROM track GROUP BY medium) tc

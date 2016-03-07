@@ -92,7 +92,7 @@
             <ul>
                 <li><a href="[% doc_link('How_to_Contribute') %]">[% l('How to Contribute') %]</a></li>
                 <li><a href="http://tickets.musicbrainz.org/">[% l('Bug Tracker') %]</a></li>
-                <li><a href="http://forums.musicbrainz.org/">[% l('Forums') %]</a></li>
+                <li><a href="https://community.metabrainz.org/">[% l('Forums') %]</a></li>
             </ul>
         </div>
 

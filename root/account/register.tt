@@ -53,7 +53,7 @@
         <p>[% l("Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try the {fo|forums} or {irc|IRC}.",
                  { bl => 'http://blog.musicbrainz.org/',
                    tw => 'https://twitter.com/MusicBrainz',
-                   fo => 'http://forums.musicbrainz.org/',
+                   fo => 'https://community.metabrainz.org/',
                    irc => doc_link('Communication/IRC') }) %]</p>
 
         <p>[%- l('MusicBrainz has one account type for all users. If you represent an artist or label,

@@ -308,24 +308,26 @@ sub collections : Chained('load') PathPart('collections')
     my ($self, $c) = @_;
 
     my $user = $c->stash->{user};
-
-    my $show_private = $c->stash->{viewing_own_profile};
+    my $viewing_own_profile = $c->stash->{viewing_own_profile};
     my $no_collections = 1;
 
-    for my $entity_type (entities_with('collections')) {
-        my @collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, $entity_type);
-        $no_collections = 0 if ($no_collections && @collections);
+    my ($collections) = $c->model('Collection')->find_by({
+        editor_id => $user->id,
+        show_private => $viewing_own_profile ? $user->id : undef,
+    });
+    $c->model('Collection')->load_entity_count(@$collections);
+    $c->model('CollectionType')->load(@$collections);
 
-        $c->model('Collection')->load_entity_count(@collections);
-        $c->model('CollectionType')->load(@collections);
+    $no_collections = 0 if ($no_collections && @$collections);
 
+    for my $collection (@$collections) {
         if ($c->user_exists) {
-            for my $collection (@collections) {
-                $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
-            }
+            $collection->{'subscribed'} =
+                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
-        $c->stash->{collections}{$entity_type} = \@collections;
+        push @{ $c->stash->{collections}{$collection->type->entity_type} }, $collection;
     }
+
     $c->stash(user => $user, no_collections => $no_collections);
 }
 
