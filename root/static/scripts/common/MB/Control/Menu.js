@@ -21,9 +21,6 @@
 MB.Control.HeaderMenu = function () {
     var self = {};
 
-    self.timeout = null;
-    self.timeout_msecs = 200;
-
     function getLeft(li) {
         var $li = $(li);
         if ($li.hasClass('language-selector')) {
@@ -32,33 +29,29 @@ MB.Control.HeaderMenu = function () {
         return 'auto';
     }
 
-    $('.header ul.menu > li').bind('mouseenter.mb', function (event) {
-        if (self.timeout) {
-            clearTimeout(self.timeout);
-            $('.header ul.menu li ul').css('left', '-10000px');
-        }
-
-        $(this).children('ul').css('left', getLeft(this));
-    });
-
-    $('.header ul.menu li').bind('mouseleave.mb', function (event) {
-        var ul = $(this).children('ul');
-
-        self.timeout = setTimeout(function () {
-            ul.css('left', '-10000px');
-        }, self.timeout_msecs);
-    });
-
-    $('.header .menu-header').on('click touchend', function (event) {
+    $('.header .menu-header').on('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
         var ul = $(this).siblings('ul');
         $('.header ul.menu li ul').not(ul).css('left', '-10000px');
-        ul.css('left', ul.css('left') !== '-10000px' ? '-10000px' : getLeft(this.parentNode));
-        if ($.browser.android) {
-            $(this).parent().siblings().removeClass('fake-active');
+        var isClosing = ul.css('left') !== '-10000px';
+        ul.css('left', isClosing ? '-10000px' : getLeft(this.parentNode));
+        $('.header .menu-header').parent().removeClass('fake-active');
+        if (!isClosing) {
             $(this).parent().toggleClass('fake-active');
         }
+    });
+
+    $('body').on('click', function (event) {
+        // clicks outside of the menu (anything that reaches the body) should
+        // close the menu
+        $('.header ul.menu li ul').css('left', '-10000px');
+        $('.header .menu-header').parent().removeClass('fake-active');
+    });
+
+    $('ul.menu > li > ul').on('click', function (event) {
+        // prevent clicks on the menu itself from reaching the body, per above
+        event.stopPropagation();
     });
 
     return self;

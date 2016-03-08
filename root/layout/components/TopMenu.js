@@ -21,9 +21,6 @@ const AccountMenu = () => (
         <a href={userLink($c.user.name, '')}>{l('Profile')}</a>
       </li>
       <li>
-        <a href="/account/preferences">{l('Preferences')}</a>
-      </li>
-      <li>
         <a href="/account/applications">{l('Applications')}</a>
       </li>
       <li>
