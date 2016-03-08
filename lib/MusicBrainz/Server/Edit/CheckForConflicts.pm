@@ -123,7 +123,7 @@ sub merge_changes {
                 );
 
             # Stores a mapping of the JSON serialization to the object value
-            my %hashed = map { @$_ } ($new, $ancestor, $current);
+            my %hashed = map { @$_ } ($ancestor, $current, $new);
 
             # Attempt to merge all JSON values together
             my $merged_json = merge(map +[ $_->[0] ], ($new, $ancestor, $current));
