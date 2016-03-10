@@ -1553,4 +1553,74 @@ ws_test 'release lookup, pregap track',
 
 };
 
+test 'MBS-7914' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-7914');
+
+    ws_test 'track aliases are included (MBS-7914)',
+    '/release/a3ea3821-5955-4cee-b44f-4f7da8a332f7?inc=artists+media+recordings+artist-credits+aliases' =>
+    '<?xml version="1.0" ?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="a3ea3821-5955-4cee-b44f-4f7da8a332f7">
+    <title>Symphony no. 2</title>
+    <quality>normal</quality>
+    <artist-credit>
+      <name-credit>
+        <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9">
+          <name>Gustav Mahler</name>
+          <sort-name>Mahler, Gustav</sort-name>
+          <alias-list count="1">
+            <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
+          </alias-list>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <track-list count="1" offset="0">
+          <track id="8ac89142-1318-490a-bed2-5b0c89b251b2">
+            <position>1</position>
+            <number>1</number>
+            <artist-credit>
+              <name-credit>
+                <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9">
+                  <name>Gustav Mahler</name>
+                  <sort-name>Mahler, Gustav</sort-name>
+                  <alias-list count="1">
+                    <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
+                  </alias-list>
+                </artist>
+              </name-credit>
+            </artist-credit>
+            <recording id="36d398e2-85bf-40d5-8686-4f0b78c80ca8">
+              <title>Symphony no. 2 in C minor: I. Allegro maestoso</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="509c772e-1164-4457-8d09-0553cfa77d64">
+                    <name>Chicago Symphony Orchestra</name>
+                    <sort-name>Chicago Symphony Orchestra</sort-name>
+                    <alias-list count="1">
+                      <alias sort-name="CSO">CSO</alias>
+                    </alias-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
+};
+
 1;

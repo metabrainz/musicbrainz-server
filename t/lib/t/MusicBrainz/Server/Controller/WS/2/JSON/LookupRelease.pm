@@ -1200,4 +1200,98 @@ test 'release lookup, pregap track' => sub {
     };
 };
 
+
+test 'MBS-7914' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-7914');
+
+    ws_test_json 'track aliases are included (MBS-7914)',
+    '/release/a3ea3821-5955-4cee-b44f-4f7da8a332f7?inc=artists+media+recordings+artist-credits+aliases' => {
+        aliases => [],
+        'artist-credit' => [{
+            artist => {
+                aliases => [{
+                    locale => JSON::null,
+                    name => "グスタフ・マーラー",
+                    primary => JSON::null,
+                    'sort-name' => "グスタフ・マーラー",
+                    type => JSON::null
+                }],
+                disambiguation => '',
+                id => '8d610e51-64b4-4654-b8df-064b0fb7a9d9',
+                name => 'Gustav Mahler',
+                'sort-name' => 'Mahler, Gustav'
+            },
+            joinphrase => '',
+            name => 'Gustav Mahler'
+        }],
+        asin => JSON::null,
+        barcode => JSON::null,
+        'cover-art-archive' => {
+            artwork => JSON::false,
+            back => JSON::false,
+            count => 0,
+            darkened => JSON::false,
+            front => JSON::false
+        },
+        disambiguation => '',
+        id => 'a3ea3821-5955-4cee-b44f-4f7da8a332f7',
+        media => [{
+            format => JSON::null,
+            position => 1,
+            title => '',
+            'track-count' => 1,
+            'track-offset' => 0,
+            tracks => [{
+                'artist-credit' => [{
+                    artist => {
+                        aliases => [{
+                            locale => JSON::null,
+                            name => "グスタフ・マーラー",
+                            primary => JSON::null,
+                            'sort-name' => "グスタフ・マーラー",
+                            type => JSON::null
+                        }],
+                        disambiguation => '',
+                        id => '8d610e51-64b4-4654-b8df-064b0fb7a9d9',
+                        name => 'Gustav Mahler',
+                        'sort-name' => 'Mahler, Gustav'
+                    },
+                    joinphrase => '',
+                    name => 'Gustav Mahler'
+                }],
+                id => '8ac89142-1318-490a-bed2-5b0c89b251b2',
+                length => JSON::null,
+                number => '1',
+                recording => {
+                    aliases => [],
+                    'artist-credit' => [{
+                        artist => {
+                            disambiguation => '',
+                            id => '509c772e-1164-4457-8d09-0553cfa77d64',
+                            name => 'Chicago Symphony Orchestra',
+                            'sort-name' => 'Chicago Symphony Orchestra'
+                        },
+                        joinphrase => '',
+                        name => 'Chicago Symphony Orchestra'
+                    }],
+                    disambiguation => '',
+                    id => '36d398e2-85bf-40d5-8686-4f0b78c80ca8',
+                    length => JSON::null,
+                    title => 'Symphony no. 2 in C minor: I. Allegro maestoso',
+                    video => JSON::false
+                },
+                title => 'Symphony no. 2 in C minor: I. Allegro maestoso'
+            }]
+        }],
+        packaging => JSON::null,
+        quality => 'normal',
+        status => JSON::null,
+        'text-representation' => { language => JSON::null, script => JSON::null },
+        title => 'Symphony no. 2'
+    };
+};
+
 1;
