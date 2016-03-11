@@ -7,6 +7,7 @@ const balanced = require('balanced-match');
 const _ = require('lodash');
 
 const {MIN_NAME_SIMILARITY} = require('../../common/constants');
+const {artistCreditFromArray} = require('../../common/immutable-entities');
 const clean = require('../../common/utility/clean');
 const getSimilarity = require('./similarity');
 
@@ -140,11 +141,13 @@ module.exports = function (entity) {
 
     entity.name(match.name);
 
-    var artistCredit = entity.artistCredit.toJSON();
+    var artistCredit = entity.artistCredit().names.toJS();
     _.last(artistCredit).joinPhrase = isProbablyClassical ? '; ' : ' feat. ';
     _.last(match.artistCredit).joinPhrase = '';
 
-    entity.artistCredit.setNames(artistCredit.concat(match.artistCredit));
+    entity.artistCredit(
+        artistCreditFromArray(artistCredit.concat(match.artistCredit))
+    );
 };
 
 // For use outside of the release editor.
@@ -165,7 +168,7 @@ MB.Control.initGuessFeatButton = function (formName) {
             // Confusingly, the artistCredit object used to generated hidden input
             // fields is also different from MB.sourceRelationshipEditor.source's,
             // so we have to replace this field too.
-            artistCredit: ko.dataFor(document.getElementById('entity-artist'))
+            artistCredit: MB.sourceEntity.artistCredit
         }
     );
 

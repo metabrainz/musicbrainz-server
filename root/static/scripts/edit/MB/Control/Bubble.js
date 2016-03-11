@@ -127,46 +127,6 @@ MB.Control.BubbleDoc = aclass(MB.Control.BubbleBase, {
 });
 
 
-MB.Control.ArtistCreditBubbleBase = {
-
-    removeArtistCreditName: function (name, event) {
-        // Prevent track artist bubbles from closing.
-        event.stopPropagation();
-
-        var artistCredit = this.target();
-        var names = artistCredit.names();
-        var index = _.indexOf(names, name);
-
-        artistCredit.removeName(name);
-
-        // Handle case where the last name is removed.
-        if (index === names.length) index--;
-
-        // Move focus to the previous remove icon
-        $(".remove-artist-credit:eq(" + index + ")", this.$bubble).focus();
-    },
-
-    copyArtistCredit: function () {
-        var names = this.target().toJSON();
-
-        if (names.length === 0) {
-            names.push({});
-        }
-
-        MB.localStorage("copiedArtistCredit", JSON.stringify(names));
-    },
-
-    pasteArtistCredit: function () {
-        var names = JSON.parse(MB.localStorage("copiedArtistCredit") || "[{}]");
-        this.target().setNames(names);
-    }
-};
-
-
-MB.Control.ArtistCreditBubbleDoc = aclass(MB.Control.BubbleDoc)
-    .extend(MB.Control.ArtistCreditBubbleBase);
-
-
 // Knockout's visible binding only toggles the display style between "none"
 // and "". When it's an empty string, the display falls back to whatever
 // overriding CSS rule is in place, which in our case is "display: none".
@@ -271,7 +231,7 @@ function bubbleControlHandler(event) {
         if ($active.length && !$active.has(control).length) {
             bubble = $active[0].bubbleDoc;
 
-            if (bubble.closeWhenFocusIsLost &&
+            if (bubble && bubble.closeWhenFocusIsLost &&
                 !event.isDefaultPrevented() &&
 
                 // Close unless focus was moved to a dialog above this
@@ -316,6 +276,11 @@ function bubbleKeydownHandler(event) {
 
     var $target = $(event.target);
     var $bubble = $target.parents("div.bubble");
+    var bubbleDoc = $bubble[0].bubbleDoc;
+
+    if (!bubbleDoc) {
+        return;
+    }
 
     var pressedEsc = event.which === 27;
     var pressedEnter = event.which === 13;
@@ -329,8 +294,6 @@ function bubbleKeydownHandler(event) {
         // model should update. This should run before the code below,
         // because the view model for the bubble may change.
         $target.trigger("change");
-
-        var bubbleDoc = $bubble[0].bubbleDoc;
 
         if (pressedEsc) {
             bubbleDoc.hide();

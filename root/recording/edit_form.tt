@@ -45,7 +45,6 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
   </div>
 
@@ -55,15 +54,12 @@
 
 <script type="text/javascript">//<![CDATA[
   $(function () {
-    var artistCredit = MB.Control.initialize_artist_credit();
-
+    MB.Control.initialize_artist_credit(
+      'edit-recording',
+      [% closing_tag_escape(form.field('artist_credit').json) %]
+    );
     MB.Control.initialize_guess_case("recording", "id-edit-recording");
     MB.Control.initGuessFeatButton('edit-recording');
-
-    ko.computed(function () {
-        $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
-    });
-
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
   });
 //]]></script>

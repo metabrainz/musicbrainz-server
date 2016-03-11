@@ -23,7 +23,7 @@ require("./edit/validation");
 require("./edit/externalLinks");
 require("./edit/utility/guessFeat");
 require("./edit/MB/Control/Area");
-require("./edit/MB/Control/ArtistCredit");
+require("./edit/components/ArtistCreditEditor");
 require("./edit/MB/Control/ArtistEdit");
 require("./edit/MB/Control/Bubble");
 require("./edit/URLCleanup");

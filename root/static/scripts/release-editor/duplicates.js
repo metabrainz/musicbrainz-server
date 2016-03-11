@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const {isCompleteArtistCredit} = require('../common/immutable-entities');
 const debounce = require('../common/utility/debounce');
 const request = require('../common/utility/request');
 
@@ -74,17 +75,17 @@ const request = require('../common/utility/request');
                 return;
             }
 
-            var ac = release.artistCredit;
+            var ac = release.artistCredit();
 
-            if (loadingFromRG || !name || !ac.isComplete()) {
+            if (loadingFromRG || !name || !isCompleteArtistCredit(ac)) {
                 return;
             }
 
             var query = utils.constructLuceneFieldConjunction({
                 release: [ utils.escapeLuceneValue(name) ],
 
-                arid: _(ac.names())
-                        .invoke("artist").pluck("gid")
+                arid: _(ac.names.toJS())
+                        .pluck("artist").pluck("gid")
                         .map(utils.escapeLuceneValue).value()
             });
 

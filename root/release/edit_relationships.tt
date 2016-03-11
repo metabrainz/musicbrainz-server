@@ -205,8 +205,8 @@
         <td class="recording">
           <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
           <span data-bind="html: html({ 'target': '_blank' })"></span>
-          <!-- ko if: !artistCredit.isEqual($root.source.artistCredit) -->
-              by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
+          <!-- ko if: !isArtistCreditEqual($root.source.artistCredit) -->
+              by <span data-bind="html: renderArtistCredit(artistCredit)"></span>
           <!-- /ko -->
           (<!-- ko text: formattedLength || "?:??" --><!-- /ko -->)
           <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
