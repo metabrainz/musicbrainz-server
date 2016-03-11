@@ -439,7 +439,10 @@ sub accept {
         }
 
         my @final_tracklist;
-        my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
+        my $existing_recordings = $self->c->sql->select_single_column_array(
+            'SELECT id FROM recording WHERE id = any(?)', \@merged_recordings
+        );
+        my %existing_recordings = map { $_ => 1 } @$existing_recordings;
         while (1) {
             last unless @merged_row_ids &&
                         @merged_artist_credits &&
@@ -455,7 +458,7 @@ sub accept {
             my $recording_id = shift(@merged_recordings);
             my $is_data_track = shift(@merged_is_data_tracks);
 
-            if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
+            if (defined($recording_id) && $recording_id > 0 && !$existing_recordings{$recording_id}) {
                 MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
             }
