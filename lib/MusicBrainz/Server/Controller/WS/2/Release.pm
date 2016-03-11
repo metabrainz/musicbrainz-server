@@ -117,10 +117,16 @@ sub release_toplevel
         }
 
         $c->model('Track')->load_for_mediums(@mediums);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
-            if ($c->stash->{inc}->artist_credits);
+        my @tracks = map { $_->all_tracks } @mediums;
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @mediums);
+        if ($c->stash->{inc}->artist_credits) {
+            $c->model('ArtistCredit')->load(@tracks);
+            my @acns = map { $_->artist_credit->all_names } @tracks;
+            $c->model('Artist')->load(@acns);
+            $self->_aliases($c, 'Artist', [uniq_by { $_->id } map { $_->artist } @acns], $stash);
+        }
+
+        my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
 
         if ($c->stash->{inc}->recording_level_rels)
