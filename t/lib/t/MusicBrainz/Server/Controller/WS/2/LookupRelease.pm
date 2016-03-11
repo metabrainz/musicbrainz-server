@@ -25,7 +25,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (15412, 'editor', '{CLEARTEXT}mb', 'be88da857f697a78656b1307f89f90ab', 'foo@example.com', now());
 INSERT INTO editor_collection (id, gid, editor, name, public, type) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE, 1);
-INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054);
+INSERT INTO editor_collection (id, gid, editor, name, public, type) VALUES (14934, '5e8dd65f-7d52-4d6e-93f6-f84651e137ca', 15412, 'My Private Collection', FALSE, 1);
+INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054), (14934, 123054);
 EOSQL
 
 ws_test 'basic release lookup',
@@ -220,6 +221,55 @@ ws_test 'basic release with collections',
         </cover-art-archive>
     </release>
 </metadata>';
+
+ws_test 'basic release with private collections',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=user-collections' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+        <title>Summer Reggae! Rainbow</title>
+        <status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language>
+            <script>Latn</script>
+        </text-representation>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
+        <collection-list count="2">
+            <collection type="Release" entity-type="release" id="f34c079d-374e-4436-9448-da92dedef3cd">
+                <name>My Collection</name>
+                <editor>editor</editor>
+                <release-list count="1"/>
+            </collection>
+            <collection type="Release" entity-type="release" id="5e8dd65f-7d52-4d6e-93f6-f84651e137ca">
+                <name>My Private Collection</name>
+                <editor>editor</editor>
+                <release-list count="1"/>
+            </collection>
+        </collection-list>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
+    </release>
+</metadata>', { username => 'editor', password => 'mb' };
 
 ws_test 'release lookup with artists + aliases',
     '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' =>
@@ -1551,6 +1601,76 @@ ws_test 'release lookup, pregap track',
   </release>
 </metadata>';
 
+};
+
+test 'MBS-7914' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-7914');
+
+    ws_test 'track aliases are included (MBS-7914)',
+    '/release/a3ea3821-5955-4cee-b44f-4f7da8a332f7?inc=artists+media+recordings+artist-credits+aliases' =>
+    '<?xml version="1.0" ?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="a3ea3821-5955-4cee-b44f-4f7da8a332f7">
+    <title>Symphony no. 2</title>
+    <quality>normal</quality>
+    <artist-credit>
+      <name-credit>
+        <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9">
+          <name>Gustav Mahler</name>
+          <sort-name>Mahler, Gustav</sort-name>
+          <alias-list count="1">
+            <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
+          </alias-list>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <track-list count="1" offset="0">
+          <track id="8ac89142-1318-490a-bed2-5b0c89b251b2">
+            <position>1</position>
+            <number>1</number>
+            <artist-credit>
+              <name-credit>
+                <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9">
+                  <name>Gustav Mahler</name>
+                  <sort-name>Mahler, Gustav</sort-name>
+                  <alias-list count="1">
+                    <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
+                  </alias-list>
+                </artist>
+              </name-credit>
+            </artist-credit>
+            <recording id="36d398e2-85bf-40d5-8686-4f0b78c80ca8">
+              <title>Symphony no. 2 in C minor: I. Allegro maestoso</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="509c772e-1164-4457-8d09-0553cfa77d64">
+                    <name>Chicago Symphony Orchestra</name>
+                    <sort-name>Chicago Symphony Orchestra</sort-name>
+                    <alias-list count="1">
+                      <alias sort-name="CSO">CSO</alias>
+                    </alias-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
 };
 
 1;

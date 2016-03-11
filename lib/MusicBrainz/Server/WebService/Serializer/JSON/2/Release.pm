@@ -79,7 +79,7 @@ sub serialize
     };
 
     $body{collections} = list_of($entity, $inc, $stash, "collections")
-        if $inc && $inc->collections;
+        if $inc && ($inc->collections || $inc->user_collections);
 
     $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash)
         if $inc && $inc->release_groups;

@@ -694,6 +694,36 @@ test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {
     cmp_deeply($got_tracklist_hash, $expected_tracklist_hash);
 };
 
+
+test 'Fail edits using cached deleted recordings (MBS-8858)' => sub {
+    my $test = shift;
+    my $c = $test->cache_aware_c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $delete_me = $c->model('Recording')->insert({
+        name => 'delete me',
+        artist_credit => 1,
+    });
+
+    my $edit = create_edit($c, $medium, [
+        Track->new(
+            artist_credit => $c->model('ArtistCredit')->get_by_id(1),
+            is_data_track => 0,
+            name => 'track',
+            number => 1,
+            position => 1,
+            recording_id => $delete_me->{id},
+        ),
+    ]);
+
+    $c->model('Recording')->get_by_ids($delete_me->{id});
+    $c->sql->do('DELETE FROM recording WHERE id = ?', $delete_me->{id});
+    accept_edit($c, $edit);
+    is($edit->status, $STATUS_FAILEDDEP);
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
