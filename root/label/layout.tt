@@ -9,6 +9,8 @@
         [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { label = label.gid }), text => l('Add release') }) ~%]
 
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=label edit_links_add_entity=edit_links_add_entity ~%]
+            [%~ show_image() ~%]
+            
             <h2 class="label-information">[%~ l('Label information') ~%]</h2>
             [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
                 [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
