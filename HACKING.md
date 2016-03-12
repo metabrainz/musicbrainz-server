@@ -242,3 +242,14 @@ If you have CATALYST_DEBUG set to true, in DBDefs, the built in server
 cause debug information to be generated on every page, and all HTML pages will
 have debug panels available to view this information. To get to these panels,
 simply click the "?" icon in the top right of each page.
+
+Potential issues and fixes
+--------------------------
+
+### Images from Wikimedia Commons aren't loading
+
+This might be caused by failed SSL verification. One way to confirm is to check
+response that you get from Wikimedia Commons API in `Data::Role::MediaWikiAPI`.
+If it is indeed the cause then you can install `Mozilla::CA` module:
+
+    $ cpanm Mozilla::CA
