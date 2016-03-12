@@ -52,10 +52,10 @@ sub _get_and_process_json
         return undef;
     }
 
-    # decode JSON
+    # decode JSON depending on the action
     my $content = decode_json(encode("utf-8", $response->content));
     if ($content->{query}) {
-        # Wikipedia
+        # Wikipedia (action: query)
         $content = $content->{query};
         # save title as passed in
         my $noncanonical = $title;
@@ -78,8 +78,11 @@ sub _get_and_process_json
 
         return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
     } elsif ($content->{entities} && $content->{entities}{$title}) {
-        # Wikidata
+        # Wikidata (action: wbgetentities)
         return {content => $content->{entities}{$title}};
+    } elsif ($content->{claims}) {
+        # Wikidata (action: wbgetclaims)
+        return {content => $content->{claims}};
     } else {
         return undef;
     };
