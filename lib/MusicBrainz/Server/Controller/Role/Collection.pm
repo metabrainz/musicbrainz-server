@@ -36,6 +36,7 @@ role
         my ($collections) = $c->model('Collection')->find_by({
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
+            show_private => $c->user->id,
         });
         $collections;
     };
