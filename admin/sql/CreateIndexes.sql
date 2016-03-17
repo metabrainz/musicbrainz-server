@@ -4,8 +4,14 @@ BEGIN;
 CREATE INDEX application_idx_owner ON application (owner);
 CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
 
+CREATE UNIQUE INDEX area_type_idx_gid ON area_type (gid);
+
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
+
+CREATE UNIQUE INDEX area_alias_type_idx_gid ON area_alias_type (gid);
+
+CREATE UNIQUE INDEX artist_alias_type_idx_gid ON artist_alias_type (gid);
 
 CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
 CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
@@ -35,6 +41,8 @@ CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
 CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
+
+CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
@@ -66,6 +74,14 @@ CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
 CREATE UNIQUE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
 CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
 CREATE UNIQUE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
+
+CREATE UNIQUE INDEX event_type_idx_gid ON event_type (gid);
+
+CREATE UNIQUE INDEX gender_idx_gid ON gender (gid);
+
+CREATE UNIQUE INDEX instrument_type_idx_gid ON instrument_type (gid);
+
+CREATE UNIQUE INDEX instrument_alias_type_idx_gid ON instrument_alias_type (gid);
 
 CREATE INDEX edit_idx_editor_id_desc ON edit (editor, id DESC); -- DESC only for historical reasons
 CREATE INDEX edit_idx_type_id ON edit (type, id);
@@ -104,6 +120,8 @@ CREATE INDEX edit_note_idx_post_time_edit ON edit_note (post_time DESC, edit DES
 
 CREATE UNIQUE INDEX event_idx_gid ON event (gid);
 CREATE INDEX event_idx_name ON event (name);
+
+CREATE UNIQUE INDEX event_alias_type_idx_gid ON event_alias_type (gid);
 
 CREATE INDEX event_alias_idx_event ON event_alias (event);
 CREATE UNIQUE INDEX event_alias_idx_primary ON event_alias (event, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -331,6 +349,8 @@ CREATE INDEX label_idx_area ON label (area);
 CREATE UNIQUE INDEX label_idx_null_comment ON label (name) WHERE comment IS NULL;
 CREATE UNIQUE INDEX label_idx_uniq_name_comment ON label (name, comment) WHERE comment IS NOT NULL;
 
+CREATE UNIQUE INDEX label_alias_type_idx_gid ON label_alias_type (gid);
+
 CREATE INDEX label_alias_idx_label ON label_alias (label);
 CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
@@ -342,6 +362,7 @@ CREATE INDEX label_tag_raw_idx_editor ON label_tag_raw (editor);
 CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
 CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 
+CREATE UNIQUE INDEX label_type_idx_gid ON label_type (gid);
 
 CREATE UNIQUE INDEX language_idx_iso_code_2b ON language (iso_code_2b);
 CREATE UNIQUE INDEX language_idx_iso_code_2t ON language (iso_code_2t);
@@ -352,12 +373,16 @@ CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
+CREATE UNIQUE INDEX editor_collection_type_idx_gid ON editor_collection_type (gid);
+
 CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
 CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
+
+CREATE UNIQUE INDEX medium_format_idx_gid ON medium_format (gid);
 
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
@@ -366,14 +391,20 @@ CREATE INDEX place_idx_area ON place (area);
 CREATE INDEX place_alias_idx_place ON place_alias (place);
 CREATE UNIQUE INDEX place_alias_idx_primary ON place_alias (place, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
+CREATE UNIQUE INDEX place_alias_type_idx_gid ON place_alias_type (gid);
+
 CREATE INDEX place_tag_idx_tag ON place_tag (tag);
 
 CREATE INDEX place_tag_raw_idx_tag ON place_tag_raw (tag);
 CREATE INDEX place_tag_raw_idx_editor ON place_tag_raw (editor);
 
+CREATE UNIQUE INDEX place_type_idx_gid ON place_type (gid);
+
 CREATE UNIQUE INDEX recording_idx_gid ON recording (gid);
 CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
+
+CREATE UNIQUE INDEX recording_alias_type_idx_gid ON recording_alias_type (gid);
 
 CREATE INDEX recording_alias_idx_recording ON recording_alias (recording);
 CREATE UNIQUE INDEX recording_alias_idx_primary ON recording_alias (recording, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -385,7 +416,6 @@ CREATE INDEX recording_rating_raw_idx_editor ON recording_rating_raw (editor);
 CREATE INDEX recording_tag_raw_idx_track ON recording_tag_raw (recording);
 CREATE INDEX recording_tag_raw_idx_tag ON recording_tag_raw (tag);
 CREATE INDEX recording_tag_raw_idx_editor ON recording_tag_raw (editor);
-
 
 CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
@@ -404,16 +434,20 @@ CREATE INDEX release_raw_idx_last_modified ON release_raw (last_modified);
 CREATE INDEX release_raw_idx_lookup_count ON release_raw (lookup_count);
 CREATE INDEX release_raw_idx_modify_count ON release_raw (modify_count);
 
-
 CREATE INDEX release_label_idx_release ON release_label (release);
 CREATE INDEX release_label_idx_label ON release_label (label);
 
-CREATE INDEX release_country_idx_country ON release_country (country);
+CREATE UNIQUE INDEX release_packaging_idx_gid ON release_packaging (gid);
 
+CREATE UNIQUE INDEX release_status_idx_gid ON release_status (gid);
+
+CREATE INDEX release_country_idx_country ON release_country (country);
 
 CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);
 CREATE INDEX release_group_idx_name ON release_group (name);
 CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
+
+CREATE UNIQUE INDEX release_group_alias_type_idx_gid ON release_group_alias_type (gid);
 
 CREATE INDEX release_group_alias_idx_release_group ON release_group_alias (release_group);
 CREATE UNIQUE INDEX release_group_alias_idx_primary ON release_group_alias (release_group, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -426,10 +460,20 @@ CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (ed
 CREATE INDEX release_group_tag_raw_idx_tag ON release_group_tag_raw (tag);
 CREATE INDEX release_group_tag_raw_idx_editor ON release_group_tag_raw (editor);
 
+CREATE UNIQUE INDEX release_group_primary_type_idx_gid ON release_group_primary_type (gid);
+
+CREATE UNIQUE INDEX release_group_secondary_type_idx_gid ON release_group_secondary_type (gid);
+
 CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
 CREATE UNIQUE INDEX series_idx_gid ON series (gid);
 CREATE INDEX series_idx_name ON series (name);
+
+CREATE UNIQUE INDEX series_type_idx_gid ON series_type (gid);
+
+CREATE UNIQUE INDEX series_ordering_type_idx_gid ON series_ordering_type (gid);
+
+CREATE UNIQUE INDEX series_alias_type_idx_gid ON series_alias_type (gid);
 
 CREATE INDEX series_alias_idx_series ON series_alias (series);
 CREATE UNIQUE INDEX series_alias_idx_primary ON series_alias (series, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -464,12 +508,20 @@ CREATE INDEX vote_idx_vote_time ON vote (vote_time);
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
 
+CREATE UNIQUE INDEX work_alias_type_idx_gid ON work_alias_type (gid);
+
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 
 CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
+
+CREATE UNIQUE INDEX work_type_idx_gid ON work_type (gid);
+
+CREATE UNIQUE INDEX work_attribute_type_idx_gid ON work_attribute_type (gid);
+
+CREATE UNIQUE INDEX work_attribute_type_allowed_value_idx_gid ON work_attribute_type_allowed_value (gid);
 
 -- lowercase indexes for javascript autocomplete
 CREATE INDEX artist_idx_lower_name ON artist (lower(name));

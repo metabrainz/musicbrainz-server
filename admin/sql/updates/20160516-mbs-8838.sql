@@ -127,4 +127,36 @@ ALTER TABLE work_attribute_type_allowed_value ALTER COLUMN gid SET NOT NULL;
 ALTER TABLE work_type ALTER COLUMN gid SET NOT NULL;
 ALTER TABLE cover_art_archive.art_type ALTER COLUMN gid SET NOT NULL;
 
+-- Indexes
+CREATE UNIQUE INDEX area_type_idx_gid ON area_type (gid);
+CREATE UNIQUE INDEX area_alias_type_idx_gid ON area_alias_type (gid);
+CREATE UNIQUE INDEX artist_alias_type_idx_gid ON artist_alias_type (gid);
+CREATE UNIQUE INDEX artist_type_idx_gid ON artist_type (gid);
+CREATE UNIQUE INDEX editor_collection_type_idx_gid ON editor_collection_type (gid);
+CREATE UNIQUE INDEX event_alias_type_idx_gid ON event_alias_type (gid);
+CREATE UNIQUE INDEX event_type_idx_gid ON event_type (gid);
+CREATE UNIQUE INDEX gender_idx_gid ON gender (gid);
+CREATE UNIQUE INDEX instrument_alias_type_idx_gid ON instrument_alias_type (gid);
+CREATE UNIQUE INDEX instrument_type_idx_gid ON instrument_type (gid);
+CREATE UNIQUE INDEX label_alias_type_idx_gid ON label_alias_type (gid);
+CREATE UNIQUE INDEX label_type_idx_gid ON label_type (gid);
+CREATE UNIQUE INDEX medium_format_idx_gid ON medium_format (gid);
+CREATE UNIQUE INDEX place_alias_type_idx_gid ON place_alias_type (gid);
+CREATE UNIQUE INDEX place_type_idx_gid ON place_type (gid);
+CREATE UNIQUE INDEX recording_alias_type_idx_gid ON recording_alias_type (gid);
+CREATE UNIQUE INDEX release_alias_type_idx_gid ON release_alias_type (gid);
+CREATE UNIQUE INDEX release_group_alias_type_idx_gid ON release_group_alias_type (gid);
+CREATE UNIQUE INDEX release_group_secondary_type_idx_gid ON release_group_secondary_type (gid);
+CREATE UNIQUE INDEX release_group_primary_type_idx_gid ON release_group_primary_type (gid);
+CREATE UNIQUE INDEX release_packaging_idx_gid ON release_packaging (gid);
+CREATE UNIQUE INDEX release_status_idx_gid ON release_status (gid);
+CREATE UNIQUE INDEX series_alias_type_idx_gid ON series_alias_type (gid);
+CREATE UNIQUE INDEX series_ordering_type_idx_gid ON series_ordering_type (gid);
+CREATE UNIQUE INDEX series_type_idx_gid ON series_type (gid);
+CREATE UNIQUE INDEX work_alias_type_idx_gid ON work_alias_type (gid);
+CREATE UNIQUE INDEX work_attribute_type_idx_gid ON work_attribute_type (gid);
+CREATE UNIQUE INDEX work_attribute_type_allowed_value_idx_gid ON work_attribute_type_allowed_value (gid);
+CREATE UNIQUE INDEX work_type_idx_gid ON work_type (gid);
+CREATE UNIQUE INDEX art_type_idx_gid ON cover_art_archive.art_type (gid);
+
 COMMIT;
