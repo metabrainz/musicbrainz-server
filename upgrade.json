@@ -21,5 +21,10 @@
                    "20150307-other-entities-collections-fks.sql",
                    "20150317-drop-event-name-constraint.sql",
                    "20150331-relationship-credits-standalone.sql"]
+  },
+
+  "23": {
+    "slave": ["20160516-mbs-8838.sql"],
+    "standalone": ["20160516-mbs-8838.sql"]
   }
 }
