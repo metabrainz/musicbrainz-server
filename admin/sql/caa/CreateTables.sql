@@ -6,11 +6,11 @@ SET search_path = 'cover_art_archive';
 
 CREATE TABLE art_type ( -- replicate (verbose)
     id                  SERIAL NOT NULL, -- PK
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references cover_art_archive.art_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE image_type ( -- replicate (verbose)

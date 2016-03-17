@@ -21,11 +21,11 @@ CREATE TABLE application
 
 CREATE TABLE area_type ( -- replicate
     id                  SERIAL, -- PK
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references area_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE area ( -- replicate (verbose)
@@ -67,11 +67,11 @@ CREATE TABLE area_gid_redirect ( -- replicate (verbose)
 
 CREATE TABLE area_alias_type ( -- replicate
     id                  SERIAL, -- PK,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references area_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE area_alias ( -- replicate (verbose)
@@ -173,11 +173,11 @@ CREATE TABLE artist_deletion
 
 CREATE TABLE artist_alias_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references artist_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE artist_alias ( -- replicate (verbose)
@@ -294,11 +294,11 @@ CREATE TABLE artist_gid_redirect ( -- replicate (verbose)
 
 CREATE TABLE artist_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references artist_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE autoeditor_election
@@ -614,11 +614,11 @@ CREATE TABLE event_tag_raw (
 
 CREATE TABLE event_alias_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references event_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE event_alias ( -- replicate (verbose)
@@ -684,29 +684,29 @@ CREATE TABLE event_tag ( -- replicate (verbose)
 
 CREATE TABLE event_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references event_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE gender ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references gender.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE instrument_type ( -- replicate
     id                  SERIAL, -- PK
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references instrument_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE instrument ( -- replicate (verbose)
@@ -728,11 +728,11 @@ CREATE TABLE instrument_gid_redirect ( -- replicate (verbose)
 
 CREATE TABLE instrument_alias_type ( -- replicate
     id                  SERIAL, -- PK,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references instrument_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE instrument_alias ( -- replicate (verbose)
@@ -1822,11 +1822,11 @@ CREATE TABLE label_tag_raw
 
 CREATE TABLE label_alias_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references label_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE label_alias ( -- replicate (verbose)
@@ -1912,11 +1912,11 @@ CREATE TABLE label_tag ( -- replicate (verbose)
 
 CREATE TABLE label_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references label_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE language ( -- replicate
@@ -2039,12 +2039,12 @@ CREATE TABLE editor_collection
 
 CREATE TABLE editor_collection_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     entity_type         VARCHAR(50) NOT NULL,
     parent              INTEGER, -- references editor_collection_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE editor_collection_area (
@@ -2162,13 +2162,13 @@ CREATE TABLE medium_cdtoc ( -- replicate (verbose)
 
 CREATE TABLE medium_format ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     year                SMALLINT,
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE orderable_link_type ( -- replicate
@@ -2255,11 +2255,11 @@ CREATE TABLE place_alias ( -- replicate (verbose)
 
 CREATE TABLE place_alias_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references place_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE place_annotation ( -- replicate (verbose)
@@ -2290,11 +2290,11 @@ CREATE TABLE place_tag_raw
 
 CREATE TABLE place_type ( -- replicate
     id                  SERIAL, -- PK
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references place_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE replication_control ( -- replicate
@@ -2318,11 +2318,11 @@ CREATE TABLE recording ( -- replicate (verbose)
 
 CREATE TABLE recording_alias_type ( -- replicate
     id                  SERIAL, -- PK,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references recording_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE recording_alias ( -- replicate (verbose)
@@ -2417,11 +2417,11 @@ CREATE TABLE release ( -- replicate (verbose)
 
 CREATE TABLE release_alias_type ( -- replicate
     id                  SERIAL, -- PK,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references release_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_alias ( -- replicate (verbose)
@@ -2533,20 +2533,20 @@ CREATE TABLE release_label ( -- replicate (verbose)
 
 CREATE TABLE release_packaging ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_packaging.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_status ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_status.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_tag ( -- replicate (verbose)
@@ -2569,11 +2569,11 @@ CREATE TABLE release_group ( -- replicate (verbose)
 
 CREATE TABLE release_group_alias_type ( -- replicate
     id                  SERIAL, -- PK,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references release_group_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_group_alias ( -- replicate (verbose)
@@ -2655,20 +2655,20 @@ CREATE TABLE release_group_tag ( -- replicate (verbose)
 
 CREATE TABLE release_group_primary_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_group_primary_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_group_secondary_type ( -- replicate
     id                  SERIAL NOT NULL, -- PK
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references release_group_secondary_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE release_group_secondary_type_join ( -- replicate (verbose)
@@ -2699,21 +2699,21 @@ CREATE TABLE series ( -- replicate (verbose)
 
 CREATE TABLE series_type ( -- replicate (verbose)
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     entity_type         VARCHAR(50) NOT NULL,
     parent              INTEGER, -- references series_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE series_ordering_type ( -- replicate (verbose)
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references series_ordering_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE series_deletion
@@ -2732,11 +2732,11 @@ CREATE TABLE series_gid_redirect ( -- replicate (verbose)
 
 CREATE TABLE series_alias_type ( -- replicate (verbose)
     id                  SERIAL, -- PK
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references series_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE series_alias ( -- replicate (verbose)
@@ -2902,11 +2902,11 @@ CREATE TABLE work_tag_raw
 
 CREATE TABLE work_alias_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                TEXT NOT NULL,
     parent              INTEGER, -- references work_alias_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE work_alias ( -- replicate (verbose)
@@ -2978,32 +2978,32 @@ CREATE TABLE work_tag ( -- replicate (verbose)
 
 CREATE TABLE work_type ( -- replicate
     id                  SERIAL,
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references work_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE work_attribute_type ( -- replicate (verbose)
     id                  SERIAL,  -- PK
-    gid                 uuid NOT NULL,
     name                VARCHAR(255) NOT NULL,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     free_text           BOOLEAN NOT NULL,
     parent              INTEGER, -- references work_attribute_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE work_attribute_type_allowed_value ( -- replicate (verbose)
     id                  SERIAL,  -- PK
-    gid                 uuid NOT NULL,
     work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
     value               TEXT,
     parent              INTEGER, -- references work_attribute_type_allowed_value.id
     child_order         INTEGER NOT NULL DEFAULT 0,
-    description         TEXT
+    description         TEXT,
+    gid                 uuid NOT NULL
 );
 
 CREATE TABLE work_attribute ( -- replicate (verbose)
