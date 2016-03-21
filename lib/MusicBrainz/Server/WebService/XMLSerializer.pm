@@ -100,6 +100,7 @@ sub _serialize_alias
                 $al->locale ? ( locale => $al->locale ) : (),
                 'sort-name' => $al->sort_name,
                 $al->type ? ( type => $al->type_name ) : (),
+                $al->type ? ( 'type-id' => $al->type->gid ) : (),
                 $al->primary_for_locale ? (primary => 'primary') : (),
                 !$al->begin_date->is_empty ? ( 'begin-date' => $al->begin_date->format ) : (),
                 !$al->end_date->is_empty ? ( 'end-date' => $al->end_date->format ) : ()
@@ -135,6 +136,7 @@ sub _serialize_artist
     my %attrs;
     $attrs{id} = $artist->gid;
     $attrs{type} = $artist->type->name if ($artist->type);
+    $attrs{"type-id"} = $artist->type->gid if ($artist->type);
 
     my @list;
     push @list, $gen->name($artist->name);
@@ -281,19 +283,27 @@ sub _serialize_release_group
             Interview => 5
         );
 
-        my ($fallback) =
+        my ($fallback_name) =
             nsort_by { $fallback_type_order{$_} }
                 grep { exists $fallback_type_order{$_} }
                     map { $_->name }
                         $release_group->all_secondary_types;
+        my ($fallback_gid) =
+            nsort_by { $fallback_type_order{$_} }
+                grep { exists $fallback_type_order{$_} }
+                    map { $_->gid }
+                        $release_group->all_secondary_types;
 
-        $attr{type} = $fallback || $release_group->primary_type->name;
+        $attr{type} = $fallback_name || $release_group->primary_type->name;
+        $attr{"type-id"} = $fallback_gid || $release_group->primary_type->gid;
     }
     elsif ($release_group->primary_type) {
         $attr{type} = $release_group->primary_type->name;
+        $attr{"type-id"} = $release_group->primary_type->gid;
     }
     elsif ($release_group->all_secondary_types) {
         $attr{type} = $release_group->secondary_types->[0]->name;
+        $attr{"type-id"} = $release_group->secondary_types->[0]->gid;
     }
 
     my @list;
@@ -302,11 +312,11 @@ sub _serialize_release_group
     $self->_serialize_annotation(\@list, $gen, $release_group, $inc, $opts) if $toplevel;
     push @list, $gen->first_release_date($release_group->first_release_date->format);
 
-    push @list, $gen->primary_type($release_group->primary_type->name)
+    push @list, $gen->primary_type({ id => $release_group->primary_type->gid }, $release_group->primary_type->name)
         if $release_group->primary_type;
     push @list, $gen->secondary_type_list(
         map {
-            $gen->secondary_type($_->name)
+            $gen->secondary_type({ id => $_->gid }, $_->name)
         } $release_group->all_secondary_types
     ) if $release_group->all_secondary_types;
 
@@ -374,7 +384,7 @@ sub _serialize_release
     my @list;
 
     push @list, $gen->title($release->name);
-    push @list, $gen->status($release->status->name) if $release->status;
+    push @list, $gen->status({ id => $release->status->gid }, $release->status->name) if $release->status;
     $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     push @list, $gen->disambiguation($release->comment) if $release->comment;
     $self->_serialize_annotation(\@list, $gen, $release, $inc, $opts) if $toplevel;
@@ -483,6 +493,7 @@ sub _serialize_work
     my %attrs;
     $attrs{id} = $work->gid;
     $attrs{type} = $work->type->name if ($work->type);
+    $attrs{"type-id"} = $work->type->gid if ($work->type);
 
     my @list;
     push @list, $gen->title($work->name);
@@ -497,7 +508,10 @@ sub _serialize_work
 
     if ($work->all_attributes) {
         push @list, $gen->attribute_list(map {
-            $gen->attribute({ type => $_->type->name }, $_->value);
+            $gen->attribute({ 
+                type => $_->type->name,
+                "type-id" => $_->type->gid,
+            }, $_->value);
         } $work->all_attributes);
     }
 
@@ -601,7 +615,7 @@ sub _serialize_medium
     my @med;
     push @med, $gen->title($medium->name) if $medium->name;
     push @med, $gen->position($medium->position);
-    push @med, $gen->format($medium->format->name) if ($medium->format);
+    push @med, $gen->format({ id => $medium->format->gid }, $medium->format->name) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
 
     $self->_serialize_tracks(\@med, $gen, $medium, $inc, $stash);
@@ -792,6 +806,7 @@ sub _serialize_label
     my %attrs;
     $attrs{id} = $label->gid;
     $attrs{type} = $label->type->name if $label->type;
+    $attrs{"type-id"} = $label->type->gid if $label->type;
 
     my @list;
     push @list, $gen->name($label->name);
@@ -851,6 +866,7 @@ sub _serialize_area_inner
     my %attrs;
     $attrs{id} = $area->gid;
     $attrs{type} = $area->type->name if $area->type;
+    $attrs{"type-id"} = $area->type->gid if $area->type;
 
     my @list;
     push @list, $gen->name($area->name);
@@ -934,6 +950,7 @@ sub _serialize_place
     my %attrs;
     $attrs{id} = $place->gid;
     $attrs{type} = $place->type->name if $place->type;
+    $attrs{"type-id"} = $place->type->gid if $place->type;
 
     my @list;
     push @list, $gen->name($place->name);
@@ -975,6 +992,7 @@ sub _serialize_instrument {
     my %attrs;
     $attrs{id} = $instrument->gid;
     $attrs{type} = $instrument->type->name if $instrument->type;
+    $attrs{"type-id"} = $instrument->type->gid if $instrument->type;
 
     my @list;
     push @list, $gen->name($instrument->name);
@@ -1085,6 +1103,7 @@ sub _serialize_series
     my %attrs;
     $attrs{id} = $series->gid;
     $attrs{type} = $series->type->name if $series->type;
+    $attrs{"type-id"} = $series->type->gid if $series->type;
 
     my @list;
     push @list, $gen->name($series->name);
@@ -1124,6 +1143,7 @@ sub _serialize_event
     my %attrs;
     $attrs{id} = $event->gid;
     $attrs{type} = $event->type->name if $event->type;
+    $attrs{"type-id"} = $event->type->gid if $event->type;
 
     my @list;
     push @list, $gen->name($event->name);
