@@ -92,9 +92,13 @@
         [% END %]
 
         [% IF c.user_exists AND (viewing_own_profile OR c.user.is_account_admin);
-             WRAPPER property name=l('Last login:');
-               UserDate.format(user.last_login_date);
-             END;
+            WRAPPER property name=l('Last login:');
+                IF user.last_login_date;
+                    UserDate.format(user.last_login_date);
+                ELSE;
+                    l("Hasn't logged in yet");
+                END;
+            END;
            END %]
 
         [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
