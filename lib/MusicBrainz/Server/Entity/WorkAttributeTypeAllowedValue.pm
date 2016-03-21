@@ -11,6 +11,11 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     sort_criterion => 'l_value',
 };
 
+has 'gid' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 has work_attribute_type_id => (
     is => 'rw',
     isa => 'Int',

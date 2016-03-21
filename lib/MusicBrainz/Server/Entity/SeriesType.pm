@@ -15,6 +15,11 @@ sub l_name {
     return lp($self->name, 'series_type')
 }
 
+has 'gid' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 has entity_type => (
     is => 'rw',
     isa => 'Str',

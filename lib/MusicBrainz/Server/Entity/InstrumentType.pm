@@ -9,6 +9,11 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'InstrumentType',
 };
 
+has 'gid' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'instrument_type')

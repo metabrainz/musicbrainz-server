@@ -14,6 +14,11 @@ role {
         isa => 'Int',
     );
 
+    has type_gid => (
+        is => 'rw',
+        isa => 'Str',
+    );
+
     has type => (
         is => 'rw',
         isa => $params->model,
