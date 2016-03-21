@@ -4,8 +4,9 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_EDIT_BARCODES
+    $ACCESS_SCOPE_COLLECTION
     $ACCESS_SCOPE_SUBMIT_BARCODE
+    $EDIT_RELEASE_EDIT_BARCODES
 );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
@@ -31,7 +32,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
-                                          tags user-tags ratings user-ratings collections
+                                          tags user-tags ratings user-ratings collections user-collections
                                           artist-credits discids media recording-level-rels
                                           work-level-rels _relations annotation) ],
                          optional => [ qw(fmt) ],
@@ -116,10 +117,16 @@ sub release_toplevel
         }
 
         $c->model('Track')->load_for_mediums(@mediums);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
-            if ($c->stash->{inc}->artist_credits);
+        my @tracks = map { $_->all_tracks } @mediums;
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @mediums);
+        if ($c->stash->{inc}->artist_credits) {
+            $c->model('ArtistCredit')->load(@tracks);
+            my @acns = map { $_->artist_credit->all_names } @tracks;
+            $c->model('Artist')->load(@acns);
+            $self->_aliases($c, 'Artist', [uniq_by { $_->id } map { $_->artist } @acns], $stash);
+        }
+
+        my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
 
         if ($c->stash->{inc}->recording_level_rels)
@@ -132,10 +139,19 @@ sub release_toplevel
 
     $self->load_relationships($c, $stash, @rels_entities);
 
-    if ($c->stash->{inc}->collections) {
+    my $inc = $c->stash->{inc};
+    if ($inc->collections || $inc->user_collections) {
+        if ($inc->user_collections) {
+            $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+        }
         my ($collections, $total) = $c->model('Collection')->find_by({
             entity_type => 'release',
             entity_id => $release->id,
+            # This should probably check $inc->user_collections instead of
+            # $c->user_exists, but that would break the collections feature in
+            # versions of Picard that didn't know about user-collections. Picard
+            # would rely on user-tags or user-ratings to force authentication
+            # and get private collections. See MBS-6152.
             show_private => $c->user_exists ? $c->user->id : undef,
         });
 

@@ -34,6 +34,8 @@ test 'Create collection from release page adds the new release' => sub {
     $tx->is('count(//table[@class="tbl"]/tbody/tr)',
             "1", "one item in the table");
 
+    $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce');
+    $mech->content_contains('Remove from Super collection');
 };
 
 test 'Create collection with no release set does not add release' => sub {

@@ -6,6 +6,8 @@
 
     [%~ IF !full_width ~%]
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=area ~%]
+            [%~ show_image() ~%]
+            
             <h2 class="area-information">[%~ l('Area information') ~%]</h2>
             [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
                 [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')

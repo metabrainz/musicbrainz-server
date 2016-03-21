@@ -659,7 +659,7 @@ sub _serialize_track
         if $track->length;
 
     do {
-        local $show_aliases = 0;
+        local $show_aliases = 1;
         $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
             if $inc->artist_credits &&
                 (
