@@ -5,12 +5,13 @@ use namespace::autoclean;
 with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _columns {
-    return 'id, name, parent, child_order, description';
+    return 'id, gid, name, parent, child_order, description';
 }
 
 sub _column_mapping {
     return {
         id              => 'id',
+        gid             => 'gid',
         name            => 'name',
         parent_id       => 'parent',
         child_order     => 'child_order',

@@ -6,7 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
-sub _columns { 'id, name, parent AS parent_id, child_order, description' }
+sub _columns { 'id, gid, name, parent AS parent_id, child_order, description' }
 
 sub _entity_class { 'MusicBrainz::Server::Entity::AliasType' }
 
