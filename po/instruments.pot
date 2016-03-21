@@ -2979,6 +2979,10 @@ msgstr ""
 msgid "çevgen"
 msgstr ""
 
+#: DB:instrument/name:768
+msgid "ütőgardon"
+msgstr ""
+
 #: DB:instrument/name:306
 msgid "đing buốt"
 msgstr ""

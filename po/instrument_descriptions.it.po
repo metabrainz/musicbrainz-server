@@ -4,7 +4,7 @@
 # Davide Bardelli <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salorock <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
