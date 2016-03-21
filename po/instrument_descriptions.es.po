@@ -1,5 +1,6 @@
 # 
 # Translators:
+# Adolfo Jayme Barrientos, 2016
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
@@ -11,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-27 20:38+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-03-15 02:24+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 #. name:Batá drum
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr ""
+msgstr "El batá es un tambor de dos membranas originario de Nigeria."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -365,7 +366,7 @@ msgstr ""
 #. name:acoustic fretless guitar
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
-msgstr ""
+msgstr "Guitarra acústica sin trastes."
 
 #. name:amadinda
 #: DB:instrument/description:363
@@ -452,7 +453,7 @@ msgstr ""
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr ""
+msgstr "Cajón, instrumento de percusión peruano"
 
 #. name:chacha
 #: DB:instrument/description:335
@@ -522,7 +523,7 @@ msgstr ""
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
-msgstr "Guitarra eléctrica sin trastes"
+msgstr "Guitarra eléctrica sin trastes."
 
 #. name:floppy disk drive
 #: DB:instrument/description:604
@@ -657,7 +658,7 @@ msgstr ""
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
-msgstr ""
+msgstr "Vihuela mexicana, utilizada por los grupos mariachis"
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -670,7 +671,7 @@ msgstr ""
 #. name:nai
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
-msgstr ""
+msgstr "Nai, flauta de Pan rumana"
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -687,19 +688,19 @@ msgstr ""
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
-msgstr ""
+msgstr "Oboe (soprano)"
 
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr ""
+msgstr "Oboe de amor (mesosoprano)"
 
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
 "Other instruments. If you can't find an instrument, please <a "
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
-msgstr ""
+msgstr "Otros instrumentos. Si no encuentra un instrumento, <a href=\"http://tickets.musicbrainz.org/browse/INST\">solicítelo</a>."
 
 #. name:hang
 #: DB:instrument/description:512
@@ -711,7 +712,7 @@ msgstr ""
 #. name:body percussion
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Percusión realizada con partes del cuerpo."
 
 #. name:foot percussion
 #: DB:instrument/description:478
