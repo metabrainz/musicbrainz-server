@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-21 09:01-0600\n"
-"PO-Revision-Date: 2016-02-22 17:54+0000\n"
+"POT-Creation-Date: 2016-03-07 15:03-0600\n"
+"PO-Revision-Date: 2016-03-18 20:57+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -465,7 +465,8 @@ msgstr "Geaccepteerde bewerkingen door {name}"
 msgid "Access"
 msgstr "Toegang"
 
-#: ../root/account/registered.tt:1 ../root/account/registered.tt:2
+#: ../root/account/registered_discourse.tt:1
+#: ../root/account/registered_discourse.tt:2
 msgid "Account Created"
 msgstr "Account aangemaakt"
 
@@ -891,7 +892,7 @@ msgid "Alias:"
 msgstr "Alias:"
 
 #: ../root/area/aliases.tt:1 ../root/artist/aliases.tt:1
-#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:45
+#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:47
 #: ../root/event/aliases.tt:1 ../root/instrument/aliases.tt:1
 #: ../root/label/aliases.tt:1 ../root/place/aliases.tt:1
 #: ../root/recording/aliases.tt:1 ../root/release/aliases.tt:1
@@ -1014,6 +1015,12 @@ msgid "An anonymous user"
 msgid_plural "{n} anonymous users"
 msgstr[0] "Eén anonieme gebruiker"
 msgstr[1] "{n} anonieme gebruikers"
+
+#: ../root/account/registered_discourse.tt:8
+msgid ""
+"An email has been sent to <code>{addr}</code>. Please check your mailbox and"
+" click on the link in the email to verify your email address."
+msgstr "Er is een e-mail verstuurd aan <code>{addr}</code>. Kijk in je postvak en klik op de link in de e-mail om je e-mailadres te verifiëren."
 
 #: ../root/components/common-macros.tt:1077
 msgid ""
@@ -1710,13 +1717,6 @@ msgid ""
 " way you intended it to show."
 msgstr "Omdat vierkante haakjes [] worden gebruikt om links te creëren, moet je de html-equivalenten (<code>&amp;#91;</code> voor [) en (<code>&amp;#93;</code> voor ]) gebruiken, als je niet wil dat ze worden in links worden omgezet. Voorbeeld: als je [onbekend] wil gebruiken in de aantekening, moet je <code>&amp;#91;onbekend&amp;#93;</code> typen om de gewenste tekst te laten zien."
 
-#: ../root/account/registered.tt:13
-msgid ""
-"Because you provided an email address, a verification email has been sent to"
-" <code>{addr}</code>. Please check your mailbox and click on the link in the"
-" email to verify the new email address."
-msgstr "Omdat je een e-mailadres hebt verstrekt, is er een verificatie-e-mail verstuurd naar <code>{addr}</code>. Kijk in je postvak en klik op de link in de e-mail om je nieuwe e-mailadres te verifiëren."
-
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
 "Become part of MusicBrainz by creating an account and {how|reading up on our"
@@ -1812,7 +1812,7 @@ msgstr "Robot"
 msgid "Bots"
 msgstr "Robots"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:53
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:58
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
@@ -2178,12 +2178,6 @@ msgstr "Voorwaarden:"
 msgid "Confirm password:"
 msgstr "Wachtwoord bevestigen:"
 
-#: ../root/account/registered.tt:4
-msgid ""
-"Congratulations, your new account has been created and you are now logged "
-"into MusicBrainz!"
-msgstr "Gefeliciteerd, je nieuwe account is aangemaakt en je bent nu aangemeld bij MusicBrainz!"
-
 #: ../root/layout/header/bottom.tt:28
 #: ../root/layout/components/BottomMenu.js:82
 msgid "Contact Us"
@@ -2443,7 +2437,7 @@ msgstr "Omschrijving"
 msgid "Description:"
 msgstr "Omschrijving:"
 
-#: ../root/components/entity-tabs.tt:53 ../root/doc/edit_type.tt:38
+#: ../root/components/entity-tabs.tt:55 ../root/doc/edit_type.tt:38
 #: ../root/elections/show.tt:7 ../root/entity/details.tt:1
 #: ../root/entity/details.tt:3 ../root/event/details.tt:1
 msgid "Details"
@@ -2680,7 +2674,7 @@ msgstr "Elk nummer op MusicBrainz moet gekoppeld zijn aan een opname. Kies de pa
 #: ../root/artist/aliases.tt:37 ../root/artist/header.tt:8
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:17
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
-#: ../root/components/entity-tabs.tt:57 ../root/components/forms.tt:198
+#: ../root/components/entity-tabs.tt:59 ../root/components/forms.tt:198
 #: ../root/doc/relationship_type.tt:17 ../root/entity/edit.tt:1
 #: ../root/instrument/header.tt:9
 #: ../root/relationship/linkattributetype/common.tt:25
@@ -3607,7 +3601,7 @@ msgstr "Gastartiesten gokken"
 
 #: ../root/release/edit/tracklist.tt:421
 msgid "Guess feat. artists from track titles"
-msgstr "Gastartiesten gokken aan de hand van de titels van de nummers."
+msgstr "Gastartiesten gokken aan de hand van de titels van de nummers"
 
 #: ../root/components/forms.tt:229
 msgid "Guess sort name"
@@ -4268,7 +4262,7 @@ msgstr "Laatste aanmelding:"
 msgid "Last modified:"
 msgstr "Laatst bewerkt op:"
 
-#: ../root/layout.tt:118 ../root/layout/components/Footer.js:47
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:48
 msgid "Last replication packet received at {datetime}"
 msgstr "Laatste replicatiepakket ontvangen op {datetime}"
 
@@ -4456,7 +4450,7 @@ msgstr "Aan het zoeken naar voorgestelde opnames …"
 
 #: ../root/cdtoc/lookup.tt:1 ../root/cdtoc/lookup.tt:2
 msgid "Lookup CD"
-msgstr "Cd opzoeken"
+msgstr "cd opzoeken"
 
 #: ../root/cdstub/browse.tt:10
 msgid "Lookup count"
@@ -5473,7 +5467,7 @@ msgid "Overall"
 msgstr "Algemeen"
 
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
-#: ../root/components/entity-tabs.tt:31 ../root/tag/header.tt:1
+#: ../root/components/entity-tabs.tt:33 ../root/tag/header.tt:1
 msgid "Overview"
 msgstr "Overzicht"
 
@@ -5739,12 +5733,6 @@ msgstr "Werk alsjeblieft wat langzamer en probeer het dan opnieuw"
 #: ../root/main/503.tt:8
 msgid "Please wait a few minutes and repeat your request."
 msgstr "Wacht alsjeblieft een paar minuten en herhaal dan je verzoek."
-
-#: ../root/account/registered.tt:7
-msgid ""
-"Please {acc_edit|update your profile} when you get time, to let other "
-"editors know a bit more about you."
-msgstr "{acc_edit|Werk, als je tijd hebt, uw profiel bij}, zodat andere redacteurs meer over je te weten kunnen komen."
 
 #: ../root/taglookup/not_found.tt:6
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -6187,7 +6175,7 @@ msgid "Relationship:"
 msgstr "Relatie:"
 
 #: ../root/artist/relationships.tt:1 ../root/artist/relationships.tt:7
-#: ../root/components/entity-tabs.tt:41 ../root/components/relationships.tt:31
+#: ../root/components/entity-tabs.tt:43 ../root/components/relationships.tt:31
 #: ../root/forms/relationship-editor.tt:5 ../root/label/relationships.tt:1
 #: ../root/label/relationships.tt:6 ../root/relationship/header.tt:6
 msgid "Relationships"
@@ -7842,7 +7830,7 @@ msgstr "Etiket ‘{tag}’"
 msgid "Tagger"
 msgstr "Tagger"
 
-#: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
+#: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
 #: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:17
@@ -8104,6 +8092,10 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "Er zijn momenteel geen media in MusicBrainz geassocieerd met de informatie die je hebt ingevoerd. Je kan naar het gewenste medium zoeken met de formulieren hieronder, of je kan een nieuwe uitgave aan MusicBrainz toevoegen."
 
+#: ../root/area/users.tt:11
+msgid "There are currently no users in this area."
+msgstr "Er zijn momenteel geen gebruikers in dit gebied."
+
 #: ../root/user/subscribers.tt:23
 msgid "There are currently no users subscribed to edits that you make."
 msgstr "Er zijn momenteel geen gebruikers geabonneerd op bewerkingen die je maakt."
@@ -8142,6 +8134,12 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr "Er zijn geen nummers, opnames, uitgavegroepen en uitgaves die alleen onder {name} worden vermeld. Als je {name} probeert te verwijderen, bewerk dan in plaats daarvan alle vermeldingen onderaan de {alias_uri|tab aliassen} en verwijder alle bestaande {rel_uri|relaties}, zodat ModBot deze artiest in de komende dagen automatisch kan verwijderen."
+
+#: ../root/area/users.tt:6
+msgid "There is currently {num} user in this area."
+msgid_plural "There are currently {num} users in this area."
+msgstr[0] "Er is momenteel {num} gebruiker in dit gebied."
+msgstr[1] "Er zijn momenteel {num} gebruikers in dit gebied."
 
 #: ../root/user/subscribers.tt:4
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -8193,8 +8191,8 @@ msgid ""
 msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
-msgstr[0] "Er is {reviews_link|{review_count} recensie} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
-msgstr[1] "Er zijn {reviews_link|{review_count} recensies} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
+msgstr[0] "Er staat {reviews_link|{review_count} recensie} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
+msgstr[1] "Er staan {reviews_link|{review_count} recensies} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
 
 #: ../root/place/edit_form.tt:30
 msgid "These coordinates could not be parsed."
@@ -9720,6 +9718,11 @@ msgstr "Ongeautoriseerde aanvraag"
 msgid "Unclassified instrument"
 msgstr "Ongeclassificeerd instrument"
 
+#: ../root/unconfirmed_email_discourse.tt:1
+#: ../root/unconfirmed_email_discourse.tt:2
+msgid "Unconfirmed Email Address"
+msgstr "Niet-bevestigd e-mailadres"
+
 #: ../root/components/common-macros.tt:1041 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
 msgid "Unknown"
@@ -9838,7 +9841,7 @@ msgstr "Gebruik de {doc|geavanceerde zoeksyntaxis)"
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address,"
 " and more than 10 accepted edits in order to vote on others' edits."
-msgstr "Gebruikers moeten langer dan twee weken geleden geregistreerd staan, een bevestigd e-mailadres hebben en meer dan tien doorgevoerde bewerkingen hebben gedaan om op de bewerkingen van anderen te kunnen stemmen."
+msgstr "Gebruikers moeten langer dan twee weken geleden geregistreerd staan, een bevestigd e-mailadres hebben en meer dan tien doorgevoerde bewerkingen hebben gemaakt om op de bewerkingen van anderen te kunnen stemmen."
 
 #: ../root/account/change_password.tt:21
 msgid "User name:"
@@ -9856,6 +9859,11 @@ msgstr "Gebruikerstype:"
 #: ../root/user/login.tt:23
 msgid "Username:"
 msgstr "Gebruikersnaam:"
+
+#: ../root/area/users.tt:1 ../root/area/users.tt:3
+#: ../root/components/entity-tabs.tt:1
+msgid "Users"
+msgstr "Gebruikers"
 
 #: ../root/release/merge.tt:60
 msgid ""
@@ -10341,65 +10349,65 @@ msgstr "Je staat op het punt om de volgende gebieden samen te voegen. Selecteer 
 msgid ""
 "You are about to merge the following artists into a single artist. Please "
 "select the artist which you would like other artists to be merged into:"
-msgstr "Je staat op het punt om de volgende artiesten samen te voegen. Selecteer de artiest waarin je de andere artiesten wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende artiesten samen te voegen. Selecteer de artiest waarin je de andere artiest(en) wil samenvoegen:"
 
 #: ../root/event/merge.tt:4
 msgid ""
 "You are about to merge the following events into a single event. Please "
 "select the event which you would like other events to be merged into:"
-msgstr "Je staat op het punt om de volgende evenementen samen te voegen. Selecteer het evenement waarin je de andere evenementen wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende evenementen samen te voegen. Selecteer het evenement waarin je het andere evenement of de andere evenementen wil samenvoegen:"
 
 #: ../root/instrument/merge.tt:4
 msgid ""
 "You are about to merge the following instruments into a single instrument. "
 "Please select the instrument which you would like other instruments to be "
 "merged into:"
-msgstr "Je staat op het punt om de volgende instrumenten samen te voegen. Selecteer het instrument waarin je de andere instrumenten wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende instrumenten samen te voegen. Selecteer het instrument waarin je het andere instrument of de andere instrumenten wil samenvoegen:"
 
 #: ../root/label/merge.tt:4
 msgid ""
 "You are about to merge the following labels into a single label. Please "
 "select the label which you would like other labels to be merged into:"
-msgstr "Je staat op het punt om de volgende platenmaatschappijen samen te voegen. Selecteer de platenmaatschappij waarin je de andere platenmaatschappijen wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende platenmaatschappijen samen te voegen. Selecteer de platenmaatschappij waarin je de andere platenmaatschappij(en) wil samenvoegen:"
 
 #: ../root/place/merge.tt:4
 msgid ""
 "You are about to merge the following places into a single place. Please "
 "select the place which you would like other places to be merged into:"
-msgstr "Je staat op het punt om de volgende plaatsen samen te voegen. Selecteer de plaats waarin je de andere plaatsen wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende plaatsen samen te voegen. Selecteer de plaats waarin je de andere plaats(en) wil samenvoegen:"
 
 #: ../root/recording/merge.tt:4
 msgid ""
 "You are about to merge the following recordings into a single recording. "
 "Please select the recording which you would like other recordings to be "
 "merged into:"
-msgstr "Je staat op het punt om de volgende opnames samen te voegen. Selecteer de opname waarin je de andere opnames wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende opnames samen te voegen. Selecteer de opname waarin je de andere opname(s) wil samenvoegen:"
 
 #: ../root/release_group/merge.tt:4
 msgid ""
 "You are about to merge the following release groups into a single release "
 "group. Please select the release group which you would like other release "
 "groups to be merged into:"
-msgstr "Je staat op het punt om de volgende uitgavegroepen samen te voegen. Selecteer de uitgavegroep waarin je de andere uitgavegroepen wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende uitgavegroepen samen te voegen. Selecteer de uitgavegroep waarin je de andere uitgavegroep(en) wil samenvoegen:"
 
 #: ../root/release/merge.tt:4
 msgid ""
 "You are about to merge the following releases into a single release. Please "
 "select the release which you would like the other releases to be merged "
 "into:"
-msgstr "Je staat op het punt om de volgende uitgaves samen te voegen. Selecteer de uitgave waarin je de andere uitgaves wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende uitgaves samen te voegen. Selecteer de uitgave waarin je de andere uitgave(s) wil samenvoegen:"
 
 #: ../root/series/merge.tt:4
 msgid ""
 "You are about to merge the following series into a single series. Please "
 "select the series which you would like other series to be merged into:"
-msgstr "Je staat op het punt om de volgende series samen te voegen. Selecteer de serie waarin je de andere series wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende series samen te voegen. Selecteer de serie waarin je de andere serie(s) wil samenvoegen:"
 
 #: ../root/work/merge.tt:4
 msgid ""
 "You are about to merge the following works into a single work. Please select"
 " the work that you would like the other works merged into:"
-msgstr "Je staat op het punt om de volgende composities samen te voegen. Selecteer de compositie waarin je de andere composities wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende composities samen te voegen. Selecteer de compositie waarin je de andere compositie(s) wil samenvoegen:"
 
 #: ../root/artist/subscribers.tt:27 ../root/collection/subscribers.tt:27
 #: ../root/label/subscribers.tt:27 ../root/series/subscribers.tt:27
@@ -10545,12 +10553,6 @@ msgstr "Je kan een notitie toevoegen als je een bewerking annuleert. Dit kan han
 msgid "You may not edit special purpose artists"
 msgstr "Je mag een speciale artiest niet bewerken"
 
-#: ../root/account/registered.tt:21
-msgid ""
-"You may proceed to {profile|your user profile}, or maybe you want to "
-"{edit|start editing}!"
-msgstr "Je kan verder gaan naar {profile|je profiel}, maar misschien wil je {edit|beginnen met dingen bewerken}?"
-
 #: ../root/edit/index.tt:63
 msgid "You must be logged in to vote on edits"
 msgstr "Je moet aangemeld zijn om op bewerkingen te stemmen."
@@ -10588,6 +10590,13 @@ msgstr "Je moet voor elke relatie een relatietype en een doelobject selecteren."
 #: ../root/release/edit/information.tt:68
 msgid "You must select an existing release group."
 msgstr "Je moet een bestaande uitgavegroep selecteren."
+
+#: ../root/account/registered_discourse.tt:4
+#: ../root/unconfirmed_email_discourse.tt:4
+msgid ""
+"You must verify your email address before you can log in to "
+"{discourse|MetaBrainz Community Discourse}."
+msgstr "Je moet eerst je e-mailadres bevestigen voordat je je kan aanmelden op het {discourse|forum van MusicBrainz}."
 
 #: ../root/cdtoc/remove.tt:11
 msgid ""
@@ -11563,7 +11572,7 @@ msgid "The verification key is missing."
 msgstr "De verificatiesleutel ontbreekt."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:75
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:212
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:213
 msgid "The checksum is invalid, please double check your email."
 msgstr "Het controlegetal klopt niet, controleer je e-mail alsjeblieft opnieuw."
 
@@ -11572,48 +11581,48 @@ msgid "Sorry, this email verification link has expired."
 msgstr "Onze excuses, deze e-mailverificatielink is verlopen."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:221
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "De gebruiker met het ID “{user_id}” kon niet worden gevonden."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:135
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
 msgid ""
 "We were unable to send login information to your email address.  Please try again,\n"
 "             however if you continue to experience difficulty contact us at support@musicbrainz.org."
 msgstr "Het is ons niet gelukt aanmeldinformatie naar je e-mailadres te sturen. Probeer het a.u.b. opnieuw,\nmaar neem contact met ons op via support@musicbrainz.org als je problemen blijft ondervinden."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:159
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:160
 msgid "There is no user with this username"
 msgstr "Er is geen gebruiker met deze gebruikersnaam"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:164
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:165
 msgid "There is no user with this username and email"
 msgstr "Er is geen gebruiker met deze gebruikersnaam en e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:167
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "We kunnen geen e-mail sturen met een nieuw wachtwoord omdat we van deze gebruiker geen e-mailadres hebben."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:196
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:197
 msgid "Missing one or more required parameters."
 msgstr "Eén of meerdere verplichte parameters ontbreekt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:205
 msgid "Sorry, this password reset link has expired."
 msgstr "Onze excuses, deze link om het wachtwoord opnieuw in te stellen is verlopen."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:262
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
 msgid "There is no user with this email"
 msgstr "Er is geen gebruiker met dit e-mailadres"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:317
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:318
 msgid "Your profile has been updated."
 msgstr "Je profiel is bijgewerkt"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:321
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:322
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>.\n"
@@ -11621,22 +11630,22 @@ msgid ""
 "                         to verify the new email address."
 msgstr "We hebben je een verificatie-e-mail gestuurd naar <code>{email}</code>.\nKijk in je postvak en klik op de link in de e-mail om het nieuwe e-mailadres te verifiëren."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:346
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:347
 msgid "Your password has been changed."
 msgstr "Je wachtwoord is veranderd."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:535
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:544
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
 "             {mail|support@musicbrainz.org}."
 msgstr "<strong>We konden geen confirmatie-e-mail naar je sturen.</strong>\n<br/>Controleer of je een geldig adres hebt ingevoerd door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:72
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:74
 msgid "User successfully edited."
 msgstr "Gebruiker succesvol bewerkt."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:127
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:134
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "De mededeling is bijgewerkt. Onthoud wel dat elke server zijn eigen onafhankelijke mededeling heeft."
@@ -11747,16 +11756,16 @@ msgstr "De redacteur {name} heeft geen e-mailadres aan zijn of haar account geko
 msgid "Your message could not be sent"
 msgstr "Je bericht kon niet verzonden worden"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:387
+#: ../lib/MusicBrainz/Server/Controller/User.pm:389
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "“{type}” is geen type object dat een waardering kan hebben."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:528
+#: ../lib/MusicBrainz/Server/Controller/User.pm:530
 msgid "An error occurred while trying to send your report."
 msgstr "Tijdens het versturen van je rapport is een fout opgetreden."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:532
+#: ../lib/MusicBrainz/Server/Controller/User.pm:534
 msgid "Your report has been sent."
 msgstr "Je rapport is verstuurd."
 

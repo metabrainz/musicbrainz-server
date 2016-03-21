@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-21 09:01-0600\n"
-"PO-Revision-Date: 2016-02-21 15:05+0000\n"
+"POT-Creation-Date: 2016-03-07 15:03-0600\n"
+"PO-Revision-Date: 2016-03-07 21:04+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -477,7 +477,8 @@ msgstr "Modifications acceptées par {name}"
 msgid "Access"
 msgstr "Accéder"
 
-#: ../root/account/registered.tt:1 ../root/account/registered.tt:2
+#: ../root/account/registered_discourse.tt:1
+#: ../root/account/registered_discourse.tt:2
 msgid "Account Created"
 msgstr "Le compte a été créé"
 
@@ -903,7 +904,7 @@ msgid "Alias:"
 msgstr "Alias :"
 
 #: ../root/area/aliases.tt:1 ../root/artist/aliases.tt:1
-#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:45
+#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:47
 #: ../root/event/aliases.tt:1 ../root/instrument/aliases.tt:1
 #: ../root/label/aliases.tt:1 ../root/place/aliases.tt:1
 #: ../root/recording/aliases.tt:1 ../root/release/aliases.tt:1
@@ -1026,6 +1027,12 @@ msgid "An anonymous user"
 msgid_plural "{n} anonymous users"
 msgstr[0] "Un utilisateur anonyme"
 msgstr[1] "{n} utilisateurs anonymes"
+
+#: ../root/account/registered_discourse.tt:8
+msgid ""
+"An email has been sent to <code>{addr}</code>. Please check your mailbox and"
+" click on the link in the email to verify your email address."
+msgstr ""
 
 #: ../root/components/common-macros.tt:1077
 msgid ""
@@ -1722,13 +1729,6 @@ msgid ""
 " way you intended it to show."
 msgstr "Comme les crochets [] sont utilisés pour créer des hyperliens, vous devez utiliser le code HTML équivalent (<code>&amp;#91;</code> pour [) et (<code>&amp;#93;</code> pour ]) si vous ne voulez pas qu'ils soient convertis en hyperliens. Exemple : si voulez utiliser [inconnu] dans l'annotation, vous devrez écrire <code>&amp;#91;inconnu&amp;#93;</code> puis cela apparaîtra comme vous le désirez."
 
-#: ../root/account/registered.tt:13
-msgid ""
-"Because you provided an email address, a verification email has been sent to"
-" <code>{addr}</code>. Please check your mailbox and click on the link in the"
-" email to verify the new email address."
-msgstr "Comme vous avez fourni une adresse courriel, un courriel de vérification a été envoyé à <code>{addr}</code>. Veuillez vérifier votre boîte de réception et cliquer sur le lien dans le courriel pour vérifier la nouvelle adresse courriel."
-
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
 "Become part of MusicBrainz by creating an account and {how|reading up on our"
@@ -1824,7 +1824,7 @@ msgstr "Robot"
 msgid "Bots"
 msgstr "Robots"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:53
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:58
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
@@ -2190,12 +2190,6 @@ msgstr "Conditions :"
 msgid "Confirm password:"
 msgstr "Confirmer votre mot de passe :"
 
-#: ../root/account/registered.tt:4
-msgid ""
-"Congratulations, your new account has been created and you are now logged "
-"into MusicBrainz!"
-msgstr "Félicitations, votre nouveau compte a été créé et vous êtes maintenant connecté à MusicBrainz !"
-
 #: ../root/layout/header/bottom.tt:28
 #: ../root/layout/components/BottomMenu.js:82
 msgid "Contact Us"
@@ -2455,7 +2449,7 @@ msgstr "Description"
 msgid "Description:"
 msgstr "Description :"
 
-#: ../root/components/entity-tabs.tt:53 ../root/doc/edit_type.tt:38
+#: ../root/components/entity-tabs.tt:55 ../root/doc/edit_type.tt:38
 #: ../root/elections/show.tt:7 ../root/entity/details.tt:1
 #: ../root/entity/details.tt:3 ../root/event/details.tt:1
 msgid "Details"
@@ -2692,7 +2686,7 @@ msgstr "Chaque piste de la base de données de MusicBrainz doit être reliée à
 #: ../root/artist/aliases.tt:37 ../root/artist/header.tt:8
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:17
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
-#: ../root/components/entity-tabs.tt:57 ../root/components/forms.tt:198
+#: ../root/components/entity-tabs.tt:59 ../root/components/forms.tt:198
 #: ../root/doc/relationship_type.tt:17 ../root/entity/edit.tt:1
 #: ../root/instrument/header.tt:9
 #: ../root/relationship/linkattributetype/common.tt:25
@@ -4280,7 +4274,7 @@ msgstr "Dernière connexion:"
 msgid "Last modified:"
 msgstr "Modifier en dernier :"
 
-#: ../root/layout.tt:118 ../root/layout/components/Footer.js:47
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:48
 msgid "Last replication packet received at {datetime}"
 msgstr "Dernier paquet de réplication reçu à {datetime}"
 
@@ -5485,7 +5479,7 @@ msgid "Overall"
 msgstr "Global"
 
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
-#: ../root/components/entity-tabs.tt:31 ../root/tag/header.tt:1
+#: ../root/components/entity-tabs.tt:33 ../root/tag/header.tt:1
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
@@ -5751,12 +5745,6 @@ msgstr "Ressayez en allant moins vite"
 #: ../root/main/503.tt:8
 msgid "Please wait a few minutes and repeat your request."
 msgstr "Veuillez ressayer votre requête dans quelques minutes."
-
-#: ../root/account/registered.tt:7
-msgid ""
-"Please {acc_edit|update your profile} when you get time, to let other "
-"editors know a bit more about you."
-msgstr "Veuillez {acc_edit|mettre à jour votre profil} quand vous aurez le temps afin de permettre aux autres éditeurs d'en apprendre un peu plus sur vous."
 
 #: ../root/taglookup/not_found.tt:6
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -6199,7 +6187,7 @@ msgid "Relationship:"
 msgstr "Relation :"
 
 #: ../root/artist/relationships.tt:1 ../root/artist/relationships.tt:7
-#: ../root/components/entity-tabs.tt:41 ../root/components/relationships.tt:31
+#: ../root/components/entity-tabs.tt:43 ../root/components/relationships.tt:31
 #: ../root/forms/relationship-editor.tt:5 ../root/label/relationships.tt:1
 #: ../root/label/relationships.tt:6 ../root/relationship/header.tt:6
 msgid "Relationships"
@@ -7854,7 +7842,7 @@ msgstr "Balise « {tag} »"
 msgid "Tagger"
 msgstr "Baliseur"
 
-#: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
+#: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
 #: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:17
@@ -8116,6 +8104,10 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "Il n'y a actuellement aucun disque dans MusicBrainz associé aux informations que vous avez saisies. Vous pouvez chercher ce disque à l'aide des formulaires ci-dessous, ou vous pouvez ajouter une nouvelle parution dans MusicBrainz."
 
+#: ../root/area/users.tt:11
+msgid "There are currently no users in this area."
+msgstr ""
+
 #: ../root/user/subscribers.tt:23
 msgid "There are currently no users subscribed to edits that you make."
 msgstr "Il n'y a actuellement aucun utilisateur abonné aux modifications que vous effectuez."
@@ -8154,6 +8146,12 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr "Il n'y a pas d'enregistrement, de groupe de parution, de parution ou des pistes attribué seulement à {name}. Si vous essayez d'enlever {name}, veuillez plutôt modifier les crédits d'artiste en bas de l'onglet {alias_uri|alias} et enlever toutes les {rel_uri|relations}, ce qui permettra à ModBot d'enlever automatiquement cet artiste dans les jours à venir."
+
+#: ../root/area/users.tt:6
+msgid "There is currently {num} user in this area."
+msgid_plural "There are currently {num} users in this area."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../root/user/subscribers.tt:4
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -9732,6 +9730,11 @@ msgstr "Requête non autorisée"
 msgid "Unclassified instrument"
 msgstr "Instrument non classé"
 
+#: ../root/unconfirmed_email_discourse.tt:1
+#: ../root/unconfirmed_email_discourse.tt:2
+msgid "Unconfirmed Email Address"
+msgstr ""
+
 #: ../root/components/common-macros.tt:1041 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
 msgid "Unknown"
@@ -9868,6 +9871,11 @@ msgstr "Type d'utilisateur :"
 #: ../root/user/login.tt:23
 msgid "Username:"
 msgstr "Nom d'utilisateur :"
+
+#: ../root/area/users.tt:1 ../root/area/users.tt:3
+#: ../root/components/entity-tabs.tt:1
+msgid "Users"
+msgstr ""
 
 #: ../root/release/merge.tt:60
 msgid ""
@@ -10557,12 +10565,6 @@ msgstr "Vous pouvez saisir une note de modification tout en annulant cette modif
 msgid "You may not edit special purpose artists"
 msgstr "Vous ne pouvez pas modifier les artistes à usage spécial"
 
-#: ../root/account/registered.tt:21
-msgid ""
-"You may proceed to {profile|your user profile}, or maybe you want to "
-"{edit|start editing}!"
-msgstr "Vous pouvez accédez à {profile|votre profil utilisateur} ou vous pourriez {edit|commencer l'édition}!"
-
 #: ../root/edit/index.tt:63
 msgid "You must be logged in to vote on edits"
 msgstr "Vous devez être connecté pour voter sur les modifications"
@@ -10600,6 +10602,13 @@ msgstr "Vous devez choisir un type de relation et une entité cible pour chaque 
 #: ../root/release/edit/information.tt:68
 msgid "You must select an existing release group."
 msgstr "Vous devez choisir un groupe de parution existant."
+
+#: ../root/account/registered_discourse.tt:4
+#: ../root/unconfirmed_email_discourse.tt:4
+msgid ""
+"You must verify your email address before you can log in to "
+"{discourse|MetaBrainz Community Discourse}."
+msgstr ""
 
 #: ../root/cdtoc/remove.tt:11
 msgid ""
@@ -11575,7 +11584,7 @@ msgid "The verification key is missing."
 msgstr "La clef de vérification est manquante."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:75
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:212
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:213
 msgid "The checksum is invalid, please double check your email."
 msgstr "La somme de contrôle est invalide, revérifiez votre courriel."
 
@@ -11584,48 +11593,48 @@ msgid "Sorry, this email verification link has expired."
 msgstr "Désolé, ce lien de vérification de courriel a expiré."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:221
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "L'utilisateur avec l'ID #{user_id} n'a pu être trouvé."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:135
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
 msgid ""
 "We were unable to send login information to your email address.  Please try again,\n"
 "             however if you continue to experience difficulty contact us at support@musicbrainz.org."
 msgstr "Nous n'avons pas pu envoyer vos informations de compte sur votre adresse courriel.\nVeuillez ressayer, cependant si cette erreur persiste, veuillez nous contacter à\nsupport@musicbrainz.org."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:159
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:160
 msgid "There is no user with this username"
 msgstr "Il n'y a pas d'utilisateur ayant ce nom"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:164
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:165
 msgid "There is no user with this username and email"
 msgstr "Il n'y a pas d'utilisateur ayant ce nom et ce courriel"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:167
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "Nous ne pouvons pas envoyer un courriel de réinitialisation de mot de passe car nous n'avons pas d'adresse courriel d'enregistrée pour cet utilisateur."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:196
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:197
 msgid "Missing one or more required parameters."
 msgstr "Il manque un ou plusieurs paramètres obligatoires."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:205
 msgid "Sorry, this password reset link has expired."
 msgstr "Désolé, ce lien de réinitialisation de mot de passe est expiré."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:262
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
 msgid "There is no user with this email"
 msgstr "Il n'y a pas d'utilisateur ayant ce courriel"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:317
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:318
 msgid "Your profile has been updated."
 msgstr "Votre profil a été mis à jour."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:321
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:322
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>.\n"
@@ -11633,22 +11642,22 @@ msgid ""
 "                         to verify the new email address."
 msgstr "Nous vous avons envoyé un courriel de validation à l'adresse <code>{email}</code>.\n                         Veuillez vérifier votre boite aux lettres et\n                         cliquer sur le lien pour valider votre adresse courriel."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:346
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:347
 msgid "Your password has been changed."
 msgstr "Votre mot de passe a été changé"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:535
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:544
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
 "             {mail|support@musicbrainz.org}."
 msgstr "<strong>Nous n'avons pas pu vous envoyer un courriel de confirmation.</strong><br/>Veuillez confirmer que vous avez saisi une adresse valide en éditant vos {settings|paramètres de compte}. Si le problème persiste encore, veuillez nous contacter à {mail|support@musicbrainz.org}."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:72
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:74
 msgid "User successfully edited."
 msgstr "Utilisateur modifié avec succès."
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:127
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:134
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "La bannière est mise à jour. Souvenez-vous que chaque serveur à sa propre bannière indépendante."
@@ -11759,16 +11768,16 @@ msgstr "L'éditeur nommé {name} n'a pas d'adresse courriel attaché à son comp
 msgid "Your message could not be sent"
 msgstr "Votre message n'a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:387
+#: ../lib/MusicBrainz/Server/Controller/User.pm:389
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n'est pas un type d'entité qui peut avoir des évaluations."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:528
+#: ../lib/MusicBrainz/Server/Controller/User.pm:530
 msgid "An error occurred while trying to send your report."
 msgstr "Une erreur est survenue durant l'envoi de votre signalement."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:532
+#: ../lib/MusicBrainz/Server/Controller/User.pm:534
 msgid "Your report has been sent."
 msgstr "Votre signalement a été envoyé."
 
