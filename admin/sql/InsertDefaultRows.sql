@@ -20,10 +20,10 @@ INSERT INTO replication_control VALUES (
     NULL
 );
 
-INSERT INTO release_group_primary_type VALUES (1, 'Album', null, 1, null);
-INSERT INTO release_group_primary_type VALUES (2, 'Single', null, 2, null);
+INSERT INTO release_group_primary_type VALUES (1, 'Album', null, 1, null, 'f529b476-6e62-324f-b0aa-1f3e33d313fc');
+INSERT INTO release_group_primary_type VALUES (2, 'Single', null, 2, null, 'd6038452-8ee0-3f68-affc-2de9a1ede0b9');
 
-INSERT INTO release_status VALUES (1, 'Official', null, 1, null);
+INSERT INTO release_status VALUES (1, 'Official', null, 1, null, '4e304316-386d-3409-af2e-78857eec5cfe');
 
 COMMIT;
 

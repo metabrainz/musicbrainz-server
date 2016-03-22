@@ -69,8 +69,8 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
-INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
+INSERT INTO release_packaging (id, name, gid) VALUES (1, 'Jewel Case', 'e2ac3831-739d-11de-8a39-0800200c9a66');
+INSERT INTO release_packaging (id, name, gid) VALUES (2, 'Digipak', 'e1ab3831-739d-11de-8a39-0800200c9a66');
 
 INSERT INTO script (id, iso_code, iso_number, name, frequency)
     VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
@@ -115,8 +115,8 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO url (id, gid, url)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
-INSERT INTO medium_format (id, name) VALUES (1, 'CD');
-INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
+INSERT INTO medium_format (id, name, gid) VALUES (1, 'CD', 'f37c079d-374e-4436-9448-da92dedef3ce');
+INSERT INTO medium_format (id, name, gid) VALUES (2, 'Vinyl', 'f35c079d-374e-4436-9448-da92dedef3ce');
 
 INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'The First Disc');
 INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'The Second Disc');
