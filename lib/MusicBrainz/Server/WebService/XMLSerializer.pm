@@ -283,19 +283,18 @@ sub _serialize_release_group
             Interview => 5
         );
 
-        my ($fallback_name) =
-            nsort_by { $fallback_type_order{$_} }
-                grep { exists $fallback_type_order{$_} }
-                    map { $_->name }
-                        $release_group->all_secondary_types;
-        my ($fallback_gid) =
-            nsort_by { $fallback_type_order{$_} }
-                grep { exists $fallback_type_order{$_} }
-                    map { $_->gid }
-                        $release_group->all_secondary_types;
+        my $fallback =
+            nsort_by { $fallback_type_order{$_->name} }
+                grep { exists $fallback_type_order{$_->name} }
+                    $release_group->all_secondary_types;
 
-        $attr{type} = $fallback_name || $release_group->primary_type->name;
-        $attr{"type-id"} = $fallback_gid || $release_group->primary_type->gid;
+        if ($fallback) {
+            $attr{type} = $fallback->name;
+            $attr{"type-id"} = $fallback->gid;
+        } else {
+            $attr{type} = $release_group->primary_type->name;
+            $attr{"type-id"} = $release_group->primary_type->gid;
+        }
     }
     elsif ($release_group->primary_type) {
         $attr{type} = $release_group->primary_type->name;
@@ -508,10 +507,10 @@ sub _serialize_work
 
     if ($work->all_attributes) {
         push @list, $gen->attribute_list(map {
-            $gen->attribute({ 
+            $gen->attribute({
+                "value-id" => $_->value_gid,
                 type => $_->type->name,
                 "type-id" => $_->type->gid,
-                "value-id" => $_->value_gid,
             }, $_->value);
         } $work->all_attributes);
     }
