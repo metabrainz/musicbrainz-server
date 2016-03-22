@@ -511,6 +511,7 @@ sub _serialize_work
             $gen->attribute({ 
                 type => $_->type->name,
                 "type-id" => $_->type->gid,
+                "value-id" => $_->value_gid,
             }, $_->value);
         } $work->all_attributes);
     }
