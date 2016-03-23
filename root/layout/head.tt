@@ -19,7 +19,9 @@
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
     <noscript>
         <style type="text/css">
-          #header-menu li:hover ul { left: auto; }
+          .header > .right > .bottom > .menu > li:focus > ul {
+            left: auto;
+          }
         </style>
     </noscript>
     [%~ script_manifest('jed-' _ current_language _ '.js') ~%]

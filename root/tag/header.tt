@@ -9,7 +9,8 @@
     ['place', link_tag(tag, 'place', l('Places'))],
     ['area', link_tag(tag, 'area', l('Areas'))],
     ['instrument', link_tag(tag, 'instrument', l('Instruments'))],
-    ['series', link_tag(tag, 'series', lp('Series', 'plural'))]
+    ['series', link_tag(tag, 'series', lp('Series', 'plural'))],
+    ['event', link_tag(tag, 'event', l('Events'))]
 ] -%]
 
 <h1>[%- l('Tag “{tag}”', { tag => link_tag(tag, 'show') }) -%]</h1>

@@ -12,7 +12,7 @@ use Try::Tiny;
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
-    paging_limit => 50,
+    paging_limit => 100,
 );
 
 sub not_found : Private

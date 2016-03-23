@@ -37,7 +37,7 @@ function languageLink(language) {
 }
 
 const LanguageMenu = () => (
-  <li className="language-selector">
+  <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
     </span>
@@ -66,7 +66,7 @@ const LanguageMenu = () => (
 );
 
 const AboutMenu = () => (
-  <li className="about">
+  <li className="about" tabIndex="-1">
     <span className="menu-header">{l('About Us')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
@@ -110,7 +110,7 @@ const AboutMenu = () => (
 );
 
 const ProductsMenu = () => (
-  <li className="products">
+  <li className="products" tabIndex="-1">
     <span className="menu-header">{l('Products')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
@@ -148,7 +148,7 @@ const ProductsMenu = () => (
 );
 
 const SearchMenu = () => (
-  <li className="search">
+  <li className="search" tabIndex="-1">
     <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
@@ -169,7 +169,7 @@ const SearchMenu = () => (
 );
 
 const EditingMenu = () => (
-  <li className="editing">
+  <li className="editing" tabIndex="-1">
     <span className="menu-header">{l('Editing')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
@@ -215,7 +215,7 @@ const EditingMenu = () => (
 );
 
 const DocumentationMenu = () => (
-  <li className="documentation">
+  <li className="documentation" tabIndex="-1">
     <span className="menu-header">{l('Documentation')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
