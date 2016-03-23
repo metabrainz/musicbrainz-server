@@ -12,7 +12,7 @@
 [%- END -%]
 
 <ul class="menu">
-    <li class="about">
+    <li class="about" tabindex="-1">
         <span class="menu-header">[% l('About Us') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
@@ -53,7 +53,7 @@
             </li>
         </ul>
     </li>
-    <li class="products">
+    <li class="products" tabindex="-1">
         <span class="menu-header">[% l('Products') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
@@ -88,7 +88,7 @@
             </li>
         </ul>
     </li>
-    <li class="search">
+    <li class="search" tabindex="-1">
         <span class="menu-header">[% l('Search') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
@@ -108,7 +108,7 @@
         </ul>
     </li>
     [%- IF c.user_exists -%]
-        <li class="editing">
+        <li class="editing" tabindex="-1">
             <span class="menu-header">[% l('Editing') %]&#xA0;&#x25BE;</span>
             <ul>
                 <li>
@@ -150,7 +150,7 @@
             </ul>
         </li>
     [%- END -%]
-    <li class="documentation">
+    <li class="documentation" tabindex="-1">
         <span class="menu-header">[% l('Documentation') %]&#xA0;&#x25BE;</span>
         <ul>
             <li>
@@ -184,7 +184,7 @@
     </li>
 
     [% IF server_languages.size > 1 -%]
-    <li class="language-selector">
+    <li class="language-selector" tabindex="-1">
         [% FOREACH language = server_languages; IF language.0 == current_language -%]
             <span class="menu-header">
                 [%- print_language_name(language, 1) -%]
