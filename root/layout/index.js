@@ -104,7 +104,8 @@ const Layout = (props) => {
 
         <noscript>
           <style type="text/css">
-            {'#header-menu li:hover ul { left: auto; }'}
+            {'.header > .right > .bottom > .menu > li:focus > ul {
+            left: auto; }'}
           </style>
         </noscript>
 
