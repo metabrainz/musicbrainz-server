@@ -46,8 +46,6 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFKConstraints.sql 2>&1` || ( e
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateSearchIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql $DATABASE <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Statistics Schema
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/statistics/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
@@ -79,6 +77,10 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateIndexes.sql 2>&1` || 
 
 echo `date` : Set up pgtap extension
 OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Inserting initial data
+OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 

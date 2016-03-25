@@ -9,6 +9,7 @@ ALTER TABLE link_text_attribute_type DROP CONSTRAINT link_text_attribute_type_fk
 ALTER TABLE link_type DROP CONSTRAINT link_type_fk_parent;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_attribute_type;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk_link_type;
+ALTER TABLE medium_format DROP CONSTRAINT medium_format_fk_parent;
 
 INSERT INTO area_alias_type VALUES (1, 'Area name', NULL, 0, NULL, '0b5b3497-d5d9-34e7-a61b-9a6c18aa7b29');
 INSERT INTO area_alias_type VALUES (2, 'Formal name', NULL, 0, NULL, 'b280c712-f676-342e-a8f2-e5c5fe0159b4');
@@ -32,6 +33,20 @@ INSERT INTO artist_type VALUES (3, 'Other', NULL, 99, NULL, 'ac897045-5043-3294-
 INSERT INTO artist_type VALUES (4, 'Character', NULL, 3, NULL, '5c1375b0-f18d-3db7-a164-a49d7a63773f');
 INSERT INTO artist_type VALUES (5, 'Orchestra', 2, 0, NULL, 'a0b36c92-3eb1-3839-a4f9-4799823f54a5');
 INSERT INTO artist_type VALUES (6, 'Choir', 2, 0, NULL, '6124967d-7e3a-3eba-b642-c9a2ffb44d94');
+
+INSERT INTO cover_art_archive.art_type VALUES (1, 'Front', NULL, 0, NULL, 'ac337166-a2b3-340c-a0b4-e2b00f1d40a2');
+INSERT INTO cover_art_archive.art_type VALUES (2, 'Back', NULL, 0, NULL, '263c3668-723c-3afe-86ef-c3236324250a');
+INSERT INTO cover_art_archive.art_type VALUES (3, 'Booklet', NULL, 0, NULL, 'b7d0e4ca-564e-3255-a422-9a605b099458');
+INSERT INTO cover_art_archive.art_type VALUES (4, 'Medium', NULL, 0, NULL, '43d5e353-1bfc-39c4-ab07-5dddaf98433d');
+INSERT INTO cover_art_archive.art_type VALUES (5, 'Obi', NULL, 0, NULL, 'fc22aa61-f533-3ea3-820c-17ca8fdcca4d');
+INSERT INTO cover_art_archive.art_type VALUES (6, 'Spine', NULL, 0, NULL, 'e7dfa72b-c614-32f8-a931-00bb6c4bc625');
+INSERT INTO cover_art_archive.art_type VALUES (7, 'Track', NULL, 0, NULL, '6a57878d-3e5a-3895-87a5-493674b4d94b');
+INSERT INTO cover_art_archive.art_type VALUES (8, 'Other', NULL, 1, NULL, '2eae8c63-bf22-379d-9473-ad62c2a21af2');
+INSERT INTO cover_art_archive.art_type VALUES (9, 'Tray', NULL, 0, NULL, 'de761f9e-9d2c-32c3-b2cd-fc18168f9c81');
+INSERT INTO cover_art_archive.art_type VALUES (10, 'Sticker', NULL, 0, NULL, 'c3ebec6c-f2cf-315e-bb7c-6d1d2d1ef1df');
+INSERT INTO cover_art_archive.art_type VALUES (11, 'Poster', NULL, 0, NULL, 'b9d36ca3-edb0-3c29-8176-c2af91aa0222');
+INSERT INTO cover_art_archive.art_type VALUES (12, 'Liner', NULL, 0, NULL, 'b8e7f026-be35-3d73-a082-a7bcf26c9fd6');
+INSERT INTO cover_art_archive.art_type VALUES (13, 'Watermark', NULL, 0, NULL, 'aa17a439-aed9-381f-969b-e9a4bae7a57a');
 
 INSERT INTO editor_collection_type VALUES (1, 'Release', 'release', NULL, 1, NULL, 'd94659b2-4ce5-3a98-b4b8-da1131cf33ee');
 INSERT INTO editor_collection_type VALUES (2, 'Owned music', 'release', 1, 1, NULL, 'c26c6ec4-17f0-32de-95c5-fa724dbdb308');
@@ -779,6 +794,67 @@ INSERT INTO link_type_attribute_type VALUES (802, 788, 0, 1, '2014-11-17 22:05:0
 INSERT INTO link_type_attribute_type VALUES (806, 830, 0, 1, '2014-11-29 05:43:56.893159+00');
 INSERT INTO link_type_attribute_type VALUES (807, 830, 0, 1, '2014-11-29 05:42:44.476677+00');
 
+INSERT INTO medium_format VALUES (1, 'CD', NULL, 0, 1982, true, NULL, '9712d52a-4509-3d4b-a1a2-67c88c643e31');
+INSERT INTO medium_format VALUES (2, 'DVD', NULL, 4, 1995, false, NULL, '2875c583-4580-3a90-b723-ba1b39921e23');
+INSERT INTO medium_format VALUES (3, 'SACD', NULL, 5, 1999, true, NULL, '5c9021b5-aecf-3339-b78e-c7bbe427c342');
+INSERT INTO medium_format VALUES (4, 'DualDisc', NULL, 6, 2004, true, NULL, '564fb227-66af-356e-a4c6-f0a3f806fcd1');
+INSERT INTO medium_format VALUES (5, 'LaserDisc', 13, 0, 1978, false, NULL, '8383eae1-ae79-30c2-8753-a7ed615ead84');
+INSERT INTO medium_format VALUES (6, 'MiniDisc', NULL, 7, 1992, false, NULL, '671c5ed4-20e3-3a62-b6ea-f155cde04258');
+INSERT INTO medium_format VALUES (7, 'Vinyl', NULL, 1, 1940, false, NULL, '10e17707-9751-3aaf-95b2-2432acd5374c');
+INSERT INTO medium_format VALUES (8, 'Cassette', NULL, 3, 1964, false, NULL, 'f5e6e254-8f39-331c-936b-9c69d686dc47');
+INSERT INTO medium_format VALUES (9, 'Cartridge', 13, 0, 1962, false, NULL, '2b240bc1-a4d7-34de-928f-f85e372751bd');
+INSERT INTO medium_format VALUES (10, 'Reel-to-reel', 13, 0, 1935, false, NULL, '58016447-3617-3da2-b1d0-7646c2a7797e');
+INSERT INTO medium_format VALUES (11, 'DAT', 13, 0, 1976, false, NULL, '0bef8b9c-f1f8-3f49-a737-dde52fb120ea');
+INSERT INTO medium_format VALUES (12, 'Digital Media', NULL, 2, NULL, false, NULL, '907a28d9-b3b2-3ef6-89a8-7b18d91d4794');
+INSERT INTO medium_format VALUES (13, 'Other', NULL, 99, NULL, true, NULL, '3408c8ed-b520-3a80-be3b-7fa855665346');
+INSERT INTO medium_format VALUES (14, 'Wax Cylinder', 13, 0, 1877, false, NULL, '329b3584-ff79-39fa-b234-7dafdd29fb7e');
+INSERT INTO medium_format VALUES (15, 'Piano Roll', 13, 0, 1883, false, NULL, 'a6408521-bf0e-3b68-9f35-32ff1c609ab8');
+INSERT INTO medium_format VALUES (16, 'DCC', 13, 0, 1992, false, NULL, 'dc560160-b9a5-3579-9c07-5920e815455a');
+INSERT INTO medium_format VALUES (17, 'HD-DVD', NULL, 9, NULL, false, NULL, 'd13fa46d-9a5f-36b4-9d7d-fcdc12b71dce');
+INSERT INTO medium_format VALUES (18, 'DVD-Audio', 2, 0, NULL, false, NULL, '9d7fa8ab-3bb4-36f6-a8c6-b7eed946fc4b');
+INSERT INTO medium_format VALUES (19, 'DVD-Video', 2, 1, NULL, false, NULL, 'bb71fd58-ff93-32b4-a201-4ad1b2a80e5f');
+INSERT INTO medium_format VALUES (20, 'Blu-ray', NULL, 8, NULL, false, NULL, 'c693c05b-3316-3d69-afc2-5e2bc455bffc');
+INSERT INTO medium_format VALUES (21, 'VHS', 13, 0, NULL, false, NULL, 'f74cb37d-d0a8-3df3-bb69-04b70361259a');
+INSERT INTO medium_format VALUES (22, 'VCD', NULL, 11, NULL, false, NULL, '7c4397a2-1b00-35c0-8dbe-f06c474df4b8');
+INSERT INTO medium_format VALUES (23, 'SVCD', 22, 0, NULL, false, NULL, '368f05ec-97d2-320f-9057-7a69962e5fa8');
+INSERT INTO medium_format VALUES (24, 'Betamax', 13, 0, NULL, false, NULL, '8759db4e-8451-33c0-8a8f-05e5f95f192e');
+INSERT INTO medium_format VALUES (25, 'HDCD', 1, 0, NULL, true, NULL, '1d5a48e4-e94a-36dc-84e2-0c5f9f880aa7');
+INSERT INTO medium_format VALUES (26, 'USB Flash Drive', 13, 0, NULL, false, NULL, '3155d2b6-52fd-3952-bda3-bd7c429d038d');
+INSERT INTO medium_format VALUES (27, 'slotMusic', 13, 1, NULL, false, NULL, '3e9080b0-5e6c-34ab-bd15-f526b6306a64');
+INSERT INTO medium_format VALUES (28, 'UMD', NULL, 12, NULL, false, NULL, '18805d5b-ff3a-3bc0-9b1f-188cc06415c8');
+INSERT INTO medium_format VALUES (29, '7" Vinyl', 7, 0, NULL, false, NULL, '86071488-c73d-31f9-be48-5795cb490c86');
+INSERT INTO medium_format VALUES (30, '10" Vinyl', 7, 1, NULL, false, NULL, '038ec24e-5d01-3a8c-817e-c51a515b1875');
+INSERT INTO medium_format VALUES (31, '12" Vinyl', 7, 2, NULL, false, NULL, '4856b1c6-674d-3f68-a1dd-8ae517e8b566');
+INSERT INTO medium_format VALUES (33, 'CD-R', 1, 1, NULL, true, NULL, 'fb8e91c7-16e3-3e29-98be-1dda0a473146');
+INSERT INTO medium_format VALUES (34, '8cm CD', 1, 2, 1982, true, NULL, '8a756eda-09f6-3381-8fac-15065c7d5ed9');
+INSERT INTO medium_format VALUES (35, 'Blu-spec CD', 1, 3, NULL, true, NULL, 'f59d2658-7fa7-377e-b2f1-fda418284d2c');
+INSERT INTO medium_format VALUES (36, 'SHM-CD', 1, 4, NULL, true, NULL, '9f11c690-3b69-3585-9c40-1558d3ecb5ce');
+INSERT INTO medium_format VALUES (37, 'HQCD', 1, 5, NULL, true, NULL, 'd9a5f2e3-6a87-3f0b-9623-95d60d94faff');
+INSERT INTO medium_format VALUES (38, 'Hybrid SACD', 3, 0, NULL, true, NULL, '2c8efa62-d96c-356e-a28f-ccaf4117e67e');
+INSERT INTO medium_format VALUES (39, 'CD+G', 1, 6, NULL, true, NULL, 'da35a223-d4da-3a29-8a86-b50462452b72');
+INSERT INTO medium_format VALUES (40, '8cm CD+G', 39, 0, NULL, true, NULL, '8a08dc62-1aa2-34de-a904-fa467c53052c');
+INSERT INTO medium_format VALUES (41, 'CDV', NULL, 11, 1987, true, NULL, '37cceb6f-7ca2-321f-b2c5-12312a1a1df1');
+INSERT INTO medium_format VALUES (42, 'Enhanced CD', 1, 0, NULL, true, NULL, 'ccacd435-d33f-3104-98c9-cbe04d037c36');
+INSERT INTO medium_format VALUES (43, 'Data CD', 1, 0, NULL, false, NULL, 'ec44fdc0-739e-386a-818c-dafa1215b487');
+INSERT INTO medium_format VALUES (44, 'DTS CD', 1, 0, 1997, true, NULL, '783f6231-1113-306a-9730-31f788027ffb');
+INSERT INTO medium_format VALUES (45, 'Playbutton', 13, 0, 2011, false, NULL, 'aa6e7005-53d9-3793-a5bd-c5372a3981c3');
+INSERT INTO medium_format VALUES (46, 'Music Card', 13, 0, NULL, false, NULL, '11cad59d-0f90-387f-88a2-752afeb88f5d');
+INSERT INTO medium_format VALUES (47, 'DVDplus', 13, 0, NULL, true, NULL, 'a9527198-e02a-31e3-be3d-3b88e26a59c9');
+INSERT INTO medium_format VALUES (48, 'VinylDisc', 13, 0, 2007, true, NULL, '1a3a0a66-3c79-3cf9-b7be-fedb00d5ec1d');
+INSERT INTO medium_format VALUES (49, '3.5" Floppy Disk', 13, 0, 1983, false, NULL, '9e52c71a-e9e2-3386-87f7-3111f3e8934b');
+INSERT INTO medium_format VALUES (50, 'Edison Diamond Disc', 13, 0, 1912, false, NULL, 'fb6e30d8-db2b-3424-a560-dd4146370886');
+INSERT INTO medium_format VALUES (51, 'Flexi-disc', 7, 3, 1962, false, 'Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with a molded-in groove, designed to be playable on a normal phonograph turntable.', '400e26c7-dc10-308c-991f-55c49d40f8d1');
+INSERT INTO medium_format VALUES (52, '7" Flexi-disc', 51, 0, 1962, false, NULL, 'da961db2-0ec7-316d-b6f4-5fddba1ca401');
+INSERT INTO medium_format VALUES (53, 'Shellac', NULL, 13, 1895, false, 'Shellac records were the most predominant type of gramophone record during the first half of the 20th century.', '1278c691-269c-3238-8bef-4582921ad7ff');
+INSERT INTO medium_format VALUES (54, '10" Shellac', 53, 1, NULL, false, NULL, '6954724d-b8f3-39a4-b724-d2eec6ac674b');
+INSERT INTO medium_format VALUES (55, '12" Shellac', 53, 2, NULL, false, NULL, 'af174b17-9469-3771-9555-115ae415e587');
+INSERT INTO medium_format VALUES (56, '7" Shellac', 53, 0, NULL, false, NULL, '682f97ed-517e-3a86-ad66-33f98e864346');
+INSERT INTO medium_format VALUES (57, 'SHM-SACD', 3, 0, NULL, true, NULL, '6714d4b0-5669-354c-84fa-22d1f1a0fcae');
+INSERT INTO medium_format VALUES (58, 'Pathé disc', 13, 0, 1906, false, '90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to 1932.', '34cc287c-c448-3fe4-90d6-ed3a6fa35fe5');
+INSERT INTO medium_format VALUES (59, 'VHD', 13, 0, 1983, false, 'Video High Density (VHD) was a videodisc format which was marketed predominantly in Japan by JVC.', 'cc98ca24-3ae0-35fd-b311-94e0423a78a7');
+INSERT INTO medium_format VALUES (60, 'CED', 13, 0, 1981, false, 'The Capacitance Electronic Disc (CED) is an analog video disc playback system developed by RCA, in which video and audio could be played back on a TV set using a special needle and high-density groove system similar to phonograph records.', '38910592-1be4-371d-b34d-2df852c8b9ea');
+INSERT INTO medium_format VALUES (61, 'Copy Control CD', 1, 0, NULL, true, 'Copy Control CD (CCCD) is an umbrella term for CDs released circa 2001-2006 containing software that is ostensibly designed to prevent the CD from being ripped. There are a number of software variants: the most well-known are Macrovision''s Cactus Data Shield (CDS) and SunnComm''s MediaMax.', '1a648190-5c75-3b74-b8c5-8150c97af0f5');
+
 INSERT INTO orderable_link_type VALUES (740, 2);
 INSERT INTO orderable_link_type VALUES (741, 2);
 INSERT INTO orderable_link_type VALUES (742, 2);
@@ -882,5 +958,6 @@ ALTER TABLE link_text_attribute_type ADD CONSTRAINT link_text_attribute_type_fk_
 ALTER TABLE link_type ADD CONSTRAINT link_type_fk_parent FOREIGN KEY (parent) REFERENCES link_type(id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_fk_attribute_type FOREIGN KEY (attribute_type) REFERENCES link_attribute_type(id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_fk_link_type FOREIGN KEY (link_type) REFERENCES link_type(id);
+ALTER TABLE medium_format ADD CONSTRAINT medium_format_fk_parent FOREIGN KEY (parent) REFERENCES medium_format(id);
 
 COMMIT;

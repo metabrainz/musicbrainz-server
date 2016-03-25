@@ -21,14 +21,7 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
--- Types, statuses, etc.
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (0, '1', 1, 'CD', NULL, 1982);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (4, '0', 2, 'DVD', NULL, 1995);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (7, '0', 6, 'MiniDisc', NULL, 1992);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (1, '0', 7, 'Vinyl', NULL, 1895);
-
 INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
-INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 
 -- URLs
 
