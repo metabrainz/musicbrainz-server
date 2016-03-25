@@ -24,7 +24,9 @@ test 'browse release group via release' => sub {
                     title => "My Demons",
                     "first-release-date" => "2007-01-29",
                     "primary-type" => "Album",
+                    "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                     "secondary-types" => [],
+                    "secondary-type-ids" => [],
                     "artist-credit" => [
                         {
                             name => "Distance",
@@ -61,7 +63,9 @@ test 'browse release group via artist' => sub {
                     title => "My Demons",
                     "first-release-date" => "2007-01-29",
                     "primary-type" => "Album",
+                    "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                     "secondary-types" => [],
+                    "secondary-type-ids" => [],
                     "artist-credit" => [
                         {
                             name => "Distance",
@@ -85,7 +89,9 @@ test 'browse release group via artist' => sub {
                     title => "Repercussions",
                     "first-release-date" => "2008-11-17",
                     "primary-type" => "Album",
+                    "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                     "secondary-types" => [ "Remix" ],
+                    "secondary-type-ids" => [ "0c60f497-ff81-3818-befd-abfc84a4858b" ],
                     "artist-credit" => [
                         {
                             name => "Distance",
