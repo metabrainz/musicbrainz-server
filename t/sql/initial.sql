@@ -16,11 +16,11 @@ INSERT INTO area_alias_type VALUES (3, 'Search hint', NULL, 0, NULL, '7090dd35-e
 
 INSERT INTO area_type VALUES (1, 'Country', NULL, 1, 'Country is used for areas included (or previously included) in ISO 3166-1, e.g. United States.', '06dd0ae4-8c74-30bb-b43d-95dcedf961de');
 INSERT INTO area_type VALUES (2, 'Subdivision', NULL, 2, 'Subdivision is used for the main administrative divisions of a country, e.g. California, Ontario, Okinawa. These are considered when displaying the parent areas for a given area.', 'fd3d44c5-80a1-3842-9745-2c4972d35afa');
-INSERT INTO area_type VALUES (7, 'County', NULL, 7, 'County is used for smaller administrative divisions of a country which are not the main administrative divisions but are also not municipalities, e.g. counties in the USA. These are not considered when displaying the parent areas for a given area.', 'bcecec27-8bdb-3e00-8254-d948dda502fa');
-INSERT INTO area_type VALUES (4, 'Municipality', NULL, 4, 'Municipality is used for small administrative divisions which, for urban municipalities, often contain a single city and a few surrounding villages. Rural municipalities typically group several villages together.', '17246454-5ac4-36a1-b81a-4753eb2dab20');
 INSERT INTO area_type VALUES (3, 'City', NULL, 3, 'City is used for settlements of any size, including towns and villages.', '6fd8f29a-3d0a-32fc-980d-ea697b69da78');
+INSERT INTO area_type VALUES (4, 'Municipality', NULL, 4, 'Municipality is used for small administrative divisions which, for urban municipalities, often contain a single city and a few surrounding villages. Rural municipalities typically group several villages together.', '17246454-5ac4-36a1-b81a-4753eb2dab20');
 INSERT INTO area_type VALUES (5, 'District', NULL, 5, 'District is used for a division of a large city, e.g. Queens.', '84039871-5e47-38ca-a66a-45e512c8290f');
 INSERT INTO area_type VALUES (6, 'Island', NULL, 6, 'Island is used for islands and atolls which don''t form subdivisions of their own, e.g. Skye. These are not considered when displaying the parent areas for a given area.', '3f8e7b66-058b-369b-9834-ffa5fcba5641');
+INSERT INTO area_type VALUES (7, 'County', NULL, 7, 'County is used for smaller administrative divisions of a country which are not the main administrative divisions but are also not municipalities, e.g. counties in the USA. These are not considered when displaying the parent areas for a given area.', 'bcecec27-8bdb-3e00-8254-d948dda502fa');
 
 INSERT INTO artist_alias_type VALUES (1, 'Artist name', NULL, 0, NULL, '894afba6-2816-3c24-8072-eadb66bd04bc');
 INSERT INTO artist_alias_type VALUES (2, 'Legal name', NULL, 0, NULL, 'd4dcd0c0-b341-3612-a332-c0ce797b25cf');
@@ -58,9 +58,9 @@ INSERT INTO event_type VALUES (3, 'Launch event', NULL, 3, 'A party, reception o
 INSERT INTO event_type VALUES (5, 'Masterclass/Clinic', NULL, 5, 'A masterclass or clinic is an event where an artist meets with a small to medium-sized audience and instructs them individually and/or takes questions intended to improve the audience members'' playing skills.', '331506bd-58d1-3c16-95e8-538841a574fe');
 INSERT INTO event_type VALUES (4, 'Convention/Expo', NULL, 4, 'A convention, expo or trade fair is an event which is not typically orientated around music performances, but can include them as side activities.', 'd56e39f9-071f-3086-97f4-92a1a7e04ec3');
 
+INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL, '36d3d30a-839d-3eda-8cb3-29be4384e4a9');
 INSERT INTO gender VALUES (2, 'Female', NULL, 2, NULL, '93452b5a-a947-30c8-934f-6a4056b151c2');
 INSERT INTO gender VALUES (3, 'Other', NULL, 3, NULL, '081c0bf5-da60-37b0-95f8-2207a3f7f9d6');
-INSERT INTO gender VALUES (1, 'Male', NULL, 1, NULL, '36d3d30a-839d-3eda-8cb3-29be4384e4a9');
 
 INSERT INTO instrument_alias_type VALUES (1, 'Instrument name', NULL, 0, NULL, '2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd');
 INSERT INTO instrument_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '7d5ef40f-4856-3000-8667-aa13b9db547d');
@@ -77,12 +77,12 @@ INSERT INTO label_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '829662f2-
 INSERT INTO label_type VALUES (1, 'Distributor', NULL, 0, NULL, '53ab8dcc-9946-3b62-966e-7634d78e5034');
 INSERT INTO label_type VALUES (2, 'Holding', NULL, 0, NULL, '43f31a62-97e4-36f6-9752-453c131b71ed');
 INSERT INTO label_type VALUES (3, 'Production', NULL, 0, NULL, 'a2426aab-2dd4-339c-b47d-b4923a241678');
-INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL, 'e9ad53b0-e3d0-3885-a10b-8193d501338c');
-INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL, '78ab2758-7809-372c-9b99-74b7ab87f390');
-INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL, 'b6285b2a-3514-3d43-80df-fcf528824ded');
 INSERT INTO label_type VALUES (4, 'Original Production', 3, 0, NULL, '7aaa37fe-2def-3476-b359-80245850062d');
 INSERT INTO label_type VALUES (5, 'Bootleg Production', 3, 0, NULL, 'fdac9b96-359b-3488-9322-ad99c2473636');
 INSERT INTO label_type VALUES (6, 'Reissue Production', 3, 0, NULL, '88ee6ae7-f413-3490-a1d2-54f6a9f0838c');
+INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL, 'e9ad53b0-e3d0-3885-a10b-8193d501338c');
+INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL, '78ab2758-7809-372c-9b99-74b7ab87f390');
+INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL, 'b6285b2a-3514-3d43-80df-fcf528824ded');
 
 INSERT INTO language VALUES (120, 'eng', 'eng', 'en', 'English', 2, 'eng');
 INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
@@ -788,9 +788,9 @@ INSERT INTO orderable_link_type VALUES (802, 2);
 INSERT INTO place_alias_type VALUES (1, 'Place name', NULL, 0, NULL, 'fb68f9a2-622c-319b-83b0-bbff4127cdc5');
 INSERT INTO place_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '0a438b9c-1850-32de-b4bb-7f58f5048ea3');
 
-INSERT INTO place_type VALUES (3, 'Other', NULL, 99, NULL, 'a0df5ead-0bd6-33d8-8444-855a9f3e9970');
 INSERT INTO place_type VALUES (1, 'Studio', NULL, 1, 'A place designed for non-live production of music, typically a recording studio.', '05fa6a09-ff92-3d34-bdbb-5141d3c24f38');
 INSERT INTO place_type VALUES (2, 'Venue', NULL, 2, 'A place that has live artistic performances as one of its primary functions, such as a concert hall.', 'cd92781a-a73f-30e8-a430-55d7521338db');
+INSERT INTO place_type VALUES (3, 'Other', NULL, 99, NULL, 'a0df5ead-0bd6-33d8-8444-855a9f3e9970');
 INSERT INTO place_type VALUES (4, 'Stadium', NULL, 3, 'A place whose main purpose is to host outdoor sport events, typically consisting of a pitch surrounded by a structure for spectators with no roof, or a roof which can be retracted.', '62664fbd-cd55-3b5f-a5ea-fb5d1bc0113c');
 INSERT INTO place_type VALUES (5, 'Indoor arena', NULL, 4, 'A place consisting of a large enclosed area with a central event space surrounded by tiered seating for spectators, which can be used for indoor sports, concerts and other entertainment events.', 'a77c11f6-82fa-3cc0-9041-ac60e5f6e024');
 INSERT INTO place_type VALUES (6, 'Religious building', NULL, 5, 'A place that has worship or religious studies as its main function. Religious buildings often host concerts and serve as recording locations, especially for classical music.', 'a120ca4a-69e9-3c0e-bc09-21cae26eb621');
@@ -807,8 +807,8 @@ INSERT INTO release_group_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, 'a
 INSERT INTO release_group_primary_type VALUES (1, 'Album', NULL, 1, NULL, 'f529b476-6e62-324f-b0aa-1f3e33d313fc');
 INSERT INTO release_group_primary_type VALUES (2, 'Single', NULL, 2, NULL, 'd6038452-8ee0-3f68-affc-2de9a1ede0b9');
 INSERT INTO release_group_primary_type VALUES (3, 'EP', NULL, 3, NULL, '6d0c5bf6-7a33-3420-a519-44fc63eedebf');
-INSERT INTO release_group_primary_type VALUES (12, 'Broadcast', NULL, 4, NULL, '3b2e49e1-2875-37b8-9fa9-1f7cf3f49900');
 INSERT INTO release_group_primary_type VALUES (11, 'Other', NULL, 99, NULL, '4fc3be2b-de1e-396b-a933-beb8f1607a22');
+INSERT INTO release_group_primary_type VALUES (12, 'Broadcast', NULL, 4, NULL, '3b2e49e1-2875-37b8-9fa9-1f7cf3f49900');
 
 INSERT INTO release_group_secondary_type VALUES (1, 'Compilation', NULL, 0, NULL, 'dd2a21e1-0c00-3729-a7a0-de60b84eb5d1');
 INSERT INTO release_group_secondary_type VALUES (2, 'Soundtrack', NULL, 0, NULL, '22a628ad-c082-3c4f-b1b6-d41665107b88');
@@ -845,34 +845,34 @@ INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performanc
 INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL, 'a18cab3f-0ae2-3978-8f75-dd9c09702b25');
 INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02238bc1-dfd8-39a8-bbf8-c697747291ec');
 
-INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.', '9ca5e067-acf7-3cd6-baa4-92bf1975bf24');
 INSERT INTO work_type VALUES (1, 'Aria', NULL, 2, 'An aria is a self-contained piece for one voice usually with orchestral accompaniment. They are most common inside operas, but also appear in cantatas, oratorios and even on their own (concert arias).', 'ae801f48-7a7f-3af6-91c7-456f82dae8a9');
 INSERT INTO work_type VALUES (2, 'Ballet', NULL, 2, 'A ballet is music composed to be used, together with a choreography, for a ballet dance production.', '6a90744c-1e07-3b88-b394-cd44cd68bd63');
 INSERT INTO work_type VALUES (3, 'Cantata', NULL, 2, 'A cantata is a vocal (often choral) composition with an instrumental (usually orchestral) accompaniment, typically in several movements.', '0db2f555-15f9-393f-af4c-739db5711146');
 INSERT INTO work_type VALUES (4, 'Concerto', NULL, 2, 'A concerto is a musical work for soloist(s) accompanied by an orchestra.', 'dad81031-607b-3039-bd5b-80c0f4575272');
+INSERT INTO work_type VALUES (5, 'Sonata', NULL, 2, '"Sonata" is a general term used to describe small scale (very often solo or solo + keyboard) instrumental works, initially in baroque music.', '294ff9f2-3d64-3483-96fb-f362b5fce2a0');
+INSERT INTO work_type VALUES (6, 'Suite', NULL, 2, 'A suite is an ordered set of instrumental or orchestral pieces normally performed in a concert setting. They may be extracts from a ballet or opera, or entirely original movements.', '212bf9fb-ce4f-396e-87ca-3db671c085fb');
 INSERT INTO work_type VALUES (7, 'Madrigal', NULL, 2, 'The madrigal is a type of secular vocal music composition. In its original form, it had no instrumental accompaniment, although accompaniment is much more common in later madrigals.', '45c0b285-6de1-33c5-a45b-ac980f2b0129');
 INSERT INTO work_type VALUES (8, 'Mass', NULL, 2, 'A mass is a choral composition that sets the invariable portions of the Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus - Agnus Dei, with other portions sometimes added) to music.', '9fe2ca27-80b6-3a27-8c2b-895ec7f87917');
 INSERT INTO work_type VALUES (9, 'Motet', NULL, 2, '"Motet" is a term that applies to different types of (usually unaccompanied) choral works. What exactly is a motet depends quite a bit on the period.', '785ab71d-f748-32d1-8839-83d2b29e41f0');
 INSERT INTO work_type VALUES (10, 'Opera', NULL, 2, 'An opera is a dramatised work (text + musical score) for singers and orchestra/ensemble. In true operas all dialog is sung, through arias and recitatives, but some styles of opera include spoken dialogue.', 'd8059ee8-cb37-3351-9ca4-23978567339f');
-INSERT INTO work_type VALUES (24, 'Operetta', NULL, 2, 'The operetta is a genre of light opera, in terms both of music and subject matter. Operettas are generally short and include spoken parts.', '6d51f760-9d53-3856-a92f-e53d9d82ae5b');
 INSERT INTO work_type VALUES (11, 'Oratorio', NULL, 2, 'An oratorio is a large (usually sacred) musical composition including an orchestra, a choir, and soloists. While it has characters and a plot, it is usually not performed theatrically (it lacks costumes, props and strong character interaction).', '308d1000-e97c-3629-b954-68505cf0aa30');
 INSERT INTO work_type VALUES (12, 'Overture', NULL, 2, 'An overture is, generally, the instrumental introduction to an opera. Independent ("concert") overtures also exist, which are generally programmatic works shorter than a symphonic poem.', '7b72b6c1-0d76-3262-9925-aedfab92ef01');
 INSERT INTO work_type VALUES (13, 'Partita', NULL, 2, 'A partita is an instrumental piece composed of a series of variations, and it''s by its current definition very similar to a suite.', 'c5270f0f-9383-370c-997d-5d8fc51e5681');
-INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literature usually consisting of scripted dialogue between characters, and intended for theatrical performance rather than just reading.', 'db708738-f2b6-3e4e-8f23-1661a3395947');
-INSERT INTO work_type VALUES (21, 'Poem', NULL, 2, 'A poem is a literary piece, generally short and in verse, where words are usually chosen for their sound and for the images and ideas they suggest.', '66b8026e-7ce8-36f8-a8d5-7c346c7b9a88');
-INSERT INTO work_type VALUES (23, 'Prose', NULL, 2, 'This represents literary works written in prose, that is, written in relatively ordinary language without metrical structure (e.g. novels, short stories, essays...).', '78a8e727-edc2-35b9-8829-a46111ef6df9');
 INSERT INTO work_type VALUES (14, 'Quartet', NULL, 2, 'A quartet is a musical composition scored for four voices or instruments.', '30d4080a-d195-3f03-88e3-585aae505398');
-INSERT INTO work_type VALUES (5, 'Sonata', NULL, 2, '"Sonata" is a general term used to describe small scale (very often solo or solo + keyboard) instrumental works, initially in baroque music.', '294ff9f2-3d64-3483-96fb-f362b5fce2a0');
 INSERT INTO work_type VALUES (15, 'Song-cycle', NULL, 2, 'A song cycle is a group of songs designed to be performed in a sequence as a single entity. In most cases, all of the songs are by the same composer, and often use words from the same poet or lyricist.', '0f24ce27-96cc-3746-a16c-e6617d7a80f3');
-INSERT INTO work_type VALUES (22, 'Soundtrack', NULL, 2, 'A soundtrack is the music that accompanies a film, TV program, videogame, or even book.', '66d7962b-6377-364f-a0b4-b200febc510e');
-INSERT INTO work_type VALUES (6, 'Suite', NULL, 2, 'A suite is an ordered set of instrumental or orchestral pieces normally performed in a concert setting. They may be extracts from a ballet or opera, or entirely original movements.', '212bf9fb-ce4f-396e-87ca-3db671c085fb');
-INSERT INTO work_type VALUES (18, 'Symphonic poem', NULL, 2, 'A symphonic poem is a piece of programmatic orchestral music, usually in a single movement, that evokes a painting, a landscape, the content of a poem, a story or novel, or other non-musical source.', '01ef2ab4-d58d-3ef9-b309-eef98b58435f');
 INSERT INTO work_type VALUES (16, 'Symphony', NULL, 2, 'A symphony is an extended composition, almost always scored for orchestra without soloists.', '174314aa-0aa4-30cf-96a6-50b281d8d208');
+INSERT INTO work_type VALUES (17, 'Song', NULL, 1, 'A song is in its origin (and still in most cases) a composition for voice, with or without instruments, performed by singing. This is the most common form by far in folk and popular music, but also fairly common in a classical context ("art songs").', 'f061270a-2fd6-32f1-a641-f0f8676d14e6');
+INSERT INTO work_type VALUES (18, 'Symphonic poem', NULL, 2, 'A symphonic poem is a piece of programmatic orchestral music, usually in a single movement, that evokes a painting, a landscape, the content of a poem, a story or novel, or other non-musical source.', '01ef2ab4-d58d-3ef9-b309-eef98b58435f');
 INSERT INTO work_type VALUES (19, 'Zarzuela', NULL, 2, 'A zarzuela is a Spanish lyric-dramatic work that alternates between spoken and sung scenes, the latter incorporating operatic and popular song, as well as dance.', 'd57f4af2-fa06-3218-99bf-001fc2362127');
 INSERT INTO work_type VALUES (20, 'Étude', NULL, 2, 'An étude is an instrumental musical composition, most commonly of considerable difficulty, usually designed to provide practice material for perfecting a particular technical skill.', '01846fb2-42a6-332f-8bd0-2e6d80b4df7b');
+INSERT INTO work_type VALUES (21, 'Poem', NULL, 2, 'A poem is a literary piece, generally short and in verse, where words are usually chosen for their sound and for the images and ideas they suggest.', '66b8026e-7ce8-36f8-a8d5-7c346c7b9a88');
+INSERT INTO work_type VALUES (22, 'Soundtrack', NULL, 2, 'A soundtrack is the music that accompanies a film, TV program, videogame, or even book.', '66d7962b-6377-364f-a0b4-b200febc510e');
+INSERT INTO work_type VALUES (23, 'Prose', NULL, 2, 'This represents literary works written in prose, that is, written in relatively ordinary language without metrical structure (e.g. novels, short stories, essays...).', '78a8e727-edc2-35b9-8829-a46111ef6df9');
+INSERT INTO work_type VALUES (24, 'Operetta', NULL, 2, 'The operetta is a genre of light opera, in terms both of music and subject matter. Operettas are generally short and include spoken parts.', '6d51f760-9d53-3856-a92f-e53d9d82ae5b');
 INSERT INTO work_type VALUES (25, 'Audio drama', NULL, 2, 'An audio drama is a dramatized, purely acoustic performance, broadcast on radio or published on an audio medium (tape, CD, etc.).', '40ed00fb-cd1d-3de5-afcc-4d08720d63e7');
 INSERT INTO work_type VALUES (26, 'Beijing opera', NULL, 2, 'Beijing opera is a form of traditional Chinese theatre which combines music, vocal performance, mime, dance, and acrobatics.', 'e233d483-62f0-3379-81d7-b83911aee9b8');
-INSERT INTO work_type VALUES (17, 'Song', NULL, 1, 'A song is in its origin (and still in most cases) a composition for voice, with or without instruments, performed by singing. This is the most common form by far in folk and popular music, but also fairly common in a classical context ("art songs").', 'f061270a-2fd6-32f1-a641-f0f8676d14e6');
+INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literature usually consisting of scripted dialogue between characters, and intended for theatrical performance rather than just reading.', 'db708738-f2b6-3e4e-8f23-1661a3395947');
+INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.', '9ca5e067-acf7-3cd6-baa4-92bf1975bf24');
 INSERT INTO work_type VALUES (30, 'Incidental music', NULL, 2, 'Incidental music is music written as background for (usually) a theatre play.', '3cd7c402-444a-3d04-a154-4fa7d13e4ec6');
 
 -- Restore FK constraints.
