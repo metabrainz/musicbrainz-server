@@ -387,7 +387,7 @@ sub _serialize_release
     $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     push @list, $gen->disambiguation($release->comment) if $release->comment;
     $self->_serialize_annotation(\@list, $gen, $release, $inc, $opts) if $toplevel;
-    push @list, $gen->packaging($release->packaging->name) if $release->packaging;
+    push @list, $gen->packaging({ id => $release->packaging->gid }, $release->packaging->name) if $release->packaging;
 
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
 
