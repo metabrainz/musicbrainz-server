@@ -115,9 +115,6 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO url (id, gid, url)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
-INSERT INTO medium_format (id, name, gid) VALUES (1, 'CD', 'f37c079d-374e-4436-9448-da92dedef3ce');
-INSERT INTO medium_format (id, name, gid) VALUES (2, 'Vinyl', 'f35c079d-374e-4436-9448-da92dedef3ce');
-
 INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'The First Disc');
 INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'The Second Disc');
 

@@ -104,12 +104,15 @@ test 'Editing works with attributes' => sub {
 -- We aren't interested in ISWC editing
 DELETE FROM iswc;
 
-INSERT INTO work_attribute_type (id, name, free_text)
+INSERT INTO work_attribute_type (id, gid, name, free_text)
 VALUES
-  (1, 'Attribute', false),
-  (2, 'Free attribute', true);
-INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
-VALUES (1, 1, 'Value'), (2, 1, 'Value 2'), (3, 1, 'Value 3');
+  (1, '325c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false),
+  (2, '425c079d-374e-4436-9448-da92dedef3ce', 'Free attribute', true);
+INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
+VALUES
+  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
+  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2'),
+  (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
 EOSQL
 
     $mech->get_ok('/login');

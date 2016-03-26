@@ -24,7 +24,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO iswc (work, iswc)
 VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
-INSERT INTO work_attribute_type (id, name, free_text) VALUES (1, 'Key', true);
+INSERT INTO work_attribute_type (id, gid, name, free_text) VALUES (1, '345c079d-374e-4436-9448-da92dedef3ce', 'Key', true);
 INSERT INTO work_attribute VALUES (1, 1307406, 1, NULL, 'B major');
 EOSQL
 

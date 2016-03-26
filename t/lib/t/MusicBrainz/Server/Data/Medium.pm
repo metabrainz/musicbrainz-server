@@ -77,7 +77,7 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
 MusicBrainz::Server::Test->prepare_test_database($test->c,
-    "INSERT INTO medium_format (id, name) VALUES (2, 'Telepathic Transmission')");
+    "INSERT INTO medium_format (id, name, gid) VALUES (2, 'Telepathic Transmission', '52114420-cae8-11de-8a39-0800200c9a66')");
 
 my $medium_data = MusicBrainz::Server::Data::Medium->new(c => $test->c);
 
