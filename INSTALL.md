@@ -330,7 +330,7 @@ Creating the database
     database level:
 
         ALTER DATABASE musicbrainz_db SET statement_timeout TO 60000;
-    
+
 
 Starting the server
 -------------------
