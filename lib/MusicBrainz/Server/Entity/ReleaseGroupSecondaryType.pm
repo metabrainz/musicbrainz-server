@@ -9,11 +9,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'ReleaseGroupSecondaryType',
 };
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 sub l_name {
     my $self = shift;
     return lp($self->name, 'release_group_secondary_type')

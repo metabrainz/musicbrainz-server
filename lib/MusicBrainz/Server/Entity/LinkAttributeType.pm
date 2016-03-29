@@ -14,11 +14,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'LinkAttributeType',
 };
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has 'root_id' => (
     is => 'rw',
     isa => 'Int',

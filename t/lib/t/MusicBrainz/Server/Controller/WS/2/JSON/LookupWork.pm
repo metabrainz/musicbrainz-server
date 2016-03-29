@@ -28,6 +28,7 @@ test 'basic work lookup' => sub {
             iswcs => [ "T-000.000.002-0" ],
             language => 'jpn',
             type => 'Song',
+            "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
         };
 };
 
@@ -48,6 +49,7 @@ test 'basic work lookup, inc=annotation' => sub {
             iswcs => [ ],
             language => JSON::null,
             type => JSON::null,
+            "type-id" => JSON::null,
         };
 };
 

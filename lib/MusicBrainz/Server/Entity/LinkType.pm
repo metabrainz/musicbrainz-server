@@ -11,11 +11,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     sort_criterion => 'name',
 };
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has 'entity0_type' => (
     is => 'rw',
     isa => 'Str',

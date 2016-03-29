@@ -14,11 +14,6 @@ sub l_name {
     return lp($self->name, 'medium_format')
 }
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has 'year' => (
     is => 'rw',
     isa => 'Maybe[Int]'

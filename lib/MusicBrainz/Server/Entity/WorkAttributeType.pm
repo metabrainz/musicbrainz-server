@@ -12,11 +12,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'WorkAttributeType',
 };
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has free_text => (
     is => 'rw',
     isa => 'Bool',

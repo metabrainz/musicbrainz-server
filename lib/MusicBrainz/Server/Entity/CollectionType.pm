@@ -9,11 +9,6 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'CollectionType',
 };
 
-has 'gid' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
 has entity_type => (
     is => 'rw',
     isa => 'Str',

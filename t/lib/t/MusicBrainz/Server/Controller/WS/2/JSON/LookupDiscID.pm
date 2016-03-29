@@ -44,6 +44,7 @@ test 'direct disc id lookup' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 1,
                             'track-count' => 7,
                             discs => [],
@@ -51,6 +52,7 @@ test 'direct disc id lookup' => sub {
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 2,
                             'track-count' => 9,
                             discs => [
@@ -85,7 +87,9 @@ test 'direct disc id lookup' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => JSON::null,
+                    "status-id" => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2007",
@@ -120,6 +124,7 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 1,
                             'track-count' => 7,
                             discs => [],
@@ -127,6 +132,7 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 2,
                             'track-count' => 9,
                             discs => [],
@@ -144,7 +150,9 @@ test 'lookup via toc' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => JSON::null,
+                    "status-id" => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2008",
@@ -160,6 +168,7 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 1,
                             'track-count' => 7,
                             discs => [],
@@ -167,6 +176,7 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            "format-id" => "52014420-cae8-11de-8a39-0800200c9a26",
                             position => 2,
                             'track-count' => 9,
                             discs => [
@@ -201,7 +211,9 @@ test 'lookup via toc' => sub {
                     country => JSON::null,
                     disambiguation => '',
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => JSON::null,
+                    "status-id" => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2007",
