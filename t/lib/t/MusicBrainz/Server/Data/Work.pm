@@ -207,7 +207,7 @@ VALUES (1, '326c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false);
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
 VALUES
   (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2');
+  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2');
 EOSQL
 
     $test->c->model('Work')->set_attributes(
@@ -233,11 +233,12 @@ test 'Multiple attributes for a work' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
     $test->c->sql->do(<<EOSQL);
 INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '825c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false), (2, 'Type two', true);
+VALUES (1, '825c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false),
+       (2, '75c2fb06-556e-4c3a-b62a-93c42df0a7a2', 'Type two', true);
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
 VALUES
   (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2');
+  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2');
 EOSQL
 
     $test->c->model('Work')->set_attributes(
@@ -265,13 +266,13 @@ test 'Determining allowed values for work attributes' => sub {
 INSERT INTO work_attribute_type (id, gid, name, free_text)
 VALUES
   (1, '325c079d-374e-4436-9448-da92dedef3cd', 'Attribute', false),
-  (2, '325c079d-374e-4436-9448-da92dedef3ch', 'Free attribute', true),
+  (2, '82141173-321a-4425-93bb-8eb7794749c1', 'Free attribute', true),
   (3, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute 3', false);
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
 VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2'),
-  (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
+  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 1'),
+  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
+  (3, '125c079a-374e-4436-9448-da92dedef3ce', 3, 'Value 3');
 EOSQL
 
     my $types = $test->c->model('WorkAttributeType')->get_by_ids(1..3);
@@ -296,12 +297,12 @@ test 'Merge attributes for works' => sub {
 INSERT INTO work_attribute_type (id, gid, name, free_text)
 VALUES
   (1, '325c079d-374e-4436-9448-da92dedef3cd', 'Attribute', false),
-  (2, '325c079d-374e-4436-9448-da92dedef3ch', 'Free attribute', true),
+  (2, '82141173-321a-4425-93bb-8eb7794749c1', 'Free attribute', true),
   (3, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute 3', false);
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
 VALUES
   (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2'),
+  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
   (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
 EOSQL
 
@@ -357,9 +358,9 @@ test 'Deleting a work with work attributes' => sub {
 
     $test->c->sql->do(<<EOSQL);
 INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '325c079d-374e-4436-9448-da92dedef3ch', 'Attribute', false);
+VALUES (1, '82141173-321a-4425-93bb-8eb7794749c1', 'Attribute', false);
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES (1, '842c079d-374e-4436-9448-da92dedef3ch', 1, 'Value');
+VALUES (1, '4d0ef991-a591-4946-bc18-d094233156ee', 1, 'Value');
 EOSQL
 
     my $a = $work_data->insert({ name => 'Foo' });

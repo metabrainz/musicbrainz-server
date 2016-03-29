@@ -111,7 +111,7 @@ VALUES
 INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
 VALUES
   (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '625c079a-375s-4436-9448-da92dedef3ce', 1, 'Value 2'),
+  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
   (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
 EOSQL
 
