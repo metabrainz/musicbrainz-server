@@ -19,6 +19,7 @@ test 'basic release lookup' => sub {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
             status => "Pseudo-Release",
+            "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
             quality => "normal",
             "text-representation" => {
                 language => "jpn",
@@ -47,6 +48,7 @@ test 'basic release lookup' => sub {
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
         };
 };
 
@@ -62,6 +64,7 @@ test 'basic release lookup, inc=annotation' => sub {
             id => "adcf7b48-086e-48ee-b420-1001f88d672f",
             title => "My Demons",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             "text-representation" => {
                 language => "eng",
@@ -91,6 +94,7 @@ test 'basic release lookup, inc=annotation' => sub {
             annotation => "this is a release annotation",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
         };
 };
 
@@ -108,6 +112,7 @@ test 'basic release with tags' => sub {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
             status => "Pseudo-Release",
+            "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
             quality => "normal",
             "text-representation" => {
                 language => "jpn",
@@ -136,6 +141,7 @@ test 'basic release with tags' => sub {
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             tags => [ { count => 1, name => "hello project" } ]
         };
 };
@@ -156,6 +162,7 @@ EOSQL
         id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
         title => "Summer Reggae! Rainbow",
         status => "Pseudo-Release",
+        "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
         quality => "normal",
         "text-representation" => {
             language => "jpn",
@@ -184,6 +191,7 @@ EOSQL
         asin => "B00005LA6G",
         disambiguation => "",
         packaging => JSON::null,
+        "packaging-id" => JSON::null,
     };
 
     ws_test_json 'basic release with collections',
@@ -195,6 +203,7 @@ EOSQL
                     name => "My Collection",
                     editor => "editor",
                     type => "Release",
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
                     "entity-type" => "release",
                     "release-count" => 1
                 },
@@ -210,6 +219,7 @@ EOSQL
                     name => "My Private Collection",
                     editor => "editor",
                     type => "Release",
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
                     "entity-type" => "release",
                     "release-count" => 1
                 },
@@ -218,6 +228,7 @@ EOSQL
                     name => "My Collection",
                     editor => "editor",
                     type => "Release",
+                    "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
                     "entity-type" => "release",
                     "release-count" => 1
                 },
@@ -235,9 +246,11 @@ test 'release lookup with artists + aliases' => sub {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             "cover-art-archive" => {
                 artwork => JSON::true,
@@ -256,12 +269,12 @@ test 'release lookup with artists + aliases' => sub {
                         "sort-name" => "m-flo",
                         disambiguation => "",
                         aliases => [
-                            { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                            { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null  },
-                            { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null  },
-                            { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null, type => JSON::null  },
-                            { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null, type => JSON::null  },
-                            { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null  },
+                            { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                            { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                            { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                            { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                            { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                            { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
                             ],
                     }
                 }],
@@ -293,9 +306,11 @@ test 'release lookup with labels and recordings' => sub {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             "cover-art-archive" => {
                 artwork => JSON::true,
@@ -332,6 +347,7 @@ test 'release lookup with labels and recordings' => sub {
             media => [
                 {
                     format => 'CD',
+                    "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                     title => '',
                     position => 1,
                     "track-offset" => 0,
@@ -390,9 +406,11 @@ test 'release lookup with release-groups' => sub {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             "cover-art-archive" => {
                 artwork => JSON::true,
@@ -433,7 +451,9 @@ test 'release lookup with release-groups' => sub {
                 disambiguation => "",
                 "first-release-date" => "2004-03-17",
                 "primary-type" => "Single",
+                "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
                 "secondary-types" => [],
+                "secondary-type-ids" => [],
                 "artist-credit" => [
                     {
                        name => "m-flo",
@@ -460,6 +480,7 @@ test 'release lookup with discids and puids' => sub {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
             status => "Pseudo-Release",
+            "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
             quality => "normal",
             "text-representation" => {
                 language => "jpn",
@@ -488,9 +509,11 @@ test 'release lookup with discids and puids' => sub {
             asin => "B00005LA6G",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             media => [
                 {
                     format => "CD",
+                    "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                     title => '',
                     position => 1,
                     discs => [
@@ -561,6 +584,7 @@ test 'release lookup, barcode is NULL' => sub {
             id => "fbe4eb72-0f24-3875-942e-f581589713d4",
             title => "For Beginner Piano",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             "text-representation" => {
                 language => "eng",
@@ -589,6 +613,7 @@ test 'release lookup, barcode is NULL' => sub {
             asin => "B00001IVAI",
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
         };
 };
 
@@ -602,6 +627,7 @@ test 'release lookup, barcode is  empty string' => sub {
             id => "dd66bfdd-6097-32e3-91b6-67f47ba25d4c",
             title => "For Beginner Piano",
             status => "Official",
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             quality => "normal",
             "text-representation" => {
                 language => "eng",
@@ -630,6 +656,7 @@ test 'release lookup, barcode is  empty string' => sub {
             asin => JSON::null,
             disambiguation => "",
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
         };
 };
 
@@ -647,6 +674,7 @@ test 'release lookup, relation attributes' => sub {
             },
             quality => 'normal',
             packaging => JSON::null,
+            "packaging-id" => JSON::null,
             'cover-art-archive' => {
                 darkened => JSON::false,
                 back => JSON::false,
@@ -697,6 +725,7 @@ test 'release lookup, relation attributes' => sub {
                     },
                     quality => 'normal',
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     date => '2004-01-15',
                     'release-events' => [{
                         area => {
@@ -711,6 +740,7 @@ test 'release lookup, relation attributes' => sub {
                     title => 'LOVE & HONESTY',
                     country => 'JP',
                     status => JSON::null,
+                    "status-id" => JSON::null,
                     id => '757a1723-3769-4298-89cd-48d31177852a',
                     barcode => JSON::null
                 },
@@ -726,6 +756,7 @@ test 'release lookup, relation attributes' => sub {
             title => 'LOVE & HONESTY',
             country => 'JP',
             status => 'Official',
+            "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
             id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
             barcode => '4988064173891'
         };
@@ -763,6 +794,7 @@ test 'release lookup, track artists have no tags' => sub {
         id => '4f5a6b97-a09b-4893-80d1-eae1f3bfa221',
         media => [ {
             format => 'CD',
+            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
             title => '',
             'track-count' => 10,
             'track-offset' => 0,
@@ -1092,7 +1124,8 @@ test 'release lookup, track artists have no tags' => sub {
                 }
             ]
         } ],
-        packaging => undef,
+        packaging => JSON::null,
+        "packaging-id" => JSON::null,
         quality => 'normal',
         relations => [ {
             artist => {
@@ -1124,6 +1157,7 @@ test 'release lookup, track artists have no tags' => sub {
             date => '1999-09-13'
         } ],
         status => 'Official',
+        "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
         tags => [],
         'text-representation' => {
             language => 'eng',
@@ -1164,6 +1198,7 @@ test 'release lookup, pregap track' => sub {
         id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
         media => [ {
             format => 'CD',
+            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
             title => '',
             'track-count' => 2,
             'track-offset' => 0,
@@ -1216,9 +1251,11 @@ test 'release lookup, pregap track' => sub {
                 }
             ]
         } ],
-        packaging => undef,
+        packaging => JSON::null,
+        "packaging-id" => JSON::null,
         quality => 'normal',
         status => 'Official',
+        "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
         'text-representation' => {
             language => 'eng',
             script => 'Latn'
@@ -1244,7 +1281,8 @@ test 'MBS-7914' => sub {
                     name => "グスタフ・マーラー",
                     primary => JSON::null,
                     'sort-name' => "グスタフ・マーラー",
-                    type => JSON::null
+                    type => JSON::null,
+                    "type-id" => JSON::null,
                 }],
                 disambiguation => '',
                 id => '8d610e51-64b4-4654-b8df-064b0fb7a9d9',
@@ -1267,6 +1305,7 @@ test 'MBS-7914' => sub {
         id => 'a3ea3821-5955-4cee-b44f-4f7da8a332f7',
         media => [{
             format => JSON::null,
+            "format-id" => JSON::null,
             position => 1,
             title => '',
             'track-count' => 1,
@@ -1279,7 +1318,8 @@ test 'MBS-7914' => sub {
                             name => "グスタフ・マーラー",
                             primary => JSON::null,
                             'sort-name' => "グスタフ・マーラー",
-                            type => JSON::null
+                            type => JSON::null,
+                            "type-id" => JSON::null,
                         }],
                         disambiguation => '',
                         id => '8d610e51-64b4-4654-b8df-064b0fb7a9d9',
@@ -1314,8 +1354,10 @@ test 'MBS-7914' => sub {
             }]
         }],
         packaging => JSON::null,
+        "packaging-id" => JSON::null,
         quality => 'normal',
         status => JSON::null,
+        "status-id" => JSON::null,
         'text-representation' => { language => JSON::null, script => JSON::null },
         title => 'Symphony no. 2'
     };

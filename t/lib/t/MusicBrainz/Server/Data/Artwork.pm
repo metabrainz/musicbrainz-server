@@ -26,7 +26,6 @@ INSERT INTO edit (id, editor, type, status, data, expire_time)
 VALUES (1, 1, 1, 1, '', now()), (2, 1, 1, 1, '', now());
 
 
-INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 INSERT INTO cover_art_archive.image_type (mime_type, suffix)
 VALUES ('image/png', 'png');
 INSERT INTO cover_art_archive.cover_art

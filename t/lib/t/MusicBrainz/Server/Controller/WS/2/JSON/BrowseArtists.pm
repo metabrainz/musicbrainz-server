@@ -34,8 +34,10 @@ test 'browse artists via release group' => sub {
                         ended => JSON::false,
                     },
                     type => "Person",
+                    'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 }]
         };
 };
@@ -65,16 +67,18 @@ test 'browse artists via recording' => sub {
                         ended => JSON::false,
                     },
                     type => "Group",
+                    'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                     aliases => [
-                        { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                        { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
                         ],
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -91,15 +95,17 @@ test 'browse artists via recording' => sub {
                         ended => JSON::false,
                     },
                     type => "Person",
+                    'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     aliases => [
-                        { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                        { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                        { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
+                        { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
                         ],
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 }]
         };
 };
@@ -129,10 +135,12 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         ended => JSON::false,
                     },
                     type => "Group",
+                    'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 },
                 {
                     id => "97fa3f6e-557c-4227-bc0e-95a7f9f3285d",
@@ -149,10 +157,12 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         ended => JSON::false,
                     },
                     type => JSON::null,
+                    'type-id' => JSON::null,
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -164,6 +174,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     end_area => JSON::null,
                     disambiguation => "",
                     type => "Person",
+                    'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     "life-span" => {
                         begin => "1986-11-05",
                         end => JSON::null,
@@ -181,6 +192,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         ],
                     ipis => [],
                     gender => JSON::null,
+                    'gender-id' => JSON::null,
                 }]
         };
 };

@@ -22,11 +22,11 @@ INSERT INTO script (frequency, id, iso_code, iso_number, name) VALUES
 INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES
 	(11617, NULL, '', 1, '142015fb-3775-4b25-9d4a-51e0bd289ef4', 1231807, NULL, '2015-10-29 21:00:55.471066+00', 'Diana', NULL, -1, 71076, 28, NULL),
 	(11617, NULL, '', 1, '765435fa-1e6e-40aa-bef2-2d09f367ef44', 1231808, NULL, '2015-10-26 20:04:18.393064+00', 'Diana', NULL, -1, 71076, 28, NULL);
-INSERT INTO medium_format (child_order, description, has_discids, id, name, parent, year) VALUES
-	(0, NULL, '1', 1, 'CD', NULL, 1982);
+INSERT INTO medium_format (child_order, description, has_discids, id, gid, name, parent, year) VALUES
+	(123456, NULL, '1', 1, '52014420-cae8-11de-8a39-0800200c9a66', 'CD', NULL, 1982);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES
-	(0, 1, 1260623, '2012-12-17 00:04:14.60624+00', '', 1, 1231807, 18),
-	(0, 1, 1260624, '2012-12-17 00:07:47.571271+00', '', 1, 1231808, 18);
+	(0, 123456, 1260623, '2012-12-17 00:04:14.60624+00', '', 1, 1231807, 18),
+	(0, 123456, 1260624, '2012-12-17 00:07:47.571271+00', '', 1, 1231808, 18);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name, video) VALUES
 	(11617, '', 0, '8289ea80-fa72-4af3-9f7b-a711791e6fe8', 518579, '2015-10-26 04:03:35.419964+00', 140666, 'Diana', '0'),
 	(11617, '', 0, '6e78e763-2ddd-4b01-847f-32b1982026b4', 518580, '2015-10-26 20:04:19.620173+00', 145066, 'Lonely Boy', '0'),

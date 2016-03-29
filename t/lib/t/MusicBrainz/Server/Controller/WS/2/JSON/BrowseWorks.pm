@@ -27,6 +27,7 @@ test 'browse works via artist (first page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -36,6 +37,7 @@ test 'browse works via artist (first page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -45,6 +47,7 @@ test 'browse works via artist (first page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -54,6 +57,7 @@ test 'browse works via artist (first page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -63,6 +67,7 @@ test 'browse works via artist (first page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 }]
         };
 };
@@ -86,6 +91,7 @@ test 'browse works via artist (second page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -95,6 +101,7 @@ test 'browse works via artist (second page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -104,6 +111,7 @@ test 'browse works via artist (second page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -113,6 +121,7 @@ test 'browse works via artist (second page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 },
                 {
                     attributes => [],
@@ -122,6 +131,7 @@ test 'browse works via artist (second page)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    'type-id' => JSON::null,
                 }]
         };
 };

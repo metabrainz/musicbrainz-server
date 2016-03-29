@@ -11,6 +11,11 @@ has value_id => (
     is => 'ro',
 );
 
+has value_gid => (
+    isa => 'Maybe[Str]',
+    is => 'ro',
+);
+
 has value => (
     isa => 'Str',
     required => 1,

@@ -162,10 +162,14 @@ test 'Check conflicts (non-conflicting edits)' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
     $c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, name, free_text)
-VALUES (1, 'Attribute', false), (2, 'Type two', true);
-INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
-VALUES (10, 1, 'Value'), (2, 1, 'Value 2');
+INSERT INTO work_attribute_type (id, gid, name, free_text)
+VALUES
+  (1, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute', false),
+  (2, '525c079d-374e-4436-9448-da92dedef3cd', 'Type two', true);
+INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
+VALUES
+  (10, '124c079d-374e-4436-9448-da92dedef3ch', 1, 'Value'),
+  (2, '224c079d-374e-4436-9448-da92dedef3ch', 1, 'Value 2');
 EOSQL
 
     my $edit_1 = $c->model('Edit')->create(

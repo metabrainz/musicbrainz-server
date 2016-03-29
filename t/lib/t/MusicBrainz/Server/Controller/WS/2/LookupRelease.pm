@@ -35,7 +35,7 @@ ws_test 'basic release lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
-        <status>Pseudo-Release</status>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -72,7 +72,7 @@ ws_test 'MBS-8845',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="8268c2f8-bfc3-4079-9c25-fad0d69a38df">
         <title>Surrender</title>
-        <status>Promotion</status>
+        <status id="518ffc83-5cde-34df-8627-81bff5093d92">Promotion</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -108,7 +108,8 @@ ws_test 'release lookup, inc=annotation',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
         <title>My Demons</title>
-        <status>Official</status><quality>normal</quality>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+        <quality>normal</quality>
         <annotation><text>this is a release annotation</text></annotation>
         <text-representation>
             <language>eng</language><script>Latn</script>
@@ -144,7 +145,7 @@ ws_test 'basic release with tags',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
-        <status>Pseudo-Release</status>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -184,7 +185,7 @@ ws_test 'basic release with collections',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
-        <status>Pseudo-Release</status>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -228,7 +229,7 @@ ws_test 'basic release with private collections',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
-        <status>Pseudo-Release</status>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -277,7 +278,7 @@ ws_test 'release lookup with artists + aliases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -329,7 +330,7 @@ ws_test 'release lookup with labels, recordings and tags',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -362,7 +363,7 @@ ws_test 'release lookup with labels, recordings and tags',
         <medium-list count="1">
             <medium>
                 <position>1</position>
-                <format>CD</format>
+                <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <track-list count="3" offset="0">
                     <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
                         <position>1</position><number>1</number>
@@ -412,7 +413,7 @@ ws_test 'release lookup with release-groups',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
         <title>the Love Bug</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -426,10 +427,10 @@ ws_test 'release lookup with release-groups',
                 </artist>
             </name-credit>
         </artist-credit>
-        <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+        <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="153f0a09-fead-3370-9b17-379ebd09446b">
             <title>the Love Bug</title>
             <first-release-date>2004-03-17</first-release-date>
-            <primary-type>Single</primary-type>
+            <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
             <artist-credit>
                 <name-credit>
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -470,7 +471,7 @@ ws_test 'release lookup with discids and puids',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
         <title>Summer Reggae! Rainbow</title>
-        <status>Pseudo-Release</status>
+        <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -494,7 +495,7 @@ ws_test 'release lookup with discids and puids',
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
-                <position>1</position><format>CD</format>
+                <position>1</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>
@@ -542,7 +543,7 @@ ws_test 'release lookup, barcode is NULL',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
         <title>For Beginner Piano</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -577,7 +578,8 @@ ws_test 'release lookup, barcode is empty string',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
-        <title>For Beginner Piano</title><status>Official</status>
+        <title>For Beginner Piano</title>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language><script>Latn</script>
@@ -612,7 +614,7 @@ ws_test 'release lookup, relation attributes',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
         <title>LOVE &amp; HONESTY</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language>
@@ -688,7 +690,9 @@ ws_test 'release lookup, related artists have no tags',
   '<?xml version="1.0" ?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-    <title>For Beginner Piano</title><status>Official</status><quality>normal</quality>
+    <title>For Beginner Piano</title>
+    <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+    <quality>normal</quality>
     <text-representation>
       <language>eng</language><script>Latn</script>
     </text-representation>
@@ -741,7 +745,7 @@ ws_test 'release lookup, related artists have no tags',
     <medium-list count="1">
       <medium>
         <position>1</position>
-        <format>CD</format>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
           <track id="9b9a84b5-0a41-38f6-859f-36cb22ac813c">
             <position>1</position><number>1</number><length>267560</length>
@@ -902,7 +906,9 @@ ws_test 'release lookup, track artists have no aliases',
     '<?xml version="1.0" ?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-    <title>the Love Bug</title><status>Official</status><quality>normal</quality>
+    <title>the Love Bug</title>
+    <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+    <quality>normal</quality>
     <text-representation>
       <language>eng</language><script>Latn</script>
     </text-representation>
@@ -935,7 +941,7 @@ ws_test 'release lookup, track artists have no aliases',
     <medium-list count="1">
       <medium>
         <position>1</position>
-        <format>CD</format>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="3" offset="0">
           <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
             <position>1</position><number>1</number><length>243000</length>
@@ -1041,7 +1047,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
     <title>For Beginner Piano</title>
-    <status>Official</status>
+    <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
     <quality>normal</quality>
     <text-representation>
       <language>eng</language>
@@ -1103,7 +1109,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
     <medium-list count="1">
       <medium>
         <position>1</position>
-        <format>CD</format>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
           <track id="9b9a84b5-0a41-38f6-859f-36cb22ac813c">
             <position>1</position>
@@ -1517,7 +1523,7 @@ ws_test 'release lookup, pregap track',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release id="ec0d0122-b559-4aa1-a017-7068814aae57">
     <title>Soup</title>
-    <status>Official</status>
+    <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
     <quality>normal</quality>
     <text-representation>
       <language>eng</language>
@@ -1541,7 +1547,7 @@ ws_test 'release lookup, pregap track',
     <medium-list count="1">
       <medium>
         <position>1</position>
-        <format>CD</format>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
           <position>0</position>
           <number>0</number>

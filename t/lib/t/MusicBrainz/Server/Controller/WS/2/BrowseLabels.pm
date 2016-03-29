@@ -26,7 +26,7 @@ ws_test 'browse labels via release',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label-list count="1">
-        <label type="Original Production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
+        <label type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
             <name>rhythm zone</name>
             <sort-name>rhythm zone</sort-name>
             <country>JP</country>

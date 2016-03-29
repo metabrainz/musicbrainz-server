@@ -53,8 +53,10 @@ test 'basic artist lookup' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -71,6 +73,7 @@ test 'basic artist lookup, inc=annotation' => sub {
             name => "Distance",
             "sort-name" => "Distance",
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             annotation => "this is an artist annotation",
             country => JSON::null,
             area => JSON::null,
@@ -84,6 +87,7 @@ test 'basic artist lookup, inc=annotation' => sub {
             },
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -108,15 +112,17 @@ test 'basic artist lookup, inc=aliases' => sub {
                 ended => JSON::false
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             aliases => [
-                { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null, type => JSON::null },
-                { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
+                { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
                 ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -141,6 +147,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             relations => [
                 {
                     attributes => [],
@@ -230,6 +237,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -254,13 +262,16 @@ test 'artist lookup with releases' => sub {
                 ended => JSON::false,
             },
             type => "Group",
+            "type-id" => "e431f5f6-b5d2-343d-8b36-72607fffb74b",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
@@ -282,6 +293,7 @@ test 'artist lookup with releases' => sub {
                     title => "Summer Reggae! Rainbow",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
@@ -302,6 +314,7 @@ test 'artist lookup with releases' => sub {
                 ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -326,12 +339,14 @@ test 'artist lookup with pseudo-releases' => sub {
                 ended => JSON::false,
             },
             type => "Group",
+            "type-id" => "e431f5f6-b5d2-343d-8b36-72607fffb74b",
             releases => [
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
@@ -352,6 +367,7 @@ test 'artist lookup with pseudo-releases' => sub {
                 ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -377,22 +393,26 @@ test 'artist lookup with releases and discids' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
                     title => "Repercussions",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     country => "GB",
                     barcode => "600116822123",
                     media => [
                         {
                             title => '',
                             format => "CD",
+                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                             position => 1,
                             discs => [
                                 {
@@ -417,6 +437,7 @@ test 'artist lookup with releases and discids' => sub {
                         {
                             title => "Chestplate Singles",
                             format => "CD",
+                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                             position => 2,
                             discs => [
                                 {
@@ -453,17 +474,20 @@ test 'artist lookup with releases and discids' => sub {
                     id => "adcf7b48-086e-48ee-b420-1001f88d672f",
                     title => "My Demons",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2007-01-29",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     country => "GB",
                     barcode => "600116817020",
                     media => [
                         {
                             title => '',
                             format => "CD",
+                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                             position => 1,
                             discs => [
                                 {
@@ -501,6 +525,7 @@ test 'artist lookup with releases and discids' => sub {
                 }],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -515,6 +540,7 @@ test 'artist lookup with recordings and artist credits' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
+            "type-id" => "e431f5f6-b5d2-343d-8b36-72607fffb74b",
             country => JSON::null,
             area => JSON::null,
             begin_area => JSON::null,
@@ -587,6 +613,7 @@ test 'artist lookup with recordings and artist credits' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -601,6 +628,7 @@ test 'artist lookup with release groups' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
+            "type-id" => "e431f5f6-b5d2-343d-8b36-72607fffb74b",
             country => JSON::null,
             area => JSON::null,
             begin_area => JSON::null,
@@ -623,6 +651,7 @@ test 'artist lookup with release groups' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -637,6 +666,7 @@ test 'single artist release lookup' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
+            "type-id" => "e431f5f6-b5d2-343d-8b36-72607fffb74b",
             country => JSON::null,
             area => JSON::null,
             begin_area => JSON::null,
@@ -656,8 +686,10 @@ test 'single artist release lookup' => sub {
                     country => "JP",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     quality => "normal",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     barcode => "4988064451180",
                     "release-events" => [{
                         date => "2004-03-17",
@@ -673,6 +705,7 @@ test 'single artist release lookup' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -697,12 +730,15 @@ test 'various artists release lookup' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             releases => [
                 {
                     id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
                     title => "the Love Bug",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     date => "2004-03-17",
@@ -723,6 +759,7 @@ test 'various artists release lookup' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -747,6 +784,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             works => [
                 {
                     attributes => [],
@@ -760,6 +798,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             ],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -784,6 +823,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             works => [
                 {
                     attributes => [],
@@ -922,6 +962,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                 }],
             ipis => [],
             gender => JSON::null,
+            "gender-id" => JSON::null,
         };
 };
 
@@ -953,6 +994,7 @@ test 'artist lookup with artist relations' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             relations => [
                 {
                     attributes => [],
@@ -976,6 +1018,7 @@ test 'artist lookup with artist relations' => sub {
             ],
             ipis => [],
             gender => 'Female',
+            "gender-id" => "93452b5a-a947-30c8-934f-6a4056b151c2",
         };
 };
 

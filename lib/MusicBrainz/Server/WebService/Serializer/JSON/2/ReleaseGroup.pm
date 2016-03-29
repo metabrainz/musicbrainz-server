@@ -18,8 +18,12 @@ sub serialize
     $body{title} = $entity->name;
     $body{"primary-type"} = $entity->primary_type
         ? $entity->primary_type->name : JSON::null;
+    $body{"primary-type-id"} = $entity->primary_type
+        ? $entity->primary_type->gid : JSON::null;
     $body{"secondary-types"} = [ map {
         $_->name } $entity->all_secondary_types ];
+    $body{"secondary-type-ids"} = [ map {
+        $_->gid } $entity->all_secondary_types ];
     $body{"first-release-date"} = $entity->first_release_date->format;
     $body{disambiguation} = $entity->comment // "";
 
