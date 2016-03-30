@@ -50,11 +50,11 @@ class Autocomplete extends React.Component {
   }
 
   render() {
-    const {disabled, entity} = this.props;
+    const {disabled, entity, inputID} = this.props;
     return (
       <span className={entity + ' autocomplete'}>
         <img className="search" src="/static/images/icons/search.png" alt={l('Search')} />
-        <input className="name" disabled={disabled} type="text" ref="name" />
+        <input id={inputID} className="name" disabled={disabled} type="text" ref="name" />
       </span>
     );
   }

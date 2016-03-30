@@ -187,18 +187,6 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_artist_credit(form, id) BLOCK -%]
-    [%- id = id || 'entity-artist' -%]
-    [%- WRAPPER form_row -%]
-        <label for="[% id %]" class="required">[% l('Artist:') %]</label>
-        <div id="artist-credit-editor" style="display: inline;">
-        </div>
-        [%- IF form -%]
-          [% field_errors(form, 'artist_credit') %]
-        [%- END -%]
-    [%- END -%]
-[%- END -%]
-
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]
     [% WRAPPER form_row %]
       <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>

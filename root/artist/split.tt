@@ -33,7 +33,7 @@
        </p>
        <fieldset>
          <legend>[% l('New Artist Credit') %]</legend>
-         [%- form_row_artist_credit(form) -%]
+         <div id="artist-credit-editor"></div>
        </fieldset>
 
        [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -42,8 +42,8 @@
    </form>
 
     <script type="text/javascript">//<![CDATA[
-        MB.Control.initialize_artist_credit(
-          'split-artist',
+        MB.initializeArtistCredit(
+          [% closing_tag_escape(form.to_encoded_json) %],
           [% closing_tag_escape(form.field('artist_credit').json) %]
         );
     //]]></script>

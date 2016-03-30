@@ -23,7 +23,7 @@
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
       [%- form_row_name_with_guesscase(r, { guessfeat => 1 }) -%]
-      [%- form_row_artist_credit(form) -%]
+      <div id="artist-credit-editor"></div>
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- IF !form.used_by_tracks || form.field('length').has_errors;
             form_row_text_long(r, 'length', l('Length:'));
@@ -54,8 +54,8 @@
 
 <script type="text/javascript">//<![CDATA[
   $(function () {
-    MB.Control.initialize_artist_credit(
-      'edit-recording',
+    MB.initializeArtistCredit(
+      [% closing_tag_escape(form.to_encoded_json) %],
       [% closing_tag_escape(form.field('artist_credit').json) %]
     );
     MB.Control.initialize_guess_case("recording", "id-edit-recording");

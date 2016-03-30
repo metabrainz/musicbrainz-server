@@ -240,8 +240,8 @@ class ArtistCreditEditor extends React.Component {
   getHiddenInputs() {
     let prefix = 'artist_credit.names.';
 
-    if (this.props.formName) {
-      prefix = this.props.formName + '.' + prefix;
+    if (this.props.form) {
+      prefix = this.props.form.name + '.' + prefix;
     }
 
     return _.flatten(_.map(this.state.artistCredit.names.toJS(), function (name, index) {
@@ -292,6 +292,7 @@ class ArtistCreditEditor extends React.Component {
                   currentSelection={singleArtistSelection}
                   disabled={!singleArtistIsEditable}
                   entity="artist"
+                  inputID={this.props.forLabel}
                   onChange={artist => {
                     if (singleArtistIsEditable) {
                       this.setState(stateFromArray([{
@@ -320,20 +321,5 @@ class ArtistCreditEditor extends React.Component {
     );
   }
 }
-
-MB.Control.initialize_artist_credit = function (formName, artistCredit) {
-  let source = MB.sourceEntity || {name: ''};
-  source.artistCredit = artistCreditFromArray(artistCredit);
-
-  ReactDOM.render(
-    <ArtistCreditEditor
-      entity={source}
-      formName={formName}
-      hiddenInputs={true}
-      initialNames={artistCredit}
-    />,
-    document.getElementById('artist-credit-editor')
-  );
-};
 
 module.exports = ArtistCreditEditor;
