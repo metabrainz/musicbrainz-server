@@ -77,6 +77,7 @@ test 'work lookup via iswc' => sub {
                     iswcs => [ "T-000.000.002-0" ],
                     language => 'jpn',
                     type => "Song",
+                    "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
                 }]
         };
 };
@@ -137,6 +138,7 @@ test 'work lookup with recording relationships' => sub {
             iswcs => [],
             language => 'jpn',
             type => "Song",
+            "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
         };
 };
 

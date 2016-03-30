@@ -102,7 +102,14 @@ test 'label lookup, inc=aliases' => sub {
                 "iso-3166-1-codes" => ["GB"],
             },
             aliases => [
-                { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
+                {
+                    name => "Planet µ",
+                    "sort-name" => "Planet µ",
+                    locale => JSON::null,
+                    primary => JSON::null,
+                    type => JSON::null,
+                    "type-id" => JSON::null,
+                }
             ],
             ipis => [],
         };
