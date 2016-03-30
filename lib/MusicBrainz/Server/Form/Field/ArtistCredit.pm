@@ -122,6 +122,7 @@ sub json {
 
     my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
     for my $name (@$names) {
+        $name->{artist}->{entityType} = 'artist';
         $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
         $name->{joinPhrase} = delete $name->{join_phrase};
     }

@@ -112,11 +112,13 @@ fieldset.advanced-disc {
 
         &.artist {
             padding: 0;
-            span.autocomplete { height: 2em; }
+            width: 45%;
+            span.autocomplete { height: 2em; width: 100%; }
             input { padding: 4px; }
+            td { border: none; padding: 0; }
         }
 
-        &.credits-button {
+        &.open-ac {
             width: 90px;
             padding: 0 !important;
             text-align: center;
@@ -178,18 +180,6 @@ table.advanced-format {
             border: 1px solid @medium-border;
             text-align: right;
         }
-    }
-}
-
-#track-ac-bubble {
-    width: 60%;
-    box-shadow: 2px 2px 16px @very-dark-grey;
-
-    input[type=text], span.autocomplete { width: 100%; }
-
-    div.buttons {
-        float: right;
-        button.positive { margin-left: 2em; }
     }
 }
 

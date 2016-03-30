@@ -4,6 +4,11 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const {MAX_LENGTH_DIFFERENCE} = require('../common/constants');
+const {
+        artistCreditFromArray,
+        isCompleteArtistCredit,
+        reduceArtistCredit,
+    } = require('../common/immutable-entities');
 const request = require('../common/utility/request');
 const debounce = require('../common/utility/debounce');
 
@@ -122,7 +127,7 @@ const debounce = require('../common/utility/debounce');
         var params = {
             recording: [ utils.escapeLuceneValue(name) ],
 
-            arid: _(track.artistCredit.names()).invoke("artist")
+            arid: _(track.artistCredit().names.toJS()).pluck("artist")
                 .pluck("gid").map(utils.escapeLuceneValue).value()
         };
 
@@ -147,7 +152,7 @@ const debounce = require('../common/utility/debounce');
     function cleanRecordingData(data) {
         var clean = utils.cleanWebServiceData(data);
 
-        clean.artist = MB.entity.ArtistCredit(clean.artistCredit).text();
+        clean.artist = reduceArtistCredit(artistCreditFromArray(clean.artistCredit));
         clean.video = !!data.video;
 
         var appearsOn = _(data.releases)
@@ -260,7 +265,7 @@ const debounce = require('../common/utility/debounce');
         // artists when searching the web service. If there are track changes
         // below but the AC is not complete, the ko.computed this is inside of
         // will re-evaluate once the user fixes the artist.
-        var completeAC = track.artistCredit.isComplete();
+        var completeAC = isCompleteArtistCredit(track.artistCredit());
 
         // Only proceed if we need a recording, and the track has information
         // we can search for - this tab should be disabled otherwise, anyway.

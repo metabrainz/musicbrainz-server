@@ -60,11 +60,11 @@
           </tr>
 
           <tr class="artist" data-bind="css: { even: position() % 2 === 0 }">
-            <td colspan="2" data-bind="with: artistCredit.html({ target: '_blank' })">
+            <td colspan="2" data-bind="with: renderArtistCredit(artistCredit)">
               [% l('by') %] <span data-bind="html: $data"></span>
             </td>
-            <td colspan="2" data-bind="with: recording().artistCredit">
-              [% l('by') %] <span data-bind="html: html({ target: '_blank' })"></span>
+            <td colspan="2">
+              [% l('by') %] <span data-bind="html: renderArtistCredit(recording().artistCredit)"></span>
             </td>
           </tr>
 

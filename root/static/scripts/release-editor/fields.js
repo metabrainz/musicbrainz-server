@@ -3,10 +3,21 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const i18n = require('../common/i18n');
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+const {l} = require('../common/i18n');
+const {
+        artistCreditFromArray,
+        artistCreditsAreEqual,
+        hasVariousArtists,
+        isCompleteArtistCredit,
+        reduceArtistCredit,
+    } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const request = require('../common/utility/request');
+const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
 const dates = require('../edit/utility/dates');
 const validation = require('../edit/validation');
 
@@ -16,15 +27,8 @@ const validation = require('../edit/validation');
     var utils = releaseEditor.utils;
 
 
-    fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
-
-        around$init: function (supr, data) {
-            supr({ initialData: data });
-        }
-    });
-
-
     fields.Track = aclass({
+        entityType: 'track',
 
         init: function (data, medium) {
             this.medium = medium;
@@ -41,11 +45,11 @@ const validation = require('../edit/validation');
 
             var release = medium && medium.release;
 
-            if (release && !data.artistCredit && !release.artistCredit.isVariousArtists()) {
-                data.artistCredit = release.artistCredit.toJSON();
+            if (release && !data.artistCredit && !hasVariousArtists(release.artistCredit.peek())) {
+                data.artistCredit = release.artistCredit.peek().names.toJS();
             }
 
-            this.artistCredit = fields.ArtistCredit(data.artistCredit);
+            this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
             this.artistCredit.track = this;
 
             this.formattedLength = ko.observable(formatTrackLength(data.length));
@@ -80,7 +84,7 @@ const validation = require('../edit/validation');
             var recordingData = data.recording;
             if (recordingData) {
                 if (_.isEmpty(recordingData.artistCredit)) {
-                    recordingData.artistCredit = this.artistCredit.toJSON();
+                    recordingData.artistCredit = this.artistCredit().names.toJS();
                 }
                 this.recording(MB.entity(recordingData, "recording"));
                 this.recording.original(MB.edit.fields.recording(this.recording.peek()));
@@ -154,7 +158,7 @@ const validation = require('../edit/validation');
             var hasTooltip = !!$lengthInput.data("ui-tooltip");
 
             if (this.medium.hasInvalidPregapLength()) {
-                $lengthInput.attr("title", i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
+                $lengthInput.attr("title", l('None of the attached disc IDs can fit a pregap track of the given length.'));
 
                 if (!hasTooltip) {
                     $lengthInput.tooltip();
@@ -191,7 +195,7 @@ const validation = require('../edit/validation');
                 return false;
             }
 
-            return !this.artistCredit.isEqual(artistCredit);
+            return !artistCreditsAreEqual(this.artistCredit(), artistCredit);
         },
 
         hasExistingRecording: function () {
@@ -244,11 +248,11 @@ const validation = require('../edit/validation');
         },
 
         hasNameAndArtist: function () {
-            return this.name() && this.artistCredit.isComplete();
+            return this.name() && isCompleteArtistCredit(this.artistCredit());
         },
 
         hasVariousArtists: function () {
-            return this.artistCredit.isVariousArtists();
+            return hasVariousArtists(this.artistCredit());
         },
 
         relatedArtists: function () {
@@ -257,7 +261,10 @@ const validation = require('../edit/validation');
 
         isProbablyClassical: function () {
             return this.medium.release.isProbablyClassical;
-        }
+        },
+
+        // Classes are a joke
+        renderArtistCredit: MB.entity.Entity.prototype.renderArtistCredit
     });
 
 
@@ -508,15 +515,15 @@ const validation = require('../edit/validation');
 
             if (name) {
                 if (multidisc) {
-                    return i18n.l("Medium {position}: {title}", { position: position, title: name });
+                    return l("Medium {position}: {title}", { position: position, title: name });
                 }
                 return name;
 
             }
             else if (multidisc) {
-                return i18n.l("Medium {position}", { position: position });
+                return l("Medium {position}", { position: position });
             }
-            return i18n.l("Tracklist");
+            return l("Tracklist");
         },
 
         canHaveDiscID: function () {
@@ -688,11 +695,11 @@ const validation = require('../edit/validation');
                 self.needsName(!newName);
             });
 
-            this.artistCredit = fields.ArtistCredit(data.artistCredit);
-            this.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
+            this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
+            this.artistCredit.saved = this.artistCredit.peek();
 
             this.needsArtistCredit = errorField(function () {
-                return !self.artistCredit.isComplete();
+                return !isCompleteArtistCredit(self.artistCredit());
             });
 
             this.statusID = ko.observable(data.statusID);
@@ -754,8 +761,8 @@ const validation = require('../edit/validation');
             );
 
             this.releaseGroup.subscribe(function (releaseGroup) {
-                if (releaseGroup.artistCredit && !self.artistCredit.text()) {
-                    self.artistCredit.setNames(releaseGroup.artistCredit.names);
+                if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
+                    self.artistCredit(artistCreditFromArray(releaseGroup.artistCredit));
                 }
             });
 
@@ -845,8 +852,118 @@ const validation = require('../edit/validation');
             $(element)
                 .prop("disabled", disabled)
                 .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
+                .attr("title", disabled ? l("This medium has one or more discids which prevent this information from being changed.") : "");
         }
     };
+
+
+    ko.bindingHandlers.artistCreditEditor = {
+        changeMatchingArtists: false,
+
+        onChangeMatchingArtists: function () {
+            this.changeMatchingArtists = !this.changeMatchingArtists;
+        },
+
+        currentTarget: function () {
+            return $('#artist-credit-bubble').data('target');
+        },
+
+        previousTrack: function () {
+            const entity = this.currentTarget();
+            const prev = entity.medium.tracks()[entity.position() - 2];
+            if (prev) {
+                prev.artistCreditEditorInst.updateBubble(true);
+            }
+        },
+
+        nextTrack: function () {
+            const entity = this.currentTarget();
+            const next = entity.medium.tracks()[entity.position()];
+            if (next) {
+                next.artistCreditEditorInst.updateBubble(true);
+            }
+        },
+
+        extraButtons: function () {
+            return (
+                <frag>
+                    <button type="button" style={{float: 'right'}} onClick={this.nextTrack}>
+                        {l('Next')}
+                    </button>
+                    <button type="button" style={{float: 'right'}} onClick={this.previousTrack}>
+                        {l('Previous')}
+                    </button>
+                </frag>
+            );
+        },
+
+        extraContent: function () {
+            return (
+                <div>
+                    <label>
+                        <input type="checkbox" onChange={this.onChangeMatchingArtists} />
+                        {l('Change all artists on this release that match “{name}”', {name: this.initialArtistText})}
+                    </label>
+                </div>
+            );
+        },
+
+        beforeShow: function (props, state) {
+            this.initialArtistText = reduceArtistCredit(state.artistCredit);
+        },
+
+        doneCallback: function () {
+            if (!this.changeMatchingArtists) {
+                return;
+            }
+
+            const track = this.currentTarget();
+            const matchWith = this.initialArtistText;
+            const artistCredit = track.artistCredit.peek();
+
+            _(track.medium.release.mediums())
+                .invoke("tracks").flatten().without(track).pluck("artistCredit")
+                .each(function (ac) {
+                    if (matchWith === reduceArtistCredit(ac.peek())) {
+                        ac(artistCredit);
+                    }
+                })
+                .value();
+
+            this.initialArtistText = '';
+        },
+
+        update: function (element, valueAccessor) {
+            const bindingHandler = ko.bindingHandlers.artistCreditEditor;
+            const entity = valueAccessor();
+            const props = {
+                entity: entity,
+                hiddenInputs: false,
+                initialNames: entity.artistCredit().names.toJS(),
+                onChange: entity.artistCredit,
+            };
+            if (entity instanceof fields.Track) {
+                props.beforeShow = this.beforeShow;
+                props.doneCallback = this.doneCallback;
+                props.extraButtons = this.extraButtons;
+                props.extraContent = this.extraContent;
+                props.orientation = 'left';
+            }
+            entity.artistCreditEditorInst =
+                ReactDOM.render(<ArtistCreditEditor {...props} />, element);
+        }
+    };
+
+    _.bindAll(
+        ko.bindingHandlers.artistCreditEditor,
+        'beforeShow',
+        'doneCallback',
+        'extraButtons',
+        'extraContent',
+        'nextTrack',
+        'onChangeMatchingArtists',
+        'previousTrack',
+        'update',
+    );
 
 }(MB.releaseEditor = MB.releaseEditor || {}));
