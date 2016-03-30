@@ -40,7 +40,7 @@ ws_test 'basic instrument lookup',
     '/instrument/3590521b-8c97-4f4b-b1bb-5f68d3663d8a' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <instrument type="Wind instrument" id="3590521b-8c97-4f4b-b1bb-5f68d3663d8a">
+    <instrument type="Wind instrument" type-id="876464a8-e74f-3f40-9bd3-637d2b1743ae" id="3590521b-8c97-4f4b-b1bb-5f68d3663d8a">
         <name>English horn</name>
     </instrument>
 </metadata>';
@@ -49,11 +49,11 @@ ws_test 'instrument lookup, inc=aliases',
     '/instrument/3590521b-8c97-4f4b-b1bb-5f68d3663d8a?inc=aliases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <instrument type="Wind instrument" id="3590521b-8c97-4f4b-b1bb-5f68d3663d8a">
+    <instrument type="Wind instrument" type-id="876464a8-e74f-3f40-9bd3-637d2b1743ae" id="3590521b-8c97-4f4b-b1bb-5f68d3663d8a">
         <name>English horn</name>
         <alias-list count="2">
             <alias sort-name="English horn">English horn</alias>
-            <alias sort-name="cor anglais" primary="primary" locale="fr" type="Instrument name">cor anglais</alias>
+            <alias sort-name="cor anglais" primary="primary" locale="fr" type="Instrument name" type-id="2322fc94-fbf3-3c09-b23c-aa5ec8d14fcd">cor anglais</alias>
         </alias-list>
     </instrument>
 </metadata>';

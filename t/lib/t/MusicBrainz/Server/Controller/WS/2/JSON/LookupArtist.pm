@@ -295,6 +295,7 @@ test 'artist lookup with releases' => sub {
                     packaging => JSON::null,
                     "packaging-id" => JSON::null,
                     status => "Pseudo-Release",
+                    "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
@@ -348,6 +349,7 @@ test 'artist lookup with pseudo-releases' => sub {
                     packaging => JSON::null,
                     "packaging-id" => JSON::null,
                     status => "Pseudo-Release",
+                    "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
@@ -646,7 +648,9 @@ test 'artist lookup with release groups' => sub {
                     disambiguation => "",
                     "first-release-date" => "2004-03-17",
                     "primary-type" => "Single",
+                    "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
                     "secondary-types" => [],
+                    "secondary-type-ids" => [],
                 }
             ],
             ipis => [],
@@ -794,6 +798,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 }
             ],
             ipis => [],
@@ -833,6 +838,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -842,6 +848,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -851,6 +858,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -860,6 +868,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -869,6 +878,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -878,6 +888,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -887,6 +898,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -896,6 +908,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -905,6 +918,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -914,6 +928,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -923,6 +938,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -932,6 +948,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -941,6 +958,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -950,6 +968,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 },
                 {
                     attributes => [],
@@ -959,6 +978,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                 }],
             ipis => [],
             gender => JSON::null,

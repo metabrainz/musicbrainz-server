@@ -32,7 +32,7 @@ ws_test 'basic work lookup',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
+  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
@@ -55,7 +55,7 @@ ws_test 'work lookup via iswc',
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <work-list count="1">
-    <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
+    <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
       <title>サマーれげぇ!レインボー</title>
       <language>jpn</language>
       <iswc>T-000.000.002-0</iswc>
@@ -68,7 +68,7 @@ ws_test 'work lookup with recording relationships',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
+  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
@@ -101,7 +101,7 @@ ws_test 'work lookup with attributes',
   <work id="7981d409-8e76-33df-be27-ef625d81c501">
     <title>Shine We Are!</title>
     <attribute-list>
-      <attribute type="Key">B major</attribute>
+      <attribute type="Key" type-id="345c079d-374e-4436-9448-da92dedef3ce">B major</attribute>
     </attribute-list>
   </work>
 </metadata>';

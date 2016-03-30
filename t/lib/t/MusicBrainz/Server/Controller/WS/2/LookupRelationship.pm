@@ -25,7 +25,7 @@ ws_test 'artist lookup with url relationships',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+    <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <relation-list target-type="url">
             <relation type-id="eb535226-f8ca-499d-9b18-6a144df4ae6f" type="blog">
@@ -48,7 +48,7 @@ ws_test 'artist lookup with non-url relationships',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=artist-rels+label-rels+recording-rels+release-rels+release-group-rels+work-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
         <life-span>
             <begin>1986-11-05</begin>
@@ -70,7 +70,8 @@ ws_test 'release lookup with release relationships',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-        <title>サマーれげぇ!レインボー</title><status>Official</status>
+        <title>サマーれげぇ!レインボー</title>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>jpn</language><script>Jpan</script>
@@ -176,7 +177,7 @@ ws_test 'label lookup with label and url relationships',
     '/label/72a46579-e9a0-405a-8ee1-e6e6b63b8212?inc=label-rels+url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <label type="Original Production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
+    <label type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
         <area id="2db42837-c832-3c27-b4a3-08198f75693c">
             <name>Japan</name>
@@ -209,7 +210,7 @@ ws_test 'release group lookup with url relationships',
     <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
-        <primary-type>Single</primary-type>
+        <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
         <relation-list target-type="url">
             <relation type-id="6578f0e9-1ace-4095-9de8-6e517ddb1ceb" type="wikipedia">
                 <target id="5e766c4e-16dd-47f2-b032-d96ef23c0cf1">http://en.wikipedia.org/wiki/The_Love_Bug_(song)</target>
@@ -227,7 +228,7 @@ ws_test 'release lookup with recording-level relationships',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="980e0f65-930e-4743-95d3-602665c25c15">
         <title>Exogamy</title>
-        <status>Official</status>
+        <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
         <quality>normal</quality>
         <text-representation>
             <language>eng</language>
@@ -257,7 +258,7 @@ ws_test 'release lookup with recording-level relationships',
         </cover-art-archive>
         <medium-list count="1">
             <medium>
-                <format>CD</format>
+                <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <position>1</position>
                 <track-list count="9" offset="0">
                     <track id="719e1eba-920f-31da-9c45-9eb53f791aee">

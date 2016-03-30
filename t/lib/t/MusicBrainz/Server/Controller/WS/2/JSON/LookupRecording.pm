@@ -299,6 +299,7 @@ test 'recording lookup with release relationships' => sub {
                         "packaging-id" => JSON::null,
                         quality => 'normal',
                         status => JSON::null,
+                        "status-id" => JSON::null,
                         'text-representation' => {
                             language => 'eng',
                             script => 'Latn'
@@ -346,6 +347,7 @@ test 'recording lookup with work relationships' => sub {
                         language => JSON::null,
                         title => 'the Love Bug',
                         type => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     'source-credit' => '',
                     'target-credit' => '',
@@ -401,7 +403,8 @@ test 'recording lookup with work-level relationships' => sub {
                     'target-type' => 'artist',
                 } ],
                 title => 'Asseswaving',
-                type => undef
+                type => JSON::null,
+                "type-id" => JSON::null,
             },
             'source-credit' => '',
             'target-credit' => '',
