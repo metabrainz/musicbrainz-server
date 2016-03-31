@@ -23,7 +23,7 @@ test('hidden inputs', function (t) {
 
   const commonProps = {
     entity: emptyEntity,
-    formName: 'form',
+    form: {name: 'form'},
     hiddenInputs: true,
   };
 
