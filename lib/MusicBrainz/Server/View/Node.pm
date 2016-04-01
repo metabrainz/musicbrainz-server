@@ -61,6 +61,12 @@ sub process {
     $redis->set($cache_key, $body);
     $redis->expire($cache_key, 15);
 
+    if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
+        my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
+        $c->res->headers->header('X-Accel-Redirect' => $redirect_uri);
+        return;
+    }
+
     my $response;
     my $tries = 0;
 

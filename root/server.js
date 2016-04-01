@@ -42,8 +42,8 @@ function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
 }
 
-function badRequest(err) {
-  return {status: 400, body: err.stack, contentType: 'text/plain'};
+function badRequest(err, status) {
+  return {status: status || 400, body: err.stack, contentType: 'text/plain'};
 }
 
 // Common macros
@@ -142,11 +142,13 @@ http.createServer(function (req, res) {
     } else if (reply) {
       resInfo = getResponse(req, reply);
     } else {
-      resInfo = badRequest(new Error('got null reply from redis'));
+      resInfo = badRequest(new Error('got null reply from redis'), 500);
     }
     res.statusCode = resInfo.status;
     res.setHeader('Content-Type', resInfo.contentType);
     res.setHeader('Content-Length', resInfo.body.length);
+    // MBS-7061: Prevent network providers/proxies from stripping HTML comments.
+    res.setHeader('Cache-Control', 'no-transform');
     res.end(resInfo.body, 'utf8');
   });
 })

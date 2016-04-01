@@ -454,6 +454,8 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # separately.
 sub RENDERER_HOST { '' }
 sub RENDERER_PORT { 9009 }
+# Whether to use X-Accel-Redirect for the requests mentioned above.
+sub RENDERER_X_ACCEL_REDIRECT { 0 }
 
 # Base URL of external Discourse instance.
 sub DISCOURSE_SERVER { '' }
