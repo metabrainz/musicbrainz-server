@@ -13,10 +13,10 @@ const argv = require('yargs')
   .describe('development', 'disables module cache if set to 1')
   .argv;
 
-const concat = require('concat-stream');
 const fs = require('fs');
 const http = require('http');
 const _ = require('lodash');
+const redis = require('redis');
 const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
@@ -27,7 +27,16 @@ const gettext = require('./server/gettext');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
-const DOCTYPE = '<!DOCTYPE html>';
+const REDIS_ARGS = JSON.parse(process.env.DATASTORE_REDIS_ARGS);
+const redisClient = redis.createClient({
+  url: 'redis://' + REDIS_ARGS.redis_new_args.server,
+  prefix: REDIS_ARGS.prefix,
+  retry_strategy: function (options) {
+    if (options.total_retry_time < (REDIS_ARGS.redis_new_args.reconnect * 1000)) {
+      return 1;
+    }
+  },
+});
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -50,16 +59,15 @@ function clearRequireCache() {
   Object.keys(require.cache).forEach(key => delete require.cache[key]);
 }
 
-function getResponse(req, requestBodyBuf) {
+function getResponse(req, requestBody) {
   let url = URL.parse(req.url, true /* parseQueryString */);
   let status = 200;
-  let requestBody;
   let Page;
   let responseBuf;
 
   // N.B. Exceptions will take down the entire process.
   try {
-    requestBody = JSON.parse(requestBodyBuf);
+    requestBody = JSON.parse(requestBody);
   } catch (err) {
     return badRequest(err);
   }
@@ -113,7 +121,7 @@ function getResponse(req, requestBodyBuf) {
 
   try {
     responseBuf = new Buffer(
-      DOCTYPE +
+      '<!DOCTYPE html>' +
       ReactDOMServer.renderToStaticMarkup(React.createElement(Page, requestBody.props))
     );
   } catch (err) {
@@ -125,18 +133,22 @@ function getResponse(req, requestBodyBuf) {
 
 http.createServer(function (req, res) {
   let contentType = 'text/html';
+  let cacheKey = 'template-body:' + req.url;
 
-  req.pipe(concat({encoding: 'buffer'}, function (propsBuf) {
-    if (!propsBuf.length) {
-      propsBuf = new Buffer('{}');
+  redisClient.get(cacheKey, function (err, reply) {
+    let resInfo;
+    if (err) {
+      resInfo = badRequest(err);
+    } else if (reply) {
+      resInfo = getResponse(req, reply);
+    } else {
+      resInfo = badRequest(new Error('got null reply from redis'));
     }
-
-    let resInfo = getResponse(req, propsBuf);
     res.statusCode = resInfo.status;
     res.setHeader('Content-Type', resInfo.contentType);
     res.setHeader('Content-Length', resInfo.body.length);
     res.end(resInfo.body, 'utf8');
-  }));
+  });
 })
 .listen(argv.port, '127.0.0.1', function (err) {
   if (err) {
@@ -144,6 +156,7 @@ http.createServer(function (req, res) {
   }
 
   function cleanup() {
+    redisClient.quit();
     process.exit();
   }
 
