@@ -37,7 +37,9 @@ has '_connection' => (
 
 has '_json' => (
     is => 'ro',
-    default => sub { return JSON->new->allow_nonref->ascii; }
+    default => sub {
+        JSON->new->allow_nonref->allow_blessed->convert_blessed->ascii;
+    }
 );
 
 sub _prepare_key {
