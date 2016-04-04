@@ -14,7 +14,7 @@ function userLink(userName, path) {
 }
 
 const AccountMenu = () => (
-  <li className="account">
+  <li className="account" tabIndex="-1">
     <span className="menu-header">{$c.user.name}{'\xA0\u25BE'}</span>
     <ul>
       <li>
@@ -39,7 +39,7 @@ const DataMenu = () => {
   let userName = $c.user.name;
 
   return (
-    <li className="data">
+    <li className="data" tabIndex="-1">
       <span className="menu-header">{l('My Data')}{'\xA0\u25BE'}</span>
       <ul>
         <li>
@@ -72,7 +72,7 @@ const DataMenu = () => {
 };
 
 const AdminMenu = () => (
-  <li className="admin">
+  <li className="admin" tabIndex="-1">
     <span className="menu-header">{l('Admin')}{'\xA0\u25BE'}</span>
     <ul>
       {$c.user.is_location_editor &&
@@ -107,7 +107,7 @@ const AdminMenu = () => (
 );
 
 const UserMenu = (props) => (
-  <ul className="menu">
+  <ul className="menu" tabIndex="-1">
     {$c.user && [
       <AccountMenu key={1} />,
       <DataMenu key={2} />,

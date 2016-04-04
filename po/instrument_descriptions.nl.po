@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-02-14 12:40+0000\n"
+"PO-Revision-Date: 2016-03-21 07:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2765,6 +2765,15 @@ msgid ""
 "The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
 "family."
 msgstr "De zhongruan (Chinees: 中阮, pinyin: zhōngruǎn) is een Chinese luit uit de familie van de ruan."
+
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"The ütőgardon is a folk musical instrument played primarily in Transylvania."
+" It is similar in appearance to a cello, but played percussively like a "
+"drum. Instead of being played with a bow, its strings are plucked and beaten"
+" with a stick."
+msgstr "Een ütőgardon of gardon is een volksmuziekinstrument dat vooral in Transsylvanië wordt bespeeld. Het lijkt op een cello, maar wordt als een trommel bespeeld. In plaats van met een strijkstok worden de snaren bespeeld door te tokkelen en door er met een stok op te slaan."
 
 #. name:đing năm
 #: DB:instrument/description:319

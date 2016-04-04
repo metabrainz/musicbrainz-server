@@ -156,12 +156,17 @@ MB.initializeDuplicateChecker = function (type) {
   var currentDuplicates = [];
   var promise;
 
+  const mbidLocationMatch = window.location.pathname.match(
+    /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/
+  );
+  const sourceEntityGID = mbidLocationMatch ? mbidLocationMatch[0] : '';
+
   function makeRequest(name, forceRequest) {
     var nameChanged = name !== originalName;
 
     // forceRequest only applies if name is non-empty.
     // we should never check for duplicates of an existing entity, if the name hasn't changed.
-    if (isBlank(name) || !(nameChanged || forceRequest) || (MB.sourceEntityGID && !nameChanged)) {
+    if (isBlank(name) || !(nameChanged || forceRequest) || (sourceEntityGID && !nameChanged)) {
       unmountDuplicates(dupeContainer);
       markCommentAsNotRequired(commentInput);
       return;
@@ -170,7 +175,7 @@ MB.initializeDuplicateChecker = function (type) {
     requestPending(true);
     promise = request({
         url: '/ws/js/check_duplicates',
-        data: $.param({type: type, name: name, mbid: MB.sourceEntityGID}, true)
+        data: $.param({type: type, name: name, mbid: sourceEntityGID}, true)
       })
       .done(function (data) {
         var duplicates = sortDuplicates(type, data.duplicates);

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-16 09:00+0000\n"
+"PO-Revision-Date: 2016-03-21 07:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2986,6 +2986,10 @@ msgstr "zurna"
 #: DB:instrument/name:740
 msgid "çevgen"
 msgstr "çevgen"
+
+#: DB:instrument/name:768
+msgid "ütőgardon"
+msgstr "ütőgardon"
 
 #: DB:instrument/name:306
 msgid "đing buốt"

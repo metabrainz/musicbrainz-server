@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:03-0600\n"
-"PO-Revision-Date: 2016-03-20 06:04+0000\n"
+"POT-Creation-Date: 2016-03-20 22:20-0500\n"
+"PO-Revision-Date: 2016-03-21 13:05+0000\n"
 "Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -309,7 +309,7 @@ msgstr "500px"
 
 #: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr "<abbr title=\"MusicBrainz ID\">MBID</abbr> の提出者"
+msgstr "<abbr title=\"MusicBrainz ID\">MBID</abbr>の提出者"
 
 #: ../root/edit/info.tt:48
 msgid "<em>Cancelling</em>"
@@ -356,14 +356,14 @@ msgstr "<strong>備考:</strong> MediaWikiはバージョン番号とページ�
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone"
 " to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "誰でも貢献ができて{doc|データ}は{doc2|オープンライセンス}で公開される、<strong>究極の音楽情報源</strong>となること。"
+msgstr "あらゆる人々の貢献による{doc|データ}を{doc2|オープンライセンス}で公開することで、<strong>究極の音楽情報源</strong>となること。"
 
 #: ../root/main/index.tt:20
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械にとって意味のある音楽についての話をするための<strong>音楽の国際語</strong>となること。"
+msgstr "正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械が誤解なく音楽について話すために役立つ<strong>音楽の世界共通語</strong>となること。"
 
 #: ../root/recording/merge.tt:8
 msgid ""
@@ -505,7 +505,7 @@ msgstr "別名を追加"
 msgid "Add Area"
 msgstr "地域を追加"
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:83
+#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr "地域を追加"
@@ -557,7 +557,7 @@ msgstr "例を追加"
 msgid "Add Instrument"
 msgstr "楽器を追加"
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:88
+#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr "楽器を追加"
@@ -682,7 +682,7 @@ msgstr "言語を追加"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
+msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリストが不明である場合はチェックボックスを選択するかしてください。"
 
 #: ../root/components/aliases.tt:79
 msgid "Add a new alias"
@@ -724,7 +724,7 @@ msgstr "別の楽器を追加"
 
 #: ../root/relationship/linkattributetype/common.tt:24
 msgid "Add child"
-msgstr ""
+msgstr "子を追加"
 
 #: ../root/cdstub/layout.tt:29
 msgid "Add disc ID to an existing release"
@@ -773,7 +773,7 @@ msgstr "選択されたアーティストをマージ"
 
 #: ../root/artist/events.tt:8 ../root/place/events.tt:8
 msgid "Add selected events for merging"
-msgstr ""
+msgstr "選択されたイベントをマージ"
 
 #: ../root/artist/recordings.tt:13 ../root/instrument/recordings.tt:8
 #: ../root/isrc/index.tt:37
@@ -857,7 +857,7 @@ msgstr "住所:"
 msgid "Adjust User Account Flags"
 msgstr "ユーザーアカウントフラグを編集"
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:79
+#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
 msgid "Admin"
 msgstr "管理者"
 
@@ -897,7 +897,7 @@ msgstr "別名:"
 msgid "Aliases"
 msgstr "別名"
 
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:61
+#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
 msgid "All My Edits"
 msgstr "すべての自分の編集"
 
@@ -1025,11 +1025,11 @@ msgstr ""
 
 #: ../root/edit/list.tt:61
 msgid "An error occured while loading this edit"
-msgstr "この編集をロード中にエラーが発生しました"
+msgstr "編集の読み込み中にエラーが発生しました"
 
 #: ../root/edit/index.tt:10
 msgid "An error occured while loading this edit."
-msgstr ""
+msgstr "編集の読み込み中にエラーが発生しました"
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "An error occured: "
@@ -1084,11 +1084,11 @@ msgstr ""
 
 #: ../root/artist/relationships.tt:11 ../root/label/relationships.tt:10
 msgid "Appearances"
-msgstr "出場"
+msgstr "登場"
 
 #: ../root/recording/index.tt:4
 msgid "Appears on releases"
-msgstr "リリースの出場"
+msgstr "リリースへの登場"
 
 #: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:50
@@ -1100,7 +1100,7 @@ msgid "Application"
 msgstr "アプリケーション"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:27
+#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
 msgid "Applications"
 msgstr "アプリケーション"
 
@@ -1128,21 +1128,21 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
-msgstr "本当に{e}の情報をすべて削除しますか? 元には戻せません!"
+msgstr "本当に{e}の情報をすべて削除しますか？元には戻せません！"
 
 #: ../root/admin/delete_user.tt:17
 msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr "本当にアカウントを削除してよろしいでしょうか? 元には戻せません!"
+msgstr "本当にアカウントを削除してよろしいでしょうか？元には戻せません！"
 
 #: ../root/elections/nominate.tt:5
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor "
 "status?"
-msgstr "編集者 {editor} を、本当に自動編集者として推薦しますか?"
+msgstr "本当に編集者{editor}を自動編集者として推薦しますか？"
 
 #: ../root/collection/delete.tt:4
 msgid "Are you sure you want to remove the collection {collection}?"
-msgstr "本当にコレクション {collection} を削除しますか？"
+msgstr "本当にコレクション{collection}を削除しますか？"
 
 #: ../root/cdtoc/remove.tt:5
 msgid ""
@@ -1160,7 +1160,7 @@ msgstr "本当にこのアプリケーションの許可を取り消しますか
 
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
-msgstr "本当に編集 #{n} をキャンセルしますか? 元に戻すことはできません！"
+msgstr "本当に編集#{n}をキャンセルしますか？元に戻すことはできません！"
 
 #: ../root/admin/wikidoc/delete.tt:4
 msgid ""
@@ -1206,7 +1206,7 @@ msgstr "本当にMusicBrainzから{label}というレーベルを削除します
 
 #: ../root/series/delete.tt:5
 msgid "Are you sure you wish to remove the series {series} from MusicBrainz?"
-msgstr ""
+msgstr "本当にMusicBrainzから{series}というシリーズを削除しますか？"
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:598 ../root/components/labels-list.tt:9
@@ -1232,7 +1232,7 @@ msgstr "地域の詳細"
 msgid "Area Not Found"
 msgstr "地域がありません"
 
-#: ../root/area/layout.tt:9
+#: ../root/area/layout.tt:11
 msgid "Area information"
 msgstr "地域の情報"
 
@@ -1243,7 +1243,7 @@ msgstr "地域の情報"
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:47 ../root/edit/details/edit_place.tt:28
 #: ../root/label/edit_form.tt:19 ../root/label/index.tt:12
-#: ../root/label/layout.tt:55 ../root/place/edit_form.tt:20
+#: ../root/label/layout.tt:57 ../root/place/edit_form.tt:20
 #: ../root/place/layout.tt:41
 msgid "Area:"
 msgstr "地域:"
@@ -1508,11 +1508,11 @@ msgstr "CD TOCを添付"
 #: ../root/cdtoc/attach_filter_release.tt:4
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr "CD TOCの添付"
+msgstr "CD TOCを添付"
 
 #: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:390
 msgid "Attach Disc ID"
-msgstr "DiscIDを接続"
+msgstr "ディスクIDを添付"
 
 #: ../root/cdtoc/index.tt:7
 msgid "Attached to releases"
@@ -1617,7 +1617,7 @@ msgstr "選挙に戻る"
 
 #: ../root/components/common-macros.tt:1048
 msgid "Backward"
-msgstr ""
+msgstr "戻る"
 
 #: ../root/report/bad_amazon_urls.tt:1 ../root/report/bad_amazon_urls.tt:3
 msgid "Bad Amazon URLs"
@@ -1750,7 +1750,7 @@ msgstr "開始地域:"
 msgid "Begin date"
 msgstr "開始日"
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:17
+#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
 #: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:881
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
@@ -1875,7 +1875,7 @@ msgid ""
 "CD stubs are a feature to allow anonymous users to submit data to "
 "MusicBrainz. For more information, see {cdstub|the documentation on CD "
 "stubs}."
-msgstr "CDスタブは、匿名でMusicBrainzにデータを提出できるフィーチャーです。詳細は{cdstub|CDスタブのドキュメント}をご覧ください。"
+msgstr "CDスタブは匿名ユーザーがMusicBrainzにデータを送信するための機能です。詳細は{cdstub|CDスタブのドキュメント}をご覧ください。"
 
 #: ../root/account/edit_application.tt:10
 #: ../root/account/register_application.tt:10
@@ -2253,7 +2253,7 @@ msgid "Create"
 msgstr "作成"
 
 #: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:128
+#: ../root/layout/components/TopMenu.js:125
 msgid "Create Account"
 msgstr "アカウント作成"
 
@@ -2360,7 +2360,7 @@ msgstr "期間"
 msgid "Date/time format:"
 msgstr "日時表示形式:"
 
-#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:17
+#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:19
 #: ../root/release/edit/information.tt:140
 msgid "Date:"
 msgstr "日付:"
@@ -2373,8 +2373,8 @@ msgid ""
 "YYYY are OK, or you can omit the date entirely."
 msgstr "日付はYYYY-MM-DD（年月日）の形式で表記します。YYYY-MM（年月）やYYYY（年）の部分だけでも構いませんし、日付を省略することも可能です。"
 
-#: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35
+#: ../root/label/index.tt:10 ../root/label/layout.tt:30
+#: ../root/label/layout.tt:37
 msgid "Defunct:"
 msgstr "解散:"
 
@@ -2621,11 +2621,11 @@ msgstr "ドキュメント"
 #: ../root/layout/header/bottom.tt:169
 #: ../root/layout/components/BottomMenu.js:234
 msgid "Documentation Index"
-msgstr ""
+msgstr "ドキュメントの目次"
 
 #: ../root/search/results-doc.tt:1 ../root/search/results-doc.tt:3
 msgid "Documentation Search"
-msgstr "ドキュメント検索"
+msgstr "ドキュメントの検索"
 
 #: ../root/edit/details/add_relationship_type.tt:51
 #: ../root/edit/details/edit_relationship_type.tt:98
@@ -2708,12 +2708,12 @@ msgstr "アーティストクレジットを編集"
 msgid "Edit Attribute"
 msgstr "属性を編集"
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:106
+#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
 msgid "Edit Attributes"
 msgstr "属性を編集"
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:101
+#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
 msgid "Edit Banner Message"
 msgstr "バナーメッセージの編集"
 
@@ -2753,7 +2753,7 @@ msgstr "関係属性を編集"
 msgid "Edit Relationship Type"
 msgstr "関係タイプを編集"
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:91
+#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
 msgid "Edit Relationship Types"
 msgstr "関係タイプを編集"
 
@@ -2872,7 +2872,7 @@ msgstr "編集"
 msgid "Edits ({view_url|view})"
 msgstr "編集を{view_url|表示}"
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:67
+#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
 msgid "Edits by Subscribed Editors"
 msgstr "購読してる編集者の編集"
 
@@ -2884,7 +2884,7 @@ msgstr "購読している編集者の編集"
 msgid "Edits by {name}"
 msgstr "{name}の編集"
 
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:64
+#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
 msgid "Edits for Subscribed Entities"
 msgstr "購読してるエンティティの編集"
 
@@ -2938,7 +2938,7 @@ msgstr "強調:"
 
 #: ../root/release/edit/tracklist.tt:32
 msgid "Enable vinyl track numbers"
-msgstr "バイナルレコードのトラック番号を使用"
+msgstr "レコード用のトラック番号を使用する"
 
 #: ../root/cdtoc/info.tt:34 ../root/components/labels-list.tt:12
 #: ../root/event/merge.tt:15 ../root/label/merge.tt:17
@@ -2961,7 +2961,7 @@ msgstr "終了地域:"
 msgid "End Date"
 msgstr "終了日"
 
-#: ../root/event/layout.tt:27
+#: ../root/event/layout.tt:29
 msgid "End Date:"
 msgstr "終了日:"
 
@@ -2975,8 +2975,8 @@ msgstr "終了地域:"
 msgid "End date"
 msgstr "終了日"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:25
-#: ../root/area/layout.tt:32 ../root/artist/edit_form.tt:52
+#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
+#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
 #: ../root/components/common-macros.tt:889
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
@@ -3124,7 +3124,7 @@ msgstr "イベントの詳細"
 msgid "Event Not Found"
 msgstr "イベントがありません"
 
-#: ../root/event/layout.tt:9
+#: ../root/event/layout.tt:11
 msgid "Event information"
 msgstr "イベントの情報"
 
@@ -3269,13 +3269,13 @@ msgstr ""
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
 "{doc|syntax documentation}."
-msgstr ""
+msgstr "高度な検索クエリの書き方について知りたい場合は、{doc|構文のドキュメント}をお読みください。"
 
 #: ../root/admin/delete_user.tt:13
 msgid ""
 "For information about the account deletion process, please read the "
 "{uri|account FAQ}."
-msgstr ""
+msgstr "アカウント削除手続きについて知りたい場合は、{uri|アカウントのよくある質問}をお読みください。"
 
 #: ../root/report/separate_discs.tt:7
 msgid ""
@@ -3334,7 +3334,7 @@ msgstr "フォーラム"
 
 #: ../root/components/common-macros.tt:1048
 msgid "Forward"
-msgstr ""
+msgstr "進む"
 
 #: ../root/doc/relationship_type.tt:43
 #: ../root/relationship/linktype/form.tt:13
@@ -3394,7 +3394,7 @@ msgid "Founded in:"
 msgstr "結成:"
 
 #: ../root/components/common-macros.tt:881 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20
+#: ../root/label/layout.tt:22
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "結成:"
@@ -3664,7 +3664,7 @@ msgid "IPI code"
 msgstr "IPI コード"
 
 #: ../root/artist/layout.tt:75 ../root/edit/details/add_artist.tt:73
-#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:42
+#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:44
 msgid "IPI code:"
 msgstr "IPI コード:"
 
@@ -3678,7 +3678,7 @@ msgid "ISNI code"
 msgstr "ISNIコード"
 
 #: ../root/artist/layout.tt:79 ../root/edit/details/add_artist.tt:82
-#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:47
+#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:49
 msgid "ISNI code:"
 msgstr "ISNIコード:"
 
@@ -3691,7 +3691,7 @@ msgstr "ISNIコード:"
 msgid "ISO 3166-1"
 msgstr "ISO 3166-1"
 
-#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:39
+#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:41
 #: ../root/edit/details/add_area.tt:37 ../root/edit/details/edit_area.tt:30
 msgid "ISO 3166-1:"
 msgstr "ISO 3166-1:"
@@ -3700,7 +3700,7 @@ msgstr "ISO 3166-1:"
 msgid "ISO 3166-2"
 msgstr "ISO 3166-2"
 
-#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:43
+#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:45
 #: ../root/edit/details/add_area.tt:44 ../root/edit/details/edit_area.tt:34
 msgid "ISO 3166-2:"
 msgstr "ISO 3166-2:"
@@ -3709,7 +3709,7 @@ msgstr "ISO 3166-2:"
 msgid "ISO 3166-3"
 msgstr "ISO 3166-3"
 
-#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:47
+#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:49
 #: ../root/edit/details/add_area.tt:51 ../root/edit/details/edit_area.tt:38
 msgid "ISO 3166-3:"
 msgstr "ISO 3166-3:"
@@ -3794,7 +3794,7 @@ msgstr "ISWC 「{iswc}」"
 
 #: ../root/edit/details/add_work.tt:23 ../root/edit/details/edit_work.tt:19
 #: ../root/edit/details/remove_iswc.tt:3 ../root/otherlookup/form.tt:3
-#: ../root/work/layout.tt:24
+#: ../root/work/layout.tt:26
 msgid "ISWC:"
 msgstr "ISWC:"
 
@@ -4135,11 +4135,11 @@ msgid "Label annotations"
 msgstr "レーベルの注釈"
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
-#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:51
+#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:53
 msgid "Label code:"
 msgstr "レーベルコード:"
 
-#: ../root/label/layout.tt:12
+#: ../root/label/layout.tt:14
 msgid "Label information"
 msgstr "レーベルの情報"
 
@@ -4395,11 +4395,11 @@ msgstr "地域:"
 
 #: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
 #: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:123
+#: ../root/layout/components/TopMenu.js:120
 msgid "Log In"
 msgstr "ログイン"
 
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:35
+#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
 msgid "Log Out"
 msgstr "ログアウト"
 
@@ -4459,7 +4459,7 @@ msgid "Low"
 msgstr "低"
 
 #: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
-#: ../root/work/index.tt:4 ../root/work/layout.tt:19
+#: ../root/work/index.tt:4 ../root/work/layout.tt:21
 msgid "Lyrics Language:"
 msgstr "歌詞の言語:"
 
@@ -4809,23 +4809,23 @@ msgstr "MusicBrainz: リリース"
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: トラック"
 
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:49
+#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
 msgid "My Collections"
 msgstr "自分のコレクション"
 
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:46
+#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
 msgid "My Data"
 msgstr "自分の情報"
 
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:58
+#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
 msgid "My Open Edits"
 msgstr "未確定編集一覧"
 
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:52
+#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
 msgid "My Ratings"
 msgstr "レーティング一覧"
 
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:55
+#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
 msgid "My Tags"
 msgstr "タグ一覧"
 
@@ -5253,7 +5253,7 @@ msgid ""
 "2011-05-16; or which remove relationships, created after 2013-07-08."
 msgstr ""
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:70
+#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
 msgstr "自分の編集に対するノート"
 
@@ -5429,7 +5429,7 @@ msgstr ""
 
 #: ../root/edit/details/add_series.tt:30
 #: ../root/edit/details/edit_series.tt:23 ../root/series/edit_form.tt:17
-#: ../root/series/layout.tt:13
+#: ../root/series/layout.tt:15
 msgid "Ordering Type:"
 msgstr ""
 
@@ -5759,7 +5759,6 @@ msgstr "重複している可能性のあるイベント"
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences_ok.tt:1
 #: ../root/account/preferences_ok.tt:3 ../root/user/profile/layout.tt:23
-#: ../root/layout/components/TopMenu.js:24
 msgid "Preferences"
 msgstr "設定"
 
@@ -5827,7 +5826,7 @@ msgstr ""
 #: ../root/layout/header/bottom.tt:57
 #: ../root/layout/components/BottomMenu.js:114
 msgid "Products"
-msgstr "製品"
+msgstr "プロダクト"
 
 #: ../root/layout/header/top.tt:8 ../root/user/profile/layout.tt:10
 #: ../root/layout/components/TopMenu.js:21
@@ -7186,7 +7185,7 @@ msgstr "購読中のシリーズ"
 msgid "Series annotations"
 msgstr "シリーズの注釈"
 
-#: ../root/series/layout.tt:9
+#: ../root/series/layout.tt:11
 msgid "Series information"
 msgstr "シリーズの情報"
 
@@ -7597,7 +7596,7 @@ msgstr ""
 msgid "Start"
 msgstr "スタート"
 
-#: ../root/event/layout.tt:22
+#: ../root/event/layout.tt:24
 msgid "Start Date:"
 msgstr ""
 
@@ -7737,7 +7736,7 @@ msgstr "購読者:"
 
 #: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
-#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:31
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:28
 msgid "Subscriptions"
 msgstr "購読中"
 
@@ -9218,7 +9217,7 @@ msgid "Time"
 msgstr "時間"
 
 #: ../root/edit/details/add_event.tt:49 ../root/edit/details/edit_event.tt:37
-#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:33
+#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:35
 #: ../root/main/info/environment.tt:2
 msgid "Time:"
 msgstr ""
@@ -9510,7 +9509,7 @@ msgstr "順序番号を含むトラック名"
 msgid "Tracks:"
 msgstr "トラック:"
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:96
+#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
 msgid "Transclude WikiDocs"
 msgstr ""
 
@@ -9578,7 +9577,7 @@ msgid "Type"
 msgstr "タイプ"
 
 #: ../root/account/register_application.tt:9 ../root/area/edit_form.tt:12
-#: ../root/area/layout.tt:11 ../root/artist/edit_form.tt:17
+#: ../root/area/layout.tt:13 ../root/artist/edit_form.tt:17
 #: ../root/artist/index.tt:4 ../root/artist/layout.tt:27
 #: ../root/collection/edit_form.tt:6 ../root/collection/layout.tt:14
 #: ../root/components/filter-form.tt:5 ../root/edit/data.tt:5
@@ -9594,18 +9593,18 @@ msgstr "タイプ"
 #: ../root/edit/details/edit_series.tt:19
 #: ../root/edit/details/historic/add_release.tt:24
 #: ../root/entity/alias/edit_form.tt:21 ../root/event/edit_form.tt:15
-#: ../root/event/index.tt:4 ../root/event/layout.tt:11
+#: ../root/event/index.tt:4 ../root/event/layout.tt:13
 #: ../root/instrument/edit_form.tt:12 ../root/instrument/index.tt:4
 #: ../root/instrument/layout.tt:18 ../root/label/edit_form.tt:16
-#: ../root/label/index.tt:4 ../root/label/layout.tt:14
+#: ../root/label/index.tt:4 ../root/label/layout.tt:16
 #: ../root/place/edit_form.tt:16 ../root/place/index.tt:4
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:115 ../root/release/index.tt:4
 #: ../root/release/layout.tt:53 ../root/release_group/layout.tt:29
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:16
-#: ../root/series/layout.tt:11 ../root/work/edit_form.tt:15
-#: ../root/work/layout.tt:16
+#: ../root/series/layout.tt:13 ../root/work/edit_form.tt:15
+#: ../root/work/layout.tt:18
 msgid "Type:"
 msgstr "タイプ:"
 
@@ -10179,7 +10178,7 @@ msgstr "作品タイプ:"
 msgid "Work annotations"
 msgstr "作品の注釈"
 
-#: ../root/work/layout.tt:14
+#: ../root/work/layout.tt:16
 msgid "Work information"
 msgstr "作品の情報"
 
@@ -10664,9 +10663,9 @@ msgstr ""
 msgid "[removed]"
 msgstr ""
 
-#: ../root/area/layout.tt:33 ../root/artist/layout.tt:60
+#: ../root/area/layout.tt:35 ../root/artist/layout.tt:60
 #: ../root/components/aliases.tt:42 ../root/components/labels-list.tt:41
-#: ../root/event/merge.tt:42 ../root/label/layout.tt:36
+#: ../root/event/merge.tt:42 ../root/label/layout.tt:38
 #: ../root/label/merge.tt:36 ../root/place/layout.tt:34
 #: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:26 ../root/search/results-label.tt:28
@@ -11665,7 +11664,7 @@ msgid ""
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:133
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:134
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 

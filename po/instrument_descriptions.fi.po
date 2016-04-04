@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-27 20:38+0000\n"
+"PO-Revision-Date: 2016-03-21 03:22+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -2769,6 +2769,15 @@ msgstr ""
 msgid ""
 "The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
 "family."
+msgstr ""
+
+#. name:ütőgardon
+#: DB:instrument/description:768
+msgid ""
+"The ütőgardon is a folk musical instrument played primarily in Transylvania."
+" It is similar in appearance to a cello, but played percussively like a "
+"drum. Instead of being played with a bow, its strings are plucked and beaten"
+" with a stick."
 msgstr ""
 
 #. name:đing năm

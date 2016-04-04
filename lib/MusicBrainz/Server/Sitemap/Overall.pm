@@ -284,8 +284,8 @@ sub construct_url_lists($$$@) {
         push @base_urls, $self->create_url_opts($c, $entity_type, $url, \%suffix_info, $id_info);
 
         if ($suffix_info{paginated}) {
-            # 50 items per page, and the first page is covered by the base.
-            my $paginated_count = ceil($id_info->{$suffix_info{paginated}} / 50) - 1;
+            # 100 items per page, and the first page is covered by the base.
+            my $paginated_count = ceil($id_info->{$suffix_info{paginated}} / 100) - 1;
 
             # Since we exclude page 1 above, this is for anything above 0.
             if ($paginated_count > 0) {
