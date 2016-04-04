@@ -172,7 +172,7 @@
               <input name="recording-selection" type="radio" data-bind="attr: { value: gid }, checked: String($parent.recordingGID())" data-change="recording" />
             </td>
             <td class="recording" data-bind="html: html({ target: '_blank' })"></td>
-            <td class="artist" data-bind="html: artistCredit.html({ target: '_blank' })"></td>
+            <td class="artist" data-bind="html: renderArtistCredit(artistCredit)"></td>
             <td class="length" data-bind="text: formattedLength"></td>
           </tr>
           <!-- ko if: $data.appearsOn && appearsOn.results.length > 0 -->

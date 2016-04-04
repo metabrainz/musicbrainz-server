@@ -16,6 +16,7 @@ class ArtistCreditNameEditor extends React.Component {
     super(props);
     this.onArtistChange = this.onArtistChange.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.onJoinPhraseBlur = this.onJoinPhraseBlur.bind(this);
     this.onJoinPhraseChange = this.onJoinPhraseChange.bind(this);
   }
 
@@ -42,13 +43,8 @@ class ArtistCreditNameEditor extends React.Component {
     this.props.onChange({name: newName});
   }
 
-  // This should only run after the user explicitly edits the join phrase,
-  // and a change event occurs.
-  onJoinPhraseChange(event) {
-    let joinPhrase = clean(event.target.value);
-
+  onJoinPhraseBlur(event) {
     if (!this.props.name.automaticJoinPhrase) {
-      this.props.onChange({joinPhrase});
       return;
     }
 
@@ -57,6 +53,7 @@ class ArtistCreditNameEditor extends React.Component {
     // likely that it should be surrounded by spaces. Add those spaces
     // automatically only this first time. Also standardise "feat." according
     // to our guidelines.
+    let joinPhrase = clean(event.target.value);
     joinPhrase = joinPhrase.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i, 'feat.');
 
     if (/^[A-Za-z]+\.?$/.test(joinPhrase)) {
@@ -74,6 +71,10 @@ class ArtistCreditNameEditor extends React.Component {
 
     // The join phrase has been changed, it should no langer be automatic.
     this.props.onChange({joinPhrase: joinPhrase, automaticJoinPhrase: false});
+  }
+
+  onJoinPhraseChange(event) {
+    this.props.onChange({joinPhrase: event.target.value});
   }
 
   render() {
@@ -95,6 +96,7 @@ class ArtistCreditNameEditor extends React.Component {
         </td>
         <td>
           <input
+            onBlur={this.onJoinPhraseBlur}
             onChange={this.onJoinPhraseChange}
             type="text"
             value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''} />
