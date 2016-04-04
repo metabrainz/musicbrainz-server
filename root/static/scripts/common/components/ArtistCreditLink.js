@@ -18,7 +18,8 @@ const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
           content={credit.name}
           entity={credit.artist}
           key={i}
-          showDeleted={showDeleted} />
+          showDeleted={showDeleted}
+          target={props.target} />
         );
     }
     parts.push(credit.joinPhrase);

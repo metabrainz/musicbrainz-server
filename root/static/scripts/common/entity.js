@@ -42,7 +42,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
         renderArtistCredit: function (ac) {
             return ReactDOMServer.renderToStaticMarkup(
-                <ArtistCreditLink artistCredit={ko.unwrap(ac)} />
+                <ArtistCreditLink artistCredit={ac} target="_blank" />
             );
         }
     });
