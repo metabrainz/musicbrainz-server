@@ -287,7 +287,10 @@ test('guessing feat. artists', function (t) {
     function toJS(track) {
         return {
             name: track.name(),
-            artistCredit: _.map(track.artistCredit.toJSON(), _.partialRight(_.omit, 'artist'))
+            artistCredit: _.map(
+                track.artistCredit().names.toJS(),
+                _.partialRight(_.omit, ['artist', 'automaticJoinPhrase'])
+            )
         };
     }
 
@@ -297,7 +300,10 @@ test('guessing feat. artists', function (t) {
     }
 
     _.each(trackTests, function (x) {
-        var release = MB.releaseEditor.fields.Release({mediums: [{tracks: [x.input]}]});
+        var release = MB.releaseEditor.fields.Release({
+            artistCredit: [],
+            mediums: [{tracks: [x.input]}],
+        });
 
         runTest(x, release.mediums()[0].tracks()[0]);
     });

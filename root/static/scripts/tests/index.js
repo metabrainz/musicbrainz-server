@@ -14,7 +14,8 @@ MB.edit.create = function (data, context) {
 require('./typeInfo');
 
 require('./autocomplete');
-require('./Control/ArtistCredit');
+require('./common/immutable-entities');
+require('./edit/components/ArtistCreditEditor');
 require('./Control/URLCleanup');
 require('./CoverArt');
 require('./edit');
@@ -25,7 +26,6 @@ require('./guessFeat');
 require('./i18n');
 require('./relationship-editor');
 require('./release-editor/actions');
-require('./release-editor/bubbles');
 require('./release-editor/common');
 require('./release-editor/dialogs');
 require('./release-editor/edits');

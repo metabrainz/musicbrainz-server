@@ -189,21 +189,7 @@
       <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
     </td>
 
-    <td class="artist autocomplete">
-      <span class="autocomplete" style="width: 100%">
-        <input type="text" class="track-artist"
-          data-bind="
-            autocomplete: {
-              entity: 'artist',
-              artistCredit: artistCredit
-            }"
-        />
-        <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
-      </span>
-    </td>
-
-    <td class="credits-button buttons" data-bind="with: artistCredit">
-      <button type="button" data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+    <td class="artist autocomplete" data-bind="artistCreditEditor: $data">
     </td>
 
     <td class="length">
@@ -264,7 +250,7 @@
   </div>
 </div>
 
-<div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
+<div data-bind="with: rootField.release">
   <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
     [%~ l('Add a medium by clicking “Add Medium” below, or tick the box confirming the tracklist is unknown.') ~%]
   </p>
@@ -436,69 +422,4 @@
       [% guesscase(show_icon=1) %]
     </div>
   <!-- /ko -->
-</div>
-
-<div class="bubble" id="track-ac-bubble" data-bind="bubble: trackArtistBubble">
-  <table style="width: 100%">
-    <thead>
-      <tr data-bind="with: target">
-        <td colspan="4" style="padding-bottom: 1em;">
-          [% l('Preview:') %]
-          <span data-bind="html: track.name() ? MB.i18n.expand('[% l('{entity} by {artist}') | js %]', { entity: '<bdi>' + _.escape(track.name()) + '</bdi>', artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
-        </td>
-      </tr>
-      <tr class="artist-credit-header">
-        <th>[% l('Artist in MusicBrainz:') %]</th>
-        <th>[% l('Artist as credited on this track:') %]</th>
-        <th>[% l('Join phrase:') %]</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody data-bind="with: target">
-      <!-- ko foreach: names -->
-      <tr>
-        <td>
-          <span class="artist autocomplete">
-            <input type="text" data-bind="autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }" />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
-          </span>
-        </td>
-        <td>
-          <input type="text" data-bind="value: name" />
-        </td>
-        <td>
-          <input type="text" data-bind="value: joinPhrase" />
-        </td>
-        <td>
-          <button type="button" class="icon remove-item remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-click="removeArtistCreditName"></button>
-        </td>
-      </tr>
-      <!-- /ko -->
-      <tr>
-        <td colspan="2"></td>
-        <td colspan="2" style="text-align: right;">
-          <button type="button" class="add-item with-label" style="margin-right: 9px;" data-click="addName">
-            [%- l('Add Artist Credit') -%]
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div>
-    <label>
-      <input type="checkbox" data-bind="checked: changeMatchingArtists" />
-      <!-- ko text: MB.i18n.expand(
-        "[% l('Change all artists on this release that match “{name}”') | js %]",
-        { name: initialArtistText() }
-      ) --><!-- /ko -->
-    </label>
-  </div>
-
-  <div class="buttons" style="float: left">
-    <button type="button" data-click="copyArtistCredit">[% l('Copy Credits') %]</button>
-    <button type="button" data-click="pasteArtistCredit">[% l('Paste Credits') %]</button>
-  </div>
-
-  [% track_bubble_buttons %]
 </div>

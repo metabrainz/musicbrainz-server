@@ -116,6 +116,11 @@ div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
     border-bottom: 12px solid transparent;
 }
 
+#artist-credit-bubble .bubble.left-tail:before {
+    top: 50%;
+    top: calc(50% - 6px);
+}
+
 .bubble.right-tail:after {
     .bubble-tail;
     left: 100%;
@@ -218,14 +223,16 @@ table.row-form {
         width: 100%;
     }
 
-    td:first-child, th:first-child {
-        min-width: @form-label-width;
-        padding: @form-margin / 2;
-        padding-bottom: 9px;
-        box-sizing: border-box;
-        vertical-align: top;
+    > tbody > tr, > thead > tr {
+        > td:first-child, > th:first-child {
+            min-width: @form-label-width;
+            padding: @form-margin / 2;
+            padding-bottom: 9px;
+            box-sizing: border-box;
+            vertical-align: top;
 
-        label { width: 100% !important; }
+            label { width: 100% !important; }
+        }
     }
 
     td {
@@ -522,15 +529,12 @@ div.remove-item {
 
 @form-open-ac-width: 70px;
 
-#open-ac {
+.open-ac {
+    .styled-button;
     width: @form-open-ac-width;
     height: 22px;
     margin-left: 3px;
     padding: 0;
-}
-
-.artist-credit-input {
-    width: @form-input-width - @form-open-ac-width - 7px !important;
 }
 
 .add-artist-credit {
@@ -539,8 +543,30 @@ div.remove-item {
     text-align: right;
 }
 
-#artist-credit-bubble .buttons, #track-ac-bubble .buttons { margin-top: 1em; }
-#artist-credit-bubble .buttons { width: 100%; }
+#artist-credit-editor table {
+    width: @form-input-width;
+    border-spacing: 0;
+
+    span.autocomplete {
+        &, & input.name { width: 100% !important; }
+    }
+}
+
+#artist-credit-bubble {
+    position: absolute;
+    filter: drop-shadow(2px 2px 4px @very-dark-grey);
+    -webkit-filter: drop-shadow(2px 2px 4px @very-dark-grey);
+
+    .bubble {
+        input[type=text], span.autocomplete { width: 100%; }
+
+        .buttons {
+            button.positive { margin-left: 2em; }
+            margin-top: 1em;
+            width: 100%;
+        }
+    }
+}
 
 /*
   External links editor

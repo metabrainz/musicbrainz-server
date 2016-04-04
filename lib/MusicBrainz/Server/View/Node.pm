@@ -8,11 +8,17 @@ use Encode;
 use HTML::Entities qw( decode_entities );
 use HTTP::Request;
 use JSON -convert_blessed_universally;
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json generate_token );
 use URI;
+use URI::QueryParam;
+
+use feature 'state';
 
 sub process {
     my ($self, $c) = @_;
+
+    state $server_token = generate_token();
+    state $request_id = 0;
 
     my $user;
     if ($c->user_exists) {
@@ -30,7 +36,7 @@ sub process {
         $stash{last_replication_date} = $date->iso8601 . 'Z';
     }
 
-    my $body = $c->json_utf8->encode({
+    my $body = {
         context => {
             user => $user,
             debug => boolean_to_json($c->debug),
@@ -38,20 +44,35 @@ sub process {
             sessionid => scalar($c->sessionid),
             session => $c->session,
             flash => $c->flash,
-        }});
+        },
+    };
 
     my $uri = URI->new;
     $uri->scheme('http');
     $uri->host(DBDefs->RENDERER_HOST || '127.0.0.1');
     $uri->port(DBDefs->RENDERER_PORT);
     $uri->path($c->req->path);
+    $uri->query_param_append('token', $server_token);
+    $uri->query_param_append('request_id', ++$request_id);
+    $uri->query_param_append('user', $c->user->name) if $c->user_exists;
+
+    my $cache_key = 'template-body:' . $uri->path_query;
+    my $redis = $c->model('MB')->context->redis;
+    $redis->set($cache_key, $body);
+    $redis->expire($cache_key, 15);
+
+    if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
+        my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
+        $c->res->headers->header('X-Accel-Redirect' => $redirect_uri);
+        return;
+    }
 
     my $response;
     my $tries = 0;
 
     while ($tries < 5) {
         $response = $c->model('MB')->context->lwp->request(
-            HTTP::Request->new('GET', $uri, $c->req->headers->clone, $body)
+            HTTP::Request->new('GET', $uri, $c->req->headers->clone)
         );
 
         # If the connection is refused, the service may be restarting.
@@ -59,6 +80,7 @@ sub process {
             sleep 2;
             $tries++;
         } else {
+            $redis->del($cache_key);
             last;
         }
     }
