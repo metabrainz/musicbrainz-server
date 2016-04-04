@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:03-0600\n"
-"PO-Revision-Date: 2016-03-18 20:57+0000\n"
+"POT-Creation-Date: 2016-03-20 22:20-0500\n"
+"PO-Revision-Date: 2016-03-27 12:09+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -359,7 +359,7 @@ msgstr "<strong>Let op:</strong>MediaWiki controleert niet of het versienummer o
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone"
 " to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "<strong>De ultieme bron van informatie over muziek te zijn</strong> door iedereen bij te laten dragen en de {doc|gegevens} vrij te geven onder {doc2|open licenties}."
+msgstr "<strong>De ultieme bron van informatie over muziek te zijn</strong> door iedereen bij te laten dragen en de {doc|gegevens} onder {doc2|open licenties} vrij te geven."
 
 #: ../root/main/index.tt:20
 msgid ""
@@ -509,7 +509,7 @@ msgstr "Alias toevoegen"
 msgid "Add Area"
 msgstr "Gebied toevoegen"
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:83
+#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr "Gebied toevoegen"
@@ -561,7 +561,7 @@ msgstr "Voorbeeld toevoegen"
 msgid "Add Instrument"
 msgstr "Instrument toevoegen"
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:88
+#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr "Instrument toevoegen"
@@ -861,7 +861,7 @@ msgstr "Adres:"
 msgid "Adjust User Account Flags"
 msgstr "Rechten voor accounts aanpassen"
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:79
+#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
 msgid "Admin"
 msgstr "Beheerder"
 
@@ -901,7 +901,7 @@ msgstr "Alias:"
 msgid "Aliases"
 msgstr "Aliassen"
 
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:61
+#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
 msgid "All My Edits"
 msgstr "Al mijn bewerkingen"
 
@@ -1105,7 +1105,7 @@ msgid "Application"
 msgstr "Applicatie"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:27
+#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
 msgid "Applications"
 msgstr "Applicaties"
 
@@ -1237,7 +1237,7 @@ msgstr "Details van het gebied"
 msgid "Area Not Found"
 msgstr "Gebied niet gevonden"
 
-#: ../root/area/layout.tt:9
+#: ../root/area/layout.tt:11
 msgid "Area information"
 msgstr "Informatie over het gebied"
 
@@ -1248,7 +1248,7 @@ msgstr "Informatie over het gebied"
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:47 ../root/edit/details/edit_place.tt:28
 #: ../root/label/edit_form.tt:19 ../root/label/index.tt:12
-#: ../root/label/layout.tt:55 ../root/place/edit_form.tt:20
+#: ../root/label/layout.tt:57 ../root/place/edit_form.tt:20
 #: ../root/place/layout.tt:41
 msgid "Area:"
 msgstr "Gebied:"
@@ -1757,7 +1757,7 @@ msgstr "Begingebied:"
 msgid "Begin date"
 msgstr "Begindatum"
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:17
+#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
 #: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:881
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
@@ -1816,7 +1816,7 @@ msgstr "Robots"
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "Aangeboden door de {MeB|MetaBrainz Foundation} en onze {spon|sponsors} en {supp|partners}. Afbeeldingen worden geleverd door het {caa|Cover Art Archive}."
+msgstr "Aangeboden door de {MeB|MetaBrainz Foundation} en onze {spon|sponsors} en {supp|partners}. Hoesafbeeldingen worden geleverd door het {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:104 ../root/main/index.tt:94
 #: ../root/layout/components/Footer.js:24
@@ -2260,7 +2260,7 @@ msgid "Create"
 msgstr "Aanmaken"
 
 #: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:128
+#: ../root/layout/components/TopMenu.js:125
 msgid "Create Account"
 msgstr "Registreren"
 
@@ -2367,7 +2367,7 @@ msgstr "Periode"
 msgid "Date/time format:"
 msgstr "Opmaak van datum en tijd:"
 
-#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:17
+#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:19
 #: ../root/release/edit/information.tt:140
 msgid "Date:"
 msgstr "Datum:"
@@ -2380,8 +2380,8 @@ msgid ""
 "YYYY are OK, or you can omit the date entirely."
 msgstr "Data hebben de opmaak JJJJ-MM-DD. Gedeeltelijke data zoals JJJJ-MM of alleen JJJJ zijn ook goed, en de datum kan ook helemaal worden weggelaten."
 
-#: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35
+#: ../root/label/index.tt:10 ../root/label/layout.tt:30
+#: ../root/label/layout.tt:37
 msgid "Defunct:"
 msgstr "Opgeheven:"
 
@@ -2715,12 +2715,12 @@ msgstr "Vermeldingen van artiesten bewerken"
 msgid "Edit Attribute"
 msgstr "Eigenschap bewerken"
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:106
+#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
 msgid "Edit Attributes"
 msgstr "Eigenschappen bewerken"
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:101
+#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
 msgid "Edit Banner Message"
 msgstr "Mededeling bewerken"
 
@@ -2760,7 +2760,7 @@ msgstr "Relatie-eigenschap bewerken"
 msgid "Edit Relationship Type"
 msgstr "Relatietype bewerken"
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:91
+#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
 msgid "Edit Relationship Types"
 msgstr "Relatietypes bewerken"
 
@@ -2843,7 +2843,7 @@ msgstr "Bewerkingsgeschiedenis"
 
 #: ../root/main/index.tt:80
 msgid "Editing introduction"
-msgstr "Introductie van bewerkingen"
+msgstr "Hoe kan ik iets bewerken?"
 
 #: ../root/admin/edit_user.tt:12
 msgid "Editing/voting disabled"
@@ -2879,7 +2879,7 @@ msgstr "Bewerkingen"
 msgid "Edits ({view_url|view})"
 msgstr "Bewerkingen ({view_url|bekijken})"
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:67
+#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
 msgid "Edits by Subscribed Editors"
 msgstr "Bewerkingen door redacteurs waarop je bent geabonneerd"
 
@@ -2891,7 +2891,7 @@ msgstr "Bewerkingen door redacteurs waarop je bent geabonneerd"
 msgid "Edits by {name}"
 msgstr "Bewerkingen door {name}"
 
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:64
+#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
 msgid "Edits for Subscribed Entities"
 msgstr "Bewerkingen van objecten waarop je bent geabonneerd"
 
@@ -2968,7 +2968,7 @@ msgstr "Eindgebied:"
 msgid "End Date"
 msgstr "Einddatum"
 
-#: ../root/event/layout.tt:27
+#: ../root/event/layout.tt:29
 msgid "End Date:"
 msgstr "Einddatum:"
 
@@ -2982,8 +2982,8 @@ msgstr "Eindgebied:"
 msgid "End date"
 msgstr "Einddatum"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:25
-#: ../root/area/layout.tt:32 ../root/artist/edit_form.tt:52
+#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
+#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
 #: ../root/components/common-macros.tt:889
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
@@ -3132,7 +3132,7 @@ msgstr "Details van het evenement"
 msgid "Event Not Found"
 msgstr "Evenement niet gevonden"
 
-#: ../root/event/layout.tt:9
+#: ../root/event/layout.tt:11
 msgid "Event information"
 msgstr "Informatie over het evenement"
 
@@ -3411,7 +3411,7 @@ msgid "Founded in:"
 msgstr "Opgericht in:"
 
 #: ../root/components/common-macros.tt:881 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20
+#: ../root/label/layout.tt:22
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Opgericht:"
@@ -3681,7 +3681,7 @@ msgid "IPI code"
 msgstr "IPI-code"
 
 #: ../root/artist/layout.tt:75 ../root/edit/details/add_artist.tt:73
-#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:42
+#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:44
 msgid "IPI code:"
 msgstr "IPI-code:"
 
@@ -3695,7 +3695,7 @@ msgid "ISNI code"
 msgstr "ISNI-code"
 
 #: ../root/artist/layout.tt:79 ../root/edit/details/add_artist.tt:82
-#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:47
+#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:49
 msgid "ISNI code:"
 msgstr "ISNI-code:"
 
@@ -3708,7 +3708,7 @@ msgstr "ISNI-codes:"
 msgid "ISO 3166-1"
 msgstr "ISO 3166-1"
 
-#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:39
+#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:41
 #: ../root/edit/details/add_area.tt:37 ../root/edit/details/edit_area.tt:30
 msgid "ISO 3166-1:"
 msgstr "ISO 3166-1:"
@@ -3717,7 +3717,7 @@ msgstr "ISO 3166-1:"
 msgid "ISO 3166-2"
 msgstr "ISO 3166-2"
 
-#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:43
+#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:45
 #: ../root/edit/details/add_area.tt:44 ../root/edit/details/edit_area.tt:34
 msgid "ISO 3166-2:"
 msgstr "ISO 3166-2:"
@@ -3726,7 +3726,7 @@ msgstr "ISO 3166-2:"
 msgid "ISO 3166-3"
 msgstr "ISO 3166-3"
 
-#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:47
+#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:49
 #: ../root/edit/details/add_area.tt:51 ../root/edit/details/edit_area.tt:38
 msgid "ISO 3166-3:"
 msgstr "ISO 3166-3:"
@@ -3811,7 +3811,7 @@ msgstr "ISWC ‘{iswc}’"
 
 #: ../root/edit/details/add_work.tt:23 ../root/edit/details/edit_work.tt:19
 #: ../root/edit/details/remove_iswc.tt:3 ../root/otherlookup/form.tt:3
-#: ../root/work/layout.tt:24
+#: ../root/work/layout.tt:26
 msgid "ISWC:"
 msgstr "ISWC:"
 
@@ -4152,11 +4152,11 @@ msgid "Label annotations"
 msgstr "Platenmaatschappijen met aantekeningen"
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
-#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:51
+#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:53
 msgid "Label code:"
 msgstr "Platenmaatschappij-code"
 
-#: ../root/label/layout.tt:12
+#: ../root/label/layout.tt:14
 msgid "Label information"
 msgstr "Informatie over de platenmaatschappij"
 
@@ -4412,11 +4412,11 @@ msgstr "Locatie:"
 
 #: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
 #: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:123
+#: ../root/layout/components/TopMenu.js:120
 msgid "Log In"
 msgstr "Aanmelden"
 
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:35
+#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
 msgid "Log Out"
 msgstr "Afmelden"
 
@@ -4476,7 +4476,7 @@ msgid "Low"
 msgstr "Laag"
 
 #: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
-#: ../root/work/index.tt:4 ../root/work/layout.tt:19
+#: ../root/work/index.tt:4 ../root/work/layout.tt:21
 msgid "Lyrics Language:"
 msgstr "Taal van de tekst:"
 
@@ -4826,23 +4826,23 @@ msgstr "MusicBrainz: Uitgave"
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Nummer"
 
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:49
+#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
 msgid "My Collections"
 msgstr "Mijn collecties"
 
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:46
+#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
 msgid "My Data"
 msgstr "Mijn gegevens"
 
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:58
+#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
 msgid "My Open Edits"
 msgstr "Mijn openstaande bewerkingen"
 
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:52
+#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
 msgid "My Ratings"
 msgstr "Mijn waarderingen"
 
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:55
+#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
 msgid "My Tags"
 msgstr "Mijn etiketten"
 
@@ -5270,7 +5270,7 @@ msgid ""
 "2011-05-16; or which remove relationships, created after 2013-07-08."
 msgstr "Let op: dit zoekt nu alleen naar bewerkingen die relaties toevoegen of wijzigen en gecreëerd zijn na 16 mei 2011, of die relaties verwijderen en gecreëerd zijn na 8 juli 2013."
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:70
+#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
 msgstr "Notities bij mijn bewerkingen"
 
@@ -5446,7 +5446,7 @@ msgstr "Volgorde"
 
 #: ../root/edit/details/add_series.tt:30
 #: ../root/edit/details/edit_series.tt:23 ../root/series/edit_form.tt:17
-#: ../root/series/layout.tt:13
+#: ../root/series/layout.tt:15
 msgid "Ordering Type:"
 msgstr "Volgorde:"
 
@@ -5776,7 +5776,6 @@ msgstr "Mogelijk dubbele evenementen"
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences_ok.tt:1
 #: ../root/account/preferences_ok.tt:3 ../root/user/profile/layout.tt:23
-#: ../root/layout/components/TopMenu.js:24
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -6777,7 +6776,7 @@ msgstr "Verwijderd"
 
 #: ../root/edit/details/merge_artists.tt:4
 msgid "Rename artist and relationship credits"
-msgstr "De naam van de artiest in nummers en relaties hernoemen."
+msgstr "De naam van de artiest in nummers en relaties hernoemen:"
 
 #: ../root/release/cover_art.tt:54
 msgctxt "button/menu"
@@ -7215,7 +7214,7 @@ msgstr "Abonnementen op series"
 msgid "Series annotations"
 msgstr "Series met aantekeningen"
 
-#: ../root/series/layout.tt:9
+#: ../root/series/layout.tt:11
 msgid "Series information"
 msgstr "Informatie over de serie"
 
@@ -7626,7 +7625,7 @@ msgstr "Stacktrace:"
 msgid "Start"
 msgstr "Begin"
 
-#: ../root/event/layout.tt:22
+#: ../root/event/layout.tt:24
 msgid "Start Date:"
 msgstr "Begindatum:"
 
@@ -7766,7 +7765,7 @@ msgstr "Abonnees:"
 
 #: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
-#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:31
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:28
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
@@ -9255,7 +9254,7 @@ msgid "Time"
 msgstr "Duur"
 
 #: ../root/edit/details/add_event.tt:49 ../root/edit/details/edit_event.tt:37
-#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:33
+#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:35
 #: ../root/main/info/environment.tt:2
 msgid "Time:"
 msgstr "Tijd:"
@@ -9547,7 +9546,7 @@ msgstr "Nummers met de positie in de titel"
 msgid "Tracks:"
 msgstr "Nummers:"
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:96
+#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
 msgid "Transclude WikiDocs"
 msgstr "Transcludeer WikiDocs"
 
@@ -9615,7 +9614,7 @@ msgid "Type"
 msgstr "Type"
 
 #: ../root/account/register_application.tt:9 ../root/area/edit_form.tt:12
-#: ../root/area/layout.tt:11 ../root/artist/edit_form.tt:17
+#: ../root/area/layout.tt:13 ../root/artist/edit_form.tt:17
 #: ../root/artist/index.tt:4 ../root/artist/layout.tt:27
 #: ../root/collection/edit_form.tt:6 ../root/collection/layout.tt:14
 #: ../root/components/filter-form.tt:5 ../root/edit/data.tt:5
@@ -9631,18 +9630,18 @@ msgstr "Type"
 #: ../root/edit/details/edit_series.tt:19
 #: ../root/edit/details/historic/add_release.tt:24
 #: ../root/entity/alias/edit_form.tt:21 ../root/event/edit_form.tt:15
-#: ../root/event/index.tt:4 ../root/event/layout.tt:11
+#: ../root/event/index.tt:4 ../root/event/layout.tt:13
 #: ../root/instrument/edit_form.tt:12 ../root/instrument/index.tt:4
 #: ../root/instrument/layout.tt:18 ../root/label/edit_form.tt:16
-#: ../root/label/index.tt:4 ../root/label/layout.tt:14
+#: ../root/label/index.tt:4 ../root/label/layout.tt:16
 #: ../root/place/edit_form.tt:16 ../root/place/index.tt:4
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:115 ../root/release/index.tt:4
 #: ../root/release/layout.tt:53 ../root/release_group/layout.tt:29
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:16
-#: ../root/series/layout.tt:11 ../root/work/edit_form.tt:15
-#: ../root/work/layout.tt:16
+#: ../root/series/layout.tt:13 ../root/work/edit_form.tt:15
+#: ../root/work/layout.tt:18
 msgid "Type:"
 msgstr "Type:"
 
@@ -10216,7 +10215,7 @@ msgstr "Type compositie:"
 msgid "Work annotations"
 msgstr "Composities met aantekeningen"
 
-#: ../root/work/layout.tt:14
+#: ../root/work/layout.tt:16
 msgid "Work information"
 msgstr "Informatie over de compositie"
 
@@ -10702,9 +10701,9 @@ msgstr "Je hebt de speciale artiest {valink|Diverse Artiesten} gebruikt op sommi
 msgid "[removed]"
 msgstr "[verwijderd]"
 
-#: ../root/area/layout.tt:33 ../root/artist/layout.tt:60
+#: ../root/area/layout.tt:35 ../root/artist/layout.tt:60
 #: ../root/components/aliases.tt:42 ../root/components/labels-list.tt:41
-#: ../root/event/merge.tt:42 ../root/label/layout.tt:36
+#: ../root/event/merge.tt:42 ../root/label/layout.tt:38
 #: ../root/label/merge.tt:36 ../root/place/layout.tt:34
 #: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:26 ../root/search/results-label.tt:28
@@ -11737,7 +11736,7 @@ msgid ""
 "or expected."
 msgstr "Onze Redis-server lijkt niet te werken; sommige functies werken misschien niet zoals verwacht of bedoeld."
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:133
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:134
 msgid "Series that have different entity types cannot be merged."
 msgstr "Series die verschillende objecttypes hebben kunnen niet worden samengevoegd."
 
