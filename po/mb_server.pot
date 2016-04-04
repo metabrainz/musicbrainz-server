@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 15:03-0600\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "-"
 msgstr ""
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Accept upon expiration"
 msgstr ""
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
@@ -494,7 +494,7 @@ msgstr ""
 msgid "Add Area"
 msgstr ""
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:83
+#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr ""
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Add Instrument"
 msgstr ""
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:88
+#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr ""
@@ -844,7 +844,7 @@ msgstr ""
 msgid "Adjust User Account Flags"
 msgstr ""
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:79
+#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
 msgid "Admin"
 msgstr ""
 
@@ -883,7 +883,7 @@ msgstr ""
 msgid "Aliases"
 msgstr ""
 
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:61
+#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
 msgid "All My Edits"
 msgstr ""
 
@@ -1087,7 +1087,7 @@ msgid "Application"
 msgstr ""
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:27
+#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
 msgid "Applications"
 msgstr ""
 
@@ -1216,7 +1216,7 @@ msgstr ""
 msgid "Area Not Found"
 msgstr ""
 
-#: ../root/area/layout.tt:9
+#: ../root/area/layout.tt:11
 msgid "Area information"
 msgstr ""
 
@@ -1227,7 +1227,7 @@ msgstr ""
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:47 ../root/edit/details/edit_place.tt:28
 #: ../root/label/edit_form.tt:19 ../root/label/index.tt:12
-#: ../root/label/layout.tt:55 ../root/place/edit_form.tt:20
+#: ../root/label/layout.tt:57 ../root/place/edit_form.tt:20
 #: ../root/place/layout.tt:41
 msgid "Area:"
 msgstr ""
@@ -1571,7 +1571,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr ""
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr ""
 
@@ -1734,7 +1734,7 @@ msgstr ""
 msgid "Begin date"
 msgstr ""
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:17
+#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
 #: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:881
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
@@ -1763,7 +1763,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr ""
 
@@ -1897,7 +1897,7 @@ msgstr ""
 msgid "Cancel the election"
 msgstr ""
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr ""
 
@@ -2237,7 +2237,7 @@ msgid "Create"
 msgstr ""
 
 #: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:128
+#: ../root/layout/components/TopMenu.js:125
 msgid "Create Account"
 msgstr ""
 
@@ -2344,7 +2344,7 @@ msgstr ""
 msgid "Date/time format:"
 msgstr ""
 
-#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:17
+#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:19
 #: ../root/release/edit/information.tt:140
 msgid "Date:"
 msgstr ""
@@ -2357,8 +2357,8 @@ msgid ""
 "YYYY are OK, or you can omit the date entirely."
 msgstr ""
 
-#: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35
+#: ../root/label/index.tt:10 ../root/label/layout.tt:30
+#: ../root/label/layout.tt:37
 msgid "Defunct:"
 msgstr ""
 
@@ -2691,12 +2691,12 @@ msgstr ""
 msgid "Edit Attribute"
 msgstr ""
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:106
+#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
 msgid "Edit Attributes"
 msgstr ""
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:101
+#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
 msgid "Edit Banner Message"
 msgstr ""
 
@@ -2736,7 +2736,7 @@ msgstr ""
 msgid "Edit Relationship Type"
 msgstr ""
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:91
+#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
 msgid "Edit Relationship Types"
 msgstr ""
 
@@ -2851,11 +2851,11 @@ msgstr ""
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr ""
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:67
+#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
 msgid "Edits by Subscribed Editors"
 msgstr ""
 
@@ -2867,7 +2867,7 @@ msgstr ""
 msgid "Edits by {name}"
 msgstr ""
 
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:64
+#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
 msgid "Edits for Subscribed Entities"
 msgstr ""
 
@@ -2944,7 +2944,7 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-#: ../root/event/layout.tt:27
+#: ../root/event/layout.tt:29
 msgid "End Date:"
 msgstr ""
 
@@ -2958,8 +2958,8 @@ msgstr ""
 msgid "End date"
 msgstr ""
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:25
-#: ../root/area/layout.tt:32 ../root/artist/edit_form.tt:52
+#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
+#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
 #: ../root/components/common-macros.tt:889
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
@@ -3107,7 +3107,7 @@ msgstr ""
 msgid "Event Not Found"
 msgstr ""
 
-#: ../root/event/layout.tt:9
+#: ../root/event/layout.tt:11
 msgid "Event information"
 msgstr ""
 
@@ -3124,7 +3124,7 @@ msgstr ""
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr ""
 
@@ -3202,7 +3202,7 @@ msgstr ""
 msgid "FAQs"
 msgstr ""
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr ""
 
@@ -3385,7 +3385,7 @@ msgid "Founded in:"
 msgstr ""
 
 #: ../root/components/common-macros.tt:881 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20
+#: ../root/label/layout.tt:22
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr ""
@@ -3585,6 +3585,10 @@ msgstr ""
 msgid "HH:MM"
 msgstr ""
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr ""
@@ -3608,7 +3612,7 @@ msgstr ""
 msgid "Historic"
 msgstr ""
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr ""
 
@@ -3651,7 +3655,7 @@ msgid "IPI code"
 msgstr ""
 
 #: ../root/artist/layout.tt:75 ../root/edit/details/add_artist.tt:73
-#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:42
+#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:44
 msgid "IPI code:"
 msgstr ""
 
@@ -3665,7 +3669,7 @@ msgid "ISNI code"
 msgstr ""
 
 #: ../root/artist/layout.tt:79 ../root/edit/details/add_artist.tt:82
-#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:47
+#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:49
 msgid "ISNI code:"
 msgstr ""
 
@@ -3678,7 +3682,7 @@ msgstr ""
 msgid "ISO 3166-1"
 msgstr ""
 
-#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:39
+#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:41
 #: ../root/edit/details/add_area.tt:37 ../root/edit/details/edit_area.tt:30
 msgid "ISO 3166-1:"
 msgstr ""
@@ -3687,7 +3691,7 @@ msgstr ""
 msgid "ISO 3166-2"
 msgstr ""
 
-#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:43
+#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:45
 #: ../root/edit/details/add_area.tt:44 ../root/edit/details/edit_area.tt:34
 msgid "ISO 3166-2:"
 msgstr ""
@@ -3696,7 +3700,7 @@ msgstr ""
 msgid "ISO 3166-3"
 msgstr ""
 
-#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:47
+#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:49
 #: ../root/edit/details/add_area.tt:51 ../root/edit/details/edit_area.tt:38
 msgid "ISO 3166-3:"
 msgstr ""
@@ -3781,7 +3785,7 @@ msgstr ""
 
 #: ../root/edit/details/add_work.tt:23 ../root/edit/details/edit_work.tt:19
 #: ../root/edit/details/remove_iswc.tt:3 ../root/otherlookup/form.tt:3
-#: ../root/work/layout.tt:24
+#: ../root/work/layout.tt:26
 msgid "ISWC:"
 msgstr ""
 
@@ -4121,11 +4125,11 @@ msgid "Label annotations"
 msgstr ""
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
-#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:51
+#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:53
 msgid "Label code:"
 msgstr ""
 
-#: ../root/label/layout.tt:12
+#: ../root/label/layout.tt:14
 msgid "Label information"
 msgstr ""
 
@@ -4199,15 +4203,15 @@ msgstr ""
 msgid "Languages Known:"
 msgstr ""
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr ""
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr ""
 
@@ -4379,11 +4383,11 @@ msgstr ""
 
 #: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
 #: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:123
+#: ../root/layout/components/TopMenu.js:120
 msgid "Log In"
 msgstr ""
 
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:35
+#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
 msgid "Log Out"
 msgstr ""
 
@@ -4443,7 +4447,7 @@ msgid "Low"
 msgstr ""
 
 #: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
-#: ../root/work/index.tt:4 ../root/work/layout.tt:19
+#: ../root/work/index.tt:4 ../root/work/layout.tt:21
 msgid "Lyrics Language:"
 msgstr ""
 
@@ -4791,23 +4795,23 @@ msgstr ""
 msgid "MusicBrainz: Track"
 msgstr ""
 
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:49
+#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
 msgid "My Collections"
 msgstr ""
 
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:46
+#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
 msgid "My Data"
 msgstr ""
 
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:58
+#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
 msgid "My Open Edits"
 msgstr ""
 
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:52
+#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
 msgid "My Ratings"
 msgstr ""
 
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:55
+#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
 msgid "My Tags"
 msgstr ""
 
@@ -5235,7 +5239,7 @@ msgid ""
 "2011-05-16; or which remove relationships, created after 2013-07-08."
 msgstr ""
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:70
+#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
 msgstr ""
 
@@ -5360,7 +5364,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr ""
 
@@ -5410,7 +5414,7 @@ msgid "Ordering Type"
 msgstr ""
 
 #: ../root/edit/details/add_series.tt:30 ../root/edit/details/edit_series.tt:23
-#: ../root/series/edit_form.tt:17 ../root/series/layout.tt:13
+#: ../root/series/edit_form.tt:17 ../root/series/layout.tt:15
 msgid "Ordering Type:"
 msgstr ""
 
@@ -5426,7 +5430,7 @@ msgstr ""
 msgid "Other lookups"
 msgstr ""
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr ""
 
@@ -5739,7 +5743,6 @@ msgstr ""
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences_ok.tt:1
 #: ../root/account/preferences_ok.tt:3 ../root/user/profile/layout.tt:23
-#: ../root/layout/components/TopMenu.js:24
 msgid "Preferences"
 msgstr ""
 
@@ -6754,7 +6757,7 @@ msgstr ""
 msgid "Report User"
 msgstr ""
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr ""
 
@@ -7175,7 +7178,7 @@ msgstr ""
 msgid "Series annotations"
 msgstr ""
 
-#: ../root/series/layout.tt:9
+#: ../root/series/layout.tt:11
 msgid "Series information"
 msgstr ""
 
@@ -7582,7 +7585,7 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: ../root/event/layout.tt:22
+#: ../root/event/layout.tt:24
 msgid "Start Date:"
 msgstr ""
 
@@ -7594,7 +7597,7 @@ msgstr ""
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr ""
@@ -7715,13 +7718,13 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr ""
 
 #: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
-#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:31
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:28
 msgid "Subscriptions"
 msgstr ""
 
@@ -7770,7 +7773,7 @@ msgstr ""
 msgid "Tag lookup"
 msgstr ""
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr ""
 
@@ -9153,7 +9156,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -9206,7 +9209,7 @@ msgid "Time"
 msgstr ""
 
 #: ../root/edit/details/add_event.tt:49 ../root/edit/details/edit_event.tt:37
-#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:33
+#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:35
 #: ../root/main/info/environment.tt:2
 msgid "Time:"
 msgstr ""
@@ -9495,7 +9498,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:96
+#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
 msgid "Transclude WikiDocs"
 msgstr ""
 
@@ -9563,7 +9566,7 @@ msgid "Type"
 msgstr ""
 
 #: ../root/account/register_application.tt:9 ../root/area/edit_form.tt:12
-#: ../root/area/layout.tt:11 ../root/artist/edit_form.tt:17
+#: ../root/area/layout.tt:13 ../root/artist/edit_form.tt:17
 #: ../root/artist/index.tt:4 ../root/artist/layout.tt:27
 #: ../root/collection/edit_form.tt:6 ../root/collection/layout.tt:14
 #: ../root/components/filter-form.tt:5 ../root/edit/data.tt:5
@@ -9579,18 +9582,18 @@ msgstr ""
 #: ../root/edit/details/edit_series.tt:19
 #: ../root/edit/details/historic/add_release.tt:24
 #: ../root/entity/alias/edit_form.tt:21 ../root/event/edit_form.tt:15
-#: ../root/event/index.tt:4 ../root/event/layout.tt:11
+#: ../root/event/index.tt:4 ../root/event/layout.tt:13
 #: ../root/instrument/edit_form.tt:12 ../root/instrument/index.tt:4
 #: ../root/instrument/layout.tt:18 ../root/label/edit_form.tt:16
-#: ../root/label/index.tt:4 ../root/label/layout.tt:14
+#: ../root/label/index.tt:4 ../root/label/layout.tt:16
 #: ../root/place/edit_form.tt:16 ../root/place/index.tt:4
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:115 ../root/release/index.tt:4
 #: ../root/release/layout.tt:53 ../root/release_group/layout.tt:29
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:16
-#: ../root/series/layout.tt:11 ../root/work/edit_form.tt:15
-#: ../root/work/layout.tt:16
+#: ../root/series/layout.tt:13 ../root/work/edit_form.tt:15
+#: ../root/work/layout.tt:18
 msgid "Type:"
 msgstr ""
 
@@ -9914,7 +9917,7 @@ msgstr ""
 msgid "Vote tally:"
 msgstr ""
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr ""
 
@@ -9926,7 +9929,7 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr ""
 
@@ -10161,7 +10164,7 @@ msgstr ""
 msgid "Work annotations"
 msgstr ""
 
-#: ../root/work/layout.tt:14
+#: ../root/work/layout.tt:16
 msgid "Work information"
 msgstr ""
 
@@ -10643,9 +10646,9 @@ msgstr ""
 msgid "[removed]"
 msgstr ""
 
-#: ../root/area/layout.tt:33 ../root/artist/layout.tt:60
+#: ../root/area/layout.tt:35 ../root/artist/layout.tt:60
 #: ../root/components/aliases.tt:42 ../root/components/labels-list.tt:41
-#: ../root/event/merge.tt:42 ../root/label/layout.tt:36
+#: ../root/event/merge.tt:42 ../root/label/layout.tt:38
 #: ../root/label/merge.tt:36 ../root/place/layout.tt:34
 #: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:26 ../root/search/results-label.tt:28
@@ -11023,7 +11026,7 @@ msgstr ""
 msgid "start date"
 msgstr ""
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr ""
 
@@ -11047,7 +11050,7 @@ msgstr[1] ""
 msgid "tracks"
 msgstr ""
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr ""
 
@@ -11099,14 +11102,14 @@ msgstr[1] ""
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr ""
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr ""
 
@@ -11362,7 +11365,7 @@ msgstr[1] ""
 msgid "{num}. {relationship}"
 msgstr ""
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr ""
 
@@ -11682,7 +11685,7 @@ msgid ""
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:133
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:134
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 

@@ -299,7 +299,11 @@ Creating the database
             gpg --recv-keys C777580F
             gpg --verify-files /tmp/dumps/*.asc
 
-        If this is OK and you wish to continue, you can import them with:
+        Before you can actually import the dumps, make sure that bzip2 is installed:
+
+            apt-get install bzip2
+
+        If the GPG signing key is OK and you wish to continue, you can import them with:
 
             ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 

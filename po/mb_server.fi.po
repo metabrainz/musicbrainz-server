@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-21 09:01-0600\n"
-"PO-Revision-Date: 2016-02-21 15:05+0000\n"
+"POT-Creation-Date: 2016-03-20 22:20-0500\n"
+"PO-Revision-Date: 2016-03-07 21:04+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -468,7 +468,8 @@ msgstr "Editorin {name} hyväksytyt muokkaukset"
 msgid "Access"
 msgstr "Pääsyoikeudet"
 
-#: ../root/account/registered.tt:1 ../root/account/registered.tt:2
+#: ../root/account/registered_discourse.tt:1
+#: ../root/account/registered_discourse.tt:2
 msgid "Account Created"
 msgstr "Käyttäjätunnus luotu"
 
@@ -511,7 +512,7 @@ msgstr ""
 msgid "Add Area"
 msgstr "Lisää alue"
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:83
+#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr "Lisää alue"
@@ -563,7 +564,7 @@ msgstr "Lisää esimerkki"
 msgid "Add Instrument"
 msgstr "Lisää soitin"
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:88
+#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr "Lisää soitin"
@@ -863,7 +864,7 @@ msgstr "Osoite:"
 msgid "Adjust User Account Flags"
 msgstr "Säädä käyttäjätunnuksen lippuja"
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:79
+#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
 msgid "Admin"
 msgstr "Järjestelmänvalvoja"
 
@@ -894,7 +895,7 @@ msgid "Alias:"
 msgstr "Alias:"
 
 #: ../root/area/aliases.tt:1 ../root/artist/aliases.tt:1
-#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:45
+#: ../root/components/aliases.tt:1 ../root/components/entity-tabs.tt:47
 #: ../root/event/aliases.tt:1 ../root/instrument/aliases.tt:1
 #: ../root/label/aliases.tt:1 ../root/place/aliases.tt:1
 #: ../root/recording/aliases.tt:1 ../root/release/aliases.tt:1
@@ -903,7 +904,7 @@ msgstr "Alias:"
 msgid "Aliases"
 msgstr "Aliakset"
 
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:61
+#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
 msgid "All My Edits"
 msgstr "Kaikki muokkaukseni"
 
@@ -1018,6 +1019,12 @@ msgid_plural "{n} anonymous users"
 msgstr[0] "Anonyymi käyttäjä."
 msgstr[1] "{n} anonyymiä käyttäjää"
 
+#: ../root/account/registered_discourse.tt:8
+msgid ""
+"An email has been sent to <code>{addr}</code>. Please check your mailbox and"
+" click on the link in the email to verify your email address."
+msgstr ""
+
 #: ../root/components/common-macros.tt:1077
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
@@ -1101,7 +1108,7 @@ msgid "Application"
 msgstr "Sovellus"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:27
+#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
 msgid "Applications"
 msgstr "Sovellukset"
 
@@ -1233,7 +1240,7 @@ msgstr "Lisätietoja alueesta"
 msgid "Area Not Found"
 msgstr "Aluetta ei löytynyt"
 
-#: ../root/area/layout.tt:9
+#: ../root/area/layout.tt:11
 msgid "Area information"
 msgstr "Tietoja alueesta"
 
@@ -1244,7 +1251,7 @@ msgstr "Tietoja alueesta"
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:47 ../root/edit/details/edit_place.tt:28
 #: ../root/label/edit_form.tt:19 ../root/label/index.tt:12
-#: ../root/label/layout.tt:55 ../root/place/edit_form.tt:20
+#: ../root/label/layout.tt:57 ../root/place/edit_form.tt:20
 #: ../root/place/layout.tt:41
 msgid "Area:"
 msgstr "Alue:"
@@ -1713,13 +1720,6 @@ msgid ""
 " way you intended it to show."
 msgstr "Koska hakasulkuja [] käytetään linkkien luomiseen, niiden sijaan tulee käyttää html-koodattuja vastineita (<code>&amp;#91;</code> merkille [) ja (<code>&amp;#93;</code> merkille ]), ellei niiden haluta muuttuvan linkeiksi. Esimerkiksi: Jos halutaan käyttää artistia [tuntematon] lisätietokentässä, niin se tulee kirjoittaa <code>&amp;#91;tuntematon&amp;#93;</code>, jotta se näkyy halutusti."
 
-#: ../root/account/registered.tt:13
-msgid ""
-"Because you provided an email address, a verification email has been sent to"
-" <code>{addr}</code>. Please check your mailbox and click on the link in the"
-" email to verify the new email address."
-msgstr ""
-
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
 "Become part of MusicBrainz by creating an account and {how|reading up on our"
@@ -1760,7 +1760,7 @@ msgstr "Aloitusalue:"
 msgid "Begin date"
 msgstr "Alkanut"
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:17
+#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
 #: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:881
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
@@ -1815,7 +1815,7 @@ msgstr "Botti"
 msgid "Bots"
 msgstr "Botit"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:53
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:58
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
@@ -2181,12 +2181,6 @@ msgstr "Ehdot:"
 msgid "Confirm password:"
 msgstr "Vahvista salasana:"
 
-#: ../root/account/registered.tt:4
-msgid ""
-"Congratulations, your new account has been created and you are now logged "
-"into MusicBrainz!"
-msgstr "Onnittelut! Uusi käyttäjätunnuksesi on luotu ja olet sisäänkirjautunut Musicbrainz:iin!"
-
 #: ../root/layout/header/bottom.tt:28
 #: ../root/layout/components/BottomMenu.js:82
 msgid "Contact Us"
@@ -2269,7 +2263,7 @@ msgid "Create"
 msgstr "Luo"
 
 #: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:128
+#: ../root/layout/components/TopMenu.js:125
 msgid "Create Account"
 msgstr "Luo käyttäjätunnus"
 
@@ -2376,7 +2370,7 @@ msgstr "Ajanjakso"
 msgid "Date/time format:"
 msgstr "Päiväyksen/ajan muoto:"
 
-#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:17
+#: ../root/edit/details/edit_release_label.tt:38 ../root/event/layout.tt:19
 #: ../root/release/edit/information.tt:140
 msgid "Date:"
 msgstr "Päiväys:"
@@ -2389,8 +2383,8 @@ msgid ""
 "YYYY are OK, or you can omit the date entirely."
 msgstr "Päiväykset ovat muotoa VVVV-KK-PP. Osittaiset päiväykset kuten VVVV-KK tai pelkkä VVVV ovat myös riittäviä, tai voit jättää päiväyksen kokonaan pois."
 
-#: ../root/label/index.tt:10 ../root/label/layout.tt:28
-#: ../root/label/layout.tt:35
+#: ../root/label/index.tt:10 ../root/label/layout.tt:30
+#: ../root/label/layout.tt:37
 msgid "Defunct:"
 msgstr "Lopetettu:"
 
@@ -2446,7 +2440,7 @@ msgstr "Kuvaus"
 msgid "Description:"
 msgstr "Kuvaus:"
 
-#: ../root/components/entity-tabs.tt:53 ../root/doc/edit_type.tt:38
+#: ../root/components/entity-tabs.tt:55 ../root/doc/edit_type.tt:38
 #: ../root/elections/show.tt:7 ../root/entity/details.tt:1
 #: ../root/entity/details.tt:3 ../root/event/details.tt:1
 msgid "Details"
@@ -2683,7 +2677,7 @@ msgstr "MusicBrainz tietokannassa kunkin kappaleen tulee olla linkitettynä ää
 #: ../root/artist/aliases.tt:37 ../root/artist/header.tt:8
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:17
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
-#: ../root/components/entity-tabs.tt:57 ../root/components/forms.tt:198
+#: ../root/components/entity-tabs.tt:59 ../root/components/forms.tt:198
 #: ../root/doc/relationship_type.tt:17 ../root/entity/edit.tt:1
 #: ../root/instrument/header.tt:9
 #: ../root/relationship/linkattributetype/common.tt:25
@@ -2724,12 +2718,12 @@ msgstr "Muokkaa tekijänimeä"
 msgid "Edit Attribute"
 msgstr ""
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:106
+#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
 msgid "Edit Attributes"
 msgstr ""
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:101
+#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
 msgid "Edit Banner Message"
 msgstr "Muokkaa banneriviestiä"
 
@@ -2769,7 +2763,7 @@ msgstr "Muokkaa yhteyden määritettä"
 msgid "Edit Relationship Type"
 msgstr "Muokkaa yhteyden tyyppiä"
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:91
+#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
 msgid "Edit Relationship Types"
 msgstr "Muokkaa yhteyksien tyyppejä"
 
@@ -2888,7 +2882,7 @@ msgstr "Muokkaukset"
 msgid "Edits ({view_url|view})"
 msgstr "Muokkaukset ({view_url|näytä})"
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:67
+#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
 msgid "Edits by Subscribed Editors"
 msgstr "Seurattujen käyttäjien muokkaukset"
 
@@ -2900,7 +2894,7 @@ msgstr ""
 msgid "Edits by {name}"
 msgstr "Käyttäjän {name} muokkaukset"
 
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:64
+#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
 msgid "Edits for Subscribed Entities"
 msgstr "Seuratuille kohteille tehdyt muokkaukset"
 
@@ -2977,7 +2971,7 @@ msgstr "Lopetusalue:"
 msgid "End Date"
 msgstr "Lopetusajankohta"
 
-#: ../root/event/layout.tt:27
+#: ../root/event/layout.tt:29
 msgid "End Date:"
 msgstr ""
 
@@ -2991,8 +2985,8 @@ msgstr "Lopetusalue:"
 msgid "End date"
 msgstr "Loppunut"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:25
-#: ../root/area/layout.tt:32 ../root/artist/edit_form.tt:52
+#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
+#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
 #: ../root/components/common-macros.tt:889
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
@@ -3141,7 +3135,7 @@ msgstr ""
 msgid "Event Not Found"
 msgstr ""
 
-#: ../root/event/layout.tt:9
+#: ../root/event/layout.tt:11
 msgid "Event information"
 msgstr ""
 
@@ -3420,7 +3414,7 @@ msgid "Founded in:"
 msgstr "Perustamispaikka:"
 
 #: ../root/components/common-macros.tt:881 ../root/label/index.tt:7
-#: ../root/label/layout.tt:20
+#: ../root/label/layout.tt:22
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
 msgid "Founded:"
 msgstr "Perustettu:"
@@ -3690,7 +3684,7 @@ msgid "IPI code"
 msgstr "IPI-koodi"
 
 #: ../root/artist/layout.tt:75 ../root/edit/details/add_artist.tt:73
-#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:42
+#: ../root/edit/details/add_label.tt:71 ../root/label/layout.tt:44
 msgid "IPI code:"
 msgstr "IPI-koodi:"
 
@@ -3704,7 +3698,7 @@ msgid "ISNI code"
 msgstr "ISNI-koodi"
 
 #: ../root/artist/layout.tt:79 ../root/edit/details/add_artist.tt:82
-#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:47
+#: ../root/edit/details/add_label.tt:80 ../root/label/layout.tt:49
 msgid "ISNI code:"
 msgstr "ISNI-koodi:"
 
@@ -3717,7 +3711,7 @@ msgstr "ISNI-koodit:"
 msgid "ISO 3166-1"
 msgstr "ISO 3166-1"
 
-#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:39
+#: ../root/area/edit_form.tt:13 ../root/area/layout.tt:41
 #: ../root/edit/details/add_area.tt:37 ../root/edit/details/edit_area.tt:30
 msgid "ISO 3166-1:"
 msgstr "ISO 3166-1:"
@@ -3726,7 +3720,7 @@ msgstr "ISO 3166-1:"
 msgid "ISO 3166-2"
 msgstr "ISO 3166-2"
 
-#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:43
+#: ../root/area/edit_form.tt:14 ../root/area/layout.tt:45
 #: ../root/edit/details/add_area.tt:44 ../root/edit/details/edit_area.tt:34
 msgid "ISO 3166-2:"
 msgstr "ISO 3166-2:"
@@ -3735,7 +3729,7 @@ msgstr "ISO 3166-2:"
 msgid "ISO 3166-3"
 msgstr "ISO 3166-3"
 
-#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:47
+#: ../root/area/edit_form.tt:15 ../root/area/layout.tt:49
 #: ../root/edit/details/add_area.tt:51 ../root/edit/details/edit_area.tt:38
 msgid "ISO 3166-3:"
 msgstr "ISO 3166-3:"
@@ -3820,7 +3814,7 @@ msgstr "ISWC \"{iswc}\""
 
 #: ../root/edit/details/add_work.tt:23 ../root/edit/details/edit_work.tt:19
 #: ../root/edit/details/remove_iswc.tt:3 ../root/otherlookup/form.tt:3
-#: ../root/work/layout.tt:24
+#: ../root/work/layout.tt:26
 msgid "ISWC:"
 msgstr "ISWC-koodi:"
 
@@ -4161,11 +4155,11 @@ msgid "Label annotations"
 msgstr "Levymerkin lisätietokenttiä"
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
-#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:51
+#: ../root/label/edit_form.tt:29 ../root/label/layout.tt:53
 msgid "Label code:"
 msgstr "Levymerkki-tunnus:"
 
-#: ../root/label/layout.tt:12
+#: ../root/label/layout.tt:14
 msgid "Label information"
 msgstr "Tietoja levymerkistä"
 
@@ -4271,7 +4265,7 @@ msgstr ""
 msgid "Last modified:"
 msgstr "Viimeksi muokattu:"
 
-#: ../root/layout.tt:118 ../root/layout/components/Footer.js:47
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:48
 msgid "Last replication packet received at {datetime}"
 msgstr "Viimeisin kopiointipaketti vastaanotettu {datetime}"
 
@@ -4421,11 +4415,11 @@ msgstr "Sijainti: "
 
 #: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
 #: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:123
+#: ../root/layout/components/TopMenu.js:120
 msgid "Log In"
 msgstr "Sisäänkirjaudu"
 
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:35
+#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
 msgid "Log Out"
 msgstr "Kirjaudu ulos"
 
@@ -4485,7 +4479,7 @@ msgid "Low"
 msgstr "Matala"
 
 #: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
-#: ../root/work/index.tt:4 ../root/work/layout.tt:19
+#: ../root/work/index.tt:4 ../root/work/layout.tt:21
 msgid "Lyrics Language:"
 msgstr "Sanoituksen kieli:"
 
@@ -4835,23 +4829,23 @@ msgstr "MusicBrainz: Julkaisu"
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Kappale"
 
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:49
+#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
 msgid "My Collections"
 msgstr "Kokoelmani"
 
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:46
+#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
 msgid "My Data"
 msgstr "Minun tietoni"
 
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:58
+#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
 msgid "My Open Edits"
 msgstr "Avoimet muokkaukseni"
 
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:52
+#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
 msgid "My Ratings"
 msgstr "Arvosteluni"
 
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:55
+#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
 msgid "My Tags"
 msgstr "Luokitukseni"
 
@@ -5279,7 +5273,7 @@ msgid ""
 "2011-05-16; or which remove relationships, created after 2013-07-08."
 msgstr "Huomio: hakee vain muokkauksia, jotka lisäävät tai muokkaavat yhteyksiä ja ovat tehty 2011-05-16 jälkeen, sekä muokkauksia, jotka poistavat yhteyksiä ja ovat tehty 2013-07-08 jälkeen."
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:70
+#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
 msgstr ""
 
@@ -5455,7 +5449,7 @@ msgstr "Järjestystapa"
 
 #: ../root/edit/details/add_series.tt:30
 #: ../root/edit/details/edit_series.tt:23 ../root/series/edit_form.tt:17
-#: ../root/series/layout.tt:13
+#: ../root/series/layout.tt:15
 msgid "Ordering Type:"
 msgstr "Järjestystapa:"
 
@@ -5476,7 +5470,7 @@ msgid "Overall"
 msgstr "Yhteensä"
 
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
-#: ../root/components/entity-tabs.tt:31 ../root/tag/header.tt:1
+#: ../root/components/entity-tabs.tt:33 ../root/tag/header.tt:1
 msgid "Overview"
 msgstr "Yleiskatsaus"
 
@@ -5743,12 +5737,6 @@ msgstr "Hidasta ja yritä uudelleen."
 msgid "Please wait a few minutes and repeat your request."
 msgstr "Yritä muutaman minuutin kuluttua uudelleen. "
 
-#: ../root/account/registered.tt:7
-msgid ""
-"Please {acc_edit|update your profile} when you get time, to let other "
-"editors know a bit more about you."
-msgstr ""
-
 #: ../root/taglookup/not_found.tt:6
 msgid "Please {search|try again}, providing at least one of these parameters"
 msgstr "{search|Yritä uudelleen}, käyttäen ainakin yhtä näistä parametreista."
@@ -5791,7 +5779,6 @@ msgstr ""
 
 #: ../root/account/preferences.tt:2 ../root/account/preferences_ok.tt:1
 #: ../root/account/preferences_ok.tt:3 ../root/user/profile/layout.tt:23
-#: ../root/layout/components/TopMenu.js:24
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -6190,7 +6177,7 @@ msgid "Relationship:"
 msgstr "Yhteys:"
 
 #: ../root/artist/relationships.tt:1 ../root/artist/relationships.tt:7
-#: ../root/components/entity-tabs.tt:41 ../root/components/relationships.tt:31
+#: ../root/components/entity-tabs.tt:43 ../root/components/relationships.tt:31
 #: ../root/forms/relationship-editor.tt:5 ../root/label/relationships.tt:1
 #: ../root/label/relationships.tt:6 ../root/relationship/header.tt:6
 msgid "Relationships"
@@ -7230,7 +7217,7 @@ msgstr "Seuratut sarjat"
 msgid "Series annotations"
 msgstr "Sarjojen lisätietokenttiä"
 
-#: ../root/series/layout.tt:9
+#: ../root/series/layout.tt:11
 msgid "Series information"
 msgstr "Tietoja sarjasta"
 
@@ -7641,7 +7628,7 @@ msgstr "Pinon tilanne (Strack Trace): "
 msgid "Start"
 msgstr "Aloita"
 
-#: ../root/event/layout.tt:22
+#: ../root/event/layout.tt:24
 msgid "Start Date:"
 msgstr ""
 
@@ -7781,7 +7768,7 @@ msgstr "Seuraajat:"
 
 #: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:59
-#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:31
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:28
 msgid "Subscriptions"
 msgstr "Seuratut kohteet"
 
@@ -7845,7 +7832,7 @@ msgstr "Luokitus \"{tag}\""
 msgid "Tagger"
 msgstr "Luokittelija"
 
-#: ../root/components/entity-tabs.tt:49 ../root/components/tags.tt:5
+#: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
 #: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:17
@@ -8107,6 +8094,10 @@ msgid ""
 "forms below, or you may add a new release to MusicBrainz"
 msgstr "MusicBrainzissa ei ole tällä hetkellä yhtään CD-levyä, joka täsmäisi hakemasi kanssa. Voit etsiä hakemaasi levyä alla olevilla lomakkeilla tai voit lisätä uuden julkaisun MusicBrainziin."
 
+#: ../root/area/users.tt:11
+msgid "There are currently no users in this area."
+msgstr ""
+
 #: ../root/user/subscribers.tt:23
 msgid "There are currently no users subscribed to edits that you make."
 msgstr "Yksikään käyttäjä ei seuraa tekemiäsi muutoksia."
@@ -8145,6 +8136,12 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr "Yhtäkään äänitettä, julkaisuryhmää, julkaisua tai kappaletta ei ole merkitty pelkästään artistille {name}. Jos yrität poistaa artistin {name}, muokkaa kaikkia tekijätietoja välilehdeltä {alias_uri|aliakset} ja poista kaikki {rel_uri|yhteydet} sen sijaan. Sen jälkeen ModBot tulee poistamaan artistin automaattisesti seuraavien päivien aikana."
+
+#: ../root/area/users.tt:6
+msgid "There is currently {num} user in this area."
+msgid_plural "There are currently {num} users in this area."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../root/user/subscribers.tt:4
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -9260,7 +9257,7 @@ msgid "Time"
 msgstr "Aika"
 
 #: ../root/edit/details/add_event.tt:49 ../root/edit/details/edit_event.tt:37
-#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:33
+#: ../root/event/edit_form.tt:36 ../root/event/layout.tt:35
 #: ../root/main/info/environment.tt:2
 msgid "Time:"
 msgstr "Aika:"
@@ -9552,7 +9549,7 @@ msgstr "Kappaleet, joiden nimet sisältävät niiden järjestysnumeroita"
 msgid "Tracks:"
 msgstr "Kappaleet:"
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:96
+#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
 msgid "Transclude WikiDocs"
 msgstr "Sisällytä WikiDocsista"
 
@@ -9620,7 +9617,7 @@ msgid "Type"
 msgstr "Tyyppi"
 
 #: ../root/account/register_application.tt:9 ../root/area/edit_form.tt:12
-#: ../root/area/layout.tt:11 ../root/artist/edit_form.tt:17
+#: ../root/area/layout.tt:13 ../root/artist/edit_form.tt:17
 #: ../root/artist/index.tt:4 ../root/artist/layout.tt:27
 #: ../root/collection/edit_form.tt:6 ../root/collection/layout.tt:14
 #: ../root/components/filter-form.tt:5 ../root/edit/data.tt:5
@@ -9636,18 +9633,18 @@ msgstr "Tyyppi"
 #: ../root/edit/details/edit_series.tt:19
 #: ../root/edit/details/historic/add_release.tt:24
 #: ../root/entity/alias/edit_form.tt:21 ../root/event/edit_form.tt:15
-#: ../root/event/index.tt:4 ../root/event/layout.tt:11
+#: ../root/event/index.tt:4 ../root/event/layout.tt:13
 #: ../root/instrument/edit_form.tt:12 ../root/instrument/index.tt:4
 #: ../root/instrument/layout.tt:18 ../root/label/edit_form.tt:16
-#: ../root/label/index.tt:4 ../root/label/layout.tt:14
+#: ../root/label/index.tt:4 ../root/label/layout.tt:16
 #: ../root/place/edit_form.tt:16 ../root/place/index.tt:4
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:115 ../root/release/index.tt:4
 #: ../root/release/layout.tt:53 ../root/release_group/layout.tt:29
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:16
-#: ../root/series/layout.tt:11 ../root/work/edit_form.tt:15
-#: ../root/work/layout.tt:16
+#: ../root/series/layout.tt:13 ../root/work/edit_form.tt:15
+#: ../root/work/layout.tt:18
 msgid "Type:"
 msgstr "Tyyppi:"
 
@@ -9722,6 +9719,11 @@ msgstr "Valtuuttamaton pyyntö"
 #: ../root/instrument/list.tt:21
 msgid "Unclassified instrument"
 msgstr "Määrittelemätön soitin"
+
+#: ../root/unconfirmed_email_discourse.tt:1
+#: ../root/unconfirmed_email_discourse.tt:2
+msgid "Unconfirmed Email Address"
+msgstr ""
 
 #: ../root/components/common-macros.tt:1041 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
@@ -9859,6 +9861,11 @@ msgstr "Käyttäjätyyppi:"
 #: ../root/user/login.tt:23
 msgid "Username:"
 msgstr "Käyttäjänimi:"
+
+#: ../root/area/users.tt:1 ../root/area/users.tt:3
+#: ../root/components/entity-tabs.tt:1
+msgid "Users"
+msgstr ""
 
 #: ../root/release/merge.tt:60
 msgid ""
@@ -10211,7 +10218,7 @@ msgstr "Teoksen tyyppi:"
 msgid "Work annotations"
 msgstr "Teosten lisätietokenttiä"
 
-#: ../root/work/layout.tt:14
+#: ../root/work/layout.tt:16
 msgid "Work information"
 msgstr "Teoksen tiedot"
 
@@ -10548,12 +10555,6 @@ msgstr "Voit lisätä muokkausmerkinnän peruuttaessasi tämän muokkauksen. Tä
 msgid "You may not edit special purpose artists"
 msgstr "Et voi muokata erityistarkoituksellista artistia"
 
-#: ../root/account/registered.tt:21
-msgid ""
-"You may proceed to {profile|your user profile}, or maybe you want to "
-"{edit|start editing}!"
-msgstr ""
-
 #: ../root/edit/index.tt:63
 msgid "You must be logged in to vote on edits"
 msgstr "Sinun tulee olla sisäänkirjautunut äänestääksesi muokkauksista."
@@ -10591,6 +10592,13 @@ msgstr ""
 #: ../root/release/edit/information.tt:68
 msgid "You must select an existing release group."
 msgstr "Sinun täytyy valita olemassa oleva julkaisuryhmä."
+
+#: ../root/account/registered_discourse.tt:4
+#: ../root/unconfirmed_email_discourse.tt:4
+msgid ""
+"You must verify your email address before you can log in to "
+"{discourse|MetaBrainz Community Discourse}."
+msgstr ""
 
 #: ../root/cdtoc/remove.tt:11
 msgid ""
@@ -10696,9 +10704,9 @@ msgstr "Olet käyttänyt {valink|Eri esittäjiä} erityiskäyttöön tarkoitettu
 msgid "[removed]"
 msgstr "[poistettu]"
 
-#: ../root/area/layout.tt:33 ../root/artist/layout.tt:60
+#: ../root/area/layout.tt:35 ../root/artist/layout.tt:60
 #: ../root/components/aliases.tt:42 ../root/components/labels-list.tt:41
-#: ../root/event/merge.tt:42 ../root/label/layout.tt:36
+#: ../root/event/merge.tt:42 ../root/label/layout.tt:38
 #: ../root/label/merge.tt:36 ../root/place/layout.tt:34
 #: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:26 ../root/search/results-label.tt:28
@@ -11566,7 +11574,7 @@ msgid "The verification key is missing."
 msgstr "Vahvistusavain puuttuu."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:75
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:212
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:213
 msgid "The checksum is invalid, please double check your email."
 msgstr "Tarkistussumma on väärä. Varmista, että annoit saman kuin saamassasi sähköpostissa."
 
@@ -11575,48 +11583,48 @@ msgid "Sorry, this email verification link has expired."
 msgstr "Tämä sähköpostin vahvistuslinkki on vanhentunut."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:221
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "Käyttäjää tunnuksella \"{user_id}\" ei löytynyt."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:135
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
 msgid ""
 "We were unable to send login information to your email address.  Please try again,\n"
 "             however if you continue to experience difficulty contact us at support@musicbrainz.org."
 msgstr "Kirjautumistunnuksia ei voitu toimittaa antamaasi sähköpostiosoitteeseen.  Ole hyvä ja yritä uudelleen.\n             Mikäli ongelmat jatkuvat, ota yhteyttä osoitteeseen support@musicbrainz.org."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:159
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:160
 msgid "There is no user with this username"
 msgstr "Käyttäjää ei löydy tällä nimellä"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:164
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:165
 msgid "There is no user with this username and email"
 msgstr "Käyttäjää ei löydy tällä käyttäjänimellä ja sähköpostiosoitteella"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:167
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
 "We can't send a password reset email, because we have no email on record for"
 " this user."
 msgstr "Salasananvaihtoviestiä ei voida lähettää, sillä käyttäjälle ei ole asetettuna sähköpostiosoitetta."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:196
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:197
 msgid "Missing one or more required parameters."
 msgstr "Yksi tai useampi vaadittu parametri puuttuu."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:205
 msgid "Sorry, this password reset link has expired."
 msgstr "Tämä salasananvaihtolinkki on vanhentunut."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:262
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
 msgid "There is no user with this email"
 msgstr "Käyttäjää ei löydy tällä sähköpostiosoitteella"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:317
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:318
 msgid "Your profile has been updated."
 msgstr "Profiilisi on päivitetty."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:321
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:322
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>.\n"
@@ -11624,22 +11632,22 @@ msgid ""
 "                         to verify the new email address."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:346
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:347
 msgid "Your password has been changed."
 msgstr "Salasanasi on vaihdettu."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:535
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:544
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
 "             {mail|support@musicbrainz.org}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:72
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:74
 msgid "User successfully edited."
 msgstr "Käyttäjän muokattu onnistuneesti. "
 
-#: ../lib/MusicBrainz/Server/Controller/Admin.pm:127
+#: ../lib/MusicBrainz/Server/Controller/Admin.pm:134
 msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banneri päivitetty. Muista, että jokaisella palvelimella on oma, itsenäinen bannerinsa."
@@ -11731,7 +11739,7 @@ msgid ""
 "or expected."
 msgstr "Redis-palvelimemme tuntuu olevan kaatunut. Jotkin ominaisuudet eivät välttämättä toimi niin kuin olisi tarkoitus tai odotettaa."
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:133
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:134
 msgid "Series that have different entity types cannot be merged."
 msgstr "Sarjoja, joiden kokonaisuudet ovat erilaisia, ei voida sulauttaa."
 
@@ -11750,16 +11758,16 @@ msgstr "Käyttäjä {name} ei ole antanut sähköpostiosoitetta tilitietoihinsa.
 msgid "Your message could not be sent"
 msgstr "Viestiäsi ei voitu lähettää"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:387
+#: ../lib/MusicBrainz/Server/Controller/User.pm:389
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' ei ole kokonaisuus joka tukee arvosteluja."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:528
+#: ../lib/MusicBrainz/Server/Controller/User.pm:530
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:532
+#: ../lib/MusicBrainz/Server/Controller/User.pm:534
 msgid "Your report has been sent."
 msgstr ""
 

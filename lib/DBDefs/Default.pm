@@ -30,6 +30,7 @@ package DBDefs::Default;
 use Class::MOP;
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use JSON qw( encode_json );
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Translation 'l';
 
@@ -40,7 +41,9 @@ sub get_environment_hash {
         qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES get_environment_hash );
 
     return {
-        map { $_ => join(',', grep { defined } $export->{$_}->body->('DBDefs')) }
+        map { $_ => join(',', map {
+            ref($_) eq 'HASH' ? encode_json($_) : $_
+        } grep { defined } $export->{$_}->body->('DBDefs')) }
         grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export
     };
 }
@@ -451,6 +454,8 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # separately.
 sub RENDERER_HOST { '' }
 sub RENDERER_PORT { 9009 }
+# Whether to use X-Accel-Redirect for the requests mentioned above.
+sub RENDERER_X_ACCEL_REDIRECT { 0 }
 
 # Base URL of external Discourse instance.
 sub DISCOURSE_SERVER { '' }

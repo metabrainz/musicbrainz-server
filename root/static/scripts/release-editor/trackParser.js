@@ -6,6 +6,12 @@
 const _ = require('lodash');
 
 const {MIN_NAME_SIMILARITY} = require('../common/constants');
+const {
+        artistCreditFromArray,
+        hasVariousArtists,
+        isCompleteArtistCredit,
+        reduceArtistCredit,
+    } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const isBlank = require('../common/utility/isBlank');
 const getCookie = require('../common/utility/getCookie');
@@ -55,7 +61,7 @@ MB.releaseEditor.trackParser = {
             currentTracks = medium.tracks.peek().slice(0);
             previousTracks = currentTracks.slice(0);
             hasTocs = medium.hasToc();
-            releaseAC = medium.release.artistCredit;
+            releaseAC = medium.release.artistCredit();
 
             // Don't add more tracks than the CDTOC allows. If there are data
             // tracks, then more can be added at the end.
@@ -118,24 +124,26 @@ MB.releaseEditor.trackParser = {
         var newTracks = _.map(newTracksData, function (data, index) {
             var matchedTrack = data.matchedTrack;
             var previousTrack = previousTracks[index];
-            var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
-            var previousTrackAC = previousTrack && previousTrack.artistCredit;
+            var matchedTrackAC = matchedTrack && matchedTrack.artistCredit();
+            var previousTrackAC = previousTrack && previousTrack.artistCredit();
 
             // See if we can re-use the AC from the matched track, the previous
             // track at this position, or the release.
             var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
-                    if (!ac || ac.isVariousArtists()) return false;
+                    if (!ac || hasVariousArtists(ac)) {
+                        return false;
+                    }
 
-                    var names = ac.names();
-
-                    return ac.isComplete() && (!data.artist ||
-                        MB.releaseEditor.utils.similarNames(data.artist, ac.text()));
+                    return isCompleteArtistCredit(ac) && (
+                        !data.artist ||
+                        MB.releaseEditor.utils.similarNames(data.artist, reduceArtistCredit(ac))
+                    );
                 }
             );
 
             if (matchedAC) {
-                data.artistCredit = matchedAC.toJSON();
+                data.artistCredit = matchedAC.names.toJS();
             }
 
             data.artistCredit = data.artistCredit || [{ name: data.artist || "" }];
@@ -164,7 +172,7 @@ MB.releaseEditor.trackParser = {
                 }
 
                 if (options.useTrackArtists) {
-                    matchedTrack.artistCredit.setNames(data.artistCredit);
+                    matchedTrack.artistCredit(artistCreditFromArray(data.artistCredit));
                 }
 
                 return matchedTrack;
@@ -375,7 +383,7 @@ MB.releaseEditor.trackParser = {
             memo += track.name.peek() || "";
 
             if (options.hasTrackArtists) {
-                var artist = track.artistCredit.text();
+                var artist = reduceArtistCredit(track.artistCredit());
 
                 if (artist) memo += " - " + artist;
             }

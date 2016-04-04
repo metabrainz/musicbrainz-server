@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 
@@ -94,36 +95,41 @@ const EntityLink = (props = {}) => {
     content,
     entity,
     hover,
+    showDeleted = true,
     showDisambiguation,
     subPath,
     ...anchorProps
   } = props;
 
-  let hasCustomContent = nonEmpty(content);
-  let entityType = entity.entityType;
+  const hasCustomContent = nonEmpty(content);
+  const entityType = entity.entityType;
+  const comment = ko.unwrap(entity.comment);
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
   }
 
   if (entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sortName + bracketed(entity.comment);
+    hover = entity.sortName + bracketed(comment);
   }
 
   if (entityType === 'artist' || entityType === 'instrument') {
     content = content || entity.l_name;
   }
 
-  content = content || entity.name;
+  content = content || ko.unwrap(entity.name);
 
-  if (!entity.gid) {
+  if (!ko.unwrap(entity.gid)) {
     if (entityType === 'url') {
       return <NoInfoURL url={entity.url} allowNew={allowNew} />;
     }
-    return <DeletedLink name={content} allowNew={allowNew} />;
+    if (showDeleted) {
+      return <DeletedLink name={content} allowNew={allowNew} />;
+    }
+    return null;
   }
 
-  let href = entityHREF(entityType, entity.gid, subPath);
+  let href = entityHREF(entityType, ko.unwrap(entity.gid), subPath);
   let nameVariation;
   let infoLink;
 
@@ -141,7 +147,7 @@ const EntityLink = (props = {}) => {
       if (hover) {
         hover = l('{name} – {additional_info}', {name: entity.name, additional_info: hover});
       } else {
-        hover = entity.name;
+        hover = ko.unwrap(entity.name);
       }
     }
   }
@@ -178,8 +184,8 @@ const EntityLink = (props = {}) => {
         <If condition={entityType === 'event'}>
           <EventDisambiguation event={entity} />
         </If>
-        <If condition={entity.comment}>
-          <Comment className="comment" comment={entity.comment} />
+        <If condition={comment}>
+          <Comment className="comment" comment={comment} />
         </If>
         <If condition={entityType === 'area'}>
           <AreaDisambiguation area={entity} />

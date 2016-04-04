@@ -2747,6 +2747,15 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:ütőgardon 
+#: DB:instrument/description:768
+msgid ""
+"The ütőgardon is a folk musical instrument played primarily in Transylvania. "
+"It is similar in appearance to a cello, but played percussively like a drum. "
+"Instead of being played with a bow, its strings are plucked and beaten with "
+"a stick."
+msgstr ""
+
 #. name:đing năm 
 #: DB:instrument/description:319
 msgid ""

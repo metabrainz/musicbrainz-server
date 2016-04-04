@@ -1062,6 +1062,11 @@ msgctxt "work_attribute_type"
 msgid "CASH ID"
 msgstr ""
 
+#: DB:work_attribute_type/name:22
+msgctxt "work_attribute_type"
+msgid "CCLI ID"
+msgstr ""
+
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
