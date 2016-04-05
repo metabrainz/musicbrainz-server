@@ -44,7 +44,12 @@ const isComplexArtistCredit = function (ac) {
 
 function artistCreditFromArray(names) {
   return new ArtistCredit({
-    names: Immutable.List(names.map(x => new ArtistCreditName(x)))
+    names: Immutable.List(names.map(x => {
+      if (x.artist && !nonEmpty(x.name)) {
+        x.name = x.artist.name;
+      }
+      return new ArtistCreditName(x);
+    }))
   });
 }
 
