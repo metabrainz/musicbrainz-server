@@ -47,14 +47,27 @@ class Autocomplete extends React.Component {
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
+
+    if (nextProps.hasOwnProperty('isLookupPerformed')) {
+      autocomplete.element.toggleClass('lookup-performed', !!nextProps.isLookupPerformed);
+    }
   }
 
   render() {
-    const {disabled, entity, inputID} = this.props;
+    const {disabled, entity, inputID, isLookupPerformed} = this.props;
+    let className = 'name';
+    if (isLookupPerformed) {
+      className += ' lookup-performed';
+    }
     return (
       <span className={entity + ' autocomplete'}>
         <img className="search" src="/static/images/icons/search.png" alt={l('Search')} />
-        <input id={inputID} className="name" disabled={disabled} type="text" ref="name" />
+        <input
+          className={className}
+          disabled={disabled}
+          id={inputID}
+          ref="name"
+          type="text" />
       </span>
     );
   }

@@ -555,7 +555,13 @@ table.artist-credit-editor {
     }
 
     span.autocomplete {
-        &, & input.name { width: 100% !important; }
+        &, input.name { width: 100% !important; }
+
+        input.name[disabled] {
+            background: inherit;
+            color: @dark-text;
+            &.lookup-performed { background: @positive-bg; }
+        }
     }
 }
 
