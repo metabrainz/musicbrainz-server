@@ -543,9 +543,16 @@ div.remove-item {
     text-align: right;
 }
 
-#artist-credit-editor table {
+table.artist-credit-editor {
     width: @form-input-width;
     border-spacing: 0;
+
+    td {
+        padding: 0;
+        &.open-ac-cell {
+            &, & > button { width: 90px; }
+        }
+    }
 
     span.autocomplete {
         &, & input.name { width: 100% !important; }

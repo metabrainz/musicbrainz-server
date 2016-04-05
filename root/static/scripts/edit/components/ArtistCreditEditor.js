@@ -284,10 +284,10 @@ class ArtistCreditEditor extends React.Component {
 
     return (
       <frag>
-        <table>
+        <table className="artist-credit-editor">
           <tbody>
             <tr>
-              <td style={{width: '80%'}}>
+              <td>
                 <Autocomplete
                   currentSelection={singleArtistSelection}
                   disabled={!singleArtistIsEditable}
@@ -304,7 +304,7 @@ class ArtistCreditEditor extends React.Component {
                   }}
                 />
               </td>
-              <td>
+              <td className="open-ac-cell">
                 <button className="open-ac" ref="button" type="button" onClick={this.toggleBubble}>
                   {l('Edit')}
                 </button>
