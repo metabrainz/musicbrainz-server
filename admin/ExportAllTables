@@ -47,6 +47,11 @@ my @replication_tables = qw(
 );
 
 my @group_core = qw(
+    alternative_medium
+    alternative_medium_track
+    alternative_release
+    alternative_release_type
+    alternative_track
     area
     area_type
     area_alias

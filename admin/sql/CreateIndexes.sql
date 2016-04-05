@@ -541,6 +541,15 @@ CREATE INDEX track_idx_musicbrainz_collate ON track (musicbrainz_collate(name));
 CREATE INDEX recording_idx_musicbrainz_collate ON recording (musicbrainz_collate(name));
 CREATE INDEX work_idx_musicbrainz_collate ON work (musicbrainz_collate(name));
 
+CREATE INDEX alternative_release_idx_release ON alternative_release (release);
+CREATE INDEX alternative_release_idx_name ON alternative_release (name);
+CREATE INDEX alternative_release_idx_artist_credit ON alternative_release (artist_credit);
+CREATE INDEX alternative_release_idx_language_script ON alternative_release (language, script);
+CREATE UNIQUE INDEX alternative_release_idx_gid ON alternative_release (gid);
+CREATE INDEX alternative_medium_idx_alternative_release ON alternative_medium (alternative_release);
+CREATE INDEX alternative_track_idx_name ON alternative_track (name);
+CREATE INDEX alternative_track_idx_artist_credit ON alternative_track (artist_credit);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

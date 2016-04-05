@@ -1,6 +1,11 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+ALTER TABLE alternative_medium DROP CONSTRAINT IF EXISTS alternative_medium_pkey;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_pkey;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_pkey;
+ALTER TABLE alternative_release_type DROP CONSTRAINT IF EXISTS alternative_release_type_pkey;
+ALTER TABLE alternative_track DROP CONSTRAINT IF EXISTS alternative_track_pkey;
 ALTER TABLE annotation DROP CONSTRAINT IF EXISTS annotation_pkey;
 ALTER TABLE application DROP CONSTRAINT IF EXISTS application_pkey;
 ALTER TABLE area DROP CONSTRAINT IF EXISTS area_pkey;

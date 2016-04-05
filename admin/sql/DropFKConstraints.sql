@@ -1,6 +1,18 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+ALTER TABLE alternative_medium DROP CONSTRAINT IF EXISTS alternative_medium_fk_medium;
+ALTER TABLE alternative_medium DROP CONSTRAINT IF EXISTS alternative_medium_fk_alternative_release;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_alternative_medium;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_track;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_alternative_track;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_release;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_artist_credit;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_type;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_language;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_script;
+ALTER TABLE alternative_release_type DROP CONSTRAINT IF EXISTS alternative_release_type_fk_parent;
+ALTER TABLE alternative_track DROP CONSTRAINT IF EXISTS alternative_track_fk_artist_credit;
 ALTER TABLE annotation DROP CONSTRAINT IF EXISTS annotation_fk_editor;
 ALTER TABLE application DROP CONSTRAINT IF EXISTS application_fk_owner;
 ALTER TABLE area DROP CONSTRAINT IF EXISTS area_fk_type;

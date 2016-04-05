@@ -1,6 +1,50 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE TABLE alternative_release ( -- replicate
+    id                      SERIAL, -- PK
+    gid                     UUID NOT NULL,
+    release                 INTEGER NOT NULL, -- references release.id
+    name                    VARCHAR,
+    artist_credit           INTEGER, -- references artist_credit.id
+    type                    INTEGER NOT NULL, -- references alternative_release_type.id
+    language                INTEGER NOT NULL, -- references language.id
+    script                  INTEGER NOT NULL, -- references script.id
+    comment                 VARCHAR(255) NOT NULL DEFAULT ''
+    CHECK (name != '')
+);
+
+CREATE TABLE alternative_release_type ( -- replicate
+    id                  SERIAL, -- PK
+    name                TEXT NOT NULL,
+    parent              INTEGER, -- references alternative_release_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 UUID NOT NULL
+);
+
+CREATE TABLE alternative_medium ( -- replicate
+    id                      SERIAL, -- PK
+    medium                  INTEGER NOT NULL, -- FK, references medium.id
+    alternative_release     INTEGER NOT NULL, -- references alternative_release.id
+    name                    VARCHAR
+    CHECK (name != '')
+);
+
+CREATE TABLE alternative_track ( -- replicate
+    id                      SERIAL, -- PK
+    name                    VARCHAR,
+    artist_credit           INTEGER, -- references artist_credit.id
+    ref_count               INTEGER NOT NULL DEFAULT 0
+    CHECK (name != '' AND (name IS NOT NULL OR artist_credit IS NOT NULL))
+);
+
+CREATE TABLE alternative_medium_track ( -- replicate
+    alternative_medium      INTEGER NOT NULL, -- PK, references alternative_medium.id
+    track                   INTEGER NOT NULL, -- PK, references track.id
+    alternative_track       INTEGER NOT NULL -- references alternative_track.id
+);
+
 CREATE TABLE annotation ( -- replicate (verbose)
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id
