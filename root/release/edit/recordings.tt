@@ -64,7 +64,9 @@
               [% l('by') %] <span data-bind="html: $data"></span>
             </td>
             <td colspan="2">
-              [% l('by') %] <span data-bind="html: renderArtistCredit(recording().artistCredit)"></span>
+              <!-- ko if: isCompleteArtistCredit(recording().artistCredit) -->
+                [% l('by') %] <span data-bind="html: renderArtistCredit(recording().artistCredit)"></span>
+              <!-- /ko -->
             </td>
           </tr>
 

@@ -51,7 +51,15 @@ const formatTrackLength = require('./utility/formatTrackLength');
             return ReactDOMServer.renderToStaticMarkup(
                 <ArtistCreditLink artistCredit={ac} target="_blank" />
             );
-        }
+        },
+
+        isCompleteArtistCredit: function (ac) {
+            ac = ko.unwrap(ac);
+            if (Array.isArray(ac)) {
+                ac = artistCreditFromArray(ac);
+            }
+            return isCompleteArtistCredit(ac);
+        },
     });
 
     var primitiveTypes = /^(boolean|number|string)$/;

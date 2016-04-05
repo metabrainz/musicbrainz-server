@@ -13,10 +13,14 @@ const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
     if (props.plain) {
       parts.push(credit.name);
     } else {
+      let artist = credit.artist;
+      if (!artist) {
+        artist = {entityType: 'artist', name: credit.name};
+      }
       parts.push(
         <EntityLink
           content={credit.name}
-          entity={credit.artist}
+          entity={artist}
           key={i}
           showDeleted={showDeleted}
           target={props.target} />
