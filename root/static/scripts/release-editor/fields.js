@@ -264,7 +264,8 @@ const validation = require('../edit/validation');
         },
 
         // Classes are a joke
-        renderArtistCredit: MB.entity.Entity.prototype.renderArtistCredit
+        renderArtistCredit: MB.entity.Entity.prototype.renderArtistCredit,
+        isCompleteArtistCredit: MB.entity.Entity.prototype.isCompleteArtistCredit,
     });
 
 
