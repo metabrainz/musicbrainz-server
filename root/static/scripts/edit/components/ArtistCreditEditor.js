@@ -18,6 +18,7 @@ const {
     artistCreditsAreEqual,
     hasArtist,
     hasVariousArtists,
+    isCompleteArtistCredit,
     isComplexArtistCredit,
     reduceArtistCredit,
   } = require('../../common/immutable-entities');
@@ -284,15 +285,16 @@ class ArtistCreditEditor extends React.Component {
 
     return (
       <frag>
-        <table>
+        <table className="artist-credit-editor">
           <tbody>
             <tr>
-              <td style={{width: '80%'}}>
+              <td>
                 <Autocomplete
                   currentSelection={singleArtistSelection}
                   disabled={!singleArtistIsEditable}
                   entity="artist"
                   inputID={this.props.forLabel}
+                  isLookupPerformed={isCompleteArtistCredit(ac)}
                   onChange={artist => {
                     if (singleArtistIsEditable) {
                       this.setState(stateFromArray([{
@@ -302,9 +304,9 @@ class ArtistCreditEditor extends React.Component {
                       }]));
                     }
                   }}
-                />
+                  showStatus={false} />
               </td>
-              <td>
+              <td className="open-ac-cell">
                 <button className="open-ac" ref="button" type="button" onClick={this.toggleBubble}>
                   {l('Edit')}
                 </button>

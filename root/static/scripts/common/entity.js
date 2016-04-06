@@ -41,10 +41,25 @@ const formatTrackLength = require('./utility/formatTrackLength');
         },
 
         renderArtistCredit: function (ac) {
+            ac = ko.unwrap(ac);
+            // XXX For suggested recording data in the release editor,
+            // which root/release/edit/recordings.tt passes into here as plain
+            // JSON (can't really "instantiate" things anywhere else).
+            if (Array.isArray(ac)) {
+                ac = artistCreditFromArray(ac);
+            }
             return ReactDOMServer.renderToStaticMarkup(
-                <ArtistCreditLink artistCredit={ko.unwrap(ac)} />
+                <ArtistCreditLink artistCredit={ac} target="_blank" />
             );
-        }
+        },
+
+        isCompleteArtistCredit: function (ac) {
+            ac = ko.unwrap(ac);
+            if (Array.isArray(ac)) {
+                ac = artistCreditFromArray(ac);
+            }
+            return isCompleteArtistCredit(ac);
+        },
     });
 
     var primitiveTypes = /^(boolean|number|string)$/;
