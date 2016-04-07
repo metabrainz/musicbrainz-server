@@ -407,8 +407,8 @@ If you intend to run a server with translations, there are a few steps to follow
 Troubleshooting
 ---------------
 
-If you have any difficulties, feel free to ask in #musicbrainz-devel on
-irc.freenode.net, or email the [developer mailing list](http://lists.musicbrainz.org/mailman/listinfo/musicbrainz-devel).
+If you have any difficulties, feel free to ask in #metabrainz on irc.freenode.net,
+or ask on [our forums](https://community.metabrainz.org/c/musicbrainz).
 
 Please report any issues on our [bug tracker](http://tickets.musicbrainz.org/).
 

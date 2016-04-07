@@ -166,6 +166,7 @@ class ArtistCreditEditor extends React.Component {
         $bubble
           .css('max-width', maxWidth)
           .data('target', props.entity)
+          .data('componentInst', this)
           .find('.bubble')
             .removeClass('left-tail right-tail')
             .addClass(tailClass)
@@ -184,13 +185,19 @@ class ArtistCreditEditor extends React.Component {
     );
   }
 
-  hide() {
-    $('#artist-credit-bubble').hide();
-    this.refs.button.focus();
+  hide(stealFocus = true) {
+    const $bubble = $('#artist-credit-bubble').hide();
+    if (stealFocus) {
+      this.refs.button.focus();
+    }
+    // Defer until after the doneCallback() executes (if done() called us).
+    _.defer(function () {
+      $bubble.data('target', null).data('componentInst', null);
+    });
   }
 
-  done() {
-    this.hide();
+  done(stealFocus = true) {
+    this.hide(stealFocus);
     if (this.props.doneCallback) {
       this.props.doneCallback();
     }
@@ -202,7 +209,7 @@ class ArtistCreditEditor extends React.Component {
         .hide()
         .appendTo('body');
 
-      $('body').on('click.artist-credit-editor', function (event) {
+      $('body').on('click.artist-credit-editor', event => {
         const $target = $(event.target);
         if (!event.isDefaultPrevented() &&
             $bubble.is(':visible') &&
@@ -211,7 +218,7 @@ class ArtistCreditEditor extends React.Component {
             // Close unless focus was moved to a dialog above this one, e.g.
             // when adding a new entity.
             !$target.parents('.ui-dialog').length) {
-          $bubble.hide();
+          $bubble.data('componentInst').done(false);
         }
       });
     }
