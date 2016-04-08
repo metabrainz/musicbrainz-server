@@ -3,16 +3,24 @@
 .recordingheader, .labelheader, .placeheader, .eventheader,
 .workheader, .collectionheader, .seriesheader, .instrumentheader {
     padding-left: 38px;
-    background: 0 4px no-repeat;
+    background: 0 0px no-repeat;
 }
 
-.blankheader     { background-image: data-uri('../images/entity/blank_lg.png') }
-.artistheader    { background-image: data-uri('../images/entity/artist_lg.png') }
-.releaseheader   { background-image: data-uri('../images/entity/release_lg.png') }
-.rgheader        { background-image: data-uri('../images/entity/release_group_lg.png') }
-.recordingheader { background-image: data-uri('../images/entity/recording_lg.png') }
-.placeheader     { background-image: data-uri('../images/entity/place_lg.png') }
-.labelheader     { background-image: data-uri('../images/entity/label_lg.png') }
-.workheader      { background-image: data-uri('../images/entity/work_lg.png') }
-.areaheader, .collectionheader, .seriesheader, .instrumentheader, .eventheader,
- { background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create remaining icons */
+.blankheader      { background-image: data-uri('../images/entity/blank.svg') }
+.artistheader     { background-image: data-uri('../images/entity/artist.svg') }
+.releaseheader    { background-image: data-uri('../images/entity/release.svg') }
+.rgheader         { background-image: data-uri('../images/entity/release_group.svg') }
+.recordingheader  { background-image: data-uri('../images/entity/recording.svg') }
+.placeheader      { background-image: data-uri('../images/entity/place.svg') }
+.labelheader      { background-image: data-uri('../images/entity/label.svg') }
+.workheader       { background-image: data-uri('../images/entity/work.svg') }
+.areaheader       { background-image: data-uri('../images/entity/area.svg') }
+.seriesheader     { background-image: data-uri('../images/entity/series.svg') }
+.instrumentheader { background-image: data-uri('../images/entity/instrument.svg') }
+.eventheader      { background-image: data-uri('../images/entity/event.svg') }
+.collectionheader { background-image: data-uri('../images/entity/blank.svg') }
+
+.blankheader, .artistheader, .releaseheader, .rgheader,
+.recordingheader, .placeheader, .labelheader, .workheader, 
+.areaheader, .seriesheader, .instrumentheader, eventheader,
+.collectionheader { background-size: 32px; }
