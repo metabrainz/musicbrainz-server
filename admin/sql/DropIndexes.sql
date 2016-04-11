@@ -57,6 +57,7 @@ DROP INDEX edit_label_idx_status;
 DROP INDEX edit_note_idx_edit;
 DROP INDEX edit_note_idx_editor;
 DROP INDEX edit_note_idx_post_time_edit;
+DROP INDEX edit_note_recipient_idx_recipient;
 DROP INDEX edit_place_idx;
 DROP INDEX edit_recording_idx;
 DROP INDEX edit_release_group_idx;

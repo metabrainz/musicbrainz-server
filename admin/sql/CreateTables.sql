@@ -382,6 +382,11 @@ CREATE TABLE edit_note
     post_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE edit_note_recipient (
+    recipient           INTEGER NOT NULL, -- PK, references editor.id
+    edit_note           INTEGER NOT NULL  -- PK, references edit_note.id
+);
+
 CREATE TABLE edit_area
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id

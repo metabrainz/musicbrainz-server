@@ -188,6 +188,7 @@ DROP TRIGGER ensure_work_attribute_type_allows_text ON work_attribute;
 DROP TRIGGER a_ins_instrument ON musicbrainz;
 DROP TRIGGER a_upd_instrument ON musicbrainz;
 DROP TRIGGER a_del_instrument ON musicbrainz;
+DROP TRIGGER a_ins_edit_note ON edit_note;
 DROP TRIGGER remove_unused_links ON l_area_area;
 DROP TRIGGER remove_unused_links ON l_area_artist;
 DROP TRIGGER remove_unused_links ON l_area_event;

@@ -314,6 +314,16 @@ ALTER TABLE edit_note
    FOREIGN KEY (edit)
    REFERENCES edit(id);
 
+ALTER TABLE edit_note_recipient
+   ADD CONSTRAINT edit_note_recipient_fk_recipient
+   FOREIGN KEY (recipient)
+   REFERENCES editor(id);
+
+ALTER TABLE edit_note_recipient
+   ADD CONSTRAINT edit_note_recipient_fk_edit_note
+   FOREIGN KEY (edit_note)
+   REFERENCES edit_note(id);
+
 ALTER TABLE edit_place
    ADD CONSTRAINT edit_place_fk_edit
    FOREIGN KEY (edit)
