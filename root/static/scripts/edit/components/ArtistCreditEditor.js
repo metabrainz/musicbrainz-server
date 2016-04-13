@@ -79,7 +79,7 @@ class ArtistCreditEditor extends React.Component {
         'names',
         names => setAutoJoinPhrases(names.push(new ArtistCreditName())),
       )
-    });
+    }, () => this.positionBubble());
   }
 
   removeName(index, event) {
@@ -87,6 +87,7 @@ class ArtistCreditEditor extends React.Component {
     event.stopPropagation();
     const ac = this.state.artistCredit;
     this.setState({artistCredit: ac.deleteIn(['names', index])}, () => {
+      this.positionBubble();
       if (index > 0 && index === ac.names.size - 1) {
         $('#artist-credit-bubble').find('.remove-item').eq(index - 1).focus();
       }
@@ -123,6 +124,40 @@ class ArtistCreditEditor extends React.Component {
     }
   }
 
+  positionBubble() {
+    const $button = $(this.refs.button);
+    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    let maxWidth;
+    let tailClass;
+
+    if (this.props.orientation === 'left') {
+      position.my = 'right center';
+      position.at = 'left-15 center';
+      maxWidth = $button.position().left - 64;
+      tailClass = 'right-tail';
+    } else {
+      position.my = 'left center';
+      position.at = 'right+15 center';
+      maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
+      tailClass = 'left-tail';
+    }
+
+    $('#artist-credit-bubble')
+      .css('max-width', maxWidth)
+      .data('target', this.props.entity)
+      .data('componentInst', this)
+      .find('.bubble')
+        .removeClass('left-tail right-tail')
+        .addClass(tailClass)
+        .end()
+      .show()
+      .position(position)
+      // For some reason this needs to be called twice...
+      // Steps to reproduce: open the release AC bubble, switch to the
+      // tracklist tab, open a track AC bubble.
+      .position(position);
+  }
+
   updateBubble(show = false) {
     const $bubble = $('#artist-credit-bubble');
     const props = this.props;
@@ -146,37 +181,9 @@ class ArtistCreditEditor extends React.Component {
       $bubble[0],
       show ? (() => {
         const $button = $(this.refs.button);
-        let position = {of: $button[0], collision: 'fit none', within: $('body')};
-        let maxWidth;
-        let tailClass;
-
-        if (props.orientation === 'left') {
-          position.my = 'right center';
-          position.at = 'left-15 center';
-          maxWidth = $button.position().left - 64;
-          tailClass = 'right-tail';
-        } else {
-          position.my = 'left center';
-          position.at = 'right+15 center';
-          maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
-          tailClass = 'left-tail';
-        }
-
         const bubbleWasVisible = $bubble.is(':visible');
-        $bubble
-          .css('max-width', maxWidth)
-          .data('target', props.entity)
-          .data('componentInst', this)
-          .find('.bubble')
-            .removeClass('left-tail right-tail')
-            .addClass(tailClass)
-            .end()
-          .show()
-          .position(position)
-          // For some reason this needs to be called twice...
-          // Steps to reproduce: open the release AC bubble, switch to the
-          // tracklist tab, open a track AC bubble.
-          .position(position);
+
+        this.positionBubble();
 
         if (!bubbleWasVisible) {
           $bubble.find(':input:eq(0)').focus();
