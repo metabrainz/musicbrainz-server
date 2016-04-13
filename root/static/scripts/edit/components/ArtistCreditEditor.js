@@ -117,11 +117,19 @@ class ArtistCreditEditor extends React.Component {
 
   toggleBubble() {
     const $bubble = $('#artist-credit-bubble');
-    if ($bubble.is(':visible') && $bubble.data('target') === this.props.entity) {
-      this.done();
-    } else {
-      this.updateBubble(true);
+    if ($bubble.is(':visible')) {
+      const inst = $bubble.data('componentInst');
+
+      if (inst.props.doneCallback) {
+        inst.props.doneCallback();
+      }
+
+      if ($bubble.data('target') === this.props.entity) {
+        this.hide();
+        return;
+      }
     }
+    this.updateBubble(true);
   }
 
   positionBubble() {
