@@ -79,7 +79,7 @@ class ArtistCreditEditor extends React.Component {
         'names',
         names => setAutoJoinPhrases(names.push(new ArtistCreditName())),
       )
-    });
+    }, () => this.positionBubble());
   }
 
   removeName(index, event) {
@@ -87,6 +87,7 @@ class ArtistCreditEditor extends React.Component {
     event.stopPropagation();
     const ac = this.state.artistCredit;
     this.setState({artistCredit: ac.deleteIn(['names', index])}, () => {
+      this.positionBubble();
       if (index > 0 && index === ac.names.size - 1) {
         $('#artist-credit-bubble').find('.remove-item').eq(index - 1).focus();
       }
@@ -116,11 +117,53 @@ class ArtistCreditEditor extends React.Component {
 
   toggleBubble() {
     const $bubble = $('#artist-credit-bubble');
-    if ($bubble.is(':visible') && $bubble.data('target') === this.props.entity) {
-      this.done();
-    } else {
-      this.updateBubble(true);
+    if ($bubble.is(':visible')) {
+      const inst = $bubble.data('componentInst');
+
+      if (inst.props.doneCallback) {
+        inst.props.doneCallback();
+      }
+
+      if ($bubble.data('target') === this.props.entity) {
+        this.hide();
+        return;
+      }
     }
+    this.updateBubble(true);
+  }
+
+  positionBubble() {
+    const $button = $(this.refs.button);
+    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    let maxWidth;
+    let tailClass;
+
+    if (this.props.orientation === 'left') {
+      position.my = 'right center';
+      position.at = 'left-15 center';
+      maxWidth = $button.position().left - 64;
+      tailClass = 'right-tail';
+    } else {
+      position.my = 'left center';
+      position.at = 'right+15 center';
+      maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
+      tailClass = 'left-tail';
+    }
+
+    $('#artist-credit-bubble')
+      .css('max-width', maxWidth)
+      .data('target', this.props.entity)
+      .data('componentInst', this)
+      .find('.bubble')
+        .removeClass('left-tail right-tail')
+        .addClass(tailClass)
+        .end()
+      .show()
+      .position(position)
+      // For some reason this needs to be called twice...
+      // Steps to reproduce: open the release AC bubble, switch to the
+      // tracklist tab, open a track AC bubble.
+      .position(position);
   }
 
   updateBubble(show = false) {
@@ -146,37 +189,9 @@ class ArtistCreditEditor extends React.Component {
       $bubble[0],
       show ? (() => {
         const $button = $(this.refs.button);
-        let position = {of: $button[0], collision: 'fit none', within: $('body')};
-        let maxWidth;
-        let tailClass;
-
-        if (props.orientation === 'left') {
-          position.my = 'right center';
-          position.at = 'left-15 center';
-          maxWidth = $button.position().left - 64;
-          tailClass = 'right-tail';
-        } else {
-          position.my = 'left center';
-          position.at = 'right+15 center';
-          maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
-          tailClass = 'left-tail';
-        }
-
         const bubbleWasVisible = $bubble.is(':visible');
-        $bubble
-          .css('max-width', maxWidth)
-          .data('target', props.entity)
-          .data('componentInst', this)
-          .find('.bubble')
-            .removeClass('left-tail right-tail')
-            .addClass(tailClass)
-            .end()
-          .show()
-          .position(position)
-          // For some reason this needs to be called twice...
-          // Steps to reproduce: open the release AC bubble, switch to the
-          // tracklist tab, open a track AC bubble.
-          .position(position);
+
+        this.positionBubble();
 
         if (!bubbleWasVisible) {
           $bubble.find(':input:eq(0)').focus();
@@ -197,10 +212,21 @@ class ArtistCreditEditor extends React.Component {
   }
 
   done(stealFocus = true) {
-    this.hide(stealFocus);
     if (this.props.doneCallback) {
       this.props.doneCallback();
     }
+
+    // XXX The release editor still uses knockout.
+    const entity = this.props.entity;
+    if (entity.entityType === 'track') {
+      const next = entity.medium.tracks()[entity.position()];
+      if (next) {
+        ko.bindingHandlers.artistCreditEditor.nextTrack();
+        return;
+      }
+    }
+
+    this.hide(stealFocus);
   }
 
   componentDidMount() {
