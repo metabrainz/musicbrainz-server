@@ -118,6 +118,8 @@ CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX edit_note_idx_editor ON edit_note (editor);
 CREATE INDEX edit_note_idx_post_time_edit ON edit_note (post_time DESC, edit DESC);
 
+CREATE INDEX edit_note_recipient_idx_recipient ON edit_note_recipient (recipient);
+
 CREATE UNIQUE INDEX event_idx_gid ON event (gid);
 CREATE INDEX event_idx_name ON event (name);
 

@@ -443,6 +443,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_instrument
     edit_label
     edit_note
+    edit_note_recipient
     edit_place
     edit_recording
     edit_release

@@ -563,6 +563,9 @@ CREATE TRIGGER a_upd_instrument AFTER UPDATE ON musicbrainz.instrument
 CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
     FOR EACH ROW EXECUTE PROCEDURE a_del_instrument();
 
+CREATE TRIGGER a_ins_edit_note AFTER INSERT ON edit_note
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_edit_note();
+
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_area DEFERRABLE INITIALLY DEFERRED

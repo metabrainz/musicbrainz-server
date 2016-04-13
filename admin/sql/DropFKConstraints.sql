@@ -62,6 +62,8 @@ ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_fk_edit;
 ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_fk_label;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_editor;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_edit;
+ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_recipient;
+ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_edit_note;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_fk_edit;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_fk_place;
 ALTER TABLE edit_recording DROP CONSTRAINT IF EXISTS edit_recording_fk_edit;

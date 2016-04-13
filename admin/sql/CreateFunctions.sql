@@ -1079,4 +1079,20 @@ CREATE OR REPLACE FUNCTION track_count_matches_cdtoc(medium, int) RETURNS boolea
 $$ LANGUAGE SQL IMMUTABLE;
 
 COMMIT;
+
+-----------------------------------------------------------------------
+-- edit_note triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_edit_note() RETURNS trigger AS $$
+BEGIN
+    INSERT INTO edit_note_recipient (recipient, edit_note) (
+        SELECT edit.editor, NEW.id
+          FROM edit
+         WHERE edit.id = NEW.edit
+    );
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -- vi: set ts=4 sw=4 et :
