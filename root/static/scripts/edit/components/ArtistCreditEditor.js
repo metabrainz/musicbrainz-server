@@ -211,18 +211,20 @@ class ArtistCreditEditor extends React.Component {
     });
   }
 
-  done(stealFocus = true) {
+  done(stealFocus = true, nextTrack = false) {
     if (this.props.doneCallback) {
       this.props.doneCallback();
     }
 
     // XXX The release editor still uses knockout.
-    const entity = this.props.entity;
-    if (entity.entityType === 'track') {
-      const next = entity.medium.tracks()[entity.position()];
-      if (next) {
-        ko.bindingHandlers.artistCreditEditor.nextTrack();
-        return;
+    if (nextTrack) {
+      const entity = this.props.entity;
+      if (entity.entityType === 'track') {
+        const next = entity.medium.tracks()[entity.position()];
+        if (next) {
+          ko.bindingHandlers.artistCreditEditor.nextTrack();
+          return;
+        }
       }
     }
 
