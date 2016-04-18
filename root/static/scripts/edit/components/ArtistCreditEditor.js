@@ -85,8 +85,11 @@ class ArtistCreditEditor extends React.Component {
   removeName(index, event) {
     // Prevent track artist bubbles from closing.
     event.stopPropagation();
+
     const ac = this.state.artistCredit;
-    this.setState({artistCredit: ac.deleteIn(['names', index])}, () => {
+    const newAC = ac.update('names', names => setAutoJoinPhrases(names.delete(index)));
+
+    this.setState({artistCredit: newAC}, () => {
       this.positionBubble();
       if (index > 0 && index === ac.names.size - 1) {
         $('#artist-credit-bubble').find('.remove-item').eq(index - 1).focus();

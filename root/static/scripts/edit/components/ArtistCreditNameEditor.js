@@ -53,7 +53,9 @@ class ArtistCreditNameEditor extends React.Component {
     // likely that it should be surrounded by spaces. Add those spaces
     // automatically only this first time. Also standardise "feat." according
     // to our guidelines.
-    let joinPhrase = clean(event.target.value);
+    const currentJoinPhrase = event.target.value;
+
+    let joinPhrase = clean(currentJoinPhrase);
     joinPhrase = joinPhrase.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i, 'feat.');
 
     if (/^[A-Za-z]+\.?$/.test(joinPhrase)) {
@@ -69,12 +71,17 @@ class ArtistCreditNameEditor extends React.Component {
       joinPhrase = '; ';
     }
 
-    // The join phrase has been changed, it should no langer be automatic.
-    this.props.onChange({joinPhrase: joinPhrase, automaticJoinPhrase: false});
+    if (joinPhrase !== currentJoinPhrase) {
+      this.props.onChange({joinPhrase});
+    }
   }
 
   onJoinPhraseChange(event) {
-    this.props.onChange({joinPhrase: event.target.value});
+    // The join phrase has been changed, it should no longer be automatic.
+    this.props.onChange({
+      automaticJoinPhrase: false,
+      joinPhrase: event.target.value,
+    });
   }
 
   render() {
