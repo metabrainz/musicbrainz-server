@@ -131,9 +131,9 @@ MB.releaseEditor.init = function (options) {
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
         if (tabID === "#tracklist" && releaseACChanged) {
-            if (!hasVariousArtists(releaseAC)) {
-                var names = releaseAC.names.toJS();
+            const names = releaseAC.names.toJS();
 
+            if (!hasVariousArtists(releaseAC)) {
                 _.each(release.mediums(), function (medium) {
                     _.each(medium.tracks(), function (track) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {

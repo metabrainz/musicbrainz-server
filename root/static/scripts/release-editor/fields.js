@@ -189,13 +189,16 @@ const validation = require('../edit/validation');
         },
 
         artistDiffersFromRecording: function () {
-            var artistCredit = this.recording().artistCredit;
+            const recording = this.recording();
 
-            if (!artistCredit) {
+            // This function is used to determine whether we can update the
+            // recording AC, so if there's no recording, then there's nothing
+            // to compare against.
+            if (!recording || !recording.gid) {
                 return false;
             }
 
-            return !artistCreditsAreEqual(this.artistCredit(), artistCredit);
+            return !artistCreditsAreEqual(this.artistCredit(), recording.artistCredit);
         },
 
         hasExistingRecording: function () {
@@ -940,7 +943,6 @@ const validation = require('../edit/validation');
             const props = {
                 entity: entity,
                 hiddenInputs: false,
-                initialNames: entity.artistCredit().names.toJS(),
                 onChange: entity.artistCredit,
             };
             if (entity instanceof fields.Track) {

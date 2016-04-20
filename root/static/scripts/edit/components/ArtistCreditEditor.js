@@ -5,6 +5,7 @@
 
 const Immutable = require('immutable');
 const $ = require('jquery');
+const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -61,7 +62,9 @@ class ArtistCreditEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = stateFromArray(this.props.initialNames);
+    this.state = {
+      artistCredit: ko.unwrap(this.props.entity.artistCredit)
+    };
 
     this.addName = this.addName.bind(this);
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
@@ -79,14 +82,18 @@ class ArtistCreditEditor extends React.Component {
         'names',
         names => setAutoJoinPhrases(names.push(new ArtistCreditName())),
       )
-    });
+    }, () => this.positionBubble());
   }
 
   removeName(index, event) {
     // Prevent track artist bubbles from closing.
     event.stopPropagation();
+
     const ac = this.state.artistCredit;
-    this.setState({artistCredit: ac.deleteIn(['names', index])}, () => {
+    const newAC = ac.update('names', names => setAutoJoinPhrases(names.delete(index)));
+
+    this.setState({artistCredit: newAC}, () => {
+      this.positionBubble();
       if (index > 0 && index === ac.names.size - 1) {
         $('#artist-credit-bubble').find('.remove-item').eq(index - 1).focus();
       }
@@ -116,11 +123,53 @@ class ArtistCreditEditor extends React.Component {
 
   toggleBubble() {
     const $bubble = $('#artist-credit-bubble');
-    if ($bubble.is(':visible') && $bubble.data('target') === this.props.entity) {
-      this.done();
-    } else {
-      this.updateBubble(true);
+    if ($bubble.is(':visible')) {
+      const inst = $bubble.data('componentInst');
+
+      if (inst.props.doneCallback) {
+        inst.props.doneCallback();
+      }
+
+      if ($bubble.data('target') === this.props.entity) {
+        this.hide();
+        return;
+      }
     }
+    this.updateBubble(true);
+  }
+
+  positionBubble() {
+    const $button = $(this.refs.button);
+    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    let maxWidth;
+    let tailClass;
+
+    if (this.props.orientation === 'left') {
+      position.my = 'right center';
+      position.at = 'left-15 center';
+      maxWidth = $button.position().left - 64;
+      tailClass = 'right-tail';
+    } else {
+      position.my = 'left center';
+      position.at = 'right+15 center';
+      maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
+      tailClass = 'left-tail';
+    }
+
+    $('#artist-credit-bubble')
+      .css('max-width', maxWidth)
+      .data('target', this.props.entity)
+      .data('componentInst', this)
+      .find('.bubble')
+        .removeClass('left-tail right-tail')
+        .addClass(tailClass)
+        .end()
+      .show()
+      .position(position)
+      // For some reason this needs to be called twice...
+      // Steps to reproduce: open the release AC bubble, switch to the
+      // tracklist tab, open a track AC bubble.
+      .position(position);
   }
 
   updateBubble(show = false) {
@@ -146,36 +195,9 @@ class ArtistCreditEditor extends React.Component {
       $bubble[0],
       show ? (() => {
         const $button = $(this.refs.button);
-        let position = {of: $button[0], collision: 'fit none', within: $('body')};
-        let maxWidth;
-        let tailClass;
-
-        if (props.orientation === 'left') {
-          position.my = 'right center';
-          position.at = 'left-15 center';
-          maxWidth = $button.position().left - 64;
-          tailClass = 'right-tail';
-        } else {
-          position.my = 'left center';
-          position.at = 'right+15 center';
-          maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
-          tailClass = 'left-tail';
-        }
-
         const bubbleWasVisible = $bubble.is(':visible');
-        $bubble
-          .css('max-width', maxWidth)
-          .data('target', props.entity)
-          .find('.bubble')
-            .removeClass('left-tail right-tail')
-            .addClass(tailClass)
-            .end()
-          .show()
-          .position(position)
-          // For some reason this needs to be called twice...
-          // Steps to reproduce: open the release AC bubble, switch to the
-          // tracklist tab, open a track AC bubble.
-          .position(position);
+
+        this.positionBubble();
 
         if (!bubbleWasVisible) {
           $bubble.find(':input:eq(0)').focus();
@@ -184,16 +206,35 @@ class ArtistCreditEditor extends React.Component {
     );
   }
 
-  hide() {
-    $('#artist-credit-bubble').hide();
-    this.refs.button.focus();
+  hide(stealFocus = true) {
+    const $bubble = $('#artist-credit-bubble').hide();
+    if (stealFocus) {
+      this.refs.button.focus();
+    }
+    // Defer until after the doneCallback() executes (if done() called us).
+    _.defer(function () {
+      $bubble.data('target', null).data('componentInst', null);
+    });
   }
 
-  done() {
-    this.hide();
+  done(stealFocus = true, nextTrack = false) {
     if (this.props.doneCallback) {
       this.props.doneCallback();
     }
+
+    // XXX The release editor still uses knockout.
+    if (nextTrack) {
+      const entity = this.props.entity;
+      if (entity.entityType === 'track') {
+        const next = entity.medium.tracks()[entity.position()];
+        if (next) {
+          ko.bindingHandlers.artistCreditEditor.nextTrack();
+          return;
+        }
+      }
+    }
+
+    this.hide(stealFocus);
   }
 
   componentDidMount() {
@@ -202,7 +243,7 @@ class ArtistCreditEditor extends React.Component {
         .hide()
         .appendTo('body');
 
-      $('body').on('click.artist-credit-editor', function (event) {
+      $('body').on('click.artist-credit-editor', event => {
         const $target = $(event.target);
         if (!event.isDefaultPrevented() &&
             $bubble.is(':visible') &&
@@ -211,7 +252,7 @@ class ArtistCreditEditor extends React.Component {
             // Close unless focus was moved to a dialog above this one, e.g.
             // when adding a new entity.
             !$target.parents('.ui-dialog').length) {
-          $bubble.hide();
+          $bubble.data('componentInst').done(false);
         }
       });
     }
@@ -222,7 +263,10 @@ class ArtistCreditEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(stateFromArray(nextProps.initialNames));
+    const artistCredit = ko.unwrap(nextProps.entity.artistCredit);
+    if (!artistCreditsAreEqual(this.state.artistCredit, artistCredit)) {
+      this.setState({artistCredit});
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -297,11 +341,18 @@ class ArtistCreditEditor extends React.Component {
                   isLookupPerformed={isCompleteArtistCredit(ac)}
                   onChange={artist => {
                     if (singleArtistIsEditable) {
-                      this.setState(stateFromArray([{
-                        artist,
-                        name: artist.name,
-                        joinPhrase: '',
-                      }]));
+                      const firstName = this.state.artistCredit.names.get(0);
+                      this.setState({
+                        artistCredit: new ArtistCredit({
+                          names: Immutable.List([
+                            new ArtistCreditName({
+                              artist,
+                              name: firstName ? firstName.name : artist.name,
+                              joinPhrase: '',
+                            })
+                          ])
+                        })
+                      });
                     }
                   }}
                   showStatus={false} />

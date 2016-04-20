@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const i18n = require('../common/i18n');
-const {reduceArtistCredit} = require('../common/immutable-entities');
+const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const isBlank = require('../common/utility/isBlank');
 const request = require('../common/utility/request');
@@ -107,7 +107,7 @@ const request = require('../common/utility/request');
             track.formattedLength = formatTrackLength(track.length);
 
             if (track.artistCredit) {
-                track.artist = reduceArtistCredit(track.artistCredit());
+                track.artist = reduceArtistCredit(artistCreditFromArray(track.artistCredit));
             } else {
                 track.artist = track.artist || this.artist || "";
                 track.artistCredit = [{ name: track.artist }];

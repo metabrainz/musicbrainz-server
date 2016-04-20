@@ -26,7 +26,7 @@ function onBubbleKeyDown(done, hide, event) {
     if (pressedEsc) {
       hide();
     } else if (pressedEnter) {
-      done();
+      done(true /* stealFocus */, true /* nextTrack */);
     }
   }
 }

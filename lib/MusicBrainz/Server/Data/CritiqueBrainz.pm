@@ -51,7 +51,8 @@ sub _get_review {
     my $response = $self->c->lwp->get($url) or return;
     $response->is_success or return;
 
-    return decode_json($response->content);
+    my $review = eval { decode_json($response->content) };
+    return $review;
 }
 
 sub _parse_review {

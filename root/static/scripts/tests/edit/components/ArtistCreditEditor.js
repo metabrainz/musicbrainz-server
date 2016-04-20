@@ -7,6 +7,7 @@ const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactDOMServer = require('react-dom/server');
+const ReactTestUtils = require('react-addons-test-utils');
 const test = require('tape');
 
 const {artistCreditFromArray} = require('../../../common/immutable-entities');
@@ -14,23 +15,17 @@ const ArtistCreditEditor = require('../../../edit/components/ArtistCreditEditor'
 
 const bowie = {id: 956, gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50', name: 'david bowie'};
 const crosby = {id: 99, gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f', name: 'bing crosby'};
-const emptyEntity = {name: '', artistCredit: artistCreditFromArray([])};
 
 test('hidden inputs', function (t) {
   t.plan(19);
 
   const div = document.createElement('div');
-
-  const commonProps = {
-    entity: emptyEntity,
-    form: {name: 'form'},
-    hiddenInputs: true,
-  };
+  const commonProps = {form: {name: 'form'}, hiddenInputs: true};
 
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[{artist: bowie, name: 'david bowie'}]} />
+      entity={{name: '', artistCredit: artistCreditFromArray([{artist: bowie, name: 'david bowie'}])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 4);
@@ -42,7 +37,7 @@ test('hidden inputs', function (t) {
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[{artist: bowie, name: 'david robert jones'}]} />
+      entity={{name: '', artistCredit: artistCreditFromArray([{artist: bowie, name: 'david robert jones'}])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 4);
@@ -54,10 +49,12 @@ test('hidden inputs', function (t) {
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[
-        {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
-        {artist: crosby, name: 'bing crosby'},
-      ]} />
+      entity={{
+        name: '',
+        artistCredit: artistCreditFromArray([
+          {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
+          {artist: crosby, name: 'bing crosby'},
+        ])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 8);
@@ -76,7 +73,7 @@ test('clicking outside of a track AC bubble closes it', function (t) {
 
   const $container = $('<div>').appendTo('body');
   ReactDOM.render(
-    <ArtistCreditEditor entity={emptyEntity} initialNames={[]} />,
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
       const $bubble = $('#artist-credit-bubble');
@@ -98,7 +95,7 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
 
   const $container = $('<div>').appendTo('body');
   ReactDOM.render(
-    <ArtistCreditEditor entity={emptyEntity} initialNames={[]} />,
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
       const $bubble = $('#artist-credit-bubble');
@@ -118,6 +115,82 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
       t.ok(!$bubble.is(':visible'), 'bubble is hidden after clicking the button again');
 
       $container.remove();
+    }
+  );
+});
+
+test('removing all credits but one should clear the join phrase (MBS-8896)', function (t) {
+  t.plan(2);
+
+  const $container = $('<div>').appendTo('body');
+  ReactDOM.render(
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
+    $container[0],
+    function () {
+      const $bubble = $('#artist-credit-bubble');
+      const $button = $container.find('.open-ac');
+      const $joinPhrase = $bubble.find('input[type=text]:eq(2)');
+
+      $bubble.find('.add-item').click();
+      t.equal($joinPhrase.val(), ' & ');
+      $bubble.find('.remove-item:last').click();
+      t.equal($joinPhrase.val(), '');
+    }
+  );
+});
+
+test('updating the artist field should also update the credited name field (MBS-8911)', function (t) {
+  t.plan(3);
+
+  const $container = $('<div>').appendTo('body');
+  ReactDOM.render(
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
+    $container[0],
+    function () {
+      const $bubble = $('#artist-credit-bubble');
+      const $artistNode = $bubble.find('input[type=text]:eq(0)');
+      const $creditNode = $bubble.find('input[type=text]:eq(1)');
+
+      $artistNode.val('hello').trigger('input');
+      t.equal($creditNode.val(), 'hello');
+
+      $artistNode.val('hello there').trigger('input');
+      t.equal($creditNode.val(), 'hello there');
+
+      $artistNode.val('').trigger('input');
+      t.equal($creditNode.val(), '');
+    }
+  );
+});
+
+test('can clear the credited name field until it is blurred', function (t) {
+  t.plan(3);
+
+  const $container = $('<div>').appendTo('body');
+  ReactDOM.render(
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
+    $container[0],
+    function () {
+      const $bubble = $('#artist-credit-bubble');
+      const $artistNode = $bubble.find('input[type=text]:eq(0)');
+      const $creditNode = $bubble.find('input[type=text]:eq(1)');
+
+      $artistNode.val('hello').trigger('input');
+
+      $creditNode.focus();
+      $creditNode.val('').trigger('input');
+      t.equal($creditNode.val(), '');
+
+      // also test whether it can be cleared when it differs from the artist
+      // name, which was another subtle bug.
+      $creditNode.val('not hello').trigger('input');
+      $creditNode.val('').trigger('input');
+      t.equal($creditNode.val(), '');
+
+      // jQuery's blur() doesn't work here for some reason.
+      // (Likewise, ReactTestUtils.Simulate.input() doesn't work above.)
+      ReactTestUtils.Simulate.blur($creditNode[0], {target: $creditNode[0]});
+      t.equal($creditNode.val(), 'hello');
     }
   );
 });

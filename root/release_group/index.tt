@@ -74,13 +74,13 @@
     [%- END -%]
     [%- INCLUDE "components/relationships.tt" source=rg -%]
 
-    <h2>[% l('CritiqueBrainz Reviews') %]</h2>
-
-    [%- PROCESS 'components/critiquebrainz.tt' -%]
-
-    <p>
-      [%~ critiquebrainz_links(rg) ~%]
-    </p>
+    [%~ IF rg.review_count.defined ~%]
+      <h2>[% l('CritiqueBrainz Reviews') %]</h2>
+      [%- PROCESS 'components/critiquebrainz.tt' -%]
+      <p>
+        [%~ critiquebrainz_links(rg) ~%]
+      </p>
+    [%~ END ~%]
 
     <div id="critiquebrainz-reviews">
       [%~ IF rg.most_recent_review ~%]
