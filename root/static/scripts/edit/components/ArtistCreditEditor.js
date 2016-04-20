@@ -5,6 +5,7 @@
 
 const Immutable = require('immutable');
 const $ = require('jquery');
+const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -61,7 +62,9 @@ class ArtistCreditEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = stateFromArray(this.props.initialNames);
+    this.state = {
+      artistCredit: ko.unwrap(this.props.entity.artistCredit)
+    };
 
     this.addName = this.addName.bind(this);
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
@@ -260,7 +263,10 @@ class ArtistCreditEditor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(stateFromArray(nextProps.initialNames));
+    const artistCredit = ko.unwrap(nextProps.entity.artistCredit);
+    if (!artistCreditsAreEqual(this.state.artistCredit, artistCredit)) {
+      this.setState({artistCredit});
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -335,11 +341,18 @@ class ArtistCreditEditor extends React.Component {
                   isLookupPerformed={isCompleteArtistCredit(ac)}
                   onChange={artist => {
                     if (singleArtistIsEditable) {
-                      this.setState(stateFromArray([{
-                        artist,
-                        name: artist.name,
-                        joinPhrase: '',
-                      }]));
+                      const firstName = this.state.artistCredit.names.get(0);
+                      this.setState({
+                        artistCredit: new ArtistCredit({
+                          names: Immutable.List([
+                            new ArtistCreditName({
+                              artist,
+                              name: firstName ? firstName.name : artist.name,
+                              joinPhrase: '',
+                            })
+                          ])
+                        })
+                      });
                     }
                   }}
                   showStatus={false} />

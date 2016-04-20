@@ -35,7 +35,7 @@ const FormRow = ({children, ...props}) => (
   </div>
 );
 
-const FormRowArtistCredit = ({form, entity, initialNames}) => (
+const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>
     <label htmlFor="entity-artist" className="required">
       {l('Artist:')}
@@ -44,8 +44,7 @@ const FormRowArtistCredit = ({form, entity, initialNames}) => (
       entity={entity}
       forLabel="entity-artist"
       form={form}
-      hiddenInputs={true}
-      initialNames={initialNames} />
+      hiddenInputs={true} />
     <If condition={form}>
       <FieldErrors form={form} fieldName="artist_credit" />
     </If>
@@ -57,10 +56,7 @@ MB.initializeArtistCredit = function (form, initialNames) {
   source.artistCredit = artistCreditFromArray(initialNames);
 
   ReactDOM.render(
-    <FormRowArtistCredit
-      entity={source}
-      form={form}
-      initialNames={initialNames} />,
+    <FormRowArtistCredit entity={source} form={form} />,
     document.getElementById('artist-credit-editor')
   );
 };

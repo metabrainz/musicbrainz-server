@@ -943,7 +943,6 @@ const validation = require('../edit/validation');
             const props = {
                 entity: entity,
                 hiddenInputs: false,
-                initialNames: entity.artistCredit().names.toJS(),
                 onChange: entity.artistCredit,
             };
             if (entity instanceof fields.Track) {
