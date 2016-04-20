@@ -14,7 +14,10 @@ const nonEmpty = require('../../common/utility/nonEmpty');
 class ArtistCreditNameEditor extends React.Component {
   constructor(props) {
     super(props);
+
+    this.artistName = _.get(props.name, ['artist', 'name'], '');
     this.onArtistChange = this.onArtistChange.bind(this);
+    this.onNameBlur = this.onNameBlur.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onJoinPhraseBlur = this.onJoinPhraseBlur.bind(this);
     this.onJoinPhraseChange = this.onJoinPhraseChange.bind(this);
@@ -23,24 +26,28 @@ class ArtistCreditNameEditor extends React.Component {
   onArtistChange(artist) {
     const update = {artist};
     const artistName = artist ? artist.name : '';
-    const currentArtistName = _.get(this.props.name, ['artist', 'name'], '');
 
-    if (!artistName || currentArtistName === this.props.name.name) {
+    if (!artistName || this.artistName === this.props.name.name) {
       update.name = artistName;
     }
 
+    this.artistName = artistName;
     this.props.onChange(update);
   }
 
-  onNameChange(event) {
-    let newName = event.target.value;
-    const artist = this.artist;
+  onNameBlur(event) {
+    let newName = clean(event.target.value);
 
+    const artist = this.props.name.artist;
     if (newName === '' && artist) {
       newName = artist.name;
     }
 
     this.props.onChange({name: newName});
+  }
+
+  onNameChange(event) {
+    this.props.onChange({name: event.target.value});
   }
 
   onJoinPhraseBlur(event) {
@@ -97,6 +104,7 @@ class ArtistCreditNameEditor extends React.Component {
         </td>
         <td>
           <input
+            onBlur={this.onNameBlur}
             onChange={this.onNameChange}
             type="text"
             value={nonEmpty(name.name) ? name.name : ''} />

@@ -14,23 +14,17 @@ const ArtistCreditEditor = require('../../../edit/components/ArtistCreditEditor'
 
 const bowie = {id: 956, gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50', name: 'david bowie'};
 const crosby = {id: 99, gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f', name: 'bing crosby'};
-const emptyEntity = {name: '', artistCredit: artistCreditFromArray([])};
 
 test('hidden inputs', function (t) {
   t.plan(19);
 
   const div = document.createElement('div');
-
-  const commonProps = {
-    entity: emptyEntity,
-    form: {name: 'form'},
-    hiddenInputs: true,
-  };
+  const commonProps = {form: {name: 'form'}, hiddenInputs: true};
 
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[{artist: bowie, name: 'david bowie'}]} />
+      entity={{name: '', artistCredit: artistCreditFromArray([{artist: bowie, name: 'david bowie'}])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 4);
@@ -42,7 +36,7 @@ test('hidden inputs', function (t) {
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[{artist: bowie, name: 'david robert jones'}]} />
+      entity={{name: '', artistCredit: artistCreditFromArray([{artist: bowie, name: 'david robert jones'}])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 4);
@@ -54,10 +48,12 @@ test('hidden inputs', function (t) {
   div.innerHTML = ReactDOMServer.renderToStaticMarkup(
     <ArtistCreditEditor
       {...commonProps}
-      initialNames={[
-        {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
-        {artist: crosby, name: 'bing crosby'},
-      ]} />
+      entity={{
+        name: '',
+        artistCredit: artistCreditFromArray([
+          {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
+          {artist: crosby, name: 'bing crosby'},
+        ])}} />
   );
 
   t.equal($('input[type=hidden]', div).length, 8);
@@ -76,7 +72,7 @@ test('clicking outside of a track AC bubble closes it', function (t) {
 
   const $container = $('<div>').appendTo('body');
   ReactDOM.render(
-    <ArtistCreditEditor entity={emptyEntity} initialNames={[]} />,
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
       const $bubble = $('#artist-credit-bubble');
@@ -98,7 +94,7 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
 
   const $container = $('<div>').appendTo('body');
   ReactDOM.render(
-    <ArtistCreditEditor entity={emptyEntity} initialNames={[]} />,
+    <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
       const $bubble = $('#artist-credit-bubble');
