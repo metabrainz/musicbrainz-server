@@ -62,6 +62,7 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         type_id => 'type',
         area_id => 'area',
         label_code => 'label_code',

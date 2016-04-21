@@ -49,6 +49,7 @@ sub _column_mapping {
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         comment => 'comment',
         type_id => 'type',
         ordering_type_id => 'ordering_type',

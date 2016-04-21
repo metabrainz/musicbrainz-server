@@ -68,6 +68,7 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         sort_name => 'sort_name',
         type_id => 'type',
         area_id => 'area',

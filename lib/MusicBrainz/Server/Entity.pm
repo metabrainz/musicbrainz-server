@@ -17,6 +17,7 @@ sub TO_JSON {
         entityType => $entity_type,
         id => $self->id,
         $self->can('name') ? (name => $self->name) : (),
+        $self->can('unaccented_name') ? (unaccentedName => $self->unaccented_name) : (),
     };
 }
 
