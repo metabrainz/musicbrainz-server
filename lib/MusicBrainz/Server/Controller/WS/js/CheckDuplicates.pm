@@ -37,11 +37,21 @@ sub check_duplicates : Chained('root') PathPart('check_duplicates') Args(0) {
         $c->detach;
     };
 
+    my @duplicates;
+    if ($c->model($model)->can('search_by_names')) {
+        my $ret = $c->model($model)->search_by_names($name)->{$name};
+        if ($ret) {
+            @duplicates = @{ $ret };
+        }
+    } else {
+        @duplicates = $c->model($model)->find_by_name($name);
+    }
+
     $c->res->body(encode_json({
         duplicates => [
             map {JSONSerializer->serialize_internal($c, $_)}
             grep {$_->gid ne ($mbid // '')}
-            $c->model($model)->find_by_name($name)
+            @duplicates
         ]
     }));
 };

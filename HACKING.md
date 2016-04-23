@@ -253,3 +253,12 @@ response that you get from Wikimedia Commons API in `Data::Role::MediaWikiAPI`.
 If it is indeed the cause then you can install `Mozilla::CA` module:
 
     $ cpanm Mozilla::CA
+
+Mac OS X
+--------
+
+After updating `gettext` or `icu4c` packages with Homebrew, you might need to
+re-link them:
+
+    $ brew link gettext --force
+    $ brew link icu4c --force
