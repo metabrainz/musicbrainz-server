@@ -31,6 +31,7 @@ test all => sub {
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
                 "sortName" => "David Bowie",
+                "unaccentedName" => undef,
                 "typeID" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
@@ -48,6 +49,7 @@ test all => sub {
                 "gid" => '46f0f4cd-8aab-4b33-b698-f459faf64190',
                 "id" => 2,
                 "name" => 'Warp Records',
+                "unaccentedName" => undef,
                 "primaryAlias" => undef,
                 "typeID" => 4,
               }, { "current" => 1, "pages" => 1 } ];
