@@ -177,7 +177,6 @@ test 'seeding a release with no tracklist' => sub {
 
     my $params = expand_hash({
         "name" => "大人なのよ!/1億3千万総ダイエット王国",
-        "unaccentedName" => undef,
         "artist_credit.names.0.artist.name" => "Berryz工房",
         "date.year" => "2014",
         "date.month" => "02",
