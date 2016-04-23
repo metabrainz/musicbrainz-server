@@ -64,9 +64,9 @@ role
             "    VALUES " . join (",", ("(?)") x scalar @names) . "), " .
             "    entity_matches (term, entity) AS (" .
             "        SELECT term, $type FROM ${type}_alias".
-            "           JOIN search ON musicbrainz_unaccent(lower(${type}_alias.name)) = musicbrainz_unaccent(lower(term))" .
+            "           JOIN search ON lower(musicbrainz_unaccent(${type}_alias.name)) = lower(musicbrainz_unaccent(term))" .
             "        UNION SELECT term, id FROM $type " .
-            "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term)))" .
+            "           JOIN search ON lower(musicbrainz_unaccent(${type}.name)) = lower(musicbrainz_unaccent(term)))" .
             "      SELECT term AS search_term, musicbrainz_unaccent(name) AS unaccented_name, ".$self->_columns.
             "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 

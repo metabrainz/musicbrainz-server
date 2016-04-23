@@ -84,7 +84,7 @@ override _is_disambiguation_needed => sub {
     my ($name, $area_id) = $opts{qw(name area_id)};
     my $duplicate_areas = $self->c->sql->select_single_column_array(
         'SELECT area FROM place
-         WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))',
+         WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))',
         $name
     );
 
