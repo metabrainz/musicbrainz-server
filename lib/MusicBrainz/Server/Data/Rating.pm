@@ -15,7 +15,7 @@ has 'type' => (
 );
 
 has 'parent' => (
-    does => 'MusicBrainz::Server::Data::Role::Name',
+    does => 'MusicBrainz::Server::Data::Role::Rating',
     is => 'rw',
     required => 1,
     weak_ref => 1

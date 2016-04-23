@@ -54,8 +54,8 @@ role
         return $self->c->model(type_to_model($params->type) . 'AliasType');
     };
 
-    around 'search_by_names' => sub {
-        my ($orig, $self, @names) = @_;
+    method 'search_by_names' => sub {
+        my ($self, @names) = @_;
         return {} unless scalar @names;
 
         my $type = $params->type;

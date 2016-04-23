@@ -26,7 +26,6 @@ use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };

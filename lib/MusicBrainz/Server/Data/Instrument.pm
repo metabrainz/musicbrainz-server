@@ -12,7 +12,6 @@ use MusicBrainz::Server::Entity::Instrument;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
