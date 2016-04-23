@@ -21,7 +21,6 @@ use MusicBrainz::Server::Entity::SeriesType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'series' };
@@ -49,6 +48,7 @@ sub _column_mapping {
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         comment => 'comment',
         type_id => 'type',
         ordering_type_id => 'ordering_type',

@@ -115,12 +115,14 @@ function isPlaceCommentRequired(duplicates) {
   });
 }
 
-function isCommentRequired(type, duplicates) {
+function isCommentRequired(type, name, duplicates) {
   if (type === 'place') {
     return isPlaceCommentRequired(duplicates);
   }
 
-  return duplicates.length > 0;
+  return duplicates.some(function (duplicate) {
+    return name.toUpperCase() === duplicate.unaccentedName.toUpperCase();
+  });
 }
 
 function markCommentAsRequired(input) {
@@ -183,8 +185,10 @@ MB.initializeDuplicateChecker = function (type) {
         if (duplicates.length) {
           renderDuplicates(name, duplicates, dupeContainer);
 
-          if (isBlank(commentInput.value) && isCommentRequired(type, duplicates)) {
+          if (isBlank(commentInput.value) && isCommentRequired(type, name, duplicates)) {
             markCommentAsRequired(commentInput);
+          } else {
+            markCommentAsNotRequired(commentInput);
           }
         } else {
           unmountDuplicates(dupeContainer);

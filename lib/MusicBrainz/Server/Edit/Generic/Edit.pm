@@ -157,7 +157,7 @@ sub _is_disambiguation_needed {
     my $table = $self->c->model($self->_edit_model)->_table;
     return $self->c->sql->select_single_value(
         "SELECT 1 FROM $table
-         WHERE id != ? AND musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))
+         WHERE id != ? AND lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))
          LIMIT 1",
         $entity->id, $opts{name}
     );

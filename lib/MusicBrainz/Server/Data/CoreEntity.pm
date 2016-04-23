@@ -117,7 +117,7 @@ sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))";
+                  WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))";
     $self->query_to_list($query, [$name]);
 }
 
@@ -153,8 +153,8 @@ sub find_by_names
         . ", (VALUES "
         .     join (",", ("(?)") x scalar(@names))
         .    ") search_terms (term)"
-        ." WHERE musicbrainz_unaccent(lower(name)) = "
-        ." musicbrainz_unaccent(lower(search_terms.term));";
+        ." WHERE lower(musicbrainz_unaccent(name)) = "
+        ." lower(musicbrainz_unaccent(search_terms.term));";
 
     my $results = $self->c->sql->select_list_of_hashes($query, @names);
 

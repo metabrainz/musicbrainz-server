@@ -27,6 +27,11 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'unaccented_name' => (
+    is => 'rw',
+    isa => 'Maybe[Str]'
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 

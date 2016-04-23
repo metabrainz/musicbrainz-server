@@ -47,7 +47,7 @@ after initialize => sub {
         return;
     }
 
-    push @conditions, map { "musicbrainz_unaccent(lower($_)) = musicbrainz_unaccent(lower(?))" } qw(name comment);
+    push @conditions, map { "lower(musicbrainz_unaccent($_)) = lower(musicbrainz_unaccent(?))" } qw(name comment);
     my $conditions = join ' AND ', @conditions;
 
     my $duplicate_violation = $self->c->sql->select_single_value(
