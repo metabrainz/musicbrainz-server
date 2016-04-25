@@ -1,7 +1,7 @@
 -- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
-SET search_path = 'sitemaps';
+SET search_path = 'sitemaps', 'musicbrainz', 'public';
 
 ALTER TABLE artist_lastmod
    ADD CONSTRAINT artist_lastmod_fk_id
