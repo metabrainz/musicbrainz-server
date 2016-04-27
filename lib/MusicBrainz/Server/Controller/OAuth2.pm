@@ -345,6 +345,7 @@ sub userinfo : Local
     my $data = {
         sub => $c->user->name,
         profile => $c->uri_for_action('/user/profile', [ $c->user->name ])->as_string,
+        metabrainz_user_id => $c->user->id,
     };
 
     if ($c->user->website) {

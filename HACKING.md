@@ -262,3 +262,7 @@ re-link them:
 
     $ brew link gettext --force
     $ brew link icu4c --force
+
+If `icu4c` was updated, you'll also need to rebuild `Unicode::ICU::Collator`:
+
+    $ cpanm --force Unicode::ICU::Collator
