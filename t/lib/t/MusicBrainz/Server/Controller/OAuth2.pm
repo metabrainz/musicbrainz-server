@@ -516,6 +516,7 @@ test 'User info' => sub {
         zoneinfo => 'Europe/Bratislava',
         email => 'me@mysite.com',
         email_verified => JSON::true,
+        metabrainz_user_id => 1,
     });
 
     # Valid token without email
@@ -529,6 +530,7 @@ test 'User info' => sub {
         website => 'http://www.mysite.com/',
         gender => 'male',
         zoneinfo => 'Europe/Bratislava',
+        metabrainz_user_id => 1,
     });
 };
 
