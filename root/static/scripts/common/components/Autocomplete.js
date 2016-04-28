@@ -9,6 +9,7 @@ const ko = require('knockout');
 const React = require('react');
 const {l} = require('../../common/i18n');
 
+require('../MB/Control/Autocomplete');
 require('../entity');
 
 class Autocomplete extends React.Component {
