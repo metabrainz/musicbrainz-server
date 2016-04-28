@@ -526,11 +526,18 @@ const ERROR_NO_CHANGES = 3;
         try {
             error = JSON.parse(data.responseText).error;
 
-            if (_.isObject(error) && error.errorCode === ERROR_NO_CHANGES) {
-                return false;
+            if (_.isObject(error)) {
+                if (error.errorCode === ERROR_NO_CHANGES) {
+                    return false;
+                }
+                if (error.message) {
+                    error = error.message;
+                } else {
+                    error = _.escape(data.statusText + ": " + data.status);
+                }
             }
         } catch (e) {
-            error = data.statusText + ": " + data.status;
+            error = _.escape(data.statusText + ": " + data.status);
         }
 
         releaseEditor.submissionError(error);
