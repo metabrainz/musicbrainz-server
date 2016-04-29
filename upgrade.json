@@ -27,8 +27,6 @@
     "slave": ["20160516-mbs-8838.sql",
               "20160516-mbs-8720.sql",
               "20141226-geodesic-index.sql"],
-    "standalone": ["20160516-mbs-8838.sql",
-                   "20160516-mbs-8720.sql",
-                   "20141226-geodesic-index.sql"]
+    "standalone": []
   }
 }
