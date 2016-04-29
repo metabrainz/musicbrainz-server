@@ -76,7 +76,9 @@ test('clicking outside of a track AC bubble closes it', function (t) {
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('.artist-credit-bubble:last');
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+
       t.ok(!$bubble.is(':visible'), 'bubble is not visible');
 
       $container.find('.open-ac').click();
@@ -99,7 +101,9 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('.artist-credit-bubble:last');
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+
       const $button = $container.find('.open-ac');
 
       // Open the track AC bubble.
@@ -129,8 +133,10 @@ test('removing all credits but one should clear the join phrase (MBS-8896)', fun
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('.artist-credit-bubble:last');
-      const $button = $container.find('.open-ac');
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+      $container.find('.open-ac').click();
+
       const $joinPhrase = $bubble.find('input[type=text]:eq(2)');
 
       $bubble.find('.add-item').click();
@@ -152,7 +158,10 @@ test('updating the artist field should also update the credited name field (MBS-
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('.artist-credit-bubble:last');
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+      $container.find('.open-ac').click();
+
       const $artistNode = $bubble.find('input[type=text]:eq(0)');
       const $creditNode = $bubble.find('input[type=text]:eq(1)');
 
@@ -179,7 +188,10 @@ test('can clear the credited name field until it is blurred', function (t) {
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('.artist-credit-bubble:last');
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+      $container.find('.open-ac').click();
+
       const $artistNode = $bubble.find('input[type=text]:eq(0)');
       const $creditNode = $bubble.find('input[type=text]:eq(1)');
 
@@ -227,9 +239,11 @@ test('MBS-8924: Changing an artist field causes infinite recursion', function (t
     <ArtistCreditEditor entity={{entityType: 'recording', name: '', artistCredit}} />,
     $container[0],
     function () {
+      const $bubble = $('#artist-credit-bubble');
+      ReactDOM.unmountComponentAtNode($bubble[0]);
+      $container.find('.open-ac').click();
       $container.find('input.name').val('Silent Dawn').trigger('input');
 
-      const $bubble = $('.artist-credit-bubble:last');
       const $artistNode = $bubble.find('input[type=text]:eq(0)');
       const $creditNode = $bubble.find('input[type=text]:eq(1)');
 

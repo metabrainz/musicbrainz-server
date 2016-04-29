@@ -139,6 +139,11 @@ class ArtistCreditEditor extends React.Component {
   }
 
   positionBubble() {
+    const $bubble = $('#artist-credit-bubble');
+    if (!$bubble.length) {
+      return;
+    }
+
     const $button = $(this.refs.button);
     let position = {of: $button[0], collision: 'fit none', within: $('body')};
     let maxWidth;
@@ -156,7 +161,7 @@ class ArtistCreditEditor extends React.Component {
       tailClass = 'left-tail';
     }
 
-    $('#artist-credit-bubble')
+    $bubble
       .css('max-width', maxWidth)
       .data('target', this.props.entity)
       .data('componentInst', this)
@@ -173,6 +178,8 @@ class ArtistCreditEditor extends React.Component {
   }
 
   updateBubble(show = false) {
+    this.createBubble();
+
     const $bubble = $('#artist-credit-bubble');
     const props = this.props;
 
@@ -237,7 +244,7 @@ class ArtistCreditEditor extends React.Component {
     this.hide(stealFocus);
   }
 
-  componentDidMount() {
+  createBubble() {
     if (!document.getElementById('artist-credit-bubble')) {
       const $bubble = $('<div id="artist-credit-bubble"></div>')
         .hide()
