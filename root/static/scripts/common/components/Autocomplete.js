@@ -48,6 +48,9 @@ class Autocomplete extends React.Component {
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
+    if (next) {
+      autocomplete.element.val(next.name);
+    }
 
     if (nextProps.hasOwnProperty('isLookupPerformed')) {
       autocomplete.element.toggleClass('lookup-performed', !!nextProps.isLookupPerformed);

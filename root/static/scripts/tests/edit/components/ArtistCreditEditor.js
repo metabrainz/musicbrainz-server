@@ -76,7 +76,7 @@ test('clicking outside of a track AC bubble closes it', function (t) {
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('#artist-credit-bubble');
+      const $bubble = $('.artist-credit-bubble:last');
       t.ok(!$bubble.is(':visible'), 'bubble is not visible');
 
       $container.find('.open-ac').click();
@@ -85,6 +85,7 @@ test('clicking outside of a track AC bubble closes it', function (t) {
       $('body').click();
       t.ok(!$bubble.is(':visible'), 'bubble is hidden after clicking outside of it');
 
+      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -98,7 +99,7 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('#artist-credit-bubble');
+      const $bubble = $('.artist-credit-bubble:last');
       const $button = $container.find('.open-ac');
 
       // Open the track AC bubble.
@@ -114,6 +115,7 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
       $button.click();
       t.ok(!$bubble.is(':visible'), 'bubble is hidden after clicking the button again');
 
+      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -127,7 +129,7 @@ test('removing all credits but one should clear the join phrase (MBS-8896)', fun
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('#artist-credit-bubble');
+      const $bubble = $('.artist-credit-bubble:last');
       const $button = $container.find('.open-ac');
       const $joinPhrase = $bubble.find('input[type=text]:eq(2)');
 
@@ -135,6 +137,9 @@ test('removing all credits but one should clear the join phrase (MBS-8896)', fun
       t.equal($joinPhrase.val(), ' & ');
       $bubble.find('.remove-item:last').click();
       t.equal($joinPhrase.val(), '');
+
+      ReactDOM.unmountComponentAtNode($container[0]);
+      $container.remove();
     }
   );
 });
@@ -147,7 +152,7 @@ test('updating the artist field should also update the credited name field (MBS-
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('#artist-credit-bubble');
+      const $bubble = $('.artist-credit-bubble:last');
       const $artistNode = $bubble.find('input[type=text]:eq(0)');
       const $creditNode = $bubble.find('input[type=text]:eq(1)');
 
@@ -159,6 +164,9 @@ test('updating the artist field should also update the credited name field (MBS-
 
       $artistNode.val('').trigger('input');
       t.equal($creditNode.val(), '');
+
+      ReactDOM.unmountComponentAtNode($container[0]);
+      $container.remove();
     }
   );
 });
@@ -171,7 +179,7 @@ test('can clear the credited name field until it is blurred', function (t) {
     <ArtistCreditEditor entity={{name: '', artistCredit: artistCreditFromArray([])}} />,
     $container[0],
     function () {
-      const $bubble = $('#artist-credit-bubble');
+      const $bubble = $('.artist-credit-bubble:last');
       const $artistNode = $bubble.find('input[type=text]:eq(0)');
       const $creditNode = $bubble.find('input[type=text]:eq(1)');
 
@@ -191,6 +199,46 @@ test('can clear the credited name field until it is blurred', function (t) {
       // (Likewise, ReactTestUtils.Simulate.input() doesn't work above.)
       ReactTestUtils.Simulate.blur($creditNode[0], {target: $creditNode[0]});
       t.equal($creditNode.val(), 'hello');
+
+      ReactDOM.unmountComponentAtNode($container[0]);
+      $container.remove();
+    }
+  );
+});
+
+test('MBS-8924: Changing an artist field causes infinite recursion', function (t) {
+  t.plan(3);
+
+  const $container = $('<div>').appendTo('body');
+  const artistCredit = artistCreditFromArray([
+    {
+      artist: {
+        entityType: 'artist',
+        gid: '18c5587c-541d-44f1-8ab6-7b142b4e85fc',
+        id: 895310,
+        name: 'Timothy Corlis',
+      },
+      joinPhrase: '',
+      name: 'Timothy Corlis',
+    },
+  ]);
+
+  ReactDOM.render(
+    <ArtistCreditEditor entity={{entityType: 'recording', name: '', artistCredit}} />,
+    $container[0],
+    function () {
+      $container.find('input.name').val('Silent Dawn').trigger('input');
+
+      const $bubble = $('.artist-credit-bubble:last');
+      const $artistNode = $bubble.find('input[type=text]:eq(0)');
+      const $creditNode = $bubble.find('input[type=text]:eq(1)');
+
+      t.equal($artistNode.val(), 'Silent Dawn');
+      t.equal($creditNode.val(), 'Silent Dawn');
+      t.ok($artistNode.is(':not(.lookup-performed)'));
+
+      ReactDOM.unmountComponentAtNode($container[0]);
+      $container.remove();
     }
   );
 });

@@ -344,13 +344,12 @@ class ArtistCreditEditor extends React.Component {
                   isLookupPerformed={isCompleteArtistCredit(ac)}
                   onChange={artist => {
                     if (singleArtistIsEditable) {
-                      const firstName = this.state.artistCredit.names.get(0);
                       this.setState({
                         artistCredit: new ArtistCredit({
                           names: Immutable.List([
                             new ArtistCreditName({
                               artist,
-                              name: firstName ? firstName.name : artist.name,
+                              name: artist.name,
                               joinPhrase: '',
                             })
                           ])
