@@ -869,7 +869,7 @@ const validation = require('../edit/validation');
         },
 
         currentTarget: function () {
-            return $('#artist-credit-bubble').data('target');
+            return $('.artist-credit-bubble:visible').data('target');
         },
 
         previousTrack: function () {

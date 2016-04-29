@@ -75,7 +75,7 @@ MB.releaseEditor.init = function (options) {
                 bubbleDoc.redraw(true /* stealFocus */);
             }
 
-            $('#artist-credit-bubble').hide();
+            $('.artist-credit-bubble').hide();
         }
     });
 

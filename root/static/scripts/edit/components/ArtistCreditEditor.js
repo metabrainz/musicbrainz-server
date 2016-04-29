@@ -58,9 +58,18 @@ function setAutoJoinPhrases(names) {
   return names;
 }
 
+let BUBBLE_ID = 0;
+
 class ArtistCreditEditor extends React.Component {
   constructor(props) {
     super(props);
+
+    this.bubbleID = ++BUBBLE_ID;
+    this.$bubble = $('<div />')
+      .attr('id', 'artist-credit-bubble-' + this.bubbleID)
+      .addClass('artist-credit-bubble')
+      .hide()
+      .appendTo('body');
 
     this.state = {
       artistCredit: ko.unwrap(this.props.entity.artistCredit)
@@ -95,7 +104,7 @@ class ArtistCreditEditor extends React.Component {
     this.setState({artistCredit: newAC}, () => {
       this.positionBubble();
       if (index > 0 && index === ac.names.size - 1) {
-        $('#artist-credit-bubble').find('.remove-item').eq(index - 1).focus();
+        this.$bubble.find('.remove-item').eq(index - 1).focus();
       }
     });
   }
@@ -122,20 +131,18 @@ class ArtistCreditEditor extends React.Component {
   }
 
   toggleBubble() {
-    const $bubble = $('#artist-credit-bubble');
+    const $bubble = this.$bubble;
     if ($bubble.is(':visible')) {
-      const inst = $bubble.data('componentInst');
-
-      if (inst.props.doneCallback) {
-        inst.props.doneCallback();
+      if (this.props.doneCallback) {
+        this.props.doneCallback();
       }
-
-      if ($bubble.data('target') === this.props.entity) {
-        this.hide();
-        return;
-      }
+      this.hide();
+    } else {
+      $('.artist-credit-bubble:visible').each(function () {
+        $(this).data('componentInst').toggleBubble();
+      });
+      this.updateBubble(true);
     }
-    this.updateBubble(true);
   }
 
   positionBubble() {
@@ -156,7 +163,7 @@ class ArtistCreditEditor extends React.Component {
       tailClass = 'left-tail';
     }
 
-    $('#artist-credit-bubble')
+    this.$bubble
       .css('max-width', maxWidth)
       .data('target', this.props.entity)
       .data('componentInst', this)
@@ -173,7 +180,7 @@ class ArtistCreditEditor extends React.Component {
   }
 
   updateBubble(show = false) {
-    const $bubble = $('#artist-credit-bubble');
+    const $bubble = this.$bubble;
     const props = this.props;
 
     if (show && props.beforeShow) {
@@ -207,7 +214,7 @@ class ArtistCreditEditor extends React.Component {
   }
 
   hide(stealFocus = true) {
-    const $bubble = $('#artist-credit-bubble').hide();
+    const $bubble = this.$bubble.hide();
     if (stealFocus) {
       this.refs.button.focus();
     }
@@ -238,28 +245,24 @@ class ArtistCreditEditor extends React.Component {
   }
 
   componentDidMount() {
-    if (!document.getElementById('artist-credit-bubble')) {
-      const $bubble = $('<div id="artist-credit-bubble"></div>')
-        .hide()
-        .appendTo('body');
-
-      $('body').on('click.artist-credit-editor', event => {
-        const $target = $(event.target);
-        if (!event.isDefaultPrevented() &&
-            $bubble.is(':visible') &&
-            $target.is(':not(.open-ac)') &&
-            !$bubble.has($target).length &&
-            // Close unless focus was moved to a dialog above this one, e.g.
-            // when adding a new entity.
-            !$target.parents('.ui-dialog').length) {
-          $bubble.data('componentInst').done(false);
-        }
-      });
-    }
+    $('body').on('click.artist-credit-editor-' + this.bubbleID, event => {
+      const $target = $(event.target);
+      const $bubble = this.$bubble;
+      if (!event.isDefaultPrevented() &&
+          $bubble.is(':visible') &&
+          $target.is(':not(.open-ac)') &&
+          !$bubble.has($target).length &&
+          // Close unless focus was moved to a dialog above this one, e.g.
+          // when adding a new entity.
+          !$target.parents('.ui-dialog').length) {
+        $bubble.data('componentInst').done(false);
+      }
+    });
   }
 
   componentWillUnmount() {
-    $('body').off('click.artist-credit-editor');
+    $('body').off('click.artist-credit-editor-' + this.bubbleID);
+    this.$bubble.remove();
   }
 
   componentWillReceiveProps(nextProps) {
