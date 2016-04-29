@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const _ = require('lodash');
+const aclass = require('aclass');
 const ReactDOMServer = require('react-dom/server');
 
 const ArtistCreditLink = require('./components/ArtistCreditLink');
@@ -17,6 +19,7 @@ const {
         artistCreditsAreEqual,
         isCompleteArtistCredit,
     } = require('./immutable-entities');
+const MB = require('./MB');
 const clean = require('./utility/clean');
 const formatTrackLength = require('./utility/formatTrackLength');
 
