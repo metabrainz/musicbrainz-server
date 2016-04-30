@@ -5,13 +5,14 @@ use warnings;
 use Data::Dumper::Concise;
 use DBDefs;
 use Devel::StackTrace;
+use Readonly;
 
 use Log::Dispatch;
 my $logger;
 BEGIN {
     $logger = Log::Dispatch->new(
         DBDefs->LOGGER_ARGUMENTS,
-        callbacks => \&_prefix_message
+        callbacks => [\&_prefix_message, \&_truncate_message],
     );
 }
 
@@ -32,11 +33,25 @@ use Sub::Exporter -setup => {
     ]
 };
 
+Readonly our $MAX_MESSAGE_LENGTH => 1024 * 16;
+
 sub logger { $logger }
 
 sub _prefix_message {
     my %args = @_;
     return sprintf "[%s] %s", $args{level}, $args{message};
+}
+
+sub _truncate_message {
+    my %args = @_;
+
+    my $message = $args{message} // '';
+    if (length $message > $MAX_MESSAGE_LENGTH) {
+        my $nearest_newline = index $message, "\n", $MAX_MESSAGE_LENGTH;
+        $message = substr($message, 0, $MAX_MESSAGE_LENGTH + $nearest_newline + 1) .
+            "\n[message truncated]\n";
+    }
+    return $message;
 }
 
 sub _do_log {

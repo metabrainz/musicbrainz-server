@@ -15,7 +15,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 # with MusicBrainz::Server::Data::Role::Editable -- see AliasRole for when this is applied
 
 has 'parent' => (
-    does => 'MusicBrainz::Server::Data::Role::Name',
+    does => 'MusicBrainz::Server::Data::Role::Alias',
     is => 'rw',
     required => 1,
     weak_ref => 1

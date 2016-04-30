@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use Scalar::Util 'weaken';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Name';
+
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
 sub _type { 'track' }

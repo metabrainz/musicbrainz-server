@@ -83,3 +83,5 @@ MB.localStorage = function (name, value) {
         return MB.store[name];
     }
 };
+
+module.exports = MB;

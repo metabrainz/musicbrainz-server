@@ -7,7 +7,15 @@
 
 require('babel-core/register');
 
-const document = require('jsdom').jsdom();
+const global = require('../global');
+
+let document = global.document;
+if (!document) {
+  // Prevent this from being required for the browser.
+  const jsdom = 'jsdom';
+  document = require(jsdom).jsdom();
+}
+
 const React = require('react');
 const ReactDOMServer  = require('react-dom/server');
 
