@@ -41,7 +41,19 @@ use MusicBrainz::Script::MBDump qw(
     make_tar
     write_file
 );
-use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
+use MusicBrainz::Server::Constants qw(
+    @FULL_TABLE_LIST
+    @CORE_TABLE_LIST
+    @DERIVED_TABLE_LIST
+    @STATS_TABLE_LIST
+    @EDITOR_TABLE_LIST
+    @EDIT_TABLE_LIST
+    @PRIVATE_TABLE_LIST
+    @CDSTUBS_TABLE_LIST
+    @CAA_TABLE_LIST
+    @WIKIDOCS_TABLE_LIST
+    @DOCUMENTATION_TABLE_LIST
+);
 
 use Getopt::Long;
 
@@ -58,326 +70,17 @@ my @replication_tables = qw(
     dbmirror_pendingdata
 );
 
-my @group_core = qw(
-    alternative_medium
-    alternative_medium_track
-    alternative_release
-    alternative_release_type
-    alternative_track
-    area
-    area_type
-    area_alias
-    country_area
-    area_alias_type
-    area_gid_redirect
-    iso_3166_1
-    iso_3166_2
-    iso_3166_3
-    artist
-    artist_alias
-    artist_alias_type
-    artist_credit
-    artist_credit_name
-    artist_gid_redirect
-    artist_ipi
-    artist_isni
-    artist_type
-    cdtoc
-    editor_collection_type
-    event
-    event_alias
-    event_alias_type
-    event_gid_redirect
-    event_type
-    gender
-    instrument
-    instrument_alias
-    instrument_alias_type
-    instrument_gid_redirect
-    instrument_type
-    isrc
-    iswc
-    l_area_area
-    l_area_artist
-    l_area_event
-    l_area_instrument
-    l_area_label
-    l_area_place
-    l_area_recording
-    l_area_release
-    l_area_release_group
-    l_area_series
-    l_area_url
-    l_area_work
-    l_artist_artist
-    l_artist_event
-    l_artist_instrument
-    l_artist_label
-    l_artist_place
-    l_artist_recording
-    l_artist_release
-    l_artist_release_group
-    l_artist_series
-    l_artist_url
-    l_artist_work
-    l_event_event
-    l_event_instrument
-    l_event_label
-    l_event_place
-    l_event_recording
-    l_event_release
-    l_event_release_group
-    l_event_series
-    l_event_url
-    l_event_work
-    l_instrument_instrument
-    l_instrument_label
-    l_instrument_place
-    l_instrument_recording
-    l_instrument_release
-    l_instrument_release_group
-    l_instrument_series
-    l_instrument_url
-    l_instrument_work
-    l_label_label
-    l_label_place
-    l_label_recording
-    l_label_release
-    l_label_release_group
-    l_label_series
-    l_label_url
-    l_label_work
-    l_place_place
-    l_place_recording
-    l_place_release
-    l_place_release_group
-    l_place_series
-    l_place_url
-    l_place_work
-    l_recording_recording
-    l_recording_release
-    l_recording_release_group
-    l_recording_series
-    l_recording_url
-    l_recording_work
-    l_release_group_release_group
-    l_release_group_series
-    l_release_group_url
-    l_release_group_work
-    l_release_release
-    l_release_release_group
-    l_release_series
-    l_release_url
-    l_release_work
-    l_series_series
-    l_series_url
-    l_series_work
-    l_url_url
-    l_url_work
-    l_work_work
-    label
-    label_alias
-    label_alias_type
-    label_gid_redirect
-    label_ipi
-    label_isni
-    label_type
-    language
-    link
-    link_attribute
-    link_attribute_credit
-    link_attribute_text_value
-    link_attribute_type
-    link_creditable_attribute_type
-    link_text_attribute_type
-    link_type
-    link_type_attribute_type
-    medium
-    medium_cdtoc
-    medium_format
-    orderable_link_type
-    place
-    place_alias
-    place_alias_type
-    place_gid_redirect
-    place_type
-    recording
-    recording_alias
-    recording_alias_type
-    recording_gid_redirect
-    release
-    release_alias
-    release_alias_type
-    release_country
-    release_gid_redirect
-    release_group
-    release_group_alias
-    release_group_alias_type
-    release_group_gid_redirect
-    release_group_primary_type
-    release_group_secondary_type
-    release_group_secondary_type_join
-    release_label
-    release_packaging
-    release_status
-    release_unknown_country
-    replication_control
-    series
-    series_alias
-    series_alias_type
-    series_gid_redirect
-    series_ordering_type
-    series_type
-    script
-    track
-    track_gid_redirect
-    tracklist
-    url
-    url_gid_redirect
-    work
-    work_alias
-    work_alias_type
-    work_attribute
-    work_attribute_type
-    work_attribute_type_allowed_value
-    work_gid_redirect
-    work_type
-    );
-
-my @group_derived = qw(
-    annotation
-    area_annotation
-    area_tag
-    artist_annotation
-    artist_meta
-    artist_tag
-    event_annotation
-    event_meta
-    event_tag
-    instrument_annotation
-    instrument_tag
-    label_annotation
-    label_meta
-    label_tag
-    place_annotation
-    place_tag
-    recording_annotation
-    recording_meta
-    recording_tag
-    release_annotation
-    release_meta
-    release_group_annotation
-    release_group_meta
-    release_group_tag
-    release_tag
-    series_annotation
-    series_tag
-    tag
-    tag_relation
-    medium_index
-    work_annotation
-    work_meta
-    work_tag
-    );
-
-my @group_stats = grep { $_ =~ /^statistics\./ } @FULL_TABLE_LIST;
-
-my @group_editor = qw(
-    editor_sanitised
-    );
-
-my @group_edit = qw(
-    edit
-    edit_area
-    edit_artist
-    edit_data
-    edit_event
-    edit_instrument
-    edit_label
-    edit_note
-    edit_note_recipient
-    edit_place
-    edit_recording
-    edit_release
-    edit_release_group
-    edit_series
-    edit_url
-    edit_work
-    vote
-    );
-
-my @group_private = qw(
-    application
-    area_tag_raw
-    artist_rating_raw
-    artist_tag_raw
-    autoeditor_election
-    autoeditor_election_vote
-    editor
-    editor_collection
-    editor_collection_area
-    editor_collection_artist
-    editor_collection_event
-    editor_collection_instrument
-    editor_collection_label
-    editor_collection_place
-    editor_collection_recording
-    editor_collection_release
-    editor_collection_release_group
-    editor_collection_series
-    editor_collection_work
-    editor_language
-    editor_oauth_token
-    editor_preference
-    editor_subscribe_artist
-    editor_subscribe_collection
-    editor_subscribe_editor
-    editor_subscribe_label
-    editor_subscribe_series
-    editor_watch_artist
-    editor_watch_preferences
-    editor_watch_release_group_type
-    editor_watch_release_status
-    event_tag_raw
-    event_rating_raw
-    instrument_tag_raw
-    label_rating_raw
-    label_tag_raw
-    place_tag_raw
-    recording_rating_raw
-    recording_tag_raw
-    release_coverart
-    release_group_rating_raw
-    release_group_tag_raw
-    release_tag_raw
-    series_tag_raw
-    work_rating_raw
-    work_tag_raw
-);
-
-my @group_cdstubs = qw(
-    cdtoc_raw
-    release_raw
-    track_raw
-);
-
-my @group_cover_art_archive = grep { $_ =~ /^cover_art_archive\./ } @FULL_TABLE_LIST;
-
-my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @FULL_TABLE_LIST;
-
-my @group_documentation = grep { $_ =~ /^documentation\./ } @FULL_TABLE_LIST;
-
 my @groups = (
-    \@group_core,
-    \@group_derived,
-    \@group_stats,
-    \@group_editor,
-    \@group_edit,
-    \@group_private,
-    \@group_cdstubs,
-    \@group_cover_art_archive,
-    \@group_wikidocs,
-    \@group_documentation,
+    \@CORE_TABLE_LIST,
+    \@DERIVED_TABLE_LIST,
+    \@STATS_TABLE_LIST,
+    \@EDITOR_TABLE_LIST,
+    \@EDIT_TABLE_LIST,
+    \@PRIVATE_TABLE_LIST,
+    \@CDSTUBS_TABLE_LIST,
+    \@CAA_TABLE_LIST,
+    \@WIKIDOCS_TABLE_LIST,
+    \@DOCUMENTATION_TABLE_LIST,
 );
 
 ################################################################################
@@ -599,19 +302,19 @@ if ($fCompress and $fDoFullExport)
 {
     copy_readme() or die $!;
     copy("$FindBin::Bin/COPYING-PublicDomain", "$MBDump::export_dir/COPYING") or die $!;
-    make_tar("mbdump.tar.bz2", @group_core);
+    make_tar("mbdump.tar.bz2", @CORE_TABLE_LIST);
 
     copy_readme() or die $!;
     copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
-    make_tar("mbdump-derived.tar.bz2", @group_derived);
-    make_tar("mbdump-editor.tar.bz2", @group_editor);
-    make_tar("mbdump-edit.tar.bz2", @group_edit);
-    make_tar("mbdump-stats.tar.bz2", @group_stats);
-    make_tar("mbdump-private.tar.bz2", @group_private);
-    make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
-    make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
-    make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
-    make_tar("mbdump-documentation.tar.bz2", @group_documentation);
+    make_tar("mbdump-derived.tar.bz2", @DERIVED_TABLE_LIST);
+    make_tar("mbdump-editor.tar.bz2", @EDITOR_TABLE_LIST);
+    make_tar("mbdump-edit.tar.bz2", @EDIT_TABLE_LIST);
+    make_tar("mbdump-stats.tar.bz2", @STATS_TABLE_LIST);
+    make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
+    make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
+    make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
+    make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
+    make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
