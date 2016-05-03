@@ -39,6 +39,8 @@ use Encode qw( encode );
 
 ################################################################################
 
+my $database = 'READWRITE';
+
 my @tables = @FULL_TABLE_LIST;
 
 my @replication_tables = qw(
@@ -387,6 +389,7 @@ GetOptions(
     "tmp-dir|t=s"               => \$dir,
     "compress|c!"               => \$fCompress,
     "keep-files|k!"             => \$fKeepFiles,
+    "database=s"                => \$database,
     "table=s"                   => \@tablelist,
     "replication-callback=s"    => \$fCallback,
     "with-replication"          => sub { $fDoReplication = 1 },
@@ -410,6 +413,7 @@ Usage: ExportAllTables [options]
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
     -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
     -k, --keep-files      don't delete the exported files from the tmp directory
+        --database        database to connect to (default: READWRITE)
         --table TABLE     process only these tables
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
@@ -463,7 +467,7 @@ use MusicBrainz::Server::Context;
 use Sql;
 
 # Log in to the main DB
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
 my $sql = Sql->new($c->conn);
 my $dbh = $c->dbh;
 

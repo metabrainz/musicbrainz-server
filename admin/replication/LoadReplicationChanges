@@ -34,6 +34,7 @@ use integer;
 
 use Getopt::Long;
 use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+use String::ShellQuote qw( shell_quote );
 
 use MusicBrainz::Server::Replication qw(
     :replication_type
@@ -43,9 +44,6 @@ use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
     retrieve_remote_file
 );
-
-DBDefs->REPLICATION_TYPE == RT_SLAVE
-    or die "This is not a slave server!\n";
 
 my $fHelp;
 my $fProgress = -t STDOUT;
@@ -59,6 +57,7 @@ my $baseuri = REPLICATION_ACCESS_URI;
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 my $fVerifySig = 0;
+my $database = 'READWRITE';
 
 GetOptions(
     "help"                      => \$fHelp,
@@ -69,7 +68,15 @@ GetOptions(
     "period=s"                  => \$period,
     "catchup"                   => \$catchup,
     "verify-sig"                => \$fVerifySig,
+    "database=s"                => \$database,
 ) or exit 2;
+
+(DBDefs->REPLICATION_TYPE == RT_SLAVE || $database eq 'TEST')
+    or die "This is not a slave server!\n";
+
+if ($database ne 'READWRITE') {
+    push @process_opts, '--database=' . shell_quote($database);
+}
 
 $baseuri =~ s/\/$//;
 
@@ -96,6 +103,7 @@ Usage: LoadReplicationChanges [options]
                        period
     --verify-sig       If this option is present the replication packets will
                        be verified against their signature.
+    --database         database to load packets into (default: READWRITE)
 
 EOF
 }
@@ -124,7 +132,7 @@ my $lockfh;
 }
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
 
 use Sql;
 my $sql = Sql->new($c->conn);
@@ -306,6 +314,7 @@ for my $f (('dbmirror_pending', 'dbmirror_pendingdata'))
 # Load them
 print localtime() . " : Importing dbmirror_pending and dbmirror_pendingdata files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
+    "--database", $database,
     "--tmp-dir", $tmpdir,
     "--",
     "$mydir/mbdump/dbmirror_pending",
