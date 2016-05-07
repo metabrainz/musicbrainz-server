@@ -29,7 +29,8 @@
               "20141226-geodesic-index.sql",
               "20160429-mbs-8656.sql",
               "20151223-edit-note-index.sql",
-              "20160310-mbs-4501-alternative-tracklists.sql"],
+              "20160310-mbs-4501-alternative-tracklists.sql",
+              "20160507-mbs-8727.sql"],
     "standalone": ["20160310-mbs-4501-alternative-tracklists-fks.sql"]
   }
 }
