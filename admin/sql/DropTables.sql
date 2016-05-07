@@ -1,6 +1,11 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP TABLE alternative_medium;
+DROP TABLE alternative_medium_track;
+DROP TABLE alternative_release;
+DROP TABLE alternative_release_type;
+DROP TABLE alternative_track;
 DROP TABLE annotation;
 DROP TABLE application;
 DROP TABLE area;

@@ -1,6 +1,66 @@
 -- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
+ALTER TABLE alternative_medium
+   ADD CONSTRAINT alternative_medium_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
+
+ALTER TABLE alternative_medium
+   ADD CONSTRAINT alternative_medium_fk_alternative_release
+   FOREIGN KEY (alternative_release)
+   REFERENCES alternative_release(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_alternative_medium
+   FOREIGN KEY (alternative_medium)
+   REFERENCES alternative_medium(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_track
+   FOREIGN KEY (track)
+   REFERENCES track(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_alternative_track
+   FOREIGN KEY (alternative_track)
+   REFERENCES alternative_track(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_type
+   FOREIGN KEY (type)
+   REFERENCES alternative_release_type(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_script
+   FOREIGN KEY (script)
+   REFERENCES script(id);
+
+ALTER TABLE alternative_release_type
+   ADD CONSTRAINT alternative_release_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES alternative_release_type(id);
+
+ALTER TABLE alternative_track
+   ADD CONSTRAINT alternative_track_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
+
 ALTER TABLE annotation
    ADD CONSTRAINT annotation_fk_editor
    FOREIGN KEY (editor)

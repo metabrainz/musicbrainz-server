@@ -566,6 +566,33 @@ CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
 CREATE TRIGGER a_ins_edit_note AFTER INSERT ON edit_note
     FOR EACH ROW EXECUTE PROCEDURE a_ins_edit_note();
 
+CREATE TRIGGER a_ins_alternative_release AFTER INSERT ON alternative_release
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_alternative_release_or_track();
+
+CREATE TRIGGER a_ins_alternative_track AFTER INSERT ON alternative_track
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_alternative_release_or_track();
+
+CREATE TRIGGER a_upd_alternative_release AFTER UPDATE ON alternative_release
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_alternative_release_or_track();
+
+CREATE TRIGGER a_upd_alternative_track AFTER UPDATE ON alternative_track
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_alternative_release_or_track();
+
+CREATE TRIGGER a_del_alternative_release AFTER DELETE ON alternative_release
+    FOR EACH ROW EXECUTE PROCEDURE a_del_alternative_release_or_track();
+
+CREATE TRIGGER a_del_alternative_track AFTER DELETE ON alternative_track
+    FOR EACH ROW EXECUTE PROCEDURE a_del_alternative_release_or_track();
+
+CREATE TRIGGER a_ins_alternative_medium_track AFTER INSERT ON alternative_medium_track
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_alternative_medium_track();
+
+CREATE TRIGGER a_upd_alternative_medium_track AFTER UPDATE ON alternative_medium_track
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_alternative_medium_track();
+
+CREATE TRIGGER a_del_alternative_medium_track AFTER DELETE ON alternative_medium_track
+    FOR EACH ROW EXECUTE PROCEDURE a_del_alternative_medium_track();
+
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_area DEFERRABLE INITIALLY DEFERRED

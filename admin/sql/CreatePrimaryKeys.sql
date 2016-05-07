@@ -1,6 +1,11 @@
 -- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
+ALTER TABLE alternative_medium ADD CONSTRAINT alternative_medium_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_medium_track ADD CONSTRAINT alternative_medium_track_pkey PRIMARY KEY (alternative_medium, track);
+ALTER TABLE alternative_release ADD CONSTRAINT alternative_release_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_release_type ADD CONSTRAINT alternative_release_type_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_track ADD CONSTRAINT alternative_track_pkey PRIMARY KEY (id);
 ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
 ALTER TABLE application ADD CONSTRAINT application_pkey PRIMARY KEY (id);
 ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);

@@ -3,6 +3,26 @@
 
 BEGIN;
 
+CREATE TRIGGER "reptg_alternative_medium"
+AFTER INSERT OR DELETE OR UPDATE ON "alternative_medium"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_alternative_medium_track"
+AFTER INSERT OR DELETE OR UPDATE ON "alternative_medium_track"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_alternative_release"
+AFTER INSERT OR DELETE OR UPDATE ON "alternative_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_alternative_release_type"
+AFTER INSERT OR DELETE OR UPDATE ON "alternative_release_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_alternative_track"
+AFTER INSERT OR DELETE OR UPDATE ON "alternative_track"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

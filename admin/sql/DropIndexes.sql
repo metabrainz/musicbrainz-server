@@ -1,6 +1,14 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP INDEX alternative_medium_idx_alternative_release;
+DROP INDEX alternative_release_idx_artist_credit;
+DROP INDEX alternative_release_idx_gid;
+DROP INDEX alternative_release_idx_language_script;
+DROP INDEX alternative_release_idx_name;
+DROP INDEX alternative_release_idx_release;
+DROP INDEX alternative_track_idx_artist_credit;
+DROP INDEX alternative_track_idx_name;
 DROP INDEX application_idx_oauth_id;
 DROP INDEX application_idx_owner;
 DROP INDEX area_alias_idx_area;
