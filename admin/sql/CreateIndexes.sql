@@ -96,9 +96,9 @@ CREATE INDEX edit_idx_status_id ON edit (status, id) WHERE status <> 2;
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
 
-CREATE INDEX edit_idx_open_time ON edit (open_time);
-CREATE INDEX edit_idx_close_time ON edit (close_time);
-CREATE INDEX edit_idx_expire_time ON edit (expire_time);
+CREATE INDEX edit_idx_open_time ON edit USING BRIN (open_time);
+CREATE INDEX edit_idx_close_time ON edit USING BRIN (close_time);
+CREATE INDEX edit_idx_expire_time ON edit USING BRIN (expire_time);
 
 -- Entity indexes
 CREATE INDEX edit_area_idx ON edit_area (area);
@@ -116,6 +116,7 @@ CREATE INDEX edit_url_idx ON edit_url (url);
 
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX edit_note_idx_editor ON edit_note (editor);
+CREATE INDEX edit_note_idx_post_time ON edit_note USING BRIN (post_time);
 CREATE INDEX edit_note_idx_post_time_edit ON edit_note (post_time DESC, edit DESC);
 
 CREATE INDEX edit_note_recipient_idx_recipient ON edit_note_recipient (recipient);
@@ -506,7 +507,7 @@ CREATE UNIQUE INDEX url_idx_url ON url (url);
 CREATE INDEX vote_idx_edit ON vote (edit);
 CREATE INDEX vote_idx_editor_vote_time ON vote (editor, vote_time);
 CREATE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
-CREATE INDEX vote_idx_vote_time ON vote (vote_time);
+CREATE INDEX vote_idx_vote_time ON vote USING BRIN (vote_time);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
