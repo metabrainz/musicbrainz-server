@@ -32,7 +32,8 @@
               "20160310-mbs-4501-alternative-tracklists.sql",
               "20160516-mbs-8656.sql",
               "20160516-mbs-8804.sql",
-              "20160507-mbs-8669.sql"],
+              "20160507-mbs-8669.sql",
+              "20160507-mbs-8727.sql"],
     "standalone": ["20160310-mbs-4501-alternative-tracklists-fks.sql"]
   }
 }
