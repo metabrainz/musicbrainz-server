@@ -4,7 +4,7 @@ set -o errexit
 cd `dirname $0`
 eval `./admin/ShowDBDefs`
 
-NEW_SCHEMA_SEQUENCE=22
+NEW_SCHEMA_SEQUENCE=23
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 ################################################################################
