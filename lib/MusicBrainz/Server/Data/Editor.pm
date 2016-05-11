@@ -370,20 +370,6 @@ sub save_preferences
     }, $self->sql);
 }
 
-sub credit
-{
-    my ($self, $editor_id, $status, %opts) = @_;
-    my $column;
-    my $as_autoedit = $opts{auto_edit} ? 1 : 0;
-    return if $status == $STATUS_DELETED;
-    $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
-    $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
-    $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;
-    $column ||= "edits_failed";
-    my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
-    $self->sql->do($query, $editor_id);
-}
-
 # Must be run in a transaction to actually do anything. Acquires a row-level lock for a given editor ID.
 sub lock_row
 {

@@ -599,7 +599,7 @@ sub create {
     # Automatically accept auto-edits on insert
     $edit = $self->get_by_id($edit->id);
     if ($edit->auto_edit) {
-        $self->accept($edit, auto_edit => 1);
+        $self->accept($edit);
     }
 
     $edit = $self->get_by_id($edit->id);
@@ -825,10 +825,10 @@ sub _do_reject
 # Must be called in a transaction
 sub accept
 {
-    my ($self, $edit, %opts) = @_;
+    my ($self, $edit) = @_;
 
     confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
-    $self->_close($edit, sub { $self->_do_accept(shift) }, %opts);
+    $self->_close($edit, sub { $self->_do_accept(shift) });
 }
 
 # Must be called in a transaction
@@ -850,13 +850,12 @@ sub cancel
 
 sub _close
 {
-    my ($self, $edit, $close_sub, %opts) = @_;
+    my ($self, $edit, $close_sub) = @_;
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1) unless $edit->auto_edit;
     $edit->status($status);
-    $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
 
 sub insert_votes_and_notes {
