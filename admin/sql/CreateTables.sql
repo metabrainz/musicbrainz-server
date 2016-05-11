@@ -404,8 +404,6 @@ CREATE TABLE edit
     editor              INTEGER NOT NULL, -- references editor.id
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
-    yes_votes            INTEGER NOT NULL DEFAULT 0,
-    no_votes             INTEGER NOT NULL DEFAULT 0,
     autoedit            SMALLINT NOT NULL DEFAULT 0,
     open_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     close_time           TIMESTAMP WITH TIME ZONE,
@@ -519,10 +517,6 @@ CREATE TABLE editor
     member_since        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     email_confirm_date  TIMESTAMP WITH TIME ZONE,
     last_login_date     TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    edits_accepted      INTEGER DEFAULT 0,
-    edits_rejected      INTEGER DEFAULT 0,
-    auto_edits_accepted INTEGER DEFAULT 0,
-    edits_failed        INTEGER DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
