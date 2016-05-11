@@ -241,7 +241,7 @@ SELECT '20151223-edit-note-index.sql';
 DROP INDEX IF EXISTS edit_note_idx_post_time_edit;
 
 -- For Data::EditNote::find_by_recipient
-CREATE INDEX CONCURRENTLY edit_note_idx_post_time_edit ON edit_note (post_time DESC, edit DESC);
+CREATE INDEX edit_note_idx_post_time_edit ON edit_note (post_time DESC, edit DESC);
 
 --------------------------------------------------------------------------------
 SELECT '20160310-mbs-4501-alternative-tracklists.sql';
