@@ -38,11 +38,6 @@ has 'c' => (
     is => 'rw'
 );
 
-has [qw( yes_votes no_votes )] => (
-    isa => 'Int',
-    is => 'rw',
-);
-
 has [qw( id editor_id language_id )] => (
     isa => 'Int',
     is => 'rw',
@@ -134,6 +129,14 @@ has 'votes' => (
         _grep_votes => 'grep'
     }
 );
+
+sub yes_votes {
+    shift->_grep_votes(sub { $_->vote == $VOTE_YES });
+}
+
+sub no_votes {
+    shift->_grep_votes(sub { $_->vote == $VOTE_NO });
+}
 
 sub votes_for_editor
 {

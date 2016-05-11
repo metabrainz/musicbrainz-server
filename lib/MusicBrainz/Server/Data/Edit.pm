@@ -16,10 +16,9 @@ use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw(
     :edit_status
-    $VOTE_YES
+    :vote
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
-    $VOTE_APPROVE
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
     $OPEN_EDIT_DURATION
@@ -56,7 +55,7 @@ sub _table
 sub _columns
 {
     return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
-            edit_data.data, edit.language, edit.type, edit.yes_votes, edit.no_votes,
+            edit_data.data, edit.language, edit.type,
             edit.autoedit, edit.status, edit.quality';
 }
 
@@ -72,8 +71,6 @@ sub _new_from_row
     my $edit = $class->new({
         c => $self->c,
         id => $row->{id},
-        yes_votes => $row->{yes_votes},
-        no_votes => $row->{no_votes},
         editor_id => $row->{editor},
         created_time => $row->{open_time},
         expires_time => $row->{expire_time},
