@@ -36,6 +36,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
         form => 'User::EditProfile',
         item => {
             email            => $user->email,
+            skip_verification => 0,
             website            => $user->website,
             biography        => $user->biography
         },
@@ -60,8 +61,14 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
             my $new_email = $form2->field('email')->value || '';
             if ($old_email ne $new_email) {
                 if ($new_email) {
-                    $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
-                    $args{email} = $new_email;
+                    if ($form2->field('skip_verification')->value) { 
+                        $c->model('Editor')->update_email($user, $new_email);
+                        $user->email($new_email);
+                        $c->forward('/discourse/sync_sso', [$user]);
+                    } else {
+                        $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
+                        $args{email} = $new_email;
+                    }
                 }
                 else {
                     $c->model('Editor')->update_email($user, undef);
