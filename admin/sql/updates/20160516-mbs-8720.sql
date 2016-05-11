@@ -25,8 +25,6 @@ INSERT INTO edit_note_recipient (recipient, edit_note) (
       JOIN edit ON edit_note.edit = edit.id
 );
 
-CREATE INDEX edit_note_recipient_idx_editor ON edit_note_recipient (recipient);
-
 -- Trigger
 
 CREATE OR REPLACE FUNCTION a_ins_edit_note() RETURNS trigger AS $$
