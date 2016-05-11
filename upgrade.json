@@ -34,6 +34,7 @@
               "20160516-mbs-8804.sql",
               "20160507-mbs-8727.sql"],
     "slave_only": ["20160507-mbs-8669.sql"],
-    "standalone": ["20160310-mbs-4501-alternative-tracklists-fks.sql"]
+    "standalone": ["20160310-mbs-4501-alternative-tracklists-fks.sql"],
+    "extensions": ["20141226-geodesic-extension.sql"]
   }
 }

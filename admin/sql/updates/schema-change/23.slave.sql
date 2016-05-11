@@ -218,8 +218,6 @@ CREATE TRIGGER a_ins_edit_note AFTER INSERT ON edit_note
 --------------------------------------------------------------------------------
 SELECT '20141226-geodesic-index.sql';
 
-CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA public;
-
 CREATE INDEX IF NOT EXISTS place_idx_geo ON place USING gist (ll_to_earth(coordinates[0], coordinates[1])) WHERE coordinates IS NOT NULL;
 --------------------------------------------------------------------------------
 SELECT '20160429-mbs-8656.sql';

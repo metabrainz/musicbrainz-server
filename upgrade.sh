@@ -51,14 +51,15 @@ fi
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
     echo `date` : 'Running upgrade scripts for slave nodes'
-    ./admin/psql --system MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave_only.sql || exit 1
+    ./admin/psql MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave_only.sql || exit 1
 fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
 echo `date` : 'Running upgrade scripts for all nodes'
-./admin/psql --system MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
+./admin/psql --system MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.extensions.sql || exit 1
+./admin/psql MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
 ################################################################################
 # Re-enable replication
@@ -81,7 +82,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
-    ./admin/psql --system MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
+    ./admin/psql MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
