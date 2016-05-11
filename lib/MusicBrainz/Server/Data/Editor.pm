@@ -10,7 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_with );
+use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -37,8 +37,9 @@ sub _table
 sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
-            member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed, gender, area,
+            member_since, email_confirm_date, last_login_date,
+            EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = ' . $STATUS_APPLIED . ' OFFSET 9) AS has_ten_accepted_edits,
+            gender, area,
             birth_date, ha1, deleted';
 }
 
@@ -52,10 +53,7 @@ sub _column_mapping
         privileges              => 'privs',
         website                 => 'website',
         biography               => 'bio',
-        accepted_edits          => 'edits_accepted',
-        rejected_edits          => 'edits_rejected',
-        failed_edits            => 'edits_failed',
-        accepted_auto_edits     => 'auto_edits_accepted',
+        has_ten_accepted_edits  => 'has_ten_accepted_edits',
         email_confirmation_date => 'email_confirm_date',
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
@@ -225,10 +223,6 @@ sub insert
             name => $data->{name},
             password => $data->{password},
             ha1 => $data->{ha1},
-            accepted_edits => 0,
-            rejected_edits => 0,
-            failed_edits => 0,
-            accepted_auto_edits => 0,
             registration_date => DateTime->now
         );
     }, $self->sql);
@@ -540,14 +534,47 @@ sub subscription_summary {
 
 sub _edit_count
 {
-    my ($self, $editor_id, $status) = @_;
+    my ($self, $editor_id, $status, $auto_edit) = @_;
     my $query =
         'SELECT count(*)
            FROM edit
           WHERE status = ?
           AND editor = ?
        ';
+    my @params = ($status, $editor_id);
 
+    if (defined $auto_edit) {
+        $query .= 'AND autoedit = ?';
+        push @params, $auto_edit;
+    }
+
+    return $self->sql->select_single_value($query, @params);
+}
+
+sub accepted_edit_count {
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count($editor_id, $STATUS_APPLIED, 0);
+}
+
+sub accepted_auto_edit_count {
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count($editor_id, $STATUS_APPLIED, 1);
+}
+
+sub rejected_edit_count {
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count($editor_id, $STATUS_FAILEDVOTE);
+}
+
+sub failed_edit_count {
+    my ($self, $editor_id) = @_;
+    my $query =
+        'SELECT count(*)
+           FROM edit
+          WHERE NOT (status = ANY (?))
+          AND editor = ?';
+
+    my $status = [ $STATUS_DELETED, $STATUS_FAILEDVOTE, $STATUS_APPLIED, $STATUS_OPEN ];
     return $self->sql->select_single_value($query, $status, $editor_id);
 }
 
