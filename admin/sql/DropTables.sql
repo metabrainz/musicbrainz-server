@@ -39,6 +39,7 @@ DROP TABLE country_area;
 DROP TABLE edit;
 DROP TABLE edit_area;
 DROP TABLE edit_artist;
+DROP TABLE edit_data;
 DROP TABLE edit_event;
 DROP TABLE edit_instrument;
 DROP TABLE edit_label;

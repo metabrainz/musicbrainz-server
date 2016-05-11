@@ -40,7 +40,6 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateViews.sql 2>&1` || ( echo "$OU
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/CreateSearchConfiguration.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/CreatePLPerl.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )

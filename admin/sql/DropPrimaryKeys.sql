@@ -39,6 +39,7 @@ ALTER TABLE country_area DROP CONSTRAINT IF EXISTS country_area_pkey;
 ALTER TABLE edit DROP CONSTRAINT IF EXISTS edit_pkey;
 ALTER TABLE edit_area DROP CONSTRAINT IF EXISTS edit_area_pkey;
 ALTER TABLE edit_artist DROP CONSTRAINT IF EXISTS edit_artist_pkey;
+ALTER TABLE edit_data DROP CONSTRAINT IF EXISTS edit_data_pkey;
 ALTER TABLE edit_event DROP CONSTRAINT IF EXISTS edit_event_pkey;
 ALTER TABLE edit_instrument DROP CONSTRAINT IF EXISTS edit_instrument_pkey;
 ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_pkey;

@@ -406,7 +406,6 @@ CREATE TABLE edit
     editor              INTEGER NOT NULL, -- references editor.id
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
-    data                TEXT NOT NULL,
     yes_votes            INTEGER NOT NULL DEFAULT 0,
     no_votes             INTEGER NOT NULL DEFAULT 0,
     autoedit            SMALLINT NOT NULL DEFAULT 0,
@@ -415,6 +414,12 @@ CREATE TABLE edit
     expire_time          TIMESTAMP WITH TIME ZONE NOT NULL,
     language            INTEGER, -- references language.id
     quality             SMALLINT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE edit_data
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    data                JSONB NOT NULL
 );
 
 CREATE TABLE edit_note

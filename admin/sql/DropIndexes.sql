@@ -53,6 +53,7 @@ DROP INDEX cdtoc_raw_track_offset;
 DROP INDEX edit_area_idx;
 DROP INDEX edit_artist_idx;
 DROP INDEX edit_artist_idx_status;
+DROP INDEX edit_data_idx_link_type;
 DROP INDEX edit_event_idx;
 DROP INDEX edit_idx_close_time;
 DROP INDEX edit_idx_editor_id_desc;
