@@ -10,6 +10,7 @@
 -- 20160507-mbs-8727.sql
 \set ON_ERROR_STOP 1
 BEGIN;
+SET search_path = musicbrainz, public;
 --------------------------------------------------------------------------------
 SELECT '20160516-mbs-8838.sql';
 

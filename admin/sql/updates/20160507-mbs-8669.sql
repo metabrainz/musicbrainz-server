@@ -2,8 +2,6 @@
 
 BEGIN;
 
-SET search_path = musicbrainz, documentation;
-
 ALTER TABLE place DROP CONSTRAINT IF EXISTS place_pkey;
 ALTER TABLE place_gid_redirect DROP CONSTRAINT IF EXISTS place_gid_redirect_pkey;
 ALTER TABLE place_type DROP CONSTRAINT IF EXISTS place_type_pkey;
@@ -22,15 +20,15 @@ ALTER TABLE l_place_url DROP CONSTRAINT IF EXISTS l_place_url_pkey;
 ALTER TABLE l_place_work DROP CONSTRAINT IF EXISTS l_place_work_pkey;
 ALTER TABLE place_tag DROP CONSTRAINT IF EXISTS place_tag_pkey;
 ALTER TABLE place_tag_raw DROP CONSTRAINT IF EXISTS place_tag_raw_pkey;
-ALTER TABLE l_area_place_example DROP CONSTRAINT IF EXISTS l_area_place_example_pkey;
-ALTER TABLE l_artist_place_example DROP CONSTRAINT IF EXISTS l_artist_place_example_pkey;
-ALTER TABLE l_label_place_example DROP CONSTRAINT IF EXISTS l_label_place_example_pkey;
-ALTER TABLE l_place_place_example DROP CONSTRAINT IF EXISTS l_place_place_example_pkey;
-ALTER TABLE l_place_recording_example DROP CONSTRAINT IF EXISTS l_place_recording_example_pkey;
-ALTER TABLE l_place_release_example DROP CONSTRAINT IF EXISTS l_place_release_example_pkey;
-ALTER TABLE l_place_release_group_example DROP CONSTRAINT IF EXISTS l_place_release_group_example_pkey;
-ALTER TABLE l_place_url_example DROP CONSTRAINT IF EXISTS l_place_url_example_pkey;
-ALTER TABLE l_place_work_example DROP CONSTRAINT IF EXISTS l_place_work_example_pkey;
+ALTER TABLE documentation.l_area_place_example DROP CONSTRAINT IF EXISTS l_area_place_example_pkey;
+ALTER TABLE documentation.l_artist_place_example DROP CONSTRAINT IF EXISTS l_artist_place_example_pkey;
+ALTER TABLE documentation.l_label_place_example DROP CONSTRAINT IF EXISTS l_label_place_example_pkey;
+ALTER TABLE documentation.l_place_place_example DROP CONSTRAINT IF EXISTS l_place_place_example_pkey;
+ALTER TABLE documentation.l_place_recording_example DROP CONSTRAINT IF EXISTS l_place_recording_example_pkey;
+ALTER TABLE documentation.l_place_release_example DROP CONSTRAINT IF EXISTS l_place_release_example_pkey;
+ALTER TABLE documentation.l_place_release_group_example DROP CONSTRAINT IF EXISTS l_place_release_group_example_pkey;
+ALTER TABLE documentation.l_place_url_example DROP CONSTRAINT IF EXISTS l_place_url_example_pkey;
+ALTER TABLE documentation.l_place_work_example DROP CONSTRAINT IF EXISTS l_place_work_example_pkey;
 
 ALTER TABLE place ADD CONSTRAINT place_pkey PRIMARY KEY (id);
 ALTER TABLE place_gid_redirect ADD CONSTRAINT place_gid_redirect_pkey PRIMARY KEY (gid);
@@ -50,14 +48,14 @@ ALTER TABLE l_place_url ADD CONSTRAINT l_place_url_pkey PRIMARY KEY (id);
 ALTER TABLE l_place_work ADD CONSTRAINT l_place_work_pkey PRIMARY KEY (id);
 ALTER TABLE place_tag ADD CONSTRAINT place_tag_pkey PRIMARY KEY (place, tag);
 ALTER TABLE place_tag_raw ADD CONSTRAINT place_tag_raw_pkey PRIMARY KEY (place, editor, tag);
-ALTER TABLE l_area_place_example ADD CONSTRAINT l_area_place_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_artist_place_example ADD CONSTRAINT l_artist_place_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_label_place_example ADD CONSTRAINT l_label_place_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_place_example ADD CONSTRAINT l_place_place_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_recording_example ADD CONSTRAINT l_place_recording_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_release_example ADD CONSTRAINT l_place_release_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_release_group_example ADD CONSTRAINT l_place_release_group_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_url_example ADD CONSTRAINT l_place_url_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_work_example ADD CONSTRAINT l_place_work_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_area_place_example ADD CONSTRAINT l_area_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_artist_place_example ADD CONSTRAINT l_artist_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_label_place_example ADD CONSTRAINT l_label_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_place_example ADD CONSTRAINT l_place_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_recording_example ADD CONSTRAINT l_place_recording_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_release_example ADD CONSTRAINT l_place_release_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_release_group_example ADD CONSTRAINT l_place_release_group_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_url_example ADD CONSTRAINT l_place_url_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_work_example ADD CONSTRAINT l_place_work_example_pkey PRIMARY KEY (id);
 
 COMMIT;

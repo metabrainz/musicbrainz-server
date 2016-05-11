@@ -2,6 +2,7 @@
 -- 20160310-mbs-4501-alternative-tracklists-fks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
+SET search_path = musicbrainz, public;
 --------------------------------------------------------------------------------
 SELECT '20160310-mbs-4501-alternative-tracklists-fks.sql';
 
