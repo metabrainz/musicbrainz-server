@@ -116,6 +116,7 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
     $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
     my $sql = $test->c->sql;
+    my $editor_model = $test->c->model('Editor');
 
     # Verify that hits will differ from the length
     # of the returned array if there are more results than
@@ -134,29 +135,29 @@ test all => sub {
     subtest 'Accepting an edit' => sub {
         my $edit = $edit_data->get_by_id(1);
 
-        my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-        is($editor->accepted_edits, 12, "Edit not yet accepted");
+        my $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        is($edit_counts->{accepted_count}, 0, "Edit not yet accepted");
 
         $sql->begin;
         $edit_data->accept($edit);
         $sql->commit;
 
-        $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-        is($editor->accepted_edits, 13, "Edit accepted");
+        $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        is($edit_counts->{accepted_count}, 1, "Edit accepted");
     };
 
     subtest 'Rejecting an edit' => sub {
         my $edit = $edit_data->get_by_id(3);
 
-        my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-        is($editor->rejected_edits, 2, "Edit not yet rejected");
+        my $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        is($edit_counts->{rejected_count}, 0, "Edit not yet rejected");
 
         $sql->begin;
         $edit_data->reject($edit, $STATUS_FAILEDVOTE);
         $sql->commit;
 
-        $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
-        is($editor->rejected_edits, 3, "Edit rejected");
+        $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        is($edit_counts->{rejected_count}, 1, "Edit rejected");
     };
 
     subtest 'Approving an edit' => sub {
@@ -177,16 +178,26 @@ test all => sub {
         my $edit = $edit_data->get_by_id(2);
         is($edit->status, $STATUS_OPEN, 'Edit open');
 
-        my $editor_original = $test->c->model('Editor')->get_by_id($edit->editor_id);
+        my $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        my $original_accepted_edits = $edit_counts->{accepted_count};
+        my $original_rejected_edits = $edit_counts->{rejected_count};
+        my $original_failed_edits = $edit_counts->{failed_count};
+        my $original_accepted_auto_edits = $edit_counts->{accepted_auto_count};
+
         $edit_data->cancel($edit);
-
-        my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
-
         $edit = $edit_data->get_by_id(2);
         is($edit->status, $STATUS_DELETED, "Edit now canceled");
 
-        is ($editor_cancelled->$_, $editor_original->$_, "$_ has not changed")
-          for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
+        $edit_counts = $editor_model->various_edit_counts($edit->editor_id);
+        my $cancelled_accepted_edits = $edit_counts->{accepted_count};
+        my $cancelled_rejected_edits = $edit_counts->{rejected_count};
+        my $cancelled_failed_edits = $edit_counts->{failed_count};
+        my $cancelled_accepted_auto_edits = $edit_counts->{accepted_auto_count};
+
+        is($original_accepted_edits, $cancelled_accepted_edits, 'accepted_count has not changed');
+        is($original_rejected_edits, $cancelled_rejected_edits, 'rejected_count has not changed');
+        is($original_failed_edits, $cancelled_failed_edits, 'failed_count has not changed');
+        is($original_accepted_auto_edits, $cancelled_accepted_auto_edits, 'accepted_auto_count has not changed');
     };
 };
 
@@ -234,9 +245,9 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
 
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
 
-    my $editor = $c->model('Editor')->get_by_id(1);
-    my $old_ae_count = $editor->accepted_auto_edits;
-    my $old_e_count = $editor->accepted_edits;
+    my $edit_counts = $c->model('Editor')->various_edit_counts(1);
+    my $old_ae_count = $edit_counts->{accepted_auto_count};
+    my $old_e_count = $edit_counts->{accepted_count};
 
     my $edit = $c->model('Edit')->create(
         edit_type => 123,
@@ -244,9 +255,12 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
         privileges => 1
     );
 
-    $editor = $c->model('Editor')->get_by_id(1);
-    is $editor->accepted_auto_edits, $old_ae_count + 1, "One more accepted auto-edit";
-    is $editor->accepted_edits, $old_e_count, "Same number of accepted edits";
+    $edit_counts = $c->model('Editor')->various_edit_counts(1);
+    my $new_ae_count = $edit_counts->{accepted_auto_count};
+    my $new_e_count = $edit_counts->{accepted_count};
+
+    is $new_ae_count, $old_ae_count + 1, "One more accepted auto-edit";
+    is $new_e_count, $old_e_count, "Same number of accepted edits";
 };
 
 test 'default_includes function' => sub {

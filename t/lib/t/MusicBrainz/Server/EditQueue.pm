@@ -63,8 +63,13 @@ test 'Edit queue correctly handles locked edits' => sub {
     Sql::run_in_transaction(sub {
         $other_dbh->sql->do(<<EOSQL);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
-INSERT INTO edit (id, editor, type, status, open_time, expire_time, yes_votes) VALUES (101, 10, $mock_class, 1, now() - interval '7 days', now(), 100);
+INSERT INTO edit (id, editor, type, status, open_time, expire_time) VALUES (101, 10, $mock_class, 1, now() - interval '7 days', now());
 INSERT INTO edit_data (edit, data) VALUES (101, '{}');
+
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+    SELECT generate_series(11, 15), 'Voter ' || generate_series(1, 5), '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now();
+INSERT INTO vote (editor, vote, vote_time, edit)
+    SELECT generate_series(11, 15), 1, now(), 101;
 EOSQL
     }, $other_dbh->sql);
 
@@ -103,9 +108,14 @@ test 'Edit queue can close edits with sufficient yes votes early' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
-INSERT INTO edit (id, editor, type, status, open_time, expire_time, yes_votes)
-  VALUES (101, 10, $mock_class, 1, now() - interval '5 days', now() + interval '2 days', 100);
+INSERT INTO edit (id, editor, type, status, open_time, expire_time)
+  VALUES (101, 10, $mock_class, 1, now() - interval '5 days', now() + interval '2 days');
 INSERT INTO edit_data (edit, data) VALUES (101, '{}');
+
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+    SELECT generate_series(11, 15), 'Voter ' || generate_series(1, 5), '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now();
+INSERT INTO vote (editor, vote, vote_time, edit)
+    SELECT generate_series(11, 15), 1, now(), 101;
 EOSQL
 
     my $errors = $test->edit_queue->process_edits;
@@ -119,9 +129,14 @@ test 'Edit queue won\'t close recent destructive edits even with sufficient yes 
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
-INSERT INTO edit (id, editor, type, status, open_time, expire_time, yes_votes)
-  VALUES (101, 10, $mock_class, 1, now() - interval '3 hours', now() + interval '6 days 21 hours', 100);
+INSERT INTO edit (id, editor, type, status, open_time, expire_time)
+  VALUES (101, 10, $mock_class, 1, now() - interval '3 hours', now() + interval '6 days 21 hours');
 INSERT INTO edit_data (edit, data) VALUES (101, '{}');
+
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+    SELECT generate_series(11, 15), 'Voter ' || generate_series(1, 5), '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now();
+INSERT INTO vote (editor, vote, vote_time, edit)
+    SELECT generate_series(11, 15), 1, now(), 101;
 EOSQL
 
     my $errors = $test->edit_queue->process_edits;

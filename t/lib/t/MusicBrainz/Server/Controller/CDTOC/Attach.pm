@@ -16,7 +16,7 @@ INSERT INTO cdtoc_raw (id, release, discid, track_count, leadout_offset, track_o
 INSERT INTO track_raw (id, release, title, artist, sequence)
     VALUES (1, 1, 'CD stub track', NULL, 1);
 
-INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478');
 EOSQL
 
     $mech->get_ok('/login');
@@ -66,7 +66,7 @@ INSERT INTO track (id, gid, medium, name, recording, position, number, artist_cr
            (2, '1d6aca46-d9be-4f05-b459-723afb74395d', 2, 'pregap track', 2, 0, 0, 1),
            (3, 'ca94f034-48bf-4b78-a019-0f4eadd1fdbc', 2, 'track', 1, 1, 1, 1);
 
-INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478');
 EOSQL
 
     $mech->get_ok('/login');
