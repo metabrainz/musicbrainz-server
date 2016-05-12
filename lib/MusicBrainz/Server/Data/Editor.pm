@@ -532,62 +532,36 @@ sub subscription_summary {
     );
 }
 
-sub _edit_count
-{
-    my ($self, $editor_id, $status, $auto_edit) = @_;
-    my $query =
-        'SELECT count(*)
-           FROM edit
-          WHERE status = ?
-          AND editor = ?
-       ';
-    my @params = ($status, $editor_id);
+sub various_edit_counts {
+    my ($self, $editor_id) = @_;
+    my %result = map { $_ . '_count' => 0 }
+        qw( accepted accepted_auto rejected cancelled open failed );
 
-    if (defined $auto_edit) {
-        $query .= 'AND autoedit = ?';
-        push @params, $auto_edit;
+    my $query =
+        q{SELECT
+              CASE
+                WHEN status = ? THEN
+                  CASE
+                    WHEN autoedit = 0 THEN 'accepted'
+                    ELSE 'accepted_auto'
+                  END
+                WHEN status = ? THEN 'rejected'
+                WHEN status = ? THEN 'cancelled'
+                WHEN status = ? THEN 'open'
+                ELSE 'failed'
+              END AS category,
+              COUNT(*) AS count
+            FROM edit
+           WHERE editor = ?
+           GROUP BY category};
+    my @params = ($STATUS_APPLIED, $STATUS_FAILEDVOTE, $STATUS_DELETED, $STATUS_OPEN);
+    my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
+
+    for my $row (@$rows) {
+        my ($category, $count) = @$row;
+        $result{$category . '_count'} = $count;
     }
-
-    return $self->sql->select_single_value($query, @params);
-}
-
-sub accepted_edit_count {
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_APPLIED, 0);
-}
-
-sub accepted_auto_edit_count {
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_APPLIED, 1);
-}
-
-sub rejected_edit_count {
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_FAILEDVOTE);
-}
-
-sub failed_edit_count {
-    my ($self, $editor_id) = @_;
-    my $query =
-        'SELECT count(*)
-           FROM edit
-          WHERE NOT (status = ANY (?))
-          AND editor = ?';
-
-    my $status = [ $STATUS_DELETED, $STATUS_FAILEDVOTE, $STATUS_APPLIED, $STATUS_OPEN ];
-    return $self->sql->select_single_value($query, $status, $editor_id);
-}
-
-sub open_edit_count
-{
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_OPEN);
-}
-
-sub cancelled_edit_count
-{
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_DELETED);
+    return \%result;
 }
 
 sub last_24h_edit_count
