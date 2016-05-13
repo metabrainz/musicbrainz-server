@@ -224,7 +224,9 @@
   </select>
 
   <br />
-  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; or which remove relationships, created after 2013-07-08.') %]</p>
+  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; ' _
+          'or which remove relationships, created after 2013-07-08; ' _
+          'or which reorder relationships.') %]</p>
 [% END %]
 
 [% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]

@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
 );
 
 sub operator_cardinality_map {
@@ -18,7 +19,7 @@ sub operator_cardinality_map {
 sub combine_with_query {
     my ($self, $query) = @_;
     $query->add_where([
-        "type IN ($EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE)
+        "type IN ($EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE, $EDIT_RELATIONSHIPS_REORDER)
          AND ? && array_remove(ARRAY[
                                    (data#>>'{link_type,id}')::int,
                                    (data#>>'{link,link_type,id}')::int,
