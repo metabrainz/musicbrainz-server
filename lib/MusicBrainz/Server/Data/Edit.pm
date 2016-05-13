@@ -50,13 +50,13 @@ my $EDIT_IDS_FOR_COLLECTION_SQL =
 
 sub _table
 {
-    return 'edit';
+    return 'edit JOIN edit_data ON edit.id = edit_data.edit';
 }
 
 sub _columns
 {
     return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
-            edit.data, edit.language, edit.type, edit.yes_votes, edit.no_votes,
+            edit_data.data, edit.language, edit.type, edit.yes_votes, edit.no_votes,
             edit.autoedit, edit.status, edit.quality';
 }
 
@@ -112,13 +112,12 @@ sub get_by_id_and_lock
     my ($self, $id) = @_;
 
     my $query =
-        "SELECT " . $self->_columns . " FROM " . $self->_table . " " .
+        "SELECT id FROM edit " .
         "WHERE id = ? FOR UPDATE NOWAIT";
-
     my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
-    my $edit = $self->_new_from_row($row);
+    my $edit = $self->get_by_id($id);
     return $edit;
 }
 
@@ -314,8 +313,9 @@ sub find_creation_edit {
            FROM " . $self->_table . "
          WHERE edit.status = ?
            AND edit.type = ?
-           AND extract_path_value(data, ?::text) = ?
+           AND (edit_data.data->>(?::text))::bigint = ?
          ORDER BY edit.id ASC LIMIT 1";
+        # NB. This function is used for cover art too, which uses bigint IDs.
     my ($edit) = $self->query_to_list(
         $query,
         [$STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id],
@@ -566,7 +566,6 @@ sub create {
 
     my $row = {
         editor => $edit->editor_id,
-        data => JSON->new->encode($edit->to_hash),
         status => $edit->status,
         type => $edit->edit_type,
         open_time => \"now()",
@@ -575,8 +574,12 @@ sub create {
         quality => $edit->quality,
         close_time => $edit->close_time
     };
-
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+    $row = {
+        edit => $edit_id,
+        data => JSON->new->encode($edit->to_hash),
+    };
+    $self->c->sql->insert_row('edit_data', $row);
     $edit->id($edit_id);
 
     $edit->post_insert;

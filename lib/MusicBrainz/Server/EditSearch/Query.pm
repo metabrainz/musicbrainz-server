@@ -152,7 +152,8 @@ sub as_string {
     $order = 'ORDER BY edit.id ' . $self->order
         unless $self->order eq 'rand';
 
-    return 'SELECT edit.* FROM edit ' .
+    return 'SELECT edit.*, edit_data.data ' .
+        'FROM edit JOIN edit_data ON edit.id = edit_data.edit ' .
         'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")

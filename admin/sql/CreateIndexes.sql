@@ -100,6 +100,16 @@ CREATE INDEX edit_idx_open_time ON edit USING BRIN (open_time);
 CREATE INDEX edit_idx_close_time ON edit USING BRIN (close_time);
 CREATE INDEX edit_idx_expire_time ON edit USING BRIN (expire_time);
 
+CREATE INDEX edit_data_idx_link_type ON edit_data USING GIN (
+    array_remove(ARRAY[
+                     (data#>>'{link_type,id}')::int,
+                     (data#>>'{link,link_type,id}')::int,
+                     (data#>>'{old,link_type,id}')::int,
+                     (data#>>'{new,link_type,id}')::int,
+                     (data#>>'{relationship,link_type,id}')::int
+                 ], NULL)
+);
+
 -- Entity indexes
 CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);

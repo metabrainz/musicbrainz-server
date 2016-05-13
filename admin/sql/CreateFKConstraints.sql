@@ -331,6 +331,11 @@ ALTER TABLE edit_artist
    REFERENCES artist(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_data
+   ADD CONSTRAINT edit_data_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
 ALTER TABLE edit_event
    ADD CONSTRAINT edit_event_fk_edit
    FOREIGN KEY (edit)

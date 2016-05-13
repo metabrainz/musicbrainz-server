@@ -32,7 +32,7 @@ Prerequisites
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube and earthdistance extensions found in the contrib
@@ -258,14 +258,7 @@ Creating the database
     Note that a running PostgreSQL will pick up changes to configuration files
     only when being told so via a `HUP` signal.
 
-3.  Install a Perl module
-
-    One PL/Perl database function requires the JSON::XS Perl module. Install it
-    like so:
-
-        sudo apt-get install libjson-xs-perl
-
-4.  Create the database
+3.  Create the database
 
     You have two options when it comes to the database. You can either opt for a
     clean database with just the schema (useful for developers with limited disk
