@@ -28,7 +28,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
     %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use JSON;
+use JSON::XS;
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
@@ -67,7 +67,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or confess"Could not look up class for type ".$row->{type};
-    my $data = JSON->new->decode($row->{data});
+    my $data = JSON::XS->new->utf8->decode($row->{data});
 
     my $edit = $class->new({
         c => $self->c,
@@ -577,7 +577,7 @@ sub create {
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
     $row = {
         edit => $edit_id,
-        data => JSON->new->encode($edit->to_hash),
+        data => JSON::XS->new->utf8->encode($edit->to_hash),
     };
     $self->c->sql->insert_row('edit_data', $row);
     $edit->id($edit_id);
