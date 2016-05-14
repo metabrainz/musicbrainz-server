@@ -31,16 +31,18 @@ TRUNCATE edit CASCADE;
 TRUNCATE edit_note CASCADE;
 
 -- Test multiple edit_notes
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (1, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (1, 1, 111, 1, NOW());
 
 -- Test a single note
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (2, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (2, 1, 111, 1, NOW());
 
 -- Test no edit_notes
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (3, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (3, 1, 111, 1, NOW());
+
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 3), '{ "foo": "5" }';
 
 INSERT INTO edit_note (id, editor, edit, text)
     VALUES (1, 1, 1, 'This is a note');

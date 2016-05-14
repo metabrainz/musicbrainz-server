@@ -2,20 +2,14 @@ SET client_min_messages TO 'warning';
 
 INSERT INTO editor (id, name, password, privs, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 1+8+32, 'test@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478'), (2, 'Alice', '{CLEARTEXT}secret1', 0, 'alice@example.com', 'http://example.com', 'second biography', '2007-07-23', '2007-10-20', '2009-12-05', 11, 3, 41, 8, '473045b48884c866cae27da3e4b5d618'), (3, 'kuno', '{CLEARTEXT}byld', 0, 'kuno@example.com', 'http://frob.nl', 'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0, '7519d5878645b8944a03555ea66f1ac3');
 
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (2, 1, 123, 1, '{ "key": "value" }', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (3, 2, 123, 1, '{ "key": "value" }', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (4, 1, 123, 1, '{ "key": "value" }', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (5, 2, 123, 2, '{ "key": "value" }', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (6, 3, 123, 1, '{ "key": "value" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (2, 1, 123, 1, NOW()),
+           (3, 2, 123, 1, NOW()),
+           (4, 1, 123, 1, NOW()),
+           (5, 2, 123, 2, NOW()),
+           (6, 3, 123, 1, NOW());
+INSERT INTO edit_data (edit, data)
+    SELECT generate_series(2, 6), '{ "key": "value" }';
 
 INSERT INTO artist (id, gid, name, sort_name, comment)
     VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 1'),
@@ -52,5 +46,6 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
   VALUES (155, '14b9d183-7dab-42ba-94a3-7388a66604b8', 'Release', 155, 155);
 
-INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (130, 10, 316, '', 2, now());
+INSERT INTO edit (id, editor, type, status, expire_time) VALUES (130, 10, 316, 2, now());
+INSERT INTO edit_data (edit, data) VALUES (130, '{}');
 INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 155, 'image/jpeg', 130, 1);
