@@ -211,8 +211,8 @@ sub find_for_subscription
 {
     my ($self, $subscription) = @_;
     if ($subscription->isa(EditorSubscription)) {
-        my $query = 'SELECT ' . $self->_columns . ' FROM edit
-                      WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
 
         $self->query_to_list(
             $query,
