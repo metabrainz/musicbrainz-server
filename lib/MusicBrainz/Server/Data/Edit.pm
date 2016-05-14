@@ -389,15 +389,15 @@ EOSQL
     # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
     my $query = <<EOSQL;
-SELECT * FROM edit, (
+SELECT $columns FROM $table
+JOIN (
     $entity_sql
     UNION
     SELECT edit FROM ($subscriptions_sql) ce
       JOIN edit ON ce.edit = edit.id
      WHERE ${\($edit_filter->('edit', 'ce'))}
-) edits
-WHERE edit.id = edits.edit
-AND ${\($edit_filter->('edit', 'edit', '!='))}
+) edits ON edit.id = edits.edit
+WHERE ${\($edit_filter->('edit', 'edit', '!='))}
 AND NOT EXISTS (
     SELECT TRUE FROM vote
     WHERE vote.edit = edit.id
