@@ -84,6 +84,7 @@ test 'Test locks on edits' => sub {
 
     # Release the lock
     $sql2->rollback;
+    $foreign_connection->dbh->do('DELETE FROM edit_data WHERE edit = 12345');
     $foreign_connection->dbh->do('DELETE FROM edit WHERE id = 12345');
     $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
