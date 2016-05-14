@@ -583,13 +583,6 @@ sub create {
     $edit->id($edit_id);
 
     $edit->post_insert;
-    my $post_insert_update = {
-        data => JSON->new->encode($edit->to_hash),
-        status => $edit->status,
-        type => $edit->edit_type,
-    };
-
-    $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
     $edit->adjust_edit_pending(+1) unless $edit->auto_edit;
 
