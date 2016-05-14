@@ -7,8 +7,8 @@ INSERT INTO editor (id, name, password, ha1)
 VALUES (1, 'New editor', '{CLEARTEXT}mb', '');
 
 PREPARE insert_edit AS
-INSERT INTO edit (editor, type, status, expire_time, data)
-VALUES (1, 1, 1, now(), '');
+INSERT INTO edit (editor, type, status, expire_time)
+VALUES (1, 1, 1, now());
 
 SELECT throws_ok(
     'insert_edit',

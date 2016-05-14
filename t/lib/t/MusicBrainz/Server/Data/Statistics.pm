@@ -48,18 +48,20 @@ test 'top_recently_active_editors' => sub {
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
   SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 4) s(x);
 
-INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
+INSERT INTO edit (id, status, type, open_time, expire_time, editor)
 VALUES
 -- Edits that should count
-  (1, '{}', 1, 1, now(), now(), 1),
-  (2, '{}', 2, 1, now(), now(), 1),
-  (3, '{}', 1, 1, now(), now(), 2),
+  (1, 1, 1, now(), now(), 1),
+  (2, 2, 1, now(), now(), 1),
+  (3, 1, 1, now(), now(), 2),
 
 -- Failed edits dont count
-  (4, '{}', 4, 1, now(), now(), 3),
+  (4, 4, 1, now(), now(), 3),
 
 -- Old edits dont count
-  (5, '{}', 2, 1, '1970-01-01', now(), 4);
+  (5, 2, 1, '1970-01-01', now(), 4);
+
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 5), '{}';
 EOSQL
 
     ok !exception { $test->c->model('Statistics')->recalculate_all };
@@ -80,18 +82,20 @@ test 'top_editors' => sub {
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
   SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 4) s(x);
 
-INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
+INSERT INTO edit (id, status, type, open_time, expire_time, editor)
 VALUES
 -- Edits that should count
-  (1, '{}', 1, 1, now(), now(), 1),
-  (2, '{}', 2, 1, now(), now(), 1),
-  (3, '{}', 1, 1, now() - '5 day'::interval, now(), 2),
+  (1, 1, 1, now(), now(), 1),
+  (2, 2, 1, now(), now(), 1),
+  (3, 1, 1, now() - '5 day'::interval, now(), 2),
 
 -- Failed edits dont count
-  (4, '{}', 4, 1, now(), now(), 3),
+  (4, 4, 1, now(), now(), 3),
 
 -- Old edits do count
-  (5, '{}', 2, 1, '1970-01-01', now(), 4);
+  (5, 2, 1, '1970-01-01', now(), 4);
+
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 5), '{}';
 
 UPDATE editor SET edits_accepted = 2 WHERE id = 1;
 UPDATE editor SET edits_accepted = 1 WHERE id = 2;
@@ -116,8 +120,9 @@ test 'top_recently_active_voters' => sub {
     $test->c->sql->do(<<EOSQL);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
   SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 5) s(x);
-INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
-  SELECT x, '{}', 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
+INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+  SELECT x, 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
 
 INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
 VALUES
@@ -154,8 +159,9 @@ test 'top_voters' => sub {
     $test->c->sql->do(<<EOSQL);
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
   SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 5) s(x);
-INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
-  SELECT x, '{}', 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
+INSERT INTO edit (id, status, type, open_time, expire_time, editor)
+  SELECT x, 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 4), '{}';
 
 INSERT INTO vote (id, edit, vote, vote_time, editor, superseded)
 VALUES

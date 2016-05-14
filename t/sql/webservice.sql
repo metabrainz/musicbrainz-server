@@ -2502,7 +2502,8 @@ INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 
-INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
+INSERT INTO edit (autoedit, close_time, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
+INSERT INTO edit_data (edit, data) VALUES (1, '{}');
 
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 
