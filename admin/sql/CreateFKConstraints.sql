@@ -506,6 +506,16 @@ ALTER TABLE editor_collection_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_gid
+   FOREIGN KEY (gid)
+   REFERENCES deleted_entity(gid);
+
 ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_collection
    FOREIGN KEY (collection)

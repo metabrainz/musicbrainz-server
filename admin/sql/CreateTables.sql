@@ -2146,6 +2146,11 @@ CREATE TABLE editor_collection_work (
     work INTEGER NOT NULL -- PK, references work.id
 );
 
+CREATE TABLE editor_collection_deleted_entity (
+    collection INTEGER NOT NULL, -- PK, references editor_collection.id
+    gid UUID NOT NULL -- PK, references deleted_entity.gid
+);
+
 CREATE TABLE editor_oauth_token
 (
     id                  SERIAL,

@@ -56,6 +56,7 @@ DROP TABLE editor;
 DROP TABLE editor_collection;
 DROP TABLE editor_collection_area;
 DROP TABLE editor_collection_artist;
+DROP TABLE editor_collection_deleted_entity;
 DROP TABLE editor_collection_event;
 DROP TABLE editor_collection_instrument;
 DROP TABLE editor_collection_label;
