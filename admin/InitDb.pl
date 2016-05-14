@@ -121,7 +121,7 @@ sub RunSQLScript
 
 sub HasEditData
 {
-    my $mb = Databases->get_connection('MAINTENANCE');
+    my $mb = Databases->get_connection($databaseName);
     my $sql = Sql->new( $mb->conn );
     return $sql->select_single_value('SELECT TRUE FROM edit LIMIT 1');
 }
