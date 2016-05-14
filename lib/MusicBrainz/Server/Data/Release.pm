@@ -28,6 +28,7 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
@@ -768,11 +769,12 @@ sub delete
 
     my @release_group_ids = @{
         $self->sql->select_single_column_array(
-            'DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')
-             RETURNING release_group',
+            'SELECT release_group FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
             @release_ids
         )
     };
+
+    $self->delete_returning_gids(@release_ids);
 
     $self->c->model('ReleaseGroup')->clear_empty_release_groups(@release_group_ids);
 
