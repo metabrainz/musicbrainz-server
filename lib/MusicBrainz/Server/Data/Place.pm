@@ -25,6 +25,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
@@ -100,7 +101,7 @@ sub delete
     $self->alias->delete_entities(@place_ids);
     $self->tags->delete(@place_ids);
     $self->remove_gid_redirects(@place_ids);
-    $self->sql->do('DELETE FROM place WHERE id IN (' . placeholders(@place_ids) . ')', @place_ids);
+    $self->delete_returning_gids(@place_ids);
     return 1;
 }
 

@@ -14,6 +14,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
@@ -78,7 +79,7 @@ sub delete {
     $self->alias->delete_entities($instrument_id);
     $self->tags->delete($instrument_id);
     $self->remove_gid_redirects($instrument_id);
-    $self->sql->do('DELETE FROM instrument WHERE id = ?', $instrument_id);
+    $self->delete_returning_gids($instrument_id);
     return;
 }
 

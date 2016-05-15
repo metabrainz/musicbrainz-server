@@ -506,6 +506,16 @@ ALTER TABLE editor_collection_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_gid
+   FOREIGN KEY (gid)
+   REFERENCES deleted_entity(gid);
+
 ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_collection
    FOREIGN KEY (collection)
@@ -649,7 +659,7 @@ ALTER TABLE editor_subscribe_artist_deleted
 ALTER TABLE editor_subscribe_artist_deleted
    ADD CONSTRAINT editor_subscribe_artist_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES artist_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_artist_deleted
    ADD CONSTRAINT editor_subscribe_artist_deleted_fk_deleted_by
@@ -694,7 +704,7 @@ ALTER TABLE editor_subscribe_label_deleted
 ALTER TABLE editor_subscribe_label_deleted
    ADD CONSTRAINT editor_subscribe_label_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES label_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_label_deleted
    ADD CONSTRAINT editor_subscribe_label_deleted_fk_deleted_by
@@ -724,7 +734,7 @@ ALTER TABLE editor_subscribe_series_deleted
 ALTER TABLE editor_subscribe_series_deleted
    ADD CONSTRAINT editor_subscribe_series_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES series_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_series_deleted
    ADD CONSTRAINT editor_subscribe_series_deleted_fk_deleted_by

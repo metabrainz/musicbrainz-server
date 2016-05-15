@@ -207,14 +207,6 @@ CREATE TABLE artist ( -- replicate (verbose)
     end_area            INTEGER -- references area.id
 );
 
-CREATE TABLE artist_deletion
-(
-    gid UUID NOT NULL, -- PK
-    last_known_name VARCHAR NOT NULL,
-    last_known_comment TEXT NOT NULL,
-    deleted_at timestamptz NOT NULL DEFAULT now()
-);
-
 CREATE TABLE artist_alias_type ( -- replicate
     id                  SERIAL,
     name                TEXT NOT NULL,
@@ -400,6 +392,12 @@ CREATE TABLE country_area ( -- replicate (verbose)
     area                INTEGER -- PK, references area.id
 );
 
+CREATE TABLE deleted_entity (
+    gid UUID NOT NULL, -- PK
+    data JSONB NOT NULL,
+    deleted_at timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE edit
 (
     id                  SERIAL,
@@ -561,7 +559,7 @@ CREATE TABLE editor_subscribe_artist
 CREATE TABLE editor_subscribe_artist_deleted
 (
     editor INTEGER NOT NULL, -- PK, references editor.id
-    gid UUID NOT NULL, -- PK, references artist_deletion.gid
+    gid UUID NOT NULL, -- PK, references deleted_entity.gid
     deleted_by INTEGER NOT NULL -- references edit.id
 );
 
@@ -586,7 +584,7 @@ CREATE TABLE editor_subscribe_label
 CREATE TABLE editor_subscribe_label_deleted
 (
     editor INTEGER NOT NULL, -- PK, references editor.id
-    gid UUID NOT NULL, -- PK, references label_deletion.gid
+    gid UUID NOT NULL, -- PK, references deleted_entity.gid
     deleted_by INTEGER NOT NULL -- references edit.id
 );
 
@@ -609,7 +607,7 @@ CREATE TABLE editor_subscribe_series
 CREATE TABLE editor_subscribe_series_deleted
 (
     editor              INTEGER NOT NULL, -- PK, references editor.id
-    gid                 UUID NOT NULL, -- PK, references series_deletion.gid
+    gid                 UUID NOT NULL, -- PK, references deleted_entity.gid
     deleted_by          INTEGER NOT NULL -- references edit.id
 );
 
@@ -1851,14 +1849,6 @@ CREATE TABLE label ( -- replicate (verbose)
       )
 );
 
-CREATE TABLE label_deletion
-(
-    gid UUID NOT NULL, -- PK
-    last_known_name VARCHAR NOT NULL,
-    last_known_comment TEXT NOT NULL,
-    deleted_at timestamptz NOT NULL DEFAULT now()
-);
-
 CREATE TABLE label_rating_raw
 (
     label               INTEGER NOT NULL, -- PK, references label.id
@@ -2154,6 +2144,11 @@ CREATE TABLE editor_collection_series (
 CREATE TABLE editor_collection_work (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     work INTEGER NOT NULL -- PK, references work.id
+);
+
+CREATE TABLE editor_collection_deleted_entity (
+    collection INTEGER NOT NULL, -- PK, references editor_collection.id
+    gid UUID NOT NULL -- PK, references deleted_entity.gid
 );
 
 CREATE TABLE editor_oauth_token
@@ -2768,14 +2763,6 @@ CREATE TABLE series_ordering_type ( -- replicate (verbose)
     child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT,
     gid                 uuid NOT NULL
-);
-
-CREATE TABLE series_deletion
-(
-    gid                 UUID NOT NULL, -- PK
-    last_known_name     VARCHAR NOT NULL,
-    last_known_comment  TEXT NOT NULL,
-    deleted_at          timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE series_gid_redirect ( -- replicate (verbose)
