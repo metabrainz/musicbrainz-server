@@ -19,8 +19,8 @@ sub prepare_test_database {
     my $c = shift;
 
     $c->sql->do(q{
-        INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1)
-        VALUES (1, 'editor', '{CLEARTEXT}password', 0, 'noreply@example.com', '', '', '1999-09-09', '1999-09-09', 0, 0, 0, 0, '3a115bc4f05ea9856bd4611b75c80bca');
+        INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, ha1)
+        VALUES (1, 'editor', '{CLEARTEXT}password', 0, 'noreply@example.com', '', '', '1999-09-09', '1999-09-09', '3a115bc4f05ea9856bd4611b75c80bca');
     });
 }
 

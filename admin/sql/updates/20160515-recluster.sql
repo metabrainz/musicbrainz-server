@@ -1,0 +1,8 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+CLUSTER edit USING edit_pkey;
+
+ANALYZE edit;
+
+COMMIT;

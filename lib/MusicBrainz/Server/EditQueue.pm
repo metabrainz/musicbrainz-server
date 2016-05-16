@@ -3,7 +3,7 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD );
+use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status :vote $REQUIRED_VOTES $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD );
 use DateTime::Format::Pg;
 
 use aliased 'MusicBrainz::Server::Entity::Editor';
@@ -60,13 +60,23 @@ sub process_edits
     $self->log->debug("Selecting eligible edit IDs\n");
     my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
     my $edit_ids = $sql->select_single_column_array("
-        SELECT id FROM edit
-          LEFT JOIN (SELECT edit, min(vote_time) AS timestamp FROM vote WHERE vote = 0 AND NOT superseded GROUP BY edit) first_no_vote ON edit.id = first_no_vote.edit
+        SELECT id
+          FROM edit
+               LEFT JOIN (
+                 SELECT edit,
+                        MIN(CASE WHEN vote = ? THEN vote_time ELSE NULL END) AS first_no_vote,
+                        SUM(CASE WHEN vote = ? THEN 1 ELSE 0 END) AS yes_votes,
+                        SUM(CASE WHEN vote = ? THEN 1 ELSE 0 END) AS no_votes
+                   FROM vote
+                  WHERE NOT superseded
+                  GROUP BY edit
+               ) vote_info ON edit.id = vote_info.edit
           WHERE status = ?
             AND (expire_time < now() OR
-                 (yes_votes >= ? AND no_votes = 0) OR
-                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - interval ?))
+                 (vote_info.yes_votes >= ? AND vote_info.no_votes = 0) OR
+                 (vote_info.no_votes >= ? AND vote_info.yes_votes = 0 AND vote_info.first_no_vote < NOW() - interval ?))
           ORDER BY id",
+        $VOTE_NO, $VOTE_YES, $VOTE_NO,
         $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES, $interval);
 
     my %stats;
@@ -113,6 +123,8 @@ sub _process_edit
     }
 
     $self->log->debug("Evaluating edit #$edit_id\n");
+
+    $c->model('Vote')->load_for_edits($edit);
 
     if ($edit->status == $STATUS_TOBEDELETED) {
         return $self->_process_tobedeleted_edit($edit);

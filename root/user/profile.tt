@@ -159,19 +159,19 @@
 
         <tbody>
         [% WRAPPER statistics name=lp("Accepted", 'edit descriptor') %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(accepted_count), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Auto-edits") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_auto_edits), view_url => c.uri_for_action('/user/edits/autoedits', [ user.name ]) }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(accepted_auto_count), view_url => c.uri_for_action('/user/edits/autoedits', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Voted down") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.rejected_edits), view_url => c.uri_for_action('/user/edits/rejected', [ user.name ]) }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(rejected_count), view_url => c.uri_for_action('/user/edits/rejected', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Failed") %]
-            [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => c.uri_for_action('/user/edits/failed', [ user.name ]) }) %]
+            [% l('{count} ({view_url|view})', { count => add_commas(failed_count), view_url => c.uri_for_action('/user/edits/failed', [ user.name ]) }) %]
         [% END %]
 
         [% WRAPPER statistics name=l("Open") %]

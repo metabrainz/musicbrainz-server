@@ -10,7 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_with );
+use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -37,8 +37,9 @@ sub _table
 sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
-            member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed, gender, area,
+            member_since, email_confirm_date, last_login_date,
+            EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = ' . $STATUS_APPLIED . ' OFFSET 9) AS has_ten_accepted_edits,
+            gender, area,
             birth_date, ha1, deleted';
 }
 
@@ -52,10 +53,7 @@ sub _column_mapping
         privileges              => 'privs',
         website                 => 'website',
         biography               => 'bio',
-        accepted_edits          => 'edits_accepted',
-        rejected_edits          => 'edits_rejected',
-        failed_edits            => 'edits_failed',
-        accepted_auto_edits     => 'auto_edits_accepted',
+        has_ten_accepted_edits  => 'has_ten_accepted_edits',
         email_confirmation_date => 'email_confirm_date',
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
@@ -225,10 +223,6 @@ sub insert
             name => $data->{name},
             password => $data->{password},
             ha1 => $data->{ha1},
-            accepted_edits => 0,
-            rejected_edits => 0,
-            failed_edits => 0,
-            accepted_auto_edits => 0,
             registration_date => DateTime->now
         );
     }, $self->sql);
@@ -374,20 +368,6 @@ sub save_preferences
         $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
 
     }, $self->sql);
-}
-
-sub credit
-{
-    my ($self, $editor_id, $status, %opts) = @_;
-    my $column;
-    my $as_autoedit = $opts{auto_edit} ? 1 : 0;
-    return if $status == $STATUS_DELETED;
-    $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
-    $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
-    $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;
-    $column ||= "edits_failed";
-    my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
-    $self->sql->do($query, $editor_id);
 }
 
 # Must be run in a transaction to actually do anything. Acquires a row-level lock for a given editor ID.
@@ -538,29 +518,36 @@ sub subscription_summary {
     );
 }
 
-sub _edit_count
-{
-    my ($self, $editor_id, $status) = @_;
+sub various_edit_counts {
+    my ($self, $editor_id) = @_;
+    my %result = map { $_ . '_count' => 0 }
+        qw( accepted accepted_auto rejected cancelled open failed );
+
     my $query =
-        'SELECT count(*)
-           FROM edit
-          WHERE status = ?
-          AND editor = ?
-       ';
+        q{SELECT
+              CASE
+                WHEN status = ? THEN
+                  CASE
+                    WHEN autoedit = 0 THEN 'accepted'
+                    ELSE 'accepted_auto'
+                  END
+                WHEN status = ? THEN 'rejected'
+                WHEN status = ? THEN 'cancelled'
+                WHEN status = ? THEN 'open'
+                ELSE 'failed'
+              END AS category,
+              COUNT(*) AS count
+            FROM edit
+           WHERE editor = ?
+           GROUP BY category};
+    my @params = ($STATUS_APPLIED, $STATUS_FAILEDVOTE, $STATUS_DELETED, $STATUS_OPEN);
+    my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
 
-    return $self->sql->select_single_value($query, $status, $editor_id);
-}
-
-sub open_edit_count
-{
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_OPEN);
-}
-
-sub cancelled_edit_count
-{
-    my ($self, $editor_id) = @_;
-    return $self->_edit_count($editor_id, $STATUS_DELETED);
+    for my $row (@$rows) {
+        my ($category, $count) = @$row;
+        $result{$category . '_count'} = $count;
+    }
+    return \%result;
 }
 
 sub last_24h_edit_count

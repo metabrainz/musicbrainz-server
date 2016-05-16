@@ -81,10 +81,11 @@ is($editor->id, 1, 'id');
 is($editor->name, 'new_editor', 'name');
 ok($editor->match_password('password'));
 is($editor->privileges, 1+8+32+512, 'privileges');
-is($editor->accepted_edits, 12, 'accepted edits');
-is($editor->rejected_edits, 2, 'rejected edits');
-is($editor->failed_edits, 9, 'failed edits');
-is($editor->accepted_auto_edits, 59, 'auto edits');
+my $edit_counts = $editor_data->various_edit_counts($editor->id);
+is($edit_counts->{accepted_count}, 0, 'accepted edits');
+is($edit_counts->{rejected_count}, 0, 'rejected edits');
+is($edit_counts->{failed_count}, 0, 'failed edits');
+is($edit_counts->{accepted_auto_count}, 0, 'auto edits');
 
 is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 04, day => 05),
     'last login date');
@@ -103,21 +104,20 @@ is_deeply($editor, $editor2);
 $editor2 = $editor_data->get_by_name('nEw_EdItOr');
 is_deeply($editor, $editor2, 'fetching by name is case insensitive');
 
-
-# Test crediting
-Sql::run_in_transaction(sub {
-        $editor_data->credit($editor->id, $STATUS_APPLIED);
-        $editor_data->credit($editor->id, $STATUS_APPLIED, auto_edit => 1);
-        $editor_data->credit($editor->id, $STATUS_FAILEDVOTE);
-        $editor_data->credit($editor->id, $STATUS_ERROR);
-    }, $test->c->sql);
-
+$test->c->sql->do(<<EOSQL, $editor->id);
+    INSERT INTO edit (editor, type, status, data, expire_time, autoedit) VALUES
+        (\$1, 1, $STATUS_APPLIED, '', now(), 0),
+        (\$1, 1, $STATUS_APPLIED, '', now(), 1),
+        (\$1, 1, $STATUS_FAILEDVOTE, '', now(), 0),
+        (\$1, 1, $STATUS_FAILEDDEP, '', now(), 0);
+EOSQL
 
 $editor = $editor_data->get_by_id($editor->id);
-is($editor->accepted_edits, 13, "editor has 13 accepted edits");
-is($editor->rejected_edits, 3, "editor has 3 rejected edits");
-is($editor->failed_edits, 10, "editor has 10 failed edits");
-is($editor->accepted_auto_edits, 60, "editor has 60 accepted auto edits");
+$edit_counts = $editor_data->various_edit_counts($editor->id);
+is($edit_counts->{accepted_count}, 1, 'accepted edits');
+is($edit_counts->{rejected_count}, 1, 'rejected edits');
+is($edit_counts->{failed_count}, 1, 'failed edits');
+is($edit_counts->{accepted_auto_count}, 1, 'auto edits');
 
 my $alice = $editor_data->get_by_name('alice');
 # Test preferences
@@ -134,7 +134,7 @@ my $new_editor_2 = $editor_data->insert({
 ok($new_editor_2->id > $editor->id);
 is($new_editor_2->name, 'new_editor_2', 'new editor 2 has name new_editor_2');
 ok($new_editor_2->match_password('password'), 'new editor 2 has correct password');
-is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
+is($editor_data->various_edit_counts($new_editor_2->id)->{accepted_count}, 0, 'new editor 2 has no accepted edits');
 
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
@@ -201,7 +201,7 @@ test 'Deleting editors without data fully deletes them' => sub {
 INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
-INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
+INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
 EOSQL
     $model->delete(1);
@@ -213,11 +213,15 @@ test 'Deleting editors removes most information' => sub {
     my $c = $test->c;
     my $model = $c->model('Editor');
 
-    $c->sql->do(<<'EOSQL');
+    $c->sql->do(<<EOSQL);
 INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
-INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
+INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob\@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES
+    (1, 1, 1, $STATUS_APPLIED, '', now()),
+    (3, 1, 1, $STATUS_FAILEDVOTE, '', now()),
+    (4, 1, 1, $STATUS_FAILEDDEP, '', now());
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
 INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
 INSERT INTO tag (id, name, ref_count) VALUES (1, 'foo', 1);
@@ -232,16 +236,17 @@ EOSQL
     is($bob->name, 'Deleted Editor #' . $bob->id);
     is($bob->password, Authen::Passphrase::RejectAll->new->as_rfc2307);
     is($bob->privileges, 0);
-    is($bob->accepted_edits, 100);
-    is($bob->rejected_edits, 101);
-    is($bob->accepted_auto_edits, 102);
+    my $edit_counts = $model->various_edit_counts($bob->id);
+    is($edit_counts->{accepted_count}, 1);
+    is($edit_counts->{rejected_count}, 1);
+    is($edit_counts->{accepted_auto_count}, 0);
+    is($edit_counts->{failed_count}, 1);
     is($bob->deleted, 1);
 
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
-        qw( id name password privileges accepted_edits rejected_edits
-            accepted_auto_edits last_login_date failed_edits languages
-            registration_date preferences ha1 deleted
+        qw( id name password privileges last_login_date languages
+            registration_date preferences ha1 deleted has_ten_accepted_edits
       ));
 
     for my $attribute (grep { !$exclusions->contains($_->name) }
@@ -350,7 +355,7 @@ test 'Open edit and last-24-hour counts' => sub {
 
     is($open_edit->status, $STATUS_OPEN);
 
-    is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
+    is($c->model('Editor')->various_edit_counts(1)->{open_count}, 1, "Open edit count is 1");
     is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");
 };
 
