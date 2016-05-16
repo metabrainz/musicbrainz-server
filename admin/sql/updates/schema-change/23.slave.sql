@@ -6,8 +6,12 @@
 -- 20151223-edit-note-index.sql
 -- 20160310-mbs-4501-alternative-tracklists.sql
 -- 20160516-mbs-8656.sql
--- 20160516-mbs-8804.sql
 -- 20160507-mbs-8727.sql
+-- 20160512-edit-data.sql
+-- 20160514-mbs-8287-a.sql
+-- 20160514-mbs-8287-b.sql
+-- 20160515-recluster.sql
+-- 20160516-mbs-8804.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -412,22 +416,6 @@ CREATE INDEX url_gid_redirect_idx_new_id ON url_gid_redirect (new_id);
 CREATE INDEX work_gid_redirect_idx_new_id ON work_gid_redirect (new_id);
 
 --------------------------------------------------------------------------------
-SELECT '20160516-mbs-8804.sql';
-
-DROP INDEX IF EXISTS edit_idx_open_time;
-DROP INDEX IF EXISTS edit_idx_close_time;
-DROP INDEX IF EXISTS edit_idx_expire_time;
-CREATE INDEX edit_idx_open_time ON edit USING BRIN (open_time);
-CREATE INDEX edit_idx_close_time ON edit USING BRIN (close_time);
-CREATE INDEX edit_idx_expire_time ON edit USING BRIN (expire_time);
-
-DROP INDEX IF EXISTS edit_note_idx_post_time;
-CREATE INDEX edit_note_idx_post_time ON edit_note USING BRIN (post_time);
-
-DROP INDEX IF EXISTS vote_idx_vote_time;
-CREATE INDEX vote_idx_vote_time ON vote USING BRIN (vote_time);
-
---------------------------------------------------------------------------------
 SELECT '20160507-mbs-8727.sql';
 
 
@@ -442,5 +430,120 @@ UPDATE vote SET superseded = 't' WHERE id IN (
 
 DROP INDEX IF EXISTS vote_idx_editor_edit;
 CREATE UNIQUE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
+
+--------------------------------------------------------------------------------
+SELECT '20160512-edit-data.sql';
+
+DROP INDEX IF EXISTS edit_add_relationship_link_type;
+DROP INDEX IF EXISTS edit_edit_relationship_link_type_link;
+DROP INDEX IF EXISTS edit_edit_relationship_link_type_new;
+DROP INDEX IF EXISTS edit_edit_relationship_link_type_old;
+DROP INDEX IF EXISTS edit_remove_relationship_link_type;
+
+DROP FUNCTION IF EXISTS extract_path_value;
+
+CREATE TABLE edit_data (
+  edit INTEGER NOT NULL,
+  data JSONB NOT NULL
+);
+
+INSERT INTO edit_data
+  SELECT id, data
+    FROM edit
+   ORDER BY id;
+
+ALTER TABLE edit_data
+  ADD CONSTRAINT edit_data_pkey PRIMARY KEY (edit);
+
+ALTER TABLE edit
+  DROP COLUMN data;
+
+CREATE INDEX edit_data_idx_link_type ON edit_data USING GIN (
+    array_remove(ARRAY[
+                     (data#>>'{link_type,id}')::int,
+                     (data#>>'{link,link_type,id}')::int,
+                     (data#>>'{old,link_type,id}')::int,
+                     (data#>>'{new,link_type,id}')::int,
+                     (data#>>'{relationship,link_type,id}')::int
+                 ], NULL)
+);
+
+--------------------------------------------------------------------------------
+SELECT '20160514-mbs-8287-a.sql';
+
+CREATE TABLE deleted_entity (
+    gid UUID NOT NULL,
+    data JSONB NOT NULL,
+    deleted_at timestamptz NOT NULL DEFAULT now()
+);
+
+
+INSERT INTO deleted_entity (gid, deleted_at, data)
+SELECT gid, deleted_at,
+       jsonb_object('{last_known_name, last_known_comment, entity_gid, entity_type}',
+                ARRAY[last_known_name, last_known_comment, gid::text, 'artist']) AS data
+  FROM artist_deletion;
+
+ALTER TABLE editor_subscribe_artist_deleted DROP CONSTRAINT IF EXISTS editor_subscribe_artist_deleted_fk_gid;
+
+DROP TABLE artist_deletion;
+
+
+INSERT INTO deleted_entity (gid, deleted_at, data)
+SELECT gid, deleted_at,
+       jsonb_object('{last_known_name, last_known_comment, entity_gid, entity_type}',
+                ARRAY[last_known_name, last_known_comment, gid::text, 'label']) AS data
+  FROM label_deletion;
+
+ALTER TABLE editor_subscribe_label_deleted DROP CONSTRAINT IF EXISTS editor_subscribe_label_deleted_fk_gid;
+
+DROP TABLE label_deletion;
+
+
+INSERT INTO deleted_entity (gid, deleted_at, data)
+SELECT gid, deleted_at,
+       jsonb_object('{last_known_name, last_known_comment, entity_gid, entity_type}',
+                ARRAY[last_known_name, last_known_comment, gid::text, 'series']) AS data
+  FROM series_deletion;
+
+ALTER TABLE editor_subscribe_series_deleted DROP CONSTRAINT IF EXISTS editor_subscribe_series_deleted_fk_gid;
+
+DROP TABLE series_deletion;
+
+
+ALTER TABLE deleted_entity ADD CONSTRAINT deleted_entity_pkey PRIMARY KEY (gid);
+
+--------------------------------------------------------------------------------
+SELECT '20160514-mbs-8287-b.sql';
+
+CREATE TABLE editor_collection_deleted_entity (
+    collection INTEGER NOT NULL,
+    gid UUID NOT NULL
+);
+
+ALTER TABLE editor_collection_deleted_entity ADD CONSTRAINT editor_collection_deleted_entity_pkey PRIMARY KEY (collection, gid);
+
+--------------------------------------------------------------------------------
+SELECT '20160515-recluster.sql';
+
+CLUSTER edit USING edit_pkey;
+
+ANALYZE edit;
+
+--------------------------------------------------------------------------------
+SELECT '20160516-mbs-8804.sql';
+
+DROP INDEX IF EXISTS edit_idx_open_time;
+DROP INDEX IF EXISTS edit_idx_close_time;
+DROP INDEX IF EXISTS edit_idx_expire_time;
+CREATE INDEX edit_idx_open_time ON edit USING BRIN (open_time);
+CREATE INDEX edit_idx_close_time ON edit USING BRIN (close_time);
+CREATE INDEX edit_idx_expire_time ON edit USING BRIN (expire_time);
+
+DROP INDEX IF EXISTS edit_note_idx_post_time;
+CREATE INDEX edit_note_idx_post_time ON edit_note USING BRIN (post_time);
+
+DROP INDEX IF EXISTS vote_idx_vote_time;
+CREATE INDEX vote_idx_vote_time ON vote USING BRIN (vote_time);
 
 COMMIT;
