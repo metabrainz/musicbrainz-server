@@ -19,6 +19,8 @@ my $mock_class = 1000 + int(rand(1000));
     with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
     sub edit_name { 'Mock edit' }
     sub edit_type { $mock_class }
+    has yes_votes => ( is => 'rw', isa => 'Int' );
+    has no_votes => ( is => 'rw', isa => 'Int' );
 }
 
 MusicBrainz::Server::EditRegistry->register_type('t::MusicBrainz::Server::EditQueue::MockEdit');
