@@ -124,7 +124,7 @@ sub _process_edit
 
     $self->log->debug("Evaluating edit #$edit_id\n");
 
-    $c->model('Vote')->load_for_edits($edit);
+    $self->c->model('Vote')->load_for_edits($edit);
 
     if ($edit->status == $STATUS_TOBEDELETED) {
         return $self->_process_tobedeleted_edit($edit);
