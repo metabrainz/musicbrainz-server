@@ -13,12 +13,22 @@ with 't::Context';
 my $mock_class = 1000 + int(rand(1000));
 
 {
-    package t::MusicBrainz::Server::EditQueue::MockEdit;
+    package t::MusicBrainz::Server::EditQueue::MockEditSimple;
     use Moose;
     extends 'MusicBrainz::Server::Edit';
     with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
-    sub edit_name { 'Mock edit' }
+    sub edit_name { 'Mock edit with database votes' }
     sub edit_type { $mock_class }
+}
+
+MusicBrainz::Server::EditRegistry->register_type('t::MusicBrainz::Server::EditQueue::MockEditSimple');
+
+{
+    package t::MusicBrainz::Server::EditQueue::MockEdit;
+    use Moose;
+    extends 't::MusicBrainz::Server::EditQueue::MockEditSimple';
+    sub edit_name { 'Mock edit with simulated votes' }
+    sub edit_type { $mock_class + 1 }
     has yes_votes => ( is => 'rw', isa => 'Int' );
     has no_votes => ( is => 'rw', isa => 'Int' );
 }
