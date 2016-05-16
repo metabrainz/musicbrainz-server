@@ -151,7 +151,7 @@ sub CreateReplicationFunction
     $sql->auto_commit;
     $sql->do(
         "CREATE FUNCTION \"recordchange\" () RETURNS trigger
-        AS ?, 'recordchange' LANGUAGE 'C'",
+        AS ?, 'recordchange' LANGUAGE C",
         $path_to_pending_so,
     );
 }
