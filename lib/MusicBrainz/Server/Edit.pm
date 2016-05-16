@@ -131,11 +131,11 @@ has 'votes' => (
 );
 
 sub yes_votes {
-    shift->_grep_votes(sub { $_->vote == $VOTE_YES });
+    shift->_grep_votes(sub { $_->vote == $VOTE_YES && !$_->superseded });
 }
 
 sub no_votes {
-    shift->_grep_votes(sub { $_->vote == $VOTE_NO });
+    shift->_grep_votes(sub { $_->vote == $VOTE_NO && !$_->superseded });
 }
 
 sub votes_for_editor
