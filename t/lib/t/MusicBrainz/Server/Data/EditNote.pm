@@ -54,8 +54,10 @@ INSERT INTO edit_note (id, editor, edit, text)
     VALUES (3, 1, 2, 'Another edit note');
 
 -- Dummy edits to allow editor 2 to vote
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    SELECT 3 + x, 2, 111, 2, '', now() FROM generate_series(1, 10) x;
+INSERT INTO edit (id, editor, type, status, expire_time)
+    SELECT 3 + x, 2, 111, 2, now() FROM generate_series(1, 10) x;
+INSERT INTO edit_data (edit, data)
+    SELECT 3 + x, '{}' FROM generate_series(1, 10) x;
 
 ALTER SEQUENCE edit_note_id_seq RESTART 4;
 

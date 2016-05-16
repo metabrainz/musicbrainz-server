@@ -105,11 +105,13 @@ $editor2 = $editor_data->get_by_name('nEw_EdItOr');
 is_deeply($editor, $editor2, 'fetching by name is case insensitive');
 
 $test->c->sql->do(<<EOSQL, $editor->id);
-    INSERT INTO edit (editor, type, status, data, expire_time, autoedit) VALUES
-        (\$1, 1, $STATUS_APPLIED, '', now(), 0),
-        (\$1, 1, $STATUS_APPLIED, '', now(), 1),
-        (\$1, 1, $STATUS_FAILEDVOTE, '', now(), 0),
-        (\$1, 1, $STATUS_FAILEDDEP, '', now(), 0);
+    INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
+        (1, \$1, 1, $STATUS_APPLIED, now(), 0),
+        (2, \$1, 1, $STATUS_APPLIED, now(), 1),
+        (3, \$1, 1, $STATUS_FAILEDVOTE, now(), 0),
+        (4, \$1, 1, $STATUS_FAILEDDEP, now(), 0);
+    INSERT INTO edit_data (edit, data)
+        SELECT x, '{}' FROM generate_series(1, 4) x;
 EOSQL
 
 $editor = $editor_data->get_by_id($editor->id);
@@ -218,10 +220,11 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob\@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
-INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES
-    (1, 1, 1, $STATUS_APPLIED, '', now()),
-    (3, 1, 1, $STATUS_FAILEDVOTE, '', now()),
-    (4, 1, 1, $STATUS_FAILEDDEP, '', now());
+INSERT INTO edit (id, editor, type, status, expire_time) VALUES
+    (1, 1, 1, $STATUS_APPLIED, now()),
+    (3, 1, 1, $STATUS_FAILEDVOTE, now()),
+    (4, 1, 1, $STATUS_FAILEDDEP, now());
+INSERT INTO edit_data (edit, data) VALUES (1, '{}'), (3, '{}'), (4, '{}');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 120, 'native');
 INSERT INTO annotation (editor) VALUES (1); -- added to ensure editor won't be deleted
 INSERT INTO tag (id, name, ref_count) VALUES (1, 'foo', 1);

@@ -6,8 +6,12 @@ INSERT INTO editor (id, name, password, email, ha1, email_confirm_date, member_s
     (3, 'editor3', '{CLEARTEXT}pass', 'editor3@example.com', 'c096994132d53f3e1cde757943b10e7d', now(), '2014-12-02');
 
 -- Dummy edits to allow voting
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    SELECT x, 2, 1, 2, '', now() FROM generate_series(1, 10) x;
+INSERT INTO edit (id, editor, type, status, expire_time)
+    SELECT x, 2, 1, 2, now() FROM generate_series(1, 10) x;
+INSERT INTO edit_data (edit, data)
+    SELECT x, '{}' FROM generate_series(1, 10) x;
 
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    SELECT x, 3, 1, 2, '', now() FROM generate_series(11, 20) x;
+INSERT INTO edit (id, editor, type, status, expire_time)
+    SELECT x, 3, 1, 2, now() FROM generate_series(11, 20) x;
+INSERT INTO edit_data (edit, data)
+    SELECT x, '{}' FROM generate_series(11, 20) x;
