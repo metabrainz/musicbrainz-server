@@ -100,6 +100,7 @@ EOSQL
         # Clean up
         Sql::run_in_transaction(sub {
             $other_dbh->sql->do('DELETE FROM edit_data');
+            $other_dbh->sql->do('DELETE FROM vote');
             $other_dbh->sql->do('DELETE FROM edit');
             $other_dbh->sql->do('DELETE FROM editor');
         }, $other_dbh->sql);
