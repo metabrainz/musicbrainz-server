@@ -7,7 +7,7 @@ DROP INDEX IF EXISTS edit_edit_relationship_link_type_new;
 DROP INDEX IF EXISTS edit_edit_relationship_link_type_old;
 DROP INDEX IF EXISTS edit_remove_relationship_link_type;
 
-DROP FUNCTION IF EXISTS extract_path_value;
+DROP FUNCTION IF EXISTS extract_path_value(text, text);
 
 CREATE TABLE edit_data (
   edit INTEGER NOT NULL,
