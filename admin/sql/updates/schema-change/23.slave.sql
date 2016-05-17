@@ -433,7 +433,7 @@ CREATE TABLE edit_data (
 );
 
 INSERT INTO edit_data
-  SELECT id, data
+  SELECT id, data::jsonb
     FROM edit
    ORDER BY id;
 
