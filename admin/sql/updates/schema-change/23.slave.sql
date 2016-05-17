@@ -193,18 +193,6 @@ INSERT INTO edit_note_recipient (recipient, edit_note) (
 
 ALTER TABLE edit_note_recipient ADD CONSTRAINT edit_note_recipient_pkey PRIMARY KEY (recipient, edit_note);
 
-ALTER TABLE edit_note_recipient
-   ADD CONSTRAINT edit_note_recipient_fk_recipient
-   FOREIGN KEY (recipient)
-   REFERENCES editor(id);
-
-ALTER TABLE edit_note_recipient
-   ADD CONSTRAINT edit_note_recipient_fk_edit_note
-   FOREIGN KEY (edit_note)
-   REFERENCES edit_note(id);
-
--- Trigger
-
 CREATE OR REPLACE FUNCTION a_ins_edit_note() RETURNS trigger AS $$
 BEGIN
     INSERT INTO edit_note_recipient (recipient, edit_note) (
@@ -215,9 +203,6 @@ BEGIN
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER a_ins_edit_note AFTER INSERT ON edit_note
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_edit_note();
 
 --------------------------------------------------------------------------------
 SELECT '20141226-geodesic-index.sql';
