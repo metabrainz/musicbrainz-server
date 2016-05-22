@@ -261,6 +261,9 @@ sub begin : Private
     # Setup the searches on the sidebar.
     $c->form(sidebar_search => 'Search::Search');
 
+    # NOTE: The following checks are not applied to /ws/js/edit. If you change
+    # anything here, make sure it is reflected there, too (if applicable).
+
     # Edit implies RequireAuth
     if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
         $c->action->attributes->{RequireAuth} = 1;
