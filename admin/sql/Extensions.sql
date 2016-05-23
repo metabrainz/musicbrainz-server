@@ -2,6 +2,7 @@
 BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS cube WITH SCHEMA public;
+CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS musicbrainz_unaccent WITH SCHEMA musicbrainz;
 CREATE EXTENSION IF NOT EXISTS musicbrainz_collate WITH SCHEMA musicbrainz;
 

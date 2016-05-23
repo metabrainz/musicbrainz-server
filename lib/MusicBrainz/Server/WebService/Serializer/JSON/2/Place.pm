@@ -18,7 +18,8 @@ sub serialize
     $body{name} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{address} = $entity->address;
-    $body{type} = $entity->type_name;
+    $body{type} = $entity->type ? $entity->type_name : JSON::null;
+    $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
     $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
     $body{coordinates} = $entity->coordinates ?
             {

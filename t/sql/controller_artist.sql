@@ -39,7 +39,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f3
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2009, 5, 8);
 
 -- A full editor
-INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478');
 
 INSERT INTO editor (id, name, password, ha1) VALUES (2, 'alice', '{CLEARTEXT}password', '343cbae85500be826a413b9b6b242669');
 

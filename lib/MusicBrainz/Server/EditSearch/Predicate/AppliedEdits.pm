@@ -12,7 +12,7 @@ extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    my $subquery = "(SELECT edits_accepted + auto_edits_accepted FROM editor WHERE editor.id = edit.editor)";
+    my $subquery = "(SELECT COUNT(*) FROM edit H WHERE H.editor = edit.editor AND H.status = ?)";
 
     my $sql;
     given ($self->operator) {
@@ -24,7 +24,7 @@ sub combine_with_query {
        }
     }
 
-    $query->add_where([ $sql, $self->sql_arguments ]);
+    $query->add_where([ $sql, [ $STATUS_APPLIED, @{ $self->sql_arguments } ] ]);
 }
 
 

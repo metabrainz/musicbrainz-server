@@ -10,7 +10,7 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
-with 'MusicBrainz::Server::Data::Role::Attribute';
+with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _type { 'language' }
 

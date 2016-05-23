@@ -21,14 +21,7 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
--- Types, statuses, etc.
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (0, '1', 1, 'CD', NULL, 1982);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (4, '0', 2, 'DVD', NULL, 1995);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (7, '0', 6, 'MiniDisc', NULL, 1992);
-INSERT INTO medium_format (child_order, has_discids, id, name, parent, year) VALUES (1, '0', 7, 'Vinyl', NULL, 1895);
-
 INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
-INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 
 -- URLs
 
@@ -2509,7 +2502,8 @@ INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 
-INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
+INSERT INTO edit (autoedit, close_time, editor, expire_time, id, language, open_time, quality, status, type) VALUES (0, NULL, 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, '2013-04-02 17:42:38.063723+00', 1, 2, 314);
+INSERT INTO edit_data (edit, data) VALUES (1, '{}');
 
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 

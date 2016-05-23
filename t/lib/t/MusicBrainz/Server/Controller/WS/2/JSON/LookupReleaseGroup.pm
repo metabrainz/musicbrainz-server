@@ -21,7 +21,9 @@ test 'basic release group lookup' => sub {
             disambiguation => "",
             "first-release-date" => "2001-07-04",
             "primary-type" => "Single",
+            "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
             "secondary-types" => [],
+            "secondary-type-ids" => [],
         };
 };
 
@@ -40,7 +42,9 @@ test 'basic release group lookup, inc=annotation' => sub {
             disambiguation => "",
             "first-release-date" => "2007-01-29",
             "primary-type" => "Album",
+            "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
             "secondary-types" => [],
+            "secondary-type-ids" => [],
         };
 };
 
@@ -55,12 +59,15 @@ test 'release group lookup with releases' => sub {
             title => "Repercussions",
             "first-release-date" => "2008-11-17",
             "primary-type" => "Album",
+            "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
             "secondary-types" => [ "Remix" ],
+            "secondary-type-ids" => [ "0c60f497-ff81-3818-befd-abfc84a4858b" ],
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
                     title => "Repercussions",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
@@ -77,6 +84,7 @@ test 'release group lookup with releases' => sub {
                     }],
                     barcode => "600116822123",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     disambiguation => "",
                 }],
             disambiguation => "",
@@ -94,7 +102,9 @@ test 'release group lookup with artists' => sub {
             title => "Repercussions",
             "first-release-date" => "2008-11-17",
             "primary-type" => "Album",
+            "primary-type-id" => "f529b476-6e62-324f-b0aa-1f3e33d313fc",
             "secondary-types" => [ "Remix" ],
+            "secondary-type-ids" => [ "0c60f497-ff81-3818-befd-abfc84a4858b" ],
             "artist-credit" => [
                 {
                     name => "Distance",
@@ -121,7 +131,9 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
             title => "the Love Bug",
             "first-release-date" => "2004-03-17",
             "primary-type" => "Single",
+            "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
             "secondary-types" => [],
+            "secondary-type-ids" => [],
             "artist-credit" => [
                 {
                     name => "m-flo",
@@ -138,6 +150,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
                     title => "the Love Bug",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2004-03-17",
@@ -154,6 +167,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     }],
                     barcode => "4988064451180",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     disambiguation => "",
                 }],
             disambiguation => "",
@@ -173,7 +187,9 @@ test 'release group lookup with pseudo-releases' => sub {
             title => "the Love Bug",
             "first-release-date" => "2004-03-17",
             "primary-type" => "Single",
+            "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
             "secondary-types" => [],
+            "secondary-type-ids" => [],
             "artist-credit" => [
                 {
                     name => "m-flo",

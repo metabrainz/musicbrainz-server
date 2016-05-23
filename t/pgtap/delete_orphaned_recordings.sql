@@ -27,9 +27,10 @@ INSERT INTO recording (id, gid, name, artist_credit, edits_pending)
     (10, '5e8ac33b-836e-4b43-be55-1e73eeb47618', 'Orphan', 1, 0);
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca', '', now());
-INSERT INTO edit (id, type, editor, status, data, expire_time)
-    VALUES (1, 71, 1, 2, '', now()), (2, 207, 1, 2, '', now()),
-           (3, 218, 1, 1, '', now());
+INSERT INTO edit (id, type, editor, status, expire_time)
+    VALUES (1, 71, 1, 2, now()), (2, 207, 1, 2, now()),
+           (3, 218, 1, 1, now());
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 3), '{}';
 INSERT INTO edit_recording (edit, recording) VALUES (1, 2), (2, 3), (3, 4);
 
 INSERT INTO release_group (id, gid, name, artist_credit)

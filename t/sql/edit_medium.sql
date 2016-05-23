@@ -18,8 +18,6 @@ INSERT INTO medium (id, track_count, release, position, name)
     VALUES (1, 0, 1, 1, 'Medium Name'),
            (2, 0, 2, 1, 'Medium w/ Pregap');
 
-INSERT INTO medium_format (id, name, has_discids) VALUES (1, 'CD', 't');
-
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'Track', 1),
            (2, '58ecb4a2-5080-4c3f-84a0-6f4b42cab567', 'Pregap Track', 1);

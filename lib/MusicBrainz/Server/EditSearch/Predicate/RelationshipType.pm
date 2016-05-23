@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
 );
 
 sub operator_cardinality_map {
@@ -18,19 +19,15 @@ sub operator_cardinality_map {
 sub combine_with_query {
     my ($self, $query) = @_;
     $query->add_where([
-        join(
-            ' OR',
-            "(edit.type = ? AND  extract_path_value(edit.data, 'link_type/id') = any(?))",
-            "(edit.type = ? AND (extract_path_value(edit.data, 'link/link_type/id') = any(?) OR
-                                 extract_path_value(edit.data, 'old/link_type/id') = any(?) OR
-                                 extract_path_value(edit.data, 'new/link_type/id') = any(?)))",
-            "(edit.type = ? AND  extract_path_value(edit.data, 'relationship/link/type/id') = any(?))",
-        ),
-        [
-            $EDIT_RELATIONSHIP_CREATE => $self->sql_arguments,
-            $EDIT_RELATIONSHIP_EDIT => ($self->sql_arguments) x 3,
-            $EDIT_RELATIONSHIP_DELETE => $self->sql_arguments,
-        ]
+        "type IN ($EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE, $EDIT_RELATIONSHIPS_REORDER)
+         AND ? && array_remove(ARRAY[
+                                   (data#>>'{link_type,id}')::int,
+                                   (data#>>'{link,link_type,id}')::int,
+                                   (data#>>'{old,link_type,id}')::int,
+                                   (data#>>'{new,link_type,id}')::int,
+                                   (data#>>'{relationship,link_type,id}')::int
+                               ], NULL) )",
+        [ $self->sql_arguments ],
     ]);
 }
 

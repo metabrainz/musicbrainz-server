@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Root;
 use Moose;
 use Try::Tiny;
+use List::Util qw( max );
+
 BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
@@ -231,6 +233,10 @@ sub begin : Private
         $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
         warn "Redis connection to get alert failed: $_";
     };
+    if ($c->user_exists && $c->user->is_banner_editor) {
+        # For banner editors, show a dismissed banner again after 20 hours (MBS-8940)
+        $alert_mtime = max($alert_mtime, time()-20*60*60);
+    }
 
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
@@ -260,6 +266,9 @@ sub begin : Private
 
     # Setup the searches on the sidebar.
     $c->form(sidebar_search => 'Search::Search');
+
+    # NOTE: The following checks are not applied to /ws/js/edit. If you change
+    # anything here, make sure it is reflected there, too (if applicable).
 
     # Edit implies RequireAuth
     if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {

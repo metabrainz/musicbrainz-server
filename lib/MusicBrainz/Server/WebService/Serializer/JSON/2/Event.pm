@@ -19,7 +19,8 @@ sub serialize
     $body{name} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{time} = $entity->formatted_time // "";
-    $body{type} = $entity->type_name;
+    $body{type} = $entity->type ? $entity->type_name : JSON::null;
+    $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
     $body{setlist} = $entity->setlist // "";
     $body{cancelled} = boolean($entity->cancelled);
 

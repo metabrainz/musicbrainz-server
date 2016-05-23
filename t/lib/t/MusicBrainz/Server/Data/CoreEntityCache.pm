@@ -171,7 +171,7 @@ EOSQL
     $c1->sql->auto_commit(1);
     $c1->sql->do(<<'EOSQL');
     DELETE FROM artist WHERE id = 3;
-    DELETE FROM artist_deletion WHERE gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
+    DELETE FROM deleted_entity WHERE gid = '31456bd3-0e1a-4c47-a5cc-e147a42965f2';
 EOSQL
 
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;

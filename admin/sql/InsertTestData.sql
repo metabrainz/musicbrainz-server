@@ -69,8 +69,8 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
-INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
+INSERT INTO release_packaging (id, name, gid) VALUES (1, 'Jewel Case', 'e2ac3831-739d-11de-8a39-0800200c9a66');
+INSERT INTO release_packaging (id, name, gid) VALUES (2, 'Digipak', 'e1ab3831-739d-11de-8a39-0800200c9a66');
 
 INSERT INTO script (id, iso_code, iso_number, name, frequency)
     VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
@@ -115,9 +115,6 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO url (id, gid, url)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
-INSERT INTO medium_format (id, name) VALUES (1, 'CD');
-INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
-
 INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'The First Disc');
 INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'The Second Disc');
 
@@ -131,7 +128,7 @@ INSERT INTO track (id, gid, recording, medium, position, number, name, artist_cr
     VALUES (3, '06ebb97d-bdf8-42c8-96c2-cd0f3eb39de6', 1, 2, 1, 1, 'Track 3', 2);
 
 -- A full editor
-INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478');
 
 INSERT INTO editor_preference (editor, name, value) VALUES (1, 'public_ratings', '0');
 

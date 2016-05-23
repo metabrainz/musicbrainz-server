@@ -30,7 +30,7 @@ sub load_for_release_groups {
     my @ids = keys %rg_by_id;
     my @rows = @{
         $self->c->sql->select_list_of_hashes(
-            'SELECT release_group, id, name
+            'SELECT release_group, id, gid, name
              FROM release_group_secondary_type_join
              JOIN release_group_secondary_type ON id = secondary_type
              WHERE release_group = any(?)',

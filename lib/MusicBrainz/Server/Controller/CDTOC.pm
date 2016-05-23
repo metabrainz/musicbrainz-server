@@ -139,7 +139,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     );
 }
 
-sub attach : Local DenyWhenReadOnly
+sub attach : Local DenyWhenReadonly
 {
     my ($self, $c) = @_;
 

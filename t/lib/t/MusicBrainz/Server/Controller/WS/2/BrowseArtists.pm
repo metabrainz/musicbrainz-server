@@ -29,7 +29,7 @@ ws2_test_xml 'browse artists via release group',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="1">
-        <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
             <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         </artist>
     </artist-list>
@@ -40,7 +40,7 @@ ws2_test_xml 'browse artists via recording',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="2">
-        <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
             <name>m-flo</name><sort-name>m-flo</sort-name>
             <life-span>
                 <begin>1998</begin>
@@ -54,7 +54,7 @@ ws2_test_xml 'browse artists via recording',
               <alias sort-name="エムフロウ">エムフロウ</alias>
             </alias-list>
         </artist>
-        <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
             <name>BoA</name><sort-name>BoA</sort-name>
             <life-span>
                 <begin>1986-11-05</begin>
@@ -75,7 +75,7 @@ ws2_test_xml 'browse artists via release, inc=tags+ratings',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="3">
-        <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
             <name>m-flo</name><sort-name>m-flo</sort-name>
             <life-span>
                 <begin>1998</begin>
@@ -86,7 +86,7 @@ ws2_test_xml 'browse artists via release, inc=tags+ratings',
             <name>BAGDAD CAFE THE trench town</name>
             <sort-name>BAGDAD CAFE THE trench town</sort-name>
         </artist>
-        <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
             <name>BoA</name><sort-name>BoA</sort-name>
             <life-span>
                 <begin>1986-11-05</begin>
@@ -110,7 +110,7 @@ ws2_test_xml 'browse artists via work',
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="1">
-        <artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
             <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         </artist>
     </artist-list>
@@ -121,7 +121,7 @@ ws2_test_xml 'browse artists via public collection',
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="1">
-        <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
             <name>BoA</name>
             <sort-name>BoA</sort-name>
             <life-span>
@@ -136,7 +136,7 @@ ws2_test_xml 'browse artists via private collection',
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="1">
-        <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
             <name>m-flo</name>
             <sort-name>m-flo</sort-name>
             <life-span>

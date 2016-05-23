@@ -568,6 +568,10 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 
     $c->res->content_type('application/json; charset=utf-8');
 
+    if ($c->stash->{server_details}->{is_slave_db} || DBDefs->DB_READ_ONLY) {
+        $c->forward('/ws/js/detach_with_error', ['this server is in read-only mode']);
+    }
+
     $c->forward('/ws/js/check_login', [{
         errorCode => $ERROR_NOT_LOGGED_IN,
         message => l('You must be logged in to submit edits. {url|Log in} ' .
@@ -577,6 +581,9 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 
     unless ($c->user->has_confirmed_email_address) {
         $c->forward('/ws/js/detach_with_error', ['a confirmed email address is required']);
+    }
+    if ($c->user->is_editing_disabled) {
+        $c->forward('/ws/js/detach_with_error', ['you are not allowed to enter edits']);
     }
 }
 

@@ -3,4 +3,4 @@
 
 SET search_path = 'cover_art_archive';
 
-SELECT setval('art_type_id_seq', (SELECT MAX(id) FROM art_type));
+SELECT setval('art_type_id_seq', COALESCE((SELECT MAX(id) FROM art_type), 0) + 1, FALSE);

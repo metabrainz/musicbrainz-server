@@ -116,19 +116,19 @@ test 'All tests' => sub {
             qr/Cannot insert a missing or empty row/;
 
         $sql->auto_commit(1);
-        ok !exception { $sql->insert_row('artist_type', { id => 7, name => 'magical' }) }, 'can insert rows';
+        ok !exception { $sql->insert_row('artist_type', { id => 7, gid => 'c7ac3831-739d-11de-8a39-0800200c9a68', name => 'magical' }) }, 'can insert rows';
         my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 7);
         is($rows, 1);
 
         my $id;
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('artist_type', { id => 8, name => 'live' }, 'id') }, 'can insert returning';
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 8, gid => 'c8ac3831-739d-11de-8a39-0800200c9a68', name => 'live' }, 'id') }, 'can insert returning';
         is($id, 8, 'can insert returning id');
         $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 8);
         is($rows, 1);
 
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('artist_type', { id => 9, name => \"'calm'" }) }, 'can insert with literal sql';
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 9, gid => 'c9ac3831-739d-11de-8a39-0800200c9a68', name => \"'calm'" }) }, 'can insert with literal sql';
         $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 9);
         is($rows, 1);
 

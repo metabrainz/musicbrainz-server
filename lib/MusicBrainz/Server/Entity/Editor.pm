@@ -117,9 +117,9 @@ has [qw( biography website )] => (
     isa => 'Str',
 );
 
-has [qw( accepted_edits rejected_edits failed_edits accepted_auto_edits )] => (
+has 'has_ten_accepted_edits' => (
     is  => 'rw',
-    isa => 'Int',
+    isa => 'Bool',
 );
 
 use DateTime;
@@ -175,7 +175,7 @@ sub is_limited
         !$self->deleted &&
         ( !$self->email_confirmation_date ||
           $self->is_newbie ||
-          $self->accepted_edits < 10
+          !$self->has_ten_accepted_edits
         );
 }
 
@@ -331,9 +331,9 @@ A short custom block of text an editor can use to describe themselves
 
 A custom URL editors can use to link to their homepage
 
-=head2 accepted_edits, rejected_edits, failed_edits, auto_edits
+=head2 has_ten_accepted_edits
 
-These all provide a count of the number of respective edits.
+A flag showing if this user has at least ten accepted non-auto-edits.
 
 =head2 registration_date, last_login_date, email_confirmation_date
 

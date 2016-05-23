@@ -21,7 +21,8 @@ sub _table
 
 sub _columns
 {
-    return 'art_type.id, art_type.name, art_type.parent AS parent_id, art_type.child_order, art_type.description';
+    return 'art_type.id, art_type.gid, art_type.name, art_type.parent AS parent_id,
+            art_type.child_order, art_type.description';
 }
 
 sub _entity_class

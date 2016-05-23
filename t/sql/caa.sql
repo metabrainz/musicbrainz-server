@@ -1,4 +1,4 @@
-INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (10, 'caa_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'a0f97d2b669b73949f14743e885a8a4b');
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (10, 'caa_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'a0f97d2b669b73949f14743e885a8a4b');
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Artist', 'Artist');
@@ -14,7 +14,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 
 INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 
-INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 10, 316, '', 2, now());
-INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+INSERT INTO edit (id, editor, type, status, expire_time) VALUES (1, 10, 316, 2, now());
+INSERT INTO edit_data (edit, data) VALUES (1, '{}');
 INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 1, 'image/jpeg', 1, 1);
 INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (12345, 1);
