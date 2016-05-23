@@ -55,7 +55,7 @@
         [%- END -%]
 
         [%- IF server_details.read_only -%]
-            <div class="server-details">
+            <div class="banner server-details">
                 <p>
                     [% l('The server is temporarily in read-only mode for database maintenance.') %]
                 </p>

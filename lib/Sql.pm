@@ -249,8 +249,6 @@ sub commit
     $self->dec_transaction_depth;
     return unless $self->transaction_depth == 0;
 
-    croak "Cannot commit, in readonly mode!" if DBDefs->DB_READ_ONLY;
-
     return try {
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
         my $rv = $self->dbh->commit;
@@ -310,6 +308,10 @@ sub _auto_transaction {
     my ($sub, @sql) = @_;
 
     $_->begin for @sql;
+    if (DBDefs->DB_READ_ONLY) {
+        $_->do('SET TRANSACTION READ ONLY') for @sql;
+    }
+
     my $w = wantarray;
     return try {
         my (@r, $r);
