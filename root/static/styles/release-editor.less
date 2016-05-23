@@ -112,15 +112,9 @@ fieldset.advanced-disc {
 
         &.artist {
             padding: 0;
-            span.autocomplete { height: 2em; }
+            width: 45%;
             input { padding: 4px; }
-        }
-
-        &.credits-button {
-            width: 90px;
-            padding: 0 !important;
-            text-align: center;
-            button { width: 100%; height: 2em; margin: 0; padding: 2px; }
+            td { border: none; padding: 0; }
         }
 
         &.length {
@@ -136,12 +130,6 @@ fieldset.advanced-disc {
             width: 100%;
             height: 2em;
             border: 0;
-
-            &[disabled] {
-                background: inherit;
-                color: @dark-text;
-                &.lookup-performed { background: @positive-bg; }
-            }
         }
     }
 }
@@ -178,18 +166,6 @@ table.advanced-format {
             border: 1px solid @medium-border;
             text-align: right;
         }
-    }
-}
-
-#track-ac-bubble {
-    width: 60%;
-    box-shadow: 2px 2px 16px @very-dark-grey;
-
-    input[type=text], span.autocomplete { width: 100%; }
-
-    div.buttons {
-        float: right;
-        button.positive { margin-left: 2em; }
     }
 }
 

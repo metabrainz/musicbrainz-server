@@ -59,6 +59,7 @@ test 'recording lookup with releases' => sub {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
@@ -76,11 +77,13 @@ test 'recording lookup with releases' => sub {
                     barcode => "4942463511227",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                 },
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
                     status => "Pseudo-Release",
+                    "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
@@ -98,6 +101,7 @@ test 'recording lookup with releases' => sub {
                     barcode => "4942463511227",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                 }]
         };
 };
@@ -119,6 +123,7 @@ test 'lookup recording with official singles' => sub {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
@@ -136,6 +141,7 @@ test 'lookup recording with official singles' => sub {
                     barcode => "4942463511227",
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                 }]
         };
 };
@@ -157,6 +163,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => {
                         language => 'jpn', script => 'Jpan'
@@ -176,9 +183,11 @@ test 'lookup recording with official singles (+media)' => sub {
                     barcode => '4942463511227',
                     disambiguation => "",
                     packaging => JSON::null,
+                    "packaging-id" => JSON::null,
                     media => [
                         {
                             format => "CD",
+                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
                             position => 1,
                             title => '',
                             "track-count" => 3,
@@ -287,8 +296,10 @@ test 'recording lookup with release relationships' => sub {
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
+                        "packaging-id" => JSON::null,
                         quality => 'normal',
                         status => JSON::null,
+                        "status-id" => JSON::null,
                         'text-representation' => {
                             language => 'eng',
                             script => 'Latn'
@@ -336,6 +347,7 @@ test 'recording lookup with work relationships' => sub {
                         language => JSON::null,
                         title => 'the Love Bug',
                         type => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     'source-credit' => '',
                     'target-credit' => '',
@@ -391,7 +403,8 @@ test 'recording lookup with work-level relationships' => sub {
                     'target-type' => 'artist',
                 } ],
                 title => 'Asseswaving',
-                type => undef
+                type => JSON::null,
+                "type-id" => JSON::null,
             },
             'source-credit' => '',
             'target-credit' => '',

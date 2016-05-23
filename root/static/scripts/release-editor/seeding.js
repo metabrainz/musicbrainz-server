@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const {artistCreditFromArray} = require('../common/immutable-entities');
+
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
@@ -79,8 +81,8 @@
         }
 
         if (data.artistCredit) {
-            release.artistCredit.setNames(data.artistCredit);
-            release.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
+            release.artistCredit(artistCreditFromArray(data.artistCredit));
+            release.artistCredit.saved = release.artistCredit.peek();
         }
 
         if (data.events) {

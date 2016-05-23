@@ -60,14 +60,14 @@ ws_test 'direct disc id lookup',
           <medium>
             <title>A Sea of Honey</title>
             <position>1</position>
-            <format>Format</format>
+            <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
             <disc-list count="0" />
             <track-list count="7" />
           </medium>
           <medium>
             <title>A Sky of Honey</title>
             <position>2</position>
-            <format>Format</format>
+            <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
             <disc-list count="1">
               <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
                 <sectors>189343</sectors>
@@ -118,14 +118,14 @@ ws_test 'lookup via toc',
         <medium>
           <title>A Sea of Honey</title>
           <position>1</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
           <position>2</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="9" />
         </medium>
@@ -150,14 +150,14 @@ ws_test 'lookup via toc',
         <medium>
           <title>A Sea of Honey</title>
           <position>1</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
           <position>2</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="1">
             <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
               <sectors>189343</sectors>
@@ -215,14 +215,14 @@ ws_test 'lookup via toc with invalid discid parameter',
         <medium>
           <title>A Sea of Honey</title>
           <position>1</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
           <position>2</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="9" />
         </medium>
@@ -247,14 +247,14 @@ ws_test 'lookup via toc with invalid discid parameter',
         <medium>
           <title>A Sea of Honey</title>
           <position>1</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
           <position>2</position>
-          <format>Format</format>
+          <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="1">
             <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-">
               <sectors>189343</sectors>

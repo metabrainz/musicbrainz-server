@@ -22,9 +22,9 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
@@ -234,7 +234,7 @@ sub delete
     for my $code_table (@CODE_TYPES) {
         $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
     }
-    $self->sql->do('DELETE FROM area WHERE id IN (' . placeholders(@area_ids) . ')', @area_ids);
+    $self->delete_returning_gids(@area_ids);
     $self->clear_containment_cache;
     return 1;
 }

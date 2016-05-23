@@ -63,7 +63,8 @@ exports.testArtistCredit = [
       id: 39282,
       gid: "0798d15b-64e2-499f-9969-70167b1d8617"
     },
-    joinPhrase: ""
+    joinPhrase: "",
+    name: "Boredoms",
   }
 ];
 

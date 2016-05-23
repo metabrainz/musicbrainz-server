@@ -20,8 +20,8 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
@@ -463,8 +463,7 @@ sub delete
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
     $self->c->model('ReleaseGroupSecondaryType')->delete_entities(@group_ids);
-
-    $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
+    $self->delete_returning_gids(@group_ids);
     return;
 }
 

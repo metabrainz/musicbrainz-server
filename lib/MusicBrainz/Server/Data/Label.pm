@@ -21,9 +21,8 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
@@ -62,6 +61,7 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         type_id => 'type',
         area_id => 'area',
         label_code => 'label_code',
@@ -201,7 +201,7 @@ sub delete
     $self->rating->delete(@label_ids);
     $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
-    $self->delete_returning_gids('label', @label_ids);
+    $self->delete_returning_gids(@label_ids);
     return 1;
 }
 

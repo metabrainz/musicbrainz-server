@@ -7,7 +7,15 @@
 
 require('babel-core/register');
 
-const document = require('jsdom').jsdom();
+const global = require('../global');
+
+let document = global.document;
+if (!document) {
+  // Prevent this from being required for the browser.
+  const jsdom = 'jsdom';
+  document = require(jsdom).jsdom();
+}
+
 const React = require('react');
 const ReactDOMServer  = require('react-dom/server');
 
@@ -15,6 +23,7 @@ const DescriptiveLink = require('../common/components/DescriptiveLink');
 const EditorLink = require('../common/components/EditorLink');
 const EntityLink = require('../common/components/EntityLink');
 const l = require('../common/i18n').l;
+const entities = require('../common/immutable-entities');
 
 function throwNotEquivalent(message, got, expected) {
   throw {message: message, got: got, expected: expected};
@@ -111,6 +120,10 @@ const testResults = [];
 
 testData.forEach(function (test) {
   let entity = test.entity;
+
+  if (entity.artistCredit) {
+    entity.artistCredit = entities.artistCreditFromArray(entity.artistCredit);
+  }
 
   let reactMarkup =
     ReactDOMServer.renderToStaticMarkup(

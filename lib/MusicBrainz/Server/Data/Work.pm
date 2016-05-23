@@ -19,9 +19,9 @@ use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
@@ -149,7 +149,7 @@ sub delete {
     $self->c->model('ISWC')->delete_works($work_id);
     $self->remove_gid_redirects($work_id);
     $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
-    $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
+    $self->delete_returning_gids($work_id);
     return;
 }
 

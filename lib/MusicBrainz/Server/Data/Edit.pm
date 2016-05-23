@@ -16,10 +16,9 @@ use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw(
     :edit_status
-    $VOTE_YES
+    :vote
     $AUTO_EDITOR_FLAG
     $UNTRUSTED_FLAG
-    $VOTE_APPROVE
     $MINIMUM_RESPONSE_PERIOD
     $LIMIT_FOR_EDIT_LISTING
     $OPEN_EDIT_DURATION
@@ -28,7 +27,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
     %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use JSON;
+use JSON::XS;
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
@@ -50,13 +49,13 @@ my $EDIT_IDS_FOR_COLLECTION_SQL =
 
 sub _table
 {
-    return 'edit';
+    return 'edit JOIN edit_data ON edit.id = edit_data.edit';
 }
 
 sub _columns
 {
     return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
-            edit.data, edit.language, edit.type, edit.yes_votes, edit.no_votes,
+            edit_data.data, edit.language, edit.type,
             edit.autoedit, edit.status, edit.quality';
 }
 
@@ -67,13 +66,11 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or confess"Could not look up class for type ".$row->{type};
-    my $data = JSON->new->decode($row->{data});
+    my $data = JSON::XS->new->utf8->decode($row->{data});
 
     my $edit = $class->new({
         c => $self->c,
         id => $row->{id},
-        yes_votes => $row->{yes_votes},
-        no_votes => $row->{no_votes},
         editor_id => $row->{editor},
         created_time => $row->{open_time},
         expires_time => $row->{expire_time},
@@ -112,13 +109,12 @@ sub get_by_id_and_lock
     my ($self, $id) = @_;
 
     my $query =
-        "SELECT " . $self->_columns . " FROM " . $self->_table . " " .
+        "SELECT id FROM edit " .
         "WHERE id = ? FOR UPDATE NOWAIT";
-
     my $row = $self->sql->select_single_row_hash($query, $id);
     return unless defined $row;
 
-    my $edit = $self->_new_from_row($row);
+    my $edit = $self->get_by_id($id);
     return $edit;
 }
 
@@ -212,8 +208,8 @@ sub find_for_subscription
 {
     my ($self, $subscription) = @_;
     if ($subscription->isa(EditorSubscription)) {
-        my $query = 'SELECT ' . $self->_columns . ' FROM edit
-                      WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' WHERE id > ? AND editor = ? AND status IN (?, ?) ORDER BY id';
 
         $self->query_to_list(
             $query,
@@ -314,8 +310,9 @@ sub find_creation_edit {
            FROM " . $self->_table . "
          WHERE edit.status = ?
            AND edit.type = ?
-           AND extract_path_value(data, ?::text) = ?
+           AND (edit_data.data->>(?::text))::bigint = ?
          ORDER BY edit.id ASC LIMIT 1";
+        # NB. This function is used for cover art too, which uses bigint IDs.
     my ($edit) = $self->query_to_list(
         $query,
         [$STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id],
@@ -389,15 +386,15 @@ EOSQL
     # FIXME: very similar to $EDIT_IDS_FOR_COLLECTION_SQL, should be generalized
 
     my $query = <<EOSQL;
-SELECT * FROM edit, (
+SELECT $columns FROM $table
+JOIN (
     $entity_sql
     UNION
     SELECT edit FROM ($subscriptions_sql) ce
       JOIN edit ON ce.edit = edit.id
      WHERE ${\($edit_filter->('edit', 'ce'))}
-) edits
-WHERE edit.id = edits.edit
-AND ${\($edit_filter->('edit', 'edit', '!='))}
+) edits ON edit.id = edits.edit
+WHERE ${\($edit_filter->('edit', 'edit', '!='))}
 AND NOT EXISTS (
     SELECT TRUE FROM vote
     WHERE vote.edit = edit.id
@@ -566,7 +563,6 @@ sub create {
 
     my $row = {
         editor => $edit->editor_id,
-        data => JSON->new->encode($edit->to_hash),
         status => $edit->status,
         type => $edit->edit_type,
         open_time => \"now()",
@@ -575,18 +571,15 @@ sub create {
         quality => $edit->quality,
         close_time => $edit->close_time
     };
-
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+    $row = {
+        edit => $edit_id,
+        data => JSON::XS->new->utf8->encode($edit->to_hash),
+    };
+    $self->c->sql->insert_row('edit_data', $row);
     $edit->id($edit_id);
 
     $edit->post_insert;
-    my $post_insert_update = {
-        data => JSON->new->encode($edit->to_hash),
-        status => $edit->status,
-        type => $edit->edit_type,
-    };
-
-    $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
     $edit->adjust_edit_pending(+1) unless $edit->auto_edit;
 
@@ -606,7 +599,7 @@ sub create {
     # Automatically accept auto-edits on insert
     $edit = $self->get_by_id($edit->id);
     if ($edit->auto_edit) {
-        $self->accept($edit, auto_edit => 1);
+        $self->accept($edit);
     }
 
     $edit = $self->get_by_id($edit->id);
@@ -832,10 +825,10 @@ sub _do_reject
 # Must be called in a transaction
 sub accept
 {
-    my ($self, $edit, %opts) = @_;
+    my ($self, $edit) = @_;
 
     confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
-    $self->_close($edit, sub { $self->_do_accept(shift) }, %opts);
+    $self->_close($edit, sub { $self->_do_accept(shift) });
 }
 
 # Must be called in a transaction
@@ -857,13 +850,12 @@ sub cancel
 
 sub _close
 {
-    my ($self, $edit, $close_sub, %opts) = @_;
+    my ($self, $edit, $close_sub) = @_;
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1) unless $edit->auto_edit;
     $edit->status($status);
-    $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
 
 sub insert_votes_and_notes {

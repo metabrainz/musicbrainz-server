@@ -4,6 +4,12 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const i18n = require('../common/i18n');
+const {
+        artistCreditFromArray,
+        hasVariousArtists,
+        isComplexArtistCredit,
+        reduceArtistCredit,
+    } = require('../common/immutable-entities');
 const deferFocus = require('../edit/utility/deferFocus');
 const guessFeat = require('../edit/utility/guessFeat');
 
@@ -238,7 +244,7 @@ const guessFeat = require('../edit/utility/guessFeat');
             var tracks = medium.tracks();
 
             var requireConf = _.some(tracks, function (track) {
-                return track.artistCredit.isComplex();
+                return isComplexArtistCredit(track.artistCredit());
             });
 
             var question = i18n.l(
@@ -251,15 +257,15 @@ const guessFeat = require('../edit/utility/guessFeat');
                 _.each(tracks, function (track) {
                     var oldTitle = track.name();
 
-                    track.name(track.artistCredit.text());
-                    track.artistCredit.setNames([{ name: oldTitle }]);
+                    track.name(reduceArtistCredit(track.artistCredit()));
+                    track.artistCredit(artistCreditFromArray([{ name: oldTitle }]));
                 });
             }
         },
 
         addNewTracks: function (medium) {
-            var releaseAC = medium.release.artistCredit;
-            var defaultAC = releaseAC.isVariousArtists() ? null : releaseAC.toJSON();
+            var releaseAC = medium.release.artistCredit();
+            var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC.names.toJS();
             var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
             _.times(addTrackCount, function () {

@@ -4,6 +4,12 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const i18n = require('../common/i18n');
+const {
+        artistCreditFromArray,
+        artistCreditsAreEqual,
+        hasVariousArtists,
+        reduceArtistCredit,
+    } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const request = require('../common/utility/request');
 const externalLinks = require('../edit/externalLinks');
@@ -64,7 +70,12 @@ MB.releaseEditor.init = function (options) {
             // now that it's visible.
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
-            if ($bubble.length) $bubble[0].bubbleDoc.redraw(true /* stealFocus */);
+            if ($bubble.length) {
+                let bubbleDoc = $bubble[0].bubbleDoc;
+                bubbleDoc.redraw(true /* stealFocus */);
+            }
+
+            $('#artist-credit-bubble').hide();
         }
     });
 
@@ -115,22 +126,23 @@ MB.releaseEditor.init = function (options) {
 
     this.utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = release.artistCredit;
-        var releaseACChanged = !releaseAC.isEqual(releaseAC.saved);
+        var releaseAC = release.artistCredit();
+        var savedReleaseAC = release.artistCredit.saved;
+        var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
         if (tabID === "#tracklist" && releaseACChanged) {
-            if (!release.artistCredit.isVariousArtists()) {
-                var names = releaseAC.toJSON();
+            const names = releaseAC.names.toJS();
 
+            if (!hasVariousArtists(releaseAC)) {
                 _.each(release.mediums(), function (medium) {
                     _.each(medium.tracks(), function (track) {
-                        if (track.artistCredit.text() === releaseAC.saved.text()) {
-                            track.artistCredit.setNames(names);
+                        if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
+                            track.artistCredit(artistCreditFromArray(names));
                         }
                     });
                 });
             }
-            release.artistCredit.saved = self.fields.ArtistCredit(names);
+            release.artistCredit.saved = artistCreditFromArray(names);
         }
     });
 

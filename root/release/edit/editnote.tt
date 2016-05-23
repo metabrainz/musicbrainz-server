@@ -41,7 +41,7 @@
     </div>
 
     <!-- ko if: submissionError -->
-      <p class="error" data-bind="text: submissionError"></p>
+      <p class="error" data-bind="html: submissionError"></p>
     <!-- /ko -->
   </div>
 </div>

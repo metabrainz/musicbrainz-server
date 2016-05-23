@@ -35,7 +35,8 @@ sub create_temporary_tables {
 
     $sql->begin;
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_rgs
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_rgs
              (artist INTEGER,
               rg     INTEGER,
               is_official BOOLEAN NOT NULL,
@@ -43,7 +44,8 @@ sub create_temporary_tables {
               PRIMARY KEY (artist, rg))
          ON COMMIT DELETE ROWS");
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_rgs
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_rgs
              (artist INTEGER,
               rg     INTEGER,
               is_official BOOLEAN NOT NULL,
@@ -51,21 +53,24 @@ sub create_temporary_tables {
               PRIMARY KEY (artist, rg))
          ON COMMIT DELETE ROWS");
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_releases
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_releases
              (artist  INTEGER,
               release INTEGER,
 
               PRIMARY KEY (artist, release))
          ON COMMIT DELETE ROWS");
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_releases
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_releases
              (artist  INTEGER,
               release INTEGER,
 
               PRIMARY KEY (artist, release))
          ON COMMIT DELETE ROWS");
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_recordings
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_recordings
              (artist        INTEGER,
               recording     INTEGER,
               is_video      BOOLEAN NOT NULL,
@@ -74,7 +79,8 @@ sub create_temporary_tables {
               PRIMARY KEY (artist, recording))
          ON COMMIT DELETE ROWS");
     $sql->do(
-        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_works
+        "SET client_min_messages TO WARNING;
+         CREATE TEMPORARY TABLE tmp_sitemaps_artist_works
              (artist   INTEGER,
               work     INTEGER,
 
@@ -82,14 +88,16 @@ sub create_temporary_tables {
          ON COMMIT DELETE ROWS");
 
     $sql->do(
-         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
+         "SET client_min_messages TO WARNING;
+          CREATE TEMPORARY TABLE tmp_sitemaps_instrument_recordings
              (instrument INTEGER,
               recording  INTEGER,
 
               PRIMARY KEY (instrument, recording))
           ON COMMIT DELETE ROWS");
     $sql->do(
-         "CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
+         "SET client_min_messages TO WARNING;
+          CREATE TEMPORARY TABLE tmp_sitemaps_instrument_releases
              (instrument INTEGER,
               release  INTEGER,
 

@@ -72,6 +72,10 @@ sub authorize : Local Args(0) RequireAuth
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($pre_authorized || ($c->form_posted && $form->submitted_and_valid($c->req->params))) {
+        if (DBDefs->DB_READ_ONLY) {
+            $self->_send_redirect_error($c, $params{redirect_uri}, 'temporarily_unavailable', 'Server is in read-only mode');
+        }
+
         if ($form->field('cancel')->input) {
             $self->_send_redirect_error($c, $params{redirect_uri}, 'access_denied', 'User denied the authorization request');
         }
@@ -172,6 +176,10 @@ sub token : Local Args(0)
     $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer is allowed')
         unless $token_type eq 'bearer';
 
+    if (DBDefs->DB_READ_ONLY) {
+        $self->_send_error($c, 'temporarily_unavailable', 'Server is in read-only mode');
+    }
+
     my $data;
     $c->model('MB')->with_transaction(sub {
         $c->model('EditorOAuthToken')->grant_access_token($token);
@@ -206,6 +214,9 @@ sub _send_error
     if ($error eq 'invalid_client') {
         $c->response->headers->www_authenticate('Basic realm="OAuth2-Client"');
         $c->response->status(401);
+    }
+    elsif ($error eq 'temporarily_unavailable') {
+        $c->response->status(503);
     }
     else {
         $c->response->status(400);
@@ -345,6 +356,7 @@ sub userinfo : Local
     my $data = {
         sub => $c->user->name,
         profile => $c->uri_for_action('/user/profile', [ $c->user->name ])->as_string,
+        metabrainz_user_id => $c->user->id,
     };
 
     if ($c->user->website) {

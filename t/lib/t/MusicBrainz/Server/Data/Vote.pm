@@ -116,7 +116,7 @@ my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is($email_transport->delivery_count, 1);
 
 my $email = $email_transport->shift_deliveries->{email};
-is($email->get_header('Subject'), 'Someone has voted against your edit #2', 'Subject explains someone has voted against your edit');
+is($email->get_header('Subject'), 'Someone has voted against your edit #667', 'Subject explains someone has voted against your edit');
 is($email->get_header('References'), sprintf '<edit-%d@%s>', $edit->id, DBDefs->WEB_SERVER_USED_IN_EMAIL, 'References header contains edit id');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
 

@@ -17,7 +17,6 @@
     "babel-preset-stage-2": "6.1.18",
     "babelify": "7.2.0",
     "balanced-match": "0.2.0",
-    "concat-stream": "1.5.0",
     "cookie": "0.2.3",
     "detect-node": "2.0.3",
     "envify": "3.4.0",
@@ -47,6 +46,7 @@
     "rcss": "0.1.5",
     "react": "https://github.com/mwiencek/react-packages/raw/master/react.tgz",
     "react-dom": "https://github.com/mwiencek/react-packages/raw/master/react-dom.tgz",
+    "redis": "2.6.0-0",
     "shell-quote": "1.4.3",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
@@ -55,7 +55,7 @@
     "uglifyify": "3.0.1",
     "vinyl": "1.1.0",
     "vinyl-source-stream": "1.1.0",
-    "yarb": "0.6.1",
+    "yarb": "0.8.0",
     "yargs": "3.30.0"
   },
   "devDependencies": {

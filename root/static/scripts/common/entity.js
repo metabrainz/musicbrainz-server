@@ -3,12 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const _ = require('lodash');
+const aclass = require('aclass');
+const ReactDOMServer = require('react-dom/server');
+
+const ArtistCreditLink = require('./components/ArtistCreditLink');
 const {
     PART_OF_SERIES_LINK_TYPES,
     PROBABLY_CLASSICAL_LINK_TYPES,
     VARTIST_GID,
 } = require('./constants');
 const i18n = require('./i18n');
+const {
+        artistCreditFromArray,
+        artistCreditsAreEqual,
+        isCompleteArtistCredit,
+    } = require('./immutable-entities');
+const MB = require('./MB');
 const clean = require('./utility/clean');
 const formatTrackLength = require('./utility/formatTrackLength');
 
@@ -30,7 +41,28 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 toJSON(result, this[key], key);
             }
             return result;
-        }
+        },
+
+        renderArtistCredit: function (ac) {
+            ac = ko.unwrap(ac);
+            // XXX For suggested recording data in the release editor,
+            // which root/release/edit/recordings.tt passes into here as plain
+            // JSON (can't really "instantiate" things anywhere else).
+            if (Array.isArray(ac)) {
+                ac = artistCreditFromArray(ac);
+            }
+            return ReactDOMServer.renderToStaticMarkup(
+                <ArtistCreditLink artistCredit={ac} target="_blank" />
+            );
+        },
+
+        isCompleteArtistCredit: function (ac) {
+            ac = ko.unwrap(ac);
+            if (Array.isArray(ac)) {
+                ac = artistCreditFromArray(ac);
+            }
+            return isCompleteArtistCredit(ac);
+        },
     });
 
     var primitiveTypes = /^(boolean|number|string)$/;
@@ -87,6 +119,8 @@ const formatTrackLength = require('./utility/formatTrackLength');
         return entity;
     };
 
+    MB.entity.Entity = Entity;
+
     // Used by MB.entity() above to cache everything with a GID.
     MB.entityCache = {};
 
@@ -112,7 +146,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             this.relationships = ko.observableArray([]);
 
             if (data.artistCredit) {
-                this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
+                this.artistCredit = artistCreditFromArray(data.artistCredit);
             }
         },
 
@@ -132,7 +166,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             var json = supr();
 
             if (this.artistCredit) {
-                json.artistCredit = this.artistCredit.toJSON();
+                json.artistCredit = ko.unwrap(this.artistCredit).names.toJS();
             }
             return json;
         },
@@ -143,7 +177,13 @@ const formatTrackLength = require('./utility/formatTrackLength');
         },
 
         canTakeArtist: function (ac) {
-            return ac.isComplete() && !this.artistCredit.isEqual(ac);
+            ac = ko.unwrap(ac);
+            return isCompleteArtistCredit(ac) && !this.isArtistCreditEqual(ac);
+        },
+
+        isArtistCreditEqual: function (ac) {
+            ac = ko.unwrap(ac);
+            return artistCreditsAreEqual(ko.unwrap(this.artistCredit), ac);
         }
     });
 
@@ -185,6 +225,10 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 this.appearsOn.results = _.map(this.appearsOn.results, function (appearance) {
                     return MB.entity(appearance, appearsOnType);
                 });
+            }
+
+            if (!this.artistCredit) {
+                this.artistCredit = artistCreditFromArray([]);
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
@@ -307,171 +351,6 @@ const formatTrackLength = require('./utility/formatTrackLength');
             return _.assign(supr(), { artists: this.artists });
         }
     });
-
-
-    // "ko.unwrap" is used throughout this class because the classes in
-    // edit/MB/Control/ArtistCredit.js inherit from it. Over there, observables
-    // are used for the member variables because they're editable in the UI.
-    // Everywhere else, regular variables are used, because the values are
-    // constant; there's no need for the added overhead, especially in places
-    // like the relationship editor where you can have hundreds of entities
-    // being created and rendered.
-
-    MB.entity.ArtistCreditName = aclass(Entity, {
-
-        template: _.template(
-            "<% if (data.editsPending > 0) print('<span class=\"mp\">'); %>" +
-            "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
-            "<a href=\"/artist/<%- data.gid %>\"" +
-            "<% if (data.target) print(' target=\"_blank\"'); %>" +
-            " title=\"<%- data.title %>\"><bdi><%- data.name %></bdi></a>" +
-            "<% if (data.nameVariation) print('</span>'); %>" +
-            "<% if (data.editsPending > 0) print('</span>'); %>" +
-            "<%- data.join %>",
-            {variable: "data"}
-        ),
-
-        init: function (data) {
-            data = data || {};
-            data.artist = data.artist || { name: data.name || "" };
-
-            this.artist = MB.entity(data.artist, "artist");;
-            this.name = data.name || data.artist.name || "";
-            this.joinPhrase = data.joinPhrase || "";
-        },
-
-        visibleName: function () {
-            var artist = ko.unwrap(this.artist) || {};
-            return ko.unwrap(this.name) || artist.name || "";
-        },
-
-        isEmpty: function () {
-            return !(this.hasArtist() || ko.unwrap(this.name) ||
-                     ko.unwrap(this.joinPhrase));
-        },
-
-        hasArtist: function () {
-            var artist = ko.unwrap(this.artist) || {};
-            return Boolean(artist.id || artist.gid);
-        },
-
-        isVariousArtists: function () {
-            var artist = ko.unwrap(this.artist);
-            return artist && artist.gid === VARTIST_GID;
-        },
-
-        isEqual: function (other) {
-            var hasArtist1 = this.hasArtist();
-            var hasArtist2 = other.hasArtist();
-
-            return (hasArtist1 === hasArtist2) &&
-                   (!hasArtist1 || ko.unwrap(this.artist).gid === ko.unwrap(other.artist).gid) &&
-                   ko.unwrap(this.name) === ko.unwrap(other.name) &&
-                   ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
-        },
-
-        toJSON: function (supr) {
-            var artist = ko.unwrap(this.artist);
-            return {
-                artist: artist ? artist.toJSON() : null,
-                name: ko.unwrap(this.name) || '',
-                joinPhrase: ko.unwrap(this.joinPhrase) || ''
-            };
-        },
-
-        text: function () {
-            return ko.unwrap(this.name) + ko.unwrap(this.joinPhrase);
-        },
-
-        html: function (renderParams) {
-            if (!this.hasArtist()) {
-                return _.escape(this.text());
-            }
-
-            var name = ko.unwrap(this.name);
-            var artist = ko.unwrap(this.artist);
-            var title = artist.sortName || "";
-
-            if (artist.comment) {
-                title += " (" + artist.comment + ")";
-            }
-
-            return this.template(
-                _.extend(
-                    renderParams || {},
-                    {
-                        gid:   artist.gid,
-                        title: title,
-                        name:  name,
-                        join:  ko.unwrap(this.joinPhrase),
-                        editsPending: artist.editsPending,
-                        nameVariation: name !== artist.name
-                    }
-                )
-            );
-        }
-    });
-
-
-    MB.entity.ArtistCredit = aclass(Entity, {
-
-        init: function (data) {
-            this.names = _.map(data, MB.entity.ArtistCreditName);
-        },
-
-        isVariousArtists: function () {
-            return _.any(_.invoke(ko.unwrap(this.names), "isVariousArtists"));
-        },
-
-        isEqual: function (other) {
-            var names = ko.unwrap(this.names);
-            var otherNames = ko.unwrap(other.names);
-
-            if (names.length !== otherNames.length) {
-                return false;
-            }
-
-            for (var i = 0, len = names.length; i < len; i++) {
-                if (!names[i].isEqual(otherNames[i])) {
-                    return false;
-                }
-            }
-            return true;
-        },
-
-        isEmpty: function () {
-            return _.every(_.invoke(ko.unwrap(this.names), "isEmpty"));
-        },
-
-        isComplete: function () {
-            var names = ko.unwrap(this.names);
-
-            return names.length > 0 && _.all(names, function (name) {
-                return name.hasArtist();
-            });
-        },
-
-        text: function () {
-            var names = ko.unwrap(this.names);
-
-            return _.reduce(names, function (memo, name) {
-                return memo + name.text();
-            }, "");
-        },
-
-        html: function (renderParams) {
-            var names = ko.unwrap(this.names);
-
-            return _.reduce(names, function (memo, name) {
-                return memo + name.html(renderParams);
-            }, "");
-        },
-
-        toJSON: function () {
-            return _.invoke(ko.unwrap(this.names), "toJSON");
-        }
-    });
-
 
     MB.entity.Medium = aclass(Entity, {
         after$init: function (data) {

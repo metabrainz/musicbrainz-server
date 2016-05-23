@@ -786,14 +786,14 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
         "position": 4,
         "name": "foo",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "e886dc4907c701cf89e5e7b5fdebcb521fa04e44"
+        "hash": "aca331e8e3448781852995b146feae853acbaa0e"
       },
       {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 2,
         "name": "bar",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "d8eeecbb56e1e9543a2fc4045f8c1fe5d2135e02"
+        "hash": "d0f3777cede43eef81db632b671ca8da45085760"
       }
     ]);
 

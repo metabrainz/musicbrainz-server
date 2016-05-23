@@ -117,7 +117,7 @@ sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))";
+                  WHERE lower(musicbrainz_unaccent(name)) = lower(musicbrainz_unaccent(?))";
     $self->query_to_list($query, [$name]);
 }
 
@@ -153,8 +153,8 @@ sub find_by_names
         . ", (VALUES "
         .     join (",", ("(?)") x scalar(@names))
         .    ") search_terms (term)"
-        ." WHERE musicbrainz_unaccent(lower(name)) = "
-        ." musicbrainz_unaccent(lower(search_terms.term));";
+        ." WHERE lower(musicbrainz_unaccent(name)) = "
+        ." lower(musicbrainz_unaccent(search_terms.term));";
 
     my $results = $self->c->sql->select_list_of_hashes($query, @names);
 
@@ -220,7 +220,7 @@ sub _delete_and_redirect_gids
     $self->update_gid_redirects($new_id, @old_ids);
 
     # Delete the recording and select current GIDs
-    my $old_gids = $self->delete_returning_gids($table, @old_ids);
+    my $old_gids = $self->delete_returning_gids(@old_ids);
 
     # Add redirects from GIDs of the deleted recordings to $new_id
     $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
@@ -234,9 +234,9 @@ sub _delete_and_redirect_gids
 }
 
 sub delete_returning_gids {
-    my ($self, $table, @ids) = @_;
+    my ($self, @ids) = @_;
     return $self->sql->select_single_column_array('
-        DELETE FROM '.$table.'
+        DELETE FROM ' . $self->_main_table . '
         WHERE id IN ('.placeholders(@ids).')
         RETURNING gid', @ids);
 }

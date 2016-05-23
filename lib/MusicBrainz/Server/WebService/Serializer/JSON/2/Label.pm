@@ -24,7 +24,8 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{type} = $entity->type_name;
+        $body{type} = $entity->type ? $entity->type_name : JSON::null;
+        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
         $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 

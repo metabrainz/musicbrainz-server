@@ -52,6 +52,7 @@ sub load_for_works {
            ) AS value,
            work,
            work_attribute.work_attribute_type_allowed_value AS value_id,
+           work_attribute_type_allowed_value.gid AS value_gid,
            work_attribute.work_attribute_type AS type_id
          FROM work_attribute
          LEFT JOIN work_attribute_type_allowed_value
@@ -72,7 +73,8 @@ sub load_for_works {
                 WorkAttribute->new(
                     type_id => $attribute->{type_id},
                     value => $attribute->{value},
-                    value_id => $attribute->{value_id}
+                    value_gid => $attribute->{value_gid},
+                    value_id => $attribute->{value_id},
                 )
             );
         }

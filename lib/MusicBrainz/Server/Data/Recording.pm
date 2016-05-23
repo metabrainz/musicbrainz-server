@@ -28,8 +28,8 @@ use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
@@ -222,10 +222,7 @@ sub delete
     $self->tags->delete(@recording_ids);
     $self->rating->delete(@recording_ids);
     $self->remove_gid_redirects(@recording_ids);
-    $self->sql->do(
-        'DELETE FROM recording WHERE id IN (' . placeholders(@recording_ids) . ')',
-        @recording_ids
-    );
+    $self->delete_returning_gids(@recording_ids);
     return;
 }
 

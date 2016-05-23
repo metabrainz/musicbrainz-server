@@ -53,9 +53,13 @@ const request = require('../../common/utility/request');
         },
 
         artistCredit: function (ac) {
-            ac = ac || {};
+            ac = value(ac);
 
-            var names = value(ac.names);
+            if (!ac) {
+                return {names: []};
+            }
+
+            var names = ac.names.toJS();
 
             names = _.map(names, function (credit, index) {
                 var artist = value(credit.artist) || {};

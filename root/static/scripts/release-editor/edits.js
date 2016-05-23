@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
+const {reduceArtistCredit} = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const debounce = require('../common/utility/debounce');
 const isPositiveInteger = require('../edit/utility/isPositiveInteger');
@@ -30,7 +31,7 @@ const ERROR_NO_CHANGES = 3;
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
             var releaseName = clean(release.name());
-            var releaseAC = release.artistCredit;
+            var releaseAC = release.artistCredit();
             var origData = MB.edit.fields.releaseGroup(releaseGroup);
             var editData = _.cloneDeep(origData);
 
@@ -60,7 +61,9 @@ const ERROR_NO_CHANGES = 3;
         },
 
         release: function (release) {
-            if (!release.name() && !release.artistCredit.text()) return [];
+            if (!release.name() && !reduceArtistCredit(release.artistCredit())) {
+                return [];
+            }
 
             var newData = releaseEditData();
             var oldData = release.original();
@@ -523,11 +526,18 @@ const ERROR_NO_CHANGES = 3;
         try {
             error = JSON.parse(data.responseText).error;
 
-            if (_.isObject(error) && error.errorCode === ERROR_NO_CHANGES) {
-                return false;
+            if (_.isObject(error)) {
+                if (error.errorCode === ERROR_NO_CHANGES) {
+                    return false;
+                }
+                if (error.message) {
+                    error = error.message;
+                } else {
+                    error = _.escape(data.statusText + ": " + data.status);
+                }
             }
         } catch (e) {
-            error = data.statusText + ": " + data.status;
+            error = _.escape(data.statusText + ": " + data.status);
         }
 
         releaseEditor.submissionError(error);

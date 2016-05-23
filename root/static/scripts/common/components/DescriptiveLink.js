@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
 const React = require('react');
 
 const {l} = require('../i18n');
@@ -10,7 +11,7 @@ const AreaWithContainmentLink = require('./AreaWithContainmentLink');
 const ArtistCreditLink = require('./ArtistCreditLink');
 const EntityLink = require('./EntityLink');
 
-const DescriptiveLink = ({entity, content}) => {
+const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
   let props = {content, showDisambiguation: true};
 
   if (entity.entityType === 'area' && entity.gid) {
@@ -24,7 +25,12 @@ const DescriptiveLink = ({entity, content}) => {
     return l('{entity} by {artist}', {
       __react: 'frag',
       entity: link,
-      artist: <ArtistCreditLink artistCredit={entity.artistCredit} key={1} />,
+      artist: (
+        <ArtistCreditLink
+          artistCredit={ko.unwrap(entity.artistCredit)}
+          key={1}
+          showDeleted={showDeletedArtists} />
+      ),
     });
   }
 

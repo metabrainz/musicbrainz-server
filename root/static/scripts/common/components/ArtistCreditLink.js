@@ -5,14 +5,26 @@
 
 const EntityLink = require('./EntityLink');
 
-const ArtistCreditLink = ({artistCredit, ...props}) => {
+const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
+  const names = artistCredit.names;
   let parts = [];
-  for (let i = 0; i < artistCredit.length; i++) {
-    let credit = artistCredit[i];
+  for (let i = 0; i < names.size; i++) {
+    let credit = names.get(i);
     if (props.plain) {
       parts.push(credit.name);
     } else {
-      parts.push(<EntityLink content={credit.name} entity={credit.artist} key={i} />);
+      let artist = credit.artist;
+      if (!artist) {
+        artist = {entityType: 'artist', name: credit.name};
+      }
+      parts.push(
+        <EntityLink
+          content={credit.name}
+          entity={artist}
+          key={i}
+          showDeleted={showDeleted}
+          target={props.target} />
+        );
     }
     parts.push(credit.joinPhrase);
   }

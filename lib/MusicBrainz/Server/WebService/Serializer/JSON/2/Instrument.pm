@@ -18,7 +18,8 @@ sub serialize {
     $body{description} = $entity->description // "";
 
     if ($toplevel) {
-        $body{type} = $entity->type_name;
+        $body{type} = $entity->type ? $entity->type_name : JSON::null;
+        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
     }
 
     return \%body;

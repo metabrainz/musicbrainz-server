@@ -17,8 +17,10 @@ test 'Old edit work edits to add ISWCs still pass (insert)' => sub {
     my $c = $test->c;
     $c->sql->do(<<'EOSQL');
 INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
-INSERT INTO edit (expire_time, id, editor, type, status, data)
-    VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}')
+INSERT INTO edit (expire_time, id, editor, type, status)
+    VALUES (now(), 1, 1, 42, 1);
+INSERT INTO edit_data (edit, data)
+    VALUES (1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}');
 EOSQL
 
     $c->model('Edit')->accept($c->model('Edit')->get_by_id(1));
@@ -33,8 +35,10 @@ test 'Old edit work edits to add ISWCs still pass (update)' => sub {
     $c->sql->do(<<'EOSQL');
 INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
-INSERT INTO edit (expire_time, id, editor, type, status, data)
-    VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":"T-110.986.678-6"}}')
+INSERT INTO edit (expire_time, id, editor, type, status)
+    VALUES (now(), 1, 1, 42, 1);
+INSERT INTO edit_data (edit, data)
+    VALUES (1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":"T-110.986.678-6"}}');
 EOSQL
 
     $c->model('Edit')->accept($c->model('Edit')->get_by_id(1));
@@ -49,8 +53,10 @@ test 'Old edit work edits to add ISWCs still pass (delete)' => sub {
     $c->sql->do(<<'EOSQL');
 INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
-INSERT INTO edit (expire_time, id, editor, type, status, data)
-    VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":null},"old":{"iswc":"T-110.986.678-6"}}')
+INSERT INTO edit (expire_time, id, editor, type, status)
+    VALUES (now(), 1, 1, 42, 1);
+INSERT INTO edit_data (edit, data)
+    VALUES (1, '{"entity":{"name":"Work","id":1},"new":{"iswc":null},"old":{"iswc":"T-110.986.678-6"}}');
 EOSQL
 
     $c->model('Edit')->accept($c->model('Edit')->get_by_id(1));
@@ -65,8 +71,10 @@ test 'Old edit work edits to add ISWCs still pass (conflict)' => sub {
     $c->sql->do(<<'EOSQL');
 INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
-INSERT INTO edit (expire_time, id, editor, type, status, data)
-    VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}')
+INSERT INTO edit (expire_time, id, editor, type, status)
+    VALUES (now(), 1, 1, 42, 1);
+INSERT INTO edit_data (edit, data)
+    VALUES (1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}');
 EOSQL
 
     $c->model('Edit')->accept($c->model('Edit')->get_by_id(1));
@@ -162,10 +170,14 @@ test 'Check conflicts (non-conflicting edits)' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
     $c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, name, free_text)
-VALUES (1, 'Attribute', false), (2, 'Type two', true);
-INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
-VALUES (10, 1, 'Value'), (2, 1, 'Value 2');
+INSERT INTO work_attribute_type (id, gid, name, free_text)
+VALUES
+  (1, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute', false),
+  (2, '525c079d-374e-4436-9448-da92dedef3cd', 'Type two', true);
+INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
+VALUES
+  (10, 'b598f04f-5918-4713-aebc-f7d3d9c2d089', 1, 'Value'),
+  (2, '12a64964-902d-4917-9036-d505dafce0b4', 1, 'Value 2');
 EOSQL
 
     my $edit_1 = $c->model('Edit')->create(

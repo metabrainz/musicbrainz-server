@@ -134,9 +134,10 @@ const similarity = require('../edit/utility/similarity');
             artist: {
                 gid: data.artist.id,
                 name: data.artist.name,
-                sortName: data.artist["sort-name"]
+                sortName: data.artist["sort-name"],
+                entityType: 'artist',
             },
-            name: data.name,
+            name: data.name || data.artist.name,
             joinPhrase: data.joinphrase || ""
         };
     }

@@ -3,14 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
 const _ = require('lodash');
+const ko = require('knockout');
 
 const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
 const i18n = require('../../i18n');
 const commaOnlyList = require('../../i18n/commaOnlyList');
+const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
+const MB = require('../../MB');
 const clean = require('../../utility/clean');
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
+
+require('../../../../lib/jquery-ui');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -224,7 +230,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (currentSelection.id) {
             this.currentSelection(this._dataToEntity({ name: name }));
-        } else {
+        } else if (currentSelection.name !== name) {
             currentSelection.name = name;
             this.currentSelection.notifySubscribers(currentSelection);
         }
@@ -641,7 +647,9 @@ MB.Control.autocomplete_formatters = {
         var $li = this.generic(ul, item);
         var $a = $li.children('a');
 
-        appendComment($a, _.escape(MB.entity.ArtistCredit(item.artistCredit).text()));
+        appendComment($a, _.escape(reduceArtistCredit(
+            artistCreditFromArray(item.artistCredit)
+        )));
 
         item.events && item.events.forEach(function (event) {
             var country = event.country;

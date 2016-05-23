@@ -9,8 +9,6 @@
         return MB.Control.BubbleDoc("Information").extend(options || {});
     }
 
-    releaseEditor.artistBubble = MB.Control.ArtistCreditBubbleDoc("Information");
-
     releaseEditor.releaseGroupBubble = bubbleDoc({
         canBeShown: function (release) {
             var releaseGroup = release.releaseGroup();
@@ -108,67 +106,5 @@
     });
 
     releaseEditor.recordingBubble = RecordingBubble("Recording");
-
-
-    var TrackArtistBubble = aclass(MB.Control.BubbleBase, trackBubble)
-    .extend(MB.Control.ArtistCreditBubbleBase)
-    .extend({
-        closeWhenFocusIsLost: true,
-        changeMatchingArtists: ko.observable(false),
-        initialArtistText: ko.observable(""),
-
-        around$show: function (supr, control, stealFocus, isRedraw) {
-            if (this.visible() && !isRedraw) {
-                this.makeAllChanges();
-            }
-
-            supr(control, stealFocus, isRedraw);
-
-            // If the bubble is redrawn to reposition it, we don't want to
-            // change initialArtistText.
-            if (!isRedraw) {
-                this.initialArtistText(this.target().text());
-            }
-
-            this.$bubble.position({
-                my: "right center",
-                at: "left-10 center",
-                of: control,
-                collision: "none none"
-            })
-            .addClass("right-tail");
-        },
-
-        before$hide: function () {
-            this.makeAllChanges();
-        },
-
-        makeAllChanges: function () {
-            if (!this.changeMatchingArtists()) return;
-
-            var target = this.target();
-            var track = target.track;
-            var matchWith = this.initialArtistText();
-            var names = target.toJSON();
-
-            _(track.medium.release.mediums())
-                .invoke("tracks").flatten().without(track).pluck("artistCredit")
-                .each(function (ac) {
-                    if (matchWith === ac.text()) ac.setNames(names);
-                })
-                .value();
-
-            this.initialArtistText("");
-        },
-
-        currentTrack: function () { return this.target().track },
-
-        moveToTrack: function (track, stealFocus) {
-            this.makeAllChanges();
-            this.show(track.artistCredit.bubbleControlTrackArtist, stealFocus);
-        }
-    });
-
-    releaseEditor.trackArtistBubble = TrackArtistBubble("TrackArtist");
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

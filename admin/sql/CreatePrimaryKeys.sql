@@ -1,6 +1,11 @@
 -- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
+ALTER TABLE alternative_medium ADD CONSTRAINT alternative_medium_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_medium_track ADD CONSTRAINT alternative_medium_track_pkey PRIMARY KEY (alternative_medium, track);
+ALTER TABLE alternative_release ADD CONSTRAINT alternative_release_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_release_type ADD CONSTRAINT alternative_release_type_pkey PRIMARY KEY (id);
+ALTER TABLE alternative_track ADD CONSTRAINT alternative_track_pkey PRIMARY KEY (id);
 ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
 ALTER TABLE application ADD CONSTRAINT application_pkey PRIMARY KEY (id);
 ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);
@@ -17,7 +22,6 @@ ALTER TABLE artist_alias_type ADD CONSTRAINT artist_alias_type_pkey PRIMARY KEY 
 ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_pkey PRIMARY KEY (artist, annotation);
 ALTER TABLE artist_credit ADD CONSTRAINT artist_credit_pkey PRIMARY KEY (id);
 ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_pkey PRIMARY KEY (artist_credit, position);
-ALTER TABLE artist_deletion ADD CONSTRAINT artist_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_pkey PRIMARY KEY (artist, ipi);
 ALTER TABLE artist_isni ADD CONSTRAINT artist_isni_pkey PRIMARY KEY (artist, isni);
@@ -31,13 +35,16 @@ ALTER TABLE autoeditor_election_vote ADD CONSTRAINT autoeditor_election_vote_pke
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc_raw ADD CONSTRAINT cdtoc_raw_pkey PRIMARY KEY (id);
 ALTER TABLE country_area ADD CONSTRAINT country_area_pkey PRIMARY KEY (area);
+ALTER TABLE deleted_entity ADD CONSTRAINT deleted_entity_pkey PRIMARY KEY (gid);
 ALTER TABLE edit ADD CONSTRAINT edit_pkey PRIMARY KEY (id);
 ALTER TABLE edit_area ADD CONSTRAINT edit_area_pkey PRIMARY KEY (edit, area);
 ALTER TABLE edit_artist ADD CONSTRAINT edit_artist_pkey PRIMARY KEY (edit, artist);
+ALTER TABLE edit_data ADD CONSTRAINT edit_data_pkey PRIMARY KEY (edit);
 ALTER TABLE edit_event ADD CONSTRAINT edit_event_pkey PRIMARY KEY (edit, event);
 ALTER TABLE edit_instrument ADD CONSTRAINT edit_instrument_pkey PRIMARY KEY (edit, instrument);
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_pkey PRIMARY KEY (edit, label);
 ALTER TABLE edit_note ADD CONSTRAINT edit_note_pkey PRIMARY KEY (id);
+ALTER TABLE edit_note_recipient ADD CONSTRAINT edit_note_recipient_pkey PRIMARY KEY (recipient, edit_note);
 ALTER TABLE edit_place ADD CONSTRAINT edit_place_pkey PRIMARY KEY (edit, place);
 ALTER TABLE edit_recording ADD CONSTRAINT edit_recording_pkey PRIMARY KEY (edit, recording);
 ALTER TABLE edit_release ADD CONSTRAINT edit_release_pkey PRIMARY KEY (edit, release);
@@ -49,6 +56,7 @@ ALTER TABLE editor ADD CONSTRAINT editor_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection ADD CONSTRAINT editor_collection_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection_area ADD CONSTRAINT editor_collection_area_pkey PRIMARY KEY (collection, area);
 ALTER TABLE editor_collection_artist ADD CONSTRAINT editor_collection_artist_pkey PRIMARY KEY (collection, artist);
+ALTER TABLE editor_collection_deleted_entity ADD CONSTRAINT editor_collection_deleted_entity_pkey PRIMARY KEY (collection, gid);
 ALTER TABLE editor_collection_event ADD CONSTRAINT editor_collection_event_pkey PRIMARY KEY (collection, event);
 ALTER TABLE editor_collection_instrument ADD CONSTRAINT editor_collection_instrument_pkey PRIMARY KEY (collection, instrument);
 ALTER TABLE editor_collection_label ADD CONSTRAINT editor_collection_label_pkey PRIMARY KEY (collection, label);
@@ -180,7 +188,6 @@ ALTER TABLE label ADD CONSTRAINT label_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias ADD CONSTRAINT label_alias_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias_type ADD CONSTRAINT label_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE label_annotation ADD CONSTRAINT label_annotation_pkey PRIMARY KEY (label, annotation);
-ALTER TABLE label_deletion ADD CONSTRAINT label_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE label_ipi ADD CONSTRAINT label_ipi_pkey PRIMARY KEY (label, ipi);
 ALTER TABLE label_isni ADD CONSTRAINT label_isni_pkey PRIMARY KEY (label, isni);
@@ -254,7 +261,6 @@ ALTER TABLE series ADD CONSTRAINT series_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias ADD CONSTRAINT series_alias_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias_type ADD CONSTRAINT series_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE series_annotation ADD CONSTRAINT series_annotation_pkey PRIMARY KEY (series, annotation);
-ALTER TABLE series_deletion ADD CONSTRAINT series_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE series_gid_redirect ADD CONSTRAINT series_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE series_ordering_type ADD CONSTRAINT series_ordering_type_pkey PRIMARY KEY (id);
 ALTER TABLE series_tag ADD CONSTRAINT series_tag_pkey PRIMARY KEY (series, tag);

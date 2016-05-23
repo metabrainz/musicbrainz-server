@@ -16,12 +16,13 @@ sub _table {
 }
 
 sub _columns {
-    return 'id, name, entity_type, parent, child_order, description';
+    return 'id, gid, name, entity_type, parent, child_order, description';
 }
 
 sub _column_mapping {
     return {
         id              => 'id',
+        gid             => 'gid',
         name            => 'name',
         entity_type     => 'entity_type',
         parent_id       => 'parent',

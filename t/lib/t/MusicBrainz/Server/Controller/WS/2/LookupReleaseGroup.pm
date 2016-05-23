@@ -26,10 +26,10 @@ ws_test 'basic release group lookup',
     '/release-group/b84625af-6229-305f-9f1b-59c0185df016' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Single" id="b84625af-6229-305f-9f1b-59c0185df016">
+    <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="b84625af-6229-305f-9f1b-59c0185df016">
         <title>サマーれげぇ!レインボー</title>
         <first-release-date>2001-07-04</first-release-date>
-        <primary-type>Single</primary-type>
+        <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
     </release-group>
 </metadata>';
 
@@ -37,11 +37,11 @@ ws_test 'release group lookup, inc=annotation',
     '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+    <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
         <title>My Demons</title>
         <annotation><text>this is a release group annotation</text></annotation>
         <first-release-date>2007-01-29</first-release-date>
-        <primary-type>Album</primary-type>
+        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
     </release-group>
 </metadata>';
 
@@ -49,16 +49,17 @@ ws_test 'release group lookup with releases',
     '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Remix" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
+    <release-group type="Remix" type-id="0c60f497-ff81-3818-befd-abfc84a4858b" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <first-release-date>2008-11-17</first-release-date>
-        <primary-type>Album</primary-type>
+        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
         <secondary-type-list>
-          <secondary-type>Remix</secondary-type>
+          <secondary-type id="0c60f497-ff81-3818-befd-abfc84a4858b">Remix</secondary-type>
         </secondary-type-list>
         <release-list count="1">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-                <title>Repercussions</title><status>Official</status>
+                <title>Repercussions</title>
+                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language>
@@ -88,12 +89,12 @@ ws_test 'release group lookup with artists',
     '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Remix" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
+    <release-group type="Remix" type-id="0c60f497-ff81-3818-befd-abfc84a4858b" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <first-release-date>2008-11-17</first-release-date>
-        <primary-type>Album</primary-type>
+        <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
         <secondary-type-list>
-          <secondary-type>Remix</secondary-type>
+          <secondary-type id="0c60f497-ff81-3818-befd-abfc84a4858b">Remix</secondary-type>
         </secondary-type-list>
         <artist-credit>
             <name-credit>
@@ -109,10 +110,10 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
-        <primary-type>Single</primary-type>
+        <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
         <artist-credit>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -123,7 +124,8 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
         </artist-credit>
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-                <title>the Love Bug</title><status>Official</status>
+                <title>the Love Bug</title>
+                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>eng</language><script>Latn</script>
@@ -152,10 +154,10 @@ ws_test 'release group lookup with pseudo-releases',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
-        <primary-type>Single</primary-type>
+        <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
         <artist-credit>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">

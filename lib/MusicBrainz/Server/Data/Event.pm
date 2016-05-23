@@ -23,9 +23,9 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'event' };
@@ -95,7 +95,7 @@ sub delete
     $self->tags->delete(@event_ids);
     $self->rating->delete(@event_ids);
     $self->remove_gid_redirects(@event_ids);
-    $self->delete_returning_gids('event', @event_ids);
+    $self->delete_returning_gids(@event_ids);
     return 1;
 }
 

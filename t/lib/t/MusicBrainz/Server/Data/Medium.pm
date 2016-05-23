@@ -76,8 +76,6 @@ test all => sub {
 
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database($test->c,
-    "INSERT INTO medium_format (id, name) VALUES (2, 'Telepathic Transmission')");
 
 my $medium_data = MusicBrainz::Server::Data::Medium->new(c => $test->c);
 
@@ -87,7 +85,7 @@ is ( $medium->track_count, 7 );
 is ( $medium->release_id, 1 );
 is ( $medium->position, 1 );
 is ( $medium->name, 'A Sea of Honey' );
-is ( $medium->format_id, 1 );
+is ( $medium->format_id, 123465 );
 
 $medium = $medium_data->get_by_id(2);
 is ( $medium->id, 2 );
@@ -95,7 +93,7 @@ is ( $medium->track_count, 9 );
 is ( $medium->release_id, 1 );
 is ( $medium->position, 2 );
 is ( $medium->name, 'A Sky of Honey' );
-is ( $medium->format_id, 1 );
+is ( $medium->format_id, 123465 );
 
 $test->c->model('Release')->load($medium);
 

@@ -21,14 +21,13 @@ use MusicBrainz::Server::Entity::SeriesType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'series' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'series' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'series' };
-with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_series',
     column => 'series',
@@ -49,6 +48,7 @@ sub _column_mapping {
         id => 'id',
         gid => 'gid',
         name => 'name',
+        unaccented_name => 'unaccented_name',
         comment => 'comment',
         type_id => 'type',
         ordering_type_id => 'ordering_type',
@@ -192,7 +192,7 @@ sub delete
     $self->tags->delete(@ids);
     $self->subscription->delete(@ids);
     $self->remove_gid_redirects(@ids);
-    $self->delete_returning_gids('series', @ids);
+    $self->delete_returning_gids(@ids);
     return 1;
 }
 
