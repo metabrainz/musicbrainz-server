@@ -15,8 +15,7 @@ isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'isa');
 
 # Main attributes
 can_ok($editor, qw( name password privileges email biography website
-                    accepted_edits rejected_edits failed_edits
-                    accepted_auto_edits registration_date last_login_date
+                    registration_date last_login_date has_ten_accepted_edits
                     email_confirmation_date ));
 
 # Check privileges

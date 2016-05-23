@@ -18,26 +18,29 @@ Prerequisites
     some hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
-    **This document will assume you are using Ubuntu for its instructions.**
+    **This document will assume you are using Ubuntu (at least 14.04) for its
+    instructions.**
 
-2.  Perl (at least version 5.10.1)
+2.  Perl (at least version 5.18.2)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
 
         perl -v
 
-3.  PostgreSQL (at least version 9.1)
+3.  PostgreSQL (at least version 9.5)
 
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 9.x with the latest version.
+    If needed, packages of all supported PostgreSQL versions for various Ubuntu
+    releases are available from the [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
-    also compile the cube extension found in contrib/cube. The database import
-    script will take care of installing that extension into the database when it
-    creates the database for you.
+    also compile the cube and earthdistance extensions found in the contrib
+    directory. The database import script will take care of installing those
+    extensions into the database when it creates the database for you.
 
 4.  Git
 
@@ -258,14 +261,7 @@ Creating the database
     Note that a running PostgreSQL will pick up changes to configuration files
     only when being told so via a `HUP` signal.
 
-3.  Install a Perl module
-
-    One PL/Perl database function requires the JSON::XS Perl module. Install it
-    like so:
-
-        sudo apt-get install libjson-xs-perl
-
-4.  Create the database
+3.  Create the database
 
     You have two options when it comes to the database. You can either opt for a
     clean database with just the schema (useful for developers with limited disk

@@ -4,7 +4,7 @@ set -o errexit
 cd `dirname $0`
 eval `./admin/ShowDBDefs`
 
-NEW_SCHEMA_SEQUENCE=22
+NEW_SCHEMA_SEQUENCE=23
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 ################################################################################
@@ -58,6 +58,7 @@ fi
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
 echo `date` : 'Running upgrade scripts for all nodes'
+./admin/psql --system MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.extensions.sql || exit 1
 ./admin/psql MAINTENANCE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
 ################################################################################

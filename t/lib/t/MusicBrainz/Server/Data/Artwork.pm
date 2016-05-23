@@ -22,11 +22,11 @@ INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
   VALUES (1, 2000, 10, 15), (2, 2000, 11, NULL);
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, '', '', '', '', now());
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-VALUES (1, 1, 1, 1, '', now()), (2, 1, 1, 1, '', now());
+INSERT INTO edit (id, editor, type, status, expire_time)
+VALUES (1, 1, 1, 1, now()), (2, 1, 1, 1, now());
+INSERT INTO edit_data (edit, data) VALUES (1, '{}'), (2, '{}');
 
 
-INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 INSERT INTO cover_art_archive.image_type (mime_type, suffix)
 VALUES ('image/png', 'png');
 INSERT INTO cover_art_archive.cover_art

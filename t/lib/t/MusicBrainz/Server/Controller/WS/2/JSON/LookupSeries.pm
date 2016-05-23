@@ -19,6 +19,7 @@ test 'basic series lookup' => sub {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
+            "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
         };
 
@@ -28,11 +29,13 @@ test 'basic series lookup' => sub {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
+            "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
             aliases => [
                 {
                     primary => JSON::null,
                     type => JSON::null,
+                    "type-id" => JSON::null,
                     'sort-name' => 'BWV',
                     name => 'BWV',
                     locale => JSON::null,
@@ -46,6 +49,7 @@ test 'basic series lookup' => sub {
             disambiguation => '',
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
+            "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
             relations => [
                 {
@@ -68,6 +72,7 @@ test 'basic series lookup' => sub {
                         language => 'deu',
                         title => "Kantate, BWV 1 \"Wie sch\x{f6}n leuchtet der Morgenstern\"",
                         type => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     'target-type' => 'work',
                 },
@@ -91,6 +96,7 @@ test 'basic series lookup' => sub {
                         language => 'deu',
                         title => 'Kantate, BWV 2 "Ach Gott, vom Himmel sieh darein"',
                         type => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     'target-type' => 'work',
                 },
@@ -114,6 +120,7 @@ test 'basic series lookup' => sub {
                         language => 'deu',
                         title => 'Kantate, BWV 3 "Ach Gott, wie manches Herzeleid"',
                         type => JSON::null,
+                        "type-id" => JSON::null,
                     },
                     'target-type' => 'work',
                 },

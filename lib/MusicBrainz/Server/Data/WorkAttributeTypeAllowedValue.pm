@@ -19,13 +19,14 @@ sub _table
 
 sub _columns
 {
-    return 'id, work_attribute_type, value, parent, child_order, description';
+    return 'id, gid, work_attribute_type, value, parent, child_order, description';
 }
 
 sub _column_mapping
 {
     return {
         id                      => 'id',
+        gid                     => 'gid',
         work_attribute_type_id  => 'work_attribute_type',
         value                   => 'value',
         parent_id               => 'parent',

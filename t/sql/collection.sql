@@ -51,10 +51,14 @@ INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent,
     VALUES (1, 2, 1, 0, FALSE, 'collection1'),
            (2, 2, 2, 0, TRUE, NULL);
 
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (1, 1, 32, 1, '{"entity":{"name":"Arrival","id":2},"new":{"name":"Departure"},"old":{"name":"Arrival"}}', NOW()),
-           (2, 1, 32, 2, '{"entity":{"name":"Arrival","id":4},"new":{"name":"Departure"},"old":{"name":"Arrival"}}', NOW()),
-           (3, 1, 32, 1, '{"entity":{"name":"Arrival","id":3},"new":{"name":"Departure"},"old":{"name":"Arrival"}}', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (1, 1, 32, 1, NOW()),
+           (2, 1, 32, 2, NOW()),
+           (3, 1, 32, 1, NOW());
+INSERT INTO edit_data (edit, data)
+    VALUES (1, '{"entity":{"name":"Arrival","id":2},"new":{"name":"Departure"},"old":{"name":"Arrival"}}'),
+           (2, '{"entity":{"name":"Arrival","id":4},"new":{"name":"Departure"},"old":{"name":"Arrival"}}'),
+           (3, '{"entity":{"name":"Arrival","id":3},"new":{"name":"Departure"},"old":{"name":"Arrival"}}');
 
 INSERT INTO edit_release (edit, release)
     VALUES (1, 2), (2, 4), (3, 3);

@@ -31,16 +31,18 @@ TRUNCATE edit CASCADE;
 TRUNCATE edit_note CASCADE;
 
 -- Test multiple edit_notes
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (1, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (1, 1, 111, 1, NOW());
 
 -- Test a single note
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (2, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (2, 1, 111, 1, NOW());
 
 -- Test no edit_notes
-INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (3, 1, 111, 1, '{ "foo": "5" }', NOW());
+INSERT INTO edit (id, editor, type, status, expire_time)
+    VALUES (3, 1, 111, 1, NOW());
+
+INSERT INTO edit_data (edit, data) SELECT generate_series(1, 3), '{ "foo": "5" }';
 
 INSERT INTO edit_note (id, editor, edit, text)
     VALUES (1, 1, 1, 'This is a note');
@@ -50,6 +52,12 @@ INSERT INTO edit_note (id, editor, edit, text)
 
 INSERT INTO edit_note (id, editor, edit, text)
     VALUES (3, 1, 2, 'Another edit note');
+
+-- Dummy edits to allow editor 2 to vote
+INSERT INTO edit (id, editor, type, status, expire_time)
+    SELECT 3 + x, 2, 111, 2, now() FROM generate_series(1, 10) x;
+INSERT INTO edit_data (edit, data)
+    SELECT 3 + x, '{}' FROM generate_series(1, 10) x;
 
 ALTER SEQUENCE edit_note_id_seq RESTART 4;
 

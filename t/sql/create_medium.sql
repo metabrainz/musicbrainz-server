@@ -13,7 +13,5 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '6a7d1660-792f-11de-8a39-0800200c9a66', 'No Hassle', 1, 1);
 
-INSERT INTO medium_format (id, name) VALUES (1, 'CD');
-
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'Track', 1);

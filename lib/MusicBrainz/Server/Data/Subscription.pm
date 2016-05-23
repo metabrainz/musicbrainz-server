@@ -165,13 +165,14 @@ sub get_subscriptions
 
         push @subscriptions, $self->query_to_list(
             "SELECT
-               sub.editor, last_known_name, last_known_comment, deleted_by,
+               sub.editor, del.data->>'last_known_name' AS last_known_name,
+               del.data->>'last_known_comment' AS last_known_comment, deleted_by,
                CASE
                  WHEN edit.type = any(?) THEN 'merged'
                  WHEN edit.type = any(?) THEN 'deleted'
                END AS reason
              FROM ${table}_deleted sub
-             JOIN ${column}_deletion del USING (gid)
+             JOIN deleted_entity del USING (gid)
              JOIN edit ON (edit.id = deleted_by)
              WHERE sub.editor = ?",
             [

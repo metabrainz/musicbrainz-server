@@ -29,6 +29,11 @@ role {
         isa => 'Str',
     );
 
+    has gid => (
+        is => 'rw',
+        isa => 'Str',
+    );
+
     has description => (
         is => 'rw',
         isa => 'Maybe[Str]',
@@ -79,6 +84,7 @@ role {
 
         return {
             %{ $self->$orig },
+            gid         => $self->gid,
             parentID    => $self->parent_id,
             childOrder  => +$self->child_order,
             description => $self->description,

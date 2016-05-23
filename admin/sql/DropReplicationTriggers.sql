@@ -1,6 +1,11 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP TRIGGER reptg_alternative_medium ON alternative_medium;
+DROP TRIGGER reptg_alternative_medium_track ON alternative_medium_track;
+DROP TRIGGER reptg_alternative_release ON alternative_release;
+DROP TRIGGER reptg_alternative_release_type ON alternative_release_type;
+DROP TRIGGER reptg_alternative_track ON alternative_track;
 DROP TRIGGER reptg_annotation ON annotation;
 DROP TRIGGER reptg_area ON area;
 DROP TRIGGER reptg_area_alias ON area_alias;

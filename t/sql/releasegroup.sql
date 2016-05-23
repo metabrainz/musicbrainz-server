@@ -52,8 +52,8 @@ INSERT INTO release_group (id, gid, name, artist_credit)
            (5, '7c906020-72db-11de-8a39-0800200c9a71', 'Release Name', 2);
 
 INSERT INTO release (id, gid, name, release_group, artist_credit)
-    VALUES (4, '7b906020-72db-11de-8a39-0800200c9a70', 'Release Name', 4, 3),
-           (5, '7c906020-72db-11de-8a39-0800200c9a71', 'Release Name', 5, 2);
+    VALUES (4, '1b13ba2d-c54a-4e7d-bf65-b173d53e37a1', 'Release Name', 4, 3),
+           (5, '2d48ca05-a469-422d-8a67-79c7b6f175ea', 'Release Name', 5, 2);
 
 INSERT INTO medium (id, release, track_count, position)
     VALUES (6, 4, 0, 1), (7, 5, 0, 1);

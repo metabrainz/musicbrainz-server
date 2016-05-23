@@ -46,14 +46,9 @@
       <span class="field-container">
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
-               SWITCH field.field_name;
-                 CASE 'yes_votes';
-                   predicate_int(field.field_name, field);
-                 CASE 'no_votes';
-                   predicate_int(field.field_name, field);
-                 CASE DEFAULT;
-                   predicate_id(field.field_name, field);
-               END;
+               predicate_id(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditVoteCount';
+               predicate_int(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
@@ -224,7 +219,9 @@
   </select>
 
   <br />
-  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; or which remove relationships, created after 2013-07-08.') %]</p>
+  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; ' _
+          'or which remove relationships, created after 2013-07-08; ' _
+          'or which reorder relationships.') %]</p>
 [% END %]
 
 [% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]

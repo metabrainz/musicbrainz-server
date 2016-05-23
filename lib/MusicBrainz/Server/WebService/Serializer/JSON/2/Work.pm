@@ -20,11 +20,14 @@ sub serialize
     $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
     $body{type} = $entity->type ? $entity->type->name : JSON::null;
+    $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
 
     $body{attributes} = [
         map +{
-            type    => $_->type->name,
-            value   => $_->value
+            type        => $_->type->name,
+            'type-id'   => $_->type->gid,
+            value       => $_->value,
+            $_->value_gid ? ('value-id' => $_->value_gid) : (),
         }, $entity->all_attributes
     ];
 

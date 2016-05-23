@@ -1,6 +1,10 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+SELECT setval('alternative_release_id_seq', COALESCE((SELECT MAX(id) FROM alternative_release), 0) + 1, FALSE);
+SELECT setval('alternative_release_type_id_seq', COALESCE((SELECT MAX(id) FROM alternative_release_type), 0) + 1, FALSE);
+SELECT setval('alternative_medium_id_seq', COALESCE((SELECT MAX(id) FROM alternative_medium), 0) + 1, FALSE);
+SELECT setval('alternative_track_id_seq', COALESCE((SELECT MAX(id) FROM alternative_track), 0) + 1, FALSE);
 SELECT setval('annotation_id_seq', COALESCE((SELECT MAX(id) FROM annotation), 0) + 1, FALSE);
 SELECT setval('application_id_seq', COALESCE((SELECT MAX(id) FROM application), 0) + 1, FALSE);
 SELECT setval('area_type_id_seq', COALESCE((SELECT MAX(id) FROM area_type), 0) + 1, FALSE);

@@ -349,8 +349,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         user     => $user,
         template => 'user/profile.tt',
         last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
-        open_count => $c->model('Editor')->open_edit_count($user->id),
-        cancelled_count => $c->model('Editor')->cancelled_edit_count($user->id)
+        %{ $c->model('Editor')->various_edit_counts($user->id) },
     );
 }
 

@@ -56,10 +56,11 @@ sub serialize
     $body{asin} = $entity->amazon_asin if ($toplevel);
     $body{barcode} = $entity->barcode->code;
     $body{disambiguation} = $entity->comment // "";
-    $body{status} = $entity->status_name;
+    $body{status} = $entity->status ? $entity->status_name : JSON::null;
+    $body{'status-id'} = $entity->status ? $entity->status->gid : JSON::null;
     $body{quality} = _quality($entity->quality);
-    $body{packaging} = $entity->packaging
-        ? $entity->packaging->name : JSON::null;
+    $body{packaging} = $entity->packaging ? $entity->packaging->name : JSON::null;
+    $body{'packaging-id'} = $entity->packaging ? $entity->packaging->gid : JSON::null;
 
     my $coverart = $stash ? $stash->store($entity)->{'cover-art-archive'} : undef;
     if ($coverart) {

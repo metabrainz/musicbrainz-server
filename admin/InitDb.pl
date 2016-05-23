@@ -119,17 +119,9 @@ sub RunSQLScript
     die "Error during $file" if ($? >> 8);
 }
 
-sub HasPLPerlSupport
-{
-    my $mb = Databases->get_connection('MAINTENANCE');
-    my $mb_no_schema = $mb->meta->clone_object($mb, database => $mb->database->meta->clone_object($mb->database));
-    my $sql = Sql->new( $mb_no_schema->conn );
-    return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
-}
-
 sub HasEditData
 {
-    my $mb = Databases->get_connection('MAINTENANCE');
+    my $mb = Databases->get_connection($databaseName);
     my $sql = Sql->new( $mb->conn );
     return $sql->select_single_value('SELECT TRUE FROM edit LIMIT 1');
 }
@@ -159,7 +151,7 @@ sub CreateReplicationFunction
     $sql->auto_commit;
     $sql->do(
         "CREATE FUNCTION \"recordchange\" () RETURNS trigger
-        AS ?, 'recordchange' LANGUAGE 'C'",
+        AS ?, 'recordchange' LANGUAGE C",
         $path_to_pending_so,
     );
 }
@@ -247,8 +239,6 @@ sub Create
     $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts, "plpgsql";
     print "\nFailed to create language plpgsql -- it's likely to be already installed, continuing.\n" if ($? >> 8);
-    system "createlang", @opts, "plperlu";
-    print "\nFailed to create language plperlu -- it's likely to be already installed, continuing.\n" if ($? >> 8);
 
     # Set the default search path for the READWRITE and READONLY users
     my $search_path = "musicbrainz, public";
@@ -325,9 +315,6 @@ sub CreateRelations
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
-
-    RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
-        if HasPLPerlSupport();
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");

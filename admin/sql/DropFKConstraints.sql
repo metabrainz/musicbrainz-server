@@ -1,6 +1,18 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+ALTER TABLE alternative_medium DROP CONSTRAINT IF EXISTS alternative_medium_fk_medium;
+ALTER TABLE alternative_medium DROP CONSTRAINT IF EXISTS alternative_medium_fk_alternative_release;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_alternative_medium;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_track;
+ALTER TABLE alternative_medium_track DROP CONSTRAINT IF EXISTS alternative_medium_track_fk_alternative_track;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_release;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_artist_credit;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_type;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_language;
+ALTER TABLE alternative_release DROP CONSTRAINT IF EXISTS alternative_release_fk_script;
+ALTER TABLE alternative_release_type DROP CONSTRAINT IF EXISTS alternative_release_type_fk_parent;
+ALTER TABLE alternative_track DROP CONSTRAINT IF EXISTS alternative_track_fk_artist_credit;
 ALTER TABLE annotation DROP CONSTRAINT IF EXISTS annotation_fk_editor;
 ALTER TABLE application DROP CONSTRAINT IF EXISTS application_fk_owner;
 ALTER TABLE area DROP CONSTRAINT IF EXISTS area_fk_type;
@@ -54,6 +66,7 @@ ALTER TABLE edit_area DROP CONSTRAINT IF EXISTS edit_area_fk_edit;
 ALTER TABLE edit_area DROP CONSTRAINT IF EXISTS edit_area_fk_area;
 ALTER TABLE edit_artist DROP CONSTRAINT IF EXISTS edit_artist_fk_edit;
 ALTER TABLE edit_artist DROP CONSTRAINT IF EXISTS edit_artist_fk_artist;
+ALTER TABLE edit_data DROP CONSTRAINT IF EXISTS edit_data_fk_edit;
 ALTER TABLE edit_event DROP CONSTRAINT IF EXISTS edit_event_fk_edit;
 ALTER TABLE edit_event DROP CONSTRAINT IF EXISTS edit_event_fk_event;
 ALTER TABLE edit_instrument DROP CONSTRAINT IF EXISTS edit_instrument_fk_edit;
@@ -62,6 +75,8 @@ ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_fk_edit;
 ALTER TABLE edit_label DROP CONSTRAINT IF EXISTS edit_label_fk_label;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_editor;
 ALTER TABLE edit_note DROP CONSTRAINT IF EXISTS edit_note_fk_edit;
+ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_recipient;
+ALTER TABLE edit_note_recipient DROP CONSTRAINT IF EXISTS edit_note_recipient_fk_edit_note;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_fk_edit;
 ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_fk_place;
 ALTER TABLE edit_recording DROP CONSTRAINT IF EXISTS edit_recording_fk_edit;
@@ -84,6 +99,8 @@ ALTER TABLE editor_collection_area DROP CONSTRAINT IF EXISTS editor_collection_a
 ALTER TABLE editor_collection_area DROP CONSTRAINT IF EXISTS editor_collection_area_fk_area;
 ALTER TABLE editor_collection_artist DROP CONSTRAINT IF EXISTS editor_collection_artist_fk_collection;
 ALTER TABLE editor_collection_artist DROP CONSTRAINT IF EXISTS editor_collection_artist_fk_artist;
+ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_fk_collection;
+ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_fk_gid;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_collection;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_event;
 ALTER TABLE editor_collection_instrument DROP CONSTRAINT IF EXISTS editor_collection_instrument_fk_collection;

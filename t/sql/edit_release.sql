@@ -17,7 +17,7 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, release_group, artist_credit, comment)
     VALUES (1, 'ec8c4910-739d-11de-8a39-0800200c9a66', 'Release', 1, 1, 'hello');
 
-INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
+INSERT INTO release_packaging (id, name, gid) VALUES (1, 'Jewel Case', 'e2ac3831-739d-11de-8a39-0800200c9a66');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
 
 INSERT INTO area (id, gid, name, type) VALUES

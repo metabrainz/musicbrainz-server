@@ -20,13 +20,14 @@ sub _table
 
 sub _columns
 {
-    return 'id, name, free_text, parent, child_order, comment, description';
+    return 'id, gid, name, free_text, parent, child_order, comment, description';
 }
 
 sub _column_mapping
 {
     return {
         id          => 'id',
+        gid         => 'gid',
         name        => 'name',
         comment     => 'comment',
         free_text   => 'free_text',

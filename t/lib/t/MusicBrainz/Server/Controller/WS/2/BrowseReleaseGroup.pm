@@ -26,10 +26,10 @@ ws_test 'browse release group via release',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group-list count="1">
-        <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+        <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
-            <primary-type>Album</primary-type>
+            <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
             <artist-credit>
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -54,10 +54,10 @@ ws_test 'browse release group via artist',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group-list count="2">
-        <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+        <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
             <first-release-date>2007-01-29</first-release-date>
-            <primary-type>Album</primary-type>
+            <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
             <artist-credit>
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -74,12 +74,12 @@ ws_test 'browse release group via artist',
             </tag-list>
             <rating votes-count="1">4</rating>
         </release-group>
-        <release-group type="Remix" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
+        <release-group type="Remix" type-id="0c60f497-ff81-3818-befd-abfc84a4858b" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
             <title>Repercussions</title>
             <first-release-date>2008-11-17</first-release-date>
-            <primary-type>Album</primary-type>
+            <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
             <secondary-type-list>
-              <secondary-type>Remix</secondary-type>
+              <secondary-type id="0c60f497-ff81-3818-befd-abfc84a4858b">Remix</secondary-type>
             </secondary-type-list>
             <artist-credit>
                 <name-credit>

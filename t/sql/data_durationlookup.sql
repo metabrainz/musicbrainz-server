@@ -30,9 +30,7 @@ INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '7c3218d7-75
 INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 'Aerial', 1, 1), (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 1, 1);
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2007, null, null);
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (2, 2008, null, null);
-;
 
-INSERT INTO medium_format (id, name) VALUES (1, 'Format');
 INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'A Sky of Honey');
 

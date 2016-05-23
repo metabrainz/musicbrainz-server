@@ -39,6 +39,7 @@ test 'browse releases via artist (paging)' => sub {
                     id => "fbe4eb72-0f24-3875-942e-f581589713d4",
                     title => "For Beginner Piano",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     "cover-art-archive" => {
@@ -64,6 +65,7 @@ test 'browse releases via artist (paging)' => sub {
                     barcode => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 }]
         };
 };
@@ -82,6 +84,7 @@ test 'browse releases via label' => sub {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
                     title => "Repercussions",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     "cover-art-archive" => {
@@ -107,12 +110,14 @@ test 'browse releases via label' => sub {
                     media => [
                         {
                             format => "CD",
+                            'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
                             position => 1,
                             "track-count" => 9,
                             title => '',
                         },
                         {
                             format => "CD",
+                            'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
                             position => 2,
                             "track-count" => 9,
                             title => "Chestplate Singles"
@@ -120,11 +125,13 @@ test 'browse releases via label' => sub {
                     asin => "B001IKWNCE",
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 },
                 {
                     id => "adcf7b48-086e-48ee-b420-1001f88d672f",
                     title => "My Demons",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     "cover-art-archive" => {
@@ -150,6 +157,7 @@ test 'browse releases via label' => sub {
                     media => [
                         {
                             format => "CD",
+                            'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
                             position => 1,
                             "track-count" => 12,
                             title => '',
@@ -157,6 +165,7 @@ test 'browse releases via label' => sub {
                     asin => "B000KJTG6K",
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 }]
         };
 };
@@ -175,6 +184,7 @@ test  'browse releases via release group' => sub {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     "cover-art-archive" => {
@@ -200,11 +210,13 @@ test  'browse releases via release group' => sub {
                     asin => "B00005LA6G",
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 },
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
                     status => "Pseudo-Release",
+                    'status-id' => "41121bb9-3413-3818-8a9a-9742318349aa",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Latn" },
                     "cover-art-archive" => {
@@ -230,6 +242,7 @@ test  'browse releases via release group' => sub {
                     asin => "B00005LA6G",
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 }]
         };
 };
@@ -248,6 +261,7 @@ test 'browse releases via recording' => sub {
                     id => "28fc2337-985b-3da9-ac40-ad6f28ff0d8e",
                     title => "LOVE & HONESTY",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     "cover-art-archive" => {
@@ -284,11 +298,13 @@ test 'browse releases via recording' => sub {
                         }],
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 },
                 {
                     id => "cacc586f-c2f2-49db-8534-6f44b55196f2",
                     title => "LOVE & HONESTY",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     "cover-art-archive" => {
@@ -325,6 +341,7 @@ test 'browse releases via recording' => sub {
                         }],
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 }]
         };
 };
@@ -343,6 +360,7 @@ test 'browse releases via track artist' => sub {
                     id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
                     title => "the Love Bug",
                     status => "Official",
+                    'status-id' => "4e304316-386d-3409-af2e-78857eec5cfe",
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     "cover-art-archive" => {
@@ -368,6 +386,7 @@ test 'browse releases via track artist' => sub {
                     asin => "B0001FAD2O",
                     disambiguation => "",
                     packaging => JSON::null,
+                    'packaging-id' => JSON::null,
                 }]
         };
 };

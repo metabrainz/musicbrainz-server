@@ -1,6 +1,66 @@
 -- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
+ALTER TABLE alternative_medium
+   ADD CONSTRAINT alternative_medium_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
+
+ALTER TABLE alternative_medium
+   ADD CONSTRAINT alternative_medium_fk_alternative_release
+   FOREIGN KEY (alternative_release)
+   REFERENCES alternative_release(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_alternative_medium
+   FOREIGN KEY (alternative_medium)
+   REFERENCES alternative_medium(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_track
+   FOREIGN KEY (track)
+   REFERENCES track(id);
+
+ALTER TABLE alternative_medium_track
+   ADD CONSTRAINT alternative_medium_track_fk_alternative_track
+   FOREIGN KEY (alternative_track)
+   REFERENCES alternative_track(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_type
+   FOREIGN KEY (type)
+   REFERENCES alternative_release_type(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
+
+ALTER TABLE alternative_release
+   ADD CONSTRAINT alternative_release_fk_script
+   FOREIGN KEY (script)
+   REFERENCES script(id);
+
+ALTER TABLE alternative_release_type
+   ADD CONSTRAINT alternative_release_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES alternative_release_type(id);
+
+ALTER TABLE alternative_track
+   ADD CONSTRAINT alternative_track_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
+
 ALTER TABLE annotation
    ADD CONSTRAINT annotation_fk_editor
    FOREIGN KEY (editor)
@@ -271,6 +331,11 @@ ALTER TABLE edit_artist
    REFERENCES artist(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_data
+   ADD CONSTRAINT edit_data_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
 ALTER TABLE edit_event
    ADD CONSTRAINT edit_event_fk_edit
    FOREIGN KEY (edit)
@@ -313,6 +378,16 @@ ALTER TABLE edit_note
    ADD CONSTRAINT edit_note_fk_edit
    FOREIGN KEY (edit)
    REFERENCES edit(id);
+
+ALTER TABLE edit_note_recipient
+   ADD CONSTRAINT edit_note_recipient_fk_recipient
+   FOREIGN KEY (recipient)
+   REFERENCES editor(id);
+
+ALTER TABLE edit_note_recipient
+   ADD CONSTRAINT edit_note_recipient_fk_edit_note
+   FOREIGN KEY (edit_note)
+   REFERENCES edit_note(id);
 
 ALTER TABLE edit_place
    ADD CONSTRAINT edit_place_fk_edit
@@ -430,6 +505,16 @@ ALTER TABLE editor_collection_artist
    ADD CONSTRAINT editor_collection_artist_fk_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
+
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_deleted_entity
+   ADD CONSTRAINT editor_collection_deleted_entity_fk_gid
+   FOREIGN KEY (gid)
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_collection
@@ -574,7 +659,7 @@ ALTER TABLE editor_subscribe_artist_deleted
 ALTER TABLE editor_subscribe_artist_deleted
    ADD CONSTRAINT editor_subscribe_artist_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES artist_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_artist_deleted
    ADD CONSTRAINT editor_subscribe_artist_deleted_fk_deleted_by
@@ -619,7 +704,7 @@ ALTER TABLE editor_subscribe_label_deleted
 ALTER TABLE editor_subscribe_label_deleted
    ADD CONSTRAINT editor_subscribe_label_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES label_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_label_deleted
    ADD CONSTRAINT editor_subscribe_label_deleted_fk_deleted_by
@@ -649,7 +734,7 @@ ALTER TABLE editor_subscribe_series_deleted
 ALTER TABLE editor_subscribe_series_deleted
    ADD CONSTRAINT editor_subscribe_series_deleted_fk_gid
    FOREIGN KEY (gid)
-   REFERENCES series_deletion(gid);
+   REFERENCES deleted_entity(gid);
 
 ALTER TABLE editor_subscribe_series_deleted
    ADD CONSTRAINT editor_subscribe_series_deleted_fk_deleted_by
