@@ -7,6 +7,7 @@
 -- 20160310-mbs-4501-alternative-tracklists.sql
 -- 20160516-mbs-8656.sql
 -- 20160507-mbs-8727.sql
+-- 20160512-mbs-8719.sql
 -- 20160512-edit-data.sql
 -- 20160514-mbs-8287-a.sql
 -- 20160514-mbs-8287-b.sql
@@ -415,6 +416,19 @@ UPDATE vote SET superseded = 't' WHERE id IN (
 
 DROP INDEX IF EXISTS vote_idx_editor_edit;
 CREATE UNIQUE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
+
+--------------------------------------------------------------------------------
+SELECT '20160512-mbs-8719.sql';
+
+ALTER TABLE edit
+  DROP COLUMN yes_votes,
+  DROP COLUMN no_votes;
+
+ALTER TABLE editor
+  DROP COLUMN edits_accepted,
+  DROP COLUMN edits_rejected,
+  DROP COLUMN auto_edits_accepted,
+  DROP COLUMN edits_failed;
 
 --------------------------------------------------------------------------------
 SELECT '20160512-edit-data.sql';
