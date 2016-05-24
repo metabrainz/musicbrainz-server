@@ -410,6 +410,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     alternative_medium
     alternative_medium_track
     alternative_release
+    alternative_release_type
     alternative_track
     annotation
     application
