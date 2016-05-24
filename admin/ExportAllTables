@@ -278,6 +278,7 @@ my @group_edit = qw(
     edit
     edit_area
     edit_artist
+    edit_data
     edit_event
     edit_instrument
     edit_label
