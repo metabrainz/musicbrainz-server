@@ -96,7 +96,7 @@ my $sql2 = Sql->new($c->conn);
 my $slave = Sql->new($c->conn);
 
 $sql->auto_commit;
-$sql->do("SET search_path = musicbrainz");
+$sql->do("SET search_path = musicbrainz, public");
 
 $sql->auto_commit;
 $sql->do("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE");
