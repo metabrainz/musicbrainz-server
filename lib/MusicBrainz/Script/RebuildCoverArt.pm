@@ -41,6 +41,9 @@ sub run
 {
     my $self = shift;
 
+    die "Can't work on a read-only database (DB_READ_ONLY is set)"
+        if DBDefs->DB_READ_ONLY;
+
     printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
         "You will not be able to find artwork from Amazon until these are set."
             unless (DBDefs->AWS_PUBLIC && DBDefs->AWS_PRIVATE);
