@@ -52,7 +52,6 @@ use constant FAVICON_CLASSES => {
     'play.google.com'           => 'googleplay',
     'itunes.apple.com'          => 'itunes',
     'spotify.com'               => 'spotify',
-    'soundtrackcollector.com'   => 'STcollector',
     'wikidata.org'              => 'wikidata',
     'lieder.net'                => 'lieder',
     'loudr.fm'                  => 'loudr',
