@@ -8,6 +8,7 @@ use constant FAVICON_CLASSES => {
     'amazon'                    => 'amazon',
     'allmusic.com'              => 'allmusic',
     'animenewsnetwork.com'      => 'animenewsnetwork',
+    'bbc.co.uk'                 => 'bbcmusic',
     'wikipedia.org'             => 'wikipedia',
     'facebook.com'              => 'facebook',
     'generasia.com'             => 'generasia',
