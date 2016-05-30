@@ -53,6 +53,13 @@ const LINK_TYPES = {
   amazon: {
     release: "4f2e710d-166c-480c-a293-2e2c8d658d87"
   },
+  bookbrainz: {
+    artist: "f82f9342-a08d-46b7-ab7a-d8b6330c805d",
+    label: "b7be2ca4-bdb7-4d87-9619-f2fa50120409",
+    release: "63b84620-ba52-4630-9bfe-8ad3b5504dff",
+    release_group: "27cfc95c-d368-45a9-ae0d-308c274c2017",
+    work: "0ea7cf4e-93dd-4bc4-b748-0f1073cf951c"
+  },
   license: {
     release: "004bd0c3-8a45-4309-ba52-fa99f3aa3d50",
     recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a"
@@ -338,6 +345,13 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?[^./]+\\.blogspot\\.([a-z]{2,3}\\.)?[a-z]{2,3}/?","i")],
     clean: function (url) {
       return url.replace(/(www\.)?([^.\/]+)\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}(\/)?/, "$2.blogspot.com/");
+    }
+  },
+  bookbrainz: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?bookbrainz\\.org","i")],
+    type: LINK_TYPES.bookbrainz,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?bookbrainz\.org\/([^\/]*)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(?:[#\/?].*)?$/, "https://bookbrainz.org/$1/$2");
     }
   },
   cdbaby: {
@@ -820,6 +834,15 @@ validationRules[LINK_TYPES.allmusic.release] = function (url) {
 validationRules[LINK_TYPES.bbcmusic.artist] = function (url) {
   return /bbc\.co\.uk\/music\/artists\//.test(url);
 };
+
+// allow only BookBrainz entity pages with the BookBrainz rel
+function validateBookBrainz(url) {
+  return /bookbrainz\.org\/[^\/]*\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/.test(url);
+}
+
+_.each(LINK_TYPES.bookbrainz, function (id) {
+  validationRules[id] = validateBookBrainz;
+});
 
 // allow only Wikipedia pages with the Wikipedia rel
 function validateWikipedia(url) {
