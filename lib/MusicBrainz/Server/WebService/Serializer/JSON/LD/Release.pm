@@ -43,6 +43,8 @@ around serialize => sub {
 
         if ($stash->store($entity)->{cover_art}) {
             $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
+        } elsif ($stash->store($entity)->{release_artwork}) {
+            $ret->{image} = artwork($stash->store($entity)->{release_artwork});
         }
 
         if ($entity->all_mediums) {
