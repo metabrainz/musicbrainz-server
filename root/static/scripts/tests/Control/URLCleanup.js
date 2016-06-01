@@ -753,6 +753,35 @@ test('Guess type', function (t) {
             [
                 'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
                 LINK_TYPES.mailorder.release
+            ],
+            // BookBrainz
+            [
+                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+                LINK_TYPES.bookbrainz.artist
+            ],
+            [
+                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
+                LINK_TYPES.bookbrainz.artist
+            ],
+            [
+                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
+                LINK_TYPES.bookbrainz.artist
+            ],
+            [
+                'label', 'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
+                LINK_TYPES.bookbrainz.label
+            ],
+            [
+                'release', 'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
+                LINK_TYPES.bookbrainz.release
+            ],
+            [
+                'release_group', 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
+                LINK_TYPES.bookbrainz.release_group
+            ],
+            [
+                'work', 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+                LINK_TYPES.bookbrainz.work
             ]
         ];
 
@@ -1530,6 +1559,42 @@ test('Cleanup', function (t) {
             [
                 'http://en.wikipedia.org/wiki/Ramesh_Vinayakam?oldformat=true',
                 'http://en.wikipedia.org/wiki/Ramesh_Vinayakam'
+            ],
+            // BookBrainz
+            [
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+                'artist'
+            ],
+            [
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+                'artist'
+            ],
+            [
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
+                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+                'artist'
+            ],
+            [
+                'http://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
+                'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
+                'label'
+            ],
+            [
+                'bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
+                'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
+                'release'
+            ],
+            [
+                'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de/',
+                'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
+                'release_group'
+            ],
+            [
+                'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c/edits',
+                'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+                'work'
             ]
         ];
 
