@@ -9,7 +9,7 @@ extends 'HTML::FormHandler::Field::Text';
 apply ([
     {
         check => sub { is_valid_setlist(shift) },
-        message => l('Please ensure all lines start with @, * or #.'),
+        message => l('Please ensure all lines start with @, * or #, followed by a space.'),
     }
 ]);
 
