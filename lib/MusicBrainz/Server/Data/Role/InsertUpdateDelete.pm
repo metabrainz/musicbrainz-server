@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Role::InsertUpdateDelete;
 use Moose::Role;
 use Class::Load qw( load_class );
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use namespace::autoclean;
 
 requires '_entity_class';
@@ -23,6 +23,7 @@ around 'insert' => sub {
     my @ret;
     for my $obj (@objs) {
         my $row = hash_to_row($obj, $map);
+        $row->{gid} = generate_gid() if $class->can('gid') && !$row->{gid};
         my $id = $self->sql->insert_row($self->_table, $row, $self->_id_column);
         push @ret, $class->new($self->_id_column => $id, %$obj);
     }
