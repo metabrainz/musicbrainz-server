@@ -7,6 +7,7 @@ use Data::Dumper::Concise;
 use Data::OptList;
 use DateTime;
 use DateTime::Format::Pg;
+use Encode qw( decode );
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
@@ -76,7 +77,7 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
-        raw_data => $row->{data},
+        raw_data => decode('utf-8', $row->{data}),
         quality => $row->{quality},
     });
     $edit->language_id($row->{language}) if $row->{language};
