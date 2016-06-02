@@ -48,7 +48,7 @@ class Autocomplete extends React.Component {
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
-    if (next) {
+    if (next && autocomplete.element.val() !== next.name) {
       autocomplete.element.val(next.name);
     }
 
