@@ -181,8 +181,17 @@ class ArtistCreditEditor extends React.Component {
     this.createBubble();
 
     const $bubble = $('#artist-credit-bubble');
-    const props = this.props;
+    const bubbleWasVisible = $bubble.is(':visible');
 
+    if (!show && !bubbleWasVisible) {
+      return;
+    }
+
+    if (bubbleWasVisible && $bubble.data('target') !== this.props.entity) {
+      return;
+    }
+
+    const props = this.props;
     if (show && props.beforeShow) {
       props.beforeShow(props, this.state);
     }
@@ -201,9 +210,6 @@ class ArtistCreditEditor extends React.Component {
       />,
       $bubble[0],
       show ? (() => {
-        const $button = $(this.refs.button);
-        const bubbleWasVisible = $bubble.is(':visible');
-
         this.positionBubble();
 
         if (!bubbleWasVisible) {
