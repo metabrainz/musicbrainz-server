@@ -13,7 +13,7 @@ my $id = $ARGV[0];
 is_positive_integer($id) or die "invalid edit id";
 
 my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
-my $old_data = $c->sql->select_single_value('SELECT data FROM edit WHERE id = ?', $id)
+my $old_data = $c->sql->select_single_value('SELECT data FROM edit_data WHERE edit = ?', $id)
     or die 'edit not found';
 
 print "current edit data:\n" . encode('UTF-8', $old_data) . "\n";
@@ -27,4 +27,4 @@ JSON::XS->new->decode($new_data);
 $new_data = decode('UTF-8', $new_data, Encode::FB_CROAK);
 
 $c->sql->auto_commit;
-$c->sql->do('UPDATE edit SET data = ? WHERE id = ?', $new_data, $id);
+$c->sql->do('UPDATE edit_data SET data = ? WHERE edit = ?', $new_data, $id);
