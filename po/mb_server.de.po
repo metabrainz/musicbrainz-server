@@ -44,9 +44,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 22:20-0500\n"
-"PO-Revision-Date: 2016-03-23 20:43+0000\n"
-"Last-Translator: Beat Jörg <email address hidden>\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
+"PO-Revision-Date: 2016-06-05 20:10+0000\n"
+"Last-Translator: Ulrich Klauer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,7 +267,7 @@ msgstr "* Die Genauigkeit gibt den aufsummierten Unterschied in Sekunden an, zwi
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr "0"
 
@@ -284,7 +284,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "Eine Stimme"
 msgstr[1] "{n} einhellige Stimmen"
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr "100&#xa0;%"
 
@@ -470,7 +470,7 @@ msgstr "Bearbeitung akzeptieren"
 msgid "Accept upon expiration"
 msgstr "Wird bei Ablauf akzeptiert"
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Angenommen"
@@ -1616,7 +1616,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Autobearbeiter sind bewährte Benutzer, denen {url|Autobearbeitungs-Privilegien} gewährt wurden. Diese Privilegien erlauben ihnen, Bearbeitungen automatisch durchzuführen, ohne dass diese durch den normalen Bewertungsprozess gehen müssten. Zudem können sie Bearbeitungen anderer Benutzer absegnen."
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr "Autobearbeitungen"
 
@@ -1808,7 +1808,7 @@ msgid ""
 msgstr "Unten befinden sich die Fehlerinformationen. Wenn du einen Fehlerbericht einreichen möchten, kannst du das in {bugs|unserem Bug-Tracker} tun. Die folgenden Informationen werden helfen, gib sie daher bitte mit an!"
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr "Über mich:"
 
@@ -1942,7 +1942,7 @@ msgstr "Bearbeitung abbrechen"
 msgid "Cancel the election"
 msgstr "Wahl abbrechen"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
@@ -2897,7 +2897,7 @@ msgstr "Bearbeiter „{user}“"
 msgid "Edits"
 msgstr "Bearbeitungen"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr "Bearbeitungen ({view_url|ansehen})"
 
@@ -3171,7 +3171,7 @@ msgstr "Veranstaltung:"
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -3248,7 +3248,7 @@ msgstr "Externe Links"
 msgid "FAQs"
 msgstr "FAQ"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
@@ -3637,6 +3637,10 @@ msgstr "Richtlinien"
 msgid "HH:MM"
 msgstr "HH:MM"
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr "Überschriften:"
@@ -3660,7 +3664,7 @@ msgstr "Hoch"
 msgid "Historic"
 msgstr "Historisch"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr "Startseite:"
 
@@ -4253,15 +4257,15 @@ msgstr "Sprache: {language}, Schrift: {script}"
 msgid "Languages Known:"
 msgstr "Beherrschte Sprachen:"
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr "Sprachen:"
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr "Letzte 24 Stunden"
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr "In den letzten 28 Tagen"
 
@@ -5417,7 +5421,7 @@ msgstr "Ohje! Wie es scheint, sind deine Suchparameter nicht korrekt. Bitte übe
 msgid "Oops, something went wrong!"
 msgstr "Ohje! Da ist etwas schiefgegangen."
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "Offen"
 
@@ -5484,7 +5488,7 @@ msgstr "Andere Dinge nachschlagen"
 msgid "Other lookups"
 msgstr "Andere Dinge nachschlagen"
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr "Insgesamt"
 
@@ -6815,7 +6819,7 @@ msgstr "Cover-Art umsortieren"
 msgid "Report User"
 msgstr "Benutzer melden"
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr "Fehlverhalten dieses Benutzers melden"
 
@@ -7659,7 +7663,7 @@ msgstr "Anfangsdatum"
 msgid "Start:"
 msgstr "Start:"
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "Statistiken"
@@ -7781,7 +7785,7 @@ msgstr "Abonnierte Objekte"
 msgid "Subscribers"
 msgstr "Abonnenten"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr "Abonnenten:"
 
@@ -7836,7 +7840,7 @@ msgstr "Tagge deine Musik"
 msgid "Tag lookup"
 msgstr "Tag-Nachschlagen"
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "Tag „{tag}“"
 
@@ -9223,7 +9227,7 @@ msgstr "Diese Serie hat keine Beziehungen und wird innerhalb der nächsten Tage 
 msgid "This series is currently empty."
 msgstr "Diese Serie ist derzeit leer."
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Diese Tabelle zeigt eine Zusammenfassung der Stimmabgaben dieses Bearbeiters."
 
@@ -9989,7 +9993,7 @@ msgstr "Über Bearbeitungen abstimmen"
 msgid "Vote tally:"
 msgstr "Abstimmungsergebnis:"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr "Abgelehnt"
 
@@ -10002,7 +10006,7 @@ msgstr "Abstimmer"
 msgid "Votes"
 msgstr "Stimmen"
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr "Stimmen ({view_url|ansehen})"
 
@@ -11103,7 +11107,7 @@ msgstr "Titelliste anzeigen"
 msgid "start date"
 msgstr "Anfangsdatum"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr "abonnieren"
 
@@ -11127,7 +11131,7 @@ msgstr[1] "Titel {tracks}"
 msgid "tracks"
 msgstr "Titel"
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr "nicht mehr abonnieren"
 
@@ -11180,14 +11184,14 @@ msgstr[1] "{artist} hat keine Veröffentlichungen mit {n} Titeln."
 msgid "{collection} by {owner}"
 msgstr "{collection} von {owner}"
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|Liste ansehen})"
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|ansehen})"
 
@@ -11443,7 +11447,7 @@ msgstr[1] "vor {num} Jahren"
 msgid "{num}. {relationship}"
 msgstr "{num}. {relationship}"
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr "{percentage}&#xa0;%"
 
@@ -13021,11 +13025,11 @@ msgstr "Während der Suche ist ein Fehler aufgetreten. Klicke hier, um es erneut
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:60
 msgid "Try with direct search instead."
-msgstr "Versuch's nochmal mit der direkten Suche."
+msgstr "Versuch’s nochmal mit der direkten Suche."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:61
 msgid "Try with indexed search instead."
-msgstr "Versuch's nochmal mit der indexierten Suche."
+msgstr "Versuch’s nochmal mit der indexierten Suche."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:93
 msgid "Type to search, or paste an MBID"

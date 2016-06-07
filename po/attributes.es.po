@@ -10,6 +10,7 @@
 # Héctor Arroyo <email address hidden>, 2012,2015
 # Héctor Arroyo <email address hidden>, 2012
 # Ismael Olea <email address hidden>, 2013-2015
+# Juan Acuña <email address hidden>, 2016
 # Kevin López Brante <email address hidden>, 2015
 # Marta PD <email address hidden>, 2014
 # Mathias Gonzalez <email address hidden>, 2015
@@ -22,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-23 23:12+0000\n"
-"Last-Translator: Alfredo Briones <email address hidden>\n"
+"PO-Revision-Date: 2016-05-25 17:46+0000\n"
+"Last-Translator: Juan Acuña <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -142,7 +143,7 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
-msgstr ""
+msgstr "Una edición de regalo o con la intención de promover una futura edición oficial (Ej. versiones demo, ediciones incluidas en una revista, versiones entregadas a DJs de radio para pasar al aire)."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -235,7 +236,7 @@ msgctxt "work_type"
 msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
-msgstr ""
+msgstr "Un poema es una pieza literaria, generalmente corta y en verso, en la que las palabras son usualmente elegidas por su sonido y por las imágenes e ideas que sugieren. "
 
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -1084,6 +1085,11 @@ msgstr "do sostenido menor"
 msgctxt "work_attribute_type"
 msgid "CASH ID"
 msgstr "CASH ID"
+
+#: DB:work_attribute_type/name:22
+msgctxt "work_attribute_type"
+msgid "CCLI ID"
+msgstr ""
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"

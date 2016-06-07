@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Trans-fr, 2013
+# French language coordinator <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # murdos <email address hidden>, 2011-2012
-# Trans-fr, 2015
-# Trans-fr, 2014-2015
+# French language coordinator <email address hidden>, 2015
+# French language coordinator <email address hidden>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"

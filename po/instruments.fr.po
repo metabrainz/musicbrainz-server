@@ -1,12 +1,12 @@
 # 
 # Translators:
 # nikki, 2014
-# Trans-fr, 2013
+# French language coordinator <email address hidden>, 2013
 # Lotheric <email address hidden>, 2012
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
-# Trans-fr, 2015
-# Trans-fr, 2013-2015
+# French language coordinator <email address hidden>, 2015
+# French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 msgid ""
 msgstr ""
