@@ -1,19 +1,23 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos, 2016
+# Fitoschido, 2016
 # Alexander Dupuy <email address hidden>, 2012
+# Fitoschido, 2016
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
+# Kevin Doncam Demian López Brante <email address hidden>, 2012
+# Marta PD <email address hidden>, 2014
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
+# t0n3t <email address hidden>, 2012
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-05-23 01:56+0000\n"
+"Last-Translator: Yumi V <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,12 +28,12 @@ msgstr ""
 #. name:Batá drum
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr "El batá es un tambor de dos membranas originario de Nigeria."
+msgstr "Un batá es un instrumento de percusión de dos membranas originario de Nigeria."
 
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "Un instrumento de percusión turco usado en las bandas militares otomanas tradicionales"
 
 #. name:tef
 #: DB:instrument/description:531
@@ -43,19 +47,19 @@ msgstr ""
 msgid ""
 "A baroque trumpet is a natural trumpet modelled on the instruments used "
 "between the 1500s and the 1700s. It lacks valves but may have vents."
-msgstr ""
+msgstr "Una trompeta barroca es una trompeta natural, inspirada en los instrumentos utilizados entre los años 1500 y 1700. Carece de válvulas, pero puede tener orificios de ventilación."
 
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Un organillo es un instrumento musical mecánico, normalmente operado por una persona la cual da vuelta una manivela que hace girar un cilindro que tiene música codificada en él."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "Un sintetizador de bajo se utiliza para crear sonidos del rango del bajo."
 
 #. name:bell tree
 #: DB:instrument/description:479
@@ -81,7 +85,7 @@ msgstr ""
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "Un órgano positivo es un órgano de tubos pequeño."
 
 #. name:chime bar
 #: DB:instrument/description:638
@@ -94,7 +98,7 @@ msgstr ""
 #. name:cuatro
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Una clase de guitarras sudamericanas."
 
 #. name:gut guitar
 #: DB:instrument/description:567
@@ -109,26 +113,26 @@ msgstr ""
 #. name:cylindrical drum
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr ""
+msgstr "Un tambor cilíndrico es un instrumento de percusión de lados rectos y de, generalmente, dos membranas."
 
 #. name:descant recorder / soprano recorder
 #: DB:instrument/description:469
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
 "often learnt by children."
-msgstr ""
+msgstr "Una flauta de contrapunto o de soprano es el tamaño más común de flauta y es aprendida a menudo por los niños."
 
 #. name:dolceola
 #: DB:instrument/description:750
 msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
-msgstr ""
+msgstr "Una dolceola es un instrumento musical que se asemeja a un piano en miniatura, pero que de hecho es una cítara con un teclado."
 
 #. name:duck call
 #: DB:instrument/description:649
 msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr ""
+msgstr "Un reclamo es una herramienta que se usa para emular el sonido de un pato."
 
 #. name:fife
 #: DB:instrument/description:514
@@ -162,7 +166,7 @@ msgstr ""
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr ""
+msgstr "Un bombo gong es un gran único parche de tambor que se asemeja a un gong."
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
@@ -258,7 +262,7 @@ msgstr ""
 #. name:orpharion
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
-msgstr ""
+msgstr "Un instrumento de cuerda pulsada del Renacimiento."
 
 #. name:çevgen
 #: DB:instrument/description:740
@@ -289,20 +293,20 @@ msgid ""
 "water to create music. Although it is also known as a Japanese water zither,"
 " it is named after the sound the koto (a Japanese zither) makes and is not "
 "actually a string instrument."
-msgstr ""
+msgstr "Un suikinkutsu es un tipo de adorno de jardín japonés que utiliza el goteo de agua para crear música. Aunque también se conoce como cítara japonesa de agua, se la llama así por el sonido que hace el koto (cítara japonesa) y, en realidad, no es un instrumento de cuerdas."
 
 #. name:talkbox
 #: DB:instrument/description:453
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr ""
+msgstr "Un talkbox es un dispositivo de efectos que le permite a un músico modificar el sonido de un instrumento."
 
 #. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
-msgstr ""
+msgstr "Un tar es un instrumento de percusión de un solo parche, del norte de África y Oriente Medio."
 
 #. name:tenor banjo
 #: DB:instrument/description:657
@@ -385,7 +389,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Un arpa irlandesa/escocesa."
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -424,17 +428,17 @@ msgstr ""
 #. name:bandura
 #: DB:instrument/description:393
 msgid "Bandura, Ukrainian 14th century lute"
-msgstr ""
+msgstr "Bandura, laúd ucraniano del siglo 14"
 
 #. name:bandura
 #: DB:instrument/description:394
 msgid "Bandura, modern day Ukrainian zither"
-msgstr ""
+msgstr "Bandura, cítara ucraniana moderna"
 
 #. name:bass guitar
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
-msgstr ""
+msgstr "Bajo (moderno, típicamente eléctrico, pero no siempre)"
 
 #. name:bass
 #: DB:instrument/description:47
@@ -458,7 +462,7 @@ msgstr "Cajón, instrumento de percusión peruano"
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
-msgstr ""
+msgstr "Chacha, sonajero del este de la India"
 
 #. name:chap
 #: DB:instrument/description:619
@@ -489,7 +493,7 @@ msgstr ""
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "Davul, instrumento de percusión turco"
 
 #. name:dobro
 #: DB:instrument/description:184
@@ -499,12 +503,12 @@ msgstr ""
 #. name:dhol
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
-msgstr ""
+msgstr "Instrumento de percusión de dos membranas proveniente de la India."
 
 #. name:dunun
 #: DB:instrument/description:659
 msgid "Dunun is a family of West African cylindrical drums."
-msgstr ""
+msgstr "Dunun es una familia de tambores cilíndricos del oeste de África."
 
 #. name:EWI
 #: DB:instrument/description:441
@@ -671,7 +675,7 @@ msgstr ""
 #. name:nai
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
-msgstr "Nai, flauta de Pan rumana"
+msgstr "Nai, flauta de pan rumana"
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -700,7 +704,7 @@ msgstr "Oboe de amor (mesosoprano)"
 msgid ""
 "Other instruments. If you can't find an instrument, please <a "
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
-msgstr "Otros instrumentos. Si no encuentra un instrumento, <a href=\"http://tickets.musicbrainz.org/browse/INST\">solicítelo</a>."
+msgstr "Otros instrumentos. Si no encuentra un instrumento, por favor <a href=\"http://tickets.musicbrainz.org/browse/INST\">solicítelo</a>."
 
 #. name:hang
 #: DB:instrument/description:512
@@ -759,7 +763,7 @@ msgstr ""
 #. name:santur
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Santur, de Medio Oriente"
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -948,7 +952,7 @@ msgstr ""
 #. name:alfaia
 #: DB:instrument/description:718
 msgid "The alfaia is a Brazilian cylindrical drum."
-msgstr ""
+msgstr "El alfaia es un tambor cilíndrico brasileño."
 
 #. name:algozey
 #: DB:instrument/description:508
@@ -1244,7 +1248,7 @@ msgstr ""
 #. name:charango
 #: DB:instrument/description:466
 msgid "The charango is a small South American lute."
-msgstr ""
+msgstr "El charango es un pequeño laúd de América del Sur."
 
 #. name:chau gong
 #: DB:instrument/description:640
@@ -1263,7 +1267,7 @@ msgstr ""
 #. name:chitra veena
 #: DB:instrument/description:744
 msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
-msgstr ""
+msgstr "La chitra vina es un laúd sin trastes de 20 o 21 cuerdas, en la música carnática."
 
 #. name:citole
 #: DB:instrument/description:761
@@ -1289,7 +1293,7 @@ msgstr ""
 #. name:cornet
 #: DB:instrument/description:25
 msgid "The cornet is a brass instrument very similar to the trumpet."
-msgstr ""
+msgstr "La corneta es un instrumento de cobre muy similar a la trompeta."
 
 #. name:cornett
 #: DB:instrument/description:203
@@ -1301,7 +1305,7 @@ msgstr ""
 #. name:cuíca
 #: DB:instrument/description:491
 msgid "The cuíca is a Brazilian friction drum often used in samba music."
-msgstr ""
+msgstr "La cuica es un tambor de fricción brasileño, utilizado a menudo en la música samba."
 
 #. name:cò ke
 #: DB:instrument/description:309
@@ -1443,7 +1447,7 @@ msgstr ""
 #: DB:instrument/description:629
 msgid ""
 "The dutar is a long-necked two-stringed lute found in Iran and Central Asia."
-msgstr ""
+msgstr "El dutar es un laúd de cuello largo de dos cuerdas que se encuentra en Irán y Asia Central."
 
 #. name:duxianqin
 #: DB:instrument/description:596
@@ -1500,7 +1504,7 @@ msgstr ""
 #. name:ganzá
 #: DB:instrument/description:644
 msgid "The ganzá is a cylinder-shaped Brazilian rattle used in samba music."
-msgstr ""
+msgstr "El ganzá es un sonajero  de Brasil con forma de cilindro, utilizado en la música samba."
 
 #. name:gaohu
 #: DB:instrument/description:216
@@ -1521,7 +1525,7 @@ msgstr ""
 msgid ""
 "The gayageum is a traditional Korean zither-like string instrument which "
 "normally has 12 strings."
-msgstr ""
+msgstr "El gayageum es un instrumento de cuerdas similar a la cítara tradicional coreana, que normalmente tiene 12 cuerdas."
 
 #. name:gehu
 #: DB:instrument/description:219
@@ -1571,7 +1575,7 @@ msgstr ""
 msgid ""
 "The guitalele is a guitar-ukulele hybrid, combining the small size of a "
 "guitalele with the six strings of a classical guitar."
-msgstr ""
+msgstr "El guitalele es un híbrido entre guitarra y ukelele, combinando el pequeño tamaño de un guitalele con las seis cuerdas de una guitarra clásica."
 
 #. name:guitarrón chileno
 #: DB:instrument/description:688
@@ -1781,7 +1785,7 @@ msgstr ""
 msgid ""
 "The khèn Mèo is a mouth organ used by the Hmong people. It has bamboo pipes "
 "(typically six) which each have a free reed."
-msgstr ""
+msgstr "El khen Meo es un órgano de boca usado por el pueblo Hmong. Tiene tubos de bambú (típicamente, seis), cada uno de los cuales posee una caña suelta."
 
 #. name:kkwaenggwari
 #: DB:instrument/description:498
@@ -1899,7 +1903,7 @@ msgstr ""
 #. name:limbe
 #: DB:instrument/description:573
 msgid "The limbe is a Mongolian transverse flute."
-msgstr ""
+msgstr "El limbe es una flauta traversa de Mongolia."
 
 #. name:lirone
 #: DB:instrument/description:697
@@ -2293,7 +2297,7 @@ msgstr ""
 #. name:saz
 #: DB:instrument/description:472
 msgid "The saz is a long-necked fretted lute"
-msgstr ""
+msgstr "El saz es un laúd de cuello largo con trastes"
 
 #. name:segunda
 #: DB:instrument/description:757
@@ -2383,7 +2387,7 @@ msgstr ""
 #. name:siku
 #: DB:instrument/description:569
 msgid "The siku is a traditional Andean panpipe."
-msgstr ""
+msgstr "El siku es una flauta de pan tradicional de los Andes."
 
 #. name:sistrum
 #: DB:instrument/description:370
@@ -2423,12 +2427,12 @@ msgstr ""
 #. name:suka
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
-msgstr ""
+msgstr "La suka es un violín de Polonia, una vez extinto."
 
 #. name:suling
 #: DB:instrument/description:725
 msgid "The suling is a bamboo flute from Southeast Asia."
-msgstr ""
+msgstr "El suling es una flauta de bambú del sureste de Asia."
 
 #. name:suona
 #: DB:instrument/description:548
@@ -2446,7 +2450,7 @@ msgstr ""
 #. name:swarmandal
 #: DB:instrument/description:716
 msgid "The swarmandal is an Indian zither."
-msgstr ""
+msgstr "La swarmandal es una cítara india."
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -2746,7 +2750,7 @@ msgstr ""
 #. name:zabumba
 #: DB:instrument/description:715
 msgid "The zabumba is a bass drum from Brazil."
-msgstr ""
+msgstr "El zabumba es un bombo de Brasil."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -2896,7 +2900,7 @@ msgstr ""
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
-msgstr ""
+msgstr "Órgano de teatro, como el Wurlitzer"
 
 #. name:timpani
 #: DB:instrument/description:167
@@ -2916,7 +2920,7 @@ msgstr ""
 #. name:kudüm
 #: DB:instrument/description:525
 msgid "Turkish pair of small, hemispherical drums"
-msgstr ""
+msgstr "Par turco de pequeños y hemisféricos instrumentos de percusión"
 
 #. name:valved brass instruments
 #: DB:instrument/description:201
@@ -3012,7 +3016,7 @@ msgstr ""
 #. name:hmông flute
 #: DB:instrument/description:312
 msgid "family of Hmông flutes"
-msgstr ""
+msgstr "familia de flautas hmong"
 
 #. name:saó ôi flute
 #: DB:instrument/description:310
@@ -3039,4 +3043,4 @@ msgstr ""
 #. name:drums
 #: DB:instrument/description:100
 msgid "variously sized drums"
-msgstr ""
+msgstr "instrumentos de percusión de distintos tamaños"

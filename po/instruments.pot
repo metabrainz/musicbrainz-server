@@ -336,6 +336,10 @@ msgstr ""
 msgid "bandura"
 msgstr ""
 
+#: DB:instrument/name:771
+msgid "bandurria"
+msgstr ""
+
 #: DB:instrument/name:581
 msgid "bangu"
 msgstr ""
@@ -606,6 +610,10 @@ msgstr ""
 
 #: DB:instrument/name:335
 msgid "chacha"
+msgstr ""
+
+#: DB:instrument/name:769
+msgid "chainsaw"
 msgstr ""
 
 #: DB:instrument/name:627
@@ -946,6 +954,10 @@ msgstr ""
 
 #: DB:instrument/name:496
 msgid "dulcian"
+msgstr ""
+
+#: DB:instrument/name:770
+msgid "dulzaina"
 msgstr ""
 
 #: DB:instrument/name:659
@@ -2709,6 +2721,10 @@ msgstr ""
 
 #: DB:instrument/name:181
 msgid "turntable(s)"
+msgstr ""
+
+#: DB:instrument/name:772
+msgid "txalaparta"
 msgstr ""
 
 #: DB:instrument/name:526

@@ -253,6 +253,11 @@ msgid ""
 "A pole with bells and/or zills used in the traditional Ottoman military bands"
 msgstr ""
 
+#. name:chainsaw 
+#: DB:instrument/description:769
+msgid "A powered tool primarily used in the cutting of wood"
+msgstr ""
+
 #. name:prepared piano 
 #: DB:instrument/description:481
 msgid ""

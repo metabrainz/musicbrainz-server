@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 22:20-0500\n"
-"PO-Revision-Date: 2016-03-21 13:05+0000\n"
-"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
+"PO-Revision-Date: 2016-04-04 13:22+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -243,7 +243,7 @@ msgstr "＊マッチは、リクエストしたCDとマッチされたアイテ�
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr "0"
 
@@ -259,7 +259,7 @@ msgid "1 vote"
 msgid_plural "{n} unanimous votes"
 msgstr[0] "{n}件の満場一致投票"
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr "100%"
 
@@ -444,7 +444,7 @@ msgstr "編集を承認"
 msgid "Accept upon expiration"
 msgstr "締め切りに承認"
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "承認済"
@@ -1587,7 +1587,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "{url|自動編集者}は、編集したデータが査読を行わずに自動的に承認されます。他のユーザーの編集も自動的に承認できます。"
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr "自動編集"
 
@@ -1779,7 +1779,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr "プロフィール:"
 
@@ -1913,7 +1913,7 @@ msgstr "編集をキャンセル"
 msgid "Cancel the election"
 msgstr "選挙をキャンセル"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "キャンセル済"
 
@@ -2868,7 +2868,7 @@ msgstr "編集者 「{user}」"
 msgid "Edits"
 msgstr "編集"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr "編集を{view_url|表示}"
 
@@ -3141,7 +3141,7 @@ msgstr "イベント:"
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr "イベント"
 
@@ -3215,7 +3215,7 @@ msgstr "外部リンク"
 msgid "FAQs"
 msgstr "よくある質問"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr "失敗"
 
@@ -3598,6 +3598,10 @@ msgstr "ガイドライン"
 msgid "HH:MM"
 msgstr "HH:MM"
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr "見出し:"
@@ -3621,7 +3625,7 @@ msgstr "高"
 msgid "Historic"
 msgstr "歴史的"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr "ホームページ:"
 
@@ -4214,15 +4218,15 @@ msgstr "言語: {language}, 表記: {script}"
 msgid "Languages Known:"
 msgstr "知っている言語:"
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr "言語:"
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr "最近24時間"
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr "最近28日間"
 
@@ -5378,7 +5382,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr "ああっ、なにかおかしいです!"
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "未確定"
 
@@ -5445,7 +5449,7 @@ msgstr "他の探索"
 msgid "Other lookups"
 msgstr "他の探索"
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr "合計"
 
@@ -6775,7 +6779,7 @@ msgstr "カバーアートの並べ替え"
 msgid "Report User"
 msgstr "ユーザーを報告"
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr "このユーザーの悪い行動を報告"
 
@@ -7608,7 +7612,7 @@ msgstr "開始日"
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "統計"
@@ -7730,7 +7734,7 @@ msgstr "購読してるエンティティ"
 msgid "Subscribers"
 msgstr "購読者"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr "購読者:"
 
@@ -7785,7 +7789,7 @@ msgstr ""
 msgid "Tag lookup"
 msgstr "タグ検索"
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "「{tag}」タグ"
 
@@ -9164,7 +9168,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -9930,7 +9934,7 @@ msgstr "編集の投票"
 msgid "Vote tally:"
 msgstr "投票数:"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr "否決"
 
@@ -9943,7 +9947,7 @@ msgstr "投票者"
 msgid "Votes"
 msgstr "投票数"
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|表示}）"
 
@@ -11040,7 +11044,7 @@ msgstr ""
 msgid "start date"
 msgstr "開始日"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr "購読"
 
@@ -11063,7 +11067,7 @@ msgstr[0] "トラック {tracks}"
 msgid "tracks"
 msgstr "トラック"
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr "購読を解除"
 
@@ -11115,14 +11119,14 @@ msgstr[0] "{artist}は{n}トラックのあるリリースはありません。"
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|リスト表示})"
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|表示})"
 
@@ -11352,7 +11356,7 @@ msgstr[0] "{num}年前"
 msgid "{num}. {relationship}"
 msgstr ""
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr "{percentage}%"
 

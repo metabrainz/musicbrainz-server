@@ -4,7 +4,7 @@
 # 
 # Translators:
 # nikki, 2013-2014
-# Trans-fr, 2013
+# French language coordinator <email address hidden>, 2013
 # murdos <email address hidden>, 2013,2015
 # Benjamin <email address hidden>, 2011
 # Benjamin Sonntag <email address hidden>, 2011
@@ -26,17 +26,18 @@
 # nikki, 2013
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
+# ShevAbam, 2016
 # Trans-fr, 2013
-# Trans-fr, 2015
-# Trans-fr, 2013-2015
+# French language coordinator <email address hidden>, 2015
+# French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 22:20-0500\n"
-"PO-Revision-Date: 2016-03-07 21:04+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
+"PO-Revision-Date: 2016-05-31 13:14+0000\n"
+"Last-Translator: ShevAbam\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -257,7 +258,7 @@ msgstr "* Cette valeur indique la différence totale en secondes entre le CD que
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr "0"
 
@@ -274,7 +275,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "1 vote"
 msgstr[1] "{n} votes unanimes"
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr "100 %"
 
@@ -460,7 +461,7 @@ msgstr "Accepter la modification"
 msgid "Accept upon expiration"
 msgstr "Accepter à l'expiration"
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Accepté"
@@ -1606,7 +1607,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Les auto-éditeurs sont des utilisateurs de confiance ayant le privilège {url|auto-éditeur}. Ce privilège leur permet de faire certaines modifications qui seront automatiquement approuvées sans avoir besoin de passer par le processus normal de vote, ainsi que le privilège d'approuver immédiatement les modifications des autres utilisateurs"
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr "Modifications par auto-éditeur"
 
@@ -1798,7 +1799,7 @@ msgid ""
 msgstr "Voici ci-dessous des informations sur l'erreur. Si vous désirez remplir un rapport de bogue, vous pouvez le faire avec {bugs|notre gestionnaire de bogues}. Les informations ci-dessous nous aiderons, veuillez donc vous assurer de les inclure."
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr "Bio :"
 
@@ -1932,7 +1933,7 @@ msgstr "Annuler la modification"
 msgid "Cancel the election"
 msgstr "Annuler l'élection"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "Annulé"
 
@@ -2887,7 +2888,7 @@ msgstr "Éditeur « {user} »"
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr "Modifications ({view_url|voir})"
 
@@ -3161,7 +3162,7 @@ msgstr "Événement :"
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr "Événements"
 
@@ -3238,7 +3239,7 @@ msgstr "Liens externes"
 msgid "FAQs"
 msgstr "FAQ"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr "Échec"
 
@@ -3627,6 +3628,10 @@ msgstr "Directives"
 msgid "HH:MM"
 msgstr "HH:MM"
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr "Rubriques :"
@@ -3650,7 +3655,7 @@ msgstr "Haute"
 msgid "Historic"
 msgstr "Historique"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr "Page d'accueil :"
 
@@ -4243,15 +4248,15 @@ msgstr "Langue : {language}, système d'écriture : {script}"
 msgid "Languages Known:"
 msgstr "Langues connus :"
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr "Langues : "
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr "Les dernières 24 heures"
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
 
@@ -5407,7 +5412,7 @@ msgstr "Oops ! Il semble que vos paramètres de recherche sont incorrects, veuil
 msgid "Oops, something went wrong!"
 msgstr "Oups, quelque chose a mal tourné !"
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "Ouvrir"
 
@@ -5474,7 +5479,7 @@ msgstr "Autres recherches"
 msgid "Other lookups"
 msgstr "Autres recherches"
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr "Global"
 
@@ -6805,7 +6810,7 @@ msgstr "Réordonner les Illustrations"
 msgid "Report User"
 msgstr "Signaler l'utilisateur"
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr "Signaler cet utilisateur pour mauvais comportement"
 
@@ -7649,7 +7654,7 @@ msgstr "Date de début"
 msgid "Start:"
 msgstr "Début :"
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "Statistiques"
@@ -7771,7 +7776,7 @@ msgstr "Abonné à ces entités"
 msgid "Subscribers"
 msgstr "Abonnés"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr "Abonnés :"
 
@@ -7826,7 +7831,7 @@ msgstr "Balisez votre musique"
 msgid "Tag lookup"
 msgstr "Recherche de balise"
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "Balise « {tag} »"
 
@@ -9213,7 +9218,7 @@ msgstr "Cette série n'a pas de relation et sera enlevée automatiquement durant
 msgid "This series is currently empty."
 msgstr "Cette série est actuellement vide."
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Cette table affiche un résumé des votes effectués par cet éditeur."
 
@@ -9874,7 +9879,7 @@ msgstr "Nom d'utilisateur :"
 #: ../root/area/users.tt:1 ../root/area/users.tt:3
 #: ../root/components/entity-tabs.tt:1
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: ../root/release/merge.tt:60
 msgid ""
@@ -9979,7 +9984,7 @@ msgstr "Voter sur les modifications"
 msgid "Vote tally:"
 msgstr "Pointage des votes :"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr "Voté contre"
 
@@ -9992,7 +9997,7 @@ msgstr "Votant"
 msgid "Votes"
 msgstr "Votes"
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr "Votes ({view_url|voir})"
 
@@ -11093,7 +11098,7 @@ msgstr "montrer la liste de pistes"
 msgid "start date"
 msgstr "date de début"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr "s'abonner"
 
@@ -11117,7 +11122,7 @@ msgstr[1] "pistes {tracks}"
 msgid "tracks"
 msgstr "pistes"
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr "se désabonner"
 
@@ -11170,14 +11175,14 @@ msgstr[1] "{artist} n'a aucune parution ayant {n} pistes."
 msgid "{collection} by {owner}"
 msgstr "{collection} par {owner}"
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|voir la liste})"
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
@@ -11433,7 +11438,7 @@ msgstr[1] "il y a {num} ans"
 msgid "{num}. {relationship}"
 msgstr "{num}. {relationship}"
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr "{percentage} %"
 
