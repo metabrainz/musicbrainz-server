@@ -705,7 +705,7 @@ sub preview : Chained('edit') PathPart('preview') Edit {
         my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out, binmode => 1)
             ? $out : '' . $TT->error();
 
-        { preview => $preview, editName => $edit->edit_name };
+        { preview => $preview, editName => $edit->l_edit_name };
     } @edits;
 
     $c->res->body(encode_json({ previews => \@previews }));
