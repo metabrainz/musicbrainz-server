@@ -183,11 +183,15 @@ class ArtistCreditEditor extends React.Component {
     const $bubble = $('#artist-credit-bubble');
     const bubbleWasVisible = $bubble.is(':visible');
 
+    // `show` implies the bubble should be made visible with a new entity. If
+    // show = false and the bubble isn't visible, there's no point in updating it.
     if (!show && !bubbleWasVisible) {
       return;
     }
 
-    if (bubbleWasVisible && $bubble.data('target') !== this.props.entity) {
+    // Don't hijack the bubble unless show = true or this is for the
+    // currently-open entity.
+    if (!show && $bubble.data('target') !== this.props.entity) {
       return;
     }
 
