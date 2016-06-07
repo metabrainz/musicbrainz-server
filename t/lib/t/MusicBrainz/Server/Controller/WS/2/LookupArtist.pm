@@ -484,7 +484,7 @@ ws_test 'artist lookup with artist relations',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="678ba12a-e485-44c7-8eaf-25e61a78a61b">
         <name>後藤真希</name>
         <sort-name>Goto, Maki</sort-name>
-        <gender>Female</gender>
+        <gender id="93452b5a-a947-30c8-934f-6a4056b151c2">Female</gender>
         <country>JP</country>
         <area id="2db42837-c832-3c27-b4a3-08198f75693c">
             <name>Japan</name>
