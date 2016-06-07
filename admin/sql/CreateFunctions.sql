@@ -1160,6 +1160,7 @@ BEGIN
         SELECT edit.editor, NEW.id
           FROM edit
          WHERE edit.id = NEW.edit
+           AND edit.editor != NEW.editor
     );
     RETURN NULL;
 END;
