@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Trans-fr, 2013
+# French language coordinator <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2016
 # Frédéric Da Vitoria <email address hidden>, 2014
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
-# Trans-fr, 2015
-# Trans-fr, 2013-2015
+# French language coordinator <email address hidden>, 2015
+# French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 msgid ""
 msgstr ""

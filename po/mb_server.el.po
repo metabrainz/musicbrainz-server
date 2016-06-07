@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 22:20-0500\n"
-"PO-Revision-Date: 2016-03-07 21:04+0000\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
+"PO-Revision-Date: 2016-04-04 13:22+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -241,7 +241,7 @@ msgstr "* Η ομοιότητα δείχνει τη συνολική διαφο�
 msgid "-"
 msgstr ""
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr "0"
 
@@ -258,7 +258,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "1 ψήφος"
 msgstr[1] "{n} ομόφωνες ψήφοι"
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr "100%"
 
@@ -444,7 +444,7 @@ msgstr "Αποδοχή επεξεργασίας"
 msgid "Accept upon expiration"
 msgstr "Αποδοχή με τη λήξη"
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
@@ -1590,7 +1590,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr ""
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr ""
 
@@ -1782,7 +1782,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr ""
 
@@ -1916,7 +1916,7 @@ msgstr "Ακύρωση επεξεργασίας"
 msgid "Cancel the election"
 msgstr "Ακύρωση ψηφοφορίας"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -2871,7 +2871,7 @@ msgstr "Χρήστης “{user}”"
 msgid "Edits"
 msgstr "Τροποποιήσεις"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr "Τροποποιήσεις ({view_url|προβολή})"
 
@@ -3145,7 +3145,7 @@ msgstr ""
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr ""
 
@@ -3222,7 +3222,7 @@ msgstr "Εξωτερικοί σύνδεσμοι"
 msgid "FAQs"
 msgstr "Συχνές ερωτήσεις"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr "Απέτυχε"
 
@@ -3611,6 +3611,10 @@ msgstr ""
 msgid "HH:MM"
 msgstr ""
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr ""
@@ -3634,7 +3638,7 @@ msgstr "Υψηλή"
 msgid "Historic"
 msgstr "Ιστορικό"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr "Αρχική σελίδα:"
 
@@ -4227,15 +4231,15 @@ msgstr "Γλώσσα: {language}, γραφή: {script}"
 msgid "Languages Known:"
 msgstr "Ομιλούμενες γλώσσες:"
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr "Γλώσσες:"
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr "Τελευταίες 28 μέρες"
 
@@ -5391,7 +5395,7 @@ msgstr "Όπα! Φαίνεται ότι οι παράμετροι αναζήτη
 msgid "Oops, something went wrong!"
 msgstr "Ουπς, κάτι πήγε στραβά!"
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr ""
 
@@ -5458,7 +5462,7 @@ msgstr "Άλλες αναζητήσεις"
 msgid "Other lookups"
 msgstr "Άλλες αναζητήσεις"
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr "Συνολικά"
 
@@ -6789,7 +6793,7 @@ msgstr "Αναταξινόμηση εξωφύλλου"
 msgid "Report User"
 msgstr ""
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr ""
 
@@ -7633,7 +7637,7 @@ msgstr "Ημερομηνία έναρξης"
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "Στατιστικά"
@@ -7755,7 +7759,7 @@ msgstr "Στοιχεία που παρακολουθώ"
 msgid "Subscribers"
 msgstr "Χρήστες που παρακολουθούν"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr "Παρακολουθούν:"
 
@@ -7810,7 +7814,7 @@ msgstr "Βάλτε ετικέτες στη μουσική σας"
 msgid "Tag lookup"
 msgstr "Αναζήτηση ετικέτας"
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "Ετικέτα “{tag}”"
 
@@ -9197,7 +9201,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -9963,7 +9967,7 @@ msgstr "Ψήφος στις τροποποιήσεις"
 msgid "Vote tally:"
 msgstr "Σύνολο ψήφων:"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr "Καταψηφίστηκαν"
 
@@ -9976,7 +9980,7 @@ msgstr "Ψηφοφόρος"
 msgid "Votes"
 msgstr "Ψήφοι"
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr "Ψήφοι ({view_url|προβολή})"
 
@@ -11077,7 +11081,7 @@ msgstr "εμφάνιση λίστας κομματιών"
 msgid "start date"
 msgstr ""
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr "παρακολούθηση"
 
@@ -11101,7 +11105,7 @@ msgstr[1] ""
 msgid "tracks"
 msgstr "κομμάτια"
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr "μη παρακολούθηση"
 
@@ -11154,14 +11158,14 @@ msgstr[1] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορί
 msgid "{collection} by {owner}"
 msgstr "{collection} από {owner}"
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|προβολή λίστας})"
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|προβολή})"
 
@@ -11417,7 +11421,7 @@ msgstr[1] ""
 msgid "{num}. {relationship}"
 msgstr ""
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr "{percentage}%"
 

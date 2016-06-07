@@ -4,6 +4,7 @@
 # Keshav Kini <email address hidden>, 2013
 # mai inoue, 2015
 # mai inoue, 2015
+# Mitsuharu Kurita, 2016
 # nikki, 2013-2014
 # Nozomu Kurasawa <email address hidden>, 2012
 # Nozomu Kurasawa <email address hidden>, 2012-2014
@@ -16,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-02-26 17:03+0000\n"
-"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
+"PO-Revision-Date: 2016-05-14 19:25+0000\n"
+"Last-Translator: Mitsuharu Kurita\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "\"モテット\" とは、様々な形式の (通常は無伴奏の) 合唱作品に対して用いられる用語です。厳密に何を指すかは時代によって大いに異なります。"
 
 #: DB:work_type/description:5
 msgctxt "work_type"
@@ -1078,6 +1079,11 @@ msgstr "嬰ハ短調"
 msgctxt "work_attribute_type"
 msgid "CASH ID"
 msgstr "CASH ID"
+
+#: DB:work_attribute_type/name:22
+msgctxt "work_attribute_type"
+msgid "CCLI ID"
+msgstr ""
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-06 22:07+0000\n"
+"PO-Revision-Date: 2016-04-04 13:22+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1167,6 +1167,13 @@ msgid ""
 "or band on this release."
 msgstr ""
 
+#: DB:link_type/description:891
+msgid ""
+"This indicates that (most commonly) a festival commissioned the work. This "
+"is most common for classical works, but also exists in other genres to a "
+"degree."
+msgstr ""
+
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group.​"
 msgstr ""
@@ -1277,6 +1284,12 @@ msgid ""
 " language) or transliterated (into another script)."
 msgstr ""
 
+#: DB:link_type/description:889
+msgid ""
+"This indicates that the artist commissioned the work. This is most common "
+"for classical works, but also exists in other genres to a degree."
+msgstr ""
+
 #: DB:link_type/description:25 DB:link_type/description:129
 msgid ""
 "This indicates that the artist performed a role not covered by other "
@@ -1288,6 +1301,12 @@ msgid ""
 "This indicates that the group had multiple conductors who were led by this "
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
+msgstr ""
+
+#: DB:link_type/description:890
+msgid ""
+"This indicates that the organisation commissioned the work. This is most "
+"common for classical works, but also exists in other genres to a degree."
 msgstr ""
 
 #: DB:link_attribute_type/description:579
@@ -2710,6 +2729,12 @@ msgstr "Tähistab kaas- (ingl „co-”) rolli."
 
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
+msgstr ""
+
+#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
+#: DB:link_type/link_phrase:889 DB:link_type/long_link_phrase:891
+#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+msgid "commissioned"
 msgstr ""
 
 #: DB:link_type/link_phrase:228
@@ -4562,6 +4587,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
+#: DB:link_type/reverse_link_phrase:889
+msgid "was commissioned by"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:794

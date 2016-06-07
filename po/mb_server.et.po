@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 22:20-0500\n"
-"PO-Revision-Date: 2016-03-07 21:04+0000\n"
+"POT-Creation-Date: 2016-04-04 08:19-0500\n"
+"PO-Revision-Date: 2016-04-04 13:22+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgstr "* Vastavus näitab koguerinevust sekundites soovitud CD ja leitud vastet
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:116
 msgid "0"
 msgstr "0"
 
@@ -255,7 +255,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "1 hääl"
 msgstr[1] "{n} üksmeelset häält"
 
-#: ../root/user/profile.tt:244 ../root/user/profile.tt:248
+#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
 msgstr "100%"
 
@@ -441,7 +441,7 @@ msgstr "Rakenda toimetus"
 msgid "Accept upon expiration"
 msgstr "aegumisel rakendatakse"
 
-#: ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Vastuvõetud"
@@ -1587,7 +1587,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Vanemtoimetajad on usaldusväärsed kasutajad, kellele on antud {url|vanemtoimetaja} õigused. See võimaldab teatud nende toimetused rakendada kohe, ilma tavapärase hääletusprotsessita. Samuti saavad nad teiste kasutajate paljusid toimetusi ühe häälega heaks kiita."
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:165
 msgid "Auto-edits"
 msgstr "Kohetoimetused"
 
@@ -1779,7 +1779,7 @@ msgid ""
 msgstr "Allpool on teave vea kohta. Kui soovid veast teada anda, siis tee seda meie {bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa see kindlasti kirjeldusse!"
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:38
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:129
 msgid "Bio:"
 msgstr "Enesetutvustus:"
 
@@ -1913,7 +1913,7 @@ msgstr "Tühista"
 msgid "Cancel the election"
 msgstr "Tühista valimine"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "tühistatud"
 
@@ -2868,7 +2868,7 @@ msgstr "Toimetaja {user}"
 msgid "Edits"
 msgstr "Toimetused"
 
-#: ../root/user/profile.tt:152
+#: ../root/user/profile.tt:156
 msgid "Edits ({view_url|view})"
 msgstr "Toimetused ({view_url|vaata})"
 
@@ -3142,7 +3142,7 @@ msgstr "Sündmus:"
 #: ../root/artist/events.tt:1 ../root/artist/events.tt:2
 #: ../root/components/common-macros.tt:615 ../root/components/entity-tabs.tt:1
 #: ../root/place/events.tt:1 ../root/place/events.tt:2
-#: ../root/report/index.tt:32 ../root/tag/index.tt:8
+#: ../root/report/index.tt:32 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Events"
 msgstr "Sündmused"
 
@@ -3219,7 +3219,7 @@ msgstr "Välislingid"
 msgid "FAQs"
 msgstr "KKK"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:173
 msgid "Failed"
 msgstr "Nurjunud"
 
@@ -3608,6 +3608,10 @@ msgstr "Juhised"
 msgid "HH:MM"
 msgstr "TT:MM"
 
+#: ../root/user/profile.tt:94
+msgid "Hasn't logged in yet"
+msgstr ""
+
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
 msgstr "Pealkirjad:"
@@ -3631,7 +3635,7 @@ msgstr "kõrge"
 msgid "Historic"
 msgstr "Ajalooline"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "Homepage:"
 msgstr "Koduleht:"
 
@@ -4224,15 +4228,15 @@ msgstr "Keel: {language}, kiri: {script}"
 msgid "Languages Known:"
 msgstr "Keeleoskus:"
 
-#: ../root/user/profile.tt:131
+#: ../root/user/profile.tt:135
 msgid "Languages:"
 msgstr "Keeled:"
 
-#: ../root/user/profile.tt:181
+#: ../root/user/profile.tt:185
 msgid "Last 24 hours"
 msgstr "Viimase 24 tunni jooksul"
 
-#: ../root/user/profile.tt:211
+#: ../root/user/profile.tt:215
 msgid "Last 28 days"
 msgstr "Viimase 28 päeva jooksul"
 
@@ -5388,7 +5392,7 @@ msgstr "Paistab, et antud otsinguparameetrid olid valed. Palun vaata sisestatu u
 msgid "Oops, something went wrong!"
 msgstr "Oih, midagi läks valesti!"
 
-#: ../root/user/profile.tt:173 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "lahtine"
 
@@ -5455,7 +5459,7 @@ msgstr "Muud päringud"
 msgid "Other lookups"
 msgstr "Muud päringud"
 
-#: ../root/user/profile.tt:214
+#: ../root/user/profile.tt:218
 msgid "Overall"
 msgstr "Üldse"
 
@@ -6786,7 +6790,7 @@ msgstr "Kaanepiltide järjestuse muutmine"
 msgid "Report User"
 msgstr ""
 
-#: ../root/user/profile.tt:257
+#: ../root/user/profile.tt:261
 msgid "Report this user for bad behavior"
 msgstr ""
 
@@ -7630,7 +7634,7 @@ msgstr "Alguskuupäev"
 msgid "Start:"
 msgstr "Algus:"
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:148
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "Statistika"
@@ -7752,7 +7756,7 @@ msgstr "Jälgitav sisu"
 msgid "Subscribers"
 msgstr "Jälgijad"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "Subscribers:"
 msgstr "Jälgijaid:"
 
@@ -7807,7 +7811,7 @@ msgstr "Muusika sildistamine"
 msgid "Tag lookup"
 msgstr "Sildipäring"
 
-#: ../root/tag/header.tt:15 ../root/tag/layout.tt:1
+#: ../root/tag/header.tt:16 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "Silt „{tag}”"
 
@@ -9194,7 +9198,7 @@ msgstr "Sel seerial pole seoseid, niisiis eemaldatakse see järgmise paari päev
 msgid "This series is currently empty."
 msgstr "See seeria on hetkel tühi."
 
-#: ../root/user/profile.tt:199
+#: ../root/user/profile.tt:203
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "See tabel näitab selle toimetaja antud häälte kokkuvõtet."
 
@@ -9960,7 +9964,7 @@ msgstr "Hääleta toimetusi"
 msgid "Vote tally:"
 msgstr "Häältearvestus:"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169
 msgid "Voted down"
 msgstr "Mahahääletatud"
 
@@ -9973,7 +9977,7 @@ msgstr "Hääletaja"
 msgid "Votes"
 msgstr "Hääled"
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:207
 msgid "Votes ({view_url|view})"
 msgstr "Hääled ({view_url|vaata})"
 
@@ -11074,7 +11078,7 @@ msgstr "näita lugude nimekirja"
 msgid "start date"
 msgstr "alguskuupäev"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "subscribe"
 msgstr "jälgi"
 
@@ -11098,7 +11102,7 @@ msgstr[1] "lood {tracks}"
 msgid "tracks"
 msgstr "lugude"
 
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:121
 msgid "unsubscribe"
 msgstr "lõpeta jälgimine"
 
@@ -11151,14 +11155,14 @@ msgstr[1] "{artist} ei ole avaldanud ühtki {n} looga väljalaset."
 msgid "{collection} by {owner}"
 msgstr "{collection} ~ {owner}"
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:114
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|vaata nimekirja})"
 
-#: ../root/user/profile.tt:158 ../root/user/profile.tt:162
-#: ../root/user/profile.tt:166 ../root/user/profile.tt:170
-#: ../root/user/profile.tt:174 ../root/user/profile.tt:178
-#: ../root/user/profile.tt:182
+#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
+#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
+#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
+#: ../root/user/profile.tt:186
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|vaata})"
 
@@ -11414,7 +11418,7 @@ msgstr[1] "{num} aasta eest"
 msgid "{num}. {relationship}"
 msgstr "{num}. {relationship}"
 
-#: ../root/user/profile.tt:227 ../root/user/profile.tt:231
+#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
 msgid "{percentage}%"
 msgstr "{percentage}%"
 

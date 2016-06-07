@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-12-14 23:14+0000\n"
+"PO-Revision-Date: 2016-04-04 13:22+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1066,6 +1066,11 @@ msgstr "cis-moll"
 #: DB:work_attribute_type/name:19
 msgctxt "work_attribute_type"
 msgid "CASH ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:22
+msgctxt "work_attribute_type"
+msgid "CCLI ID"
 msgstr ""
 
 #: DB:medium_format/name:1

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-02-15 14:08+0000\n"
+"PO-Revision-Date: 2016-05-24 18:40+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1093,7 +1093,7 @@ msgstr "Aantal niet-verwijderde redacteurs"
 
 #: ../root/statistics/view_js.tt:62
 msgid "Count of open edits"
-msgstr "Aantal openstaande bewerkingen"
+msgstr "Aantal open bewerkingen"
 
 #: ../root/statistics/view_js.tt:76
 msgid "Count of votes per day"
@@ -1574,7 +1574,7 @@ msgstr "normale gegevenskwaliteit:"
 
 #: ../root/statistics/view_js.tt:62
 msgid "Open Edits"
-msgstr "Openstaande bewerkingen"
+msgstr "Open bewerkingen"
 
 #: ../root/statistics/editors.tt:36
 msgid "Open and applied edits in past week"
@@ -1582,7 +1582,7 @@ msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
 
 #: ../root/statistics/index.tt:836
 msgid "Open:"
-msgstr "openstaand:"
+msgstr "open:"
 
 #: ../root/statistics/view_js.tt:126
 msgid "Orchestras"
@@ -1924,7 +1924,7 @@ msgstr "Tijdslijn"
 
 #: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
-msgstr "Tijdslijngrafiek"
+msgstr "Tijdslijn"
 
 #: ../root/statistics/view_js.tt:66
 msgid "To-be-cancelled edits"
@@ -2127,27 +2127,27 @@ msgstr "handmatig geselecteerd:"
 
 #: ../root/statistics/index.tt:179
 msgid "of type Character:"
-msgstr "van het type karakter:"
+msgstr "karakters:"
 
 #: ../root/statistics/index.tt:173
 msgid "of type Choir:"
-msgstr "van het type koor:"
+msgstr "koren:"
 
 #: ../root/statistics/index.tt:161
 msgid "of type Group:"
-msgstr "van het type groep:"
+msgstr "groepen:"
 
 #: ../root/statistics/index.tt:167
 msgid "of type Orchestra:"
-msgstr "van het type orkest:"
+msgstr "orkesten:"
 
 #: ../root/statistics/index.tt:185
 msgid "of type Other:"
-msgstr "van het type overig:"
+msgstr "overig:"
 
 #: ../root/statistics/index.tt:155
 msgid "of type Person:"
-msgstr "van het type persoon:"
+msgstr "personen:"
 
 #: ../root/statistics/index.tt:809
 msgid "validated email only:"
