@@ -202,7 +202,13 @@ sub process_entity {
     my ($c, $loader, $data) = @_;
 
     trim_string($data, 'name');
-    trim_string($data, 'comment');
+
+    if ($data->{comment}) {
+        trim_string($data, 'comment');
+        # MBS-7963
+        $data->{comment} = substr($data->{comment}, 0, 255);
+    }
+
     process_artist_credit($c, $loader, $data);
 }
 
@@ -705,7 +711,7 @@ sub preview : Chained('edit') PathPart('preview') Edit {
         my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out, binmode => 1)
             ? $out : '' . $TT->error();
 
-        { preview => $preview, editName => $edit->edit_name };
+        { preview => $preview, editName => $edit->l_edit_name };
     } @edits;
 
     $c->res->body(encode_json({ previews => \@previews }));
