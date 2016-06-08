@@ -202,7 +202,13 @@ sub process_entity {
     my ($c, $loader, $data) = @_;
 
     trim_string($data, 'name');
-    trim_string($data, 'comment');
+
+    if ($data->{comment}) {
+        trim_string($data, 'comment');
+        # MBS-7963
+        $data->{comment} = substr($data->{comment}, 0, 255);
+    }
+
     process_artist_credit($c, $loader, $data);
 }
 

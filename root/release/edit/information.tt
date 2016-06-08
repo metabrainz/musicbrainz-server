@@ -248,7 +248,7 @@
       <tr>
         <td><label for="comment">[% l('Disambiguation:') %]</label></td>
         <td>
-          <input id="comment" type="text" data-bind="value: comment, controlsBubble: $root.commentBubble" />
+          <input id="comment" type="text" maxlength="255" data-bind="value: comment, controlsBubble: $root.commentBubble" />
         </td>
       </tr>
     </tbody>
