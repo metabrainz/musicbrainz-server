@@ -110,6 +110,24 @@ test('Guess type', function (t) {
                 'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
                 LINK_TYPES.otherdatabases.release
             ],
+            // Musik-Sammler.de
+            [
+                'artist', 'http://www.musik-sammler.de/artist/100743',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'https://www.musik-sammler.de/artist/end-of-a-year/',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.musik-sammler.de/media/594158',
+                LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://www.musik-sammler.de/album/364515',
+                LINK_TYPES.otherdatabases.release_group
+            ],
+            // Rock in China
             [
                 'artist', 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
                 LINK_TYPES.otherdatabases.artist
@@ -1389,6 +1407,27 @@ test('Cleanup', function (t) {
             [
                 'http://mora.jp/package/43000021/SQEX-20016_F/#',
                 'http://mora.jp/package/43000021/SQEX-20016_F/',
+            ],
+            // Musik-Sammler.de
+            [
+                'https://musik-sammler.de/artist/100743?test',
+                'https://www.musik-sammler.de/artist/100743/',
+                'artist'
+            ],
+            [
+                'http://www.musik-sammler.de/artist/end-of-a-year/#',
+                'https://www.musik-sammler.de/artist/end-of-a-year/',
+                'artist'
+            ],
+            [
+                'musik-sammler.de/media/594158',
+                'https://www.musik-sammler.de/media/594158/',
+                'release'
+            ],
+            [
+                'https://www.musik-sammler.de/album/804508/review/rain/',
+                'https://www.musik-sammler.de/album/804508/',
+                'release_group'
             ],
             // Soundtrack Collector
             [
