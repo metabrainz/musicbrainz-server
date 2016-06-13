@@ -830,6 +830,11 @@ test('Cleanup', function (t) {
                 'release'
             ],
             [
+                'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
+                'http://www.amazon.co.jp/gp/product/B0136OCSS8',
+                'release'
+            ],
+            [
                 'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
                 'http://www.amazon.co.uk/gp/product/B00008CQP2',
                 'release'
