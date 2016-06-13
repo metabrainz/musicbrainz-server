@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-06 09:52+0000\n"
+"PO-Revision-Date: 2016-06-07 07:59+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1311,6 +1311,12 @@ msgid ""
 "common for classical works, but also exists in other genres to a degree."
 msgstr "Dit geeft aan dat een organisatie opdracht heeft gegeven voor de compositie. Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
+#: DB:link_type/description:892
+msgid ""
+"This indicates that the place commissioned the work. This is most common for"
+" classical works, but also exists in other genres to a degree."
+msgstr "Dit geeft aan dat een plaats opdracht heeft gegeven voor de compositie. Dit komt vooral voor bij klassieke muziek, maar soms ook bij andere genres."
+
 #: DB:link_attribute_type/description:579
 msgid ""
 "This indicates that the recording is not of the entire work, e.g. excerpts "
@@ -2068,6 +2074,12 @@ msgid ""
 "permitted."
 msgstr "Deze relatie beschrijft een URL waar teksten van de compositie gevonden kunnen worden. Alleen internetpagina’s op de <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">witte lijst</a> zijn toegestaan."
 
+#: DB:link_type/description:893
+msgid ""
+"This relationship indicates that a person was a teacher at an event (e.g. a "
+"masterclass)."
+msgstr "Deze relatie geeft aan dat een persoon op een evenement les gaf (bijvoorbeeld op een masterclass)."
+
 #: DB:link_type/description:847
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
@@ -2734,8 +2746,9 @@ msgid "collaborated {minor:minorly} {additional:additionally} on"
 msgstr "werkte {minor:in een kleine rol} {additional:aanvullend} samen in het project"
 
 #: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
+#: DB:link_type/long_link_phrase:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
 msgid "commissioned"
 msgstr "gaf opdracht voor"
 
@@ -3372,10 +3385,10 @@ msgstr "geschiedenispagina van"
 msgid "holds copyright for"
 msgstr "bezit het auteursrecht van"
 
-#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:867
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
-#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:867
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
+#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:710
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
+#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:710
 msgid "holds phonographic copyright for"
 msgstr "bezit het fonografisch auteursrecht van"
 
@@ -3548,8 +3561,8 @@ msgid "is/was the parent label of"
 msgstr "is/was de moedermaatschappij van"
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an additional|a} member of {founder:and founded|}"
-msgstr "is/was {additional:aanvullend|een} {founder:oorspronkelijk|} lid van "
+msgid "is/was {additional:an additional|a} {founder:founding} member of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -4008,8 +4021,8 @@ msgstr "persoonlijke uitgever van"
 msgid "personal relationship"
 msgstr "persoonlijke relatie"
 
-#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:867
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:710
 msgid "phonographic copyright by"
 msgstr "fonografisch auteursrecht door"
 
@@ -4043,7 +4056,7 @@ msgstr "had de première in"
 msgid "premieres"
 msgstr "premières"
 
-#: DB:link_type/link_phrase:715 DB:link_type/link_phrase:716
+#: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
 msgstr "was gastheer van de première van"
 
@@ -4467,7 +4480,11 @@ msgstr "ondersteunend {instrument:instrument} voor"
 msgid "taught"
 msgstr "onderwees"
 
-#: DB:link_type/reverse_link_phrase:847
+#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+msgid "taught at"
+msgstr "gaf les op"
+
+#: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
 msgstr "leermeester"
 
@@ -4592,7 +4609,7 @@ msgid "was an orchestra at"
 msgstr "speelde als orkest op"
 
 #: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
 msgid "was commissioned by"
 msgstr "geschreven in opdracht van"
 
