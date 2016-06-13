@@ -157,12 +157,11 @@ test('Guess type', function (t) {
                 'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
                 LINK_TYPES.image.work
             ],
-
+            // CPDL
             [
-                'work', 'http://www3.cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                'work', 'http://cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
                 LINK_TYPES.score.work
             ],
-
             // IMDb
             [
                 'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -1448,6 +1447,11 @@ test('Cleanup', function (t) {
             [
                 'http://www.lastfm.com/music/Carving+Colours',
                 'http://www.last.fm/music/Carving+Colours',
+            ],
+            [
+                'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+                'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+                'work'
             ],
             [
                 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
