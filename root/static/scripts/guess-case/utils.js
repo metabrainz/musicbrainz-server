@@ -70,7 +70,6 @@ var lowerCaseBracketWordsList = [
     'outro',
     'outtake',
     'outtakes',
-    'piano',
     'rap',
     'reedit',
     'rehearsal',
