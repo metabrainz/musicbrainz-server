@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -266,6 +266,11 @@ msgstr "Un instrument à corde pincée de la Renaissance."
 msgid ""
 "A pole with bells and/or zills used in the traditional Ottoman military "
 "bands"
+msgstr ""
+
+#. name:chainsaw
+#: DB:instrument/description:769
+msgid "A powered tool primarily used in the cutting of wood"
 msgstr ""
 
 #. name:prepared piano

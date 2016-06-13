@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-04-04 13:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1316,6 +1316,12 @@ msgid ""
 "common for classical works, but also exists in other genres to a degree."
 msgstr ""
 
+#: DB:link_type/description:892
+msgid ""
+"This indicates that the place commissioned the work. This is most common for"
+" classical works, but also exists in other genres to a degree."
+msgstr ""
+
 #: DB:link_attribute_type/description:579
 msgid ""
 "This indicates that the recording is not of the entire work, e.g. excerpts "
@@ -2073,6 +2079,12 @@ msgid ""
 "permitted."
 msgstr ""
 
+#: DB:link_type/description:893
+msgid ""
+"This relationship indicates that a person was a teacher at an event (e.g. a "
+"masterclass)."
+msgstr ""
+
 #: DB:link_type/description:847
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
@@ -2739,8 +2751,9 @@ msgid "collaborated {minor:minorly} {additional:additionally} on"
 msgstr ""
 
 #: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
-#: DB:link_type/link_phrase:889 DB:link_type/long_link_phrase:891
-#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
+#: DB:link_type/long_link_phrase:891 DB:link_type/long_link_phrase:890
+#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
 msgid "commissioned"
 msgstr ""
 
@@ -3377,10 +3390,10 @@ msgstr ""
 msgid "holds copyright for"
 msgstr ""
 
-#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:867
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
-#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:867
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
+#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:710
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
+#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:710
 msgid "holds phonographic copyright for"
 msgstr ""
 
@@ -3553,8 +3566,8 @@ msgid "is/was the parent label of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an additional|a} member of {founder:and founded|}"
-msgstr "on/oli {additional:lisä|}jäsen {founder:ja perustaja|}"
+msgid "is/was {additional:an additional|a} {founder:founding} member of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -4013,8 +4026,8 @@ msgstr ""
 msgid "personal relationship"
 msgstr "henkilösuhde"
 
-#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:867
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
+#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:710
 msgid "phonographic copyright by"
 msgstr ""
 
@@ -4048,7 +4061,7 @@ msgstr ""
 msgid "premieres"
 msgstr ""
 
-#: DB:link_type/link_phrase:715 DB:link_type/link_phrase:716
+#: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
 msgstr "ensiesitettyjä teoksia"
 
@@ -4472,7 +4485,11 @@ msgstr ""
 msgid "taught"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:847
+#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+msgid "taught at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
 msgstr ""
 
@@ -4597,7 +4614,7 @@ msgid "was an orchestra at"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
-#: DB:link_type/reverse_link_phrase:889
+#: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
 msgid "was commissioned by"
 msgstr ""
 
