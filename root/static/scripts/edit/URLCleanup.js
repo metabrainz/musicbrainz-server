@@ -489,9 +489,12 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
       new RegExp("^(https?://)?commons\\.wikimedia\\.org", "i"),
-      new RegExp("^(https?://)?www3?\\.cpdl\\.org", "i")
+      new RegExp("^(https?://)?(www[0-9]?\\.)?cpdl\\.org", "i")
     ],
-    type: LINK_TYPES.score
+    type: LINK_TYPES.score,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, "http://cpdl.org");
+    }
   },
   secondhandsongs: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i")],
