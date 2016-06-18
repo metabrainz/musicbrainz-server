@@ -29,6 +29,7 @@ sub xml_search
     my $dur = 0;
     my $offset = 0;
     my $limit = $args->{limit} || 0;
+    my $dismax = 'false'; # MBS-8994
 
     if (defined $args->{offset} && is_positive_integer($args->{offset}))
     {
@@ -46,6 +47,10 @@ sub xml_search
         }
 
         $query = $args->{query};
+
+        if (defined $args->{dismax} && $args->{dismax} eq 'true') {
+            $dismax = 'true';
+        }
     }
     elsif ($resource eq 'artist')
     {
@@ -203,7 +208,8 @@ sub xml_search
     my $format = ($args->{fmt} // "") eq "json" ? "jsonnew" : "xml";
 
     my $url_ext = "/ws/2/$resource/?" .
-              "max=$limit&type=$resource&fmt=$format&offset=$offset&query=". uri_escape_utf8($query);
+        "max=$limit&type=$resource&fmt=$format&offset=$offset" .
+        "&query=" . uri_escape_utf8($query) . "&dismax=$dismax";
 
     if (DBDefs->LUCENE_X_ACCEL_REDIRECT) {
         return { redirect_url => '/internal/search/' . DBDefs->LUCENE_SERVER . $url_ext }
