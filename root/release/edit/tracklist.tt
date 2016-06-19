@@ -348,7 +348,7 @@
             <th class="reorder"></th>
             <th class="position">[% l('#') %]</th>
             <th class="title">[% l('Title') %]</th>
-            <th class="artist" colspan="2">[% l('Artist') %]</th>
+            <th class="artist">[% l('Artist') %]</th>
             <th class="length">[% l('Length') %]</th>
             <th class="icons"></th>
           </tr>
