@@ -3,6 +3,8 @@ use Moose;
 use namespace::autoclean -also => [qw( _clean )];
 
 use Data::Compare;
+use Carp qw( cluck );
+
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -25,15 +27,14 @@ sub get_by_ids
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
+
     my %result;
     my %counts;
-    foreach my $id (@ids) {
-        my $obj = MusicBrainz::Server::Entity::ArtistCredit->new(id => $id);
-        $result{$id} = $obj;
-        $counts{$id} = 0;
-    }
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $id = $row->{artist_credit};
+        $counts{$id} //= 0;
+        $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(id => $id);
+
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
                       artist_id => $row->{artist},
                       artist => $self->c->model('Artist')->_new_from_row($row),
@@ -44,6 +45,13 @@ sub get_by_ids
         $counts{$id} += 1;
     }
     foreach my $id (@ids) {
+        if (!defined $counts{$id}) {
+            # It's unclear how this could happen, but it seems to be the
+            # cause of MBS-8806. Perhaps we'll find out with the call trace
+            # provided by cluck.
+            cluck "Attempted to load non-existent AC $id, please investigate";
+            next;
+        }
         $result{$id}->artist_count($counts{$id});
     }
     return \%result;
