@@ -328,6 +328,16 @@ role {
                 }
             }
 
+            # MBS-8994. Adding this here so we don't have to change every
+            # 'optional' search attribute in every Controller::WS::2 class,
+            # and it's an undocumented hack anyway, so this'll be easier to
+            # remove later if needed.
+            if (exists $c->stash->{args}{query} &&
+                    exists $c->req->params->{dismax} &&
+                    $c->req->params->{dismax} ne '') {
+                $c->stash->{args}{dismax} = $c->req->params->{dismax};
+            }
+
             # Check to make sure that only appropriate inc values have been requested
             my $inc = do {
                 my $class = $version eq '2' ? WebServiceInc : WebServiceIncV1;
