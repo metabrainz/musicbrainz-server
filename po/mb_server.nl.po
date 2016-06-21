@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-07 00:49-0500\n"
-"PO-Revision-Date: 2016-06-08 08:08+0000\n"
+"PO-Revision-Date: 2016-06-18 19:24+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -4408,7 +4408,7 @@ msgstr "Meld je aan om te bewerken"
 
 #: ../root/release/cover_art.tt:63
 msgid "Log in to upload cover art"
-msgstr "Meld u aan om afbeeldingen te uploaden"
+msgstr "Meld je aan om afbeeldingen toe te voegen"
 
 #: ../root/doc/relationship_type.tt:45
 #: ../root/edit/details/edit_relationship_type.tt:29
@@ -4778,7 +4778,7 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainz is een open muziekencyclopedie die metagegevens over muziek verzamelt en beschikbaar stelt aan het publiek."
+msgstr "MusicBrainz is een open muziekencyclopedie die metagegevens over muziek verzamelt en aan het publiek beschikbaar stelt."
 
 #: ../root/main/index.tt:38
 msgid ""
@@ -5639,7 +5639,7 @@ msgstr "Voer je oude wachtwoord hieronder in, en daarna je nieuwe wachtwoord."
 
 #: ../root/freedb/show.tt:47 ../root/freedb/show.tt:104
 msgid "Please login to import this FreeDB disc."
-msgstr "Meld u aan om dit medium van FreeDB te importeren"
+msgstr "Meld je aan om dit medium van FreeDB te importeren"
 
 #: ../root/recording/delete.tt:5
 msgid ""
@@ -7268,7 +7268,7 @@ msgstr "Alle opnames worden weergegeven. {show_sa|In plaats daarvan alleen opnam
 msgid ""
 "Showing all release groups by this artist. {show_official|Show only official"
 " release groups instead}, or {show_va|show various artists release groups}."
-msgstr "De pagina laat nu alle uitgavegroepen van deze artiest zien. {show_official|Laat in plaats daarvan alleen officiële uitgavegroepen zien}, of {show_va|uitgavegroepen van diverse artiesten}."
+msgstr "Alle uitgavegroepen van deze artiest worden nu weergegeven. Laat in plaats daarvan {show_official|alleen officiële uitgavegroepen zien}, of {show_va|uitgavegroepen van diverse artiesten}."
 
 #: ../root/artist/index.tt:75
 msgid ""
@@ -7291,32 +7291,32 @@ msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
-msgstr "De pagina laat nu alle uitgavegroepen van diverse artiesten zien. {show_official|Laat in plaats daarvan alleen officiële uitgavegroepen van diverse artiesten zien}, of {show_non_va|alleen uitgavegroepen van deze artiest}."
+msgstr "Alle uitgavegroepen van diverse artiesten worden nu weergegeven. Laat in plaats daarvan {show_official|alleen officiële uitgavegroepen van diverse artiesten zien}, of {show_non_va|uitgavegroepen van deze artiest}."
 
 #: ../root/artist/index.tt:95
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}."
-msgstr "De pagina laat nu alle uitgavegroepen van diverse artiesten zien. {show_official|Laat in plaats daarvan alleen officiële uitgavegroepen van diverse artiesten zien}."
+msgstr "Alle uitgavegroepen van diverse artiesten worden nu weergegeven. Laat in plaats daarvan {show_official|alleen officiële uitgavegroepen van diverse artiesten zien}."
 
 #: ../root/artist/index.tt:71
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
-msgstr "De pagina laat nu alleen officiële uitgavegroepen van deze artiest zien. {show_all|Laat in plaats daarvan alle uitgavegroepen zien}, of {show_va|alleen uitgavegroepen van diverse artiesten}."
+msgstr "Er worden nu alleen officiële uitgavegroepen van deze artiest weergegeven. Laat in plaats daarvan {show_all|alle uitgavegroepen zien}, of {show_va|uitgavegroepen van diverse artiesten}."
 
 #: ../root/artist/index.tt:100
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
-msgstr "De pagina laat nu officiële uitgavegroepen van diverse artiesten zien. {show_all|Laat in plaats daarvan alle uitgavegroepen van diverse artiesten zien}, of {show_non_va|alleen uitgavegroepen van deze artiest}."
+msgstr "Er worden nu alleen officiële uitgavegroepen van diverse artiesten weergegeven. Laat in plaats daarvan {show_all|alle uitgavegroepen van diverse artiesten zien}, of {show_non_va|uitgavegroepen van deze artiest}."
 
 #: ../root/artist/index.tt:79
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}."
-msgstr "De pagina laat officiële uitgavegroepen van diverse artiesten zien. {show_all|Laat in plaats daarvan alle uitgavegroepen van diverse artiesten zien}."
+msgstr "Er worden nu alleen uitgavegroepen van diverse artiesten weergegeven. Laat in plaats daarvan {show_all|alle uitgavegroepen van diverse artiesten zien}."
 
 #: ../root/artist/recordings.tt:20
 msgid ""
@@ -10085,7 +10085,7 @@ msgid ""
 "We've sent you information about your MusicBrainz account. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "We hebben je informatie gestuurd over uw MusicBrainz-account. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen met aanmelden hebt."
+msgstr "We hebben je informatie gestuurd over uw MusicBrainz-account. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen hebt met aanmelden."
 
 #: ../root/account/lost_password_sent.tt:5
 msgid ""
@@ -13261,7 +13261,7 @@ msgstr "{description} ({url|meer documentatie})"
 
 #: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add link:"
-msgstr "Koppeling toevoegen:"
+msgstr "Website toevoegen:"
 
 #: ../root/static/scripts/edit/externalLinks.js:266
 msgid "Add another link:"
@@ -13269,7 +13269,7 @@ msgstr "Nog een website toevoegen:"
 
 #: ../root/static/scripts/edit/externalLinks.js:285
 msgid "Remove Link"
-msgstr "Koppeling verwijderen"
+msgstr "Website verwijderen"
 
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:18
 msgid "Guess Case Options"

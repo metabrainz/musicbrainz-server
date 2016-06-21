@@ -221,7 +221,10 @@ test('BugFixes', function (t) {
         },
         {
             input: "Megablast (Rap Version) (ft. Merlin)",
-            expected: "Megablast (rap version) (feat. Merlin)",
+            // Note: 'rap' used to be lowercased until MBS-8982. Ideally it
+            // would still be, but we don't maintain a separate list for words
+            // that should trigger brackets.
+            expected: "Megablast (Rap version) (feat. Merlin)",
             bug: 'MBS-1313', mode: "English"
         },
         {
