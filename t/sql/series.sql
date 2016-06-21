@@ -25,7 +25,13 @@ INSERT INTO link_attribute_text_value (link, attribute_type, text_value)
            (7, 788, 'WTF 99'),
            (8, 788, 'WTF 12');
 
+INSERT INTO artist (id, gid, name, sort_name) VALUES
+    (77, 'ac3a3195-ba87-4154-a937-bbc06aac4038', 'Some Artist', 'Some Artist');
+
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Shared Name', 1);
+
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES
+    (1, 0, 77, 'Shared Name');
 
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (1, '123c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1, 123456),
