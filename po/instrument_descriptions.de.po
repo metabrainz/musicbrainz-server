@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -265,6 +265,11 @@ msgid ""
 "A pole with bells and/or zills used in the traditional Ottoman military "
 "bands"
 msgstr "Kleine Glocken, die um einen Halbmond aus Glockenmetall oder Messing angebracht sind. Der Klang wird durch eine Auf- und Abbewegung des ganzen Instruments erzeugt."
+
+#. name:chainsaw
+#: DB:instrument/description:769
+msgid "A powered tool primarily used in the cutting of wood"
+msgstr ""
 
 #. name:prepared piano
 #: DB:instrument/description:481

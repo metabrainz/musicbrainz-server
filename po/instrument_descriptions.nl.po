@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 07:23+0000\n"
+"PO-Revision-Date: 2016-06-07 07:07+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -260,6 +260,11 @@ msgid ""
 "A pole with bells and/or zills used in the traditional Ottoman military "
 "bands"
 msgstr "Een staf met bellen en/of schellen die wordt gebruikt bij traditionele Ottomaanse militaire muziek."
+
+#. name:chainsaw
+#: DB:instrument/description:769
+msgid "A powered tool primarily used in the cutting of wood"
+msgstr "Een gemotoriseerde zaag die vooral wordt gebruikt om hout te zagen."
 
 #. name:prepared piano
 #: DB:instrument/description:481

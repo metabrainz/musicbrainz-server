@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -348,6 +348,10 @@ msgstr "pandora"
 msgid "bandura"
 msgstr "bandura"
 
+#: DB:instrument/name:771
+msgid "bandurria"
+msgstr ""
+
 #: DB:instrument/name:581
 msgid "bangu"
 msgstr ""
@@ -618,6 +622,10 @@ msgstr "sello"
 
 #: DB:instrument/name:335
 msgid "chacha"
+msgstr ""
+
+#: DB:instrument/name:769
+msgid "chainsaw"
 msgstr ""
 
 #: DB:instrument/name:627
@@ -959,6 +967,10 @@ msgstr "duduk"
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "dulcian"
+
+#: DB:instrument/name:770
+msgid "dulzaina"
+msgstr ""
 
 #: DB:instrument/name:659
 msgid "dunun"
@@ -2722,6 +2734,10 @@ msgstr "viritetyt lyömäsoittimet"
 #: DB:instrument/name:181
 msgid "turntable(s)"
 msgstr "levysoitin"
+
+#: DB:instrument/name:772
+msgid "txalaparta"
+msgstr ""
 
 #: DB:instrument/name:526
 msgid "typewriter"

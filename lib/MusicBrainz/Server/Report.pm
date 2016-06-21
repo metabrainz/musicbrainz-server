@@ -38,8 +38,8 @@ sub _load {
     my $ordering = $self->ordering;
 
     my ($rows, $hits) = $self->query_to_list_limited(
-        "SELECT DISTINCT report.* FROM $qualified_table report ORDER BY $ordering",
-        [],
+        "SELECT DISTINCT report.* FROM $qualified_table report $join_sql ORDER BY $ordering",
+        \@params,
         $limit,
         $offset,
         sub { $_[1] },

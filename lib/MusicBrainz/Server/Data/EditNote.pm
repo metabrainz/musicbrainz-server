@@ -123,7 +123,7 @@ sub find_by_recipient {
           FROM edit_note_recipient
           JOIN ${\($self->_table)} ON ${\($self->_table)}.id = edit_note_recipient.edit_note
          WHERE recipient = \$1
-         ORDER BY post_time DESC, edit DESC
+         ORDER BY post_time DESC NULLS LAST, edit DESC
          LIMIT $LIMIT_FOR_EDIT_LISTING
 EOSQL
     $self->query_to_list_limited(

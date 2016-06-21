@@ -319,7 +319,7 @@ const CLEANUPS = {
 
       if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // artist pages
         return "http://www.amazon." + tld + "/-/e/" + m[1];
-      } else if ((m = url.match(/\/(?:product|dp)\/(B00[0-9A-Z]{7}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/))) { // strict regex to catch most ASINs
+      } else if ((m = url.match(/\/(?:product|dp)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/))) { // strict regex to catch most ASINs
         asin = m[1];
       } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // if all else fails, find anything that could be an ASIN
         asin = m[1];
@@ -489,9 +489,12 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
       new RegExp("^(https?://)?commons\\.wikimedia\\.org", "i"),
-      new RegExp("^(https?://)?www3?\\.cpdl\\.org", "i")
+      new RegExp("^(https?://)?(www[0-9]?\\.)?cpdl\\.org", "i")
     ],
-    type: LINK_TYPES.score
+    type: LINK_TYPES.score,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, "http://cpdl.org");
+    }
   },
   secondhandsongs: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i")],
@@ -737,6 +740,8 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, "http://trove.nla.gov.au/work/$1");
       url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/nla.party-$1");
       url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/$1$2");
+      // Standardising Musik-Sammler.de
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/(album|artist|media)\/([0-9a-z-]+)(?:[\/?#].*)?$/, "https://www.musik-sammler.de/$1/$2/");
       // Standardising Rockens Danmarkskort
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockensdanmarkskort\.dk\/steder\/(.*)+$/, "http://www.rockensdanmarkskort.dk/steder/$1");
       // Standardising RIC

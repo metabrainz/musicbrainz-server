@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -350,6 +350,10 @@ msgstr "Pandora"
 msgid "bandura"
 msgstr "Bandura"
 
+#: DB:instrument/name:771
+msgid "bandurria"
+msgstr ""
+
 #: DB:instrument/name:581
 msgid "bangu"
 msgstr "Bangu"
@@ -621,6 +625,10 @@ msgstr "Cello"
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr "Chacha"
+
+#: DB:instrument/name:769
+msgid "chainsaw"
+msgstr ""
 
 #: DB:instrument/name:627
 msgid "chakhe"
@@ -961,6 +969,10 @@ msgstr "Duduk / armenische Flöte"
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "Dulzian"
+
+#: DB:instrument/name:770
+msgid "dulzaina"
+msgstr ""
 
 #: DB:instrument/name:659
 msgid "dunun"
@@ -2724,6 +2736,10 @@ msgstr ""
 #: DB:instrument/name:181
 msgid "turntable(s)"
 msgstr "Plattenspieler"
+
+#: DB:instrument/name:772
+msgid "txalaparta"
+msgstr ""
 
 #: DB:instrument/name:526
 msgid "typewriter"

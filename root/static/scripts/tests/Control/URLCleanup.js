@@ -110,6 +110,24 @@ test('Guess type', function (t) {
                 'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
                 LINK_TYPES.otherdatabases.release
             ],
+            // Musik-Sammler.de
+            [
+                'artist', 'http://www.musik-sammler.de/artist/100743',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'https://www.musik-sammler.de/artist/end-of-a-year/',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.musik-sammler.de/media/594158',
+                LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://www.musik-sammler.de/album/364515',
+                LINK_TYPES.otherdatabases.release_group
+            ],
+            // Rock in China
             [
                 'artist', 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
                 LINK_TYPES.otherdatabases.artist
@@ -157,12 +175,11 @@ test('Guess type', function (t) {
                 'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
                 LINK_TYPES.image.work
             ],
-
+            // CPDL
             [
-                'work', 'http://www3.cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                'work', 'http://cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
                 LINK_TYPES.score.work
             ],
-
             // IMDb
             [
                 'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -831,6 +848,11 @@ test('Cleanup', function (t) {
                 'release'
             ],
             [
+                'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
+                'http://www.amazon.co.jp/gp/product/B0136OCSS8',
+                'release'
+            ],
+            [
                 'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
                 'http://www.amazon.co.uk/gp/product/B00008CQP2',
                 'release'
@@ -1390,6 +1412,27 @@ test('Cleanup', function (t) {
                 'http://mora.jp/package/43000021/SQEX-20016_F/#',
                 'http://mora.jp/package/43000021/SQEX-20016_F/',
             ],
+            // Musik-Sammler.de
+            [
+                'https://musik-sammler.de/artist/100743?test',
+                'https://www.musik-sammler.de/artist/100743/',
+                'artist'
+            ],
+            [
+                'http://www.musik-sammler.de/artist/end-of-a-year/#',
+                'https://www.musik-sammler.de/artist/end-of-a-year/',
+                'artist'
+            ],
+            [
+                'musik-sammler.de/media/594158',
+                'https://www.musik-sammler.de/media/594158/',
+                'release'
+            ],
+            [
+                'https://www.musik-sammler.de/album/804508/review/rain/',
+                'https://www.musik-sammler.de/album/804508/',
+                'release_group'
+            ],
             // Soundtrack Collector
             [
                 'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
@@ -1448,6 +1491,11 @@ test('Cleanup', function (t) {
             [
                 'http://www.lastfm.com/music/Carving+Colours',
                 'http://www.last.fm/music/Carving+Colours',
+            ],
+            [
+                'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+                'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+                'work'
             ],
             [
                 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',

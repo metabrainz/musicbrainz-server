@@ -154,7 +154,7 @@ sub _serialize_artist
 
     if ($toplevel)
     {
-        push @list, $gen->gender($artist->gender->name) if ($artist->gender);
+        push @list, $gen->gender({id => $artist->gender->gid}, $artist->gender->name) if ($artist->gender);
         push @list, $gen->country($artist->area->country_code) if $artist->area && $artist->area->country_code;
         $self->_serialize_area(\@list, $gen, $artist->area, $inc, $stash, $toplevel) if $artist->area;
         $self->_serialize_begin_area(\@list, $gen, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;

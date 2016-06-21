@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-21 03:22+0000\n"
+"PO-Revision-Date: 2016-06-07 06:02+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -343,6 +343,10 @@ msgstr "bandora"
 msgid "bandura"
 msgstr "banduura"
 
+#: DB:instrument/name:771
+msgid "bandurria"
+msgstr ""
+
 #: DB:instrument/name:581
 msgid "bangu"
 msgstr "bǎngǔ"
@@ -613,6 +617,10 @@ msgstr "tšello"
 
 #: DB:instrument/name:335
 msgid "chacha"
+msgstr ""
+
+#: DB:instrument/name:769
+msgid "chainsaw"
 msgstr ""
 
 #: DB:instrument/name:627
@@ -954,6 +962,10 @@ msgstr "duduk"
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "dultsian"
+
+#: DB:instrument/name:770
+msgid "dulzaina"
+msgstr ""
 
 #: DB:instrument/name:659
 msgid "dunun"
@@ -2716,6 +2728,10 @@ msgstr "kindla helikõrgusega löökpillid"
 
 #: DB:instrument/name:181
 msgid "turntable(s)"
+msgstr ""
+
+#: DB:instrument/name:772
+msgid "txalaparta"
 msgstr ""
 
 #: DB:instrument/name:526
