@@ -429,7 +429,11 @@ MB.createExternalLinksEditor = function (options) {
     }
 
     _.each(urls, function (data) {
-      initialLinks.push(new LinkState({url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-')}));
+      initialLinks.push(new LinkState({
+        url: URLCleanup.cleanURL(data.text) || data.text || '',
+        type: data.link_type_id,
+        relationship: _.uniqueId('new-'),
+      }));
     });
   }
 
@@ -442,11 +446,10 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   initialLinks = initialLinks.map(function (link) {
-    var newData = {url: URLCleanup.cleanURL(link.url) || link.url};
     if (!_.isNumber(link.relationship)) {
-      newData.relationship = _.uniqueId('new-');
+      return link.set('relationship', _.uniqueId('new-'));
     }
-    return link.merge(newData);
+    return link;
   });
 
   var typeOptions = (

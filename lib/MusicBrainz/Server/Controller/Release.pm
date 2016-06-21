@@ -414,7 +414,7 @@ sub _merge_form_arguments {
             my $name = $medium->name;
             if ($release->medium_count == 1 && !$name) {
                 # guess position from the old release name
-                if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/) {
+                if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/i) {
                     $position = $1;
                     $name = $2 || '';
                 }

@@ -53,8 +53,6 @@
         [% USE r = FormRenderer(form) %]
         [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]
 
-        [% form.errors %]
-
         <div id="merge-strategy-1" class="merge-strategy">
           <p>
             [% l('Using this merge strategy, all mediums from all releases will be used. You may specify
@@ -63,12 +61,18 @@
           </p>
           <table class="tbl">
             <tbody>
+              <style>
+                th span.error { margin: 0 12px 0 6px; }
+              </style>
               [% FOR medium=mediums %]
               [% field = form.field('medium_positions').field('map').field(loop.index) %]
               <tr class="subh">
                 <th colspan="4">
                   <label>[% l('New position:') %]</label>
                   [% r.text(field.field('position'), size=2) %]
+                  [%~ IF field.field('position').has_errors;
+                        '<span class="error">' _ html_escape(field.field('position').errors.0) _ '</span>';
+                      END ~%]
                   <label>[% l('New disc title:') %]</label>
                   [% r.text(field.field('name')) %]
                   [% r.hidden(field.field('id')) %]
