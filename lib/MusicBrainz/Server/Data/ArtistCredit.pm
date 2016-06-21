@@ -33,15 +33,14 @@ sub get_by_ids
         $counts{$id} = 0;
     }
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my %info = (
-            artist_id => $row->{artist},
-            name => $row->{ac_name}
-        );
-        $info{join_phrase} = $row->{join_phrase} // '';
-        my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
-        $obj->artist($self->c->model('Artist')->_new_from_row($row));
         my $id = $row->{artist_credit};
-        $result{$id}->add_name($obj);
+        my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
+                      artist_id => $row->{artist},
+                      artist => $self->c->model('Artist')->_new_from_row($row),
+                      name => $row->{ac_name},
+                      join_phrase => $row->{join_phrase} // '',
+                  );
+        $result{$id}->add_name($acn);
         $counts{$id} += 1;
     }
     foreach my $id (@ids) {
