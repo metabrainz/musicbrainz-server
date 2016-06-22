@@ -429,11 +429,7 @@ MB.createExternalLinksEditor = function (options) {
     }
 
     _.each(urls, function (data) {
-      initialLinks.push(new LinkState({
-        url: URLCleanup.cleanURL(data.text) || data.text || '',
-        type: data.link_type_id,
-        relationship: _.uniqueId('new-'),
-      }));
+      initialLinks.push(new LinkState({url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-')}));
     });
   }
 
@@ -446,8 +442,13 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   initialLinks = initialLinks.map(function (link) {
-    if (!_.isNumber(link.relationship)) {
-      return link.set('relationship', _.uniqueId('new-'));
+    // Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
+    // existing relationship ID.
+    if (!isPositiveInteger(link.relationship)) {
+      return link.merge({
+        relationship: _.uniqueId('new-'),
+        url: URLCleanup.cleanURL(link.url) || link.url,
+      });
     }
     return link;
   });
