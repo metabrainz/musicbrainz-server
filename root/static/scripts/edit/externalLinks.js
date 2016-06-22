@@ -10,7 +10,7 @@ const PropTypes = React.PropTypes;
 
 const {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} = require('../common/constants');
 const {compare, l} = require('../common/i18n');
-const isPositiveInteger = require('../edit/utility/isPositiveInteger');
+const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
 const RemoveButton = require('./components/RemoveButton');
 const URLCleanup = require('./URLCleanup');
