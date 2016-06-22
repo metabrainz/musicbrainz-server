@@ -6,6 +6,8 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES
     (5, '15a40343-ff6e-45d6-a5d2-110388d34858', 'Artist 3', 'Artist 3');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist 1', 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, join_phrase, name)
+    VALUES (1, 0, 3, '', 'Artist 1');
 
 INSERT INTO event (id, gid, name, type)
     VALUES (1, 'ea8415d8-46d1-44aa-8230-5faebd48578b', 'Kool Koncert', 1);

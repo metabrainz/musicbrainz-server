@@ -207,6 +207,8 @@ test 'Editing a relationship refreshes existing cover art' => sub {
 INSERT INTO artist (id, gid, name, sort_name)
   VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 'Artist', 'Artist');
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+INSERT INTO artist_credit_name (artist_credit, position, artist, join_phrase, name)
+  VALUES (1, 0, 1, '', 'Artist');
 
 INSERT INTO release_group (id, name, artist_credit, gid)
   VALUES (1, 'Release', 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
