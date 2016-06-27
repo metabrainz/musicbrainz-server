@@ -31,13 +31,15 @@ INSERT INTO cover_art_archive.image_type (mime_type, suffix)
 VALUES ('image/png', 'png');
 INSERT INTO cover_art_archive.cover_art
   (id, release, edit, ordering, mime_type)
-VALUES (1, 1, 1, 1, 'image/png'), (2, 2, 2, 1, 'image/png');
-INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (1, 1), (2, 1);
+VALUES (9876543210, 1, 1, 1, 'image/png'), (2, 2, 2, 1, 'image/png');
+INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (9876543210, 1), (2, 1);
 EOSQL
 
     my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('Artwork')->load_for_release_groups($release_group);
-    is($release_group->cover_art->id, 1);
+    is($release_group->cover_art->id, 9876543210);
+
+    ok($c->model('Artwork')->is_valid_id($release_group->cover_art->id), 'CAA ID larger than INT_MAX is considered valid');
 };
 
 1;
