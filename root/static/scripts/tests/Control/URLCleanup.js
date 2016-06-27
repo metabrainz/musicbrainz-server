@@ -1608,7 +1608,7 @@ test('Cleanup', function (t) {
             // MBS-8457: Remove "?oldformat=true" from Wikipedia URLs
             [
                 'http://en.wikipedia.org/wiki/Ramesh_Vinayakam?oldformat=true',
-                'http://en.wikipedia.org/wiki/Ramesh_Vinayakam'
+                'https://en.wikipedia.org/wiki/Ramesh_Vinayakam'
             ],
             // BookBrainz
             [

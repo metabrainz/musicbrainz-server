@@ -223,8 +223,8 @@ const CLEANUPS = {
       url = url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "https://$1.wikipedia.org/wiki/$2");
       url = url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "https://en.wikipedia.org/$1");
       url = url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
-      url = url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
       url = url.replace(/\?oldformat=true$/, '');
+      url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, "https://$1.wikipedia.org/wiki/$2");
       var m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/);
       if (m) {
         url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
@@ -623,7 +623,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i")],
     type: LINK_TYPES.wikidata,
     clean: function (url) {
-      return url.replace(/^(https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "$1www.wikidata.org/wiki/$2");
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "https://www.wikidata.org/wiki/$1");
     }
   },
   bandcamp: {
