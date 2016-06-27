@@ -20,7 +20,7 @@ has 'thumb_url' => (
 sub page_url
 {
     my $self = shift;
-    return sprintf "//commons.wikimedia.org/wiki/%s", $self->title;
+    return sprintf "https://commons.wikimedia.org/wiki/%s", $self->title;
 }
 
 __PACKAGE__->meta->make_immutable;
