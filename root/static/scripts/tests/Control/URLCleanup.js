@@ -1345,6 +1345,10 @@ test('Cleanup', function (t) {
                 'http://wikipedia.org/wiki/Oberhofer',
                 'https://en.wikipedia.org/wiki/Oberhofer',
             ],
+            [
+                'it.wikipedia.org/wiki/Foo',
+                'https://it.wikipedia.org/wiki/Foo',
+            ],
             // Open Library
             [
                 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
