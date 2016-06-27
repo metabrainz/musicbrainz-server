@@ -1349,6 +1349,15 @@ test('Cleanup', function (t) {
                 'it.wikipedia.org/wiki/Foo',
                 'https://it.wikipedia.org/wiki/Foo',
             ],
+            // Wikidata
+            [
+                'https://www.wikidata.org/wiki/Q638',
+                'https://www.wikidata.org/wiki/Q638',
+            ],
+            [
+                'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
+                'https://www.wikidata.org/wiki/Q14005',
+            ],
             // Open Library
             [
                 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
