@@ -34,7 +34,7 @@ Please submit all patches to [GitHub](https://github.com/metabrainz/musicbrainz-
 License
 -------
 
-MusicBrainz Server is released under the GPLv2. See COPYING.
+MusicBrainz Server is released under the GPLv2 or later. See COPYING.
 
 Further reading
 ---------------
