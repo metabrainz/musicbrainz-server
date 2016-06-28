@@ -25,6 +25,7 @@ use MusicBrainz::Server::Validation qw(
     is_valid_ean
     is_valid_partial_date
     is_database_row_id
+    is_database_bigint_id
 );
 
 test 'Test trim_in_place' => sub {
@@ -65,6 +66,16 @@ test 'Test is_database_row_id' => sub {
     ok(!is_database_row_id(undef), 'undef is not a row id');
     ok(!is_database_row_id([1, 2, 3, 4]), 'arrayref is not a row id');
     ok(!is_database_row_id({blah => 'foo', bar => 3}), 'hashref is not a row id');
+};
+
+test 'Test is_database_bigint_id' => sub {
+    ok(is_database_bigint_id(1), "1 is a bigint");
+    ok(is_database_bigint_id(2147483647), 'max postgres int is a bigint ID');
+    ok(is_database_bigint_id(2147483648), '(max postgres int + 1) is a bigint ID');
+    ok(is_database_bigint_id(9223372036854775807), 'max postgres bigint is a bigint ID');
+    ok(!is_database_bigint_id(9223372036854775808), '(max postgres bigint + 1) is not a bigint ID');
+    ok(!is_database_bigint_id(0), 'zero is not a bigint ID');
+    ok(!is_database_bigint_id(-1), 'negative integer is not a bigint ID');
 };
 
 test 'Test is_guid' => sub {
