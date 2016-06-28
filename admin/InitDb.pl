@@ -30,7 +30,6 @@ use warnings;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use version;
 
 use DBDefs;
 use MusicBrainz::Server::Replication ':replication_type';
@@ -71,10 +70,9 @@ sub RequireMinimumPostgreSQLVersion
     my $mb = Databases->get_connection('SYSTEM');
     my $sql = Sql->new( $mb->conn );
 
-    my $version = $sql->select_single_value("SELECT version();");
-    $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
+    my $version = $sql->select_single_value("SELECT current_setting('server_version_num')");
 
-    if (version->parse("v".$version) < version->parse('v9.5')) {
+    if ($version < 90500) {
         die 'MusicBrainz requires PostgreSQL 9.5 or later';
     }
 }
