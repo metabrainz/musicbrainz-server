@@ -44,7 +44,7 @@ function not_contains(t, $mountPoint, selector, description) {
 externalLinksTest("automatic link type detection for URL", function (t, $mountPoint, component, addURL) {
     t.plan(2);
 
-    addURL("http://en.wikipedia.org/wiki/No_Age");
+    addURL("https://en.wikipedia.org/wiki/No_Age");
 
     contains(t, $mountPoint, '.wikipedia-favicon', 'wikipedia favicon is used');
     contains(t, $mountPoint, ':contains(Wikipedia)', 'wikipedia label is used');
@@ -58,7 +58,7 @@ externalLinksTest("invalid URL detection", function (t, $mountPoint, component, 
 
     triggerChange(
         ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'input')[0],
-        'http://en.wikipedia.org/wiki/No_Age'
+        'https://en.wikipedia.org/wiki/No_Age'
     );
 
     not_contains(t, $mountPoint, ':contains(Enter a valid url)', 'error is removed after valid URL is entered');
@@ -124,21 +124,21 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 
     MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/Deerhunter");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
     t.equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
     t.equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
 
     triggerChange(
         $mountPoint.find('input[type=url]:eq(0)')[0],
-        'http://en.wikipedia.org/wiki/dEErHuNtER'
+        'https://en.wikipedia.org/wiki/dEErHuNtER'
     );
 
     triggerClick($mountPoint.find('button:eq(1)')[0]);
 
     MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/dEErHuNtER");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
     triggerClick($mountPoint.find('button:eq(0)')[0]);
@@ -146,7 +146,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
     MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
-    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/Deerhunter");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
     $re.remove();
@@ -155,7 +155,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 [
     {
         id: 1,
-        target: MB.entity.URL({ name: "http://en.wikipedia.org/wiki/Deerhunter" }),
+        target: MB.entity.URL({ name: "https://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
     }
 ]);
