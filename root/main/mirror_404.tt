@@ -6,8 +6,8 @@
         </strong></p>
 
         <p>
-            [% l('In order to view this page please visit the main server at {uri}.',
-                  { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) %]
+            [% l('In order to view this page, please visit the main server at {mb|https://musicbrainz.org/}.',
+                  { mb => { href => 'https://musicbrainz.org/', class => 'external' } }) %]
         </p>
     </div>
 [% END %]
