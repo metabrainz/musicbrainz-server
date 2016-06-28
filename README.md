@@ -18,9 +18,8 @@ Full installation instructions are available in [INSTALL.md](INSTALL.md).
 General Prerequisites:
 
 * Ubuntu/Debian
-* Perl (at least version 5.10.1)
-* PostgreSQL (at least version 9.1)
-* Memcached
+* Perl (at least version 5.18.2)
+* PostgreSQL (at least version 9.5)
 
 Reporting bugs
 --------------
