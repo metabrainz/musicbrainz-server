@@ -33,6 +33,7 @@ require Exporter;
         is_integer
         is_positive_integer
         is_database_row_id
+        is_database_bigint_id
         is_guid
         trim_in_place
         is_valid_iswc
@@ -67,7 +68,7 @@ use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
-use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT );
+use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
 use utf8;
 
 sub unaccent_utf16 ($)
@@ -96,6 +97,12 @@ sub is_database_row_id {
     my $t = shift;
 
     is_positive_integer($t) and $t <= $MAX_POSTGRES_INT;
+}
+
+sub is_database_bigint_id {
+    my $t = shift;
+
+    is_positive_integer($t) and $t <= $MAX_POSTGRES_BIGINT;
 }
 
 sub is_guid

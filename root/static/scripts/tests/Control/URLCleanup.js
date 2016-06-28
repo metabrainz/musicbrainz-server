@@ -28,7 +28,7 @@ test('Guess type', function (t) {
                 LINK_TYPES.wikipedia.artist
             ],
             [
-                'release_group', 'http://en.wikipedia.org/wiki/Exorcise_the_Demons',
+                'release_group', 'https://en.wikipedia.org/wiki/Exorcise_the_Demons',
                 LINK_TYPES.wikipedia.release_group
             ],
             [
@@ -164,15 +164,15 @@ test('Guess type', function (t) {
             ],
             // Wikimedia Commons
             [
-                'artist', 'http://commons.wikimedia.org/wiki/File:NIN2008.jpg',
+                'artist', 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
                 LINK_TYPES.image.artist
             ],
             [
-                'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
+                'label', 'https://commons.wikimedia.org/wiki/File:EMI_Records.svg',
                 LINK_TYPES.image.label
             ],
             [
-                'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                'work', 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
                 LINK_TYPES.image.work
             ],
             // CPDL
@@ -619,19 +619,19 @@ test('Guess type', function (t) {
             ],
             // Wikidata
             [
-                'artist', 'http://www.wikidata.org/wiki/Q42',
+                'artist', 'https://www.wikidata.org/wiki/Q42',
                 LINK_TYPES.wikidata.artist
             ],
             [
-                'label', 'http://www.wikidata.org/wiki/Q42',
+                'label', 'https://www.wikidata.org/wiki/Q42',
                 LINK_TYPES.wikidata.label
             ],
             [
-                'release_group', 'http://www.wikidata.org/wiki/Q42',
+                'release_group', 'https://www.wikidata.org/wiki/Q42',
                 LINK_TYPES.wikidata.release_group
             ],
             [
-                'work', 'http://www.wikidata.org/wiki/Q42',
+                'work', 'https://www.wikidata.org/wiki/Q42',
                 LINK_TYPES.wikidata.work
             ],
             // Rockipedia
@@ -1327,21 +1327,36 @@ test('Cleanup', function (t) {
                 'label'
             ],
             [
-                'http://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
+                'https://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                'https://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
                 'label'
             ],
             [
                 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
                 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif'
             ],
+
+            // Wikipedia
             [
-                'http://sv.m.wikipedia.org/wiki/Bullet',
-                'http://sv.wikipedia.org/wiki/Bullet',
+                'https://sv.m.wikipedia.org/wiki/Bullet',
+                'https://sv.wikipedia.org/wiki/Bullet',
             ],
             [
                 'http://wikipedia.org/wiki/Oberhofer',
                 'https://en.wikipedia.org/wiki/Oberhofer',
+            ],
+            [
+                'it.wikipedia.org/wiki/Foo',
+                'https://it.wikipedia.org/wiki/Foo',
+            ],
+            // Wikidata
+            [
+                'https://www.wikidata.org/wiki/Q638',
+                'https://www.wikidata.org/wiki/Q638',
+            ],
+            [
+                'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
+                'https://www.wikidata.org/wiki/Q14005',
             ],
             // Open Library
             [
@@ -1606,7 +1621,7 @@ test('Cleanup', function (t) {
             // MBS-8457: Remove "?oldformat=true" from Wikipedia URLs
             [
                 'http://en.wikipedia.org/wiki/Ramesh_Vinayakam?oldformat=true',
-                'http://en.wikipedia.org/wiki/Ramesh_Vinayakam'
+                'https://en.wikipedia.org/wiki/Ramesh_Vinayakam'
             ],
             // BookBrainz
             [
