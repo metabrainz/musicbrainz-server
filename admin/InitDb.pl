@@ -74,8 +74,8 @@ sub RequireMinimumPostgreSQLVersion
     my $version = $sql->select_single_value("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
-    if (version->parse("v".$version) < version->parse('v9.1')) {
-        die 'MusicBrainz requires PostgreSQL 9.1 on later';
+    if (version->parse("v".$version) < version->parse('v9.5')) {
+        die 'MusicBrainz requires PostgreSQL 9.5 on later';
     }
 }
 
