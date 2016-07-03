@@ -9,7 +9,7 @@
             <dt>[% add_colon(link_type_group.key) %]</dt>
             <dd>
               [%- link_work(work, 'show', work.name) %]
-	      [%- bracketed(relationship.link.formatted_date) %]
+              [%- bracketed(relationship.link.formatted_date) %]
               [%- grouped_relationships(work) %]
             </dd>
           [%- END %]
