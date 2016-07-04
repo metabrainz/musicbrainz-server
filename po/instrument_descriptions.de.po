@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-06-30 12:31+0000\n"
+"Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1886,7 +1886,7 @@ msgstr "Die Laouto ist eine in der griechischen Musik gespielte Langhalslaute. S
 msgid ""
 "The lasso d'amore, whirly tube or corrugaphone is a corrugated plastic tube "
 "which is spun in a circle."
-msgstr ""
+msgstr "Das Lasso d'Amore, \"whirly tube\", Corrugaphone oder Heulschlauch ist ein quergeriffeltes Kunststoffrohr. Hält man es an einem Ende fest und wirbelt es im Kreis herum, so entstehen ab einer bestimmten Drehgeschwindigkeit schaurig heulende oder pfeifende Töne."
 
 #. name:launeddas
 #: DB:instrument/description:518

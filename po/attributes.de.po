@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-17 09:09+0000\n"
+"PO-Revision-Date: 2016-06-30 12:20+0000\n"
 "Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -500,7 +500,7 @@ msgctxt "event_type"
 msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
-msgstr ""
+msgstr "Eine Veranstaltung, an der verschiedene Künstler während des Tages auftreten. Grössere Festivals können auch mehrere Tage dauern."
 
 #: DB:event_type/description:1
 msgctxt "event_type"
@@ -760,12 +760,12 @@ msgstr "Aṭṭa"
 #: DB:work_attribute_type_allowed_value/value:795
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Dorian"
-msgstr ""
+msgstr "b-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:807
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Mixolydian"
-msgstr ""
+msgstr "b-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:33
 msgctxt "work_attribute_type_allowed_value"
@@ -1067,12 +1067,12 @@ msgstr "Bṛndāvani"
 #: DB:work_attribute_type_allowed_value/value:789
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Dorian"
-msgstr ""
+msgstr "c-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:801
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Mixolydian"
-msgstr ""
+msgstr "c-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:2
 msgctxt "work_attribute_type_allowed_value"
@@ -1253,7 +1253,7 @@ msgstr "Instrumentalkonzert"
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr ""
+msgstr "Versammlung/Ausstellung"
 
 #: DB:medium_format/name:61
 msgctxt "medium_format"
@@ -1323,12 +1323,12 @@ msgstr "Cāyātarangiṇi"
 #: DB:work_attribute_type_allowed_value/value:790
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Dorian"
-msgstr ""
+msgstr "d-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:802
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Mixolydian"
-msgstr ""
+msgstr "d-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:8
 msgctxt "work_attribute_type_allowed_value"
@@ -1738,12 +1738,12 @@ msgstr "Dīpāḷi"
 #: DB:work_attribute_type_allowed_value/value:791
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Dorian"
-msgstr ""
+msgstr "e-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:803
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Mixolydian"
-msgstr ""
+msgstr "e-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:13
 msgctxt "work_attribute_type_allowed_value"
@@ -1883,12 +1883,12 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:792
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Dorian"
-msgstr ""
+msgstr "f-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:804
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Mixolydian"
-msgstr ""
+msgstr "f-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -2041,12 +2041,12 @@ msgstr "Vorderseite"
 #: DB:work_attribute_type_allowed_value/value:793
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Dorian"
-msgstr ""
+msgstr "g-Dorisch"
 
 #: DB:work_attribute_type_allowed_value/value:805
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Mixolydian"
-msgstr ""
+msgstr "g-Mixolydisch"
 
 #: DB:work_attribute_type_allowed_value/value:22
 msgctxt "work_attribute_type_allowed_value"
@@ -3031,7 +3031,7 @@ msgstr "Kōkilapriya"
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -3424,7 +3424,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Musical"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -3991,7 +3991,7 @@ msgstr "Notenrolle"
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place"
-msgstr ""
+msgstr "Örtlichkeit"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -4206,7 +4206,7 @@ msgstr "Aufnahme"
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
 msgid "Recording name"
-msgstr ""
+msgstr "Name der Aufnahme"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -4251,12 +4251,12 @@ msgstr "Veröffentlichungsgruppe"
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release group name"
-msgstr ""
+msgstr "Name der Veröffentlichungsgruppe"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release name"
-msgstr ""
+msgstr "Name der Veröffentlichung"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
@@ -4793,7 +4793,7 @@ msgstr "Sunādavinōdini"
 #: DB:release_packaging/name:16
 msgctxt "release_packaging"
 msgid "Super Jewel Box"
-msgstr ""
+msgstr "Super Jewelcase"
 
 #: DB:work_attribute_type_allowed_value/value:252
 msgctxt "work_attribute_type_allowed_value"
@@ -5179,7 +5179,7 @@ msgstr "VCD"
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr ""
+msgstr "VHD"
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
