@@ -163,7 +163,7 @@ test 'Replace artist credit' => sub {
         ]}
     );
 
-    is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 0, 'has removed artist credit 1');
+    is($c->model('ArtistCredit')->get_by_id(1), undef, 'has removed artist credit 1');
 
     my @ents = (
         $c->model('ReleaseGroup')->get_by_id(1),

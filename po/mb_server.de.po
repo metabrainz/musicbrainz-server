@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-07 00:49-0500\n"
-"PO-Revision-Date: 2016-06-17 09:02+0000\n"
+"PO-Revision-Date: 2016-06-30 11:47+0000\n"
 "Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -282,7 +282,7 @@ msgstr ""
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
 msgstr[0] "Eine Stimme"
-msgstr[1] "{n} einhellige Stimmen"
+msgstr[1] "{n} Ja-Stimmen"
 
 #: ../root/user/profile.tt:248 ../root/user/profile.tt:252
 msgid "100%"
@@ -468,7 +468,7 @@ msgstr "Bearbeitung akzeptieren"
 
 #: ../root/components/common-macros.tt:638
 msgid "Accept upon expiration"
-msgstr "Wird bei Ablauf akzeptiert"
+msgstr "Wird nach Ablauf akzeptiert"
 
 #: ../root/user/profile.tt:161
 msgctxt "edit descriptor"
@@ -704,7 +704,7 @@ msgstr "Eine Sprache hinzufügen"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
+msgstr "Füge unten ein Medium mit Klick auf \"Medium hinzufügen\" hinzu oder aktiviere die Box zur Bestätigung, dass die Titelliste unbekannt ist."
 
 #: ../root/components/aliases.tt:79
 msgid "Add a new alias"
@@ -1038,7 +1038,7 @@ msgstr[1] "{n} anonyme Benutzer"
 msgid ""
 "An email has been sent to <code>{addr}</code>. Please check your mailbox and"
 " click on the link in the email to verify your email address."
-msgstr ""
+msgstr "Eine Bestätigungs-E-Mail wurde an <code>{addr}</code> geschickt. Bitte schaue in Deinem Posteingang nach und klicke auf den Link in der E-Mail, um Deine E-Mail-Adresse zu bestätigen."
 
 #: ../root/components/common-macros.tt:1077
 msgid ""
@@ -5710,7 +5710,7 @@ msgstr "Bitte suche nach dem Künstler, für den Du eine neue Veröffentlichung 
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
-msgstr ""
+msgstr "Siehe bitte die {doc|Cover Art Types} Dokumentation für eine Beschreibung dieser Typen."
 
 #: ../root/artist/edit_form.tt:78
 msgid ""
@@ -7129,7 +7129,7 @@ msgstr "Auswählen"
 #: ../root/release/edit/tracklist.tt:93
 msgid ""
 "Select a medium from the search results below and then click \"Add Medium\"."
-msgstr ""
+msgstr "Wähle ein Medium aus den Suchergebnissen unten und klicke dann auf „Medium hinzufügen“."
 
 #: ../root/cdtoc/move_search.tt:4
 msgid ""
@@ -8467,7 +8467,7 @@ msgstr "Dies ist ein MusicBrainz-Entwicklungsserver."
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr ""
+msgstr "Dies ist ein MusicBrainz-Spiegelserver. Um die Daten zu bearbeiten oder zu ändern, benutze bitte {uri|return to musicbrainz.org}."
 
 #: ../root/components/common-macros.tt:108
 msgid ""
@@ -10955,7 +10955,7 @@ msgstr "kein Objekt"
 
 #: ../root/forms/relationship-editor.tt:25
 msgid "no type"
-msgstr ""
+msgstr "Kein Typ"
 
 #: ../root/user/profile.tt:62
 msgid "nominate for auto-editor"
@@ -11491,7 +11491,7 @@ msgstr "{yes} ja : {no} nein"
 
 #: ../root/release/edit/layout.tt:60
 msgid "« Previous"
-msgstr "« Vorheriges"
+msgstr "« Zurück"
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39
@@ -11972,7 +11972,7 @@ msgstr "Veröffentlichung bearbeiten"
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:11
 msgid "Edit track (historic)"
-msgstr ""
+msgstr "Titel bearbeiten (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:17
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:34
@@ -13243,7 +13243,7 @@ msgstr "Wir haben die folgenden Objekte mit sehr ähnlichen Namen gefunden:"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:28
 msgid "Yes, I still want to enter “{entity_name}”."
-msgstr ""
+msgstr "Ja, ich will “{entity_name}” immer noch eingeben."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:32
 msgid ""

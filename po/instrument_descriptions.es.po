@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Fitoschido, 2016
+# Adolfo Jayme-Barrientos, 2016
 # Alexander Dupuy <email address hidden>, 2012
 # Fitoschido, 2016
 # gr0uch0mars <email address hidden>, 2011

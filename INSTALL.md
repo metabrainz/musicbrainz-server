@@ -2,7 +2,7 @@ Installing MusicBrainz Server
 =============================
 
 The easiest method of installing a local MusicBrainz Server may be to download the
-[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup),
+[pre-configured virtual machine](https://musicbrainz.org/doc/MusicBrainz_Server/Setup),
 if there is a current image available. In case you only need a replicated
 database, you should consider using [mbslave](https://bitbucket.org/lalinsky/mbslave).
 
@@ -117,7 +117,7 @@ Server configuration
     1.  `RT_SLAVE` (mirror server)
 
         A mirror server will always be in sync with the master database at
-        http://musicbrainz.org by way of an hourly replication packet. Mirror
+        https://musicbrainz.org/ by way of an hourly replication packet. Mirror
         servers do not allow any local editing. After the initial data import, the
         only changes allowed will be to load the next replication packet in turn.
 
@@ -136,7 +136,7 @@ Server configuration
         development purposes. They do not accept the replication packets and will
         require manually importing a new database dump in order to bring it up to
         date with the master database. Local editing is available, but keep in
-        mind that none of your changes will be pushed up to http://musicbrainz.org.
+        mind that none of your changes will be pushed up to https://musicbrainz.org/.
 
     3. `RT_MASTER`
 
@@ -277,8 +277,6 @@ Creating the database
 
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
-        or the European mirror server at
-        ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can

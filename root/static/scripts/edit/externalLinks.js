@@ -10,7 +10,7 @@ const PropTypes = React.PropTypes;
 
 const {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} = require('../common/constants');
 const {compare, l} = require('../common/i18n');
-const isPositiveInteger = require('../edit/utility/isPositiveInteger');
+const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
 const RemoveButton = require('./components/RemoveButton');
 const URLCleanup = require('./URLCleanup');
@@ -442,11 +442,15 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   initialLinks = initialLinks.map(function (link) {
-    var newData = {url: URLCleanup.cleanURL(link.url) || link.url};
-    if (!_.isNumber(link.relationship)) {
-      newData.relationship = _.uniqueId('new-');
+    // Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
+    // existing relationship ID.
+    if (!isPositiveInteger(link.relationship)) {
+      return link.merge({
+        relationship: _.uniqueId('new-'),
+        url: URLCleanup.cleanURL(link.url) || link.url,
+      });
     }
-    return link.merge(newData);
+    return link;
   });
 
   var typeOptions = (
