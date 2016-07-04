@@ -31,11 +31,24 @@
                     [%~ END ~%]
                     <td>
                       [%~ IF rel.link.attributes.size ~%]
-                      [%~ attr_list = [];
+                      [%~ attr_list1 = []; attr_list2 = [];
+                          instrument_root = '0abd7f04-5e28-425b-956f-94789d9bcbe2';
+                          vocals_root     = 'd92884b7-ee0c-46d5-96f3-918196ba8c5b';
                           FOR attr=rel.link.attributes;
-                            attr_list.push(attr.html);
+                            IF attr.type.root.gid == instrument_root OR attr.type.root.gid == vocals_root;
+                              attr_list2.push(attr.html);
+                            ELSE;
+                              attr_list1.push(attr.html);
+                            END;
                           END;
-                          comma_list(attr_list);
+                          IF attr_list1.size AND attr_list2.size;
+                            FOR text = attr_list1; text; ' '; END;
+                            comma_list(attr_list2);
+                          ELSIF attr_list1.size;
+                            comma_list(attr_list1);
+                          ELSIF attr_list2.size;
+                            comma_list(attr_list2);
+                          END;
                        ~%]
                       [%~ END ~%]
                     </td>
