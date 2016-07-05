@@ -41,14 +41,8 @@
                               attr_list1.push(attr.html);
                             END;
                           END;
-                          IF attr_list1.size AND attr_list2.size;
-                            FOR text = attr_list1; text; ' '; END;
-                            comma_list(attr_list2);
-                          ELSIF attr_list1.size;
-                            comma_list(attr_list1);
-                          ELSIF attr_list2.size;
-                            comma_list(attr_list2);
-                          END;
+                          attr_list = attr_list1.merge(attr_list2);
+                          comma_list(attr_list);
                        ~%]
                       [%~ END ~%]
                     </td>
