@@ -41,8 +41,17 @@
                               attr_list1.push(attr.html);
                             END;
                           END;
-                          attr_list = attr_list1.merge(attr_list2);
-                          comma_list(attr_list);
+                          IF attr_list1.size;
+                            IF attr_list2.size;
+                              l('{attributes}: {instruments_and_vocals}',
+                                { 'attributes'             => comma_list(attr_list1),
+                                  'instruments_and_vocals' => comma_list(attr_list2) });
+                            ELSE;
+                              comma_list(attr_list1);
+                            END;
+                          ELSE;
+                            comma_list(attr_list2);
+                          END;
                        ~%]
                       [%~ END ~%]
                     </td>
