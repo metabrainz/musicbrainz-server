@@ -53,6 +53,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_EDITCREDIT
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
+    $INSTRUMENT_ROOT_ID
+    $VOCAL_ROOT_ID
 );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
@@ -267,7 +269,15 @@ sub show : PathPart('') Chained('load')
               identities => \@identities);
 }
 
-sub relationships : Chained('load') PathPart('relationships') {}
+sub relationships : Chained('load') PathPart('relationships')
+{
+  my ($self, $c) = @_;
+  $c->stash(server_constants =>
+            {
+             INSTRUMENT_ROOT_ID => $INSTRUMENT_ROOT_ID,
+             VOCAL_ROOT_ID      => $VOCAL_ROOT_ID,
+            });
+}
 
 =head2 works
 
