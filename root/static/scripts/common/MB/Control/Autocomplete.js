@@ -570,7 +570,7 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !isLatin(item.name) && item.sortName != item.name)
+        if (item.sortName && !isLatin(item.name) && item.sortName != item.name && !item.primaryAlias)
         {
             comment.push(item.sortName);
         }
