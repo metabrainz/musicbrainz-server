@@ -33,8 +33,7 @@
                       [%~ IF rel.link.attributes.size ~%]
                       [%~ attr_list1 = []; attr_list2 = [];
                           FOR attr=rel.link.attributes;
-                            IF attr.type.root.id == server_constants.INSTRUMENT_ROOT_ID
-                            OR attr.type.root.id == server_constants.VOCAL_ROOT_ID;
+                            IF attr.type.root.id == 14 OR attr.type.root.id == 3;
                               attr_list2.push(attr.html);
                             ELSE;
                               attr_list1.push(attr.html);
