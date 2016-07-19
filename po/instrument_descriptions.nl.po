@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 07:07+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2016-07-20 00:30+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,13 @@ msgstr ""
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
 
+#. name:dulce melos
+#: DB:instrument/description:773
+msgid ""
+"A European mediaeval struck string instrument, similar to the psaltery and a"
+" possible ancestor of the piano. Essentially it is a dulcimer with keys."
+msgstr ""
+
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
@@ -31,6 +38,13 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
 msgstr "Een Turkse versie van de tamboerijn / daf, gemaakt van dierenhuid en met de vingers bespeeld."
+
+#. name:donso ngɔni
+#: DB:instrument/description:776
+msgid ""
+"A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
+" hide as membrane."
+msgstr ""
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -374,6 +388,13 @@ msgid ""
 "bars"
 msgstr "Een Amadinda (ook Madinda) is een enorme Zuid-Oegandese xylofoon van resonerende hardhouten staven."
 
+#. name:calabash
+#: DB:instrument/description:777
+msgid ""
+"An African percussion instrument, made of a dried gourd plant. Struck with "
+"hands or objects."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid ""
@@ -392,6 +413,13 @@ msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr "Een archtopgitaar is een akoestische of semiakoestische gitaar met stalen snaren en een kenmerkende gebogen bovenblad en is vooral populair onder jazz-spelers."
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"An electric keyboard slung over the shoulder by a strap like a guitar, it "
+"has soundcontrols placed on the neck"
+msgstr ""
 
 #. name:electric piano
 #: DB:instrument/description:259
@@ -1985,7 +2013,7 @@ msgstr "De nagadou-daiko (Japans: 長胴太鼓) is een verlengde tonvormige Japa
 msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
 msgstr "De naobo (Chinees: 铙钹, pinyin: náobó) zijn Chinese bekkens die veel worden gebruikt in de opera van Beijing."
 
-#. name:ngoni
+#. name:ngɔni
 #: DB:instrument/description:729
 msgid "The ngoni is a plucked string instrument from West Africa."
 msgstr "Een ngoni is een tokkelinstrument uit West-Afrika."
@@ -3007,6 +3035,11 @@ msgstr "De dholak (Punjabi: ਢੋਲਕ, Hindi: ढोलक) is een Zuid-Aziat
 #: DB:instrument/description:306
 msgid "edo village traditional flute, four finger holes, blowing reed"
 msgstr "Een đing buốt is een traditionele fluit uit de Edoperiode met vier vingergaten en een riet."
+
+#. name:tubon
+#: DB:instrument/description:775
+msgid "electronic bass organ proto-keytar"
+msgstr ""
 
 #. name:hmông flute
 #: DB:instrument/description:312

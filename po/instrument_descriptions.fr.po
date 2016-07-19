@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
+"PO-Revision-Date: 2016-07-20 00:30+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,13 @@ msgstr ""
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr "Un batá est un tambour à deux têtes originaire du Nigeria."
 
+#. name:dulce melos
+#: DB:instrument/description:773
+msgid ""
+"A European mediaeval struck string instrument, similar to the psaltery and a"
+" possible ancestor of the piano. Essentially it is a dulcimer with keys."
+msgstr ""
+
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
@@ -38,6 +45,13 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
 msgstr "Une version turque du tambourin / daf, en peau d'animal et à percussion digitale."
+
+#. name:donso ngɔni
+#: DB:instrument/description:776
+msgid ""
+"A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
+" hide as membrane."
+msgstr ""
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -381,6 +395,13 @@ msgid ""
 "bars"
 msgstr "L'amadinda est un xylophone géant du sud de l'Ouganda, constitué de barres sonores de bois dur. "
 
+#. name:calabash
+#: DB:instrument/description:777
+msgid ""
+"An African percussion instrument, made of a dried gourd plant. Struck with "
+"hands or objects."
+msgstr ""
+
 #. name:morsing
 #: DB:instrument/description:533
 msgid ""
@@ -399,6 +420,13 @@ msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr "Une guitare Archtop est une guitare acoustique ou semi-acoustique à cordes d'acier au dessus reconnaissable car bombé, particulièrement populaire chez les joueurs de jazz."
+
+#. name:keytar
+#: DB:instrument/description:774
+msgid ""
+"An electric keyboard slung over the shoulder by a strap like a guitar, it "
+"has soundcontrols placed on the neck"
+msgstr ""
 
 #. name:electric piano
 #: DB:instrument/description:259
@@ -1992,7 +2020,7 @@ msgstr "Le nagadou-daiko est un tambour-tonneau japonais allongé."
 msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
 msgstr "Les naobo sont des cymbales chinoises utilisées spécialement à l'opéra de Pékin."
 
-#. name:ngoni
+#. name:ngɔni
 #: DB:instrument/description:729
 msgid "The ngoni is a plucked string instrument from West Africa."
 msgstr "Le n'goni est un instrument à cordes pincées d'Afrique de l'Ouest."
@@ -2617,7 +2645,7 @@ msgstr "Le tumbi est un instrument aigu à une corde pincée associé à la musi
 msgid ""
 "The udu is a Nigerian idiophone consisting of a water jug with an additional"
 " hole."
-msgstr "L'udu est un idiophone nigérien en forme de jarre avec une petite ouverture sur le côté."
+msgstr ""
 
 #. name:ukeke
 #: DB:instrument/description:631
@@ -2625,7 +2653,7 @@ msgid ""
 "The ukeke is a Hawaiian musical bow made of koa wood, 16 to 24 inches long "
 "and about 1½ inches wide with two or three strings fastened through and "
 "around either end, tuned to an A major triad."
-msgstr "L'ukeke est un arc musical hawaïen en bois de koa, de 16 à 24 pouces de long et large d'½ pouce, à deux ou trois cordes attachée aux deux extrémités, formant un accord de la majeur."
+msgstr ""
 
 #. name:ukulele
 #: DB:instrument/description:89
@@ -3014,6 +3042,11 @@ msgstr "Le dholak est un tambour à main de l'Inde du Nord."
 #: DB:instrument/description:306
 msgid "edo village traditional flute, four finger holes, blowing reed"
 msgstr "flûte traditionnelle à quatre trous et anche simple utilisée dans les villages durant la période d'Edo, "
+
+#. name:tubon
+#: DB:instrument/description:775
+msgid "electronic bass organ proto-keytar"
+msgstr ""
 
 #. name:hmông flute
 #: DB:instrument/description:312
