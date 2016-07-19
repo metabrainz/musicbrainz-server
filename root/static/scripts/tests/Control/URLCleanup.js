@@ -238,6 +238,27 @@ test('Guess type', function (t) {
                 'recording', 'http://recochoku.jp/song/S21893898/',
                 LINK_TYPES.downloadpurchase.recording
             ],
+            // Resident Advisor
+            [
+                'artist', 'https://www.residentadvisor.net/dj/adamx',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'event', 'https://www.residentadvisor.net/event.aspx?860109',
+                LINK_TYPES.otherdatabases.event
+            ],
+            [
+                'label', 'https://www.residentadvisor.net/record-label.aspx?id=2795',
+                LINK_TYPES.otherdatabases.label
+            ],
+            [
+                'recording', 'https://www.residentadvisor.net/track.aspx?544258',
+                LINK_TYPES.otherdatabases.recording
+            ],
+            [
+                'release_group', 'https://www.residentadvisor.net/reviews/7636',
+                LINK_TYPES.review.release_group
+            ],
             // Rockens Danmarkskort
             [
                 'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
