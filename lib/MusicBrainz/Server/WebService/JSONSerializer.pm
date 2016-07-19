@@ -250,7 +250,10 @@ sub _with_primary_alias {
                     $_->primary_for_locale
                 } @{ $result->{aliases} };
 
-            $out->{primaryAlias} = $primary_alias && $primary_alias->name;
+            $out->{primaryAlias} = undef;
+            if ($primary_alias && $alias_preference{$munge_lang->($primary_alias->locale)} > 0) {
+                $out->{primaryAlias} = $primary_alias->name;
+            }
             push @output, $out;
         }
     }
