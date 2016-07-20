@@ -133,7 +133,7 @@ sub parse_db {
                my $item = shift @{$value};
                if ($item) {
                    my $id = shift @{$value};
-                   $item =~ s/\r*\n/\\n/g;
+                   $item =~ s/\r*\n/\n/g;
                    $po->msgid(encode('UTF-8', $item));
                    if ($ctx) {
                        if ($ctx ne 'NULL') {

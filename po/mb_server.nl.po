@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-07 00:49-0500\n"
-"PO-Revision-Date: 2016-06-18 19:24+0000\n"
+"POT-Creation-Date: 2016-07-19 19:28-0500\n"
+"PO-Revision-Date: 2016-07-14 08:59+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "‘JJ’ zijn de laatste twee cijfers van het registratiejaar."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/events-list.tt:11
-#: ../root/components/medium.tt:63 ../root/components/recordings-list.tt:22
+#: ../root/components/medium.tt:64 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
 #: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
 #: ../root/edit/details/add_medium.tt:49
@@ -226,11 +226,11 @@ msgstr "(onbekend)"
 msgid "(verified at {date})"
 msgstr "(geverifieerd op {date})"
 
-#: ../root/release/merge.tt:82
+#: ../root/release/merge.tt:86
 msgid "(was medium {position} on release {release})"
 msgstr "(was medium {position} van uitgave {release})"
 
-#: ../root/release/merge.tt:77
+#: ../root/release/merge.tt:81
 msgid "(was medium {position}: {name} on release {release})"
 msgstr "(was medium {position}: {name} van uitgave {release})"
 
@@ -430,7 +430,7 @@ msgstr "Over ons"
 msgid "Abstain"
 msgstr "Onthouding"
 
-#: ../root/edit/search_macros.tt:245 ../root/edit/vote.tt:20
+#: ../root/edit/search_macros.tt:243 ../root/edit/vote.tt:20
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgctxt "vote"
 msgid "Abstain"
@@ -1105,11 +1105,11 @@ msgstr "Applicatie"
 msgid "Applications"
 msgstr "Applicaties"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Applied Edit Count of Editor"
 msgstr "Aantal doorgevoerde bewerkingen van de gebruiker"
 
-#: ../root/edit/search_macros.tt:245
+#: ../root/edit/search_macros.tt:243
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:177
 msgctxt "vote"
 msgid "Approve"
@@ -1211,7 +1211,7 @@ msgstr "Weet je zeker dat je de serie {series} wil verwijderen van MusicBrainz?"
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:598 ../root/components/labels-list.tt:9
-#: ../root/edit/search_macros.tt:308 ../root/label/merge.tt:15
+#: ../root/edit/search_macros.tt:306 ../root/label/merge.tt:15
 #: ../root/place/merge.tt:14 ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -1258,7 +1258,7 @@ msgstr "Gebieden"
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:6 ../root/cdtoc/lookup.tt:39
 #: ../root/components/artists-list.tt:5
-#: ../root/components/common-macros.tt:598 ../root/components/medium.tt:69
+#: ../root/components/common-macros.tt:598 ../root/components/medium.tt:70
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:10
 #: ../root/components/release_groups-list.tt:11
@@ -1269,7 +1269,7 @@ msgstr "Gebieden"
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/edit_track.tt:13
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:308
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:306
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:351
@@ -1295,7 +1295,7 @@ msgstr "Gebieden"
 msgid "Artist"
 msgstr "Artiest"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Artist Area"
 msgstr "Gebied van artiest"
 
@@ -1538,7 +1538,7 @@ msgstr "Machtigingen"
 msgid "Authorized Applications"
 msgstr "Gemachtigde applicaties"
 
-#: ../root/edit/search_macros.tt:289
+#: ../root/edit/search_macros.tt:287
 msgid "Auto-Editor"
 msgstr "Autoredacteur"
 
@@ -1789,7 +1789,7 @@ msgstr "Geboren in:"
 msgid "Born:"
 msgstr "Geboren:"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:289
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:287
 msgid "Bot"
 msgstr "Robot"
 
@@ -1886,7 +1886,7 @@ msgstr "Kan goedgekeurd worden"
 #: ../root/instrument/merge.tt:36 ../root/label/merge.tt:49
 #: ../root/layout/merge-helper.tt:34 ../root/place/merge.tt:48
 #: ../root/recording/merge.tt:26 ../root/release/edit/layout.tt:58
-#: ../root/release/edit/tracklist.tt:87 ../root/release/merge.tt:126
+#: ../root/release/edit/tracklist.tt:87 ../root/release/merge.tt:130
 #: ../root/release_group/merge.tt:41 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:67 ../root/layout/components/MergeHelper.js:38
 msgid "Cancel"
@@ -2057,7 +2057,7 @@ msgstr "Client:"
 msgid "Close"
 msgstr "Afsluiten"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Closed"
 msgstr "Afgesloten"
 
@@ -2261,7 +2261,7 @@ msgstr "Een account aanmaken"
 msgid "Create collection"
 msgstr "Een collectie aanmaken"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Created"
 msgstr "Aangemaakt"
 
@@ -2308,7 +2308,7 @@ msgstr "Gegevenslicenties"
 msgid "Data Quality:"
 msgstr "Kwaliteit van de gegevens:"
 
-#: ../root/components/medium.tt:83 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:84 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:364
 msgid "Data Tracks"
 msgstr "Datanummers"
@@ -2718,7 +2718,7 @@ msgstr "Bewerking niet gevonden"
 msgid "Edit Note"
 msgstr "Bewerkingsnotitie"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Edit Note Author"
 msgstr "Auteur van de bewerkingsnotitie"
 
@@ -2826,13 +2826,13 @@ msgstr "Hoe kan ik iets bewerken?"
 msgid "Editing/voting disabled"
 msgstr "Bewerken en stemmen uitgeschakeld"
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:308
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:306
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 #: ../root/layout/components/Search.js:21
 msgid "Editor"
 msgstr "Redacteur"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Editor Flag"
 msgstr "Type redacteur"
 
@@ -3087,7 +3087,7 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "Alleen al één of twee URL’s toevoegen helpt!"
 
 #: ../root/components/common-macros.tt:598
-#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:308
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:306
 #: ../root/event/header.tt:4 ../root/event/merge.tt:11
 #: ../root/report/event_list.tt:7 ../root/series/index.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
@@ -3159,7 +3159,7 @@ msgstr "Alle omschrijvingen uitklappen"
 msgid "Expire action"
 msgstr "Actie bij het verlopen"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Expired"
 msgstr "Verlopen"
 
@@ -3649,7 +3649,7 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "Ik heb net gedoneerd! Waarom zie ik dit?"
 
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
-#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:308
+#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:306
 msgid "ID"
 msgstr "id"
 
@@ -3942,13 +3942,15 @@ msgstr "Importeer als uitgave van één artiest"
 
 #: ../root/main/mirror.tt:9
 msgid ""
-"In order to log in or make changes to the database you must visit the main "
-"server at {uri}."
-msgstr "Om je aan te melden of om veranderingen te maken in de database, moet je de hoofdserver op {uri} gebruiken."
+"In order to log in or make changes to the database, you must visit the main "
+"server at {mb|https://musicbrainz.org/}."
+msgstr "Om je aan te melden of om veranderingen te maken in de database, moet je de hoofdserver op {mb|https://musicbrainz.org/} gebruiken."
 
 #: ../root/main/mirror_404.tt:9
-msgid "In order to view this page please visit the main server at {uri}."
-msgstr "Om deze pagina te bekijken, moet je de hoofdserver gebruiken op {uri}."
+msgid ""
+"In order to view this page, please visit the main server at "
+"{mb|https://musicbrainz.org/}."
+msgstr "Om deze pagina te bekijken, moet je de hoofdserver gebruiken op {mb|https://musicbrainz.org/}."
 
 #: ../root/user/login.tt:20
 msgid "Incorrect username or password"
@@ -3972,7 +3974,7 @@ msgid "Installed Application"
 msgstr "Geïnstalleerde applicatie"
 
 #: ../root/components/common-macros.tt:598
-#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:308
+#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -4073,7 +4075,7 @@ msgstr "Aangemeld blijven"
 #: ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:308
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:306
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
@@ -4087,7 +4089,7 @@ msgstr "Aangemeld blijven"
 msgid "Label"
 msgstr "Platenmaatschappij"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Label Area"
 msgstr "Gebied van platenmaatschappij"
 
@@ -4264,7 +4266,7 @@ msgid "Legal name"
 msgstr "Officiële naam"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:72 ../root/components/recordings-list.tt:33
+#: ../root/components/medium.tt:73 ../root/components/recordings-list.tt:33
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
@@ -4367,7 +4369,7 @@ msgstr "Lokalisatie"
 msgid "Location"
 msgstr "Locatie"
 
-#: ../root/edit/search_macros.tt:289
+#: ../root/edit/search_macros.tt:287
 msgid "Location Editor"
 msgstr "Locatieredacteur"
 
@@ -4486,7 +4488,7 @@ msgstr "Doneer nu!"
 msgid "Make all edits votable."
 msgstr "Breng alle bewerkingen in stemming."
 
-#: ../root/release/merge.tt:108
+#: ../root/release/merge.tt:112
 msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
@@ -4823,7 +4825,7 @@ msgstr "Mijn waarderingen"
 msgid "My Tags"
 msgstr "Mijn etiketten"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "My Vote"
 msgstr "Mijn stem"
 
@@ -4953,7 +4955,7 @@ msgstr "Nieuw type:"
 msgid "New cover art:"
 msgstr "Nieuwe afbeeldingen:"
 
-#: ../root/release/merge.tt:72
+#: ../root/release/merge.tt:76
 msgid "New disc title:"
 msgstr "Nieuwe mediumtitel:"
 
@@ -4969,7 +4971,7 @@ msgstr "Nieuwe pagina"
 msgid "New password:"
 msgstr "Nieuw wachtwoord:"
 
-#: ../root/release/merge.tt:70
+#: ../root/release/merge.tt:71
 msgid "New position:"
 msgstr "Nieuwe positie:"
 
@@ -5009,7 +5011,7 @@ msgstr "Volgende »"
 msgid "No"
 msgstr "Nee"
 
-#: ../root/edit/search_macros.tt:245 ../root/edit/vote.tt:17
+#: ../root/edit/search_macros.tt:243 ../root/edit/vote.tt:17
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:175
 msgctxt "vote"
 msgid "No"
@@ -5169,11 +5171,11 @@ msgstr "Nee bedankt"
 msgid "No users found"
 msgstr "Geen gebruikers gevonden"
 
-#: ../root/edit/search_macros.tt:245
+#: ../root/edit/search_macros.tt:243
 msgid "No vote"
 msgstr "Geen stem"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "No vote count"
 msgstr "Aantal tegenstemmen"
 
@@ -5245,8 +5247,9 @@ msgstr "Let op:"
 #: ../root/edit/search_macros.tt:222
 msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
-"2011-05-16; "
-msgstr "Let op: dit zoekt alleen naar bewerkingen die relaties toevoegen of bewerken en die na 16 mei 2011 zijn gecreëerd."
+"2011-05-16; or which remove relationships, created after 2013-07-08; or "
+"which reorder relationships."
+msgstr "Let op: dit zoekt nu alleen naar bewerkingen die relaties toevoegen of bewerken en gecreëerd zijn na 16 mei 2011, of die relaties verwijderen en gecreëerd zijn na 8 juli 2013, of die de volgorde van relaties veranderen."
 
 #: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
@@ -5545,7 +5548,7 @@ msgid "Phrase:"
 msgstr "Zin:"
 
 #: ../root/components/common-macros.tt:598 ../root/components/places-list.tt:5
-#: ../root/edit/search_macros.tt:308 ../root/place/header.tt:5
+#: ../root/edit/search_macros.tt:306 ../root/place/header.tt:5
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -5611,7 +5614,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr "Verander a.u.b. je wachtwoord. We hebben helaas ontdekt dat de gehashte gebruikerswachtwoorden tijdelijk te downloaden waren van onze FTP-site. Hoewel het zeer onwaarschijnlijk is dat iemand in staat zal zijn om hieruit de originele wachtwoorden te achterhalen, moeten alle gebruikers hun wachtwoord veranderen. Onze excuses voor het ongemak. Zie {blog|ons weblog} voor meer informatie."
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:304
 msgid "Please choose a condition"
 msgstr "Kies een voorwaarde"
 
@@ -5861,7 +5864,7 @@ msgstr[0] "Waardeer: {rating} ster"
 msgstr[1] "Waardeer: {rating} sterren"
 
 #: ../root/components/artists-list.tt:9 ../root/components/events-list.tt:29
-#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:71
+#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:72
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
@@ -5907,7 +5910,7 @@ msgstr "Recente notities bij mijn bewerkingen"
 
 #: ../root/components/common-macros.tt:598
 #: ../root/edit/details/merge_releases.tt:100
-#: ../root/edit/search_macros.tt:308 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:306 ../root/release/edit_relationships.tt:50
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -6090,11 +6093,11 @@ msgstr "Relatie"
 msgid "Relationship Attributes"
 msgstr "Relatie-eigenschappen"
 
-#: ../root/edit/search_macros.tt:289
+#: ../root/edit/search_macros.tt:287
 msgid "Relationship Editor"
 msgstr "Relatieredacteur"
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:308
+#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:306
 #: ../root/report/deprecated_relationship_artists.tt:13
 #: ../root/report/deprecated_relationship_labels.tt:13
 #: ../root/report/deprecated_relationship_places.tt:13
@@ -6173,7 +6176,7 @@ msgstr "Relaties:"
 #: ../root/components/common-macros.tt:598
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
-#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:308
+#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:306
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:71
 #: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
@@ -6195,7 +6198,7 @@ msgstr "Artiest van de uitgave"
 msgid "Release Collections"
 msgstr "Collecties met uitgaves."
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Release Country"
 msgstr "Land van uitgave"
 
@@ -6207,7 +6210,7 @@ msgstr "Duplicaten van de uitgave"
 msgid "Release Events:"
 msgstr "Uitgavegebeurtenissen:"
 
-#: ../root/components/common-macros.tt:598 ../root/edit/search_macros.tt:308
+#: ../root/components/common-macros.tt:598 ../root/edit/search_macros.tt:306
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
@@ -6258,7 +6261,7 @@ msgstr "Uitgavegroepen met verouderde relaties"
 msgid "Release Information"
 msgstr "Informatie over de uitgave"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Release Language"
 msgstr "Taal van de uitgave"
 
@@ -6266,7 +6269,7 @@ msgstr "Taal van de uitgave"
 msgid "Release Not Found"
 msgstr "Uitgave niet gevonden"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Release Quality"
 msgstr "Kwaliteit van de gegevens"
 
@@ -6318,7 +6321,7 @@ msgstr "Uitgavegroep van {artist}"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:51
 msgid "Release group external links"
-msgstr "Externe websites van de uitgavegroep"
+msgstr "Externe websites over de uitgavegroep"
 
 #: ../root/release_group/layout.tt:24
 msgid "Release group information"
@@ -6895,7 +6898,7 @@ msgstr "Schrift:"
 #: ../root/components/relationship-editor.tt:65
 #: ../root/components/relationship-editor.tt:182
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
-#: ../root/edit/search_macros.tt:233 ../root/edit/search_macros.tt:265
+#: ../root/edit/search_macros.tt:231 ../root/edit/search_macros.tt:263
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
 #: ../root/layout/header/top.tt:95 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
@@ -7152,7 +7155,7 @@ msgid "Series"
 msgstr "Series"
 
 #: ../root/components/common-macros.tt:598 ../root/components/series-list.tt:5
-#: ../root/edit/search_macros.tt:308 ../root/series/header.tt:4
+#: ../root/edit/search_macros.tt:306 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/layout/components/Search.js:25
@@ -7620,7 +7623,7 @@ msgstr "Statistieken"
 msgid "Status"
 msgstr "Status"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgctxt "edit status"
 msgid "Status"
 msgstr "Status"
@@ -7997,13 +8000,13 @@ msgstr "Het doel van dit veld is om informatie toe te voegen die normaal gesprok
 msgid "The reason for this was unknown."
 msgstr "De reden hiervoor is onbekend."
 
-#: ../root/release/merge.tt:112
+#: ../root/release/merge.tt:116
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
 msgstr "De artiesten van de opnames komen niet overeen! Misschien wilde je de ‘media toevoegen’-samenvoegingsstrategie gebruiken?"
 
-#: ../root/release/merge.tt:113
+#: ../root/release/merge.tt:117
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
@@ -8523,7 +8526,7 @@ msgid ""
 "change the format to one that can have disc IDs."
 msgstr "Dit medium heeft een disc-id, pregapnummer of datanummer, dus je kan het type alleen veranderen in een type medium dat dit ondersteunt."
 
-#: ../root/release/merge.tt:105
+#: ../root/release/merge.tt:109
 msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
@@ -8566,7 +8569,7 @@ msgstr "Deze opname kan niet worden verwijderd omdat hij nog steeds wordt gebrui
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "Deze opname heeft geen gekoppelde AcoustID’s"
 
-#: ../root/components/medium.tt:35 ../root/components/recordings-list.tt:49
+#: ../root/components/medium.tt:36 ../root/components/recordings-list.tt:49
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:46
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
@@ -9153,7 +9156,7 @@ msgid ""
 "status is set wrong."
 msgstr "In dit rapport staan uitgaves met de status Pseudo-uitgave die niet met een vertaling of transcriptie-relatie aan de originele uitgave zijn gekoppeld. Dit kan zijn omdat de originele uitgave ontbreekt of dat de status van de uitgave verkeerd is ingesteld."
 
-#: ../root/release/merge.tt:107
+#: ../root/release/merge.tt:111
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr "Hiervoor moeten de overeenkomstige media hetzelfde aantal nummers hebben."
@@ -9242,7 +9245,7 @@ msgid "Timezone:"
 msgstr "Tijdzone:"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:67
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:68
 #: ../root/components/relationships-table.tt:7
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:51
@@ -9563,7 +9566,7 @@ msgstr "Twitter"
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_remove_alias.tt:33
-#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:308
+#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:306
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
@@ -9719,7 +9722,7 @@ msgstr "Ongespecificeerd type"
 msgid "Unsubscribe"
 msgstr "Abonnement opzeggen"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:289
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:287
 msgid "Untrusted"
 msgstr "Niet vertrouwd"
 
@@ -9831,7 +9834,7 @@ msgstr "Gebruikersnaam:"
 msgid "Users"
 msgstr "Gebruikers"
 
-#: ../root/release/merge.tt:60
+#: ../root/release/merge.tt:58
 msgid ""
 "Using this merge strategy, all mediums from all releases will be used. You "
 "may specify the new order of mediums. The order does not have to be "
@@ -10126,7 +10129,7 @@ msgstr "Klik op de knop “Samenvoegen” als je klaar bent om deze objecten sam
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:289
+#: ../root/edit/search_macros.tt:287
 msgid "Wiki Transcluder"
 msgstr "Transclusieredacteur"
 
@@ -10149,7 +10152,7 @@ msgid ""
 msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_link|Creative Commons BY-SA-licentie}."
 
 #: ../root/components/common-macros.tt:598 ../root/components/works-list.tt:12
-#: ../root/edit/search_macros.tt:308 ../root/report/iswc_with_many_works.tt:25
+#: ../root/edit/search_macros.tt:306 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
@@ -10267,13 +10270,13 @@ msgstr "Jaar:"
 msgid "Yes"
 msgstr "Ja"
 
-#: ../root/edit/search_macros.tt:245 ../root/edit/vote.tt:14
+#: ../root/edit/search_macros.tt:243 ../root/edit/vote.tt:14
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:176
 msgctxt "vote"
 msgid "Yes"
 msgstr "Voor"
 
-#: ../root/edit/search_macros.tt:308
+#: ../root/edit/search_macros.tt:306
 msgid "Yes vote count"
 msgstr "Aantal voorstemmen"
 
@@ -10860,9 +10863,9 @@ msgstr "instrumenten"
 
 #: ../root/edit/search_macros.tt:126 ../root/edit/search_macros.tt:143
 #: ../root/edit/search_macros.tt:177 ../root/edit/search_macros.tt:189
-#: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:229
-#: ../root/edit/search_macros.tt:241 ../root/edit/search_macros.tt:259
-#: ../root/edit/search_macros.tt:274 ../root/edit/search_macros.tt:286
+#: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:227
+#: ../root/edit/search_macros.tt:239 ../root/edit/search_macros.tt:257
+#: ../root/edit/search_macros.tt:272 ../root/edit/search_macros.tt:284
 msgid "is"
 msgstr "is"
 
@@ -10878,7 +10881,7 @@ msgstr "is voor"
 msgid "is between"
 msgstr "is tussen"
 
-#: ../root/edit/search_macros.tt:259
+#: ../root/edit/search_macros.tt:257
 msgid "is in my subscriptions"
 msgstr "is in mijn abonnementen"
 
@@ -10892,9 +10895,9 @@ msgstr "is meer dan"
 
 #: ../root/edit/search_macros.tt:126 ../root/edit/search_macros.tt:143
 #: ../root/edit/search_macros.tt:160 ../root/edit/search_macros.tt:177
-#: ../root/edit/search_macros.tt:189 ../root/edit/search_macros.tt:229
-#: ../root/edit/search_macros.tt:241 ../root/edit/search_macros.tt:259
-#: ../root/edit/search_macros.tt:274 ../root/edit/search_macros.tt:286
+#: ../root/edit/search_macros.tt:189 ../root/edit/search_macros.tt:227
+#: ../root/edit/search_macros.tt:239 ../root/edit/search_macros.tt:257
+#: ../root/edit/search_macros.tt:272 ../root/edit/search_macros.tt:284
 msgid "is not"
 msgstr "is niet"
 
@@ -11062,7 +11065,7 @@ msgstr "een tab of vier spaties en: * punten; 1., a., A., i., I. genummerde obje
 msgid "track"
 msgstr "nummer"
 
-#: ../root/components/medium.tt:106
+#: ../root/components/medium.tt:107
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "nummer {tracks}"
@@ -11739,7 +11742,7 @@ msgstr "Je rapport is verstuurd."
 msgid "Invalid TOC"
 msgstr "Ongeldige TOC"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:577
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:583
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."

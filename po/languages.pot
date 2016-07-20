@@ -1668,6 +1668,11 @@ msgstr ""
 msgid "Nogai"
 msgstr ""
 
+#. frequency:1 iso_code_3:nrn 
+#: DB:language/name:4991
+msgid "Norn"
+msgstr ""
+
 #. frequency:1 iso_code_3:non 
 #: DB:language/name:308
 msgid "Norse, Old"

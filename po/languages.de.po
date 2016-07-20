@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 07:52+0000\n"
-"Last-Translator: TL\n"
+"PO-Revision-Date: 2016-07-20 00:35+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1681,6 +1681,11 @@ msgstr "Kein linguistischer Inhalt"
 #: DB:language/name:307
 msgid "Nogai"
 msgstr "Nogaisch"
+
+#. frequency:1 iso_code_3:nrn
+#: DB:language/name:4991
+msgid "Norn"
+msgstr ""
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308

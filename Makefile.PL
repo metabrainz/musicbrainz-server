@@ -144,7 +144,7 @@ feature 'Production server' =>
     ;
 
 # These are just for I18N
-requires 'Locale::PO';
+requires 'Locale::PO' => '0.27';
 requires 'Locale::Messages' => '1.20';
 
 author_requires 'Test::NoTabs';

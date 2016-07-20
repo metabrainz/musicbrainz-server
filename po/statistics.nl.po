@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-05-24 18:40+0000\n"
+"PO-Revision-Date: 2016-07-12 11:04+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -370,7 +370,7 @@ msgstr "Nummers zonder album uitgebracht."
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr "Oliver Charles wordt de eerste werknemer van de MetaBrainz stichting."
+msgstr "Oliver Charles wordt de eerste werknemer van de MetaBrainz Foundation."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
@@ -450,7 +450,7 @@ msgstr "Het Cover Art Archive wordt officieel uitgebracht"
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
-msgstr "De Stichting MetaBrainz, het juridische thuis van MusicBrainz, wordt aan het publiek gepresenteerd."
+msgstr "De MetaBrainz Foundation, het juridische thuis van MusicBrainz, wordt aan het publiek gepresenteerd."
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""

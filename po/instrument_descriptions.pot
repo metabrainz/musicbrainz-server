@@ -13,6 +13,13 @@ msgstr ""
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr ""
 
+#. name:dulce melos 
+#: DB:instrument/description:773
+msgid ""
+"A European mediaeval struck string instrument, similar to the psaltery and a "
+"possible ancestor of the piano. Essentially it is a dulcimer with keys."
+msgstr ""
+
 #. name:kös 
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
@@ -23,6 +30,13 @@ msgstr ""
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
+msgstr ""
+
+#. name:donso ngɔni 
+#: DB:instrument/description:776
+msgid ""
+"A banjo-like lute from West Africa. Made of hollowed out wood with an animal "
+"hide as membrane."
 msgstr ""
 
 #. name:baroque trumpet 
@@ -366,6 +380,13 @@ msgid ""
 "bars"
 msgstr ""
 
+#. name:calabash 
+#: DB:instrument/description:777
+msgid ""
+"An African percussion instrument, made of a dried gourd plant. Struck with "
+"hands or objects."
+msgstr ""
+
 #. name:morsing 
 #: DB:instrument/description:533
 msgid ""
@@ -383,6 +404,13 @@ msgstr ""
 msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
+msgstr ""
+
+#. name:keytar 
+#: DB:instrument/description:774
+msgid ""
+"An electric keyboard slung over the shoulder by a strap like a guitar, it "
+"has soundcontrols placed on the neck"
 msgstr ""
 
 #. name:electric piano 
@@ -1967,7 +1995,7 @@ msgstr ""
 msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
 msgstr ""
 
-#. name:ngoni 
+#. name:ngɔni 
 #: DB:instrument/description:729
 msgid "The ngoni is a plucked string instrument from West Africa."
 msgstr ""
@@ -2984,6 +3012,11 @@ msgstr ""
 #. name:đing buốt 
 #: DB:instrument/description:306
 msgid "edo village traditional flute, four finger holes, blowing reed"
+msgstr ""
+
+#. name:tubon 
+#: DB:instrument/description:775
+msgid "electronic bass organ proto-keytar"
 msgstr ""
 
 #. name:hmông flute 

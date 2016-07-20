@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
+"PO-Revision-Date: 2016-07-20 00:30+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -591,6 +591,10 @@ msgstr ""
 msgid "cajón"
 msgstr ""
 
+#: DB:instrument/name:777
+msgid "calabash"
+msgstr ""
+
 #: DB:instrument/name:127
 msgid "calliope"
 msgstr ""
@@ -919,6 +923,10 @@ msgstr ""
 msgid "domra"
 msgstr ""
 
+#: DB:instrument/name:776
+msgid "donso ngɔni"
+msgstr ""
+
 #: DB:instrument/name:706
 msgid "doshpuluur"
 msgstr ""
@@ -961,6 +969,10 @@ msgstr ""
 
 #: DB:instrument/name:397
 msgid "duduk"
+msgstr ""
+
+#: DB:instrument/name:773
+msgid "dulce melos"
 msgstr ""
 
 #: DB:instrument/name:496
@@ -1504,6 +1516,10 @@ msgstr ""
 msgid "keyed brass instruments"
 msgstr ""
 
+#: DB:instrument/name:774
+msgid "keytar"
+msgstr ""
+
 #: DB:instrument/name:611
 msgid "khene"
 msgstr ""
@@ -1837,7 +1853,7 @@ msgid "ney"
 msgstr ""
 
 #: DB:instrument/name:729
-msgid "ngoni"
+msgid "ngɔni"
 msgstr ""
 
 #: DB:instrument/name:493
@@ -2716,6 +2732,11 @@ msgstr "Tuba"
 
 #: DB:instrument/name:694
 msgid "tubax"
+msgstr ""
+
+#: DB:instrument/name:775
+msgctxt "Joh Mustad Tubon"
+msgid "tubon"
 msgstr ""
 
 #: DB:instrument/name:168
