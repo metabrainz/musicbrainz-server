@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-04 00:46-0500\n"
+"POT-Creation-Date: 2016-07-19 19:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr ""
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/events-list.tt:11
-#: ../root/components/medium.tt:63 ../root/components/recordings-list.tt:22
+#: ../root/components/medium.tt:64 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
 #: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
 #: ../root/edit/details/add_medium.tt:49 ../root/edit/details/edit_medium.tt:50
@@ -1237,7 +1237,7 @@ msgstr ""
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:6 ../root/cdtoc/lookup.tt:39
 #: ../root/components/artists-list.tt:5 ../root/components/common-macros.tt:598
-#: ../root/components/medium.tt:69 ../root/components/recordings-list.tt:29
+#: ../root/components/medium.tt:70 ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:10
 #: ../root/components/release_groups-list.tt:11
 #: ../root/components/releases-list.tt:12
@@ -2285,7 +2285,7 @@ msgstr ""
 msgid "Data Quality:"
 msgstr ""
 
-#: ../root/components/medium.tt:83 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:84 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:364
 msgid "Data Tracks"
 msgstr ""
@@ -4234,7 +4234,7 @@ msgid "Legal name"
 msgstr ""
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:72 ../root/components/recordings-list.tt:33
+#: ../root/components/medium.tt:73 ../root/components/recordings-list.tt:33
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
@@ -5826,7 +5826,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../root/components/artists-list.tt:9 ../root/components/events-list.tt:29
-#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:71
+#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:72
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
@@ -8521,7 +8521,7 @@ msgstr ""
 msgid "This recording does not have any associated AcoustIDs"
 msgstr ""
 
-#: ../root/components/medium.tt:35 ../root/components/recordings-list.tt:49
+#: ../root/components/medium.tt:36 ../root/components/recordings-list.tt:49
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:46
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
@@ -9195,7 +9195,7 @@ msgid "Timezone:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:67
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:68
 #: ../root/components/relationships-table.tt:7
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:51
@@ -11004,7 +11004,7 @@ msgstr ""
 msgid "track"
 msgstr ""
 
-#: ../root/components/medium.tt:106
+#: ../root/components/medium.tt:107
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] ""
