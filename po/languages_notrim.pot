@@ -24803,7 +24803,7 @@ msgstr ""
 msgid "Noric"
 msgstr ""
 
-#. frequency:0 iso_code_3:nrn 
+#. frequency:1 iso_code_3:nrn 
 #: DB:language/name:4991
 msgid "Norn"
 msgstr ""

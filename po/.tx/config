@@ -26,7 +26,7 @@ file_filter = instruments.<lang>.po
 source_file = instruments.pot
 source_lang = en
 
-[musicbrainz.languages]
+[musicbrainz.languages-9]
 file_filter = languages.<lang>.po
 source_file = languages.pot
 source_lang = en

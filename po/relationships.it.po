@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
+"PO-Revision-Date: 2016-07-20 00:35+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -942,9 +942,9 @@ msgstr "Questo attributo indica una versione con testi in un linguaggio differen
 
 #: DB:link_attribute_type/description:525
 msgid ""
-"This attribute indicates that an artist was a founding member of a group "
+"This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr "Questo attributo indica che un artista è stato un membro fondatore di un gruppo di artisti."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1143,6 +1143,15 @@ msgid ""
 "that exclusively handles the rights to works by that artist."
 msgstr ""
 
+#: DB:link_type/description:895
+msgid ""
+"This indicates an artist (generally a person) was the founder of a group."
+msgstr ""
+
+#: DB:link_attribute_type/description:921
+msgid "This indicates an artist cancelled their appearance at an event."
+msgstr ""
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -1226,6 +1235,13 @@ msgid ""
 "recordings has not been altered. If the tracks are pitched or blended into "
 "each other, the <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d"
 "\">DJ-mix relationship type</a> may be more appropriate."
+msgstr ""
+
+#: DB:link_type/description:894
+msgid ""
+"This indicates that a release group was included in another. This allows "
+"linking release groups (often albums) to box sets and other compilations "
+"that contain them."
 msgstr ""
 
 #: DB:link_type/description:3
@@ -2705,6 +2721,10 @@ msgstr ""
 msgid "can be purchased for mail-order at"
 msgstr ""
 
+#: DB:link_attribute_type/name:921
+msgid "cancelled"
+msgstr ""
+
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
 msgstr ""
@@ -3012,12 +3032,13 @@ msgid "fan pages"
 msgstr ""
 
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
-#: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:832
+#: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:116
+#: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:895
 msgid "founded"
 msgstr ""
 
-#: DB:link_attribute_type/name:525
-msgid "founder"
+#: DB:link_type/reverse_link_phrase:895
+msgid "founded by"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
@@ -3416,6 +3437,14 @@ msgstr ""
 msgid "imprints"
 msgstr ""
 
+#: DB:link_type/link_phrase:894
+msgid "included in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:894
+msgid "includes"
+msgstr ""
+
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
 msgid "information page"
@@ -3504,6 +3533,10 @@ msgstr ""
 msgid "is based on"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:894
+msgid "is included in"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
 msgstr ""
@@ -3565,7 +3598,7 @@ msgid "is/was the parent label of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an additional|a} {founder:founding} member of"
+msgid "is/was {additional:an additional|a} {original} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -3915,6 +3948,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
+msgstr ""
+
+#: DB:link_attribute_type/name:525
+msgid "original"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:836
@@ -5001,14 +5038,6 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {instrument} programming"
 msgstr ""
 
-#: DB:link_type/link_phrase:103
-msgid "{additional} {founder:founding} member of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:103
-msgid "{additional} {founder:founding} members"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
 msgstr ""
@@ -5034,6 +5063,14 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:102
 msgid "{additional} {minor} collaborators"
+msgstr ""
+
+#: DB:link_type/link_phrase:103
+msgid "{additional} {original} member of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:103
+msgid "{additional} {original} members"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298

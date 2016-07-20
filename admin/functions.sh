@@ -20,14 +20,3 @@ make_temp_dir()
     # accumulating temporary directories over time.
     trap 'rmdir "$TEMP_DIR"' 0 1 2 3 15
 }
-
-compare_postgres_version ()
-{
-    PG_VERSION=$( echo "SELECT version()" | ./admin/psql READWRITE | grep 'PostgreSQL' | sed 's/^.*PostgreSQL \([0-9\.]*\).*/\1/' );
-
-    SCRIPT="print version->parse('v$PG_VERSION') >= version->parse('v$1') ? 'newer' : 'older';";
-    RESULT=`perl -Mversion -e "$SCRIPT"`;
-
-    echo "$RESULT";
-}
-

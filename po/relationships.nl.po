@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 07:59+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2016-07-20 00:35+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -938,9 +938,9 @@ msgstr "Deze eigenschap geeft een versie aan met tekst in een andere taal dan he
 
 #: DB:link_attribute_type/description:525
 msgid ""
-"This attribute indicates that an artist was a founding member of a group "
+"This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr "Deze eigenschap geeft aan dat de artiest een oorspronkelijk lid van een groep is."
+msgstr ""
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1139,6 +1139,15 @@ msgid ""
 "that exclusively handles the rights to works by that artist."
 msgstr "Dit geeft een persoonlijke uitgeverij van een artiest aan. Een persoonlijke uitgeverij is een kleine maatschappij (vaak onderdeel van een grotere) die alleen de de rechten van het werk van de artiest beheert."
 
+#: DB:link_type/description:895
+msgid ""
+"This indicates an artist (generally a person) was the founder of a group."
+msgstr ""
+
+#: DB:link_attribute_type/description:921
+msgid "This indicates an artist cancelled their appearance at an event."
+msgstr ""
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -1223,6 +1232,13 @@ msgid ""
 "each other, the <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d"
 "\">DJ-mix relationship type</a> may be more appropriate."
 msgstr "Dit geeft aan dat een opname een compilatie is van verschillende andere opnames. Dit is van toepassing op één lange opname die meerdere nummers achter elkaar bevat, waarbij het audiomateriaal van de originele opnames niet veranderd is. Als de nummers in elkaar overlopen of de toonhoogte is aangepast, is de <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ-mixrelatie</a> misschien toepasselijker."
+
+#: DB:link_type/description:894
+msgid ""
+"This indicates that a release group was included in another. This allows "
+"linking release groups (often albums) to box sets and other compilations "
+"that contain them."
+msgstr ""
 
 #: DB:link_type/description:3
 msgid ""
@@ -2307,7 +2323,7 @@ msgstr "Dit relatietype wordt gebruikt om een platenmaatschappij aan zijn weblog
 msgid ""
 "This relationship type is used to link a release group to an official "
 "website created specifically for the release group."
-msgstr "Dit relatietype wordt gebruikt om een uitgavegroep aan de officiële website te koppelen die specifiek voor deze uitgavegroep is gemaakt."
+msgstr "Dit relatietype wordt gebruikt om een uitgavegroep aan een officiële website te koppelen die specifiek voor deze uitgavegroep is gemaakt."
 
 #: DB:link_type/description:85
 msgid ""
@@ -2701,6 +2717,10 @@ msgstr "kan tegen betaling gedownload worden van"
 msgid "can be purchased for mail-order at"
 msgstr "kan per post besteld worden op"
 
+#: DB:link_attribute_type/name:921
+msgid "cancelled"
+msgstr ""
+
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
 msgstr "catalogus van uitgaves"
@@ -3008,17 +3028,18 @@ msgid "fan pages"
 msgstr "fanpagina’s"
 
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
-#: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:832
+#: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:116
+#: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:895
 msgid "founded"
-msgstr "oorspronkelijk lid van"
+msgstr "oprichter van"
 
-#: DB:link_attribute_type/name:525
-msgid "founder"
-msgstr "oorspronkelijk lid"
+#: DB:link_type/reverse_link_phrase:895
+msgid "founded by"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
-msgstr "oorspronkelijke leden"
+msgstr "oprichters"
 
 #: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
 #: DB:link_type/reverse_link_phrase:255
@@ -3412,6 +3433,14 @@ msgstr "imprint van"
 msgid "imprints"
 msgstr "imprints"
 
+#: DB:link_type/link_phrase:894
+msgid "included in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:894
+msgid "includes"
+msgstr ""
+
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
 msgid "information page"
@@ -3500,6 +3529,10 @@ msgstr "is een edit van"
 msgid "is based on"
 msgstr "is gebaseerd op"
 
+#: DB:link_type/long_link_phrase:894
+msgid "is included in"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
 msgstr "is gelicenseerd onder"
@@ -3561,7 +3594,7 @@ msgid "is/was the parent label of"
 msgstr "is/was de moedermaatschappij van"
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an additional|a} {founder:founding} member of"
+msgid "is/was {additional:an additional|a} {original} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -3912,6 +3945,10 @@ msgstr "organist van"
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
 msgstr "organisten: "
+
+#: DB:link_attribute_type/name:525
+msgid "original"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4997,14 +5034,6 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:partner-} {co
 msgid "{additional} {assistant} {associate} {instrument} programming"
 msgstr "{additional:aanvullend} {assistant:assisterend} programmeur {instrument:(instrument)} {associate:(als partner)}"
 
-#: DB:link_type/link_phrase:103
-msgid "{additional} {founder:founding} member of"
-msgstr "{additional:aanvullend} {founder:oorspronkelijk} lid van"
-
-#: DB:link_type/reverse_link_phrase:103
-msgid "{additional} {founder:founding} members"
-msgstr "{additional:aanvullende} {founder:oorspronkelijke} leden"
-
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
 msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
@@ -5031,6 +5060,14 @@ msgstr "werkte {additional:aanvullend} {minor:in een kleine rol} samen in het pr
 #: DB:link_type/reverse_link_phrase:102
 msgid "{additional} {minor} collaborators"
 msgstr "project van {additional:(aanvullend)} {minor:(in een kleine rol)}"
+
+#: DB:link_type/link_phrase:103
+msgid "{additional} {original} member of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:103
+msgid "{additional} {original} members"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 05:21+0000\n"
+"PO-Revision-Date: 2016-07-20 00:35+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1672,6 +1672,11 @@ msgstr "Κανένα γλωσσικό περιεχόμενο"
 #. frequency:1 iso_code_3:nog
 #: DB:language/name:307
 msgid "Nogai"
+msgstr ""
+
+#. frequency:1 iso_code_3:nrn
+#: DB:language/name:4991
+msgid "Norn"
 msgstr ""
 
 #. frequency:1 iso_code_3:non

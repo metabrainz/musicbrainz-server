@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
+"PO-Revision-Date: 2016-07-20 00:30+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -591,6 +591,10 @@ msgstr "ブズク"
 msgid "cajón"
 msgstr "カホ"
 
+#: DB:instrument/name:777
+msgid "calabash"
+msgstr ""
+
 #: DB:instrument/name:127
 msgid "calliope"
 msgstr "カリオペ"
@@ -919,6 +923,10 @@ msgstr "ドンブラ"
 msgid "domra"
 msgstr "ドムラ"
 
+#: DB:instrument/name:776
+msgid "donso ngɔni"
+msgstr ""
+
 #: DB:instrument/name:706
 msgid "doshpuluur"
 msgstr "ドシプルール"
@@ -962,6 +970,10 @@ msgstr "隙溝笛"
 #: DB:instrument/name:397
 msgid "duduk"
 msgstr "ドゥドゥク"
+
+#: DB:instrument/name:773
+msgid "dulce melos"
+msgstr ""
 
 #: DB:instrument/name:496
 msgid "dulcian"
@@ -1504,6 +1516,10 @@ msgstr "キーボード・ベース"
 msgid "keyed brass instruments"
 msgstr "キー式金管楽器"
 
+#: DB:instrument/name:774
+msgid "keytar"
+msgstr ""
+
 #: DB:instrument/name:611
 msgid "khene"
 msgstr "ケーン"
@@ -1837,8 +1853,8 @@ msgid "ney"
 msgstr ""
 
 #: DB:instrument/name:729
-msgid "ngoni"
-msgstr "ンゴニ"
+msgid "ngɔni"
+msgstr ""
 
 #: DB:instrument/name:493
 msgid "nohkan"
@@ -2717,6 +2733,11 @@ msgstr "チューバ"
 #: DB:instrument/name:694
 msgid "tubax"
 msgstr "チューバックス"
+
+#: DB:instrument/name:775
+msgctxt "Joh Mustad Tubon"
+msgid "tubon"
+msgstr ""
 
 #: DB:instrument/name:168
 msgid "tubular bells"
