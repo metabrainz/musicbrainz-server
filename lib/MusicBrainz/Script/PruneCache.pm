@@ -3,7 +3,7 @@ package MusicBrainz::Script::PruneCache;
 =head1 DESCRIPTION
 
 This script can be used to clear entities last updated within `interval`
-seconds from memcached. It's suitable for running after replication.
+seconds from Redis. It's suitable for running after replication.
 
 =cut
 
@@ -47,7 +47,7 @@ sub prune_entity {
     my $interval = DateTime::Format::Pg->format_interval(
         DateTime::Duration->new(seconds => $self->interval)
     );
-    my $cache_prefix = DBDefs->MEMCACHED_NAMESPACE . $data->_id_cache_prefix;
+    my $cache_prefix = DBDefs->REDIS_NAMESPACE . $data->_id_cache_prefix;
 
     Sql::run_in_transaction(sub {
         if ($entity_properties->{last_updated_column}) {

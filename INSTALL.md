@@ -49,21 +49,11 @@ Prerequisites
 
         sudo apt-get install git-core
 
-5.  Memcached
-
-    By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings. To install Memcached, run the following:
-
-        sudo apt-get install memcached
-
-    You can change the memcached server name and port, or configure other datastores
-    in lib/DBDefs.pm.
-
 6.  Redis
 
-    Sessions are stored in Redis, so a running Redis server is
-    required.  Redis can be installed with the
-    following command and will not need any further configuration:
+    Sessions and cached entities are stored in Redis, so a running Redis server
+    is required. Redis can be installed with the following command and will not
+    need any further configuration:
 
         sudo apt-get install redis-server
 

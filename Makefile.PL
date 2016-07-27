@@ -12,7 +12,6 @@ version_from 'lib/MusicBrainz/Server.pm';
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
 requires 'Authen::Passphrase'                         => '0.007';
-requires 'Cache::Memcached'                           => '1.29';
 requires 'Captcha::reCAPTCHA'                         => '0.93';
 requires 'Catalyst::Action::RenderView'               => '0.16';
 requires 'Catalyst::Plugin::Authentication'           => '0.10017';
@@ -117,7 +116,6 @@ feature 'ETag Caching' =>
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '0.19'
     ;
 
 feature 'Default session store/state management' =>
@@ -138,7 +136,6 @@ feature 'Production server' =>
     'Digest::MD5::File' => '0.07',
     'Catalyst::Plugin::AutoRestart' => '0.96',
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.13',
-    'Catalyst::Plugin::Session::Store::Memcached' => '0.05',
     'FCGI' => '0.74',
     'FCGI::ProcManager' => '0.24',
     ;
