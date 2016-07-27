@@ -233,31 +233,19 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
-# close configuration is not required
-# sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
-
-# MEMCACHED_NAMESPACE allows configuration of a global memcached namespace, if
-# more close configuration is not required
-# sub MEMCACHED_NAMESPACE { return 'MB:'; };
-
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
-#
-# If you want to use something such as Memcached, the settings here should be
-# the same as the settings you use for the session store.
-#
 # sub PLUGIN_CACHE_OPTIONS {
 #     my $self = shift;
 #     return {
-#         class => "Cache::Memcached::Fast",
-#         servers => $self->MEMCACHED_SERVERS(),
-#         namespace => $self->MEMCACHED_NAMESPACE(),
+#         class => 'MusicBrainz::Server::CacheWrapper::Redis',
+#         server => '127.0.0.1:6379',
+#         namespace => 'MB:Catalyst:',
 #     };
-# };
+# }
 
-# The caching options here relate to object caching in memcached - such as for
+# The caching options here relate to object caching in Redis - such as for
 # artists, releases, etc. in order to speed up queries. See below if you want
 # to disable caching.
 # sub CACHE_MANAGER_OPTIONS {
@@ -265,10 +253,10 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     my %CACHE_MANAGER_OPTIONS = (
 #         profiles => {
 #             external => {
-#                 class => 'Cache::Memcached::Fast',
+#                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
 #                 options => {
-#                     servers => $self->MEMCACHED_SERVERS(),
-#                     namespace => $self->MEMCACHED_NAMESPACE()
+#                     server => '127.0.0.1:6379',
+#                     namespace => 'MB:',
 #                 },
 #             },
 #         },
@@ -278,13 +266,16 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     return \%CACHE_MANAGER_OPTIONS
 # }
 
-# Sets the TTL for entities stored in memcached, in seconds. A value of 0
+# Sets the TTL for entities stored in Redis, in seconds. A value of 0
 # indicates that no expiration is set.
 # sub ENTITY_CACHE_TTL { 0 }
 
 ################################################################################
 # Sessions (advanced)
 ################################################################################
+
+# The session store holds user login sessions. Session::Store::MusicBrainz
+# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
 
 # sub SESSION_STORE { "Session::Store::MusicBrainz" }
 # sub SESSION_STORE_ARGS { return {} }
@@ -310,7 +301,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #             encoding => undef,
 #         }
 #     };
-# };
+# }
 
 ################################################################################
 # Session cookies

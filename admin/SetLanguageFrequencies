@@ -123,7 +123,7 @@ catch
 };
 
 #
-# Invalidate memcached entries to use the new values sooner.
+# Invalidate Redis entries to use the new values sooner.
 #
 
 $c->model('Language')->_delete_all_from_cache;

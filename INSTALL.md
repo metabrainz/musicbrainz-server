@@ -49,21 +49,11 @@ Prerequisites
 
         sudo apt-get install git-core
 
-5.  Memcached
+5.  Redis
 
-    By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings. To install Memcached, run the following:
-
-        sudo apt-get install memcached
-
-    You can change the memcached server name and port, or configure other datastores
-    in lib/DBDefs.pm.
-
-6.  Redis
-
-    Sessions are stored in Redis, so a running Redis server is
-    required.  Redis can be installed with the
-    following command and will not need any further configuration:
+    Sessions and cached entities are stored in Redis, so a running Redis server
+    is required. Redis can be installed with the following command and will not
+    need any further configuration:
 
         sudo apt-get install redis-server
 
@@ -71,7 +61,7 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-7.  Node.js
+6.  Node.js
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
@@ -86,7 +76,7 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-8.  Standard Development Tools
+7.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
