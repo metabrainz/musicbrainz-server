@@ -49,7 +49,9 @@ sub get_multi {
 sub set {
     my ($self, $key, $value, $exptime) = @_;
 
-    $self->redis->set($key, Storable::freeze(\$value), 'EX', $exptime);
+    my @args = ($key, Storable::freeze(\$value));
+    push @args, 'EX', $exptime if defined $exptime;
+    $self->redis->set(@args);
     return;
 }
 
