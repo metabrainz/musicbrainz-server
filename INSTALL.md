@@ -345,6 +345,20 @@ If you'd like a more permanent setup,
 in setting up a server such as nginx, using FastCGI.
 
 
+Rate limiting
+-------------
+
+The server by itself doesn't rate limit any request it handles. If you're
+receiving 503s, then you're likely performing
+[search queries](https://musicbrainz.org/doc/Search_Server) without having set
+up a local instance of the
+[search server](https://bitbucket.org/metabrainz/search-server). By default,
+search queries are sent to search.musicbrainz.org and are rate limited.
+
+Once you set up your own instance, change `LUCENE_SERVER` in lib/DBDefs.pm to
+point to it.
+
+
 Translations
 ------------
 
