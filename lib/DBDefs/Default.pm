@@ -215,39 +215,36 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
-# close configuration is not required
-sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
+# REDIS_SERVER allows configuration of a global Redis server, if more close
+# configuration is not required.
+sub REDIS_SERVER { '127.0.0.1:6379' }
 
-# MEMCACHED_NAMESPACE allows configuration of a global memcached namespace, if
-# more close configuration is not required
-sub MEMCACHED_NAMESPACE { return 'MB:'; };
+# REDIS_NAMESPACE allows configuration of a global Redis namespace, if more
+# close configuration is not required.
+sub REDIS_NAMESPACE { 'MB:' }
 
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
 #
 # Using Cache::Memory is good for a development environment, but is likely not
-# suited for production.  Use something like memcached in a production setup.
+# suited for production.  Use something like Redis in a production setup.
 #
-# If you want to use something such as Memcached, the settings here should be
+# If you want to use something such as Redis, the settings here should be
 # the same as the settings you use for the session store.
 #
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => "Cache::Memcached::Fast",
-        servers => $self->MEMCACHED_SERVERS(),
-        namespace => $self->MEMCACHED_NAMESPACE(),
+        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        server => $self->REDIS_SERVER,
+        namespace => $self->REDIS_NAMESPACE,
     };
-};
+}
 
-# Use memcached and a small in-memory cache, see below if you
-# want to disable caching
-#
 # The caching options here relate to object caching - such as caching artists,
-# releases, etc in order to speed up queries. If you are using Memcached
-# to store sessions as well this should be a *different* memcached server.
+# releases, etc in order to speed up queries. We use Redis and a small
+# in-memory cache; see below if you want to disable caching.
 sub CACHE_MANAGER_OPTIONS {
     my $self = shift;
     my %CACHE_MANAGER_OPTIONS = (
@@ -261,10 +258,10 @@ sub CACHE_MANAGER_OPTIONS {
                 },
             },
             external => {
-                class => 'Cache::Memcached::Fast',
+                class => 'MusicBrainz::Server::CacheWrapper::Redis',
                 options => {
-                    servers => $self->MEMCACHED_SERVERS(),
-                    namespace => $self->MEMCACHED_NAMESPACE()
+                    server => $self->REDIS_SERVER,
+                    namespace => $self->REDIS_NAMESPACE,
                 },
             },
         },
@@ -274,13 +271,15 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS
 }
 
-# Sets the TTL for entities stored in memcached, in seconds. On slave servers,
+# Sets the TTL for entities stored in Redis, in seconds. On slave servers,
 # this is set to 1 hour by default, to mitigate MBS-8726. On standalone
-# servers, this is set to 0 (meaning no expiration is set), because cache
-# invalidation is already handled by the server in that case.
+# servers, this is set to 1 day; cache invalidation is already handled by the
+# server in that case, so keys may be evicted sooner, but because we store
+# login sessions in the same server, there is otherwise no fixed memory limit
+# or LRU eviction in place.
 sub ENTITY_CACHE_TTL {
     return 3600 if shift->REPLICATION_TYPE == RT_SLAVE;
-    return 0;
+    return 86400;
 }
 
 ################################################################################
@@ -290,7 +289,7 @@ sub ENTITY_CACHE_TTL {
 # The "host:port" of the ratelimit server ($MB_SERVER/bin/ratelimit-server).
 # If undef, the rate-limit code always returns undef (as it does if there is
 # an error).
-# Just like the memcached server settings, there is NO SECURITY built into the
+# Just like the Redis server settings, there is NO SECURITY built into the
 # ratelimit protocol, so be careful about enabling it.
 sub RATELIMIT_SERVER { undef }
 
@@ -313,16 +312,16 @@ sub SESSION_EXPIRE { return 36000; } # 10 hours
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
-        prefix => 'MB:',
+        prefix => $self->REDIS_NAMESPACE,
         database => 0,
         test_database => 1,
         redis_new_args => {
-            server => '127.0.0.1:6379',
+            server => $self->REDIS_SERVER,
             reconnect => 60,
             encoding => undef,
         }
     };
-};
+}
 
 ################################################################################
 # Session cookies
