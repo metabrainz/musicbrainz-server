@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 07:58+0000\n"
+"PO-Revision-Date: 2016-07-23 10:59+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -4313,7 +4313,7 @@ msgstr "Ruy-i Neva"
 #: DB:work_attribute_type/name:4
 msgctxt "work_attribute_type"
 msgid "Rāga (Carnatic)"
-msgstr "Rāga (Carnatic)"
+msgstr "Rāga (Carnatisch)"
 
 #: DB:work_attribute_type_allowed_value/value:210
 msgctxt "work_attribute_type_allowed_value"
@@ -5101,7 +5101,7 @@ msgstr "Tüvanger"
 #: DB:work_attribute_type/name:5
 msgctxt "work_attribute_type"
 msgid "Tāla (Carnatic)"
-msgstr "Tāla (Carnatic)"
+msgstr "Tāla (Carnatisch)"
 
 #: DB:work_attribute_type_allowed_value/value:257
 msgctxt "work_attribute_type_allowed_value"

@@ -2,13 +2,14 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2016
 # Luca Salini <email address hidden>, 2013-2015
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-07-31 18:25+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1679,7 +1680,7 @@ msgstr "Nogai"
 #. frequency:1 iso_code_3:nrn
 #: DB:language/name:4991
 msgid "Norn"
-msgstr ""
+msgstr "Norn"
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308
