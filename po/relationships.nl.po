@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-01 17:40+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -940,7 +940,7 @@ msgstr "Deze eigenschap geeft een versie aan met tekst in een andere taal dan he
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr ""
+msgstr "Deze eigenschap geeft aan dat een artiest een oorspronkelijk lid van een groep was."
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1142,11 +1142,11 @@ msgstr "Dit geeft een persoonlijke uitgeverij van een artiest aan. Een persoonli
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
-msgstr ""
+msgstr "Deze eigenschap geeft een artiest (meestal een persoon) aan die een groep heeft opgericht."
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
-msgstr ""
+msgstr "Dit geeft aan dat een artiest een optreden op een evenement heeft afgezegd."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1238,7 +1238,7 @@ msgid ""
 "This indicates that a release group was included in another. This allows "
 "linking release groups (often albums) to box sets and other compilations "
 "that contain them."
-msgstr ""
+msgstr "Dit geeft aan dat een uitgavegroep in een andere uitgavegroep is opgenomen. Hiermee kunnen uitgavegroepen (meestal albums) worden gekoppeld aan boxsets of compilaties waar ze deel van uitmaken."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1390,7 +1390,7 @@ msgid ""
 "This indicates the organization that markets a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr "Dit geeft de organisatie aan die een uitgave promoot. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
+msgstr "Dit geeft de organisatie aan die een uitgave in de markt heeft gezet. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #: DB:link_type/description:359
 msgid ""
@@ -2719,7 +2719,7 @@ msgstr "kan per post besteld worden op"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "afgelast"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -3035,7 +3035,7 @@ msgstr "oprichter van"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "opgericht door"
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
@@ -3435,11 +3435,11 @@ msgstr "imprints"
 
 #: DB:link_type/link_phrase:894
 msgid "included in"
-msgstr ""
+msgstr "maakt deel uit van"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
-msgstr ""
+msgstr "bevat"
 
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
@@ -3531,7 +3531,7 @@ msgstr "is gebaseerd op"
 
 #: DB:link_type/long_link_phrase:894
 msgid "is included in"
-msgstr ""
+msgstr "maakt deel uit van"
 
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
@@ -3595,7 +3595,7 @@ msgstr "is/was de moedermaatschappij van"
 
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an additional|a} {original} member of"
-msgstr ""
+msgstr "is/was {additional:een aanvullend|een} {original:oorspronkelijk} lid van"
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -3732,11 +3732,11 @@ msgstr "locatie waar {entity1} gefabriceerd werd."
 
 #: DB:link_type/link_phrase:848 DB:link_type/long_link_phrase:848
 msgid "marketed"
-msgstr "gepromoot"
+msgstr "vermarkte"
 
 #: DB:link_type/reverse_link_phrase:848
 msgid "marketed by"
-msgstr "gepromoot door"
+msgstr "vermarkt door"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -3948,7 +3948,7 @@ msgstr "organisten: "
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr ""
+msgstr "oorspronkelijk"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4165,7 +4165,7 @@ msgstr "productie"
 
 #: DB:link_type/link_phrase:359 DB:link_type/long_link_phrase:359
 msgid "promoted"
-msgstr "gepromoot"
+msgstr "promootte"
 
 #: DB:link_type/reverse_link_phrase:359
 msgid "promoted by"
@@ -5041,12 +5041,12 @@ msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {solo:solo} {guest:gast}{instrument:%|instrumenten}"
+msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten} {guest:(als gast)}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal} {vocal:|vocals}"
-msgstr "{additional:aanvullend} {guest:gast} {solo:solo} {vocal} {vocal:|vocalen}"
+msgstr "{additional:aanvullende} {guest:gast} {solo:solo} {vocal} {vocal:|vocalen}"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
@@ -5063,11 +5063,11 @@ msgstr "project van {additional:(aanvullend)} {minor:(in een kleine rol)}"
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {original} member of"
-msgstr ""
+msgstr "{additional:aanvullend} {original:oorspronkelijk} lid van"
 
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} members"
-msgstr ""
+msgstr "{additional:aanvullende} {original:oorspronkelijke} leden"
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294
@@ -5322,7 +5322,7 @@ msgstr "{entity1} werd {additional:aanvullend} geschreven in {entity0}"
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr "is een {live:live} {partial:gedeeltelijke} {instrumental:instrumentale} {medley:medley} {cover:cover} opname van"
+msgstr "is een {live:live} {partial:gedeeltelijke} {instrumental:instrumentale} {medley:medley} {cover:cover-}opname van"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""

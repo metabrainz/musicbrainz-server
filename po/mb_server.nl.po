@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-19 19:28-0500\n"
-"PO-Revision-Date: 2016-07-14 08:59+0000\n"
+"PO-Revision-Date: 2016-08-01 08:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -12917,7 +12917,7 @@ msgstr "Elke uitgave die officieel door de artiest of platenmaatschappij gesanct
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten. (Bijv. prerelease uitgaves of uitgaves die zijn gebundeld met een tijdschrift.)"
+msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten. (Bijv. prerelease uitgaves of uitgaves die met een tijdschrift zijn gebundeld.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:72
 msgid ""

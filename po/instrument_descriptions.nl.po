@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-07-26 07:34+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
 msgid ""
 "A European mediaeval struck string instrument, similar to the psaltery and a"
 " possible ancestor of the piano. Essentially it is a dulcimer with keys."
-msgstr ""
+msgstr "Een doulce melos of doulcemele is een Middeleeuws snaarinstrument dat lijkt op een psalterium en mogelijk een voorloper is van de piano. Het is eigenlijk een dulcimer met toetsen."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -44,7 +44,7 @@ msgstr "Een Turkse versie van de tamboerijn / daf, gemaakt van dierenhuid en met
 msgid ""
 "A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
 " hide as membrane."
-msgstr ""
+msgstr "Een doussn’gouni of dousongoni is een banjoachtige luit uit West-Afrika. Het wordt gemaakt van uitgehold hout met een dierenhuid als membraan."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -393,7 +393,7 @@ msgstr "Een Amadinda (ook Madinda) is een enorme Zuid-Oegandese xylofoon van res
 msgid ""
 "An African percussion instrument, made of a dried gourd plant. Struck with "
 "hands or objects."
-msgstr ""
+msgstr "Een kalebas is een Afrikaans percussie-instrument dat wordt gemaakt van een gedroogde fleskalebas. Het wordt bespeeld door er met de handen of een voorwerp op te slaan."
 
 #. name:morsing
 #: DB:instrument/description:533
@@ -419,7 +419,7 @@ msgstr "Een archtopgitaar is een akoestische of semiakoestische gitaar met stale
 msgid ""
 "An electric keyboard slung over the shoulder by a strap like a guitar, it "
 "has soundcontrols placed on the neck"
-msgstr ""
+msgstr "Een keytar is een keyboard dat net als een gitaar om de nek wordt gedragen."
 
 #. name:electric piano
 #: DB:instrument/description:259
@@ -1207,7 +1207,7 @@ msgstr "Een bolon is een traditionele basharp die in verschillende (West-)Afrika
 #: DB:instrument/description:762
 msgid ""
 "The buisine was a type of straight medieval trumpet usually made of metal."
-msgstr "Een buisine is een soort rechte trompet uit de Middeleeuwen die meestal van metaal werd gemaakt."
+msgstr "Een bazuin is een soort rechte trompet uit de Middeleeuwen die meestal van metaal werd gemaakt."
 
 #. name:buk
 #: DB:instrument/description:577
@@ -3039,7 +3039,7 @@ msgstr "Een đing buốt is een traditionele fluit uit de Edoperiode met vier vi
 #. name:tubon
 #: DB:instrument/description:775
 msgid "electronic bass organ proto-keytar"
-msgstr ""
+msgstr "Een tubon is een soort elektronisch orgel dat als een gitaar om de nek kan worden gehangen (net zoals later de keytar)."
 
 #. name:hmông flute
 #: DB:instrument/description:312

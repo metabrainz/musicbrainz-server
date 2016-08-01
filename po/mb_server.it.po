@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-19 19:28-0500\n"
-"PO-Revision-Date: 2016-07-04 05:48+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-07-31 18:57+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -499,7 +499,7 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr ""
+msgstr "Aggiungi \"@ \" all'inizio della riga per indicare un artista, \"* \" per un'opera/canzone, \"# \" per informazioni aggiuntive (come \"Bis\"). [mbid|name] permette di collegare artisti e opere."
 
 #: ../root/entity/alias/add.tt:1
 msgid "Add Alias"
@@ -3943,13 +3943,13 @@ msgstr "Importa come pubblicazione di artista singolo"
 msgid ""
 "In order to log in or make changes to the database, you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Per accedere o fare modifiche al database devi visitare il server principale su {mb|https://musicbrainz.org/}."
 
 #: ../root/main/mirror_404.tt:9
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Per visualizzare questa pagina devi visitare il server principale su {mb|https://musicbrainz.org/}."
 
 #: ../root/user/login.tt:20
 msgid "Incorrect username or password"
@@ -5248,7 +5248,7 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr ""
+msgstr "Nota: cerca solo modifiche che: aggiungono o modificano relazioni, create dopo il 16-05-2011; o che rimuovono relazioni, create dopo il 08-07-2013; o che riordinano relazioni."
 
 #: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
@@ -7341,7 +7341,7 @@ msgstr "Pubblicazioni simili"
 
 #: ../root/admin/edit_user.tt:36
 msgid "Skip verification"
-msgstr ""
+msgstr "Salta la verifica"
 
 #: ../root/main/rate_limited.tt:1 ../root/main/rate_limited.tt:3
 msgid "Slow Down!"
@@ -12643,7 +12643,7 @@ msgstr "data non valida"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:12
 msgid "Please ensure all lines start with @, * or #, followed by a space."
-msgstr ""
+msgstr "Assicurati che tutte le righe inizino con @, * o # seguito da uno spazio."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
@@ -13183,7 +13183,7 @@ msgstr "Campo necessario."
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr ""
+msgstr "Utilizza i seguenti campi per inserire collaborazioni. Vai alla documentazione sugli {ac|accreditamenti artista} per maggiori informazioni."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:73
 msgid "Artist in MusicBrainz:"

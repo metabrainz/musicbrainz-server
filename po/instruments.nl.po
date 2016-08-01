@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-01 07:55+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -562,7 +562,7 @@ msgstr "natuurbugel"
 
 #: DB:instrument/name:762
 msgid "buisine"
-msgstr "buisine"
+msgstr "bazuin"
 
 #: DB:instrument/name:577
 msgid "buk"
@@ -590,7 +590,7 @@ msgstr "cajón"
 
 #: DB:instrument/name:777
 msgid "calabash"
-msgstr ""
+msgstr "kalebas"
 
 #: DB:instrument/name:127
 msgid "calliope"
@@ -922,7 +922,7 @@ msgstr "domra"
 
 #: DB:instrument/name:776
 msgid "donso ngɔni"
-msgstr ""
+msgstr "dousongoni"
 
 #: DB:instrument/name:706
 msgid "doshpuluur"
@@ -970,7 +970,7 @@ msgstr "doedoek"
 
 #: DB:instrument/name:773
 msgid "dulce melos"
-msgstr ""
+msgstr "dulce melos"
 
 #: DB:instrument/name:496
 msgid "dulcian"
@@ -1515,7 +1515,7 @@ msgstr "koperblazers met knoppen"
 
 #: DB:instrument/name:774
 msgid "keytar"
-msgstr ""
+msgstr "keytar"
 
 #: DB:instrument/name:611
 msgid "khene"
@@ -1851,7 +1851,7 @@ msgstr "ney"
 
 #: DB:instrument/name:729
 msgid "ngɔni"
-msgstr ""
+msgstr "ngoni"
 
 #: DB:instrument/name:493
 msgid "nohkan"
@@ -2367,7 +2367,7 @@ msgstr "sopraanklarinet"
 
 #: DB:instrument/name:413
 msgid "soprano flute"
-msgstr "sopraanfluit in es"
+msgstr "sopraanfluit"
 
 #: DB:instrument/name:20
 msgid "soprano saxophone"
@@ -2734,7 +2734,7 @@ msgstr "tubax"
 #: DB:instrument/name:775
 msgctxt "Joh Mustad Tubon"
 msgid "tubon"
-msgstr ""
+msgstr "tubon"
 
 #: DB:instrument/name:168
 msgid "tubular bells"
