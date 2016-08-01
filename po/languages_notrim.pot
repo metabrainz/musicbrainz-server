@@ -13453,7 +13453,7 @@ msgstr ""
 msgid "Jerung"
 msgstr ""
 
-#. frequency:0 iso_code_3:tmr 
+#. frequency:1 iso_code_3:tmr 
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
 msgstr ""
