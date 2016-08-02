@@ -820,6 +820,31 @@ test('Guess type', function (t) {
             [
                 'work', 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
                 LINK_TYPES.bookbrainz.work
+            ],
+            // Patronage sites
+            [
+                'artist', 'https://www.changetip.com/tipme/example',
+                LINK_TYPES.patronage.artist
+            ],
+            [
+                'event', 'example.tip.me',
+                LINK_TYPES.patronage.event
+            ],
+            [
+                'label', 'https://flattr.com/profile/example',
+                LINK_TYPES.patronage.label
+            ],
+            [
+                'place', 'https://www.patreon.com/example',
+                LINK_TYPES.patronage.place
+            ],
+            [
+                'series', 'https://paypal.me/example',
+                LINK_TYPES.patronage.series
+            ],
+            [
+                'artist', 'https://www.tipeee.com/example',
+                LINK_TYPES.patronage.artist
             ]
         ];
 
@@ -1679,6 +1704,31 @@ test('Cleanup', function (t) {
                 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c/edits',
                 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
                 'work'
+            ],
+            // Patronage sites
+            [
+                'https://www.changetip.com/tipme/example',
+                'https://www.changetip.com/tipme/example'
+            ],
+            [
+                'example.tip.me',
+                'https://www.changetip.com/tipme/example'
+            ],
+            [
+                'http://www.flattr.com/profile/example',
+                'https://flattr.com/profile/example'
+            ],
+            [
+                'https://patreon.com/example#reactTargetCreatorPage',
+                'https://www.patreon.com/example'
+            ],
+            [
+                'https://www.paypal.me/example?q=test',
+                'https://www.paypal.me/example'
+            ],
+            [
+                'https://www.tipeee.com/example/news',
+                'https://www.tipeee.com/example'
             ]
         ];
 
