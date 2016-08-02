@@ -285,7 +285,7 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="multiple">
     [%~ editor_flags = [[1, l('Auto-Editor')], [2, l('Bot')]];
-        IF c.user.is_admin; editor_flags.push([4, l('Untrusted')]); END;
+        IF c.user.is_account_admin; editor_flags.push([4, l('Untrusted')]); END;
         editor_flags.push(
           [8, l('Relationship Editor')],
           [32, l('Wiki Transcluder')],

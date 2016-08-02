@@ -15,7 +15,7 @@ sub valid_flags {
     my ($self) = @_;
 
     my @flags = @{ $self->sql_arguments->[0] };
-    unless ($self->user->is_admin) {
+    unless ($self->user->is_account_admin) {
         # This flag is only intended to be visible to admins.
         @flags = grep { $_ != $UNTRUSTED_FLAG } @flags;
     }
