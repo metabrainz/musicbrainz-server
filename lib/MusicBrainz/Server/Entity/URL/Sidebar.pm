@@ -78,6 +78,11 @@ use constant FAVICON_CLASSES => {
     'smdb.kb.se'                => 'smdb',
     'triplejunearthed.com'      => 'triplejunearthed',
     'cdbaby.com'                => 'cdbaby',
+    'changetip.com'             => 'changetip',
+    'flattr.com'                => 'flattr',
+    'patreon.com'               => 'patreon',
+    'paypal.me'                 => 'paypal',
+    'tipeee.com'                => 'tipeee',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

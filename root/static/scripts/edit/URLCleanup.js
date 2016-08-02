@@ -212,7 +212,14 @@ const LINK_TYPES = {
   },
   onlinecommunity: {
     artist: "35b3a50f-bf0e-4309-a3b4-58eeed8cee6a"
-  }
+  },
+  patronage: {
+    artist: "6f77d54e-1d81-4e1a-9ea5-37947577151b",
+    event: "f0f05915-64ac-45fb-a9b3-1bf24cd191d9",
+    label: "e3d9c283-0146-4d91-9471-1b491a9c17ef",
+    place: "f14b4e5f-0884-4bb0-b3fa-134cc2734f0e",
+    series: "492a4e07-0ea9-4e82-870b-cab942b0576f"
+  },
 };
 
 const CLEANUPS = {
@@ -763,6 +770,26 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?movieid=([0-9]+).*$/, "http://soundtrackcollector.com/title/$1/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?composerid=([0-9]+).*$/, "http://soundtrackcollector.com/composer/$1/");
+      return url;
+    }
+  },
+  patronage: {
+    match: [
+      new RegExp("^(https?://)?(www\\.)?changetip\\.com/tipme/[^/?#]", "i"),
+      new RegExp("^(https?://)?[^/?#]+\\.tip.me([/?#].*)?$", "i"),
+      new RegExp("^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+    ],
+    type: LINK_TYPES.patronage,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+)(?:.*)?$/, "https://www.changetip.com/tipme/$1");
+      url = url.replace(/^(?:https?:\/\/)?([^\/?#]+)\.tip\.me(?:[\/?#].*)?$/, "https://www.changetip.com/tipme/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+)(?:.*)?$/, "https://flattr.com/profile/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/([^\/?#]+)(?:.*)?$/, "https://www.patreon.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
       return url;
     }
   }
