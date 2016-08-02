@@ -284,13 +284,15 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="multiple">
-    [% FOR item=[ [   1,   l('Auto-Editor') ]
-                , [   2,   l('Bot') ]
-                , [   4,   l('Untrusted') ]
-                , [   8,   l('Relationship Editor') ]
-                , [  32,   l('Wiki Transcluder') ]
-                , [ 256,   l('Location Editor') ]
-                ] %]
+    [%~ editor_flags = [[1, l('Auto-Editor')], [2, l('Bot')]];
+        IF c.user.is_admin; editor_flags.push([4, l('Untrusted')]); END;
+        editor_flags.push(
+          [8, l('Relationship Editor')],
+          [32, l('Wiki Transcluder')],
+          [256, l('Location Editor')]
+        )
+    ~%]
+    [% FOR item=editor_flags %]
     <option value="[% html_escape(item.0) %]"
             [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
             >[% html_escape(item.1) %]</option>
