@@ -845,6 +845,23 @@ test('Guess type', function (t) {
             [
                 'artist', 'https://www.tipeee.com/example',
                 LINK_TYPES.patronage.artist
+            ],
+            // Crowdfunding sites
+            [
+                'artist', 'https://www.indiegogo.com/individuals/0123456789',
+                LINK_TYPES.crowdfunding.artist
+            ],
+            [
+                'event', 'https://www.indiegogo.com/projects/common-example',
+                LINK_TYPES.crowdfunding.event
+            ],
+            [
+                'label', 'https://www\.kickstarter\.com/profile/0123456789',
+                LINK_TYPES.crowdfunding.label
+            ],
+            [
+                'place', 'https://www\.kickstarter\.com/projects/0123456789/common-example',
+                LINK_TYPES.crowdfunding.place
             ]
         ];
 
@@ -1729,6 +1746,23 @@ test('Cleanup', function (t) {
             [
                 'https://www.tipeee.com/example/news',
                 'https://www.tipeee.com/example'
+            ],
+            // Crowdfunding sites
+            [
+                'https://www.indiegogo.com/individuals/0123456789/campaigns',
+                'https://www.indiegogo.com/individuals/0123456789',
+            ],
+            [
+                'https://www.indiegogo.com/projects/common-example?locale=es#/',
+                'https://www.indiegogo.com/projects/common-example'
+            ],
+            [
+                'https://www\.kickstarter\.com/profile/0123456789/bio',
+                'https://www\.kickstarter\.com/profile/0123456789'
+            ],
+            [
+                'https://www\.kickstarter\.com/projects/0123456789/common-example#main-navigation',
+                'https://www\.kickstarter\.com/projects/0123456789/common-example'
             ]
         ];
 
