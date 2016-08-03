@@ -83,6 +83,8 @@ use constant FAVICON_CLASSES => {
     'patreon.com'               => 'patreon',
     'paypal.me'                 => 'paypal',
     'tipeee.com'                => 'tipeee',
+    'indiegogo.com'             => 'indiegogo',
+    'kickstarter.com'           => 'kickstarter',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
