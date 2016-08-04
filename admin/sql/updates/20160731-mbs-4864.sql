@@ -11,7 +11,7 @@ INSERT INTO statistics.statistic_event (date, title, link, description)
   'A new banner message now notifies users whenever they receive a new edit note.'),
   ('2015-11-30', 'More auto-edits',
   'https://blog.musicbrainz.org/2015/11/30/server-update-2015-11-30/',
-  'Edits made by edits to their own release edditions within 1 hour of adding them are now auto-edits, as are "Add recording" and "Remove alias" edits.'),
+  'Edits made by editors to their own release additions within 1 hour of adding them are now auto-edits, as are "Add recording" and "Remove alias" edits.'),
   ('2015-11-16', 'Several new auto-edit types and translations',
   'https://blog.musicbrainz.org/2015/11/17/server-update-2015-11-16/',
   'More edit types are made auto-edits for everyone: "Add relationship" and "Add release"; and "Add", "Edit" and "Remove release label". Additionally, the German, French and Dutch translations are available on the main server.'),
