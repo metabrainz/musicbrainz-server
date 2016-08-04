@@ -102,7 +102,7 @@ has fields => (
 );
 
 sub new_from_user_input {
-    my ($class, $user_input, $user_id) = @_;
+    my ($class, $user_input, $user) = @_;
     my $input = expand_hash($user_input);
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
@@ -113,20 +113,20 @@ sub new_from_user_input {
         auto_edit_filter => $ae,
         fields => [
             map {
-                $class->_construct_predicate($_, $user_id)
+                $class->_construct_predicate($_, $user)
             } grep { defined } @{ $input->{conditions} }
         ]
     );
 }
 
 sub _construct_predicate {
-    my ($class, $input, $user_id) = @_;
+    my ($class, $input, $user) = @_;
     return try {
         my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
         $predicate_class->new_from_input(
             $input->{field},
             $input,
-            $user_id,
+            $user,
         )
     } catch {
         my $err = $_;
