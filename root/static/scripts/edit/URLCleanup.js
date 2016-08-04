@@ -212,6 +212,23 @@ const LINK_TYPES = {
   },
   onlinecommunity: {
     artist: "35b3a50f-bf0e-4309-a3b4-58eeed8cee6a"
+  },
+  patronage: {
+    artist: "6f77d54e-1d81-4e1a-9ea5-37947577151b",
+    event: "f0f05915-64ac-45fb-a9b3-1bf24cd191d9",
+    label: "e3d9c283-0146-4d91-9471-1b491a9c17ef",
+    place: "f14b4e5f-0884-4bb0-b3fa-134cc2734f0e",
+    series: "492a4e07-0ea9-4e82-870b-cab942b0576f"
+  },
+  crowdfunding: {
+    artist: "93883cf6-e818-4938-990e-75863f8db2d3",
+    event: "61187747-04d3-4d15-889a-0ceedaecf0aa",
+    label: "16f681e4-93c9-4888-ae5e-3163f01269ab",
+    place: "09328447-f070-463e-a760-a419ffc115bf",
+    recording: "f9d9946e-0cea-4e47-9d3b-be4be55397a8",
+    release: "e1434bc9-5e54-4b10-b3f6-db09e6f0cb44",
+    release_group: "6aec99c1-8817-4d91-8fd0-1028cb467b62",
+    series: "b4894e57-5e32-479f-b1e7-bc561048ce48"
   }
 };
 
@@ -763,6 +780,40 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?movieid=([0-9]+).*$/, "http://soundtrackcollector.com/title/$1/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?composerid=([0-9]+).*$/, "http://soundtrackcollector.com/composer/$1/");
+      return url;
+    }
+  },
+  patronage: {
+    match: [
+      new RegExp("^(https?://)?(www\\.)?changetip\\.com/tipme/[^/?#]", "i"),
+      new RegExp("^(https?://)?[^/?#]+\\.tip.me([/?#].*)?$", "i"),
+      new RegExp("^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+    ],
+    type: LINK_TYPES.patronage,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+)(?:.*)?$/, "https://www.changetip.com/tipme/$1");
+      url = url.replace(/^(?:https?:\/\/)?([^\/?#]+)\.tip\.me(?:[\/?#].*)?$/, "https://www.changetip.com/tipme/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+)(?:.*)?$/, "https://flattr.com/profile/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/([^\/?#]+)(?:.*)?$/, "https://www.patreon.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
+      return url;
+    }
+  },
+  crowdfunding: {
+    match: [
+      new RegExp("^(https?://)?(www\\.)?indiegogo\\.com/(individuals|projects)/", "i"),
+      new RegExp("^(https?://)?(www\\.)?kickstarter\\.com/(profile|projects)/", "i"),
+    ],
+    type: LINK_TYPES.crowdfunding,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?indiegogo\.com\/individuals\/(\d+)(?:[\/?#].*)?$/, "https://www.indiegogo.com/individuals/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?indiegogo\.com\/projects\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.indiegogo.com/projects/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/profile\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/profile/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/projects\/(\d+)\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/projects/$1/$2");
       return url;
     }
   }
