@@ -157,8 +157,13 @@ sub is_newbie
 sub is_admin
 {
     my $self = shift;
-    return $self->is_relationship_editor || $self->is_wiki_transcluder ||
-           $self->is_location_editor || $self->is_banner_editor;
+    return (
+        $self->is_account_admin ||
+        $self->is_banner_editor ||
+        $self->is_location_editor ||
+        $self->is_relationship_editor ||
+        $self->is_wiki_transcluder
+    );
 }
 
 has 'preferences' => (

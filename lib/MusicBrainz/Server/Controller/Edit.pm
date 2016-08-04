@@ -206,7 +206,7 @@ sub search : Path('/search/edits') RequireAuth
     );
     return unless %{ $c->req->query_params };
 
-    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user->id);
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user);
     $c->stash( query => $query );
 
     if ($query->valid && !$c->req->query_params->{'form_only'}) {
