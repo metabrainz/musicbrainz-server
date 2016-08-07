@@ -501,6 +501,13 @@ msgid ""
 "tuning forks."
 msgstr ""
 
+#. name:pianet 
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
+msgstr ""
+
 #. name:idiophone 
 #: DB:instrument/description:674
 msgid ""
@@ -3077,6 +3084,12 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr ""
 
+#. name:cembalet 
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
+
 #. name:jug 
 #: DB:instrument/description:505
 msgid "an empty jug (usually made of glass or stoneware) played with the mouth"
@@ -3132,6 +3145,13 @@ msgstr ""
 #. name:saó ôi flute 
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:guitaret 
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
 msgstr ""
 
 #. name:ti bwa 

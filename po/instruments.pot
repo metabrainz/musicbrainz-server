@@ -28,10 +28,6 @@ msgstr ""
 msgid "Batá drum"
 msgstr ""
 
-#: DB:instrument/name:260
-msgid "Chamberlin"
-msgstr ""
-
 #: DB:instrument/name:183
 msgid "Chapman stick"
 msgstr ""
@@ -98,10 +94,6 @@ msgstr ""
 
 #: DB:instrument/name:561
 msgid "Lyricon"
-msgstr ""
-
-#: DB:instrument/name:132
-msgid "Mellotron"
 msgstr ""
 
 #: DB:instrument/name:92
@@ -617,6 +609,11 @@ msgstr ""
 msgid "cello"
 msgstr ""
 
+#: DB:instrument/name:794
+msgctxt "an electric piano with reeds."
+msgid "cembalet"
+msgstr ""
+
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr ""
@@ -635,6 +632,11 @@ msgstr ""
 
 #: DB:instrument/name:471
 msgid "chamber organ"
+msgstr ""
+
+#: DB:instrument/name:260
+msgctxt "An electromechanical piano"
+msgid "chamberlin"
 msgstr ""
 
 #: DB:instrument/name:536
@@ -1291,6 +1293,11 @@ msgstr ""
 msgid "guitar synthesizer"
 msgstr ""
 
+#: DB:instrument/name:795
+msgctxt "an electric lamellophone"
+msgid "guitaret"
+msgstr ""
+
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
 msgstr ""
@@ -1761,6 +1768,11 @@ msgstr ""
 msgid "mellophone"
 msgstr ""
 
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
+
 #: DB:instrument/name:44
 msgid "melodica"
 msgstr ""
@@ -1989,6 +2001,11 @@ msgstr ""
 
 #: DB:instrument/name:668
 msgid "pi nai"
+msgstr ""
+
+#: DB:instrument/name:793
+msgctxt "An electromechanical piano"
+msgid "pianet"
 msgstr ""
 
 #: DB:instrument/name:137
