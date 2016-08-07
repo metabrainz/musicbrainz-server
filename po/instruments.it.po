@@ -7,11 +7,12 @@
 # leofiore <email address hidden>, 2012
 # Monica <email address hidden>, 2014
 # Luca Salini <email address hidden>, 2012
+# Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-04 17:01+0000\n"
+"Last-Translator: Valentina Menale <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,11 +54,11 @@ msgstr "Lira cretese"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr ""
+msgstr "Denis d'or"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "Stilofono Dubreq"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
@@ -65,7 +66,7 @@ msgstr "Clarinetto piccolo"
 
 #: DB:instrument/name:441
 msgid "EWI"
-msgstr ""
+msgstr "EWI"
 
 #: DB:instrument/name:7
 msgid "English horn"
@@ -81,7 +82,7 @@ msgstr "Arpa tedesca"
 
 #: DB:instrument/name:236
 msgid "Greek baglama"
-msgstr ""
+msgstr "Baglama greco"
 
 #: DB:instrument/name:751
 msgid "Guitaret"
@@ -205,6 +206,11 @@ msgstr ""
 
 #: DB:instrument/name:563
 msgid "Xaphoon"
+msgstr ""
+
+#: DB:instrument/name:778
+msgctxt "a type of harmonica/accordion hybrid"
+msgid "accordina"
 msgstr ""
 
 #: DB:instrument/name:41
@@ -727,6 +733,11 @@ msgstr ""
 msgid "clavinet"
 msgstr ""
 
+#: DB:instrument/name:780
+msgctxt "free reed aerophone with pitching pipes."
+msgid "claviola"
+msgstr ""
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr ""
@@ -781,6 +792,11 @@ msgstr ""
 
 #: DB:instrument/name:158
 msgid "cowbell"
+msgstr ""
+
+#: DB:instrument/name:779
+msgctxt "guitar/Viola caipira like plucked string instrument"
+msgid "craviola"
 msgstr ""
 
 #: DB:instrument/name:736
@@ -1628,7 +1644,8 @@ msgstr ""
 msgid "kös"
 msgstr ""
 
-#: DB:instrument/name:556
+#: DB:instrument/name:782
+msgctxt "Māori traditional small, ductless and notchless flute"
 msgid "kōauau"
 msgstr ""
 
@@ -1852,6 +1869,11 @@ msgstr "Corno naturale"
 msgid "ney"
 msgstr ""
 
+#: DB:instrument/name:783
+msgctxt "Māori traditional small vessel flute"
+msgid "nguru"
+msgstr ""
+
 #: DB:instrument/name:729
 msgid "ngɔni"
 msgstr ""
@@ -1940,6 +1962,11 @@ msgstr ""
 msgid "oud"
 msgstr ""
 
+#: DB:instrument/name:790
+msgctxt "Māori traditional gong made of jade and bone"
+msgid "pahū pounamu"
+msgstr ""
+
 #: DB:instrument/name:502
 msgid "pakhavaj"
 msgstr ""
@@ -2020,6 +2047,11 @@ msgstr "strumenti a corda pizzicata"
 msgid "pocket trumpet"
 msgstr ""
 
+#: DB:instrument/name:792
+msgctxt "Māori traditional swung bird lure."
+msgid "poi awhiowhio"
+msgstr ""
+
 #: DB:instrument/name:626
 msgid "post horn"
 msgstr "Corno postale"
@@ -2046,6 +2078,36 @@ msgstr ""
 
 #: DB:instrument/name:726
 msgid "pātē"
+msgstr ""
+
+#: DB:instrument/name:787
+msgctxt "Māori traditional hardwood flute"
+msgid "pōrutu"
+msgstr ""
+
+#: DB:instrument/name:788
+msgctxt "Māori traditional trumpet made of wood."
+msgid "pūkaea"
+msgstr ""
+
+#: DB:instrument/name:785
+msgctxt "Māori traditional long flute"
+msgid "pūmotomoto"
+msgstr ""
+
+#: DB:instrument/name:791
+msgctxt "Māori traditional bullroarer like instrument."
+msgid "pūrerehua"
+msgstr ""
+
+#: DB:instrument/name:789
+msgctxt "Māori traditional conch shell trumpet"
+msgid "pūtātara"
+msgstr ""
+
+#: DB:instrument/name:786
+msgctxt "Māori traditional wide ranged flute."
+msgid "pūtōrino"
 msgstr ""
 
 #: DB:instrument/name:613
@@ -2122,6 +2184,11 @@ msgstr ""
 
 #: DB:instrument/name:179
 msgid "reeds"
+msgstr ""
+
+#: DB:instrument/name:784
+msgctxt "Māori traditional long flute"
+msgid "rehu"
 msgstr ""
 
 #: DB:instrument/name:722
@@ -2534,6 +2601,11 @@ msgstr ""
 
 #: DB:instrument/name:425
 msgid "tangent piano"
+msgstr ""
+
+#: DB:instrument/name:781
+msgctxt "Māori traditional instrument ensamble."
+msgid "taonga pūoro"
 msgstr ""
 
 #: DB:instrument/name:559

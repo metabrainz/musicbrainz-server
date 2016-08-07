@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-26 07:34+0000\n"
+"PO-Revision-Date: 2016-08-06 07:34+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,13 @@ msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
 msgstr "Een fietsbel kan naast het waarschuwen van voetgangers en andere fietsers ook gebruikt worden als percussie-instrument."
+
+#. name:pūrerehua
+#: DB:instrument/description:791
+msgid ""
+"A blade-like piece of bone, wood or stone, swung on a long cord producing a "
+"loud, deep whirling that can be heard from a distance."
+msgstr ""
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -157,6 +164,13 @@ msgid ""
 "from the flow of air across an opening."
 msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht langs een opening te laten blazen."
 
+#. name:pūtōrino
+#: DB:instrument/description:786
+msgid ""
+"A flute with a wide range, made of wood, tapered at each end. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
+
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
@@ -172,6 +186,13 @@ msgstr "Een glasharp is een muziekinstrument dat bestaat uit rechtopstaande wijn
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr "Een grote gongtrom is een grote enkele trom die op een gong lijkt."
 
+#. name:pahū pounamu
+#: DB:instrument/description:790
+msgid ""
+"A gong made of jade and pilot-whale bone with a striker made of a hardwood, "
+"akeake."
+msgstr ""
+
 #. name:guitar synthesizer
 #: DB:instrument/description:763
 msgid ""
@@ -185,6 +206,14 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr "Een hi-hat (of hihat) is een typerend onderdeel van een drumstel en bestaat uit twee bekkens die op een standaard zijn gemonteerd."
+
+#. name:poi awhiowhio
+#: DB:instrument/description:792
+msgid ""
+"A hollowed out gourd with drilled holes, swung around creating a whistling, "
+"chattering sound that attracted birds. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr ""
 
 #. name:17-string koto
 #: DB:instrument/description:516
@@ -220,6 +249,28 @@ msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
 msgstr "Een lithofoon is een muziekinstrument bestaande uit één of meer stukken steen die worden aangeslagen om muziek te maken."
+
+#. name:rehu
+#: DB:instrument/description:784
+msgid ""
+"A long flute with a closed top and a transverse blowing hole and finger "
+"holes like the pōrutu."
+msgstr ""
+
+#. name:pūmotomoto
+#: DB:instrument/description:785
+msgid ""
+"A long flute with a notched open top and a single finger hole near the end. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pōrutu
+#: DB:instrument/description:787
+msgid ""
+"A longer version of the kōauau, made of hardwoods such as mānuka, mataī, or "
+"black maire. Like the pūtorino, it has 2 voices, the male (trumpet) and "
+"female (flute)."
+msgstr ""
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -295,6 +346,21 @@ msgid ""
 "slit at the top."
 msgstr "Een spleettrommel is een hol percussie-instrument dat wordt gemaakt van hout of bamboe en aan de bovenkant een spleet heeft."
 
+#. name:nguru
+#: DB:instrument/description:783
+msgid ""
+"A small vessel flute like the ocarina or xun. Made of wood, soapstone or "
+"bone and shaped like a whale's tooth. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr ""
+
+#. name:kōauau
+#: DB:instrument/description:782
+msgid ""
+"A small, ductless and notchless flute, made of wood or bone. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
+
 #. name:suikinkutsu
 #: DB:instrument/description:147
 msgid ""
@@ -336,6 +402,20 @@ msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
 msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. Standaard onderdeel van een drumstel."
+
+#. name:pūkaea
+#: DB:instrument/description:788
+msgid ""
+"A traditional Maori trumpet made of wood. A war and announcement trumpet. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pūtātara
+#: DB:instrument/description:789
+msgid ""
+"A traditional conch shell trumpet, used for signalling to ceremonial and "
+"ritual use. part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -435,6 +515,16 @@ msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
 msgstr "Een idiofoon is een muziekinstrument dat geluid produceert door in zijn geheel te vibreren zonder gebruik te maken van snaren of membranen."
+
+#. name:craviola
+#: DB:instrument/description:779
+msgid ""
+"An instrument designed by brazilian composer Paulinho Nogueira, it is "
+"distinctly asymmetric in contrast to typical guitar.The timbre is like a "
+"combination of the harpsichord (pt:cravo) and the Viola caipira. Craviolas "
+"can be six-string or twelve-string (either nylon or steel) and are produced "
+"solely by company Giannini."
+msgstr "Een craviola is een door de Braziliaanse componist Paulinho Nogueira ontwikkeld gitaartype met een karakteristieke asymetrische vorm. Het klinkt als een combinatie van een klavecimbel (Portugees: cravo) en een viola caipira. Craviola’s kunnen zes of twaalf snaren hebben, zowel van nylon als van staal, en worden alleen door het bedrijf Giannini geproduceerd."
 
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
@@ -1503,7 +1593,7 @@ msgstr "De esraj (Bengaals: এস্রাজ, Hindi: इसराज) is een s
 msgid ""
 "The flumpet is a hybrid brass horn instrument that shares the construction "
 "and timbre qualities of a trumpet and flugelhorn."
-msgstr "Een flümpet is een blaasinstrument dat de constructie en kwaliteiten van een flügelhorn en een trompet combineert."
+msgstr "Een flümpet is een blaasinstrument dat een combinatie is van een flügelhorn en een trompet."
 
 #. name:flûte d'amour
 #: DB:instrument/description:415
@@ -1674,7 +1764,7 @@ msgstr "De heike biwa (Japans: 平家琵琶) is een biwa met vier snaren en vijf
 msgid ""
 "The hichiriki is a double reed Japanese flute used as one of two main "
 "melodic instruments in Japanese gagaku music."
-msgstr "De hichiriki (Japans: 篳篥) is een Japanse dubbelrietfluit die wordt gebruikt als één van twee melodische instrumenten in Japanse gagakumuziek."
+msgstr "De hichiriki (Japans: 篳篥) is een Japanse dubbelrietfluit die in vaak combinatie met de ryuteki wordt gebruikt in Japanse gagakumuziek."
 
 #. name:hotchiku
 #: DB:instrument/description:709
@@ -1686,7 +1776,7 @@ msgstr "Een hocchiku is een Japanse verticale bamboefluit."
 msgid ""
 "The hulusi is a Chinese free reed wind instrument which has three bamboo "
 "pipes which pass through a gourd."
-msgstr "De hulusi (Chinees: 葫蘆絲, 葫芦丝, pinyin: húlúsī) is een Chinese aerofoon met doorslaande tongen. Het instrument heeft een kalebas of cloisonné waarin zich 2 tot 3 doorslaande tongen bevinden, die leiden naar bamboe pijpen die bevestigd zijn aan de kalebas."
+msgstr "De hulusi (Tradiitoneel Chinees: 葫蘆絲, Vereenvoudigd Chinees: 葫芦丝, pinyin: húlúsī) is een Chinese aerofoon. Het bestaat uit twee of drie bamboe pijpen die uitkomen in een kalebas."
 
 #. name:igil
 #: DB:instrument/description:707
@@ -1892,13 +1982,6 @@ msgid ""
 "vibrates when it is blown."
 msgstr "Een kèn lá , ook bekend als khen la of nplooj, is een instrument dat wordt gebruikt door de Hmong-minderheid in Vietnam. Het instrument bestaat uit een gekruld blad dat in de mond geplaatst wordt en vibreert als er op geblazen wordt."
 
-#. name:kōauau
-#: DB:instrument/description:556
-msgid ""
-"The kōauau is a small ductless and notchless Maori flute which is four to "
-"eight inches long and has three to six fingerholes placed along the pipe."
-msgstr "De kōauau is een kleine fluit van de Maori zonder bek van tien tot twintig centimeter lang en met drie tot zes vingergaten."
-
 #. name:laouto
 #: DB:instrument/description:704
 msgid "The laouto is a long-neck fretted instrument of the lute family."
@@ -2057,7 +2140,7 @@ msgid ""
 "The oboe da caccia is a double reed woodwind instrument in the oboe family, "
 "pitched a fifth below the oboe and used primarily in the Baroque period of "
 "European classical music."
-msgstr "Een jachthobo of oboe da caccia is een houtblazer en een vroege vorm van de hobo."
+msgstr "Een jachthobo (ook wel oboe da caccia) is een dubbelriets houtblazer Het is een vroege vorm van de hobo."
 
 #. name:ocarina
 #: DB:instrument/description:15
@@ -2930,6 +3013,13 @@ msgstr "Een theaterorgel (ook wel bioscooporgel of cinemaorgel) is een pijporgel
 msgid "Timpani (Kettle drum)"
 msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte."
 
+#. name:taonga pūoro
+#: DB:instrument/description:781
+msgid ""
+"Traditional musical instruments of the Māori people of New Zealand. Consists"
+" of flutes trumpets and percussion."
+msgstr ""
+
 #. name:classical kemençe
 #: DB:instrument/description:542
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
@@ -2993,6 +3083,14 @@ msgstr "Ook wel zils, kleine bekkens die worden gebruikt bij buikdansen en soort
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr "Een soort schuiffluit. Lid van de hmông-fluiten."
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
+" buttons/keys receive their air though the user blowing into the instrument "
+"like an harmonica"
+msgstr "een accordina is een soort combinatie van een mondharmonica en een accordeon. Net als een accordeon heeft het toetsen of knoppen, maar de lucht wordt aangevoerd door de speler die als net als bij een mondharmonica op het instrument blaast."
+
 #. name:tràm plè
 #: DB:instrument/description:308
 msgid ""
@@ -3024,7 +3122,7 @@ msgstr "Conisch geboord dubbelrietinstrument uit Bretagne."
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
-msgstr "Koeienhoornen zonder vingergaten. Met een mondstuk en vrij riet."
+msgstr "Koeienhoorns zonder vingergaten. Met een mondstuk en vrij riet."
 
 #. name:dholak
 #: DB:instrument/description:382
@@ -3045,6 +3143,13 @@ msgstr "Een tubon is een soort elektronisch orgel dat als een gitaar om de nek k
 #: DB:instrument/description:312
 msgid "family of Hmông flutes"
 msgstr "Familie van hmông-fluiten"
+
+#. name:claviola
+#: DB:instrument/description:780
+msgid ""
+"free reed melodica like instrument that is worn like an accordion, with "
+"differenting length pipes which control the pitch"
+msgstr "Een claviola is een vrij rietinstrument dat lijkt op een melodica maar als een accordeon wordt gedragen. Pijpen van verschillende lengte zorgen voor de toonhoogte."
 
 #. name:saó ôi flute
 #: DB:instrument/description:310

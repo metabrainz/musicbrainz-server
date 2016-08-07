@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
+"PO-Revision-Date: 2016-08-01 22:12+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1068,6 +1068,11 @@ msgstr "Ιαπωνικά"
 #: DB:language/name:196
 msgid "Javanese"
 msgstr "Ιαβαϊκά"
+
+#. frequency:1 iso_code_3:tmr
+#: DB:language/name:6526
+msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
+msgstr ""
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200

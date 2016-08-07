@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-07 06:02+0000\n"
+"PO-Revision-Date: 2016-08-01 22:12+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -362,6 +362,11 @@ msgstr "変イ短調"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
 msgstr "嬰イ短調"
+
+#: DB:work_attribute_type/name:23
+msgctxt "work_attribute_type"
+msgid "AKM ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"

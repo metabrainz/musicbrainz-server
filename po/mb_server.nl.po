@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-19 19:28-0500\n"
-"PO-Revision-Date: 2016-08-01 08:27+0000\n"
+"POT-Creation-Date: 2016-08-01 17:08-0500\n"
+"PO-Revision-Date: 2016-08-05 20:16+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2670,7 +2670,7 @@ msgstr "Bewerking #{id}"
 #: ../root/edit/edit_header.tt:54 ../root/edit/edit_header.tt:69
 #: ../root/edit/notes-received.tt:24
 msgid "Edit #{id} - {name}"
-msgstr "Bewerking #{id} - {name}"
+msgstr "Bewerking #{id} – {name}"
 
 #: ../root/entity/alias/edit.tt:1
 msgid "Edit Alias"
@@ -4729,7 +4729,7 @@ msgstr "Nummer omhoog verplaatsen"
 
 #: ../root/main/index.tt:1
 msgid "MusicBrainz - The Open Music Encyclopedia"
-msgstr "MusicBrainz - De open muziekencyclopedie"
+msgstr "MusicBrainz – De open muziekencyclopedie"
 
 #: ../root/main/index.tt:47
 msgid "MusicBrainz Blog"
@@ -5198,7 +5198,7 @@ msgstr "Nog niemand heeft dit een etiket gegeven."
 
 #: ../root/elections/nominate.tt:1 ../root/elections/nominate.tt:3
 msgid "Nominate a candidate for auto-editor"
-msgstr "Nomineer een kandidaat voor autoredacteur"
+msgstr "Nomineer een kandidaat voor het autoredacteurschap"
 
 #: ../root/report/index.tt:91
 #: ../root/report/releases_with_download_relationships.tt:1
@@ -10836,7 +10836,7 @@ msgstr "historisch, tot {end}"
 #: ../root/components/common-macros.tt:180
 #: ../root/static/scripts/common/components/EntityLink.js:73
 msgid "historical, {begin}-{end}"
-msgstr "historisch, {begin}-{end}"
+msgstr "historisch, {begin} – {end}"
 
 #: ../root/search/results-freedb.tt:29
 msgid "import"
@@ -11112,7 +11112,7 @@ msgstr "{artist} ({roles})"
 
 #: ../root/cdtoc/lookup.tt:21
 msgid "{artist} - {name}"
-msgstr "{artist} - {name}"
+msgstr "{artist} – {name}"
 
 #: ../root/components/common-macros.tt:213
 msgid "{artist} as {name}"
@@ -12774,19 +12774,19 @@ msgstr "Kies alsjeblieft een andere gebruikersnaam, deze is al in gebruik"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:28
 msgid "Editor is spamming"
-msgstr "De redacteur spamt"
+msgstr "De redacteur spamt."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:29
 msgid "Editor is unresponsive to edit notes"
-msgstr "De redacteur reageert niet op bewerkingsnotities"
+msgstr "De redacteur reageert niet op bewerkingsnotities."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:30
 msgid "Editor intentionally ignores accepted guidelines"
-msgstr "De redacteur negeert bewust de geaccepteerde richtlijnen"
+msgstr "De redacteur negeert bewust de geaccepteerde richtlijnen."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:31
 msgid "Editor is overzealous in enforcing guidelines as rules"
-msgstr "De redacteur legt richtlijnen te fanatiek uit als regels"
+msgstr "De redacteur legt richtlijnen te fanatiek uit als regels."
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:32
 msgid "Editor engages in overzealous or abusive yes/no voting"
@@ -13373,7 +13373,7 @@ msgstr "Verander alle artiesten op deze uitgave die overeenkomen met ‘{name}�
 
 #: ../root/static/scripts/release-editor/init.js:156
 msgid "{name} - Add Release"
-msgstr "{name} - Uitgave toevoegen"
+msgstr "{name} – Uitgave toevoegen"
 
 #: ../root/static/scripts/release-editor/init.js:157
 msgid "Add Release"
@@ -13381,7 +13381,7 @@ msgstr "Uitgave toevoegen"
 
 #: ../root/static/scripts/release-editor/init.js:161
 msgid "{name} - Edit Release"
-msgstr "{name} - Uitgave bewerken"
+msgstr "{name} – Uitgave bewerken"
 
 #: ../root/static/scripts/release-editor/init.js:162
 msgid "Edit Release"

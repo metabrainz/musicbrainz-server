@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-23 10:59+0000\n"
+"PO-Revision-Date: 2016-08-05 20:13+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -146,7 +146,7 @@ msgid ""
 "A mass is a choral composition that sets the invariable portions of the "
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus"
 " - Agnus Dei, with other portions sometimes added) to music."
-msgstr "Een mis is een compositie voor koor die de onveranderlijke delen van de christelijke eucharistische liturgie (Kyrie - Gloria - Credo - Sanctus - Bedendictus - Agnus Dei, soms met toegevoegde delen) op muziek zet."
+msgstr "Een mis is een compositie voor koor die de onveranderlijke delen van de christelijke eucharistische liturgie (Kyrie – Gloria – Credo – Sanctus – Bedendictus – Agnus Dei, soms met toegevoegde delen) op muziek zet."
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -317,7 +317,7 @@ msgid ""
 "A symphonic poem is a piece of programmatic orchestral music, usually in a "
 "single movement, that evokes a painting, a landscape, the content of a poem,"
 " a story or novel, or other non-musical source."
-msgstr "Een symfonisch gedicht is een stuk orkestmuziek, meestal uit een deel, dat een schilderij, landschap, gedicht, verhaal of andere niet- muzikale bron tot de verbeelding roept."
+msgstr "Een symfonisch gedicht is een stuk orkestmuziek, meestal uit een deel, dat een schilderij, landschap, gedicht, verhaal of andere niet-muzikale bron tot de verbeelding roept."
 
 #: DB:work_type/description:16
 msgctxt "work_type"
@@ -353,6 +353,11 @@ msgstr "As kleine terts"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
 msgstr "Ais kleine terts"
+
+#: DB:work_attribute_type/name:23
+msgctxt "work_attribute_type"
+msgid "AKM ID"
+msgstr "AKM-ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
+"PO-Revision-Date: 2016-08-01 22:12+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1691,6 +1691,12 @@ msgstr ""
 msgid "This links a label to a fan-created website."
 msgstr ""
 
+#: DB:link_type/description:899
+msgid ""
+"This links a label to a site where the label can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
 msgstr ""
@@ -1708,10 +1714,28 @@ msgstr ""
 msgid "This links a label to the equivalent entry at YouTube."
 msgstr ""
 
+#: DB:link_type/description:903
+msgid ""
+"This links a label to their profile at a crowdfunding site like Kickstarter "
+"or Indiegogo."
+msgstr ""
+
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:900
+msgid ""
+"This links a place to a site where the place or the organisation behind it "
+"can receive donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:909
+msgid ""
+"This links a place to its profile at a crowdfunding site like Kickstarter or"
+" Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:836
@@ -1747,6 +1771,12 @@ msgid ""
 "used samples as well."
 msgstr ""
 
+#: DB:link_type/description:905
+msgid ""
+"This links a recording to the relevant crowdfunding project at a "
+"crowdfunding site like Kickstarter or Indiegogo."
+msgstr ""
+
 #: DB:link_type/description:868
 msgid ""
 "This links a release group to an artist it is dedicated to. This is for "
@@ -1764,6 +1794,12 @@ msgid ""
 "by other (sometimes very unknown) bands, to honor the target artist. Often "
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
+msgstr ""
+
+#: DB:link_type/description:907
+msgid ""
+"This links a release group to the relevant crowdfunding project at a "
+"crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:301
@@ -1794,16 +1830,36 @@ msgid ""
 "used samples as well."
 msgstr ""
 
+#: DB:link_type/description:906
+msgid ""
+"This links a release to the relevant crowdfunding project at a crowdfunding "
+"site like Kickstarter or Indiegogo."
+msgstr ""
+
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
 "festival) to its official page at SoundCloud."
 msgstr ""
 
+#: DB:link_type/description:901
+msgid ""
+"This links a series (usually, but not exclusively, a festival or concert "
+"series) to a site where the organisers/creators can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
 #: DB:link_type/description:805
 msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:910
+msgid ""
+"This links a series to its profile (e.g. for a festival) or project (e.g. "
+"for a specific tour, or for compiling a classical catalogue) at a "
+"crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:97
@@ -1826,6 +1882,12 @@ msgid ""
 "relationship type is the functional equivalent of the <a "
 "href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
 "type</a> for group-group relationships."
+msgstr ""
+
+#: DB:link_type/description:908
+msgid ""
+"This links a work to its project at a crowdfunding site like Kickstarter or "
+"Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:885
@@ -1898,6 +1960,12 @@ msgstr ""
 msgid "This links an artist to a fan-created website."
 msgstr ""
 
+#: DB:link_type/description:897
+msgid ""
+"This links an artist to a site where the artist can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
 #: DB:link_type/description:707
 msgid ""
 "This links an artist to an URL containing an interview with that artist."
@@ -1948,6 +2016,12 @@ msgstr ""
 msgid "This links an artist to the equivalent entry at YouTube."
 msgstr ""
 
+#: DB:link_type/description:902
+msgid ""
+"This links an artist to their profile at a crowdfunding site like "
+"Kickstarter or Indiegogo."
+msgstr ""
+
 #: DB:link_type/description:108
 msgid ""
 "This links an artist's performance name (a stage name or alias) with their "
@@ -1986,6 +2060,18 @@ msgstr ""
 msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:898
+msgid ""
+"This links an event to a site where the event organisers can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:904
+msgid ""
+"This links an event to the relevant crowdfunding project at a crowdfunding "
+"site like Kickstarter or Indiegogo."
 msgstr ""
 
 #: DB:link_type/description:111
@@ -2205,6 +2291,12 @@ msgstr ""
 #: DB:link_type/description:859
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
+msgstr ""
+
+#: DB:link_type/description:896
+msgid ""
+"This relationship links an instrument to the person(s) who invented or "
+"designed it."
 msgstr ""
 
 #: DB:link_type/description:856
@@ -2887,6 +2979,22 @@ msgstr ""
 msgid "creative position"
 msgstr ""
 
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/reverse_link_phrase:908
+msgid "crowdfunding page"
+msgstr ""
+
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
+#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:907
+msgid "crowdfunding page for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 msgid "dedicated to"
 msgstr ""
@@ -3199,6 +3307,13 @@ msgstr "omaa blogin"
 msgid "has a catalog of records at"
 msgstr "omaa kataloogin äänitteistä"
 
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+msgid "has a crowdfunding page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:288
 msgid "has a discography entry at"
 msgstr "omaa diskografia merkinnän"
@@ -3230,6 +3345,12 @@ msgstr "oma sekalaisen roolin "
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "omaa sivun tietokannassa"
+
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:897
+msgid "has a patronage page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
@@ -3465,6 +3586,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:707
 msgid "interviews"
+msgstr ""
+
+#: DB:link_type/link_phrase:896 DB:link_type/long_link_phrase:896
+msgid "invented"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:896
+msgid "invented by"
 msgstr ""
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
@@ -4011,6 +4140,18 @@ msgstr "osittainen"
 #: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "osat"
+
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:897
+msgid "patronage page"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:897
+msgid "patronage page for"
+msgstr ""
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
@@ -5125,6 +5266,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:279
 msgid "{entity1} has a Wikipedia page at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:908
+msgid "{entity1} has a crowdfunding page at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:273

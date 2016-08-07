@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 10:25+0000\n"
+"PO-Revision-Date: 2016-08-05 20:02+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -598,7 +598,7 @@ msgstr "Nederlands"
 #. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
-msgstr "Middelnederlands (ca. 1050 - 1350)"
+msgstr "Middelnederlands (ca. 1050 – 1350)"
 
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
@@ -638,12 +638,12 @@ msgstr "Engels"
 #. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
-msgstr "Middelengels (ca. 1100 - 1500)"
+msgstr "Middelengels (ca. 1100 – 1500)"
 
 #. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
-msgstr "Oudengels (ca. 450 - 1100)"
+msgstr "Oudengels (ca. 450 – 1100)"
 
 #. frequency:1 iso_code_3:myv
 #: DB:language/name:290
@@ -718,12 +718,12 @@ msgstr "Frans"
 #. frequency:0 iso_code_3:frm
 #: DB:language/name:135
 msgid "French, Middle (ca.1400-1600)"
-msgstr "Middelfrans (ca. 1400 - 1600)"
+msgstr "Middelfrans (ca. 1400 – 1600)"
 
 #. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
-msgstr "Oudfrans (842 - ca. 1400)"
+msgstr "Oudfrans (842 – ca. 1400)"
 
 #. frequency:1 iso_code_3:frs
 #: DB:language/name:485
@@ -808,12 +808,12 @@ msgstr "Nederduits"
 #. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
-msgstr "Middelhoogduits (ca. 1050 - 1500)"
+msgstr "Middelhoogduits (ca. 1050 – 1500)"
 
 #. frequency:0 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
-msgstr "Oudhoogduits (ca. 750 - 1050)"
+msgstr "Oudhoogduits (ca. 750 – 1050)"
 
 #. frequency:1 iso_code_3:gsw
 #: DB:language/name:476
@@ -1038,7 +1038,7 @@ msgstr "Iers"
 #. frequency:0 iso_code_3:mga
 #: DB:language/name:270
 msgid "Irish, Middle (900-1200)"
-msgstr "Middeliers (900 - 1200)"
+msgstr "Middeliers (900 – 1200)"
 
 #. frequency:0 iso_code_3:sga
 #: DB:language/name:369
@@ -1069,6 +1069,11 @@ msgstr "Japans"
 #: DB:language/name:196
 msgid "Javanese"
 msgstr "Javaans"
+
+#. frequency:1 iso_code_3:tmr
+#: DB:language/name:6526
+msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
+msgstr "Joods-Babylonisch Aramees (ca. 200 – 1200 n.Chr.)"
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
@@ -1738,7 +1743,7 @@ msgstr "Occitaans"
 #. frequency:0 iso_code_3:arc
 #: DB:language/name:19
 msgid "Official Aramaic (700-300 BCE)"
-msgstr "Officieel Aramees (700 - 300 V. Chr)"
+msgstr "Officieel Aramees (700 – 300 v.Chr.)"
 
 #. frequency:1 iso_code_3:oji
 #: DB:language/name:319
@@ -1818,7 +1823,7 @@ msgstr "Perzisch"
 #. frequency:0 iso_code_3:peo
 #: DB:language/name:333
 msgid "Persian, Old (ca.600-400 B.C.)"
-msgstr "Oudperzisch (ca. 600 - 400 v.Chr.)"
+msgstr "Oudperzisch (ca. 600 – 400 v.Chr.)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:335
