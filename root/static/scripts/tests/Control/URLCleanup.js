@@ -805,6 +805,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/us/album/id721686178',
         },
+        {
+                             input_url: 'https://geo.itunes.apple.com/us/album/lonerism/id547068224?app=itunes',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/us/album/id547068224',
+        },
         // Jamendo Music
         {
                              input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
