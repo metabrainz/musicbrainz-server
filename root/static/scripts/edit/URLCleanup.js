@@ -1180,6 +1180,27 @@ validationRules[LINK_TYPES.image.artist] = validateImage;
 validationRules[LINK_TYPES.image.label] = validateImage;
 validationRules[LINK_TYPES.image.place] = validateImage;
 
+// allow iTunes pages only for the correct entities with the downloadpurchase rel
+// block links to linkmaker.itunes.apple.com
+validationRules[LINK_TYPES.downloadpurchase.artist] = function (url) {
+  if (/itunes\.apple\.com/.test(url)) {
+    return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?artist\/id[0-9]+$/.test(url);
+  }
+  return true;
+}
+validationRules[LINK_TYPES.downloadpurchase.recording] = function (url) {
+  if (/itunes\.apple\.com/.test(url)) {
+    return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?music-video\/id[0-9]+$/.test(url);
+  }
+  return true;
+}
+validationRules[LINK_TYPES.downloadpurchase.release] = function (url) {
+  if (/itunes\.apple\.com/.test(url)) {
+    return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(album|audiobook|podcast|preorder)\/id[0-9]+$/.test(url);
+  }
+  return true;
+}
+
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
     if (!validationRules[id]) {
