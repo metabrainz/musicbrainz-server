@@ -811,6 +811,18 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/us/album/id547068224',
         },
+        {
+                             input_url: 'https://itunes.apple.com/de/audiobook/der-marsianer/id923371856?mt=3&ign-mpt=uo%3D4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/de/audiobook/id923371856',
+        },
+        {
+                             input_url: 'https://itunes.apple.com/ir/podcast/bia2.com-masouds-podcast/id469326376',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/ir/podcast/id469326376',
+        },
         // Jamendo Music
         {
                              input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
