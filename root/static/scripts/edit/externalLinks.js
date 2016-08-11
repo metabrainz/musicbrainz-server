@@ -167,7 +167,7 @@ class ExternalLinksEditor extends React.Component {
               error = l('Please select a link type for the URL you’ve entered.');
             } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
               error = l('This relationship type is deprecated and should not be used.');
-            } else if (checker && !checker(link.url)) {
+            } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
             } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
               error = l('This relationship already exists.');
