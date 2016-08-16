@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-06 07:34+0000\n"
+"PO-Revision-Date: 2016-08-08 18:56+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -508,6 +508,13 @@ msgid ""
 "the type of electric piano, the tones may be produced by strings, reeds or "
 "tuning forks."
 msgstr "Een elektrische piano is een elektromechanisch muziekinstrument. Afhankelijk van het soort elektrische piano kan het geluid worden geproduceerd door snaren, rieten of stemvorken."
+
+#. name:pianet
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
+msgstr ""
 
 #. name:idiophone
 #: DB:instrument/description:674
@@ -1547,7 +1554,7 @@ msgstr "Een dramyen (ook wel dran-nye, dranyen of dramyin genoemd) is een tradit
 #. name:duduk
 #: DB:instrument/description:397
 msgid "The duduk is a traditional Armenian double reed woodwind instrument."
-msgstr "De duduk is een traditioneel Armeens dubbelriet houtblazer."
+msgstr "De doedoek is een traditioneel Armeens dubbelriet houtblazer."
 
 #. name:dulcian
 #: DB:instrument/description:496
@@ -1667,7 +1674,7 @@ msgstr "Een glasharmonica is een instrument dat gemaakt is van een serie glazen 
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
-msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
+msgstr "De gralla is een traditioneel Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
 
 #. name:gramorimba
 #: DB:instrument/description:748
@@ -3006,7 +3013,7 @@ msgstr "Een żummara is een Maltees instrument dat lijkt op de kazoo. Het wordt 
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
-msgstr "Een theaterorgel (ook wel bioscooporgel of cinemaorgel) is een pijporgel dat speciaal gebouwd werd voor de muzikale omlijsting van stomme films."
+msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme films. Ook bekend onder de namen bioscooporgel en cinemaorgel."
 
 #. name:timpani
 #: DB:instrument/description:167
@@ -3098,6 +3105,12 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr "Een tràm plè is een variant op de Hmông-fluit. De lippen van de fluitist omvatten het blaasgat met het vibrerende vrije riet erin."
 
+#. name:cembalet
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
+
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -3155,6 +3168,13 @@ msgstr "Een claviola is een vrij rietinstrument dat lijkt op een melodica maar a
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
 msgstr "Fluit van de Muong uit Vietnam"
+
+#. name:guitaret
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
+msgstr ""
 
 #. name:ti bwa
 #: DB:instrument/description:332

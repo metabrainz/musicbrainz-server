@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:11+0000\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -515,6 +515,13 @@ msgid ""
 "the type of electric piano, the tones may be produced by strings, reeds or "
 "tuning forks."
 msgstr "Un piano électrique est un instrument de musique électro-mécanique. Suivant le type de piano électrique, les notes peuvent êtres produites par des cordes, des anches ou des diapasons."
+
+#. name:pianet
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
+msgstr ""
 
 #. name:idiophone
 #: DB:instrument/description:674
@@ -3105,6 +3112,12 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr "Une variante de la flûte hmông, les lèvres du souffleur entourent le trou de soufflage avec l'anche libre vibrant à l'Intérieur."
 
+#. name:cembalet
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
+
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -3162,6 +3175,13 @@ msgstr ""
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
 msgstr "flûte saó ôi, utilisée par les Muong"
+
+#. name:guitaret
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
+msgstr ""
 
 #. name:ti bwa
 #: DB:instrument/description:332

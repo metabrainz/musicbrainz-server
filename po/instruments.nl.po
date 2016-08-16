@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-02 09:32+0000\n"
+"PO-Revision-Date: 2016-08-08 15:53+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -35,10 +35,6 @@ msgstr "Baltische psalteria"
 #: DB:instrument/name:457
 msgid "Batá drum"
 msgstr "Batátrommel"
-
-#: DB:instrument/name:260
-msgid "Chamberlin"
-msgstr "Chamberlin"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -107,10 +103,6 @@ msgstr "Ierse harp (clàrsach)"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "Lyricon"
-
-#: DB:instrument/name:132
-msgid "Mellotron"
-msgstr "Mellotron"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -511,7 +503,7 @@ msgstr "biwa"
 
 #: DB:instrument/name:419
 msgid "boatswain's pipe"
-msgstr "Bootsmansfluitje"
+msgstr "bootsmansfluitje"
 
 #: DB:instrument/name:188
 msgid "bodhrán"
@@ -625,6 +617,11 @@ msgstr "celesta / celeste"
 msgid "cello"
 msgstr "cello"
 
+#: DB:instrument/name:794
+msgctxt "an electric piano with reeds."
+msgid "cembalet"
+msgstr ""
+
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr "chacha"
@@ -639,11 +636,16 @@ msgstr "chakhe"
 
 #: DB:instrument/name:436
 msgid "chalumeau"
-msgstr "chalumea"
+msgstr "chalumeau"
 
 #: DB:instrument/name:471
 msgid "chamber organ"
 msgstr "kamerorgel"
+
+#: DB:instrument/name:260
+msgctxt "An electromechanical piano"
+msgid "chamberlin"
+msgstr ""
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -1299,6 +1301,11 @@ msgstr "gitaar"
 msgid "guitar synthesizer"
 msgstr "gitaarsynthesizer"
 
+#: DB:instrument/name:795
+msgctxt "an electric lamellophone"
+msgid "guitaret"
+msgstr ""
+
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
 msgstr "guitarrón chileno"
@@ -1671,7 +1678,7 @@ msgstr "lasso d’amore"
 
 #: DB:instrument/name:518
 msgid "launeddas"
-msgstr "launedda"
+msgstr "launeddas"
 
 #: DB:instrument/name:764
 msgid "lautenwerck"
@@ -1768,6 +1775,11 @@ msgstr "duimpiano"
 #: DB:instrument/name:37
 msgid "mellophone"
 msgstr "mellofoon"
+
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
 
 #: DB:instrument/name:44
 msgid "melodica"
@@ -1998,6 +2010,11 @@ msgstr "pi"
 #: DB:instrument/name:668
 msgid "pi nai"
 msgstr "pi nai"
+
+#: DB:instrument/name:793
+msgctxt "An electromechanical piano"
+msgid "pianet"
+msgstr ""
 
 #: DB:instrument/name:137
 msgid "piano"

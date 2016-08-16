@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:11+0000\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -507,6 +507,13 @@ msgid ""
 "An electric piano is an electro-mechanical musical instrument. Depending on "
 "the type of electric piano, the tones may be produced by strings, reeds or "
 "tuning forks."
+msgstr ""
+
+#. name:pianet
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
 msgstr ""
 
 #. name:idiophone
@@ -3098,6 +3105,12 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr ""
 
+#. name:cembalet
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
+
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -3154,6 +3167,13 @@ msgstr ""
 #. name:saó ôi flute
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:guitaret
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
 msgstr ""
 
 #. name:ti bwa

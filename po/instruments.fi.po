@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +39,6 @@ msgstr "Baltialaiset kantelesoittimet"
 #: DB:instrument/name:457
 msgid "Batá drum"
 msgstr "Batá-rumpu"
-
-#: DB:instrument/name:260
-msgid "Chamberlin"
-msgstr "Chamberlin"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -111,10 +107,6 @@ msgstr "kelttiläinen harppu (cláirseach)"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "Lyricon"
-
-#: DB:instrument/name:132
-msgid "Mellotron"
-msgstr "Mellotron"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -629,6 +621,11 @@ msgstr "celesta"
 msgid "cello"
 msgstr "sello"
 
+#: DB:instrument/name:794
+msgctxt "an electric piano with reeds."
+msgid "cembalet"
+msgstr ""
+
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr ""
@@ -648,6 +645,11 @@ msgstr ""
 #: DB:instrument/name:471
 msgid "chamber organ"
 msgstr "kamariurut"
+
+#: DB:instrument/name:260
+msgctxt "An electromechanical piano"
+msgid "chamberlin"
+msgstr ""
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -1303,6 +1305,11 @@ msgstr "kitara"
 msgid "guitar synthesizer"
 msgstr ""
 
+#: DB:instrument/name:795
+msgctxt "an electric lamellophone"
+msgid "guitaret"
+msgstr ""
+
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
 msgstr ""
@@ -1773,6 +1780,11 @@ msgstr "mbira / likembe"
 msgid "mellophone"
 msgstr "mellofoni"
 
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
+
 #: DB:instrument/name:44
 msgid "melodica"
 msgstr "melodika"
@@ -2001,6 +2013,11 @@ msgstr ""
 
 #: DB:instrument/name:668
 msgid "pi nai"
+msgstr ""
+
+#: DB:instrument/name:793
+msgctxt "An electromechanical piano"
+msgid "pianet"
 msgstr ""
 
 #: DB:instrument/name:137

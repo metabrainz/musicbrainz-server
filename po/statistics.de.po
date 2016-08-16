@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-01-29 14:17+0000\n"
-"Last-Translator: Ulrich Klauer <email address hidden>\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,9 +32,22 @@ msgid ""
 "to releases."
 msgstr "Ein neuer AJAX-Cover-Art-Uploader wird veröffentlicht, der es einfacher macht, Cover-Art zu Veröffentlichungen hinzuzufügen."
 
+#: DB:statistics.statistic_event/description:2015-12-28
+msgid ""
+"A new banner message now notifies users whenever they receive a new edit "
+"note."
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr "Ein Zerwürfnis in der MusicBrainz-Community führt zum Großen Streit."
+
+#: DB:statistics.statistic_event/description:2014-11-19
+msgid ""
+"AcousticBrainz, which aims to crowd source acoustic information for music, "
+"is announced in cooperation with the Music Technology Group at Universitat "
+"Pompeu Fabra."
+msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
@@ -179,6 +192,10 @@ msgid ""
 "released."
 msgstr "Verbesserungen der Bearbeitungsanzeige, RDF-Abbilder deaktiviert, neue Installationsskripte veröffentlicht."
 
+#: DB:statistics.statistic_event/title:2015-12-28
+msgid "Edit note notifications"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
 msgstr "Bearbeitungssuche"
@@ -189,8 +206,20 @@ msgid ""
 "creating a huge spike in edits."
 msgstr "Bearbeiter ojnkpjg lässt ein Script zum Setzen der Titellängen aus DiscID-Werten laufen. Dies verursacht einen großen Bearbeitungs-Ausschlag."
 
+#: DB:statistics.statistic_event/description:2015-11-30
+msgid ""
+"Edits made by editors to their own release additions within 1 hour of adding"
+" them are now auto-edits, as are \"Add recording\" and \"Remove alias\" "
+"edits."
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-09-04
+msgid ""
+"Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2004-10-10
@@ -327,6 +356,18 @@ msgstr "MetaWeb wird Nutzer der MusicBrainz-Daten."
 msgid "MetaWeb signed"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2015-11-30
+msgid "More auto-edits"
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-11-16
+msgid ""
+"More edit types are made auto-edits for everyone: \"Add relationship\" and "
+"\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
+"Additionally, the German, French and Dutch translations are available on the"
+" main server."
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
 msgstr ""
@@ -338,6 +379,12 @@ msgstr "Der MusicBrainz-Server-Quellcode wurde von Subversion nach Git umgezogen
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
 msgstr "MusicBrainz bekommt seinen ersten dedizierten Datenbankserver."
+
+#: DB:statistics.statistic_event/description:2016-02-22
+msgid ""
+"MusicBrainz itself gets a new design to better match the rest of the *Brainz"
+" family."
+msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -369,6 +416,10 @@ msgstr "NGS-Veröffentlichung"
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
 msgstr "NGS, eine komplette Überarbeitung von MusicBrainz, wird veröffentlicht!"
+
+#: DB:statistics.statistic_event/title:2016-02-22
+msgid "New MusicBrainz design"
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -412,6 +463,10 @@ msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr "Veröffentlichungsgruppen, ISRC Unterstützung, CD-Stub-Suche und verbesserte Suche freigegeben."
 
+#: DB:statistics.statistic_event/title:2015-09-04
+msgid "Roman Tsukanov joins the MetaBrainz team"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
 msgstr "SG5-Verbesserungen"
@@ -419,6 +474,10 @@ msgstr "SG5-Verbesserungen"
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
 msgstr "Suchverbesserungen"
+
+#: DB:statistics.statistic_event/title:2015-11-16
+msgid "Several new auto-edit types and translations"
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -443,6 +502,10 @@ msgstr "TRM-Kollisionen"
 msgid "Tags"
 msgstr "Tags"
 
+#: DB:statistics.statistic_event/title:2014-11-19
+msgid "The AcousticBrainz project goes live"
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
@@ -456,11 +519,40 @@ msgstr "Das Cover-Art-Archiv wurde initial verfügbar gemacht"
 msgid "The Cover Art Archive is officially released"
 msgstr "Das Cover-Art-Archiv wurde offiziell veröffentlicht"
 
+#: DB:statistics.statistic_event/title:2014-05-19
+msgid "The CritiqueBrainz project goes live"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-09-17
+msgid "The ListenBrainz project goes live"
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
 msgstr "Die MetaBrainz Stiftung, der Rechtsrahmen für MusicBrainz, wird der Öffentlichkeit bekannt gegeben."
+
+#: DB:statistics.statistic_event/description:2015-09-17
+msgid ""
+"The alpha version of ListenBrainz, an open source and open data alternative "
+"to Last.fm®, goes live."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2014-05-19
+msgid "The beta version of CritiqueBrainz is launched."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-05-18
+msgid "The new MetaBrainz website goes live"
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-05-18
+msgid ""
+"The new MetaBrainz website, featuring an all-new design and online sign-up "
+"for commercial users, is launched, replacing the one designed in the year "
+"2000!"
+msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""

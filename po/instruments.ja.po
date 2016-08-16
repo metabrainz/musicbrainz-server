@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
+# john doe, 2016
 # mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013,2016
 # Osamu Takahashi, 2014
@@ -10,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-13 16:47+0000\n"
+"Last-Translator: john doe\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,10 +39,6 @@ msgstr "バルティック・プサルテリー"
 #: DB:instrument/name:457
 msgid "Batá drum"
 msgstr "バタドラム"
-
-#: DB:instrument/name:260
-msgid "Chamberlin"
-msgstr "チェンバリン"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -110,10 +107,6 @@ msgstr "アイリッシュハープ"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "リリコン"
-
-#: DB:instrument/name:132
-msgid "Mellotron"
-msgstr "メロトロン"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -210,7 +203,7 @@ msgstr "ザフーン"
 #: DB:instrument/name:778
 msgctxt "a type of harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "アコーディナ"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -628,13 +621,18 @@ msgstr "チェレスタ"
 msgid "cello"
 msgstr "チェロ"
 
+#: DB:instrument/name:794
+msgctxt "an electric piano with reeds."
+msgid "cembalet"
+msgstr ""
+
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr ""
 
 #: DB:instrument/name:769
 msgid "chainsaw"
-msgstr ""
+msgstr "チェーンソー"
 
 #: DB:instrument/name:627
 msgid "chakhe"
@@ -647,6 +645,11 @@ msgstr "シャリュモー"
 #: DB:instrument/name:471
 msgid "chamber organ"
 msgstr "チェンバー・オルガン"
+
+#: DB:instrument/name:260
+msgctxt "An electromechanical piano"
+msgid "chamberlin"
+msgstr ""
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -1302,6 +1305,11 @@ msgstr "ギター"
 msgid "guitar synthesizer"
 msgstr "ギター・シンセサイザー"
 
+#: DB:instrument/name:795
+msgctxt "an electric lamellophone"
+msgid "guitaret"
+msgstr ""
+
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
 msgstr "チリ・ギタロン"
@@ -1772,6 +1780,11 @@ msgstr "カリンバ"
 msgid "mellophone"
 msgstr "メロフォン"
 
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
+
 #: DB:instrument/name:44
 msgid "melodica"
 msgstr "ピアニカ"
@@ -2000,6 +2013,11 @@ msgstr ""
 
 #: DB:instrument/name:668
 msgid "pi nai"
+msgstr ""
+
+#: DB:instrument/name:793
+msgctxt "An electromechanical piano"
+msgid "pianet"
 msgstr ""
 
 #: DB:instrument/name:137
