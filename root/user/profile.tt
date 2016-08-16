@@ -6,17 +6,19 @@
 
 [%- WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
-        <dt[% IF class %] class="[% class %]"[% END %]>
-            [% name %]
-        </dt>
-        <dd[% IF class %] class="[% class %]"[% END %]>
-            [% content %]
-        </dd>
+        <tr[% IF class %] class="[% class %]"[% END %]>
+            <th>
+                [% name %]
+            </th>
+            <td>
+                [% content %]
+            </td>
+        </tr>
     [% END %]
 
     <h2>[% l('General Information') %]</h2>
 
-    <dl class="profileinfo">
+    <table class="profileinfo" role="presentation">
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]
@@ -140,7 +142,7 @@
             </ul>
           [% END %]
         [% END %]
-    </dl>
+    </table>
 
     [% BLOCK statistics %]
         <tr>

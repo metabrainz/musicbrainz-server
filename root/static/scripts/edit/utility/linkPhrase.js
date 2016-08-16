@@ -23,7 +23,7 @@ exports.clean = _.memoize(function (linkType, backward) {
     // remove {foo} {bar} junk, unless it's for a required attribute.
     var phrase = backward ? typeInfo.reversePhrase : typeInfo.phrase;
 
-    return phrase.replace(attributeRegex, function (match, name, alt) {
+    return clean(phrase.replace(attributeRegex, function (match, name, alt) {
         var id = idsByName[name];
 
         if (typeInfo.attributes[id].min < 1) {
@@ -31,7 +31,7 @@ exports.clean = _.memoize(function (linkType, backward) {
         }
 
         return match;
-    });
+    }));
 }, (a, b) => a + String(b));
 
 exports.interpolate = function (linkType, attributes) {

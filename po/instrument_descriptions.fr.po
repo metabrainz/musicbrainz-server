@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,13 @@ msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
 msgstr "Sonnette de bicyclette"
+
+#. name:pūrerehua
+#: DB:instrument/description:791
+msgid ""
+"A blade-like piece of bone, wood or stone, swung on a long cord producing a "
+"loud, deep whirling that can be heard from a distance."
+msgstr ""
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -164,6 +171,13 @@ msgid ""
 "from the flow of air across an opening."
 msgstr "Une flûte est un aérophone ou un instrument de musique sans anche produisant un son lorsque de l'air est soufflé par son embouchure."
 
+#. name:pūtōrino
+#: DB:instrument/description:786
+msgid ""
+"A flute with a wide range, made of wood, tapered at each end. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
+
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
@@ -179,6 +193,13 @@ msgstr ""
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr "Un tambour gong basse est un grand tambour à une seule membrane qui ressemble à un gong."
 
+#. name:pahū pounamu
+#: DB:instrument/description:790
+msgid ""
+"A gong made of jade and pilot-whale bone with a striker made of a hardwood, "
+"akeake."
+msgstr ""
+
 #. name:guitar synthesizer
 #: DB:instrument/description:763
 msgid ""
@@ -192,6 +213,14 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr "Un charleston fait habituellement partie d'une batterie, et consiste d'une paire de cymbales montées sur un pied."
+
+#. name:poi awhiowhio
+#: DB:instrument/description:792
+msgid ""
+"A hollowed out gourd with drilled holes, swung around creating a whistling, "
+"chattering sound that attracted birds. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr ""
 
 #. name:17-string koto
 #: DB:instrument/description:516
@@ -227,6 +256,28 @@ msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
 msgstr "Un lithophone est un instrument de musique formé d'une pierre ou de morceaux de pierre qui sont frappés pour produire des notes de musique."
+
+#. name:rehu
+#: DB:instrument/description:784
+msgid ""
+"A long flute with a closed top and a transverse blowing hole and finger "
+"holes like the pōrutu."
+msgstr ""
+
+#. name:pūmotomoto
+#: DB:instrument/description:785
+msgid ""
+"A long flute with a notched open top and a single finger hole near the end. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pōrutu
+#: DB:instrument/description:787
+msgid ""
+"A longer version of the kōauau, made of hardwoods such as mānuka, mataī, or "
+"black maire. Like the pūtorino, it has 2 voices, the male (trumpet) and "
+"female (flute)."
+msgstr ""
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -302,6 +353,21 @@ msgid ""
 "slit at the top."
 msgstr "Un tambour à fente est un instrument à percussion creux en bois ou en bambou avec une fente sur le dessus."
 
+#. name:nguru
+#: DB:instrument/description:783
+msgid ""
+"A small vessel flute like the ocarina or xun. Made of wood, soapstone or "
+"bone and shaped like a whale's tooth. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr ""
+
+#. name:kōauau
+#: DB:instrument/description:782
+msgid ""
+"A small, ductless and notchless flute, made of wood or bone. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
+
 #. name:suikinkutsu
 #: DB:instrument/description:147
 msgid ""
@@ -343,6 +409,20 @@ msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
 msgstr "Un Tom est un tambour cylindrique sans timbre faisant habituellement partie d'une batterie."
+
+#. name:pūkaea
+#: DB:instrument/description:788
+msgid ""
+"A traditional Maori trumpet made of wood. A war and announcement trumpet. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pūtātara
+#: DB:instrument/description:789
+msgid ""
+"A traditional conch shell trumpet, used for signalling to ceremonial and "
+"ritual use. part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -436,12 +516,29 @@ msgid ""
 "tuning forks."
 msgstr "Un piano électrique est un instrument de musique électro-mécanique. Suivant le type de piano électrique, les notes peuvent êtres produites par des cordes, des anches ou des diapasons."
 
+#. name:pianet
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
+msgstr ""
+
 #. name:idiophone
 #: DB:instrument/description:674
 msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
 msgstr "Un idiophone est un instrument de musique dont la vibration de l'instrument entier crée le son, sans corde ou membrane."
+
+#. name:craviola
+#: DB:instrument/description:779
+msgid ""
+"An instrument designed by brazilian composer Paulinho Nogueira, it is "
+"distinctly asymmetric in contrast to typical guitar.The timbre is like a "
+"combination of the harpsichord (pt:cravo) and the Viola caipira. Craviolas "
+"can be six-string or twelve-string (either nylon or steel) and are produced "
+"solely by company Giannini."
+msgstr ""
 
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
@@ -1899,13 +1996,6 @@ msgid ""
 "vibrates when it is blown."
 msgstr "Le kèn lá est un instrument utilisé par la minorité Hmong du Vietnam composé d'une feuille repliée placée dans la bouche et qui vibre lorsqu'on souffle."
 
-#. name:kōauau
-#: DB:instrument/description:556
-msgid ""
-"The kōauau is a small ductless and notchless Maori flute which is four to "
-"eight inches long and has three to six fingerholes placed along the pipe."
-msgstr "Le kōauau est une petite flûte maori sans conduit et sans entaille de 10 à 20 cm de long, de trois à six trous dans la longueur."
-
 #. name:laouto
 #: DB:instrument/description:704
 msgid "The laouto is a long-neck fretted instrument of the lute family."
@@ -2937,6 +3027,13 @@ msgstr "Un orgue de cinéma, comme le Wurlitzer."
 msgid "Timpani (Kettle drum)"
 msgstr "Cymbales"
 
+#. name:taonga pūoro
+#: DB:instrument/description:781
+msgid ""
+"Traditional musical instruments of the Māori people of New Zealand. Consists"
+" of flutes trumpets and percussion."
+msgstr ""
+
 #. name:classical kemençe
 #: DB:instrument/description:542
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
@@ -3000,12 +3097,26 @@ msgstr "Les sagattes sont de petites cymbales de doigt en métal utilisées pour
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr "une sorte de pipeau à coulisse. Flûte hmông"
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
+" buttons/keys receive their air though the user blowing into the instrument "
+"like an harmonica"
+msgstr ""
+
 #. name:tràm plè
 #: DB:instrument/description:308
 msgid ""
 "a variant of the \"Hmông flute\". flute blowers lips enclose the blowing "
 "hole with the vibrating \"free reed\" inside"
 msgstr "Une variante de la flûte hmông, les lèvres du souffleur entourent le trou de soufflage avec l'anche libre vibrant à l'Intérieur."
+
+#. name:cembalet
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
 
 #. name:jug
 #: DB:instrument/description:505
@@ -3053,10 +3164,24 @@ msgstr ""
 msgid "family of Hmông flutes"
 msgstr "flûte hmông"
 
+#. name:claviola
+#: DB:instrument/description:780
+msgid ""
+"free reed melodica like instrument that is worn like an accordion, with "
+"differenting length pipes which control the pitch"
+msgstr ""
+
 #. name:saó ôi flute
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
 msgstr "flûte saó ôi, utilisée par les Muong"
+
+#. name:guitaret
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
+msgstr ""
 
 #. name:ti bwa
 #: DB:instrument/description:332

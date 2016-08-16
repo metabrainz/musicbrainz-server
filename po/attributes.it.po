@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-31 18:23+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2016-08-01 22:12+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -356,6 +356,11 @@ msgstr "La bemolle minore"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
 msgstr "La diesis minore"
+
+#: DB:work_attribute_type/name:23
+msgctxt "work_attribute_type"
+msgid "AKM ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"

@@ -353,6 +353,13 @@ msgid ""
 "traditional Māori instruments Taonga pūoro"
 msgstr ""
 
+#. name:spinet 
+#: DB:instrument/description:797
+msgid ""
+"A smaller harpsichord, often with the strings at 30 degrees from the "
+"keyboard."
+msgstr ""
+
 #. name:suikinkutsu 
 #: DB:instrument/description:147
 msgid ""
@@ -486,6 +493,13 @@ msgid ""
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr ""
 
+#. name:gizmo 
+#: DB:instrument/description:796
+msgid ""
+"An effects device to be clamped on the bridge, it produces \"synthesizer-like"
+"\" sounds"
+msgstr ""
+
 #. name:keytar 
 #: DB:instrument/description:774
 msgid ""
@@ -499,6 +513,13 @@ msgid ""
 "An electric piano is an electro-mechanical musical instrument. Depending on "
 "the type of electric piano, the tones may be produced by strings, reeds or "
 "tuning forks."
+msgstr ""
+
+#. name:pianet 
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
 msgstr ""
 
 #. name:idiophone 
@@ -3077,6 +3098,12 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr ""
 
+#. name:cembalet 
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
+msgstr ""
+
 #. name:jug 
 #: DB:instrument/description:505
 msgid "an empty jug (usually made of glass or stoneware) played with the mouth"
@@ -3132,6 +3159,13 @@ msgstr ""
 #. name:saó ôi flute 
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:guitaret 
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
 msgstr ""
 
 #. name:ti bwa 
