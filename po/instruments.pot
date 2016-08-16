@@ -1229,6 +1229,11 @@ msgstr ""
 msgid "ghatam"
 msgstr ""
 
+#: DB:instrument/name:796
+msgctxt "Elguitar/bass effect device"
+msgid "gizmo"
+msgstr ""
+
 #: DB:instrument/name:285
 msgid "glass harmonica"
 msgstr ""
@@ -2458,6 +2463,11 @@ msgstr ""
 
 #: DB:instrument/name:513
 msgid "spilåpipa"
+msgstr ""
+
+#: DB:instrument/name:797
+msgctxt "A smaller harpsichord, strings at an angle"
+msgid "spinet"
 msgstr ""
 
 #: DB:instrument/name:160

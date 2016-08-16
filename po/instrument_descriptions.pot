@@ -353,6 +353,13 @@ msgid ""
 "traditional Māori instruments Taonga pūoro"
 msgstr ""
 
+#. name:spinet 
+#: DB:instrument/description:797
+msgid ""
+"A smaller harpsichord, often with the strings at 30 degrees from the "
+"keyboard."
+msgstr ""
+
 #. name:suikinkutsu 
 #: DB:instrument/description:147
 msgid ""
@@ -484,6 +491,13 @@ msgstr ""
 msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
+msgstr ""
+
+#. name:gizmo 
+#: DB:instrument/description:796
+msgid ""
+"An effects device to be clamped on the bridge, it produces \"synthesizer-like"
+"\" sounds"
 msgstr ""
 
 #. name:keytar 
