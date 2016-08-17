@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
+"PO-Revision-Date: 2016-08-07 05:19+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Eine Batá-Trommel ist eine beidseitig fellbespannte Sanduhrtrommel aus 
 msgid ""
 "A European mediaeval struck string instrument, similar to the psaltery and a"
 " possible ancestor of the piano. Essentially it is a dulcimer with keys."
-msgstr ""
+msgstr "Das Hackbrett (Dulce Melos) ist ein Saiteninstrument, das zu den Kastenzithern gezählt wird. Seine Saiten werden mit kleinen Schlägeln oder Klöppeln aus Holz angeschlagen, die auch mit Leder oder Filz überzogen sein können. "
 
 #. name:kös
 #: DB:instrument/description:739
@@ -49,7 +49,7 @@ msgstr "Eine türkische Version des Tamburin/Daf, aus Tierhaut, mit den Fingern 
 msgid ""
 "A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
 " hide as membrane."
-msgstr ""
+msgstr "Die Donso Ngoni ist eine sechssaitige gezupfte Langhals-Spießlaute in Mali. Sie ist ein Saiteninstrument mit einem bootsförmigen Korpus und einer aufgespannten Hautdecke."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -83,6 +83,13 @@ msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
 msgstr "Eine Fahrradklingel ist eine helltönende Metallglocke am Fahrrad. Sie dient als Signalgerät dazu, sich als Radfahrer im Strassenverkehr und bei Gefahren akustisch durch Schallzeichen bemerkbar zu machen, entsprechend der Hupe von Kraftfahrzeugen."
+
+#. name:pūrerehua
+#: DB:instrument/description:791
+msgid ""
+"A blade-like piece of bone, wood or stone, swung on a long cord producing a "
+"loud, deep whirling that can be heard from a distance."
+msgstr ""
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -162,6 +169,13 @@ msgid ""
 "from the flow of air across an opening."
 msgstr "Eine Flöte ist ein Ablenkungs-Aerophon, bei dem ein Luftstrom über eine Kante geführt wird, an der er in Schwingung gerät."
 
+#. name:pūtōrino
+#: DB:instrument/description:786
+msgid ""
+"A flute with a wide range, made of wood, tapered at each end. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
+
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
@@ -177,6 +191,13 @@ msgstr "Die Glasharfe (auch Gläserspiel genannt) ist ein Idiophon, das aus mehr
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
 msgstr "Ein Bass-Gong besitzt ein einzelnes, grosses Schlagzeugfell. Die Form ähnelt einem Gong."
 
+#. name:pahū pounamu
+#: DB:instrument/description:790
+msgid ""
+"A gong made of jade and pilot-whale bone with a striker made of a hardwood, "
+"akeake."
+msgstr ""
+
 #. name:guitar synthesizer
 #: DB:instrument/description:763
 msgid ""
@@ -190,6 +211,14 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr "Die Hi-Hat ist ein typischer Teil eines Schlagzeugs, sie besteht aus einem Becken-Paar, das horizontal auf einem Ständer mit einem Pedal montiert ist."
+
+#. name:poi awhiowhio
+#: DB:instrument/description:792
+msgid ""
+"A hollowed out gourd with drilled holes, swung around creating a whistling, "
+"chattering sound that attracted birds. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr ""
 
 #. name:17-string koto
 #: DB:instrument/description:516
@@ -225,6 +254,28 @@ msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
 msgstr "Als Lithophon bezeichnet man Gegenstände, deren Klangkörper aus Stein bestehen und die auf mechanischem Wege (Anschlag, Reibung) in Schwingung versetzt werden."
+
+#. name:rehu
+#: DB:instrument/description:784
+msgid ""
+"A long flute with a closed top and a transverse blowing hole and finger "
+"holes like the pōrutu."
+msgstr ""
+
+#. name:pūmotomoto
+#: DB:instrument/description:785
+msgid ""
+"A long flute with a notched open top and a single finger hole near the end. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pōrutu
+#: DB:instrument/description:787
+msgid ""
+"A longer version of the kōauau, made of hardwoods such as mānuka, mataī, or "
+"black maire. Like the pūtorino, it has 2 voices, the male (trumpet) and "
+"female (flute)."
+msgstr ""
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -283,7 +334,7 @@ msgstr "Kleine Glocken, die um einen Halbmond aus Glockenmetall oder Messing ang
 #. name:chainsaw
 #: DB:instrument/description:769
 msgid "A powered tool primarily used in the cutting of wood"
-msgstr ""
+msgstr "Die Kettensäge ist eine mit einem Benzin- oder Elektromotor, mit Druckluft (pneumatisch) oder mit Öldruck (hydraulisch) angetriebene Säge, deren schneidender Teil die Sägekette ist. Häufigste Bauart ist die handgeführte Kettensäge für Holz- und Waldarbeiten, häufig einfach Motorsäge genannt."
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -299,6 +350,21 @@ msgid ""
 "A slit drum is a hollow percussion instrument made of wood or bamboo with a "
 "slit at the top."
 msgstr "Die Schlitztrommel ein traditionelles idiophones Aufschlaginstrument. Sie wird aus ausgehöhlten Baumstämmen oder Bambusrohren mit einem oder mehreren Schlitzen als Öffnung hergestellt."
+
+#. name:nguru
+#: DB:instrument/description:783
+msgid ""
+"A small vessel flute like the ocarina or xun. Made of wood, soapstone or "
+"bone and shaped like a whale's tooth. part of the traditional Māori "
+"instruments Taonga pūoro"
+msgstr "Die Nguru ist eine Nasenflöte der Maori in Neuseeland, die mit Atemluft aus der Nase gespielt wird. Sie wurde meistens aus Holz, Kürbishälsen oder Walzähnen geschnitzt und stilvoll verziert."
+
+#. name:kōauau
+#: DB:instrument/description:782
+msgid ""
+"A small, ductless and notchless flute, made of wood or bone. part of the "
+"traditional Māori instruments Taonga pūoro"
+msgstr ""
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -341,6 +407,20 @@ msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
 msgstr "Das Tomtom (auch Tom) ist eine zylindrische einseitig oder häufiger beidseitig Fell-bestückte Trommel und gehört zum festen Bestandteil des Drumsets."
+
+#. name:pūkaea
+#: DB:instrument/description:788
+msgid ""
+"A traditional Maori trumpet made of wood. A war and announcement trumpet. "
+"part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
+
+#. name:pūtātara
+#: DB:instrument/description:789
+msgid ""
+"A traditional conch shell trumpet, used for signalling to ceremonial and "
+"ritual use. part of the traditional Māori instruments Taonga pūoro"
+msgstr ""
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -398,7 +478,7 @@ msgstr "Die Amadinda aus Uganda ist ein Holmxylophon mit zwölf hölzernen Klang
 msgid ""
 "An African percussion instrument, made of a dried gourd plant. Struck with "
 "hands or objects."
-msgstr ""
+msgstr "Eine Kalebasse ist ein Gefäß, das aus der ausgehöhlten und getrockneten Hülle des Flaschenkürbisses, der Kalebasse, hergestellt wird. Sie dient als Resonanzkörper von Musikinstrumenten."
 
 #. name:morsing
 #: DB:instrument/description:533
@@ -424,7 +504,7 @@ msgstr "Als Archtop (englisch für „gewölbte Decke“) -Gitarren werden haupt
 msgid ""
 "An electric keyboard slung over the shoulder by a strap like a guitar, it "
 "has soundcontrols placed on the neck"
-msgstr ""
+msgstr "Ein Umhängekeyboard, umgangssprachlich auch „Keytar“ (Kofferwort aus engl. keyboard und guitar), ist ein Keyboard oder Synthesizer mit einem Schultergurt. Es wird im Gegensatz zum Gitarrensynthesizer über Tasten bedient."
 
 #. name:electric piano
 #: DB:instrument/description:259
@@ -434,12 +514,29 @@ msgid ""
 "tuning forks."
 msgstr "Ein Hybrid-Piano ist von der Technologie her ein akustisches Klavier, das über zusätzliche integrierte elektrische Tonabnehmer verfügt."
 
+#. name:pianet
+#: DB:instrument/description:793
+msgid ""
+"An electromechanical piano (not to be confused with electronic piano) "
+"designed and produced by Hohner in the 1960 and 70s."
+msgstr ""
+
 #. name:idiophone
 #: DB:instrument/description:674
 msgid ""
 "An idiophone is a musical instrument which creates sound by the instrument "
 "as a whole vibrating without the use of strings or membranes."
 msgstr "Idiophon heisst 'Selbsttöner' oder 'Selbstklinger' und bezeichnet ein Musikinstrument, das als Ganzes schwingend den Klang erzeugt oder schwingungsfähige Teile enthält, die keine gespannten Saiten oder Membranen sind."
+
+#. name:craviola
+#: DB:instrument/description:779
+msgid ""
+"An instrument designed by brazilian composer Paulinho Nogueira, it is "
+"distinctly asymmetric in contrast to typical guitar.The timbre is like a "
+"combination of the harpsichord (pt:cravo) and the Viola caipira. Craviolas "
+"can be six-string or twelve-string (either nylon or steel) and are produced "
+"solely by company Giannini."
+msgstr ""
 
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
@@ -1206,7 +1303,7 @@ msgstr "Die Biwa ist ein klassisches japanisches Musikinstrument, eine vier- ode
 #: DB:instrument/description:745
 msgid ""
 "The bolon is a traditional harp-lute played in several African countries."
-msgstr ""
+msgstr "Die 3 saitige Bolon, auch als afrikanische Bogenharfe bekannt, besteht aus einem starken Riesenkürbis mit Ziegenhaut bespannt und mit einem gebogenen Hals. Die Saiten werden aus gedrehten Ziegenhaut Streifen hergestellt. "
 
 #. name:buisine
 #: DB:instrument/description:762
@@ -1860,7 +1957,7 @@ msgstr "Die Komuz ist eine zwei- oder dreisaitige, gezupfte Langhalslaute ohne B
 msgid ""
 "The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
-msgstr ""
+msgstr "Das Kortholt ist ein historisches Musikinstrument aus der Familie der Holzblasinstrumente. Der Ton wird beim Kortholt (plattdeutsch für „kurzes Holz“) über ein Doppelrohrblatt erzeugt, das in einer Windkapsel untergebracht ist, ähnlich wie beim Krummhorn."
 
 #. name:koto
 #: DB:instrument/description:82
@@ -1897,13 +1994,6 @@ msgid ""
 "vibrates when it is blown."
 msgstr ""
 
-#. name:kōauau
-#: DB:instrument/description:556
-msgid ""
-"The kōauau is a small ductless and notchless Maori flute which is four to "
-"eight inches long and has three to six fingerholes placed along the pipe."
-msgstr "Ein Kōauau ist eine kleine Flöte, rohrlos und kerblos, vier bis acht Zoll lang, an beiden Enden offen und hat drei bis sechs Grifflöcher."
-
 #. name:laouto
 #: DB:instrument/description:704
 msgid "The laouto is a long-neck fretted instrument of the lute family."
@@ -1931,7 +2021,7 @@ msgstr "Die Lavta ist ein Zupfinstrument aus Istanbul."
 #. name:limbe
 #: DB:instrument/description:573
 msgid "The limbe is a Mongolian transverse flute."
-msgstr ""
+msgstr "Die Limbe ist eine Querflöte aus der Mongolei. Sie wurde früher aus Bambus oder Holz gefertigt, heute meist aus Kunststoff."
 
 #. name:lirone
 #: DB:instrument/description:697
@@ -2144,7 +2234,7 @@ msgstr "Das Posthorn ist ein hornförmiges kreisrund gebogenes, hohes Blechblasi
 #. name:primero
 #: DB:instrument/description:758
 msgid "The primero is a tenor garifuna drum."
-msgstr ""
+msgstr "Primero oder „Macho“ ist die kleinere und höhere Trommel der kubanischen Trimbales. Sie befindet sich rechts."
 
 #. name:pātē
 #: DB:instrument/description:726
@@ -2935,6 +3025,13 @@ msgstr ""
 msgid "Timpani (Kettle drum)"
 msgstr "Die Pauke (italienisch: timpano; pl. timpani, französisch: timbale, englisch: kettledrum „Kesseltrommel“) ist ein Schlaginstrument aus der Gruppe der Membranophone."
 
+#. name:taonga pūoro
+#: DB:instrument/description:781
+msgid ""
+"Traditional musical instruments of the Māori people of New Zealand. Consists"
+" of flutes trumpets and percussion."
+msgstr "Verschiedene, traditionelle Musikinstrumente der Maori in Neuseeland wie z.B. Flöten, Trompeten, Trommeln."
+
 #. name:classical kemençe
 #: DB:instrument/description:542
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
@@ -2955,7 +3052,7 @@ msgstr "Kudüm ist ein kleines türkisches Trommelpaar. Zwei etwa halbkreisförm
 msgid ""
 "Valved brass instruments use a set of valves which introduce additional "
 "tubing into the instrument."
-msgstr ""
+msgstr "Blechblasintrumente mit Ventilen ermöglichen das Spielen von zusätzlichen Halbtönen."
 
 #. name:natural horn
 #: DB:instrument/description:522
@@ -2998,11 +3095,25 @@ msgstr "Zimbeln beschreiben verschiedene, aus kreisrunden aufgebogenen Metallpla
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr ""
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
+" buttons/keys receive their air though the user blowing into the instrument "
+"like an harmonica"
+msgstr "Die Accordina ist ein Harmonikainstrument, welches anstelle der Tasten mit Knöpfen (wie beim Knopfakkordeon) ausgestattet ist. Der Luftstrom wird nur in einer Richtung hindurchgeführt, und zwar durch Hineinblasen in das Instrument mit Atemluft über das Mundstück oder über einen, statt des Mundstücks angesetzten Luftschlauch."
+
 #. name:tràm plè
 #: DB:instrument/description:308
 msgid ""
 "a variant of the \"Hmông flute\". flute blowers lips enclose the blowing "
 "hole with the vibrating \"free reed\" inside"
+msgstr ""
+
+#. name:cembalet
+#: DB:instrument/description:794
+msgid ""
+"an electromechanical piano with stainless steel reeds and amplified pick-up"
 msgstr ""
 
 #. name:jug
@@ -3044,16 +3155,30 @@ msgstr "Die đing buốt ist eine traditionelle Flöte der Ê Đê in Vietnam. D
 #. name:tubon
 #: DB:instrument/description:775
 msgid "electronic bass organ proto-keytar"
-msgstr ""
+msgstr "Ein Tubon ist eine modifizierte elektronische Orgel und verfügt lediglich über ein Manual mit 2½ Oktaven und ein Bassregister, ist batteriebetrieben und untergebracht in einem röhrenförmigen Gehäuse, das ähnlich einer Gitarre per Umhängegurt tragbar ist."
 
 #. name:hmông flute
 #: DB:instrument/description:312
 msgid "family of Hmông flutes"
 msgstr ""
 
+#. name:claviola
+#: DB:instrument/description:780
+msgid ""
+"free reed melodica like instrument that is worn like an accordion, with "
+"differenting length pipes which control the pitch"
+msgstr "Die Claviola (oder Tasten-Dudelsack) ist eine Art Melodica die wie ein Akkordeon getragen wird. Sie ist auf der linken Seite mit Klavier-Tasten und auf der rechten Seite mit Pfeiffen unterschiedlicher Länge ausgestattet."
+
 #. name:saó ôi flute
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:guitaret
+#: DB:instrument/description:795
+msgid ""
+"small white electric thumb piano with metal tines and an electromagnetic "
+"pickup."
 msgstr ""
 
 #. name:ti bwa

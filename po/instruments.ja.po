@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
+# john doe, 2016
 # mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013,2016
 # Osamu Takahashi, 2014
@@ -10,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:30+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-13 16:47+0000\n"
+"Last-Translator: john doe\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,10 +39,6 @@ msgstr "バルティック・プサルテリー"
 #: DB:instrument/name:457
 msgid "Batá drum"
 msgstr "バタドラム"
-
-#: DB:instrument/name:260
-msgid "Chamberlin"
-msgstr "チェンバリン"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -110,10 +107,6 @@ msgstr "アイリッシュハープ"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "リリコン"
-
-#: DB:instrument/name:132
-msgid "Mellotron"
-msgstr "メロトロン"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -206,6 +199,11 @@ msgstr "ウーリッツァー・エレクトリック・ピアノ"
 #: DB:instrument/name:563
 msgid "Xaphoon"
 msgstr "ザフーン"
+
+#: DB:instrument/name:778
+msgctxt "a type of harmonica/accordion hybrid"
+msgid "accordina"
+msgstr "アコーディナ"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -623,13 +621,18 @@ msgstr "チェレスタ"
 msgid "cello"
 msgstr "チェロ"
 
+#: DB:instrument/name:794
+msgctxt "an electric piano with reeds."
+msgid "cembalet"
+msgstr ""
+
 #: DB:instrument/name:335
 msgid "chacha"
 msgstr ""
 
 #: DB:instrument/name:769
 msgid "chainsaw"
-msgstr ""
+msgstr "チェーンソー"
 
 #: DB:instrument/name:627
 msgid "chakhe"
@@ -642,6 +645,11 @@ msgstr "シャリュモー"
 #: DB:instrument/name:471
 msgid "chamber organ"
 msgstr "チェンバー・オルガン"
+
+#: DB:instrument/name:260
+msgctxt "An electromechanical piano"
+msgid "chamberlin"
+msgstr ""
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -727,6 +735,11 @@ msgstr "クラヴィコード"
 msgid "clavinet"
 msgstr "クラビネット"
 
+#: DB:instrument/name:780
+msgctxt "free reed aerophone with pitching pipes."
+msgid "claviola"
+msgstr ""
+
 #: DB:instrument/name:414
 msgid "concert flute"
 msgstr "コンサート・フルート"
@@ -782,6 +795,11 @@ msgstr "ツィンク"
 #: DB:instrument/name:158
 msgid "cowbell"
 msgstr "カウベル"
+
+#: DB:instrument/name:779
+msgctxt "guitar/Viola caipira like plucked string instrument"
+msgid "craviola"
+msgstr ""
 
 #: DB:instrument/name:736
 msgid "cristal Baschet"
@@ -1287,6 +1305,11 @@ msgstr "ギター"
 msgid "guitar synthesizer"
 msgstr "ギター・シンセサイザー"
 
+#: DB:instrument/name:795
+msgctxt "an electric lamellophone"
+msgid "guitaret"
+msgstr ""
+
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
 msgstr "チリ・ギタロン"
@@ -1628,9 +1651,10 @@ msgstr ""
 msgid "kös"
 msgstr "キョス"
 
-#: DB:instrument/name:556
+#: DB:instrument/name:782
+msgctxt "Māori traditional small, ductless and notchless flute"
 msgid "kōauau"
-msgstr "コアウアウ"
+msgstr ""
 
 #: DB:instrument/name:632
 msgid "lamellophone"
@@ -1756,6 +1780,11 @@ msgstr "カリンバ"
 msgid "mellophone"
 msgstr "メロフォン"
 
+#: DB:instrument/name:132
+msgctxt "An electromechanical piano"
+msgid "mellotron"
+msgstr ""
+
 #: DB:instrument/name:44
 msgid "melodica"
 msgstr "ピアニカ"
@@ -1852,6 +1881,11 @@ msgstr "ナチュラル・ホルン"
 msgid "ney"
 msgstr ""
 
+#: DB:instrument/name:783
+msgctxt "Māori traditional small vessel flute"
+msgid "nguru"
+msgstr ""
+
 #: DB:instrument/name:729
 msgid "ngɔni"
 msgstr ""
@@ -1940,6 +1974,11 @@ msgstr "その他の楽器"
 msgid "oud"
 msgstr "ウード"
 
+#: DB:instrument/name:790
+msgctxt "Māori traditional gong made of jade and bone"
+msgid "pahū pounamu"
+msgstr ""
+
 #: DB:instrument/name:502
 msgid "pakhavaj"
 msgstr "パカーワジュ"
@@ -1974,6 +2013,11 @@ msgstr ""
 
 #: DB:instrument/name:668
 msgid "pi nai"
+msgstr ""
+
+#: DB:instrument/name:793
+msgctxt "An electromechanical piano"
+msgid "pianet"
 msgstr ""
 
 #: DB:instrument/name:137
@@ -2020,6 +2064,11 @@ msgstr "撥弦楽器"
 msgid "pocket trumpet"
 msgstr "ポケット・トランペット"
 
+#: DB:instrument/name:792
+msgctxt "Māori traditional swung bird lure."
+msgid "poi awhiowhio"
+msgstr ""
+
 #: DB:instrument/name:626
 msgid "post horn"
 msgstr "ポストホルン"
@@ -2046,6 +2095,36 @@ msgstr ""
 
 #: DB:instrument/name:726
 msgid "pātē"
+msgstr ""
+
+#: DB:instrument/name:787
+msgctxt "Māori traditional hardwood flute"
+msgid "pōrutu"
+msgstr ""
+
+#: DB:instrument/name:788
+msgctxt "Māori traditional trumpet made of wood."
+msgid "pūkaea"
+msgstr ""
+
+#: DB:instrument/name:785
+msgctxt "Māori traditional long flute"
+msgid "pūmotomoto"
+msgstr ""
+
+#: DB:instrument/name:791
+msgctxt "Māori traditional bullroarer like instrument."
+msgid "pūrerehua"
+msgstr ""
+
+#: DB:instrument/name:789
+msgctxt "Māori traditional conch shell trumpet"
+msgid "pūtātara"
+msgstr ""
+
+#: DB:instrument/name:786
+msgctxt "Māori traditional wide ranged flute."
+msgid "pūtōrino"
 msgstr ""
 
 #: DB:instrument/name:613
@@ -2123,6 +2202,11 @@ msgstr "リード・オルガン"
 #: DB:instrument/name:179
 msgid "reeds"
 msgstr "リード"
+
+#: DB:instrument/name:784
+msgctxt "Māori traditional long flute"
+msgid "rehu"
+msgstr ""
 
 #: DB:instrument/name:722
 msgid "repinique"
@@ -2535,6 +2619,11 @@ msgstr "タンブル"
 #: DB:instrument/name:425
 msgid "tangent piano"
 msgstr "タンジェント・ピアノ"
+
+#: DB:instrument/name:781
+msgctxt "Māori traditional instrument ensamble."
+msgid "taonga pūoro"
+msgstr ""
 
 #: DB:instrument/name:559
 msgid "tap dancing"

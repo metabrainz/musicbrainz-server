@@ -1,14 +1,15 @@
 # 
 # Translators:
 # nikki, 2014
+# john doe, 2016
 # mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-03-20 05:50+0000\n"
-"Last-Translator: mai inoue\n"
+"PO-Revision-Date: 2016-08-13 19:23+0000\n"
+"Last-Translator: john doe\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,8 +23,21 @@ msgid ""
 "to releases."
 msgstr ""
 
+#: DB:statistics.statistic_event/description:2015-12-28
+msgid ""
+"A new banner message now notifies users whenever they receive a new edit "
+"note."
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2014-11-19
+msgid ""
+"AcousticBrainz, which aims to crowd source acoustic information for music, "
+"is announced in cooperation with the Music Technology Group at Universitat "
+"Pompeu Fabra."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-01-21
@@ -44,7 +58,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
-msgstr ""
+msgstr "アルバムの言語"
 
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
@@ -118,7 +132,7 @@ msgstr "バグ修正/クリーンアップリリース。"
 #: DB:statistics.statistic_event/title:2003-07-25
 #: DB:statistics.statistic_event/title:2003-09-04
 msgid "Bug fixes"
-msgstr ""
+msgstr "バグの修正"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -157,7 +171,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
-msgstr ""
+msgstr "カバーアートアップローダ"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
@@ -167,6 +181,10 @@ msgstr ""
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-12-28
+msgid "Edit note notifications"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
@@ -179,8 +197,20 @@ msgid ""
 "creating a huge spike in edits."
 msgstr ""
 
+#: DB:statistics.statistic_event/description:2015-11-30
+msgid ""
+"Edits made by editors to their own release additions within 1 hour of adding"
+" them are now auto-edits, as are \"Add recording\" and \"Remove alias\" "
+"edits."
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-09-04
+msgid ""
+"Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2004-10-10
@@ -317,6 +347,18 @@ msgstr ""
 msgid "MetaWeb signed"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2015-11-30
+msgid "More auto-edits"
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-11-16
+msgid ""
+"More edit types are made auto-edits for everyone: \"Add relationship\" and "
+"\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
+"Additionally, the German, French and Dutch translations are available on the"
+" main server."
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
 msgstr ""
@@ -327,6 +369,12 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2016-02-22
+msgid ""
+"MusicBrainz itself gets a new design to better match the rest of the *Brainz"
+" family."
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-02-27
@@ -358,6 +406,10 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2016-02-22
+msgid "New MusicBrainz design"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-10-13
@@ -402,12 +454,20 @@ msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2015-09-04
+msgid "Roman Tsukanov joins the MetaBrainz team"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-11-16
+msgid "Several new auto-edit types and translations"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
@@ -433,6 +493,10 @@ msgstr ""
 msgid "Tags"
 msgstr "タグ"
 
+#: DB:statistics.statistic_event/title:2014-11-19
+msgid "The AcousticBrainz project goes live"
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
@@ -446,10 +510,39 @@ msgstr ""
 msgid "The Cover Art Archive is officially released"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2014-05-19
+msgid "The CritiqueBrainz project goes live"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-09-17
+msgid "The ListenBrainz project goes live"
+msgstr ""
+
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-09-17
+msgid ""
+"The alpha version of ListenBrainz, an open source and open data alternative "
+"to Last.fm®, goes live."
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2014-05-19
+msgid "The beta version of CritiqueBrainz is launched."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2015-05-18
+msgid "The new MetaBrainz website goes live"
+msgstr ""
+
+#: DB:statistics.statistic_event/description:2015-05-18
+msgid ""
+"The new MetaBrainz website, featuring an all-new design and online sign-up "
+"for commercial users, is launched, replacing the one designed in the year "
+"2000!"
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-10-15
@@ -1452,7 +1545,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:118
 msgid "Male Artists"
-msgstr ""
+msgstr "男性アーティスト"
 
 #: ../root/statistics/index.tt:214
 msgid "Male:"
@@ -1506,7 +1599,7 @@ msgstr ""
 #: ../root/statistics/index.tt:918
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
@@ -1514,7 +1607,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "No Votes"
-msgstr ""
+msgstr "投票なし"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
 #: ../root/statistics/coverart.tt:123
@@ -1561,7 +1654,7 @@ msgstr ""
 #: ../root/statistics/index.tt:598 ../root/statistics/index.tt:626
 #: ../root/statistics/index.tt:676 ../root/statistics/index.tt:704
 msgid "None"
-msgstr ""
+msgstr "なし"
 
 #: ../root/statistics/view_js.tt:167
 msgid "Normal Data Quality"
@@ -1659,7 +1752,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:171
 msgid "Ratings"
-msgstr ""
+msgstr "レーティング"
 
 #: ../root/statistics/index.tt:99
 msgid "Ratings (raw / aggregated):"
@@ -1671,7 +1764,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:36
 msgid "Ratings and Tags"
-msgstr ""
+msgstr "レーティングとタグ"
 
 #: ../root/statistics/view_js.tt:174
 msgid "Recording Ratings"
@@ -1866,7 +1959,7 @@ msgstr "リリース："
 
 #: ../root/statistics/timeline.tt:19
 msgid "Reset:"
-msgstr ""
+msgstr "リセット："
 
 #: ../root/statistics/languages_scripts.tt:53
 msgid "Script"
@@ -1912,15 +2005,15 @@ msgstr ""
 
 #: ../root/statistics/editors.tt:16
 msgid "There is no data to display here."
-msgstr ""
+msgstr "表示するデータがありません。"
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
-msgstr ""
+msgstr "タイムライン"
 
 #: ../root/statistics/timeline.tt:27
 msgid "Timeline Graph"
-msgstr ""
+msgstr "タイムライングラフ"
 
 #: ../root/statistics/view_js.tt:66
 msgid "To-be-cancelled edits"
@@ -1945,7 +2038,7 @@ msgstr ""
 
 #: ../root/statistics/editors.tt:43
 msgid "Total votes"
-msgstr ""
+msgstr "総投票数"
 
 #: ../root/statistics/view_js.tt:135
 msgid "Tracks"
@@ -1967,12 +2060,12 @@ msgstr "URL関連："
 
 #: ../root/statistics/index.tt:48
 msgid "URLs:"
-msgstr ""
+msgstr "URL："
 
 #: ../root/statistics/countries.tt:9 ../root/statistics/view_js.tt:91
 #: ../root/statistics/view_js.tt:92 ../root/statistics/view_js.tt:93
 msgid "Unknown Country"
-msgstr ""
+msgstr "不明な国"
 
 #: ../root/statistics/view_js.tt:166
 msgid "Unknown Data Quality"
@@ -1996,7 +2089,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:105
 msgid "Unknown Language"
-msgstr ""
+msgstr "不明な言語"
 
 #: ../root/statistics/view_js.tt:100
 msgid "Unknown Script"
@@ -2004,7 +2097,7 @@ msgstr ""
 
 #: ../root/statistics/languages_scripts.tt:7
 msgid "Unknown language"
-msgstr ""
+msgstr "不明な言語"
 
 #: ../root/statistics/languages_scripts.tt:14
 msgid "Unknown script"
@@ -2079,7 +2172,7 @@ msgstr "ワーク："
 #: ../root/statistics/index.tt:912
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #: ../root/statistics/view_js.tt:79
 msgid "Yes Votes"
@@ -2091,7 +2184,7 @@ msgstr "昨日："
 
 #: ../root/statistics/timeline.tt:18
 msgid "Zoom:"
-msgstr ""
+msgstr "ズーム："
 
 #: ../root/statistics/index.tt:724
 msgid "active ever:"
@@ -2151,7 +2244,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:754
 msgid "who edit:"
-msgstr ""
+msgstr "編集者："
 
 #: ../root/statistics/index.tt:731
 msgid "who edited and/or voted in the last 7 days:"
@@ -2187,7 +2280,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:761
 msgid "who vote:"
-msgstr ""
+msgstr "投票者："
 
 #: ../root/statistics/index.tt:747
 msgid "who voted in the last 7 days:"

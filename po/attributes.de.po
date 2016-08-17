@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-06-30 12:20+0000\n"
+"PO-Revision-Date: 2016-08-04 11:54+0000\n"
 "Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -184,7 +184,7 @@ msgctxt "work_type"
 msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
-msgstr ""
+msgstr "Partita (ital., von partire „teilen“) ist die Bezeichnung für den einzelnen Teil (Satz) einer Tanzfolge oder Variationsreihe. Seit dem 17. Jahrhundert wird die Bezeichnung auch allgemein für Instrumentalstücke oder für Satzfolgen im Sinne der Suite verwendet."
 
 #: DB:event_type/description:3
 msgctxt "event_type"
@@ -237,14 +237,14 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just"
 " reading."
-msgstr ""
+msgstr "Ein Bühnenwerk, auch Bühnenstück oder Theaterstück genannt, ist eine Dichtung, die auf der Bühne zur Aufführung gebracht wird. "
 
 #: DB:work_type/description:21
 msgctxt "work_type"
 msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
-msgstr ""
+msgstr "Ein Gedicht ist ein relativ kurzer literarischer Text, in dem die Sprache oftmals gereimt und in Versen organisiert oder auch völlig frei eingesetzt wird, um eine künstlerische Aussage zu machen oder eine bestimmte ästhetische Wirkung zu erzielen."
 
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -335,7 +335,7 @@ msgid ""
 "A symphonic poem is a piece of programmatic orchestral music, usually in a "
 "single movement, that evokes a painting, a landscape, the content of a poem,"
 " a story or novel, or other non-musical source."
-msgstr ""
+msgstr "Eine Sinfonische Dichtung (auch Tondichtung) ist ein längeres musikalisches Stück für Orchester, das versucht, aussermusikalische Inhalte mit musikalischen Mitteln zu beschreiben, beispielsweise Menschen, Sagengestalten oder Landschaften, später z. B. auch Gemälde."
 
 #: DB:work_type/description:16
 msgctxt "work_type"
@@ -355,7 +355,7 @@ msgid ""
 "A zarzuela is a Spanish lyric-dramatic work that alternates between spoken "
 "and sung scenes, the latter incorporating operatic and popular song, as well"
 " as dance."
-msgstr ""
+msgstr "Zarzuela ist die Bezeichnung für eine typisch spanische Gattung des Musiktheaters, die einige Ähnlichkeit mit der französischen Opéra comique oder der Operette hat. Wie diese ist die Zarzuela durch abwechselnd gesprochenen und gesungenen Text gekennzeichnet."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -371,6 +371,11 @@ msgstr "as-Moll"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
 msgstr "ais-Moll"
+
+#: DB:work_attribute_type/name:23
+msgctxt "work_attribute_type"
+msgid "AKM ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
@@ -1618,7 +1623,7 @@ msgstr "Bezirk"
 #: DB:area_type/description:5
 msgctxt "area_type"
 msgid "District is used for a division of a large city, e.g. Queens."
-msgstr ""
+msgstr "Der Bezirk ist ein abgegrenztes Gebiet, ein Landstrich, eine Region einer grossen Stadt, z.B. Queens in New York."
 
 #: DB:work_attribute_type_allowed_value/value:611
 msgctxt "work_attribute_type_allowed_value"
@@ -3409,7 +3414,7 @@ msgid ""
 "Municipality is used for small administrative divisions which, for urban "
 "municipalities, often contain a single city and a few surrounding villages. "
 "Rural municipalities typically group several villages together."
-msgstr ""
+msgstr "Als Gemeinde oder Kommune bezeichnet man Gebietskörperschaften die meistens die kleinste räumlich-administrative Verwaltungseinheit darstellen. Sie umfassen meistens einen Ort und umliegende Dörfer."
 
 #: DB:work_attribute_type_allowed_value/value:645
 msgctxt "work_attribute_type_allowed_value"
@@ -4728,7 +4733,7 @@ msgid ""
 "Subdivision is used for the main administrative divisions of a country, e.g."
 " California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
-msgstr ""
+msgstr "Als Verwaltungseinheiten werden Gebiete betrachtet, die sich aus der Aufteilung eines Staatsgebiets in Zuständigkeitsbereiche ergeben. Beispiele sind Kalifornien, Ontario, Okinawa.\nIn Mitteleuropa wären das z.B. Bayern (D), der Kanton Zürich (CH) oder das Tirol (A)."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"

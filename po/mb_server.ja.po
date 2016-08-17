@@ -5,6 +5,7 @@
 # Translators:
 # nikki, 2014
 # PATATE12, 2014
+# john doe, 2016
 # Keshav Kini <email address hidden>, 2013
 # mai inoue, 2015
 # mai inoue, 2015
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-19 19:28-0500\n"
-"PO-Revision-Date: 2016-07-04 05:48+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2016-08-07 00:17-0500\n"
+"PO-Revision-Date: 2016-08-13 18:59+0000\n"
+"Last-Translator: john doe\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,7 +135,7 @@ msgstr "「{tag}」は{num}回使用されてます"
 msgid "(<span class=\"comment\">primary</span>)"
 msgstr "(<span class=\"comment\">プライマリ</span>)"
 
-#: ../root/user/profile.tt:33
+#: ../root/user/profile.tt:35
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>未確認!</strong>)"
 
@@ -146,7 +147,7 @@ msgstr "(このエラーについて詳細がありません)"
 msgid "(add a new recording)"
 msgstr "(新しいレコーディングを追加)"
 
-#: ../root/user/profile.tt:25
+#: ../root/user/profile.tt:27
 msgid "(hidden)"
 msgstr "(非公開)"
 
@@ -174,7 +175,7 @@ msgctxt "description"
 msgid "(none)"
 msgstr "(なし)"
 
-#: ../root/user/profile.tt:44
+#: ../root/user/profile.tt:46
 msgctxt "email"
 msgid "(none)"
 msgstr "(なし)"
@@ -220,7 +221,7 @@ msgstr "(スタンドアロンレコーディング)"
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: ../root/user/profile.tt:29
+#: ../root/user/profile.tt:31
 msgid "(verified at {date})"
 msgstr "({date} 確認済)"
 
@@ -243,7 +244,7 @@ msgstr "＊マッチは、リクエストしたCDとマッチされたアイテ�
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:116
+#: ../root/user/profile.tt:118
 msgid "0"
 msgstr "0"
 
@@ -259,7 +260,7 @@ msgid "1 vote"
 msgid_plural "{n} unanimous votes"
 msgstr[0] "{n}件の満場一致投票"
 
-#: ../root/user/profile.tt:248 ../root/user/profile.tt:252
+#: ../root/user/profile.tt:250 ../root/user/profile.tt:254
 msgid "100%"
 msgstr "100%"
 
@@ -370,7 +371,7 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr ""
+msgstr "<strong>警告:</strong> 結合しようとしているレコーディングの一部で、ISRCが異なっています。レコーディングが確かに同一であるかを確認し、続行してください。"
 
 #: ../root/components/common-macros.tt:801 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -444,7 +445,7 @@ msgstr "編集を承認"
 msgid "Accept upon expiration"
 msgstr "締め切りに承認"
 
-#: ../root/user/profile.tt:161
+#: ../root/user/profile.tt:163
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "承認済"
@@ -861,7 +862,7 @@ msgstr "管理者"
 msgid "Administration flags"
 msgstr "管理者フラグ"
 
-#: ../root/user/profile.tt:66
+#: ../root/user/profile.tt:68
 msgid "Age:"
 msgstr "年齢:"
 
@@ -903,14 +904,14 @@ msgstr ""
 
 #: ../root/release/cover_art.tt:21
 msgid "All sizes:"
-msgstr ""
+msgstr "すべてのサイズ:"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
 " doesn’t exist yet."
-msgstr ""
+msgstr "トラックには、関連したレコーディングが必要です。各トラックのレコーディングを選択するには、「編集」をクリックしてください。適切なレコーディングが存在しない場合は、「新しくレコーディングを追加」を選択してください。"
 
 #: ../root/oauth2/authorize.tt:19
 msgid "Allow access"
@@ -998,7 +999,7 @@ msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "mispellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
-msgstr ""
+msgstr "エイリアスは、項目の代替名です。主に、よくあるスペルミスや、表記ブレが登録されており、検索結果を改善するために使用されます。詳細は{doc|alias documentation}を参照してください。"
 
 #: ../root/artist/subscribers.tt:17 ../root/collection/subscribers.tt:17
 #: ../root/label/subscribers.tt:17 ../root/series/subscribers.tt:17
@@ -1052,7 +1053,7 @@ msgstr "注釈"
 
 #: ../root/annotation/edit.tt:37
 msgid "Annotation Formatting"
-msgstr ""
+msgstr "注釈の書式設定"
 
 #: ../root/annotation/diff.tt:1 ../root/annotation/diff.tt:3
 msgid "Annotation comparison"
@@ -1100,7 +1101,7 @@ msgstr "アプリケーション"
 msgid "Applications"
 msgstr "アプリケーション"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Applied Edit Count of Editor"
 msgstr ""
 
@@ -1194,7 +1195,7 @@ msgstr ""
 msgid ""
 "Are you sure you wish to remove the instrument {instrument} from "
 "MusicBrainz?"
-msgstr ""
+msgstr "MusicBrainzから楽器 {instrument}を削除しますか？"
 
 #: ../root/label/delete.tt:5
 msgid "Are you sure you wish to remove the label {label} from MusicBrainz?"
@@ -1206,7 +1207,7 @@ msgstr "本当にMusicBrainzから{series}というシリーズを削除しま�
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:598 ../root/components/labels-list.tt:9
-#: ../root/edit/search_macros.tt:306 ../root/label/merge.tt:15
+#: ../root/edit/search_macros.tt:308 ../root/label/merge.tt:15
 #: ../root/place/merge.tt:14 ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -1264,7 +1265,7 @@ msgstr "地域\t"
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/edit_track.tt:13
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:308
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:351
@@ -1290,7 +1291,7 @@ msgstr "地域\t"
 msgid "Artist"
 msgstr "アーティスト"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Artist Area"
 msgstr "アーティストの地域"
 
@@ -1333,7 +1334,7 @@ msgstr "購読中のアーティスト"
 #: ../root/report/annotations_artists.tt:1
 #: ../root/report/annotations_artists.tt:3
 msgid "Artist annotations"
-msgstr ""
+msgstr "アーティストの注釈"
 
 #: ../root/components/filter-form.tt:11
 msgid "Artist credit:"
@@ -1572,7 +1573,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "{url|自動編集者}は、編集したデータが査読を行わずに自動的に承認されます。他のユーザーの編集も自動的に承認できます。"
 
-#: ../root/user/profile.tt:165
+#: ../root/user/profile.tt:167
 msgid "Auto-edits"
 msgstr "自動編集"
 
@@ -1764,7 +1765,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:39
-#: ../root/user/profile.tt:129
+#: ../root/user/profile.tt:131
 msgid "Bio:"
 msgstr "プロフィール:"
 
@@ -1898,7 +1899,7 @@ msgstr "編集をキャンセル"
 msgid "Cancel the election"
 msgstr "選挙をキャンセル"
 
-#: ../root/user/profile.tt:181 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "キャンセル済"
 
@@ -2050,7 +2051,7 @@ msgstr "クライアント:"
 msgid "Close"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Closed"
 msgstr "終了"
 
@@ -2254,7 +2255,7 @@ msgstr "アカウント作成"
 msgid "Create collection"
 msgstr "コレクションを作成"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Created"
 msgstr "作成時刻"
 
@@ -2375,7 +2376,7 @@ msgstr "自分のアカウントを削除"
 msgid "Delete {e}"
 msgstr "{e} を削除"
 
-#: ../root/user/profile.tt:50
+#: ../root/user/profile.tt:52
 msgid "Deleted User"
 msgstr "削除されたユーザー"
 
@@ -2711,7 +2712,7 @@ msgstr "編集がありません"
 msgid "Edit Note"
 msgstr "メモを編集"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Edit Note Author"
 msgstr ""
 
@@ -2819,13 +2820,13 @@ msgstr "編集のはじめに"
 msgid "Editing/voting disabled"
 msgstr "編集・投票が無効です"
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:306
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:308
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 #: ../root/layout/components/Search.js:21
 msgid "Editor"
 msgstr "編集者"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Editor Flag"
 msgstr "フラグを編集"
 
@@ -2845,7 +2846,7 @@ msgstr "編集者 「{user}」"
 msgid "Edits"
 msgstr "編集"
 
-#: ../root/user/profile.tt:156
+#: ../root/user/profile.tt:158
 msgid "Edits ({view_url|view})"
 msgstr "編集を{view_url|表示}"
 
@@ -2905,7 +2906,7 @@ msgstr "メール送信しました!"
 
 #: ../root/account/edit.tt:16 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:35 ../root/user/profile.tt:20
+#: ../root/admin/edit_user.tt:35 ../root/user/profile.tt:22
 msgid "Email:"
 msgstr "メール:"
 
@@ -3079,7 +3080,7 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "一つか二つのURLだけでも役立ちます！"
 
 #: ../root/components/common-macros.tt:598
-#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:306
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:308
 #: ../root/event/header.tt:4 ../root/event/merge.tt:11
 #: ../root/report/event_list.tt:7 ../root/series/index.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
@@ -3151,7 +3152,7 @@ msgstr "すべての説明を展開"
 msgid "Expire action"
 msgstr "行動を満了"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Expired"
 msgstr "満了"
 
@@ -3192,7 +3193,7 @@ msgstr "外部リンク"
 msgid "FAQs"
 msgstr "よくある質問"
 
-#: ../root/user/profile.tt:173
+#: ../root/user/profile.tt:175
 msgid "Failed"
 msgstr "失敗"
 
@@ -3441,11 +3442,11 @@ msgstr "性別"
 #: ../root/account/edit.tt:21 ../root/artist/edit_form.tt:18
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:30
 #: ../root/edit/details/add_artist.tt:31
-#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:72
+#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:74
 msgid "Gender:"
 msgstr "性別:"
 
-#: ../root/user/profile.tt:17
+#: ../root/user/profile.tt:19
 msgid "General Information"
 msgstr "一般情報"
 
@@ -3575,7 +3576,7 @@ msgstr "ガイドライン"
 msgid "HH:MM"
 msgstr "HH:MM"
 
-#: ../root/user/profile.tt:94
+#: ../root/user/profile.tt:96
 msgid "Hasn't logged in yet"
 msgstr ""
 
@@ -3602,7 +3603,7 @@ msgstr "高"
 msgid "Historic"
 msgstr "歴史的"
 
-#: ../root/user/profile.tt:105
+#: ../root/user/profile.tt:107
 msgid "Homepage:"
 msgstr "ホームページ:"
 
@@ -3632,7 +3633,7 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "寄付しました！なぜこの表示を見ているの？"
 
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
-#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:306
+#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:308
 msgid "ID"
 msgstr "ID"
 
@@ -3957,7 +3958,7 @@ msgid "Installed Application"
 msgstr "インストールされたアプリケーション"
 
 #: ../root/components/common-macros.tt:598
-#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
+#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:308
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -4012,7 +4013,7 @@ msgstr "インターフェース言語:"
 msgid "Internal Server Error"
 msgstr "内部サーバーエラー"
 
-#: ../root/user/profile.tt:52
+#: ../root/user/profile.tt:54
 msgid "Internal/Bot"
 msgstr "内部・ボット"
 
@@ -4058,7 +4059,7 @@ msgstr "ログイン状態を保持"
 #: ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:308
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
@@ -4072,7 +4073,7 @@ msgstr "ログイン状態を保持"
 msgid "Label"
 msgstr "レーベル"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Label Area"
 msgstr "レーベルの地域"
 
@@ -4193,15 +4194,15 @@ msgstr "言語: {language}, 表記: {script}"
 msgid "Languages Known:"
 msgstr "知っている言語:"
 
-#: ../root/user/profile.tt:135
+#: ../root/user/profile.tt:137
 msgid "Languages:"
 msgstr "言語:"
 
-#: ../root/user/profile.tt:185
+#: ../root/user/profile.tt:187
 msgid "Last 24 hours"
 msgstr "最近24時間"
 
-#: ../root/user/profile.tt:215
+#: ../root/user/profile.tt:217
 msgid "Last 28 days"
 msgstr "最近28日間"
 
@@ -4216,7 +4217,7 @@ msgstr "最近28日間"
 msgid "Last edited"
 msgstr ""
 
-#: ../root/user/profile.tt:94
+#: ../root/user/profile.tt:96
 msgid "Last login:"
 msgstr "最終ログイン:"
 
@@ -4281,7 +4282,7 @@ msgid ""
 "contribute}."
 msgstr "Wikipediaのように、MusicBrainzはユーザーのグローバルコミュニティによって運営されています。あなたもぜひ{doc|参加・貢献} してください。"
 
-#: ../root/user/profile.tt:56
+#: ../root/user/profile.tt:58
 msgid "Limited User"
 msgstr "制限ユーザー"
 
@@ -4368,7 +4369,7 @@ msgstr "地域編集者"
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr "地域編集者は{uri|地域}を追加・編集できるユーザーです。"
 
-#: ../root/account/edit.tt:24 ../root/user/profile.tt:78
+#: ../root/account/edit.tt:24 ../root/user/profile.tt:80
 msgid "Location:"
 msgstr "地域:"
 
@@ -4552,7 +4553,7 @@ msgstr "メディア:"
 msgid "Mediums:"
 msgstr "メディア:"
 
-#: ../root/user/profile.tt:84
+#: ../root/user/profile.tt:86
 msgid "Member since:"
 msgstr "登録日:"
 
@@ -4808,7 +4809,7 @@ msgstr "レーティング一覧"
 msgid "My Tags"
 msgstr "タグ一覧"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "My Vote"
 msgstr "投票一覧"
 
@@ -5158,7 +5159,7 @@ msgstr ""
 msgid "No vote"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "No vote count"
 msgstr ""
 
@@ -5205,7 +5206,7 @@ msgstr ""
 msgid "Normal"
 msgstr "中"
 
-#: ../root/user/profile.tt:59
+#: ../root/user/profile.tt:61
 msgid "Normal User"
 msgstr "一般ユーザー"
 
@@ -5359,7 +5360,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr "ああっ、なにかおかしいです!"
 
-#: ../root/user/profile.tt:177 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "未確定"
 
@@ -5426,7 +5427,7 @@ msgstr "他の探索"
 msgid "Other lookups"
 msgstr "他の探索"
 
-#: ../root/user/profile.tt:218
+#: ../root/user/profile.tt:220
 msgid "Overall"
 msgstr "合計"
 
@@ -5531,7 +5532,7 @@ msgid "Phrase:"
 msgstr "句:"
 
 #: ../root/components/common-macros.tt:598 ../root/components/places-list.tt:5
-#: ../root/edit/search_macros.tt:306 ../root/place/header.tt:5
+#: ../root/edit/search_macros.tt:308 ../root/place/header.tt:5
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -5597,7 +5598,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:304
+#: ../root/edit/search_macros.tt:306
 msgid "Please choose a condition"
 msgstr ""
 
@@ -5892,7 +5893,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:598
 #: ../root/edit/details/merge_releases.tt:100
-#: ../root/edit/search_macros.tt:306 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:308 ../root/release/edit_relationships.tt:50
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -6079,7 +6080,7 @@ msgstr "関係属性"
 msgid "Relationship Editor"
 msgstr "関係編集者"
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:306
+#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:308
 #: ../root/report/deprecated_relationship_artists.tt:13
 #: ../root/report/deprecated_relationship_labels.tt:13
 #: ../root/report/deprecated_relationship_places.tt:13
@@ -6158,7 +6159,7 @@ msgstr "関係:"
 #: ../root/components/common-macros.tt:598
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
-#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:308
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:71
 #: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
@@ -6180,7 +6181,7 @@ msgstr "リリースアーティスト"
 msgid "Release Collections"
 msgstr "リリースのコレクション"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Release Country"
 msgstr "リリース国"
 
@@ -6192,7 +6193,7 @@ msgstr "リリースが重複"
 msgid "Release Events:"
 msgstr "リリースイベント:"
 
-#: ../root/components/common-macros.tt:598 ../root/edit/search_macros.tt:306
+#: ../root/components/common-macros.tt:598 ../root/edit/search_macros.tt:308
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
@@ -6243,7 +6244,7 @@ msgstr "旧形式の関係があるリリースグループ"
 msgid "Release Information"
 msgstr "リリースの情報"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Release Language"
 msgstr "リリースの言語"
 
@@ -6251,7 +6252,7 @@ msgstr "リリースの言語"
 msgid "Release Not Found"
 msgstr "リリースが見つかりません"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Release Quality"
 msgstr "リリースの品質"
 
@@ -6749,7 +6750,7 @@ msgstr "カバーアートの並べ替え"
 msgid "Report User"
 msgstr "ユーザーを報告"
 
-#: ../root/user/profile.tt:261
+#: ../root/user/profile.tt:263
 msgid "Report this user for bad behavior"
 msgstr "このユーザーの悪い行動を報告"
 
@@ -7126,7 +7127,7 @@ msgid "Series"
 msgstr "シリーズ"
 
 #: ../root/components/common-macros.tt:598 ../root/components/series-list.tt:5
-#: ../root/edit/search_macros.tt:306 ../root/series/header.tt:4
+#: ../root/edit/search_macros.tt:308 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/layout/components/Search.js:25
@@ -7584,7 +7585,7 @@ msgstr "開始日"
 msgid "Start:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:152
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:154
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "統計"
@@ -7594,7 +7595,7 @@ msgstr "統計"
 msgid "Status"
 msgstr "ステータス"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgctxt "edit status"
 msgid "Status"
 msgstr "ステータス"
@@ -7706,7 +7707,7 @@ msgstr "購読してるエンティティ"
 msgid "Subscribers"
 msgstr "購読者"
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:114
 msgid "Subscribers:"
 msgstr "購読者:"
 
@@ -7834,7 +7835,7 @@ msgid ""
 "for this release is unlikely to work at the moment."
 msgstr ""
 
-#: ../root/user/profile.tt:86
+#: ../root/user/profile.tt:88
 msgid "The Dawn of the Project"
 msgstr ""
 
@@ -7893,7 +7894,7 @@ msgstr "データベースにタグがありません。"
 msgid "The date you've entered is not valid."
 msgstr "入力した日付は無効です。"
 
-#: ../root/user/profile.tt:88
+#: ../root/user/profile.tt:90
 msgid "The early days of the project"
 msgstr "プロジェクトの初期"
 
@@ -9140,7 +9141,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:203
+#: ../root/user/profile.tt:205
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -9529,7 +9530,7 @@ msgstr "ツイッター"
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_remove_alias.tt:33
-#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:308
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
@@ -9769,7 +9770,7 @@ msgstr ""
 msgid "Use {doc|advanced query syntax}"
 msgstr ""
 
-#: ../root/user/profile.tt:56
+#: ../root/user/profile.tt:58
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address,"
 " and more than 10 accepted edits in order to vote on others' edits."
@@ -9783,7 +9784,7 @@ msgstr "ユーザー名:"
 msgid "User permissions"
 msgstr "ユーザー権限"
 
-#: ../root/user/profile.tt:48
+#: ../root/user/profile.tt:50
 msgid "User type:"
 msgstr "ユーザータイプ:"
 
@@ -9900,7 +9901,7 @@ msgstr "編集の投票"
 msgid "Vote tally:"
 msgstr "投票数:"
 
-#: ../root/user/profile.tt:169
+#: ../root/user/profile.tt:171
 msgid "Voted down"
 msgstr "否決"
 
@@ -9913,7 +9914,7 @@ msgstr "投票者"
 msgid "Votes"
 msgstr "投票数"
 
-#: ../root/user/profile.tt:207
+#: ../root/user/profile.tt:209
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|表示}）"
 
@@ -10115,7 +10116,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:598 ../root/components/works-list.tt:12
-#: ../root/edit/search_macros.tt:306 ../root/report/iswc_with_many_works.tt:25
+#: ../root/edit/search_macros.tt:308 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
@@ -10239,7 +10240,7 @@ msgctxt "vote"
 msgid "Yes"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:308
 msgid "Yes vote count"
 msgstr "賛成投票数"
 
@@ -10900,7 +10901,7 @@ msgstr ""
 msgid "no type"
 msgstr ""
 
-#: ../root/user/profile.tt:62
+#: ../root/user/profile.tt:64
 msgid "nominate for auto-editor"
 msgstr "自動エディターとして推薦します"
 
@@ -10980,7 +10981,7 @@ msgstr "リリースグループ"
 msgid "releases"
 msgstr "リリース"
 
-#: ../root/user/profile.tt:37
+#: ../root/user/profile.tt:39
 msgid "resend verification email"
 msgstr "確認メールを再送信"
 
@@ -10993,7 +10994,7 @@ msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
 msgstr[0] ""
 
-#: ../root/user/profile.tt:41
+#: ../root/user/profile.tt:43
 msgid "send email"
 msgstr "メール送信"
 
@@ -11010,7 +11011,7 @@ msgstr ""
 msgid "start date"
 msgstr "開始日"
 
-#: ../root/user/profile.tt:123
+#: ../root/user/profile.tt:125
 msgid "subscribe"
 msgstr "購読"
 
@@ -11033,7 +11034,7 @@ msgstr[0] "トラック {tracks}"
 msgid "tracks"
 msgstr "トラック"
 
-#: ../root/user/profile.tt:121
+#: ../root/user/profile.tt:123
 msgid "unsubscribe"
 msgstr "購読を解除"
 
@@ -11085,14 +11086,14 @@ msgstr[0] "{artist}は{n}トラックのあるリリースはありません。"
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/user/profile.tt:114
+#: ../root/user/profile.tt:116
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|リスト表示})"
 
-#: ../root/user/profile.tt:162 ../root/user/profile.tt:166
-#: ../root/user/profile.tt:170 ../root/user/profile.tt:174
-#: ../root/user/profile.tt:178 ../root/user/profile.tt:182
-#: ../root/user/profile.tt:186
+#: ../root/user/profile.tt:164 ../root/user/profile.tt:168
+#: ../root/user/profile.tt:172 ../root/user/profile.tt:176
+#: ../root/user/profile.tt:180 ../root/user/profile.tt:184
+#: ../root/user/profile.tt:188
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|表示})"
 
@@ -11101,7 +11102,7 @@ msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] ""
 
-#: ../root/user/profile.tt:51
+#: ../root/user/profile.tt:53
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|自動エディター}"
 
@@ -11113,15 +11114,15 @@ msgstr "{doc|ディスクID}:"
 msgid "{doc|Learn more}"
 msgstr "{doc|詳細}"
 
-#: ../root/user/profile.tt:55
+#: ../root/user/profile.tt:57
 msgid "{doc|Location Editor}"
 msgstr "{doc|場所編集者}"
 
-#: ../root/user/profile.tt:53
+#: ../root/user/profile.tt:55
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|関連編集者}"
 
-#: ../root/user/profile.tt:54
+#: ../root/user/profile.tt:56
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
@@ -11321,7 +11322,7 @@ msgstr[0] "{num}年前"
 msgid "{num}. {relationship}"
 msgstr ""
 
-#: ../root/user/profile.tt:231 ../root/user/profile.tt:235
+#: ../root/user/profile.tt:233 ../root/user/profile.tt:237
 msgid "{percentage}%"
 msgstr "{percentage}%"
 
@@ -11536,7 +11537,7 @@ msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
 "             {mail|support@musicbrainz.org}."
-msgstr ""
+msgstr "<strong>確認メールを送信できませんでした。</strong><br/>{settings|アカウント設定}を編集して、メールアドレスが有効なことをご確認ください。それでも問題が解決しない場合は{mail|support@musicbrainz.org}へご連絡ください。"
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:81
 msgid "User successfully edited."
@@ -12249,7 +12250,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "No votes"
-msgstr ""
+msgstr "投票なし"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
@@ -12498,7 +12499,7 @@ msgstr "{credit} のアーティスト名を追加してください。"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist.\n"
 "                   You may need to add a new artist to MusicBrainz first."
-msgstr ""
+msgstr "アーティスト「{artist}」は削除されています。他のアーティストをお選びください。\nMusicBrainzに新たなアーティストの追加が必要な場合があります。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:61
 msgid "Please add an artist name for each credit."
@@ -12928,7 +12929,7 @@ msgstr ""
 #: ../root/static/scripts/common/entity.js:240
 #: ../root/static/scripts/edit/externalLinks.js:279
 msgid "video"
-msgstr ""
+msgstr "ビデオ"
 
 #: ../root/static/scripts/common/MB/Control/EditList.js:36
 msgid "Vote on all edits:"
@@ -12936,7 +12937,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:18
 msgid "Delete Note"
-msgstr ""
+msgstr "ノートを削除"
 
 #: ../root/static/scripts/common/MB/release.js:20
 msgid "Display Credits at Bottom"
@@ -13200,11 +13201,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:285
 msgid "Remove Link"
-msgstr ""
+msgstr "リンクの削除"
 
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:18
 msgid "Guess Case Options"
-msgstr ""
+msgstr "大文字と小文字を推測"
 
 #: ../root/static/scripts/guess-case/modes.js:246
 msgid ""

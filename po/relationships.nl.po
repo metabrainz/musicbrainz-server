@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-05 18:35+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -598,7 +598,7 @@ msgstr "Koppelt een uitgave aan het gebied waar de techniek voor de uitgave werd
 
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
-msgstr "Koppelt een uitgave aan het gebied waar hij gefabriceerd werd."
+msgstr "Koppelt een uitgave aan het gebied waar hij werd gefabriceerd."
 
 #: DB:link_type/description:756
 msgid ""
@@ -940,7 +940,7 @@ msgstr "Deze eigenschap geeft een versie aan met tekst in een andere taal dan he
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr ""
+msgstr "Deze eigenschap geeft aan dat een artiest een oorspronkelijk lid van een groep was."
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1142,11 +1142,11 @@ msgstr "Dit geeft een persoonlijke uitgeverij van een artiest aan. Een persoonli
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
-msgstr ""
+msgstr "Deze eigenschap geeft een artiest (meestal een persoon) aan die een groep heeft opgericht."
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
-msgstr ""
+msgstr "Dit geeft aan dat een artiest een optreden op een evenement heeft afgezegd."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1238,7 +1238,7 @@ msgid ""
 "This indicates that a release group was included in another. This allows "
 "linking release groups (often albums) to box sets and other compilations "
 "that contain them."
-msgstr ""
+msgstr "Dit geeft aan dat een uitgavegroep in een andere uitgavegroep is opgenomen. Hiermee kunnen uitgavegroepen (meestal albums) worden gekoppeld aan boxsets of compilaties waar ze deel van uitmaken."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1383,14 +1383,14 @@ msgstr "Dit geeft de organisatie aan die distribueert (of die distributie in con
 msgid ""
 "This indicates the organization that manufactures (or contracts out manufacturing). \n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr "Dit geeft de organisatie aan die vervaardigt (of laat vervaardigen).\n\nDit is <strong>niet</strong> hetzelfde concept als een <a href=\"/doc/Label\">platenmaatschappij</a>."
+msgstr "Dit geeft de organisatie aan die fabriceert (of laat fabriceren).\n\nDit is <strong>niet</strong> hetzelfde concept als een <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #: DB:link_type/description:848
 msgid ""
 "This indicates the organization that markets a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr "Dit geeft de organisatie aan die een uitgave promoot. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
+msgstr "Dit geeft de organisatie aan die een uitgave in de markt heeft gezet. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #: DB:link_type/description:359
 msgid ""
@@ -1686,6 +1686,12 @@ msgstr "Dit koppelt een platenmaatschappij aan een kanaal, afspeellijst of gebru
 msgid "This links a label to a fan-created website."
 msgstr "Dit koppelt een platenmaatschappij aan een website van een fan."
 
+#: DB:link_type/description:899
+msgid ""
+"This links a label to a site where the label can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr "Dit koppelt een platenmaatschappij aan een website voor donaties aan de platenmaatschappij, zoals Flattr of PayPal.me."
+
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
 msgstr "Dit koppelt een platenmaatschappij aan haar pagina op Bandcamp."
@@ -1703,11 +1709,29 @@ msgstr "Dit koppelt een platenmaatschappij aan haar profiel op SoundCloud."
 msgid "This links a label to the equivalent entry at YouTube."
 msgstr "Dit koppelt een platenmaatschappij aan de overeenkomstige pagina op YouTube."
 
+#: DB:link_type/description:903
+msgid ""
+"This links a label to their profile at a crowdfunding site like Kickstarter "
+"or Indiegogo."
+msgstr "Dit koppelt een platenmaatschappij aan haar profiel op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr "Dit koppelt een plaats aan een kanaal, afspeellijst of gebruikerspagina op een videosite met video’s die door de plaats wordt bijgehouden."
+
+#: DB:link_type/description:900
+msgid ""
+"This links a place to a site where the place or the organisation behind it "
+"can receive donations/patronage, such as Flattr or PayPal.me."
+msgstr "Dit koppelt een plaats aan een website voor donaties aan de organisatie achter de plaats, zoals Flattr of PayPal.me."
+
+#: DB:link_type/description:909
+msgid ""
+"This links a place to its profile at a crowdfunding site like Kickstarter or"
+" Indiegogo."
+msgstr "Dit koppelt een plaats aan zijn profiel op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
@@ -1742,6 +1766,12 @@ msgid ""
 "used samples as well."
 msgstr "Dit koppelt een opname aan de persoon die het heeft geremixt door een of meer nummers substantieel te veranderen en ze samen of met ander materiaal te mixen. Dit wordt ook gebruikt voor de artiest die een mashup heeft gemaakt of samples heeft gebruikt."
 
+#: DB:link_type/description:905
+msgid ""
+"This links a recording to the relevant crowdfunding project at a "
+"crowdfunding site like Kickstarter or Indiegogo."
+msgstr "Dit koppelt een opname aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
 #: DB:link_type/description:868
 msgid ""
 "This links a release group to an artist it is dedicated to. This is for "
@@ -1760,6 +1790,12 @@ msgid ""
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
 msgstr "Dit koppelt een uitgavegroep aan een artiest om aan te geven dat het een hommage aan de artiest is. Deze albums hebben vaak een titel in de vorm van “A Tribute to …”. Ze bestaan vaak uit nieuwe uitvoeringen van nummers van de artiest, gespeeld door andere (soms hele onbekende) artiesten als eerbetoon aan de doelartiest. Dit zijn vaak compilaties door diverse artiesten, maar soms speelt er één artiest op het hele album."
+
+#: DB:link_type/description:907
+msgid ""
+"This links a release group to the relevant crowdfunding project at a "
+"crowdfunding site like Kickstarter or Indiegogo."
+msgstr "Dit koppelt een uitgavegroep aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
@@ -1789,17 +1825,37 @@ msgid ""
 "used samples as well."
 msgstr "Dit koppelt een uitgave aan de persoon die het heeft geremixt door een of meer nummers substantieel te veranderen en ze samen met ander materiaal te mixen. Dit wordt ook gebruikt door de artiest die een mashup heeft gemaakt of samples heeft gebruikt."
 
+#: DB:link_type/description:906
+msgid ""
+"This links a release to the relevant crowdfunding project at a crowdfunding "
+"site like Kickstarter or Indiegogo."
+msgstr "Dit koppelt een uitgave aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
 "festival) to its official page at SoundCloud."
 msgstr "Dit koppelt een serie (meestal, maar niet altijd een festival) aan jaar officiële pagina op SoundCloud."
 
+#: DB:link_type/description:901
+msgid ""
+"This links a series (usually, but not exclusively, a festival or concert "
+"series) to a site where the organisers/creators can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr "Dit koppelt een serie (vaak, maar niet altijd, een serie concerten of festivals) aan een website voor donaties aan de organisatoren of producenten van de serie."
+
 #: DB:link_type/description:805
 msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr "Dit koppelt een serie aan een kanaal, afspeellijst of gebruikerspagina op een videosite met video’s die de producenten wordt bijgehouden."
+
+#: DB:link_type/description:910
+msgid ""
+"This links a series to its profile (e.g. for a festival) or project (e.g. "
+"for a specific tour, or for compiling a classical catalogue) at a "
+"crowdfunding site like Kickstarter or Indiegogo."
+msgstr "Dit koppelt een serie aan haar profiel (bijvoorbeeld voor een festival) of project (bijvoorbeeld voor een specifieke tour, of het samenstellen van een klassieke catalogus) op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #: DB:link_type/description:97
 msgid ""
@@ -1822,6 +1878,12 @@ msgid ""
 "href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
 "type</a> for group-group relationships."
 msgstr "Dit koppelt een subgroep aan de groep waaruit het is voortgekomen. Dit relatietype is vergelijkbaar met het <a href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">lid van een groep type</a> voor relaties tussen groepen onderling."
+
+#: DB:link_type/description:908
+msgid ""
+"This links a work to its project at a crowdfunding site like Kickstarter or "
+"Indiegogo."
+msgstr "Dit koppelt een compositie aan haar project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #: DB:link_type/description:885
 msgid "This links a work with the area it was arranged in."
@@ -1893,6 +1955,12 @@ msgstr "Dit koppelt een artiest aan een kanaal, afspeellijst of gebruikerspagina
 msgid "This links an artist to a fan-created website."
 msgstr "Dit koppelt een artiest aan een website van een fan."
 
+#: DB:link_type/description:897
+msgid ""
+"This links an artist to a site where the artist can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr "Dit koppelt een artiest aan een website voor donaties aan de artiest, zoals Flattr of PayPal.me."
+
 #: DB:link_type/description:707
 msgid ""
 "This links an artist to an URL containing an interview with that artist."
@@ -1943,6 +2011,12 @@ msgstr "Dit koppelt een artiest aan de overeenkomstige pagina op PureVolume."
 msgid "This links an artist to the equivalent entry at YouTube."
 msgstr "Dit koppelt een artiest aan de overeenkomstige pagina op YouTube."
 
+#: DB:link_type/description:902
+msgid ""
+"This links an artist to their profile at a crowdfunding site like "
+"Kickstarter or Indiegogo."
+msgstr "Dit koppelt een artiest aan zijn profiel op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
 #: DB:link_type/description:108
 msgid ""
 "This links an artist's performance name (a stage name or alias) with their "
@@ -1982,6 +2056,18 @@ msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr "Dit koppelt een evenement aan een kanaal, afspeellijst of gebruikerspagina op een videosite die door de organisatoren wordt bijgehouden."
+
+#: DB:link_type/description:898
+msgid ""
+"This links an event to a site where the event organisers can receive "
+"donations/patronage, such as Flattr or PayPal.me."
+msgstr "Dit koppelt een evenement aan een website voor donaties aan de organisatoren van het evenement, zoals Flattr of PayPal.me."
+
+#: DB:link_type/description:904
+msgid ""
+"This links an event to the relevant crowdfunding project at a crowdfunding "
+"site like Kickstarter or Indiegogo."
+msgstr "Dit koppelt een evenement aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
@@ -2201,6 +2287,12 @@ msgstr "Deze relatie wordt gebruikt om een compositie te koppelen aan de artiest
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr "Deze relatie koppelt een tournee aan een of meer artiesten."
+
+#: DB:link_type/description:896
+msgid ""
+"This relationship links an instrument to the person(s) who invented or "
+"designed it."
+msgstr "Dit koppelt een instrument aan de uitvinder of ontwerper van het instrument."
 
 #: DB:link_type/description:856
 msgid ""
@@ -2719,7 +2811,7 @@ msgstr "kan per post besteld worden op"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "afgelast"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -2882,6 +2974,22 @@ msgstr "creatieve personen"
 msgid "creative position"
 msgstr "creatieve positie"
 
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/reverse_link_phrase:908
+msgid "crowdfunding page"
+msgstr "crowdfundingpagina"
+
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
+#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:907
+msgid "crowdfunding page for"
+msgstr "crowdfundingpagina voor"
+
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 msgid "dedicated to"
 msgstr "opgedragen aan"
@@ -3035,7 +3143,7 @@ msgstr "oprichter van"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "opgericht door"
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
@@ -3194,6 +3302,13 @@ msgstr "heeft een weblog op"
 msgid "has a catalog of records at"
 msgstr "heeft een catalogus van uitgaves op"
 
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+msgid "has a crowdfunding page at"
+msgstr "heeft een crowdfundingpagina op"
+
 #: DB:link_type/long_link_phrase:288
 msgid "has a discography entry at"
 msgstr "heeft een discografisch lemma op"
@@ -3225,6 +3340,12 @@ msgstr "heeft een diverse rol op"
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "heeft een pagina in een database op"
+
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:897
+msgid "has a patronage page at"
+msgstr "heeft een pagina voor donaties op"
 
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
@@ -3435,11 +3556,11 @@ msgstr "imprints"
 
 #: DB:link_type/link_phrase:894
 msgid "included in"
-msgstr ""
+msgstr "maakt deel uit van"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
-msgstr ""
+msgstr "bevat"
 
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
@@ -3461,6 +3582,14 @@ msgstr "vraaggesprek met"
 #: DB:link_type/link_phrase:707
 msgid "interviews"
 msgstr "interviews"
+
+#: DB:link_type/link_phrase:896 DB:link_type/long_link_phrase:896
+msgid "invented"
+msgstr "uitvinder van"
+
+#: DB:link_type/reverse_link_phrase:896
+msgid "invented by"
+msgstr "uitgevonden door"
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
@@ -3531,7 +3660,7 @@ msgstr "is gebaseerd op"
 
 #: DB:link_type/long_link_phrase:894
 msgid "is included in"
-msgstr ""
+msgstr "maakt deel uit van"
 
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
@@ -3595,7 +3724,7 @@ msgstr "is/was de moedermaatschappij van"
 
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an additional|a} {original} member of"
-msgstr ""
+msgstr "is/was {additional:een aanvullend|een} {original:oorspronkelijk} lid van"
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -3716,11 +3845,11 @@ msgstr "hoofdartiesten"
 
 #: DB:link_type/link_phrase:360 DB:link_type/long_link_phrase:360
 msgid "manufactured"
-msgstr "vervaardigd"
+msgstr "fabriceerde"
 
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
-msgstr "vervaardigd door"
+msgstr "gefabriceerd door"
 
 #: DB:link_type/reverse_link_phrase:835
 msgid "manufactured in"
@@ -3732,11 +3861,11 @@ msgstr "locatie waar {entity1} gefabriceerd werd."
 
 #: DB:link_type/link_phrase:848 DB:link_type/long_link_phrase:848
 msgid "marketed"
-msgstr "gepromoot"
+msgstr "vermarkte"
 
 #: DB:link_type/reverse_link_phrase:848
 msgid "marketed by"
-msgstr "gepromoot door"
+msgstr "vermarkt door"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -3948,7 +4077,7 @@ msgstr "organisten: "
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr ""
+msgstr "oorspronkelijk"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4006,6 +4135,18 @@ msgstr "gedeeltelijk"
 #: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "delen"
+
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:897
+msgid "patronage page"
+msgstr "pagina voor donaties"
+
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:897
+msgid "patronage page for"
+msgstr "pagina voor donaties voor"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
@@ -4165,7 +4306,7 @@ msgstr "productie"
 
 #: DB:link_type/link_phrase:359 DB:link_type/long_link_phrase:359
 msgid "promoted"
-msgstr "gepromoot"
+msgstr "promootte"
 
 #: DB:link_type/reverse_link_phrase:359
 msgid "promoted by"
@@ -5041,12 +5182,12 @@ msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {solo:solo} {guest:gast}{instrument:%|instrumenten}"
+msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten} {guest:(als gast)}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal} {vocal:|vocals}"
-msgstr "{additional:aanvullend} {guest:gast} {solo:solo} {vocal} {vocal:|vocalen}"
+msgstr "{additional:aanvullende} {guest:gast} {solo:solo} {vocal} {vocal:|vocalen}"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
@@ -5063,11 +5204,11 @@ msgstr "project van {additional:(aanvullend)} {minor:(in een kleine rol)}"
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {original} member of"
-msgstr ""
+msgstr "{additional:aanvullend} {original:oorspronkelijk} lid van"
 
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} members"
-msgstr ""
+msgstr "{additional:aanvullende} {original:oorspronkelijke} leden"
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294
@@ -5121,6 +5262,10 @@ msgstr "{entity1} heeft een Wikidatapagina op {entity0}"
 #: DB:link_type/long_link_phrase:279
 msgid "{entity1} has a Wikipedia page at {entity0}"
 msgstr "{entity1} heeft eenWikipediapagina op {entity0}"
+
+#: DB:link_type/long_link_phrase:908
+msgid "{entity1} has a crowdfunding page at {entity0}"
+msgstr "{entity1} heeft een crowdfundingpagina op {entity0}"
 
 #: DB:link_type/long_link_phrase:273
 msgid "{entity1} has a page in a database at {entity0}"
@@ -5322,7 +5467,7 @@ msgstr "{entity1} werd {additional:aanvullend} geschreven in {entity0}"
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr "is een {live:live} {partial:gedeeltelijke} {instrumental:instrumentale} {medley:medley} {cover:cover} opname van"
+msgstr "is een {live:live} {partial:gedeeltelijke} {instrumental:instrumentale} {medley:medley} {cover:cover-}opname van"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""

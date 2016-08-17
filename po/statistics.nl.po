@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-12 11:04+0000\n"
+"PO-Revision-Date: 2016-08-07 10:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,22 @@ msgid ""
 "to releases."
 msgstr "Een nieuwe op AJAX gebaseerde uploader wordt uitgebracht, waardoor het makkelijker wordt om afbeeldingen toe te voegen."
 
+#: DB:statistics.statistic_event/description:2015-12-28
+msgid ""
+"A new banner message now notifies users whenever they receive a new edit "
+"note."
+msgstr "Als gebruikers een notitie bij een bewerking krijgen, krijgen ze voortaan een melding."
+
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr "Een breuk in de gemeenschap van MusicBrainz leidt tot het Grote Schisma."
+
+#: DB:statistics.statistic_event/description:2014-11-19
+msgid ""
+"AcousticBrainz, which aims to crowd source acoustic information for music, "
+"is announced in cooperation with the Music Technology Group at Universitat "
+"Pompeu Fabra."
+msgstr "AcousticBrainz, een project dat als doel heeft om akoestische informatie over muziek te crowdsourcen, wordt in samenwerking met de Music Technology Group van de Universitat Pompeu Fabra in Barcelona aangekondigd."
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
@@ -169,6 +182,10 @@ msgid ""
 "released."
 msgstr "Verbeteringen in het weergeven van bewerkingen, RDF dumps uitgeschakeld en nieuwe installatiescripts uitgebracht."
 
+#: DB:statistics.statistic_event/title:2015-12-28
+msgid "Edit note notifications"
+msgstr "Meldingen voor bewerkingsnotities"
+
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
 msgstr "Zoeken naar bewerkingen"
@@ -179,9 +196,21 @@ msgid ""
 "creating a huge spike in edits."
 msgstr "Redacteur ojnkpjg voert een script uit dat de duur van nummers instelt aan de hand van disc-id’s, wat tot een enorme piek aan bewerkingen leidt."
 
+#: DB:statistics.statistic_event/description:2015-11-30
+msgid ""
+"Edits made by editors to their own release additions within 1 hour of adding"
+" them are now auto-edits, as are \"Add recording\" and \"Remove alias\" "
+"edits."
+msgstr "Als een redacteur een uitgave binnen een uur na het toevoegen van deze uitgave bewerkt, zijn die bewerkingen nu automatisch. Ook het toevoegen van een opname en het verwijderen van een alias zijn nu automatische bewerkingen."
+
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
 msgstr "Folksonomie-etikettering en abonnementen op redacteurs worden uitgebracht."
+
+#: DB:statistics.statistic_event/description:2015-09-04
+msgid ""
+"Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
+msgstr "Voormalig GSoC-student Roman Tsukanov begint in deeltijd voor MetaBrainz te werken."
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
@@ -317,6 +346,18 @@ msgstr "MetaWeb wordt een gebruiker van de gegevens van MusicBrainz."
 msgid "MetaWeb signed"
 msgstr "MetaWeb getekend"
 
+#: DB:statistics.statistic_event/title:2015-11-30
+msgid "More auto-edits"
+msgstr "Meer automatische bewerkingen"
+
+#: DB:statistics.statistic_event/description:2015-11-16
+msgid ""
+"More edit types are made auto-edits for everyone: \"Add relationship\" and "
+"\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
+"Additionally, the German, French and Dutch translations are available on the"
+" main server."
+msgstr "Meer soorten bewerkingen worden voor iedereen automatisch: het toevoegen van uitgaves en het toevoegen, bewerken of verwijderen van platenmaatschappijen van uitgaves. Bovendien worden de Duitse, Franse en Nederlandse vertalingen op de hoofdserver beschikbaar."
+
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
 msgstr "Verhuizing van MusicBrainz"
@@ -328,6 +369,12 @@ msgstr "De broncode voor de server van MusicBrainz verhuist van Subversion naar 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
 msgstr "MusicBrainz krijgt zijn eerste toegewijde databaseserver."
+
+#: DB:statistics.statistic_event/description:2016-02-22
+msgid ""
+"MusicBrainz itself gets a new design to better match the rest of the *Brainz"
+" family."
+msgstr "Ook MusicBrainz krijgt een nieuw ontwerp om beter aan te sluiten op de rest van de *Brainz-familie."
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -359,6 +406,10 @@ msgstr "NGS uitgebracht"
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
 msgstr "NGS, een grote verbouwing van MusicBrainz, is uitgebracht!"
+
+#: DB:statistics.statistic_event/title:2016-02-22
+msgid "New MusicBrainz design"
+msgstr "Nieuw ontwerp voor MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -402,6 +453,10 @@ msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr "Uitgavegroepen, ondersteuning voor ISRC’s, zoeken in cd-beginsels en verbeteringen aan de zoekfunctie uitgebracht."
 
+#: DB:statistics.statistic_event/title:2015-09-04
+msgid "Roman Tsukanov joins the MetaBrainz team"
+msgstr "Roman Tsukanov wordt lid van het MetaBrainz-team"
+
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
 msgstr "SG5 verbeteringen"
@@ -409,6 +464,10 @@ msgstr "SG5 verbeteringen"
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
 msgstr "Zoekverbeteringen"
+
+#: DB:statistics.statistic_event/title:2015-11-16
+msgid "Several new auto-edit types and translations"
+msgstr "Nieuwe soorten automatische bewerkingen en nieuwe vertalingen"
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -433,6 +492,10 @@ msgstr "TRM-botsingen"
 msgid "Tags"
 msgstr "Etiketten"
 
+#: DB:statistics.statistic_event/title:2014-11-19
+msgid "The AcousticBrainz project goes live"
+msgstr "Het AcousticBrainz-project wordt gelanceerd"
+
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
@@ -446,11 +509,40 @@ msgstr "Het Cover Art Archive wordt voor het eerst beschikbaar"
 msgid "The Cover Art Archive is officially released"
 msgstr "Het Cover Art Archive wordt officieel uitgebracht"
 
+#: DB:statistics.statistic_event/title:2014-05-19
+msgid "The CritiqueBrainz project goes live"
+msgstr "Het CritiqueBrainz-project wordt gelanceerd"
+
+#: DB:statistics.statistic_event/title:2015-09-17
+msgid "The ListenBrainz project goes live"
+msgstr "Het ListenBrainz-project wordt gelanceerd"
+
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
 msgstr "De MetaBrainz Foundation, het juridische thuis van MusicBrainz, wordt aan het publiek gepresenteerd."
+
+#: DB:statistics.statistic_event/description:2015-09-17
+msgid ""
+"The alpha version of ListenBrainz, an open source and open data alternative "
+"to Last.fm®, goes live."
+msgstr "De alfaversie van ListenBrainz, een open bron- en open data-alternatief voor Last.fm®, wordt gelanceerd."
+
+#: DB:statistics.statistic_event/description:2014-05-19
+msgid "The beta version of CritiqueBrainz is launched."
+msgstr "De bètaversie van CritiqueBrainz wordt gelanceerd"
+
+#: DB:statistics.statistic_event/title:2015-05-18
+msgid "The new MetaBrainz website goes live"
+msgstr "De nieuwe MetaBrainz-website wordt gelanceerd"
+
+#: DB:statistics.statistic_event/description:2015-05-18
+msgid ""
+"The new MetaBrainz website, featuring an all-new design and online sign-up "
+"for commercial users, is launched, replacing the one designed in the year "
+"2000!"
+msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""
@@ -2318,4 +2410,4 @@ msgstr "{type0}-{type1}"
 
 #: ../root/statistics/relationships.tt:48
 msgid "{type0}-{type1} relationships:"
-msgstr "{type0}-{type1} relaties:"
+msgstr "{type0}-{type1}-relaties:"

@@ -2,12 +2,13 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2016
 # Luca Salini <email address hidden>, 2013-2015
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-07-20 00:35+0000\n"
+"PO-Revision-Date: 2016-08-01 22:12+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1071,6 +1072,11 @@ msgstr "Giapponese"
 msgid "Javanese"
 msgstr "Giavanese"
 
+#. frequency:1 iso_code_3:tmr
+#: DB:language/name:6526
+msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
+msgstr ""
+
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
 msgid "Judeo-Arabic"
@@ -1679,7 +1685,7 @@ msgstr "Nogai"
 #. frequency:1 iso_code_3:nrn
 #: DB:language/name:4991
 msgid "Norn"
-msgstr ""
+msgstr "Norn"
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308
