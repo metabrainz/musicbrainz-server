@@ -539,12 +539,12 @@ END -%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
+            <img src="[% c.model('FileCache').path_to('/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
         <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
+            <img src="[% c.model('FileCache').path_to('/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- END -%]
 [%- END -%]
@@ -785,7 +785,7 @@ END -%]
     END -%]
 
 [%~ MACRO warning_icon BLOCK -%]
-   <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+   <img class="warning" src="[% c.model('FileCache').path_to('/images/icons/warning.png') %]" />
 [%- END -%]
 
 [%~ MACRO error(message, class) BLOCK -%]
@@ -818,11 +818,11 @@ END -%]
         attr_string = "$attr_string ${attr.key}=\"" _ html_escape(attr.value) _ '"';
       END
   ~%]
-  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"[% attr_string %]></script>
+  <script src="[% c.model('FileCache').path_to('/build/' _ manifest) %]"[% attr_string %]></script>
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
-  <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
+  <link rel="stylesheet" type="text/css" href="[% c.model('FileCache').path_to('/build/' _ manifest) %]" />
 [%~ END ~%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
@@ -864,7 +864,7 @@ END ~%]
 [%- END -%]
 
 [%~ MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" alt="" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.model('FileCache').path_to('/images/icons/filter.png') %]" alt="" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
 [%~ MACRO wikidoc_search_box BLOCK -%]

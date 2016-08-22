@@ -22,6 +22,7 @@ Readonly our @NUMBER_DEFS => qw(
 
 Readonly our @STRING_DEFS => qw(
     MB_LANGUAGES
+    STATIC_RESOURCES_LOCATION
 );
 
 my $code = '';

@@ -9,6 +9,7 @@ global.$ = global.jQuery = require("jquery");
 require("jquery.browser");
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
+require("./common/DBDefs");
 require("./common/MB");
 require("./common/i18n");
 require("./common/text-collapse");

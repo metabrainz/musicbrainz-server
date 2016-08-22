@@ -5,6 +5,7 @@
 
 const React = require('react');
 
+const manifest = require('../../static/manifest');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
 let TYPE_OPTIONS = {
@@ -44,7 +45,7 @@ const Search = () => (
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />
     <button type="submit">
-      <img src="/static/images/icons/search.svg" />
+      <img src={manifest.pathTo('/images/icons/search.svg')} />
     </button>
   </form>
 );
