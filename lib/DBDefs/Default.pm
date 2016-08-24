@@ -284,17 +284,6 @@ sub ENTITY_CACHE_TTL {
 }
 
 ################################################################################
-# Rate-Limiting
-################################################################################
-
-# The "host:port" of the ratelimit server ($MB_SERVER/bin/ratelimit-server).
-# If undef, the rate-limit code always returns undef (as it does if there is
-# an error).
-# Just like the memcached server settings, there is NO SECURITY built into the
-# ratelimit protocol, so be careful about enabling it.
-sub RATELIMIT_SERVER { undef }
-
-################################################################################
 # Sessions (advanced)
 ################################################################################
 

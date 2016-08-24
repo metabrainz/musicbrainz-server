@@ -7,7 +7,6 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
-use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
@@ -343,19 +342,6 @@ sub begin : Private
                 model_to_type($merger->type) . '/merge',
             )
         );
-    }
-
-    my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->stash(
-            template => 'main/rate_limited.tt',
-            rl_response => $r
-        );
-        $c->detach;
     }
 
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
