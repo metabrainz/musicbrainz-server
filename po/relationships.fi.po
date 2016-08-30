@@ -2979,19 +2979,19 @@ msgstr ""
 msgid "creative position"
 msgstr ""
 
-#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
-#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
-#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
-#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:902
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
 msgstr ""
 
-#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
-#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
 #: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
-#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
-#: DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr ""
 
@@ -3307,10 +3307,10 @@ msgstr "omaa blogin"
 msgid "has a catalog of records at"
 msgstr "omaa kataloogin äänitteistä"
 
-#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
-#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
-#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
-#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:902
 msgid "has a crowdfunding page at"
 msgstr ""
 
@@ -3346,8 +3346,8 @@ msgstr "oma sekalaisen roolin "
 msgid "has a page in a database at"
 msgstr "omaa sivun tietokannassa"
 
-#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
-#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:901 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
 msgstr ""
@@ -4141,14 +4141,14 @@ msgstr "osittainen"
 msgid "parts"
 msgstr "osat"
 
-#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
-#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
-#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
 msgstr ""
