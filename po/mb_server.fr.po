@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-07 00:17-0500\n"
-"PO-Revision-Date: 2016-07-04 05:48+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2016-08-15 22:12-0500\n"
+"PO-Revision-Date: 2016-08-19 07:47+0000\n"
+"Last-Translator: ShevAbam\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3652,7 +3652,7 @@ msgstr "Comment fonctionnent les modifications"
 
 #: ../root/main/index.tt:93
 msgid "How to Contribute"
-msgstr ""
+msgstr "Comment contribuer"
 
 #: ../root/release/edit/information.tt:314
 msgid "I confirm that this is the barcode as it appears on the release."
@@ -7356,7 +7356,7 @@ msgstr "Parutions similaires"
 
 #: ../root/admin/edit_user.tt:36
 msgid "Skip verification"
-msgstr ""
+msgstr "Passer la vérification"
 
 #: ../root/main/rate_limited.tt:1 ../root/main/rate_limited.tt:3
 msgid "Slow Down!"
@@ -8083,7 +8083,7 @@ msgstr "Il n'y a actuellement aucun disque dans MusicBrainz associé aux informa
 
 #: ../root/area/users.tt:11
 msgid "There are currently no users in this area."
-msgstr ""
+msgstr "Il n'y a actuellement aucun utilisateur dans cette région."
 
 #: ../root/user/subscribers.tt:23
 msgid "There are currently no users subscribed to edits that you make."
@@ -9710,7 +9710,7 @@ msgstr "Instrument non classé"
 #: ../root/unconfirmed_email_discourse.tt:1
 #: ../root/unconfirmed_email_discourse.tt:2
 msgid "Unconfirmed Email Address"
-msgstr ""
+msgstr "Adresse mail non confirmée"
 
 #: ../root/components/common-macros.tt:1041 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
@@ -10579,7 +10579,7 @@ msgstr "Vous devez choisir un groupe de parution existant."
 msgid ""
 "You must verify your email address before you can log in to "
 "{discourse|MetaBrainz Community Discourse}."
-msgstr ""
+msgstr "Vous devez vérifier votre adresse mail avant de vous connecter à {discourse|MetaBrainz Community Discourse}."
 
 #: ../root/cdtoc/remove.tt:11
 msgid ""
@@ -12601,7 +12601,7 @@ msgstr "Ces coordonnées n'ont pas pu être analysées"
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
 #: ../root/static/scripts/relationship-editor/common/dialog.js:493
 msgid "The end date cannot precede the begin date."
-msgstr ""
+msgstr "La date de fin ne peut pas être inférieure à la date de début."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:12
 msgid "This is not a valid disc ID"
@@ -12658,7 +12658,7 @@ msgstr "Date invalide"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:12
 msgid "Please ensure all lines start with @, * or #, followed by a space."
-msgstr ""
+msgstr "Veuillez vous assurer que toutes les lignes commencent par @, * ou #, suivies d'un espace."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:16
 msgid "This is not a valid time."
@@ -12969,7 +12969,7 @@ msgstr ""
 
 #: ../root/main/404.js:19
 msgid "Sorry, the page you're looking for does not exist."
-msgstr ""
+msgstr "Désolé, la page que vous cherchez n'existe pas."
 
 #: ../root/main/404.js:31
 msgid ""
@@ -13158,23 +13158,23 @@ msgstr "En afficher moins..."
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:17
 msgid " – ????"
-msgstr ""
+msgstr " – ????"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:25
 msgid "{begin_date} – {end_date}"
-msgstr ""
+msgstr "{begin_date} – {end_date}"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:29
 msgid "– {end_date}"
-msgstr ""
+msgstr "– {end_date}"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:33
 msgid "{begin_date} – ????"
-msgstr ""
+msgstr "{begin_date} – ????"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:33
 msgid "{begin_date} –"
-msgstr ""
+msgstr "{begin_date} –"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:44
 msgid "Began:"

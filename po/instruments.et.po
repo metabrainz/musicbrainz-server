@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-07 05:19+0000\n"
+"PO-Revision-Date: 2016-08-16 03:14+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1235,6 +1235,11 @@ msgstr "geomungo"
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
+
+#: DB:instrument/name:796
+msgctxt "Elguitar/bass effect device"
+msgid "gizmo"
+msgstr ""
 
 #: DB:instrument/name:285
 msgid "glass harmonica"
@@ -2466,6 +2471,11 @@ msgstr "susafon"
 #: DB:instrument/name:513
 msgid "spilåpipa"
 msgstr "spilåpipa"
+
+#: DB:instrument/name:797
+msgctxt "A smaller harpsichord, strings at an angle"
+msgid "spinet"
+msgstr ""
 
 #: DB:instrument/name:160
 msgid "spoons"

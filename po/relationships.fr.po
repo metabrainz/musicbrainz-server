@@ -14,14 +14,15 @@
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
 # R. G. <email address hidden>, 2015
+# ShevAbam, 2016
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-08-19 08:19+0000\n"
+"Last-Translator: ShevAbam\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2822,7 +2823,7 @@ msgstr "peut être acheté par correspondance sur"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "annulé"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -2985,19 +2986,19 @@ msgstr "créatifs"
 msgid "creative position"
 msgstr "poste créatif"
 
-#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
-#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
-#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
-#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:902
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
 msgstr ""
 
-#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
-#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
 #: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
-#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
-#: DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr ""
 
@@ -3154,7 +3155,7 @@ msgstr "fondé"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "créé par"
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
@@ -3203,7 +3204,7 @@ msgstr "a eu un poste créatif"
 
 #: DB:link_type/long_link_phrase:162
 msgid "had a miscellaneous role on"
-msgstr ""
+msgstr "a un rôle divers sur"
 
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
@@ -3313,10 +3314,10 @@ msgstr "à un blogue à"
 msgid "has a catalog of records at"
 msgstr "a un catalogue de disques à"
 
-#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
-#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
-#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
-#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:902
 msgid "has a crowdfunding page at"
 msgstr ""
 
@@ -3352,8 +3353,8 @@ msgstr "a un rôle divers sur"
 msgid "has a page in a database at"
 msgstr "à une page dans une base données sur"
 
-#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
-#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:901 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
 msgstr ""
@@ -3567,7 +3568,7 @@ msgstr "marques"
 
 #: DB:link_type/link_phrase:894
 msgid "included in"
-msgstr ""
+msgstr "inclu dans"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
@@ -4088,7 +4089,7 @@ msgstr "organistes"
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr ""
+msgstr "original"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4147,14 +4148,14 @@ msgstr "partiel"
 msgid "parts"
 msgstr "parties"
 
-#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
-#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
-#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
 msgstr ""
@@ -4695,7 +4696,7 @@ msgstr "Tournée pour faire la promotion"
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
-msgstr ""
+msgstr "tournées"
 
 #: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"

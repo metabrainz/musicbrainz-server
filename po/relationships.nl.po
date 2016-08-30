@@ -2974,19 +2974,19 @@ msgstr "creatieve personen"
 msgid "creative position"
 msgstr "creatieve positie"
 
-#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
-#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
-#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
-#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:902
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
 msgstr "crowdfundingpagina"
 
-#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
-#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
 #: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
-#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
-#: DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr "crowdfundingpagina voor"
 
@@ -3302,10 +3302,10 @@ msgstr "heeft een weblog op"
 msgid "has a catalog of records at"
 msgstr "heeft een catalogus van uitgaves op"
 
-#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
-#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
-#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
-#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:902
 msgid "has a crowdfunding page at"
 msgstr "heeft een crowdfundingpagina op"
 
@@ -3341,8 +3341,8 @@ msgstr "heeft een diverse rol op"
 msgid "has a page in a database at"
 msgstr "heeft een pagina in een database op"
 
-#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
-#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:901 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
 msgstr "heeft een pagina voor donaties op"
@@ -4136,14 +4136,14 @@ msgstr "gedeeltelijk"
 msgid "parts"
 msgstr "delen"
 
-#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
-#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
 msgstr "pagina voor donaties"
 
-#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
-#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
 msgstr "pagina voor donaties voor"
