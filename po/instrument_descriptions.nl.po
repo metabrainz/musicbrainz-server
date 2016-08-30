@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-08 18:56+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2016-08-16 03:14+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -361,6 +361,13 @@ msgid ""
 "traditional Māori instruments Taonga pūoro"
 msgstr ""
 
+#. name:spinet
+#: DB:instrument/description:797
+msgid ""
+"A smaller harpsichord, often with the strings at 30 degrees from the "
+"keyboard."
+msgstr ""
+
 #. name:suikinkutsu
 #: DB:instrument/description:147
 msgid ""
@@ -493,6 +500,13 @@ msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr "Een archtopgitaar is een akoestische of semiakoestische gitaar met stalen snaren en een kenmerkende gebogen bovenblad en is vooral populair onder jazz-spelers."
+
+#. name:gizmo
+#: DB:instrument/description:796
+msgid ""
+"An effects device to be clamped on the bridge, it produces \"synthesizer-"
+"like\" sounds"
+msgstr ""
 
 #. name:keytar
 #: DB:instrument/description:774

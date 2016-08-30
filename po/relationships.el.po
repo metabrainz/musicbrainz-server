@@ -2971,19 +2971,19 @@ msgstr "δημιουργικά άτομα"
 msgid "creative position"
 msgstr "δημιουργική θέση"
 
-#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:902
-#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:905
-#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:909
-#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
+#: DB:link_type/link_phrase:903 DB:link_type/link_phrase:905
+#: DB:link_type/link_phrase:906 DB:link_type/link_phrase:907
+#: DB:link_type/link_phrase:910 DB:link_type/link_phrase:902
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
 msgstr ""
 
-#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:903
-#: DB:link_type/reverse_link_phrase:902 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
+#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
 #: DB:link_type/reverse_link_phrase:905 DB:link_type/reverse_link_phrase:906
-#: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:910
-#: DB:link_type/reverse_link_phrase:907
+#: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
+#: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr ""
 
@@ -3299,10 +3299,10 @@ msgstr "έχει blog στο"
 msgid "has a catalog of records at"
 msgstr "έχει κατάλογο δίσκων στο"
 
-#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:902
-#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:905
-#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:909
-#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
+#: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
+#: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:907
+#: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:902
 msgid "has a crowdfunding page at"
 msgstr ""
 
@@ -3338,8 +3338,8 @@ msgstr "έχει γενικό ρόλο στο"
 msgid "has a page in a database at"
 msgstr "έχει σελίδα σε μία βάση δεδομένων στο"
 
-#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:900
-#: DB:link_type/long_link_phrase:899 DB:link_type/long_link_phrase:901
+#: DB:link_type/long_link_phrase:901 DB:link_type/long_link_phrase:900
+#: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
 msgstr ""
@@ -4133,14 +4133,14 @@ msgstr "μερική"
 msgid "parts"
 msgstr "μέρη"
 
-#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:900
-#: DB:link_type/link_phrase:899 DB:link_type/link_phrase:901
+#: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
+#: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:900
-#: DB:link_type/reverse_link_phrase:899 DB:link_type/reverse_link_phrase:901
+#: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
+#: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
 msgstr ""

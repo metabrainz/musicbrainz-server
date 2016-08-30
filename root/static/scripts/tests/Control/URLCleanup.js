@@ -970,6 +970,21 @@ test('Cleanup', function (t) {
                 'https://twitter.com/ACEHOOD',
                 'artist'
             ],
+            [
+                'http://twitter.com/miguelgrimaldo/media',
+                'https://twitter.com/miguelgrimaldo',
+                'artist'
+            ],
+            [
+                'https://mobile.twitter.com/cirrhaniva?lang=en-gb',
+                'https://twitter.com/cirrhaniva',
+                'artist'
+            ],
+            [
+                'https://twitter.com/@UNIVERSAL_D#content-main-heading',
+                'https://twitter.com/UNIVERSAL_D',
+                'artist'
+            ],
             // SoundCloud
             [
                 'http://soundcloud.com/alec_empire',
