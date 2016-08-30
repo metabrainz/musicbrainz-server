@@ -3109,6 +3109,13 @@ msgstr ""
 msgid "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr ""
 
+#. name:spinettone 
+#: DB:instrument/description:799
+msgid ""
+"an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
+"where produced by long strings, not thicker strings."
+msgstr ""
+
 #. name:disk drive 
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
@@ -3159,6 +3166,13 @@ msgstr ""
 #. name:saó ôi flute 
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:piano spinet 
+#: DB:instrument/description:798
+msgid ""
+"small piano with drop action stickers manufactured from around 1930 to the "
+"early 1990s."
 msgstr ""
 
 #. name:guitaret 

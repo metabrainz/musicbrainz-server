@@ -2021,6 +2021,11 @@ msgstr ""
 msgid "piano accordion"
 msgstr ""
 
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
 #: DB:instrument/name:17
 msgid "piccolo"
 msgstr ""
@@ -2468,6 +2473,11 @@ msgstr ""
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
+msgstr ""
+
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
 msgstr ""
 
 #: DB:instrument/name:160
