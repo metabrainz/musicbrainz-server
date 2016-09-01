@@ -1242,7 +1242,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://m.reverbnation.com/venue/602562',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/venue/602562',
         },
@@ -1323,7 +1323,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'place',
             expected_relationship_type: 'songkick',
                     expected_clean_url: 'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
         },
