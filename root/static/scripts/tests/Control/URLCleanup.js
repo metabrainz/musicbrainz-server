@@ -251,12 +251,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // BookBrainz
         {
-                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'bookbrainz',
-                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-        },
-        {
                              input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bookbrainz',
@@ -597,21 +591,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Foursquare
         {
-                             input_url: 'https://foursquare.com/taimmobile',
+                             input_url: 'http://foursquare.com/taimmobile',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://foursquare.com/taimmobile',
         },
         {
                              input_url: 'http://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-        },
-        {
-                             input_url: 'http://www.foursquare.com/test',
-                     input_entity_type: 'place',
-            expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'https://foursquare.com/test',
         },
         // generasia
         {
@@ -791,11 +780,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://www.jamendo.com/track/725574',
         },
         {
-                             input_url: 'http://www.jamendo.com/album/16090',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'downloadfree',
-        },
-        {
                              input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadfree',
@@ -806,12 +790,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/album/56372',
-        },
-        {
-                             input_url: 'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'downloadfree',
-                    expected_clean_url: 'http://www.jamendo.com/list/a81403',
         },
         // JUGEM
         {
@@ -909,15 +887,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
         },
         {
-                             input_url: 'https://www.linkedin.com/in/legselectric',
+                             input_url: 'http://www.linkedin.com/in/legselectric',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-        },
-        {
-                             input_url: 'http://www.linkedin.com/in/test',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'https://www.linkedin.com/in/test',
+                    expected_clean_url: 'https://www.linkedin.com/in/legselectric',
         },
         // livedoor
         {
@@ -1070,11 +1043,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'https://myspace.com/diekisten',
         },
         {
-                             input_url: 'https://myspace.com/hospitalrecords',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'myspace',
-        },
-        {
                              input_url: 'http://www.myspace.com/whoevenusesthisanymore',
                      input_entity_type: 'label',
             expected_relationship_type: 'myspace',
@@ -1218,11 +1186,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // ReverbNation
         {
-                             input_url: 'http://www.reverbnation.com/asangelsbleed',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'socialnetwork',
-        },
-        {
                              input_url: 'http://reverbnation.com/negator',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
@@ -1363,11 +1326,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // SoundtrackCollector
         {
-                             input_url: 'http://soundtrackcollector.com/composer/9/John+Williams',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
@@ -1422,11 +1380,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'otherdatabases',
         },
         // The Session
-        {
-                             input_url: 'http://thesession.org/recordings/artists/2836',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
         {
                              input_url: 'http://thesession.org/recordings/artists/793?test',
                      input_entity_type: 'artist',
@@ -1670,6 +1623,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://www.wikidata.org/wiki/Q42',
                      input_entity_type: 'artist',
             expected_relationship_type: 'wikidata',
+                    expected_clean_url: 'https://www.wikidata.org/wiki/Q42',
         },
         {
                              input_url: 'https://www.wikidata.org/wiki/Q42',
@@ -1689,10 +1643,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q14005',
-        },
-        {
-                             input_url: 'https://www.wikidata.org/wiki/Q638',
-                    expected_clean_url: 'https://www.wikidata.org/wiki/Q638',
         },
         // Wikimedia
         {
