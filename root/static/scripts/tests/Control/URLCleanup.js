@@ -42,21 +42,11 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                      input_entity_type: 'artist',
             expected_relationship_type: 'allmusic',
-        },
-        {
-                             input_url: 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/artist/mn0000754032',
         },
         {
                              input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                      input_entity_type: 'recording',
-            expected_relationship_type: 'allmusic',
-        },
-        {
-                             input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
-                     input_entity_type: 'recording', // FIXME unchecked consistency
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/performance/mq0000061129',
         },
@@ -71,21 +61,11 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
-        },
-        {
-                             input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
-                     input_entity_type: 'work',
-            expected_relationship_type: 'allmusic',
-        },
-        {
-                             input_url: 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
-                     input_entity_type: 'work', // FIXME unchecked consistency
-            expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/composition/mc0002367338',
         },
         {
                              input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/song/mt0043064796',
         },
@@ -305,32 +285,17 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
         },
         {
                              input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
         },
         {
                              input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'bookbrainz',
-        },
-        {
-                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'bookbrainz',
-                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-        },
-        {
-                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'bookbrainz',
-                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-        },
-        {
-                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
         },
@@ -412,18 +377,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://www.changetip.com/tipme/example',
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.changetip.com/tipme/example',
         },
         {
                              input_url: 'example.tip.me',
                      input_entity_type: 'event',
             expected_relationship_type: 'patronage',
-        },
-        {
-                             input_url: 'example.tip.me',
-                    expected_clean_url: 'https://www.changetip.com/tipme/example',
-        },
-        {
-                             input_url: 'https://www.changetip.com/tipme/example',
                     expected_clean_url: 'https://www.changetip.com/tipme/example',
         },
         // Classical Archives
@@ -786,11 +745,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.geonames.org/6255147/asia.html',
                      input_entity_type: 'area',
             expected_relationship_type: 'geonames',
-        },
-        {
-                             input_url: 'http://www.geonames.org/6255147/asia.html',
-                     input_entity_type: 'area', // FIXME unchecked consistency
-            expected_relationship_type: 'geonames',
                     expected_clean_url: 'http://sws.geonames.org/6255147/',
         },
         // Google
@@ -798,6 +752,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
         },
         {
                              input_url: 'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
@@ -812,12 +767,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'https://plus.google.com/101821796946045393834',
         },
         {
-                             input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'downloadpurchase',
-                    expected_clean_url: 'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
-        },
-        {
                              input_url: 'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
                      input_entity_type: 'artist', // FIXME unchecked consistency
             expected_relationship_type: 'downloadpurchase',
@@ -826,11 +775,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
                      input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
-                     input_entity_type: 'release', // FIXME unchecked consistency
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
         },
@@ -897,21 +841,11 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/artist/id444923726',
         },
         {
                              input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                      input_entity_type: 'recording',
-            expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
-                     input_entity_type: 'recording', // FIXME unchecked consistency
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/music-video/id564322420',
         },
@@ -919,21 +853,11 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
-                     input_entity_type: 'release', // FIXME unchecked consistency
-            expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/au/preorder/id499465357',
         },
         {
                              input_url: 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/gb/album/id543575947',
         },
@@ -960,11 +884,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
                      input_entity_type: 'recording',
             expected_relationship_type: 'downloadfree',
-        },
-        {
-                             input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
-                     input_entity_type: 'recording', // FIXME unchecked consistency
-            expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/track/725574',
         },
         {
@@ -976,6 +895,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadfree',
+                    expected_clean_url: 'http://www.jamendo.com/list/a84763',
         },
         {
                              input_url: 'http://www.jamendo.com/en/album/56372',
@@ -988,12 +908,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release', // FIXME unchecked consistency
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/list/a81403',
-        },
-        {
-                             input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
-                     input_entity_type: 'release', // FIXME unchecked consistency
-            expected_relationship_type: 'downloadfree',
-                    expected_clean_url: 'http://www.jamendo.com/list/a84763',
         },
         // JUGEM
         {
@@ -1648,14 +1562,9 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Spotify
         {
                              input_url: 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
-        },
-        {
-                             input_url: 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
         },
         // Ted Crane
         {
@@ -2067,18 +1976,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://youtube.com/user/officialpsy/videos',
                      input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
+                    expected_clean_url: 'http://www.youtube.com/user/officialpsy',
         },
         {
                              input_url: 'http://m.youtube.com/#/user/JessVincentMusic',
                      input_entity_type: 'artist', // FIXME unchecked consistency
             expected_relationship_type: 'youtube',
                     expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
-        },
-        {
-                             input_url: 'http://youtube.com/user/officialpsy/videos',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'youtube',
-                    expected_clean_url: 'http://www.youtube.com/user/officialpsy',
         },
         {
                              input_url: 'https://www.youtube.com/user/JessVincentMusic?feature=watch',
