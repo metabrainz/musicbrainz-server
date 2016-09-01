@@ -418,14 +418,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.deezer.com/artist/6509511?test',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/artist/6509511',
         },
         {
                              input_url: 'https://deezer.com/album/8935347',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/album/8935347',
         },
         {
@@ -1792,8 +1792,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
         },
         {
