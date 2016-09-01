@@ -165,8 +165,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // (Internet) Archive
         {
                              input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-            // FIXME          input_entity_type: 'release',
-            // FIXME expected_relationship_type: 'NOMATCH',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
         },
         {
@@ -208,8 +208,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
-            // FIXME          input_entity_type: 'recording',
-            // FIXME expected_relationship_type: 'NOMATCH',
+                     input_entity_type: 'recording',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'http://andrewhuang.bandcamp.com/track/boom-box',
         },
         // BBC Music
@@ -239,14 +239,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Blogspot
         {
                              input_url: 'http://49swimmingpools.blogspot.fr/',
-            // FIXME          input_entity_type: 'artist',
-            // FIXME expected_relationship_type: 'NOMATCH',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'http://49swimmingpools.blogspot.com/',
         },
         {
                              input_url: 'www.afroliciousoriginal.blogspot.pt',
-            // FIXME          input_entity_type: 'artist',
-            // FIXME expected_relationship_type: 'NOMATCH',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'afroliciousoriginal.blogspot.com/',
         },
         // BookBrainz
