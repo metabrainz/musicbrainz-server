@@ -76,20 +76,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'amazon',
         },
         {
-                             input_url: 'http://www.amazon.com.br/gp/product/B00T8E47G2',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'amazon',
-        },
-        {
-                             input_url: 'http://www.amazon.in/gp/product/B006H1JVW4',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'amazon',
-        },
-        {
                              input_url: 'http://amazon.com.br/dp/B00T8E47G2',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.com.br/gp/product/B00T8E47G2',
+        },
+        {
+                             input_url: 'http://www.amazon.in/dp/B006H1JVW4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.in/gp/product/B006H1JVW4',
         },
         {
                              input_url: 'http://amzn.com/B000005SU4',
@@ -122,12 +118,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://www.amazon.com/gp/product/B00015007W',
         },
         {
-                             input_url: 'http://www.amazon.in/dp/B006H1JVW4',
-                     input_entity_type: 'release', // FIXME unchecked consistency
-            expected_relationship_type: 'amazon',
-                    expected_clean_url: 'http://www.amazon.in/gp/product/B006H1JVW4',
-        },
-        {
                              input_url: 'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
                      input_entity_type: 'release', // FIXME unchecked consistency
             expected_relationship_type: 'amazon',
@@ -149,13 +139,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Ameba
         {
-                             input_url: 'http://ameblo.jp/murataayumi/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'blog',
-        },
-        {
                              input_url: 'http://ameblo.jp/murataayumi',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'blog',
                     expected_clean_url: 'http://ameblo.jp/murataayumi/',
         },
@@ -166,21 +151,15 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Anime News Network
         {
-                             input_url: 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                             input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
                     expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
         },
         {
                              input_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
         },
         // (Internet) Archive
@@ -216,24 +195,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Bandcamp
         {
-                             input_url: 'http://davidrovics.bandcamp.com/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'bandcamp',
-        },
-        {
                              input_url: 'https://davidrovics.bandcamp.com?test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'bandcamp',
                     expected_clean_url: 'http://davidrovics.bandcamp.com/',
         },
         {
-                             input_url: 'http://idiotsikker.bandcamp.com/',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'bandcamp',
-        },
-        {
                              input_url: 'http://idiotsikker.bandcamp.com/tra#top',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'bandcamp',
                     expected_clean_url: 'http://idiotsikker.bandcamp.com/',
         },
@@ -300,46 +269,26 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
         },
         {
-                             input_url: 'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'bookbrainz',
-        },
-        {
                              input_url: 'http://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
         },
         {
-                             input_url: 'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'bookbrainz',
-        },
-        {
-                             input_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
-                     input_entity_type: 'release_group',
-            expected_relationship_type: 'bookbrainz',
-        },
-        {
-                             input_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de/',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
-            expected_relationship_type: 'bookbrainz',
-                    expected_clean_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
-        },
-        {
                              input_url: 'bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
         },
         {
-                             input_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
-                     input_entity_type: 'work',
+                             input_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de/',
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
         },
         {
                              input_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c/edits',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
         },
@@ -351,24 +300,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // CDJapan
         {
-                             input_url: 'http://www.cdjapan.co.jp/person/76324',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'mailorder',
-        },
-        {
                              input_url: 'www.cdjapan.co.jp/person/76324#test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'mailorder',
                     expected_clean_url: 'http://www.cdjapan.co.jp/person/76324',
         },
         {
-                             input_url: 'http://www.cdjapan.co.jp/product/COCC-72267',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'mailorder',
-        },
-        {
                              input_url: 'https://cdjapan.co.jp/product/COCC-72267?test',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'mailorder',
                     expected_clean_url: 'http://www.cdjapan.co.jp/product/COCC-72267',
         },
@@ -387,35 +326,20 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Classical Archives
         {
-                             input_url: 'http://www.classicalarchives.com/composer/2806.html',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.classicalarchives.com/composer/2806.html',
         },
         {
-                             input_url: 'http://www.classicalarchives.com/album/menlo-201409.html',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.classicalarchives.com/album/menlo-201409.html',
         },
         {
-                             input_url: 'http://www.classicalarchives.com/work/1119282.html',
-                     input_entity_type: 'work',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'https://www.classicalarchives.com/work/1119282.html',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.classicalarchives.com/work/1119282.html',
         },
@@ -660,12 +584,9 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Flattr
         {
-                             input_url: 'https://flattr.com/profile/example',
+                             input_url: 'http://www.flattr.com/profile/example',
                      input_entity_type: 'label',
             expected_relationship_type: 'patronage',
-        },
-        {
-                             input_url: 'http://www.flattr.com/profile/example',
                     expected_clean_url: 'https://flattr.com/profile/example',
         },
         // FolkWiki
@@ -681,13 +602,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
         },
         {
-                             input_url: 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-                     input_entity_type: 'place',
-            expected_relationship_type: 'socialnetwork',
-        },
-        {
                              input_url: 'http://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-                     input_entity_type: 'place', // FIXME unchecked consistency
+                     input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
         },
@@ -699,9 +615,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // generasia
         {
-                             input_url: 'http://www.generasia.com/wiki/Wink',
+                             input_url: 'http://generasia.com/wiki/Wink',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.generasia.com/wiki/Wink',
         },
         {
                              input_url: 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
@@ -709,16 +626,9 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'otherdatabases',
         },
         {
-                             input_url: 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                             input_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'http://generasia.com/wiki/Wink',
-                    expected_clean_url: 'http://www.generasia.com/wiki/Wink',
-        },
-        {
-                             input_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     expected_clean_url: 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
         },
         // Genius
@@ -813,21 +723,15 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Indiegogo
         {
-                             input_url: 'https://www.indiegogo.com/individuals/0123456789',
+                             input_url: 'https://www.indiegogo.com/individuals/0123456789/campaigns',
                      input_entity_type: 'artist',
             expected_relationship_type: 'crowdfunding',
-        },
-        {
-                             input_url: 'https://www.indiegogo.com/projects/common-example',
-                     input_entity_type: 'event',
-            expected_relationship_type: 'crowdfunding',
-        },
-        {
-                             input_url: 'https://www.indiegogo.com/individuals/0123456789/campaigns',
                     expected_clean_url: 'https://www.indiegogo.com/individuals/0123456789',
         },
         {
                              input_url: 'https://www.indiegogo.com/projects/common-example?locale=es#/',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'crowdfunding',
                     expected_clean_url: 'https://www.indiegogo.com/projects/common-example',
         },
         // Instagram
@@ -934,21 +838,15 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Kickstarter
         {
-                             input_url: 'https://www.kickstarter.com/profile/0123456789',
+                             input_url: 'https://www.kickstarter.com/profile/0123456789/bio',
                      input_entity_type: 'label',
             expected_relationship_type: 'crowdfunding',
-        },
-        {
-                             input_url: 'https://www.kickstarter.com/projects/0123456789/common-example',
-                     input_entity_type: 'place',
-            expected_relationship_type: 'crowdfunding',
-        },
-        {
-                             input_url: 'https://www.kickstarter.com/profile/0123456789/bio',
                     expected_clean_url: 'https://www.kickstarter.com/profile/0123456789',
         },
         {
                              input_url: 'https://www.kickstarter.com/projects/0123456789/common-example#main-navigation',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'crowdfunding',
                     expected_clean_url: 'https://www.kickstarter.com/projects/0123456789/common-example',
         },
         // KING RECORDS
@@ -1034,24 +932,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Loudr
         {
-                             input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
-        },
-        {
                              input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://loudr.fm/artist/kyle-landry/Z77SM',
         },
         {
-                             input_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
-        },
-        {
                              input_url: 'http://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
         },
@@ -1124,13 +1012,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'otherdatabases',
         },
         {
-                             input_url: 'https://www.musik-sammler.de/artist/end-of-a-year/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://www.musik-sammler.de/artist/end-of-a-year/#',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/artist/end-of-a-year/',
         },
@@ -1211,46 +1094,26 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // NLA (National Library of Australia)
         {
-                             input_url: 'http://nla.gov.au/nla.party-548358',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'https://nla.gov.au/nla.party-548358/',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://nla.gov.au/nla.party-548358',
         },
         {
-                             input_url: 'http://nla.gov.au/nla.party-1448035',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://trove.nla.gov.au/people/1448035?c=people',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://nla.gov.au/nla.party-1448035',
         },
         {
-                             input_url: 'http://nla.gov.au/anbd.bib-an11701020',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'http://trove.nla.gov.au/work/9438679',
-                     input_entity_type: 'release_group',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://nla.gov.au/anbd.bib-an11701020#',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://nla.gov.au/anbd.bib-an11701020',
         },
         {
                              input_url: 'trove.nla.gov.au/work/9438679',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
         },
@@ -1261,18 +1124,15 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'otherdatabases',
         },
         {
-                             input_url: 'http://openlibrary.org/books/OL8993487M/',
+                             input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://openlibrary.org/books/OL8993487M/',
         },
         {
                              input_url: 'http://openlibrary.org/works/OL82592W/',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
-                    expected_clean_url: 'http://openlibrary.org/books/OL8993487M/',
         },
         // OPERADIS Operatic Discography
         {
@@ -1288,12 +1148,9 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Patreon
         {
-                             input_url: 'https://www.patreon.com/example',
+                             input_url: 'https://patreon.com/example#reactTargetCreatorPage',
                      input_entity_type: 'place',
             expected_relationship_type: 'patronage',
-        },
-        {
-                             input_url: 'https://patreon.com/example#reactTargetCreatorPage',
                     expected_clean_url: 'https://www.patreon.com/example',
         },
         // PayPal.Me
@@ -1320,22 +1177,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // RecoChoku
         {
-                             input_url: 'http://recochoku.jp/song/S21893898/',
+                             input_url: 'recochoku.jp/song/S21893898/',
                      input_entity_type: 'recording',
             expected_relationship_type: 'downloadpurchase',
-        },
-        {
-                             input_url: 'http://recochoku.jp/album/30282664/',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/song/S21893898/',
         },
         {
                              input_url: 'https://www.recochoku.jp/album/30282664?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'http://recochoku.jp/album/30282664/',
-        },
-        {
-                             input_url: 'recochoku.jp/song/S21893898/',
-                    expected_clean_url: 'http://recochoku.jp/song/S21893898/',
         },
         // Resident Advisor (RA)
         {
@@ -1403,21 +1254,17 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Rock in China
         {
-                             input_url: 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
         },
         // Rockipedia
         {
-                             input_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                             input_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
         },
         {
                              input_url: 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
@@ -1428,10 +1275,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-        },
-        {
-                             input_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
-                    expected_clean_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
         },
         // SecondHandSongs
         {
@@ -1591,20 +1434,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://thesession.org/recordings/artists/793',
         },
         {
-                             input_url: 'http://thesession.org/events/3811',
-                     input_entity_type: 'event',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'thesession.org/events/3811#comment748363',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/events/3811',
         },
         {
-                             input_url: 'http://thesession.org/recordings/1488',
+                             input_url: 'https://www.thesession.org/recordings/display/1488',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/recordings/1488',
         },
         {
                              input_url: 'http://thesession.org/recordings/4740/edit',
@@ -1613,30 +1452,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://thesession.org/recordings/4740',
         },
         {
-                             input_url: 'https://www.thesession.org/recordings/display/1488',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
-            expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/recordings/1488',
-        },
-        {
-                             input_url: 'http://thesession.org/tunes/2305',
-                     input_entity_type: 'work',
-            expected_relationship_type: 'otherdatabases',
-        },
-        {
                              input_url: 'http://www.thesession.org/tunes/display/2305',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/tunes/2305',
         },
         // Tipeee
         {
-                             input_url: 'https://www.tipeee.com/example',
+                             input_url: 'https://www.tipeee.com/example/news',
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
-        },
-        {
-                             input_url: 'https://www.tipeee.com/example/news',
                     expected_clean_url: 'https://www.tipeee.com/example',
         },
         // triple j Unearthed
@@ -1659,21 +1484,16 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Twitter
         {
-                             input_url: 'https://twitter.com/miguelgrimaldo',
+                             input_url: 'http://twitter.com/miguelgrimaldo',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/miguelgrimaldo',
         },
         {
                              input_url: 'http://twitter.com/ACEHOOD/',
                      input_entity_type: 'artist', // FIXME unchecked consistency
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/ACEHOOD',
-        },
-        {
-                             input_url: 'http://twitter.com/miguelgrimaldo',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
-            expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'https://twitter.com/miguelgrimaldo',
         },
         {
                              input_url: 'http://twitter.com/miguelgrimaldo/media',
@@ -1730,13 +1550,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // VGMDb (Video Game Music and Anime Soundtrack Database)
         {
-                             input_url: 'http://vgmdb.net/artist/431',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'vgmdb',
-        },
-        {
                              input_url: 'https://vgmdb.net/artist/431',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/artist/431',
         },
@@ -1747,13 +1562,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://vgmdb.net/org/284',
         },
         {
-                             input_url: 'http://vgmdb.net/album/29727',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'vgmdb',
-        },
-        {
                              input_url: 'vgmdb.net/album/29727',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/album/29727',
         },
@@ -1814,14 +1624,9 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Vimeo
         {
                              input_url: 'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://vimeo.com/1109226',
-        },
-        {
-                             input_url: 'http://vimeo.com/1109226',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://vimeo.com/1109226',
         },
         // Vine
         {
@@ -1906,13 +1711,8 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'image',
         },
         {
-                             input_url: 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
-                     input_entity_type: 'work',
-            expected_relationship_type: 'image',
-        },
-        {
                              input_url: 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'image',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
         },
@@ -1997,20 +1797,15 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
         },
         {
-                             input_url: 'http://youtu.be/UmHdefsaL6I',
-            // FIXME          input_entity_type: 'MISSING',
-            // FIXME expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
-        },
-        {
                              input_url: 'http://youtube.com/user/officialpsy/videos',
                      input_entity_type: 'label',
             expected_relationship_type: 'youtube',
         },
         {
-                             input_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                             input_url: 'http://youtu.be/UmHdefsaL6I',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
         },
     ];
 
