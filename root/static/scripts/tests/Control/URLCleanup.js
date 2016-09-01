@@ -89,43 +89,43 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://amzn.com/B000005SU4',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.com/gp/product/B000005SU4',
         },
         {
                              input_url: 'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
         },
         {
                              input_url: 'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.co.uk/gp/product/B00008CQP2',
         },
         {
                              input_url: 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.co.uk/gp/product/B00009W0XE',
         },
         {
                              input_url: 'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.com/gp/product/B00015007W',
         },
         {
                              input_url: 'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.co.jp/gp/product/B0136OCSS8',
         },
         {
                              input_url: 'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'http://www.amazon.co.uk/gp/product/B000VLR0II',
         },
@@ -351,56 +351,56 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'image',
                     expected_clean_url: 'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
         },
         // Creative Commons
         {
                              input_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/by/2.0/scotland',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/licenses/by/2.0/scotland/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/publicdomain',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/publicdomain//',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0//',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
         },
@@ -446,7 +446,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://dhhu.dk/w/Sort_Stue',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.dhhu.dk/w/Sort_Stue',
         },
@@ -468,25 +468,25 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.discogs.com/artist/1944002-',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/artist/1944002',
         },
         {
                              input_url: 'http://www.discogs.com/artist/3080207-Maybebop',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/artist/3080207',
         },
         {
                              input_url: 'http://www.discogs.com/artist/Guy+Balbaert#t=Credits_Writing-Arrangement&q=&p=1',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/artist/Guy+Balbaert',
         },
         {
                              input_url: 'http://www.discogs.com/artist/Teresa+Teng?anv=%E9%84%A7%E9%BA%97%E5%90%9B',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/artist/Teresa+Teng',
         },
@@ -502,7 +502,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.discogs.com/label/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
         },
@@ -518,13 +518,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.discogs.com/master/view/267989',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/master/267989',
         },
         {
                              input_url: 'http://www.discogs.com/Various-Out-Patients-2/release/5578',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/release/5578',
         },
@@ -548,31 +548,31 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Facebook
         {
                              input_url: 'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
         },
         {
                              input_url: 'http://www.facebook.com/sininemusic',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/sininemusic',
         },
         {
                              input_url: 'https://www.facebook.com/RomanzMusic?fref=ts',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/RomanzMusic',
         },
         {
                              input_url: 'https://www.facebook.com/event.php?eid=129606980393356',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/129606980393356',
         },
         {
                              input_url: 'https://www.facebook.com/events/779218695457920/?ref=2&ref_dashboard_filter=past&sid_reminder=1385056373762424832',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/779218695457920',
         },
@@ -609,7 +609,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.foursquare.com/test',
-                     input_entity_type: 'place', // FIXME unchecked consistency
+                     input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://foursquare.com/test',
         },
@@ -634,19 +634,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Genius
         {
                              input_url: 'http://genius.com/artists/Dramatik',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'lyrics',
                     expected_clean_url: 'http://genius.com/artists/Dramatik',
         },
         {
                              input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'lyrics',
                     expected_clean_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
         },
         {
                              input_url: 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
                     expected_clean_url: 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
         },
@@ -666,19 +666,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
         },
         {
                              input_url: 'http://plus.google.com/u/0/101821796946045393834/about',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://plus.google.com/101821796946045393834',
         },
         {
                              input_url: 'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
         },
@@ -767,19 +767,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/album/id589456329',
         },
         {
                              input_url: 'https://itunes.apple.com/us/album/skyfall-single/id566322358',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/us/album/id566322358',
         },
         {
                              input_url: 'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/us/album/id721686178',
         },
@@ -803,13 +803,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.jamendo.com/en/album/56372',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/album/56372',
         },
         {
                              input_url: 'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/list/a81403',
         },
@@ -874,13 +874,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
                     expected_clean_url: 'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
         },
         {
                              input_url: 'http://www.lastfm.de/festival/297838+Death+Feast+2008',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
                     expected_clean_url: 'http://www.last.fm/festival/297838+Death+Feast+2008',
         },
@@ -915,7 +915,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.linkedin.com/in/test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.linkedin.com/in/test',
         },
@@ -1019,7 +1019,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://musik-sammler.de/artist/100743?test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/artist/100743/',
         },
@@ -1035,13 +1035,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://www.musik-sammler.de/album/804508/review/rain/',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/album/804508/',
         },
         {
                              input_url: 'musik-sammler.de/media/594158',
-                     input_entity_type: 'release', // FIXME unchecked consistency
+                     input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/media/594158/',
         },
@@ -1059,13 +1059,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://fr.myspace.com/jujusasadada',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'myspace',
                     expected_clean_url: 'https://myspace.com/jujusasadada',
         },
         {
                              input_url: 'http://myspace.de/diekisten',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'myspace',
                     expected_clean_url: 'https://myspace.com/diekisten',
         },
@@ -1076,7 +1076,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.myspace.com/whoevenusesthisanymore',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'myspace',
                     expected_clean_url: 'https://myspace.com/whoevenusesthisanymore',
         },
@@ -1224,19 +1224,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://reverbnation.com/negator',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/negator',
         },
         {
                              input_url: 'http://www.reverbnation.com/#!/benwebbmusic',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/benwebbmusic',
         },
         {
                              input_url: 'https://www.reverbnation.com/littlesparrow',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/littlesparrow',
         },
@@ -1317,7 +1317,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Songkick
         {
                              input_url: 'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
-                     input_entity_type: 'event', // FIXME unchecked consistency
+                     input_entity_type: 'event',
             expected_relationship_type: 'songkick',
                     expected_clean_url: 'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
         },
@@ -1335,19 +1335,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://m.soundcloud.com/octobersveryown',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'soundcloud',
                     expected_clean_url: 'https://soundcloud.com/octobersveryown',
         },
         {
                              input_url: 'http://soundcloud.com/alec_empire',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'soundcloud',
                     expected_clean_url: 'https://soundcloud.com/alec_empire',
         },
         {
                              input_url: 'https://soundcloud.com/alisonwonderland%E2%80%8E',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'soundcloud',
                     expected_clean_url: 'https://soundcloud.com/alisonwonderland',
         },
@@ -1369,13 +1369,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
         },
         {
                              input_url: 'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
         },
@@ -1386,13 +1386,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/title/39473/',
         },
         {
                              input_url: 'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/title/99711/',
         },
@@ -1429,7 +1429,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://thesession.org/recordings/artists/793?test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/artists/793',
         },
@@ -1447,7 +1447,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://thesession.org/recordings/4740/edit',
-                     input_entity_type: 'release_group', // FIXME unchecked consistency
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/4740',
         },
@@ -1491,37 +1491,37 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://twitter.com/ACEHOOD/',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/ACEHOOD',
         },
         {
                              input_url: 'http://twitter.com/miguelgrimaldo/media',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/miguelgrimaldo',
         },
         {
                              input_url: 'https://mobile.twitter.com/cirrhaniva',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/cirrhaniva',
         },
         {
                              input_url: 'https://mobile.twitter.com/cirrhaniva?lang=en-gb',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/cirrhaniva',
         },
         {
                              input_url: 'https://twitter.com/@UNIVERSAL_D',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
         },
         {
                              input_url: 'https://twitter.com/@UNIVERSAL_D#content-main-heading',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
         },
@@ -1557,7 +1557,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://vgmdb.com/org/284',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/org/284',
         },
@@ -1643,13 +1643,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Weibo 
         {
                              input_url: 'www.weibo.com/mchotdog2010#test',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.weibo.com/mchotdog2010',
         },
         {
                              input_url: 'https://weibo.com/mchotdog2010?test',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.weibo.com/mchotdog2010',
         },
@@ -1728,7 +1728,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'https://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                     input_entity_type: 'label', // FIXME unchecked consistency
+                     input_entity_type: 'label',
             expected_relationship_type: 'wikipedia',
                     expected_clean_url: 'https://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
         },
@@ -1756,7 +1756,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Wikisource
         {
                              input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
-                     input_entity_type: 'work', // FIXME unchecked consistency
+                     input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
                     expected_clean_url: 'http://pt.wikisource.org/wiki/A_Portuguesa',
         },
@@ -1775,13 +1775,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://m.youtube.com/#/user/JessVincentMusic',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
                     expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
         },
         {
                              input_url: 'https://www.youtube.com/user/JessVincentMusic?feature=watch',
-                     input_entity_type: 'artist', // FIXME unchecked consistency
+                     input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
                     expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
         },
