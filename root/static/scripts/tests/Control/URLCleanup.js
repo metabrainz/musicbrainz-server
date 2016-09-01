@@ -43,12 +43,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/artist/mn0000754032',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                      input_entity_type: 'recording',
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/performance/mq0000061129',
+               only_valid_entity_types: ['recording']
         },
         {
                              input_url: 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
@@ -62,12 +64,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/composition/mc0002367338',
+               only_valid_entity_types: ['work']
         },
         {
                              input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
                     expected_clean_url: 'http://www.allmusic.com/song/mt0043064796',
+               only_valid_entity_types: ['work']
         },
         // Amazon
         {
@@ -199,18 +203,22 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandcamp',
                     expected_clean_url: 'http://davidrovics.bandcamp.com/',
+               only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'http://idiotsikker.bandcamp.com/tra#top',
                      input_entity_type: 'label',
             expected_relationship_type: 'bandcamp',
                     expected_clean_url: 'http://idiotsikker.bandcamp.com/',
+               only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
                      input_entity_type: 'recording',
             expected_relationship_type: undefined,
                     expected_clean_url: 'http://andrewhuang.bandcamp.com/track/boom-box',
+               input_relationship_type: 'bandcamp',
+               only_valid_entity_types: []
         },
         // BBC Music
         {
@@ -483,6 +491,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/artist/Teresa+Teng',
+               only_valid_entity_types: ['artist', 'place']
         },
         {
                              input_url: 'http://www.discogs.com/label/2262-Demonic',
@@ -499,11 +508,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'label',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
+               only_valid_entity_types: ['label', 'place', 'series']
         },
         {
                              input_url: 'http://www.discogs.com/release/12130',
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
@@ -515,6 +526,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/master/267989',
+               only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.discogs.com/Various-Out-Patients-2/release/5578',
@@ -1244,32 +1256,38 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.secondhandsongs.com/artist/103',
                      input_entity_type: 'artist',
             expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.secondhandsongs.com/release/888',
                      input_entity_type: 'release',
             expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://www.secondhandsongs.com/work/1409',
                      input_entity_type: 'work',
             expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['work']
         },
         // setlist.fm
         {
                              input_url: 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
                      input_entity_type: 'artist',
             expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
                      input_entity_type: 'event',
             expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['event']
         },
         {
                              input_url: 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                      input_entity_type: 'place',
             expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['place']
         },
         // (SMDB) Svensk mediedatabas
         {
@@ -1283,12 +1301,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'event',
             expected_relationship_type: 'songkick',
                     expected_clean_url: 'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+               only_valid_entity_types: ['event', 'place']
         },
         {
                              input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
                      input_entity_type: 'place',
             expected_relationship_type: 'songkick',
                     expected_clean_url: 'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+               only_valid_entity_types: ['place']
         },
         // SoundCloud
         {
@@ -1323,6 +1343,17 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://soundcloud.com/glastonburyofficial',
                      input_entity_type: 'series',
             expected_relationship_type: 'soundcloud',
+               only_valid_entity_types: ['artist', 'label', 'series']
+        },
+        {
+                             input_url: 'https://soundcloud.com/tags/bug',
+               input_relationship_type: 'soundcloud',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'https://soundcloud.com/search?q=some%20bug',
+               input_relationship_type: 'soundcloud',
+               only_valid_entity_types: []
         },
         // SoundtrackCollector
         {
