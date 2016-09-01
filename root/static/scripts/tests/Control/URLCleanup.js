@@ -1662,12 +1662,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         // Wikia
         {
                              input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-                     input_entity_type: 'release',
-            expected_relationship_type: 'lyrics',
-        },
-        {
-                             input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-                     input_entity_type: 'release',
+                     input_entity_type: 'release_group',
             expected_relationship_type: 'lyrics',
         },
         // Wikidata
