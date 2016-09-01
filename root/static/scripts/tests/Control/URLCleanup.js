@@ -1,11 +1,12 @@
-// This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2014 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const test = require('tape');
 
-const {LINK_TYPES, cleanURL, guessType} = require('../../edit/URLCleanup');
+const _ = require('lodash');
+
+const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/URLCleanup');
 
 test('Guess type', function (t) {
     var tests = [
@@ -255,10 +256,6 @@ test('Guess type', function (t) {
                 'recording', 'https://www.residentadvisor.net/track.aspx?544258',
                 LINK_TYPES.otherdatabases.recording
             ],
-            [
-                'release_group', 'https://www.residentadvisor.net/reviews/7636',
-                LINK_TYPES.review.release_group
-            ],
             // Rockens Danmarkskort
             [
                 'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
@@ -488,10 +485,6 @@ test('Guess type', function (t) {
             [
                 'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                 LINK_TYPES.allmusic.artist
-            ],
-            [
-                'release_group', 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
-                LINK_TYPES.allmusic.release_group
             ],
             [
                 'work', 'http://www.allmusic.com/song/help!-mt0043064796',
@@ -1246,11 +1239,6 @@ test('Cleanup', function (t) {
                 'artist'
             ],
             [
-                'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
-                'http://www.allmusic.com/album/mw0002303439',
-                'release_group'
-            ],
-            [
                 'http://www.allmusic.com/song/help!-mt0043064796',
                 'http://www.allmusic.com/song/mt0043064796',
                 'work'
@@ -1783,6 +1771,116 @@ test('Cleanup', function (t) {
 
     $.each(tests, function (i, test) {
         t.equal(cleanURL(test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+    });
+
+    t.end();
+});
+
+test('URL cleanup component: auto-select, clean-up, and validation', {}, function (t) {
+    const test_data = [
+        // AllMusic
+        {
+                             input_url: 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/album/mw0002303439',
+               only_valid_entity_types: ['release_group']
+        },
+        // Resident Advisor (RA)
+        {
+                             input_url: 'https://www.residentadvisor.net/reviews/7636',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
+    ];
+
+    const relationship_types_by_uuid = _.reduce(LINK_TYPES, function(results, rel_uuid_by_entity_type, relationship_type) {
+        _.each(rel_uuid_by_entity_type, function(rel_uuid) {
+            (results[rel_uuid] || (results[rel_uuid] = [])).push(relationship_type);
+        });
+        return results;
+    }, {});
+
+    var previous_match_tests = [];
+
+    function doMatchSubtest(st, entity_type, url, label, expected_relationship_type) {
+        var rel_uuid = guessType(entity_type, url);
+        var actual_relationship_type = _.find(relationship_types_by_uuid[rel_uuid], function (s) {return s === expected_relationship_type;});
+        st.equal(actual_relationship_type, expected_relationship_type, 'Match ' + label + ' URL relationship type for ' + entity_type + ' entities');
+        previous_match_tests.push(entity_type + '+' + url);
+    }
+
+    _.each(test_data, function (subtest, i) {
+        t.test('input URL [' + i + '] = ' + subtest.input_url, {}, function(st) {
+            var tested = false;
+            if (!subtest.input_url) {
+                st.fail('Test is invalid: "input_url" is missing: ' + JSON.stringify(subtest));
+                st.end();
+                return;
+            }
+            if (subtest.input_entity_type) {
+                if (subtest.hasOwnProperty('expected_relationship_type')) {
+                    if (previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.input_url) !== -1) {
+                        st.fail('Match test is worthless: Duplication has been detected: ' + JSON.stringify(subtest));
+                    }
+                    doMatchSubtest(st, subtest.input_entity_type, subtest.input_url, 'input', subtest.expected_relationship_type);
+                    tested = true;
+                } else {
+                    st.fail('Test is invalid: "input_entity_type" is specified without "expected_relationship_type".');
+                    st.end();
+                    return;
+                }
+            } else if (subtest.hasOwnProperty('expected_relationship_type')) {
+                st.fail('Test is invalid: "expected_relationship_type" is specified without "input_entity_type".');
+                st.end();
+                return;
+            }
+            var actual_clean_url = cleanURL(subtest.input_url);
+            if (subtest.expected_clean_url) {
+                st.equal(actual_clean_url, subtest.expected_clean_url, 'Clean up');
+                if (subtest.input_entity_type && subtest.hasOwnProperty('expected_relationship_type')
+                        && previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.expected_clean_url) === -1) {
+                    doMatchSubtest(st, subtest.input_entity_type, subtest.expected_clean_url, 'clean', subtest.expected_relationship_type);
+                }
+                tested = true;
+            }
+            if (subtest.input_relationship_type && !subtest.only_valid_entity_types) {
+                st.fail('Test is invalid: "input_relationship_type" is specified without "only_valid_entity_types" array.');
+                st.end();
+                return;
+            }
+            if (subtest.only_valid_entity_types) {
+                var relationship_type = subtest.input_relationship_type || subtest.expected_relationship_type;
+                var clean_url = subtest.expected_clean_url || actual_clean_url;
+                if (!relationship_type) {
+                    st.fail('Test is invalid: "only_valid_entity_types" are specified with neither "expected_relationship_type" nor "input_relationship_type".');
+                    st.end();
+                    return;
+                }
+                var nb_tested_rules = 0;
+                var validation_results = _.reduce(LINK_TYPES[relationship_type], function(results, rel_uuid, entity_type) {
+                    var rule = validationRules[rel_uuid];
+                    var is_valid = rule ? rule(clean_url) || false : true;
+                    results[is_valid].splice(_.sortedIndex(results[is_valid], entity_type), 0, entity_type);
+                    nb_tested_rules += rule ? 1 : 0;
+                    return results;
+                }, {true: [], false: []});
+                if (nb_tested_rules === 0) {
+                    st.fail('Validation test is worthless: No validation rule has been actually tested.');
+                } else {
+                    st.deepEqual(validation_results.true, subtest.only_valid_entity_types.sort(),
+                            'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length
+                            + ' among ' + nb_tested_rules + ' ' + relationship_type + '.* rules');
+                    tested = true;
+                }
+            }
+            if (!tested) {
+                st.fail('Test is worthless: Nothing has been actually tested.');
+            }
+            st.end();
+        });
     });
 
     t.end();
