@@ -5,6 +5,7 @@
 
 const _ = require('lodash');
 
+// See https://musicbrainz.org/relationships (but deprecated ones)
 const LINK_TYPES = {
   wikipedia: {
     area: "9228621d-9720-35c3-ad3f-327d789464ec",
@@ -225,6 +226,36 @@ const LINK_TYPES = {
     series: "b4894e57-5e32-479f-b1e7-bc561048ce48"
   }
 };
+
+// See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
+const RESTRICTED_LINK_TYPES = _.reduce([
+  LINK_TYPES.allmusic,
+  LINK_TYPES.amazon,
+  LINK_TYPES.bandcamp,
+  LINK_TYPES.bbcmusic,
+  LINK_TYPES.bookbrainz,
+  LINK_TYPES.discogs,
+  LINK_TYPES.geonames,
+  LINK_TYPES.imdb,
+  LINK_TYPES.imslp,
+  LINK_TYPES.lastfm,
+  LINK_TYPES.lyrics,
+  LINK_TYPES.myspace,
+  LINK_TYPES.otherdatabases,
+  LINK_TYPES.purevolume,
+  LINK_TYPES.score,
+  LINK_TYPES.secondhandsongs,
+  LINK_TYPES.setlistfm,
+  LINK_TYPES.songfacts,
+  LINK_TYPES.songkick,
+  LINK_TYPES.soundcloud,
+  LINK_TYPES.wikidata,
+  LINK_TYPES.wikipedia,
+  LINK_TYPES.vgmdb,
+  LINK_TYPES.viaf,
+  LINK_TYPES.vimeo,
+  LINK_TYPES.youtube,
+], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
 const CLEANUPS = {
   wikipedia: {
@@ -1143,6 +1174,24 @@ function validateImage(url) {
 validationRules[LINK_TYPES.image.artist] = validateImage;
 validationRules[LINK_TYPES.image.label] = validateImage;
 validationRules[LINK_TYPES.image.place] = validateImage;
+
+_.each(LINK_TYPES, function (linkType) {
+  _.each(linkType, function (id, entityType) {
+    if (!validationRules[id]) {
+      validationRules[id] = function (url) {
+        var cleanup = _.find(CLEANUPS, function (cleanup) {
+          return testAll(cleanup.match, url);
+        });
+        if (cleanup && cleanup.type) {
+          return cleanup.type[entityType] === id
+            && (!cleanup.validate || cleanup.validate(url, id));
+        } else {
+          return RESTRICTED_LINK_TYPES.indexOf(id) === -1;
+        }
+      };
+    }
+  });
+});
 
 function guessType(sourceType, currentURL) {
   var cleanup = _.find(CLEANUPS, function (cleanup) {
