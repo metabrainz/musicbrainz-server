@@ -79,8 +79,6 @@ const LINK_TYPES = {
     artist: "221132e9-e30e-43f2-a741-15afc4c5fa7c",
     label: "b35f7822-bf3c-4148-b306-fb723c63ee8b",
     place: "68a4537c-f2a6-49b8-81c5-82a62b0976b7",
-    // This is the "score" type, which is here because of Wikipedia Commons URLs
-    work: "0cc8527e-ea40-40dd-b144-3b7588e759bf",
     instrument: "f64eacbd-1ea1-381e-9886-2cfb552b7d90"
   },
   discographyentry: {
@@ -137,11 +135,8 @@ const LINK_TYPES = {
     release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
   },
   vimeo: {
-    // Video channel for artist/label, streaming music for release/recording
     artist: "d86c9450-b6d0-4760-a275-e7547495b48b",
     label: "20ad367c-cba0-4c02-bd61-2df3ae8cc799",
-    recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
-    release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
   },
   vgmdb: {
     artist: "0af15ab3-c615-46d6-b95b-a5fcd2a92ed9",
@@ -152,7 +147,6 @@ const LINK_TYPES = {
   youtube: {
     artist: "6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0",
     label: "d9c71059-ba9d-4135-b909-481d12cf84e3",
-    recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
     place: "22ec436d-bb65-4c83-a268-0fdb0dbd8834",
     series: "f23802a4-36be-3751-8e4d-93422e08b3e8",
     event: "fea46163-dc45-3af9-917e-1798f325d21a"
@@ -459,9 +453,9 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i")],
     type: LINK_TYPES.bbcmusic
   },
-  image: {
+  wikimediacommons: {
     match: [new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
-    type: LINK_TYPES.image,
+    type: _.defaults({}, LINK_TYPES.image, LINK_TYPES.score),
     clean: function (url) {
       url = url.replace(/\/wiki\/[^#]+#mediaviewer\/(.*)/, "\/wiki\/$1");
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
@@ -506,7 +500,6 @@ const CLEANUPS = {
     match: [
       new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
-      new RegExp("^(https?://)?commons\\.wikimedia\\.org", "i"),
       new RegExp("^(https?://)?(www[0-9]?\\.)?cpdl\\.org", "i")
     ],
     type: LINK_TYPES.score,
@@ -607,7 +600,7 @@ const CLEANUPS = {
   },
   vimeo: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i")],
-    type: LINK_TYPES.vimeo,
+    type: _.defaults({}, LINK_TYPES.vimeo, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
       // Remove query string, just the video id should be enough.
@@ -617,7 +610,7 @@ const CLEANUPS = {
   },
   youtube: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i")],
-    type: LINK_TYPES.youtube,
+    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "http://www.youtube.com");
       // YouTube URL shortener
