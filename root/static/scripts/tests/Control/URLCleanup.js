@@ -354,7 +354,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
                      input_entity_type: 'work',
-            expected_relationship_type: 'image',
+            expected_relationship_type: 'score',
                     expected_clean_url: 'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
         },
         // Creative Commons
@@ -1689,7 +1689,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
                      input_entity_type: 'work',
-            expected_relationship_type: 'image',
+            expected_relationship_type: 'score',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
         },
         {
