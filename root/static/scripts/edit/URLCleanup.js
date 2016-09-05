@@ -736,7 +736,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?openlibrary\\.org", "i"),
       new RegExp("^(https?://)?(www\\.)?animenewsnetwork\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i"),
-      new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?rockipedia\\.no", "i"),
       new RegExp("^(https?://)?(www\\.)?whosampled\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?maniadb\\.com", "i"),
@@ -800,11 +799,29 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
       // Standardising Generasia
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
-      // Standardising Soundtrack Collector
+      return url;
+    }
+  },
+  soundtrackcollector: {
+    match: [new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?movieid=([0-9]+).*$/, "http://soundtrackcollector.com/title/$1/");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?composerid=([0-9]+).*$/, "http://soundtrackcollector.com/composer/$1/");
       return url;
+    },
+    validate: function (url, id) {
+      if (id !== LINK_TYPES.otherdatabases.artist) {
+        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/title\//.test(url);
+      } else if (id !== LINK_TYPES.otherdatabases.release) {
+        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/title\//.test(url)
+          && !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/composer\//.test(url);
+      } else if (id !== LINK_TYPES.otherdatabases.release_group) {
+        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/composer\//.test(url);
+      } else {
+        return true; // FIXME return false once all cases have been checked
+      }
     }
   },
   patronage: {
@@ -1117,38 +1134,6 @@ function validateScore(url) {
 
 validationRules[LINK_TYPES.score.release_group] = validateScore;
 validationRules[LINK_TYPES.score.work] = validateScore;
-
-// Ensure Soundtrack Collector stuff is added to the right level
-var stCheckRG = /^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/title\//;
-var stCollectorIsNotRG = function (url) {
-  return !stCheckRG.test(url);
-};
-
-var stCheckArtist = /^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/composer\//;
-function stCollectorIsNotArtist(url) {
-  return !stCheckArtist.test(url);
-}
-
-// only allow domains on the other databases whitelist
-function validateOtherDatabases(url) {
-  return testAll(CLEANUPS.otherdatabases.match, url)
-}
-
-validationRules[LINK_TYPES.otherdatabases.artist] = function (url) {
-  return validateOtherDatabases(url) && stCollectorIsNotRG(url);
-}
-validationRules[LINK_TYPES.otherdatabases.label] = validateOtherDatabases
-validationRules[LINK_TYPES.otherdatabases.release_group] = function (url) {
-  return validateOtherDatabases(url) && stCollectorIsNotArtist(url);
-}
-validationRules[LINK_TYPES.otherdatabases.release] = function (url) {
-  return validateOtherDatabases(url) && stCollectorIsNotRG(url) && stCollectorIsNotArtist(url);
-}
-validationRules[LINK_TYPES.otherdatabases.work] = validateOtherDatabases
-validationRules[LINK_TYPES.otherdatabases.recording] = validateOtherDatabases
-validationRules[LINK_TYPES.otherdatabases.place] = validateOtherDatabases;
-validationRules[LINK_TYPES.otherdatabases.event] = validateOtherDatabases;
-validationRules[LINK_TYPES.otherdatabases.series] = validateOtherDatabases;
 
 function validateFacebook(url) {
   if (/facebook.com\/pages\//.test(url)) {
