@@ -1418,12 +1418,21 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/artists/793',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://thesession.org/members/01234',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
         },
         {
                              input_url: 'thesession.org/events/3811#comment748363',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/events/3811',
+               only_valid_entity_types: ['event']
         },
         {
                              input_url: 'https://www.thesession.org/recordings/display/1488',
@@ -1436,12 +1445,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/4740',
+               only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.thesession.org/tunes/display/2305',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/tunes/2305',
+               only_valid_entity_types: ['work']
         },
         // Tipeee
         {
