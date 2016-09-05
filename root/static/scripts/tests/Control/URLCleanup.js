@@ -5,1784 +5,1871 @@
 
 const test = require('tape');
 
-const {LINK_TYPES, cleanURL, guessType} = require('../../edit/URLCleanup');
+const _ = require('lodash');
 
-test('Guess type', function (t) {
-    var tests = [
-            // Amazon
-            [
-                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
-                LINK_TYPES.amazon.release
-            ],
-            [
-                'release', 'http://www.amazon.in/gp/product/B006H1JVW4',
-                LINK_TYPES.amazon.release
-            ],
-            [
-                'release', 'http://www.amazon.com.br/gp/product/B00T8E47G2',
-                LINK_TYPES.amazon.release
-            ],
-            // Wikipedia
-            [
-                'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
-                LINK_TYPES.wikipedia.artist
-            ],
-            [
-                'release_group', 'https://en.wikipedia.org/wiki/Exorcise_the_Demons',
-                LINK_TYPES.wikipedia.release_group
-            ],
-            [
-                'label', 'http://en.wikipedia.org/wiki/Astralwerks',
-                LINK_TYPES.wikipedia.label
-            ],
-            // Discogs
-            [
-                'artist', 'http://www.discogs.com/artist/Source+Direct',
-                LINK_TYPES.discogs.artist
-            ],
-            [
-                'artist', 'http://www.discogs.com/artist/301-Source-Direct',
-                LINK_TYPES.discogs.artist
-            ],
-            [
-                'label', 'http://www.discogs.com/label/Demonic',
-                LINK_TYPES.discogs.label
-            ],
-            [
-                'label', 'http://www.discogs.com/label/2262-Demonic',
-                LINK_TYPES.discogs.label
-            ],
-            [
-                'release', 'http://www.discogs.com/release/12130',
-                LINK_TYPES.discogs.release
-            ],
-            [
-                'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
-                LINK_TYPES.discogs.release_group
-            ],
-            // Bandcamp
-            [
-                'artist', 'http://davidrovics.bandcamp.com/',
-                LINK_TYPES.bandcamp.artist
-            ],
-            [
-                'label', 'http://idiotsikker.bandcamp.com/',
-                LINK_TYPES.bandcamp.label
-            ],
-            // Last.fm
-            [
-                'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
-                LINK_TYPES.lastfm.artist
-            ],
-            [
-                'event', 'http://www.last.fm/event/3291943+Pori+jazz',
-                LINK_TYPES.lastfm.event
-            ],
-            // LinkedIn
-            [
-                'artist', 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            [
-                'artist', 'https://www.linkedin.com/in/legselectric',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            // Foursquare
-            [
-                'place', 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-                LINK_TYPES.socialnetwork.place
-            ],
-            [
-                'place', 'https://foursquare.com/taimmobile',
-                LINK_TYPES.socialnetwork.place
-            ],
-            // WhoSampled
-            [
-                'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
-                LINK_TYPES.otherdatabases.recording
-            ],
-            // MusicMoz
-            [
-                'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
-                LINK_TYPES.otherdatabases.release
-            ],
-            // Musik-Sammler.de
-            [
-                'artist', 'http://www.musik-sammler.de/artist/100743',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'https://www.musik-sammler.de/artist/end-of-a-year/',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'http://www.musik-sammler.de/media/594158',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'release_group', 'http://www.musik-sammler.de/album/364515',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            // Rock in China
-            [
-                'artist', 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release',
-                'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
-                LINK_TYPES.otherdatabases.release
-            ],
-            // The Session
-            [
-                'release_group', 'http://thesession.org/recordings/1488',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'work', 'http://thesession.org/tunes/2305',
-                LINK_TYPES.otherdatabases.work
-            ],
-            [
-                'artist', 'http://thesession.org/recordings/artists/2836',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'https://www.triplejunearthed.com/artist/sampa-great',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'event', 'http://thesession.org/events/3811',
-                LINK_TYPES.otherdatabases.event
-            ],
-            // Wikimedia Commons
-            [
-                'artist', 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
-                LINK_TYPES.image.artist
-            ],
-            [
-                'label', 'https://commons.wikimedia.org/wiki/File:EMI_Records.svg',
-                LINK_TYPES.image.label
-            ],
-            [
-                'work', 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
-                LINK_TYPES.image.work
-            ],
-            // CPDL
-            [
-                'work', 'http://cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
-                LINK_TYPES.score.work
-            ],
-            // IMDb
-            [
-                'artist', 'http://www.imdb.com/name/nm1539156/',
-                LINK_TYPES.imdb.artist
-            ],
-            [
-                'release_group', 'http://www.imdb.com/title/tt0421082/',
-                LINK_TYPES.imdb.release_group
-            ],
-            [
-                'label', 'http://www.imdb.com/company/co0109498/',
-                LINK_TYPES.imdb.label
-            ],
-            // Mora
-            [
-                'release', 'http://mora.jp/package/43000001/4534530058010/',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://mora.jp/package/43000014/KIZC-211/',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            // MySpace
-            [
-                'artist', 'https://myspace.com/instramentaluk',
-                LINK_TYPES.myspace.artist
-            ],
-            [
-                'label', 'https://myspace.com/hospitalrecords',
-                LINK_TYPES.myspace.label
-            ],
-            // Soundcloud
-            [
-                'artist', 'https://soundcloud.com/metro-luminal',
-                LINK_TYPES.soundcloud.artist
-            ],
-            [
-                'label', 'https://soundcloud.com/dimmakrecords',
-                LINK_TYPES.soundcloud.label
-            ],
-            [
-                'series', 'https://soundcloud.com/glastonburyofficial',
-                LINK_TYPES.soundcloud.series
-            ],
-            // Purevolume
-            [
-                'artist', 'http://www.purevolume.com/withbloodcomescleansing',
-                LINK_TYPES.purevolume.artist
-            ],
-            // Recochoku
-            [
-                'release', 'http://recochoku.jp/album/30282664/',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'recording', 'http://recochoku.jp/song/S21893898/',
-                LINK_TYPES.downloadpurchase.recording
-            ],
-            // Resident Advisor
-            [
-                'artist', 'https://www.residentadvisor.net/dj/adamx',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'event', 'https://www.residentadvisor.net/event.aspx?860109',
-                LINK_TYPES.otherdatabases.event
-            ],
-            [
-                'label', 'https://www.residentadvisor.net/record-label.aspx?id=2795',
-                LINK_TYPES.otherdatabases.label
-            ],
-            [
-                'recording', 'https://www.residentadvisor.net/track.aspx?544258',
-                LINK_TYPES.otherdatabases.recording
-            ],
-            [
-                'release_group', 'https://www.residentadvisor.net/reviews/7636',
-                LINK_TYPES.review.release_group
-            ],
-            // Rockens Danmarkskort
-            [
-                'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
-                LINK_TYPES.otherdatabases.place
-            ],
-            // NeyZen
-            [
-                'work', 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
-                LINK_TYPES.score.work
-            ],
-            // IMSLP
-            [
-                'work', 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
-                LINK_TYPES.score.work
-            ],
-            [
-                'artist', 'http://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
-                LINK_TYPES.imslp.artist
-            ],
-            // Jamendo
-            [
-                'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
-                LINK_TYPES.downloadfree.recording
-            ],
-            [
-                'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
-                LINK_TYPES.downloadfree.release
-            ],
-            [
-                'release', 'http://www.jamendo.com/album/16090',
-                LINK_TYPES.downloadfree.release
-            ],
-            // Trove
-            [
-                'artist', 'http://nla.gov.au/nla.party-548358',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'http://nla.gov.au/anbd.bib-an11701020',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'release_group', 'http://trove.nla.gov.au/work/9438679',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'label', 'http://nla.gov.au/nla.party-1448035',
-                LINK_TYPES.otherdatabases.label
-            ],
-            // Instagram
-            [
-                'artist', 'http://instagram.com/deadmau5',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            // Tumblr
-            [
-                'artist', 'http://deadmau5.tumblr.com/',
-                LINK_TYPES.blog.artist
-            ],
-            // Japanese blogs
-            [
-                'artist', 'http://ameblo.jp/murataayumi/',
-                LINK_TYPES.blog.artist
-            ],
-            [
-                'label', 'http://ameblo.jp/murataayumi/',
-                LINK_TYPES.blog.label
-            ],
-            [
-                'artist', 'http://blog.livedoor.jp/mintmania/',
-                LINK_TYPES.blog.artist
-            ],
-            [
-                'label', 'http://blog.livedoor.jp/mintmania/',
-                LINK_TYPES.blog.label
-            ],
-            [
-                'artist', 'http://milk-pu-rin.jugem.jp/',
-                LINK_TYPES.blog.artist
-            ],
-            [
-                'label', 'http://milk-pu-rin.jugem.jp/',
-                LINK_TYPES.blog.label
-            ],
-            [
-                'artist', 'http://psgarden.exblog.jp/',
-                LINK_TYPES.blog.artist
-            ],
-            [
-                'label', 'http://psgarden.exblog.jp/',
-                LINK_TYPES.blog.label
-            ],
-            [
-                'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-                LINK_TYPES.lyrics.release
-            ],
-            [
-                'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
-                LINK_TYPES.streamingmusic.recording
-            ],
-            [
-                'artist', 'http://www.deezer.com/artist/243332',
-                LINK_TYPES.streamingmusic.artist
-            ],
-            [
-                'release', 'http://www.deezer.com/album/497382',
-                LINK_TYPES.streamingmusic.release
-            ],
-            [
-                'recording', 'http://www.deezer.com/track/3437226',
-                LINK_TYPES.streamingmusic.recording
-            ],
-            // Lyrics
-            [
-                'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-                LINK_TYPES.lyrics.release
-            ],
-            [
-                'work', 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
-                LINK_TYPES.lyrics.work
-            ],
-            [
-                'work', 'http://www.utamap.com/showkasi.php?surl=34985',
-                LINK_TYPES.lyrics.work
-            ],
-            [
-                'work', 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
-                LINK_TYPES.lyrics.work
-            ],
-            // Vimeo
-            [
-                'recording', 'http://vimeo.com/1109226',
-                LINK_TYPES.streamingmusic.recording
-            ],
-            // YouTube
-            [
-                'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
-                LINK_TYPES.streamingmusic.recording
-            ],
-            [
-                'artist', 'http://youtube.com/user/officialpsy/videos',
-                LINK_TYPES.youtube.artist
-            ],
-            [
-                'label', 'http://youtube.com/user/officialpsy/videos',
-                LINK_TYPES.youtube.label
-            ],
-            // iTunes
-            [
-                'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
-                LINK_TYPES.downloadpurchase.recording
-            ],
-            // Other download stores
-            [
-                'artist', 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'artist', 'http://www.7digital.com/artist/the-impatient-sisters',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'artist', 'http://es.7digital.com/artist/the-impatient-sisters',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'http://fr-ca.7digital.com/artist/the-impatient-sisters',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'artist', 'http://www.zdigital.com.au/artist/the-impatient-sisters',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://hd-music.info/album.cgi/913',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://ototoy.jp/_/default/p/45622',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'release', 'http://www.e-onkyo.com/music/album/vpcd81809/',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            [
-                'artist', 'https://loudr.fm/artist/kyle-landry/Z77SM',
-                LINK_TYPES.downloadpurchase.artist
-            ],
-            [
-                'release', 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
-                LINK_TYPES.downloadpurchase.release
-            ],
-            // Allmusic
-            [
-                'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
-                LINK_TYPES.allmusic.artist
-            ],
-            [
-                'release_group', 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
-                LINK_TYPES.allmusic.release_group
-            ],
-            [
-                'work', 'http://www.allmusic.com/song/help!-mt0043064796',
-                LINK_TYPES.allmusic.work
-            ],
-            [
-                'work', 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
-                LINK_TYPES.allmusic.work
-            ],
-            [
-                'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
-                LINK_TYPES.allmusic.recording
-            ],
-            // Open Library
-            [
-                'artist', 'http://openlibrary.org/authors/OL23919A/',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'http://openlibrary.org/books/OL8993487M/',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'work', 'http://openlibrary.org/works/OL82592W/',
-                LINK_TYPES.otherdatabases.work
-            ],
-            // ReverbNation
-            [
-                'artist', 'http://www.reverbnation.com/asangelsbleed',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            // Twitter
-            [
-                'artist', 'https://twitter.com/miguelgrimaldo',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            // SoundtrackCollector
-            [
-                'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release_group', 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            // Second Hand Songs
-            [
-                'artist', 'http://www.secondhandsongs.com/artist/103',
-                LINK_TYPES.secondhandsongs.artist
-            ],
-            [
-                'release', 'http://www.secondhandsongs.com/release/888',
-                LINK_TYPES.secondhandsongs.release
-            ],
-            [
-                'work', 'http://www.secondhandsongs.com/work/1409',
-                LINK_TYPES.secondhandsongs.work
-            ],
-            // VIAF
-            [
-                'artist', 'http://viaf.org/viaf/109231256',
-                LINK_TYPES.viaf.artist
-            ],
-            [
-                'label', 'http://viaf.org/viaf/152662182',
-                LINK_TYPES.viaf.label
-            ],
-            [
-                'work', 'http://viaf.org/viaf/185694157',
-                LINK_TYPES.viaf.work
-            ],
-            // Lyricsnmusic
-            [
-                'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
-                LINK_TYPES.lyrics.work
-            ],
-            // BBC Music
-            [
-                'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
-                LINK_TYPES.bbcmusic.artist
-            ],
-            // Anime News Network
-            [
-                'artist', 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
-                LINK_TYPES.otherdatabases.label
-            ],
-            // VK
-            [
-                'artist', 'http://vk.com/tin_sontsya',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            [
-                'artist', 'https://vine.co/destorm',
-                LINK_TYPES.socialnetwork.artist
-            ],
-            // Generasia
-            [
-                'artist', 'http://www.generasia.com/wiki/Wink',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release_group', 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
-                LINK_TYPES.otherdatabases.work
-            ],
-            // Japanese discography pages
-            [
-                'release', 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://www.jvcmusic.co.jp/-/Discography/A015120/VICC-60560.html',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://www.kingrecords.co.jp/cs/g/gKICM-1091/',
-                LINK_TYPES.discographyentry.release
-            ],
-            // Classical discography pages
-            [
-                'release', 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',
-                LINK_TYPES.discographyentry.release
-            ],
-            [
-                'release', 'http://bis.se/index.php?op=album&aID=BIS-1961',
-                LINK_TYPES.discographyentry.release
-            ],
-            // Wikidata
-            [
-                'artist', 'https://www.wikidata.org/wiki/Q42',
-                LINK_TYPES.wikidata.artist
-            ],
-            [
-                'label', 'https://www.wikidata.org/wiki/Q42',
-                LINK_TYPES.wikidata.label
-            ],
-            [
-                'release_group', 'https://www.wikidata.org/wiki/Q42',
-                LINK_TYPES.wikidata.release_group
-            ],
-            [
-                'work', 'https://www.wikidata.org/wiki/Q42',
-                LINK_TYPES.wikidata.work
-            ],
-            // Rockipedia
-            [
-                'artist', 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'label', 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
-                LINK_TYPES.otherdatabases.label
-            ],
-            [
-                'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
-                LINK_TYPES.otherdatabases.release
-            ],
-            // VGMdb
-            [
-                'artist', 'http://vgmdb.net/artist/431',
-                LINK_TYPES.vgmdb.artist
-            ],
-            [
-                'label', 'http://vgmdb.com/org/284',
-                LINK_TYPES.vgmdb.label
-            ],
-            [
-                'artist', 'http://vgmdb.com/org/284', // VGMdb orgs can be groups
-                LINK_TYPES.vgmdb.artist
-            ],
-            [
-                'release', 'http://vgmdb.net/album/29727',
-                LINK_TYPES.vgmdb.release
-            ],
-            [
-                'release_group', 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
-                LINK_TYPES.review.release_group
-            ],
-            [
-                'artist', 'http://www.metal-archives.com/bands/Karna/26483',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'area', 'http://www.geonames.org/6255147/asia.html',
-                LINK_TYPES.geonames.area
-            ],
-            // setlist.fm
-            [
-                'artist', 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
-                LINK_TYPES.setlistfm.artist
-            ],
-            [
-                'event', 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
-                LINK_TYPES.setlistfm.event
-            ],
-            [
-                'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
-                LINK_TYPES.setlistfm.place
-            ],
-            [
-                'release', 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'artist', 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'http://www.qim.com/artistes/biographie.asp?artistid=47',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'https://www.finna.fi/Record/viola.163990',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'recording', 'http://www.mvdbase.com/video.php?id=4',
-                LINK_TYPES.otherdatabases.recording
-            ],
-            [
-                'release', 'http://videogam.in/music/?id=PCCG-00486',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'work', 'http://tunearch.org/wiki/Lovely_Lass_to_a_Friar_Came_(2)_(A)',
-                LINK_TYPES.otherdatabases.work
-            ],
-            [
-                'artist', 'http://www.folkwiki.se/Personer/SvenDonat',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'artist', 'http://www.spirit-of-rock.com/groupe-groupe-Explosions_In_The_Sky-l-en.html',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release_group', 'http://castalbums.org/recordings/The-Scottsboro-Boys-2014-Original-London-Cast/28967',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'release_group', 'http://smdb.kb.se/catalog/id/001508972',
-                LINK_TYPES.otherdatabases.release_group
-            ],
-            [
-                'work', 'http://www.operadis-opera-discography.org.uk/CLBABLUE.HTM',
-                LINK_TYPES.otherdatabases.work
-            ],
-            // ClassicalArchives.com
-            [
-                'artist', 'http://www.classicalarchives.com/composer/2806.html',
-                LINK_TYPES.otherdatabases.artist
-            ],
-            [
-                'release', 'http://www.classicalarchives.com/album/menlo-201409.html',
-                LINK_TYPES.otherdatabases.release
-            ],
-            [
-                'work', 'http://www.classicalarchives.com/work/1119282.html',
-                LINK_TYPES.otherdatabases.work
-            ],
-            // CDJapan.co.jp
-            [
-                'artist', 'http://www.cdjapan.co.jp/person/76324',
-                LINK_TYPES.mailorder.artist
-            ],
-            [
-                'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
-                LINK_TYPES.mailorder.release
-            ],
-            // BookBrainz
-            [
-                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                LINK_TYPES.bookbrainz.artist
-            ],
-            [
-                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
-                LINK_TYPES.bookbrainz.artist
-            ],
-            [
-                'artist', 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
-                LINK_TYPES.bookbrainz.artist
-            ],
-            [
-                'label', 'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
-                LINK_TYPES.bookbrainz.label
-            ],
-            [
-                'release', 'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
-                LINK_TYPES.bookbrainz.release
-            ],
-            [
-                'release_group', 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
-                LINK_TYPES.bookbrainz.release_group
-            ],
-            [
-                'work', 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
-                LINK_TYPES.bookbrainz.work
-            ],
-            // Patronage sites
-            [
-                'artist', 'https://www.changetip.com/tipme/example',
-                LINK_TYPES.patronage.artist
-            ],
-            [
-                'event', 'example.tip.me',
-                LINK_TYPES.patronage.event
-            ],
-            [
-                'label', 'https://flattr.com/profile/example',
-                LINK_TYPES.patronage.label
-            ],
-            [
-                'place', 'https://www.patreon.com/example',
-                LINK_TYPES.patronage.place
-            ],
-            [
-                'series', 'https://paypal.me/example',
-                LINK_TYPES.patronage.series
-            ],
-            [
-                'artist', 'https://www.tipeee.com/example',
-                LINK_TYPES.patronage.artist
-            ],
-            // Crowdfunding sites
-            [
-                'artist', 'https://www.indiegogo.com/individuals/0123456789',
-                LINK_TYPES.crowdfunding.artist
-            ],
-            [
-                'event', 'https://www.indiegogo.com/projects/common-example',
-                LINK_TYPES.crowdfunding.event
-            ],
-            [
-                'label', 'https://www\.kickstarter\.com/profile/0123456789',
-                LINK_TYPES.crowdfunding.label
-            ],
-            [
-                'place', 'https://www\.kickstarter\.com/projects/0123456789/common-example',
-                LINK_TYPES.crowdfunding.place
-            ]
-        ];
+const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/URLCleanup');
 
-    $.each(tests, function (i, test) {
-        t.equal(guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
-    });
+test('URL cleanup component: auto-select, clean-up, and validation', {}, function (t) {
+    const test_data = [
+        // 7digital (zdigital)
+        {
+                             input_url: 'http://es.7digital.com/artist/the-impatient-sisters',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://www.7digital.com/artist/the-impatient-sisters',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://www.zdigital.com.au/artist/the-impatient-sisters',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://fr-ca.7digital.com/artist/the-impatient-sisters',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // AllMusic
+        {
+                             input_url: 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/artist/mn0000754032',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/performance/mq0000061129',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/album/mw0002303439',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/composition/mc0002367338',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'allmusic',
+                    expected_clean_url: 'http://www.allmusic.com/song/mt0043064796',
+               only_valid_entity_types: ['work']
+        },
+        // Amazon
+        {
+                             input_url: 'http://www.amazon.co.uk/gp/product/B00005JIWP',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+        },
+        {
+                             input_url: 'http://amazon.com.br/dp/B00T8E47G2',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.com.br/gp/product/B00T8E47G2',
+        },
+        {
+                             input_url: 'http://www.amazon.in/dp/B006H1JVW4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.in/gp/product/B006H1JVW4',
+        },
+        {
+                             input_url: 'http://amzn.com/B000005SU4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.com/gp/product/B000005SU4',
+        },
+        {
+                             input_url: 'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+        },
+        {
+                             input_url: 'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.co.uk/gp/product/B00008CQP2',
+        },
+        {
+                             input_url: 'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.co.uk/gp/product/B00009W0XE',
+        },
+        {
+                             input_url: 'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.com/gp/product/B00015007W',
+        },
+        {
+                             input_url: 'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.co.jp/gp/product/B0136OCSS8',
+        },
+        {
+                             input_url: 'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'amazon',
+                    expected_clean_url: 'http://www.amazon.co.uk/gp/product/B000VLR0II',
+        },
+        {
+                             input_url: 'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
+                    expected_clean_url: 'http://www.amazon.co.uk/-/e/B000APRTKE',
+        },
+        {
+                             input_url: 'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
+                    expected_clean_url: 'http://www.amazon.com/-/e/B0017PAU8Y',
+        },
+        // Ameba
+        {
+                             input_url: 'http://ameblo.jp/murataayumi',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'blog',
+                    expected_clean_url: 'http://ameblo.jp/murataayumi/',
+        },
+        {
+                             input_url: 'http://ameblo.jp/murataayumi/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'blog',
+        },
+        // Anime News Network
+        {
+                             input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+        },
+        {
+                             input_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+        },
+        // (Internet) Archive
+        {
+                             input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
+        },
+        {
+                             input_url: 'http://ia700301.us.archive.org/32/items/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                    expected_clean_url: 'https://archive.org/download/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+        },
+        {
+                             input_url: 'http://www.archive.org/download/JudasHalo/cover.jpg',
+                    expected_clean_url: 'https://archive.org/download/JudasHalo/cover.jpg',
+        },
+        {
+                             input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
+                    expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
+        },
+        // Audiojelly
+        {
+                             input_url: 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // Avex Trax
+        {
+                             input_url: 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Bandcamp
+        {
+                             input_url: 'https://davidrovics.bandcamp.com?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bandcamp',
+                    expected_clean_url: 'http://davidrovics.bandcamp.com/',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'http://idiotsikker.bandcamp.com/tra#top',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'bandcamp',
+                    expected_clean_url: 'http://idiotsikker.bandcamp.com/',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
+                     input_entity_type: 'recording',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'http://andrewhuang.bandcamp.com/track/boom-box',
+               input_relationship_type: 'bandcamp',
+               only_valid_entity_types: []
+        },
+        // BBC Music
+        {
+                             input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bbcmusic',
+        },
+        // Beatport
+        {
+                             input_url: 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // Biblioteka Polskiej Piosenki
+        {
+                             input_url: 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // BIS Records
+        {
+                             input_url: 'http://bis.se/index.php?op=album&aID=BIS-1961',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Blogspot
+        {
+                             input_url: 'http://49swimmingpools.blogspot.fr/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'http://49swimmingpools.blogspot.com/',
+        },
+        {
+                             input_url: 'www.afroliciousoriginal.blogspot.pt',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'afroliciousoriginal.blogspot.com/',
+        },
+        // BookBrainz
+        {
+                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+        },
+        {
+                             input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
+        },
+        {
+                             input_url: 'http://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
+        },
+        {
+                             input_url: 'bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
+        },
+        {
+                             input_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
+        },
+        {
+                             input_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c/edits',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'bookbrainz',
+                    expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+        },
+        // CastAlbums.org
+        {
+                             input_url: 'http://castalbums.org/recordings/The-Scottsboro-Boys-2014-Original-London-Cast/28967',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // CDJapan
+        {
+                             input_url: 'www.cdjapan.co.jp/person/76324#test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'http://www.cdjapan.co.jp/person/76324',
+        },
+        {
+                             input_url: 'https://cdjapan.co.jp/product/COCC-72267?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'http://www.cdjapan.co.jp/product/COCC-72267',
+        },
+        // ChangeTip (Tip.Me)
+        {
+                             input_url: 'https://www.changetip.com/tipme/example',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.changetip.com/tipme/example',
+        },
+        {
+                             input_url: 'example.tip.me',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.changetip.com/tipme/example',
+        },
+        // Classical Archives
+        {
+                             input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.classicalarchives.com/composer/2806.html',
+        },
+        {
+                             input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.classicalarchives.com/album/menlo-201409.html',
+        },
+        {
+                             input_url: 'https://www.classicalarchives.com/work/1119282.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.classicalarchives.com/work/1119282.html',
+        },
+        // CPDL (Choral Public Domain Library)
+        {
+                             input_url: 'http://cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+        },
+        {
+                             input_url: 'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'image',
+                    expected_clean_url: 'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
+        },
+        // Creative Commons
+        {
+                             input_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/licenses/by/2.0/scotland',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/licenses/by/2.0/scotland/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/licenses/publicdomain',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/licenses/publicdomain//',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/publicdomain/zero/1.0',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/publicdomain/zero/1.0//',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+        },
+        {
+                             input_url: 'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'license',
+                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+        },
+        // Decoda
+        {
+                             input_url: 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+        },
+        // Deezer
+        {
+                             input_url: 'http://www.deezer.com/artist/243332',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'streamingmusic',
+        },
+        {
+                             input_url: 'http://www.deezer.com/artist/6509511?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.deezer.com/artist/6509511',
+        },
+        {
+                             input_url: 'https://deezer.com/album/8935347',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.deezer.com/album/8935347',
+        },
+        {
+                             input_url: 'http://www.deezer.com/track/3437226',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+        },
+        {
+                             input_url: 'http://www.deezer.com/album/497382',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+        },
+        // DHHU
+        {
+                             input_url: 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://dhhu.dk/w/Sort_Stue',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.dhhu.dk/w/Sort_Stue',
+        },
+        {
+                             input_url: 'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Discogs
+        {
+                             input_url: 'http://www.discogs.com/artist/301-Source-Direct',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+        },
+        {
+                             input_url: 'http://www.discogs.com/artist/Source+Direct',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+        },
+        {
+                             input_url: 'http://www.discogs.com/artist/1944002-',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/artist/1944002',
+        },
+        {
+                             input_url: 'http://www.discogs.com/artist/3080207-Maybebop',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/artist/3080207',
+        },
+        {
+                             input_url: 'http://www.discogs.com/artist/Guy+Balbaert#t=Credits_Writing-Arrangement&q=&p=1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/artist/Guy+Balbaert',
+        },
+        {
+                             input_url: 'http://www.discogs.com/artist/Teresa+Teng?anv=%E9%84%A7%E9%BA%97%E5%90%9B',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/artist/Teresa+Teng',
+               only_valid_entity_types: ['artist', 'place']
+        },
+        {
+                             input_url: 'http://www.discogs.com/label/2262-Demonic',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'discogs',
+        },
+        {
+                             input_url: 'http://www.discogs.com/label/Demonic',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'discogs',
+        },
+        {
+                             input_url: 'http://www.discogs.com/label/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
+               only_valid_entity_types: ['label', 'place', 'series']
+        },
+        {
+                             input_url: 'http://www.discogs.com/release/12130',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discogs',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'discogs',
+        },
+        {
+                             input_url: 'http://www.discogs.com/master/view/267989',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/master/267989',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://www.discogs.com/Various-Out-Patients-2/release/5578',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/release/5578',
+        },
+        // e-onkyo music
+        {
+                             input_url: 'http://www.e-onkyo.com/music/album/vpcd81809/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // excite
+        {
+                             input_url: 'http://psgarden.exblog.jp/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'blog',
+        },
+        {
+                             input_url: 'http://psgarden.exblog.jp/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'blog',
+        },
+        // Facebook
+        {
+                             input_url: 'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
+        },
+        {
+                             input_url: 'http://www.facebook.com/sininemusic',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/sininemusic',
+        },
+        {
+                             input_url: 'https://www.facebook.com/RomanzMusic?fref=ts',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/RomanzMusic',
+        },
+        {
+                             input_url: 'https://www.facebook.com/event.php?eid=129606980393356',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/129606980393356',
+        },
+        {
+                             input_url: 'https://www.facebook.com/events/779218695457920/?ref=2&ref_dashboard_filter=past&sid_reminder=1385056373762424832',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/779218695457920',
+        },
+        // Finna.fi
+        {
+                             input_url: 'https://www.finna.fi/Record/viola.163990',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Flattr
+        {
+                             input_url: 'http://www.flattr.com/profile/example',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://flattr.com/profile/example',
+        },
+        // FolkWiki
+        {
+                             input_url: 'http://www.folkwiki.se/Personer/SvenDonat',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Foursquare
+        {
+                             input_url: 'http://foursquare.com/taimmobile',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://foursquare.com/taimmobile',
+        },
+        {
+                             input_url: 'http://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
+        },
+        // generasia
+        {
+                             input_url: 'http://generasia.com/wiki/Wink',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.generasia.com/wiki/Wink',
+        },
+        {
+                             input_url: 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+        },
+        // Genius
+        {
+                             input_url: 'http://genius.com/artists/Dramatik',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://genius.com/artists/Dramatik',
+        },
+        {
+                             input_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://genius.com/albums/The-dream/Terius-nash-1977',
+        },
+        {
+                             input_url: 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+        },
+        // GeoNames
+        {
+                             input_url: 'http://www.geonames.org/6255147/asia.html',
+                     input_entity_type: 'area',
+            expected_relationship_type: 'geonames',
+                    expected_clean_url: 'http://sws.geonames.org/6255147/',
+        },
+        // Google
+        {
+                             input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+        },
+        {
+                             input_url: 'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+        },
+        {
+                             input_url: 'http://plus.google.com/u/0/101821796946045393834/about',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://plus.google.com/101821796946045393834',
+        },
+        {
+                             input_url: 'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
+        },
+        {
+                             input_url: 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
+        },
+        // (VICTOR STUDIO) HD-Music.
+        {
+                             input_url: 'http://hd-music.info/album.cgi/913',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // IMDb (Internet Movie Database)
+        {
+                             input_url: 'http://www.imdb.com/name/nm1539156/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imdb',
+        },
+        {
+                             input_url: 'http://www.imdb.com/company/co0109498/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'imdb',
+        },
+        {
+                             input_url: 'http://www.imdb.com/title/tt0421082/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'imdb',
+        },
+        // IMSLP (International Music Score Library Project)
+        {
+                             input_url: 'http://imslp.org/wiki/Category:Buxtehude%2C_Dietrich',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imslp',
+        },
+        {
+                             input_url: 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+        },
+        // Indiegogo
+        {
+                             input_url: 'https://www.indiegogo.com/individuals/0123456789/campaigns',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'crowdfunding',
+                    expected_clean_url: 'https://www.indiegogo.com/individuals/0123456789',
+        },
+        {
+                             input_url: 'https://www.indiegogo.com/projects/common-example?locale=es#/',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'crowdfunding',
+                    expected_clean_url: 'https://www.indiegogo.com/projects/common-example',
+        },
+        // Instagram
+        {
+                             input_url: 'http://instagram.com/deadmau5',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+        },
+        // (Apple) iTunes
+        {
+                             input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/artist/id444923726',
+        },
+        {
+                             input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/music-video/id564322420',
+        },
+        {
+                             input_url: 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/au/preorder/id499465357',
+        },
+        {
+                             input_url: 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/gb/album/id543575947',
+        },
+        {
+                             input_url: 'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/album/id589456329',
+        },
+        {
+                             input_url: 'https://itunes.apple.com/us/album/skyfall-single/id566322358',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/us/album/id566322358',
+        },
+        {
+                             input_url: 'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/us/album/id721686178',
+        },
+        // Jamendo Music
+        {
+                             input_url: 'http://www.jamendo.com/en/track/725574/giraffe',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadfree',
+                    expected_clean_url: 'http://www.jamendo.com/track/725574',
+        },
+        {
+                             input_url: 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadfree',
+                    expected_clean_url: 'http://www.jamendo.com/list/a84763',
+        },
+        {
+                             input_url: 'http://www.jamendo.com/en/album/56372',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadfree',
+                    expected_clean_url: 'http://www.jamendo.com/album/56372',
+        },
+        // JUGEM
+        {
+                             input_url: 'http://milk-pu-rin.jugem.jp/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'blog',
+        },
+        {
+                             input_url: 'http://milk-pu-rin.jugem.jp/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'blog',
+        },
+        // Juno Download
+        {
+                             input_url: 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // JVC Music
+        {
+                             input_url: 'http://www.jvcmusic.co.jp/-/Discography/A015120/VICC-60560.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Kickstarter
+        {
+                             input_url: 'https://www.kickstarter.com/profile/0123456789/bio',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'crowdfunding',
+                    expected_clean_url: 'https://www.kickstarter.com/profile/0123456789',
+        },
+        {
+                             input_url: 'https://www.kickstarter.com/projects/0123456789/common-example#main-navigation',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'crowdfunding',
+                    expected_clean_url: 'https://www.kickstarter.com/projects/0123456789/common-example',
+        },
+        // KING RECORDS
+        {
+                             input_url: 'http://www.kingrecords.co.jp/cs/g/gKICM-1091/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Lantis
+        {
+                             input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Last.fm
+        {
+                             input_url: 'http://www.last.fm/music/Bj%C3%B6rk',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lastfm',
+        },
+        {
+                             input_url: 'http://www.last.fm/event/3291943+Pori+jazz',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'lastfm',
+        },
+        {
+                             input_url: 'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'lastfm',
+                    expected_clean_url: 'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+        },
+        {
+                             input_url: 'http://www.lastfm.de/festival/297838+Death+Feast+2008',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'lastfm',
+                    expected_clean_url: 'http://www.last.fm/festival/297838+Death+Feast+2008',
+        },
+        {
+                             input_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                    expected_clean_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+        },
+        {
+                             input_url: 'http://www.lastfm.com.br/venue/8803923+Gigantinho',
+                    expected_clean_url: 'http://www.last.fm/venue/8803923+Gigantinho',
+        },
+        {
+                             input_url: 'http://www.lastfm.com/music/Carving+Colours',
+                    expected_clean_url: 'http://www.last.fm/music/Carving+Colours',
+        },
+        // LiederNet Archive
+        {
+                             input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+        },
+        // LinkedIn
+        {
+                             input_url: 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+        },
+        {
+                             input_url: 'http://www.linkedin.com/in/legselectric',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.linkedin.com/in/legselectric',
+        },
+        // livedoor
+        {
+                             input_url: 'http://blog.livedoor.jp/mintmania/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'blog',
+        },
+        {
+                             input_url: 'http://blog.livedoor.jp/mintmania/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'blog',
+        },
+        // Loudr
+        {
+                             input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://loudr.fm/artist/kyle-landry/Z77SM',
+        },
+        {
+                             input_url: 'http://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
+        },
+        // LYRICSnMUSIC
+        {
+                             input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+        },
+        // Mainly Norfolk
+        {
+                             input_url: 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // (The) Metal Archives
+        {
+                             input_url: 'http://www.metal-archives.com/bands/Karna/26483',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+        },
+        // mora
+        {
+                             input_url: 'http://mora.jp/package/43000001/4534530058010/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://mora.jp/package/43000014/KIZC-211/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        {
+                             input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
+                    expected_clean_url: 'http://mora.jp/package/43000021/SQEX-20016_F/',
+        },
+        {
+                             input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+        },
+        {
+                             input_url: 'mora.jp/package/43000002/ANTCD-3106/',
+                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+        },
+        // MusicMoz
+        {
+                             input_url: 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Musik-Sammler.de
+        {
+                             input_url: 'http://www.musik-sammler.de/artist/100743',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.musik-sammler.de/artist/end-of-a-year/#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.musik-sammler.de/artist/end-of-a-year/',
+        },
+        {
+                             input_url: 'https://musik-sammler.de/artist/100743?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.musik-sammler.de/artist/100743/',
+        },
+        {
+                             input_url: 'http://www.musik-sammler.de/media/594158',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.musik-sammler.de/album/364515',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.musik-sammler.de/album/804508/review/rain/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.musik-sammler.de/album/804508/',
+        },
+        {
+                             input_url: 'musik-sammler.de/media/594158',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.musik-sammler.de/media/594158/',
+        },
+        // mvdbase.com (The Music Video DataBase)
+        {
+                             input_url: 'http://www.mvdbase.com/video.php?id=4',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Myspace
+        {
+                             input_url: 'https://myspace.com/instramentaluk',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'myspace',
+        },
+        {
+                             input_url: 'http://fr.myspace.com/jujusasadada',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'myspace',
+                    expected_clean_url: 'https://myspace.com/jujusasadada',
+        },
+        {
+                             input_url: 'http://myspace.de/diekisten',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'myspace',
+                    expected_clean_url: 'https://myspace.com/diekisten',
+        },
+        {
+                             input_url: 'http://www.myspace.com/whoevenusesthisanymore',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'myspace',
+                    expected_clean_url: 'https://myspace.com/whoevenusesthisanymore',
+        },
+        // Naxos Records
+        {
+                             input_url: 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Ney Nota Arşivi 
+        {
+                             input_url: 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+        },
+        // NLA (National Library of Australia)
+        {
+                             input_url: 'https://nla.gov.au/nla.party-548358/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://nla.gov.au/nla.party-548358',
+        },
+        {
+                             input_url: 'http://trove.nla.gov.au/people/1448035?c=people',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://nla.gov.au/nla.party-1448035',
+        },
+        {
+                             input_url: 'http://nla.gov.au/anbd.bib-an11701020#',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://nla.gov.au/anbd.bib-an11701020',
+        },
+        {
+                             input_url: 'trove.nla.gov.au/work/9438679',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
+        },
+        // Open Library
+        {
+                             input_url: 'http://openlibrary.org/authors/OL23919A/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://openlibrary.org/books/OL8993487M/',
+        },
+        {
+                             input_url: 'http://openlibrary.org/works/OL82592W/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // OPERADIS Operatic Discography
+        {
+                             input_url: 'http://www.operadis-opera-discography.org.uk/CLBABLUE.HTM',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // OTOTOY
+        {
+                             input_url: 'http://ototoy.jp/_/default/p/45622',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
+        // Patreon
+        {
+                             input_url: 'https://patreon.com/example#reactTargetCreatorPage',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.patreon.com/example',
+        },
+        // PayPal.Me
+        {
+                             input_url: 'https://paypal.me/example',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'patronage',
+        },
+        {
+                             input_url: 'https://www.paypal.me/example?q=test',
+                    expected_clean_url: 'https://www.paypal.me/example',
+        },
+        // PureVolume
+        {
+                             input_url: 'http://www.purevolume.com/withbloodcomescleansing',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'purevolume',
+        },
+        // QIM (Québec Info Musique)
+        {
+                             input_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // RecoChoku
+        {
+                             input_url: 'recochoku.jp/song/S21893898/',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/song/S21893898/',
+        },
+        {
+                             input_url: 'https://www.recochoku.jp/album/30282664?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/album/30282664/',
+        },
+        // Resident Advisor (RA)
+        {
+                             input_url: 'https://www.residentadvisor.net/dj/adamx',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.residentadvisor.net/event.aspx?860109',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.residentadvisor.net/record-label.aspx?id=2795',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.residentadvisor.net/track.aspx?544258',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'https://www.residentadvisor.net/reviews/7636',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
+        // ReverbNation
+        {
+                             input_url: 'http://reverbnation.com/negator',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/negator',
+        },
+        {
+                             input_url: 'http://www.reverbnation.com/#!/benwebbmusic',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/benwebbmusic',
+        },
+        {
+                             input_url: 'https://www.reverbnation.com/littlesparrow',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/littlesparrow',
+        },
+        {
+                             input_url: 'http://m.reverbnation.com/venue/602562',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/venue/602562',
+        },
+        // Rockens Danmarkskort
+        {
+                             input_url: 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Rock in China
+        {
+                             input_url: 'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+        },
+        // Rockipedia
+        {
+                             input_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+        },
+        {
+                             input_url: 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // SecondHandSongs
+        {
+                             input_url: 'http://www.secondhandsongs.com/artist/103',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.secondhandsongs.com/release/888',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.secondhandsongs.com/work/1409',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'secondhandsongs',
+               only_valid_entity_types: ['work']
+        },
+        // setlist.fm
+        {
+                             input_url: 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['event']
+        },
+        {
+                             input_url: 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['place']
+        },
+        // (SMDB) Svensk mediedatabas
+        {
+                             input_url: 'http://smdb.kb.se/catalog/id/001508972',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Songkick
+        {
+                             input_url: 'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'songkick',
+                    expected_clean_url: 'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+               only_valid_entity_types: ['event', 'place']
+        },
+        {
+                             input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'songkick',
+                    expected_clean_url: 'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+               only_valid_entity_types: ['place']
+        },
+        // SoundCloud
+        {
+                             input_url: 'https://soundcloud.com/metro-luminal',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'soundcloud',
+        },
+        {
+                             input_url: 'http://m.soundcloud.com/octobersveryown',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'soundcloud',
+                    expected_clean_url: 'https://soundcloud.com/octobersveryown',
+        },
+        {
+                             input_url: 'http://soundcloud.com/alec_empire',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'soundcloud',
+                    expected_clean_url: 'https://soundcloud.com/alec_empire',
+        },
+        {
+                             input_url: 'https://soundcloud.com/alisonwonderland%E2%80%8E',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'soundcloud',
+                    expected_clean_url: 'https://soundcloud.com/alisonwonderland',
+        },
+        {
+                             input_url: 'https://soundcloud.com/dimmakrecords',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'soundcloud',
+        },
+        {
+                             input_url: 'https://soundcloud.com/glastonburyofficial',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'soundcloud',
+               only_valid_entity_types: ['artist', 'label', 'series']
+        },
+        {
+                             input_url: 'https://soundcloud.com/tags/bug',
+               input_relationship_type: 'soundcloud',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'https://soundcloud.com/search?q=some%20bug',
+               input_relationship_type: 'soundcloud',
+               only_valid_entity_types: []
+        },
+        // SoundtrackCollector
+        {
+                             input_url: 'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
+        },
+        {
+                             input_url: 'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
+        },
+        {
+                             input_url: 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://soundtrackcollector.com/title/39473/',
+        },
+        {
+                             input_url: 'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://soundtrackcollector.com/title/99711/',
+        },
+        // Spirit of Rock
+        {
+                             input_url: 'http://www.spirit-of-rock.com/groupe-groupe-Explosions_In_The_Sky-l-en.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Spotify
+        {
+                             input_url: 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+        },
+        // Ted Crane
+        {
+                             input_url: 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // The Dance Gypsy
+        {
+                             input_url: 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // The Session
+        {
+                             input_url: 'http://thesession.org/recordings/artists/793?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/recordings/artists/793',
+        },
+        {
+                             input_url: 'thesession.org/events/3811#comment748363',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/events/3811',
+        },
+        {
+                             input_url: 'https://www.thesession.org/recordings/display/1488',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/recordings/1488',
+        },
+        {
+                             input_url: 'http://thesession.org/recordings/4740/edit',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/recordings/4740',
+        },
+        {
+                             input_url: 'http://www.thesession.org/tunes/display/2305',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://thesession.org/tunes/2305',
+        },
+        // Tipeee
+        {
+                             input_url: 'https://www.tipeee.com/example/news',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.tipeee.com/example',
+        },
+        // triple j Unearthed
+        {
+                             input_url: 'https://www.triplejunearthed.com/artist/sampa-great',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Tumblr
+        {
+                             input_url: 'http://deadmau5.tumblr.com/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'blog',
+        },
+        // TuneArch (TTA) Traditional Tune Archive
+        {
+                             input_url: 'http://tunearch.org/wiki/Lovely_Lass_to_a_Friar_Came_(2)_(A)',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Twitter
+        {
+                             input_url: 'http://twitter.com/miguelgrimaldo',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/miguelgrimaldo',
+        },
+        {
+                             input_url: 'http://twitter.com/ACEHOOD/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/ACEHOOD',
+        },
+        {
+                             input_url: 'http://twitter.com/miguelgrimaldo/media',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/miguelgrimaldo',
+        },
+        {
+                             input_url: 'https://mobile.twitter.com/cirrhaniva',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/cirrhaniva',
+        },
+        {
+                             input_url: 'https://mobile.twitter.com/cirrhaniva?lang=en-gb',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/cirrhaniva',
+        },
+        {
+                             input_url: 'https://twitter.com/@UNIVERSAL_D',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
+        },
+        {
+                             input_url: 'https://twitter.com/@UNIVERSAL_D#content-main-heading',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
+        },
+        // Universal Music
+        {
+                             input_url: 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // Utamap
+        {
+                             input_url: 'http://www.utamap.com/showkasi.php?surl=34985',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+        },
+        // VGMDb
+        {
+                             input_url: 'http://vgmdb.com/org/284',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'vgmdb',
+        },
+        {
+                             input_url: 'http://vgmdb.com/org/284',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'vgmdb',
+        },
+        // VGMDb (Video Game Music and Anime Soundtrack Database)
+        {
+                             input_url: 'https://vgmdb.net/artist/431',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'vgmdb',
+                    expected_clean_url: 'http://vgmdb.net/artist/431',
+        },
+        {
+                             input_url: 'https://vgmdb.com/org/284',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'vgmdb',
+                    expected_clean_url: 'http://vgmdb.net/org/284',
+        },
+        {
+                             input_url: 'vgmdb.net/album/29727',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'vgmdb',
+                    expected_clean_url: 'http://vgmdb.net/album/29727',
+        },
+        // VIAF (Virtual International Authority File)
+        {
+                             input_url: 'http://viaf.org/viaf/109231256',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'viaf',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/152662182',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'viaf',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/185694157',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'viaf',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/16766997',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/16766997/',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/16766997/?test=true',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/16766997/#Rovics,_David',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                    expected_clean_url: 'http://viaf.org/viaf/32197206',
+        },
+        {
+                             input_url: 'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'viaf.org/viaf/16766997/',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        {
+                             input_url: 'www.viaf.org/viaf/16766997/',
+                    expected_clean_url: 'http://viaf.org/viaf/16766997',
+        },
+        // Videogam.in
+        {
+                             input_url: 'http://videogam.in/music/?id=PCCG-00486',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Vimeo
+        {
+                             input_url: 'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://vimeo.com/1109226',
+        },
+        // Vine
+        {
+                             input_url: 'https://vine.co/destorm',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+        },
+        // VKontakte 
+        {
+                             input_url: 'http://vk.com/tin_sontsya',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+        },
+        // Weibo 
+        {
+                             input_url: 'www.weibo.com/mchotdog2010#test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+        },
+        {
+                             input_url: 'https://weibo.com/mchotdog2010?test',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+        },
+        // WhoSampled
+        {
+                             input_url: 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+        },
+        // Wikia
+        {
+                             input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'lyrics',
+        },
+        // Wikidata
+        {
+                             input_url: 'https://www.wikidata.org/wiki/Q42',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'wikidata',
+                    expected_clean_url: 'https://www.wikidata.org/wiki/Q42',
+        },
+        {
+                             input_url: 'https://www.wikidata.org/wiki/Q42',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'wikidata',
+        },
+        {
+                             input_url: 'https://www.wikidata.org/wiki/Q42',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'wikidata',
+        },
+        {
+                             input_url: 'https://www.wikidata.org/wiki/Q42',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'wikidata',
+        },
+        {
+                             input_url: 'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
+                    expected_clean_url: 'https://www.wikidata.org/wiki/Q14005',
+        },
+        // Wikimedia
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'image',
+        },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/File:EMI_Records.svg',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'image',
+        },
+        {
+                             input_url: 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'image',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+        },
+        {
+                             input_url: 'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg',
+        },
+        // Wikipedia
+        {
+                             input_url: 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'wikipedia',
+        },
+        {
+                             input_url: 'http://en.wikipedia.org/wiki/Astralwerks',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'wikipedia',
+        },
+        {
+                             input_url: 'https://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'wikipedia',
+                    expected_clean_url: 'https://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
+        },
+        {
+                             input_url: 'https://en.wikipedia.org/wiki/Exorcise_the_Demons',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'wikipedia',
+        },
+        {
+                             input_url: 'http://en.wikipedia.org/wiki/Ramesh_Vinayakam?oldformat=true',
+                    expected_clean_url: 'https://en.wikipedia.org/wiki/Ramesh_Vinayakam',
+        },
+        {
+                             input_url: 'http://wikipedia.org/wiki/Oberhofer',
+                    expected_clean_url: 'https://en.wikipedia.org/wiki/Oberhofer',
+        },
+        {
+                             input_url: 'https://sv.m.wikipedia.org/wiki/Bullet',
+                    expected_clean_url: 'https://sv.wikipedia.org/wiki/Bullet',
+        },
+        {
+                             input_url: 'it.wikipedia.org/wiki/Foo',
+                    expected_clean_url: 'https://it.wikipedia.org/wiki/Foo',
+        },
+        // Wikisource
+        {
+                             input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://pt.wikisource.org/wiki/A_Portuguesa',
+        },
+        // Warner Music
+        {
+                             input_url: 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discographyentry',
+        },
+        // YouTube
+        {
+                             input_url: 'http://youtube.com/user/officialpsy/videos',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'youtube',
+                    expected_clean_url: 'http://www.youtube.com/user/officialpsy',
+        },
+        {
+                             input_url: 'http://m.youtube.com/#/user/JessVincentMusic',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'youtube',
+                    expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
+        },
+        {
+                             input_url: 'https://www.youtube.com/user/JessVincentMusic?feature=watch',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'youtube',
+                    expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
+        },
+        {
+                             input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+        },
+        {
+                             input_url: 'http://youtube.com/user/officialpsy/videos',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'youtube',
+        },
+        {
+                             input_url: 'http://youtu.be/UmHdefsaL6I',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+        },
+    ];
 
-    t.end();
-});
+    const relationship_types_by_uuid = _.reduce(LINK_TYPES, function(results, rel_uuid_by_entity_type, relationship_type) {
+        _.each(rel_uuid_by_entity_type, function(rel_uuid) {
+            (results[rel_uuid] || (results[rel_uuid] = [])).push(relationship_type);
+        });
+        return results;
+    }, {});
 
-test('Cleanup', function (t) {
-    var tests = [
-            [
-                'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
-                'http://www.amazon.co.uk/gp/product/B00009W0XE',
-                'release'
-            ],
-            [
-                'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
-                'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
-                'release'
-            ],
-            [
-                'http://www.amazon.in/dp/B006H1JVW4',
-                'http://www.amazon.in/gp/product/B006H1JVW4',
-                'release'
-            ],
-            [
-                'http://amazon.com.br/dp/B00T8E47G2',
-                'http://www.amazon.com.br/gp/product/B00T8E47G2',
-                'release'
-            ],
-            // %E2%80%8E cleanup
-            [
-                'https://soundcloud.com/alisonwonderland%E2%80%8E',
-                'https://soundcloud.com/alisonwonderland',
-                'artist'
-            ],
-            [
-                'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
-                'http://www.amazon.co.uk/gp/product/B000VLR0II',
-                'release'
-            ],
-            [
-                'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
-                'http://www.amazon.com/gp/product/B00015007W',
-                'release'
-            ],
-            [
-                'https://www.amazon.co.jp/AMARANTHUS%E3%80%90%E9%80%9A%E5%B8%B8%E7%9B%A4%E3%80%91-%E3%82%82%E3%82%82%E3%81%84%E3%82%8D%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%90%E3%83%BCZ/dp/B0136OCSS8/376-0245530-0562731?ie=UTF8&keywords=4988003477523&qid=1455928973&ref_=sr_1_1&sr=8-1',
-                'http://www.amazon.co.jp/gp/product/B0136OCSS8',
-                'release'
-            ],
-            [
-                'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
-                'http://www.amazon.co.uk/gp/product/B00008CQP2',
-                'release'
-            ],
-            [
-                'http://amzn.com/B000005SU4',
-                'http://www.amazon.com/gp/product/B000005SU4',
-                'release'
-            ],
-            [
-                'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
-                'http://www.amazon.co.uk/-/e/B000APRTKE'
-            ],
-            [
-                'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
-                'http://www.amazon.com/-/e/B0017PAU8Y'
-            ],
-            // Myspace
-            [
-                'http://fr.myspace.com/jujusasadada',
-                'https://myspace.com/jujusasadada',
-                'artist'
-            ],
-            [
-                'http://myspace.de/diekisten',
-                'https://myspace.com/diekisten',
-                'artist'
-            ],
-            [
-                'http://www.myspace.com/whoevenusesthisanymore',
-                'https://myspace.com/whoevenusesthisanymore',
-                'label'
-            ],
-            // Twitter
-            [
-                'http://twitter.com/miguelgrimaldo',
-                'https://twitter.com/miguelgrimaldo',
-                'artist'
-            ],
-            [
-                'https://mobile.twitter.com/cirrhaniva',
-                'https://twitter.com/cirrhaniva',
-                'artist'
-            ],
-            [
-                'https://twitter.com/@UNIVERSAL_D',
-                'https://twitter.com/UNIVERSAL_D',
-                'artist'
-            ],
-            [
-                'http://twitter.com/ACEHOOD/',
-                'https://twitter.com/ACEHOOD',
-                'artist'
-            ],
-            [
-                'http://twitter.com/miguelgrimaldo/media',
-                'https://twitter.com/miguelgrimaldo',
-                'artist'
-            ],
-            [
-                'https://mobile.twitter.com/cirrhaniva?lang=en-gb',
-                'https://twitter.com/cirrhaniva',
-                'artist'
-            ],
-            [
-                'https://twitter.com/@UNIVERSAL_D#content-main-heading',
-                'https://twitter.com/UNIVERSAL_D',
-                'artist'
-            ],
-            // SoundCloud
-            [
-                'http://soundcloud.com/alec_empire',
-                'https://soundcloud.com/alec_empire',
-                'artist'
-            ],
-            [ // mobile subdomain should be removed
-                'http://m.soundcloud.com/octobersveryown',
-                'https://soundcloud.com/octobersveryown',
-                'artist'
-            ],
-            [ // #! should be removed
-                'http://www.reverbnation.com/#!/benwebbmusic',
-                'http://www.reverbnation.com/benwebbmusic',
-                'artist'
-            ],
-            [ // scheme should be http
-                'https://www.reverbnation.com/littlesparrow',
-                'http://www.reverbnation.com/littlesparrow',
-                'artist'
-            ],
-            [ // www should be included
-                'http://reverbnation.com/negator',
-                'http://www.reverbnation.com/negator',
-                'artist'
-            ],
-            [ // mobile subdomain should be www
-                'http://m.reverbnation.com/venue/602562',
-                'http://www.reverbnation.com/venue/602562',
-                'event'
-            ],
-            // Discogs
-            [
-                'http://www.discogs.com/Various-Out-Patients-2/release/5578',
-                'http://www.discogs.com/release/5578',
-                'release'
-            ],
-            [
-                'http://www.discogs.com/artist/3080207-Maybebop',
-                'http://www.discogs.com/artist/3080207',
-                'artist'
-            ],
-            [
-                'http://www.discogs.com/artist/1944002-',
-                'http://www.discogs.com/artist/1944002',
-                'artist'
-            ],
-            [
-                'http://www.discogs.com/master/view/267989',
-                'http://www.discogs.com/master/267989',
-                'release_group'
-            ],
-            [
-                // FIXME Need a "bad" archive.org link
-                'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-                'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-                'release'
-            ],
-            [
-                'http://www.archive.org/download/JudasHalo/cover.jpg',
-                'https://archive.org/download/JudasHalo/cover.jpg',
-            ],
-            [
-                'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
-                'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
-            ],
-            [
-                'http://ia700301.us.archive.org/32/items/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
-                'https://archive.org/download/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
-            ],
+    var previous_match_tests = [];
 
-            [
-                'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
-                'http://www.jamendo.com/list/a84763',
-                'release'
-            ],
-            [
-                'http://www.jamendo.com/en/track/725574/giraffe',
-                'http://www.jamendo.com/track/725574',
-                'recording'
-            ],
-            [
-                'http://www.jamendo.com/en/album/56372',
-                'http://www.jamendo.com/album/56372',
-                'release'
-            ],
-            [
-                'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
-                'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
-                'artist'
-            ],
-            [
-                'http://dhhu.dk/w/Sort_Stue',
-                'http://www.dhhu.dk/w/Sort_Stue',
-                'artist'
-            ],
-            // The Session
-            [
-                'http://www.thesession.org/tunes/display/2305',
-                'http://thesession.org/tunes/2305',
-                'work'
-            ],
-            [
-                'https://www.thesession.org/recordings/display/1488',
-                'http://thesession.org/recordings/1488',
-                'release_group'
-            ],
-            [
-                'thesession.org/events/3811#comment748363',
-                'http://thesession.org/events/3811',
-                'event'
-            ],
-            [
-                'http://thesession.org/recordings/4740/edit',
-                'http://thesession.org/recordings/4740',
-                'release_group'
-            ],
-            [
-                'http://thesession.org/recordings/artists/793?test',
-                'http://thesession.org/recordings/artists/793',
-                'artist'
-            ],
-            // Blogspot
-            [
-                'http://49swimmingpools.blogspot.fr/',
-                'http://49swimmingpools.blogspot.com/',
-                'artist'
-            ],
-            [
-                'www.afroliciousoriginal.blogspot.pt',
-                'afroliciousoriginal.blogspot.com/',
-                'artist'
-            ],
-            // ameblo.jp
-            [
-                'http://ameblo.jp/murataayumi',
-                'http://ameblo.jp/murataayumi/',
-                'artist'
-            ],
-            // Creative Commons
-            [
-                'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
-                'http://creativecommons.org/publicdomain/zero/1.0/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
-                'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
-                'release'
-            ],
-                // Facebook
-            [
-                'http://www.facebook.com/sininemusic',
-                'https://www.facebook.com/sininemusic',
-                'artist'
-            ],
-            [
-                'https://www.facebook.com/RomanzMusic?fref=ts',
-                'https://www.facebook.com/RomanzMusic',
-                'artist'
-            ],
-            [
-                'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
-                'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
-                'artist'
-            ],
-            [
-                'https://www.facebook.com/events/779218695457920/?ref=2&ref_dashboard_filter=past&sid_reminder=1385056373762424832',
-                'https://www.facebook.com/events/779218695457920',
-                'event'
-            ],
-            [
-                'https://www.facebook.com/event.php?eid=129606980393356',
-                'https://www.facebook.com/events/129606980393356',
-                'event'
-            ],
-            [
-                'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
-                'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
-                'event'
-            ],
-            [
-                'http://www.lastfm.de/festival/297838+Death+Feast+2008',
-                'http://www.last.fm/festival/297838+Death+Feast+2008',
-                'event'
-            ],
-            [
-                'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
-                'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
-                'event'
-            ],
-            [
-                'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
-                'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
-                'event'
-            ],
+    function doMatchSubtest(st, entity_type, url, label, expected_relationship_type) {
+        var rel_uuid = guessType(entity_type, url);
+        var actual_relationship_type = _.find(relationship_types_by_uuid[rel_uuid], function (s) {return s === expected_relationship_type;});
+        st.equal(actual_relationship_type, expected_relationship_type, 'Match ' + label + ' URL relationship type for ' + entity_type + ' entities');
+        previous_match_tests.push(entity_type + '+' + url);
+    }
 
-                // Google+
-            [
-                'http://plus.google.com/u/0/101821796946045393834/about',
-                'https://plus.google.com/101821796946045393834',
-                'artist'
-            ],
-            [
-                'http://www.deezer.com/artist/6509511?test',
-                'https://www.deezer.com/artist/6509511',
-                'streamingmusic'
-            ],
-            [
-                'https://deezer.com/album/8935347',
-                'https://www.deezer.com/album/8935347',
-                'streamingmusic'
-            ],
-            [
-                'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
-                'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
-                'streamingmusic'
-            ],
-            [
-                'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
-                'http://vimeo.com/1109226',
-                'streamingmusic'
-            ],
-            // YouTube
-            [
-                'http://youtu.be/UmHdefsaL6I',
-                'http://www.youtube.com/watch?v=UmHdefsaL6I',
-                'streamingmusic'
-            ],
-            [
-                'http://www.youtube.com/embed/UmHdefsaL6I',
-                'http://www.youtube.com/watch?v=UmHdefsaL6I',
-                'streamingmusic'
-            ],
-            [
-                'http://youtube.com/user/officialpsy/videos',
-                'http://www.youtube.com/user/officialpsy',
-                'artist'
-            ],
-            [
-                'https://www.youtube.com/user/JessVincentMusic?feature=watch',
-                'http://www.youtube.com/user/JessVincentMusic',
-                'artist'
-            ],
-            [
-                'http://m.youtube.com/#/user/JessVincentMusic',
-                'http://www.youtube.com/user/JessVincentMusic',
-                'artist'
-            ],
-            [
-                'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
-                'http://www.jamendo.com/list/a81403',
-                'release'
-            ],
-            // Allmusic
-            [
-                'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
-                'http://www.allmusic.com/artist/mn0000754032',
-                'artist'
-            ],
-            [
-                'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
-                'http://www.allmusic.com/album/mw0002303439',
-                'release_group'
-            ],
-            [
-                'http://www.allmusic.com/song/help!-mt0043064796',
-                'http://www.allmusic.com/song/mt0043064796',
-                'work'
-            ],
-            [
-                'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
-                'http://www.allmusic.com/composition/mc0002367338',
-                'work'
-            ],
-            [
-                'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
-                'http://www.allmusic.com/performance/mq0000061129',
-                'recording'
-            ],
-            // Bandcamp
-            [
-                'https://davidrovics.bandcamp.com?test',
-                'http://davidrovics.bandcamp.com/',
-                'artist'
-            ],
-            [
-                'http://idiotsikker.bandcamp.com/tra#top',
-                'http://idiotsikker.bandcamp.com/',
-                'label'
-            ],
-            [
-                'https://andrewhuang.bandcamp.com/track/boom-box/?test',
-                'http://andrewhuang.bandcamp.com/track/boom-box',
-                'recording'
-            ],
-            // iTunes
-            [
-                'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
-                'https://itunes.apple.com/artist/id444923726',
-                'artist'
-            ],
-            [
-                'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
-                'https://itunes.apple.com/gb/album/id543575947',
-                'release'
-            ],
-            [
-                'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
-                'https://itunes.apple.com/au/preorder/id499465357',
-                'release'
-            ],
-            [
-                'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
-                'https://itunes.apple.com/album/id589456329',
-                'release'
-            ],
-            [
-                'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
-                'https://itunes.apple.com/music-video/id564322420',
-                'recording'
-            ],
-            [
-                'https://itunes.apple.com/us/album/skyfall-single/id566322358',
-                'https://itunes.apple.com/us/album/id566322358',
-                'release'
-            ],
-            [
-                'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
-                'https://itunes.apple.com/us/album/id721686178',
-                'release'
-            ],
-            [
-                'https://loudr.fm/artist/kyle-landry/Z77SM?test',
-                'https://loudr.fm/artist/kyle-landry/Z77SM',
-                'artist'
-            ],
-            [
-                'http://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
-                'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
-                'release'
-            ],
-            [
-                'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
-                'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
-                'artist'
-            ],
-            [
-                'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
-                'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
-                'release'
-            ],
-
-            [ // scheme should be https
-                'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
-                'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
-                'artist'
-            ],
-            [ // other parameters should be removed
-                'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
-                'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
-                'artist'
-            ],
-            [
-                'https://pt.wikisource.org/wiki/A_Portuguesa',
-                'http://pt.wikisource.org/wiki/A_Portuguesa',
-                'work'
-            ],
-
-            // MBS-4810: exactly one terminating slash at the end
-            [
-                'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
-                'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/licenses/by/2.0/scotland',
-                'http://creativecommons.org/licenses/by/2.0/scotland/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/licenses/publicdomain//',
-                'http://creativecommons.org/licenses/publicdomain/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/licenses/publicdomain',
-                'http://creativecommons.org/licenses/publicdomain/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/publicdomain/zero/1.0//',
-                'http://creativecommons.org/publicdomain/zero/1.0/',
-                'release'
-            ],
-            [
-                'http://creativecommons.org/publicdomain/zero/1.0',
-                'http://creativecommons.org/publicdomain/zero/1.0/',
-                'release'
-            ],
-
-            // MBS-4044: Cleanup Discogs URLs
-            [
-                'http://www.discogs.com/artist/Teresa+Teng?anv=%E9%84%A7%E9%BA%97%E5%90%9B',
-                'http://www.discogs.com/artist/Teresa+Teng',
-                'artist'
-            ],
-            [
-                'http://www.discogs.com/artist/Guy+Balbaert#t=Credits_Writing-Arrangement&q=&p=1',
-                'http://www.discogs.com/artist/Guy+Balbaert',
-                'artist'
-            ],
-
-            // MBS-4284: Normalize URL encoding for specific sites
-            [
-                'http://www.discogs.com/label/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                'label'
-            ],
-            [
-                'https://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
-                'https://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
-                'label'
-            ],
-            [
-                'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
-                'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif'
-            ],
-
-            // Wikipedia
-            [
-                'https://sv.m.wikipedia.org/wiki/Bullet',
-                'https://sv.wikipedia.org/wiki/Bullet',
-            ],
-            [
-                'http://wikipedia.org/wiki/Oberhofer',
-                'https://en.wikipedia.org/wiki/Oberhofer',
-            ],
-            [
-                'it.wikipedia.org/wiki/Foo',
-                'https://it.wikipedia.org/wiki/Foo',
-            ],
-            // Wikidata
-            [
-                'https://www.wikidata.org/wiki/Q638',
-                'https://www.wikidata.org/wiki/Q638',
-            ],
-            [
-                'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
-                'https://www.wikidata.org/wiki/Q14005',
-            ],
-            // Open Library
-            [
-                'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
-                'http://openlibrary.org/books/OL8993487M/',
-            ],
-            // VIAF
-            [
-                'http://viaf.org/viaf/16766997',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'http://viaf.org/viaf/16766997/',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'http://viaf.org/viaf/16766997/#Rovics,_David',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'http://viaf.org/viaf/16766997/?test=true',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'viaf.org/viaf/16766997/',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'www.viaf.org/viaf/16766997/',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
-                'http://viaf.org/viaf/16766997',
-            ],
-            [
-                'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
-                'http://viaf.org/viaf/32197206',
-            ],
-            // Anime News Network
-            [
-                'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
-                'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
-            ],
-            [
-                'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
-                'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
-            ],
-            // Generasia
-            [
-                'http://generasia.com/wiki/Wink',
-                'http://www.generasia.com/wiki/Wink',
-            ],
-            [
-                'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
-                'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
-            ],
-            // Mora
-            [
-                'https://www.mora.jp/package/43000002/ANTCD-3106?test',
-                'http://mora.jp/package/43000002/ANTCD-3106/',
-            ],
-            [
-                'mora.jp/package/43000002/ANTCD-3106/',
-                'http://mora.jp/package/43000002/ANTCD-3106/',
-            ],
-            [
-                'http://mora.jp/package/43000021/SQEX-20016_F/#',
-                'http://mora.jp/package/43000021/SQEX-20016_F/',
-            ],
-            // Musik-Sammler.de
-            [
-                'https://musik-sammler.de/artist/100743?test',
-                'https://www.musik-sammler.de/artist/100743/',
-                'artist'
-            ],
-            [
-                'http://www.musik-sammler.de/artist/end-of-a-year/#',
-                'https://www.musik-sammler.de/artist/end-of-a-year/',
-                'artist'
-            ],
-            [
-                'musik-sammler.de/media/594158',
-                'https://www.musik-sammler.de/media/594158/',
-                'release'
-            ],
-            [
-                'https://www.musik-sammler.de/album/804508/review/rain/',
-                'https://www.musik-sammler.de/album/804508/',
-                'release_group'
-            ],
-            // Soundtrack Collector
-            [
-                'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
-                'http://soundtrackcollector.com/composer/94/',
-                'artist'
-            ],
-            [
-                'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
-                'http://soundtrackcollector.com/title/39473/',
-                'release_group'
-            ],
-            [
-                'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
-                'http://soundtrackcollector.com/title/99711/',
-                'release_group'
-            ],
-            [
-                'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
-                'http://soundtrackcollector.com/composer/94/',
-                'artist'
-            ],
-            // Recochoku
-            [
-                'https://www.recochoku.jp/album/30282664?test',
-                'http://recochoku.jp/album/30282664/',
-            ],
-            [
-                'recochoku.jp/song/S21893898/',
-                'http://recochoku.jp/song/S21893898/',
-            ],
-            // Rockipedia
-            [
-                'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
-                'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
-            ],
-            // VGMdb
-            [
-                'https://vgmdb.net/artist/431',
-                'http://vgmdb.net/artist/431',
-                'artist'
-            ],
-            [
-                'https://vgmdb.com/org/284',
-                'http://vgmdb.net/org/284',
-                'label'
-            ],
-            [
-                'vgmdb.net/album/29727',
-                'http://vgmdb.net/album/29727',
-                'release'
-            ],
-            [
-                'http://www.lastfm.com.br/venue/8803923+Gigantinho',
-                'http://www.last.fm/venue/8803923+Gigantinho',
-            ],
-            [
-                'http://www.lastfm.com/music/Carving+Colours',
-                'http://www.last.fm/music/Carving+Colours',
-            ],
-            [
-                'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
-                'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
-                'work'
-            ],
-            [
-                'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
-                'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
-                'work'
-            ],
-            [
-                'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
-                'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg'
-            ],
-            [
-                'http://www.geonames.org/6255147/asia.html',
-                'http://sws.geonames.org/6255147/',
-                'area'
-            ],
-            // Genius
-            [
-                'http://genius.com/artists/Dramatik',
-                'http://genius.com/artists/Dramatik',
-                'artist'
-            ],
-            [
-                'http://genius.com/albums/The-dream/Terius-nash-1977',
-                'http://genius.com/albums/The-dream/Terius-nash-1977',
-                'release_group'
-            ],
-            [
-                'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
-                'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
-                'work'
-            ],
-            // Trove
-            [
-                'http://trove.nla.gov.au/people/1448035?c=people',
-                'http://nla.gov.au/nla.party-1448035',
-                'label'
-            ],
-            [
-                'https://nla.gov.au/nla.party-548358/',
-                'http://nla.gov.au/nla.party-548358',
-                'artist'
-            ],
-            [
-                'trove.nla.gov.au/work/9438679',
-                'http://trove.nla.gov.au/work/9438679',
-                'release_group'
-            ],
-            [
-                'http://nla.gov.au/anbd.bib-an11701020#',
-                'http://nla.gov.au/anbd.bib-an11701020',
-                'release_group'
-            ],
-            // ClassicalArchives.com
-            [
-                'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
-                'http://www.classicalarchives.com/composer/2806.html',
-                'artist'
-            ],
-            [
-                'http://classicalarchives.com/album/menlo-201409.html?test',
-                'http://www.classicalarchives.com/album/menlo-201409.html',
-                'release'
-            ],
-            [
-                'https://www.classicalarchives.com/work/1119282.html',
-                'http://www.classicalarchives.com/work/1119282.html',
-                'work'
-            ],
-            // CDJapan.co.jp
-            [
-                'www.cdjapan.co.jp/person/76324#test',
-                'http://www.cdjapan.co.jp/person/76324',
-                'artist'
-            ],
-            [
-                'https://cdjapan.co.jp/product/COCC-72267?test',
-                'http://www.cdjapan.co.jp/product/COCC-72267',
-                'release'
-            ],
-            // Sina Weibo
-            [
-                'www.weibo.com/mchotdog2010#test',
-                'http://www.weibo.com/mchotdog2010',
-                'artist'
-            ],
-            [
-                'https://weibo.com/mchotdog2010?test',
-                'http://www.weibo.com/mchotdog2010',
-                'label'
-            ],
-            // LinkedIn
-            [
-                'http://www.linkedin.com/in/test',
-                'https://www.linkedin.com/in/test',
-                'artist'
-            ],
-            // Foursquare
-            [
-                'http://www.foursquare.com/test',
-                'https://foursquare.com/test',
-                'place'
-            ],
-            [
-                'http://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-                'https://foursquare.com/v/high-line/40f1d480f964a5206a0a1fe3',
-                'place'
-            ],
-            // MBS-8457: Remove "?oldformat=true" from Wikipedia URLs
-            [
-                'http://en.wikipedia.org/wiki/Ramesh_Vinayakam?oldformat=true',
-                'https://en.wikipedia.org/wiki/Ramesh_Vinayakam'
-            ],
-            // BookBrainz
-            [
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                'artist'
-            ],
-            [
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                'artist'
-            ],
-            [
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d#content',
-                'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d',
-                'artist'
-            ],
-            [
-                'http://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
-                'https://bookbrainz.org/publisher/252aed09-dc5f-46d6-aa32-323d5d44351d',
-                'label'
-            ],
-            [
-                'bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
-                'https://bookbrainz.org/edition/9f8f399f-7221-4e98-86aa-d117302c60de',
-                'release'
-            ],
-            [
-                'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de/',
-                'https://bookbrainz.org/publication/e8da2663-0ffc-45b1-a95d-eb2a0917f8de',
-                'release_group'
-            ],
-            [
-                'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c/edits',
-                'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
-                'work'
-            ],
-            // Patronage sites
-            [
-                'https://www.changetip.com/tipme/example',
-                'https://www.changetip.com/tipme/example'
-            ],
-            [
-                'example.tip.me',
-                'https://www.changetip.com/tipme/example'
-            ],
-            [
-                'http://www.flattr.com/profile/example',
-                'https://flattr.com/profile/example'
-            ],
-            [
-                'https://patreon.com/example#reactTargetCreatorPage',
-                'https://www.patreon.com/example'
-            ],
-            [
-                'https://www.paypal.me/example?q=test',
-                'https://www.paypal.me/example'
-            ],
-            [
-                'https://www.tipeee.com/example/news',
-                'https://www.tipeee.com/example'
-            ],
-            // Crowdfunding sites
-            [
-                'https://www.indiegogo.com/individuals/0123456789/campaigns',
-                'https://www.indiegogo.com/individuals/0123456789',
-            ],
-            [
-                'https://www.indiegogo.com/projects/common-example?locale=es#/',
-                'https://www.indiegogo.com/projects/common-example'
-            ],
-            [
-                'https://www\.kickstarter\.com/profile/0123456789/bio',
-                'https://www\.kickstarter\.com/profile/0123456789'
-            ],
-            [
-                'https://www\.kickstarter\.com/projects/0123456789/common-example#main-navigation',
-                'https://www\.kickstarter\.com/projects/0123456789/common-example'
-            ]
-        ];
-
-    $.each(tests, function (i, test) {
-        t.equal(cleanURL(test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+    _.each(test_data, function (subtest, i) {
+        t.test('input URL [' + i + '] = ' + subtest.input_url, {}, function(st) {
+            var tested = false;
+            if (!subtest.input_url) {
+                st.fail('Test is invalid: "input_url" is missing: ' + JSON.stringify(subtest));
+                st.end();
+                return;
+            }
+            if (subtest.input_entity_type) {
+                if (subtest.hasOwnProperty('expected_relationship_type')) {
+                    if (previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.input_url) !== -1) {
+                        st.fail('Match test is worthless: Duplication has been detected: ' + JSON.stringify(subtest));
+                    }
+                    doMatchSubtest(st, subtest.input_entity_type, subtest.input_url, 'input', subtest.expected_relationship_type);
+                    tested = true;
+                } else {
+                    st.fail('Test is invalid: "input_entity_type" is specified without "expected_relationship_type".');
+                    st.end();
+                    return;
+                }
+            } else if (subtest.hasOwnProperty('expected_relationship_type')) {
+                st.fail('Test is invalid: "expected_relationship_type" is specified without "input_entity_type".');
+                st.end();
+                return;
+            }
+            var actual_clean_url = cleanURL(subtest.input_url);
+            if (subtest.expected_clean_url) {
+                st.equal(actual_clean_url, subtest.expected_clean_url, 'Clean up');
+                if (subtest.input_entity_type && subtest.hasOwnProperty('expected_relationship_type')
+                        && previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.expected_clean_url) === -1) {
+                    doMatchSubtest(st, subtest.input_entity_type, subtest.expected_clean_url, 'clean', subtest.expected_relationship_type);
+                }
+                tested = true;
+            }
+            if (subtest.input_relationship_type && !subtest.only_valid_entity_types) {
+                st.fail('Test is invalid: "input_relationship_type" is specified without "only_valid_entity_types" array.');
+                st.end();
+                return;
+            }
+            if (subtest.only_valid_entity_types) {
+                var relationship_type = subtest.input_relationship_type || subtest.expected_relationship_type;
+                var clean_url = subtest.expected_clean_url || actual_clean_url;
+                if (!relationship_type) {
+                    st.fail('Test is invalid: "only_valid_entity_types" are specified with neither "expected_relationship_type" nor "input_relationship_type".');
+                    st.end();
+                    return;
+                }
+                var nb_tested_rules = 0;
+                var validation_results = _.reduce(LINK_TYPES[relationship_type], function(results, rel_uuid, entity_type) {
+                    var rule = validationRules[rel_uuid];
+                    var is_valid = rule ? rule(clean_url) || false : true;
+                    results[is_valid].splice(_.sortedIndex(results[is_valid], entity_type), 0, entity_type);
+                    nb_tested_rules += rule ? 1 : 0;
+                    return results;
+                }, {true: [], false: []});
+                if (nb_tested_rules === 0) {
+                    st.fail('Validation test is worthless: No validation rule has been actually tested.');
+                } else {
+                    st.deepEqual(validation_results.true, subtest.only_valid_entity_types.sort(),
+                            'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length
+                            + ' among ' + nb_tested_rules + ' ' + relationship_type + '.* rules');
+                    tested = true;
+                }
+            }
+            if (!tested) {
+                st.fail('Test is worthless: Nothing has been actually tested.');
+            }
+            st.end();
+        });
     });
 
     t.end();
