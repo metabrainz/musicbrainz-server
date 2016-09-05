@@ -1367,6 +1367,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
@@ -1384,6 +1385,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/title/99711/',
+               only_valid_entity_types: ['release_group']
         },
         // Spirit of Rock
         {
