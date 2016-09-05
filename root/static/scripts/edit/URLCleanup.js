@@ -812,15 +812,12 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      if (id !== LINK_TYPES.otherdatabases.artist) {
-        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/title\//.test(url);
-      } else if (id !== LINK_TYPES.otherdatabases.release) {
-        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/title\//.test(url)
-          && !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/composer\//.test(url);
-      } else if (id !== LINK_TYPES.otherdatabases.release_group) {
-        return !/^(https?:\/\/)?(www\.)?soundtrackcollector\.com\/composer\//.test(url);
+      if (id === LINK_TYPES.otherdatabases.artist) {
+        return /^http:\/\/soundtrackcollector\.com\/composer\/[0-9]+\/$/.test(url);
+      } else if (id === LINK_TYPES.otherdatabases.release_group) {
+        return /^http:\/\/soundtrackcollector\.com\/title\/[0-9]+\/$/.test(url);
       } else {
-        return true; // FIXME return false once all cases have been checked
+        return false;
       }
     }
   },
