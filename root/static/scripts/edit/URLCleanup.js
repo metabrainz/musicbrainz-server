@@ -732,7 +732,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?rockensdanmarkskort\\.dk", "i"),
       new RegExp("^(https?://)?((www|wiki)\\.)?rockinchina\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?dhhu\\.dk", "i"),
-      new RegExp("^(https?://)?(www\\.)?thesession\\.org", "i"),
       new RegExp("^(https?://)?(www\\.)?openlibrary\\.org", "i"),
       new RegExp("^(https?://)?(www\\.)?animenewsnetwork\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i"),
@@ -791,8 +790,6 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockipedia\.no\/(utgivelser|artister|plateselskap)\/(.+)\/.*$/, "http://www.rockipedia.no/$1/$2/");
       // Standardising DHHU
       url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
-      // Standardising The Session
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
       // Standardising Open Library
       url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
       // Standardising Anime News Network
@@ -816,6 +813,26 @@ const CLEANUPS = {
         return /^http:\/\/soundtrackcollector\.com\/composer\/[0-9]+\/$/.test(url);
       } else if (id === LINK_TYPES.otherdatabases.release_group) {
         return /^http:\/\/soundtrackcollector\.com\/title\/[0-9]+\/$/.test(url);
+      } else {
+        return false;
+      }
+    }
+  },
+  thesession: {
+    match: [new RegExp("^(https?://)?(www\\.)?thesession\\.org", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
+    },
+    validate: function (url, id) {
+      if (id === LINK_TYPES.otherdatabases.artist) {
+        return /^http:\/\/thesession\.org\/recordings\/artists\/[0-9]+$/.test(url);
+      } else if (id === LINK_TYPES.otherdatabases.event) {
+        return /^http:\/\/thesession\.org\/events\/[0-9]+$/.test(url);
+      } else if (id === LINK_TYPES.otherdatabases.release_group) {
+        return /^http:\/\/thesession\.org\/recordings\/[0-9]+$/.test(url);
+      } else if (id === LINK_TYPES.otherdatabases.work) {
+        return /^http:\/\/thesession\.org\/tunes\/[0-9]+$/.test(url);
       } else {
         return false;
       }
