@@ -768,18 +768,21 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/artist/id444923726',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                      input_entity_type: 'recording',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/music-video/id564322420',
+               only_valid_entity_types: ['recording']
         },
         {
                              input_url: 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/au/preorder/id499465357',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
@@ -810,18 +813,28 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/us/album/id547068224',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://linkmaker.itunes.apple.com/en-us/details/547068224?q=lonerism&country=us&media=music&genre=all',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
         },
         {
                              input_url: 'https://itunes.apple.com/de/audiobook/der-marsianer/id923371856?mt=3&ign-mpt=uo%3D4',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/de/audiobook/id923371856',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'https://itunes.apple.com/ir/podcast/bia2.com-masouds-podcast/id469326376',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://itunes.apple.com/ir/podcast/id469326376',
+               only_valid_entity_types: ['release']
         },
         // Jamendo Music
         {
