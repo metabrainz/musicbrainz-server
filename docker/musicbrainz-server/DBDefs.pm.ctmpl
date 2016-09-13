@@ -1,0 +1,192 @@
+{{- define "QUOTED_STRING" -}}
+    '{{- . | replaceAll "\\" "\\\\" | replaceAll "'" "\\'" -}}'
+{{- end -}}
+
+{{- define "CODE_DEF" -}}
+    {{- $value := key_or_default (printf "docker-server-configs/services/%s.musicbrainz-server.json/DBDefs/%s" (or (env "DEPLOY_ENV") "dev") .) "__CONSUL_NO_DATA__" -}}
+    {{- if ne $value "__CONSUL_NO_DATA__" -}}
+        sub {{.}} { {{$value}} }
+    {{- end -}}
+{{- end -}}
+
+{{- define "STRING_DEF" -}}
+    {{- $value := key_or_default (printf "docker-server-configs/services/%s.musicbrainz-server.json/DBDefs/%s" (or (env "DEPLOY_ENV") "dev") .) "__CONSUL_NO_DATA__" -}}
+    {{- if ne $value "__CONSUL_NO_DATA__" -}}
+        sub {{.}} { {{template "QUOTED_STRING" $value}} }
+    {{- end -}}
+{{- end -}}
+
+{{- define "WORDS_DEF" -}}
+    {{- $value := key_or_default (printf "docker-server-configs/services/%s.musicbrainz-server.json/DBDefs/%s" (or (env "DEPLOY_ENV") "dev") .) "__CONSUL_NO_DATA__" -}}
+    {{- if ne $value "__CONSUL_NO_DATA__" -}}
+        sub {{.}} { qw( {{$value}} ) }
+    {{- end -}}
+{{- end -}}
+
+package DBDefs;
+
+use strict;
+use warnings;
+
+use base 'DBDefs::Default';
+
+use MusicBrainz::Server::DatabaseConnectionFactory;
+use MusicBrainz::Server::Replication ':replication_type';
+
+MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
+    {{with $service_name := or (env "MBS_POSTGRES_MASTER_SERVICE") "postgres-master"}}
+    {{- if service $service_name}}
+    {{- with index (service $service_name) 0}}
+    MAINTENANCE => {
+        database    => 'musicbrainz_db',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    SYSTEM => {
+        database    => 'template1',
+        schema      => '',
+        username    => 'postgres',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    TEST => {
+        database    => 'musicbrainz_test',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    {{- end}}
+    {{- end}}
+    {{- end}}
+    {{with $service_name := or (env "MBS_PGBOUNCER_MASTER_SERVICE") "pgbouncer-master"}}
+    {{- if service $service_name}}
+    {{- with index (service $service_name) 0}}
+    READWRITE => {
+        database    => 'musicbrainz_db',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    {{- end}}
+    {{- end}}
+    {{- end}}
+    {{with $service_name := or (env "MBS_PGBOUNCER_SLAVE_SERVICE") "pgbouncer-slave"}}
+    {{- if service $service_name}}
+    {{- with index (service $service_name) 0}}
+    READONLY => {
+        database    => 'musicbrainz_db',
+        schema      => 'musicbrainz',
+        username    => 'musicbrainz',
+        host        => '{{.Address}}',
+        port        => {{.Port}},
+    },
+    {{- end}}
+    {{- end}}
+    {{- end}}
+);
+
+{{- if service "musicbrainz-smtp"}}
+{{- with index (service "musicbrainz-smtp") 0}}
+sub SMTP_SERVER { '{{.Address}}:{{.Port}}' }
+{{- end}}
+{{- end}}
+
+{{with $service_name := or (env "MBS_REDIS_STORE_SERVICE") "musicbrainz-redis-store"}}
+{{- if service $service_name}}
+{{- with index (service $service_name) 0}}
+sub DATASTORE_REDIS_ARGS {
+    return {
+        namespace => 'MB:',
+        test_database => 1,
+        database => 0,
+        server => '{{.Address}}:{{.Port}}',
+    };
+}
+{{- end}}
+{{- end}}
+{{- end}}
+
+{{with $service_name := or (env "MBS_REDIS_CACHE_SERVICE") "musicbrainz-redis-cache"}}
+{{- if service $service_name}}
+{{- with index (service $service_name) 0}}
+sub PLUGIN_CACHE_OPTIONS {
+    my $self = shift;
+    return {
+        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        server => '{{.Address}}:{{.Port}}',
+        namespace => 'MB:Catalyst:',
+    };
+}
+
+sub CACHE_MANAGER_OPTIONS {
+    my $self = shift;
+    my %CACHE_MANAGER_OPTIONS = (
+        profiles => {
+            external => {
+                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                options => {
+                    server => '{{.Address}}:{{.Port}}',
+                    namespace => 'MB:',
+                },
+            },
+        },
+        default_profile => 'external',
+    );
+    return \%CACHE_MANAGER_OPTIONS
+}
+{{- end}}
+{{- end}}
+{{- end}}
+
+sub COVER_ART_ARCHIVE_ACCESS_KEY { {{template "QUOTED_STRING" (key_or_default "docker-server-configs/constants.json/caa_access_key" "")}} }
+
+sub COVER_ART_ARCHIVE_SECRET_KEY { {{template "QUOTED_STRING" (key_or_default "docker-server-configs/constants.json/caa_secret_key" "")}} }
+
+{{template "CODE_DEF" "CATALYST_DEBUG"}}
+{{template "CODE_DEF" "DB_READ_ONLY"}}
+{{template "CODE_DEF" "DB_STAGING_SERVER_DESCRIPTION"}}
+{{template "CODE_DEF" "DB_STAGING_SERVER_SANITIZED"}}
+{{template "CODE_DEF" "DB_STAGING_TESTING_FEATURES"}}
+{{template "CODE_DEF" "DEVELOPMENT_SERVER"}}
+{{template "CODE_DEF" "ENTITY_CACHE_TTL"}}
+{{template "CODE_DEF" "IS_BETA"}}
+{{template "CODE_DEF" "LUCENE_X_ACCEL_REDIRECT"}}
+{{template "CODE_DEF" "RENDERER_X_ACCEL_REDIRECT"}}
+{{template "CODE_DEF" "REPLICATION_TYPE"}}
+{{template "STRING_DEF" "AMAZON_ASSOCIATE_TAG"}}
+{{template "STRING_DEF" "AWS_PRIVATE"}}
+{{template "STRING_DEF" "AWS_PUBLIC"}}
+{{template "STRING_DEF" "BETA_REDIRECT_HOSTNAME"}}
+{{template "STRING_DEF" "DB_SCHEMA_SEQUENCE"}}
+{{template "STRING_DEF" "DB_STAGING_SERVER"}}
+{{template "STRING_DEF" "DETERMINE_MAX_REQUEST_TIME"}}
+{{template "STRING_DEF" "DISCOURSE_API_KEY"}}
+{{template "STRING_DEF" "DISCOURSE_API_USERNAME"}}
+{{template "STRING_DEF" "DISCOURSE_SERVER"}}
+{{template "STRING_DEF" "DISCOURSE_SSO_SECRET"}}
+{{template "STRING_DEF" "EMAIL_BUGS"}}
+{{template "STRING_DEF" "GOOGLE_ANALYTICS_CODE"}}
+{{template "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
+{{template "STRING_DEF" "GPG_ENCRYPT_KEY"}}
+{{template "STRING_DEF" "GPG_SIGN_KEY"}}
+{{template "STRING_DEF" "LUCENE_SERVER"}}
+{{template "STRING_DEF" "MAPBOX_ACCESS_TOKEN"}}
+{{template "STRING_DEF" "RECAPTCHA_PRIVATE_KEY"}}
+{{template "STRING_DEF" "RECAPTCHA_PUBLIC_KEY"}}
+{{template "STRING_DEF" "RENDERER_HOST"}}
+{{template "STRING_DEF" "RENDERER_PORT"}}
+{{template "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
+{{template "STRING_DEF" "SESSION_COOKIE"}}
+{{template "STRING_DEF" "SMTP_SECRET_CHECKSUM"}}
+{{template "STRING_DEF" "SSL_REDIRECTS_ENABLED"}}
+{{template "STRING_DEF" "STATIC_RESOURCES_LOCATION"}}
+{{template "STRING_DEF" "WEB_SERVER"}}
+{{template "STRING_DEF" "WEB_SERVER_SSL"}}
+{{template "STRING_DEF" "WEB_SERVER_USED_IN_EMAIL"}}
+{{template "WORDS_DEF" "MB_LANGUAGES"}}
+
+1;

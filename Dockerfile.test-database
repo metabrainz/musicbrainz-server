@@ -1,0 +1,60 @@
+FROM postgres:9.5.4
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# install_extensions.sh removes certain build dependencies that we need, so we
+# can't install everything here.
+# Note: curl is also a dependency of carton.
+RUN apt-get update && \
+    apt-get install -y curl
+
+RUN cd /tmp && \
+    curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/558325c/postgres-base/install_extensions.sh && \
+    chmod +x install_extensions.sh && \
+    ./install_extensions.sh && \
+    rm install_extensions.sh
+
+ARG BUILD_DEPS=" \
+    gcc \
+    libc6-dev \
+    make \
+    postgresql-server-dev-9.5"
+
+ARG RUN_DEPS=" \
+    carton \
+    postgresql-9.5-pgtap"
+
+RUN apt-get update && \
+    apt-get install \
+        --no-install-recommends \
+        --no-install-suggests \
+        -y \
+        $BUILD_DEPS \
+        $RUN_DEPS && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root/musicbrainz-server
+
+COPY \
+    docker/musicbrainz-test-database/cpanfile \
+    docker/musicbrainz-test-database/cpanfile.snapshot \
+    ./
+
+ENV PERL_CPANM_OPT --notest --no-interactive
+RUN carton install --deployment
+
+RUN apt-get purge -y $BUILD_DEPS && \
+    apt-get autoremove -y
+
+COPY admin/ admin/
+COPY lib/ lib/
+COPY script/ script/
+COPY t/sql/initial.sql t/sql/
+
+COPY docker/musicbrainz-test-database/DBDefs.pm lib/
+
+COPY \
+    docker/musicbrainz-test-database/create_test_db.sh \
+    /docker-entrypoint-initdb.d/
+
+WORKDIR /

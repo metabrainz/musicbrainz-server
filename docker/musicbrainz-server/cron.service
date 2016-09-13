@@ -1,0 +1,21 @@
+#!/bin/bash
+
+source /etc/mbs_service_functions.sh
+
+install_crontab() {
+    local NAME=$1
+    crontab -u musicbrainz -l > /tmp/crontab
+    cat $MBS_ROOT/docker/musicbrainz-server/$NAME >> /tmp/crontab
+    crontab -u musicbrainz /tmp/crontab
+    rm /tmp/crontab
+}
+
+if [ "$MBS_PRODUCTION_CRON" = "1" ]; then
+    install_crontab 'crontab.production'
+fi
+
+if [ "$MBS_SITEMAPS_CRON" = "1" ]; then
+    install_crontab 'crontab.sitemaps'
+fi
+
+exec /usr/sbin/cron -f

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec node /home/musicbrainz/musicbrainz-template-renderer/root/server.js

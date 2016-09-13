@@ -1,0 +1,90 @@
+version: '2'
+
+services:
+  consul:
+    command: -server -bootstrap
+    image: progrium/consul
+    ports:
+      - "8500:8500"
+
+  git2consul:
+    command: --endpoint consul --port 8500 --config-file /tmp/musicbrainz-server.git/docker/git2consul.json
+    image: cimpress/git2consul
+    links:
+      - consul
+    restart: always
+    volumes:
+      - ./:/tmp/musicbrainz-server.git
+
+  musicbrainz-server:
+    build: ./
+    depends_on:
+      - git2consul
+    environment:
+      - CONSUL_HOST=consul
+      - DEPLOY_ENV=dev
+      - SERVICE_NAME=musicbrainz-server
+      - SERVICE_TAGS=dev
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/home/musicbrainz/musicbrainz-server
+
+  musicbrainz-template-renderer:
+    build: ./
+    depends_on:
+      - git2consul
+    environment:
+      - CONSUL_HOST=consul
+      - DEPLOY_ENV=dev
+      - SERVICE_NAME=musicbrainz-template-renderer
+      - SERVICE_TAGS=dev
+    ports:
+      - "9009:9009"
+
+  postgres-master:
+    depends_on:
+      - git2consul
+    environment:
+      - CONSUL_HOST=consul
+      - SERVICE_5432_NAME=postgres-master
+      - SERVICE_6899_NAME=pgbouncer-master
+      - SERVICE_TAGS=dev
+    image: metabrainz/postgres-master
+    ports:
+      - "5432:5432"
+      - "6899:6899"
+    volumes:
+      - postgres-master-data:/var/lib/postgresql/data
+
+  musicbrainz-redis-cache:
+    depends_on:
+      - git2consul
+    environment:
+      - SERVICE_NAME=musicbrainz-redis-cache
+      - SERVICE_TAGS=dev
+    image: 3.2.4-alpine
+    ports:
+      - "6379:6379"
+
+  musicbrainz-redis-store:
+    depends_on:
+      - git2consul
+    environment:
+      - SERVICE_NAME=musicbrainz-redis-store
+      - SERVICE_TAGS=dev
+    image: 3.2.4-alpine
+    ports:
+      - "6380:6379"
+
+  registrator:
+    command: -internal consul://consul:8500
+    image: gliderlabs/registrator
+    links:
+      - consul
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+
+volumes:
+  postgres-master-data:
+    driver: local
