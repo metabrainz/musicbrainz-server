@@ -1,0 +1,83 @@
+# Automatically generated, do not edit.
+FROM metabrainz/consul-template-base
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+ARG RUN_DEPS=" \
+    ca-certificates \
+    libdb5.3 \
+    libexpat1 \
+    libicu55 \
+    libpq5 \
+    libssl1.0.0 \
+    perl \
+    postgresql-client-9.5 \
+    # Provides pg_config.
+    postgresql-server-dev-9.5"
+
+ARG BUILD_DEPS=" \
+    build-essential \
+    libdb-dev \
+    libexpat1-dev \
+    libicu-dev \
+    libperl-dev \
+    libpq-dev \
+    libssl-dev \
+    libxml2-dev"
+
+RUN useradd --create-home --shell /bin/bash musicbrainz
+
+ARG MBS_ROOT=/home/musicbrainz/musicbrainz-server
+WORKDIR $MBS_ROOT
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT
+
+COPY cpanfile cpanfile.snapshot ./
+
+ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
+ENV PERL_CPANM_OPT --notest --no-interactive
+
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        $RUN_DEPS $BUILD_DEPS && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    cpanm Carton && \
+    mkdir -p $PERL_CARTON_PATH && \
+    chown -R musicbrainz:musicbrainz $PERL_CARTON_PATH && \
+    sudo -E -H -u musicbrainz carton install --deployment && \
+    apt-get purge --auto-remove -y $BUILD_DEPS
+
+COPY app.psgi entities.json ./
+COPY \
+    docker/templates/DBDefs.pm.ctmpl \
+    lib/ \
+    lib/
+COPY docker/scripts/mbs_constants.sh /etc/
+
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT
+
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        rsync && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /home/musicbrainz/backup && \
+    chown -R musicbrainz:musicbrainz /home/musicbrainz/backup && \
+    mkdir -p /var/ftp/pub/musicbrainz/data && \
+    chown -R musicbrainz:musicbrainz /var/ftp/pub/musicbrainz/data
+
+COPY admin/ admin/
+COPY bin/ bin/
+
+COPY docker/musicbrainz-production-cron/consul-template.conf /etc/
+
+COPY \
+    docker/musicbrainz-production-cron/crontab \
+    /var/spool/cron/crontabs/musicbrainz

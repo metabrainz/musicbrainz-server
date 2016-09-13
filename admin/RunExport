@@ -94,6 +94,4 @@ then
     ./bin/rsync-fullexport-files
 fi
 
-./bin/rsync-replication-files
-
 # eof
