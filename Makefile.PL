@@ -136,7 +136,6 @@ feature 'Developer features' =>
 
 feature 'Production server' =>
     'Digest::MD5::File' => '0.07',
-    'Catalyst::Plugin::AutoRestart' => '0.96',
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.13',
     'Catalyst::Plugin::Session::Store::Memcached' => '0.05',
     'FCGI' => '0.74',
