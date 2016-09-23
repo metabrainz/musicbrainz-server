@@ -313,9 +313,10 @@ sub begin : Private
     }
 
     # Update the tagger port
-    if (exists $c->req->query_params->{tport})
-    {
-        $c->session->{tport} = $c->req->query_params->{tport};
+    if (defined $c->req->query_params->{tport}) {
+        my ($tport) = $c->req->query_params->{tport} =~ /^([0-9]{1,5})$/
+            or $c->forward('/error_400');
+        $c->session->{tport} = $tport;
     }
 
     # Merging
