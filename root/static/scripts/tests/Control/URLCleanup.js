@@ -465,8 +465,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.discogs.com/artist/Source+Direct',
+                                        // old-style URL without numerical ID
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
+               only_valid_entity_types: [],
         },
         {
                              input_url: 'http://www.discogs.com/artist/1944002-',
@@ -500,8 +502,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         {
                              input_url: 'http://www.discogs.com/label/Demonic',
+                                        // old-style URL without numerical ID
                      input_entity_type: 'label',
             expected_relationship_type: 'discogs',
+               only_valid_entity_types: [],
         },
         {
                              input_url: 'http://www.discogs.com/release/12130',

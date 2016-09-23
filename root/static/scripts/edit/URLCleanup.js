@@ -840,26 +840,26 @@ validationRules[LINK_TYPES.lyrics.work] = function (url) {
 
 // allow Discogs page only for the correct entities
 validationRules[LINK_TYPES.discogs.artist] = function (url) {
-  return /discogs\.com\/(artist|user)\//.test(url);
+  return /^https:\/\/www\.discogs\.com\/(?:artist\/[0-9]+|user\/.+)$/.test(url);
 };
 
 function validateDiscogsLabel(url) {
-  return /discogs\.com\/label\//.test(url);
+  return /^https:\/\/www\.discogs\.com\/label\/[0-9]+$/.test(url);
 }
 
 validationRules[LINK_TYPES.discogs.label] = validateDiscogsLabel;
 validationRules[LINK_TYPES.discogs.series] = validateDiscogsLabel;
 
 validationRules[LINK_TYPES.discogs.place] = function (url) {
-  return /discogs\.com\/(artist|label)\//.test(url);
+  return /^https:\/\/www\.discogs\.com\/(?:artist|label)\/[0-9]+$/.test(url);
 };
 
 validationRules[LINK_TYPES.discogs.release_group] = function (url) {
-  return /discogs\.com\/master\//.test(url);
+  return /^https:\/\/www\.discogs\.com\/master\/[0-9]+$/.test(url);
 };
 
 validationRules[LINK_TYPES.discogs.release] = function (url) {
-  return /discogs\.com\/(release|mp3)\//.test(url);
+  return /^https:\/\/www\.discogs\.com\/release\/[0-9]+$/.test(url);
 };
 
 // allow Allmusic page only for the correct entities
