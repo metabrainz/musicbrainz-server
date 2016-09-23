@@ -514,6 +514,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                only_valid_entity_types: ['release']
         },
         {
+                             input_url: 'https://www.discogs.com/release/7086846-Rocks/images',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/release/7086846',
+               only_valid_entity_types: ['release'],
+        },
+        {
                              input_url: 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
@@ -523,6 +530,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'http://www.discogs.com/master/267989',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://www.discogs.com/master/681937-80s-Mixtape/history',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'http://www.discogs.com/master/681937',
                only_valid_entity_types: ['release_group']
         },
         {
