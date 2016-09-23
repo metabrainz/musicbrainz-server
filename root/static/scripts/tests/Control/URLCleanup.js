@@ -462,6 +462,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.discogs.com/artist/301-Source-Direct',
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/artist/301',
         },
         {
                              input_url: 'http://www.discogs.com/artist/Source+Direct',
@@ -474,31 +475,32 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.discogs.com/artist/1944002-',
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/artist/1944002',
+                    expected_clean_url: 'https://www.discogs.com/artist/1944002',
         },
         {
                              input_url: 'http://www.discogs.com/artist/3080207-Maybebop',
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/artist/3080207',
+                    expected_clean_url: 'https://www.discogs.com/artist/3080207',
         },
         {
                              input_url: 'https://www.discogs.com/artist/997299-Guy-Balbaert?filter_anv=0&subtype=Writing-Arrangement&type=Credits',
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/artist/997299',
+                    expected_clean_url: 'https://www.discogs.com/artist/997299',
         },
         {
                              input_url: 'https://www.discogs.com/artist/535943-Teresa-Teng?filter_anv=1&anv=%E9%84%A7%E9%BA%97%E5%90%9B',
                      input_entity_type: 'artist',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/artist/535943',
+                    expected_clean_url: 'https://www.discogs.com/artist/535943',
                only_valid_entity_types: ['artist', 'place']
         },
         {
                              input_url: 'http://www.discogs.com/label/2262-Demonic',
                      input_entity_type: 'label',
             expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/label/2262',
         },
         {
                              input_url: 'http://www.discogs.com/label/Demonic',
@@ -511,39 +513,41 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.discogs.com/release/12130',
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/release/12130',
                only_valid_entity_types: ['release']
         },
         {
                              input_url: 'https://www.discogs.com/release/7086846-Rocks/images',
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/release/7086846',
+                    expected_clean_url: 'https://www.discogs.com/release/7086846',
                only_valid_entity_types: ['release'],
         },
         {
                              input_url: 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/master/126685',
         },
         {
                              input_url: 'http://www.discogs.com/master/view/267989',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/master/267989',
+                    expected_clean_url: 'https://www.discogs.com/master/267989',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.discogs.com/master/681937-80s-Mixtape/history',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/master/681937',
+                    expected_clean_url: 'https://www.discogs.com/master/681937',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
-                    expected_clean_url: 'http://www.discogs.com/release/5578',
+                    expected_clean_url: 'https://www.discogs.com/release/5578',
         },
         // e-onkyo music
         {
