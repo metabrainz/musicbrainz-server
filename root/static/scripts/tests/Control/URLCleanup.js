@@ -1688,7 +1688,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q14005',
         },
-        // Wikimedia
+        // Wikimedia Commons
         {
                              input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
                      input_entity_type: 'artist',
