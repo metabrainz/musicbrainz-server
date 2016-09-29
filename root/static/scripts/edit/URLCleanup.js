@@ -491,6 +491,7 @@ const CLEANUPS = {
       url = url.replace(/\/wiki\/[^#]+#mediaviewer\/(.*)/, "\/wiki\/$1");
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
       url = url.replace(/\?uselang=[a-z-]+$/, "");
+      url = url.replace(/#.*$/, "");
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, "https://commons.wikimedia.org/wiki/File:");
     }
   },
