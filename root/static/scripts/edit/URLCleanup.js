@@ -460,13 +460,13 @@ const CLEANUPS = {
     type: LINK_TYPES.bbcmusic
   },
   image: {
-    match: [new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
+    match: [new RegExp("^(https?://)?(commons\\.(m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
     type: LINK_TYPES.image,
     clean: function (url) {
       url = url.replace(/\/wiki\/[^#]+#mediaviewer\/(.*)/, "\/wiki\/$1");
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
       url = url.replace(/\?uselang=[a-z-]+$/, "");
-      return url.replace(/^https?:\/\/commons\.wikimedia\.org\/wiki\/(File|Image):/, "https://commons.wikimedia.org/wiki/File:");
+      return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(File|Image):/, "https://commons.wikimedia.org/wiki/File:");
     }
   },
   discographyentry: {
@@ -506,7 +506,7 @@ const CLEANUPS = {
     match: [
       new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
-      new RegExp("^(https?://)?commons\\.wikimedia\\.org", "i"),
+      new RegExp("^(https?://)?commons\\.(m\\.)?wikimedia\\.org", "i"),
       new RegExp("^(https?://)?(www[0-9]?\\.)?cpdl\\.org", "i")
     ],
     type: LINK_TYPES.score,
