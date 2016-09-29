@@ -206,6 +206,10 @@ sub begin : Private
         $c->forward('/user/cookie_login');
     }
 
+    # Allow browsers to report MB pages as referrers, even when going from
+    # HTTPS to an HTTP page.
+    $c->res->header('Referrer-Policy' => 'unsafe-url');
+
     my $alert = '';
     my $alert_mtime;
     my ($new_edit_notes, $new_edit_notes_mtime);
