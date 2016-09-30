@@ -478,7 +478,7 @@ editReleaseTest("mediumDelete edit is generated for existing release", function 
 var testURLRelationship = {
     target: {
         entityType: "url",
-        name: "http://www.discogs.com/release/1369894"
+        name: "https://www.discogs.com/release/1369894"
     },
     linkTypeID: 76,
     id: 123
@@ -492,7 +492,7 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
         document.createElement('div')
     );
 
-    addURL(component, 'http://www.discogs.com/release/1369894');
+    addURL(component, 'https://www.discogs.com/release/1369894');
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -506,10 +506,10 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
           },
           {
             "entityType": "url",
-            "name": "http://www.discogs.com/release/1369894"
+            "name": "https://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "05d4c2a59527d50caf84db74df7814f125f41728",
+        "hash": "4436c776fd02c161b235368c5da2ae0c8d52c450",
         "linkTypeID": 76
       }
     ]);
@@ -576,10 +576,10 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
           },
           {
             "entityType": "url",
-            "name": "http://www.discogs.com/release/1369894"
+            "name": "https://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "hash": "54bd2a4f4c79e7d4a4bb1d93a368dc7cd56cd822",
         "id": 123,
         "linkTypeID": 76
       }
@@ -589,7 +589,7 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
 editReleaseTest("edits are not generated for external links that duplicate existing removed ones", function (t, release) {
     t.plan(6);
 
-    var newURL = { name: "http://www.discogs.com/release/13698944", entityType: "url" };
+    var newURL = { name: "https://www.discogs.com/release/13698944", entityType: "url" };
 
     var component = releaseEditor.createExternalLinksEditor(
         _.assign(
@@ -611,7 +611,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     triggerClick($mountPoint.find('button:eq(0)')[0]);
 
     // Add a duplicate of the first URL
-    addURL(component, 'http://www.discogs.com/release/1369894');
+    addURL(component, 'https://www.discogs.com/release/1369894');
 
     // No edits are generated, because there are errors.
     t.equal(releaseEditor.edits.externalLinks(release).length, 0);
@@ -633,10 +633,10 @@ editReleaseTest("edits are not generated for external links that duplicate exist
           },
           {
             "entityType": "url",
-            "name": "http://www.discogs.com/release/1369894"
+            "name": "https://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "hash": "54bd2a4f4c79e7d4a4bb1d93a368dc7cd56cd822",
         "id": 123,
         "linkTypeID": 76
       }
@@ -647,7 +647,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     // Duplicate the first URL again by editing the other existing URL
     triggerChange(
         $mountPoint.find('input:eq(0)')[0],
-        'http://www.discogs.com/release/1369894'
+        'https://www.discogs.com/release/1369894'
     );
 
     t.equal(releaseEditor.edits.externalLinks(release).length, 0);
