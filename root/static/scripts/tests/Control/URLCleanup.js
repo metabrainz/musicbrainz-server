@@ -1703,7 +1703,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.wikidata.org/wiki/Q14005#sitelinks-wikipedia',
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q14005',
         },
-        // Wikimedia
+        // Wikimedia Commons
         {
                              input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
                      input_entity_type: 'artist',
@@ -1723,6 +1723,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg',
+        },
+        {
+                             input_url: 'https://commons.m.wikimedia.org/wiki/File:Karel-R%C5%AF%C5%BEi%C4%8Dka-star%C5%A1%C3%AD.jpg#mw-jump-to-license',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Karel-R%C5%AF%C5%BEi%C4%8Dka-star%C5%A1%C3%AD.jpg',
         },
         // Wikipedia
         {
