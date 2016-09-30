@@ -354,7 +354,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'www2.cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
                      input_entity_type: 'work',
-            expected_relationship_type: 'image',
+            expected_relationship_type: 'score',
                     expected_clean_url: 'http://cpdl.org/wiki/index.php/Weave_Me_A_Poem_(Tim_Blickhan)',
         },
         // Creative Commons
@@ -1367,6 +1367,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/composer/94/',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
@@ -1384,6 +1385,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://soundtrackcollector.com/title/99711/',
+               only_valid_entity_types: ['release_group']
         },
         // Spirit of Rock
         {
@@ -1416,12 +1418,21 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/artists/793',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://thesession.org/members/01234',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
         },
         {
                              input_url: 'thesession.org/events/3811#comment748363',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/events/3811',
+               only_valid_entity_types: ['event']
         },
         {
                              input_url: 'https://www.thesession.org/recordings/display/1488',
@@ -1434,12 +1445,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/recordings/4740',
+               only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.thesession.org/tunes/display/2305',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://thesession.org/tunes/2305',
+               only_valid_entity_types: ['work']
         },
         // Tipeee
         {
@@ -1689,7 +1702,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
                      input_entity_type: 'work',
-            expected_relationship_type: 'image',
+            expected_relationship_type: 'score',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
         },
         {
