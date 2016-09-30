@@ -734,7 +734,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?dhhu\\.dk", "i"),
       new RegExp("^(https?://)?(www\\.)?openlibrary\\.org", "i"),
       new RegExp("^(https?://)?(www\\.)?animenewsnetwork\\.com", "i"),
-      new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i"),
       new RegExp("^(https?://)?(www\\.)?rockipedia\\.no", "i"),
       new RegExp("^(https?://)?(www\\.)?whosampled\\.com", "i"),
       new RegExp("^(https?://)?(www\\.)?maniadb\\.com", "i"),
@@ -794,9 +793,20 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
       // Standardising Anime News Network
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
-      // Standardising Generasia
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
       return url;
+    }
+  },
+  generasia: {
+    match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.label
+          || id === LINK_TYPES.otherdatabases.release_group
+          || id === LINK_TYPES.otherdatabases.work;
     }
   },
   soundtrackcollector: {
