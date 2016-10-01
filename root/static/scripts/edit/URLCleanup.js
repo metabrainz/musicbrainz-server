@@ -257,6 +257,14 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.youtube,
 ], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
+function reencode_mediawiki_localpart(url) {
+  var m = url.match(/^(https?:\/\/[^\/]+\/wiki\/)([^?#]+)(.*)$/);
+  if (m) {
+    url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
+  }
+  return url;
+}
+
 const CLEANUPS = {
   wikipedia: {
     match: [new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i")],
@@ -267,10 +275,7 @@ const CLEANUPS = {
       url = url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
       url = url.replace(/\?oldformat=true$/, '');
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, "https://$1.wikipedia.org/wiki/$2");
-      var m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/);
-      if (m) {
-        url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
-      }
+      url = reencode_mediawiki_localpart(url);
       return url;
     }
   },
