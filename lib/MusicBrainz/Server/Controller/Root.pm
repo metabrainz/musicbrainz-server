@@ -206,6 +206,10 @@ sub begin : Private
         $c->forward('/user/cookie_login');
     }
 
+    # Allow browsers to report MB pages as referrers, even when going from
+    # HTTPS to an HTTP page.
+    $c->res->header('Referrer-Policy' => 'unsafe-url');
+
     my $alert = '';
     my $alert_mtime;
     my ($new_edit_notes, $new_edit_notes_mtime);
@@ -313,9 +317,10 @@ sub begin : Private
     }
 
     # Update the tagger port
-    if (exists $c->req->query_params->{tport})
-    {
-        $c->session->{tport} = $c->req->query_params->{tport};
+    if (defined $c->req->query_params->{tport}) {
+        my ($tport) = $c->req->query_params->{tport} =~ /^([0-9]{1,5})$/
+            or $c->forward('/error_400');
+        $c->session->{tport} = $tport;
     }
 
     # Merging

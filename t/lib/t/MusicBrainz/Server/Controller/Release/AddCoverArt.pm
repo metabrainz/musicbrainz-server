@@ -11,6 +11,9 @@ test 'Test adding cover art' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
+    my $long_comment_string = 'This is a comment of more than 256 characters.' .
+        (' (MBS-9069)' x 40);
+
     $c->sql->do(<<'EOSQL');
 INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 'e1dd8fee8ee728b0ddc8027d3a3db478');
 
@@ -37,7 +40,7 @@ EOSQL
             with_fields => {
                 'add-cover-art.position' => 1,
                 'add-cover-art.id' => 12345,
-                'add-cover-art.comment' => ''
+                'add-cover-art.comment' => $long_comment_string,
             }
         );
     } $c;
@@ -55,7 +58,7 @@ EOSQL
         cover_art_types => [],
         cover_art_position => 1,
         cover_art_id => 12345,
-        cover_art_comment => '',
+        cover_art_comment => $long_comment_string,
         cover_art_mime_type => 'image/jpeg'
     });
 };

@@ -5,9 +5,11 @@
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2015
+# Laurent Monin <email address hidden>, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
+# Nicolas ANCEAU <email address hidden>, 2016
 # Nicolas HOUDELOT <email address hidden>, 2015
 # nikki, 2012-2013
 # nikki, 2013
@@ -18,11 +20,12 @@
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
+# yvanz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-19 08:19+0000\n"
-"Last-Translator: ShevAbam\n"
+"PO-Revision-Date: 2016-09-30 20:31+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -896,13 +899,13 @@ msgstr "Mots parlés (discours)"
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at "
 "{entity0}"
-msgstr ""
+msgstr "Le livret de {entity1} a été {additional:de plus} écrit à {entity0}"
 
 #: DB:link_type/long_link_phrase:879
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in "
 "{entity0}"
-msgstr ""
+msgstr "Le livret de {entity1} a été {additional:de plus} écrit en {entity0}"
 
 #: DB:link_type/long_link_phrase:878
 msgid ""
@@ -912,7 +915,7 @@ msgstr "Les paroles de (entity1) ont (addition:additionally) écrites à (entity
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
-msgstr ""
+msgstr "Les paroles de {entity1} a été {additional:de plus} écrit à {entity0}"
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -952,7 +955,7 @@ msgstr "Cet attribut indique une version avec des paroles dans une langue diffé
 msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
-msgstr ""
+msgstr "Cet attribut indique qu’un artiste était un membre originel d’un groupe."
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1154,11 +1157,11 @@ msgstr "Ceci indique un label d'édition personnel pour un artiste. Un label d'�
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
-msgstr ""
+msgstr "Cet attribut indique qu’un artiste était un membre fondateur d’un groupe."
 
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
-msgstr ""
+msgstr "Cela indique qu'un artiste a annulé sa venue à un événement."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1195,7 +1198,7 @@ msgid ""
 "This indicates that (most commonly) a festival commissioned the work. This "
 "is most common for classical works, but also exists in other genres to a "
 "degree."
-msgstr ""
+msgstr "Ceci indique qu’un festival (le plus souvent) a commandé l’œuvre. Il s’agit en général d’œuvres classiques, mais cela existe aussi, jusqu’à un certain point, pour d’autres genres."
 
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group.​"
@@ -1250,7 +1253,7 @@ msgid ""
 "This indicates that a release group was included in another. This allows "
 "linking release groups (often albums) to box sets and other compilations "
 "that contain them."
-msgstr ""
+msgstr "Ceci indique qu’un groupe de parution est inclus dans un autre. Cela permet de lier des groupes de parution (généralement des albums) en coffrets et autres compilations qui les rassemblent."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1318,7 +1321,7 @@ msgstr "Ceci indique qu'une parution est identique à une autre, mais que le tir
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
 "for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "Ceci indique que l’artiste a commandé l’œuvre. Il s’agit en général d’œuvres classiques, mais cela existe aussi, jusqu’à un certain point, pour d’autres genres."
 
 #: DB:link_type/description:25 DB:link_type/description:129
 msgid ""
@@ -1337,13 +1340,13 @@ msgstr "Ceci indique qu'un groupe avait plusieurs chefs d'orchestre qui était d
 msgid ""
 "This indicates that the organisation commissioned the work. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "Ceci indique que l’organisation a commandé l’œuvre. Il s’agit en général d’œuvres classiques, mais cela existe aussi, jusqu’à un certain point, pour d’autres genres."
 
 #: DB:link_type/description:892
 msgid ""
 "This indicates that the place commissioned the work. This is most common for"
 " classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "Ceci indique que le lieu a commandé l’œuvre. Il s’agit en général d’œuvres classiques, mais cela existe aussi, jusqu’à un certain point, pour d’autres genres."
 
 #: DB:link_attribute_type/description:579
 msgid ""
@@ -1702,7 +1705,7 @@ msgstr "Ceci relie un label à un site Web créé par un fan."
 msgid ""
 "This links a label to a site where the label can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Indique pour un label sa page sur un site de don/parrainage tel que Flattr ou PayPal.Me."
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
@@ -1725,7 +1728,7 @@ msgstr "Ceci relie un label à l'entrée équivalente sur YouTube."
 msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
-msgstr ""
+msgstr "Indique pour un label son profil sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:495
 msgid ""
@@ -1737,13 +1740,13 @@ msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisate
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Indique pour un lieu sa page sur un site de don/parrainage tel que Flattr ou PayPal.Me."
 
 #: DB:link_type/description:909
 msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or"
 " Indiegogo."
-msgstr ""
+msgstr "Ceci indique son profil sur un site de financement participatif comme Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
@@ -1782,7 +1785,7 @@ msgstr "Ceci relie un enregistrement à la personne l'ayant remixé en prenant u
 msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour un enregistrement le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:868
 msgid ""
@@ -1807,7 +1810,7 @@ msgstr "Relie un groupe de parution à un artiste pour indiquer que c'est un alb
 msgid ""
 "This links a release group to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour un groupe de parution le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
@@ -1841,7 +1844,7 @@ msgstr "Ceci relie une parution à la personne l'ayant remixée en prenant une o
 msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour une parution le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:870
 msgid ""
@@ -1854,7 +1857,7 @@ msgid ""
 "This links a series (usually, but not exclusively, a festival or concert "
 "series) to a site where the organisers/creators can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Indique pour une série (telle qu'un festival ou une tournée, mais pas exclusivement) sa page sur un site de don/parrainage tel que Flattr ou PayPal.Me."
 
 #: DB:link_type/description:805
 msgid ""
@@ -1867,7 +1870,7 @@ msgid ""
 "This links a series to its profile (e.g. for a festival) or project (e.g. "
 "for a specific tour, or for compiling a classical catalogue) at a "
 "crowdfunding site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour une série son profil (par exemple pour un festival) ou le projet correspondant (par exemple pour une tournée ou une compilation) sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:97
 msgid ""
@@ -1895,7 +1898,7 @@ msgstr "Ceci relie un sous-groupe au groupe à partir duquel il a été créé. 
 msgid ""
 "This links a work to its project at a crowdfunding site like Kickstarter or "
 "Indiegogo."
-msgstr ""
+msgstr "Indique pour une œuvre le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:885
 msgid "This links a work with the area it was arranged in."
@@ -1971,7 +1974,7 @@ msgstr "Ceci relie un artiste à un site Web créé par un fan."
 msgid ""
 "This links an artist to a site where the artist can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Indique pour un artiste sa page sur un site de don/parrainage tel que Flattr ou PayPal.Me."
 
 #: DB:link_type/description:707
 msgid ""
@@ -2027,7 +2030,7 @@ msgstr "Ceci relie un artiste à l'entrée équivalente sur YouTube."
 msgid ""
 "This links an artist to their profile at a crowdfunding site like "
 "Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour un artiste son profil sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:108
 msgid ""
@@ -2073,13 +2076,13 @@ msgstr "Ceci relie un événement à une chaîne, une liste de lecture ou une pa
 msgid ""
 "This links an event to a site where the event organisers can receive "
 "donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "Indique pour un événement sa page sur un site de don/parrainage tel que Flattr ou PayPal.Me."
 
 #: DB:link_type/description:904
 msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
-msgstr ""
+msgstr "Indique pour un événement le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
@@ -2192,7 +2195,7 @@ msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées p
 msgid ""
 "This relationship indicates that a person was a teacher at an event (e.g. a "
 "masterclass)."
-msgstr ""
+msgstr "Cette relation indique qu’une personne était un professeur à un événement, tel qu’un cours de maître (ou « master class ») par exemple."
 
 #: DB:link_type/description:847
 msgid ""
@@ -2304,13 +2307,13 @@ msgstr "Cette relation relie une tournée de concerts à/aux l'artiste(s) de la 
 msgid ""
 "This relationship links an instrument to the person(s) who invented or "
 "designed it."
-msgstr ""
+msgstr "Cette relation relie un instrument à la/aux personne(s) qui l’a/l’ont inventé ou conçu."
 
 #: DB:link_type/description:856
 msgid ""
 "This relationship links an organist to the place(s) (most commonly religious"
 " buildings) at which they are the resident organist."
-msgstr ""
+msgstr "Cette relation relie un organiste au(x) lieu(x) (le plus souvent un bâtiment religieux) où il est l’organiste titulaire."
 
 #: DB:link_type/description:729
 msgid ""
@@ -2713,11 +2716,11 @@ msgstr "apparaît dans la vidéo"
 
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
-msgstr ""
+msgstr "arrangé à"
 
 #: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:864
 msgid "arranged in"
-msgstr ""
+msgstr "arrangé dans"
 
 #: DB:link_type/reverse_link_phrase:350
 msgid "arrangement of"
@@ -2730,7 +2733,7 @@ msgstr "arrangements"
 #: DB:link_type/link_phrase:863 DB:link_type/link_phrase:864
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:866
 msgid "arranging location for"
-msgstr ""
+msgstr "lieu d'arrangement pour"
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
@@ -2874,7 +2877,7 @@ msgstr "a apporté une collaboration {minor:mineure} {additional:complémentaire
 #: DB:link_type/long_link_phrase:891 DB:link_type/long_link_phrase:890
 #: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
 msgid "commissioned"
-msgstr ""
+msgstr "a commandé"
 
 #: DB:link_type/link_phrase:228
 msgid "compilation of"
@@ -2899,7 +2902,7 @@ msgstr "compositeur en résidence à"
 
 #: DB:link_type/reverse_link_phrase:855
 msgid "composers-in-residence"
-msgstr ""
+msgstr "compositeurs en résidence"
 
 #: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
 #: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
@@ -2992,7 +2995,7 @@ msgstr "poste créatif"
 #: DB:link_type/link_phrase:910 DB:link_type/link_phrase:902
 #: DB:link_type/reverse_link_phrase:908
 msgid "crowdfunding page"
-msgstr ""
+msgstr "page de financement participatif"
 
 #: DB:link_type/link_phrase:908 DB:link_type/reverse_link_phrase:904
 #: DB:link_type/reverse_link_phrase:909 DB:link_type/reverse_link_phrase:903
@@ -3000,7 +3003,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
 #: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
-msgstr ""
+msgstr "page de financement participatif pour"
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 msgid "dedicated to"
@@ -3012,7 +3015,7 @@ msgstr "oeuvre dédiée"
 
 #: DB:link_type/link_phrase:868
 msgid "dedications"
-msgstr ""
+msgstr "dédicaces"
 
 #: DB:link_type/link_phrase:737
 msgid "derivations"
@@ -3319,7 +3322,7 @@ msgstr "a un catalogue de disques à"
 #: DB:link_type/long_link_phrase:906 DB:link_type/long_link_phrase:907
 #: DB:link_type/long_link_phrase:910 DB:link_type/long_link_phrase:902
 msgid "has a crowdfunding page at"
-msgstr ""
+msgstr "a une page de financement participatif à"
 
 #: DB:link_type/long_link_phrase:288
 msgid "has a discography entry at"
@@ -3357,7 +3360,7 @@ msgstr "à une page dans une base données sur"
 #: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
-msgstr ""
+msgstr "a une page de parrainage à"
 
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
@@ -3512,7 +3515,7 @@ msgstr "a un sous-type"
 
 #: DB:link_type/long_link_phrase:69
 msgid "has {additional} samples taken from"
-msgstr ""
+msgstr "a des échantillons {additional:additionnels} provenant de"
 
 #: DB:link_type/link_phrase:794
 msgid "held at"
@@ -3572,7 +3575,7 @@ msgstr "inclu dans"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
-msgstr ""
+msgstr "inclut"
 
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
@@ -3597,11 +3600,11 @@ msgstr "entrevues"
 
 #: DB:link_type/link_phrase:896 DB:link_type/long_link_phrase:896
 msgid "invented"
-msgstr ""
+msgstr "inventa"
 
 #: DB:link_type/reverse_link_phrase:896
 msgid "invented by"
-msgstr ""
+msgstr "inventé par"
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
@@ -3672,7 +3675,7 @@ msgstr "est basé sur"
 
 #: DB:link_type/long_link_phrase:894
 msgid "is included in"
-msgstr ""
+msgstr "est inclus dans"
 
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
@@ -3696,7 +3699,7 @@ msgstr "est la première version {parody:parodie} {translated:traduite} de"
 
 #: DB:link_type/long_link_phrase:2
 msgid "is the original for the transliterated/translated track listing"
-msgstr ""
+msgstr "est l'original de la liste translittérée/traduite des pistes"
 
 #: DB:link_type/long_link_phrase:109
 msgid "is the parent of"
@@ -3736,7 +3739,7 @@ msgstr "est/était le label parent de"
 
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an additional|a} {original} member of"
-msgstr ""
+msgstr "est/fut un membre {additional:additionnel} {original} de"
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -3783,11 +3786,11 @@ msgstr "représentation juridique"
 
 #: DB:link_type/reverse_link_phrase:880
 msgid "libretto {additional:additionally} written at"
-msgstr ""
+msgstr "livret {additional:de plus} écrit à"
 
 #: DB:link_type/reverse_link_phrase:879
 msgid "libretto {additional:additionally} written in"
-msgstr ""
+msgstr "livret {additional:de plus} écrit en"
 
 #: DB:link_type/link_phrase:302 DB:link_type/link_phrase:301
 msgid "license"
@@ -3873,11 +3876,11 @@ msgstr "lieu de fabrication pour"
 
 #: DB:link_type/link_phrase:848 DB:link_type/long_link_phrase:848
 msgid "marketed"
-msgstr ""
+msgstr "a commercialisé"
 
 #: DB:link_type/reverse_link_phrase:848
 msgid "marketed by"
-msgstr ""
+msgstr "commercialisé par"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -4152,13 +4155,13 @@ msgstr "parties"
 #: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
 #: DB:link_type/link_phrase:897
 msgid "patronage page"
-msgstr ""
+msgstr "page de parrainage"
 
 #: DB:link_type/reverse_link_phrase:901 DB:link_type/reverse_link_phrase:900
 #: DB:link_type/reverse_link_phrase:898 DB:link_type/reverse_link_phrase:899
 #: DB:link_type/reverse_link_phrase:897
 msgid "patronage page for"
-msgstr ""
+msgstr "page de parrainage pour"
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
@@ -4172,7 +4175,7 @@ msgstr "représentation de"
 
 #: DB:link_type/reverse_link_phrase:887
 msgid "performed at"
-msgstr ""
+msgstr "interpréta à"
 
 #: DB:link_type/long_link_phrase:292
 msgid "performed the voice of"
@@ -4240,7 +4243,7 @@ msgstr "première à"
 
 #: DB:link_type/reverse_link_phrase:715
 msgid "premiered in"
-msgstr ""
+msgstr "première en"
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
@@ -4280,7 +4283,7 @@ msgstr "imprimé en"
 
 #: DB:link_type/link_phrase:849
 msgid "printing location for"
-msgstr ""
+msgstr "lieu d’impression de"
 
 #: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "produced at"
@@ -4506,7 +4509,7 @@ msgstr "révisé en"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
 msgid "revising location for"
-msgstr ""
+msgstr "lieu de révision de"
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
@@ -4656,7 +4659,7 @@ msgstr "parutions de soutien"
 
 #: DB:link_type/link_phrase:888
 msgid "supporting tours"
-msgstr ""
+msgstr "tournées de soutien"
 
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
@@ -4672,7 +4675,7 @@ msgstr "a enseigné"
 
 #: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
 msgid "taught at"
-msgstr ""
+msgstr "enseigna à"
 
 #: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
@@ -4688,7 +4691,7 @@ msgstr "heure"
 
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr ""
+msgstr "tournée par"
 
 #: DB:link_type/reverse_link_phrase:888
 msgid "tour in support of"
@@ -4712,11 +4715,11 @@ msgstr "translittéré"
 
 #: DB:link_type/reverse_link_phrase:2
 msgid "transliterated/translated track listing of"
-msgstr ""
+msgstr "a translittéré/traduit la liste des pistes de"
 
 #: DB:link_type/link_phrase:2
 msgid "transliterated/translated track listings"
-msgstr ""
+msgstr "listes translittérées/traduites des pistes"
 
 #: DB:link_attribute_type/name:834
 msgid "treble vocals"
@@ -4801,7 +4804,7 @@ msgstr "était un orchestre à"
 #: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
 #: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
 msgid "was commissioned by"
-msgstr ""
+msgstr "a été commandé par"
 
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
@@ -4863,11 +4866,11 @@ msgstr "a {additional:aussi} fait l'arrangement"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
-msgstr ""
+msgstr "{additional:aussi} arrangé à"
 
 #: DB:link_type/reverse_link_phrase:885
 msgid "{additional:additionally} arranged in"
-msgstr ""
+msgstr "{additional:de plus} arrangé en"
 
 #: DB:link_type/long_link_phrase:282 DB:link_type/long_link_phrase:158
 #: DB:link_type/long_link_phrase:41
@@ -4923,7 +4926,7 @@ msgstr "{additional:aussi} traduit"
 
 #: DB:link_type/reverse_link_phrase:884
 msgid "{additional:additionally} translated in"
-msgstr ""
+msgstr "{additional:de plus} traduit en"
 
 #: DB:link_type/reverse_link_phrase:874
 msgid "{additional:additionally} written at"
@@ -4940,7 +4943,7 @@ msgstr "{additional:aussi} écrit"
 
 #: DB:link_type/long_link_phrase:57 DB:link_type/long_link_phrase:169
 msgid "{additional:additionally} wrote the libretto for"
-msgstr ""
+msgstr "a {additional:de plus} écrit le livret de"
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
@@ -5029,7 +5032,7 @@ msgstr "arrangeur {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
-msgstr ""
+msgstr "{additional:aussi} lieu d'arrangement pour"
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
@@ -5047,7 +5050,7 @@ msgstr "compositeur {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
-msgstr ""
+msgstr "lieu {additional:additionnel} de composition de"
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} conductor"
@@ -5071,15 +5074,15 @@ msgstr "conception graphique {additional:supplémentaire}"
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
-msgstr ""
+msgstr "librettiste {additional:additionnel}"
 
 #: DB:link_type/link_phrase:169
 msgid "{additional} libretto"
-msgstr ""
+msgstr "livret {additional:additionnel}"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
 msgid "{additional} libretto writing location for"
-msgstr ""
+msgstr "lieu {additional:additionnel} d’écriture du livret de"
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
@@ -5095,15 +5098,15 @@ msgstr "(additional) paroles"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
-msgstr ""
+msgstr "lieu {additional:additionnel} d’écriture des paroles de"
 
 #: DB:link_type/reverse_link_phrase:878
 msgid "{additional} lyrics written at"
-msgstr ""
+msgstr "paroles {additional:de plus} écrites à"
 
 #: DB:link_type/reverse_link_phrase:877
 msgid "{additional} lyrics written in"
-msgstr ""
+msgstr "paroles {additional:de plus} écrites en"
 
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
 #: DB:link_type/reverse_link_phrase:150 DB:link_type/reverse_link_phrase:45
@@ -5133,11 +5136,11 @@ msgstr "échantillons {additional:additionnels} provenant de"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
-msgstr ""
+msgstr "lieu {additional:additionnel} de traduction de"
 
 #: DB:link_type/reverse_link_phrase:871 DB:link_type/reverse_link_phrase:872
 msgid "{additional} translator"
-msgstr ""
+msgstr "traducteur {additional:additionnel}"
 
 #: DB:link_type/reverse_link_phrase:54 DB:link_type/reverse_link_phrase:167
 msgid "{additional} writer"
@@ -5145,7 +5148,7 @@ msgstr "auteur {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
-msgstr ""
+msgstr "lieu {additional:additionnel} d’écriture de"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -5216,11 +5219,11 @@ msgstr "collaborateurs {additional:supplémentaires} {minor:mineurs}"
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {original} member of"
-msgstr ""
+msgstr "membre {additional:additionnel} {original} de"
 
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} members"
-msgstr ""
+msgstr "membres {additional:additionnels} {originaux}"
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294
@@ -5245,235 +5248,235 @@ msgstr "{bonus:fait peut-être|fait} partie d'un ensemble, le prochain disque de
 
 #: DB:link_type/long_link_phrase:750
 msgid "{entity1} catalogues the work of {entity0}"
-msgstr ""
+msgstr "{entity1} catalogue l’œuvre de {entity0}"
 
 #: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49
 msgid "{entity1} contains {additional} samples by {entity0}"
-msgstr ""
+msgstr "{entity1} contient des échantillons {additional:additionnels} par {entity0}"
 
 #: DB:link_type/long_link_phrase:312
 msgid "{entity1} has VIAF ID at {entity0}"
-msgstr ""
+msgstr "{entity1} a un ID VIAF à {entity0}"
 
 #: DB:link_type/long_link_phrase:854
 msgid "{entity1} has a BookBrainz page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page BookBrainz à {entity0}"
 
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page SecondHandSongs à {entity0}"
 
 #: DB:link_type/long_link_phrase:289
 msgid "{entity1} has a Songfacts page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page Songfacts à {entity0}"
 
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page Wikidata à {entity0}"
 
 #: DB:link_type/long_link_phrase:279
 msgid "{entity1} has a Wikipedia page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page Wikipédia à {entity0}"
 
 #: DB:link_type/long_link_phrase:908
 msgid "{entity1} has a crowdfunding page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page de financement participatif à {entity0}"
 
 #: DB:link_type/long_link_phrase:273
 msgid "{entity1} has a page in a database at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page dans une base de données à {entity0}"
 
 #: DB:link_type/long_link_phrase:286
 msgid "{entity1} has an Allmusic page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page Allmusic à {entity0}"
 
 #: DB:link_type/long_link_phrase:843
 msgid "{entity1} has an IMDb page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page IMDb à {entity0}"
 
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
-msgstr ""
+msgstr "{entity1} a des paroles disponibles à {entity0}"
 
 #: DB:link_type/long_link_phrase:274
 msgid "{entity1} has score available at {entity0}"
-msgstr ""
+msgstr "{entity1} a une partition disponible à {entity0}"
 
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
-msgstr ""
+msgstr "{entity1} a une photographie {additional:supplémentaire} par {entity0}"
 
 #: DB:link_type/long_link_phrase:743
 msgid "{entity1} is a part of  {entity0}"
-msgstr ""
+msgstr "{entity1} est une partie de {entity0}"
 
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
-msgstr ""
+msgstr "{entity1} est une tournée de {entity0}"
 
 #: DB:link_type/long_link_phrase:752
 msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr ""
+msgstr "{entity1} est un instrument traditionnel de {entity0}"
 
 #: DB:link_type/long_link_phrase:65
 msgid "{entity1} is a tribute to {entity0}"
-msgstr ""
+msgstr "{entity1} est un hommage à {entity0}"
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
 msgid "{entity1} is dedicated to {entity0}"
-msgstr ""
+msgstr "{entity1} est dédicacé à {entity0}"
 
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
-msgstr ""
+msgstr "{entity1} est/était un hymne de {entity0}"
 
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
-msgstr ""
+msgstr "{entity1} est/était la principale salle de concert de {entity0}"
 
 #: DB:link_type/long_link_phrase:888
 msgid "{entity1} was a tour in support of {entity0}"
-msgstr ""
+msgstr "{entity1} était une tournée de soutien à {entity0}"
 
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
-msgstr ""
+msgstr "{entity1} a été arrangé à {entity0}"
 
 #: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
 msgid "{entity1} was arranged in {entity0}"
-msgstr ""
+msgstr "{entity1} a été arrangé en {entity0}"
 
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
-msgstr ""
+msgstr "{entity1} était disponible à {entity0}"
 
 #: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
 msgid "{entity1} was edited at {entity0}"
-msgstr ""
+msgstr "{entity1} a été édité à {entity0}"
 
 #: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:822
 msgid "{entity1} was edited in {entity0}"
-msgstr ""
+msgstr "{entity1} a été édité en {entity0}"
 
 #: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was engineered at {entity0}"
-msgstr ""
+msgstr "{entity1} a été techniquement conçu à {entity0}"
 
 #: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
 msgid "{entity1} was engineered in {entity0}"
-msgstr ""
+msgstr "{entity1} a été techniquement conçu en {entity0}"
 
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"
-msgstr ""
+msgstr "{entity1} a été tenu en {entity0}"
 
 #: DB:link_type/long_link_phrase:833
 msgid "{entity1} was licensed to {entity0}"
-msgstr ""
+msgstr "{entity1} a été sous licence pour {entity0}"
 
 #: DB:link_type/long_link_phrase:835
 msgid "{entity1} was manufactured in {entity0}"
-msgstr ""
+msgstr "{entity1} a été fabriqué en {entity0}"
 
 #: DB:link_type/long_link_phrase:697
 msgid "{entity1} was mastered at {entity0}"
-msgstr ""
+msgstr "{entity1} a été masterisé à {entity0}"
 
 #: DB:link_type/long_link_phrase:756
 msgid "{entity1} was mastered in {entity0}"
-msgstr ""
+msgstr "{entity1} a été masterisé à {entity0}"
 
 #: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
 msgid "{entity1} was mixed at {entity0}"
-msgstr ""
+msgstr "{entity1} a été mixé à {entity0}"
 
 #: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
 msgid "{entity1} was mixed in {entity0}"
-msgstr ""
+msgstr "{entity1} a été mixé en {entity0}"
 
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
-msgstr ""
+msgstr "{entity1} a été donné pour la première fois à {entity0}"
 
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
-msgstr ""
+msgstr "{entity1} a été donné pour la première fois en {entity0}"
 
 #: DB:link_type/long_link_phrase:834
 msgid "{entity1} was previously attributed to {entity0}"
-msgstr ""
+msgstr "{entity1} était précédemment attribué à {entity0}"
 
 #: DB:link_type/long_link_phrase:849
 msgid "{entity1} was printed in {entity0}"
-msgstr ""
+msgstr "{entity1} a été imprimé en {entity0}"
 
 #: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was produced at {entity0}"
-msgstr ""
+msgstr "{entity1} a été produit à {entity0}"
 
 #: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was produced in {entity0}"
-msgstr ""
+msgstr "{entity1} a été produit en {entity0}"
 
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 msgid "{entity1} was recorded at  {entity0}"
-msgstr ""
+msgstr "{entity1} a été enregistré à {entity0}"
 
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "{entity1} was recorded at {entity0}"
-msgstr ""
+msgstr "{entity1} a été enregistré à {entity0}"
 
 #: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:698
 msgid "{entity1} was recorded in {entity0}"
-msgstr ""
+msgstr "{entity1} a été enregistré en {entity0}"
 
 #: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
 msgid "{entity1} was remixed at {entity0}"
-msgstr ""
+msgstr "{entity1} a été remixé à {entity0}"
 
 #: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
 msgid "{entity1} was remixed in {entity0}"
-msgstr ""
+msgstr "{entity1} a été remixé en {entity0}"
 
 #: DB:link_type/long_link_phrase:882
 msgid "{entity1} was revised at {entity0}"
-msgstr ""
+msgstr "{entity1} a été révisé à {entity0}"
 
 #: DB:link_type/long_link_phrase:881
 msgid "{entity1} was revised in {entity0}"
-msgstr ""
+msgstr "{entity1} a été révisé en {entity0}"
 
 #: DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} arrangé à {entity0}"
 
 #: DB:link_type/long_link_phrase:885
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} arrangé en {entity0}"
 
 #: DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
-msgstr ""
+msgstr "{entity1} a {additional:de plus} été composé à {entity0}"
 
 #: DB:link_type/long_link_phrase:875
 msgid "{entity1} was {additional:additionally} composed in {entity0}"
-msgstr ""
+msgstr "{entity1} a {additional:de plus} été composé en {entity0}"
 
 #: DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} traduit à {entity0}"
 
 #: DB:link_type/long_link_phrase:884
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} traduit à {entity0}"
 
 #: DB:link_type/long_link_phrase:874
 msgid "{entity1} was {additional:additionally} written at {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} écrit à {entity0}"
 
 #: DB:link_type/long_link_phrase:873
 msgid "{entity1} was {additional:additionally} written in {entity0}"
-msgstr ""
+msgstr "{entity1} a été {additional:de plus} écrit en {entity0}"
 
 #: DB:link_type/link_phrase:278
 msgid ""

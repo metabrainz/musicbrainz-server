@@ -9,12 +9,13 @@
 # Philipp Wolfer <email address hidden>, 2015
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2013-2014
+# Steve Marbs <email address hidden>, 2016
 # TL, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-09-22 07:22+0000\n"
+"Last-Translator: Steve Marbs <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -973,7 +974,7 @@ msgstr "Drumcomputer"
 
 #: DB:instrument/name:100
 msgid "drums"
-msgstr "Trommeln"
+msgstr "Schlagzeug"
 
 #: DB:instrument/name:101
 msgid "drumset"
@@ -2035,6 +2036,11 @@ msgstr "Klavier"
 msgid "piano accordion"
 msgstr "Pianoakkordeon"
 
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
 #: DB:instrument/name:17
 msgid "piccolo"
 msgstr "Piccoloflöte"
@@ -2482,6 +2488,11 @@ msgstr ""
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
+msgstr ""
+
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
 msgstr ""
 
 #: DB:instrument/name:160
