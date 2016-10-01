@@ -488,7 +488,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(commons\\.(?:m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
     type: _.defaults({}, LINK_TYPES.image, LINK_TYPES.score),
     clean: function (url) {
-      url = url.replace(/\/wiki\/[^#]+#mediaviewer\/(.*)/, "\/wiki\/$1");
+      url = url.replace(/\/wiki\/[^#]+#(?:mediaviewer|\/media)\/(.*)/, "\/wiki\/$1");
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
       url = url.replace(/\?uselang=[a-z-]+$/, "");
       url = url.replace(/#.*$/, "");
