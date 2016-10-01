@@ -9,6 +9,7 @@
 # Marta PD <email address hidden>, 2014
 # Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
+# Salvador Morales León <email address hidden>, 2016
 # t0n3t <email address hidden>, 2012
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -16,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-09-07 11:16+0000\n"
+"Last-Translator: Salvador Morales León <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +36,7 @@ msgstr "Un batá es un instrumento de percusión de dos membranas originario de 
 msgid ""
 "A European mediaeval struck string instrument, similar to the psaltery and a"
 " possible ancestor of the piano. Essentially it is a dulcimer with keys."
-msgstr ""
+msgstr "Un instrumento medieval europeo de cuerda golpeada, similar al salterio y un posible antecesor del piano. Básicamente es una dulcémele con teclas."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -47,14 +48,14 @@ msgstr "Un instrumento de percusión turco usado en las bandas militares otomana
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
+msgstr "Una versión turca de la pandereta / daf, hecha de piel de animal y tocada con los dedos."
 
 #. name:donso ngɔni
 #: DB:instrument/description:776
 msgid ""
 "A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
 " hide as membrane."
-msgstr ""
+msgstr "Un laúd similar a un banjo procedente de África occidental. Hecho de madera hueca con la piel de un animal como membrana."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -3141,6 +3142,13 @@ msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr ""
 
+#. name:spinettone
+#: DB:instrument/description:799
+msgid ""
+"an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
+"where produced by long strings, not thicker strings."
+msgstr ""
+
 #. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
@@ -3191,6 +3199,13 @@ msgstr ""
 #. name:saó ôi flute
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:piano spinet
+#: DB:instrument/description:798
+msgid ""
+"small piano with drop action stickers manufactured from around 1930 to the "
+"early 1990s."
 msgstr ""
 
 #. name:guitaret

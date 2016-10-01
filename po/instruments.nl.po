@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
+"PO-Revision-Date: 2016-08-30 05:33+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2029,6 +2029,11 @@ msgstr "piano"
 msgid "piano accordion"
 msgstr "klavieraccordeon"
 
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
 #: DB:instrument/name:17
 msgid "piccolo"
 msgstr "piccolo"
@@ -2476,6 +2481,11 @@ msgstr "spilåpipa"
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
+msgstr ""
+
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
 msgstr ""
 
 #: DB:instrument/name:160

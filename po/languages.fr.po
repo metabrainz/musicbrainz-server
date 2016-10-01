@@ -4,14 +4,15 @@
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
+# Laurent Monin <email address hidden>, 2016
 # murdos <email address hidden>, 2011-2012
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-09-06 08:56+0000\n"
+"Last-Translator: Laurent Monin <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -532,7 +533,7 @@ msgstr "Croate"
 #. frequency:1 iso_code_3:xlu
 #: DB:language/name:7303
 msgid "Cuneiform Luwian"
-msgstr ""
+msgstr "Louvite cunéiforme"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
@@ -777,7 +778,7 @@ msgstr "Ganda"
 #. frequency:1 iso_code_3:cab
 #: DB:language/name:1591
 msgid "Garifuna"
-msgstr ""
+msgstr "Garifuna"
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141
@@ -1077,7 +1078,7 @@ msgstr "Javanais"
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
-msgstr ""
+msgstr "Judéo-araméen babylonien (ca 200-1200 ap. J.-C.)"
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
@@ -1097,7 +1098,7 @@ msgstr "Kabardien"
 #. frequency:1 iso_code_3:kea
 #: DB:language/name:3185
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "Créole du Cap-Vert"
 
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
@@ -1287,7 +1288,7 @@ msgstr "Kölsch"
 #. frequency:1 iso_code_3:lld
 #: DB:language/name:3885
 msgid "Ladin"
-msgstr ""
+msgstr "Ladin"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234
@@ -1687,7 +1688,7 @@ msgstr "Nogaï"
 #. frequency:1 iso_code_3:nrn
 #: DB:language/name:4991
 msgid "Norn"
-msgstr ""
+msgstr "Norne"
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308
