@@ -503,6 +503,9 @@ const CLEANUPS = {
       url = url.replace(/#.*$/, "");
       url = reencode_mediawiki_localpart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, "https://commons.wikimedia.org/wiki/File:");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/commons\.wikimedia\.org\/wiki\/File:[^?#]+$/.test(url);
     }
   },
   unwelcomeimages: { // Block images from sites that don't allow deeplinking
