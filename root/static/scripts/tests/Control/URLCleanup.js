@@ -1713,6 +1713,28 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://commons.m.wikimedia.org/wiki/File:Karel-R%C5%AF%C5%BEi%C4%8Dka-star%C5%A1%C3%AD.jpg#mw-jump-to-license',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Karel-R%C5%AF%C5%BEi%C4%8Dka-star%C5%A1%C3%AD.jpg',
         },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/Category:Opeth#/media/File:Opeth_-_Kavarna_Rock_Fest_2011.jpg',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'image',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Opeth_-_Kavarna_Rock_Fest_2011.jpg',
+        },
+        {
+                             input_url: 'http://commons.wikimedia.org/wiki/Category:Michl_M%C3%BCller?uselang=de#/media/File:Michl_M%C3%BCller_Garitz_2013.JPG',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'image',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Michl_M%C3%BCller_Garitz_2013.JPG',
+        },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/File%3APolygram_Gold_Disc_Award_Wet_Wet_Wet_Ralph_Ruppert_1987.jpg',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:Polygram_Gold_Disc_Award_Wet_Wet_Wet_Ralph_Ruppert_1987.jpg',
+        },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/File%3A$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+                    expected_clean_url: 'https://commons.wikimedia.org/wiki/File:$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
+        },
         // Wikipedia
         {
                              input_url: 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
