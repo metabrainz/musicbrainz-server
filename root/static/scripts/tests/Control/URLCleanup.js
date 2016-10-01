@@ -635,6 +635,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.generasia.com/wiki/Wink',
+               only_valid_entity_types: ['artist', 'label', 'release_group', 'work']
+        },
+        {
+                             input_url: 'http://www.generasia.com/wiki/Nippon_Crown',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
         },
         {
                              input_url: 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
