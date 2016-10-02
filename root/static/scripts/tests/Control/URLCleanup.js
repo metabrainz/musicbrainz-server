@@ -220,6 +220,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                input_relationship_type: 'bandcamp',
                only_valid_entity_types: []
         },
+        {
+                             input_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
+               input_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: ['recording', 'release']
+        },
         // BBC Music
         {
                              input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
