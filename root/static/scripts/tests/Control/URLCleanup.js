@@ -1723,6 +1723,11 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q4655955',
             expected_relationship_type: 'wikidata',
         },
+        {
+                             input_url: 'http://www.example.org/not/wikidata.org',
+               input_relationship_type: 'wikidata',
+               only_valid_entity_types: [],
+        },
         // Wikimedia Commons
         {
                              input_url: 'https://commons.wikimedia.org/wiki/File:NIN2008.jpg',
