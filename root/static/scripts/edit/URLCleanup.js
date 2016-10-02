@@ -661,7 +661,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i")],
     type: LINK_TYPES.wikidata,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "https://www.wikidata.org/wiki/$1");
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/(?:wiki|entity)\/(Q([0-9]+)).*$/, "https://www.wikidata.org/wiki/$1");
     }
   },
   bandcamp: {
