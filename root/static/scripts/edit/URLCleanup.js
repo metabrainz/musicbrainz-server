@@ -555,7 +555,6 @@ const CLEANUPS = {
   },
   downloadpurchase: {
     match: [
-      new RegExp("^(https?://)?([^/]+\\.)?beatport\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?junodownload\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?audiojelly\\.com", "i"),
       new RegExp("^(https?://)?play\\.google\\.com/store/music/", "i"),
@@ -590,6 +589,36 @@ const CLEANUPS = {
             return prefix === 'music-video';
           case LINK_TYPES.downloadpurchase.release:
             return /^(album|audiobook|podcast|preorder)$/.test(prefix);
+        }
+      }
+      return false;
+    }
+  },
+  beatport: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?beatport\\.com", "i")],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, "https://www.beatport.com/");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)\/([\w-]+).*$/, "$1/$2/$4/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3/$4");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/*0*([0-9]+).*$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w-]+\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.downloadpurchase.recording:
+            return prefix === 'track' || prefix === 'stem';
+          case LINK_TYPES.downloadpurchase.release:
+            return prefix === 'release' || prefix == 'chart' || prefix === 'stem-pack';
+          case LINK_TYPES.downloadpurchase.label:
+            return prefix === 'label';
         }
       }
       return false;
