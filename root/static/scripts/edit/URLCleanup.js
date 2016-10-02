@@ -1187,7 +1187,7 @@ _.each(LINK_TYPES, function (linkType) {
         var cleanup = _.find(CLEANUPS, function (cleanup) {
           return testAll(cleanup.match, url);
         });
-        if (cleanup && cleanup.type) {
+        if (cleanup && cleanup.type && cleanup.type[entityType]) {
           return cleanup.type[entityType] === id
             && (!cleanup.validate || cleanup.validate(url, id));
         } else {
