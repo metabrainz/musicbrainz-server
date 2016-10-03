@@ -398,6 +398,9 @@ const CLEANUPS = {
     type: LINK_TYPES.bookbrainz,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?bookbrainz\.org\/([^\/]*)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(?:[#\/?].*)?$/, "https://bookbrainz.org/$1/$2");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
     }
   },
   cdbaby: {
@@ -984,15 +987,6 @@ validationRules[LINK_TYPES.allmusic.release] = function (url) {
 validationRules[LINK_TYPES.bbcmusic.artist] = function (url) {
   return /bbc\.co\.uk\/music\/artists\//.test(url);
 };
-
-// allow only BookBrainz entity pages with the BookBrainz rel
-function validateBookBrainz(url) {
-  return /bookbrainz\.org\/[^\/]*\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/.test(url);
-}
-
-_.each(LINK_TYPES.bookbrainz, function (id) {
-  validationRules[id] = validateBookBrainz;
-});
 
 // allow only Wikipedia pages with the Wikipedia rel
 function validateWikipedia(url) {
