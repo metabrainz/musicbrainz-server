@@ -972,19 +972,6 @@ validationRules[LINK_TYPES.myspace.label] = function (url) {
   return /myspace\.com\//.test(url);
 };
 
-// allow only SecondHandSongs pages with the SecondHandSongs rel
-validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.release] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
 // allow only Soundcloud pages with the Soundcloud rel
 function validateSoundCloud(url) {
   return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
