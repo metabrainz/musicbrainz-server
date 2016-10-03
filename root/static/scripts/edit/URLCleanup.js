@@ -895,19 +895,6 @@ const validationRules = {};
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
 
-// "has lyrics at" is only allowed for certain lyrics sites
-validationRules[LINK_TYPES.lyrics.artist] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
-
-validationRules[LINK_TYPES.lyrics.release_group] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
-
-validationRules[LINK_TYPES.lyrics.work] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
-
 // allow Discogs page only for the correct entities
 validationRules[LINK_TYPES.discogs.artist] = function (url) {
   return /^https:\/\/www\.discogs\.com\/(?:artist\/[0-9]+|user\/.+)$/.test(url);
@@ -1139,26 +1126,11 @@ validationRules[LINK_TYPES.setlistfm.place] = function (url) {
   return /setlist\.fm\/venue\//.test(url);
 };
 
-// allow only IMSLP pages with the IMSLP rel
-var validateIMSLP = function (url) {
-  return testAll(CLEANUPS.imslp.match, url)
-};
-
-validationRules[LINK_TYPES.imslp.artist] = validateIMSLP;
-
 // avoid wikipedia being added as release-level discography entry
 var isWikipedia = /^(https?:\/\/)?([^.]+\.)?wikipedia\.org\//;
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   return !isWikipedia.test(url);
 };
-
-// only allow domains on the score whitelist
-function validateScore(url) {
-  return testAll(CLEANUPS.score.match, url);
-}
-
-validationRules[LINK_TYPES.score.release_group] = validateScore;
-validationRules[LINK_TYPES.score.work] = validateScore;
 
 function validateFacebook(url) {
   if (/facebook.com\/pages\//.test(url)) {
