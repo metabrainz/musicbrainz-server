@@ -1735,6 +1735,25 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'score',
                     expected_clean_url: 'https://commons.wikimedia.org/wiki/File:$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
         },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/Within_Temptation',
+                                        // gallery page
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'image',
+               only_valid_entity_types: [],
+        },
+        {
+                             input_url: 'https://commons.wikimedia.org/wiki/Category:Ewa_Demarczyk',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'image',
+               only_valid_entity_types: [],
+        },
+        {
+                             input_url: 'https://commons.wikimedia.org/w/index.php?search=umberto+alongi&title=Special%3ASearch&go=Go',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'image',
+               only_valid_entity_types: [],
+        },
         // Wikipedia
         {
                              input_url: 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
