@@ -972,11 +972,6 @@ validationRules[LINK_TYPES.myspace.label] = function (url) {
   return /myspace\.com\//.test(url);
 };
 
-// allow only PureVolume pages with the PureVolume rel
-validationRules[LINK_TYPES.purevolume.artist] = function (url) {
-  return /purevolume\.com\//.test(url);
-};
-
 // allow only SecondHandSongs pages with the SecondHandSongs rel
 validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
   return /secondhandsongs\.com\//.test(url);
@@ -990,11 +985,6 @@ validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
   return /secondhandsongs\.com\//.test(url);
 };
 
-// allow only Songfacts pages with the Songfacts rel
-validationRules[LINK_TYPES.songfacts.work] = function (url) {
-  return /songfacts\.com\//.test(url);
-};
-
 // allow only Soundcloud pages with the Soundcloud rel
 function validateSoundCloud(url) {
   return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
@@ -1003,19 +993,6 @@ function validateSoundCloud(url) {
 _.each(LINK_TYPES.soundcloud, function (id) {
   validationRules[id] = validateSoundCloud;
 });
-
-// allow only VIAF pages with the VIAF rel
-validationRules[LINK_TYPES.viaf.artist] = function (url) {
-  return /viaf\.org\//.test(url);
-};
-
-validationRules[LINK_TYPES.viaf.work] = function (url) {
-  return /viaf\.org\//.test(url);
-};
-
-validationRules[LINK_TYPES.viaf.label] = function (url) {
-  return /viaf\.org\//.test(url);
-};
 
 // allow only VGMdb pages with the VGMdb rel
 validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
