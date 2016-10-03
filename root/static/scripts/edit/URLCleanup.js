@@ -265,6 +265,10 @@ function reencode_mediawiki_localpart(url) {
   return url;
 }
 
+function disallow(url, id) {
+  return false;
+}
+
 const CLEANUPS = {
   wikipedia: {
     match: [new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i")],
@@ -500,6 +504,14 @@ const CLEANUPS = {
       url = reencode_mediawiki_localpart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, "https://commons.wikimedia.org/wiki/File:");
     }
+  },
+  unwelcomeimages: { // Block images from sites that don't allow deeplinking
+    match: [
+      new RegExp("^(https?://)?s\\.pixogs\\.com\/", "i"),
+      new RegExp("^(https?://)?s\\.discogss\\.com\/", "i"),
+    ],
+    type: LINK_TYPES.image,
+    validate: disallow,
   },
   discographyentry: {
     match: [
@@ -1165,21 +1177,6 @@ function validateFacebook(url) {
 
 validationRules[LINK_TYPES.socialnetwork.artist] = validateFacebook;
 validationRules[LINK_TYPES.socialnetwork.label] = validateFacebook;
-
-// Block images from sites that don't allow deeplinking
-function validateImage(url) {
-  if (url.match(/\/\/s\.pixogs\.com\//)) {
-    return false;
-  }
-  if (url.match(/\/\/s\.discogss\.com\//)) {
-    return false;
-  }
-  return true;
-}
-
-validationRules[LINK_TYPES.image.artist] = validateImage;
-validationRules[LINK_TYPES.image.label] = validateImage;
-validationRules[LINK_TYPES.image.place] = validateImage;
 
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
