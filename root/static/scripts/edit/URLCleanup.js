@@ -508,7 +508,7 @@ const CLEANUPS = {
   unwelcomeimages: { // Block images from sites that don't allow deeplinking
     match: [
       new RegExp("^(https?://)?s\\.pixogs\\.com\/", "i"),
-      new RegExp("^(https?://)?s\\.discogss\\.com\/", "i"),
+      new RegExp("^(https?://)?(s|img)\\.discogss?\\.com\/", "i"),
     ],
     type: LINK_TYPES.image,
     validate: disallow,
