@@ -414,6 +414,10 @@ const CLEANUPS = {
       if (tld !== "" && asin !== "") {
         return "https://www.amazon." + tld + "/gp/product/" + asin;
       }
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.amazon.release
+          && /^http:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
     }
   },
   archive: {
@@ -1023,11 +1027,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only Amazon pages with the Amazon rel
-validationRules[LINK_TYPES.amazon.release] = function (url) {
-  return /amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
-};
 
 // allow only IMDb pages with the IMDb rels
 validationRules[LINK_TYPES.imdb.artist] = function (url) {
