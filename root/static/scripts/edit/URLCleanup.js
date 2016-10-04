@@ -862,7 +862,18 @@ const CLEANUPS = {
   },
   setlistfm: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i")],
-    type: LINK_TYPES.setlistfm
+    type: LINK_TYPES.setlistfm,
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.setlistfm.artist:
+          return /setlist\.fm\/setlists\//.test(url);
+        case LINK_TYPES.setlistfm.event:
+          return /setlist\.fm\/(setlist|festival)\//.test(url);
+        case LINK_TYPES.setlistfm.place:
+          return /setlist\.fm\/venue\//.test(url);
+      }
+      return true;
+    }
   },
   imslp: {
     match: [new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i")],
@@ -1076,19 +1087,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only setlist.fm pages with the setlist.fm rel
-validationRules[LINK_TYPES.setlistfm.artist] = function (url) {
-  return /setlist\.fm\/setlists\//.test(url);
-};
-
-validationRules[LINK_TYPES.setlistfm.event] = function (url) {
-  return /setlist\.fm\/(setlist|festival)\//.test(url);
-};
-
-validationRules[LINK_TYPES.setlistfm.place] = function (url) {
-  return /setlist\.fm\/venue\//.test(url);
-};
 
 // NOTE: Above validation rules (legacy) definitions are not altered
 // by the below validation rules generation.  See also above note.
