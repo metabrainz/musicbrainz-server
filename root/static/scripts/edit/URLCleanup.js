@@ -597,7 +597,6 @@ const CLEANUPS = {
   },
   socialnetwork: {
     match: [
-      new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
@@ -611,21 +610,6 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
-      if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
-        // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-        url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
-        // Ensure the first parameter left uses ? not to break the URL
-        url = url.replace(/([&?])&+/, "$1");
-        url = url.replace(/[&?]$/, "");
-        // Remove trailing slashes
-        if (url.match(/\?/)) {
-          url = url.replace(/\/\?/, "?");
-        } else {
-          url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
-        }
-        url = url.replace(/\/event\.php\?eid=/, "/events/");
-      }
       url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, "https://twitter.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
@@ -635,6 +619,34 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(.+\.)?foursquare\.com/, "https://foursquare.com");
       return url;
     }
+  },
+  facebook: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+      // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
+      url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
+      // Ensure the first parameter left uses ? not to break the URL
+      url = url.replace(/([&?])&+/, "$1");
+      url = url.replace(/[&?]$/, "");
+      // Remove trailing slashes
+      if (url.match(/\?/)) {
+        url = url.replace(/\/\?/, "?");
+      } else {
+        url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
+      }
+      url = url.replace(/\/event\.php\?eid=/, "/events/");
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.socialnetwork.artist:
+        case LINK_TYPES.socialnetwork.label:
+          return /\/pages\/[^\/?#]+\/\d+/.test(url);
+      }
+      return true;
+    },
   },
   soundcloud: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i")],
@@ -1107,16 +1119,6 @@ validationRules[LINK_TYPES.setlistfm.event] = function (url) {
 validationRules[LINK_TYPES.setlistfm.place] = function (url) {
   return /setlist\.fm\/venue\//.test(url);
 };
-
-function validateFacebook(url) {
-  if (/facebook.com\/pages\//.test(url)) {
-    return /\/pages\/[^\/?#]+\/\d+/.test(url);
-  }
-  return true;
-}
-
-validationRules[LINK_TYPES.socialnetwork.artist] = validateFacebook;
-validationRules[LINK_TYPES.socialnetwork.label] = validateFacebook;
 
 // NOTE: Above validation rules (legacy) definitions are not altered
 // by the below validation rules generation.  See also above note.
