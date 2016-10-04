@@ -847,6 +847,17 @@ const CLEANUPS = {
     type: LINK_TYPES.songkick,
     clean: function (url) {
       return url.replace(/^http:\/\//, "https://");
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.songkick.artist:
+          return /songkick\.com\/artists\//.test(url);
+        case LINK_TYPES.songkick.event:
+          return /songkick\.com\/(concerts|festivals)\//.test(url);
+        case LINK_TYPES.songkick.place:
+          return /songkick\.com\/(venues|festivals)\//.test(url);
+      }
+      return true;
     }
   },
   setlistfm: {
@@ -1065,19 +1076,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only Songkick pages with the Songkick rel
-validationRules[LINK_TYPES.songkick.artist] = function (url) {
-  return /songkick\.com\/artists\//.test(url);
-};
-
-validationRules[LINK_TYPES.songkick.event] = function (url) {
-  return /songkick\.com\/(concerts|festivals)\//.test(url);
-};
-
-validationRules[LINK_TYPES.songkick.place] = function (url) {
-  return /songkick\.com\/(venues|festivals)\//.test(url);
-};
 
 // allow only setlist.fm pages with the setlist.fm rel
 validationRules[LINK_TYPES.setlistfm.artist] = function (url) {
