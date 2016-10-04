@@ -676,6 +676,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
         "http://viaf.org/viaf/$1");
       return url;
+    },
+    validate: function (url, id) {
+      return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
     }
   },
   vimeo: {
