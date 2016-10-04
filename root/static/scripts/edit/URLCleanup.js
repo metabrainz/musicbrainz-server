@@ -281,6 +281,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, "https://$1.wikipedia.org/wiki/$2");
       url = reencode_mediawiki_localpart(url);
       return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url);
     }
   },
   discogs: {
@@ -989,15 +992,6 @@ validationRules[LINK_TYPES.allmusic.recording] = function (url) {
 validationRules[LINK_TYPES.allmusic.release] = function (url) {
   return /allmusic\.com\/album\/release\/mr/.test(url);
 };
-
-// allow only Wikipedia pages with the Wikipedia rel
-function validateWikipedia(url) {
-  return /wikipedia\.org\//.test(url);
-}
-
-_.each(LINK_TYPES.wikipedia, function (id) {
-  validationRules[id] = validateWikipedia;
-});
 
 // allow only Myspace pages with the Myspace rel
 validationRules[LINK_TYPES.myspace.artist] = function (url) {
