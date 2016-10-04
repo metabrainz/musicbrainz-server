@@ -294,6 +294,22 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
       return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.discogs.artist:
+          return /^https:\/\/www\.discogs\.com\/(?:artist\/[1-9][0-9]*|user\/.+)$/.test(url);
+        case LINK_TYPES.discogs.label:
+        case LINK_TYPES.discogs.series:
+          return /^https:\/\/www\.discogs\.com\/label\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.place:
+          return /^https:\/\/www\.discogs\.com\/(?:artist|label)\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.release_group:
+          return /^https:\/\/www\.discogs\.com\/master\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.release:
+          return /^https:\/\/www\.discogs\.com\/release\/[1-9][0-9]*$/.test(url);
+      }
+      return false;
     }
   },
   geonames: {
@@ -968,30 +984,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow Discogs page only for the correct entities
-validationRules[LINK_TYPES.discogs.artist] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/(?:artist\/[0-9]+|user\/.+)$/.test(url);
-};
-
-function validateDiscogsLabel(url) {
-  return /^https:\/\/www\.discogs\.com\/label\/[0-9]+$/.test(url);
-}
-
-validationRules[LINK_TYPES.discogs.label] = validateDiscogsLabel;
-validationRules[LINK_TYPES.discogs.series] = validateDiscogsLabel;
-
-validationRules[LINK_TYPES.discogs.place] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/(?:artist|label)\/[0-9]+$/.test(url);
-};
-
-validationRules[LINK_TYPES.discogs.release_group] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/master\/[0-9]+$/.test(url);
-};
-
-validationRules[LINK_TYPES.discogs.release] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/release\/[0-9]+$/.test(url);
-};
 
 // allow Allmusic page only for the correct entities
 validationRules[LINK_TYPES.allmusic.artist] = function (url) {
