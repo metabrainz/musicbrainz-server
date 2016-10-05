@@ -759,7 +759,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i")],
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
     },
     validate: function (url, id) {
       switch (id) {
