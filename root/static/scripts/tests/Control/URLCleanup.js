@@ -1786,7 +1786,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
-                    expected_clean_url: 'http://pt.wikisource.org/wiki/A_Portuguesa',
+                    expected_clean_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
         },
         // Warner Music
         {

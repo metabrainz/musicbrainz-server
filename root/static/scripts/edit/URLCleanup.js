@@ -481,12 +481,12 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i")],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+      url = url.replace(/^http:\/\/([a-z-]+\.)?wikisource\.org/, "https://$1wikisource.org");
       url = reencode_mediawiki_localpart(url);
       return url;
     },
     validate: function (url, id) {
-      return /^http:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url);
+      return /^https:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url);
     }
   },
   wikimediacommons: {
