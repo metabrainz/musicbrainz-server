@@ -1788,6 +1788,14 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'lyrics',
                     expected_clean_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
         },
+        {
+                             input_url: 'http://wikisource.org/wiki/Reise,_Reise',
+                                        // rare languages are on wikisource.org directly
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://wikisource.org/wiki/Reise,_Reise',
+               only_valid_entity_types: ['artist', 'release_group', 'work'],
+        },
         // Warner Music
         {
                              input_url: 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
