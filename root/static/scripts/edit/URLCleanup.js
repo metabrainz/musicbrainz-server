@@ -762,15 +762,19 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
     },
     validate: function (url, id) {
-      switch (id) {
-        case LINK_TYPES.vgmdb.artist:
-          return /vgmdb\.net\/(?:artist|org)\//.test(url);
-        case LINK_TYPES.vgmdb.release:
-          return /vgmdb\.net\/album\//.test(url);
-        case LINK_TYPES.vgmdb.label:
-          return /vgmdb\.net\/org\//.test(url);
-        case LINK_TYPES.vgmdb.event:
-          return /vgmdb\.net\/event\//.test(url);
+      var m = /^http:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var type = m[1];
+        switch (id) {
+          case LINK_TYPES.vgmdb.artist:
+            return (type === 'artist' || type === 'org');
+          case LINK_TYPES.vgmdb.release:
+            return type === 'album';
+          case LINK_TYPES.vgmdb.label:
+            return type === 'org';
+          case LINK_TYPES.vgmdb.event:
+            return type === 'event';
+        }
       }
       return false;
     }
