@@ -329,15 +329,21 @@ const CLEANUPS = {
       return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
     },
     validate: function (url, id) {
-      switch (id) {
-        case LINK_TYPES.imdb.artist:
-          return /^http:\/\/www\.imdb\.com\/(name|character|company)/.test(url);
-        case LINK_TYPES.imdb.label:
-          return /^http:\/\/www\.imdb\.com\/company/.test(url);
-        case LINK_TYPES.imdb.release_group:
-          return /^http:\/\/www\.imdb\.com\/title/.test(url);
-        default:
-          return /^http:\/\/www\.imdb\.com\//.test(url);
+      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7}\/$/.exec(url);
+      if (m) {
+        var type = m[1];
+        switch (id) {
+          case LINK_TYPES.imdb.artist:
+            return type === 'name/nm' || type === 'character/ch' || type === 'company/co';
+          case LINK_TYPES.imdb.label:
+          case LINK_TYPES.imdb.place:
+            return type === 'company/co';
+          case LINK_TYPES.imdb.recording;
+          case LINK_TYPES.imdb.release;
+          case LINK_TYPES.imdb.release_group:
+          case LINK_TYPES.imdb.work:
+            return type === 'title/tt';
+        }
       }
       return false;
     }
