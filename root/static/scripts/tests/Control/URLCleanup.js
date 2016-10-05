@@ -1595,7 +1595,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
-        // VGMDb
+        // VGMdb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'http://vgmdb.com/org/284',
                      input_entity_type: 'artist',
@@ -1606,7 +1606,6 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'label',
             expected_relationship_type: 'vgmdb',
         },
-        // VGMDb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'https://vgmdb.net/artist/431',
                      input_entity_type: 'artist',
