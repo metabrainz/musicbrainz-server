@@ -459,7 +459,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?directlyrics\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?decoda\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?kasi-time\\.com", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?lieder\\.net", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?utamap\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?j-lyric\\.net", "i"),
@@ -470,7 +469,6 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
       url = url.replace(/^https?:\/\/(.+\.)?genius\.com/, "http://$1genius.com");
       return url;
     }
@@ -478,6 +476,18 @@ const CLEANUPS = {
   bbcmusic: {
     match: [new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i")],
     type: LINK_TYPES.bbcmusic
+  },
+  wikisource: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+      url = reencode_mediawiki_localpart(url);
+      return url;
+    },
+    validate: function (url, id) {
+      return /^http:\/\/(?:[a-z-]+\.)?wikisource\.org\/wiki\//.test(url);
+    }
   },
   wikimediacommons: {
     match: [new RegExp("^(https?://)?(commons\\.(?:m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
