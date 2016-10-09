@@ -75,8 +75,8 @@ sub get_extract_by_language
 sub get_available_languages
 {
     my ($self, $links, %opts) = @_;
-    my ($url_pattern, $key, $callback, $language, $ret);
     for my $link (@$links) {
+        my ($url_pattern, $key, $callback, $language, $ret);
         if ($link->isa('MusicBrainz::Server::Entity::URL::Wikidata')) {
             $url_pattern = "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
             $key = 'sitelinks';
