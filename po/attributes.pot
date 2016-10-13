@@ -4363,6 +4363,11 @@ msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr ""
 
+#: DB:work_attribute_type/name:24
+msgctxt "work_attribute_type"
+msgid "SADAIC ID"
+msgstr ""
+
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"

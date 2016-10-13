@@ -9,11 +9,12 @@
 # Philipp Wolfer <email address hidden>, 2015
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2013-2014
+# Steve Marbs <email address hidden>, 2016
 # TL, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
+"PO-Revision-Date: 2016-10-01 01:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -157,10 +158,6 @@ msgstr "Schottische Sackpfeife (Dudelsack)"
 #: DB:instrument/name:157
 msgid "Spanish acoustic guitar"
 msgstr "spanische Akustikgitarre"
-
-#: DB:instrument/name:262
-msgid "Spanish vihuela"
-msgstr "spanische Vihuela"
 
 #: DB:instrument/name:451
 msgid "Stroh violin"
@@ -503,6 +500,11 @@ msgstr "Fahrradklingel"
 msgid "bin-sasara"
 msgstr "Bin-Sasara"
 
+#: DB:instrument/name:801
+msgctxt "wooden natural horn"
+msgid "birch lur"
+msgstr ""
+
 #: DB:instrument/name:70
 msgid "biwa"
 msgstr "Biwa"
@@ -554,6 +556,11 @@ msgstr "Streichinstrumente"
 #: DB:instrument/name:24
 msgid "brass"
 msgstr "Blechblasinstrumente"
+
+#: DB:instrument/name:800
+msgctxt "bronze age natural horn"
+msgid "bronze lur"
+msgstr ""
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -973,7 +980,7 @@ msgstr "Drumcomputer"
 
 #: DB:instrument/name:100
 msgid "drums"
-msgstr "Trommeln"
+msgstr "Schlagzeug"
 
 #: DB:instrument/name:101
 msgid "drumset"
@@ -1242,6 +1249,11 @@ msgstr "Geomungo"
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "Ghatam"
+
+#: DB:instrument/name:802
+msgctxt "medieval lute-like guitar forerunner"
+msgid "gittern"
+msgstr ""
 
 #: DB:instrument/name:796
 msgctxt "Elguitar/bass effect device"
@@ -2035,6 +2047,11 @@ msgstr "Klavier"
 msgid "piano accordion"
 msgstr "Pianoakkordeon"
 
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
 #: DB:instrument/name:17
 msgid "piccolo"
 msgstr "Piccoloflöte"
@@ -2484,6 +2501,11 @@ msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
 msgstr ""
 
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
+msgstr ""
+
 #: DB:instrument/name:160
 msgid "spoons"
 msgstr "Löffel"
@@ -2931,6 +2953,11 @@ msgstr "Vichitra Vina"
 #: DB:instrument/name:91
 msgid "vielle"
 msgstr "Fidel"
+
+#: DB:instrument/name:262
+msgctxt "Spanish string instrument."
+msgid "vihuela"
+msgstr ""
 
 #: DB:instrument/name:63
 msgid "viola"

@@ -21,10 +21,11 @@
 #   Tobias Quathamer <email address hidden>, 2007
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
+# Victor reaven <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
+"PO-Revision-Date: 2016-10-01 01:09+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +114,7 @@ msgstr "la dórico"
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr ""
+msgstr "Modo mixolidio"
 
 #: DB:work_type/description:2
 msgctxt "work_type"
@@ -4390,6 +4391,11 @@ msgstr "SACD"
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr "SACEM ID"
+
+#: DB:work_attribute_type/name:24
+msgctxt "work_attribute_type"
+msgid "SADAIC ID"
+msgstr ""
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"

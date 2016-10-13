@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
+"PO-Revision-Date: 2016-10-01 01:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3104,6 +3104,11 @@ msgstr "Ook wel zils, kleine bekkens die worden gebruikt bij buikdansen en soort
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr "Een soort schuiffluit. Lid van de hmông-fluiten."
 
+#. name:gittern
+#: DB:instrument/description:802
+msgid "a medieval round-backed string instrument ancestral to the guitar"
+msgstr ""
+
 #. name:accordina
 #: DB:instrument/description:778
 msgid ""
@@ -3119,6 +3124,11 @@ msgid ""
 "hole with the vibrating \"free reed\" inside"
 msgstr "Een tràm plè is een variant op de Hmông-fluit. De lippen van de fluitist omvatten het blaasgat met het vibrerende vrije riet erin."
 
+#. name:birch lur
+#: DB:instrument/description:801
+msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
+msgstr ""
+
 #. name:cembalet
 #: DB:instrument/description:794
 msgid ""
@@ -3131,10 +3141,24 @@ msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met de mond bespeeld wordt."
 
+#. name:spinettone
+#: DB:instrument/description:799
+msgid ""
+"an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
+"where produced by long strings, not thicker strings."
+msgstr ""
+
 #. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "het gebruik van schijfstations van computers om muziek te maken."
+
+#. name:bronze lur
+#: DB:instrument/description:800
+msgid ""
+"chiefly scandinavian bronze horns ritualistically buried in pairs. from the "
+"bronze age."
+msgstr ""
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3182,6 +3206,13 @@ msgstr "Een claviola is een vrij rietinstrument dat lijkt op een melodica maar a
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
 msgstr "Fluit van de Muong uit Vietnam"
+
+#. name:piano spinet
+#: DB:instrument/description:798
+msgid ""
+"small piano with drop action stickers manufactured from around 1930 to the "
+"early 1990s."
+msgstr ""
 
 #. name:guitaret
 #: DB:instrument/description:795

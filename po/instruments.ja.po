@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-16 03:14+0000\n"
+"PO-Revision-Date: 2016-10-01 01:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -155,10 +155,6 @@ msgstr "スコティッシュ・スモール・パイプ"
 #: DB:instrument/name:157
 msgid "Spanish acoustic guitar"
 msgstr "スパニッシュ・アコースティック・ギター"
-
-#: DB:instrument/name:262
-msgid "Spanish vihuela"
-msgstr "スペイン・ビウエラ"
 
 #: DB:instrument/name:451
 msgid "Stroh violin"
@@ -501,6 +497,11 @@ msgstr "自転車ベル"
 msgid "bin-sasara"
 msgstr "びんざさら"
 
+#: DB:instrument/name:801
+msgctxt "wooden natural horn"
+msgid "birch lur"
+msgstr ""
+
 #: DB:instrument/name:70
 msgid "biwa"
 msgstr "琵琶"
@@ -552,6 +553,11 @@ msgstr "擦弦楽器"
 #: DB:instrument/name:24
 msgid "brass"
 msgstr "ブラス"
+
+#: DB:instrument/name:800
+msgctxt "bronze age natural horn"
+msgid "bronze lur"
+msgstr ""
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -1240,6 +1246,11 @@ msgstr "コムンゴ"
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ガタム"
+
+#: DB:instrument/name:802
+msgctxt "medieval lute-like guitar forerunner"
+msgid "gittern"
+msgstr ""
 
 #: DB:instrument/name:796
 msgctxt "Elguitar/bass effect device"
@@ -2033,6 +2044,11 @@ msgstr "ピアノ"
 msgid "piano accordion"
 msgstr "ピアノアコーディオン"
 
+#: DB:instrument/name:798
+msgctxt "small drop action piano"
+msgid "piano spinet"
+msgstr ""
+
 #: DB:instrument/name:17
 msgid "piccolo"
 msgstr "ピッコロ"
@@ -2482,6 +2498,11 @@ msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
 msgstr ""
 
+#: DB:instrument/name:799
+msgctxt "extralong spinet with deep bass register"
+msgid "spinettone"
+msgstr ""
+
 #: DB:instrument/name:160
 msgid "spoons"
 msgstr "スプーン"
@@ -2929,6 +2950,11 @@ msgstr ""
 #: DB:instrument/name:91
 msgid "vielle"
 msgstr "ヴィエール"
+
+#: DB:instrument/name:262
+msgctxt "Spanish string instrument."
+msgid "vihuela"
+msgstr ""
 
 #: DB:instrument/name:63
 msgid "viola"

@@ -32,13 +32,14 @@
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
+# yvanz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 22:12-0500\n"
-"PO-Revision-Date: 2016-08-19 07:47+0000\n"
-"Last-Translator: ShevAbam\n"
+"POT-Creation-Date: 2016-10-01 03:06+0200\n"
+"PO-Revision-Date: 2016-10-12 13:42+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -342,7 +343,7 @@ msgstr "<strong>Approuvé :</strong> {date}"
 
 #: ../root/edit/edit_header.tt:43
 msgid "<strong>Closed:</strong> <em>Cancelling</em>"
-msgstr "<strong>Fermé  :</strong> <em>Annulation en cours</em>"
+msgstr "<strong>Fermée  :</strong> <em>Annulation en cours</em>"
 
 #: ../root/edit/edit_header.tt:47
 msgid "<strong>Closed:</strong> {date}"
@@ -465,7 +466,7 @@ msgstr "Accepter à l'expiration"
 #: ../root/user/profile.tt:163
 msgctxt "edit descriptor"
 msgid "Accepted"
-msgstr "Accepté"
+msgstr "Acceptée"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted Edits"
@@ -514,7 +515,7 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr ""
+msgstr "Ajouter \"@ \" en début de ligne pour indiquer des artistes, \"* \" pour une œuvre/une chanson, \"# \" pour des infos supplémentaires (tel que « Rappel »). [mbid|Le nom] permet un lien vers les artistes et les œuvres."
 
 #: ../root/entity/alias/add.tt:1
 msgid "Add Alias"
@@ -1030,7 +1031,7 @@ msgstr[1] "{n} utilisateurs anonymes"
 msgid ""
 "An email has been sent to <code>{addr}</code>. Please check your mailbox and"
 " click on the link in the email to verify your email address."
-msgstr ""
+msgstr "Un courriel de validation a été envoyé à l'adresse <code>{addr}</code>. Veuillez vérifier votre boîte aux lettres et cliquer sur le lien pour valider votre adresse courriel."
 
 #: ../root/components/common-macros.tt:1077
 msgid ""
@@ -1471,7 +1472,7 @@ msgstr "Artistes avec des relations obsolètes"
 #: ../root/report/artists_disambiguation_same_name.tt:3
 #: ../root/report/index.tt:29
 msgid "Artists with disambiguation the same as the name"
-msgstr "Artistes contenant des commentaires de désambiguïsation identiques aux noms des artistes"
+msgstr "Artistes contenant des commentaires de désambiguïsation identiques à leur nom"
 
 #: ../root/report/artists_with_no_subscribers.tt:1
 #: ../root/report/artists_with_no_subscribers.tt:3 ../root/report/index.tt:19
@@ -1595,7 +1596,7 @@ msgstr "Les auto-éditeurs sont des utilisateurs de confiance ayant le privilèg
 
 #: ../root/user/profile.tt:167
 msgid "Auto-edits"
-msgstr "Modifications par auto-éditeur"
+msgstr "Automatiques"
 
 #: ../root/account/preferences.tt:41
 msgid "Automatically subscribe me to artists I create."
@@ -1815,7 +1816,7 @@ msgstr "Robots"
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr ""
+msgstr "Fourni par {MeB|MetaBrainz Foundation} et ses {spon|sponsors} et {supp|supporters}. Cover Art fourni par {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:104 ../root/main/index.tt:94
 #: ../root/layout/components/Footer.js:24
@@ -1921,7 +1922,7 @@ msgstr "Annuler l'élection"
 
 #: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr "Annulée"
 
 #: ../root/user/edits.tt:1
 msgid "Cancelled Edits"
@@ -2619,7 +2620,7 @@ msgstr "Documentation"
 #: ../root/layout/header/bottom.tt:169
 #: ../root/layout/components/BottomMenu.js:234
 msgid "Documentation Index"
-msgstr ""
+msgstr "Index de la documentation"
 
 #: ../root/search/results-doc.tt:1 ../root/search/results-doc.tt:3
 msgid "Documentation Search"
@@ -2764,7 +2765,7 @@ msgstr "Modifier les relations : {release}"
 #: ../root/layout/header/bottom.tt:172
 #: ../root/layout/components/BottomMenu.js:237
 msgid "Edit Types"
-msgstr "Modifier les Types"
+msgstr "Type de modification"
 
 #: ../root/url/edit_form.tt:3 ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:23
 msgid "Edit URL"
@@ -3608,7 +3609,7 @@ msgstr "HH:MM"
 
 #: ../root/user/profile.tt:96
 msgid "Hasn't logged in yet"
-msgstr ""
+msgstr "Ne s'est encore jamais connecté"
 
 #: ../root/annotation/edit.tt:46
 msgid "Headings:"
@@ -3958,13 +3959,13 @@ msgstr "Importer sous forme de parution à artiste unique"
 msgid ""
 "In order to log in or make changes to the database, you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Pour vous connecter ou effectuer des modifications sur la base de données, vous devez vous rendre sur le serveur principal à {mb|https://musicbrainz.org/}."
 
 #: ../root/main/mirror_404.tt:9
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Pour visiter cette page, vous devez vous rendre sur le serveur principal à {mb|https://musicbrainz.org/}."
 
 #: ../root/user/login.tt:20
 msgid "Incorrect username or password"
@@ -4277,7 +4278,7 @@ msgstr "Billets les plus récents :"
 
 #: ../root/artist/index.tt:38 ../root/artist/index.tt:41
 msgid "Legal name"
-msgstr "Nom legal"
+msgstr "Nom légal"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
 #: ../root/components/medium.tt:73 ../root/components/recordings-list.tt:33
@@ -5263,7 +5264,7 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr ""
+msgstr "Note : recherche seulement des modifications qui : ajoutent ou modifient des relations, créés après le 16-05-2011 ; ou qui suppriment des relations, créées après le 08-07-2013; ou qui réordonnent les relations."
 
 #: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
@@ -5392,7 +5393,7 @@ msgstr "Oups, quelque chose a mal tourné !"
 
 #: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
-msgstr "Ouvrir"
+msgstr "Ouverte"
 
 #: ../root/edit/open.tt:1 ../root/edit/open.tt:3 ../root/user/edits.tt:1
 msgid "Open Edits"
@@ -5418,7 +5419,7 @@ msgstr "Ouvrir dans le baliseur"
 
 #: ../root/edit/info.tt:40 ../root/place/index.tt:6 ../root/place/layout.tt:18
 msgid "Opened:"
-msgstr "Ouvert : "
+msgstr "Ouverte : "
 
 #: ../root/release/edit/recordings.tt:118 ../root/release/edit/tracklist.tt:11
 msgid "Options"
@@ -5992,13 +5993,13 @@ msgstr "Enregistrements"
 #: ../root/report/index.tt:110 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
-msgstr ""
+msgstr "Enregistrements crédités « Various Artists » mais pas liés à l’entité « Various Artists »."
 
 #: ../root/report/index.tt:109
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
-msgstr ""
+msgstr "Enregistrements non crédités « Various Artists » et pourtant liés à l’entité « Various Artists »."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
@@ -6373,13 +6374,13 @@ msgstr "Groupes de parution"
 #: ../root/report/release_groups_without_va_link.tt:1
 #: ../root/report/release_groups_without_va_link.tt:3
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
-msgstr ""
+msgstr "Groupes de parution crédités « Various Artists » mais pas liés à l’entité « Various Artists »."
 
 #: ../root/report/index.tt:58
 #: ../root/report/release_groups_without_va_credit.tt:1
 #: ../root/report/release_groups_without_va_credit.tt:3
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
-msgstr ""
+msgstr "Groupes de parution crédités « Various Artists » et pourtant liés à l’entité « Various Artists »."
 
 #: ../root/report/index.tt:51
 msgid "Release groups that might need to be merged"
@@ -6469,7 +6470,7 @@ msgstr "Parution avec un certains formats non précisés"
 #: ../root/report/index.tt:96 ../root/report/releases_without_va_link.tt:1
 #: ../root/report/releases_without_va_link.tt:3
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
-msgstr ""
+msgstr "Parutions créditées « Various Artists » mais pas liées à l’entité « Various Artists »."
 
 #: ../root/report/index.tt:83
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
@@ -6480,7 +6481,7 @@ msgstr "Parutions dans la « Cover Art Archive » (archive d'illustrations) qui 
 #: ../root/report/index.tt:95 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
-msgstr ""
+msgstr "Parutions non créditées « Various Artists » et pourtant liées à l’entité « Various Artists »."
 
 #: ../root/report/index.tt:85
 msgid "Releases of any sort that still have cover art relationships"
@@ -6935,7 +6936,7 @@ msgstr "Rechercher des modifications"
 #: ../root/layout/header/bottom.tt:95
 #: ../root/layout/components/BottomMenu.js:155
 msgid "Search Entities"
-msgstr ""
+msgstr "Entités de recherche"
 
 #: ../root/search/error/wrapper.tt:1 ../root/search/error/wrapper.tt:2
 msgid "Search Error"
@@ -8127,8 +8128,8 @@ msgstr "Il n'y a pas d'enregistrement, de groupe de parution, de parution ou des
 #: ../root/area/users.tt:6
 msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Il y a actuellement {num} utilisateur dans cette région."
+msgstr[1] "Il y a actuellement {num} utilisateurs dans cette région."
 
 #: ../root/user/subscribers.tt:4
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
@@ -8462,7 +8463,7 @@ msgstr "Ceci est un serveur de développement de MusicBrainz."
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr ""
+msgstr "Ceci est un serveur mirroir de MusicBrainz. Pour modifier les données veuillez {uri|retourner vers musicbrainz.org}."
 
 #: ../root/components/common-macros.tt:108
 msgid ""
@@ -8722,7 +8723,7 @@ msgstr "Ce rapport liste les artistes pour lesquels aucun éditeur ne s'est abon
 msgid ""
 "This report lists artists that have their disambiguation set to be the same "
 "as their name. Disambiguation should not be filled in this case."
-msgstr ""
+msgstr "Ce rapport liste des artistes qui ont des commentaires de désambiguïsation identiques à leur nom. Le champ de commentaire de désambiguïsation ne devrait pas être rempli dans ce cas."
 
 #: ../root/report/artists_that_may_be_groups.tt:6
 msgid ""
@@ -8795,7 +8796,7 @@ msgstr "Ce rapport liste les événements ayant lieu au même endroit et à la m
 msgid ""
 "This report lists labels that have their disambiguation set to be the same "
 "as their name. Disambiguation should not be filled in this case."
-msgstr ""
+msgstr "Ce rapport liste des labels qui ont des commentaires de désambiguïsation identiques à leur nom. Le champ de commentaire de désambiguïsation ne devrait pas être rempli dans ce cas."
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8966,7 +8967,7 @@ msgstr "Ce rapport montre les URLs Discogs qui sont reliées à plusieurs paruti
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr ""
+msgstr "Ce rapport montre les enregistrements liés à l’entité « Various Artists » sans être crédités au nom « Various Artists »."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
@@ -8987,7 +8988,7 @@ msgstr "Ce rapport montre les enregistrements dont les pistes reliées ont des d
 msgid ""
 "This report shows recordings with \"Various Artists\" as the credited name "
 "but not linked to the Various Artists entity."
-msgstr ""
+msgstr "Ce rapport montre les enregistrements crédités au nom « Various Artists » sans lien à l’entité « Various Artists »."
 
 #: ../root/report/featuring_recordings.tt:6
 msgid ""
@@ -9002,13 +9003,13 @@ msgstr "Ce rapport montre les enregistrements avec (feat. Artist) dans le titre.
 msgid ""
 "This report shows release groups linked to the Various Artists entity "
 "without \"Various Artists\" as the credited name."
-msgstr ""
+msgstr "Ce rapport montre les groupes de parution liés à l’entité « Various Artists » sans être crédités au nom « Various Artists »."
 
 #: ../root/report/release_groups_without_va_link.tt:6
 msgid ""
 "This report shows release groups with \"Various Artists\" as the credited "
 "name but not linked to the Various Artists entity."
-msgstr ""
+msgstr "Ce rapport montre les groupes de parution crédités au nom « Various Artists » sans lien à l’entité « Various Artists »."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -9033,7 +9034,7 @@ msgstr "Ce rapport montre les groupes de parution avec des parutions qui sont re
 msgid ""
 "This report shows releases linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr ""
+msgstr "Ce rapport montre les parutions liées à l’entité « Various Artists » sans être créditées au nom « Various Artists »."
 
 #: ../root/report/single_medium_releases_with_medium_titles.tt:6
 msgid ""
@@ -9144,7 +9145,7 @@ msgstr "Ce rapport montre les parutions qui ont des ID de disque même si elles 
 msgid ""
 "This report shows releases with \"Various Artists\" as the credited name but"
 " not linked to the Various Artists entity."
-msgstr ""
+msgstr "Ce rapport montre les parutions créditées au nom « Various Artists » sans lien à l’entité « Various Artists »."
 
 #: ../root/report/featuring_releases.tt:6
 msgid ""
@@ -9291,7 +9292,7 @@ msgstr "Pour aider aux tests, les fonctions suivantes sont maintenant proposées
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub or FreeDB, select the appropriate tab."
-msgstr ""
+msgstr "Afin de créer une nouvelle liste de pistes, utiliser un support existant ou importer un disque à partir d'un coupon de CD ou de FreeDB, sélectionnez l'onglet approprié."
 
 #: ../root/release/edit/information.tt:99
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -9953,7 +9954,7 @@ msgstr "Pointage des votes :"
 
 #: ../root/user/profile.tt:171
 msgid "Voted down"
-msgstr "Voté contre"
+msgstr "Rejetées par vote :"
 
 #: ../root/elections/show.tt:116
 msgid "Voter"
@@ -11714,7 +11715,7 @@ msgid ""
 "{url|help us improve it}!"
 msgstr "Langue appliquée. Si vous rencontrez un quelconque problème de traduction, n'hésitez pas à {url|nous aider à l'améliorer} !"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:233
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:237
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -12405,7 +12406,7 @@ msgstr "Vote depuis le {date}"
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Accepted at {date}"
-msgstr "Accepté le {date}"
+msgstr "Acceptée le {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:93
 #, perl-brace-format
@@ -12417,7 +12418,7 @@ msgstr "Refusé le {date}"
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Cancelled at {date}"
-msgstr "Annulé le {date}"
+msgstr "Annulée le {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:98
 msgctxt "autoeditor election status (short)"
@@ -12437,7 +12438,7 @@ msgstr "Vote ouvert"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:101
 msgctxt "autoeditor election status (short)"
 msgid "Accepted"
-msgstr "Accepté"
+msgstr "Acceptée"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:102
 msgctxt "autoeditor election status (short)"
@@ -12447,7 +12448,7 @@ msgstr "Refusé"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
 msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr "Annulée"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:25
 msgid "[none]"
@@ -12572,7 +12573,7 @@ msgstr "Ce doit être un code-barres valide"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:65
 msgid "The collection type must match the type of entities it contains."
-msgstr ""
+msgstr "Le type de collection doit correspondre au type d'entités qu'elle contient."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:48
 #, perl-brace-format
@@ -12965,7 +12966,7 @@ msgstr "{last_list_item}"
 
 #: ../root/layout/components/Footer.js:37
 msgid "Running: {git_details}"
-msgstr ""
+msgstr "Exécutant: {git_details}"
 
 #: ../root/main/404.js:19
 msgid "Sorry, the page you're looking for does not exist."
@@ -12975,7 +12976,7 @@ msgstr "Désolé, la page que vous cherchez n'existe pas."
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
-msgstr ""
+msgstr "Vous avez trouvé un lien brisé sur notre site ? Dites-le nous en {report|signalant un bogue} et en indiquant tout message d'erreur ci-dessus."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:62
 msgid "An error occurred while searching. Click here to try again."
@@ -13198,7 +13199,7 @@ msgstr "Champ requis."
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr ""
+msgstr "Utiliser les champs suivants pour saisir les collaborations, voir la documentation sur le {ac|crédit d'artiste} pour plus d'informations."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:73
 msgid "Artist in MusicBrainz:"

@@ -8723,7 +8723,7 @@ msgstr ""
 msgid "Eastern Apurímac Quechua"
 msgstr ""
 
-#. frequency:0 iso_code_3:aer 
+#. frequency:1 iso_code_3:aer 
 #: DB:language/name:584
 msgid "Eastern Arrernte"
 msgstr ""
@@ -11163,7 +11163,7 @@ msgstr ""
 msgid "Gumalu"
 msgstr ""
 
-#. frequency:0 iso_code_3:gnn 
+#. frequency:1 iso_code_3:gnn 
 #: DB:language/name:2511
 msgid "Gumatj"
 msgstr ""
@@ -11218,7 +11218,7 @@ msgstr ""
 msgid "Gupa-Abawa"
 msgstr ""
 
-#. frequency:0 iso_code_3:guf 
+#. frequency:1 iso_code_3:guf 
 #: DB:language/name:2581
 msgid "Gupapuyngu"
 msgstr ""
@@ -27748,7 +27748,7 @@ msgstr ""
 msgid "Piti"
 msgstr ""
 
-#. frequency:0 iso_code_3:pjt 
+#. frequency:1 iso_code_3:pjt 
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
 msgstr ""
@@ -31818,7 +31818,7 @@ msgstr ""
 msgid "Southern Kisi"
 msgstr ""
 
-#. frequency:0 iso_code_3:kjd 
+#. frequency:1 iso_code_3:kjd 
 #: DB:language/name:3309
 msgid "Southern Kiwai"
 msgstr ""
@@ -36878,7 +36878,7 @@ msgstr ""
 msgid "Warlmanpa"
 msgstr ""
 
-#. frequency:0 iso_code_3:wbp 
+#. frequency:1 iso_code_3:wbp 
 #: DB:language/name:7009
 msgid "Warlpiri"
 msgstr ""
@@ -37178,7 +37178,7 @@ msgstr ""
 msgid "Western Apache"
 msgstr ""
 
-#. frequency:0 iso_code_3:are 
+#. frequency:1 iso_code_3:are 
 #: DB:language/name:820
 msgid "Western Arrarnta"
 msgstr ""

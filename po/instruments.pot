@@ -144,10 +144,6 @@ msgstr ""
 msgid "Spanish acoustic guitar"
 msgstr ""
 
-#: DB:instrument/name:262
-msgid "Spanish vihuela"
-msgstr ""
-
 #: DB:instrument/name:451
 msgid "Stroh violin"
 msgstr ""
@@ -489,6 +485,11 @@ msgstr ""
 msgid "bin-sasara"
 msgstr ""
 
+#: DB:instrument/name:801
+msgctxt "wooden natural horn"
+msgid "birch lur"
+msgstr ""
+
 #: DB:instrument/name:70
 msgid "biwa"
 msgstr ""
@@ -539,6 +540,11 @@ msgstr ""
 
 #: DB:instrument/name:24
 msgid "brass"
+msgstr ""
+
+#: DB:instrument/name:800
+msgctxt "bronze age natural horn"
+msgid "bronze lur"
 msgstr ""
 
 #: DB:instrument/name:320
@@ -1229,6 +1235,11 @@ msgstr ""
 msgid "ghatam"
 msgstr ""
 
+#: DB:instrument/name:802
+msgctxt "medieval lute-like guitar forerunner"
+msgid "gittern"
+msgstr ""
+
 #: DB:instrument/name:796
 msgctxt "Elguitar/bass effect device"
 msgid "gizmo"
@@ -1683,6 +1694,11 @@ msgstr ""
 
 #: DB:instrument/name:705
 msgid "lavta"
+msgstr ""
+
+#: DB:instrument/name:803
+msgctxt "spanish plucked chordophone"
+msgid "laúd"
 msgstr ""
 
 #: DB:instrument/name:573
@@ -2926,6 +2942,11 @@ msgstr ""
 
 #: DB:instrument/name:91
 msgid "vielle"
+msgstr ""
+
+#: DB:instrument/name:262
+msgctxt "Spanish string instrument."
+msgid "vihuela"
 msgstr ""
 
 #: DB:instrument/name:63

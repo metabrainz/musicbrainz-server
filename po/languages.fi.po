@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
+"PO-Revision-Date: 2016-10-01 01:09+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -617,6 +617,11 @@ msgstr "djula"
 msgid "Dzongkha"
 msgstr "dzongkha"
 
+#. frequency:1 iso_code_3:aer
+#: DB:language/name:584
+msgid "Eastern Arrernte"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -881,6 +886,16 @@ msgstr "guarani"
 #: DB:language/name:161
 msgid "Gujarati"
 msgstr "gudžarati"
+
+#. frequency:1 iso_code_3:gnn
+#: DB:language/name:2511
+msgid "Gumatj"
+msgstr ""
+
+#. frequency:1 iso_code_3:guf
+#: DB:language/name:2581
+msgid "Gupapuyngu"
+msgstr ""
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1842,6 +1857,11 @@ msgstr "filippiiniläiset kielet"
 msgid "Phoenician"
 msgstr "foinikia"
 
+#. frequency:1 iso_code_3:pjt
+#: DB:language/name:5402
+msgid "Pitjantjatjara"
+msgstr ""
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2177,6 +2197,11 @@ msgstr "eteläamerikkalaiset intiaanikielet"
 msgid "Southern Altai"
 msgstr "altai"
 
+#. frequency:1 iso_code_3:kjd
+#: DB:language/name:3309
+msgid "Southern Kiwai"
+msgstr ""
+
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
 msgid "Spanish"
@@ -2482,6 +2507,11 @@ msgstr "valloni"
 msgid "Waray"
 msgstr "waray"
 
+#. frequency:1 iso_code_3:wbp
+#: DB:language/name:7009
+msgid "Warlpiri"
+msgstr ""
+
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
 msgid "Washo"
@@ -2491,6 +2521,11 @@ msgstr "washo"
 #: DB:language/name:455
 msgid "Welsh"
 msgstr "kymri"
+
+#. frequency:1 iso_code_3:are
+#: DB:language/name:820
+msgid "Western Arrarnta"
+msgstr ""
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452
