@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-30 00:32-0500\n"
+"POT-Creation-Date: 2016-10-01 03:06+0200\n"
 "PO-Revision-Date: 2016-09-27 19:41+0000\n"
 "Last-Translator: Peter Cuevas H <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -11706,7 +11706,7 @@ msgid ""
 "{url|help us improve it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:233
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:237
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."

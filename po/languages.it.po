@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-17 00:03+0000\n"
+"PO-Revision-Date: 2016-10-09 09:59+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -612,6 +612,11 @@ msgstr "Dioula"
 msgid "Dzongkha"
 msgstr "Dzongkha"
 
+#. frequency:1 iso_code_3:aer
+#: DB:language/name:584
+msgid "Eastern Arrernte"
+msgstr "Arrernte orientale"
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -876,6 +881,16 @@ msgstr "Guaraní"
 #: DB:language/name:161
 msgid "Gujarati"
 msgstr "Gujarati"
+
+#. frequency:1 iso_code_3:gnn
+#: DB:language/name:2511
+msgid "Gumatj"
+msgstr "Gumatj"
+
+#. frequency:1 iso_code_3:guf
+#: DB:language/name:2581
+msgid "Gupapuyngu"
+msgstr "Gupapuyngu"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1837,6 +1852,11 @@ msgstr "Lingue filippine"
 msgid "Phoenician"
 msgstr "Fenicio"
 
+#. frequency:1 iso_code_3:pjt
+#: DB:language/name:5402
+msgid "Pitjantjatjara"
+msgstr "Pitjantjatjara"
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2172,6 +2192,11 @@ msgstr "Lingue native sudamericane"
 msgid "Southern Altai"
 msgstr "Altai del sud"
 
+#. frequency:1 iso_code_3:kjd
+#: DB:language/name:3309
+msgid "Southern Kiwai"
+msgstr "Kiwai meridionale"
+
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
 msgid "Spanish"
@@ -2477,6 +2502,11 @@ msgstr "Vallone"
 msgid "Waray"
 msgstr "Waray"
 
+#. frequency:1 iso_code_3:wbp
+#: DB:language/name:7009
+msgid "Warlpiri"
+msgstr "Warlpiri"
+
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
 msgid "Washo"
@@ -2486,6 +2516,11 @@ msgstr "Washo"
 #: DB:language/name:455
 msgid "Welsh"
 msgstr "Gallese"
+
+#. frequency:1 iso_code_3:are
+#: DB:language/name:820
+msgid "Western Arrarnta"
+msgstr "Arrernte occidentale"
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452

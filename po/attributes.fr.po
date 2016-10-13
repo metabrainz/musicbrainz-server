@@ -25,7 +25,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-09-30 21:25+0000\n"
+"PO-Revision-Date: 2016-10-12 13:41+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -346,7 +346,7 @@ msgstr "Une symphonie est une vaste composition, presque toujours arrangée pour
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr "Un boîtier plus mince, utilisé habituellement pour les CD simples."
+msgstr "Un boîtier cristal plus mince, utilisé habituellement pour les singles sur CD."
 
 #: DB:work_type/description:19
 msgctxt "work_type"
@@ -639,7 +639,7 @@ msgstr "Artiste"
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr "Nom de l'artiste"
+msgstr "Nom d’artiste"
 
 #: DB:work_attribute_type_allowed_value/value:693
 msgctxt "work_attribute_type_allowed_value"
@@ -1932,7 +1932,7 @@ msgstr "Fantezi"
 #: DB:release_packaging/name:10
 msgctxt "release_packaging"
 msgid "Fatbox"
-msgstr "Gros boîtier"
+msgstr "Double boîtier cristal"
 
 #: DB:gender/name:2
 msgctxt "gender"
@@ -2685,7 +2685,7 @@ msgstr "Jayantaśrī"
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr "Boîtier"
+msgstr "Boîtier cristal"
 
 #: DB:work_attribute_type_allowed_value/value:119
 msgctxt "work_attribute_type_allowed_value"
@@ -3080,7 +3080,7 @@ msgstr "Lavāngi"
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "Nom officiel"
+msgstr "Nom légal"
 
 #: DB:work_attribute_type_allowed_value/value:744
 msgctxt "work_attribute_type_allowed_value"
@@ -4392,6 +4392,11 @@ msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr "ID SACEM"
 
+#: DB:work_attribute_type/name:24
+msgctxt "work_attribute_type"
+msgid "SADAIC ID"
+msgstr "ID SADAIC"
+
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"
@@ -4647,7 +4652,7 @@ msgstr "Sirto"
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr "Boîtier extra-plat "
+msgstr "Boîtier cristal extra-plat "
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
@@ -4797,7 +4802,7 @@ msgstr "Sunādavinōdini"
 #: DB:release_packaging/name:16
 msgctxt "release_packaging"
 msgid "Super Jewel Box"
-msgstr "Super Jewel Box"
+msgstr "Super boîtier cristal"
 
 #: DB:work_attribute_type_allowed_value/value:252
 msgctxt "work_attribute_type_allowed_value"

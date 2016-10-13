@@ -3088,6 +3088,11 @@ msgstr ""
 msgid "a medieval round-backed string instrument ancestral to the guitar"
 msgstr ""
 
+#. name:laúd 
+#: DB:instrument/description:803
+msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
+msgstr ""
+
 #. name:accordina 
 #: DB:instrument/description:778
 msgid ""
