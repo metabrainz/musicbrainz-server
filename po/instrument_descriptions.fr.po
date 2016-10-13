@@ -5,6 +5,7 @@
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2016
 # Frédéric Da Vitoria <email address hidden>, 2014
+# Jack Ruertnevel, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
 # French language coordinator <email address hidden>, 2015
@@ -14,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-09-30 22:41+0000\n"
+"PO-Revision-Date: 2016-10-07 09:55+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -337,7 +338,7 @@ msgstr ""
 #. name:chainsaw
 #: DB:instrument/description:769
 msgid "A powered tool primarily used in the cutting of wood"
-msgstr ""
+msgstr "Un outil utilisé originellement pour couper du bois"
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -3047,7 +3048,7 @@ msgstr "Cymbales"
 msgid ""
 "Traditional musical instruments of the Māori people of New Zealand. Consists"
 " of flutes trumpets and percussion."
-msgstr ""
+msgstr "Instruments de musique traditionnels du peuple Maori de Nouvelle Zélande. Constitué de flutes, trompettes et percussions."
 
 #. name:classical kemençe
 #: DB:instrument/description:542
@@ -3112,6 +3113,11 @@ msgstr "Les sagattes sont de petites cymbales de doigt en métal utilisées pour
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr "une sorte de pipeau à coulisse. Flûte hmông"
 
+#. name:gittern
+#: DB:instrument/description:802
+msgid "a medieval round-backed string instrument ancestral to the guitar"
+msgstr ""
+
 #. name:accordina
 #: DB:instrument/description:778
 msgid ""
@@ -3126,6 +3132,11 @@ msgid ""
 "a variant of the \"Hmông flute\". flute blowers lips enclose the blowing "
 "hole with the vibrating \"free reed\" inside"
 msgstr "Une variante de la flûte hmông, les lèvres du souffleur entourent le trou de soufflage avec l'anche libre vibrant à l'Intérieur."
+
+#. name:birch lur
+#: DB:instrument/description:801
+msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
+msgstr ""
 
 #. name:cembalet
 #: DB:instrument/description:794
@@ -3150,6 +3161,13 @@ msgstr ""
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "comme utiliser des lecteurs pour faire de la musique, disques durs, lecteurs de disquettes, CD ou autres."
+
+#. name:bronze lur
+#: DB:instrument/description:800
+msgid ""
+"chiefly scandinavian bronze horns ritualistically buried in pairs. from the "
+"bronze age."
+msgstr ""
 
 #. name:conch
 #: DB:instrument/description:156

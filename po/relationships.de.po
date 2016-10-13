@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-01 22:12+0000\n"
+"PO-Revision-Date: 2016-10-01 01:09+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -212,8 +212,8 @@ msgstr "Geonames"
 msgid "Geonames page for"
 msgstr "Geonames-Seite für"
 
-#: DB:link_type/link_phrase:97 DB:link_type/link_phrase:313
-#: DB:link_type/link_phrase:178 DB:link_type/link_phrase:706
+#: DB:link_type/link_phrase:313 DB:link_type/link_phrase:178
+#: DB:link_type/link_phrase:706 DB:link_type/link_phrase:97
 #: DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
 msgstr "IMDb"
@@ -222,9 +222,9 @@ msgstr "IMDb"
 msgid "IMDb entry sampled in"
 msgstr "IMDb-Eintrag gesampled in"
 
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
+#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:706
+#: DB:link_type/reverse_link_phrase:97
 msgid "IMDb page for"
 msgstr "IMDb-Seite für"
 
@@ -1864,7 +1864,7 @@ msgstr ""
 
 #: DB:link_type/description:97
 msgid ""
-"This links a soundtrack release to the <a "
+"This links a soundtrack release group to the <a "
 "href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
 "which it is a soundtrack."
 msgstr ""
@@ -3381,8 +3381,8 @@ msgstr "hat eine eigene Website unter"
 msgid "has an Allmusic page at"
 msgstr "hat eine Allmusic-Seite unter"
 
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:313
-#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
+#: DB:link_type/long_link_phrase:706 DB:link_type/long_link_phrase:97
 msgid "has an IMDb page at"
 msgstr "hat eine IMDb-Seite unter"
 
@@ -3728,7 +3728,7 @@ msgid "is/was the parent label of"
 msgstr "ist/war das Mutterlabel von"
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an additional|a} {original} member of"
+msgid "is/was {additional:an|a} {additional} {original} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -3884,14 +3884,6 @@ msgstr "Mashup von"
 msgid "mash-ups"
 msgstr "Mashups"
 
-#: DB:link_type/reverse_link_phrase:697
-msgid "mastered at"
-msgstr "gemastert bei"
-
-#: DB:link_type/reverse_link_phrase:756
-msgid "mastered in"
-msgstr "gemastert in"
-
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
 msgstr "Audio-Mastering-Techniker bei"
@@ -3899,10 +3891,6 @@ msgstr "Audio-Mastering-Techniker bei"
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
 msgstr "Audio-Mastering-Techniker"
-
-#: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
-msgid "mastering location for"
-msgstr "Mastering-Örtlichkeit für"
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
@@ -4179,12 +4167,8 @@ msgstr "leitete {additional:zusätzlich} den Chor auf"
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:60
-msgid "performed {additional} {guest} {solo} {vocal} {vocal:|vocals} on"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:149
-msgid "performed {additional} {solo} {guest} {vocal} {vocal:|vocals} on"
+#: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
+msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
 msgstr ""
 
 #: DB:link_type/link_phrase:108 DB:link_type/long_link_phrase:108
@@ -4375,6 +4359,14 @@ msgstr "Musik zum Herunterladen kaufen"
 #: DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr "Musik bestellen"
+
+#: DB:link_attribute_type/name:952
+msgid "re"
+msgstr ""
+
+#: DB:link_attribute_type/description:952
+msgid "re-[role]"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
@@ -4962,7 +4954,7 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
 msgstr "{co:ko-}editierte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
 
-#: DB:link_type/long_link_phrase:42 DB:link_type/long_link_phrase:136
+#: DB:link_type/long_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr "{co:ko-}masterte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner}"
 
@@ -4999,6 +4991,10 @@ msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }produced"
 msgstr "{co:ko}produzierte {additional:zusätzlich} {assistant:assistierend} {associate:als Partner} {executive:leitend}"
+
+#: DB:link_type/long_link_phrase:42
+msgid "{additional:additionally} {assistant} {associate} {co:co-}{re}mastered"
+msgstr ""
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
@@ -5152,8 +5148,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}editor"
 msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner-}{co:Ko-}Editing"
 
-#: DB:link_type/link_phrase:42 DB:link_type/link_phrase:136
-#: DB:link_type/reverse_link_phrase:42 DB:link_type/reverse_link_phrase:136
+#: DB:link_type/link_phrase:136 DB:link_type/reverse_link_phrase:136
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner-}{co:Ko-}Mastering"
 
@@ -5175,6 +5170,10 @@ msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
 msgstr "{additional:zusätzliche(r)} {assistant:assistierende(r)} {executive:leitende(r)} {associate:Partner-}{co:Koproduzent(in)|Produzent(in)}"
 
+#: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
+msgid "{additional} {assistant} {associate} {co:co-}{re}mastering"
+msgstr ""
+
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
 msgid "{additional} {assistant} {associate} {instrument} programming"
@@ -5191,7 +5190,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
-msgid "{additional} {guest} {solo} {vocal} {vocal:|vocals}"
+msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
@@ -5368,14 +5367,6 @@ msgstr ""
 msgid "{entity1} was manufactured in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:697
-msgid "{entity1} was mastered at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:756
-msgid "{entity1} was mastered in {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
 msgid "{entity1} was mixed at {entity0}"
 msgstr ""
@@ -5468,6 +5459,14 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:697
+msgid "{entity1} was {re}mastered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:756
+msgid "{entity1} was {re}mastered in {entity0}"
+msgstr ""
+
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -5478,6 +5477,18 @@ msgstr ""
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} "
 "recordings"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:697
+msgid "{re}mastered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:756
+msgid "{re}mastered in"
+msgstr ""
+
+#: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
+msgid "{re}mastering location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15

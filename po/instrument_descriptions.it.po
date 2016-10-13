@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-30 05:33+0000\n"
+"PO-Revision-Date: 2016-10-01 01:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3107,6 +3107,11 @@ msgstr ""
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
 msgstr ""
 
+#. name:gittern
+#: DB:instrument/description:802
+msgid "a medieval round-backed string instrument ancestral to the guitar"
+msgstr ""
+
 #. name:accordina
 #: DB:instrument/description:778
 msgid ""
@@ -3120,6 +3125,11 @@ msgstr ""
 msgid ""
 "a variant of the \"Hmông flute\". flute blowers lips enclose the blowing "
 "hole with the vibrating \"free reed\" inside"
+msgstr ""
+
+#. name:birch lur
+#: DB:instrument/description:801
+msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
 msgstr ""
 
 #. name:cembalet
@@ -3144,6 +3154,13 @@ msgstr ""
 #. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr ""
+
+#. name:bronze lur
+#: DB:instrument/description:800
+msgid ""
+"chiefly scandinavian bronze horns ritualistically buried in pairs. from the "
+"bronze age."
 msgstr ""
 
 #. name:conch

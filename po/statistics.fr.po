@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-09-29 07:35+0000\n"
+"PO-Revision-Date: 2016-10-07 11:30+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -661,7 +661,7 @@ msgstr "Modifications appliquées"
 
 #: ../root/statistics/index.tt:842
 msgid "Applied:"
-msgstr "Appliqué :"
+msgstr "Appliquées :"
 
 #: ../root/statistics/index.tt:906
 msgctxt "vote"
@@ -847,7 +847,7 @@ msgstr "Modification annulées"
 
 #: ../root/statistics/index.tt:872
 msgid "Cancelled:"
-msgstr "Annulé :"
+msgstr "Annulées :"
 
 #: ../root/statistics/view_js.tt:125
 msgid "Characters"
@@ -1368,7 +1368,7 @@ msgstr "Modifications en échec (pré-requis)"
 
 #: ../root/statistics/view_js.tt:72
 msgid "Failed edits (voted down)"
-msgstr "Modifications en échec (vote contre)"
+msgstr "Modifications rejetées par vote"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Female Artists"
@@ -1680,7 +1680,7 @@ msgstr "Modifications ouvertes et acceptées durant la semaine dernière"
 
 #: ../root/statistics/index.tt:836
 msgid "Open:"
-msgstr "Ouvrir : "
+msgstr "Ouvertes : "
 
 #: ../root/statistics/view_js.tt:126
 msgid "Orchestras"
@@ -2126,7 +2126,7 @@ msgstr "Vidéos :"
 
 #: ../root/statistics/index.tt:848
 msgid "Voted down:"
-msgstr "Voté contre :"
+msgstr "Rejetées par vote :"
 
 #: ../root/statistics/editors.tt:42 ../root/statistics/editors.tt:43
 msgid "Voter"

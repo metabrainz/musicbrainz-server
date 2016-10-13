@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-09-22 07:22+0000\n"
-"Last-Translator: Steve Marbs <email address hidden>\n"
+"PO-Revision-Date: 2016-10-01 01:08+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -158,10 +158,6 @@ msgstr "Schottische Sackpfeife (Dudelsack)"
 #: DB:instrument/name:157
 msgid "Spanish acoustic guitar"
 msgstr "spanische Akustikgitarre"
-
-#: DB:instrument/name:262
-msgid "Spanish vihuela"
-msgstr "spanische Vihuela"
 
 #: DB:instrument/name:451
 msgid "Stroh violin"
@@ -504,6 +500,11 @@ msgstr "Fahrradklingel"
 msgid "bin-sasara"
 msgstr "Bin-Sasara"
 
+#: DB:instrument/name:801
+msgctxt "wooden natural horn"
+msgid "birch lur"
+msgstr ""
+
 #: DB:instrument/name:70
 msgid "biwa"
 msgstr "Biwa"
@@ -555,6 +556,11 @@ msgstr "Streichinstrumente"
 #: DB:instrument/name:24
 msgid "brass"
 msgstr "Blechblasinstrumente"
+
+#: DB:instrument/name:800
+msgctxt "bronze age natural horn"
+msgid "bronze lur"
+msgstr ""
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -1243,6 +1249,11 @@ msgstr "Geomungo"
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "Ghatam"
+
+#: DB:instrument/name:802
+msgctxt "medieval lute-like guitar forerunner"
+msgid "gittern"
+msgstr ""
 
 #: DB:instrument/name:796
 msgctxt "Elguitar/bass effect device"
@@ -2942,6 +2953,11 @@ msgstr "Vichitra Vina"
 #: DB:instrument/name:91
 msgid "vielle"
 msgstr "Fidel"
+
+#: DB:instrument/name:262
+msgctxt "Spanish string instrument."
+msgid "vihuela"
+msgstr ""
 
 #: DB:instrument/name:63
 msgid "viola"
