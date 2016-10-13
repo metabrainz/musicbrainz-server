@@ -1696,6 +1696,11 @@ msgstr ""
 msgid "lavta"
 msgstr ""
 
+#: DB:instrument/name:803
+msgctxt "spanish plucked chordophone"
+msgid "laúd"
+msgstr ""
+
 #: DB:instrument/name:573
 msgid "limbe"
 msgstr ""
