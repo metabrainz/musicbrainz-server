@@ -19,7 +19,7 @@ sub query
             JOIN release r ON lru.entity0 = r.id
         WHERE
             url ~ E'amazon\\\\.' AND
-            url !~ E'^http://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
+            url !~ E'^https?://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
     ";
 }
 
