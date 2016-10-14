@@ -338,7 +338,7 @@ const CLEANUPS = {
       // if both were found. There used to be another [2], but we'll
       // stick to the new one for now.
       //
-      // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
+      // [1] "https://www.amazon.<tld>/gp/product/<ASIN>"
       // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
       var tld = "";
       var asin = "";
@@ -355,7 +355,7 @@ const CLEANUPS = {
       }
 
       if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // artist pages
-        return "http://www.amazon." + tld + "/-/e/" + m[1];
+        return "https://www.amazon." + tld + "/-/e/" + m[1];
       } else if ((m = url.match(/\/(?:product|dp)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/))) { // strict regex to catch most ASINs
         asin = m[1];
       } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // if all else fails, find anything that could be an ASIN
@@ -363,7 +363,7 @@ const CLEANUPS = {
       }
 
       if (tld !== "" && asin !== "") {
-        return "http://www.amazon." + tld + "/gp/product/" + asin;
+        return "https://www.amazon." + tld + "/gp/product/" + asin;
       }
     }
   },
