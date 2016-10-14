@@ -1799,25 +1799,25 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://youtube.com/user/officialpsy/videos',
                      input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
-                    expected_clean_url: 'http://www.youtube.com/user/officialpsy',
+                    expected_clean_url: 'https://www.youtube.com/user/officialpsy',
         },
         {
                              input_url: 'http://m.youtube.com/#/user/JessVincentMusic',
                      input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
-                    expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
+                    expected_clean_url: 'https://www.youtube.com/user/JessVincentMusic',
         },
         {
                              input_url: 'https://www.youtube.com/user/JessVincentMusic?feature=watch',
                      input_entity_type: 'artist',
             expected_relationship_type: 'youtube',
-                    expected_clean_url: 'http://www.youtube.com/user/JessVincentMusic',
+                    expected_clean_url: 'https://www.youtube.com/user/JessVincentMusic',
         },
         {
                              input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
         },
         {
                              input_url: 'http://youtube.com/user/officialpsy/videos',
@@ -1828,7 +1828,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://youtu.be/UmHdefsaL6I',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
         },
     ];
 
