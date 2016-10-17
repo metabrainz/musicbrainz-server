@@ -10,8 +10,8 @@ around get_by_gid => sub {
     return undef
         unless defined $gid;
 
-    my $key = $self->_id_cache_prefix . ':' . $gid;
-    my $cache = $self->c->cache($self->_id_cache_prefix);
+    my $key = $self->_type . ':' . $gid;
+    my $cache = $self->c->cache($self->_type);
     my $id = $cache->get($key);
     my $obj;
     if (defined($id)) {
@@ -28,7 +28,7 @@ around get_by_gid => sub {
 around _create_cache_entries => sub {
     my ($orig, $self, $data) = @_;
 
-    my $prefix = $self->_id_cache_prefix . ':';
+    my $prefix = $self->_type . ':';
     my @orig_entries = $self->$orig($data);
     my @entries = @orig_entries;
     # Only add gid entries for entities returned from $self->$orig, which

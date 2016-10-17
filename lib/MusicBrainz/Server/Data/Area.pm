@@ -103,7 +103,7 @@ sub load_containment
     }
 
     my $cached_containments = $self->c->cache('area_containment')->get_multi(
-        map { "area_containment:$namespace_key:$_" } @all_ids
+        map { "{area_containment}:$namespace_key:$_" } @all_ids
     );
 
     if (defined $cached_containments && %{$cached_containments}) {

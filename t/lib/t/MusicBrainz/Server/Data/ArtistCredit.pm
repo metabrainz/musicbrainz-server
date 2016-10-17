@@ -127,13 +127,13 @@ test 'Merging clears the cache' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
 
     $artist_credit_data->get_by_ids(1);
-    ok($cache->get('ac:1'), 'cache contains artist credit #1');
+    ok($cache->get('artist_credit:1'), 'cache contains artist credit #1');
 
     $c->sql->begin;
     $artist_credit_data->merge_artists(3, [ 2 ]);
     $c->sql->commit;
 
-    ok(!$cache->get('ac:1'), 'cache no longer contains artist credit #1');
+    ok(!$cache->get('artist_credit:1'), 'cache no longer contains artist credit #1');
 };
 
 test 'Replace artist credit' => sub {
