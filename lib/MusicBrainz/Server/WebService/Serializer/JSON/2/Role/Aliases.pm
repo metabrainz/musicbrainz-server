@@ -21,6 +21,10 @@ around serialize => sub {
         $item->{type} = $alias->type ? $alias->type_name : JSON::null;
         $item->{'type-id'} = $alias->type ? $alias->type->gid : JSON::null;
 
+        $item->{'begin-date'} = $alias->begin_date->is_empty ? $alias->begin_date->format : JSON::null;
+        $item->{'end-date'} = $alias->end_date->is_empty ? $alias->end_date->format : JSON::null;
+        $item->{ended} = boolean ($alias->ended);
+
         push @aliases, $item;
     }
 
