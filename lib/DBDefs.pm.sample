@@ -245,9 +245,6 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
 #
-# Using Cache::Memory is good for a development environment, but is likely not
-# suited for production.  Use something like memcached in a production setup.
-#
 # If you want to use something such as Memcached, the settings here should be
 # the same as the settings you use for the session store.
 #
@@ -260,24 +257,13 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     };
 # };
 
-# Use memcached and a small in-memory cache, see below if you
-# want to disable caching
-#
-# The caching options here relate to object caching - such as caching artists,
-# releases, etc in order to speed up queries. If you are using Memcached
-# to store sessions as well this should be a *different* memcached server.
+# The caching options here relate to object caching in memcached - such as for
+# artists, releases, etc. in order to speed up queries. See below if you want
+# to disable caching.
 # sub CACHE_MANAGER_OPTIONS {
 #     my $self = shift;
 #     my %CACHE_MANAGER_OPTIONS = (
 #         profiles => {
-#             memory => {
-#                 class => 'Cache::Memory',
-#                 wrapped => 1,
-#                 keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
-#                 options => {
-#                     default_expires => '1 hour',
-#                 },
-#             },
 #             external => {
 #                 class => 'Cache::Memcached::Fast',
 #                 options => {
