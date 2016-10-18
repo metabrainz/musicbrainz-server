@@ -930,18 +930,10 @@ function testAll(tests, text) {
 
 const validationRules = {};
 
-// "has lyrics at" is only allowed for certain lyrics sites
-validationRules[LINK_TYPES.lyrics.artist] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
-
-validationRules[LINK_TYPES.lyrics.release_group] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
-
-validationRules[LINK_TYPES.lyrics.work] = function (url) {
-  return testAll(CLEANUPS.lyrics.match, url)
-};
+// NOTE: Below validation rules (legacy) definitions are deprecated
+// and need to be replaced by CLEANUPS.*.validate functions.  They
+// don’t interact with each other, CLEANUPS.*.validate functions are
+// just ignored when validation rules defintion already exists.
 
 // allow Discogs page only for the correct entities
 validationRules[LINK_TYPES.discogs.artist] = function (url) {
@@ -1020,29 +1012,6 @@ validationRules[LINK_TYPES.myspace.label] = function (url) {
   return /myspace\.com\//.test(url);
 };
 
-// allow only PureVolume pages with the PureVolume rel
-validationRules[LINK_TYPES.purevolume.artist] = function (url) {
-  return /purevolume\.com\//.test(url);
-};
-
-// allow only SecondHandSongs pages with the SecondHandSongs rel
-validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.release] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
-  return /secondhandsongs\.com\//.test(url);
-};
-
-// allow only Songfacts pages with the Songfacts rel
-validationRules[LINK_TYPES.songfacts.work] = function (url) {
-  return /songfacts\.com\//.test(url);
-};
-
 // allow only Soundcloud pages with the Soundcloud rel
 function validateSoundCloud(url) {
   return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
@@ -1051,19 +1020,6 @@ function validateSoundCloud(url) {
 _.each(LINK_TYPES.soundcloud, function (id) {
   validationRules[id] = validateSoundCloud;
 });
-
-// allow only VIAF pages with the VIAF rel
-validationRules[LINK_TYPES.viaf.artist] = function (url) {
-  return /viaf\.org\//.test(url);
-};
-
-validationRules[LINK_TYPES.viaf.work] = function (url) {
-  return /viaf\.org\//.test(url);
-};
-
-validationRules[LINK_TYPES.viaf.label] = function (url) {
-  return /viaf\.org\//.test(url);
-};
 
 // allow only VGMdb pages with the VGMdb rel
 validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
@@ -1165,26 +1121,11 @@ validationRules[LINK_TYPES.setlistfm.place] = function (url) {
   return /setlist\.fm\/venue\//.test(url);
 };
 
-// allow only IMSLP pages with the IMSLP rel
-var validateIMSLP = function (url) {
-  return testAll(CLEANUPS.imslp.match, url)
-};
-
-validationRules[LINK_TYPES.imslp.artist] = validateIMSLP;
-
 // avoid wikipedia being added as release-level discography entry
 var isWikipedia = /^(https?:\/\/)?([^.]+\.)?wikipedia\.org\//;
 validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   return !isWikipedia.test(url);
 };
-
-// only allow domains on the score whitelist
-function validateScore(url) {
-  return testAll(CLEANUPS.score.match, url);
-}
-
-validationRules[LINK_TYPES.score.release_group] = validateScore;
-validationRules[LINK_TYPES.score.work] = validateScore;
 
 function validateFacebook(url) {
   if (/facebook.com\/pages\//.test(url)) {
@@ -1195,6 +1136,9 @@ function validateFacebook(url) {
 
 validationRules[LINK_TYPES.socialnetwork.artist] = validateFacebook;
 validationRules[LINK_TYPES.socialnetwork.label] = validateFacebook;
+
+// NOTE: Above validation rules (legacy) definitions are not altered
+// by the below validation rules generation.  See also above note.
 
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
