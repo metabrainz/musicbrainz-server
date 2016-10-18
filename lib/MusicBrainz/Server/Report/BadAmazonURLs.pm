@@ -9,7 +9,7 @@ sub table { 'bad_amazon_urls' }
 
 sub query
 {
-    "
+    q{
         SELECT
             url.id AS url_id, r.id AS release_id,
             row_number() OVER (ORDER BY url.id DESC)
@@ -18,9 +18,9 @@ sub query
             JOIN url ON lru.entity1 = url.id
             JOIN release r ON lru.entity0 = r.id
         WHERE
-            url ~ E'amazon\\\\.' AND
-            url !~ E'^http://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
-    ";
+            url ~ 'amazon\.' AND
+            url !~ '^https?://www\.amazon\.(com|ca|cn|de|es|fr|it|co\.(jp|uk)|in|com\.(br|mx))/gp/product/[0-9A-Z]{10}$'
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
