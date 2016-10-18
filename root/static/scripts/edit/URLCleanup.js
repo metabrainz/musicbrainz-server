@@ -412,15 +412,31 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?ototoy\\.jp", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?hd-music\\.info", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i"),
       new RegExp("^(https?://)?loudr\.fm/", "i"),
     ],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
       url = url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, "https://play.google.com/store/music/$1?id=$2");
-      url = url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
       url = url.replace(/^https?:\/\/loudr\.fm\/(artist|release)\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]{5}).*$/, "https://loudr.fm/$1/$2/$3");
       return url;
+    }
+  },
+  itunes: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i")],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|audiobook|music-video|podcast|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
+    },
+    validate: function (url, id) {
+      if (id === LINK_TYPES.downloadpurchase.artist) {
+        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?artist\/id[0-9]+$/.test(url);
+      } else if (id === LINK_TYPES.downloadpurchase.recording) {
+        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?music-video\/id[0-9]+$/.test(url);
+      } else if (id === LINK_TYPES.downloadpurchase.release) {
+        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(album|audiobook|podcast|preorder)\/id[0-9]+$/.test(url);
+      } else {
+        return false;
+      }
     }
   },
   jamendo: {
