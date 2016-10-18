@@ -257,6 +257,18 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.youtube,
 ], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
+function reencode_mediawiki_localpart(url) {
+  var m = url.match(/^(https?:\/\/[^\/]+\/wiki\/)([^?#]+)(.*)$/);
+  if (m) {
+    url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
+  }
+  return url;
+}
+
+function disallow(url, id) {
+  return false;
+}
+
 const CLEANUPS = {
   wikipedia: {
     match: [new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i")],
@@ -267,10 +279,7 @@ const CLEANUPS = {
       url = url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
       url = url.replace(/\?oldformat=true$/, '');
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, "https://$1.wikipedia.org/wiki/$2");
-      var m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/);
-      if (m) {
-        url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
-      }
+      url = reencode_mediawiki_localpart(url);
       return url;
     }
   },
@@ -503,8 +512,20 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
       url = url.replace(/\?uselang=[a-z-]+$/, "");
       url = url.replace(/#.*$/, "");
+      url = reencode_mediawiki_localpart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, "https://commons.wikimedia.org/wiki/File:");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/commons\.wikimedia\.org\/wiki\/File:[^?#]+$/.test(url);
     }
+  },
+  unwelcomeimages: { // Block images from sites that don't allow deeplinking
+    match: [
+      new RegExp("^(https?://)?s\\.pixogs\\.com\/", "i"),
+      new RegExp("^(https?://)?(s|img)\\.discogss?\\.com\/", "i"),
+    ],
+    type: LINK_TYPES.image,
+    validate: disallow,
   },
   discographyentry: {
     match: [
@@ -1180,21 +1201,6 @@ function validateFacebook(url) {
 
 validationRules[LINK_TYPES.socialnetwork.artist] = validateFacebook;
 validationRules[LINK_TYPES.socialnetwork.label] = validateFacebook;
-
-// Block images from sites that don't allow deeplinking
-function validateImage(url) {
-  if (url.match(/\/\/s\.pixogs\.com\//)) {
-    return false;
-  }
-  if (url.match(/\/\/s\.discogss\.com\//)) {
-    return false;
-  }
-  return true;
-}
-
-validationRules[LINK_TYPES.image.artist] = validateImage;
-validationRules[LINK_TYPES.image.label] = validateImage;
-validationRules[LINK_TYPES.image.place] = validateImage;
 
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
