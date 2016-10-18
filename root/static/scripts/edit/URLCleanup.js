@@ -698,7 +698,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i")],
     type: LINK_TYPES.wikidata,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "https://www.wikidata.org/wiki/$1");
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/(?:wiki|entity)\/(Q([0-9]+)).*$/, "https://www.wikidata.org/wiki/$1");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/www\.wikidata\.org\/wiki\/Q[1-9][0-9]*$/.test(url);
     }
   },
   bandcamp: {
@@ -1126,15 +1129,6 @@ validationRules[LINK_TYPES.secondhandsongs.release] = function (url) {
 validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
   return /secondhandsongs\.com\/work\//.test(url);
 };
-
-// allow only Wikidata pages with the Wikidata rel
-function validateWikidata(url) {
-  return /wikidata\.org\//.test(url);
-}
-
-_.each(LINK_TYPES.wikidata, function (id) {
-  validationRules[id] = validateWikidata;
-});
 
 // allow only top-level Bandcamp pages as artist/label URLs
 validationRules[LINK_TYPES.bandcamp.artist] = function (url) {
