@@ -56,7 +56,7 @@ sub serialize
         # FIXME: use aCiD2's coverart/amazon stuff to get the ASIN.
         push @body, ( $self->gen->asin("".$2) )
             if ($_->target->url =~
-                m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
+                m{^https?://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i);
         last;
     }
 

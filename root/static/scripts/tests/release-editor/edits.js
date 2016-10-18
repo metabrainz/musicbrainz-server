@@ -543,10 +543,10 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
           },
           {
             "entityType": "url",
-            "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
+            "name": "https://www.amazon.co.jp/gp/product/B00003IQQD"
           }
         ],
-        "hash": "81f1bb7352973e1133c15093912860c82c2a57f3",
+        "hash": "08cbacb3fae1ad89f2ae1b886493a3a55d24e3ec",
         "id": 123,
         "linkTypeID": 77
       }
