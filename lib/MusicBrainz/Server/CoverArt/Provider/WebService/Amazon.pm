@@ -64,7 +64,7 @@ sub handles
 
 sub parse_asin {
     my $uri = shift;
-    my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    my ($store, $asin) = $uri =~ m{^https?://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
     return ($store, $asin);
 }
 
