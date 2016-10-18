@@ -347,7 +347,7 @@ const CLEANUPS = {
       // if both were found. There used to be another [2], but we'll
       // stick to the new one for now.
       //
-      // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
+      // [1] "https://www.amazon.<tld>/gp/product/<ASIN>"
       // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
       var tld = "";
       var asin = "";
@@ -364,7 +364,7 @@ const CLEANUPS = {
       }
 
       if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // artist pages
-        return "http://www.amazon." + tld + "/-/e/" + m[1];
+        return "https://www.amazon." + tld + "/-/e/" + m[1];
       } else if ((m = url.match(/\/(?:product|dp)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/))) { // strict regex to catch most ASINs
         asin = m[1];
       } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // if all else fails, find anything that could be an ASIN
@@ -372,7 +372,7 @@ const CLEANUPS = {
       }
 
       if (tld !== "" && asin !== "") {
-        return "http://www.amazon." + tld + "/gp/product/" + asin;
+        return "https://www.amazon." + tld + "/gp/product/" + asin;
       }
     }
   },
@@ -676,13 +676,13 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i")],
     type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "http://www.youtube.com");
+      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "https://www.youtube.com");
       // YouTube URL shortener
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
       // YouTube standard watch URL
-      url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
+      url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?$1");
       // YouTube embeds
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
       url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
       return url;
     }
