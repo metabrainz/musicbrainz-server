@@ -114,6 +114,13 @@ msgstr ""
 msgid "A classical guitar strung with nylon strings."
 msgstr ""
 
+#. name:saduk 
+#: DB:instrument/description:804
+msgid ""
+"A cross between a saxophone and a duduk invented and played by Alexander "
+"Berne"
+msgstr ""
+
 #. name:cylindrical drum 
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
