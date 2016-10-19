@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:08+0000\n"
+"PO-Revision-Date: 2016-10-13 01:45+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -3107,6 +3107,11 @@ msgstr ""
 #. name:gittern
 #: DB:instrument/description:802
 msgid "a medieval round-backed string instrument ancestral to the guitar"
+msgstr ""
+
+#. name:laúd
+#: DB:instrument/description:803
+msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
 msgstr ""
 
 #. name:accordina

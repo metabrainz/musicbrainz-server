@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:08+0000\n"
+"PO-Revision-Date: 2016-10-13 01:45+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1707,6 +1707,11 @@ msgstr "ラウテンヴェルク"
 #: DB:instrument/name:705
 msgid "lavta"
 msgstr "ラウタ"
+
+#: DB:instrument/name:803
+msgctxt "spanish plucked chordophone"
+msgid "laúd"
+msgstr ""
 
 #: DB:instrument/name:573
 msgid "limbe"
