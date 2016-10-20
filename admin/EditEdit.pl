@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use open qw( :std :utf8 );
 
 use Encode;
 use FindBin;
@@ -24,7 +25,6 @@ chomp($new_data);
 
 # will die if JSON is invalid
 JSON::XS->new->decode($new_data);
-$new_data = decode('UTF-8', $new_data, Encode::FB_CROAK);
 
 $c->sql->auto_commit;
 $c->sql->do('UPDATE edit_data SET data = ? WHERE edit = ?', $new_data, $id);
