@@ -558,8 +558,10 @@ sub _build_transport
         return $self->get_test_transport;
     }
 
+    my ($host, $port) = split /:/, DBDefs->SMTP_SERVER;
     return Email::Sender::Transport::SMTP->new({
-        host => DBDefs->SMTP_SERVER,
+        host => $host,
+        port => $port // 25,
     });
 }
 
