@@ -16,7 +16,7 @@ my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRI
 my $old_data = $c->sql->select_single_value('SELECT data FROM edit_data WHERE edit = ?', $id)
     or die 'edit not found';
 
-print "current edit data:\n" . encode('UTF-8', $old_data) . "\n";
+print "current edit data:\n" . $old_data . "\n";
 print "paste new edit data:\n";
 
 my $new_data = <STDIN>;
