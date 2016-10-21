@@ -155,7 +155,7 @@ http.createServer(function (req, res) {
     res.end(resInfo.body, 'utf8');
   });
 })
-.listen(DBDefs.RENDERER_PORT, '127.0.0.1', function (err) {
+.listen(DBDefs.RENDERER_PORT, '0.0.0.0', function (err) {
   if (err) {
     throw err;
   }
@@ -177,5 +177,5 @@ http.createServer(function (req, res) {
   process.on('SIGTERM', cleanup);
   process.on('SIGHUP', reload);
 
-  console.log('server.js listening on 127.0.0.1:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
+  console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
 });
