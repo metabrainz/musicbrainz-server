@@ -30,65 +30,6 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 with 'MusicBrainz::Server::Controller::Role::CORS';
 with 'MusicBrainz::Server::Controller::Role::ETags';
 
-sub apply_rate_limit
-{
-    my ($self, $c, $key) = @_;
-    $key ||= "ws ip=" . $c->request->address;
-
-    my $r;
-
-    $r = $c->model('RateLimiter')->check_rate_limit('ws ua=' . ($c->req->user_agent || ''));
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body(
-            $c->stash->{serializer}->output_error(
-                "Your requests are being throttled by MusicBrainz because the ".
-                "application you are using has not identified itself.  Please ".
-                "update your application, and see ".
-                "http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting for more ".
-                "information."
-            )
-        );
-        $c->detach;
-    }
-
-    $r = $c->model('RateLimiter')->check_rate_limit($key);
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body(
-            $c->stash->{serializer}->output_error(
-                "Your requests are exceeding the allowable rate limit (" . $r->msg . "). " .
-                    "Please see http://wiki.musicbrainz.org/XMLWebService for more information."
-                )
-        );
-        $c->detach;
-    }
-
-    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body(
-            $c->stash->{serializer}->output_error(
-                "The MusicBrainz web server is currently busy. " .
-                    "Please try again later."
-                )
-        );
-        $c->detach;
-    }
-}
-
 sub bad_req : Private
 {
     my ($self, $c) = @_;
@@ -180,7 +121,6 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
         $c->detach;
     };
 
-    $self->apply_rate_limit($c);
     $self->authenticate($c, $c->stash->{authorization_scope})
         if ($c->stash->{authorization_required});
 }
