@@ -1,100 +1,13 @@
 package MusicBrainz::Server::CacheWrapper::Redis;
 
-use Encode;
 use Moose;
-use Redis;
-use Storable;
+use Storable qw( nfreeze thaw );
 
-has '_connection' => (
-    is => 'rw',
-    isa => 'Redis',
-);
+extends 'MusicBrainz::Redis';
 
-has '_namespace' => (
-    is => 'rw',
-    isa => 'Str',
-);
+sub _encode_value { nfreeze(\$_[1]) }
 
-sub BUILD {
-    my ($self, $args) = @_;
-
-    $self->_connection(Redis->new(
-        encoding => undef,
-        reconnect => 60,
-        server => $args->{server},
-    ));
-
-    $self->_namespace($args->{namespace});
-}
-
-sub _prepare_key {
-    my ($self, $key) = @_;
-
-    encode('utf-8', $self->_namespace . $key);
-}
-
-sub get {
-    my ($self, $key) = @_;
-
-    my $value = $self->_connection->get($self->_prepare_key($key));
-    return ${Storable::thaw($value)} if defined $value;
-    return;
-}
-
-sub get_multi {
-    my ($self, @keys) = @_;
-
-    my @values = $self->_connection->mget(map { $self->_prepare_key($_) } @keys);
-    my $i = 0;
-    my %result;
-    for my $key (@keys) {
-        my $value = $values[$i++];
-        $result{$key} = ${Storable::thaw($value)} if defined $value;
-    }
-    return \%result;
-}
-
-sub set {
-    my ($self, $key, $value, $exptime) = @_;
-
-    my @args = ($self->_prepare_key($key), Storable::nfreeze(\$value));
-    push @args, 'EX', $exptime if defined $exptime;
-    $self->_connection->set(@args);
-    return;
-}
-
-sub set_multi {
-    my ($self, @items) = @_;
-
-    for (@items) {
-        my ($key, $value, $exptime) = @$_;
-        my @args = ($self->_prepare_key($key), Storable::nfreeze(\$value));
-        push @args, 'EX', $exptime if defined $exptime;
-        $self->_connection->set(@args, sub {});
-    }
-    $self->_connection->wait_all_responses;
-    return;
-}
-
-sub delete {
-    my ($self, $key) = @_;
-
-    $self->_connection->del($self->_prepare_key($key));
-    return;
-}
-
-sub remove {
-    my ($self, $key) = @_;
-
-    $self->delete($self->_prepare_key($key));
-}
-
-sub delete_multi {
-    my ($self, @keys) = @_;
-
-    $self->_connection->del(map { $self->_prepare_key($_) } @keys);
-    return;
-}
+sub _decode_value { ${thaw($_[1])} }
 
 __PACKAGE__->meta->make_immutable;
 

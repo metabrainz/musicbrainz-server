@@ -58,8 +58,7 @@ sub process {
 
     my $cache_key = 'template-body:' . $uri->path_query;
     my $redis = $c->model('MB')->context->redis;
-    $redis->set($cache_key, $body);
-    $redis->expire($cache_key, 15);
+    $redis->set($cache_key, $body, 15);
 
     if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
         my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
@@ -80,7 +79,7 @@ sub process {
             sleep 2;
             $tries++;
         } else {
-            $redis->del($cache_key);
+            $redis->delete($cache_key);
             last;
         }
     }

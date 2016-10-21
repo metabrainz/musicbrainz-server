@@ -34,13 +34,13 @@ sub store_session_data {
         $data = encode_base64(nfreeze($data));
     }
     $self->_datastore->set($key, $data);
-    $self->_datastore->expireat($key, $self->session_expires);
+    $self->_datastore->expire_at($key, $self->session_expires);
 }
 
 sub delete_session_data {
     my ($self, $key) = @_;
 
-    $self->_datastore->del($key);
+    $self->_datastore->delete($key);
 }
 
 sub delete_expired_sessions { }

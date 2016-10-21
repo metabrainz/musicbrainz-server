@@ -4,7 +4,7 @@ use Moose::Role;
 requires 'get';
 requires 'set';
 requires 'exists';
-requires 'del';
+requires 'delete';
 
 =method expire
 
@@ -14,13 +14,13 @@ Expire the specified key in $s seconds.
 
 requires 'expire';
 
-=method expireat
+=method expire_at
 
 Expire the specified key at (unix) $timestamp.
 
 =cut
 
-requires 'expireat';
+requires 'expire_at';
 
 =head1 LICENSE
 

@@ -283,14 +283,10 @@ sub SESSION_EXPIRE { return 36000; } # 10 hours
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
-        prefix => 'MB:',
         database => 0,
+        namespace => 'MB:',
+        server => '127.0.0.1:6379',
         test_database => 1,
-        redis_new_args => {
-            server => '127.0.0.1:6379',
-            reconnect => 60,
-            encoding => undef,
-        }
     };
 }
 
