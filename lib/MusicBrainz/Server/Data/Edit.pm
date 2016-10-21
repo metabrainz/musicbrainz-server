@@ -2,6 +2,8 @@ package MusicBrainz::Server::Data::Edit;
 use Moose;
 use namespace::autoclean;
 
+use 5.18.2;
+
 use Carp qw( carp croak confess );
 use Data::Dumper::Concise;
 use Data::OptList;
@@ -67,7 +69,9 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($row->{type})
         or confess"Could not look up class for type ".$row->{type};
-    my $data = JSON::XS->new->utf8->decode($row->{data});
+
+    state $json = JSON::XS->new;
+    my $data = $json->decode($row->{data});
 
     my $edit = $class->new({
         c => $self->c,
@@ -77,7 +81,7 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
-        raw_data => decode('utf-8', $row->{data}),
+        raw_data => $row->{data},
         quality => $row->{quality},
     });
     $edit->language_id($row->{language}) if $row->{language};
@@ -573,9 +577,10 @@ sub create {
         close_time => $edit->close_time
     };
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+    state $json = JSON::XS->new;
     $row = {
         edit => $edit_id,
-        data => JSON::XS->new->utf8->encode($edit->to_hash),
+        data => $json->encode($edit->to_hash),
     };
     $self->c->sql->insert_row('edit_data', $row);
     $edit->id($edit_id);
