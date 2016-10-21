@@ -5,6 +5,7 @@
 /admin/apache/startup.pl
 /admin/replication/hooks/post-process
 /root/robots.txt
+/root/static/scripts/common/DBDefs.js
 /blib
 /lib/DBDefs.pm
 /Makefile
