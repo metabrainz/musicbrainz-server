@@ -2293,6 +2293,11 @@
       "from": "replace-ext@0.0.1",
       "resolved": "https://registry.npmjs.org/replace-ext/-/replace-ext-0.0.1.tgz"
     },
+    "require-reload": {
+      "version": "0.2.2",
+      "from": "require-reload@0.2.2",
+      "resolved": "https://registry.npmjs.org/require-reload/-/require-reload-0.2.2.tgz"
+    },
     "resolve": {
       "version": "1.1.7",
       "from": "resolve@>=1.1.7 <2.0.0",

@@ -47,6 +47,7 @@
     "react": "https://github.com/mwiencek/react-packages/raw/master/react.tgz",
     "react-dom": "https://github.com/mwiencek/react-packages/raw/master/react-dom.tgz",
     "redis": "2.6.0-0",
+    "require-reload": "0.2.2",
     "shell-quote": "1.4.3",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
