@@ -204,34 +204,14 @@ Cache
 
 Keys:
 
- * area_type:INT -- area type by ID
- * artist_type:INT -- artist type by ID
- * ac:INT -- artist credit by ID
- * artist:INT -- artist by ID
- * artist:UUID -- artist ID by MBID (you need to do another lookup by ID)
+The cache key for an entity is determined by its name in entities.json. For
+example, you can lookup artists under "artist:ROW_ID" or "artist:MBID". Here
+are the non-entity cache keys:
+
  * blog:entries -- The lastest entries from blog.musicbrainz.org
- * cat:INT -- cover art type by ID
- * c:INT -- country by ID
- * g:INT -- gender by ID
- * label:INT -- label by ID
- * label:UUID -- label by MBID (you need to do another lookup by ID)
- * lng:INT -- language by ID
- * label_type:INT -- label type by ID
- * link:INT -- link by ID
- * linktype:INT -- link type by ID
- * linkattrtype:INT -- link attribute type by ID
- * mf:INT -- medium format by ID
- * place_type:INT -- place type by ID
- * release_group_type:INT -- release group type by ID
- * release_group_secondary_type:INT -- release group secondary type by ID
- * rs:INT -- release status by ID
- * rp:INT -- release packaging by ID
- * scr:INT -- script by ID
  * stats:* -- various different statistics
- * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page
- * work_type:INT -- work type by ID
 
 
 Debug information

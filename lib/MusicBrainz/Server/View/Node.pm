@@ -56,10 +56,9 @@ sub process {
     $uri->query_param_append('request_id', ++$request_id);
     $uri->query_param_append('user', $c->user->name) if $c->user_exists;
 
-    my $cache_key = 'template-body:' . $uri->path_query;
-    my $redis = $c->model('MB')->context->redis;
-    $redis->set($cache_key, $body);
-    $redis->expire($cache_key, 15);
+    my $store_key = 'template-body:' . $uri->path_query;
+    my $store = $c->model('MB')->context->store;
+    $store->set($store_key, $body, 15);
 
     if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
         my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
@@ -80,7 +79,7 @@ sub process {
             sleep 2;
             $tries++;
         } else {
-            $redis->del($cache_key);
+            $store->delete($store_key);
             last;
         }
     }

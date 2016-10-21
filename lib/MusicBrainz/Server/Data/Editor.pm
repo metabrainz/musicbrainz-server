@@ -596,8 +596,8 @@ sub consume_remember_me_token {
     my $token_key = "$user_name|$token";
     # Expire consumed tokens in 5 minutes. This allows the case where the user
     # has no session, and opens multiple tabs using the same remember_me token.
-    $self->redis->expire($token_key, 5 * 60);
-    $self->redis->exists($token_key);
+    $self->store->expire($token_key, 5 * 60);
+    $self->store->exists($token_key);
 }
 
 sub allocate_remember_me_token {
@@ -612,10 +612,10 @@ sub allocate_remember_me_token {
         my $token = generate_token();
 
         my $key = "$normalized_name|$token";
-        $self->redis->set($key, 1);
+        $self->store->set($key, 1);
 
         # Expire tokens after 1 year.
-        $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
+        $self->store->expire($key, 60 * 60 * 24 * 7 * 52);
 
         return ($normalized_name, $token);
     }

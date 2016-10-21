@@ -1,30 +1,23 @@
-package MusicBrainz::DataStore;
-use Moose::Role;
+package MusicBrainz::Server::CacheWrapper::Redis;
 
-requires 'get';
-requires 'set';
-requires 'exists';
-requires 'delete';
+use Moose;
+use Storable qw( nfreeze thaw );
 
-=method expire
+extends 'MusicBrainz::Redis';
 
-Expire the specified key in $s seconds.
+sub _encode_value { nfreeze(\$_[1]) }
 
-=cut
+sub _decode_value { ${thaw($_[1])} }
 
-requires 'expire';
+__PACKAGE__->meta->make_immutable;
 
-=method expire_at
+no Moose;
 
-Expire the specified key at (unix) $timestamp.
+1;
 
-=cut
+=head1 COPYRIGHT
 
-requires 'expire_at';
-
-=head1 LICENSE
-
-Copyright (C) 2013 MetaBrainz Foundation
+Copyright (C) 2016 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,5 +34,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-
-1;

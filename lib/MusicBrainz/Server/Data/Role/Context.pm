@@ -5,7 +5,7 @@ has 'c' => (
     is => 'rw',
     isa => 'Object',
     weak_ref => 1,
-    handles => [ 'redis' ]
+    handles => [ 'store' ]
 );
 
 no Moose::Role;

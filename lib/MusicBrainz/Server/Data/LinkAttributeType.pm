@@ -325,7 +325,7 @@ EOSQL
     $self->c->model('Link')->_delete_from_cache(@old_link_ids);
 }
 
-# The entries in the memcached store for 'Link' objects also have all attributes
+# The entries in the Redis store for 'Link' objects also have all attributes
 # loaded. Thus changing an attribute should clear all of these link objects.
 for my $method (qw( delete update )) {
     before $method => sub {
