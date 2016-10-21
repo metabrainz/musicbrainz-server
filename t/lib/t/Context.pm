@@ -26,20 +26,12 @@ sub _build_context {
 sub _build_cache_aware_context {
     my $test = shift;
 
+    my $opts = DBDefs->CACHE_MANAGER_OPTIONS;
+    $opts->{profiles}{external}{options}{namespace} = 'mbtest:';
+
     return $test->c->meta->clone_object(
         $test->c,
-        cache_manager => MusicBrainz::Server::CacheManager->new(
-            profiles => {
-                memory => {
-                    class => 'Cache::Memory',
-                    wrapped => 1,
-                    options => {
-                        default_expires => '1 hour',
-                    },
-                },
-            },
-            default_profile => 'memory'
-        ),
+        cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
         models => {} # Need to reload models to use this new $c
     );
 }

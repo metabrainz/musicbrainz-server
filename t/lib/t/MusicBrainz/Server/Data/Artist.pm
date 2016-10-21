@@ -8,6 +8,7 @@ use Test::Deep qw( cmp_set );
 use MusicBrainz::Server::Data::Artist;
 
 use DateTime;
+use DBDefs;
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Search;
@@ -290,24 +291,16 @@ $sql->commit;
 test 'Merging with a cache' => sub {
     my $test = shift;
 
+    my $opts = DBDefs->CACHE_MANAGER_OPTIONS;
+    $opts->{profiles}{external}{options}{namespace} = 'mbtest:';
+
     my $c = $test->c->meta->clone_object(
         $test->c,
-        cache_manager => MusicBrainz::Server::CacheManager->new(
-            profiles => {
-                memory => {
-                    class => 'Cache::Memory',
-                    wrapped => 1,
-                    options => {
-                        default_expires => '1 hour',
-                    },
-                },
-            },
-            default_profile => 'memory'
-        ),
+        cache_manager => MusicBrainz::Server::CacheManager->new(%$opts),
         models => {} # Need to reload models to use this new $c
     );
 
-    my $cache = $c->cache_manager->_get_cache('memory');
+    my $cache = $c->cache_manager->_get_cache('external');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
@@ -317,14 +310,14 @@ test 'Merging with a cache' => sub {
     my $artist2 = $c->model('Artist')->get_by_gid('945c079d-374e-4436-9448-da92dedef3cf');
 
     for my $artist ($artist1, $artist2) {
-        ok($cache->exists('artist:' . $artist->gid), 'caches artist via GID');
-        ok($cache->exists('artist:' . $artist->id), 'caches artist via ID');
+        ok($cache->get('artist:' . $artist->gid), 'caches artist via GID');
+        ok($cache->get('artist:' . $artist->id), 'caches artist via ID');
     }
 
     $c->model('Artist')->merge($artist1->id, [ $artist2->id ]);
 
-    ok(!$cache->exists('artist:' . $artist2->gid), 'artist 2 no longer in cache (by gid)');
-    ok(!$cache->exists('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
+    ok(!$cache->get('artist:' . $artist2->gid), 'artist 2 no longer in cache (by gid)');
+    ok(!$cache->get('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
 
     $c->sql->commit;
 };

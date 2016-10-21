@@ -116,7 +116,6 @@ feature 'ETag Caching' =>
 
 feature 'Default caching setup' =>
     -default                 => 1,
-    'Cache::Memory'          => '2.04',
     'Cache::Memcached::Fast' => '0.19'
     ;
 
