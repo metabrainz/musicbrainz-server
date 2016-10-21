@@ -213,7 +213,7 @@ sub begin : Private
     my $alert_mtime;
     my ($new_edit_notes, $new_edit_notes_mtime);
     try {
-        my $redis = $c->model('MB')->context->redis;
+        my $store = $c->model('MB')->context->store;
 
         my @cache_keys = qw( alert alert_mtime );
 
@@ -227,7 +227,7 @@ sub begin : Private
 
         my ($notes_viewed, $notes_updated);
         ($alert, $alert_mtime, $notes_viewed, $notes_updated) =
-            @{$redis->get_multi(@cache_keys)}{@cache_keys};
+            @{$store->get_multi(@cache_keys)}{@cache_keys};
 
         if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
             $new_edit_notes = 1;

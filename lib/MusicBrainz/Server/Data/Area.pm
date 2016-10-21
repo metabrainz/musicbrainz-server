@@ -97,7 +97,7 @@ sub load_containment
     my %ids_to_load = map { $_ => 1 } @all_ids;
     my @containments;
 
-    my $namespace_key = $self->c->redis->get('area_containment_key');
+    my $namespace_key = $self->c->store->get('area_containment_key');
     unless (defined $namespace_key) {
         $namespace_key = $self->clear_containment_cache;
     }
@@ -158,7 +158,7 @@ sub load_containment
 
 sub clear_containment_cache {
     my $key = time;
-    shift->c->redis->set('area_containment_key', $key);
+    shift->c->store->set('area_containment_key', $key);
     return $key;
 }
 
