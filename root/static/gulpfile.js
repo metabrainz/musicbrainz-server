@@ -1,7 +1,3 @@
-if (!/^[01]$/.test(process.env.DEVELOPMENT_SERVER)) {
-  throw new Error('error: DEVELOPMENT_SERVER should be set to either 0 or 1');
-}
-
 const fs = require('fs');
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -19,6 +15,7 @@ const source = require('vinyl-source-stream');
 const yarb = require('yarb');
 
 const {findObjectFile} = require('../server/gettext');
+const DBDefs = require('./scripts/common/DBDefs');
 
 const CACHED_BUNDLES = {};
 const CHECKOUT_DIR = path.resolve(__dirname, '../../');
@@ -77,15 +74,11 @@ function buildStyles(callback) {
   ).done(callback);
 }
 
-function isDevelopmentServer() {
-  return String(process.env.DEVELOPMENT_SERVER) === '1';
-}
-
 function transformBundle(bundle) {
   bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
-  if (!isDevelopmentServer()) {
+  if (!DBDefs.DEVELOPMENT_SERVER) {
     bundle.transform('uglifyify', {
       // See https://github.com/substack/node-browserify#btransformtr-opts
       global: true,
@@ -109,7 +102,7 @@ function runYarb(resourceName, callback) {
   }
 
   var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
-    debug: isDevelopmentServer(),
+    debug: DBDefs.DEVELOPMENT_SERVER,
   }));
 
   if (callback) {
@@ -142,11 +135,11 @@ function langToPosix(lang) {
 }
 
 function buildScripts() {
-  process.env.NODE_ENV = String(process.env.DEVELOPMENT_SERVER) === '1' ? 'development' : 'production';
+  process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
   var commonBundle = runYarb('common.js');
 
-  _((process.env.MB_LANGUAGES || '').replace(/\s+/g, ''))
+  _((DBDefs.MB_LANGUAGES || '').replace(/\s+/g, ''))
     .split(',')
     .compact()
     .without('en')

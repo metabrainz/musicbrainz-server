@@ -7,12 +7,6 @@
 
 require('babel-core/register');
 
-const argv = require('yargs')
-  .demand('port')
-  .describe('port', 'port to listen on')
-  .describe('development', 'disables module cache if set to 1')
-  .argv;
-
 const fs = require('fs');
 const http = require('http');
 const _ = require('lodash');
@@ -24,10 +18,11 @@ const sliced = require('sliced');
 const URL = require('url');
 
 const gettext = require('./server/gettext');
+const DBDefs = require('./static/scripts/common/DBDefs');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
-const REDIS_ARGS = JSON.parse(process.env.DATASTORE_REDIS_ARGS);
+const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
 const redisClient = redis.createClient({
   url: 'redis://' + REDIS_ARGS.server,
   prefix: REDIS_ARGS.namespace,
@@ -101,7 +96,7 @@ function getResponse(req, requestBody) {
   // to be used for this request based on the given 'lang' cookie.
   i18n.setGettextHandle(gettext.getHandle(getCookie('lang')));
 
-  if (String(argv.development) === '1') {
+  if (DBDefs.DEVELOPMENT_SERVER) {
     clearRequireCache();
   }
 
@@ -153,7 +148,7 @@ http.createServer(function (req, res) {
     res.end(resInfo.body, 'utf8');
   });
 })
-.listen(argv.port, '127.0.0.1', function (err) {
+.listen(DBDefs.RENDERER_PORT, '127.0.0.1', function (err) {
   if (err) {
     throw err;
   }
@@ -172,5 +167,5 @@ http.createServer(function (req, res) {
   process.on('SIGTERM', cleanup);
   process.on('SIGHUP', reload);
 
-  console.log('server.js listening on 127.0.0.1:' + argv.port + ' (pid ' + process.pid + ')');
+  console.log('server.js listening on 127.0.0.1:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
 });

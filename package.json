@@ -55,8 +55,7 @@
     "uglifyify": "3.0.1",
     "vinyl": "1.1.0",
     "vinyl-source-stream": "1.1.0",
-    "yarb": "0.8.0",
-    "yargs": "3.30.0"
+    "yarb": "0.8.0"
   },
   "devDependencies": {
     "eslint": "1.10.2",
