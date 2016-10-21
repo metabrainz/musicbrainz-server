@@ -171,7 +171,7 @@ sub Create
     my $system_sql;
 
     # Check we can find these programs on the path
-    for my $prog (qw( pg_config createuser createdb createlang ))
+    for my $prog (qw( pg_config ))
     {
         next if `which $prog` and $? == 0;
         die "Can't find '$prog' on your PATH\n";
@@ -227,16 +227,6 @@ sub Create
     # its timezone set to UTC in order to correctly interpret those values.
     $system_sql->auto_commit;
     $system_sql->do("ALTER DATABASE $dbname SET timezone TO 'UTC'");
-
-    # You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
-    # "createlang" is simpler :-)
-    my $sys_db = Databases->get($sysname);
-    my $sys_in_thisdb = $sys_db->meta->clone_object($sys_db, database => $dbname);
-    my @opts = $sys_in_thisdb->shell_args;
-    splice(@opts, -1, 0, "-d");
-    $ENV{"PGPASSWORD"} = $sys_db->password;
-    system "createlang", @opts, "plpgsql";
-    print "\nFailed to create language plpgsql -- it's likely to be already installed, continuing.\n" if ($? >> 8);
 
     # Set the default search path for the READWRITE and READONLY users
     my $search_path = "musicbrainz, public";

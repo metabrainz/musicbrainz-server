@@ -310,16 +310,6 @@ Creating the database
         an intermediate step. You may specify a different location with the
         `--tmp-dir` option.
 
-    NOTE: on a fresh postgresql install you may see the following error:
-
-        CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
-
-    To resolve that login to postgresql with the "postgres" user (or any other
-    postgresql user with SUPERUSER privileges) and load the "plpgsql" language
-    into the database with the following command:
-
-        postgres=# CREATE LANGUAGE plpgsql;
-
     MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
     If this is an issue in your setup, you may want to set a timeout at the
     database level:
