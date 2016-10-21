@@ -454,16 +454,6 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Log if a request in / (not /ws) takes more than x seconds
 # sub PROFILE_SITE { 0 }
 
-# If you want the FastCGI processes to restart, configure this
-# sub AUTO_RESTART {
-##    return {
-##        active => 1,
-##        check_each => 10,
-##        max_bits => 134217728,
-##        min_handled_requests => 100
-##    }
-# }
-
 # The maximum amount of time a process can be serving a single request. This
 # function takes a Catalyst::Request as input, and should return the amount of time
 # in seconds that it should take to respond to this request.
