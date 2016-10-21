@@ -5,7 +5,7 @@
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
         <div class="header">
-            <a href="/" title="MusicBrainz"><img src="/static/images/layout/header-logo.svg" class="logo" /></a>
+            <a href="/" title="MusicBrainz"><img src="[% c.model('FileCache').path_to('/images/layout/header-logo.svg') %]" class="logo" /></a>
             <div class="right">
                 <div class="top">
                     [%- INCLUDE "layout/header/top.tt" -%]

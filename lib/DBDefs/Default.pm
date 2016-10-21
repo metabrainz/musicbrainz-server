@@ -136,6 +136,9 @@ sub CANONICAL_SERVER          { "https://musicbrainz.org" }
 # The server used to link to CritiqueBrainz users and reviews.
 sub CRITIQUEBRAINZ_SERVER     { "https://critiquebrainz.org" }
 
+# The URL where static resources are located, excluding the trailing slash.
+sub STATIC_RESOURCES_LOCATION { 'http://localhost:5000/static' }
+
 ################################################################################
 # Mail Settings
 ################################################################################

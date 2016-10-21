@@ -75,6 +75,13 @@ sub template_signature {
     return $instance->file_signatures->{$signature_key};
 }
 
+sub path_to {
+    my ($self, $manifest) = @_;
+
+    my $signature = $self->manifest_signature($manifest);
+    return DBDefs->STATIC_RESOURCES_LOCATION . '/' . $signature;
+}
+
 sub _expand {
     my ($path, $type) = @_;
     if (-d $path) {

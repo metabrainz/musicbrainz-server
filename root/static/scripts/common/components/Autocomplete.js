@@ -7,6 +7,7 @@ const _ = require('lodash');
 const $ = require('jquery');
 const ko = require('knockout');
 const React = require('react');
+const manifest = require('../../../manifest');
 const {l} = require('../../common/i18n');
 
 require('../MB/Control/Autocomplete');
@@ -65,7 +66,7 @@ class Autocomplete extends React.Component {
     }
     return (
       <span className={entity + ' autocomplete'}>
-        <img className="search" src="/static/images/icons/search.png" alt={l('Search')} />
+        <img className="search" src={manifest.pathTo('/images/icons/search.png')} alt={l('Search')} />
         <input
           className={className}
           disabled={disabled}

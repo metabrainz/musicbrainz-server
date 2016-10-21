@@ -5,13 +5,14 @@
 
 const React = require('react');
 
+const manifest = require('../../static/manifest');
 const TopMenu = require('./TopMenu');
 const BottomMenu = require('./BottomMenu');
 
 const Header = (props) => (
   <div className="header">
     <a href="/" className="logo" title="MusicBrainz">
-      <img src="/static/images/layout/header-logo.svg" className="logo" />
+      <img src={manifest.pathTo('/images/layout/header-logo.svg')} className="logo" />
     </a>
     <div className="right">
       <TopMenu {...props} />

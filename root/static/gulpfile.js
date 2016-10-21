@@ -24,6 +24,7 @@ const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
 const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
+const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
 const revManifestPath = path.resolve(BUILD_DIR, 'rev-manifest.json');
 const revManifest = {};
@@ -35,23 +36,28 @@ const JED_OPTIONS_EN = {
   },
 };
 
-if (fs.existsSync(revManifestPath)) {
-  _.assign(revManifest, JSON.parse(fs.readFileSync(revManifestPath)));
-}
-
 function writeManifest() {
   fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
 }
 
-function writeResource(stream) {
+function writeResource(stream, baseDir) {
   var deferred = Q.defer();
+
+  if (!baseDir) {
+    baseDir = '/build/';
+  }
 
   stream
     .pipe(streamify(rev()))
     .pipe(gulp.dest(BUILD_DIR))
     .pipe(rev.manifest())
     .pipe(through2.obj(function (chunk, encoding, callback) {
-      _.assign(revManifest, JSON.parse(chunk.contents));
+      const contents = JSON.parse(chunk.contents)
+      Object.keys(contents).forEach(function (src) {
+        contents[path.join(baseDir, path.basename(src))] = contents[src];
+        delete contents[src];
+      });
+      _.assign(revManifest, contents);
       callback();
     }))
     .on('finish', function () {
@@ -136,6 +142,8 @@ function langToPosix(lang) {
 
 function buildScripts() {
   process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
+
+  shell.exec(path.resolve(CHECKOUT_DIR, 'script/dbdefs_to_js.pl'));
 
   var commonBundle = runYarb('common.js');
 
@@ -236,10 +244,24 @@ function buildScripts() {
   ]).then(writeManifest);
 }
 
+function buildImages() {
+  return Q.all([
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'entity/*')), '/images/entity/'),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'icons/*')), '/images/icons/'),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'image404-125.png')), '/images/'),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'layout/*')), '/images/layout/'),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'licenses/*')), '/images/licenses/'),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'logos/*')), '/images/logos/'),
+  ]).then(writeManifest);
+}
+
 gulp.task('styles', function () {
   return buildStyles(writeManifest);
 });
+
 gulp.task('scripts', buildScripts);
+
+gulp.task('images', buildImages);
 
 gulp.task('watch', ['styles', 'scripts'], function () {
   let watch = require('gulp-watch');
@@ -293,14 +315,4 @@ gulp.task('tests', function () {
   ).pipe(gulp.dest(BUILD_DIR));
 });
 
-gulp.task('clean', function () {
-  var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/;
-
-  fs.readdirSync(BUILD_DIR).forEach(function (file) {
-    if (fileRegex.test(file) && revManifest[file.replace(fileRegex, '$1.$2')] !== file) {
-      fs.unlinkSync(path.resolve(BUILD_DIR, file));
-    }
-  });
-});
-
-gulp.task('default', ['styles', 'scripts']);
+gulp.task('default', ['styles', 'scripts', 'images']);
