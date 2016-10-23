@@ -44,3 +44,4 @@ function css(manifest) {
 
 exports.js = js;
 exports.css = css;
+exports.pathTo = pathTo;
