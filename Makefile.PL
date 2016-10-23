@@ -16,7 +16,6 @@ requires 'Captcha::reCAPTCHA'                         => '0.93';
 requires 'Catalyst::Action::RenderView'               => '0.16';
 requires 'Catalyst::Plugin::Authentication'           => '0.10017';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.013';
-requires 'Catalyst::Plugin::I18N'                     => '0.10';
 requires 'Catalyst::Plugin::Cache'                    => '0.10';
 requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.3';
 requires 'Catalyst::Runtime'                          => '5.90011';
