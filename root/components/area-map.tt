@@ -9,6 +9,7 @@
     [%~ FOR place IN places ~%]
         [%~ IF place.coordinates.defined ~%]
             places.push({
+                uri: '[% link_entity(place) | js %]',
                 title: '[% place.name | js %]',
                 type: '[% place.l_type_name | js %]',
                 lat: [% place.coordinates.latitude %],
@@ -33,8 +34,8 @@
         places.forEach(function (place) {
             L.marker(
                 [place.lat, place.lon],
-                { title: place.title, draggable: false }
-            ).addTo(map);
+                { title: place.title, draggable: false, clickable: true }
+            ).bindPopup(place.type + ': ' + place.uri).addTo(map);
         });
     }
 
