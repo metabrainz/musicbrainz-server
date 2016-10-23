@@ -1,0 +1,42 @@
+<div id="largemap"></div>
+<script type="text/javascript">//<![CDATA[
+
+(function () {
+    [%~ DEFAULT places=entities ~%]
+    var map,
+        places = [];
+
+    [%~ FOR place IN places ~%]
+        [%~ IF place.coordinates.defined ~%]
+            places.push({
+                title: '[% place.name | js %]',
+                type: '[% place.l_type_name | js %]',
+                lat: [% place.coordinates.latitude %],
+                lon: [% place.coordinates.longitude %]
+            });
+        [%~ END ~%]
+    [%~ END ~%]
+
+    if (places.length) {
+        var lat = places[0].lat;
+        var lon = places[0].lon;
+        var zoom = 12;
+
+        map = L.map('largemap').setView([lat, lon], zoom);
+
+        L.tileLayer('https://{s}.tiles.mapbox.com/v4/[%~ mapbox_map_id ~%]/{z}/{x}/{y}.png?access_token=[%~ mapbox_access_token ~%]', {
+            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
+            maxZoom: 18
+        }).addTo(map);
+
+        L.Icon.Default.imagePath = '/static/images/leaflet/';
+        places.forEach(function (place) {
+            L.marker(
+                [place.lat, place.lon],
+                { title: place.title, draggable: false }
+            ).addTo(map);
+        });
+    }
+
+}());
+//]]></script>
