@@ -128,8 +128,6 @@ feature 'Developer features' =>
 feature 'Production server' =>
     'Digest::MD5::File' => '0.07',
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.13',
-    'FCGI' => '0.74',
-    'FCGI::ProcManager' => '0.24',
     ;
 
 # These are just for I18N
