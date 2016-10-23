@@ -8,6 +8,7 @@ requires 'Catalyst::Action::RenderView'               => '0.16';
 requires 'Catalyst::Plugin::Authentication'           => '0.10023';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.016';
 requires 'Catalyst::Plugin::Cache'                    => '0.12';
+requires 'Catalyst::Plugin::Cache::HTTP'              => '0.001000';
 requires 'Catalyst::Plugin::StackTrace'               => '0.12';
 requires 'Catalyst::Plugin::Session::State::Cookie'   => '0.17';
 requires 'Catalyst::Plugin::Unicode::Encoding'        => '99.0';
@@ -34,6 +35,7 @@ requires 'DBD::Pg'                                    => '3.5.3';
 requires 'DBI'                                        => '1.63';
 requires 'Digest::HMAC_SHA1'                          => '1.03';
 requires 'Digest::MD5'                                => '2.52';
+requires 'Digest::MD5::File'                          => '0.08';
 requires 'Digest::SHA'                                => '5.86';
 requires 'Email::Address'                             => '1.900';
 requires 'Email::MIME'                                => '1.925';
@@ -55,6 +57,7 @@ requires 'JSON::XS'                                   => '2.34';
 requires 'List::AllUtils'                             => '0.03';
 requires 'List::MoreUtils'                            => '0.33';
 requires 'List::UtilsBy'                              => '0.09';
+requires 'Locale::Messages'                           => '1.23';
 requires 'LWP::Protocol::https'                       => '6.04';
 requires 'Log::Dispatch'                              => '2.41';
 requires 'Math::Random::Secure'                       => '0.06';
@@ -100,23 +103,12 @@ requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::Simple'                                => '2.20';
 requires 'XML::XPath'                                 => '1.13';
 
-# ETag Caching
-feature etags => sub {
-    requires 'Catalyst::Plugin::Cache::HTTP'    => '0.001000';
-};
-
 # Production server features
 feature production => sub {
-    requires 'Digest::MD5::File'                => '0.08';
     requires 'Catalyst::Plugin::ErrorCatcher'   => '0.0.8.18';
+    requires 'Locale::PO'                       => '0.27';
     requires 'Server::Starter'                  => '0.31';
     requires 'Starlet'                          => '0.25';
-};
-
-# Internationalization
-feature i18n => sub {
-    requires 'Locale::PO'       => '0.27';
-    requires 'Locale::Messages' => '1.23';
 };
 
 author_requires 'Catalyst::Devel'               => '1.39';
