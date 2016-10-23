@@ -572,7 +572,6 @@ const CLEANUPS = {
   },
   score: {
     match: [
-      new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
       new RegExp("^(https?://)?(www[0-9]?\\.)?cpdl\\.org", "i")
     ],
@@ -734,7 +733,7 @@ const CLEANUPS = {
   },
   imslp: {
     match: [new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i")],
-    type: LINK_TYPES.imslp
+    type: _.defaults({}, LINK_TYPES.imslp, LINK_TYPES.score)
   },
   lastfm: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|event|festival)/", "i")],
