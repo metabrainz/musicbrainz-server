@@ -118,6 +118,9 @@ is ( $test->c->cache->_orig->set_called, 2 );
 };
 
 test 'Cache is transactional (MBS-7241)' => sub {
+    # See http://blogs.perl.org/users/aristotle/2016/05/coro-vs-5022.html
+    plan skip_all => 'Coro is broken in Perl 5.22+';
+
     # This test is of limited usefulness, since it only tests a *single* point
     # in the transaction where an entity might be requested. But it at least
     # detects cases where there is *no* transactionality, i.e. the situation we
