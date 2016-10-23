@@ -109,6 +109,8 @@ feature etags => sub {
 feature production => sub {
     requires 'Digest::MD5::File'                => '0.08';
     requires 'Catalyst::Plugin::ErrorCatcher'   => '0.0.8.18';
+    requires 'Server::Starter'                  => '0.31';
+    requires 'Starlet'                          => '0.25';
 };
 
 # Internationalization
