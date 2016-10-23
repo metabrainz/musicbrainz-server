@@ -116,7 +116,6 @@ feature 'ETag Caching' =>
 feature 'Default session store/state management' =>
     -default                                     => 1,
     'Catalyst::Plugin::Session::State::Cookie'   => '0.17',
-    'Catalyst::Plugin::Session::Store::FastMmap' => '0.14',
     ;
 
 feature 'Developer features' =>
