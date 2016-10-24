@@ -137,7 +137,7 @@ sub CANONICAL_SERVER          { "https://musicbrainz.org" }
 sub CRITIQUEBRAINZ_SERVER     { "https://critiquebrainz.org" }
 
 # The URL where static resources are located, excluding the trailing slash.
-sub STATIC_RESOURCES_LOCATION { 'http://localhost:5000/static' }
+sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 
 ################################################################################
 # Mail Settings
