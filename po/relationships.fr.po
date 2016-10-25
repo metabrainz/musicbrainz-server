@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 10:35+0000\n"
+"PO-Revision-Date: 2016-10-20 09:04+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3316,7 +3316,7 @@ msgstr "a une page biographique sur"
 #: DB:link_type/long_link_phrase:224 DB:link_type/long_link_phrase:199
 #: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
-msgstr "à un blogue à"
+msgstr "a un blogue à"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -3343,11 +3343,11 @@ msgstr "a une page de fan sur"
 
 #: DB:link_type/long_link_phrase:226
 msgid "has a karaoke version"
-msgstr "à une version karaoké"
+msgstr "a une version karaoké"
 
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
-msgstr "à un logo à"
+msgstr "a un logo à"
 
 #: DB:link_type/long_link_phrase:25 DB:link_type/long_link_phrase:129
 #: DB:link_type/long_link_phrase:270
@@ -3359,7 +3359,7 @@ msgstr "a un rôle divers sur"
 #: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
-msgstr "à une page dans une base données sur"
+msgstr "a une page dans une base données sur"
 
 #: DB:link_type/long_link_phrase:901 DB:link_type/long_link_phrase:900
 #: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
@@ -3370,11 +3370,11 @@ msgstr "a une page de parrainage à"
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
 msgid "has a picture at"
-msgstr "à une photo à"
+msgstr "a une photo à"
 
 #: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
 msgid "has a review page at"
-msgstr "à une page de critique sur"
+msgstr "a une page de critique sur"
 
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817
@@ -3385,7 +3385,7 @@ msgstr "a une page setlist.fm sur"
 #: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
 #: DB:link_type/long_link_phrase:429
 msgid "has a social networking page at"
-msgstr "à une page de réseau social sur"
+msgstr "a une page de réseau social sur"
 
 #: DB:link_type/long_link_phrase:287
 msgid "has a standalone website at"
@@ -3399,11 +3399,11 @@ msgstr "a une page Allmusic sur"
 #: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
 #: DB:link_type/long_link_phrase:706 DB:link_type/long_link_phrase:97
 msgid "has an IMDb page at"
-msgstr "à une page IMDb sur"
+msgstr "a une page IMDb sur"
 
 #: DB:link_type/long_link_phrase:754
 msgid "has an IMSLP page at"
-msgstr "à une page ISMLP sur"
+msgstr "a une page ISMLP sur"
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"
@@ -3419,17 +3419,17 @@ msgstr "a une chaîne officielle YouTube à"
 #: DB:link_type/long_link_phrase:183 DB:link_type/long_link_phrase:219
 #: DB:link_type/long_link_phrase:363
 msgid "has an official homepage at"
-msgstr "à un site Web officiel sur"
+msgstr "a un site Web officiel sur"
 
 #: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:805
 #: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
 #: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
-msgstr "à une chaîne vidéo officielle à"
+msgstr "a une chaîne vidéo officielle à"
 
 #: DB:link_type/long_link_phrase:185
 msgid "has an online community page at"
-msgstr "à une page de communauté en ligne sur"
+msgstr "a une page de communauté en ligne sur"
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
@@ -3437,7 +3437,7 @@ msgstr "a un arrangement"
 
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
-msgstr "à une association commerciale avec"
+msgstr "a une association commerciale avec"
 
 #: DB:link_type/link_phrase:750
 msgid "has catalogue"
@@ -3449,7 +3449,7 @@ msgstr "a un enfant"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
-msgstr "à une illustration sur"
+msgstr "a une illustration sur"
 
 #: DB:link_type/long_link_phrase:737
 msgid "has derived instrument"
@@ -3457,7 +3457,7 @@ msgstr "a un instrument dérivé"
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
-msgstr "à une marque"
+msgstr "a une marque"
 
 #: DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -3478,7 +3478,7 @@ msgstr "a une orchestration"
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
 msgid "has part"
-msgstr "à une partie"
+msgstr "a une partie"
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740

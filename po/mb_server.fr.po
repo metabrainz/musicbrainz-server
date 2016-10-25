@@ -43,7 +43,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-10-19 11:15+0000\n"
+"PO-Revision-Date: 2016-10-21 05:14+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1054,7 +1054,7 @@ msgstr "Une erreur est survenue au chargement de cette modification."
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "An error occured: "
-msgstr "Une erreur est survenue :"
+msgstr "Une erreur est survenue : "
 
 #: ../root/release/edit_relationships.tt:174
 msgid "An error occurred while creating the works."
@@ -1181,7 +1181,7 @@ msgstr "Êtes-vous certain de vouloir révoquer l’accès de cette application�
 
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
-msgstr "Êtes-vous certain de vouloir annuler la modification N°{n} ? Cela sera définitif !"
+msgstr "Êtes-vous certain de vouloir annuler la modification no {n} ? Cela sera définitif !"
 
 #: ../root/admin/wikidoc/delete.tt:4
 msgid ""
@@ -1581,7 +1581,7 @@ msgstr "Élections des auto-éditeurs"
 
 #: ../root/elections/show.tt:1 ../root/elections/show.tt:3
 msgid "Auto-editor election #{no}"
-msgstr "Élection de l’auto-éditeur N°{no}"
+msgstr "Élection de l’auto-éditeur no {no}"
 
 #: ../root/elections/index.tt:1 ../root/elections/index.tt:3
 msgid "Auto-editor elections"
@@ -2685,12 +2685,12 @@ msgstr "Modifier"
 
 #: ../root/edit/index.tt:1
 msgid "Edit #{id}"
-msgstr "Modification No {id}"
+msgstr "Modification no {id}"
 
 #: ../root/edit/edit_header.tt:54 ../root/edit/edit_header.tt:69
 #: ../root/edit/notes-received.tt:24
 msgid "Edit #{id} - {name}"
-msgstr "Modification no {id} - {name}"
+msgstr "Modification no {id} - {name}"
 
 #: ../root/entity/alias/edit.tt:1
 msgid "Edit Alias"
@@ -2795,7 +2795,7 @@ msgstr "Modification par {editor}"
 
 #: ../root/edit/data.tt:1 ../root/edit/data.tt:3
 msgid "Edit data for edit #{id}"
-msgstr "Données de modification pour la modification no {id}"
+msgstr "Données de modification pour la modification no {id}"
 
 #: ../root/components/forms.tt:33 ../root/components/forms.tt:37
 #: ../root/edit/cancel.tt:19
@@ -3382,7 +3382,7 @@ msgstr[1] "Trouvé dans {num} collections d’utilisateurs"
 
 #: ../root/release/lookup.tt:4
 msgid "Found more than one match for the CD with TOC {toc}: "
-msgstr "J’ai trouvé plus d’une correspondance pour le CD ayant l’index {toc} :"
+msgstr "J’ai trouvé plus d’une correspondance pour le CD ayant l’index {toc} : "
 
 #: ../root/edit/list.tt:33
 msgid "Found {n} edit"
@@ -4856,7 +4856,7 @@ msgstr "Mon vote :"
 #: ../root/edit/edit_header.tt:16 ../root/edit/edit_header.tt:21
 #: ../root/edit/edit_header.tt:26
 msgid "My vote: "
-msgstr "Mon vote :"
+msgstr "Mon vote : "
 
 #: ../root/edit/edit_header.tt:22
 msgid "N/A"
@@ -8509,7 +8509,7 @@ msgstr "Ceci est l’alias principal pour cette locale (paramètre linguistique)
 #: ../root/edit/data.tt:31
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr "Voici les données brutes pour la modification no {id}. Elles sont disponibles pour le débogage."
+msgstr "Voici les données brutes pour la modification no {id}. Elles sont disponibles pour le débogage."
 
 #: ../root/label/delete.tt:14
 msgid ""
@@ -9959,7 +9959,7 @@ msgstr "Pointage des votes :"
 
 #: ../root/user/profile.tt:171
 msgid "Voted down"
-msgstr "Rejetées par vote :"
+msgstr "Rejetées par vote"
 
 #: ../root/elections/show.tt:116
 msgid "Voter"
