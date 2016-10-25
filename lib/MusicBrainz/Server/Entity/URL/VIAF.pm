@@ -5,6 +5,12 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
+override href_url => sub {
+    # Turn the official permalink into what VIAF currently redirects to.
+    shift->url->as_string =~
+        s{^http://viaf\.org/viaf/([0-9]+)$}{https://viaf.org/viaf/$1/}r;
+};
+
 sub pretty_name
 {
     my $self = shift;

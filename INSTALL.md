@@ -280,7 +280,8 @@ Creating the database
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
-        grab whichever dumps suit your needs.
+        grab whichever dumps suit your needs. The online documentation has a
+        [description of the various data dump files](https://musicbrainz.org/doc/MusicBrainz_Database/Download#File_Descriptions).
 
         Assuming the dumps have been downloaded to /tmp/dumps/ you can verify
         that the data is correct by running:

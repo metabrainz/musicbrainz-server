@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:08+0000\n"
+"PO-Revision-Date: 2016-10-19 15:51+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1704,6 +1704,11 @@ msgstr "luitklavecimbel"
 msgid "lavta"
 msgstr "lavta"
 
+#: DB:instrument/name:803
+msgctxt "spanish plucked chordophone"
+msgid "laúd"
+msgstr ""
+
 #: DB:instrument/name:573
 msgid "limbe"
 msgstr "limbe"
@@ -2268,6 +2273,10 @@ msgstr "sabar"
 #: DB:instrument/name:149
 msgid "sackbut"
 msgstr "baroktrombone"
+
+#: DB:instrument/name:804
+msgid "saduk"
+msgstr ""
 
 #: DB:instrument/name:583
 msgid "samba whistle"

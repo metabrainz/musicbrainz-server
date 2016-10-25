@@ -8,7 +8,12 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "iTunes";
+    if (my ($country) = $self->url->path =~ m{^/([a-z]{2})/}i) {
+        $country =~ tr/a-z/A-Z/;
+        return "iTunes $country";
+    } else {
+        return "iTunes US";
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

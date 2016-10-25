@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-02 18:21+0000\n"
+"PO-Revision-Date: 2016-10-19 10:14+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -509,7 +509,7 @@ msgstr "Créoles et pidgins"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:90
 msgid "Creoles and pidgins, English based"
-msgstr "Créoles et pidgins basés sur l'anglais"
+msgstr "Créoles et pidgins basés sur l’anglais"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:91
@@ -769,7 +769,7 @@ msgstr "Ga"
 #. frequency:1 iso_code_3:car
 #: DB:language/name:67
 msgid "Galibi Carib"
-msgstr "Kali'na ; galibi"
+msgstr "Kali’na ; galibi"
 
 #. frequency:1 iso_code_3:glg
 #: DB:language/name:150
@@ -1064,7 +1064,7 @@ msgstr "Irlandais, moyen (900-1200)"
 #. frequency:0 iso_code_3:sga
 #: DB:language/name:369
 msgid "Irish, Old (to 900)"
-msgstr "irlandais, vieil (jusqu'à 900)"
+msgstr "irlandais, vieil (jusqu’à 900)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:194
@@ -1554,7 +1554,7 @@ msgstr "Mendé"
 #. frequency:1 iso_code_3:mic
 #: DB:language/name:271
 msgid "Mi'kmaq"
-msgstr "Mi'kmaq"
+msgstr "Mi’kmaq"
 
 #. frequency:1 iso_code_3:nan
 #: DB:language/name:4663
@@ -1619,7 +1619,7 @@ msgstr "Mounda, langues"
 #. frequency:1 iso_code_3:nqo
 #: DB:language/name:478
 msgid "N'Ko"
-msgstr "N'ko"
+msgstr "N’ko"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:291
@@ -1884,7 +1884,7 @@ msgstr "Prâkrit, langues"
 #. frequency:0 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
-msgstr "Occitan, Ancien (jusqu'à 1500)"
+msgstr "Occitan, Ancien (jusqu’à 1500)"
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343
@@ -1974,7 +1974,7 @@ msgstr "Sames, langues"
 #. frequency:1 iso_code_3:smn
 #: DB:language/name:383
 msgid "Sami, Inari"
-msgstr "Same d'Inari"
+msgstr "Same d’Inari"
 
 #. frequency:1 iso_code_3:smj
 #: DB:language/name:382
@@ -2629,4 +2629,4 @@ msgstr "[Artificiel (autre)]"
 #. frequency:2 iso_code_3:mul
 #: DB:language/name:284
 msgid "[Multiple languages]"
-msgstr "[Langues multiples]"
+msgstr "[Plusieurs langues]"
