@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-13 01:45+0000\n"
+"PO-Revision-Date: 2016-10-19 15:51+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,13 @@ msgstr "Een klassieke gitaar met darmsnaren."
 #: DB:instrument/description:566
 msgid "A classical guitar strung with nylon strings."
 msgstr "Een klassieke gitaar met nylonsnaren."
+
+#. name:saduk
+#: DB:instrument/description:804
+msgid ""
+"A cross between a saxophone and a duduk invented and played by Alexander "
+"Berne"
+msgstr ""
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
