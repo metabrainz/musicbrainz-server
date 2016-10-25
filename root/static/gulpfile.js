@@ -143,8 +143,6 @@ function langToPosix(lang) {
 function buildScripts() {
   process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
-  shell.exec(path.resolve(CHECKOUT_DIR, 'script/dbdefs_to_js.pl'));
-
   var commonBundle = runYarb('common.js');
 
   _((DBDefs.MB_LANGUAGES || '').replace(/\s+/g, ''))
