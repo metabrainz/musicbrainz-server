@@ -189,12 +189,8 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # sub DB_STAGING_SERVER { 1 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
-# If left undefined the default value will be shown.
-# Several predefined constants can be used (set to e.g. shift->NAME_OF_CONSTANT
-# DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
-# DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
-# Defaults to DB_STAGING_SERVER_DESCRIPTION_DEFAULT
-# sub DB_STAGING_SERVER_DESCRIPTION { "" }
+# If left empty the default value will be shown.
+# sub DB_STAGING_SERVER_DESCRIPTION { '' }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.

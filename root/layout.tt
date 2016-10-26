@@ -30,7 +30,13 @@
             [% IF server_details.staging_server %]
                 <div class="banner server-details">
                     <p>
-                        [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
+                        [%~ IF server_details.staging_server_description;
+                                server_details.staging_server_description;
+                            ELSIF server_details.is_beta;
+                                l('This beta test server allows testing of new features with the live database.');
+                            ELSE
+                                l('This is a MusicBrainz development server.')
+                        =%]
                         [%= l('{uri|Return to musicbrainz.org}.',
                               { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') _
                                        (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]

@@ -40,10 +40,18 @@ const DismissBannerButton = ({bannerName}) => (
 
 const serverDetailsBanner = (server) => {
   if (server.staging_server) {
+    let description;
+    if (server.staging_server_description) {
+      description = server.staging_server_description;
+    } else if (server.is_beta) {
+      description = l('This beta test server allows testing of new features with the live database.');
+    } else {
+      description = l('This is a MusicBrainz development server.');
+    }
     return (
       <div className="banner server-details">
         <p>
-          {server.staging_server_description || l('This is a MusicBrainz development server.')}
+          {description}
           {' '}
           {l('{uri|Return to musicbrainz.org}.',
              {__react: true,

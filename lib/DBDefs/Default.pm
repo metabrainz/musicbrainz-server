@@ -32,7 +32,6 @@ use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
 use JSON qw( encode_json );
 use MusicBrainz::Server::Replication ':replication_type';
-use MusicBrainz::Server::Translation 'l';
 
 sub get_environment_hash {
     my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
@@ -165,12 +164,8 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 sub DB_STAGING_SERVER { 1 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
-# If left undefined the default value will be shown.
-# Several predefined constants can be used (set to e.g. shift->NAME_OF_CONSTANT
-# Defaults to DB_STAGING_SERVER_DESCRIPTION_DEFAULT
-sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
-sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
-sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
+# If left empty the default value will be shown.
+sub DB_STAGING_SERVER_DESCRIPTION { '' }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
