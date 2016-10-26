@@ -1,0 +1,8 @@
+# Dependencies needed only to execute ./admin/InitDb.pl.
+
+requires 'Class::MOP'           => '2.1600';
+requires 'DBD::Pg'              => '3.5.3';
+requires 'DBIx::Connector'      => '0.53';
+requires 'Moose'                => '2.1600';
+requires 'String::ShellQuote'   => '1.03';
+requires 'Throwable'            => '0.200009';
