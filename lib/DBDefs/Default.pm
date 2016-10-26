@@ -27,25 +27,10 @@ use warnings;
 
 package DBDefs::Default;
 
-use Class::MOP;
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
 use JSON qw( encode_json );
 use MusicBrainz::Server::Replication ':replication_type';
-
-sub get_environment_hash {
-    my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
-
-    my %exclude = map { $_ => 1 }
-        qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES get_environment_hash );
-
-    return {
-        map { $_ => join(',', map {
-            ref($_) eq 'HASH' ? encode_json($_) : $_
-        } grep { defined } $export->{$_}->body->('DBDefs')) }
-        grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export
-    };
-}
 
 ################################################################################
 # Directories
@@ -454,28 +439,6 @@ sub LOGGER_ARGUMENTS {
         ],
     )
 }
-
-sub ADMIN_EMAILS { "root" }
-
-# Were to put database exports, and replication data, for public consumption;
-# who should own them, and what mode they should have.
-sub FTP_DATA_DIR { "/var/ftp/pub/musicbrainz/data" }
-sub FTP_USER { "musicbrainz" }
-sub FTP_GROUP { "musicbrainz" }
-sub FTP_DIR_MODE { 755 }
-sub FTP_FILE_MODE { 644 }
-
-# Where to back things up to, who should own the backup files, and what mode
-# those files should have.
-# The backups include a full database export, and all replication data.
-sub BACKUP_DIR { "/home/musicbrainz/backup" }
-sub BACKUP_USER { "musicbrainz" }
-sub BACKUP_GROUP { "musicbrainz" }
-sub BACKUP_DIR_MODE { 700 }
-sub BACKUP_FILE_MODE { 600 }
-
-sub RSYNC_FULLEXPORT_SERVER { 'ftp-data@ftp-data.localdomain' }
-sub RSYNC_REPLICATION_SERVER { 'metabrainz@sakura.localdomain' }
 
 1;
 # eof DBDefs.pm

@@ -1,3 +1,4 @@
+/admin/config.user.sh
 /admin/vh_httpd.conf
 /admin/startup.pl
 /admin/apache/vh_mb_backend.conf

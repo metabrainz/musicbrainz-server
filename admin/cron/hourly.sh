@@ -5,7 +5,7 @@ export PATH=/usr/local/bin:$PATH
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)
 cd "$MB_SERVER_ROOT"
 
-eval `./admin/ShowDBDefs`
+source admin/config.sh
 
 # Only run one "hourly.sh" at a time
 if [ "${1:-}" != "gotlock" ]

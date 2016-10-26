@@ -9,7 +9,7 @@ trap 'echo "Disk space when RunExport ends:" ; df -m' 0
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
-eval `./admin/ShowDBDefs`
+source admin/config.sh
 
 . ./admin/functions.sh
 make_temp_dir
