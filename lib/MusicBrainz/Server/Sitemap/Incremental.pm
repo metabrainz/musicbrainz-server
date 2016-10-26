@@ -25,9 +25,9 @@ use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Sitemap::Constants qw( %SITEMAP_SUFFIX_INFO );
 use MusicBrainz::Server::Sitemap::Builder;
 use MusicBrainz::Server::Sitemap::Utils qw( log );
-use MusicBrainz::Server::Replication qw(
-    retrieve_remote_file
+use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
+    retrieve_remote_file
 );
 
 extends 'MusicBrainz::Server::Sitemap::Builder';
