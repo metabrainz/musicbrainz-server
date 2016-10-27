@@ -151,6 +151,14 @@ sub output_error {
     return encode_json({ error => $err });
 }
 
+sub output_success {
+  my ($self, $msg) = @_;
+
+    $msg ||= 'OK';
+
+    return encode_json({ message => $msg });
+}
+
 sub autocomplete_release_group {
     my ($self, $results, $pager) = @_;
 
