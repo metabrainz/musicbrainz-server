@@ -1,7 +1,10 @@
 #!/bin/bash -u
 
 set -o errexit
-cd `dirname $0`
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+cd "$MB_SERVER_ROOT"
+
 eval `./admin/ShowDBDefs`
 
 NEW_SCHEMA_SEQUENCE=23
