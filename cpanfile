@@ -28,7 +28,6 @@ requires 'Date::Calc'                                 => '6.3';
 requires 'DateTime::Format::ISO8601'                  => '0.08';
 requires 'DateTime::Format::Natural'                  => '1.02';
 requires 'DateTime::Format::Pg'                       => '0.16009';
-requires 'DateTime::Format::W3CDTF'                   => '0.06';
 requires 'DateTime::TimeZone'                         => '1.63';
 requires 'DBD::Pg'                                    => '3.5.3';
 requires 'DBI'                                        => '1.63';
@@ -106,6 +105,7 @@ requires 'XML::XPath'                                 => '1.13';
 # Production server features
 feature production => sub {
     requires 'Catalyst::Plugin::ErrorCatcher'   => '0.0.8.18';
+    requires 'DateTime::Format::W3CDTF'         => '0.06';
     requires 'Locale::PO'                       => '0.27';
     requires 'Parallel::ForkManager'            => '0.7.6';
     requires 'Server::Starter'                  => '0.31';
