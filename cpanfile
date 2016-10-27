@@ -107,8 +107,11 @@ requires 'XML::XPath'                                 => '1.13';
 feature production => sub {
     requires 'Catalyst::Plugin::ErrorCatcher'   => '0.0.8.18';
     requires 'Locale::PO'                       => '0.27';
+    requires 'Parallel::ForkManager'            => '0.7.6';
     requires 'Server::Starter'                  => '0.31';
     requires 'Starlet'                          => '0.25';
+    requires 'WWW::Sitemap::XML'                => '2.02';
+    requires 'WWW::SitemapIndex::XML'           => '2.02';
 };
 
 author_requires 'Catalyst::Devel'               => '1.39';
