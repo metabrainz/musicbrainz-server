@@ -9,7 +9,6 @@ const po2json = require('po2json');
 const Q = require('q');
 const shellQuote = require('shell-quote');
 const shell = require('shelljs');
-const through2 = require('through2');
 const File = require('vinyl');
 const source = require('vinyl-source-stream');
 const yarb = require('yarb');
@@ -22,11 +21,11 @@ const CHECKOUT_DIR = path.resolve(__dirname, '../../');
 const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
 const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
+const STYLES_DIR = path.resolve(STATIC_DIR, 'styles');
 const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
 const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
-const revManifestPath = path.resolve(BUILD_DIR, 'rev-manifest.json');
 const revManifest = {};
 
 const JED_OPTIONS_EN = {
@@ -36,30 +35,27 @@ const JED_OPTIONS_EN = {
   },
 };
 
-function writeManifest() {
-  fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
-}
-
-function writeResource(stream, baseDir) {
+function writeResource(stream) {
   var deferred = Q.defer();
-
-  if (!baseDir) {
-    baseDir = '/build/';
-  }
 
   stream
     .pipe(streamify(rev()))
     .pipe(gulp.dest(BUILD_DIR))
-    .pipe(rev.manifest())
-    .pipe(through2.obj(function (chunk, encoding, callback) {
-      const contents = JSON.parse(chunk.contents)
-      Object.keys(contents).forEach(function (src) {
-        contents[path.join(baseDir, path.basename(src))] = contents[src];
-        delete contents[src];
-      });
-      _.assign(revManifest, contents);
-      callback();
+    // The rev-manifest path must be absolute for the `merge` option to work.
+    .pipe(rev.manifest(path.resolve(BUILD_DIR, 'rev-manifest.json'), {
+      // By default, `base` is the current working directory, so this ensures
+      // the manifest is saved directly under BUILD_DIR, rather than
+      // $BUILD_DIR/root/static/build/.
+      base: BUILD_DIR,
+      merge: true,
+      transformer: {
+        parse: JSON.parse,
+        stringify: function (contents) {
+          return JSON.stringify(_.assign(revManifest, contents));
+        },
+      },
     }))
+    .pipe(gulp.dest(BUILD_DIR))
     .on('finish', function () {
       deferred.resolve();
     });
@@ -69,7 +65,11 @@ function writeResource(stream, baseDir) {
 
 function buildStyles(callback) {
   return writeResource(
-    gulp.src(path.resolve(STATIC_DIR, '*.less'))
+    gulp.src([
+      path.resolve(STYLES_DIR, 'common.less'),
+      path.resolve(STYLES_DIR, 'icons.less'),
+      path.resolve(STYLES_DIR, 'statistics.less'),
+    ], {base: STATIC_DIR})
     .pipe(less({
       rootpath: '/static/',
       relativeUrls: true,
@@ -107,7 +107,13 @@ function runYarb(resourceName, callback) {
     return CACHED_BUNDLES[resourceName];
   }
 
-  var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
+  const vinyl = new File({
+    base: STATIC_DIR,
+    path: path.resolve(SCRIPTS_DIR, resourceName),
+  });
+  vinyl.contents = fs.createReadStream(vinyl.path);
+
+  var bundle = transformBundle(yarb(vinyl, {
     debug: DBDefs.DEVELOPMENT_SERVER,
   }));
 
@@ -120,7 +126,7 @@ function runYarb(resourceName, callback) {
 }
 
 function bundleScripts(b, resourceName) {
-  return b.bundle().on('error', console.log).pipe(source(resourceName));
+  return b.bundle().on('error', console.log).pipe(source('scripts/' + resourceName));
 }
 
 function writeScript(b, resourceName) {
@@ -239,22 +245,22 @@ function buildScripts() {
     writeScript(runYarb('debug.js', function (b) {
       b.external(commonBundle);
     }), 'debug.js')
-  ]).then(writeManifest);
+  ]);
 }
 
 function buildImages() {
   return Q.all([
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'entity/*')), '/images/entity/'),
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'icons/*')), '/images/icons/'),
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'image404-125.png')), '/images/'),
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'layout/*')), '/images/layout/'),
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'licenses/*')), '/images/licenses/'),
-    writeResource(gulp.src(path.join(IMAGES_DIR, 'logos/*')), '/images/logos/'),
-  ]).then(writeManifest);
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'entity/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'icons/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'image404-125.png'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'layout/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'licenses/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'logos/*'), {base: STATIC_DIR})),
+  ]);
 }
 
 gulp.task('styles', function () {
-  return buildStyles(writeManifest);
+  return buildStyles();
 });
 
 gulp.task('scripts', buildScripts);
@@ -268,7 +274,6 @@ gulp.task('watch', ['styles', 'scripts'], function () {
     process.stdout.write('Rebuilding styles ... ');
 
     buildStyles(function () {
-      writeManifest();
       process.stdout.write('done.\n');
     });
   });
@@ -289,7 +294,6 @@ gulp.task('watch', ['styles', 'scripts'], function () {
     if (rebuild) {
       process.stdout.write(`Rebuilding ${resourceName} (${file.event}: ${file.path}) ... `);
       writeScript(b, resourceName).done(function () {
-        writeManifest();
         process.stdout.write('done.\n');
       });
     }

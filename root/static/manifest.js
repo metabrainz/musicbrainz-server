@@ -27,6 +27,8 @@ function pathTo(manifest) {
     }
   }
 
+  manifest = manifest.replace(/^\//, '');
+
   if (!MANIFEST_SIGNAUTRES[manifest]) {
     throw new Error('no such manifest: ' + manifest);
   }
@@ -35,11 +37,11 @@ function pathTo(manifest) {
 }
 
 function js(manifest) {
-  return <script src={pathTo('/build/' + manifest + '.js')}></script>;
+  return <script src={pathTo('scripts/' + manifest + '.js')}></script>;
 }
 
 function css(manifest) {
-  return <link rel="stylesheet" type="text/css" href={pathTo('/build/' + manifest + '.css')} />;
+  return <link rel="stylesheet" type="text/css" href={pathTo('styles/' + manifest + '.css')} />;
 }
 
 exports.js = js;

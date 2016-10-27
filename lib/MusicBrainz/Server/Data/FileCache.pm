@@ -78,6 +78,7 @@ sub template_signature {
 sub path_to {
     my ($self, $manifest) = @_;
 
+    $manifest =~ s/^\///;
     my $signature = $self->manifest_signature($manifest) // '';
     return DBDefs->STATIC_RESOURCES_LOCATION . '/' . $signature;
 }
