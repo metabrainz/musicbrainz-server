@@ -283,6 +283,7 @@ function buildImages() {
     writeResource(gulp.src(path.join(IMAGES_DIR, 'icons/*'), {base: STATIC_DIR})),
     writeResource(gulp.src(path.join(IMAGES_DIR, 'image404-125.png'), {base: STATIC_DIR})),
     writeResource(gulp.src(path.join(IMAGES_DIR, 'layout/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'leaflet/*'), {base: STATIC_DIR})),
     writeResource(gulp.src(path.join(IMAGES_DIR, 'licenses/*'), {base: STATIC_DIR})),
     writeResource(gulp.src(path.join(IMAGES_DIR, 'logos/*'), {base: STATIC_DIR})),
   ]);

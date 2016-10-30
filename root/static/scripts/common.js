@@ -2,7 +2,7 @@ const global = require('./global');
 
 global.aclass = require("aclass");
 global.ko = require("knockout");
-global.L = require("../lib/leaflet/leaflet-src");
+global.L = require("leaflet/dist/leaflet-src");
 global._ = require("lodash");
 global.$ = global.jQuery = require("jquery");
 
