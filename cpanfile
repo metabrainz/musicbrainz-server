@@ -111,7 +111,6 @@ feature production => sub {
     requires 'Server::Starter'                  => '0.31';
     requires 'Starlet'                          => '0.25';
     requires 'WWW::Sitemap::XML'                => '2.02';
-    requires 'WWW::SitemapIndex::XML'           => '2.02';
 };
 
 author_requires 'Catalyst::Devel'               => '1.39';
