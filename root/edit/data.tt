@@ -4,7 +4,7 @@
 
     <p><strong>[% l('Type:') %]</strong> [% edit.l_edit_name %] ([% edit.edit_type %])</p>
 
-    <p><strong>[% l('Status:') %]</strong> [% edit.status_name %] ([% edit.status %])</p>
+    <p><strong>[% l('Status:') %]</strong> [% edit.l_status_name %] ([% edit.status %])</p>
 
     <p>
         <strong>[% l('Data:') %]</strong>

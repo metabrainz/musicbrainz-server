@@ -1,7 +1,7 @@
 [% IF summary %]
     [% IF edit.status != 1 && edit.status != 2 %]
         <div class="edit-status">
-            [%- edit.status_name -%]
+            [%- edit.l_status_name -%]
         </div>
     [% END %]
 
