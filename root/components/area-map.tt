@@ -53,16 +53,48 @@
             );
         });
 
+        var markers = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: function (cluster) {
+                return L.divIcon({
+                    html: '<img src="/static/images/leaflet/cluster-marker-icon.png" />'
+                        + '<div class="cluster-div-text">'
+                        + '<b>' + cluster.getChildCount() + '</b></div>',
+                    className: 'cluster-div-icon',
+                    iconSize: L.point(25, 41)
+                });
+            }
+        });
+
+        markers.on('clustermouseover', function (evt) {
+            var markers = evt.layer.getAllChildMarkers(),
+                popupText = markers.slice(0, 10).map(function (marker) {
+                    return marker._popup._content;
+                }).join('<br />');
+            if (markers.length > 10) {
+                popupText += '<br /> and ' + (markers.length - 10) + ' others';
+            }
+            evt.layer.bindPopup(popupText).openPopup();
+        });
+
+        markers.on('clustermouseout', function (evt) {
+            map.closePopup();
+        });
+
         places.forEach(function (place) {
             var placeType = place.type || 'no type';
             var marker = L.marker(
                 place.coordinates,
                 { icon: icons[placeType], title: place.title,
                   draggable: false, clickable: true }
-            ).bindPopup(placeType + ': ' + place.uri).addTo(map);
+            ).bindPopup(placeType + ': ' + place.uri);
             coordinates.push(place.coordinates);
+            markers.addLayer(marker);
         });
-
+        map.addLayer(markers);
         map.fitBounds(coordinates);
     }
 
