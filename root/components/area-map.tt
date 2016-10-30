@@ -52,15 +52,39 @@
             );
         });
 
+        var markers = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false
+        });
+
+        markers.on('clustermouseover', function (evt) {
+            var markers = evt.layer.getAllChildMarkers(),
+                popupText = markers.slice(0, 10).map(function (marker) {
+                    return marker._popup._content;
+                }).join('<br />');
+            if (markers.length > 10) {
+                popupText += '<br /> and ' + (markers.length - 10) + ' others';
+            }
+            L.popup().setLatLng(evt.layer.getLatLng())
+                     .setContent(popupText).openOn(map);
+        });
+
+        markers.on('clustermouseout', function (evt) {
+            map.closePopup();
+        });
+
         places.forEach(function (place) {
-            L.marker(
+            var marker = L.marker(
                 place.coordinates,
                 { icon: icons[place.type], title: place.title,
                   draggable: false, clickable: true }
-            ).bindPopup(place.type + '<br />' + place.uri).addTo(map);
+            ).bindPopup(place.type + ': ' + place.uri);
             coordinates.push(place.coordinates);
+            markers.addLayer(marker);
         });
-
+        map.addLayer(markers);
         map.fitBounds(coordinates);
     }
 
