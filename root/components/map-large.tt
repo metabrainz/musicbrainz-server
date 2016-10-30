@@ -27,7 +27,7 @@
         maxZoom: 18
     }).addTo(map);
 
-    L.Icon.Default.imagePath = '/static/lib/leaflet/images';
+    L.Icon.Default.imagePath = '/static/lib/leaflet/images/';
     marker = L.marker([lat, lon], { title: title, draggable: draggable });
     marker.addTo(map);
 
