@@ -70,7 +70,7 @@
       <ul>
         [% FOR attribute=edit.display_data.attributes.old %]
         <li>
-          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
+          [% add_colon(attribute.type.name) %] [% attribute.min %]-[% attribute.max %]
         </li>
         [% END %]
       </ul>
@@ -79,7 +79,7 @@
       <ul>
         [% FOR attribute=edit.display_data.attributes.new %]
         <li>
-          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
+          [% add_colon(attribute.type.name) %] [% attribute.min %]-[% attribute.max %]
         </li>
         [% END %]
       </ul>

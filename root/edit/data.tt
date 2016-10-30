@@ -16,7 +16,7 @@
         <ul>
             [% FOREACH type IN related_entities.pairs %]
                 <li>
-                    [% get_plural_type(type.key) %]:
+                    [% add_colon(get_plural_type(type.key)) %]
                     [% es = [];
                        FOREACH e IN type.value.pairs.nsort('key');
                            es.push(link_entity(e.value, 'show', e.key));
