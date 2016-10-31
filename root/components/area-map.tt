@@ -57,7 +57,16 @@
             maxClusterRadius: 50,
             spiderfyOnMaxZoom: true,
             showCoverageOnHover: false,
-            zoomToBoundsOnClick: false
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: function (cluster) {
+                return L.divIcon({
+                    html: '<img src="/static/lib/leaflet/images/cluster-marker-icon.png" />'
+                        + '<div class="cluster-div-text">'
+                        + '<b>' + cluster.getChildCount() + '</b></div>',
+                    className: 'cluster-div-icon',
+                    iconSize: L.point(25, 41)
+                });
+            }
         });
 
         markers.on('clustermouseover', function (evt) {
@@ -68,8 +77,7 @@
             if (markers.length > 10) {
                 popupText += '<br /> and ' + (markers.length - 10) + ' others';
             }
-            L.popup().setLatLng(evt.layer.getLatLng())
-                     .setContent(popupText).openOn(map);
+            evt.layer.bindPopup(popupText).openPopup();
         });
 
         markers.on('clustermouseout', function (evt) {
