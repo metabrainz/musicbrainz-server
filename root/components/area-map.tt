@@ -39,6 +39,7 @@
         });
 
         var iconNames = {
+            'no type': 'marker',
             Other: 'marker',
             Studio: 'studio-marker',
             Venue: 'venue-marker',
@@ -76,11 +77,12 @@
         });
 
         places.forEach(function (place) {
+            var placeType = place.type || 'no type';
             var marker = L.marker(
                 place.coordinates,
-                { icon: icons[place.type], title: place.title,
+                { icon: icons[placeType], title: place.title,
                   draggable: false, clickable: true }
-            ).bindPopup(place.type + ': ' + place.uri);
+            ).bindPopup(placeType + ': ' + place.uri);
             coordinates.push(place.coordinates);
             markers.addLayer(marker);
         });
