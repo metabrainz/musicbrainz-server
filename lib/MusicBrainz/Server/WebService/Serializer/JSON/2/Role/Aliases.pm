@@ -1,7 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases;
 use Moose::Role;
+use Hash::Merge qw( merge );
 use List::UtilsBy qw( sort_by );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean date_period );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
@@ -21,9 +22,7 @@ around serialize => sub {
         $item->{type} = $alias->type ? $alias->type_name : JSON::null;
         $item->{'type-id'} = $alias->type ? $alias->type->gid : JSON::null;
 
-        $item->{'begin-date'} = $alias->begin_date->is_empty ? $alias->begin_date->format : JSON::null;
-        $item->{'end-date'} = $alias->end_date->is_empty ? $alias->end_date->format : JSON::null;
-        $item->{ended} = boolean ($alias->ended);
+        $item = merge($item, date_period($alias));
 
         push @aliases, $item;
     }
