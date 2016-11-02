@@ -55,6 +55,7 @@ test 'basic artist lookup' => sub {
             type => "Person",
             "type-id" => "b6e035f4-3ce9-331c-97df-83397230b0df",
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -86,6 +87,7 @@ test 'basic artist lookup, inc=annotation' => sub {
                 ended => JSON::false,
             },
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -121,6 +123,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null, "type-id" => JSON::null },
                 ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -236,6 +239,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -314,6 +318,7 @@ test 'artist lookup with releases' => sub {
                 }
                 ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -368,6 +373,7 @@ test 'artist lookup with pseudo-releases' => sub {
                 }
                 ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -526,6 +532,7 @@ test 'artist lookup with releases and discids' => sub {
                     }],
                 }],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -614,6 +621,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                 },
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -654,6 +662,7 @@ test 'artist lookup with release groups' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -708,6 +717,7 @@ test 'single artist release lookup' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -762,6 +772,7 @@ test 'various artists release lookup' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -802,6 +813,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -981,6 +993,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     "type-id" => JSON::null,
                 }],
             ipis => [],
+            isnis => [],
             gender => JSON::null,
             "gender-id" => JSON::null,
         };
@@ -1037,6 +1050,7 @@ test 'artist lookup with artist relations' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
             gender => 'Female',
             "gender-id" => "93452b5a-a947-30c8-934f-6a4056b151c2",
         };

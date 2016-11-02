@@ -36,6 +36,7 @@ test 'browse artists via release group' => sub {
                     type => "Person",
                     'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 }]
@@ -77,6 +78,7 @@ test 'browse artists via recording' => sub {
                         { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
                         ],
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 },
@@ -104,6 +106,7 @@ test 'browse artists via recording' => sub {
                         { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null, 'type-id' => JSON::null },
                         ],
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 }]
@@ -139,6 +142,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 },
@@ -161,6 +165,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 },
@@ -191,6 +196,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'pop' },
                         ],
                     ipis => [],
+                    isnis => [],
                     gender => JSON::null,
                     'gender-id' => JSON::null,
                 }]
