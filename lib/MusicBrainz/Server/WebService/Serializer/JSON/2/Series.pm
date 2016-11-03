@@ -18,6 +18,8 @@ sub serialize {
     if ($toplevel) {
         $body{type} = $entity->type ? $entity->type_name : JSON::null;
         $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
+        $body{'ordering-type'} = $entity->ordering_type ? $entity->ordering_type->name : JSON::null;
+        $body{'ordering-type-id'} = $entity->ordering_type ? $entity->ordering_type->gid : JSON::null;
     }
 
     return \%body;
