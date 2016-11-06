@@ -17,6 +17,7 @@
     "babel-preset-stage-2": "6.1.18",
     "babelify": "7.2.0",
     "balanced-match": "0.2.0",
+    "canonical-json": "0.0.4",
     "cookie": "0.2.3",
     "detect-node": "2.0.3",
     "envify": "3.4.0",

@@ -1,3 +1,4 @@
+const canonicalJSON = require('canonical-json');
 const fs = require('fs');
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -50,7 +51,7 @@ function writeResource(stream) {
       transformer: {
         parse: JSON.parse,
         stringify: function (contents) {
-          return JSON.stringify(_.assign(revManifest, contents));
+          return canonicalJSON(_.assign(revManifest, contents));
         },
       },
     }))
@@ -139,7 +140,7 @@ function writeScript(b, resourceName) {
 function createLangVinyl(lang, jedOptions) {
   return new File({
     path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
-    contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n'),
+    contents: new Buffer('module.exports = ' + canonicalJSON(jedOptions) + ';\n'),
   });
 }
 
@@ -264,7 +265,7 @@ function buildScripts() {
       b.external(commonBundle);
     }), 'debug.js')
   ]).then(function () {
-    manifestContents.contents = new Buffer(JSON.stringify(revManifest));
+    manifestContents.contents = new Buffer(canonicalJSON(revManifest));
 
     // Note that writeResource will change the contents of revManifest, and
     // write a new rev-manifest.json, before we write our bundled version with
