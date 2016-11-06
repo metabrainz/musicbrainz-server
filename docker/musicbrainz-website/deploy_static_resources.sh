@@ -1,12 +1,9 @@
 #!/bin/bash
 
-TASKS="$@"
-
 source /etc/consul_template_helpers.sh
 source /etc/mbs_constants.sh
 
 _compile_static_resources() {
-    local TASKS="$@"
     local BUILD_DIR=$MBS_ROOT/root/static/build
     mkdir -p $BUILD_DIR
     chown musicbrainz:musicbrainz $BUILD_DIR
@@ -15,7 +12,7 @@ _compile_static_resources() {
         cd $MBS_ROOT;
         export HOME=$MBS_HOME;
         chpst -u musicbrainz:musicbrainz \
-            carton exec -- ./script/compile_resources.sh $TASKS
+            carton exec -- ./script/compile_resources.sh
     )
 }
 
@@ -52,5 +49,5 @@ push_static_resources() {
     (flock -e 220; _push_static_resources) 220>/tmp/.static_resources.lock
 }
 
-compile_static_resources $TASKS
+compile_static_resources
 push_static_resources

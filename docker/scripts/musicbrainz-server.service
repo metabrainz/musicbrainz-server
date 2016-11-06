@@ -6,11 +6,6 @@ exec 2>&1
 source /etc/consul_template_helpers.sh
 source /etc/mbs_constants.sh
 
-if [ -f '/usr/local/bin/deploy_static_resources.sh' ]; then
-    # Scripts are built by consul-template after DBDefs renders.
-    deploy_static_resources.sh styles images
-fi
-
 wait_for_file "$MBS_ROOT/lib/DBDefs.pm"
 
 cd $MBS_ROOT

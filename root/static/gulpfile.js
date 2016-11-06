@@ -156,6 +156,19 @@ function buildScripts() {
 
   var commonBundle = runYarb('common.js');
 
+  // The client JS needs access to rev-manifest.json too. We obviously can't
+  // know its contents yet. So, create an empty Vinyl whose path is set to
+  // rev-manifest.json. Yarb will use this instead of attempting to read that
+  // path from disk. Later, once the `revManifest` object is populated, we
+  // can set the contents buffer on this currently-empty Vinyl.
+  const manifestContents = new File({
+    path: path.resolve(BUILD_DIR, 'rev-manifest.json'),
+    contents: null,
+  });
+
+  const manifestBundle = runYarb('rev-manifest.js');
+  commonBundle.external(manifestBundle);
+
   _((DBDefs.MB_LANGUAGES || '').replace(/\s+/g, ''))
     .split(',')
     .compact()
@@ -250,7 +263,16 @@ function buildScripts() {
     writeScript(runYarb('debug.js', function (b) {
       b.external(commonBundle);
     }), 'debug.js')
-  ]);
+  ]).then(function () {
+    manifestContents.contents = new Buffer(JSON.stringify(revManifest));
+
+    // Note that writeResource will change the contents of revManifest, and
+    // write a new rev-manifest.json, before we write our bundled version with
+    // the contents above. This is okay, because the client will never need
+    // to lookup "rev-manifest.js". It'll be included on every page by the
+    // server, which'll have access to the final rev-manifest.json on disk.
+    return writeScript(manifestBundle, 'rev-manifest.js');
+  });
 }
 
 function buildImages() {
@@ -264,15 +286,7 @@ function buildImages() {
   ]);
 }
 
-gulp.task('styles', function () {
-  return buildStyles();
-});
-
-gulp.task('scripts', buildScripts);
-
-gulp.task('images', buildImages);
-
-gulp.task('watch', ['styles', 'scripts'], function () {
+gulp.task('watch', ['default'], function () {
   let watch = require('gulp-watch');
 
   watch(path.resolve(STATIC_DIR, '**/*.less'), function () {
@@ -322,4 +336,8 @@ gulp.task('tests', function () {
   ).pipe(gulp.dest(BUILD_DIR));
 });
 
-gulp.task('default', ['styles', 'scripts', 'images']);
+gulp.task('default', function () {
+  // Scripts cannot be built without images or styles. The client JS needs
+  // access to the final paths for these resources.
+  return Q.all([buildImages(), buildStyles()]).then(buildScripts);
+});
