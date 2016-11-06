@@ -14,7 +14,6 @@ const source = require('vinyl-source-stream');
 const yarb = require('yarb');
 
 const {findObjectFile} = require('../server/gettext');
-const DBDefs = require('./scripts/common/DBDefs');
 
 const CACHED_BUNDLES = {};
 const CHECKOUT_DIR = path.resolve(__dirname, '../../');
@@ -81,6 +80,8 @@ function buildStyles(callback) {
 }
 
 function transformBundle(bundle) {
+  const DBDefs = require('./scripts/common/DBDefs');
+
   bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
@@ -103,6 +104,8 @@ function transformBundle(bundle) {
 }
 
 function runYarb(resourceName, callback) {
+  const DBDefs = require('./scripts/common/DBDefs');
+
   if (CACHED_BUNDLES[resourceName]) {
     return CACHED_BUNDLES[resourceName];
   }
@@ -147,6 +150,8 @@ function langToPosix(lang) {
 }
 
 function buildScripts() {
+  const DBDefs = require('./scripts/common/DBDefs');
+
   process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
   var commonBundle = runYarb('common.js');
