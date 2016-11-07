@@ -1,0 +1,60 @@
+# Automatically generated, do not edit.
+FROM postgres:9.5.4
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# install_extensions.sh removes certain build dependencies that we need, so we
+# can't install everything here.
+# Note: curl is also a dependency of carton.
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        curl sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN cd /tmp && \
+    curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/558325c/postgres-base/install_extensions.sh && \
+    chmod +x install_extensions.sh && \
+    ./install_extensions.sh && \
+    rm install_extensions.sh
+
+ARG RUN_DEPS=" \
+    carton \
+    postgresql-9.5-pgtap"
+
+ARG BUILD_DEPS=" \
+    gcc \
+    libc6-dev \
+    make \
+    postgresql-server-dev-9.5"
+
+RUN useradd --create-home --shell /bin/bash musicbrainz
+
+ARG MBS_ROOT=/home/musicbrainz/musicbrainz-server
+WORKDIR $MBS_ROOT
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT
+
+COPY \
+    docker/musicbrainz-test-database/cpanfile \
+    docker/musicbrainz-test-database/cpanfile.snapshot \
+    ./
+
+ENV PERL_CPANM_OPT --notest --no-interactive
+
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        $RUN_DEPS $BUILD_DEPS && \
+    rm -rf /var/lib/apt/lists/* && \
+    sudo -E -H -u musicbrainz carton install --deployment && \
+    apt-get purge --auto-remove -y $BUILD_DEPS
+
+COPY admin/ admin/
+COPY lib/ lib/
+COPY script/ script/
+COPY t/sql/initial.sql t/sql/
+
+COPY docker/musicbrainz-test-database/DBDefs.pm lib/
+
+COPY \
+    docker/musicbrainz-test-database/create_test_db.sh \
+    /docker-entrypoint-initdb.d/

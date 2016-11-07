@@ -21,4 +21,3 @@ BACKUP_DIR_MODE=700
 BACKUP_FILE_MODE=600
 
 RSYNC_FULLEXPORT_SERVER='ftp-data@ftp-data.localdomain'
-RSYNC_REPLICATION_SERVER='metabrainz@sakura.localdomain'

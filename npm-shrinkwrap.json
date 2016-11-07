@@ -2773,6 +2773,10 @@
           "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-1.2.1.tgz"
         }
       }
+    },
+    "canonical-json": {
+      "version": "0.0.4",
+      "from": "canonical-json@0.0.4"
     }
   }
 }

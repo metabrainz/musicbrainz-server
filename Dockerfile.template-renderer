@@ -1,0 +1,63 @@
+# Automatically generated, do not edit.
+FROM metabrainz/consul-template-base
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home --shell /bin/bash musicbrainz
+
+ARG MBS_ROOT=/home/musicbrainz/musicbrainz-server
+WORKDIR $MBS_ROOT
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT
+
+COPY package.json npm-shrinkwrap.json ./
+RUN apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        git nodejs nodejs-legacy npm && \
+    rm -rf /var/lib/apt/lists/* && \
+    sudo -E -H -u musicbrainz npm install --only=production && \
+    apt-get purge --auto-remove -y npm
+COPY .babelrc ./
+
+COPY po/ po/
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT && \
+    apt-get update && \
+    apt-get install --no-install-suggests --no-install-recommends -y \
+        gettext make && \
+    rm -rf /var/lib/apt/lists/* && \
+    sudo -E -H -u musicbrainz make -C po all_quiet && \
+    sudo -E -H -u musicbrainz make -C po deploy && \
+    apt-get purge --auto-remove -y gettext make
+
+COPY entities.json ./
+COPY root/layout/components/ root/layout/components/
+COPY root/layout/index.js root/layout/
+COPY root/main/404.js root/main/
+COPY root/server.js root/
+COPY root/server/gettext.js root/server/
+COPY root/static/lib/ root/static/lib/
+COPY root/static/manifest.js root/static/
+COPY root/static/scripts/ root/static/scripts/
+COPY root/utility/ root/utility/
+
+COPY \
+    docker/musicbrainz-template-renderer/consul-template.conf \
+    docker/scripts/mbs_constants.sh \
+    /etc/
+
+COPY \
+    docker/musicbrainz-template-renderer/DBDefs.js.ctmpl \
+    $MBS_ROOT/root/static/scripts/common/
+
+COPY \
+    docker/musicbrainz-template-renderer/musicbrainz-template-renderer.service \
+    /etc/service/musicbrainz-template-renderer/run
+
+RUN mkdir -p $MBS_ROOT && \
+    chown -R musicbrainz:musicbrainz $MBS_ROOT

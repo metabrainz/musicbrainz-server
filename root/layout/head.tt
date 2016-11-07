@@ -24,6 +24,7 @@
           }
         </style>
     </noscript>
+    [%~ script_manifest('rev-manifest.js') ~%]
     [%~ script_manifest('jed-' _ current_language _ '.js') ~%]
     [%~ script_manifest('common.js') ~%]
     [%- BLOCK layout_head %][% END -%]

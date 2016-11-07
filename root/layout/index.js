@@ -116,6 +116,7 @@ const Layout = (props) => {
           </style>
         </noscript>
 
+        {manifest.js('rev-manifest')}
         {manifest.js('jed-' + currentLanguage)}
         {manifest.js('common')}
         {!!$c.stash.jsonld_data && <script type="application/ld+json">{$c.stash.jsonld_data}</script>}

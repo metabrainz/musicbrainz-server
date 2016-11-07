@@ -165,7 +165,7 @@ http.createServer(function (req, res) {
     process.exit();
   }
 
-  function reload() {
+  function hup() {
     clearRequireCache();
     gettext.clearHandles();
     DBDefs = reload('./static/scripts/common/DBDefs');
@@ -175,7 +175,7 @@ http.createServer(function (req, res) {
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', reload);
+  process.on('SIGHUP', hup);
 
   console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
 });

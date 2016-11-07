@@ -9,6 +9,7 @@
 /root/static/scripts/common/DBDefs.js
 /blib
 /lib/DBDefs.pm
+/lib/DBDefs.pm.bak
 /Makefile
 /META.yml
 /MYMETA.json

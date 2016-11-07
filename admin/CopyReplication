@@ -36,7 +36,6 @@ then
     then
         mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
     fi
-    ./bin/rsync-replication-files
 fi
 
 # eof
