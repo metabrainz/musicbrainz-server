@@ -16,14 +16,14 @@ if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
         --archive \
         --delete \
         --exclude='latest-is*' \
-        --rsh "ssh -i ~/.ssh/musicbrainz_production_cron.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --rsh "ssh -i ~/.ssh/rsync-data-fullexport -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
         --verbose \
         $LOCAL_DIR/ \
         brainz@$RSYNC_FULLEXPORT_HOST:/data/
 
     rsync \
         --archive \
-        --rsh "ssh -i ~/.ssh/musicbrainz_production_cron.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --rsh "ssh -i ~/.ssh/rsync-data-latest -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
         --verbose \
         $LOCAL_DIR/latest* \
         brainz@$RSYNC_FULLEXPORT_HOST:/data/
