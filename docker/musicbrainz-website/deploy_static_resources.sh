@@ -17,7 +17,7 @@ _compile_static_resources() {
 }
 
 _push_static_resources() {
-    local TMP=/tmp/staticbrainz-data
+    local TMP=/tmp/staticbrainz
     mkdir $TMP $TMP/MB
 
     cp -R $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
@@ -27,12 +27,16 @@ _push_static_resources() {
     find $TMP/MB/ -type f -not -name '*.gz' -exec rm '{}' \;
 
     # copy resources into the staticbrainz data volume
-    rsync \
-        --ignore-existing \
-        --password-file=/etc/staticbrainz_rsync_password \
-        --recursive \
-        $TMP/ \
-        rsync://www-data@$STATICBRAINZ_HOST:${STATICBRAINZ_PORT:-873}/data/
+    for server in $STATICBRAINZ_SERVERS; do
+        local host=$(echo $server | cut -d ':' -f 1)
+        local port=$(echo $server | cut -d ':' -f 2)
+        rsync \
+            --ignore-existing \
+            --recursive \
+            --rsh "ssh -i $MBS_HOME/.ssh/musicbrainz_website.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port" \
+            $TMP/ \
+            brainz@$host:/data/staticbrainz/
+    done
 
     # cleanup
     rm -r $TMP
@@ -43,7 +47,7 @@ compile_static_resources() {
 }
 
 push_static_resources() {
-    if [ -z "$STATICBRAINZ_HOST" ]; then
+    if [ -z "$STATICBRAINZ_SERVERS" ]; then
         return
     fi
     (flock -e 220; _push_static_resources) 220>/tmp/.static_resources.lock
