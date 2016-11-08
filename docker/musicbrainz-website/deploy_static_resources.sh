@@ -21,7 +21,7 @@ _push_static_resources() {
     mkdir $TMP $TMP/MB
 
     cp -R $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
-    find $TMP/MB/ -type f -exec zopfli '{}' \;
+    find $TMP/MB/ -type f -exec zopfli -v '{}' \;
 
     # copy resources into the staticbrainz data volume
     for server in $STATICBRAINZ_SERVERS; do
@@ -31,6 +31,7 @@ _push_static_resources() {
             --ignore-existing \
             --recursive \
             --rsh "ssh -i $MBS_HOME/.ssh/musicbrainz_website.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port" \
+            --verbose \
             $TMP/ \
             brainz@$host:/data/staticbrainz/
     done
