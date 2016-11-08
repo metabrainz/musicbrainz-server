@@ -8,10 +8,7 @@ install_javascript_and_templates()
 
 install_translations()
 
-COPY \
-    docker/musicbrainz-website/consul-template.conf \
-    docker/musicbrainz-website/staticbrainz_rsync_password.ctmpl \
-    /etc/
+COPY docker/musicbrainz-website/consul-template.conf /etc/
 
 COPY docker/musicbrainz-website/deploy_static_resources.sh /usr/local/bin/
 

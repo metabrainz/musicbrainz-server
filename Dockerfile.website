@@ -97,10 +97,7 @@ RUN mkdir -p $MBS_ROOT && \
     sudo -E -H -u musicbrainz make -C po deploy && \
     apt-get purge --auto-remove -y gettext make
 
-COPY \
-    docker/musicbrainz-website/consul-template.conf \
-    docker/musicbrainz-website/staticbrainz_rsync_password.ctmpl \
-    /etc/
+COPY docker/musicbrainz-website/consul-template.conf /etc/
 
 COPY docker/musicbrainz-website/deploy_static_resources.sh /usr/local/bin/
 
