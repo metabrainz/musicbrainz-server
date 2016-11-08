@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 unset SSH_AUTH_SOCK
 
@@ -9,10 +9,24 @@ source admin/config.sh
 
 LOCAL_DIR=$FTP_DATA_DIR/fullexport
 
-if [ "$RSYNC_FULLEXPORT_SERVER" ]
-then
-    rsync -e "ssh -i $HOME/.ssh/rysnc-data-fullexport" -av --delete --exclude='latest-is*' $LOCAL_DIR/ $RSYNC_FULLEXPORT_SERVER:
-    rsync -e "ssh -i $HOME/.ssh/rysnc-data-latest" -av $LOCAL_DIR/latest* $RSYNC_FULLEXPORT_SERVER:
+if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
+    RSYNC_FULLEXPORT_PORT=${RSYNC_FULLEXPORT_PORT:-22}
+
+    rsync \
+        --archive \
+        --delete \
+        --exclude='latest-is*' \
+        --rsh "ssh -i ~/.ssh/musicbrainz_production_cron.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --verbose \
+        $LOCAL_DIR/ \
+        brainz@$RSYNC_FULLEXPORT_HOST:/data/
+
+    rsync \
+        --archive \
+        --rsh "ssh -i ~/.ssh/musicbrainz_production_cron.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --verbose \
+        $LOCAL_DIR/latest* \
+        brainz@$RSYNC_FULLEXPORT_HOST:/data/
 fi
 
 # eof rsync-fullexport-files
