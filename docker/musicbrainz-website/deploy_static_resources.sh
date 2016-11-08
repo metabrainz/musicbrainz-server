@@ -18,10 +18,10 @@ _compile_static_resources() {
 
 _push_static_resources() {
     local TMP=/tmp/staticbrainz
-    mkdir $TMP $TMP/MB
+    mkdir -p $TMP/MB
 
-    cp -R $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
-    find $TMP/MB/ -type f -exec zopfli -v '{}' \;
+    cp -Rn $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
+    find $TMP/MB/ -type f -newermt '-10 seconds' | xargs zopfli -v
 
     # copy resources into the staticbrainz data volume
     for server in $STATICBRAINZ_SERVERS; do
@@ -35,9 +35,6 @@ _push_static_resources() {
             $TMP/ \
             brainz@$host:/data/staticbrainz/
     done
-
-    # cleanup
-    rm -r $TMP
 }
 
 compile_static_resources() {
