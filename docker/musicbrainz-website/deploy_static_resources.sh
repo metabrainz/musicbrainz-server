@@ -21,10 +21,7 @@ _push_static_resources() {
     mkdir $TMP $TMP/MB
 
     cp -R $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
-
-    # compress, then remove the originals
     find $TMP/MB/ -type f -exec zopfli '{}' \;
-    find $TMP/MB/ -type f -not -name '*.gz' -exec rm '{}' \;
 
     # copy resources into the staticbrainz data volume
     for server in $STATICBRAINZ_SERVERS; do
