@@ -1,3 +1,4 @@
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 PERL_CARTON_PATH=$HOME/carton-local
 SHELL=/bin/bash
 0 * * * * mkdir -p $HOME/log/hourly && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly.sh > $HOME/log/hourly/$(date --utc +\%FT\%TZ).log
