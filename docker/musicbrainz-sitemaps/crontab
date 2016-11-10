@@ -1,4 +1,4 @@
 PERL_CARTON_PATH=$HOME/carton-local
 SHELL=/bin/bash
-0 * * * * mkdir -p $HOME/log/hourly-sitemaps && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly-sitemaps.sh > $HOME/log/hourly-sitemaps/$(date --utc +%FT%TZ).log
-10 0 * * * mkdir -p $HOME/log/daily-sitemaps && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily-sitemaps.sh > $HOME/log/daily-sitemaps/$(date --utc +%FT%TZ).log
+0 * * * * mkdir -p $HOME/log/hourly-sitemaps && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly-sitemaps.sh > $HOME/log/hourly-sitemaps/$(date --utc +\%FT\%TZ).log
+10 0 * * * mkdir -p $HOME/log/daily-sitemaps && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily-sitemaps.sh > $HOME/log/daily-sitemaps/$(date --utc +\%FT\%TZ).log
