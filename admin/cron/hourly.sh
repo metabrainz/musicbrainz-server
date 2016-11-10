@@ -26,7 +26,7 @@ fi
 
 OUTPUT=`
     ./admin/CheckVotes.pl --verbose --summary 2>&1
-` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
+` || echo "$OUTPUT"
 
 OUTPUT=`
     ./admin/CheckElectionVotes.pl 2>&1

@@ -1,3 +1,4 @@
 PERL_CARTON_PATH=$HOME/carton-local
-0 * * * * cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly.sh
-10 0 * * * cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily.sh
+SHELL=/bin/bash
+0 * * * * mkdir -p $HOME/log/hourly && cd $HOME/musicbrainz-server && carton exec -- admin/cron/hourly.sh > $HOME/log/hourly/$(date --utc +%FT%TZ).log
+10 0 * * * mkdir -p $HOME/log/daily && cd $HOME/musicbrainz-server && carton exec -- admin/cron/daily.sh > $HOME/log/daily/$(date --utc +%FT%TZ).log

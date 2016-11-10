@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Where to send admin emails (currently only ModBot output).
-ADMIN_EMAILS=root
-
 # Were to put database exports, and replication data, for public consumption;
 # who should own them, and what mode they should have.
 FTP_DATA_DIR=/var/ftp/pub/musicbrainz/data
