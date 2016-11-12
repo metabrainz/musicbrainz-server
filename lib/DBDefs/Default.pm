@@ -305,16 +305,16 @@ EOF
 # Development server feature.
 # Used to display which git branch is currently running along with information
 # about the last commit
-sub GIT_BRANCH
-{
-  my $self = shift;
-  if ($self->DB_STAGING_SERVER) {
-    my $branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
-    $branch =~ s/\* (.+)/$1/;
-    my $sha = `git log -1 --format=format:"%h"`;
-    my $msg = `git log -1 --format=format:"Last commit by %an on %ad%n%s" --date=short`;
-    return $branch, $sha, $msg;
-  }
+sub GIT_BRANCH {
+    my $self = shift;
+
+    if ($self->DB_STAGING_SERVER) {
+        my $branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
+        $branch =~ s/\* (.+)/$1/;
+        my $sha = `git log -1 --format=format:"%h"`;
+        my $msg = `git log -1 --format=format:"Last commit by %an on %ad%n%s" --date=short`;
+        return $branch, $sha, $msg;
+    }
 }
 
 # How long an annotation is considered as being locked.
