@@ -5,6 +5,7 @@
 /admin/apache/vh_mb_frontend.conf
 /admin/apache/startup.pl
 /admin/replication/hooks/post-process
+/docker/Dockerfile.*
 /root/robots.txt
 /root/static/scripts/common/DBDefs.js
 /blib
