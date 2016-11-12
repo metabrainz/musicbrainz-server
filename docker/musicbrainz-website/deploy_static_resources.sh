@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source /etc/consul_template_helpers.sh
 source /etc/mbs_constants.sh
 
 _compile_static_resources() {

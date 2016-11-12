@@ -10,10 +10,10 @@ install_translations()
 
 COPY docker/musicbrainz-website/consul-template.conf /etc/
 
-COPY docker/musicbrainz-website/deploy_static_resources.sh /usr/local/bin/
-
 COPY \
-    docker/scripts/musicbrainz-server.service \
-    /etc/service/musicbrainz-server/run
+    docker/musicbrainz-website/deploy_static_resources.sh \
+    docker/musicbrainz-website/start_musicbrainz_website.sh \
+    docker/scripts/start_musicbrainz_server.sh \
+    /usr/local/bin/
 
 git_info

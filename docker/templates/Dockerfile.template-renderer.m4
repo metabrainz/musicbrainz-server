@@ -33,10 +33,6 @@ COPY \
     docker/musicbrainz-template-renderer/DBDefs.js.ctmpl \
     $MBS_ROOT/root/static/scripts/common/
 
-COPY \
-    docker/musicbrainz-template-renderer/musicbrainz-template-renderer.service \
-    /etc/service/musicbrainz-template-renderer/run
-
 RUN chown_mb(`$MBS_ROOT')
 
 git_info

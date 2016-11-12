@@ -3,10 +3,7 @@
 # Important for logging stack traces.
 exec 2>&1
 
-source /etc/consul_template_helpers.sh
 source /etc/mbs_constants.sh
-
-wait_for_file "$MBS_ROOT/lib/DBDefs.pm"
 
 cd $MBS_ROOT
 
