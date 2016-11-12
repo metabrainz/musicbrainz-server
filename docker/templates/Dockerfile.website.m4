@@ -12,6 +12,7 @@ COPY docker/musicbrainz-website/consul-template.conf /etc/
 
 COPY \
     docker/musicbrainz-website/deploy_static_resources.sh \
+    docker/musicbrainz-website/install_language_packs.pl \
     docker/musicbrainz-website/start_musicbrainz_website.sh \
     docker/scripts/start_musicbrainz_server.sh \
     /usr/local/bin/
