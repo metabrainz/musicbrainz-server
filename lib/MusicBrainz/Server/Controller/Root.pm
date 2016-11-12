@@ -244,7 +244,7 @@ sub begin : Private
 
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
-    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_BRANCH;
+    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_INFO;
 
     $c->stash(
         wiki_server => DBDefs->WIKITRANS_SERVER,

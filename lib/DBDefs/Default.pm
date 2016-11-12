@@ -305,7 +305,7 @@ EOF
 # Development server feature.
 # Used to display which git branch is currently running along with information
 # about the last commit
-sub GIT_BRANCH {
+sub GIT_INFO {
     my $self = shift;
 
     if ($self->DB_STAGING_SERVER) {
