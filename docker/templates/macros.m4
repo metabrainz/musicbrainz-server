@@ -9,7 +9,7 @@ m4_define(`install_javascript', `m4_dnl
 COPY package.json npm-shrinkwrap.json ./
 RUN apt_install(``git nodejs nodejs-legacy npm'') && \
     sudo_mb(``npm install --only=production'') && \
-    apt_purge(``npm'')
+    apt_purge(``git npm'')
 COPY .babelrc ./')m4_dnl
 m4_define(`install_javascript_and_templates', `m4_dnl
 install_javascript()
@@ -35,3 +35,5 @@ RUN chown_mb(``$MBS_ROOT'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'') && \
     apt_purge(``gettext make'')')m4_dnl
+m4_define(`git_info', `m4_dnl
+ENV `GIT_INFO' GIT_INFO')m4_dnl

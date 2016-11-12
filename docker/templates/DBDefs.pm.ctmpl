@@ -165,6 +165,10 @@ sub COVER_ART_ARCHIVE_ACCESS_KEY { {{template "QUOTED_STRING" (key_or_default "d
 
 sub COVER_ART_ARCHIVE_SECRET_KEY { {{template "QUOTED_STRING" (key_or_default "docker-server-configs/constants.json/caa_secret_key" "")}} }
 
+{{- if env "GIT_INFO"}}
+sub GIT_INFO { split /:/, {{template "QUOTED_STRING" (env "GIT_INFO")}}, 3; }
+{{- end}}
+
 {{template "BOOLEAN_DEF" "CATALYST_DEBUG"}}
 {{template "BOOLEAN_DEF" "DB_READ_ONLY"}}
 {{template "BOOLEAN_DEF" "DB_STAGING_SERVER"}}

@@ -10,3 +10,5 @@ RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
 COPY \
     docker/scripts/musicbrainz-server.service \
     /etc/service/musicbrainz-server/run
+
+git_info

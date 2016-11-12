@@ -38,3 +38,5 @@ COPY \
     /etc/service/musicbrainz-template-renderer/run
 
 RUN chown_mb(`$MBS_ROOT')
+
+git_info

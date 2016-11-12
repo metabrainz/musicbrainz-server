@@ -309,10 +309,9 @@ sub GIT_INFO {
     my $self = shift;
 
     if ($self->DB_STAGING_SERVER) {
-        my $branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
-        $branch =~ s/\* (.+)/$1/;
+        my $branch = `git rev-parse --abbrev-ref HEAD 2> /dev/null`;
         my $sha = `git log -1 --format=format:"%h"`;
-        my $msg = `git log -1 --format=format:"Last commit by %an on %ad%n%s" --date=short`;
+        my $msg = `git log -1 --format=format:"Last commit by %an on %ad: %s" --date=short`;
         return $branch, $sha, $msg;
     }
 }

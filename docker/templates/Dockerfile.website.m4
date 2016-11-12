@@ -15,3 +15,5 @@ COPY docker/musicbrainz-website/deploy_static_resources.sh /usr/local/bin/
 COPY \
     docker/scripts/musicbrainz-server.service \
     /etc/service/musicbrainz-server/run
+
+git_info

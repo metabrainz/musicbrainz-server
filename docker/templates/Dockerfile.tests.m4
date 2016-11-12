@@ -5,3 +5,5 @@ install_javascript_and_templates()
 RUN touch /etc/service/consul-template/down
 
 COPY docker/musicbrainz-tests/DBDefs.pm lib/
+
+git_info
