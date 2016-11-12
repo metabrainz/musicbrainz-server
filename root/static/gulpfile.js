@@ -170,8 +170,8 @@ function buildScripts() {
   const manifestBundle = runYarb('rev-manifest.js');
   commonBundle.external(manifestBundle);
 
-  _((DBDefs.MB_LANGUAGES || '').replace(/\s+/g, ''))
-    .split(',')
+  _(DBDefs.MB_LANGUAGES || '')
+    .split(/\s+/)
     .compact()
     .without('en')
     .map(langToPosix)

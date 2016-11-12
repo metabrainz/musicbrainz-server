@@ -21,8 +21,11 @@ Readonly our @NUMBER_DEFS => qw(
 );
 
 Readonly our @STRING_DEFS => qw(
-    MB_LANGUAGES
     STATIC_RESOURCES_LOCATION
+);
+
+Readonly our @QW_DEFS => qw(
+    MB_LANGUAGES
 );
 
 my $code = '';
@@ -44,6 +47,12 @@ my $json = JSON->new->allow_nonref->ascii;
 for my $def (@HASH_DEFS, @NUMBER_DEFS, @STRING_DEFS) {
     my $value = DBDefs->$def;
     $value = $json->encode($value);
+    $code .= "exports.$def = $value;\n";
+}
+
+for my $def (@QW_DEFS) {
+    my @words = DBDefs->$def;
+    my $value = $json->encode(join ' ', @words);
     $code .= "exports.$def = $value;\n";
 }
 
