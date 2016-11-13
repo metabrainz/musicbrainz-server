@@ -9,5 +9,5 @@ DOCKERFILE=Dockerfile.$NAME
 m4 -D GIT_INFO="$GIT_BRANCH:$GIT_SHA:$GIT_MSG" -I templates -P templates/$DOCKERFILE.m4 > $DOCKERFILE
 
 TAG=metabrainz/musicbrainz-$NAME:$GIT_BRANCH
-docker build --tag $TAG --file $DOCKERFILE .
+docker build --tag $TAG --file $DOCKERFILE ../
 docker push $TAG
