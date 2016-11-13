@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 GIT_MSG=$(git log -1 --format=format:"Last commit by %an on %ad: %s" --date=short)
 GIT_SHA=$(git log -1 --format=format:"%h")
