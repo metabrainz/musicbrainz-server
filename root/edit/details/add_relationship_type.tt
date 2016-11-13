@@ -39,7 +39,7 @@
       <ul>
         [% FOR attribute=edit.display_data.attributes %]
         <li>
-          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
+          [% add_colon(attribute.type.name) %] [% attribute.min %]-[% attribute.max %]
         </li>
         [% END %]
       </ul>

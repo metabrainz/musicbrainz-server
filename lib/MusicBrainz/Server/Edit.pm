@@ -84,6 +84,12 @@ sub status_name
     return edit_status_name($self->status);
 }
 
+sub l_status_name
+{
+    my $self = shift;
+    return l(edit_status_name($self->status));
+}
+
 has 'data' => (
     isa       => 'HashRef',
     is        => 'rw',

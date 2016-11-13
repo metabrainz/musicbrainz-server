@@ -4,7 +4,7 @@
 
     <p><strong>[% l('Type:') %]</strong> [% edit.l_edit_name %] ([% edit.edit_type %])</p>
 
-    <p><strong>[% l('Status:') %]</strong> [% edit.status_name %] ([% edit.status %])</p>
+    <p><strong>[% l('Status:') %]</strong> [% edit.l_status_name %] ([% edit.status %])</p>
 
     <p>
         <strong>[% l('Data:') %]</strong>
@@ -16,7 +16,7 @@
         <ul>
             [% FOREACH type IN related_entities.pairs %]
                 <li>
-                    [% get_plural_type(type.key) %]:
+                    [% add_colon(get_plural_type(type.key)) %]
                     [% es = [];
                        FOREACH e IN type.value.pairs.nsort('key');
                            es.push(link_entity(e.value, 'show', e.key));

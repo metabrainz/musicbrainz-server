@@ -73,7 +73,7 @@
 
 <script type="text/html" id="template.dialog-link-type">
   <tr>
-    <td class="section">[% l('Type') %]:</td>
+    <td class="section">[% add_colon(l('Type')) %]</td>
     <td>
       <select class="link-type"
         data-bind="options: linkTypeOptions(relationship().entityTypes),
