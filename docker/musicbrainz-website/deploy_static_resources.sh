@@ -19,6 +19,12 @@ _push_static_resources() {
     local TMP=/tmp/staticbrainz
     mkdir -p $TMP/MB
 
+    # Delete files older than 30 days. If they're still unchanged, they'll just
+    # have to be compressed again below.
+    find $TMP/MB/ -type f -mtime +30 -not -name 'rev-manifest.json' -delete
+
+    # -n will not clobber existing files, preserving their mtimes and allowing
+    # us to avoid recompressing files that haven't changed (zopfli is slow).
     cp -Rn $MBS_ROOT/root/{favicon.ico,robots.txt.*,static/build/*} $TMP/MB/
     find $TMP/MB/ -type f -newermt '-10 seconds' | xargs zopfli -v
 
