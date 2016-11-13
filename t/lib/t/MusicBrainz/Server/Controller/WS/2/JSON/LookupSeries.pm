@@ -39,6 +39,9 @@ test 'basic series lookup' => sub {
                     'sort-name' => 'BWV',
                     name => 'BWV',
                     locale => JSON::null,
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
                 }
             ],
         };
