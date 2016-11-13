@@ -37,6 +37,7 @@ test 'basic label lookup' => sub {
                 "iso-3166-1-codes" => ["GB"],
             },
             ipis => [],
+            isnis => [],
         };
 };
 
@@ -71,6 +72,7 @@ test 'basic label lookup, inc=annotation' => sub {
                 "iso-3166-1-codes" => ["GB"],
             },
             ipis => [],
+            isnis => [],
         };
 };
 
@@ -115,6 +117,7 @@ test 'label lookup, inc=aliases' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
         };
 };
 
@@ -220,6 +223,7 @@ test 'label lookup with releases, inc=media' => sub {
                 }
             ],
             ipis => [],
+            isnis => [],
         };
 };
 

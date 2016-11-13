@@ -7,6 +7,7 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
