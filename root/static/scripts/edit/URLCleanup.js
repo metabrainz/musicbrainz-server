@@ -243,7 +243,6 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.myspace,
   LINK_TYPES.otherdatabases,
   LINK_TYPES.purevolume,
-  LINK_TYPES.score,
   LINK_TYPES.secondhandsongs,
   LINK_TYPES.setlistfm,
   LINK_TYPES.songfacts,
