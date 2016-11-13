@@ -22,7 +22,7 @@ const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
 const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
 const STYLES_DIR = path.resolve(STATIC_DIR, 'styles');
-const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
+const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR || path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
 const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
