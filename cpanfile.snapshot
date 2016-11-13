@@ -198,6 +198,43 @@ DISTRIBUTIONS
       Storable 0
       Test::Deep 0
       Test::More 0
+  Cache-2.11
+    pathname: S/SH/SHLOMIF/Cache-2.11.tar.gz
+    provides:
+      Cache 2.11
+      Cache::Entry 2.11
+      Cache::File 2.11
+      Cache::File::Entry 2.11
+      Cache::File::Handle undef
+      Cache::File::Heap 2.11
+      Cache::IOString undef
+      Cache::Memory 2.11
+      Cache::Memory::Entry 2.11
+      Cache::Memory::HeapElem undef
+      Cache::Null 2.11
+      Cache::Null::Entry 2.11
+      Cache::RemovalStrategy 2.11
+      Cache::RemovalStrategy::FIFO undef
+      Cache::RemovalStrategy::LRU undef
+      Cache::Tester 2.11
+    requirements:
+      DB_File 1.72
+      Date::Parse 2.24
+      Digest::SHA 0
+      Fcntl 1.03
+      File::Find 0
+      File::NFSLock 1.20
+      File::Path 1.00
+      File::Spec 0.8
+      Heap::Fibonacci 0.01
+      IO::File 1.08
+      IO::Handle 1.21
+      IO::String 1.02
+      Module::Build 0
+      Storable 1.00
+      Symbol 1.02
+      Test::More 0.45
+      perl 5.006
   Canary-Stability-2012
     pathname: M/ML/MLEHMANN/Canary-Stability-2012.tar.gz
     provides:
@@ -2332,6 +2369,12 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       HTTP::Date 6
       perl 5.006002
+  File-NFSLock-1.27
+    pathname: B/BB/BBB/File-NFSLock-1.27.tar.gz
+    provides:
+      File::NFSLock 1.27
+    requirements:
+      ExtUtils::MakeMaker 0
   File-Remove-1.57
     pathname: S/SH/SHLOMIF/File-Remove-1.57.tar.gz
     provides:
@@ -2933,6 +2976,23 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Heap-0.80
+    pathname: J/JM/JMM/Heap-0.80.tar.gz
+    provides:
+      Heap 0.80
+      Heap::Binary 0.80
+      Heap::Binomial 0.80
+      Heap::Elem 0.80
+      Heap::Elem::Num 0.80
+      Heap::Elem::NumRev 0.80
+      Heap::Elem::Ref 0.80
+      Heap::Elem::RefRev 0.80
+      Heap::Elem::Str 0.80
+      Heap::Elem::StrRev 0.80
+      Heap::Fibonacci 0.80
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::Simple 0.45
   Hook-LexWrap-0.25
     pathname: E/ET/ETHER/Hook-LexWrap-0.25.tar.gz
     provides:
@@ -3008,6 +3068,12 @@ DISTRIBUTIONS
       PerlIO::via::Timeout 0.32
       Test::More 0
       Test::TCP 0
+  IO-String-1.08
+    pathname: G/GA/GAAS/IO-String-1.08.tar.gz
+    provides:
+      IO::String 1.08
+    requirements:
+      ExtUtils::MakeMaker 0
   IO-stringy-2.111
     pathname: D/DS/DSKOLL/IO-stringy-2.111.tar.gz
     provides:
@@ -3230,6 +3296,7 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Basename 0
       File::Spec 0
+      Mail::Address 1.62
   MIME-Types-2.13
     pathname: M/MA/MARKOV/MIME-Types-2.13.tar.gz
     provides:

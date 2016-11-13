@@ -9,7 +9,7 @@ RUN apt_install(`sudo')
 
 setup_mbs_root()
 
-install_javascript()
+install_javascript(` --only=production')
 
 install_translations()
 

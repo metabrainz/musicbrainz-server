@@ -8,11 +8,11 @@ m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')m4_dnl
 m4_define(`install_javascript', `m4_dnl
 COPY package.json npm-shrinkwrap.json ./
 RUN apt_install(``git nodejs nodejs-legacy npm'') && \
-    sudo_mb(``npm install --only=production'') && \
+    sudo_mb(``npm install$1'') && \
     apt_purge(``git npm'')
 COPY .babelrc ./')m4_dnl
 m4_define(`install_javascript_and_templates', `m4_dnl
-install_javascript()
+install_javascript(`$1')
 
 COPY gulpfile.js ./
 COPY root/ root/

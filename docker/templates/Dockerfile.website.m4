@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt_install(`rsync zopfli')
 
-install_javascript_and_templates()
+install_javascript_and_templates(` --only=production')
 
 install_translations()
 

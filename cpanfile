@@ -118,6 +118,7 @@ author_requires 'Plack::Middleware::Debug'      => '0.14';
 author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
 
+test_requires 'Cache::Null';
 # Broken in Perl >= 5.22; the one test that requires it is disabled for now.
 # test_requires 'Coro';
 test_requires 'HTML::HTML5::Parser';
