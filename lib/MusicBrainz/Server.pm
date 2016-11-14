@@ -28,8 +28,6 @@ Session::State::Cookie
 
 Cache
 Authentication
-
-Unicode::Encoding
 /;
 
 our $VERSION = '0.01';

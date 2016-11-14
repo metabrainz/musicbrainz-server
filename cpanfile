@@ -11,7 +11,6 @@ requires 'Catalyst::Plugin::Cache'                    => '0.12';
 requires 'Catalyst::Plugin::Cache::HTTP'              => '0.001000';
 requires 'Catalyst::Plugin::Session::State::Cookie'   => '0.17';
 requires 'Catalyst::Plugin::StackTrace'               => '0.12';
-requires 'Catalyst::Plugin::Unicode::Encoding'        => '99.0';
 requires 'Catalyst::Runtime'                          => '5.90097';
 requires 'Catalyst::View::TT'                         => '0.41';
 requires 'CGI::Expand'                                => '2.05';
