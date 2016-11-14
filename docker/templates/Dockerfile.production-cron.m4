@@ -5,9 +5,6 @@ RUN apt_install(`rsync')
 RUN chown_mb(`/home/musicbrainz/backup') && \
     chown_mb(`/var/ftp/pub/musicbrainz/data')
 
-COPY admin/ admin/
-COPY bin/ bin/
-
 COPY docker/musicbrainz-production-cron/consul-template.conf /etc/
 
 COPY \
