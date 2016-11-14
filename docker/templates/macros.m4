@@ -29,7 +29,7 @@ COPY gulpfile.js ./
 COPY root/ root/
 COPY script/compile_resources.sh script/dbdefs_to_js.pl script/
 
-RUN chown_mb(`MBS_ROOT ``/tmp/ttc''')')
+RUN chown_mb(`MBS_ROOT `/tmp/ttc'')')
 
 m4_define(
     `mbs_build_deps',
