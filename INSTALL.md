@@ -145,6 +145,8 @@ Server configuration
         replication packets to be applied on slaves. For more details, see
         INSTALL-MASTER.md
 
+    The server type cannot easily be changed after data import.
+
 
 Installing Perl dependencies
 ----------------------------
