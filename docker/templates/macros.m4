@@ -109,7 +109,7 @@ RUN chown_mb(`MBS_ROOT') && \
     apt_install(``gettext make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'') && \
-    apt_purge(``gettext make'')')
+    apt_purge(``make'')')
 
 m4_define(
     `copy_common_mbs_files',
