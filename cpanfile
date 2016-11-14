@@ -3,7 +3,7 @@ requires 'perl' => '5.18.2';
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
 requires 'Authen::Passphrase'                         => '0.008';
-requires 'Captcha::reCAPTCHA'                         => '0.97';
+requires 'Captcha::reCAPTCHA'                         => '0.99';
 requires 'Catalyst::Action::RenderView'               => '0.16';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.016';
 requires 'Catalyst::Plugin::Authentication'           => '0.10023';
