@@ -9,4 +9,6 @@ OUTPUT=`
     ./admin/BuildIncrementalSitemaps.pl --ping --worker-count 7 2>&1
 ` || echo "$OUTPUT"
 
+OUTPUT=`./bin/rsync-sitemaps` || echo "$OUTPUT"
+
 # eof

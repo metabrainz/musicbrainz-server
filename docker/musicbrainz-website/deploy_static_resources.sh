@@ -35,17 +35,14 @@ _deploy_static_resources() {
     find $BUILD_DIR -type f -newermt '-10 seconds' | xargs zopfli -v
 
     # copy resources into the staticbrainz data volume
-    for server in $STATICBRAINZ_SERVERS; do
-        local host=$(echo $server | cut -d ':' -f 1)
-        local port=$(echo $server | cut -d ':' -f 2)
-        rsync \
-            --ignore-existing \
-            --recursive \
-            --rsh "ssh -i $MBS_HOME/.ssh/musicbrainz_website.key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port" \
-            --verbose \
-            $TMP/ \
-            brainz@$host:/data/staticbrainz/
-    done
+    (
+        cd $MBS_ROOT;
+        ./bin/rsync-staticbrainz-files \
+            musicbrainz_website.key \
+            "$TMP/" \
+            /data/staticbrainz/ \
+            '--ignore-existing --recursive'
+    )
 
     rm -rf "$TMP_BUILD_DIR"
 }

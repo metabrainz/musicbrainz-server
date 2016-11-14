@@ -5,4 +5,6 @@ cd "$MB_SERVER_ROOT"
 
 OUTPUT=`./admin/BuildSitemaps.pl --ping` || echo "$OUTPUT"
 
+OUTPUT=`./bin/rsync-sitemaps` || echo "$OUTPUT"
+
 # eof

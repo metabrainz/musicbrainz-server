@@ -1,0 +1,19 @@
+#!/bin/bash
+
+KEY="$1"
+SOURCE="$2"
+DESTINATION="$3"
+RSYNC_OPTIONS="$4"
+
+source /etc/mbs_constants.sh
+
+for server in $STATICBRAINZ_SERVERS; do
+    local host=$(echo $server | cut -d ':' -f 1)
+    local port=$(echo $server | cut -d ':' -f 2)
+    rsync \
+        $RSYNC_OPTIONS \
+        --rsh "ssh -i $MBS_HOME/.ssh/$KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port" \
+        --verbose \
+        "$SOURCE" \
+        brainz@"$host":"$DESTINATION"
+done
