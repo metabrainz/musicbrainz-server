@@ -1,7 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs;
 use Moose::Role;
-use List::UtilsBy qw( sort_by );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean list_of );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
