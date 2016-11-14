@@ -14,16 +14,6 @@ RUN cd /tmp && \
     ./install_extensions.sh && \
     rm install_extensions.sh
 
-ARG RUN_DEPS=" \
-    carton \
-    postgresql-9.5-pgtap"
-
-ARG BUILD_DEPS=" \
-    gcc \
-    libc6-dev \
-    make \
-    postgresql-server-dev-9.5"
-
 setup_mbs_root()
 
 COPY \
@@ -33,9 +23,9 @@ COPY \
 
 ENV PERL_CPANM_OPT --notest --no-interactive
 
-RUN apt_install(`$RUN_DEPS $BUILD_DEPS') && \
+RUN apt_install(`test_db_build_deps test_db_run_deps') && \
     sudo_mb(`carton install --deployment') && \
-    apt_purge(`$BUILD_DEPS')
+    apt_purge(`test_db_build_deps')
 
 COPY admin/ admin/
 COPY lib/ lib/

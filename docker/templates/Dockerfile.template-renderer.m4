@@ -29,8 +29,8 @@ COPY \
 
 COPY \
     docker/musicbrainz-template-renderer/DBDefs.js.ctmpl \
-    $MBS_ROOT/root/static/scripts/common/
+    MBS_ROOT/root/static/scripts/common/
 
-RUN chown_mb(`$MBS_ROOT')
+RUN chown_mb(`MBS_ROOT')
 
 git_info

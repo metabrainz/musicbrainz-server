@@ -18,4 +18,4 @@ COPY \
     lib/
 COPY docker/scripts/mbs_constants.sh /etc/
 
-RUN chown_mb(`$MBS_ROOT')
+RUN chown_mb(`MBS_ROOT')

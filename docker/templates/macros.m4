@@ -29,7 +29,7 @@ COPY gulpfile.js ./
 COPY root/ root/
 COPY script/compile_resources.sh script/dbdefs_to_js.pl script/
 
-RUN chown_mb(``$MBS_ROOT /tmp/ttc'')')
+RUN chown_mb(`MBS_ROOT ``/tmp/ttc''')')
 
 m4_define(
     `mbs_build_deps',
@@ -59,6 +59,20 @@ postgresql-client-9.5 m4_dnl
 postgresql-server-dev-9.5')
 
 m4_define(
+    `test_db_run_deps',
+    `m4_dnl
+carton m4_dnl
+postgresql-9.5-pgtap')
+
+m4_define(
+    `test_db_build_deps',
+    `m4_dnl
+gcc m4_dnl
+libc6-dev m4_dnl
+make m4_dnl
+postgresql-server-dev-9.5')
+
+m4_define(
     `install_perl_modules',
     `m4_dnl
 ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
@@ -77,20 +91,21 @@ m4_define(
 mkdir -p $1 && \
     chown -R musicbrainz:musicbrainz $1')
 
+m4_define(`MBS_ROOT', `/home/musicbrainz/musicbrainz-server')
+
 m4_define(
     `setup_mbs_root',
     `m4_dnl
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
-ARG MBS_ROOT=/home/musicbrainz/musicbrainz-server
-WORKDIR $MBS_ROOT
-RUN chown_mb(``$MBS_ROOT'')')
+WORKDIR MBS_ROOT
+RUN chown_mb(`MBS_ROOT')')
 
 m4_define(
     `install_translations',
     `m4_dnl
 COPY po/ po/
-RUN chown_mb(``$MBS_ROOT'') && \
+RUN chown_mb(`MBS_ROOT') && \
     apt_install(``gettext make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'') && \
