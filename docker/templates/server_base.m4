@@ -10,14 +10,3 @@ setup_mbs_root()
 COPY cpanfile cpanfile.snapshot ./
 
 install_perl_modules(` --deployment')
-
-COPY admin/ admin/
-COPY app.psgi entities.json ./
-COPY bin/ bin/
-COPY \
-    docker/templates/DBDefs.pm.ctmpl \
-    lib/ \
-    lib/
-COPY docker/scripts/mbs_constants.sh /etc/
-
-RUN chown_mb(`MBS_ROOT')

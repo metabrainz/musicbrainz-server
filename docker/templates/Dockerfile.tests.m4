@@ -17,6 +17,8 @@ COPY docker/musicbrainz-tests/DBDefs.pm lib/
 # Depends on DBDefs.pm.
 RUN sudo_mb(`carton exec -- ./script/compile_resources.sh')
 
+copy_common_mbs_files
+
 COPY docker/musicbrainz-tests/run_tests.sh /usr/local/bin/
 COPY script/ script/
 COPY t/ t/

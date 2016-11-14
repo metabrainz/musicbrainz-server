@@ -8,6 +8,8 @@ install_javascript_and_templates(` --only=production')
 
 install_translations()
 
+copy_common_mbs_files
+
 COPY docker/musicbrainz-website/consul-template.conf /etc/
 
 COPY \
@@ -16,5 +18,7 @@ COPY \
     docker/musicbrainz-website/start_musicbrainz_website.sh \
     docker/scripts/start_musicbrainz_server.sh \
     /usr/local/bin/
+
+COPY docker/templates/DBDefs.pm.ctmpl lib/
 
 git_info

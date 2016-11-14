@@ -111,6 +111,17 @@ RUN chown_mb(`MBS_ROOT') && \
     sudo_mb(``make -C po deploy'') && \
     apt_purge(``gettext make'')')
 
+m4_define(
+    `copy_common_mbs_files',
+    `m4_dnl
+COPY admin/ admin/
+COPY app.psgi entities.json ./
+COPY bin/ bin/
+COPY docker/scripts/mbs_constants.sh /etc/
+COPY lib/ lib/
+
+RUN chown_mb(`MBS_ROOT')')
+
 m4_define(`git_info', `ENV `GIT_INFO' GIT_INFO')
 
 m4_divert`'m4_dnl
