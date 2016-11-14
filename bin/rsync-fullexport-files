@@ -19,14 +19,14 @@ if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
         --rsh "ssh -i ~/.ssh/rsync-data-fullexport -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
         --verbose \
         $LOCAL_DIR/ \
-        brainz@$RSYNC_FULLEXPORT_HOST:/data/
+        brainz@$RSYNC_FULLEXPORT_HOST:./
 
     rsync \
         --archive \
         --rsh "ssh -i ~/.ssh/rsync-data-latest -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
         --verbose \
         $LOCAL_DIR/latest* \
-        brainz@$RSYNC_FULLEXPORT_HOST:/data/
+        brainz@$RSYNC_FULLEXPORT_HOST:./
 fi
 
 # eof rsync-fullexport-files
