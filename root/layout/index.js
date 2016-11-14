@@ -18,7 +18,6 @@ function canonicalize(url) {
 }
 
 const metaTags = [
-  <meta key={1} httpEquiv="Content-Type" content="text/html; charset=UTF-8" />,
   <meta key={2} charSet="utf-8" />,
   <meta key={3} httpEquiv="X-UA-Compatible" content="IE=edge" />,
   <meta key={4} name="viewport" content="width=device-width, initial-scale=1" />,
