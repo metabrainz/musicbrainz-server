@@ -38,9 +38,9 @@ _deploy_static_resources() {
     (
         cd $MBS_ROOT;
         ./bin/rsync-staticbrainz-files \
-            musicbrainz_website.key \
-            "$TMP/" \
-            /data/staticbrainz/ \
+            rsync-staticbrainz-mb \
+            "$BUILD_DIR/" \
+            /data/staticbrainz/MB/ \
             '--ignore-existing --recursive'
     )
 
