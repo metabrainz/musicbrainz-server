@@ -1,6 +1,4 @@
 m4_include(`macros.m4')m4_dnl
-m4_dnl The following comment does not apply to this file.
-`#' Automatically generated, do not edit.
 FROM postgres:9.5.4
 
 ARG DEBIAN_FRONTEND=noninteractive
