@@ -18,10 +18,8 @@ $(BUILD_TARGETS) :
 $(PUSH_TARGETS) :
 	docker push metabrainz/musicbrainz-$(subst push-,,$@):$(GIT_BRANCH)
 
-build-all :
-	$(MAKE) $(BUILD_TARGETS)
+build-all : $(BUILD_TARGETS)
 
-push-all :
-	$(MAKE) $(PUSH_TARGETS)
+push-all : $(PUSH_TARGETS)
 
 all : config build-all push-all
