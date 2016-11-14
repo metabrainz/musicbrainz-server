@@ -1,6 +1,6 @@
 TARGETS := $(shell find templates -name 'Dockerfile.*.m4' -exec basename '{}' .m4 \;)
-BUILD_TARGETS := $(shell echo "$(TARGETS)" | sed s/Dockerfile\./build-/g)
-PUSH_TARGETS := $(shell echo "$(TARGETS)" | sed s/Dockerfile\./push-/g)
+BUILD_TARGETS := $(filter-out build-cpanfile-snapshot,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./build-/g))
+PUSH_TARGETS := $(filter-out push-cpanfile-snapshot,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./push-/g))
 
 export GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2> /dev/null)
 export GIT_MSG := $(shell git log -1 --format=format:"Last commit by %an on %ad: %s" --date=short)

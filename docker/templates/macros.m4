@@ -19,6 +19,38 @@ COPY root/ root/
 COPY script/compile_resources.sh script/dbdefs_to_js.pl script/
 
 RUN chown_mb(``$MBS_ROOT /tmp/ttc'')')m4_dnl
+m4_define(`install_perl_modules', `m4_dnl
+ARG RUN_DEPS=" \
+    ca-certificates \
+    libdb5.3 \
+    libexpat1 \
+    libicu55 \
+    libpq5 \
+    libssl1.0.0 \
+    perl \
+    postgresql-client-9.5 \
+    `#' Provides pg_config.
+    postgresql-server-dev-9.5"
+
+ARG BUILD_DEPS=" \
+    build-essential \
+    libdb-dev \
+    libexpat1-dev \
+    libicu-dev \
+    libperl-dev \
+    libpq-dev \
+    libssl-dev \
+    libxml2-dev"
+
+ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
+ENV PERL_CPANM_OPT --notest --no-interactive
+
+RUN apt_install(``$RUN_DEPS $BUILD_DEPS'') && \
+    wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    cpanm Carton && \
+    chown_mb(``$PERL_CARTON_PATH'') && \
+    sudo_mb(``carton install$1'') && \
+    apt_purge(``$BUILD_DEPS'')')m4_dnl
 m4_define(`chown_mb', `m4_dnl
 mkdir -p $1 && \
     chown -R musicbrainz:musicbrainz $1')m4_dnl

@@ -9,15 +9,9 @@ RUN apt_install(`sudo')
 
 setup_mbs_root()
 
-COPY cpanfile cpanfile.snapshot ./
+COPY carton-local/ /home/musicbrainz/carton-local/
+RUN chown_mb(`/home/musicbrainz/carton-local')
 
-install_perl_modules(` --deployment')
+COPY cpanfile ./
 
-COPY app.psgi entities.json ./
-COPY \
-    docker/templates/DBDefs.pm.ctmpl \
-    lib/ \
-    lib/
-COPY docker/scripts/mbs_constants.sh /etc/
-
-RUN chown_mb(`$MBS_ROOT')
+install_perl_modules()
