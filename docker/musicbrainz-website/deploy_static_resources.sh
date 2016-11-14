@@ -34,7 +34,7 @@ _deploy_static_resources() {
     # case they changed.
     cp $MBS_ROOT/root/{favicon.ico,robots.txt.*} $BUILD_DIR/
 
-    find $BUILD_DIR -type f -newermt '-10 seconds' | xargs zopfli -v
+    find $BUILD_DIR -type f -newermt '-10 seconds' -not -name '*.gz' | xargs zopfli -v
 
     # copy resources into the staticbrainz data volume
     (
