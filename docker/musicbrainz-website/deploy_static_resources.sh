@@ -40,7 +40,7 @@ _deploy_static_resources() {
         ./bin/rsync-staticbrainz-files \
             rsync-staticbrainz-mb \
             "$BUILD_DIR/" \
-            /data/staticbrainz/MB/ \
+            ./ \
             '--ignore-existing --recursive'
     )
 

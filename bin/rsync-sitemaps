@@ -6,5 +6,5 @@ cd "$MB_SERVER_ROOT"
 ./bin/rsync-staticbrainz-files \
     rsync-sitemaps \
     root/static/sitemaps/ \
-    /data/static/sitemaps/ \
+    ./ \
     '--delete'
