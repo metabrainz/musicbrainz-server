@@ -3,9 +3,9 @@ FROM postgres:9.5.4
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-`#' install_extensions.sh removes certain build dependencies that we need, so we
-`#' can't install everything here.
-`#' Note: curl is also a dependency of carton.
+# install_extensions.sh removes certain build dependencies that we need, so we
+# can't install everything here.
+# Note: curl is also a dependency of carton.
 RUN apt_install(`ca-certificates curl sudo')
 
 RUN cd /tmp && \
