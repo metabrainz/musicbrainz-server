@@ -5,7 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Search;
-use encoding 'utf8';
+use utf8;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;

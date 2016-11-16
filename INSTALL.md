@@ -76,6 +76,16 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
+    For npm, at least version 3 is required. If your distribution has an older
+    version (`npm --version` to check), you can use that to install a newer
+    version of itself:
+
+        sudo npm install -g npm
+
+    (Instead of this global install, you can also run `npm install npm`. In
+    that case, replace all calls to `npm` further down in this text with
+    `./node_modules/.bin/npm`.)
+
 7.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
@@ -134,6 +144,8 @@ Server configuration
         site runs on. It's different from standalone in that it's able to *produce*
         replication packets to be applied on slaves. For more details, see
         INSTALL-MASTER.md
+
+    The server type cannot easily be changed after data import.
 
 
 Installing Perl dependencies

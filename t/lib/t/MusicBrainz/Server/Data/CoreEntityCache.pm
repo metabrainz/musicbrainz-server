@@ -121,6 +121,7 @@ test 'Cache is transactional (MBS-7241)' => sub {
     # See http://blogs.perl.org/users/aristotle/2016/05/coro-vs-5022.html
     plan skip_all => 'Coro is broken in Perl 5.22+';
 
+<<'IGNORE'
     # This test is of limited usefulness, since it only tests a *single* point
     # in the transaction where an entity might be requested. But it at least
     # detects cases where there is *no* transactionality, i.e. the situation we
@@ -179,6 +180,7 @@ EOSQL
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
     $c1->connector->disconnect;
     $c2->connector->disconnect;
+IGNORE
 };
 
 1;

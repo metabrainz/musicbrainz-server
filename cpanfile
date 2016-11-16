@@ -11,7 +11,6 @@ requires 'Catalyst::Plugin::Cache'                    => '0.12';
 requires 'Catalyst::Plugin::Cache::HTTP'              => '0.001000';
 requires 'Catalyst::Plugin::Session::State::Cookie'   => '0.17';
 requires 'Catalyst::Plugin::StackTrace'               => '0.12';
-requires 'Catalyst::Plugin::Unicode::Encoding'        => '99.0';
 requires 'Catalyst::Runtime'                          => '5.90097';
 requires 'Catalyst::View::TT'                         => '0.41';
 requires 'CGI::Expand'                                => '2.05';
@@ -43,6 +42,7 @@ requires 'Email::Sender'                              => '1.300010';
 requires 'Email::Valid'                               => '1.192';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.37';
+requires 'File::Slurp';
 requires 'File::Spec'                                 => '3.40';
 requires 'GnuPG'                                      => '0.19';
 requires 'Hash::Merge'                                => '0.200';
@@ -119,6 +119,7 @@ author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
 
 test_requires 'Cache::Null';
+test_requires 'Catalyst::Plugin::Static::Simple';
 # Broken in Perl >= 5.22; the one test that requires it is disabled for now.
 # test_requires 'Coro';
 test_requires 'HTML::HTML5::Parser';
