@@ -27,6 +27,7 @@ sub statistics : Path('')
     my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
     my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
+    my @label_types = sort_by { $_->l_name } $c->model('LabelType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
     my @place_types = sort_by { $_->l_name } $c->model('PlaceType')->get_all();
@@ -43,6 +44,7 @@ sub statistics : Path('')
         packagings => \%packagings,
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
+        label_types => \@label_types,
         work_types => \@work_types,
         area_types => \@area_types,
         place_types => \@place_types,
