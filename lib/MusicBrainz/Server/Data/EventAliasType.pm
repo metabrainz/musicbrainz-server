@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Data::Role::AliasType';
 
 sub _table { 'event_alias_type' }
 
-sub _type { 'event' }
+sub _type { 'event_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 

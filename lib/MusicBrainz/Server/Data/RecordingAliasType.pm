@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Data::Role::AliasType';
 
 sub _table { 'recording_alias_type' }
 
-sub _type { 'recording' }
+sub _type { 'recording_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 

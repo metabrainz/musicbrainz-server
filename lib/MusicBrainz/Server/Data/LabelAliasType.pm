@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Data::Role::AliasType';
 
 sub _table { 'label_alias_type' }
 
-sub _type { 'label' }
+sub _type { 'label_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 

@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Data::Role::AliasType';
 
 sub _table { '[% table %]' }
 
-sub _type { '[% entity_type %]' }
+sub _type { '[% alias_type %]' }
 
 __PACKAGE__->meta->make_immutable;
 

@@ -16,10 +16,11 @@ my $TT = Template->new(
 
 for my $entity_type (entities_with('aliases')) {
     my $model = $ENTITIES{$entity_type}{model};
+    my $alias_type = "${entity_type}_alias_type";
 
     my $vars = {
-        entity_type => $entity_type,
-        %{ $ENTITIES{"${entity_type}_alias_type"} },
+        alias_type => $alias_type,
+        %{ $ENTITIES{$alias_type} },
     };
 
     open my $fh, '>', File::Spec->catfile($DATA_DIR, "${model}AliasType.pm");

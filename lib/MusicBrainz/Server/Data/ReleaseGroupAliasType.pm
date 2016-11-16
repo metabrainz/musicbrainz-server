@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Data::Role::AliasType';
 
 sub _table { 'release_group_alias_type' }
 
-sub _type { 'release_group' }
+sub _type { 'release_group_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 
