@@ -38,8 +38,10 @@ sub has_age
             )
         ) == -1;
 
-    # If there is no end date, then the end date is now() (so there is an age).
-    my @end_comp = $self->end_date->defined_run or return 1;
+    # If the entity is still active, the end date is now() (so there is an age).
+    return 1 if !$self->ended;
+
+    my @end_comp = $self->end_date->defined_run;
 
     # Shrink @begin_comp and @end_comp to the same size
     my $shortest_run = min(scalar(@begin_comp) - 1, scalar(@end_comp) - 1);
