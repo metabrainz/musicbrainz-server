@@ -45,6 +45,7 @@ sub has_age
 
     # Shrink @begin_comp and @end_comp to the same size
     my $shortest_run = min(scalar @begin_comp, scalar @end_comp);
+    return 0 if $shortest_run == 0; # no age if there is not even a year
     splice @begin_comp, $shortest_run;
     splice @end_comp, $shortest_run;
 
