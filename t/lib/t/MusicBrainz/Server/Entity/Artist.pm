@@ -95,6 +95,9 @@ $artist->begin_date->day(31);
 @got = $artist->age;
 is_deeply ( \@got, [1, 0, 1], "Artist with partial dates, age 1 day" );
 
+$artist->end_date->year(undef);
+ok(!$artist->has_age, "No age for ended artist without end year");
+
 # testing ->age with negative years
 $artist->begin_date->year  (-551);
 $artist->begin_date->month(9);
