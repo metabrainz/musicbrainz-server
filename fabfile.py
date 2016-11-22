@@ -24,13 +24,26 @@ def pot():
     """
     Update .pot files
     """
-    env.host_string = "musicbrainz@beta"
+    pot_files = (
+        "attributes.pot",
+        "instruments.pot",
+        "instrument_descriptions.pot",
+        "relationships.pot",
+        "statistics.pot",
+        "languages.pot",
+        "languages_notrim.pot",
+        "scripts.pot",
+        "countries.pot",
+    )
+
+    run("mkdir -p /tmp/musicbrainz-pot")
+    run("docker exec -u musicbrainz musicbrainz-website bash -c 'cd ~/musicbrainz-server/po && touch extract_pot_db && carton exec -- make %s'" % " ".join(pot_files))
+    for pot_file in pot_files:
+        run("docker cp musicbrainz-website:/home/musicbrainz/musicbrainz-server/po/%s /tmp/musicbrainz-pot/" % pot_file)
+
     with lcd("po/"):
-        with cd("~/musicbrainz-server/po"):
-            run("touch extract_pot_db")
-            run("make attributes.pot instruments.pot instrument_descriptions.pot relationships.pot statistics.pot languages.pot languages_notrim.pot scripts.pot countries.pot")
-            get("~/musicbrainz-server/po/*.pot", "./%(path)s")
-            run("git checkout HEAD *.pot")
+        get("/tmp/musicbrainz-pot/*.pot", "./%(path)s")
+        run("rm -r /tmp/musicbrainz-pot")
         stats_diff = local("git diff statistics.pot", capture=True)
         local("touch extract_pot_templates")
         local("make mb_server.pot statistics.pot")
@@ -50,30 +63,19 @@ def no_local_changes():
         local("git diff --exit-code")
         local("git diff --exit-code --cached")
 
-def beta():
+def deploy():
     """
-    Update the beta.musicbrainz.org server
-
-    This requires you have a 'beta' alias in your .ssh/config file.
+    Update the *musicbrainz.org servers.
     """
-    env.host_string = "beta"
-    production()
-
-def production():
-    """
-    To upgrade an individual server, run:
-
-    fab -H host production
-
-    See https://github.com/metabrainz/chef-cookbooks/blob/master/musicbrainz-server/recipes/server.rb
-    for the steps taken during deployment.
-    """
-
-    no_local_changes()
-
-    sudo("su root -c 'cd /root/server-configs; git pull origin master'")
-    sudo("su root -c 'cd /root/server-configs; git submodule update --init --recursive'")
-    sudo('/root/server-configs/provision.sh')
+    services = " ".join((
+        "musicbrainz-template-renderer",
+        "musicbrainz-website",
+        "musicbrainz-webservice",
+    ))
+    sudo("docker stop --time 30 " + services)
+    sudo("docker rm " + services)
+    sudo("su root -c 'cd /root/docker-server-configs; git pull; ./scripts/start_services.sh; exit 0'")
+    local("sleep 15")
 
 def tag():
     tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
