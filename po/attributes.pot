@@ -33,6 +33,11 @@ msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr ""
 
+#: DB:medium_format/name:72
+msgctxt "medium_format"
+msgid "12\" LaserDisc"
+msgstr ""
+
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
@@ -61,6 +66,11 @@ msgstr ""
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
+msgstr ""
+
+#: DB:medium_format/name:71
+msgctxt "medium_format"
+msgid "8\" LaserDisc"
 msgstr ""
 
 #: DB:medium_format/name:34
@@ -768,6 +778,11 @@ msgstr ""
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:26
+msgctxt "work_attribute_type"
+msgid "BUMA/STEMRA ID"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:2
@@ -3791,6 +3806,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:199
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
+msgstr ""
+
+#: DB:work_attribute_type/name:25
+msgctxt "work_attribute_type"
+msgid "OSA ID"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:5
