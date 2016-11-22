@@ -9,7 +9,7 @@
       <table class="details" style="width: 100%">
       [%- FOREACH relationship IN group.value.pairs -%]
           <tr>
-              <th>[% relationship.key %]:</th>
+              <th>[% add_colon(relationship.key) %]</th>
               <td>
                   [% FOR rel IN relationship.value %]
                       [% IF relationship.value.size > 1 && rel.link_order && rel.entity_is_orderable(rel.target) %]

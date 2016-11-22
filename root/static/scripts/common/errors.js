@@ -6,6 +6,7 @@
 const parseStack = require('parse-stack');
 
 const request = require('./utility/request');
+const DBDefs = require('./DBDefs');
 
 // https://wiki.musicbrainz.org/Development/Supported_browsers
 var browser = $.browser;
@@ -21,8 +22,7 @@ var browserIsSupported = (
 
 if (browserIsSupported) {
   let location = window.location;
-  let origin = location.origin || (location.protocol + "//" + location.host);
-  let urlRegex = new RegExp("^" + origin + "/static/build/.*\\.js$");
+  let urlRegex = new RegExp('^' + DBDefs.STATIC_RESOURCES_LOCATION + '/.+\\.js$');
   let reported = {};
 
   window.onerror = function (message, url, line, column, error) {

@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  musicbrainz-test-database:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.test-database
+    network_mode: bridge
+
+  musicbrainz-tests:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.tests
+    links:
+      - musicbrainz-redis-cache
+      - musicbrainz-redis-store
+      - musicbrainz-test-database
+    network_mode: bridge
+
+  musicbrainz-redis-cache:
+    image: redis:3.2-alpine
+    network_mode: bridge
+    command: redis-server --maxmemory 8MB --maxmemory-policy allkeys-lru --save ""
+
+  musicbrainz-redis-store:
+    image: redis:3.2-alpine
+    network_mode: bridge
+    command: redis-server --appendonly yes

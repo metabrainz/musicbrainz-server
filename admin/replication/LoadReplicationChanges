@@ -38,8 +38,10 @@ use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
 use MusicBrainz::Server::Replication qw(
     :replication_type
     REPLICATION_ACCESS_URI
-    retrieve_remote_file
+);
+use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
+    retrieve_remote_file
 );
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE

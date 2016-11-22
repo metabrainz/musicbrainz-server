@@ -72,7 +72,7 @@ has data_prefix => (
     default => 'MusicBrainz::Server::Data'
 );
 
-has redis => (
+has store => (
     is => 'ro',
     does => 'MusicBrainz::DataStore',
     lazy => 1,

@@ -1,8 +1,12 @@
 #!/bin/bash -u
 
 set -o errexit
-cd `dirname $0`
-eval `./admin/ShowDBDefs`
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+cd "$MB_SERVER_ROOT"
+
+DB_SCHEMA_SEQUENCE=$(perl -Ilib -e 'use DBDefs; print DBDefs->DB_SCHEMA_SEQUENCE;')
+REPLICATION_TYPE=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')
 
 NEW_SCHEMA_SEQUENCE=23
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))

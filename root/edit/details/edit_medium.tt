@@ -1,5 +1,5 @@
 [%- MACRO changed_mbid_icon BLOCK -%]
-<img title="[% l("This track's MBID will change when this edit is applied.") %]" src="[% c.uri_for('/static/images/icons/information.png') %]" />
+<img title="[% l("This track's MBID will change when this edit is applied.") %]" src="[% c.model('FileCache').path_to('/images/icons/information.png') %]" />
 [%- END -%]
 [%- PROCESS 'edit/details/macros.tt' -%]
 <table class="details edit-medium">

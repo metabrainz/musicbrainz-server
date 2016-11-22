@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: ../root/static/gulpfile.js:173
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-19 10:48-0500\n"
+"POT-Creation-Date: 2016-11-21 21:21-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1033,7 +1034,7 @@ msgstr ""
 #: ../root/report/annotations_works.tt:13
 #: ../root/search/results-annotation.tt:10
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
-#: ../root/layout/components/Search.js:19
+#: ../root/layout/components/Search.js:20
 msgid "Annotation"
 msgstr ""
 
@@ -1195,7 +1196,7 @@ msgstr ""
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/layout/components/Search.js:17
+#: ../root/layout/components/Search.js:18
 #: ../root/static/scripts/common/i18n.js:173
 msgid "Area"
 msgstr ""
@@ -1267,7 +1268,7 @@ msgstr ""
 #: ../root/search/results-release_group.tt:9 ../root/watch/list.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:33
-#: ../root/layout/components/Search.js:11
+#: ../root/layout/components/Search.js:12
 #: ../root/static/scripts/common/i18n.js:174
 msgid "Artist"
 msgstr ""
@@ -1774,13 +1775,13 @@ msgstr ""
 msgid "Bots"
 msgstr ""
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:58
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:58
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr ""
 
-#: ../root/layout.tt:104 ../root/main/index.tt:94
+#: ../root/layout.tt:111 ../root/main/index.tt:94
 #: ../root/layout/components/Footer.js:24
 msgid "Bug Tracker"
 msgstr ""
@@ -1799,7 +1800,7 @@ msgstr ""
 
 #: ../root/search/results-cdstub.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/layout/components/Search.js:20
+#: ../root/layout/components/Search.js:21
 msgid "CD Stub"
 msgstr ""
 
@@ -2574,7 +2575,7 @@ msgstr ""
 #: ../root/layout/header/bottom.tt:154
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
 #: ../root/layout/components/BottomMenu.js:219
-#: ../root/layout/components/Search.js:30
+#: ../root/layout/components/Search.js:31
 msgid "Documentation"
 msgstr ""
 
@@ -2597,7 +2598,7 @@ msgstr ""
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr ""
 
-#: ../root/layout.tt:101 ../root/layout/components/Footer.js:18
+#: ../root/layout.tt:108 ../root/layout/components/Footer.js:18
 msgid "Donate"
 msgstr ""
 
@@ -2804,7 +2805,7 @@ msgstr ""
 
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:308
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
-#: ../root/layout/components/Search.js:21
+#: ../root/layout/components/Search.js:22
 msgid "Editor"
 msgstr ""
 
@@ -3067,7 +3068,7 @@ msgstr ""
 #: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
 #: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/layout/components/Search.js:26
+#: ../root/layout/components/Search.js:27
 #: ../root/static/scripts/common/i18n.js:175
 msgid "Event"
 msgstr ""
@@ -3290,7 +3291,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout.tt:103 ../root/main/index.tt:95
+#: ../root/layout.tt:110 ../root/main/index.tt:95
 #: ../root/layout/components/Footer.js:22
 msgid "Forums"
 msgstr ""
@@ -3947,7 +3948,7 @@ msgstr ""
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/layout/components/Search.js:24
+#: ../root/layout/components/Search.js:25
 #: ../root/static/scripts/common/i18n.js:176
 msgid "Instrument"
 msgstr ""
@@ -4053,7 +4054,7 @@ msgstr ""
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/layout/components/Search.js:16
+#: ../root/layout/components/Search.js:17
 #: ../root/static/scripts/common/i18n.js:177
 msgid "Label"
 msgstr ""
@@ -4209,7 +4210,7 @@ msgstr ""
 msgid "Last modified:"
 msgstr ""
 
-#: ../root/layout.tt:118 ../root/layout/components/Footer.js:48
+#: ../root/layout.tt:125 ../root/layout/components/Footer.js:48
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -4754,19 +4755,19 @@ msgid ""
 "MusicBrainz {free|free and open source}."
 msgstr ""
 
-#: ../root/layout/head.tt:16 ../root/layout/index.js:28
+#: ../root/layout/head.tt:15
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/head.tt:17
+#: ../root/layout/head.tt:16 ../root/layout/index.js:28
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/head.tt:18 ../root/layout/index.js:30
+#: ../root/layout/head.tt:17
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/head.tt:19
+#: ../root/layout/head.tt:18 ../root/layout/index.js:30
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -5452,7 +5453,7 @@ msgstr ""
 msgid "Page removed"
 msgstr ""
 
-#: ../root/layout/head.tt:6 ../root/layout/index.js:84
+#: ../root/layout/head.tt:5 ../root/layout/index.js:91
 msgid "Page {n}"
 msgstr ""
 
@@ -5516,7 +5517,7 @@ msgstr ""
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/layout/components/Search.js:18
+#: ../root/layout/components/Search.js:19
 #: ../root/static/scripts/common/i18n.js:178
 msgid "Place"
 msgstr ""
@@ -5664,10 +5665,6 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr ""
-
-#: ../root/main/rate_limited.tt:6
-msgid "Please slow down and then try again"
 msgstr ""
 
 #: ../root/main/503.tt:8
@@ -5877,7 +5874,7 @@ msgstr ""
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/layout/components/Search.js:14
+#: ../root/layout/components/Search.js:15
 #: ../root/static/scripts/common/i18n.js:179
 msgid "Recording"
 msgstr ""
@@ -6146,7 +6143,7 @@ msgstr ""
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
-#: ../root/layout/components/Search.js:13
+#: ../root/layout/components/Search.js:14
 #: ../root/static/scripts/common/i18n.js:180
 msgid "Release"
 msgstr ""
@@ -6175,7 +6172,7 @@ msgstr ""
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
-#: ../root/layout/components/Search.js:12
+#: ../root/layout/components/Search.js:13
 msgid "Release Group"
 msgstr ""
 
@@ -6813,7 +6810,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: ../root/layout.tt:111
+#: ../root/layout.tt:118
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -6868,8 +6865,8 @@ msgstr ""
 #: ../root/search/form.tt:42 ../root/search/index.tt:1
 #: ../root/search/index.tt:3 ../root/taglookup/form.tt:12
 #: ../root/layout/components/BottomMenu.js:152
-#: ../root/layout/components/Search.js:43
-#: ../root/static/scripts/common/components/Autocomplete.js:68
+#: ../root/layout/components/Search.js:44
+#: ../root/static/scripts/common/components/Autocomplete.js:69
 msgid "Search"
 msgstr ""
 
@@ -7117,7 +7114,7 @@ msgstr ""
 #: ../root/edit/search_macros.tt:308 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/layout/components/Search.js:25
+#: ../root/layout/components/Search.js:26
 #: ../root/static/scripts/common/i18n.js:182
 msgctxt "singular"
 msgid "Series"
@@ -7303,10 +7300,6 @@ msgstr ""
 msgid "Skip verification"
 msgstr ""
 
-#: ../root/main/rate_limited.tt:1 ../root/main/rate_limited.tt:3
-msgid "Slow Down!"
-msgstr ""
-
 #: ../root/layout/header/bottom.tt:34
 #: ../root/layout/components/BottomMenu.js:88
 msgid "Social Contract"
@@ -7361,11 +7354,6 @@ msgstr ""
 msgid ""
 "Sorry, but your query (<code>{query}</code>) could not be performed, due to "
 "an error which we are not quite able to identify."
-msgstr ""
-
-#: ../root/main/rate_limited.tt:4
-msgid ""
-"Sorry, but your requests are exceeding the allowable rate limit ({rlinfo})."
 msgstr ""
 
 #: ../root/main/mirror_404.tt:5
@@ -7614,7 +7602,7 @@ msgctxt "release status"
 msgid "Status:"
 msgstr ""
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:31
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:31
 msgid "Stop using beta site"
 msgstr ""
 
@@ -7857,7 +7845,7 @@ msgid ""
 "and may not display correctly"
 msgstr ""
 
-#: ../root/layout.tt:79 ../root/layout/index.js:160
+#: ../root/layout.tt:86 ../root/layout/index.js:168
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7977,7 +7965,7 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr ""
 
-#: ../root/layout.tt:60 ../root/layout/index.js:143
+#: ../root/layout.tt:67 ../root/layout/index.js:151
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -8252,6 +8240,11 @@ msgstr ""
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 
+#: ../root/layout.tt:33 ../root/layout/index.js:46
+msgid ""
+"This beta test server allows testing of new features with the live database."
+msgstr ""
+
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
@@ -8392,11 +8385,11 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:33 ../lib/DBDefs/Default.pm:168 ../root/layout/index.js:46
+#: ../root/layout.tt:33 ../root/layout/index.js:48
 msgid "This is a MusicBrainz development server."
 msgstr ""
 
-#: ../root/layout.tt:43 ../root/layout/index.js:61
+#: ../root/layout.tt:50 ../root/layout/index.js:68
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
@@ -9500,7 +9493,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
 
-#: ../root/layout.tt:105 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:112 ../root/layout/components/Footer.js:26
 msgid "Twitter"
 msgstr ""
 
@@ -9708,7 +9701,7 @@ msgstr ""
 msgid "Uppercase roman numerals"
 msgstr ""
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:31
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:31
 msgid "Use beta site"
 msgstr ""
 
@@ -10068,7 +10061,7 @@ msgid ""
 "and following the merge link."
 msgstr ""
 
-#: ../root/layout.tt:102 ../root/layout/components/Footer.js:20
+#: ../root/layout.tt:109 ../root/layout/components/Footer.js:20
 msgid "Wiki"
 msgstr ""
 
@@ -10099,7 +10092,7 @@ msgstr ""
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/layout/components/Search.js:15
+#: ../root/layout/components/Search.js:16
 #: ../root/static/scripts/common/i18n.js:184
 msgid "Work"
 msgstr ""
@@ -11150,7 +11143,7 @@ msgstr ""
 msgid "{entity} has not been added to any collections."
 msgstr ""
 
-#: ../root/layout.tt:70 ../root/layout/index.js:152
+#: ../root/layout.tt:77 ../root/layout/index.js:160
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -11369,7 +11362,7 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr ""
 
-#: ../root/layout.tt:34 ../root/layout/index.js:48
+#: ../root/layout.tt:41 ../root/layout/index.js:55
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
@@ -11415,11 +11408,6 @@ msgstr ""
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39
 msgid "…"
-msgstr ""
-
-#: ../lib/DBDefs/Default.pm:169
-msgid ""
-"This beta test server allows testing of new features with the live database."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller.pm:29
@@ -11544,7 +11532,7 @@ msgstr ""
 msgid "Your password has been changed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:544
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:542
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/"
 ">Please confirm that you have entered a valid\n"
@@ -11637,7 +11625,7 @@ msgstr ""
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:78
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:77
 msgid ""
 "Language set. If you find any problems with the translation, please {url|"
 "help us improve it}!"
@@ -12623,12 +12611,12 @@ msgid "You must provide an edit note"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
-#: ../root/layout/components/Search.js:22
+#: ../root/layout/components/Search.js:23
 msgid "FreeDB"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
-#: ../root/layout/components/Search.js:23
+#: ../root/layout/components/Search.js:24
 msgctxt "noun"
 msgid "Tag"
 msgstr ""

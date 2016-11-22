@@ -7,7 +7,6 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
-use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
@@ -214,7 +213,7 @@ sub begin : Private
     my $alert_mtime;
     my ($new_edit_notes, $new_edit_notes_mtime);
     try {
-        my $redis = $c->model('MB')->context->redis;
+        my $store = $c->model('MB')->context->store;
 
         my @cache_keys = qw( alert alert_mtime );
 
@@ -227,7 +226,8 @@ sub begin : Private
         }
 
         my ($notes_viewed, $notes_updated);
-        ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
+        ($alert, $alert_mtime, $notes_viewed, $notes_updated) =
+            @{$store->get_multi(@cache_keys)}{@cache_keys};
 
         if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
             $new_edit_notes = 1;
@@ -244,7 +244,7 @@ sub begin : Private
 
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
-    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_BRANCH;
+    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_INFO;
 
     $c->stash(
         wiki_server => DBDefs->WIKITRANS_SERVER,
@@ -343,19 +343,6 @@ sub begin : Private
                 model_to_type($merger->type) . '/merge',
             )
         );
-    }
-
-    my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->stash(
-            template => 'main/rate_limited.tt',
-            rl_response => $r
-        );
-        $c->detach;
     }
 
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {

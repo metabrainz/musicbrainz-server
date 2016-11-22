@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 15:57+0000\n"
+"PO-Revision-Date: 2016-11-17 14:51+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1946,7 +1946,7 @@ msgstr "Le khèn Mèo est un orgue à bouche utilisé par les Hmongs. Il est com
 msgid ""
 "The kkwaenggwari is a small flat brass gong, typically about 20cm in "
 "diameter, which is used primarily in the folk music of Korea."
-msgstr "Le kkwaenggwari est un petit gong plat en cuivre, habituellement de 20 cm de diamètre, qui est utilisé principalement dans la musique folklorique coréenne."
+msgstr "Le kkwaenggwari est un petit gong plat en cuivre, habituellement de 20 cm (3 po) de diamètre, qui est utilisé principalement dans la musique folklorique coréenne."
 
 #. name:klong khaek
 #: DB:instrument/description:671
@@ -2555,7 +2555,7 @@ msgid ""
 "The song loan is a traditional Vietnamese instrument consisting of a hollow "
 "wooden body (about 7 cm in diameter) attached to a flexible spring with a "
 "wooden ball on the other end and played with the foot."
-msgstr "Le song loan est un instrument à percussion traditionnel vietnamien constitué d’un corps creux en bois (environ 7 cm de diamètre) rattaché à une pièce souple en métal terminée par une boule en bois."
+msgstr "Le song loan est un instrument à percussion traditionnel vietnamien constitué d’un corps creux en bois (environ 7 cm (3 po) de diamètre) rattaché à une pièce souple en métal terminée par une boule en bois."
 
 #. name:spilåpipa
 #: DB:instrument/description:513
@@ -2770,7 +2770,7 @@ msgid ""
 "The ukeke is a Hawaiian musical bow made of koa wood, 16 to 24 inches long "
 "and about 1½ inches wide with two or three strings fastened through and "
 "around either end, tuned to an A major triad."
-msgstr "Arc musical hawaïen à cordes pincées, fait en bois de koa et long de 40 à 60 cm."
+msgstr "Arc musical hawaïen à cordes pincées, fait en bois de koa et long de 40 à 60 cm (16 à 24 po)."
 
 #. name:ukulele
 #: DB:instrument/description:89
@@ -3171,7 +3171,7 @@ msgstr "Une cruche vide (habituellement de verre ou en grès) jouée avec la bou
 msgid ""
 "an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
 "where produced by long strings, not thicker strings."
-msgstr "Épinette extra-longue, avec plusieurs cordes d’accord, dont les basses sont produites par des cordes plus longues mais pas plus épaisses."
+msgstr "Épinette extra-longue, avec plusieurs chœurs de cordes, dont les basses sont produites par des cordes plus longues mais pas plus épaisses."
 
 #. name:disk drive
 #: DB:instrument/description:602

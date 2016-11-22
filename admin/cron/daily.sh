@@ -2,10 +2,10 @@
 
 export PATH=/usr/local/bin:$PATH
 
-mb_server=`dirname $0`/../..
-cd $mb_server
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)
+cd "$MB_SERVER_ROOT"
 
-eval `./admin/ShowDBDefs`
+source admin/config.sh
 
 # Only run one "daily.sh" at a time
 if [ "${1:-}" != "gotlock" ]
@@ -87,6 +87,9 @@ fi
 
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
+
+echo `date`" : Updating cover art links"
+./admin/RebuildCoverArtUrls.pl
 
 echo `date`" : Nightly jobs complete!"
 

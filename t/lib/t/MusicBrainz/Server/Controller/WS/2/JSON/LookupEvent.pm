@@ -61,6 +61,9 @@ test 'basic event lookup, inc=aliases' => sub {
                     primary => JSON::null, 
                     type => JSON::null, 
                     "type-id" => JSON::null,
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
                 },
                 {
                     name => "Warm Festival",
@@ -69,6 +72,9 @@ test 'basic event lookup, inc=aliases' => sub {
                     primary => JSON::null,
                     type => JSON::null,
                     "type-id" => JSON::null,
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
                 },
             ],
         };

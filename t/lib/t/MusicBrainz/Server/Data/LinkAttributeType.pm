@@ -75,6 +75,9 @@ INSERT INTO link (id, link_type, attribute_count) VALUES (1, 148, 1);
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 1);
 EOSQL
 
+    # Ensure cache is clear before calling get_by_id
+    $c->cache->delete('link:1');
+
     my $original_link = $c->model('Link')->get_by_id(1);
     is($original_link->attributes->[0]->type->name, 'additional');
 
@@ -82,6 +85,9 @@ EOSQL
 
     my $updated_link = $c->model('Link')->get_by_id(1);
     is($updated_link->attributes->[0]->type->name, 'renamed');
+
+    # Cleanup
+    $c->cache->delete('link:1');
 };
 
 1;

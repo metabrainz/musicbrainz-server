@@ -1,0 +1,19 @@
+{
+  "repos" : [
+    {
+      "branches": ["master"],
+      "expand_keys": true,
+      "hooks": [
+        {
+          "interval": "1",
+          "type": "polling"
+        }
+      ],
+      "include_branch_name": false,
+      "name": "docker-server-configs",
+      "source_root": "docker/config/",
+      "url": "/tmp/musicbrainz-server.git"
+    }
+  ],
+  "version": "1.0"
+}

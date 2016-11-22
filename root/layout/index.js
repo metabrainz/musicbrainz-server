@@ -18,7 +18,6 @@ function canonicalize(url) {
 }
 
 const metaTags = [
-  <meta key={1} httpEquiv="Content-Type" content="text/html; charset=UTF-8" />,
   <meta key={2} charSet="utf-8" />,
   <meta key={3} httpEquiv="X-UA-Compatible" content="IE=edge" />,
   <meta key={4} name="viewport" content="width=device-width, initial-scale=1" />,
@@ -40,10 +39,18 @@ const DismissBannerButton = ({bannerName}) => (
 
 const serverDetailsBanner = (server) => {
   if (server.staging_server) {
+    let description;
+    if (server.staging_server_description) {
+      description = server.staging_server_description;
+    } else if (server.is_beta) {
+      description = l('This beta test server allows testing of new features with the live database.');
+    } else {
+      description = l('This is a MusicBrainz development server.');
+    }
     return (
       <div className="banner server-details">
         <p>
-          {server.staging_server_description || l('This is a MusicBrainz development server.')}
+          {description}
           {' '}
           {l('{uri|Return to musicbrainz.org}.',
              {__react: true,
@@ -108,6 +115,7 @@ const Layout = (props) => {
           </style>
         </noscript>
 
+        {manifest.js('rev-manifest')}
         {manifest.js('jed-' + currentLanguage)}
         {manifest.js('common')}
         {!!$c.stash.jsonld_data && <script type="application/ld+json">{$c.stash.jsonld_data}</script>}

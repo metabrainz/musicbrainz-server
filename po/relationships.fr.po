@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-20 09:04+0000\n"
+"PO-Revision-Date: 2016-11-17 14:51+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgstr "DJ-mix de"
 
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr "Mixé par un DJ"
+msgstr "a mixé comme DJ"
 
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
@@ -153,11 +153,11 @@ msgstr "Versions mixées par un DJ"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr "{medium:% of} mixé par un DJ"
+msgstr "a mixé comme DJ le {medium:% de}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr "{medium} mixé par un DJ"
+msgstr "a mixé comme DJ le {medium}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
@@ -165,11 +165,11 @@ msgstr "DJ-mixeur "
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr "{medium} DJ-mixeur"
+msgstr "DJ-mixeur du {medium}"
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr "DJ-mixes"
+msgstr "DJ-mix"
 
 #: DB:link_type/description:704
 msgid ""
@@ -1172,13 +1172,13 @@ msgstr "Cela indique qu’un artiste a annulé sa venue à un événement."
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
 "recording."
-msgstr "Ceci indique un artiste qui a dirigé un orchestre ou une chorale pour cet enregistrement."
+msgstr "Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur pour cet enregistrement."
 
 #: DB:link_type/description:46
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
 "release."
-msgstr "Ceci indique un artiste qui a dirigé un orchestre ou une chorale pour cette parution."
+msgstr "Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur pour cette parution."
 
 #: DB:link_type/description:30 DB:link_type/description:141
 msgid ""
@@ -1474,7 +1474,7 @@ msgid ""
 "songs, one after the other. If the tracks are pitched or blended into each "
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
-msgstr "Ceci indique la personne qui a choisi les pistes et la séquence pour une compilation. Ceci s’applique à une longue piste contenant plusieurs chansons, les unes après les autres. Si la vitesse des pistes a été modifiée ou si elles se fondent l’une en l’autre, il est plus pertinent de donner le crédit à cette personne en tant que a <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixeur</a>."
+msgstr "Ceci indique la personne qui a choisi les pistes et la séquence pour une compilation. Ceci s’applique à une longue piste contenant plusieurs chansons, les unes après les autres. Si la vitesse des pistes a été modifiée ou si elles se fondent l’une en l’autre, il est plus pertinent de donner le crédit à cette personne en tant que <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixeur</a>."
 
 #: DB:link_type/description:349
 msgid ""
@@ -1524,7 +1524,7 @@ msgid ""
 "recording to each of the source recordings. See <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for"
 " crediting the person who created the DJ-mix."
-msgstr "Ceci est utilisé pour relier un enregistrement <a href=\"/doc/Mix_Terminology#DJ_mix\">mixé par un DJ</a> à chaque enregistrement source. Consultez <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\"> DJ mixeur</a> pour créditer la personne ayant créé le DJ-mix."
+msgstr "Ceci est utilisé pour relier un enregistrement <a href=\"/doc/Mix_Terminology#DJ_mix\">mixé par un DJ</a> à chaque enregistrement source. Consultez <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\"> DJ-mixeur</a> pour créditer la personne ayant créé le DJ-mix."
 
 #: DB:link_type/description:226
 msgid ""
@@ -1649,7 +1649,7 @@ msgid ""
 "This is used to specify that an <a href=\"/doc/Artist\" "
 "title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
 "where artist credits can't be used."
-msgstr "Ceci est utilisé pour spécifier qu’un<a href=\"/doc/Artist\" title=\"Artist\">artiste</a> a collaboré sur un projet à court-terme, dans les cas où les crédits d’artiste ne peuvent être utilisés."
+msgstr "Ceci est utilisé pour spécifier qu’un <a href=\"/doc/Artist\" title=\"Artist\">artiste</a> a collaboré sur un projet à court-terme, dans les cas où les crédits d’artiste ne peuvent être utilisés."
 
 #: DB:link_type/description:288
 msgid ""
@@ -2755,7 +2755,7 @@ msgstr "associé"
 
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
-msgstr "simples ou EP associés"
+msgstr "singles/EP associés"
 
 #: DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -2863,7 +2863,7 @@ msgstr "enfants"
 
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
-msgstr "voix de chorale"
+msgstr "chœurs"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -3159,11 +3159,11 @@ msgstr "pages de fan"
 #: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:116
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:895
 msgid "founded"
-msgstr "fondé"
+msgstr "a fondé"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr "créé par"
+msgstr "fondé par"
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
@@ -3617,7 +3617,7 @@ msgstr "impliqué avec"
 
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
-msgstr "Est un DJ-mix de"
+msgstr "est un DJ-mix de"
 
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
@@ -3654,7 +3654,7 @@ msgstr "est un remix de"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
-msgstr "est un simple/EP extrait de"
+msgstr "est un single/EP extrait de"
 
 #: DB:link_type/long_link_phrase:728
 msgid "is a tribute to"
@@ -3750,7 +3750,7 @@ msgstr "est/fut un membre {additional:additionnel} {original} de"
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus}"
 " for"
-msgstr "est/était {assistant:un|un} chef d’orchestre {assistant} {principal} {guest:invité} {emeritus:émérite} pour"
+msgstr "est/était {assistant:un|un} chef d’orchestre {assistant} {principal} {guest:invité} {emeritus:émérite} de"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -4564,7 +4564,7 @@ msgstr "signé par"
 
 #: DB:link_type/link_phrase:11
 msgid "single/EP which was taken from"
-msgstr "simple/EP extrait de"
+msgstr "single/EP extrait de"
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
@@ -4668,7 +4668,7 @@ msgstr "soutien {instrument} pour"
 
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
-msgstr "a enseigné"
+msgstr "a enseigné à"
 
 #: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
 msgid "taught at"
@@ -5240,7 +5240,7 @@ msgstr "chef d’orchestre {assistant} {principal} {guest:invité} {emeritus:ém
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
-msgstr "chef d’orchestre {assistant} {principal} {guest:invité} {emeritus:émérite} pour"
+msgstr "chef d’orchestre {assistant} {principal} {guest:invité} {emeritus:émérite} de"
 
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
@@ -5528,4 +5528,4 @@ msgstr "{vocal:%|voix} de soutien par"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
-msgstr "{vocal:%|voix} de soutien de"
+msgstr "{vocal:%|voix} de soutien pour"

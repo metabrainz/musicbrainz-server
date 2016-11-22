@@ -1,5 +1,4 @@
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,6 +23,7 @@
           }
         </style>
     </noscript>
+    [%~ script_manifest('rev-manifest.js') ~%]
     [%~ script_manifest('jed-' _ current_language _ '.js') ~%]
     [%~ script_manifest('common.js') ~%]
     [%- BLOCK layout_head %][% END -%]

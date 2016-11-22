@@ -11,6 +11,5 @@ my $tokens = $c->sql->select_single_column_array(
      JOIN editor ON editor.id = editor_remember_me.editor"
 );
 for my $token (@$tokens) {
-    $c->redis->set($token, 1);
-    $c->redis->expire($token, 60 * 60 * 24 * 7 * 52);
+    $c->store->set($token, 1, 60 * 60 * 24 * 7 * 52);
 }

@@ -49,21 +49,11 @@ Prerequisites
 
         sudo apt-get install git-core
 
-5.  Memcached
+5.  Redis
 
-    By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings. To install Memcached, run the following:
-
-        sudo apt-get install memcached
-
-    You can change the memcached server name and port, or configure other datastores
-    in lib/DBDefs.pm.
-
-6.  Redis
-
-    Sessions are stored in Redis, so a running Redis server is
-    required.  Redis can be installed with the
-    following command and will not need any further configuration:
+    Sessions and cached entities are stored in Redis, so a running Redis server
+    is required. Redis can be installed with the following command and will not
+    need any further configuration:
 
         sudo apt-get install redis-server
 
@@ -71,7 +61,7 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-7.  Node.js
+6.  Node.js
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
@@ -86,7 +76,17 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-8.  Standard Development Tools
+    For npm, at least version 3 is required. If your distribution has an older
+    version (`npm --version` to check), you can use that to install a newer
+    version of itself:
+
+        sudo npm install -g npm
+
+    (Instead of this global install, you can also run `npm install npm`. In
+    that case, replace all calls to `npm` further down in this text with
+    `./node_modules/.bin/npm`.)
+
+7.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -144,6 +144,8 @@ Server configuration
         site runs on. It's different from standalone in that it's able to *produce*
         replication packets to be applied on slaves. For more details, see
         INSTALL-MASTER.md
+
+    The server type cannot easily be changed after data import.
 
 
 Installing Perl dependencies
@@ -309,16 +311,6 @@ Creating the database
         By default, the archives will be extracted into the `/tmp` directory as
         an intermediate step. You may specify a different location with the
         `--tmp-dir` option.
-
-    NOTE: on a fresh postgresql install you may see the following error:
-
-        CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
-
-    To resolve that login to postgresql with the "postgres" user (or any other
-    postgresql user with SUPERUSER privileges) and load the "plpgsql" language
-    into the database with the following command:
-
-        postgres=# CREATE LANGUAGE plpgsql;
 
     MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
     If this is an issue in your setup, you may want to set a timeout at the

@@ -89,9 +89,9 @@ sub add_note
     if ($note_hash->{editor_id} != $edit->editor_id) {
         my $edit_author = $editors->{$edit->editor_id}->name;
         my $notes_updated_key = "edit_notes_received_last_updated:$edit_author";
-        $self->c->redis->set($notes_updated_key, time);
+        $self->c->store->set($notes_updated_key, time);
         # Expire the notification in 30 days.
-        $self->c->redis->expire($notes_updated_key, 60 * 60 * 24 * 30);
+        $self->c->store->expire($notes_updated_key, 60 * 60 * 24 * 30);
     }
 
     my @to_email = grep { $_ != $note_hash->{editor_id} }

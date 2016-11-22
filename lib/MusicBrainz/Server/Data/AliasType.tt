@@ -10,11 +10,9 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 with 'MusicBrainz::Server::Data::Role::AliasType';
 
-sub _id_cache_prefix { '[% table %]' }
-
 sub _table { '[% table %]' }
 
-sub _type { '[% entity_type %]' }
+sub _type { '[% alias_type %]' }
 
 __PACKAGE__->meta->make_immutable;
 
