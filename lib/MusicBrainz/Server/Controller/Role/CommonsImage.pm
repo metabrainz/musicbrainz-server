@@ -44,6 +44,9 @@ sub _get_commons_image {
     # and if not, check Wikidata entity
     $title = _get_wikidata_image($c) if !$title;
 
+    # Return early if no image exists.
+    return unless defined $title;
+
     my $commons_image = $c->model('CommonsImage')->get_commons_image($title, cache_only => $cache_only);
     if ($commons_image) {
         $c->stash->{image} = $commons_image;
