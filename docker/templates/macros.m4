@@ -108,8 +108,7 @@ COPY po/ po/
 RUN chown_mb(`MBS_ROOT') && \
     apt_install(``gettext make'') && \
     sudo_mb(``make -C po all_quiet'') && \
-    sudo_mb(``make -C po deploy'') && \
-    apt_purge(``make'')')
+    sudo_mb(``make -C po deploy'')')
 
 m4_define(
     `copy_common_mbs_files',
