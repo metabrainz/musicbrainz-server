@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Area;
 
+use DBDefs;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any );
@@ -96,7 +97,7 @@ sub load_containment
     my %ids_to_load = map { $_ => 1 } @all_ids;
     my @containments;
 
-    my $namespace_key = $self->c->redis->get('area_containment_memcached_key');
+    my $namespace_key = $self->c->store->get('area_containment_key');
     unless (defined $namespace_key) {
         $namespace_key = $self->clear_containment_cache;
     }
@@ -130,7 +131,7 @@ sub load_containment
         $self->c->cache('area_containment')->set_multi(
             map {
                 my $parents = $parents_by_descendant{$_} // [];
-                ["area_containment:$namespace_key:$_", $parents]
+                ["area_containment:$namespace_key:$_", $parents, DBDefs->ENTITY_CACHE_TTL]
             } @ids_to_load
         );
 
@@ -157,7 +158,7 @@ sub load_containment
 
 sub clear_containment_cache {
     my $key = time;
-    shift->c->redis->set('area_containment_memcached_key', $key);
+    shift->c->store->set('area_containment_key', $key);
     return $key;
 }
 

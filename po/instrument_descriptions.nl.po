@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 15:51+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-11-19 14:06+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,7 +126,7 @@ msgstr "Een klassieke gitaar met nylonsnaren."
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne"
-msgstr ""
+msgstr "een door Alexander Berne uitgevonden en bespeelde kruising tussen een saxofoon en een doedoek."
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
@@ -373,7 +373,7 @@ msgstr ""
 msgid ""
 "A smaller harpsichord, often with the strings at 30 degrees from the "
 "keyboard."
-msgstr ""
+msgstr "een kleinere variant van een klavecimbel, meestal staan de snaren in een hoek van 30 graden op het toetsenbord."
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -513,7 +513,7 @@ msgstr "Een archtopgitaar is een akoestische of semiakoestische gitaar met stale
 msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
-msgstr ""
+msgstr "een effectapparaat dat op de brug van een gitaar wordt bevestigd en synthesizerachtige geluiden produceert."
 
 #. name:keytar
 #: DB:instrument/description:774
@@ -535,7 +535,7 @@ msgstr "Een elektrische piano is een elektromechanisch muziekinstrument. Afhanke
 msgid ""
 "An electromechanical piano (not to be confused with electronic piano) "
 "designed and produced by Hohner in the 1960 and 70s."
-msgstr ""
+msgstr "een elektromagnetische piano (niet te verwarren met een elektrische piano) die in de jaren 1960 en 1970 door Hohner werd ontwikkeld en geproduceerd."
 
 #. name:idiophone
 #: DB:instrument/description:674
@@ -3114,7 +3114,7 @@ msgstr "Een soort schuiffluit. Lid van de hmông-fluiten."
 #. name:gittern
 #: DB:instrument/description:802
 msgid "a medieval round-backed string instrument ancestral to the guitar"
-msgstr ""
+msgstr "een middeleeuws snaarinstrument met een bolle kast en voorloper van de gitaar."
 
 #. name:laúd
 #: DB:instrument/description:803
@@ -3139,13 +3139,13 @@ msgstr "Een tràm plè is een variant op de Hmông-fluit. De lippen van de fluit
 #. name:birch lur
 #: DB:instrument/description:801
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
-msgstr ""
+msgstr "een Scandinavische natuurhoorn van hout of berkenbast uit de (vroege) middeleeuwen."
 
 #. name:cembalet
 #: DB:instrument/description:794
 msgid ""
 "an electromechanical piano with stainless steel reeds and amplified pick-up"
-msgstr ""
+msgstr "een elektromechanische piano met roestvaststalen tongetjes en een versterkte opnemer."
 
 #. name:jug
 #: DB:instrument/description:505
@@ -3158,7 +3158,7 @@ msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met
 msgid ""
 "an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
 "where produced by long strings, not thicker strings."
-msgstr ""
+msgstr "Een buitengewoon lange spinet, meestal meerkorig. De lage tonen worden geproduceerd door langere in plaats van dikkere snaren."
 
 #. name:disk drive
 #: DB:instrument/description:602
@@ -3170,7 +3170,7 @@ msgstr "het gebruik van schijfstations van computers om muziek te maken."
 msgid ""
 "chiefly scandinavian bronze horns ritualistically buried in pairs. from the "
 "bronze age."
-msgstr ""
+msgstr "Scandinavische natuurhoornen van brons die vaak in paren ritueel werden begraven."
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3231,7 +3231,7 @@ msgstr ""
 msgid ""
 "small white electric thumb piano with metal tines and an electromagnetic "
 "pickup."
-msgstr ""
+msgstr "een kleine witte duimpiano met metalen tongetjes en een elektromagnetische opnemer."
 
 #. name:ti bwa
 #: DB:instrument/description:332

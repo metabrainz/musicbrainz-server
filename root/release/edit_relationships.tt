@@ -23,19 +23,19 @@
         <tr>
           <td>
             <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchRecordingsDialog">
-              <img src="/static/images/icons/add.png" class="bottom" />
+              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
               [% l('Batch-add a relationship to recordings') %]
             </a>
           </td>
           <td>
             <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchCreateWorksDialog">
-              <img src="/static/images/icons/add.png" class="bottom" />
+              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
               [% l('Batch-create new works') %]
             </a>
           </td>
           <td>
             <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}" data-click="openBatchWorksDialog">
-              <img src="/static/images/icons/add.png" class="bottom" />
+              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
               [% l('Batch-add a relationship to works') %]
             </a>
           </td>
@@ -195,7 +195,7 @@
         </div>
       </div>
       <span class="add-rel btn" data-click="openAddDialog">
-        <img src="/static/images/icons/add.png" class="bottom" /> [% l('Add relationship') %]
+        <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" /> [% l('Add relationship') %]
       </span>
     </script>
 
@@ -213,7 +213,7 @@
         </td>
         <td class="midcol">
           <span class="relate-work btn" data-click="openRelateToWorkDialog">
-            &#8592; <img src="/static/images/icons/add.png" class="bottom"> [% l('Add related work') %] &#8594;
+            &#8592; <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom"> [% l('Add related work') %] &#8594;
           </span>
         </td>
         <!-- ko with: recording -->

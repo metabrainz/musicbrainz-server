@@ -1,0 +1,10 @@
+# Dependencies needed only to execute ./admin/InitDb.pl.
+
+requires 'aliased'              => '0.34';
+requires 'Class::MOP'           => '2.1600';
+requires 'DBD::Pg'              => '3.5.3';
+requires 'DBIx::Connector'      => '0.53';
+requires 'JSON'                 => '2.61';
+requires 'Moose'                => '2.1600';
+requires 'String::ShellQuote'   => '1.03';
+requires 'Throwable'            => '0.200009';

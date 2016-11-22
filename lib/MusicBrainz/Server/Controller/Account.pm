@@ -424,7 +424,6 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
     my $form = $c->form(register_form => 'User::Register');
 
     my $captcha = Captcha::reCAPTCHA->new;
-    my $captcha_result;
     my $use_captcha = ($c->req->address &&
                        defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
                        defined DBDefs->RECAPTCHA_PRIVATE_KEY);
@@ -434,14 +433,13 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
         my $valid = 0;
         if ($use_captcha)
         {
-            my $challenge = $c->req->params->{recaptcha_challenge_field};
-            my $response = $c->req->params->{recaptcha_response_field};
+            my $response = $c->req->params->{'g-recaptcha-response'} // '';
 
-            $captcha_result = $captcha->check_answer(
+            $valid = $captcha->check_answer_v2(
                 DBDefs->RECAPTCHA_PRIVATE_KEY,
-                $c->req->address, $challenge, $response);
-
-            $valid = $captcha_result->{is_valid};
+                $response, $c->req->address
+                )->{is_valid}
+            unless $response eq '';
         }
         else
         {
@@ -485,8 +483,8 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
     }
 
     my $captcha_html = "";
-    $captcha_html = $captcha->get_html(
-        DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result, $c->req->secure) if $use_captcha;
+    $captcha_html = $captcha->get_html_v2(DBDefs->RECAPTCHA_PUBLIC_KEY)
+        if $use_captcha;
 
     $c->stash(
         use_captcha   => $use_captcha,

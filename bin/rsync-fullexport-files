@@ -1,18 +1,32 @@
-#!/bin/sh
+#!/bin/bash
 
 unset SSH_AUTH_SOCK
 
-mb_server=`dirname $0`/..
-cd $mb_server
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
 
-eval `./admin/ShowDBDefs`
+source admin/config.sh
 
 LOCAL_DIR=$FTP_DATA_DIR/fullexport
 
-if [ "$RSYNC_FULLEXPORT_SERVER" ]
-then
-    rsync -e "ssh -i $HOME/.ssh/rysnc-data-fullexport" -av --delete --exclude='latest-is*' $LOCAL_DIR/ $RSYNC_FULLEXPORT_SERVER:
-    rsync -e "ssh -i $HOME/.ssh/rysnc-data-latest" -av $LOCAL_DIR/latest* $RSYNC_FULLEXPORT_SERVER:
+if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
+    RSYNC_FULLEXPORT_PORT=${RSYNC_FULLEXPORT_PORT:-22}
+
+    rsync \
+        --archive \
+        --delete \
+        --exclude='latest-is*' \
+        --rsh "ssh -i ~/.ssh/rsync-data-fullexport -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --verbose \
+        $LOCAL_DIR/ \
+        brainz@$RSYNC_FULLEXPORT_HOST:./
+
+    rsync \
+        --archive \
+        --rsh "ssh -i ~/.ssh/rsync-data-latest -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
+        --verbose \
+        $LOCAL_DIR/latest* \
+        brainz@$RSYNC_FULLEXPORT_HOST:./
 fi
 
 # eof rsync-fullexport-files

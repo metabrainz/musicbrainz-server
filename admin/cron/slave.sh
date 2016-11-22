@@ -1,9 +1,7 @@
 #!/bin/bash
 
-mb_server=`dirname $0`/../..
-cd $mb_server
-
-eval `./admin/ShowDBDefs`
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)
+cd "$MB_SERVER_ROOT"
 
 X=${SLAVE_LOG:=$MB_SERVER_ROOT/slave.log}
 X=${LOGROTATE:=/usr/sbin/logrotate --state $MB_SERVER_ROOT/.logrotate-state}

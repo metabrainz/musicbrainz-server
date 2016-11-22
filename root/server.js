@@ -7,16 +7,11 @@
 
 require('babel-core/register');
 
-const argv = require('yargs')
-  .demand('port')
-  .describe('port', 'port to listen on')
-  .describe('development', 'disables module cache if set to 1')
-  .argv;
-
 const fs = require('fs');
 const http = require('http');
 const _ = require('lodash');
 const redis = require('redis');
+const reload = require('require-reload')(require);
 const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
@@ -24,19 +19,27 @@ const sliced = require('sliced');
 const URL = require('url');
 
 const gettext = require('./server/gettext');
+// Reloaded on HUP.
+let DBDefs = reload('./static/scripts/common/DBDefs');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
-const REDIS_ARGS = JSON.parse(process.env.DATASTORE_REDIS_ARGS);
-const redisClient = redis.createClient({
-  url: 'redis://' + REDIS_ARGS.redis_new_args.server,
-  prefix: REDIS_ARGS.prefix,
-  retry_strategy: function (options) {
-    if (options.total_retry_time < (REDIS_ARGS.redis_new_args.reconnect * 1000)) {
-      return 1;
-    }
-  },
-});
+function createRedisClient() {
+  const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
+  return redis.createClient({
+    url: 'redis://' + REDIS_ARGS.server,
+    prefix: REDIS_ARGS.namespace,
+    retry_strategy: function (options) {
+      const oneMinute = 60 * 1000; // ms
+      if (options.total_retry_time < oneMinute) {
+        return 1;
+      }
+    },
+  });
+}
+
+// Reloaded on HUP.
+let redisClient = createRedisClient();
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -100,7 +103,7 @@ function getResponse(req, requestBody) {
   // to be used for this request based on the given 'lang' cookie.
   i18n.setGettextHandle(gettext.getHandle(getCookie('lang')));
 
-  if (String(argv.development) === '1') {
+  if (DBDefs.DEVELOPMENT_SERVER) {
     clearRequireCache();
   }
 
@@ -152,7 +155,7 @@ http.createServer(function (req, res) {
     res.end(resInfo.body, 'utf8');
   });
 })
-.listen(argv.port, '127.0.0.1', function (err) {
+.listen(DBDefs.RENDERER_PORT, '0.0.0.0', function (err) {
   if (err) {
     throw err;
   }
@@ -162,14 +165,17 @@ http.createServer(function (req, res) {
     process.exit();
   }
 
-  function reload() {
+  function hup() {
     clearRequireCache();
     gettext.clearHandles();
+    DBDefs = reload('./static/scripts/common/DBDefs');
+    redisClient.quit();
+    redisClient = createRedisClient();
   }
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', reload);
+  process.on('SIGHUP', hup);
 
-  console.log('server.js listening on 127.0.0.1:' + argv.port + ' (pid ' + process.pid + ')');
+  console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
 });

@@ -2,9 +2,10 @@
 
 set -o errexit
 
-mb_server=`dirname $0`/..
-eval `$mb_server/admin/ShowDBDefs`
-cd $mb_server
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
 
 TEMP_DIR=$1 ; shift
 
@@ -35,7 +36,6 @@ then
     then
         mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
     fi
-    $mb_server/bin/rsync-replication-files
 fi
 
 # eof

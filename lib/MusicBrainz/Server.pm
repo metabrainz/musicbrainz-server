@@ -28,8 +28,6 @@ Session::State::Cookie
 
 Cache
 Authentication
-
-Unicode::Encoding
 /;
 
 our $VERSION = '0.01';
@@ -200,11 +198,6 @@ if (DBDefs->USE_ETAGS) {
     push @args, "Cache::HTTP";
 }
 
-if (my $config = DBDefs->AUTO_RESTART) {
-    __PACKAGE__->config->{'Plugin::AutoRestart'} = $config;
-    push @args, 'AutoRestart';
-}
-
 if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
 {
     use MusicBrainz::Server::DatabaseConnectionFactory;
@@ -367,7 +360,12 @@ before dispatch => sub {
 };
 
 after dispatch => sub {
-    shift->model('MB')->context->connector->disconnect;
+    my ($self) = @_;
+
+    my $c = $self->model('MB')->context;
+    $c->connector->disconnect;
+    $c->store->_connection->quit;
+    $c->cache->_connection->quit;
 };
 
 # Timeout long running requests

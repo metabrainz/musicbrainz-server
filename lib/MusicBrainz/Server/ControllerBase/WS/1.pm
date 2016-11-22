@@ -32,65 +32,6 @@ with 'MusicBrainz::Server::WebService::Format' =>
     ]
 };
 
-
-sub apply_rate_limit
-{
-    my ($self, $c, $key) = @_;
-    $key ||= "ws ip=" . $c->request->address;
-
-    my $r;
-
-    $r = $c->model('RateLimiter')->check_rate_limit('ws ua=' . ($c->req->user_agent || ''));
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->content_type("text/plain; charset=utf-8");
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->res->body(
-            $c->stash->{serializer}->output_error(
-                "Your requests are being throttled by MusicBrainz because the ".
-                "application you are using has not identified itself.  Please ".
-                "update your application, and see ".
-                "http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting for more ".
-                "information."
-            )
-        );
-        $c->detach;
-    }
-
-
-    $r = $c->model('RateLimiter')->check_rate_limit($key);
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->content_type("text/plain; charset=utf-8");
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->response->body(
-            "Your requests are exceeding the allowable rate limit (" . $r->msg . ")\015\012" .
-            "Please see http://wiki.musicbrainz.org/XMLWebService for more information.\015\012"
-        );
-        return 0;
-    }
-
-    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
-    if ($r && $r->is_over_limit) {
-        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->content_type("text/plain; charset=utf-8");
-        $c->res->headers->header(
-            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
-        );
-        $c->response->body(
-            "The MusicBrainz web server is currently busy.\015\012" .
-            "Please try again later.\015\012"
-        );
-        return 0;
-    }
-
-    return 1;
-}
-
 sub authenticate
 {
     my ($self, $c, $scope) = @_;
@@ -116,7 +57,7 @@ sub auto : Private {
         return 0;
     };
 
-    return $continue && $self->apply_rate_limit($c);
+    return $continue;
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }

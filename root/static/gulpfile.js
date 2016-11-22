@@ -1,7 +1,4 @@
-if (!/^[01]$/.test(process.env.DEVELOPMENT_SERVER)) {
-  throw new Error('error: DEVELOPMENT_SERVER should be set to either 0 or 1');
-}
-
+const canonicalJSON = require('canonical-json');
 const fs = require('fs');
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -13,7 +10,6 @@ const po2json = require('po2json');
 const Q = require('q');
 const shellQuote = require('shell-quote');
 const shell = require('shelljs');
-const through2 = require('through2');
 const File = require('vinyl');
 const source = require('vinyl-source-stream');
 const yarb = require('yarb');
@@ -25,10 +21,11 @@ const CHECKOUT_DIR = path.resolve(__dirname, '../../');
 const PO_DIR = path.resolve(CHECKOUT_DIR, 'po');
 const ROOT_DIR = path.resolve(CHECKOUT_DIR, 'root');
 const STATIC_DIR = path.resolve(ROOT_DIR, 'static');
-const BUILD_DIR = path.resolve(STATIC_DIR, 'build');
+const STYLES_DIR = path.resolve(STATIC_DIR, 'styles');
+const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR || path.resolve(STATIC_DIR, 'build');
 const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
+const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
-const revManifestPath = path.resolve(BUILD_DIR, 'rev-manifest.json');
 const revManifest = {};
 
 const JED_OPTIONS_EN = {
@@ -38,25 +35,27 @@ const JED_OPTIONS_EN = {
   },
 };
 
-if (fs.existsSync(revManifestPath)) {
-  _.assign(revManifest, JSON.parse(fs.readFileSync(revManifestPath)));
-}
-
-function writeManifest() {
-  fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
-}
-
 function writeResource(stream) {
   var deferred = Q.defer();
 
   stream
     .pipe(streamify(rev()))
     .pipe(gulp.dest(BUILD_DIR))
-    .pipe(rev.manifest())
-    .pipe(through2.obj(function (chunk, encoding, callback) {
-      _.assign(revManifest, JSON.parse(chunk.contents));
-      callback();
+    // The rev-manifest path must be absolute for the `merge` option to work.
+    .pipe(rev.manifest(path.resolve(BUILD_DIR, 'rev-manifest.json'), {
+      // By default, `base` is the current working directory, so this ensures
+      // the manifest is saved directly under BUILD_DIR, rather than
+      // $BUILD_DIR/root/static/build/.
+      base: BUILD_DIR,
+      merge: true,
+      transformer: {
+        parse: JSON.parse,
+        stringify: function (contents) {
+          return canonicalJSON(_.assign(revManifest, contents));
+        },
+      },
     }))
+    .pipe(gulp.dest(BUILD_DIR))
     .on('finish', function () {
       deferred.resolve();
     });
@@ -66,7 +65,11 @@ function writeResource(stream) {
 
 function buildStyles(callback) {
   return writeResource(
-    gulp.src(path.resolve(STATIC_DIR, '*.less'))
+    gulp.src([
+      path.resolve(STYLES_DIR, 'common.less'),
+      path.resolve(STYLES_DIR, 'icons.less'),
+      path.resolve(STYLES_DIR, 'statistics.less'),
+    ], {base: STATIC_DIR})
     .pipe(less({
       rootpath: '/static/',
       relativeUrls: true,
@@ -77,15 +80,13 @@ function buildStyles(callback) {
   ).done(callback);
 }
 
-function isDevelopmentServer() {
-  return String(process.env.DEVELOPMENT_SERVER) === '1';
-}
-
 function transformBundle(bundle) {
+  const DBDefs = require('./scripts/common/DBDefs');
+
   bundle.transform('babelify');
   bundle.transform('envify', {global: true});
 
-  if (!isDevelopmentServer()) {
+  if (!DBDefs.DEVELOPMENT_SERVER) {
     bundle.transform('uglifyify', {
       // See https://github.com/substack/node-browserify#btransformtr-opts
       global: true,
@@ -104,12 +105,20 @@ function transformBundle(bundle) {
 }
 
 function runYarb(resourceName, callback) {
+  const DBDefs = require('./scripts/common/DBDefs');
+
   if (CACHED_BUNDLES[resourceName]) {
     return CACHED_BUNDLES[resourceName];
   }
 
-  var bundle = transformBundle(yarb(path.resolve(SCRIPTS_DIR, resourceName), {
-    debug: isDevelopmentServer(),
+  const vinyl = new File({
+    base: STATIC_DIR,
+    path: path.resolve(SCRIPTS_DIR, resourceName),
+  });
+  vinyl.contents = fs.createReadStream(vinyl.path);
+
+  var bundle = transformBundle(yarb(vinyl, {
+    debug: DBDefs.DEVELOPMENT_SERVER,
   }));
 
   if (callback) {
@@ -121,7 +130,7 @@ function runYarb(resourceName, callback) {
 }
 
 function bundleScripts(b, resourceName) {
-  return b.bundle().on('error', console.log).pipe(source(resourceName));
+  return b.bundle().on('error', console.log).pipe(source('scripts/' + resourceName));
 }
 
 function writeScript(b, resourceName) {
@@ -131,7 +140,7 @@ function writeScript(b, resourceName) {
 function createLangVinyl(lang, jedOptions) {
   return new File({
     path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
-    contents: new Buffer('module.exports = ' + JSON.stringify(jedOptions) + ';\n'),
+    contents: new Buffer('module.exports = ' + canonicalJSON(jedOptions) + ';\n'),
   });
 }
 
@@ -142,12 +151,27 @@ function langToPosix(lang) {
 }
 
 function buildScripts() {
-  process.env.NODE_ENV = String(process.env.DEVELOPMENT_SERVER) === '1' ? 'development' : 'production';
+  const DBDefs = require('./scripts/common/DBDefs');
+
+  process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
   var commonBundle = runYarb('common.js');
 
-  _((process.env.MB_LANGUAGES || '').replace(/\s+/g, ''))
-    .split(',')
+  // The client JS needs access to rev-manifest.json too. We obviously can't
+  // know its contents yet. So, create an empty Vinyl whose path is set to
+  // rev-manifest.json. Yarb will use this instead of attempting to read that
+  // path from disk. Later, once the `revManifest` object is populated, we
+  // can set the contents buffer on this currently-empty Vinyl.
+  const manifestContents = new File({
+    path: path.resolve(BUILD_DIR, 'rev-manifest.json'),
+    contents: null,
+  });
+
+  const manifestBundle = runYarb('rev-manifest.js');
+  commonBundle.external(manifestBundle);
+
+  _(DBDefs.MB_LANGUAGES || '')
+    .split(/\s+/)
     .compact()
     .without('en')
     .map(langToPosix)
@@ -240,22 +264,36 @@ function buildScripts() {
     writeScript(runYarb('debug.js', function (b) {
       b.external(commonBundle);
     }), 'debug.js')
-  ]).then(writeManifest);
+  ]).then(function () {
+    manifestContents.contents = new Buffer(canonicalJSON(revManifest));
+
+    // Note that writeResource will change the contents of revManifest, and
+    // write a new rev-manifest.json, before we write our bundled version with
+    // the contents above. This is okay, because the client will never need
+    // to lookup "rev-manifest.js". It'll be included on every page by the
+    // server, which'll have access to the final rev-manifest.json on disk.
+    return writeScript(manifestBundle, 'rev-manifest.js');
+  });
 }
 
-gulp.task('styles', function () {
-  return buildStyles(writeManifest);
-});
-gulp.task('scripts', buildScripts);
+function buildImages() {
+  return Q.all([
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'entity/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'icons/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'image404-125.png'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'layout/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'licenses/*'), {base: STATIC_DIR})),
+    writeResource(gulp.src(path.join(IMAGES_DIR, 'logos/*'), {base: STATIC_DIR})),
+  ]);
+}
 
-gulp.task('watch', ['styles', 'scripts'], function () {
+gulp.task('watch', ['default'], function () {
   let watch = require('gulp-watch');
 
   watch(path.resolve(STATIC_DIR, '**/*.less'), function () {
     process.stdout.write('Rebuilding styles ... ');
 
     buildStyles(function () {
-      writeManifest();
       process.stdout.write('done.\n');
     });
   });
@@ -276,7 +314,6 @@ gulp.task('watch', ['styles', 'scripts'], function () {
     if (rebuild) {
       process.stdout.write(`Rebuilding ${resourceName} (${file.event}: ${file.path}) ... `);
       writeScript(b, resourceName).done(function () {
-        writeManifest();
         process.stdout.write('done.\n');
       });
     }
@@ -300,14 +337,8 @@ gulp.task('tests', function () {
   ).pipe(gulp.dest(BUILD_DIR));
 });
 
-gulp.task('clean', function () {
-  var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/;
-
-  fs.readdirSync(BUILD_DIR).forEach(function (file) {
-    if (fileRegex.test(file) && revManifest[file.replace(fileRegex, '$1.$2')] !== file) {
-      fs.unlinkSync(path.resolve(BUILD_DIR, file));
-    }
-  });
+gulp.task('default', function () {
+  // Scripts cannot be built without images or styles. The client JS needs
+  // access to the final paths for these resources.
+  return Q.all([buildImages(), buildStyles()]).then(buildScripts);
 });
-
-gulp.task('default', ['styles', 'scripts']);

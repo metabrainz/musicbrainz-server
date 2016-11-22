@@ -1,11 +1,12 @@
 #!/bin/bash -u
 
 export PATH=/usr/local/bin:$PATH
+export PERL_CARTON_PATH=~/carton-local
 
-mb_server=`dirname $0`/../..
-cd $mb_server
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)
+cd "$MB_SERVER_ROOT"
 
-eval `./admin/ShowDBDefs`
+source admin/config.sh
 
 # Only run one "hourly.sh" at a time
 if [ "${1:-}" != "gotlock" ]
@@ -25,7 +26,7 @@ fi
 
 OUTPUT=`
     ./admin/CheckVotes.pl --verbose --summary 2>&1
-` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
+` || echo "$OUTPUT"
 
 OUTPUT=`
     ./admin/CheckElectionVotes.pl 2>&1

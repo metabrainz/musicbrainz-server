@@ -96,7 +96,7 @@
         [% sidebar.select('type') %]
         [% sidebar.hidden('method', { value => 'indexed' }) %]
         <button type="submit">
-            <img src="/static/images/icons/search.svg" />
+            <img src="[% c.model('FileCache').path_to('/images/icons/search.svg') %]" />
         </button>
     </form>
 </div>

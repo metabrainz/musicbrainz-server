@@ -3,42 +3,60 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const isNodeJS = require('detect-node');
 const fs = require('fs');
 const path = require('path');
 const React = require('react');
 
-let MANIFEST_MTIME = 0;
-let MANIFEST_LAST_CHECKED = 0;
-let MANIFEST_SIGNAUTRES = {};
-const REV_MANIFEST_PATH = path.join(__dirname, 'build/rev-manifest.json');
+const DBDefs = require('./scripts/common/DBDefs');
 
-function pathTo(manifest) {
-  let now = Date.now();
+function _pathTo(manifest, signatures) {
+  manifest = manifest.replace(/^\//, '');
 
-  if ((now - MANIFEST_LAST_CHECKED) > (+process.env.STAT_TTL || 0)) {
-    MANIFEST_LAST_CHECKED = now;
-
-    let stats = fs.statSync(REV_MANIFEST_PATH);
-    if (stats.mtime > MANIFEST_MTIME) {
-      MANIFEST_MTIME = stats.mtime;
-      MANIFEST_SIGNAUTRES = JSON.parse(fs.readFileSync(REV_MANIFEST_PATH));
-    }
-  }
-
-  if (!MANIFEST_SIGNAUTRES[manifest]) {
+  if (!signatures[manifest]) {
     throw new Error('no such manifest: ' + manifest);
   }
 
-  return path.join('/static/build/', MANIFEST_SIGNAUTRES[manifest]);
+  return DBDefs.STATIC_RESOURCES_LOCATION + '/' + signatures[manifest];
+}
+
+let pathTo;
+
+if (isNodeJS) {
+  let MANIFEST_MTIME = 0;
+  let MANIFEST_LAST_CHECKED = 0;
+  let MANIFEST_SIGNAUTRES = {};
+  const REV_MANIFEST_PATH = path.join(__dirname, 'build/rev-manifest.json');
+
+  pathTo = function (manifest) {
+    let now = Date.now();
+
+    if ((now - MANIFEST_LAST_CHECKED) > (+process.env.STAT_TTL || 0)) {
+      MANIFEST_LAST_CHECKED = now;
+
+      let stats = fs.statSync(REV_MANIFEST_PATH);
+      if (stats.mtime > MANIFEST_MTIME) {
+        MANIFEST_MTIME = stats.mtime;
+        MANIFEST_SIGNAUTRES = JSON.parse(fs.readFileSync(REV_MANIFEST_PATH));
+      }
+    }
+
+    return _pathTo(manifest, MANIFEST_SIGNAUTRES);
+  };
+} else {
+  pathTo = function (manifest) {
+    return _pathTo(manifest, require('./build/rev-manifest.json'));
+  };
 }
 
 function js(manifest) {
-  return <script src={pathTo(manifest + '.js')}></script>;
+  return <script src={pathTo('scripts/' + manifest + '.js')}></script>;
 }
 
 function css(manifest) {
-  return <link rel="stylesheet" type="text/css" href={pathTo(manifest + '.css')} />;
+  return <link rel="stylesheet" type="text/css" href={pathTo('styles/' + manifest + '.css')} />;
 }
 
 exports.js = js;
 exports.css = css;
+exports.pathTo = pathTo;

@@ -41,6 +41,7 @@ test 'browse labels via release' => sub {
                     disambiguation => "",
                     "label-code" => JSON::null,
                     ipis => [],
+                    isnis => [],
                 }]
         };
 };

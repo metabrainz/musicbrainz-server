@@ -42,7 +42,7 @@
                 },
                 controlsBubble: $root.releaseGroupBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+            <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
           </span>
         </td>
       </tr>
@@ -179,7 +179,7 @@
                 },
                 controlsBubble: $root.labelBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+            <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>

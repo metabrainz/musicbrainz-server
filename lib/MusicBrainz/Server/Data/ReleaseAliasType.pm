@@ -7,11 +7,9 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 with 'MusicBrainz::Server::Data::Role::AliasType';
 
-sub _id_cache_prefix { 'release_alias_type' }
-
 sub _table { 'release_alias_type' }
 
-sub _type { 'release' }
+sub _type { 'release_alias_type' }
 
 __PACKAGE__->meta->make_immutable;
 

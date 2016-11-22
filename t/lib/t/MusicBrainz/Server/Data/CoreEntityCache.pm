@@ -36,8 +36,7 @@ with 't::Context' => { -excludes => '_build_context' };
     extends 't::CoreEntityCache::MyEntityData';
     with 'MusicBrainz::Server::Data::Role::CoreEntityCache';
     sub _type { 'my_cached_entity_data' }
-    has '+_id_cache_id' => ( default => 1 );
-    has '+_id_cache_prefix' => ( default => 'prefix' );
+    sub _cache_id { 1 }
 
     package t::CoreEntityCache::MockCache;
     use Moose;
@@ -64,7 +63,7 @@ sub _build_context {
             test => {
                 class => 't::CoreEntityCache::MockCache',
                 wrapped => 1,
-                keys => ['prefix'],
+                keys => ['my_cached_entity_data'],
             },
         },
         default_profile => 'test',
@@ -84,8 +83,8 @@ is ( $entity_data->get_by_gid_called, 1 );
 is ( $entity_data->get_by_id_called, 0 );
 is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 2 );
-ok ( $test->c->cache->_orig->data->{'prefix:1'} =~ '1' );
-ok ( $test->c->cache->_orig->data->{'prefix:abc'} =~ '1' );
+ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:1'} =~ '1' );
+ok ( $test->c->cache->_orig->data->{'my_cached_entity_data:abc'} =~ '1' );
 
 
 $entity_data->get_by_gid_called(0);
@@ -106,7 +105,7 @@ $entity_data->get_by_id_called(0);
 $test->c->cache->_orig->get_called(0);
 $test->c->cache->_orig->set_called(0);
 
-delete $test->c->cache->_orig->data->{'prefix:1'};
+delete $test->c->cache->_orig->data->{'my_cached_entity_data:1'};
 
 $entity = $entity_data->get_by_gid('abc');
 is ( $entity->id, 1 );
@@ -119,6 +118,10 @@ is ( $test->c->cache->_orig->set_called, 2 );
 };
 
 test 'Cache is transactional (MBS-7241)' => sub {
+    # See http://blogs.perl.org/users/aristotle/2016/05/coro-vs-5022.html
+    plan skip_all => 'Coro is broken in Perl 5.22+';
+
+<<'IGNORE'
     # This test is of limited usefulness, since it only tests a *single* point
     # in the transaction where an entity might be requested. But it at least
     # detects cases where there is *no* transactionality, i.e. the situation we
@@ -177,6 +180,7 @@ EOSQL
     *MusicBrainz::Server::Data::Artist::_delete_from_cache = $_delete_from_cache;
     $c1->connector->disconnect;
     $c2->connector->disconnect;
+IGNORE
 };
 
 1;

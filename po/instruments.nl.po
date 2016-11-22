@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 15:51+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-11-19 14:08+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -496,7 +496,7 @@ msgstr "bin-sasara"
 #: DB:instrument/name:801
 msgctxt "wooden natural horn"
 msgid "birch lur"
-msgstr ""
+msgstr "näverlur"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -553,7 +553,7 @@ msgstr "koperblazers"
 #: DB:instrument/name:800
 msgctxt "bronze age natural horn"
 msgid "bronze lur"
-msgstr ""
+msgstr "bronselur"
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -626,7 +626,7 @@ msgstr "cello"
 #: DB:instrument/name:794
 msgctxt "an electric piano with reeds."
 msgid "cembalet"
-msgstr ""
+msgstr "cembalet"
 
 #: DB:instrument/name:335
 msgid "chacha"
@@ -651,7 +651,7 @@ msgstr "kamerorgel"
 #: DB:instrument/name:260
 msgctxt "An electromechanical piano"
 msgid "chamberlin"
-msgstr ""
+msgstr "chamberlin"
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -1246,12 +1246,12 @@ msgstr "ghatam"
 #: DB:instrument/name:802
 msgctxt "medieval lute-like guitar forerunner"
 msgid "gittern"
-msgstr ""
+msgstr "gittern"
 
 #: DB:instrument/name:796
 msgctxt "Elguitar/bass effect device"
 msgid "gizmo"
-msgstr ""
+msgstr "gizmo"
 
 #: DB:instrument/name:285
 msgid "glass harmonica"
@@ -1320,7 +1320,7 @@ msgstr "gitaarsynthesizer"
 #: DB:instrument/name:795
 msgctxt "an electric lamellophone"
 msgid "guitaret"
-msgstr ""
+msgstr "guitaret"
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1800,7 +1800,7 @@ msgstr "mellofoon"
 #: DB:instrument/name:132
 msgctxt "An electromechanical piano"
 msgid "mellotron"
-msgstr ""
+msgstr "mellotron"
 
 #: DB:instrument/name:44
 msgid "melodica"
@@ -2035,7 +2035,7 @@ msgstr "pi nai"
 #: DB:instrument/name:793
 msgctxt "An electromechanical piano"
 msgid "pianet"
-msgstr ""
+msgstr "pianet"
 
 #: DB:instrument/name:137
 msgid "piano"
@@ -2276,7 +2276,7 @@ msgstr "baroktrombone"
 
 #: DB:instrument/name:804
 msgid "saduk"
-msgstr ""
+msgstr "saduk"
 
 #: DB:instrument/name:583
 msgid "samba whistle"
@@ -2501,12 +2501,12 @@ msgstr "spilåpipa"
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
-msgstr ""
+msgstr "spinet"
 
 #: DB:instrument/name:799
 msgctxt "extralong spinet with deep bass register"
 msgid "spinettone"
-msgstr ""
+msgstr "spinettone"
 
 #: DB:instrument/name:160
 msgid "spoons"
@@ -2959,7 +2959,7 @@ msgstr "vedel"
 #: DB:instrument/name:262
 msgctxt "Spanish string instrument."
 msgid "vihuela"
-msgstr ""
+msgstr "vihuela"
 
 #: DB:instrument/name:63
 msgid "viola"

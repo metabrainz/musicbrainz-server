@@ -19,9 +19,8 @@ use Test::More;
     use Moose;
     extends 'MyEntityData';
     with 'MusicBrainz::Server::Data::Role::EntityCache';
-    has '+_id_cache_id' => ( default => 1 );
-    has '+_id_cache_prefix' => ( default => 'prefix' );
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
+    sub _cache_id { 1 }
 
     package MockCache;
     use Moose;
@@ -53,7 +52,7 @@ sub _build_context {
             test => {
                 class => 'MockCache',
                 wrapped => 1,
-                keys => ['prefix'],
+                keys => ['my_entity_data'],
             },
         },
         default_profile => 'test',
@@ -73,7 +72,7 @@ is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 1 );
-ok ( $test->c->cache->_orig->data->{'prefix:1'} =~ 'data' );
+ok ( $test->c->cache->_orig->data->{'my_entity_data:1'} =~ 'data' );
 
 
 $entity_data->get_called(0);
@@ -87,13 +86,13 @@ is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 0 );
 
 
-delete $test->c->cache->_orig->data->{'prefix:1'};
+delete $test->c->cache->_orig->data->{'my_entity_data:1'};
 $entity = $entity_data->get_by_id(1);
 is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $test->c->cache->_orig->get_called, 1 );
 is ( $test->c->cache->_orig->set_called, 1 );
-ok ( $test->c->cache->_orig->data->{'prefix:1'} =~ 'data' );
+ok ( $test->c->cache->_orig->data->{'my_entity_data:1'} =~ 'data' );
 
 };
 

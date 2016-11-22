@@ -48,11 +48,12 @@ sub run {
     my ($self, @args) = @_;
     die "Usage error ($0 takes no arguments)" if @args;
 
-    my $r = $self->c->redis;
+    my $store = $self->c->store;
+    my $r = $store->_connection;
     my $now = time + 5; # five seconds grace period for server differences
 
-    printf "Fetching entries from database; prefix used is \"%s\".\n", $r->prefix if $self->verbose;
-    my @keys = $r->_connection->keys($r->prefix . "expires:*");
+    printf "Fetching entries from database; prefix used is \"%s\".\n", $store->_namespace if $self->verbose;
+    my @keys = $r->_connection->keys($store->_namespace . "expires:*");
         # KEYS is very heavy, but our current Redis doesn't have SCAN
     my $considered = scalar @keys;
     if ($considered == 0) {

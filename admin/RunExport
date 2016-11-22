@@ -6,9 +6,10 @@ set -o errexit
 echo "Disk space when RunExport starts:" ; df -m
 trap 'echo "Disk space when RunExport ends:" ; df -m' 0
 
-mb_server=`dirname $0`/..
-eval `$mb_server/admin/ShowDBDefs`
-cd $mb_server
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
 
 . ./admin/functions.sh
 make_temp_dir
@@ -32,20 +33,22 @@ fi
 mkdir -m "$BACKUP_DIR_MODE" -p \
     "$BACKUP_DIR"/fullexport/ \
     "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$BACKUP_DIR"/replication
+    "$BACKUP_DIR"/replication/{daily,weekly}
 chown "$BACKUP_USER:$BACKUP_GROUP" \
     "$BACKUP_DIR"/fullexport/ \
     "$BACKUP_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$BACKUP_DIR"/replication
+    "$BACKUP_DIR"/replication \
+    "$BACKUP_DIR"/replication/{daily,weekly}
 
 mkdir -m "$FTP_DIR_MODE" -p \
     "$FTP_DATA_DIR"/fullexport/ \
     "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$FTP_DATA_DIR"/replication
+    "$FTP_DATA_DIR"/replication/{daily,weekly}
 chown "$FTP_USER:$FTP_GROUP" \
     "$FTP_DATA_DIR"/fullexport/ \
     "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
-    "$FTP_DATA_DIR"/replication
+    "$FTP_DATA_DIR"/replication \
+    "$FTP_DATA_DIR"/replication/{daily,weekly}
 
 echo `date`" : Making database snapshot"
 ./admin/ExportAllTables \
@@ -53,7 +56,7 @@ echo `date`" : Making database snapshot"
     --with-replication \
     --output-dir "$TEMP_DIR" \
     --compress \
-    --replication-callback "$mb_server/admin/CopyReplication $TEMP_DIR" \
+    --replication-callback "$MB_SERVER_ROOT/admin/CopyReplication $TEMP_DIR" \
     || exit $?
 
 if [ "$WITH_FULL_EXPORT" ]
@@ -87,10 +90,8 @@ then
     chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/LATEST
     chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/LATEST
 
-    $mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
-    $mb_server/bin/rsync-fullexport-files
+    ./bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
+    ./bin/rsync-fullexport-files
 fi
-
-$mb_server/bin/rsync-replication-files
 
 # eof
