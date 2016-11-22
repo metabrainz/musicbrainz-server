@@ -12,6 +12,7 @@
 # Héctor Arroyo <email address hidden>, 2012
 # Ismael Olea <email address hidden>, 2013-2015
 # Juan Acuña <email address hidden>, 2016
+# Kevin Doncam Demian López Brante <email address hidden>, 2016
 # Kevin López Brante <email address hidden>, 2015
 # Marta PD <email address hidden>, 2014
 # Mathias Gonzalez <email address hidden>, 2015
@@ -25,8 +26,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-10-26 00:30+0000\n"
+"Last-Translator: Kevin Doncam Demian López Brante <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,7 +172,7 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions"
 " intended to improve the audience members' playing skills."
-msgstr ""
+msgstr "Una clase magistral u clínica es un evento donde un artista se reúne con una audiencia de tamaño pequeño o mediano y les instruye individualmente y/o recibe preguntas con el propósito de mejorar las habilidades musicales de la audiencia."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -183,7 +184,7 @@ msgctxt "work_type"
 msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
-msgstr ""
+msgstr "Una partita es una pieza instrumental compuesta por una serie de variaciones, y por definición es muy similar a una suite."
 
 #: DB:event_type/description:3
 msgctxt "event_type"

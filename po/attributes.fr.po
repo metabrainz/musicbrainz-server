@@ -25,7 +25,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 10:30+0000\n"
+"PO-Revision-Date: 2016-11-06 10:00+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -52,52 +52,52 @@ msgstr "« Sonate » est un terme général utilisé pour décrire de petites 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr "Shellac 10 po"
+msgstr "Shellac 25 cm (10 po)"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "Vinyle 10 po"
+msgstr "Vinyle 25 cm (10 po)"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr "Shellac 12 po"
+msgstr "Shellac 30 cm (12 po)"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "Vinyle 12 po"
+msgstr "Vinyle 30 cm (12 po)"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "Disquette 3,5 po"
+msgstr "Disquette 3,5 po (90 mm)"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr "Flexi-disque 7 po"
+msgstr "Flexi-disque 18 cm (7 po)"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr "Shellac 7 po"
+msgstr "Shellac 18 cm (7 po)"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "Vinyle 7 po"
+msgstr "Vinyle 18 cm (7 po)"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr "CD 8 cm"
+msgstr "CD 8 cm (3 po)"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr "CD+G 8 cm"
+msgstr "CD+G 8 cm (3 po)"
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -212,7 +212,7 @@ msgctxt "place_type"
 msgid ""
 "A place that has live artistic performances as one of its primary functions,"
 " such as a concert hall."
-msgstr "Un lieu offrant des représentations artistiques sur scène comme l’une de ses fonctions principales, comme une salle de concert."
+msgstr "Un lieu offrant des représentations artistiques en public comme l’une de ses fonctions principales, comme une salle de concert."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -3095,7 +3095,7 @@ msgstr "Pochette"
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "Sur scène"
+msgstr "En public"
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -4637,7 +4637,7 @@ msgstr "Sindhumandāri"
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr "Simple"
+msgstr "Single"
 
 #: DB:work_attribute_type_allowed_value/value:533
 msgctxt "work_attribute_type_allowed_value"

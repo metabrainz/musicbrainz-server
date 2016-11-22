@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-11-19 14:47+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -613,7 +613,7 @@ msgstr "Dzongkha"
 #. frequency:1 iso_code_3:aer
 #: DB:language/name:584
 msgid "Eastern Arrernte"
-msgstr ""
+msgstr "Oost-Arrernte"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
@@ -883,12 +883,12 @@ msgstr "Gujarati"
 #. frequency:1 iso_code_3:gnn
 #: DB:language/name:2511
 msgid "Gumatj"
-msgstr ""
+msgstr "Gumatj"
 
 #. frequency:1 iso_code_3:guf
 #: DB:language/name:2581
 msgid "Gupapuyngu"
-msgstr ""
+msgstr "Gupapuyngu"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
@@ -1853,7 +1853,7 @@ msgstr "Foenicisch"
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
-msgstr ""
+msgstr "Pitjantjatjara"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2193,7 +2193,7 @@ msgstr "Zuid-Altai"
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
-msgstr ""
+msgstr "Zuid-Kiwai"
 
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
@@ -2503,7 +2503,7 @@ msgstr "Waray"
 #. frequency:1 iso_code_3:wbp
 #: DB:language/name:7009
 msgid "Warlpiri"
-msgstr ""
+msgstr "Warlpiri"
 
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
@@ -2518,7 +2518,7 @@ msgstr "Welsh"
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
-msgstr ""
+msgstr "West- Arrarnta"
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452

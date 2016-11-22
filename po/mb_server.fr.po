@@ -43,7 +43,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-10-21 05:14+0000\n"
+"PO-Revision-Date: 2016-11-14 11:25+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -410,7 +410,7 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
-msgstr "Un coupon de CD correspondant à l’ID que vous avez fourni a été trouvé. Si la liste de pistes ci-dessous semble correcte, vous pourriez l’utiliser comme point de départ d’une nouvelle parution MusicBrainz."
+msgstr "Une ébauche de CD correspondant à l’ID que vous avez fourni a été trouvée. Si la liste de pistes ci-dessous semble correcte, vous pourriez l’utiliser comme point de départ d’une nouvelle parution MusicBrainz."
 
 #: ../root/place/map.tt:5
 msgid "A map cannot be shown because this place has no coordinates."
@@ -547,7 +547,7 @@ msgstr "Ajouter un artiste"
 
 #: ../root/cdstub/logged_in.tt:1 ../root/cdstub/logged_in.tt:2
 msgid "Add CD Stub"
-msgstr "Ajouter un coupon de CD"
+msgstr "Ajouter une ébauche de CD"
 
 #: ../root/release/cover_art.tt:52
 msgctxt "button/menu"
@@ -1353,7 +1353,7 @@ msgstr "Artiste introuvable"
 
 #: ../root/user/subscriptions/artist.tt:1 ../root/user/subscriptions/menu.tt:3
 msgid "Artist Subscriptions"
-msgstr "Abonnement à cet artiste"
+msgstr "Abonnements à des artistes"
 
 #: ../root/report/annotations_artists.tt:1
 #: ../root/report/annotations_artists.tt:3
@@ -1510,7 +1510,7 @@ msgstr[1] "Associé à {num} œuvres"
 #: ../root/cdtoc/attach_filter_release.tt:55
 msgctxt "button/menu"
 msgid "Attach CD TOC"
-msgstr "Attacher un index de CD"
+msgstr "Attacher une TOC (table des matières) de CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4 ../root/cdtoc/attach_confirm.tt:1
@@ -1520,7 +1520,7 @@ msgstr "Attacher un index de CD"
 #: ../root/cdtoc/attach_filter_release.tt:4
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr "Attacher un index de CD"
+msgstr "Attacher une TOC (table des matières) de CD"
 
 #: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:376
 msgid "Attach Disc ID"
@@ -1685,7 +1685,7 @@ msgstr "Code-barres :"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "D’après le coupon de CD, nous avons aussi trouvé les parutions suivantes dans MusicBrainz qui pourraient être liées :"
+msgstr "D’après l’ébauche de CD, nous avons aussi trouvé les parutions suivantes dans MusicBrainz qui pourraient être liées :"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -1844,50 +1844,50 @@ msgstr "CD introuvable"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
 #: ../root/layout/components/Search.js:20
 msgid "CD Stub"
-msgstr "Coupon de CD"
+msgstr "Ébauche de CD"
 
 #: ../root/cdstub/error.tt:2
 msgid "CD Stub Not Found"
-msgstr "Coupon de CD introuvable"
+msgstr "Ébauche de CD introuvable"
 
 #: ../root/cdtoc/lookup.tt:18
 msgid "CD Stub found"
-msgstr "Coupon de CD trouvé"
+msgstr "Ébauche de CD trouvée"
 
 #: ../root/cdtoc/not_found.tt:1 ../root/cdtoc/not_found.tt:2
 msgid "CD TOC Not Found"
-msgstr "Index de CD introuvable"
+msgstr "TOC (table des matières) de CD introuvable"
 
 #: ../root/cdtoc/info.tt:1
 msgid "CD TOC details"
-msgstr "Détails de l’index du CD"
+msgstr "Détails de la TOC (table des matières) du CD"
 
 #: ../root/edit/details/historic/add_disc_id.tt:13
 msgid "CD TOC:"
-msgstr "Index du CD :"
+msgstr "TOC (table des matières) du CD :"
 
 #: ../root/cdstub/header.tt:5
 msgid "CD stub by {artist}"
-msgstr "Coupon de CD par {artist}"
+msgstr "Ébauche de CD par {artist}"
 
 #: ../root/cdstub/edit_form.tt:4
 msgid "CD stub details"
-msgstr "Détails du coupon de CD"
+msgstr "Détails de l’ébauche de CD"
 
 #: ../root/release/edit/tracklist.tt:224
 msgid "CD stub import"
-msgstr "Importation d’un coupon de CD"
+msgstr "Importation d’une ébauche de CD"
 
 #: ../root/cdstub/layout.tt:2
 msgid "CD stub “{title}” by {artist}"
-msgstr "Coupon de CD « {title} » par {artist}"
+msgstr "Ébauche de CD « {title} » par {artist}"
 
 #: ../root/cdstub/logged_in.tt:7
 msgid ""
 "CD stubs are a feature to allow anonymous users to submit data to "
 "MusicBrainz. For more information, see {cdstub|the documentation on CD "
 "stubs}."
-msgstr "Les coupon de CD sont une fonction permettant à des utilisateurs anonymes d’envoyer des données à MusicBrainz. Pour plus d’information, consultez {cdstub|la documentation sur les coupons de CD}."
+msgstr "Les ébauches de CD sont une fonction permettant à des utilisateurs anonymes d’envoyer des données à MusicBrainz. Pour plus d’information, consultez {cdstub|la documentation sur les ébauches de CD}."
 
 #: ../root/account/edit_application.tt:10
 #: ../root/account/register_application.tt:10
@@ -2123,7 +2123,7 @@ msgstr "Collection introuvable"
 #: ../root/user/subscriptions/collection.tt:1
 #: ../root/user/subscriptions/menu.tt:4
 msgid "Collection Subscriptions"
-msgstr "Abonnements aux collections"
+msgstr "Abonnements à des collections"
 
 #: ../root/collection/edit_form.tt:4
 msgid "Collection details"
@@ -2186,7 +2186,7 @@ msgstr "Nous contacter"
 
 #: ../root/components/wikipedia_extract.tt:6
 msgid "Continue reading at Wikipedia..."
-msgstr "Lire la suite sur Wikipedia..."
+msgstr "Lire la suite sur Wikipédia..."
 
 #: ../root/place/edit_form.tt:29
 msgid "Coordinates"
@@ -2862,7 +2862,7 @@ msgstr "Éditeur introuvable"
 
 #: ../root/user/subscriptions/editor.tt:1 ../root/user/subscriptions/menu.tt:7
 msgid "Editor Subscriptions"
-msgstr "Abonnements de l’éditeur"
+msgstr "Abonnements à des éditeurs"
 
 #: ../root/user/profile/layout.tt:1
 msgid "Editor “{user}”"
@@ -3382,7 +3382,7 @@ msgstr[1] "Trouvé dans {num} collections d’utilisateurs"
 
 #: ../root/release/lookup.tt:4
 msgid "Found more than one match for the CD with TOC {toc}: "
-msgstr "J’ai trouvé plus d’une correspondance pour le CD ayant l’index {toc} : "
+msgstr "J’ai trouvé plus d’une correspondance pour le CD ayant la TOC (table des matières) {toc} : "
 
 #: ../root/edit/list.tt:33
 msgid "Found {n} edit"
@@ -3468,7 +3468,7 @@ msgstr "L’image de couverture n’a pu se charger correctement.<br/>{all|Voir 
 
 #: ../root/cdstub/index.tt:30 ../root/cdtoc/info.tt:5
 msgid "Full TOC:"
-msgstr "Index complet :"
+msgstr "TOC (table des matières) complète :"
 
 #: ../root/components/artists-list.tt:7
 #: ../root/search/lib/inline-results-artist.tt:10
@@ -3872,7 +3872,7 @@ msgstr "Si vous ne voyez pas l’artiste que vous cherchez, vous pouvez créer u
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr "Si vous ne voyez pas la parution que vous cherchez, vous pouvez en créer une nouvelle, en utilisant cet index de CD :"
+msgstr "Si vous ne voyez pas la parution que vous cherchez, vous pouvez en créer une nouvelle, en utilisant cette TOC (table des matières) de CD :"
 
 #: ../root/taglookup/nag.tt:18
 msgid ""
@@ -3942,11 +3942,11 @@ msgstr "Importer"
 #: ../root/cdstub/import.tt:1 ../root/cdstub/import.tt:2
 #: ../root/cdtoc/lookup.tt:25
 msgid "Import CD Stub"
-msgstr "Importer un coupon de CD"
+msgstr "Importer une ébauche de CD"
 
 #: ../root/cdstub/import.tt:41
 msgid "Import CD stub"
-msgstr "Importer un coupon de CD"
+msgstr "Importer une ébauche de CD"
 
 #: ../root/freedb/show.tt:53
 msgid "Import as Multiple Artist Release"
@@ -4143,7 +4143,7 @@ msgstr "Label introuvable"
 
 #: ../root/user/subscriptions/label.tt:1 ../root/user/subscriptions/menu.tt:5
 msgid "Label Subscriptions"
-msgstr "Abonnements au label"
+msgstr "Abonnements à des labels"
 
 #: ../root/report/annotations_labels.tt:1
 #: ../root/report/annotations_labels.tt:3
@@ -4228,7 +4228,7 @@ msgstr "Langue : {language}, système d’écriture : {script}"
 
 #: ../root/account/edit.tt:51
 msgid "Languages Known:"
-msgstr "Langues connus :"
+msgstr "Langues connues :"
 
 #: ../root/user/profile.tt:137
 msgid "Languages:"
@@ -4255,7 +4255,7 @@ msgstr "Dernière modification"
 
 #: ../root/user/profile.tt:96
 msgid "Last login:"
-msgstr "Dernière connexion:"
+msgstr "Dernière connexion :"
 
 #: ../root/cdstub/layout.tt:15
 msgid "Last modified:"
@@ -4316,7 +4316,7 @@ msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Comme Wikipedia, MusicBrainz est maintenu par une communauté mondiale d’utilisateurs et nous souhaitons que tout le monde &#x2014; vous y compris &#x2014; {doc|participe et contribue}."
+msgstr "Comme Wikipédia, MusicBrainz est maintenu par une communauté mondiale d’utilisateurs et nous souhaitons que tout le monde &#x2014; vous y compris &#x2014; {doc|participe et contribue}."
 
 #: ../root/user/profile.tt:58
 msgid "Limited User"
@@ -4783,7 +4783,7 @@ msgstr "MusicBrainz croit fermement au respect de la vie privée de ses utilisat
 
 #: ../root/cdtoc/lookup.tt:84
 msgid "MusicBrainz does not have any CDs with the TOC:"
-msgstr "MusicBrainz n’a aucun CD avec l’index :"
+msgstr "MusicBrainz n’a aucun CD avec la TOC (table des matières) :"
 
 #: ../root/layout/header/bottom.tt:69
 #: ../root/layout/components/BottomMenu.js:126
@@ -5083,7 +5083,7 @@ msgstr "Aucun label trouvé avec ce tag."
 
 #: ../root/release/lookup.tt:33
 msgid "No matching CDs were found for TOC {toc}."
-msgstr "Aucun CD n’a été trouvé ayant l’index {toc}."
+msgstr "Aucun CD n’a été trouvé ayant la TOC (table des matières) {toc}."
 
 #: ../root/admin/edit_user.tt:17
 msgid "No nag"
@@ -5721,7 +5721,7 @@ msgstr "Veuillez choisir le crédit que vous voulez renommer pour suivre le nouv
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr "Veuillez choisir le support que vous souhaitez attacher à cet Index de CD."
+msgstr "Veuillez choisir le support que vous souhaitez attacher à cette TOC (table des matières) de CD."
 
 #: ../root/main/rate_limited.tt:6
 msgid "Please slow down and then try again"
@@ -6531,7 +6531,7 @@ msgstr "Parutions avec des relations d’illustration."
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
-msgstr "Parutions avec un support simple qui a un nom"
+msgstr "Parutions avec un seul support qui a un nom"
 
 #: ../root/report/index.tt:93
 msgid "Releases with annotations"
@@ -7398,7 +7398,7 @@ msgstr "Des erreurs ont été détectées dans les données que vous avez saisie
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr "Désolé, <code>{discid}</code> ne correspond à aucun coupon de CD. Vous pouvez plutôt essayer {search_url|d’en chercher un}."
+msgstr "Désolé, <code>{discid}</code> ne correspond à aucune ébauche de CD. Vous pouvez plutôt essayer {search_url|d’en chercher un}."
 
 #: ../root/cdstub/error.tt:19
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
@@ -7549,7 +7549,7 @@ msgstr "Désolé, nous n’avons pas trouvé d’instrument avec cet ID MusicBra
 
 #: ../root/cdtoc/not_found.tt:4
 msgid "Sorry, we could not find the CD TOC you specified."
-msgstr "Désolé, nous n’avons pas trouvé l’index de CD spécifié."
+msgstr "Désolé, nous n’avons pas trouvé la TOC (table des matières) de CD spécifiée."
 
 #: ../root/elections/not_found.tt:4
 msgid "Sorry, we could not find this election."
@@ -8870,7 +8870,7 @@ msgid ""
 "artist has an album and single with the same name, then there is usually no "
 "need to change anything. In other cases, a disambiguation comment may be "
 "helpful."
-msgstr "Ce rapport liste des groupes de parution ayant des noms et des artistes très semblables. Si les parutions dans les groupes de parution devraient être regroupées ( voir les {url|directives}), elles peuvent être fusionnées. Si elles ne devraient pas être regroupées mais qu’elles peuvent être distinguées par leur type de groupe de parution, p. ex. si un artiste à un album et un simple portant le même nom, il n’y a habituellement rien à changer. Dans les autres cas, un commentaire de désambiguïsation pourrait être utile."
+msgstr "Ce rapport liste des groupes de parution ayant des noms et des artistes très semblables. Si les parutions dans les groupes de parution devraient être regroupées ( voir les {url|directives}), elles peuvent être fusionnées. Si elles ne devraient pas être regroupées mais qu’elles peuvent être distinguées par leur type de groupe de parution, p. ex. si un artiste à un album et un single portant le même nom, il n’y a habituellement rien à changer. Dans les autres cas, un commentaire de désambiguïsation pourrait être utile."
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -9046,7 +9046,7 @@ msgid ""
 "This report shows releases that have a single medium, where this medium also"
 " has a specific name. Usually, this is not necessary and is duplicate "
 "information which can be removed."
-msgstr "Ce rapport montre les parutions sur support simple pour lesquelles le support a aussi un nom spécifique. Habituellement ceci n’est pas nécessaire et est de l’information en double qui sera enlevée."
+msgstr "Ce rapport montre les parutions sur support unique pour lesquelles le support a aussi un nom spécifique. Habituellement ceci n’est pas nécessaire et est de l’information en double qui sera enlevée."
 
 #: ../root/report/releases_with_unlikely_language_script.tt:6
 msgid ""
@@ -9297,7 +9297,7 @@ msgstr "Pour aider aux tests, les fonctions suivantes sont maintenant proposées
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub or FreeDB, select the appropriate tab."
-msgstr "Afin de créer une nouvelle liste de pistes, utiliser un support existant ou importer un disque à partir d’un coupon de CD ou de FreeDB, sélectionnez l’onglet approprié."
+msgstr "Afin de créer une nouvelle liste de pistes, utiliser un support existant ou importer un disque à partir d’une ébauche de CD ou de FreeDB, sélectionnez l’onglet approprié."
 
 #: ../root/release/edit/information.tt:99
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -9328,7 +9328,7 @@ msgstr "À :"
 #: ../root/layout/header/bottom.tt:106
 #: ../root/layout/components/BottomMenu.js:165
 msgid "Top CD Stubs"
-msgstr "Les premiers coupons de CD"
+msgstr "Les premières ébauches de CD"
 
 #: ../root/report/isrc_with_many_recordings.tt:14
 msgid "Total ISRCs found: {count}"
@@ -9796,7 +9796,7 @@ msgstr "Utilisez notre <strong>service Web XML</strong> ou nos <strong>biblioth�
 
 #: ../root/release/edit/tracklist.tt:238
 msgid "Use the following fields to search for a CD stub."
-msgstr "Utiliser les champs suivants pour chercher un coupon de CD."
+msgstr "Utilisez les champs suivants pour chercher une ébauche de CD."
 
 #: ../root/release/edit/tracklist.tt:243
 msgid "Use the following fields to search for a FreeDB entry."
@@ -10163,7 +10163,7 @@ msgstr "WikiDoc :"
 
 #: ../root/components/wikipedia_extract.tt:2
 msgid "Wikipedia"
-msgstr "Wikipedia"
+msgstr "Wikipédia"
 
 #: ../root/components/wikipedia_extract.tt:7
 msgid ""
@@ -10456,7 +10456,7 @@ msgstr "Vous pouvez choisir ici le niveau que vous préférez : votre pays, rég
 msgid ""
 "You cannot add a CD stub while logged in to MusicBrainz. Please {add_rel|add"
 " a new release instead}."
-msgstr "Vous ne pouvez pas ajouter un coupon de CD tant que vous êtes connecté à MusicBrainz. Veuillez {add_rel|plutôt ajouter une nouvelle parution}."
+msgstr "Vous ne pouvez pas ajouter une ébauche de CD pendant que vous êtes connecté à MusicBrainz. Veuillez {add_rel|plutôt ajouter une nouvelle parution}."
 
 #: ../root/admin/attributes/in_use.tt:3
 msgid "You cannot remove the attribute \"{name}\" because it is still in use."
@@ -11654,7 +11654,7 @@ msgstr "'{id}' n’est pas un ID d’élection valide"
 
 #: ../lib/MusicBrainz/Server/Controller/CDStub.pm:63
 msgid "The required TOC parameter was invalid or not present"
-msgstr "Le paramètre d’index obligatoire était invalide ou absent"
+msgstr "Le paramètre obligatoire TOC (table des matières) était invalide ou absent"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:112
 msgid "Please provide a medium ID"
@@ -11667,7 +11667,7 @@ msgstr "Le support n’a pu être trouvé"
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:151
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:307
 msgid "The provided CD TOC is not valid"
-msgstr "L’index de CD fournie est invalide"
+msgstr "La TOC (table des matières) de CD fournie est invalide"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
@@ -11676,7 +11676,7 @@ msgstr "L’identifiant de support n’est pas valide"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
-msgstr "Cet index CDTOC est déjà lié à ce support"
+msgstr "Cette TOC (table des matières) de CD est déjà liée à ce support"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
@@ -11760,7 +11760,7 @@ msgstr "Votre signalement a été envoyé."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:89
 msgid "Invalid TOC"
-msgstr "Index invalide"
+msgstr "TOC (table des matières) invalide"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:583
 msgid ""
@@ -11792,11 +11792,11 @@ msgstr "Toutes les pistes n’ont pas de titre"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:117
 msgid "Cannot add a CD stub with no tracks"
-msgstr "Impossible d’ajouter un coupon de CD sans piste"
+msgstr "Impossible d’ajouter une ébauche de CD sans piste"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:121
 msgid "Incomplete TOC data"
-msgstr "Données d’index de CD incomplètes"
+msgstr "Données de la TOC (table des matières) de CD incomplètes"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:125
 msgid "Missing disc ID"
@@ -11804,11 +11804,11 @@ msgstr "ID de disque manquant"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:129
 msgid "Disc ID does match parsed TOC"
-msgstr "L’ID de disque ne correspond pas à l’index lu"
+msgstr "L’ID de disque ne correspond pas à la TOC (table des matières) lue"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:133
 msgid "Number of submitted tracks does not match track count in TOC"
-msgstr "Le nombre de piste envoyées ne correspond pas au nombre de pistes dans l’index"
+msgstr "Le nombre de pistes envoyées ne correspond pas au nombre de pistes dans la TOC (table des matières)"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:137
 msgid "Invalid barcode"
@@ -11820,7 +11820,7 @@ msgstr "Une parution existe déjà pour cet ID de disque"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
 msgid "There is already a CD stub with this disc ID"
-msgstr "Il y a déjà un coupon de CD avec cet ID de disque"
+msgstr "Il y a déjà une ébauche de CD avec cet ID de disque"
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:57
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:45
@@ -11993,7 +11993,7 @@ msgstr "Modifier l’enregistrement"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:12
 msgid "Convert release to single artist (historic)"
-msgstr "Convertir la parution vers un artiste simple (historique)"
+msgstr "Convertir la parution vers un seul artiste (historique)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
@@ -12883,7 +12883,7 @@ msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr "Un simple est typiquement constitué d’une chanson principale parfois accompagnée de pistes additionnelles ou de remix de la principale. Un simple porte habituellement le nom de la chanson principale."
+msgstr "Un single est typiquement constitué d’une chanson principale parfois accompagnée de pistes additionnelles ou de remix de la principale. Un single porte habituellement le nom de la chanson principale."
 
 #: ../lib/MusicBrainz/Server/Release.pm:60
 msgid ""
