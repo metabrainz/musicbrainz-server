@@ -39,6 +39,8 @@ my $constant_now = wrap 'DateTime::now', post => sub {
     );
 };
 
+# FIXME: Split these tests and make them independent of each other
+
 # testing ->age with exact dates
 $artist->begin_date->year  (1976);
 $artist->begin_date->month(7);
@@ -46,6 +48,7 @@ $artist->begin_date->day   (23);
 $artist->end_date->year  (1976);
 $artist->end_date->month(7);
 $artist->end_date->day   (24);
+$artist->ended(1);
 my @got = $artist->age;
 is_deeply ( \@got, [0, 0, 1], "Artist age 1 day" );
 
@@ -75,6 +78,7 @@ is( ($artist->age)[0], 24, "Artist still alive, age 24 years" );
 # testing ->age with partial dates
 $artist->begin_date->year  (2010);
 $artist->end_date->year  (2012);
+$artist->ended(1);
 @got = $artist->age;
 is_deeply( \@got, [2, 0, 0], "Artist with partial dates, age 1 year" );
 
@@ -91,6 +95,9 @@ $artist->begin_date->day(31);
 @got = $artist->age;
 is_deeply ( \@got, [1, 0, 1], "Artist with partial dates, age 1 day" );
 
+$artist->end_date->year(undef);
+ok(!$artist->has_age, "No age for ended artist without end year");
+
 # testing ->age with negative years
 $artist->begin_date->year  (-551);
 $artist->begin_date->month(9);
@@ -98,6 +105,7 @@ $artist->begin_date->day   (28);
 $artist->end_date->year  (-479);
 $artist->end_date->month(4);
 $artist->end_date->day   (11);
+$artist->ended(1);
 ok( !$artist->has_age, "Do not calculate age for artists with negative years");
 
 # testing ->age with future begin dates
