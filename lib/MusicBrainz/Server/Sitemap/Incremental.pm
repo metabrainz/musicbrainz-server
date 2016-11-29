@@ -18,6 +18,7 @@ use Memoize;
 use Moose;
 use Parallel::ForkManager 0.7.6;
 use Sql;
+use Try::Tiny;
 
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Context;
@@ -481,15 +482,19 @@ sub find_entities_with_jsonld($$$$$$) {
             database => $self->database,
             fresh_connector => 1,
         );
-        my $any_updates = $self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins);
-        my $exit_code = $any_updates ? 0 : 1;
-        my $shared_data;
 
-        if ($any_updates) {
-            my @args = @_;
-            shift @args;
-            $shared_data = \@args;
-        }
+        my ($exit_code, $shared_data, @args) = (1, undef, @_);
+        try {
+            # Returns 1 if any updates occurred.
+            if ($self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins)) {
+                $exit_code = 0;
+                shift @args;
+                $shared_data = \@args;
+            }
+        } catch {
+            $exit_code = 2;
+            $shared_data = {error => $_};
+        };
 
         $new_c->connector->disconnect;
         $self->pm->finish($exit_code, $shared_data);
@@ -714,6 +719,8 @@ sub run {
 
         if ($exit_code == 0) {
             $self->follow_foreign_keys($c, @{$shared_data});
+        } elsif ($exit_code == 2) {
+            die $shared_data->{error};
         }
     });
 
