@@ -206,7 +206,7 @@ sub Create
 
             $system_sql->auto_commit;
             $system_sql->do(
-                "CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
+                "CREATE USER $username $passwordclause NOCREATEDB NOSUPERUSER",
             );
         }
     }
