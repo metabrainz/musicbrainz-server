@@ -26,7 +26,7 @@ exports.clean = _.memoize(function (linkType, backward) {
     return clean(phrase.replace(attributeRegex, function (match, name, alt) {
         var id = idsByName[name];
 
-        if (typeInfo.attributes[id].min < 1) {
+        if (id !== undefined && typeInfo.attributes[id].min < 1) {
             return (alt ? alt.split('|')[1] : '') || '';
         }
 
