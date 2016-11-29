@@ -15,6 +15,6 @@ COPY docker/scripts/start_musicbrainz_server.sh /usr/local/bin/
 
 COPY docker/templates/DBDefs.pm.ctmpl lib/
 
-RUN chown_mb(`/home/musicbrainz/log')
+RUN chown_mb(`/home/musicbrainz/log MBS_ROOT/root/static/sitemaps')
 
 git_info
