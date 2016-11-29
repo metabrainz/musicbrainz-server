@@ -24,16 +24,8 @@ fi
 
 . ./admin/functions.sh
 
-OUTPUT=`
-    ./admin/CheckVotes.pl --verbose --summary 2>&1
-` || echo "$OUTPUT"
+./admin/CheckVotes.pl --verbose --summary
 
-OUTPUT=`
-    ./admin/CheckElectionVotes.pl 2>&1
-` || echo "$OUTPUT"
+./admin/CheckElectionVotes.pl
 
-OUTPUT=`
-    ./admin/RunExport 2>&1
-` || echo "$OUTPUT"
-
-# eof
+./admin/RunExport
