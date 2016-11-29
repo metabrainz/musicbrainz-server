@@ -1,6 +1,6 @@
 m4_include(`server_base.m4')m4_dnl
 
-RUN apt_install(`libxml2')
+RUN apt_install(`libxml2 rsync')
 
 copy_common_mbs_files
 
