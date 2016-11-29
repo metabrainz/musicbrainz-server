@@ -295,7 +295,8 @@ sub build_one_sitemap {
     });
 
     if ($write_sitemap) {
-        open my $fh, '>', $local_xml_filename;
+        open(my $fh, '>', $local_xml_filename)
+            or die "Can't open sitemap: $!";
         print $fh $$data;
         close $fh;
 
@@ -363,8 +364,10 @@ sub lock_index {
     # or check if it exists (required by read_index) until a lock is acquired.
     # And we can't acquire a lock on a non-existent file.
 
-    open my $index_lock_fh, '>>', $self->index_localname . '.lock';
-    flock($index_lock_fh, LOCK_EX);
+    open(my $index_lock_fh, '>>', $self->index_localname . '.lock')
+        or die "Can't open sitemap index lock: $!";
+    flock($index_lock_fh, LOCK_EX)
+        or die "Can't lock sitemap index: $!";
     $callback->();
     close $index_lock_fh;
 }
@@ -395,7 +398,8 @@ sub write_index {
             }
         }
 
-        open my $index_fh, '>', $self->index_localname;
+        open(my $index_fh, '>', $self->index_localname)
+            or die "Can't open sitemap index: $!";
         my $data = serialize_sitemap_index($self->all_sitemaps);
         print $index_fh $$data;
         close $index_fh;
