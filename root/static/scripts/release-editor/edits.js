@@ -135,7 +135,6 @@ const ERROR_NO_CHANGES = 3;
 
         medium: function (release) {
             var edits = [];
-            var inferTrackDurations = releaseEditor.inferTrackDurationsFromRecordings();
 
             // oldPositions are the original positions for all the original
             // mediums (as they exist in the database). newPositions are all
@@ -160,10 +159,6 @@ const ERROR_NO_CHANGES = 3;
 
                     if (track.hasExistingRecording()) {
                         var newRecording = MB.edit.fields.recording(track.recording());
-
-                        if (inferTrackDurations) {
-                            trackData.length = newRecording.length || trackData.length;
-                        }
 
                         var oldRecording = track.recording.savedEditData;
 

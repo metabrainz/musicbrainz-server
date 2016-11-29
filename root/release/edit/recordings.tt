@@ -118,12 +118,6 @@
       <legend>[% l('Options') %]</legend>
       <p>
         <label>
-          <input type="checkbox" data-bind="checked: $root.inferTrackDurationsFromRecordings" />
-          [% l('Infer track durations from associated recordings') %]
-        </label>
-      </p>
-      <p>
-        <label>
           <input type="checkbox" data-bind="checked: $root.copyTrackTitlesToRecordings" />
           [% l('Copy all track titles to associated recordings.') %]
         </label>

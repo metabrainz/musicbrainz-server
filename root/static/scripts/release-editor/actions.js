@@ -299,8 +299,6 @@ const guessFeat = require('../edit/utility/guessFeat');
             });
         },
 
-        inferTrackDurationsFromRecordings: ko.observable(false),
-
         copyTrackTitlesToRecordings: ko.observable(false),
         copyTrackArtistsToRecordings: ko.observable(false)
     });
