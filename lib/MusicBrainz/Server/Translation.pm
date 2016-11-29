@@ -181,12 +181,12 @@ sub all_languages
                            map { [ $_ => DateTime::Locale->load($_) ] }
                            grep { my $l = $_;
                                   grep { $l eq $_ } DateTime::Locale->ids() }
-                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs->MB_LANGUAGES;
+                           map { s/-([a-z]{2})/-\U$1/; $_; } DBDefs->MB_LANGUAGES;
     my @lang_without_locale = sort_by { $_->[1]->{id} }
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] }
                               grep { my $l = $_;
                                      !(grep { $l eq $_ } DateTime::Locale->ids()) }
-                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs->MB_LANGUAGES;
+                              map { s/-([a-z]{2})/-\U$1/; $_; } DBDefs->MB_LANGUAGES;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;
 }

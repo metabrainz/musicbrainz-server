@@ -364,8 +364,8 @@ after dispatch => sub {
 
     my $c = $self->model('MB')->context;
     $c->connector->disconnect;
-    $c->store->_connection->quit;
-    $c->cache->_connection->quit;
+    $c->store->disconnect;
+    $c->cache->disconnect;
 };
 
 # Timeout long running requests

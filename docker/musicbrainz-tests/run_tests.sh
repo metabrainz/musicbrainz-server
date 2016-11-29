@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 source /etc/mbs_constants.sh
 
 cd "$MBS_ROOT"

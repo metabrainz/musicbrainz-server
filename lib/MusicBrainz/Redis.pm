@@ -123,6 +123,12 @@ sub expire_at {
     return;
 }
 
+sub disconnect {
+    my ($self) = @_;
+
+    $self->_connection->quit;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
