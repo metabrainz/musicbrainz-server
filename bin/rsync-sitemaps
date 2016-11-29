@@ -7,4 +7,4 @@ cd "$MB_SERVER_ROOT"
     rsync-sitemaps \
     root/static/sitemaps/ \
     ./ \
-    '--delete'
+    '--delete --recursive'

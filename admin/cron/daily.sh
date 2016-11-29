@@ -26,30 +26,30 @@ make_temp_dir
 
 # Collect stats
 echo `date`" : Collecting statistics"
-OUTPUT=`./admin/CollectStats.pl` || echo "$OUTPUT"
+./admin/CollectStats.pl
 
 DATETIME=`date +'%Y%m%d-%H%M%S'`
 
 echo `date`" : Removing unused artists"
-OUTPUT=`./admin/cleanup/RemoveEmpty artist` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty artist
 
 echo `date`" : Removing unused events"
-OUTPUT=`./admin/cleanup/RemoveEmpty event` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty event
 
 echo `date`" : Removing unused labels"
-OUTPUT=`./admin/cleanup/RemoveEmpty label` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty label
 
 echo `date`" : Removing unused places"
-OUTPUT=`./admin/cleanup/RemoveEmpty place` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty place
 
 echo `date`" : Removing unused release groups"
-OUTPUT=`./admin/cleanup/RemoveEmpty release_group` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty release_group
 
 echo `date`" : Removing unused series"
-OUTPUT=`./admin/cleanup/RemoveEmpty series` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty series
 
 echo `date`" : Removing unused works"
-OUTPUT=`./admin/cleanup/RemoveEmpty work` || echo "$OUTPUT"
+./admin/cleanup/RemoveEmpty work
 
 # Dump all the data
 # Only do this on the nominated days (0=Sun 6=Sat)
@@ -70,9 +70,7 @@ fi
 
 # Create the reports
 echo `date`" : Running reports"
-OUTPUT=`
-    nice ./admin/RunReports.pl 2>&1
-` || echo "$OUTPUT"
+nice ./admin/RunReports.pl
 
 # Add missing track lengths
 ./admin/cleanup/FixTrackLength.pl
@@ -92,5 +90,3 @@ echo `date`" : Updating cover art links"
 ./admin/RebuildCoverArtUrls.pl
 
 echo `date`" : Nightly jobs complete!"
-
-# eof

@@ -42,8 +42,9 @@ sub BUILD {
     my ($self) = @_;
 
     # These need adding or they'll get deleted by write_index.
-    $self->add_sitemap_file($self->index_filename);
-    $self->add_sitemap_file($self->index_filename . '.lock');
+    $self->add_sitemap_file($SITEMAP_INDEX_FILENAME . '.gz');
+    $self->add_sitemap_file($SITEMAP_INDEX_FILENAME . '.lock');
+    $self->add_sitemap_file($SITEMAP_INDEX_FILENAME);
     $self->add_sitemap_file('.gitkeep');
 }
 
@@ -121,31 +122,13 @@ has index => (
     },
 );
 
-has index_filename => (
-    is => 'ro',
-    isa => 'Str',
-    default => sub {
-        my $self = shift;
-
-        my $index_filename = $SITEMAP_INDEX_FILENAME;
-        $index_filename .= '.gz' if $self->compression_enabled;
-
-        return $index_filename;
-    },
-    traits => ['NoGetopt'],
-);
-
 has index_localname => (
     is => 'ro',
     isa => 'Str',
     lazy => 1,
     default => sub {
         my $self = shift;
-
-        my $index_localname = File::Spec->catfile($self->output_dir, $SITEMAP_INDEX_FILENAME);
-        $index_localname .= '.gz' if $self->compression_enabled;
-
-        return $index_localname;
+        File::Spec->catfile($self->output_dir, $SITEMAP_INDEX_FILENAME);
     },
     traits => ['NoGetopt'],
 );
@@ -295,7 +278,8 @@ sub build_one_sitemap {
     });
 
     if ($write_sitemap) {
-        open my $fh, '>', $local_xml_filename;
+        open(my $fh, '>', $local_xml_filename)
+            or die "Can't open sitemap: $!";
         print $fh $$data;
         close $fh;
 
@@ -363,8 +347,10 @@ sub lock_index {
     # or check if it exists (required by read_index) until a lock is acquired.
     # And we can't acquire a lock on a non-existent file.
 
-    open my $index_lock_fh, '>>', $self->index_localname . '.lock';
-    flock($index_lock_fh, LOCK_EX);
+    open(my $index_lock_fh, '>>', $self->index_localname . '.lock')
+        or die "Can't open sitemap index lock: $!";
+    flock($index_lock_fh, LOCK_EX)
+        or die "Can't lock sitemap index: $!";
     $callback->();
     close $index_lock_fh;
 }
@@ -395,13 +381,20 @@ sub write_index {
             }
         }
 
-        open my $index_fh, '>', $self->index_localname;
+        open(my $index_fh, '>', $self->index_localname)
+            or die "Can't open sitemap index: $!";
         my $data = serialize_sitemap_index($self->all_sitemaps);
         print $index_fh $$data;
         close $index_fh;
+
+        if ($self->compression_enabled) {
+            # We --keep the index .xml because we'll need to read it during
+            # future runs.
+            system 'gzip', '--force', '--keep', $self->index_localname;
+        }
     });
 
-    log('Built index ' . $self->index_filename . ', deleting outdated files');
+    log("Built index $SITEMAP_INDEX_FILENAME, deleting outdated files");
 
     my @files = read_dir($self->output_dir);
     for my $file (@files) {
@@ -426,7 +419,8 @@ sub ping_search_engines($) {
 
     log('Pinging search engines');
 
-    my $url = $self->web_server . '/' . $self->index_filename;
+    my $url = $self->web_server . '/' . $SITEMAP_INDEX_FILENAME;
+    $url .= '.gz' if $self->compression_enabled;
 
     my @sitemap_prefixes = (
         'http://www.google.com/webmasters/tools/ping?sitemap=',
