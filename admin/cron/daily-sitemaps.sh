@@ -1,10 +1,10 @@
 #!/bin/bash -u
 
+set -e
+
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)
 cd "$MB_SERVER_ROOT"
 
-OUTPUT=`./admin/BuildSitemaps.pl --ping` || echo "$OUTPUT"
+./admin/BuildSitemaps.pl --ping
 
-OUTPUT=`./bin/rsync-sitemaps` || echo "$OUTPUT"
-
-# eof
+./bin/rsync-sitemaps
