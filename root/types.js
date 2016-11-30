@@ -325,6 +325,19 @@ declare type OptionTreeT = {|
   +parentID: number | null,
 |};
 
+/*
+ * See http://search.cpan.org/~lbrocard/Data-Page-2.02/lib/Data/Page.pm
+ * Serialized in MusicBrainz::Server::TO_JSON.
+ */
+declare type PagerT = {|
+  +current_page: number,
+  +first_page: 1,
+  +last_page: number,
+  +next_page: number | null,
+  +previous_page: number | null,
+  +total_entries: number,
+|};
+
 declare type PartialDateT = {|
   +day: number | null,
   +month: number | null,
@@ -387,6 +400,19 @@ declare type ReleaseT = {|
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
+|};
+
+declare type SearchFormT = FormT<{|
+  +limit: FieldT<number>,
+  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
+  +query: FieldT<string>,
+  +type: FieldT<string>,
+|}>;
+
+declare type SearchResultT<T> = {|
+  +entity: T,
+  +position: number,
+  +score: number,
 |};
 
 /*
