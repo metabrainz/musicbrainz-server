@@ -493,7 +493,7 @@ sub find_entities_with_jsonld($$$$$$) {
             }
         } catch {
             $exit_code = 2;
-            $shared_data = {error => $_};
+            $shared_data = {error => "$_"};
         };
 
         $new_c->connector->disconnect;
