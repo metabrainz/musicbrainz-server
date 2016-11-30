@@ -45,7 +45,7 @@ test 'Can serialize CD stubs to JSON' => sub {
                     length => $_->length
                 }, $cdstub->all_tracks
             ],
-            "track-count" => $cdstub->track_count,
+            "track-count" => $cdstub_toc->track_count,
             id => $cdstub_toc->discid,
             barcode => $cdstub->barcode
         }
