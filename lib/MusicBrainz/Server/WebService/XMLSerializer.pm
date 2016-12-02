@@ -756,7 +756,7 @@ sub _serialize_cdstub
         $gen->track(@track);
     } $cdstub->all_tracks;
 
-    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
+    push @contents, $gen->track_list({ count => $toc->track_count }, @tracks);
 
     push @$data, $gen->cdstub({ id => $toc->discid }, @contents);
 }
