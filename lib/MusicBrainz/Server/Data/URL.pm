@@ -90,6 +90,7 @@ my %URL_SPECIALIZATIONS = (
     'Rockipedia'          => qr{^https?://(?:www.)?rockipedia.no/}i,
     'Rolldabeats'         => qr{^https?://(?:www.)?rolldabeats.com/}i,
     'SecondHandSongs'     => qr{^https?://(?:www.)?secondhandsongs.com/}i,
+    'SetlistFM'           => qr{^https?://(?:www.)?setlist.fm/}i,
     'SMDB'                => qr{^https?://(?:www.)?smdb.kb.se/}i,
     'Songfacts'           => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'          => qr{^https?://(?:www.)?soundcloud.com/}i,
