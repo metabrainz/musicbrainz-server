@@ -110,6 +110,7 @@ my %URL_SPECIALIZATIONS = (
     'VGMdb'               => qr{^https?://(?:www.)?vgmdb.net/}i,
     'VIAF'                => qr{^https?://(?:www.)?viaf.org/}i,
     'Videogamin'          => qr{^https?://(?:www.)?videogam.in/}i,
+    'Vimeo'               => qr{^https?://(?:www.)?vimeo.com/}i,
     'VK'                  => qr{^https?://(?:www.)?vk.com/}i,
     'Vkdb'                => qr{^https?://(?:www.)?vkdb.jp/}i,
     'WhoSampled'          => qr{^https?://(?:www.)?whosampled.com/}i,
