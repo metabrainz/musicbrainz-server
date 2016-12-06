@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-10-02 08:24+0000\n"
+"PO-Revision-Date: 2016-11-28 14:26+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1868,7 +1868,7 @@ msgid ""
 "CD stubs are a feature to allow anonymous users to submit data to "
 "MusicBrainz. For more information, see {cdstub|the documentation on CD "
 "stubs}."
-msgstr "Cd-beginsels zijn een manier die anonieme gebruikers gegevens laat toevoegen aan MusicBrainz. Kijk voor meer informatie bij {cdstub|de documentatie van cd-beginsels}."
+msgstr "Cd-beginsels zijn een manier die anonieme gebruikers gegevens laat toevoegen aan MusicBrainz. Kijk voor meer informatie bij {cdstub|de documentatie over cd-beginsels}."
 
 #: ../root/account/edit_application.tt:10
 #: ../root/account/register_application.tt:10
@@ -5692,7 +5692,7 @@ msgstr "Zoek naar de artiest waar je een nieuwe uitgave voor wil toevoegen:"
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
-msgstr "Lees de {doc|documentatie voor afbeeldingstypes} voor een beschrijving van deze types."
+msgstr "Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
 
 #: ../root/artist/edit_form.tt:78
 msgid ""
@@ -6756,13 +6756,13 @@ msgstr "De naam van de artiest in nummers en relaties hernoemen:"
 #: ../root/release/cover_art.tt:54
 msgctxt "button/menu"
 msgid "Reorder Cover Art"
-msgstr "Volgorde van de afbeeldingen bewerken"
+msgstr "Volgorde veranderen"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 msgctxt "header"
 msgid "Reorder Cover Art"
-msgstr "Volgorde van de afbeeldingen bewerken"
+msgstr "Volgorde veranderen"
 
 #: ../root/user/report.tt:1 ../root/user/report.tt:2
 msgid "Report User"
@@ -8475,7 +8475,7 @@ msgstr "Dit is een compositie-eigenschap zonder opmaak"
 msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
-msgstr "Dit is een lijst van alle verschillende manieren waarop {artist} vermeld wordt op MusicBrainz. Zie de {doc|documentatie voor vermeldingen} voor meer details."
+msgstr "Dit is een lijst van alle verschillende manieren waarop {artist} vermeld wordt op MusicBrainz. Zie de {doc|documentatie over vermeldingen} voor meer details."
 
 #: ../root/annotation/common.tt:25
 msgid ""
@@ -8649,7 +8649,7 @@ msgid ""
 "they're different, add {disambiguation_comment|disambiguation comments} to "
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
-msgstr "In dit rapport staan artiesten met namen die erg op elkaar lijken. Als twee artiesten een en dezelfde artiest blijkt te zijn, kan je ze samenvoegen. Vergeet niet om {ho_to_write_edit_notes|een notitie achter te laten} met bewijs voor je bewerking.\nAls het verschillende artiesten zijn, kan je een {disambiguation_comment|verduidelijking} aan de artiesten toevoegen. Als twee op elkaar lijkende artiesten een verduidelijking hebben, worden ze uit dit rapport verwijderd."
+msgstr "In dit rapport staan artiesten met namen die erg op elkaar lijken. Als twee artiesten een en dezelfde artiest blijkt te zijn, kan je ze samenvoegen. Vergeet niet om {how_to_write_edit_notes|een notitie achter te laten} met bewijs voor je bewerking.\nAls het verschillende artiesten zijn, kan je een {disambiguation_comment|verduidelijking} aan de artiesten toevoegen. Als twee op elkaar lijkende artiesten een verduidelijking hebben, worden ze uit dit rapport verwijderd."
 
 #: ../root/report/tracks_named_with_sequence.tt:6
 msgid ""
@@ -9090,7 +9090,7 @@ msgid ""
 " releases}. If the releases are not really part of a set (for example, if "
 "they are independently-released volumes in a series) just remove the "
 "relationship."
-msgstr "In dit rapport staan uitgaves die nog steeds de verouderde deel-van-een-set-relatie hebben en waarschijnlijk samengevoegd moeten worden. Zie de documentatie voor {how_to_merge_releases|het samenvoegen van uitgaves} voor instructies. Als de uitgaves niet een deel van een set zijn (bijvoorbeeld omdat het onafhankelijk van elkaar uitgebrachte delen van een serie zijn) kan de relatie gewoon verwijderd worden."
+msgstr "In dit rapport staan uitgaves die nog steeds de verouderde deel-van-een-set-relatie hebben en waarschijnlijk samengevoegd moeten worden. Zie de documentatie over {how_to_merge_releases|het samenvoegen van uitgaves} voor instructies. Als de uitgaves niet een deel van een set zijn (bijvoorbeeld omdat het onafhankelijk van elkaar uitgebrachte delen van een serie zijn) kan de relatie gewoon verwijderd worden."
 
 #: ../root/report/some_formats_unset.tt:6
 msgid ""
@@ -10307,7 +10307,7 @@ msgstr "Je staat op het punt om een ISWC aan deze compositie toe te voegen. De I
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
-msgstr "Ke staat op het punt om een bewerking toe te voegen die de duur van de nummers verandert zodat ze overeenkomen met de onderstaande disc-id."
+msgstr "Je staat op het punt om een bewerking toe te voegen die de duur van de nummers verandert zodat ze overeenkomen met de onderstaande disc-id."
 
 #: ../root/area/merge.tt:4
 msgid ""
@@ -12242,11 +12242,11 @@ msgstr "Afbeelding verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
 msgid "Reorder cover art"
-msgstr "Volgorde van de afbeeldingen bewerken"
+msgstr "Volgorde veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:12
 msgid "Reorder mediums"
-msgstr "Volgorde van de media bewerken"
+msgstr "Volgorde van de media veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 msgid "Add release group alias"
@@ -12995,7 +12995,7 @@ msgstr "Niet gevonden? Probeer het eens met een directe zoekopdracht."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:420
 msgid "Slow? Switch back to indexed search."
-msgstr "Langzaam? Schakel terug naar het geïndexeerd zoeken."
+msgstr "Langzaam? Schakel terug naar geïndexeerd zoeken."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:611
 #: ../root/static/scripts/common/entity.js:240
@@ -13185,7 +13185,7 @@ msgstr "Vereist veld."
 msgid ""
 "Use the following fields to enter collaborations. See the {ac|Artist Credit}"
 " documentation for more information."
-msgstr "Gebruik de volgende velden om samenwerkingen toe te voegen. Zie de documentatie voor {ac|artiestvermeldingen} voor meer informatie."
+msgstr "Gebruik de volgende velden om samenwerkingen toe te voegen. Zie de documentatie over {ac|artiestvermeldingen} voor meer informatie."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:73
 msgid "Artist in MusicBrainz:"

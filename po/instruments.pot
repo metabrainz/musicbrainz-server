@@ -383,6 +383,11 @@ msgstr ""
 msgid "bansuri"
 msgstr ""
 
+#: DB:instrument/name:819
+msgctxt "ancient asian/persian lute"
+msgid "barbat"
+msgstr ""
+
 #: DB:instrument/name:301
 msgid "baritone guitar"
 msgstr ""
@@ -1001,10 +1006,6 @@ msgstr ""
 msgid "duck call"
 msgstr ""
 
-#: DB:instrument/name:194
-msgid "duct flute"
-msgstr ""
-
 #: DB:instrument/name:397
 msgid "duduk"
 msgstr ""
@@ -1143,6 +1144,10 @@ msgstr ""
 
 #: DB:instrument/name:449
 msgid "finger snaps"
+msgstr ""
+
+#: DB:instrument/name:194
+msgid "fipple flute"
 msgstr ""
 
 #: DB:instrument/name:523
@@ -1471,6 +1476,11 @@ msgstr ""
 msgid "hurdy gurdy"
 msgstr ""
 
+#: DB:instrument/name:818
+msgctxt "fipple flute from Härjedalen, sweden"
+msgid "härjedalspipa"
+msgstr ""
+
 #: DB:instrument/name:674
 msgid "idiophone"
 msgstr ""
@@ -1509,6 +1519,11 @@ msgstr ""
 
 #: DB:instrument/name:283
 msgid "k'lông pút"
+msgstr ""
+
+#: DB:instrument/name:817
+msgctxt "smaller higher-tuned calabash ngoni"
+msgid "kamalen ngɔni"
 msgstr ""
 
 #: DB:instrument/name:503

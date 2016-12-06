@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-21 21:21-0600\n"
+"POT-Creation-Date: 2016-12-06 01:06-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -678,7 +678,7 @@ msgstr ""
 msgid "Add a new entry"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:197
+#: ../root/release/edit/recordings.tt:191
 #: ../root/static/scripts/common/i18n.js:192
 msgid "Add a new recording"
 msgstr ""
@@ -2155,11 +2155,11 @@ msgstr ""
 msgid "Coordinates:"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:134
+#: ../root/release/edit/recordings.tt:128
 msgid "Copy all track artist credits to associated recordings."
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:128
+#: ../root/release/edit/recordings.tt:122
 msgid "Copy all track titles to associated recordings."
 msgstr ""
 
@@ -2617,7 +2617,7 @@ msgstr ""
 msgid "Duration:"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:143
+#: ../root/release/edit/recordings.tt:137
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
@@ -3792,7 +3792,7 @@ msgid ""
 "field, but add it as a URL relationship later."
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:145
+#: ../root/release/edit/recordings.tt:139
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
@@ -3933,10 +3933,6 @@ msgstr ""
 
 #: ../root/search/form.tt:29
 msgid "Indexed search with {doc|advanced query syntax}"
-msgstr ""
-
-#: ../root/release/edit/recordings.tt:122
-msgid "Infer track durations from associated recordings"
 msgstr ""
 
 #: ../root/account/applications.tt:69
@@ -4391,7 +4387,7 @@ msgstr ""
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:160
+#: ../root/release/edit/recordings.tt:154
 msgid "Looking for suggested recordings..."
 msgstr ""
 
@@ -6861,7 +6857,7 @@ msgstr ""
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:45
 #: ../root/release/edit/information.tt:182
-#: ../root/release/edit/recordings.tt:150 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/recordings.tt:144 ../root/release/edit/tracklist.tt:87
 #: ../root/search/form.tt:42 ../root/search/index.tt:1
 #: ../root/search/index.tt:3 ../root/taglookup/form.tt:12
 #: ../root/layout/components/BottomMenu.js:152
@@ -6941,7 +6937,7 @@ msgstr ""
 msgid "Search the documentation..."
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:148
+#: ../root/release/edit/recordings.tt:142
 msgid "Search:"
 msgstr ""
 
@@ -7691,7 +7687,7 @@ msgstr ""
 msgid "Success!"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:167
+#: ../root/release/edit/recordings.tt:161
 msgid "Suggested recordings:"
 msgstr ""
 
@@ -10633,7 +10629,7 @@ msgstr ""
 msgid "any"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:184
+#: ../root/release/edit/recordings.tt:178
 msgid "appears on:"
 msgstr ""
 

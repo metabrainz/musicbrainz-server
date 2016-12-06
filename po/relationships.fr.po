@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-11-17 14:51+0000\n"
+"PO-Revision-Date: 2016-11-26 16:45+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -915,7 +915,7 @@ msgstr "Le livret de {entity1} a été {additional:de plus} écrit en {entity0}"
 #: DB:link_type/long_link_phrase:878
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
-msgstr "Les paroles de (entity1) ont (addition:additionally) écrites à (entity0)"
+msgstr "Les paroles de {entity1} ont {addition:en plus} été écrites à {entity0}"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
@@ -5095,7 +5095,7 @@ msgstr "parolier {additional:additionnel}"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
-msgstr "(additional) paroles"
+msgstr "paroles {supplémentaires}"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
@@ -5227,7 +5227,7 @@ msgstr "membre {additional:additionnel} {original} de"
 
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} members"
-msgstr "membres {additional:additionnels} {originaux}"
+msgstr "membres {additional:additionnels} {original:originaux}"
 
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294

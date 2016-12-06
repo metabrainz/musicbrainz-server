@@ -3,6 +3,7 @@
 # nikki, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
+# Gustavo Guillermo Scalvini Imazio <email address hidden>, 2016
 # Héctor Arroyo <email address hidden>, 2012
 # Marta PD <email address hidden>, 2014
 # AriasNicolas <email address hidden>, 2014
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 15:51+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-12-04 08:40+0000\n"
+"Last-Translator: Gustavo Guillermo Scalvini Imazio <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +49,7 @@ msgstr ""
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr ""
+msgstr "Lira de Creta"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
@@ -56,7 +57,7 @@ msgstr ""
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "Dübreq Estilófono Mini sintetizador"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
@@ -128,7 +129,7 @@ msgstr "gaita northumbria"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "Arpa Paraguaya"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
@@ -164,11 +165,11 @@ msgstr ""
 
 #: DB:instrument/name:691
 msgid "Swedish bagpipes"
-msgstr ""
+msgstr "Gaita Sueca"
 
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "Tambor de Agua Tibetano"
 
 #: DB:instrument/name:235
 msgid "Turkish baglama"
@@ -196,7 +197,7 @@ msgstr "piano eléctrico Wurlitzer"
 
 #: DB:instrument/name:563
 msgid "Xaphoon"
-msgstr ""
+msgstr "Saxo de Bambú"
 
 #: DB:instrument/name:778
 msgctxt "a type of harmonica/accordion hybrid"
@@ -221,7 +222,7 @@ msgstr "guitarra acústica"
 
 #: DB:instrument/name:65
 msgid "aeolian harp"
-msgstr ""
+msgstr "Arpa eólica o de viento"
 
 #: DB:instrument/name:717
 msgid "afoxé"
@@ -229,7 +230,7 @@ msgstr ""
 
 #: DB:instrument/name:108
 msgid "afuche / cabasa"
-msgstr ""
+msgstr "Afuché / Cabasa"
 
 #: DB:instrument/name:487
 msgid "agogô"

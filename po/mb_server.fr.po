@@ -43,7 +43,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-11-14 11:25+0000\n"
+"PO-Revision-Date: 2016-11-26 16:38+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -5691,13 +5691,13 @@ msgstr "Veuillez prendre note :"
 
 #: ../root/user/report.tt:4
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr "Veuillez passer en revue {coc|le code de conduite MusicBrainz} avant de signaler."
+msgstr "Veuillez passer en revue notre {uri|code de conduite} avant d’envoyer un signalement."
 
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
-msgstr "Veuillez passer en revue {coc|le code de conduite MusicBrainz} avant de créer un compte."
+msgstr "Veuillez passer en revue le {coc|code de conduite de MusicBrainz} avant de créer un compte."
 
 #: ../root/entity/alias/delete.tt:6
 msgid "Please review the {doc|alias documentation} before entering this edit."
@@ -7246,12 +7246,12 @@ msgstr "Saisir la durée des pistes"
 
 #: ../root/event/index.tt:31
 msgid "Setlist"
-msgstr "Setlist"
+msgstr "Programme"
 
 #: ../root/edit/details/add_event.tt:56 ../root/edit/details/edit_event.tt:41
 #: ../root/event/edit_form.tt:18
 msgid "Setlist:"
-msgstr "Setlist :"
+msgstr "Programme :"
 
 #: ../root/report/filter_link.tt:4
 msgid "Show all results."
@@ -12814,7 +12814,7 @@ msgstr "L’éditeur fait preuve d’un zèle excessif concernant les votes Oui/
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr "L’éditeur a violé un ou plusieurs points de notre Code de Conduite"
+msgstr "L’éditeur a violé un ou plusieurs points de notre code de conduite"
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"
