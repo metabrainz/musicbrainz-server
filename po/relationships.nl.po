@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-11 10:53+0000\n"
+"PO-Revision-Date: 2016-11-28 13:50+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -4961,7 +4961,7 @@ msgstr "{co:co}mixte {additional:aanvullend} {assistant:assisterend} {associate:
 #: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded"
-msgstr "{co:co-}nam {additional:aanvullend} {assistant:assisterend} {associate:als partner} op"
+msgstr "{co:co-}nam {additional:aanvullend} {assistant:assisterend} {associate:als partner} {entity1} op"
 
 #: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded by"
@@ -5172,7 +5172,7 @@ msgstr ""
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
 msgid "{additional} {assistant} {associate} {instrument} programming"
-msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} programmeur {instrument:(instrument)}"
+msgstr "{instrument} {additional:aanvullend} {associate:geassocieerd} {assistant:als assistent} geprogrammeerd door"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
