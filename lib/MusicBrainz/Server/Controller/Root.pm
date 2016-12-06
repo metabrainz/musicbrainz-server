@@ -346,7 +346,9 @@ sub begin : Private
     }
 
     if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
-        $c->stash( last_replication_date => $c->model('Replication')->last_replication_date );
+        my $last_replication_date = $c->model('Replication')->last_replication_date;
+        defined $last_replication_date or die 'Replication info missing on a slave server';
+        $c->stash( last_replication_date => $last_replication_date );
     }
 }
 
