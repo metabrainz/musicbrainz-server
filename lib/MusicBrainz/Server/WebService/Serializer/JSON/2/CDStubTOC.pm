@@ -25,7 +25,7 @@ sub serialize
                 length => $_->length
             }, $cdstub->all_tracks
         ],
-        "track-count" => $cdstub->track_count
+        "track-count" => $entity->track_count
     };
 };
 

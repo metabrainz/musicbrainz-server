@@ -85,6 +85,8 @@ use constant FAVICON_CLASSES => {
     'tipeee.com'                => 'tipeee',
     'indiegogo.com'             => 'indiegogo',
     'kickstarter.com'           => 'kickstarter',
+    'setlist.fm'                => 'setlistfm',
+    'vimeo.com'                 => 'vimeo'
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

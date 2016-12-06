@@ -51,6 +51,8 @@ has 'source' => (
     isa => 'Int'
 );
 
+# Note: This property is used for searches ONLY (because the search results do not set up a full CD Stub TOC).
+#       In all other cases, the track_count property of the associated CDStubTOC applies.
 has 'track_count' => (
     is => 'rw',
     isa => 'Int'
