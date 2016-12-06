@@ -3140,6 +3140,14 @@ msgid ""
 "where produced by long strings, not thicker strings."
 msgstr ""
 
+#. name:barbat 
+#: DB:instrument/description:819
+msgid ""
+"ancient central asian/persian string instrument ancestor of the iranian oud. "
+"it was an important instrument in pre-islamic iran and persia. the current "
+"\"Persian barbat\" is more similar to the oud"
+msgstr ""
+
 #. name:three-hole pipe 
 #: DB:instrument/description:805
 msgid ""
@@ -3259,6 +3267,13 @@ msgid ""
 "regulation (sport, traffic, ...)."
 msgstr ""
 
+#. name:härjedalspipa 
+#: DB:instrument/description:818
+msgid ""
+"six holed fipple flute used traditionally in pastoral settings like its "
+"cousin the spilåpipa."
+msgstr ""
+
 #. name:piano spinet 
 #: DB:instrument/description:798
 msgid ""
@@ -3271,6 +3286,13 @@ msgstr ""
 msgid ""
 "small white electric thumb piano with metal tines and an electromagnetic "
 "pickup."
+msgstr ""
+
+#. name:kamalen ngɔni 
+#: DB:instrument/description:817
+msgid ""
+"smaller and higher-tuned ngoni made of calabash, it became an important "
+"instrument in the rise of the Wassoulou music in the 80's and 90's"
 msgstr ""
 
 #. name:aman khuur 

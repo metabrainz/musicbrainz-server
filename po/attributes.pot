@@ -176,6 +176,11 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:release_packaging/description:17
+msgctxt "release_packaging"
+msgid "A perfect bound book with a sleeve at the end to hold a CD"
+msgstr ""
+
 #: DB:place_type/description:5
 msgctxt "place_type"
 msgid ""
@@ -1540,6 +1545,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:83
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dhēnuka"
+msgstr ""
+
+#: DB:release_packaging/name:17
+msgctxt "release_packaging"
+msgid "Digibook"
 msgstr ""
 
 #: DB:release_packaging/name:3
