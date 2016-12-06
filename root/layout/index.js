@@ -173,7 +173,7 @@ const Layout = (props) => {
             <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
           </div>}
 
-        <div id="page" className={(props.fullwidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
+        <div id="page" className={(props.fullWidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
           {props.children}
           <div style={{clear: 'both'}}></div>
         </div>

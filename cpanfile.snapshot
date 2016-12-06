@@ -1364,15 +1364,15 @@ DISTRIBUTIONS
       DateTime 0
       ExtUtils::MakeMaker 6.42
       Test::More 0.61
-  DateTime-Locale-1.10
-    pathname: D/DR/DROLSKY/DateTime-Locale-1.10.tar.gz
+  DateTime-Locale-1.11
+    pathname: D/DR/DROLSKY/DateTime-Locale-1.11.tar.gz
     provides:
-      DateTime::Locale 1.10
-      DateTime::Locale::Base 1.10
-      DateTime::Locale::Catalog 1.10
-      DateTime::Locale::Data 1.10
-      DateTime::Locale::FromData 1.10
-      DateTime::Locale::Util 1.10
+      DateTime::Locale 1.11
+      DateTime::Locale::Base 1.11
+      DateTime::Locale::Catalog 1.11
+      DateTime::Locale::Data 1.11
+      DateTime::Locale::FromData 1.11
+      DateTime::Locale::Util 1.11
     requirements:
       Carp 0
       Dist::CheckConflicts 0.02
@@ -3296,7 +3296,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Basename 0
       File::Spec 0
-      Mail::Address 1.62
   MIME-Types-2.13
     pathname: M/MA/MARKOV/MIME-Types-2.13.tar.gz
     provides:

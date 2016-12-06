@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-19 10:14+0000\n"
+"PO-Revision-Date: 2016-11-29 12:55+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1084,7 +1084,7 @@ msgstr "Créole jamaïcain"
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
-msgstr "japonaisJ"
+msgstr "Japonais"
 
 #. frequency:1 iso_code_3:jav
 #: DB:language/name:196
