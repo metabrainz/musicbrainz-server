@@ -1,4 +1,4 @@
-<div class="artistheader">
+<div class="artistheader[% ' ' _ artist.type.name.lower _ '-icon' IF artist.type %]">
     <h1>[% link_entity(artist) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [% html_escape(artist.l_type_name) or l('Artist') %]
