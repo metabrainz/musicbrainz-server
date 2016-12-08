@@ -321,6 +321,8 @@ sub release_submit : Private
     if (@submit) {
         $self->forbidden($c)
             unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_BARCODE);
+        $self->_error($c, 'Your client may not submit release barcodes')
+            if $client eq '' || $client =~ /jaikoz/i; # MBS-8542
 
         try {
             $c->model('MB')->with_transaction(sub {
