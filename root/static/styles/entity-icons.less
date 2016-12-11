@@ -8,7 +8,13 @@
 }
 
 .blankheader      { background-image: data-uri('../images/entity/blank.svg') }
-.artistheader     { background-image: data-uri('../images/entity/artist.svg') }
+.artistheader     { background-image: data-uri('../images/entity/artist.svg');
+                    &.choir-icon      { background-image: data-uri('../images/entity/choir.svg') }
+                    &.group-icon      { background-image: data-uri('../images/entity/group.svg') }
+                    &.orchestra-icon  { background-image: data-uri('../images/entity/orchestra.svg') }
+                    &.person-icon     { background-image: data-uri('../images/entity/person.svg') }
+                    &.character-icon  { background-image: data-uri('../images/entity/character.svg') }
+                  }
 .releaseheader    { background-image: data-uri('../images/entity/release.svg') }
 .rgheader         { background-image: data-uri('../images/entity/release_group.svg') }
 .recordingheader  { background-image: data-uri('../images/entity/recording.svg') }
