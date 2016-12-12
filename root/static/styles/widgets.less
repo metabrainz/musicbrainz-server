@@ -152,7 +152,6 @@ div.buttons, span.buttons { display: inline-block; }
         top:0;
         left:0;
         text-indent:-1000em;
-        outline:none;
         overflow:hidden;
         border: none;
     }
@@ -164,9 +163,9 @@ div.buttons, span.buttons { display: inline-block; }
     .current-user-rating,
     .current-rating {
         background-image: data-uri('../images/icons/rating_star_small.gif');
+        background-position: 0px 0px;   // grey star
+        outline: none;
     }
-
-    background-position: 0px 0px;       // grey star
 
     .current-rating {
         background-position: 0px -30px; // blue star
@@ -174,6 +173,8 @@ div.buttons, span.buttons { display: inline-block; }
     .current-user-rating {
         background-position: 0px -10px; // yellow star
     }
+    a:active,
+    a:focus,
     a:hover {
         background-position: 0px -20px; // green star
     }

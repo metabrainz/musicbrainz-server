@@ -19,9 +19,10 @@ $(document).on("click", "span.star-rating a", function () {
 
     $.getJSON(url, function (data) {
         var currentRatingSpan = $ratingLink.siblings('span');
+        var container = $ratingLink.parent();
         if (!currentRatingSpan.length) {
             currentRatingSpan = $('<span/>');
-            $ratingLink.parent().prepend(currentRatingSpan);
+            container.prepend(currentRatingSpan);
         }
         var rating;
         if (data.rating > 0) {
@@ -46,7 +47,10 @@ $(document).on("click", "span.star-rating a", function () {
             currentRatingSpan.remove();
         }
 
-        $ratingLink.parent().children('a').each(function (i) {
+        // Take focus away from the clicked link as a visual indication
+        container.focus();
+
+        container.children('a').each(function (i) {
             var originalRating = 100 * (1 + i) / 5;
             var newRating = data.rating == originalRating ? 0 : originalRating;
             var oldRatingMatch = this.href.match(/rating=(\d+)/);
