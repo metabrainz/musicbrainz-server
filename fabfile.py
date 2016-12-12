@@ -37,9 +37,9 @@ def pot():
     )
 
     run("mkdir -p /tmp/musicbrainz-pot")
-    run("docker exec -u musicbrainz musicbrainz-website bash -c 'cd ~/musicbrainz-server/po && touch extract_pot_db && carton exec -- make %s'" % " ".join(pot_files))
+    run("docker exec -u musicbrainz musicbrainz-website-beta bash -c 'cd ~/musicbrainz-server/po && touch extract_pot_db && carton exec -- make %s'" % " ".join(pot_files))
     for pot_file in pot_files:
-        run("docker cp musicbrainz-website:/home/musicbrainz/musicbrainz-server/po/%s /tmp/musicbrainz-pot/" % pot_file)
+        run("docker cp musicbrainz-website-beta:/home/musicbrainz/musicbrainz-server/po/%s /tmp/musicbrainz-pot/" % pot_file)
 
     with lcd("po/"):
         get("/tmp/musicbrainz-pot/*.pot", "./%(path)s")
@@ -63,14 +63,14 @@ def no_local_changes():
         local("git diff --exit-code")
         local("git diff --exit-code --cached")
 
-def deploy():
+def deploy(deploy_env="prod"):
     """
     Update the *musicbrainz.org servers.
     """
     services = " ".join((
-        "musicbrainz-template-renderer",
-        "musicbrainz-website",
-        "musicbrainz-webservice",
+        "musicbrainz-template-renderer-" + deploy_env,
+        "musicbrainz-website-" + deploy_env,
+        "musicbrainz-webservice-" + deploy_env,
     ))
     sudo("docker stop --time 30 " + services)
     sudo("docker rm " + services)
