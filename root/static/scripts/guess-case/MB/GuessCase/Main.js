@@ -119,9 +119,10 @@ const flags = require('../../flags');
         sortname: guess("Work", "guessSortName")
     };
 
-    // Series doesn't have it's own handler, and just uses the work handler
-    // because additional behavior isn't needed.
+    // Series and Event don't have their own handler, and they use the
+    // work handler because additional behavior isn't needed.
     MB.GuessCase.series = MB.GuessCase.work;
+    MB.GuessCase.event = MB.GuessCase.work;
 
     // lol
     MB.GuessCase.instrument = {

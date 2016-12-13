@@ -1,6 +1,10 @@
 version: '2'
 
 services:
+  html5-validator:
+    image: magnetikonline/html5validator
+    network_mode: bridge
+
   musicbrainz-test-database:
     build:
       context: ../
@@ -12,6 +16,7 @@ services:
       context: ../
       dockerfile: docker/Dockerfile.tests
     links:
+      - html5-validator
       - musicbrainz-redis-cache
       - musicbrainz-redis-store
       - musicbrainz-test-database

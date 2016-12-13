@@ -43,6 +43,13 @@ EOSQL
 
     $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
+    subtest 'Submissions from Jaikoz are rejected (MBS-8542)' => sub {
+        $req = xml_post('/ws/2/release?client=Jaikoz-1.23', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_BAD_REQUEST);
+    };
+
+    $req = xml_post('/ws/2/release?client=test-1.0', $content);
     $mech->request($req);
     is($mech->status, HTTP_OK);
     xml_ok($mech->content);
