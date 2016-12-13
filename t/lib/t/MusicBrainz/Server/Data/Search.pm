@@ -579,37 +579,6 @@ EOF
     is($cdstub->barcode, '1774209312');
     is($cdstub->track_count, '17');
 
-    # freedb search
-    $data = load_data('freedb', $test->c,
-<<EOF
-{
-  "count": 47743,
-  "offset": 0,
-  "freedb-discs": [
-    {
-      "id": "2a123813",
-      "score": "100",
-      "count": 19,
-      "title": "Love",
-      "artist": "Love",
-      "category": "misc",
-      "year": ""
-    }
-  ]
-}
-EOF
-    );
-
-    is(@{ $data->{results} }, 1);
-    my $freedb = $data->{results}->[0]->{entity};
-
-    is($freedb->artist, 'Love');
-    is($freedb->discid, '2a123813');
-    is($freedb->title, 'Love');
-    is($freedb->category, 'misc');
-    is($freedb->year, '');
-    is($freedb->track_count, '19');
-
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
     my @direct = MusicBrainz::Server::Data::Search->new(c => $test->c)->search(

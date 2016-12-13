@@ -41,7 +41,6 @@ sub options_type
         'annotation'    => l('Annotation'),
         'cdstub'        => l('CD Stub'),
         'editor'        => l('Editor'),
-        'freedb'        => l('FreeDB'),
         'tag'           => lp('Tag', 'noun'),
         'instrument'    => l('Instrument'),
         'series'        => lp('Series', 'singular'),
