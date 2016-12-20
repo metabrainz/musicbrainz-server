@@ -11,6 +11,7 @@
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Héctor Arroyo <email address hidden>, 2012
+# Juan González <email address hidden>, 2016
 # Nicolás Tamargo <email address hidden>, 2011-2013,2015-2016
 # nikki, 2012
 # nikki, 2012
@@ -29,8 +30,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-11-29 11:16+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2016-12-07 06:04+0000\n"
+"Last-Translator: Juan González <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -400,7 +401,7 @@ msgstr "Hemos encontrado un esbozo de CD que coincide con la ID de disco que has
 
 #: ../root/place/map.tt:5
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr ""
+msgstr "Un mapa no puede ser mostrado porque este lugar no tiene coordenadas."
 
 #: ../root/entity/collections.tt:18
 msgid "A private collection"
@@ -414,7 +415,7 @@ msgstr "El título de la edición es requerido"
 
 #: ../root/release/edit/tracklist.tt:334
 msgid "A tracklist is required."
-msgstr ""
+msgstr "Se requiere una tracklist."
 
 #: ../root/relationship/linktype/form.tt:40
 msgid ""
@@ -440,7 +441,7 @@ msgstr "Abstención"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Abstenerse"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -461,11 +462,11 @@ msgstr "Aceptadas"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted Edits"
-msgstr ""
+msgstr "Modificaciones aceptadas"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted Edits by {name}"
-msgstr ""
+msgstr "Modificaciones aceptadas por {nombre}"
 
 #: ../root/account/applications.tt:26
 msgid "Access"
@@ -482,11 +483,11 @@ msgstr "Administrador de cuentas"
 
 #: ../root/user/privileged.tt:52
 msgid "Account administrators"
-msgstr ""
+msgstr "Administradores de cuenta"
 
 #: ../root/user/privileged.tt:53
 msgid "Account administrators can edit and delete user accounts."
-msgstr ""
+msgstr "Los administradores de cuenta pueden modificar o eliminar cuentas de usuario."
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -510,20 +511,20 @@ msgstr ""
 
 #: ../root/entity/alias/add.tt:1
 msgid "Add Alias"
-msgstr ""
+msgstr "Agregar alias"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
-msgstr ""
+msgstr "Agregar área"
 
 #: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
 msgctxt "button/menu"
 msgid "Add Area"
-msgstr ""
+msgstr "Agregar área"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 msgid "Add Artist"
-msgstr ""
+msgstr "Agregar artista"
 
 #: ../root/layout/header/bottom.tt:115
 #: ../root/layout/components/BottomMenu.js:176
@@ -547,30 +548,30 @@ msgstr "Añadir imágenes"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
 msgid "Add Event"
-msgstr ""
+msgstr "Agregar evento"
 
 #: ../root/layout/header/bottom.tt:142
 #: ../root/layout/components/BottomMenu.js:205
 msgctxt "button/menu"
 msgid "Add Event"
-msgstr ""
+msgstr "Agregar evento"
 
 #: ../root/relationship/linktype/form.tt:154
 msgid "Add Example"
-msgstr ""
+msgstr "Agregar ejemplo"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgid "Add Instrument"
-msgstr ""
+msgstr "Agregar instrumento"
 
 #: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
 msgctxt "button/menu"
 msgid "Add Instrument"
-msgstr ""
+msgstr "Agregar instrumento"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
-msgstr ""
+msgstr "Agregar sello"
 
 #: ../root/layout/header/bottom.tt:118 ../root/release/edit/information.tt:206
 #: ../root/release/edit/information.tt:207
@@ -582,7 +583,7 @@ msgstr "Añadir discográfica"
 #: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:249
 #: ../root/static/scripts/release-editor/dialogs.js:253
 msgid "Add Medium"
-msgstr ""
+msgstr "Agregar medio"
 
 #: ../root/edit/info.tt:13
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:26
@@ -595,13 +596,13 @@ msgstr "Añadir página"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 msgid "Add Place"
-msgstr ""
+msgstr "Agregar lugar"
 
 #: ../root/layout/header/bottom.tt:136
 #: ../root/layout/components/BottomMenu.js:199
 msgctxt "button/menu"
 msgid "Add Place"
-msgstr ""
+msgstr "Agregar lugar"
 
 #: ../root/layout/header/bottom.tt:124
 #: ../root/layout/components/BottomMenu.js:185
@@ -670,7 +671,7 @@ msgstr "Añadir obra"
 #: ../root/work/edit_form.tt:78
 msgctxt "button/menu"
 msgid "Add Work Attribute"
-msgstr ""
+msgstr "Agregar atributo de trabajo"
 
 #: ../root/collection/create.tt:1 ../root/collection/create.tt:3
 msgid "Add a New Collection"
@@ -678,7 +679,7 @@ msgstr "Añadir una nueva colección"
 
 #: ../root/relationship/linktype/form.tt:105
 msgid "Add a New Example"
-msgstr ""
+msgstr "Agregar un nuevo ejemplo"
 
 #: ../root/account/edit.tt:64
 msgid "Add a language"
@@ -688,7 +689,7 @@ msgstr "Añadir un idioma"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
+msgstr "Agregue un medio al hacer clic debajo en \"Agregar medio\" o marque la casilla confirmando que la tracklist es desconocida. "
 
 #: ../root/components/aliases.tt:79
 msgid "Add a new alias"
@@ -713,7 +714,7 @@ msgstr "Añadir una nueva publicación"
 
 #: ../root/entity/alias/add.tt:2
 msgid "Add alias"
-msgstr ""
+msgstr "Agregar alias"
 
 #: ../root/edit/notes.tt:23
 msgid "Add an edit note"
@@ -726,7 +727,7 @@ msgstr "Añadir anotación"
 #: ../root/components/relationship-editor.tt:193
 #: ../root/static/scripts/common/i18n.js:202
 msgid "Add another instrument"
-msgstr ""
+msgstr "Agregar otro instrumento"
 
 #: ../root/relationship/linkattributetype/common.tt:24
 msgid "Add child"
@@ -744,7 +745,7 @@ msgstr "Añadir nota"
 #: ../root/admin/attributes/language.tt:33
 #: ../root/admin/attributes/script.tt:29
 msgid "Add new attribute"
-msgstr ""
+msgstr "Agregar nuevo atributo"
 
 #: ../root/artist/layout.tt:13
 msgid "Add recording"
@@ -801,7 +802,7 @@ msgstr "Añadir a una nueva colección"
 
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:92
 msgid "Add to a new list"
-msgstr ""
+msgstr "Agregar a una nueva lista"
 
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:84
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:108
@@ -852,12 +853,12 @@ msgstr "Adiciones:"
 #: ../root/components/places-list.tt:7 ../root/place/merge.tt:13
 #: ../root/search/results-place.tt:10
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
 #: ../root/edit/details/add_place.tt:30 ../root/edit/details/edit_place.tt:23
 #: ../root/place/edit_form.tt:17 ../root/place/layout.tt:38
 msgid "Address:"
-msgstr ""
+msgstr "Dirección:"
 
 #: ../root/admin/edit_user.tt:1
 msgid "Adjust User Account Flags"
@@ -13365,7 +13366,7 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/fields.js:528
 msgid "Medium {position}"
-msgstr ""
+msgstr "Medio {posición}"
 
 #: ../root/static/scripts/release-editor/fields.js:859
 msgid ""
