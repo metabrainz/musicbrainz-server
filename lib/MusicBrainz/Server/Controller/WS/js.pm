@@ -250,12 +250,6 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     return $self->disc_search($c, 'cdstub');
 };
 
-sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
-    my ($self, $c) = @_;
-
-    return $self->disc_search($c, 'freedb');
-};
-
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;

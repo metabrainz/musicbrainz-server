@@ -486,10 +486,6 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='cdstub' default_content=cdstub.discid;
 END -%]
 
-[%~ MACRO link_freedb(freedb, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='freedb' default_content=freedb.discid action_params=[freedb.category];
-END -%]
-
 [%~ MACRO gravatar(email) FILTER gravatar; email; END -%]
 
 [%~ MACRO link_editor(editor, action, text, size) BLOCK;
