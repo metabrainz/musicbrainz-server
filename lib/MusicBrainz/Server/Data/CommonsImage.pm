@@ -31,7 +31,7 @@ sub _commons_image_callback
 {
     my (%opts) = @_;
     if ($opts{fetched}{content}) {
-        my ($thumb, $image) = map { s/^https?://; $_ } ($opts{fetched}{content}[0]{thumburl}, $opts{fetched}{content}[0]{url});
+        my ($thumb, $image) = map { s/^https?://r } ($opts{fetched}{content}[0]{thumburl}, $opts{fetched}{content}[0]{url});
         return CommonsImage->new( title => $opts{fetched}{title},
                                   thumb_url => $thumb,
                                   image_url => $image);

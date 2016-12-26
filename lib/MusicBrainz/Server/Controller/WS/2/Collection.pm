@@ -237,8 +237,7 @@ sub collection_browse : Private {
             show_private => $show_private,
         }, $limit, $offset);
     } else {
-        my $entity_type = $resource;
-        $entity_type =~ s/-/_/g;
+        my $entity_type = $resource =~ s/-/_/gr;
         my $entity = $c->model(type_to_model($entity_type))->get_by_gid($id);
         $c->detach('not_found') unless $entity;
 

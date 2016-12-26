@@ -302,7 +302,7 @@ sub get_primary_keys($$$) {
 
     map {
         # Some columns are wrapped in quotes, others aren't...
-        $_ =~ s/^"(.*?)"$/$1/; $_
+        s/^"(.*?)"$/$1/r
     } $c->sql->dbh->primary_key(undef, $schema, $table);
 }
 
@@ -699,9 +699,8 @@ sub get_current_replication_sequence {
     }
 
     my $replication_info = decode_json($response->content);
-    my $current_seq = $replication_info->{last_packet};
-    $current_seq =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/;
-    return $current_seq;
+
+    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r
 }
 
 sub run {

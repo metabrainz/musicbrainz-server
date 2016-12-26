@@ -52,8 +52,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
-        my $page = $values->{page};
-        $page =~ s/ /_/g;
+        my $page = $values->{page} =~ s/ /_/gr;
         $c->model('MB')->with_transaction(sub {
             my $edit = $c->model('Edit')->create(
                 edit_type   => $EDIT_WIKIDOC_CHANGE,
