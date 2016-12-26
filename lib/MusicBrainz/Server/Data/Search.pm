@@ -354,12 +354,6 @@ sub schema_fixup
 
     return unless (ref($data) eq 'HASH');
 
-    if (defined $data->{id} && $type eq 'freedb')
-    {
-        $data->{discid} = $data->{id};
-        delete $data->{name};
-    }
-
     # Special case to handle the ids
     $data->{gid} = $data->{id};
     $data->{id} = 1;
@@ -434,21 +428,14 @@ sub schema_fixup
         delete $data->{entity};
         delete $data->{type};
     }
-    if ($type eq 'freedb' && defined $data->{name})
-    {
-        $data->{title} = $data->{name};
-        delete $data->{name};
-    }
-    if (($type eq 'cdstub' || $type eq 'freedb')
-        && (defined $data->{"count"}))
+    if ($type eq 'cdstub' && defined $data->{count})
     {
         if (defined $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
 
-        $data->{track_count} = $data->{"count"};
-        delete $data->{"count"};
+        $data->{track_count} = delete $data->{count};
     }
     if ($type eq 'release')
     {
@@ -804,7 +791,6 @@ sub external_search
         if ($type ~~ [qw(area artist event instrument label place recording release release-group work annotation cdstub editor)]) {
             $xmltype .= "s";
         }
-        $xmltype =~ s/freedb/freedb-discs/;
 
         foreach my $t (@{$data->{$xmltype}})
         {
