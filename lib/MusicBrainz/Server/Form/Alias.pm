@@ -85,7 +85,7 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_->id => indentation($_->id =~ /_/ ? 1 : 0) . _locale_name_special_cases($_)
+            $_->id => indentation($_->id =~ /-/ ? 1 : 0) . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
             sort_by { $_->id }
