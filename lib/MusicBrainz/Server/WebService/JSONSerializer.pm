@@ -16,7 +16,7 @@ sub serialize
 {
     my ($self, $type, @data) = @_;
 
-    $type =~ s/-/_/g;
+    $type =~ tr/-/_/;
 
     my $override = $self->meta->find_method_by_name($type);
     return $override->execute($self, @data) if $override;

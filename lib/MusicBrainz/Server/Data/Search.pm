@@ -393,7 +393,7 @@ sub schema_fixup
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
-            my $json_prop = ($prop =~ s/_/-/gr) . '-codes';
+            my $json_prop = ($prop =~ tr/_/-/r) . '-codes';
             if (defined $data->{$json_prop}) {
                 $data->{$prop} = $data->{$json_prop};
                 delete $data->{$json_prop};
@@ -402,7 +402,7 @@ sub schema_fixup
     }
     if ($type eq 'artist' || $type eq 'label' || $type eq 'place') {
         for my $prop (qw( area begin_area end_area )) {
-            my $json_prop = $prop =~ s/_/-/gr;
+            my $json_prop = $prop =~ tr/_/-/r;
             if (defined $data->{$json_prop})
             {
                 my $area = delete $data->{$json_prop};

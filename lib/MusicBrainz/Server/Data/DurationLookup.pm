@@ -49,7 +49,7 @@ sub lookup
 {
     my ($self, $toc, $fuzzy) = @_;
 
-    $toc =~ s/\+/ /g;
+    $toc =~ tr/+/ /;
     my %toc_info = _parse_toc($toc);
     return undef unless scalar(%toc_info);
 
