@@ -36,7 +36,7 @@ sub _get_commons_image {
             $_->target;
         } grep {
             $_->target->isa('MusicBrainz::Server::Entity::URL::Commons')
-        } @{ $entity->relationships_by_link_type_names('image') };
+        } @{ $entity->relationships_by_link_type_names('image', 'logo') };
     if ($commons_link) {
         $title = $commons_link->page_name;
     }
