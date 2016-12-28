@@ -300,9 +300,7 @@ sub with_translations {
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
-    # because s///r is a perl 5.14 feature
-    my $html_lang = $lang;
-    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    my $html_lang = $lang =~ s/_([A-Z]{2})/-\L$1/r;
 
     $c->stash(
         current_language => $lang,
@@ -330,9 +328,8 @@ around dispatch => sub {
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
             $beta_redirect && !$unset_beta &&
             !($c->req->uri =~ /set-beta-preference$/)) {
-        my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
-        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
+        my $new_url = $c->req->uri =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/er;
         $c->res->redirect($new_url, 307);
     } else {
         $c->with_translations(sub {

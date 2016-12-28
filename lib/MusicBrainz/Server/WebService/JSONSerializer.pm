@@ -16,7 +16,7 @@ sub serialize
 {
     my ($self, $type, @data) = @_;
 
-    $type =~ s/-/_/g;
+    $type =~ tr/-/_/;
 
     my $override = $self->meta->find_method_by_name($type);
     return $override->execute($self, @data) if $override;
@@ -229,17 +229,14 @@ sub _with_primary_alias {
     my @output;
     if (@$results) {
         my $munge_lang = sub {
-            my $lang = shift;
-            $lang =~ s/_[A-Z]{2}/_/;
-            return $lang;
+            shift =~ s/_[A-Z]{2}/_/r
         };
 
         my %alias_preference = (
             en => 2,
             en_ => 1
         );
-        my $lang = $munge_lang->($results->[0]->{current_language});
-        $lang =~ s/_$//;
+        my $lang = $munge_lang->($results->[0]->{current_language}) =~ s/_$//r;
         $alias_preference{$lang} = 4 if $lang ne 'en';
         $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
 

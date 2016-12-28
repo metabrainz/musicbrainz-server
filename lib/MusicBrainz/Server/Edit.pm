@@ -25,12 +25,8 @@ sub edit_name { die 'Unimplemented' }
 sub edit_kind { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
 
-sub edit_template
-{
-    my $self = shift;
-    my $name = lc($self->edit_name);
-    $name =~ s/\s+/_/g;
-    return $name;
+sub edit_template {
+    lc(shift->edit_name) =~ s/\s+/_/gr
 }
 
 has 'c' => (

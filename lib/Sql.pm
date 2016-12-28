@@ -583,8 +583,7 @@ sub DEMOLISH
 {
     my $self = shift;
     my $t = tv_interval($self->t0);
-    my $sql = $self->sql;
-    $sql =~ s/\s+/ /sg;
+    my $sql = $self->sql =~ s/\s+/ /sgr;
 
     # Uncomment this if you're only interested in queries which take longer
     # than $somelimit
