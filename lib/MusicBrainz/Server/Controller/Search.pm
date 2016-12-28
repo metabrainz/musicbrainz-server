@@ -39,7 +39,6 @@ sub search : Path('')
     if ($form->process( params => $c->req->query_params ))
     {
         if ($form->field('type')->value eq 'annotation' ||
-            $form->field('type')->value eq 'freedb'     ||
             $form->field('type')->value eq 'cdstub') {
             $form->field('method')->value('indexed')
                 if $form->field('method')->value eq 'direct';
