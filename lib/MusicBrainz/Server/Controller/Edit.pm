@@ -337,7 +337,7 @@ sub edit_type : Path('/doc/Edit_Types') Args(1) {
     my ($self, $c, $edit_type) = @_;
 
     my $class = EditRegistry->class_from_type($edit_type);
-    my $id = 'Edit Type/$class->edit_name' =~ tr/ /_/r;
+    my $id = ('Edit Type/' . $class->edit_name) =~ tr/ /_/r;
 
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
