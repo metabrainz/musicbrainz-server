@@ -110,10 +110,8 @@ sub countries : Local
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) {
-            my $release_stat = $stat_name;
-            my $label_stat = $stat_name;
-            $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
-            $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
+            my $release_stat = $stat_name =~ s/$artist_country_prefix/$release_country_prefix/r;
+            my $label_stat = $stat_name =~ s/$artist_country_prefix/$label_country_prefix/r;
             push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
         }
     }
@@ -224,8 +222,7 @@ sub formats : Path('formats')
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
-            my $release_stat = $stat_name;
-            $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
+            my $release_stat = $stat_name =~ s/$medium_format_prefix/$release_format_prefix/r;
             push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
         }
     }

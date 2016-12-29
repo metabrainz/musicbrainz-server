@@ -1306,8 +1306,7 @@ sub serialize
 
     my $gen = MusicBrainz::XML->new();
 
-    my $method = $type . "_resource";
-    $method =~ s/-/_/g;
+    my $method = ($type =~ tr/-/_/r) . "_resource";
     my $xml = $xml_decl_begin;
     $xml .= $self->$method($gen, $entity, $inc, $stash);
     $xml .= $xml_decl_end;

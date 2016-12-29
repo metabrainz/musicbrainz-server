@@ -99,8 +99,7 @@ sub _create_page
 {
     my ($self, $id, $version, $content, $index) = @_;
 
-    my $title = $id;
-    $title =~ s/_/ /g;
+    my $title = $id =~ tr/_/ /r;
     # Create hierarchy for displaying in the h1
     my @hierarchy = split('/',$title);
 

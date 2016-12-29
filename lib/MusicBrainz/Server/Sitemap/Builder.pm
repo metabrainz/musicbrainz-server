@@ -224,8 +224,7 @@ sub build_one_sitemap {
     die "Too many URLs for one sitemap: $filename" if scalar @urls > $MAX_SITEMAP_SIZE;
 
     my $local_filename = File::Spec->catfile($self->output_dir, $filename);
-    my $local_xml_filename = $local_filename;
-    $local_xml_filename =~ s/\.gz$//;
+    my $local_xml_filename = $local_filename =~ s/\.gz$//r;
     my $remote_filename = DBDefs->CANONICAL_SERVER . '/' . $filename;
     my $existing_md5;
 

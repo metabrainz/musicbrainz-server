@@ -133,11 +133,8 @@ sub set_language
     }
     # Strip off charset
     $set_lang =~ s/\.utf-8//;
-    # because s///r is a perl 5.14 feature
-    my $set_lang_munge = $set_lang;
-    $set_lang_munge =~ s/_([A-Z]{2})/-\L$1/;
-    my $set_lang_nocountry = $set_lang;
-    $set_lang_nocountry =~ s/_[A-Z]{2}//;
+    my $set_lang_munge = $set_lang =~ s/_([A-Z]{2})/-\L$1/r;
+    my $set_lang_nocountry = $set_lang =~ s/_[A-Z]{2}//r;
     # Change en_AQ back to en-aq to compare with MB_LANGUAGES
     if (grep { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $set_lang;
@@ -181,12 +178,12 @@ sub all_languages
                            map { [ $_ => DateTime::Locale->load($_) ] }
                            grep { my $l = $_;
                                   grep { $l eq $_ } DateTime::Locale->ids() }
-                           map { s/-([a-z]{2})/-\U$1/; $_; } DBDefs->MB_LANGUAGES;
+                           map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @lang_without_locale = sort_by { $_->[1]->{id} }
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] }
                               grep { my $l = $_;
                                      !(grep { $l eq $_ } DateTime::Locale->ids()) }
-                              map { s/-([a-z]{2})/-\U$1/; $_; } DBDefs->MB_LANGUAGES;
+                              map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;
 }

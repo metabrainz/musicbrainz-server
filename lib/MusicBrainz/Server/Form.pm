@@ -76,8 +76,7 @@ sub serialize
     # iterate over all fields instead of walking the tree.
     for my $full_name (keys %$fif)
     {
-        my $field = $full_name;
-        $field =~ s/^\Q$name.\E//;
+        my $field = $full_name =~ s/^\Q$name.\E//r;
 
         $attributes->{$full_name} = { map {
             $_ => $self->field($field)->$_
@@ -102,8 +101,7 @@ sub unserialize
 
     for my $full_name (keys %{ $data->{'attributes'} })
     {
-        my $field = $full_name;
-        $field =~ s/^\Q$name.\E//;
+        my $field = $full_name =~ s/^\Q$name.\E//r;
 
         next unless $self->field($field);
 

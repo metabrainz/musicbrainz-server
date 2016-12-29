@@ -169,14 +169,11 @@ sub _display_trimmed {
 }
 
 sub normalise_url {
-    my $url = shift;
     # The regular expression in format_editnote is not clever enough to handle
     # percent encoded parenthesis.
 
-    $url =~ s/%28/\(/g;
-    $url =~ s/%29/\)/g;
-
-    return $url;
+    shift =~ s/%28/\(/gr
+          =~ s/%29/\)/gr
 }
 
 sub format_editnote

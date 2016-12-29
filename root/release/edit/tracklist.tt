@@ -216,13 +216,12 @@
 </div>
 
 <div id="add-disc-dialog" style="display: none;" data-bind="with: $root.addDiscDialog, delegatedHandler: ['click', 'keydown']">
-  <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]</p>
+  <p>[% l('To create a new tracklist, use an existing medium or import a disc from a CD stub, select the appropriate tab.') %]</p>
 
   <ul>
     <li><a href="#add-disc-parser">[% l('Manual entry') %]</a></li>
     <li><a href="#add-disc-medium">[% l('Existing medium') %]</a></li>
     <li><a href="#add-disc-cdstub">[% l('CD stub import') %]</a></li>
-    <li><a href="#add-disc-freedb">[% l('FreeDB import') %]</a></li>
   </ul>
 
   <div id="add-disc-parser">
@@ -237,11 +236,6 @@
   <div id="add-disc-cdstub">
     <p>[% l('Use the following fields to search for a CD stub.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: cdstubSearch } --><!-- /ko -->
-  </div>
-
-  <div id="add-disc-freedb">
-    <p>[% l('Use the following fields to search for a FreeDB entry.') %]</p>
-    <!-- ko template: { name: "template.medium-search", data: freedbSearch } --><!-- /ko -->
   </div>
 
   <div class="buttons">

@@ -216,8 +216,7 @@ sub search
         $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'event';
 
-        my $extra_groupby_columns = $extra_columns;
-        $extra_groupby_columns =~ s/[^ ,]+ AS //g;
+        my $extra_groupby_columns = $extra_columns =~ s/[^ ,]+ AS //gr;
 
         my $extra_joins = '';
         if ($type eq 'area') {
@@ -354,12 +353,6 @@ sub schema_fixup
 
     return unless (ref($data) eq 'HASH');
 
-    if (defined $data->{id} && $type eq 'freedb')
-    {
-        $data->{discid} = $data->{id};
-        delete $data->{name};
-    }
-
     # Special case to handle the ids
     $data->{gid} = $data->{id};
     $data->{id} = 1;
@@ -394,8 +387,7 @@ sub schema_fixup
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
-            my $json_prop = $prop . '-codes';
-            $json_prop =~ s/_/-/g;
+            my $json_prop = ($prop =~ tr/_/-/r) . '-codes';
             if (defined $data->{$json_prop}) {
                 $data->{$prop} = $data->{$json_prop};
                 delete $data->{$json_prop};
@@ -404,8 +396,7 @@ sub schema_fixup
     }
     if ($type eq 'artist' || $type eq 'label' || $type eq 'place') {
         for my $prop (qw( area begin_area end_area )) {
-            my $json_prop = $prop;
-            $json_prop =~ s/_/-/;
+            my $json_prop = $prop =~ tr/_/-/r;
             if (defined $data->{$json_prop})
             {
                 my $area = delete $data->{$json_prop};
@@ -434,21 +425,14 @@ sub schema_fixup
         delete $data->{entity};
         delete $data->{type};
     }
-    if ($type eq 'freedb' && defined $data->{name})
-    {
-        $data->{title} = $data->{name};
-        delete $data->{name};
-    }
-    if (($type eq 'cdstub' || $type eq 'freedb')
-        && (defined $data->{"count"}))
+    if ($type eq 'cdstub' && defined $data->{count})
     {
         if (defined $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
 
-        $data->{track_count} = $data->{"count"};
-        delete $data->{"count"};
+        $data->{track_count} = delete $data->{count};
     }
     if ($type eq 'release')
     {
@@ -804,7 +788,6 @@ sub external_search
         if ($type ~~ [qw(area artist event instrument label place recording release release-group work annotation cdstub editor)]) {
             $xmltype .= "s";
         }
-        $xmltype =~ s/freedb/freedb-discs/;
 
         foreach my $t (@{$data->{$xmltype}})
         {
@@ -907,10 +890,8 @@ sub xml_search
                         parameter => 'title',
                         escape    => 1,
                         process => sub {
-                            my $term = shift;
-                            $term =~ s/\s*(.*?)\s*$/$1/;
-                            $term =~ tr/A-Z/a-z/;
-                            $term;
+                            shift =~ s/\s*(.*?)\s*$/$1/r
+                                  =~ tr/A-Z/a-z/r
                         },
                         split     => 1,
                         predicate => sub { shift }
@@ -923,7 +904,7 @@ sub xml_search
                         parameter => 'artist',
                         escape    => 1,
                         split     => 1,
-                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                        process   => sub { shift =~ s/\s*(.*?)\s*$/$1/r }
                     },
                     type => {
                         parameter => 'releasetype',
@@ -954,10 +935,8 @@ sub xml_search
                         parameter => 'title',
                         escape    => 1,
                         process => sub {
-                            my $term = shift;
-                            $term =~ s/\s*(.*?)\s*$/$1/;
-                            $term =~ tr/A-Z/a-z/;
-                            $term;
+                            shift =~ s/\s*(.*?)\s*$/$1/r
+                                  =~ tr/A-Z/a-z/r
                         },
                         split     => 1,
                         predicate => sub { shift }
@@ -970,7 +949,7 @@ sub xml_search
                         parameter => 'artist',
                         escape    => 1,
                         split     => 1,
-                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                        process   => sub { shift =~ s/\s*(.*?)\s*$/$1/r }
                     },
                     type => {
                         parameter => 'releasetype',
@@ -987,10 +966,8 @@ sub xml_search
                         parameter => 'title',
                         escape    => 1,
                         process => sub {
-                            my $term = shift;
-                            $term =~ s/\s*(.*?)\s*$/$1/;
-                            $term =~ tr/A-Z/a-z/;
-                            $term;
+                            shift =~ s/\s*(.*?)\s*$/$1/r
+                                  =~ tr/A-Z/a-z/r
                         },
                         predicate => sub { shift },
                         split     => 1,
@@ -1003,7 +980,7 @@ sub xml_search
                         parameter => 'artist',
                         escape    => 1,
                         split     => 1,
-                        process   => sub { my $term = shift; $term =~ s/\s*(.*?)\s*$/$1/; $term }
+                        process   => sub { shift =~ s/\s*(.*?)\s*$/$1/r }
                     },
                     reid => {
                         parameter => 'releaseid',
