@@ -87,6 +87,14 @@ var lowerCaseBracketWordsList = [
 
 var lowerCaseBracketWords = new RegExp('^(' + lowerCaseBracketWordsList.join('|') + ')$', 'i');
 
+exports.turkishUpperCase = function(str) {
+  return str.replace(/i/g, 'İ').toUpperCase();
+};
+
+exports.turkishLowerCase = function(str) {
+  return str.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i').toLowerCase();
+};
+
 exports.isLowerCaseBracketWord = function (w) {
     return lowerCaseBracketWords.test(w);
 };

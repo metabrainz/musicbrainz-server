@@ -8,7 +8,7 @@ const {assign} = require('lodash');
 
 const {l} = require('../common/i18n');
 const getBooleanCookie = require('../common/utility/getBooleanCookie');
-const {isPrepBracketWord, isPrepBracketSingleWord} = require('./utils');
+const {isPrepBracketWord, isPrepBracketSingleWord, turkishUpperCase, turkishLowerCase} = require('./utils');
 
 /*
  * Words which are always written lowercase.
@@ -17,8 +17,9 @@ const {isPrepBracketWord, isPrepBracketSingleWord} = require('./utils');
  * keschte  2005-04-17  added french lowercase characters
  * keschte  2005-06-14  added "tha" to be handled like "the"
  * warp     2011-02-01  added da, de, di, fe, fi, ina, inna
+ * dpmittal 2016-12-20  added Turkish lowercase words
  */
-const LOWER_CASE_WORDS = /^(a|an|and|as|at|but|by|da|de|di|fe|fi|for|in|ina|inna|n|nor|o|of|on|or|tha|the|to)$/;
+const LOWER_CASE_WORDS = /^(a|an|and|as|at|but|by|da|de|di|fe|fi|for|in|ina|inna|n|nor|o|of|on|or|tha|the|to|ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısın|musun|mudur|mıdır|midir|miyim|misin|misiniz|mısınız|müsün|müyüm|müsünüz|mıyım|muyum|musunuz|miyiz|mıyız|muyuz|müyüz|müdür)$/;
 
 /*
  * Words which are always written uppercase.
@@ -289,4 +290,21 @@ exports.Sentence = assign({}, DefaultMode, {
     'language guidelines}.',
     {url: {href: 'https://musicbrainz.org/doc/Style/Language', target: '_blank'}}
   ),
+});
+
+exports.Turkish = assign({}, DefaultMode, {
+  description: l(
+    'This mode handles the Turkish capitalisation of \'i\' (\'İ\') and \'ı\' '+
+    '(\'I\'). Some words may need to be manually corrected '+
+    'according to the {url|Turkish language guidelines}. ',
+    {url: {href: 'https://musicbrainz.org/doc/Style/Language/Turkish', target: '_blank'}}
+  ),
+
+  isSentenceCaps() {
+    return false;
+  },
+
+  toUpperCase: turkishUpperCase,
+
+  toLowerCase: turkishLowerCase,
 });

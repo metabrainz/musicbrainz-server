@@ -231,6 +231,7 @@
         <option value="English">[% l('English') %]</option>
         <option value="Sentence">[% l('Sentence') %]</option>
         <option value="French">[% l('French') %]</option>
+        <option value="Turkish">[% l('Turkish') %]</option>
       </select>
       <br />
       <label>
@@ -254,6 +255,7 @@
           <option value="English">[% l('English') %]</option>
           <option value="Sentence">[% l('Sentence') %]</option>
           <option value="French">[% l('French') %]</option>
+          <option value="Turkish">[% l('Turkish') %]</option>
         </select>
         <br />
         <label>
