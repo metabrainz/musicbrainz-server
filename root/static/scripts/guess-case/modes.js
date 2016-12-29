@@ -128,6 +128,14 @@ let DefaultMode = {
     );
   },
 
+  toUpperCase(str) {
+    return str.toUpperCase();
+  },
+
+  toLowerCase(str) {
+    return str.toLowerCase();
+  },
+
   /*
    * Pre-process to find any lowercase_bracket word that needs to be put into
    * parentheses. Starts from the back and collects words that belong into the
