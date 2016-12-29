@@ -87,6 +87,14 @@ var lowerCaseBracketWordsList = [
 
 var lowerCaseBracketWords = new RegExp('^(' + lowerCaseBracketWordsList.join('|') + ')$', 'i');
 
+exports.turkishUpperCase = function(str) {
+  return str.replace(/i/g, 'İ').toUpperCase();
+};
+
+exports.turkishLowerCase = function(str) {
+  return str.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i').toLowerCase();
+};
+
 exports.isLowerCaseBracketWord = function (w) {
     return lowerCaseBracketWords.test(w);
 };
@@ -144,8 +152,8 @@ exports.titleString = function (is, forceCaps) {
     }
 
     var os;
-    var lc = is.toLowerCase();
-    var uc = is.toUpperCase();
+    var lc = gc.mode.toLowerCase(is);
+    var uc = gc.mode.toUpperCase(is);
 
     if (is === uc && is.length > 1 && gc.CFG_UC_UPPERCASED) {
         os = uc;
@@ -174,8 +182,8 @@ exports.titleString = function (is, forceCaps) {
         os = uc;
     } else {
         os = exports.titleStringByMode(lc, forceCaps);
-        lc = os.toLowerCase();
-        uc = os.toUpperCase();
+        lc = gc.mode.toLowerCase(os);
+        uc = gc.mode.toUpperCase(os);
 
         var nextWord = gc.i.getNextWord();
         var followedByPunctuation = nextWord && nextWord.length === 1 && exports.isPunctuationChar(nextWord);
@@ -199,7 +207,7 @@ exports.titleStringByMode = function (is, forceCaps) {
         return '';
     }
 
-    var os = is.toLowerCase();
+    var os = gc.mode.toLowerCase(is);
 
     // See if the word before is a sentence stop character.
     // -- http://bugs.musicbrainz.org/ticket/40
@@ -219,11 +227,11 @@ exports.titleStringByMode = function (is, forceCaps) {
 
     if (doCaps) {
         var chars = os.split('');
-        chars[0] = chars[0].toUpperCase();
+        chars[0] = gc.mode.toUpperCase(chars[0]);
 
         if (is.length > 2 && is.substring(0, 2) === 'mc') {
             // Make it McTitled
-            chars[2] = chars[2].toUpperCase();
+            chars[2] = gc.mode.toUpperCase(chars[2]);
         }
 
         os = chars.join('');
