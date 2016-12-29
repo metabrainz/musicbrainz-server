@@ -87,7 +87,7 @@ use constant FAVICON_CLASSES => {
     'kickstarter.com'           => 'kickstarter',
     'setlist.fm'                => 'setlistfm',
     'vimeo.com'                 => 'vimeo',
-    'songkick.com'              => 'songkick'
+    'songkick.com'              => 'songkick',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
