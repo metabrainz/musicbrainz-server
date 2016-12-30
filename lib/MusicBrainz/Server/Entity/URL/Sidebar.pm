@@ -87,6 +87,7 @@ use constant FAVICON_CLASSES => {
     'kickstarter.com'           => 'kickstarter',
     'setlist.fm'                => 'setlistfm',
     'vimeo.com'                 => 'vimeo',
+    'songkick.com'              => 'songkick',
     'reverbnation.com'          => 'reverbnation',
 };
 
