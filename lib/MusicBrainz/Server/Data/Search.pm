@@ -704,7 +704,7 @@ sub escape_query
 {
     my $str = shift;
 
-    return "" unless $str;
+    return "" unless defined $str;
 
     $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\\/])/\\$1/g;
     return $str;

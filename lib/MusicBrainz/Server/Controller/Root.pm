@@ -7,8 +7,7 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
-use ModDefs;
-use MusicBrainz::Server::Constants qw( $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
@@ -377,7 +376,7 @@ sub end : ActionClass('RenderView')
 
     $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 
-    $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
+    $c->stash->{various_artist_mbid} = $VARTIST_GID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 

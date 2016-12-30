@@ -558,18 +558,6 @@ sub rating : Chained('load') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-=head2 import
-
-Import a release from another source (such as FreeDB)
-
-=cut
-
-sub import : Local
-{
-    my ($self, $c) = @_;
-    die "This is a stub method";
-}
-
 around $_ => sub {
     my $orig = shift;
     my ($self, $c) = @_;
