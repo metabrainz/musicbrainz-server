@@ -509,7 +509,6 @@ sub find_for_cdtoc
         LEFT JOIN release_event ON release_event.release = release.id
         WHERE track_count_matches_cdtoc(medium, ?)
           AND acn.artist = ?
-          AND (medium_format.id IS NULL OR medium_format.has_discids)
         ORDER BY release.id, release.release_group,
           date_year, date_month, date_day, musicbrainz_collate(release.name)
       ) s

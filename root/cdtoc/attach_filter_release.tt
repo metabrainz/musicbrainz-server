@@ -17,7 +17,7 @@
     [% r.hidden('query') %]
     [%- IF results.size -%]
       <p>
-        [% ln('{num} release found matching your query.', '{num} release found matching your query.',
+        [% ln('{num} release found matching your query.', '{num} releases found matching your query.',
                 results.size, { num => results.size }) %]
       </p>
 
