@@ -793,6 +793,10 @@ msgstr ""
 msgid "contrabass clarinet"
 msgstr ""
 
+#: DB:instrument/name:820
+msgid "contrabass flute"
+msgstr ""
+
 #: DB:instrument/name:295
 msgid "contrabass recorder"
 msgstr ""
