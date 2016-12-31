@@ -202,10 +202,10 @@ HTML5 with validator.nu.
 
 sub html_ok
 {
-    my ($content, $message) = @_;
+    my ($content) = @_;
 
-    xhtml_ok($Test, $content, $message);
-    html5_ok($Test, $content, $message);
+    xhtml_ok($Test, $content);
+    html5_ok($Test, $content);
 }
 
 sub xml_ok

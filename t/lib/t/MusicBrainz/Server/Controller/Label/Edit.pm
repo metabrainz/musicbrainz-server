@@ -80,7 +80,7 @@ cmp_deeply($edit->data, {
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->text_contains('controller label', '..has new name');
 $mech->text_contains('Warp Records', '..has old name');
 $mech->text_contains('Original Production', '..has new type');

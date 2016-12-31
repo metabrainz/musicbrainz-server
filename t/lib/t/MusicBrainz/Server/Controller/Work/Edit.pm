@@ -58,7 +58,7 @@ cmp_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->text_contains('Another name', '..has new name');
 $mech->text_contains('Dancing Queen', '..has old name');
 $mech->text_contains('Beijing opera', '..has new work type');
