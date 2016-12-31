@@ -5,7 +5,7 @@ sub AUTOLOAD {
     my $self = shift;
 
     my ($tag) = our $AUTOLOAD =~ /.*::(.*)/;
-    $tag =~ s/_/-/g;
+    $tag =~ tr/_/-/;
 
     my %attrs = ref($_[0]) eq 'HASH' ? %{ shift() } : ();
 

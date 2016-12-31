@@ -239,15 +239,6 @@ const request = require('../common/utility/request');
     });
 
 
-    var freedbSearchTab = SearchTab().extend({
-        endpoint: "/ws/js/freedb",
-
-        tracksRequestURL: function (result) {
-            return [this.endpoint, result.category, result.discid].join("/");
-        }
-    });
-
-
     var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
         title: i18n.l("Add Medium"),
@@ -255,7 +246,6 @@ const request = require('../common/utility/request');
         trackParser: releaseEditor.trackParserDialog,
         mediumSearch: mediumSearchTab,
         cdstubSearch: cdstubSearchTab,
-        freedbSearch: freedbSearchTab,
         currentTab: ko.observable(releaseEditor.trackParserDialog),
 
         before$open: function () {
@@ -265,7 +255,7 @@ const request = require('../common/utility/request');
             this.trackParser.setMedium(blankMedium);
             this.trackParser.result(blankMedium);
 
-            _.each([mediumSearchTab, cdstubSearchTab, freedbSearchTab],
+            _.each([mediumSearchTab, cdstubSearchTab],
                 function (tab) {
                     if (!tab.releaseName()) tab.releaseName(release.name());
 
@@ -310,7 +300,6 @@ const request = require('../common/utility/request');
         $("#add-disc-parser").data("model", addDiscDialog.trackParser);
         $("#add-disc-medium").data("model", mediumSearchTab);
         $("#add-disc-cdstub").data("model", cdstubSearchTab);
-        $("#add-disc-freedb").data("model", freedbSearchTab);
 
         $(addDiscDialog.element).tabs({
             activate: function (event, ui) {

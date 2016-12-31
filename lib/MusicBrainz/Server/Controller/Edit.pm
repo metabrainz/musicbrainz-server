@@ -10,7 +10,7 @@ use DBDefs;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( :quality );
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -51,7 +51,7 @@ sub base : Chained('/') PathPart('edit') CaptureArgs(0) { }
 sub _load
 {
     my ($self, $c, $edit_id) = @_;
-    return unless is_positive_integer($edit_id);
+    return unless is_database_row_id($edit_id);
     return $c->model('Edit')->get_by_id($edit_id);
 }
 
@@ -336,14 +336,15 @@ sub edit_types : Path('/doc/Edit_Types')
 sub edit_type : Path('/doc/Edit_Types') Args(1) {
     my ($self, $c, $edit_type) = @_;
 
-    my $class = EditRegistry->class_from_type($edit_type);
-    my $id = 'Edit Type/$class->edit_name';
-    $id =~ s/ /_/g;
+    my $class;
+    $class = EditRegistry->class_from_type($edit_type)
+        if is_database_row_id($edit_type);
+    $class or $c->detach('/error_404');
+
+    my $id = ('Edit Type/' . $class->edit_name) =~ tr/ /_/r;
 
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
-
-    $c->detach('/error_404') unless $class;
 
     $c->stash(
         edit_type => $class,

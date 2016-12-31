@@ -26,10 +26,6 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
-    "freedb" => {
-        method => 'GET',
-        optional => [ qw(q artist tracks limit page timestamp) ]
-    },
     "cover-art-upload" => {
         method => 'GET',
     },
@@ -75,29 +71,6 @@ sub medium : Chained('root') PathPart Args(1) {
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($medium->TO_JSON));
 }
-
-sub freedb : Chained('root') PathPart Args(2) {
-    my ($self, $c, $category, $id) = @_;
-
-    my $response = $c->model('FreeDB')->lookup($category, $id);
-
-    unless (defined $response) {
-        $c->stash->{error} = "$category/$id not found";
-        $c->detach('not_found');
-    }
-
-    my $ret = { toc => "" };
-    $ret->{tracks} = [ map {
-        {
-            name => $_->{title},
-            artist => $_->{artist},
-            length => $_->{length},
-        }
-    } @{ $response->tracks } ];
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(encode_json($ret));
-};
 
 sub cdstub : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -178,9 +151,6 @@ sub disc_results {
             artist => $_->entity->artist,
         );
 
-        $result{year} = $_->entity->year if $type eq 'freedb';
-        $result{category} = $_->entity->category if $type eq 'freedb';
-
         $result{comment} = $_->entity->comment if $type eq 'cdstub';
         $result{barcode} = $_->entity->barcode->format if $type eq 'cdstub';
 
@@ -248,12 +218,6 @@ sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     my ($self, $c) = @_;
 
     return $self->disc_search($c, 'cdstub');
-};
-
-sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
-    my ($self, $c) = @_;
-
-    return $self->disc_search($c, 'freedb');
 };
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
