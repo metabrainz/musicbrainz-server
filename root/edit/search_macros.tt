@@ -107,9 +107,7 @@
 [% END %]
 
 [% BLOCK remove %]
-<button type="button" class="icon remove">
-  <div class="remove-item icon img" title="[% l('Delete') %]"></div>
-</button>
+<button type="button" class="remove-item icon" title="[% l('Delete') %]"></button>
 [% END %]
 
 [% MACRO operators(operators, field_contents) BLOCK %]

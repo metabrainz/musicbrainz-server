@@ -148,22 +148,17 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" class="value with-button" />
-              <button type="button" class="nobutton icon remove">
-                <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
-              </button>
+              <button type="button" class="nobutton icon remove-item" title="[% l('Remove {item}', item => item_name) %]"></button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-button" />
-              <button type="button" class="nobutton remove">
-              <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
-              </button>
+              <button type="button" class="nobutton icon remove-item" title="[% l('Remove {item}', item => item_name) %]"></button>
           </div>
           [% END -%]
           <div class="form-row-add">
-            <button type="button" class="nobutton add">
-              <span class="add-row">[% l('Add {item}', item => item_name) %]</span>
-              <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
+            <button type="button" class="with-label add-item">
+              [% l('Add {item}', item => item_name) %]
             </button>
           </div>
       </div>

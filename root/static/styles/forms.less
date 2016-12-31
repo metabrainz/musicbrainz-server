@@ -85,7 +85,6 @@ div.form-row-add {
     margin: (@form-margin / 2) 0;
 }
 
-div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
 
@@ -489,15 +488,14 @@ button.with-label {
     cursor: pointer;
 }
 
-button.add-item,
-div.add-item {
+button.add-item {
     background-image: data-uri('../images/icons/add_row.png');
 }
 
 .remove-artist-credit,
-button.remove-item,
-div.remove-item {
-    background-image: data-uri('../images/icons/delete_row.png');
+button.remove-item {
+    /* The !important overrides .nobutton:hover. */
+    background-image: data-uri('../images/icons/delete_row.png') !important;
 }
 
 .edit-item {
