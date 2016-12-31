@@ -65,8 +65,8 @@
             </span>
             [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
             <span id="add-language-template" style="display: none">
-              [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
-              [% r.select(extra_field.field('fluency'), name => '', class => 'fluency') %]
+              [% r.select(extra_field.field('language_id'), id => 'fluency-template', class => 'language_id',) %]
+              [% r.select(extra_field.field('fluency'), class => 'fluency') %]
               <span class="buttons inline">
                 <button type="button" class="remove negative">[% l('Remove') %]</button>
               </span>
