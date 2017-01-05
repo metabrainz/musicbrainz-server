@@ -42,7 +42,7 @@ for my $def (@BOOLEAN_DEFS) {
     $code .= "exports.$def = $value;\n";
 }
 
-my $json = JSON->new->allow_nonref->ascii;
+my $json = JSON->new->allow_nonref->ascii->canonical;
 
 for my $def (@HASH_DEFS, @NUMBER_DEFS, @STRING_DEFS) {
     my $value = DBDefs->$def;
