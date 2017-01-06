@@ -3,6 +3,8 @@
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
-./script/dbdefs_to_js.pl
+./script/dbdefs_to_js.pl --client
 
 ./node_modules/.bin/gulp $@
+
+./script/dbdefs_to_js.pl
