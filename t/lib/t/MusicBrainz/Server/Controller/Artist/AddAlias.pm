@@ -50,7 +50,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 
 $mech->content_contains('Test Artist', '..contains artist name');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '..contains artist link');

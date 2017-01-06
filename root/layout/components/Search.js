@@ -44,7 +44,7 @@ const Search = () => (
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />
     <button type="submit">
-      <img src={manifest.pathTo('/images/icons/search.svg')} />
+      <img alt="" src={manifest.pathTo('/images/icons/search.svg')} />
     </button>
   </form>
 );

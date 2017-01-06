@@ -49,7 +49,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 
 $mech->content_contains('Warp Records', '..contains label name');
 $mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains label link');

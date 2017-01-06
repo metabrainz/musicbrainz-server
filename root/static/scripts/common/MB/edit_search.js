@@ -42,9 +42,9 @@ $(function () {
             .addClass('field')
             .find('option:first').remove();
 
-        newCondition.find('button.remove').show();
+        newCondition.find('button.remove-item').show();
 
-    }).on("click", "ul.conditions li.condition button.remove", function () {
+    }).on("click", "ul.conditions li.condition button.remove-item", function () {
         $(this).parent('li').remove();
 
     }).on("change", "ul.conditions select.field", function () {
@@ -109,7 +109,7 @@ $(function () {
 
     $('ul.conditions li.condition span.field').show();
     $('ul.conditions li.condition select.operator').trigger('change');
-    $('ul.conditions li.condition button.remove').show();
+    $('ul.conditions li.condition button.remove-item').show();
 
     $('ul.conditions li.condition').each(function () {
         $(this).find(':input').each(function () {

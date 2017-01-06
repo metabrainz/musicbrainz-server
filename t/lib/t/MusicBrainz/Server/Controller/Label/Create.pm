@@ -60,7 +60,7 @@ is_deeply($edit->data, {
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->content_contains('controller label', '..has name');
 $mech->content_contains('label created in controller_label.t', '..has comment');
 $mech->content_like(qr/1990\D+01\D+02/, '..has begin date');

@@ -8,9 +8,12 @@ const React = require('react');
 class RemoveButton extends React.Component {
   render() {
     return (
-      <button type="button" className="nobutton remove" onClick={this.props.callback}>
-        <div className="remove-item icon img" title={this.props.title}></div>
-      </button>
+      <button
+        className="nobutton icon remove-item"
+        onClick={this.props.callback}
+        title={this.props.title}
+        type="button"
+      />
     );
   }
 }

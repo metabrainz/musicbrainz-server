@@ -109,6 +109,11 @@ ul.inline {
     margin: 0;
 }
 
+li.separator {
+    border-top: 1px @hr-color solid;
+    margin-top: 1em;
+}
+
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
 pre code {
     overflow-x: auto;
@@ -294,9 +299,6 @@ pre code {
                         }
                     }
                 }
-                .separator {
-                    border-top: 1px dotted #000;
-                }
             }
         }
     }
@@ -388,16 +390,6 @@ div.warning img.warning {
 #sidebar ul.links {
     margin: 0;
     padding-left: 1.5em;
-}
-
-#sidebar ul.links hr {
-    padding: 0;
-    margin: 3px;
-    height: 1px;
-    width: 75%;
-    border: 0;
-    color: @hr-color;
-    background-color: @hr-color;
 }
 
 #sidebar ul.external_links {
@@ -704,7 +696,7 @@ nav .pagination {
         display: table-cell;
 
         &.separator {
-            border-top-style: none;
+            border-top-style: none !important;
             border-bottom-style: none;
             width: 1em;
         }
