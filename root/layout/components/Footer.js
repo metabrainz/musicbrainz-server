@@ -23,6 +23,8 @@ const Footer = (props) => {
         {' | '}
         <a href="http://tickets.musicbrainz.org/" className="internal">{l('Bug Tracker')}</a>
         {' | '}
+        <a href="https://blog.musicbrainz.org/" className="internal">{l('Blog')}</a>
+        {' | '}
         <a href="https://twitter.com/MusicBrainz" className="internal">{l('Twitter')}</a>
 
         {!!server_details.beta_redirect && [
