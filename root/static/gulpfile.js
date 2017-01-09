@@ -158,16 +158,17 @@ function buildScripts() {
   var commonBundle = runYarb('common.js');
 
   // The client JS needs access to rev-manifest.json too. We obviously can't
-  // know its contents yet. So, create an empty Vinyl whose path is set to
-  // rev-manifest.json. Yarb will use this instead of attempting to read that
-  // path from disk. Later, once the `revManifest` object is populated, we
-  // can set the contents buffer on this currently-empty Vinyl.
+  // know its contents yet. So, create an empty Vinyl and expose this as the
+  // global ID "rev-manifest.json" for modules to require(). Later, once the
+  // `revManifest` object is populated, we can set the contents buffer on this
+  // currently-empty Vinyl.
   const manifestContents = new File({
     path: path.resolve(BUILD_DIR, 'rev-manifest.json'),
     contents: null,
   });
 
   const manifestBundle = runYarb('rev-manifest.js');
+  manifestBundle.expose(manifestContents, 'rev-manifest.json');
   commonBundle.external(manifestBundle);
 
   _(DBDefs.MB_LANGUAGES || '')
