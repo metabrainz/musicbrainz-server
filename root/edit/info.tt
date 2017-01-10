@@ -41,9 +41,11 @@
             content=html_escape(UserDate.format(edit.created_time)) -%]
 
         [%- IF edit.is_open -%]
-            <div class="edit-expiration">
-                [% expiration_time(edit.expires_time) %]
-            </div>
+            [%- WRAPPER 'layout/sidebar/property.tt' label=add_colon(l('Expiration')) -%]
+                <div class="edit-expiration">
+                    [% expiration_time(edit.expires_time) %]
+                </div>
+            [%- END -%]
         [% ELSE %]
             [%- INCLUDE 'layout/sidebar/property.tt' label=l('Closed:')
                 content=(edit.status == 8) ? l('<em>Cancelling</em>') : html_escape(UserDate.format(edit.close_time)) %]

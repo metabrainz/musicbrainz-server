@@ -99,7 +99,7 @@ cmp_deeply($edit->data, {
 
 # Test display of edit data
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok ($mech->content, '..xml is valid');
+html_ok($mech->content);
 $mech->text_contains('edit artist', '.. contains old artist name');
 $mech->text_contains('Test Artist', '.. contains new artist name');
 $mech->text_contains('artist, controller', '.. contains old sort name');

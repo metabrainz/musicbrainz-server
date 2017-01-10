@@ -40,7 +40,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->text_contains('Warp Records', '..has label name');
 $mech->text_contains('Test Label Alias', '..has old alias name');
 $mech->text_contains('Edited alias', '..has new alias name');

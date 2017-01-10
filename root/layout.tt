@@ -5,7 +5,7 @@
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
         <div class="header">
-            <a href="/" title="MusicBrainz"><img src="[% c.model('FileCache').path_to('/images/layout/header-logo.svg') %]" class="logo" /></a>
+            <a href="/" title="MusicBrainz"><img src="[% c.model('FileCache').path_to('/images/layout/header-logo.svg') %]" class="logo" alt="MusicBrainz" /></a>
             <div class="right">
                 <div class="top">
                     [%- INCLUDE "layout/header/top.tt" -%]
@@ -109,6 +109,7 @@
                 <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
                 <a href="https://community.metabrainz.org/" class="internal">[% l('Forums') %]</a> |
                 <a href="http://tickets.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
+                <a href="https://blog.musicbrainz.org/" class="internal">[% l('Blog') %]</a> |
                 <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
                 [%- IF server_details.beta_redirect %] |
                 <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>

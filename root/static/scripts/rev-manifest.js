@@ -1,1 +1,1 @@
-module.exports = require('../build/rev-manifest.json');
+module.exports = require('rev-manifest.json');

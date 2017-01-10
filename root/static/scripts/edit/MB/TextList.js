@@ -36,7 +36,7 @@ MB.Form.TextList = function (input) {
         counter = max_index;
         $template.parent()
             .find('div.text-list-row input.value')
-            .siblings('button.remove')
+            .siblings('button.remove-item')
             .bind('click.mb', self.removeEvent);
 
         return self;
@@ -49,14 +49,14 @@ MB.Form.TextList = function (input) {
             .show()
             .find('input.value').attr("name", input + '.' + counter).val(init_value)
             .end()
-            .find('button.remove').bind('click.mb', self.removeEvent);
+            .find('button.remove-item').bind('click.mb', self.removeEvent);
 
         counter++;
 
         return self;
     };
 
-    $template.parent().find('button.add').bind('click.mb', function (event) {
+    $template.parent().find('button.add-item').bind('click.mb', function (event) {
         var parts = last_item.split('.');
         var field_name = parts.pop();
         var idx = parseInt(parts.pop(), 10) + 1;

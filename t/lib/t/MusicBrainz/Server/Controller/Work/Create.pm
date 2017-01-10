@@ -48,7 +48,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->content_contains('Enchanted', '..has work name');
 $mech->content_contains('A comment!', '..has comment');
 $mech->content_contains('Beijing opera', '..has type');
@@ -75,7 +75,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->content_contains('T-000.000.003-0', '..has ISWC 1');
 $mech->content_contains('T-000.000.004-0', '..has ISWC 2');
 

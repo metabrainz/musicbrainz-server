@@ -216,7 +216,7 @@ class LinkTypeSelect extends React.Component {
   render() {
     return (
       <select value={this.props.type} onChange={this.props.typeChangeCallback} className="link-type">
-        <option value=""></option>
+        <option value="">{'\xA0'}</option>
         {this.props.children}
       </select>
     );

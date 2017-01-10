@@ -114,7 +114,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Artist::credit",
   "Controller::Artist::details",
   "Controller::Artist::edits",
-  "Controller::Artist::import",
   "Controller::Artist::latest_annotation",
   "Controller::Artist::open_edits",
   "Controller::Artist::ratings",
