@@ -1101,14 +1101,6 @@ function testAll(tests, text) {
 
 const validationRules = {};
 
-// NOTE: Below validation rules (legacy) definitions are deprecated
-// and need to be replaced by CLEANUPS.*.validate functions.  They
-// don’t interact with each other, CLEANUPS.*.validate functions are
-// just ignored when validation rules defintion already exists.
-
-// NOTE: Above validation rules (legacy) definitions are not altered
-// by the below validation rules generation.  See also above note.
-
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
     if (!validationRules[id]) {
