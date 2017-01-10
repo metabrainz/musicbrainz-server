@@ -60,21 +60,11 @@ sub set_page_version
 
     my $index = $self->_load_index;
     if (defined $version) {
-        my $query;
-        # NOTE: There is a race condition in the following code.
-        # It is ignored, however, because the set of transclusion editors
-        # is small, making the likelihood of triggering the condition
-        # small. It could be fixed by way of a PL/pgsql function for error
-        # trapping, as described in the postgresql docs.
-        #
-        # It is my (ianmcorvidae) opinion that the clarity of the following
-        # code, with the race condition, is preferable to the potential
-        # confusion of writing such an error-trapping function.
-        if (exists $index->{$page}) {
-            $query = "UPDATE wikidocs.wikidocs_index SET revision = ? where page_name = ?";
-        } else {
-            $query = "INSERT INTO wikidocs.wikidocs_index (revision, page_name) VALUES (?, ?)";
-        }
+        my $query =
+            qq{INSERT INTO wikidocs.wikidocs_index (revision, page_name)
+               VALUES (?, ?)
+               ON CONFLICT (page_name) DO UPDATE
+               SET revision = EXCLUDED.revision};
         $self->sql->do($query, $version, $page);
     }
     else {
