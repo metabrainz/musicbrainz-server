@@ -331,6 +331,25 @@ const CLEANUPS = {
     type: LINK_TYPES.imdb,
     clean: function (url) {
       return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7}\/$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.imdb.artist:
+            return prefix === 'name/nm' || prefix === 'character/ch' || prefix === 'company/co';
+          case LINK_TYPES.imdb.label:
+          case LINK_TYPES.imdb.place:
+            return prefix === 'company/co';
+          case LINK_TYPES.imdb.recording:
+          case LINK_TYPES.imdb.release:
+          case LINK_TYPES.imdb.release_group:
+          case LINK_TYPES.imdb.work:
+            return prefix === 'title/tt';
+        }
+      }
+      return false;
     }
   },
   mora: {
@@ -1033,27 +1052,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only IMDb pages with the IMDb rels
-validationRules[LINK_TYPES.imdb.artist] = function (url) {
-  return /imdb\.com\/(name|character|company)/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.label] = function (url) {
-  return /imdb\.com\/company/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.release_group] = function (url) {
-  return /imdb\.com\/title/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.recording] = function (url) {
-  return /imdb\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.release] = function (url) {
-  return /imdb\.com\//.test(url);
-};
 
 // allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
 validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
