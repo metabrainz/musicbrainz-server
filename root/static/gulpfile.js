@@ -217,8 +217,12 @@ function buildScripts() {
     b.external(commonBundle);
   });
 
+  var placeMapBundle = runYarb('place/map.js', function (b) {
+    b.external(commonBundle);
+  });
+
   var placeBundle = runYarb('place.js', function (b) {
-    b.external(editBundle).external(guessCaseBundle);
+    b.external(placeMapBundle).external(editBundle).external(guessCaseBundle);
   });
 
   var releaseEditorBundle = runYarb('release-editor.js', function (b) {
@@ -255,6 +259,7 @@ function buildScripts() {
     writeScript(editNotesReceivedBundle, 'edit-notes-received.js'),
     writeScript(guessCaseBundle, 'guess-case.js'),
     writeScript(placeBundle, 'place.js'),
+    writeScript(placeMapBundle, 'place/map.js'),
     writeScript(releaseEditorBundle, 'release-editor.js'),
     writeScript(seriesBundle, 'series.js'),
     writeScript(statisticsBundle, 'statistics.js'),

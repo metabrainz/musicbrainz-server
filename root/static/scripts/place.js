@@ -13,6 +13,7 @@ const initializeArea = require('./edit/MB/Control/Area').Area;
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {errorField} = require('./edit/validation');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+const {map, marker} = require('./place/map');
 
 initialize_guess_case('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');
