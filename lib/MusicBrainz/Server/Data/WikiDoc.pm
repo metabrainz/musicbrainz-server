@@ -147,7 +147,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="(?:https?:)?\/\/.*?\/(.*?)"/) {
+    if ($content =~ m{<ul class="redirectText"><li><a href="(?:https?:)?(?://[^/]+)?/(.*?)"}) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 

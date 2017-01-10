@@ -56,6 +56,8 @@ sub DEVELOPMENT_SERVER { 0 }
 
 sub GIT_INFO { return }
 
+sub HTML_VALIDATOR { 'http://html5-validator:8888?out=json' }
+
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
