@@ -363,6 +363,25 @@ const CLEANUPS = {
     type: LINK_TYPES.allmusic,
     clean: function (url) {
       return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.allmusic\.com\/([a-z\/]+)[0-9]{10}$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.allmusic.artist:
+            return prefix === 'artist/mn';
+          case LINK_TYPES.allmusic.recording:
+            return prefix === 'performance/mq';
+          case LINK_TYPES.allmusic.release:
+            return prefix === 'album/release/mr';
+          case LINK_TYPES.allmusic.release_group:
+            return prefix === 'album/mw';
+          case LINK_TYPES.allmusic.work:
+            return prefix === 'composition/mc' || prefix === 'song/mt';
+        }
+      }
+      return false;
     }
   },
   amazon: {
@@ -988,27 +1007,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow Allmusic page only for the correct entities
-validationRules[LINK_TYPES.allmusic.artist] = function (url) {
-  return /allmusic\.com\/artist\/mn/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.release_group] = function (url) {
-  return /allmusic\.com\/album\/mw/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.work] = function (url) {
-  return /allmusic\.com\/composition\/mc|song\/mt/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.recording] = function (url) {
-  return /allmusic\.com\/performance\/mq/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.release] = function (url) {
-  return /allmusic\.com\/album\/release\/mr/.test(url);
-};
 
 // allow only VGMdb pages with the VGMdb rel
 validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
