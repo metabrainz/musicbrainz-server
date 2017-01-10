@@ -135,9 +135,12 @@ const LINK_TYPES = {
     recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
     release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
   },
-  vimeo: {
+  videochannel: {
     artist: "d86c9450-b6d0-4760-a275-e7547495b48b",
+    event: "1f3df2eb-3d0b-44f1-9599-1309c692bc7c",
     label: "20ad367c-cba0-4c02-bd61-2df3ae8cc799",
+    place: "e5c5a0f6-9581-44d8-a5fb-d3688254dc9f",
+    series: "71774032-781b-468c-9cbf-8a9a2f8eda13",
   },
   vgmdb: {
     artist: "0af15ab3-c615-46d6-b95b-a5fcd2a92ed9",
@@ -252,7 +255,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.wikipedia,
   LINK_TYPES.vgmdb,
   LINK_TYPES.viaf,
-  LINK_TYPES.vimeo,
+  LINK_TYPES.videochannel,
   LINK_TYPES.youtube,
 ], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
@@ -280,6 +283,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, "https://$1.wikipedia.org/wiki/$2");
       url = reencode_mediawiki_localpart(url);
       return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/[a-z]+\.wikipedia\.org\/wiki\//.test(url);
     }
   },
   discogs: {
@@ -290,6 +296,22 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
       return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.discogs.artist:
+          return /^https:\/\/www\.discogs\.com\/(?:artist\/[1-9][0-9]*|user\/.+)$/.test(url);
+        case LINK_TYPES.discogs.label:
+        case LINK_TYPES.discogs.series:
+          return /^https:\/\/www\.discogs\.com\/label\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.place:
+          return /^https:\/\/www\.discogs\.com\/(?:artist|label)\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.release_group:
+          return /^https:\/\/www\.discogs\.com\/master\/[1-9][0-9]*$/.test(url);
+        case LINK_TYPES.discogs.release:
+          return /^https:\/\/www\.discogs\.com\/release\/[1-9][0-9]*$/.test(url);
+      }
+      return false;
     }
   },
   geonames: {
@@ -304,6 +326,25 @@ const CLEANUPS = {
     type: LINK_TYPES.imdb,
     clean: function (url) {
       return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7}\/$/.exec(url);
+      if (m) {
+        var type = m[1];
+        switch (id) {
+          case LINK_TYPES.imdb.artist:
+            return type === 'name/nm' || type === 'character/ch' || type === 'company/co';
+          case LINK_TYPES.imdb.label:
+          case LINK_TYPES.imdb.place:
+            return type === 'company/co';
+          case LINK_TYPES.imdb.recording;
+          case LINK_TYPES.imdb.release;
+          case LINK_TYPES.imdb.release_group:
+          case LINK_TYPES.imdb.work:
+            return type === 'title/tt';
+        }
+      }
+      return false;
     }
   },
   mora: {
@@ -318,6 +359,9 @@ const CLEANUPS = {
     type: LINK_TYPES.myspace,
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/myspace\.com\//.test(url);
     }
   },
   purevolume: {
@@ -336,6 +380,21 @@ const CLEANUPS = {
     type: LINK_TYPES.allmusic,
     clean: function (url) {
       return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.allmusic.artist:
+          return /^http:\/\/www\.allmusic\.com\/artist\/mn[0-9]{10}$/.test(url);
+        case LINK_TYPES.allmusic.release_group:
+          return /^http:\/\/www\.allmusic\.com\/album\/mw[0-9]{10}$/.test(url);
+        case LINK_TYPES.allmusic.work:
+          return /^http:\/\/www\.allmusic\.com\/(?:composition\/mc|song\/mt)[0-9]{10}$/.test(url);
+        case LINK_TYPES.allmusic.recording:
+          return /^http:\/\/www\.allmusic\.com\/performance\/mq[0-9]{10}$/.test(url);
+        case LINK_TYPES.allmusic.release:
+          return /^http:\/\/www\.allmusic\.com\/album\/release\/mr[0-9]{10}$/.test(url);
+      }
+      return false;
     }
   },
   amazon: {
@@ -373,6 +432,10 @@ const CLEANUPS = {
       if (tld !== "" && asin !== "") {
         return "https://www.amazon." + tld + "/gp/product/" + asin;
       }
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.amazon.release
+          && /^http:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
     }
   },
   archive: {
@@ -397,6 +460,9 @@ const CLEANUPS = {
     type: LINK_TYPES.bookbrainz,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?bookbrainz\.org\/([^\/]*)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(?:[#\/?].*)?$/, "https://bookbrainz.org/$1/$2");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
     }
   },
   cdbaby: {
@@ -499,7 +565,14 @@ const CLEANUPS = {
   },
   bbcmusic: {
     match: [new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i")],
-    type: LINK_TYPES.bbcmusic
+    type: LINK_TYPES.bbcmusic,
+    clean: function (url) {
+      url = url.replace(/\/music\/artists\/([0-9a-f-]+)/, "http://www.bbc.co.uk/music/artists/$1");
+      return url;
+    },
+    validate: function (url, id) {
+      return /^http:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url);
+    },
   },
   wikisource: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i")],
@@ -581,7 +654,18 @@ const CLEANUPS = {
   },
   secondhandsongs: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i")],
-    type: LINK_TYPES.secondhandsongs
+    type: LINK_TYPES.secondhandsongs,
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.secondhandsongs.artist:
+          return /secondhandsongs\.com\/artist\//.test(url);
+        case LINK_TYPES.secondhandsongs.release:
+          return /secondhandsongs\.com\/release\//.test(url);
+        case LINK_TYPES.secondhandsongs.work:
+          return /secondhandsongs\.com\/work\//.test(url);
+      }
+      return true;
+    }
   },
   songfacts: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?songfacts\\.com/", "i")],
@@ -589,7 +673,6 @@ const CLEANUPS = {
   },
   socialnetwork: {
     match: [
-      new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
@@ -603,21 +686,6 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
-      if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
-        // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-        url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
-        // Ensure the first parameter left uses ? not to break the URL
-        url = url.replace(/([&?])&+/, "$1");
-        url = url.replace(/[&?]$/, "");
-        // Remove trailing slashes
-        if (url.match(/\?/)) {
-          url = url.replace(/\/\?/, "?");
-        } else {
-          url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
-        }
-        url = url.replace(/\/event\.php\?eid=/, "/events/");
-      }
       url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, "https://twitter.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
@@ -628,11 +696,42 @@ const CLEANUPS = {
       return url;
     }
   },
+  facebook: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+      // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
+      url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
+      // Ensure the first parameter left uses ? not to break the URL
+      url = url.replace(/([&?])&+/, "$1");
+      url = url.replace(/[&?]$/, "");
+      // Remove trailing slashes
+      if (url.match(/\?/)) {
+        url = url.replace(/\/\?/, "?");
+      } else {
+        url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
+      }
+      url = url.replace(/\/event\.php\?eid=/, "/events/");
+      return url;
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.socialnetwork.artist:
+        case LINK_TYPES.socialnetwork.label:
+          return /\/pages\/[^\/?#]+\/\d+/.test(url);
+      }
+      return true;
+    },
+  },
   soundcloud: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i")],
     type: LINK_TYPES.soundcloud,
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
     }
   },
   blog: {
@@ -668,11 +767,14 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
         "http://viaf.org/viaf/$1");
       return url;
+    },
+    validate: function (url, id) {
+      return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
     }
   },
   vimeo: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i")],
-    type: _.defaults({}, LINK_TYPES.vimeo, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
       // Remove query string, just the video id should be enough.
@@ -693,13 +795,34 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
       url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
       return url;
+    },
+    validate: function (url, id) {
+      return _.includes(CLEANUPS.youtube.type, id)
+          && /^http:\/\/www\.youtube\.com\//.test(url);
     }
   },
   vgmdb: {
     match: [new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i")],
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var type = m[1];
+        switch (id) {
+          case LINK_TYPES.vgmdb.artist:
+            return (type === 'artist' || type === 'org');
+          case LINK_TYPES.vgmdb.release:
+            return type === 'album';
+          case LINK_TYPES.vgmdb.label:
+            return type === 'org';
+          case LINK_TYPES.vgmdb.event:
+            return type === 'event';
+        }
+      }
+      return false;
     }
   },
   wikidata: {
@@ -717,6 +840,14 @@ const CLEANUPS = {
     type: LINK_TYPES.bandcamp,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.bandcamp.artist:
+        case LINK_TYPES.bandcamp.label:
+          return /^http:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+      }
+      return true;
     }
   },
   songkick: {
@@ -724,11 +855,33 @@ const CLEANUPS = {
     type: LINK_TYPES.songkick,
     clean: function (url) {
       return url.replace(/^http:\/\//, "https://");
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.songkick.artist:
+          return /songkick\.com\/artists\//.test(url);
+        case LINK_TYPES.songkick.event:
+          return /songkick\.com\/(concerts|festivals)\//.test(url);
+        case LINK_TYPES.songkick.place:
+          return /songkick\.com\/(venues|festivals)\//.test(url);
+      }
+      return true;
     }
   },
   setlistfm: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i")],
-    type: LINK_TYPES.setlistfm
+    type: LINK_TYPES.setlistfm,
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.setlistfm.artist:
+          return /setlist\.fm\/setlists\//.test(url);
+        case LINK_TYPES.setlistfm.event:
+          return /setlist\.fm\/(setlist|festival)\//.test(url);
+        case LINK_TYPES.setlistfm.place:
+          return /setlist\.fm\/venue\//.test(url);
+      }
+      return true;
+    }
   },
   imslp: {
     match: [new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i")],
@@ -938,216 +1091,6 @@ function testAll(tests, text) {
 
 const validationRules = {};
 
-// NOTE: Below validation rules (legacy) definitions are deprecated
-// and need to be replaced by CLEANUPS.*.validate functions.  They
-// don’t interact with each other, CLEANUPS.*.validate functions are
-// just ignored when validation rules defintion already exists.
-
-// allow Discogs page only for the correct entities
-validationRules[LINK_TYPES.discogs.artist] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/(?:artist\/[0-9]+|user\/.+)$/.test(url);
-};
-
-function validateDiscogsLabel(url) {
-  return /^https:\/\/www\.discogs\.com\/label\/[0-9]+$/.test(url);
-}
-
-validationRules[LINK_TYPES.discogs.label] = validateDiscogsLabel;
-validationRules[LINK_TYPES.discogs.series] = validateDiscogsLabel;
-
-validationRules[LINK_TYPES.discogs.place] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/(?:artist|label)\/[0-9]+$/.test(url);
-};
-
-validationRules[LINK_TYPES.discogs.release_group] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/master\/[0-9]+$/.test(url);
-};
-
-validationRules[LINK_TYPES.discogs.release] = function (url) {
-  return /^https:\/\/www\.discogs\.com\/release\/[0-9]+$/.test(url);
-};
-
-// allow Allmusic page only for the correct entities
-validationRules[LINK_TYPES.allmusic.artist] = function (url) {
-  return /allmusic\.com\/artist\/mn/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.release_group] = function (url) {
-  return /allmusic\.com\/album\/mw/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.work] = function (url) {
-  return /allmusic\.com\/composition\/mc|song\/mt/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.recording] = function (url) {
-  return /allmusic\.com\/performance\/mq/.test(url);
-};
-
-validationRules[LINK_TYPES.allmusic.release] = function (url) {
-  return /allmusic\.com\/album\/release\/mr/.test(url);
-};
-
-// allow only artist pages in BBC Music links
-validationRules[LINK_TYPES.bbcmusic.artist] = function (url) {
-  return /bbc\.co\.uk\/music\/artists\//.test(url);
-};
-
-// allow only BookBrainz entity pages with the BookBrainz rel
-function validateBookBrainz(url) {
-  return /bookbrainz\.org\/[^\/]*\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/.test(url);
-}
-
-_.each(LINK_TYPES.bookbrainz, function (id) {
-  validationRules[id] = validateBookBrainz;
-});
-
-// allow only Wikipedia pages with the Wikipedia rel
-function validateWikipedia(url) {
-  return /wikipedia\.org\//.test(url);
-}
-
-_.each(LINK_TYPES.wikipedia, function (id) {
-  validationRules[id] = validateWikipedia;
-});
-
-// allow only Myspace pages with the Myspace rel
-validationRules[LINK_TYPES.myspace.artist] = function (url) {
-  return /myspace\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.myspace.label] = function (url) {
-  return /myspace\.com\//.test(url);
-};
-
-// allow only Soundcloud pages with the Soundcloud rel
-function validateSoundCloud(url) {
-  return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
-}
-
-_.each(LINK_TYPES.soundcloud, function (id) {
-  validationRules[id] = validateSoundCloud;
-});
-
-// allow only VGMdb pages with the VGMdb rel
-validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
-  return /vgmdb\.net\/(?:artist|org)\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.release] = function (url) {
-  return /vgmdb\.net\/album\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.label] = function (url) {
-  return /vgmdb\.net\/org\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.event] = function (url) {
-  return /vgmdb\.net\/event\//.test(url);
-};
-
-// allow only YouTube pages with the YouTube rel
-validationRules[LINK_TYPES.youtube.artist] = function (url) {
-  return /youtube\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.youtube.label] = function (url) {
-  return /youtube\.com\//.test(url);
-};
-
-// allow only Amazon pages with the Amazon rel
-validationRules[LINK_TYPES.amazon.release] = function (url) {
-  return /amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
-};
-
-// allow only IMDb pages with the IMDb rels
-validationRules[LINK_TYPES.imdb.artist] = function (url) {
-  return /imdb\.com\/(name|character|company)/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.label] = function (url) {
-  return /imdb\.com\/company/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.release_group] = function (url) {
-  return /imdb\.com\/title/.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.recording] = function (url) {
-  return /imdb\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.imdb.release] = function (url) {
-  return /imdb\.com\//.test(url);
-};
-
-// allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
-validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
-  return /secondhandsongs\.com\/artist\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.release] = function (url) {
-  return /secondhandsongs\.com\/release\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
-  return /secondhandsongs\.com\/work\//.test(url);
-};
-
-// allow only top-level Bandcamp pages as artist/label URLs
-validationRules[LINK_TYPES.bandcamp.artist] = function (url) {
-  return /\.bandcamp\.com\/$/.test(url);
-};
-
-validationRules[LINK_TYPES.bandcamp.label] = function (url) {
-  return /\.bandcamp\.com\/$/.test(url);
-};
-
-// allow only Songkick pages with the Songkick rel
-validationRules[LINK_TYPES.songkick.artist] = function (url) {
-  return /songkick\.com\/artists\//.test(url);
-};
-
-validationRules[LINK_TYPES.songkick.event] = function (url) {
-  return /songkick\.com\/(concerts|festivals)\//.test(url);
-};
-
-validationRules[LINK_TYPES.songkick.place] = function (url) {
-  return /songkick\.com\/(venues|festivals)\//.test(url);
-};
-
-// allow only setlist.fm pages with the setlist.fm rel
-validationRules[LINK_TYPES.setlistfm.artist] = function (url) {
-  return /setlist\.fm\/setlists\//.test(url);
-};
-
-validationRules[LINK_TYPES.setlistfm.event] = function (url) {
-  return /setlist\.fm\/(setlist|festival)\//.test(url);
-};
-
-validationRules[LINK_TYPES.setlistfm.place] = function (url) {
-  return /setlist\.fm\/venue\//.test(url);
-};
-
-// avoid wikipedia being added as release-level discography entry
-var isWikipedia = /^(https?:\/\/)?([^.]+\.)?wikipedia\.org\//;
-validationRules[LINK_TYPES.discographyentry.release] = function (url) {
-  return !isWikipedia.test(url);
-};
-
-function validateFacebook(url) {
-  if (/facebook.com\/pages\//.test(url)) {
-    return /\/pages\/[^\/?#]+\/\d+/.test(url);
-  }
-  return true;
-}
-
-validationRules[LINK_TYPES.socialnetwork.artist] = validateFacebook;
-validationRules[LINK_TYPES.socialnetwork.label] = validateFacebook;
-
-// NOTE: Above validation rules (legacy) definitions are not altered
-// by the below validation rules generation.  See also above note.
-
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
     if (!validationRules[id]) {
@@ -1165,6 +1108,15 @@ _.each(LINK_TYPES, function (linkType) {
     }
   });
 });
+
+// avoid Wikipedia being added as release-level discography entry
+var originalRule = validationRules[LINK_TYPES.discographyentry.release];
+validationRules[LINK_TYPES.discographyentry.release] = function (url) {
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+    return false;
+  }
+  return originalRule(url);
+};
 
 function guessType(sourceType, currentURL) {
   var cleanup = _.find(CLEANUPS, function (cleanup) {
