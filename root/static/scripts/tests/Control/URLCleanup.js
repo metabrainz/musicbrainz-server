@@ -79,6 +79,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00005JIWP',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://amazon.com.br/dp/B00T8E47G2',
