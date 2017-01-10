@@ -761,6 +761,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
       url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
       return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/www\.youtube\.com\//.test(url);
     }
   },
   vgmdb: {
@@ -1027,15 +1030,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only YouTube pages with the YouTube rel
-validationRules[LINK_TYPES.youtube.artist] = function (url) {
-  return /youtube\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.youtube.label] = function (url) {
-  return /youtube\.com\//.test(url);
-};
 
 // allow only Amazon pages with the Amazon rel
 validationRules[LINK_TYPES.amazon.release] = function (url) {
