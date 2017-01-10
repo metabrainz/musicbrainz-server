@@ -322,6 +322,9 @@ const CLEANUPS = {
     type: LINK_TYPES.myspace,
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/myspace\.com\//.test(url);
     }
   },
   purevolume: {
@@ -991,15 +994,6 @@ validationRules[LINK_TYPES.allmusic.recording] = function (url) {
 
 validationRules[LINK_TYPES.allmusic.release] = function (url) {
   return /allmusic\.com\/album\/release\/mr/.test(url);
-};
-
-// allow only Myspace pages with the Myspace rel
-validationRules[LINK_TYPES.myspace.artist] = function (url) {
-  return /myspace\.com\//.test(url);
-};
-
-validationRules[LINK_TYPES.myspace.label] = function (url) {
-  return /myspace\.com\//.test(url);
 };
 
 // allow only Soundcloud pages with the Soundcloud rel
