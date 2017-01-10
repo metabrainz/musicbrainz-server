@@ -272,6 +272,17 @@ function disallow(url, id) {
   return false;
 }
 
+/**
+ * CLEANUPS entries have 2 to 4 of the following properties:
+ * 
+ * - match: Array of regexps to match a given URL with the entry.
+ *          It is the only mandatory property.
+ * - type: Set of relationship types to be auto-selected for matched URL.
+ *         It contains at most 1 relationship type by entity type.
+ * - clean: Function to clean up/normalize matched URL.
+ * - validate: Function to validate matched (clean) URL
+ *             for an auto-selected relationship type.
+ **/
 const CLEANUPS = {
   wikipedia: {
     match: [new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i")],
