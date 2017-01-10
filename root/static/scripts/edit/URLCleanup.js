@@ -653,6 +653,9 @@ const CLEANUPS = {
     type: LINK_TYPES.soundcloud,
     clean: function (url) {
       return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
     }
   },
   blog: {
@@ -1010,15 +1013,6 @@ validationRules[LINK_TYPES.allmusic.recording] = function (url) {
 validationRules[LINK_TYPES.allmusic.release] = function (url) {
   return /allmusic\.com\/album\/release\/mr/.test(url);
 };
-
-// allow only Soundcloud pages with the Soundcloud rel
-function validateSoundCloud(url) {
-  return /soundcloud\.com\/(?!(search|tags)[\/?#])/.test(url);
-}
-
-_.each(LINK_TYPES.soundcloud, function (id) {
-  validationRules[id] = validateSoundCloud;
-});
 
 // allow only VGMdb pages with the VGMdb rel
 validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
