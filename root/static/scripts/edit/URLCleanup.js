@@ -1030,13 +1030,17 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      if (id === LINK_TYPES.otherdatabases.artist) {
-        return /^http:\/\/soundtrackcollector\.com\/composer\/[0-9]+\/$/.test(url);
-      } else if (id === LINK_TYPES.otherdatabases.release_group) {
-        return /^http:\/\/soundtrackcollector\.com\/title\/[0-9]+\/$/.test(url);
-      } else {
-        return false;
+      var m = /^http:\/\/soundtrackcollector\.com\/([a-z]+)\/[0-9]+\/$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'composer';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'title';
+        }
       }
+      return false;
     }
   },
   thesession: {
