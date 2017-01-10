@@ -510,15 +510,19 @@ const CLEANUPS = {
       return url.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|audiobook|music-video|podcast|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
     },
     validate: function (url, id) {
-      if (id === LINK_TYPES.downloadpurchase.artist) {
-        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?artist\/id[0-9]+$/.test(url);
-      } else if (id === LINK_TYPES.downloadpurchase.recording) {
-        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?music-video\/id[0-9]+$/.test(url);
-      } else if (id === LINK_TYPES.downloadpurchase.release) {
-        return /^https:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(album|audiobook|podcast|preorder)\/id[0-9]+$/.test(url);
-      } else {
-        return false;
+      var m = /^https:\/\/itunes\.apple\.com\/(?:[a-z]{2}\/)?([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.downloadpurchase.recording:
+            return prefix === 'music-video';
+          case LINK_TYPES.downloadpurchase.release:
+            return /^(album|audiobook|podcast|preorder)$/.test(prefix);
+        }
       }
+      return false;
     }
   },
   jamendo: {
