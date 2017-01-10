@@ -79,6 +79,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'amazon',
                     expected_clean_url: 'https://www.amazon.co.uk/gp/product/B00005JIWP',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://amazon.com.br/dp/B00T8E47G2',
@@ -231,9 +232,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // BBC Music
         {
-                             input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                             input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bbcmusic',
+                    expected_clean_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
         },
         // Beatport
         {
@@ -730,16 +732,25 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.imdb.com/name/nm1539156/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.imdb.com/character/ch0003553/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.imdb.com/company/co0109498/',
                      input_entity_type: 'label',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist', 'label', 'place']
         },
         {
                              input_url: 'http://www.imdb.com/title/tt0421082/',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['recording', 'release', 'release_group', 'work']
         },
         // IMSLP (International Music Score Library Project)
         {
@@ -1597,35 +1608,34 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
-        // VGMDb
-        {
-                             input_url: 'http://vgmdb.com/org/284',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'vgmdb',
-        },
-        {
-                             input_url: 'http://vgmdb.com/org/284',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'vgmdb',
-        },
-        // VGMDb (Video Game Music and Anime Soundtrack Database)
+        // VGMdb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'https://vgmdb.net/artist/431',
                      input_entity_type: 'artist',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/artist/431',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://vgmdb.com/event/197',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'vgmdb',
+                    expected_clean_url: 'http://vgmdb.net/event/197',
+               only_valid_entity_types: ['event']
         },
         {
                              input_url: 'https://vgmdb.com/org/284',
                      input_entity_type: 'label',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/org/284',
+               only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'vgmdb.net/album/29727',
                      input_entity_type: 'release',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/album/29727',
+               only_valid_entity_types: ['release']
         },
         // VIAF (Virtual International Authority File)
         {
@@ -1865,6 +1875,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         {
                              input_url: 'it.wikipedia.org/wiki/Foo',
                     expected_clean_url: 'https://it.wikipedia.org/wiki/Foo',
+        },
+        {
+                             input_url: 'https://en.wikipedia.org/wiki/Some_Album',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'discographyentry',
+               only_valid_entity_types: [],
         },
         // Wikisource
         {
