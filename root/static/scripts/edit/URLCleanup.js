@@ -768,6 +768,23 @@ const CLEANUPS = {
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.vgmdb.artist:
+            return prefix === 'artist' || prefix === 'org';
+          case LINK_TYPES.vgmdb.release:
+            return prefix === 'album';
+          case LINK_TYPES.vgmdb.label:
+            return prefix === 'org';
+          case LINK_TYPES.vgmdb.event:
+            return prefix === 'event';
+        }
+      }
+      return false;
     }
   },
   wikidata: {
@@ -1010,23 +1027,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only VGMdb pages with the VGMdb rel
-validationRules[LINK_TYPES.vgmdb.artist] = function (url) {
-  return /vgmdb\.net\/(?:artist|org)\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.release] = function (url) {
-  return /vgmdb\.net\/album\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.label] = function (url) {
-  return /vgmdb\.net\/org\//.test(url);
-};
-
-validationRules[LINK_TYPES.vgmdb.event] = function (url) {
-  return /vgmdb\.net\/event\//.test(url);
-};
 
 // allow only YouTube pages with the YouTube rel
 validationRules[LINK_TYPES.youtube.artist] = function (url) {
