@@ -842,6 +842,14 @@ const CLEANUPS = {
     type: LINK_TYPES.bandcamp,
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.bandcamp.artist:
+        case LINK_TYPES.bandcamp.label:
+          return /^http:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+      }
+      return false;
     }
   },
   songkick: {
@@ -1067,15 +1075,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only top-level Bandcamp pages as artist/label URLs
-validationRules[LINK_TYPES.bandcamp.artist] = function (url) {
-  return /\.bandcamp\.com\/$/.test(url);
-};
-
-validationRules[LINK_TYPES.bandcamp.label] = function (url) {
-  return /\.bandcamp\.com\/$/.test(url);
-};
 
 // allow only Songkick pages with the Songkick rel
 validationRules[LINK_TYPES.songkick.artist] = function (url) {
