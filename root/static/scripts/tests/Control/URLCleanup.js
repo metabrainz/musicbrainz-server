@@ -732,16 +732,25 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://www.imdb.com/name/nm1539156/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.imdb.com/character/ch0003553/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.imdb.com/company/co0109498/',
                      input_entity_type: 'label',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist', 'label', 'place']
         },
         {
                              input_url: 'http://www.imdb.com/title/tt0421082/',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['recording', 'release', 'release_group', 'work']
         },
         // IMSLP (International Music Score Library Project)
         {
