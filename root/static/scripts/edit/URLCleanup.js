@@ -510,6 +510,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?bbc\.co\.uk\/music\/artists\/([0-9a-f-]+).*$/, "http://www.bbc.co.uk/music/artists/$1");
       return url;
     },
+    validate: function (url, id) {
+      return /^http:\/\/www\.bbc\.co\.uk\/music\/artists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(url);
+    }
   },
   wikimediacommons: {
     match: [new RegExp("^(https?://)?(commons\\.(?:m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
@@ -985,11 +988,6 @@ validationRules[LINK_TYPES.allmusic.recording] = function (url) {
 
 validationRules[LINK_TYPES.allmusic.release] = function (url) {
   return /allmusic\.com\/album\/release\/mr/.test(url);
-};
-
-// allow only artist pages in BBC Music links
-validationRules[LINK_TYPES.bbcmusic.artist] = function (url) {
-  return /bbc\.co\.uk\/music\/artists\//.test(url);
 };
 
 // allow only Wikipedia pages with the Wikipedia rel
