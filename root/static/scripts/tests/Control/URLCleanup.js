@@ -231,9 +231,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // BBC Music
         {
-                             input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                             input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bbcmusic',
+                    expected_clean_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
         },
         // Beatport
         {
