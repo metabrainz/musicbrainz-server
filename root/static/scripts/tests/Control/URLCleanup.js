@@ -1596,35 +1596,34 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
-        // VGMDb
-        {
-                             input_url: 'http://vgmdb.com/org/284',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'vgmdb',
-        },
-        {
-                             input_url: 'http://vgmdb.com/org/284',
-                     input_entity_type: 'label',
-            expected_relationship_type: 'vgmdb',
-        },
-        // VGMDb (Video Game Music and Anime Soundtrack Database)
+        // VGMdb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'https://vgmdb.net/artist/431',
                      input_entity_type: 'artist',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/artist/431',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://vgmdb.com/event/197',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'vgmdb',
+                    expected_clean_url: 'http://vgmdb.net/event/197',
+               only_valid_entity_types: ['event']
         },
         {
                              input_url: 'https://vgmdb.com/org/284',
                      input_entity_type: 'label',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/org/284',
+               only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'vgmdb.net/album/29727',
                      input_entity_type: 'release',
             expected_relationship_type: 'vgmdb',
                     expected_clean_url: 'http://vgmdb.net/album/29727',
+               only_valid_entity_types: ['release']
         },
         // VIAF (Virtual International Authority File)
         {
