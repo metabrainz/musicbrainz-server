@@ -1105,12 +1105,6 @@ validationRules[LINK_TYPES.setlistfm.place] = function (url) {
   return /setlist\.fm\/venue\//.test(url);
 };
 
-// avoid wikipedia being added as release-level discography entry
-var isWikipedia = /^(https?:\/\/)?([^.]+\.)?wikipedia\.org\//;
-validationRules[LINK_TYPES.discographyentry.release] = function (url) {
-  return !isWikipedia.test(url);
-};
-
 function validateFacebook(url) {
   if (/facebook.com\/pages\//.test(url)) {
     return /\/pages\/[^\/?#]+\/\d+/.test(url);
@@ -1141,6 +1135,15 @@ _.each(LINK_TYPES, function (linkType) {
     }
   });
 });
+
+// avoid Wikipedia being added as release-level discography entry
+var originalRule = validationRules[LINK_TYPES.discographyentry.release];
+validationRules[LINK_TYPES.discographyentry.release] = function (url) {
+  if (/^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\//.test(url)) {
+    return false;
+  }
+  return originalRule(url);
+};
 
 function guessType(sourceType, currentURL) {
   var cleanup = _.find(CLEANUPS, function (cleanup) {
