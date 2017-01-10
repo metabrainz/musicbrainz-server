@@ -653,7 +653,22 @@ const CLEANUPS = {
   },
   secondhandsongs: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i")],
-    type: LINK_TYPES.secondhandsongs
+    type: LINK_TYPES.secondhandsongs,
+    validate: function (url, id) {
+      var m = /secondhandsongs\.com\/([a-z]+)\//.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.secondhandsongs.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.secondhandsongs.release:
+            return prefix === 'release';
+          case LINK_TYPES.secondhandsongs.work:
+            return prefix === 'work';
+        }
+      }
+      return false;
+    }
   },
   songfacts: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?songfacts\\.com/", "i")],
@@ -1052,19 +1067,6 @@ const validationRules = {};
 // and need to be replaced by CLEANUPS.*.validate functions.  They
 // don’t interact with each other, CLEANUPS.*.validate functions are
 // just ignored when validation rules defintion already exists.
-
-// allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
-validationRules[LINK_TYPES.secondhandsongs.artist] = function (url) {
-  return /secondhandsongs\.com\/artist\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.release] = function (url) {
-  return /secondhandsongs\.com\/release\//.test(url);
-};
-
-validationRules[LINK_TYPES.secondhandsongs.work] = function (url) {
-  return /secondhandsongs\.com\/work\//.test(url);
-};
 
 // allow only top-level Bandcamp pages as artist/label URLs
 validationRules[LINK_TYPES.bandcamp.artist] = function (url) {
