@@ -1865,6 +1865,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'it.wikipedia.org/wiki/Foo',
                     expected_clean_url: 'https://it.wikipedia.org/wiki/Foo',
         },
+        {
+                             input_url: 'https://en.wikipedia.org/wiki/Some_Album',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'discographyentry',
+               only_valid_entity_types: [],
+        },
         // Wikisource
         {
                              input_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
