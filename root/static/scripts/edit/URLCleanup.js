@@ -505,7 +505,11 @@ const CLEANUPS = {
   },
   bbcmusic: {
     match: [new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i")],
-    type: LINK_TYPES.bbcmusic
+    type: LINK_TYPES.bbcmusic,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?bbc\.co\.uk\/music\/artists\/([0-9a-f-]+).*$/, "http://www.bbc.co.uk/music/artists/$1");
+      return url;
+    },
   },
   wikimediacommons: {
     match: [new RegExp("^(https?://)?(commons\\.(?:m\\.)?wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i")],
