@@ -1050,17 +1050,21 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
     },
     validate: function (url, id) {
-      if (id === LINK_TYPES.otherdatabases.artist) {
-        return /^http:\/\/thesession\.org\/recordings\/artists\/[0-9]+$/.test(url);
-      } else if (id === LINK_TYPES.otherdatabases.event) {
-        return /^http:\/\/thesession\.org\/events\/[0-9]+$/.test(url);
-      } else if (id === LINK_TYPES.otherdatabases.release_group) {
-        return /^http:\/\/thesession\.org\/recordings\/[0-9]+$/.test(url);
-      } else if (id === LINK_TYPES.otherdatabases.work) {
-        return /^http:\/\/thesession\.org\/tunes\/[0-9]+$/.test(url);
-      } else {
-        return false;
+      var m = /^http:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'recordings/artists';
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'events';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'recordings';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'tunes';
+        }
       }
+      return false;
     }
   },
   patronage: {
