@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt_install(`ca-certificates curl sudo')
 
 RUN cd /tmp && \
-    curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/558325c/postgres-base/install_extensions.sh && \
+    curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/1ce35dc/postgres-base/install_extensions.sh && \
     chmod +x install_extensions.sh && \
     ./install_extensions.sh && \
     rm install_extensions.sh
