@@ -135,9 +135,12 @@ const LINK_TYPES = {
     recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
     release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
   },
-  vimeo: {
+  videochannel: {
     artist: "d86c9450-b6d0-4760-a275-e7547495b48b",
+    event: "1f3df2eb-3d0b-44f1-9599-1309c692bc7c",
     label: "20ad367c-cba0-4c02-bd61-2df3ae8cc799",
+    place: "e5c5a0f6-9581-44d8-a5fb-d3688254dc9f",
+    series: "71774032-781b-468c-9cbf-8a9a2f8eda13",
   },
   vgmdb: {
     artist: "0af15ab3-c615-46d6-b95b-a5fcd2a92ed9",
@@ -253,7 +256,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.wikipedia,
   LINK_TYPES.vgmdb,
   LINK_TYPES.viaf,
-  LINK_TYPES.vimeo,
+  LINK_TYPES.videochannel,
   LINK_TYPES.youtube,
 ], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
@@ -737,7 +740,7 @@ const CLEANUPS = {
   },
   vimeo: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i")],
-    type: _.defaults({}, LINK_TYPES.vimeo, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
       // Remove query string, just the video id should be enough.
