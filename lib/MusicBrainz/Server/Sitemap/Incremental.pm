@@ -20,12 +20,12 @@ use Parallel::ForkManager 0.7.6;
 use Sql;
 use Try::Tiny;
 
+use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Sitemap::Constants qw( %SITEMAP_SUFFIX_INFO );
 use MusicBrainz::Server::Sitemap::Builder;
-use MusicBrainz::Server::Sitemap::Utils qw( log );
 use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
     retrieve_remote_file

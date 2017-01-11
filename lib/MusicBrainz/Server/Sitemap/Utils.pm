@@ -33,7 +33,6 @@ e.g. generating deterministic XML output to make hash comparisons easier.
 =cut
 
 our @EXPORT_OK = qw(
-    log
     serialize_sitemap
     serialize_sitemap_index
 );
@@ -108,17 +107,6 @@ sub serialize_sitemap_index {
     $data .= _serialize_list('sitemap', sort_by { $_->{loc} } @sitemaps);
     $data .= $SITEMAP_INDEX_FOOTER;
     \$data;
-}
-
-=sub log
-
-Log a message to stdout, prefixed with the local time and ending with a
-newline.
-
-=cut
-
-sub log($) {
-    print localtime . ' : ' . $_[0] . "\n";
 }
 
 1;
