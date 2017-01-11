@@ -17,15 +17,16 @@ our $export_dir = '';
 our $output_dir = '.';
 our $row_counts = {};
 
-our $total_tables = 0;
-our $total_rows = 0;
-our $start_time;
-our $lock_fh;
+my $total_tables = 0;
+my $total_rows = 0;
+my $start_time;
+my $lock_fh;
 
 our @EXPORT_OK = qw(
     begin_dump
     copy_readme
     dump_table
+    end_dump
     gpg_sign
     make_tar
     write_file
@@ -226,6 +227,29 @@ sub begin_dump {
     $| = 1;
     printf "%-30.30s %9s %4s %9s\n",
            qw(Table Rows est% rows/sec);
+}
+
+sub end_dump {
+    my $c = shift;
+
+    # Make sure our replication data is safe before we commit its removal from
+    # the database.
+    system '/bin/sync';
+    $? == 0 or die "sync failed (rc=$?)";
+    $c->sql->commit;
+
+    log(sprintf "Dumped %d tables (%d rows) in %d seconds\n",
+        $total_tables,
+        $total_rows,
+        tv_interval([$start_time]));
+
+    # We can release the lock, allowing other exports to run if they wish.
+    close $lock_fh;
+    undef $lock_fh;
+
+    $total_tables = 0;
+    $total_rows = 0;
+    undef $start_time;
 }
 
 1;
