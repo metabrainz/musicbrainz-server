@@ -33,6 +33,7 @@ use DBDefs;
 use integer;
 
 use MusicBrainz::Script::MBDump qw(
+    copy_readme
     write_file
 );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
@@ -825,16 +826,6 @@ sub optimise_replication_tables
     $sql->do("VACUUM ANALYZE dbmirror_pendingdata");
     $sql->auto_commit;
     $sql->do("VACUUM ANALYZE dbmirror_pending");
-}
-
-sub copy_readme
-{
-    my $text = <<END;
-The files in this directory are snapshots of the MusicBrainz database,
-in a format suitable for import into a PostgreSQL database. To import
-them, you need a compatible version of the MusicBrainz server software.
-END
-    write_file("README", $text);
 }
 
 sub parse_create_tables

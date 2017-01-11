@@ -8,8 +8,17 @@ our $export_dir = '';
 our $row_counts = {};
 
 our @EXPORT_OK = qw(
+    copy_readme
     write_file
 );
+
+sub copy_readme() {
+    write_file('README', <<EOF);
+The files in this directory are snapshots of the MusicBrainz database,
+in a format suitable for import into a PostgreSQL database. To import
+them, you need a compatible version of the MusicBrainz server software.
+EOF
+}
 
 sub write_file {
     my ($file, $contents) = @_;
