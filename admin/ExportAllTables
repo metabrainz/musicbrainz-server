@@ -35,6 +35,7 @@ use integer;
 use MusicBrainz::Script::MBDump qw(
     copy_readme
     gpg_sign
+    make_tar
     write_file
 );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
@@ -407,6 +408,8 @@ GetOptions(
     "help"                              => \$fHelp,
 );
 
+$MBDump::output_dir = $OutputDir;
+
 sub usage
 {
     print <<EOF;
@@ -774,40 +777,6 @@ $MBDump::erase_files_on_exit = 1;
 exit;
 
 ################################################################################
-
-sub make_tar
-{
-    my ($tarfile, @files) = @_;
-
-    @files = map { "mbdump/$_" }
-             grep { $MBDump::row_counts->{$_} } @files;
-
-    # These ones go first, so MBImport can quickly find them
-    unshift @files, qw(
-        TIMESTAMP
-        COPYING
-        README
-        REPLICATION_SEQUENCE
-        SCHEMA_SEQUENCE
-    );
-
-    my $t0 = [gettimeofday];
-    print localtime() . " : Creating $tarfile\n";
-    chomp (my $tar_bin = `which gtar` || `which tar`);
-    system $tar_bin,
-        "-C", $MBDump::export_dir,
-        "--bzip2",
-        "--create",
-        "--verbose",
-        "--file", "$OutputDir/$tarfile",
-        "--",
-        @files,
-        ;
-    $? == 0 or die "Tar returned $?";
-    printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
-
-    gpg_sign( "$OutputDir/$tarfile" );
-}
 
 sub empty_replication_tables
 {
