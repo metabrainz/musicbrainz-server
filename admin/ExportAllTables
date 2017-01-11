@@ -32,10 +32,13 @@ use strict;
 use DBDefs;
 use integer;
 
+use MusicBrainz::Script::MBDump;
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use Getopt::Long;
 use Encode qw( encode );
+
+BEGIN { *MBDump:: = *MusicBrainz::Script::MBDump:: }
 
 ################################################################################
 
@@ -374,7 +377,7 @@ my @groups = (
 
 my $fHelp;
 my $OutputDir = ".";
-my $dir = "/tmp";
+my $tmp_dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
 my $fProgress = -t STDOUT;
@@ -386,7 +389,7 @@ my @tablelist;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
-    "tmp-dir|t=s"               => \$dir,
+    "tmp-dir|t=s"               => \$tmp_dir,
     "compress|c!"               => \$fCompress,
     "keep-files|k!"             => \$fKeepFiles,
     "database=s"                => \$database,
@@ -444,24 +447,25 @@ usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
 usage(), exit 1 if not $fDoFullExport and @tablelist;
 check_tables_completeness(), exit if $fCheckCompleteness;
 
-my $erase_tmpdir_on_exit = 0;
+$MBDump::erase_files_on_exit = 0;
 END
 {
-    if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
+    my $export_dir = $MBDump::export_dir;
+    if ($MBDump::erase_files_on_exit and not $fKeepFiles and defined($export_dir) and -d $export_dir and -d "$export_dir/mbdump")
     {
         print localtime() . " : Disk space just before erasing tmp dir:\n";
         system "/bin/df -m";
-        print localtime() . " : Erasing $dir\n";
-        system "/bin/rm", "-rf", $dir;
+        print localtime() . " : Erasing $export_dir\n";
+        system "/bin/rm", "-rf", $export_dir;
     }
 }
 
 use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
-$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
-$erase_tmpdir_on_exit = 1;
-mkdir "$dir/mbdump" or die $!;
-print localtime() . " : Exporting to $dir\n";
+$MBDump::export_dir = tempdir("mbexport-XXXXXX", DIR => $tmp_dir, CLEANUP => 0);
+$MBDump::erase_files_on_exit = 1;
+mkdir "$MBDump::export_dir/mbdump" or die $!;
+print localtime() . " : Exporting to $MBDump::export_dir\n";
 
 use MusicBrainz::Server::Context;
 use Sql;
@@ -551,8 +555,6 @@ printf "%-30.30s %9s %4s %9s\n",
     "Table", "Rows", "est%", "rows/sec",
     ;
 
-my %row_counts;
-
 for my $table (@tables)
 {
     dump_table($table);
@@ -575,7 +577,7 @@ sub dump_table
 {
     my $table = shift;
 
-    open(DUMP, ">$dir/mbdump/$table")
+    open(DUMP, ">$MBDump::export_dir/mbdump/$table")
         or die $!;
 
     my $estrows = table_rowcount($table) || 1;
@@ -622,7 +624,7 @@ sub dump_table
 
     ++$tables;
     $totalrows += $rows;
-    $row_counts{$table} = $rows;
+    $MBDump::row_counts->{$table} = $rows;
 
     $rows;
 }
@@ -716,11 +718,11 @@ if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (grep { $row_counts{$_} } @replication_tables)
+    if (grep { $MBDump::row_counts->{$_} } @replication_tables)
     {
         copy_readme() or die $!;
         # Go for the "most restrictive" license
-        copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+        copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
         make_tar($tarfile, @replication_tables);
     }
     if ($fCallback) {
@@ -731,11 +733,11 @@ if ($fCompress and $fDoReplication)
 if ($fCompress and $fDoFullExport)
 {
     copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
+    copy("$FindBin::Bin/COPYING-PublicDomain", "$MBDump::export_dir/COPYING") or die $!;
     make_tar("mbdump.tar.bz2", @group_core);
 
     copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+    copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
     make_tar("mbdump-derived.tar.bz2", @group_derived);
     make_tar("mbdump-editor.tar.bz2",  @group_editor);
     make_tar("mbdump-edit.tar.bz2",  @group_edit);
@@ -765,7 +767,7 @@ if ($fCompress and $fDoFullExport)
 
 # Tar files all created safely... we can erase the tmpdir on exit
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
-$erase_tmpdir_on_exit = 1;
+$MBDump::erase_files_on_exit = 1;
 
 exit;
 
@@ -775,7 +777,8 @@ sub make_tar
 {
     my ($tarfile, @files) = @_;
 
-    @files = map { "mbdump/$_" } grep { defined $row_counts{$_} } @files;
+    @files = map { "mbdump/$_" }
+             grep { $MBDump::row_counts->{$_} } @files;
 
     # These ones go first, so MBImport can quickly find them
     unshift @files, qw(
@@ -790,7 +793,7 @@ sub make_tar
     print localtime() . " : Creating $tarfile\n";
     chomp (my $tar_bin = `which gtar` || `which tar`);
     system $tar_bin,
-        "-C", $dir,
+        "-C", $MBDump::export_dir,
         "--bzip2",
         "--create",
         "--verbose",
@@ -807,7 +810,7 @@ sub make_tar
 sub write_file
 {
     my ($file, $contents) = @_;
-    open(my $fh, ">$dir/$file") or die $!;
+    open(my $fh, ">$MBDump::export_dir/$file") or die $!;
     print $fh $contents or die $!;
     close $fh or die $!;
 }
@@ -818,7 +821,7 @@ sub empty_replication_tables
     $sql->do("DELETE FROM dbmirror_pending");
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
-    $erase_tmpdir_on_exit = 0;
+    $MBDump::erase_files_on_exit = 0;
 }
 
 sub optimise_replication_tables
