@@ -34,6 +34,7 @@ use integer;
 
 use MusicBrainz::Script::MBDump qw(
     copy_readme
+    gpg_sign
     write_file
 );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
@@ -406,9 +407,6 @@ GetOptions(
     "help"                              => \$fHelp,
 );
 
-my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY || undef;
-my $sign_with = DBDefs->GPG_SIGN_KEY || undef;
-
 sub usage
 {
     print <<EOF;
@@ -762,6 +760,7 @@ if ($fCompress and $fDoFullExport)
         gpg_sign("$OutputDir/$hash_output_file");
     }
 
+    my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY;
     if ($encrypt_for) {
         system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
@@ -807,7 +806,7 @@ sub make_tar
     $? == 0 or die "Tar returned $?";
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 
-    gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
+    gpg_sign( "$OutputDir/$tarfile" );
 }
 
 sub empty_replication_tables
@@ -868,27 +867,6 @@ sub check_tables_completeness
     }
     printf "Table exported but not included in any tar: %s\n", $_
         for sort @no_group_tables;
-}
-
-sub gpg_sign
-{
-    my ($file_to_be_signed) = @_;
-
-    # Skip GPG signing of a file if no "sign with" key is given
-    return unless $sign_with;
-
-    # Sign requested file
-    system "gpg",
-        "--default-key", "$sign_with",
-        "--detach-sign",
-        "--armor",
-        $file_to_be_signed;
-
-    # Inform user about a failed signature process
-    if ( $? != 0 ) {
-        printf STDERR "Failed to sign $file_to_be_signed \n"
-            . "GPG returned $?";
-    }
 }
 
 # eof ExportAllTables
