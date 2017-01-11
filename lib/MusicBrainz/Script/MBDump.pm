@@ -16,6 +16,7 @@ our $tmp_dir = '/tmp';
 our $export_dir = '';
 our $output_dir = '.';
 our $row_counts = {};
+our $table_file_mapping = {};
 
 my $total_tables = 0;
 my $total_rows = 0;
@@ -61,7 +62,7 @@ sub gpg_sign {
 sub make_tar {
     my ($tar_file, @tables) = @_;
 
-    my @files = map { "mbdump/$_" }
+    my @files = map { 'mbdump/' . ($table_file_mapping->{$_} // $_) }
                 grep { $row_counts->{$_} } @tables;
 
     # These ones go first, so MBImport can quickly find them.
@@ -114,7 +115,8 @@ sub table_rowcount {
 sub dump_table {
     my ($c, $table) = @_;
 
-    my $table_file_path = "$export_dir/mbdump/$table";
+    my $table_file = $table_file_mapping->{$table} // $table;
+    my $table_file_path = "$export_dir/mbdump/$table_file";
     open(DUMP, ">$table_file_path") or die $!;
 
     my $rows_estimate = $row_counts->{$table} // table_rowcount($c, $table) // 1;
