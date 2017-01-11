@@ -32,7 +32,9 @@ use strict;
 use DBDefs;
 use integer;
 
-use MusicBrainz::Script::MBDump;
+use MusicBrainz::Script::MBDump qw(
+    write_file
+);
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use Getopt::Long;
@@ -805,14 +807,6 @@ sub make_tar
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 
     gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
-}
-
-sub write_file
-{
-    my ($file, $contents) = @_;
-    open(my $fh, ">$MBDump::export_dir/$file") or die $!;
-    print $fh $contents or die $!;
-    close $fh or die $!;
 }
 
 sub empty_replication_tables
