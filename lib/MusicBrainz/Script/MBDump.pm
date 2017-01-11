@@ -4,19 +4,26 @@ use base 'Exporter';
 
 use DBDefs;
 use Encode qw( encode );
+use Fcntl qw( LOCK_EX );
+use File::Temp qw( tempdir );
 use MusicBrainz::Script::Utils qw( log );
 use Time::HiRes qw( gettimeofday tv_interval );
 
+our $keep_files = 0;
 # overrides the user-specified $keep_files
 our $erase_files_on_exit = 1;
+our $tmp_dir = '/tmp';
 our $export_dir = '';
 our $output_dir = '.';
 our $row_counts = {};
 
 our $total_tables = 0;
 our $total_rows = 0;
+our $start_time;
+our $lock_fh;
 
 our @EXPORT_OK = qw(
+    begin_dump
     copy_readme
     dump_table
     gpg_sign
@@ -151,6 +158,74 @@ sub dump_table {
     $row_counts->{$table} = $rows;
 
     $table_file_path;
+}
+
+sub begin_dump {
+    my $c = shift;
+
+    $start_time = gettimeofday;
+    $export_dir = tempdir('mbexport-XXXXXX', DIR => $tmp_dir, CLEANUP => 0);
+    mkdir "$export_dir/mbdump" or die $!;
+    log("Exporting to $export_dir");
+
+    END {
+        if (
+            $erase_files_on_exit &&
+            !$keep_files &&
+            defined($export_dir) &&
+            -d $export_dir &&
+            -d "$export_dir/mbdump"
+        ) {
+            log('Disk space just before erasing tmp dir:');
+            system '/bin/df -m';
+            log("Erasing $export_dir");
+            system '/bin/rm', '-rf', $export_dir;
+        }
+    }
+
+    # A quick discussion of the "Can't serialize access due to concurrent
+    # update" problem. See "transaction-iso.html" in the Postgres
+    # documentation. Basically the problem is this: export "A" starts; export
+    # "B" starts; export "B" updates replication_control; export "A" then
+    # can't update replication_control, failing with the above error. The
+    # solution is to get a lock (outside of the database) before we start the
+    # serializable transaction.
+    open($lock_fh, '>>' . $tmp_dir . '/.mb-export-lock') or die $!;
+    flock($lock_fh, LOCK_EX) or die $!;
+
+    my $sql = $c->sql;
+    $sql->auto_commit;
+    $sql->do(q{SET SESSION CHARACTERISTICS
+               AS TRANSACTION ISOLATION LEVEL SERIALIZABLE});
+    $sql->begin;
+
+    # Write the TIMESTAMP file.
+    # This used to be free text; now it's parseable. It contains a PostgreSQL
+    # TIMESTAMP WITH TIME ZONE expression.
+    my $now = $sql->select_single_value('SELECT NOW()');
+    write_file('TIMESTAMP', "$now\n");
+
+    # Write the README file.
+    copy_readme();
+
+    my $schema_sequence = $sql->select_single_value(
+        'SELECT current_schema_sequence FROM replication_control'
+    );
+    my $dbdefs_schema_sequence = DBDefs->DB_SCHEMA_SEQUENCE;
+    $schema_sequence
+        or die "Don't know what schema sequence number we're using";
+    $schema_sequence == $dbdefs_schema_sequence
+        or die "Stored schema sequence ($schema_sequence) does not match " .
+               "DBDefs->DB_SCHEMA_SEQUENCE ($dbdefs_schema_sequence)";
+
+    # Write the SCHEMA_SEQUENCE file. Again, this is parseable - it's just an
+    # integer.
+    write_file('SCHEMA_SEQUENCE', "$schema_sequence\n");
+    write_file('REPLICATION_SEQUENCE', '');
+
+    $| = 1;
+    printf "%-30.30s %9s %4s %9s\n",
+           qw(Table Rows est% rows/sec);
 }
 
 1;

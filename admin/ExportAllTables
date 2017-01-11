@@ -33,6 +33,7 @@ use DBDefs;
 use integer;
 
 use MusicBrainz::Script::MBDump qw(
+    begin_dump
     copy_readme
     dump_table
     gpg_sign
@@ -407,6 +408,8 @@ GetOptions(
     "help"                              => \$fHelp,
 );
 
+$MBDump::keep_files = $fKeepFiles;
+$MBDump::tmp_dir = $tmp_dir;
 $MBDump::output_dir = $OutputDir;
 
 sub usage
@@ -450,81 +453,22 @@ usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
 usage(), exit 1 if not $fDoFullExport and @tablelist;
 check_tables_completeness(), exit if $fCheckCompleteness;
 
-$MBDump::erase_files_on_exit = 0;
-END
-{
-    my $export_dir = $MBDump::export_dir;
-    if ($MBDump::erase_files_on_exit and not $fKeepFiles and defined($export_dir) and -d $export_dir and -d "$export_dir/mbdump")
-    {
-        print localtime() . " : Disk space just before erasing tmp dir:\n";
-        system "/bin/df -m";
-        print localtime() . " : Erasing $export_dir\n";
-        system "/bin/rm", "-rf", $export_dir;
-    }
-}
-
-use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
-$MBDump::export_dir = tempdir("mbexport-XXXXXX", DIR => $tmp_dir, CLEANUP => 0);
-$MBDump::erase_files_on_exit = 1;
-mkdir "$MBDump::export_dir/mbdump" or die $!;
-print localtime() . " : Exporting to $MBDump::export_dir\n";
 
 use MusicBrainz::Server::Context;
-use Sql;
 
 # Log in to the main DB
 my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
-my $sql = Sql->new($c->conn);
+my $sql = $c->sql;
 my $dbh = $c->dbh;
 
 @tables = @tablelist if @tablelist;
 @tables = () if not $fDoFullExport;
 
-use Time::HiRes qw( gettimeofday tv_interval );
-my $t0 = [gettimeofday];
+use Time::HiRes qw( tv_interval );
 
-# A quick discussion of the "Can't serialize access due to concurrent update"
-# problem.  See "transaction-iso.html" in the Postgres documentation.
-# Basically the problem is this: export "A" starts; export "B" starts; export
-# "B" updates replication_control; export "A" then can't update
-# replication_control, failing with the above error.
-# The solution is to get a lock (outside of the database) before we start the
-# serializable transaction.
-open(my $lockfh, ">>/tmp/.mb-export-lock") or die $!;
-use Fcntl qw( LOCK_EX );
-flock($lockfh, LOCK_EX) or die $!;
-
-$sql->auto_commit;
-$sql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$sql->begin;
-
-my $now = $sql->select_single_value("SELECT NOW()");
-
-# Write the TIMESTAMP file
-# This used to be free text; now it's parseable.  It contains a PostgreSQL
-# TIMESTAMP WITH TIME ZONE expression.
-write_file("TIMESTAMP", "$now\n");
-
-# Get the replication control data
-
-my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-    my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
-    $row ||= {};
-    @$row{qw(
-        current_schema_sequence
-        current_replication_sequence
-        last_replication_date
-    )};
-};
-
-$iSchemaSequence or die "Don't know what schema sequence number we're using";
-$iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE
-    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs->DB_SCHEMA_SEQUENCE (".DBDefs->DB_SCHEMA_SEQUENCE.")";
-
-# Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
-# integer.
-write_file("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
+# Obtain locks and write the TIMESTAMP and SCHEMA_SEQUENCE files.
+begin_dump($c);
 
 # Sanitise various things for public consumption
 
@@ -550,16 +494,16 @@ if (grep { $_ eq "editor_sanitised" } @tables)
               FROM editor");
 }
 
-$| = 1;
-
-printf "%-30.30s %9s %4s %9s\n",
-    "Table", "Rows", "est%", "rows/sec",
-    ;
-
 for my $table (@tables)
 {
     dump_table($c, $table);
 }
+
+# Get the replication control data
+
+my $iReplicationSequence = $sql->select_single_value(
+    'SELECT current_replication_sequence FROM replication_control'
+);
 
 if ($fDoReplication)
 {
@@ -629,7 +573,7 @@ dump_table($c, "replication_control") if (scalar @tablelist == 0 || grep { $_ eq
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
 $sql->commit;
 
-my $dumptime = tv_interval($t0);
+my $dumptime = tv_interval([$MBDump::start_time]);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
     scalar localtime,
     $MBDump::total_tables, $MBDump::total_rows, $dumptime;
@@ -642,7 +586,7 @@ undef $sql;
 undef $c;
 
 # We can release the lock, allowing other exports to run if they wish.
-close $lockfh;
+close $MBDump::lock_fh;
 
 use File::Copy qw( copy );
 
