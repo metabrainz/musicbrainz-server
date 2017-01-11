@@ -499,7 +499,7 @@ my $now = $sql->select_single_value("SELECT NOW()");
 # Write the TIMESTAMP file
 # This used to be free text; now it's parseable.  It contains a PostgreSQL
 # TIMESTAMP WITH TIME ZONE expression.
-writefile("TIMESTAMP", "$now\n");
+write_file("TIMESTAMP", "$now\n");
 
 # Get the replication control data
 
@@ -519,7 +519,7 @@ $iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE
 
 # Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
 # integer.
-writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
+write_file("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 
 # Sanitise various things for public consumption
 
@@ -551,11 +551,11 @@ printf "%-30.30s %9s %4s %9s\n",
     "Table", "Rows", "est%", "rows/sec",
     ;
 
-my %rowcounts;
+my %row_counts;
 
 for my $table (@tables)
 {
-    dumptable($table);
+    dump_table($table);
 }
 
 sub table_rowcount
@@ -571,7 +571,7 @@ sub table_rowcount
     );
 }
 
-sub dumptable
+sub dump_table
 {
     my $table = shift;
 
@@ -622,7 +622,7 @@ sub dumptable
 
     ++$tables;
     $totalrows += $rows;
-    $rowcounts{$table} = $rows;
+    $row_counts{$table} = $rows;
 
     $rows;
 }
@@ -670,26 +670,26 @@ if ($fDoReplication)
         print localtime() . " : Producing replication packet #$iReplicationSequence\n";
 
         # Dump 'em
-        dumptable($_) for @replication_tables;
+        dump_table($_) for @replication_tables;
 
         # Remove the rows we just dumped
         empty_replication_tables();
 
-        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
         print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } else {
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
-        writefile("REPLICATION_SEQUENCE", "");
+        write_file("REPLICATION_SEQUENCE", "");
     }
 } else {
-    writefile("REPLICATION_SEQUENCE", "");
+    write_file("REPLICATION_SEQUENCE", "");
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-dumptable("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
+dump_table("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
@@ -716,7 +716,7 @@ if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (grep { $rowcounts{$_} } @replication_tables)
+    if (grep { $row_counts{$_} } @replication_tables)
     {
         copy_readme() or die $!;
         # Go for the "most restrictive" license
@@ -775,7 +775,7 @@ sub make_tar
 {
     my ($tarfile, @files) = @_;
 
-    @files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
+    @files = map { "mbdump/$_" } grep { defined $row_counts{$_} } @files;
 
     # These ones go first, so MBImport can quickly find them
     unshift @files, qw(
@@ -804,7 +804,7 @@ sub make_tar
     gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
 }
 
-sub writefile
+sub write_file
 {
     my ($file, $contents) = @_;
     open(my $fh, ">$dir/$file") or die $!;
@@ -837,7 +837,7 @@ The files in this directory are snapshots of the MusicBrainz database,
 in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
 END
-    writefile("README", $text);
+    write_file("README", $text);
 }
 
 sub parse_create_tables
