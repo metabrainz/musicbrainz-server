@@ -394,7 +394,7 @@ my $fCallback;
 my @tablelist;
 
 GetOptions(
-    "output-dir|d=s"    => \$OutputDir,
+    "output-dir|d=s"            => \$OutputDir,
     "tmp-dir|t=s"               => \$tmp_dir,
     "compress|c!"               => \$fCompress,
     "keep-files|k!"             => \$fKeepFiles,
@@ -406,7 +406,7 @@ GetOptions(
     "with-full-export"          => sub { $fDoFullExport = 1 },
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
-    "help"                              => \$fHelp,
+    "help"                      => \$fHelp,
 );
 
 $MBDump::keep_files = $fKeepFiles;
@@ -604,9 +604,9 @@ if ($fCompress and $fDoFullExport)
     copy_readme() or die $!;
     copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
     make_tar("mbdump-derived.tar.bz2", @group_derived);
-    make_tar("mbdump-editor.tar.bz2",  @group_editor);
-    make_tar("mbdump-edit.tar.bz2",  @group_edit);
-    make_tar("mbdump-stats.tar.bz2",  @group_stats);
+    make_tar("mbdump-editor.tar.bz2", @group_editor);
+    make_tar("mbdump-edit.tar.bz2", @group_edit);
+    make_tar("mbdump-stats.tar.bz2", @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);

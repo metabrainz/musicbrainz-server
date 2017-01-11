@@ -39,10 +39,10 @@ my $tmpdir = "/tmp";
 my $database = 'READWRITE';
 
 GetOptions(
-    "help|h"                    => \$fHelp,
+    "help|h"            => \$fHelp,
     "database=s"        => \$database,
     "ignore-errors|i!"  => \$fIgnoreErrors,
-    "tmp-dir|t=s"               => \$tmpdir,
+    "tmp-dir|t=s"       => \$tmpdir,
 );
 
 sub usage
