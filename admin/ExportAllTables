@@ -42,6 +42,7 @@ use MusicBrainz::Script::MBDump qw(
     write_file
 );
 use MusicBrainz::Server::Constants qw(
+    $EDITOR_SANITISED_COLUMNS
     @FULL_TABLE_LIST
     @CORE_TABLE_LIST
     @DERIVED_TABLE_LIST
@@ -173,25 +174,9 @@ my $dbh = $c->dbh;
 begin_dump($c);
 
 # Sanitise various things for public consumption
-
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
-    $sql->do("SELECT id,
-                name,
-                0 AS privs,
-                '' AS email,
-                NULL AS website,
-                NULL AS bio,
-                member_since,
-                email_confirm_date,
-                now() AS last_login_date,
-                last_updated,
-                NULL AS birth_date,
-                NULL AS gender,
-                NULL as area,
-                '{CLEARTEXT}mb' AS password,
-                md5(name || ':musicbrainz.org:mb') AS ha1,
-                deleted
+    $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
               INTO TEMPORARY editor_sanitised
               FROM editor");
 }

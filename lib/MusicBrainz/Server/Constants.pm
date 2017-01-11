@@ -79,6 +79,7 @@ our @EXPORT_OK = (
         $CONTACT_URL
         $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
         %ENTITIES entities_with
+        $EDITOR_SANITISED_COLUMNS
     ),
 );
 
@@ -844,6 +845,25 @@ Readonly our @FULL_TABLE_LIST => (
     @WIKIDOCS_TABLE_LIST,
     @DOCUMENTATION_TABLE_LIST,
     @SITEMAPS_TABLE_LIST,
+);
+
+Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
+    'editor.id',
+    'editor.name',
+    '0 AS privs',
+    "'' AS email",
+    'NULL AS website',
+    'NULL AS bio',
+    'editor.member_since',
+    'editor.email_confirm_date',
+    'now() AS last_login_date',
+    'editor.last_updated',
+    'NULL AS birth_date',
+    'NULL AS gender',
+    'NULL as area',
+    "'{CLEARTEXT}mb' AS password",
+    "md5(editor.name || ':musicbrainz.org:mb') AS ha1",
+    'editor.deleted',
 );
 
 =head1 NAME
