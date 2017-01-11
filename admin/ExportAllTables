@@ -34,6 +34,7 @@ use integer;
 
 use MusicBrainz::Script::MBDump qw(
     copy_readme
+    dump_table
     gpg_sign
     make_tar
     write_file
@@ -41,7 +42,6 @@ use MusicBrainz::Script::MBDump qw(
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use Getopt::Long;
-use Encode qw( encode );
 
 BEGIN { *MBDump:: = *MusicBrainz::Script::MBDump:: }
 
@@ -385,7 +385,6 @@ my $OutputDir = ".";
 my $tmp_dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
-my $fProgress = -t STDOUT;
 my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
@@ -484,8 +483,6 @@ my $dbh = $c->dbh;
 
 use Time::HiRes qw( gettimeofday tv_interval );
 my $t0 = [gettimeofday];
-my $totalrows = 0;
-my $tables = 0;
 
 # A quick discussion of the "Can't serialize access due to concurrent update"
 # problem.  See "transaction-iso.html" in the Postgres documentation.
@@ -561,76 +558,7 @@ printf "%-30.30s %9s %4s %9s\n",
 
 for my $table (@tables)
 {
-    dump_table($table);
-}
-
-sub table_rowcount
-{
-    my $table = shift;
-    $table =~ s/_sanitised$//;
-
-    $table =~ s/.*\.//;
-
-    $sql->select_single_value(
-        "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
-        $table,
-    );
-}
-
-sub dump_table
-{
-    my $table = shift;
-
-    open(DUMP, ">$MBDump::export_dir/mbdump/$table")
-        or die $!;
-
-    my $estrows = table_rowcount($table) || 1;
-
-    $sql->do("COPY $table TO stdout");
-    my $buffer;
-    my $rows = 0;
-
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre."%-30.30s %9d %3d%% %9d".$post,
-                $table, $rows, int(100 * $rows / $estrows),
-                $rows / ($interval||1);
-    };
-
-    $p->("", "") if $fProgress;
-
-    my $longest = 0;
-
-    while ($dbh->pg_getcopydata($buffer) >= 0)
-    {
-        $longest = length($buffer) if length($buffer) > $longest;
-        print DUMP encode('utf-8', $buffer)
-                or die $!;
-
-        ++$rows;
-        unless ($rows & 0xFFF)
-        {
-                $interval = tv_interval($t1);
-                $p->("\r", "") if $fProgress;
-        }
-    }
-
-    close DUMP
-        or die $!;
-
-    $interval = tv_interval($t1);
-    $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
-    print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
-
-    ++$tables;
-    $totalrows += $rows;
-    $MBDump::row_counts->{$table} = $rows;
-
-    $rows;
+    dump_table($c, $table);
 }
 
 if ($fDoReplication)
@@ -676,7 +604,7 @@ if ($fDoReplication)
         print localtime() . " : Producing replication packet #$iReplicationSequence\n";
 
         # Dump 'em
-        dump_table($_) for @replication_tables;
+        dump_table($c, $_) for @replication_tables;
 
         # Remove the rows we just dumped
         empty_replication_tables();
@@ -695,7 +623,7 @@ if ($fDoReplication)
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-dump_table("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
+dump_table($c, "replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
@@ -704,7 +632,7 @@ $sql->commit;
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
     scalar localtime,
-    $tables, $totalrows, $dumptime;
+    $MBDump::total_tables, $MBDump::total_rows, $dumptime;
 
 optimise_replication_tables() if $fDoReplication;
 

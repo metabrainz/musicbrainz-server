@@ -3,6 +3,7 @@ package MusicBrainz::Script::MBDump;
 use base 'Exporter';
 
 use DBDefs;
+use Encode qw( encode );
 use MusicBrainz::Script::Utils qw( log );
 use Time::HiRes qw( gettimeofday tv_interval );
 
@@ -12,8 +13,12 @@ our $export_dir = '';
 our $output_dir = '.';
 our $row_counts = {};
 
+our $total_tables = 0;
+our $total_rows = 0;
+
 our @EXPORT_OK = qw(
     copy_readme
+    dump_table
     gpg_sign
     make_tar
     write_file
@@ -84,6 +89,68 @@ sub write_file {
     open(my $fh, ">$export_dir/$file") or die $!;
     print $fh $contents or die $!;
     close $fh or die $!;
+}
+
+sub table_rowcount {
+    my ($c, $table) = @_;
+
+    $table =~ s/_sanitised$//;
+    $table =~ s/.*\.//;
+
+    $c->sql->select_single_value(
+        'SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1',
+        $table,
+    );
+}
+
+sub dump_table {
+    my ($c, $table) = @_;
+
+    my $table_file_path = "$export_dir/mbdump/$table";
+    open(DUMP, ">$table_file_path") or die $!;
+
+    my $rows_estimate = $row_counts->{$table} // table_rowcount($c, $table) // 1;
+    my $dbh = $c->dbh; # issues a ping, must be done before COPY
+    $c->sql->do("COPY $table TO stdout");
+
+    my $buffer;
+    my $rows = 0;
+    my $t1 = [gettimeofday];
+    my $interval;
+
+    my $p = sub {
+        my ($pre, $post) = @_;
+        no integer;
+        printf $pre . '%-30.30s %9d %3d%% %9d' . $post,
+               $table, $rows, int(100 * $rows / ($rows_estimate || 1)),
+               $rows / ($interval || 1);
+    };
+
+    $p->('', '') if -t STDOUT;
+
+    my $longest = 0;
+    while ($dbh->pg_getcopydata($buffer) >= 0) {
+        $longest = length($buffer) if length($buffer) > $longest;
+        print DUMP encode('utf-8', $buffer) or die $!;
+
+        ++$rows;
+        unless ($rows & 0xFFF) {
+            $interval = tv_interval($t1);
+            $p->("\r", '') if -t STDOUT;
+        }
+    }
+
+    close DUMP or die $!;
+
+    $interval = tv_interval($t1);
+    $p->((-t STDOUT ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
+    print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
+
+    $total_tables++;
+    $total_rows += $rows;
+    $row_counts->{$table} = $rows;
+
+    $table_file_path;
 }
 
 1;
