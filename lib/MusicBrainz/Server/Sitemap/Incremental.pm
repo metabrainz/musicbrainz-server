@@ -5,16 +5,13 @@ use warnings;
 
 use feature 'state';
 
-use Data::Compare qw( Compare );
 use Digest::SHA qw( sha1_hex );
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
 use File::Temp qw( tempdir );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
-use List::AllUtils qw( any );
 use List::UtilsBy qw( partition_by );
-use Memoize;
 use Moose;
 use Parallel::ForkManager 0.7.6;
 use Sql;
@@ -34,6 +31,7 @@ use MusicBrainz::Server::Replication::Packet qw(
 extends 'MusicBrainz::Server::Sitemap::Builder';
 
 with 'MooseX::Runnable';
+with 'MusicBrainz::Server::Role::FollowForeignKeys';
 
 =head1 SYNOPSIS
 
@@ -74,9 +72,6 @@ my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
 my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
                        entities_with('sitemaps_lastmod_table');
 my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
-
-memoize('get_primary_keys');
-memoize('get_foreign_keys');
 
 BEGIN {
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
@@ -297,62 +292,6 @@ EOSQL
     return 0;
 }
 
-sub get_primary_keys($$$) {
-    my ($self, $c, $schema, $table) = @_;
-
-    map {
-        # Some columns are wrapped in quotes, others aren't...
-        s/^"(.*?)"$/$1/r
-    } $c->sql->dbh->primary_key(undef, $schema, $table);
-}
-
-sub get_foreign_keys($$$$) {
-    my ($self, $c, $direction, $schema, $table) = @_;
-
-    my $foreign_keys = [];
-    my ($sth, $all_keys);
-
-    if ($direction == 1) {
-        # Get FK columns in other tables that refer to PK columns in $table.
-        $sth = $c->sql->dbh->foreign_key_info(undef, $schema, $table, (undef) x 3);
-        if (defined $sth) {
-            $all_keys = $sth->fetchall_arrayref;
-        }
-    } elsif ($direction == 2) {
-        # Get FK columns in $table that refer to PK columns in other tables.
-        $sth = $c->sql->dbh->foreign_key_info((undef) x 4, $schema, $table);
-        if (defined $sth) {
-            $all_keys = $sth->fetchall_arrayref;
-        }
-    }
-
-    if (defined $all_keys) {
-        for my $info (@{$all_keys}) {
-            my ($pk_schema, $pk_table, $pk_column);
-            my ($fk_schema, $fk_table, $fk_column);
-
-            if ($direction == 1) {
-                ($pk_schema, $pk_table, $pk_column) = @{$info}[1..3];
-                ($fk_schema, $fk_table, $fk_column) = @{$info}[5..7];
-            } elsif ($direction == 2) {
-                ($fk_schema, $fk_table, $fk_column) = @{$info}[1..3];
-                ($pk_schema, $pk_table, $pk_column) = @{$info}[5..7];
-            }
-
-            if ($schema eq $pk_schema && $table eq $pk_table) {
-                push @{$foreign_keys}, {
-                    pk_column => $pk_column,
-                    fk_schema => $fk_schema,
-                    fk_table => $fk_table,
-                    fk_column => $fk_column,
-                };
-            }
-        }
-    }
-
-    return $foreign_keys;
-}
-
 sub should_fetch_jsonld($$) {
     my ($schema, $table) = @_;
 
@@ -390,25 +329,12 @@ sub should_follow_primary_key($) {
     return 1;
 }
 
-sub get_ident($) {
-    my $args = shift;
+around should_follow_foreign_key => sub {
+    my ($orig, $self, $direction, $pk, $fk, $joins) = @_;
 
-    return $args unless ref($args) eq 'HASH';
+    return 0 unless $self->$orig($direction, $pk, $fk, $joins);
 
-    my ($schema, $table, $column) = @{$args}{qw(schema table column)};
-    return "$schema.$table.$column";
-}
-
-sub should_follow_foreign_key($$$) {
-    my ($pk, $fk, $joins) = @_;
-
-    return 0 if any {
-        my ($lhs, $rhs) = @{$_}{qw(lhs rhs)};
-
-        (ref($lhs) eq 'HASH' && Compare($lhs, $pk))
-        ||
-        (ref($rhs) eq 'HASH' && Compare($rhs, $fk))
-    } @{$joins};
+    return 0 if $self->has_join($pk, $fk, $joins);
 
     $pk = get_ident($pk);
     $fk = get_ident($fk);
@@ -417,7 +343,7 @@ sub should_follow_foreign_key($$$) {
     return 0 if $pk eq 'musicbrainz.track.recording' && $fk eq 'musicbrainz.recording.id';
 
     return 1;
-}
+};
 
 sub get_linked_entities($$$$) {
     my ($self, $c, $entity_type, $update, $joins) = @_;
@@ -425,14 +351,7 @@ sub get_linked_entities($$$$) {
     my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
         @{$update}{qw(schema table column value replication_sequence)};
 
-    my $joins_string = join ' ', map {
-        my ($lhs, $rhs) = @{$_}{qw(lhs rhs)};
-
-        my ($schema, $table) = @{$lhs}{qw(schema table)};
-
-        "JOIN $schema.$table ON " . get_ident($lhs) . ' = ' . get_ident($rhs);
-    } @{$joins};
-
+    my $joins_string = stringify_joins($joins);
     my $table = "musicbrainz.$entity_type";
 
     Sql::run_in_transaction(sub {
@@ -464,10 +383,9 @@ sub get_linked_entities($$$$) {
 }
 
 # Declaration silences "called too early to check prototype" from recursive call.
-sub find_entities_with_jsonld($$$$$$);
-sub follow_foreign_keys($$$$$$);
+sub follow_foreign_key($$$$$$);
 
-sub find_entities_with_jsonld($$$$$$) {
+sub follow_foreign_key($$$$$$) {
     my $self = shift;
 
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
@@ -500,33 +418,6 @@ sub find_entities_with_jsonld($$$$$$) {
         $self->pm->finish($exit_code, $shared_data);
     } else {
         $self->follow_foreign_keys(@_);
-    }
-}
-
-sub follow_foreign_keys($$$$$$) {
-    my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
-
-    # Continue traversing the schemas until we stop finding changes.
-    my $foreign_keys = $self->get_foreign_keys($c, $direction, $pk_schema, $pk_table);
-    return unless @{$foreign_keys};
-
-    for my $info (@{$foreign_keys}) {
-        my ($pk_column, $fk_schema, $fk_table, $fk_column) =
-            @{$info}{qw(pk_column fk_schema fk_table fk_column)};
-
-        my $lhs = {schema => $pk_schema, table => $pk_table, column => $pk_column};
-        my $rhs = {schema => $fk_schema, table => $fk_table, column => $fk_column};
-
-        next unless should_follow_foreign_key($lhs, $rhs, $joins);
-
-        $self->find_entities_with_jsonld(
-            $c,
-            $direction,
-            $fk_schema,
-            $fk_table,
-            $update,
-            [{lhs => $lhs, rhs => $rhs}, @{$joins}],
-        );
     }
 }
 
@@ -619,7 +510,7 @@ sub handle_replication_sequence($$) {
             };
 
             for (1...2) {
-                $self->find_entities_with_jsonld($c, $_, $schema, $table, $update, []);
+                $self->follow_foreign_key($c, $_, $schema, $table, $update, []);
             }
         }
     }
