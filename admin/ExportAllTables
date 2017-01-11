@@ -748,7 +748,8 @@ if ($fCompress and $fDoFullExport)
 
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
-        system "cd $OutputDir && /usr/bin/$hash_program --binary *.tar.bz2" .
+        chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
+        system "cd $OutputDir && $hash_bin --binary *.tar.bz2" .
                " | grep -v mbdump-private > $hash_output_file";
 
         $? == 0 or die "$hash_program returned $?";
@@ -787,7 +788,8 @@ sub make_tar
 
     my $t0 = [gettimeofday];
     print localtime() . " : Creating $tarfile\n";
-    system { "/bin/tar" } "tar",
+    chomp (my $tar_bin = `which gtar` || `which tar`);
+    system $tar_bin,
         "-C", $dir,
         "--bzip2",
         "--create",
