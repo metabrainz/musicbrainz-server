@@ -94,6 +94,7 @@ use constant FAVICON_CLASSES => {
     'baidu.com'                 => 'baidu',
     'cancioneros.si'            => 'cancioneros',
     'rock.com.ar'               => 'rockcomar',
+    'musicapopular.cl'          => 'musicapopularcl',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

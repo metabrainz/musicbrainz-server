@@ -72,6 +72,7 @@ my %URL_SPECIALIZATIONS = (
     'Maniadb'             => qr{^https?://(?:www.)?maniadb.com/}i,
     'MetalArchives'       => qr{^https?://(?:www.)?metal-archives.com/}i,
     'MusicMoz'            => qr{^https?://(?:www.)?musicmoz.org/}i,
+    'MusicaPopularCl'     => qr{^https?://(?:www.)?musicapopular.cl/}i,
     'MusikSammler'        => qr{^https?://(?:www.)?musik-sammler.de/}i,
     'MVDbase'             => qr{^https?://(?:www.)?mvdbase.com/}i,
     'MySpace'             => qr{^https?://(?:www.)?myspace.com/}i,
