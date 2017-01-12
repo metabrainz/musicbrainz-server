@@ -199,6 +199,28 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Baidu Baike
+        {
+                             input_url: 'baike.baidu.com/view/6458423.htm#1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://baike.baidu.com/view/6458423.htm',
+               only_valid_entity_types: ['artist', 'release_group', 'work']
+        },
+        {
+                             input_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
+               only_valid_entity_types: ['artist', 'release_group', 'work']
+        },
+        {
+                             input_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351',
+               only_valid_entity_types: ['artist', 'release_group', 'work']
+        },
         // Bandcamp
         {
                              input_url: 'https://davidrovics.bandcamp.com?test',
