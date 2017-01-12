@@ -1039,6 +1039,19 @@ const CLEANUPS = {
           || id === LINK_TYPES.otherdatabases.work;
     }
   },
+  hmikuwiki: {
+    match: [new RegExp("^(https?://)?(?:www5\\.)?atwiki\\.jp/hmiku/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, "https://www5.atwiki.jp/$1");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)
+        && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.release_group
+            || id === LINK_TYPES.otherdatabases.work);
+    }
+  },
   soundtrackcollector: {
     match: [new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
