@@ -1026,6 +1026,28 @@ const CLEANUPS = {
       return url;
     }
   },
+  baidubaike: {
+    match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?baike\.baidu\.com\/([^?#]+)(?:[?#].*)?$/, "http://baike.baidu.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/baike\.baidu\.com\/(.+)$/.exec(url);
+      if (m) {
+        var path = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.release_group:
+          case LINK_TYPES.otherdatabases.work:
+            return /^view\/[1-9][0-9]*\.htm$/.test(path)
+              || /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path)
+              || /^item\/[^\/]+\/[1-9][0-9]*$/.test(path);
+        }
+      }
+      return false;
+    }
+  },
   generasia: {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
