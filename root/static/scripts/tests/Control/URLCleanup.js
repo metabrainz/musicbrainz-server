@@ -721,6 +721,20 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
         },
+        // HMiku (Miku Hatsune) Wiki
+        {
+                             input_url: 'atwiki.jp/hmiku/pages/178.html#id_077d534d',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www5.atwiki.jp/hmiku/pages/178.html',
+               only_valid_entity_types: ['artist', 'release_group', 'work']
+        },
+        {
+                             input_url: 'https://www5.atwiki.jp/hmiku/tag/96crow',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
         // (VICTOR STUDIO) HD-Music.
         {
                              input_url: 'http://hd-music.info/album.cgi/913',
