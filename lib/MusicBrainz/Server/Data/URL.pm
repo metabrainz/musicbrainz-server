@@ -90,6 +90,7 @@ my %URL_SPECIALIZATIONS = (
     'Rateyourmusic'       => qr{^https?://(?:www.)?rateyourmusic.com/}i,
     'ResidentAdvisor'     => qr{^https?://(?:www.)?residentadvisor.net/}i,
     'ReverbNation'        => qr{^https?://(?:www.)?reverbnation.com/}i,
+    'RockComAr'           => qr{^https?://(?:www.)?rock.com.ar/}i,
     'RockensDanmarkskort' => qr{^https?://(?:www.)?rockensdanmarkskort.dk/}i,
     'RockInChina'         => qr{^https?://(?:www.)?rockinchina.com/}i,
     'Rockipedia'          => qr{^https?://(?:www.)?rockipedia.no/}i,

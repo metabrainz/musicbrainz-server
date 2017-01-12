@@ -93,6 +93,7 @@ use constant FAVICON_CLASSES => {
     'www5.atwiki.jp/hmiku/'     => 'hmikuwiki',
     'baidu.com'                 => 'baidu',
     'cancioneros.si'            => 'cancioneros',
+    'rock.com.ar'               => 'rockcomar',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
