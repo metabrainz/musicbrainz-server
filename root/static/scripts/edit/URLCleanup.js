@@ -1087,6 +1087,26 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  musicapopularcl: {
+    match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?musicapopular\.cl((?:\/[^\/?#]+){2})\/?(?:#.*)?$/, "http://www.musicapopular.cl$1/");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.musicapopular\.cl\/(artista|disco|grupo)\/[^\/]+\/$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artista' || prefix === 'grupo';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'disco';
+        }
+      }
+      return false;
+    }
+  },
   rockcomar: {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
