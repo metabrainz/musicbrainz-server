@@ -26,6 +26,7 @@ my %URL_SPECIALIZATIONS = (
     'BaiduBaike'          => qr{^https?://baike.baidu.com/}i,
     'Bandcamp'            => qr{^https?://([^/]+.)?bandcamp.com/}i,
     'Canzone'             => qr{^https?://(?:www.)?discografia.dds.it/}i,
+    'Cancioneros'         => qr{^https?://(?:www.)?cancioneros.si/}i,
     'Castalbums'          => qr{^https?://(?:www.)?castalbums.org/}i,
     'CDBaby'              => qr{^https?://(?:www.)?cdbaby.com/}i,
     'ChangeTip'           => qr{^https?://(?:www.)?changetip.com/tipme/}i,
