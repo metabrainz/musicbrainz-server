@@ -1048,6 +1048,19 @@ const CLEANUPS = {
       return false;
     }
   },
+  cancionerosmewiki: {
+    match: [new RegExp("^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cancioneros\.si\/([^#]+)(?:[#].*)?$/, "http://www.cancioneros.si/$1");
+    },
+    validate: function (url, id) {
+      return /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url)
+        && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.series
+            || id === LINK_TYPES.otherdatabases.work);
+    }
+  },
   generasia: {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
