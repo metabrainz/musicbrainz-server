@@ -1087,6 +1087,28 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  rockcomar: {
+    match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://www.rock.com.ar/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artistas' || prefix === 'bios';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'discos';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'letras';
+        }
+      }
+      return false;
+    }
+  },
   soundtrackcollector: {
     match: [new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
