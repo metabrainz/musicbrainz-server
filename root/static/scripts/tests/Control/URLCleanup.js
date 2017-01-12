@@ -1102,6 +1102,35 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'mora.jp/package/43000002/ANTCD-3106/',
                     expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
         },
+        // MusicaPopular.cl
+        {
+                             input_url: 'musicapopular.cl/artista/sensorama-19-81/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.musicapopular.cl/artista/sensorama-19-81/',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.musicapopular.cl/grupo/super_collider/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.musicapopular.cl/grupo/super_collider/',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.musicapopular.cl/artista/sensorama-19-81/?p=1668',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.musicapopular.cl/artista/sensorama-19-81/?p=1668',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://www.musicapopular.cl/disco/raw-digits',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.musicapopular.cl/disco/raw-digits/',
+               only_valid_entity_types: ['release_group']
+        },
         // MusicMoz
         {
                              input_url: 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
