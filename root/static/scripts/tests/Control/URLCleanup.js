@@ -327,6 +327,19 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
         },
+        // Cancioneros Musicales Españoles (CME)
+        {
+                             input_url: 'cancioneros.si/mediawiki/index.php?title=Cancionero_Musical_de_Palacio#RELACI.C3.93N_DE_OBRAS',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.cancioneros.si/mediawiki/index.php?title=Cancionero_Musical_de_Palacio',
+               only_valid_entity_types: ['artist', 'series', 'work']
+        },
+        {
+                             input_url: 'http://www.cancioneros.si/index.php/actividades/pr%C3%B3ximas/conciertos/1553-mhm-2016-11-26-m%C3%BAsica-de-c%C3%A1mara-del-siglo-xix-al-xx.html',
+                     input_entity_type: 'event',
+            expected_relationship_type: undefined
+        },
         // CastAlbums.org
         {
                              input_url: 'http://castalbums.org/recordings/The-Scottsboro-Boys-2014-Original-London-Cast/28967',
