@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Role::FollowForeignKeys;
 
 use Data::Compare qw( Compare );
+use Data::Dumper;
 use List::AllUtils qw( any );
 use Moose::Role;
 
@@ -28,13 +29,33 @@ sub get_ident($) {
 }
 
 sub stringify_joins($) {
+    my ($joins, $aliases) = @_;
+
+    my $index = 1;
+    my $prev_lhs_table;
+
     join ' ', map {
         my ($lhs, $rhs) = @{$_}{qw(lhs rhs)};
 
-        my ($schema, $table) = @{$lhs}{qw(schema table)};
+        my $lhs_table = $lhs->{schema} . '.' . $lhs->{table};
+        my $rhs_table = $rhs->{schema} . '.' . $rhs->{table};
 
-        "JOIN $schema.$table ON " . get_ident($lhs) . ' = ' . get_ident($rhs);
-    } @{$_[0]};
+        if ($prev_lhs_table) {
+            die ('Bad join: ' . Dumper($joins))
+                unless $prev_lhs_table eq $rhs_table;
+        }
+        $prev_lhs_table = $lhs_table;
+
+        my $rhs_alias = $aliases->{$rhs_table} // 't0';
+        my $lhs_alias = $aliases->{$lhs_table} // ('t' . $index);
+        $aliases->{$lhs_table} = $lhs_alias;
+        ++$index;
+
+        my $lhs_ident = $lhs_alias . '.' . $lhs->{column};
+        my $rhs_ident = $rhs_alias . '.' . $rhs->{column};
+
+        "JOIN $lhs_table $lhs_alias ON $lhs_ident = $rhs_ident"
+    } @{$joins};
 }
 
 sub should_follow_foreign_key {

@@ -5,6 +5,7 @@ use warnings;
 
 use feature 'state';
 
+use Data::Dumper;
 use Digest::SHA qw( sha1_hex );
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
@@ -351,21 +352,59 @@ sub get_linked_entities($$$$) {
     my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
         @{$update}{qw(schema table column value replication_sequence)};
 
-    my $joins_string = stringify_joins($joins);
+    my $first_join;
+    my $last_join;
+
+    if (@$joins) {
+        $first_join = $joins->[0];
+        $last_join = $joins->[scalar(@$joins) - 1];
+
+        # The target entity table we're selecting from should always be the
+        # RHS of the first join. Conversely, the source table - i.e., where
+        # the change originated - should always be the LHS of the final join.
+        # These values are still passed through via @_ and $update, because
+        # there sometimes aren't any joins. In that case, the source and
+        # target tables should be equal.
+        die ('Bad join: ' . Dumper($joins)) unless (
+            $first_join->{rhs}{schema} eq 'musicbrainz' &&
+            $first_join->{rhs}{table}  eq $entity_type  &&
+
+            $last_join->{lhs}{schema}  eq $src_schema   &&
+            $last_join->{lhs}{table}   eq $src_table
+        );
+    } else {
+        die 'Bad join' unless (
+            $src_schema eq 'musicbrainz' &&
+            $src_table  eq $entity_type
+        );
+    }
+
     my $table = "musicbrainz.$entity_type";
+    my $joins_string = '';
+    my $src_alias;
+
+    if (@$joins) {
+        my $aliases = {
+            $table => 'entity_table',
+        };
+        $joins_string = stringify_joins($joins, $aliases);
+        $src_alias = $aliases->{"$src_schema.$src_table"};
+    } else {
+        $src_alias = 'entity_table';
+    }
 
     Sql::run_in_transaction(sub {
         $c->sql->do('LOCK TABLE sitemaps.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE');
 
         my $entity_rows = $c->sql->select_list_of_hashes(
-            "SELECT DISTINCT $table.id, $table.gid
-               FROM $table
+            "SELECT DISTINCT entity_table.id, entity_table.gid
+               FROM $table entity_table
                $joins_string
-              WHERE ($src_schema.$src_table.$src_column = $src_value)
+              WHERE ($src_alias.$src_column = $src_value)
                 AND NOT EXISTS (
                     SELECT 1 FROM sitemaps.tmp_checked_entities ce
                      WHERE ce.entity_type = '$entity_type'
-                       AND ce.id = $table.id
+                       AND ce.id = entity_table.id
                 )"
         );
 
