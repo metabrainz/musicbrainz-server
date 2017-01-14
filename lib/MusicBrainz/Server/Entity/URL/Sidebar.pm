@@ -100,6 +100,7 @@ use constant FAVICON_CLASSES => {
     'vocadb.net'                => 'vocadb',
     'irishtune.info'            => 'irishtune',
     'cbfiddle.com/rx/'          => 'cbfiddlerx',
+    '45worlds.com'              => 'fortyfiveworlds',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
