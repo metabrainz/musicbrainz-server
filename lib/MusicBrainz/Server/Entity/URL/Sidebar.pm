@@ -96,6 +96,8 @@ use constant FAVICON_CLASSES => {
     'rock.com.ar'               => 'rockcomar',
     'musicapopular.cl'          => 'musicapopularcl',
     'catalogue.bnf.fr'          => 'bnfcatalogue',
+    'utaitedb.net'              => 'utaitedb',
+    'vocadb.net'                => 'vocadb',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
