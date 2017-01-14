@@ -11,6 +11,34 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
 
 test('URL cleanup component: auto-select, clean-up, and validation', {}, function (t) {
     const test_data = [
+        // 45cat
+        {
+                             input_url: 'https://www.45cat.com/artist/edwin-starr',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45cat.com/artist/edwin-starr',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.45cat.com/label/eastwest/all',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45cat.com/label/eastwest',
+               only_valid_entity_types: ['label']
+        },
+        {
+                             input_url: 'http://45cat.com/record/vs1370&rc=365077#365077',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45cat.com/record/vs1370',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.45cat.com/45_composer.php?tc=Floyd+Hunt',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
         // 7digital (zdigital)
         {
                              input_url: 'http://es.7digital.com/artist/the-impatient-sisters',
