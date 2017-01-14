@@ -1105,6 +1105,26 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  cbfiddlerx: {
+    match: [new RegExp("^(https?://)?(www\\.)?cbfiddle\\.com/rx/","i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cbfiddle\.com\/rx\/(rec\/r|tune\/t)(\d+\.html)(?:#.*$)?$/, "http://www.cbfiddle.com/rx/$1$2");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.cbfiddle\.com\/rx\/(rec\/r|tune\/t)\d+\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'rec/r';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'tune/t';
+        }
+      }
+      return false;
+    }
+  },
   generasia: {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
