@@ -1220,6 +1220,38 @@ const CLEANUPS = {
       return false;
     }
   },
+  utaitedbvocadb: {
+    match: [new RegExp("^(https?://)?(www\\.)?(utaite|voca)db\\.net", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca)db\.net\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "http://$1db.net/$2");
+      url = url.replace(/Artist\/(Details|Edit|Versions)/, "Ar");
+      url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, "Al");
+      url = url.replace(/Event\/(Details|Edit|Versions)/, "E");
+      return url.replace(/Song\/(Details|Edit|Related|Versions)/, "S");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/(?:utaite|voca)db\.net\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'Ar';
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'E';
+          case LINK_TYPES.otherdatabases.recording:
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'S';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'Al';
+          case LINK_TYPES.otherdatabases.series:
+            return prefix === 'Event/SeriesDetails';
+        }
+      }
+      return false;
+    }
+  },
   patronage: {
     match: [
       new RegExp("^(https?://)?(www\\.)?changetip\\.com/tipme/[^/?#]", "i"),
