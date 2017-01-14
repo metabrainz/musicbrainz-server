@@ -443,6 +443,21 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
         },
+        // CB (Cape Breton) Fiddle Recordings
+        {
+                             input_url: 'http://cbfiddle.com/rx/rec/r55.html',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.cbfiddle.com/rx/rec/r55.html',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'www.cbfiddle.com/rx/tune/t4003.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.cbfiddle.com/rx/tune/t4003.html',
+               only_valid_entity_types: ['work']
+        },
         // CDJapan
         {
                              input_url: 'www.cdjapan.co.jp/person/76324#test',
