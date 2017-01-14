@@ -39,6 +39,77 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'otherdatabases',
                only_valid_entity_types: []
         },
+        // 45worlds
+        {
+                             input_url: 'http://www.45worlds.com/78rpm/artist/yehudi-menuhin',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/78rpm/artist/yehudi-menuhin',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://45worlds.com/classical/artist/yehudi-menuhin',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/classical/artist/yehudi-menuhin',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.45worlds.com/classical/soloist/yehudi-menuhin',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/classical/soloist/yehudi-menuhin',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/live/listing/rumer-fawcetts-field-2012&rc=186697#186697',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/live/listing/rumer-fawcetts-field-2012',
+               only_valid_entity_types: ['event']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/tape/label/parlophone/all',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/tape/label/parlophone',
+               only_valid_entity_types: ['label']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/live/venue/stadium-high-school-stadium',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/live/venue/stadium-high-school-stadium',
+               only_valid_entity_types: ['place']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/12single/record/fu2t',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/12single/record/fu2t',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.45worlds.com/classical/music/asd264',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.45worlds.com/classical/music/asd264',
+               only_valid_entity_types: ['release']
+        },
         // 7digital (zdigital)
         {
                              input_url: 'http://es.7digital.com/artist/the-impatient-sisters',
