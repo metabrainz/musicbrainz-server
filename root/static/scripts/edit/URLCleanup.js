@@ -1047,6 +1047,33 @@ const CLEANUPS = {
       return false;
     }
   },
+  a45worlds: {
+    match: [new RegExp("^(https?://)?(www\\.)?45worlds\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, "http://www.45worlds.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      if (m) {
+        var world = m[1];
+        var prefix = m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix);
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'listing';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'label';
+          case LINK_TYPES.otherdatabases.place:
+            return prefix === 'venue';
+          case LINK_TYPES.otherdatabases.release:
+            return /^(album|cd|media|music|record)$/.test(prefix);
+        }
+      }
+      return false;
+    }
+  },
   baidubaike: {
     match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
