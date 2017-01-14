@@ -1048,6 +1048,50 @@ const CLEANUPS = {
       return false;
     }
   },
+  bnfcatalogue: {
+    match: [
+      new RegExp("^(https?://)?(catalogue|data)\\.bnf\\.fr/", "i"),
+      new RegExp("^(https?://)?ark\\.bnf\\.fr/ark:/12148/cb", "i"),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[.\/?#].*)?$/.exec(url);
+      if (m) {
+        var frBnF = m[1];
+        var phbt = '0123456789bcdfghjkmnpqrstvwxz';
+        var controlChar = phbt[_.reduce(frBnF, function(sum, c, i) {
+          return sum + phbt.indexOf(c) * (i + 3);
+        }, 2) % 29];
+        url = 'http://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
+      } else {
+        m = /^(?:https?:\/\/)?(?:ark|catalogue|data)\.bnf\.fr\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[.\/?#].*)?$/.exec(url);
+        if (m) {
+          var persistentARK = m[1];
+          url = 'http://catalogue.bnf.fr/' + persistentARK;
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/catalogue\.bnf\.fr\/ark:\/12148\/cb([1-4])[0-9]{7}[0-9b-z]$/.exec(url);
+      if (m) {
+        var digit = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.work:
+            return digit === '1' || digit === '2';
+          case LINK_TYPES.otherdatabases.event:
+          case LINK_TYPES.otherdatabases.release:
+            return digit === '3' || digit === '4';
+          case LINK_TYPES.otherdatabases.series:
+            return true;
+        }
+      }
+      return false;
+    }
+  },
   cancionerosmewiki: {
     match: [new RegExp("^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/", "i")],
     type: LINK_TYPES.otherdatabases,
