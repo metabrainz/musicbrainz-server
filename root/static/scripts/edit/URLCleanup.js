@@ -943,7 +943,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
-      new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?musik-sammler\\.de/", "i"),
       new RegExp("^(https?://)?(www\\.)?discografia\\.dds\\.it/", "i"),
       new RegExp("^(https?://)?(www\\.)?ester\\.ee/", "i"),
@@ -1024,6 +1023,28 @@ const CLEANUPS = {
       // Standardising Anime News Network
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
       return url;
+    }
+  },
+  a45cat: {
+    match: [new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, "http://www.45cat.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'label';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'record';
+        }
+      }
+      return false;
     }
   },
   baidubaike: {
