@@ -29,6 +29,7 @@ my %URL_SPECIALIZATIONS = (
     'Canzone'             => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'Cancioneros'         => qr{^https?://(?:www.)?cancioneros.si/}i,
     'Castalbums'          => qr{^https?://(?:www.)?castalbums.org/}i,
+    'CBFiddleRx'          => qr{^https?://(?:www.)?cbfiddle.com/rx/}i,
     'CDBaby'              => qr{^https?://(?:www.)?cdbaby.com/}i,
     'ChangeTip'           => qr{^https?://(?:www.)?changetip.com/tipme/}i,
     'CiNii'               => qr{^https?://(?:www.)?ci.nii.ac.jp/}i,

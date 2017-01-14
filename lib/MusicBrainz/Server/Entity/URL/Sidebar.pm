@@ -99,6 +99,7 @@ use constant FAVICON_CLASSES => {
     'utaitedb.net'              => 'utaitedb',
     'vocadb.net'                => 'vocadb',
     'irishtune.info'            => 'irishtune',
+    'cbfiddle.com/rx/'          => 'cbfiddlerx',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
