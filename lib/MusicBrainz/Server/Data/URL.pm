@@ -58,6 +58,7 @@ my %URL_SPECIALIZATIONS = (
     'Indiegogo'           => qr{^https?://(?:www.)?indiegogo.com/}i,
     'InternetArchive'     => qr{^https?://(?:www.)?archive.org/details/}i,
     'Instagram'           => qr{^https?://(?:www.)?instagram.com/}i,
+    'IrishTune'           => qr{^https?://(?:www.)?irishtune.info/}i,
     'GooglePlay'          => qr{^https?://play.google.com/}i,
     'iTunes'              => qr{^https?://itunes.apple.com/}i,
     'ISRCTW'              => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,

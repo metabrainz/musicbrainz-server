@@ -98,6 +98,7 @@ use constant FAVICON_CLASSES => {
     'catalogue.bnf.fr'          => 'bnfcatalogue',
     'utaitedb.net'              => 'utaitedb',
     'vocadb.net'                => 'vocadb',
+    'irishtune.info'            => 'irishtune',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
