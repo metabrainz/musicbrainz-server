@@ -1812,6 +1812,56 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // UtaiteDB/VocaDB
+        {
+                             input_url: 'http://utaitedb.net/Ar/1#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://utaitedb.net/Ar/1',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'https://vocadb.net/Ar/26957#picturesTab',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://vocadb.net/Ar/26957',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'utaitedb.net/Al/4644',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://utaitedb.net/Al/4644',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://vocadb.net/E/10/comiket-80',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://vocadb.net/E/10',
+               only_valid_entity_types: ['event']
+        },
+        {
+                             input_url: 'http://utaitedb.net/Event/SeriesDetails/30',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://utaitedb.net/Event/SeriesDetails/30',
+               only_valid_entity_types: ['series']
+        },
+        {
+                             input_url: 'http://vocadb.net/Song/Details/141014',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://vocadb.net/S/141014',
+               only_valid_entity_types: ['recording', 'work']
+        },
+        {
+                             input_url: 'http://vocadb.net/S/143473?albumId=21156',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://vocadb.net/S/143473',
+               only_valid_entity_types: ['recording', 'work']
+        },
         // Utamap
         {
                              input_url: 'http://www.utamap.com/showkasi.php?surl=34985',
