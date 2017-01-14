@@ -1131,6 +1131,26 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  irishtune: {
+    match: [new RegExp("^(https?://)?(www\\.)?irishtune\\.info","i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?irishtune\.info\/(album\/[A-Za-z+0-9]+|tune\/\d+)(?:[\/?#].*)?$/, "https://www.irishtune.info/$1/");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.irishtune\.info\/(?:(album)\/[A-Za-z+0-9]+|(tune)\/\d+)\/$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'album';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'tune';
+        }
+      }
+      return false;
+    }
+  },
   musicapopularcl: {
     match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
     type: LINK_TYPES.otherdatabases,
