@@ -930,6 +930,35 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
+        // Irish Traditional Music Tune Index (Alan Ng's Tunography)
+        {
+                             input_url: 'https://www.irishtune.info/album/MCnnly/#',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.irishtune.info/album/MCnnly/',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://irishtune.info/album/SRyan+C/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.irishtune.info/album/SRyan+C/',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'www.irishtune.info/album/KClns+1/',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.irishtune.info/album/KClns+1/',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'https://www.irishtune.info/tune/1499',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.irishtune.info/tune/1499/',
+               only_valid_entity_types: ['work']
+        },
         // (Apple) iTunes
         {
                              input_url: 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
