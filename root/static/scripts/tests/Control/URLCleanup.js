@@ -290,6 +290,103 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: undefined,
                     expected_clean_url: 'afroliciousoriginal.blogspot.com/',
         },
+        // BnF (Bibliothèque nationale de France) Catalogue
+        {
+                             input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'catalogue.bnf.fr/ark:/12148/cb11923342r',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'https://data.bnf.fr/11923342/antoine_de_saint-exupery/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'catalogue.bnf.fr/ark:/12148/cb394875737.unimarc',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb394875737',
+               only_valid_entity_types: ['event', 'release', 'series']
+        },
+        {
+                             input_url: 'http://data.bnf.fr/43854245/concerto_en_re_spectacle_2014/',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb43854245s',
+               only_valid_entity_types: ['event', 'release', 'series']
+        },
+        {
+                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m/PUBLIC',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r#noticeNum',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
+        {
+                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb37879365r',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+        },
+        {
+                             input_url: 'http://gallica.bnf.fr/ark:/12148/bpt6k8815248w',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://ark.bnf.fr/ark:/12148/bpt6k8815248w',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
+               only_valid_entity_types: ['event', 'release', 'series']
+        },
+        {
+                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
+               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+        },
         // BookBrainz
         {
                              input_url: 'https://bookbrainz.org/creator/8f3d202f-fa37-4b71-9e81-652db0f8b83d?test',
