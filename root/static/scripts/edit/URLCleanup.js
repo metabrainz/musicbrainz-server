@@ -742,10 +742,8 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      switch (id) {
-        case LINK_TYPES.socialnetwork.artist:
-        case LINK_TYPES.socialnetwork.label:
-          return /\/pages\/[^\/?#]+\/\d+/.test(url);
+      if (/facebook.com\/pages\//.test(url)) {
+        return /\/pages\/[^\/?#]+\/\d+/.test(url);
       }
       return true;
     },
