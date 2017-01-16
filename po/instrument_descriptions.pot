@@ -582,6 +582,13 @@ msgid ""
 "instrument if you know which one is intended."
 msgstr ""
 
+#. name:berda 
+#: DB:instrument/description:828
+msgid ""
+"Bass member of the Balkan tamburica orchestra, it is contrabass like. it has "
+"four thick metal strings"
+msgstr ""
+
 #. name:bendir 
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
@@ -713,6 +720,13 @@ msgstr ""
 #. name:huqin 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
+msgstr ""
+
+#. name:arpeggione 
+#: DB:instrument/description:823
+msgid ""
+"Invented in 1823, it had a body like a medieval fiddle, but had frets and "
+"tuning like the guitar."
 msgstr ""
 
 #. name:taiko 
@@ -942,11 +956,6 @@ msgstr ""
 #. name:Swedish bagpipes 
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
-msgstr ""
-
-#. name:tambura 
-#: DB:instrument/description:391
-msgid "Tambura, Tanbura or Tamboura"
 msgstr ""
 
 #. name:tanbou ka 
@@ -3090,6 +3099,13 @@ msgstr ""
 msgid "a medieval round-backed string instrument ancestral to the guitar"
 msgstr ""
 
+#. name:chirimía 
+#: DB:instrument/description:821
+msgid ""
+"a relative of the shawm, it was introduced to central and south-america by "
+"the spanish in the sixteenth and seventeenth century."
+msgstr ""
+
 #. name:laúd 
 #: DB:instrument/description:803
 msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
@@ -3167,6 +3183,13 @@ msgid ""
 "bronze age."
 msgstr ""
 
+#. name:bugarija 
+#: DB:instrument/description:826
+msgid ""
+"chord rhythm member of the Balkan tamburica orchestra, it is guitar like. it "
+"has one double string D and three single strings"
+msgstr ""
+
 #. name:conch 
 #: DB:instrument/description:156
 msgid "conch shell"
@@ -3191,6 +3214,15 @@ msgid ""
 "electronic organ."
 msgstr ""
 
+#. name:čelo 
+#: DB:instrument/description:827
+msgid ""
+"counterpoint member of the Balkan tamburica orchestra, it is guitar like the "
+"bugarija. it can either have two double strings and two single strings "
+"(čelović) or now four single strings are more common. (čelo/čelović/) the "
+"čelović is a different pitch than the čelo"
+msgstr ""
+
 #. name:ki pah 
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
@@ -3199,6 +3231,14 @@ msgstr ""
 #. name:dholak 
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"
+msgstr ""
+
+#. name:tambura 
+#: DB:instrument/description:391
+msgid ""
+"do not confuse with: serb-croat \"tamburica\" ensemble. persian/turkish "
+"ancient things evolved/came from \"tanbur\". unrelated indian drone \"tanpura"
+"\" related indian \"pandour\""
 msgstr ""
 
 #. name:đing buốt 
@@ -3240,6 +3280,13 @@ msgid ""
 "over the world of this get up."
 msgstr ""
 
+#. name:chirimía and drum 
+#: DB:instrument/description:822
+msgid ""
+"much like the pipe and tabor, the chirimía and drum is a South American "
+"cousin."
+msgstr ""
+
 #. name:ondioline 
 #: DB:instrument/description:814
 msgid ""
@@ -3251,6 +3298,14 @@ msgstr ""
 #. name:saó ôi flute 
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
+msgstr ""
+
+#. name:brač 
+#: DB:instrument/description:825
+msgid ""
+"second smallest member of the Balkan tamburica orchestra, there are often "
+"two, first and second bass. it can either have three double strings or two "
+"double strings and three single strings"
 msgstr ""
 
 #. name:tabor 
@@ -3293,6 +3348,19 @@ msgstr ""
 msgid ""
 "smaller and higher-tuned ngoni made of calabash, it became an important "
 "instrument in the rise of the Wassoulou music in the 80's and 90's"
+msgstr ""
+
+#. name:bisernica 
+#: DB:instrument/description:824
+msgid ""
+"smallest member of the Balkan tamburica orchestra, it is usually the lead "
+"instrument. it can either have one double string and three single strings "
+"(prim/bisernica) or two double strings and two single strings (bisernica)"
+msgstr ""
+
+#. name:tanbur 
+#: DB:instrument/description:477
+msgid "the ancient ancestor of many related lute like instruments."
 msgstr ""
 
 #. name:aman khuur 

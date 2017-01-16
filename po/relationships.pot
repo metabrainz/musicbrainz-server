@@ -1040,7 +1040,7 @@ msgstr ""
 #: DB:link_type/description:200
 msgid ""
 "This describes a situation where one label is (or was) a subsidiary of "
-"another label, during a given period of time.​ This should be used either to "
+"another label, during a given period of time. This should be used either to "
 "describe the fact a label is a subdivision of another one, or, through "
 "corporate acquisition of the former label, has become a subdivision of "
 "another one."
@@ -1055,7 +1055,7 @@ msgstr ""
 #: DB:link_type/description:201
 msgid ""
 "This describes a situation where one label is reissuing, under its own name, "
-"(part of) another label's catalog.​ This can happen in at least three cases:\n"
+"(part of) another label's catalog. This can happen in at least three cases:\n"
 "<ul>\n"
 "<li>A label acquires a lease on another label's catalog, for a period of "
 "time, in a specific region of the world.</li>\n"
@@ -1083,7 +1083,7 @@ msgstr ""
 msgid ""
 "This describes an engineer responsible for either connecting disparate "
 "elements of the audio recording, or otherwise redistributing material "
-"recorded in the sessions.​ This is usually secondary, or additional to the "
+"recorded in the sessions. This is usually secondary, or additional to the "
 "work done by the mix engineer. It can also involve streamlining a longer "
 "track to around the 3 minute mark in order to make it suitable for radio "
 "play (a \"radio edit\")."
@@ -1099,7 +1099,7 @@ msgstr ""
 #: DB:link_type/description:143
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
-"recorded track into a single piece of music suitable for release.​ For "
+"recorded track into a single piece of music suitable for release. For "
 "remixing, see <a href=\"/"
 "relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixer</a>."
 msgstr ""
@@ -1107,13 +1107,13 @@ msgstr ""
 #: DB:link_type/description:26
 msgid ""
 "This describes an engineer responsible for using a mixing console to mix a "
-"recorded track into a single piece of music suitable for release.​ For "
+"recorded track into a single piece of music suitable for release. For "
 "remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b"
 "\">remixer</a>."
 msgstr ""
 
-#: DB:link_type/description:28 DB:link_type/description:138
-msgid "This describes an engineer who performed a general engineering role.​"
+#: DB:link_type/description:138 DB:link_type/description:28
+msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
 
 #: DB:link_type/description:103
@@ -1200,7 +1200,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:305
-msgid "This indicates that a person is, or was, a conductor for a group.​"
+msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr ""
 
 #: DB:link_type/description:137
@@ -1239,7 +1239,7 @@ msgstr ""
 #: DB:link_type/description:228
 msgid ""
 "This indicates that a recording is a compilation of several other "
-"recordings.​ This applies to one long recording that contains multiple songs, "
+"recordings. This applies to one long recording that contains multiple songs, "
 "one after the other, in which the audio material of the original recordings "
 "has not been altered. If the tracks are pitched or blended into each other, "
 "the <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ-mix "
@@ -1255,7 +1255,7 @@ msgstr ""
 
 #: DB:link_type/description:3
 msgid ""
-"This indicates that a release was released in support of another release.​"
+"This indicates that a release was released in support of another release. "
 "This allows a release to be linked to its supporting singles, EPs, and remix "
 "releases. A 'supporting release' is one which is released to increase sales "
 "of an album or to create publicity for an album."
@@ -1264,7 +1264,7 @@ msgstr ""
 #: DB:link_type/description:11
 msgid ""
 "This indicates that a single or EP release group includes at least one track "
-"taken from an album release group.​ This allows a release group to be linked "
+"taken from an album release group. This allows a release group to be linked "
 "to its associated singles and EPs."
 msgstr ""
 
@@ -1474,14 +1474,24 @@ msgstr ""
 
 #: DB:link_type/description:349
 msgid ""
-"This indicates the rights society associated with a release.​ The rights "
+"This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
+msgstr ""
+
+#: DB:link_type/description:914
+msgid ""
+"This indicates the work is dedicated to a specific area. This is most common "
+"for classical works, but also exists in other genres to a degree."
 msgstr ""
 
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
+msgstr ""
+
+#: DB:link_type/description:915
+msgid "This indicates where a feed for this podcast can be found."
 msgstr ""
 
 #: DB:link_type/description:17
@@ -1521,7 +1531,7 @@ msgstr ""
 
 #: DB:link_type/description:226
 msgid ""
-"This is used to link a karaoke version of a song to the original song.​<br/"
+"This is used to link a karaoke version of a song to the original song.<br/"
 "><br/>\n"
 "A karaoke version is a version of the song with the main vocals removed, "
 "designed to be used for karaoke. These are generally produced from the "
@@ -1767,7 +1777,7 @@ msgstr ""
 #: DB:link_type/description:132
 msgid ""
 "This links a recording to the artist who did the programming for electronic "
-"instruments used on the recording.​ In the most cases, the 'electronic "
+"instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
 
@@ -1800,7 +1810,7 @@ msgstr ""
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
-"album.​ Tribute albums often have a title in the form \"A Tribute to Artist"
+"album. Tribute albums often have a title in the form \"A Tribute to Artist"
 "\", and they consist of covers of songs by the target artist, played by "
 "other (sometimes very unknown) bands, to honor the target artist. Often they "
 "are various artist compilations, but a single artist can perform the entire "
@@ -1825,7 +1835,7 @@ msgstr ""
 #: DB:link_type/description:37
 msgid ""
 "This links a release to the artist who did the programming for electronic "
-"instruments used on the release.​ In the most cases, the 'electronic "
+"instruments used on the release. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
 
@@ -1986,7 +1996,7 @@ msgstr ""
 
 #: DB:link_type/description:184
 msgid ""
-"This links an artist to an online discography of their works.​ The "
+"This links an artist to an online discography of their works. The "
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
 msgstr ""
@@ -2213,7 +2223,7 @@ msgstr ""
 msgid ""
 "This relationship indicates the artist is the <a href=\"//en.wikipedia.org/"
 "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this release. ​"
+"for this release."
 msgstr ""
 
 #: DB:link_type/description:709
@@ -2238,14 +2248,14 @@ msgstr ""
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
 "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this recording. ​"
+"for this recording."
 msgstr ""
 
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
 "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this release. ​"
+"for this release."
 msgstr ""
 
 #: DB:link_type/description:708
@@ -3031,10 +3041,11 @@ msgid "crowdfunding page for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
+#: DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr ""
 
-#: DB:link_type/link_phrase:846
+#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr ""
 
@@ -3583,10 +3594,10 @@ msgstr ""
 msgid "holds copyright for"
 msgstr ""
 
-#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:710
-#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:710
+#: DB:link_type/link_phrase:869 DB:link_type/link_phrase:710
+#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:869 DB:link_type/long_link_phrase:710
+#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright for"
 msgstr ""
 
@@ -4243,8 +4254,8 @@ msgstr ""
 msgid "personal relationship"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:710
+#: DB:link_type/reverse_link_phrase:869 DB:link_type/reverse_link_phrase:710
+#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright by"
 msgstr ""
 
@@ -4256,6 +4267,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 #: DB:link_type/reverse_link_phrase:732
 msgid "picture of"
+msgstr ""
+
+#: DB:link_type/link_phrase:915
+msgid "podcast feed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:915
+msgid "podcast feed for"
 msgstr ""
 
 #: DB:link_type/link_phrase:808
@@ -5009,8 +5028,8 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr ""
 
-#: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
-#: DB:link_type/long_link_phrase:143 DB:link_type/long_link_phrase:26
+#: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
+#: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr ""
 
@@ -5029,8 +5048,8 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr ""
 
-#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
-#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
+#: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
+#: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -5203,7 +5222,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
+#: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr ""
 
@@ -5211,7 +5230,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
+#: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
@@ -5342,6 +5361,10 @@ msgstr ""
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:915
+msgid "{entity1} is a feed for podcast {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:743
 msgid "{entity1} is a part of  {entity0}"
 msgstr ""
@@ -5359,6 +5382,7 @@ msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
+#: DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
