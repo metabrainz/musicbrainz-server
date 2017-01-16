@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2016
+# Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-11-19 14:47+0000\n"
+"PO-Revision-Date: 2017-01-02 10:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2518,7 +2518,7 @@ msgstr "Welsh"
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
-msgstr "West- Arrarnta"
+msgstr "West-Arrarnta"
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452

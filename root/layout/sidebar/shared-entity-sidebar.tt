@@ -40,14 +40,16 @@
             [%~ END ~%]
 
             [%~ IF edit_links_other.size > 0 ~%]
-                [%~ '<hr/>' IF edit_links_add_entity.size > 0 ~%]
                 [%~ FOREACH link IN edit_links_other ~%]
-                    <li><a href="[%~ link.url ~%]">[%~ link.text ~%]</a></li>
+                    <li [%~ ' class="separator"' IF loop.first && edit_links_add_entity.size > 0 %]>
+                        <a href="[%~ link.url ~%]">[%~ link.text ~%]</a>
+                    </li>
                 [%~ END ~%]
             [%~ END ~%]
 
-            [%~ '<hr/>' IF edit_links_add_entity.size + edit_links_other.size > 0 ~%]
-            <li>[%~ link_entity(entity, 'open_edits', l('Open edits')) ~%]</li>
+            <li [%~ ' class="separator"' IF edit_links_add_entity.size + edit_links_other.size > 0 %]>
+                [%~ link_entity(entity, 'open_edits', l('Open edits')) ~%]
+            </li>
             <li>[%~ link_entity(entity, 'edits', l('Editing history')) ~%]</li>
         [%~ ELSE ~%]
             <li>[%~ request_login(l('Log in to edit')) ~%]</li>

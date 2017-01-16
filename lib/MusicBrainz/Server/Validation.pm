@@ -175,11 +175,8 @@ sub is_valid_isni
     return $isni =~ /^[0-9]{15}[0-9X]$/;
 }
 
-sub format_isni
-{
-    my $isni = shift;
-    $isni =~ s/[\s\.]//g;
-    return $isni;
+sub format_isni {
+    shift =~ s/[\s\.]//gr
 }
 
 sub is_valid_url

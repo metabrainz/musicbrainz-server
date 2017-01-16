@@ -3,8 +3,6 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use charnames ':full'; # only necessary before Perl 5.16
-
 use Encode;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l lp );

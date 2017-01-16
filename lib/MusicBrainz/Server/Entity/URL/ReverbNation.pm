@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::LastFM;
+package MusicBrainz::Server::Entity::URL::ReverbNation;
 
 use Moose;
 
@@ -6,7 +6,9 @@ extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub sidebar_name {
-    shift->decoded_local_part =~ s{^/music/}{}r =~ tr/+/ /r
+    my $self = shift;
+
+    return "ReverbNation";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -15,7 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2016 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

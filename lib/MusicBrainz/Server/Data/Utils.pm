@@ -74,12 +74,10 @@ our @EXPORT_OK = qw(
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
 
 sub copy_escape {
-    my $str = shift;
-    $str =~ s/\n/\\n/g;
-    $str =~ s/\t/\\t/g;
-    $str =~ s/\r/\\r/g;
-    $str =~ s/\\/\\\\/g;
-    return $str;
+    shift =~ s/\n/\\n/gr
+          =~ s/\t/\\t/gr
+          =~ s/\r/\\r/gr
+          =~ s/\\/\\\\/gr
 }
 
 sub ref_to_type
@@ -272,18 +270,16 @@ sub add_coordinates_to_row
 }
 
 sub collapse_whitespace {
-    my $t = shift;
+    shift
 
     # Replace all spaces with U+0020
-    $t =~ s/\s/ /g;
+    =~ s/\s/ /gr
 
     # Remove non-printable characters.
-    $t =~ s/[^[:print:]]//g;
+    =~ s/[^[:print:]]//gr
 
     # Compress whitespace
-    $t =~ s/\s{2,}/ /g;
-
-    return $t;
+    =~ s/\s{2,}/ /gr
 }
 
 sub sanitize {
@@ -324,7 +320,7 @@ sub remove_direction_marks {
             } {$1}gx;
 
     # Remove LRM/RLM from strings without RTL characters
-    my $stripped = $t; $stripped =~ s/[\x{200E}\x{200F}]//g;
+    my $stripped = $t =~ s/[\x{200E}\x{200F}]//gr;
     unless ($stripped =~ /[\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]/)
         # The test must be done on $stripped because RLM is in Right_To_Left itself.
     {
@@ -335,13 +331,12 @@ sub remove_direction_marks {
 }
 
 sub remove_invalid_characters {
-    my $t = shift;
+    shift
     # trim XML-invalid characters
-    $t =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//go;
+    =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//gor
     # trim other undesirable characters
-    $t =~ s/[\x{200B}\x{00AD}]//go;
-    #        zwsp    shy
-    return $t
+    =~ s/[\x{200B}\x{00AD}]//gor
+    #     zwsp    shy
 }
 
 sub type_to_model

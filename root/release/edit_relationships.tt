@@ -139,7 +139,7 @@
             <td class="section">[% l('Work Type:') %]</td>
             <td>
               <select data-bind="value: workType, disable: loading">
-                <option selected="selected"></option>
+                <option selected="selected">&#xA0;</option>
                 [%- FOR type=work_types %]
                   <option value="[% type.value %]">[% type.label %]</option>
                 [%- END %]
@@ -150,7 +150,7 @@
             <td class="section">[% l('Lyrics Language:') %]</td>
             <td>
               <select data-bind="value: workLanguage, disable: loading">
-                <option selected="selected"></option>
+                <option selected="selected">&#xA0;</option>
                 [% FOR optgroup=work_languages %]
                   <optgroup label="[% optgroup.optgroup %]">
                   [%- FOR lang=optgroup.options %]

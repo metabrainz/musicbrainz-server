@@ -109,8 +109,7 @@ sub _wikidata_languages_callback
         my @langs;
         for my $wiki (keys %{ $opts{fetched}{content}{sitelinks} }) {
             if ($wiki =~ /wiki$/ and $wiki ne 'commonswiki') {
-                my $lang = $wiki;
-                $lang =~ s/wiki$//;
+                my $lang = $wiki =~ s/wiki$//r;
                 my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};
                 push @langs, {"lang" => $lang, "title" => $page}
             }

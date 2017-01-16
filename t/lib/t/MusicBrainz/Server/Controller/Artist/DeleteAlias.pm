@@ -51,7 +51,7 @@ is_deeply($edit->data, {
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
-html_ok($mech->content, '..valid xml');
+html_ok($mech->content);
 $mech->content_contains('Test Artist', '..has artist name');
 $mech->content_contains('Test Alias', '..has alias name');
 

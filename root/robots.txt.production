@@ -8,7 +8,6 @@ Disallow: /cdtoc/attach
 Disallow: /edit/
 Disallow: /election/
 Disallow: /elections
-Disallow: /freedb/
 Disallow: /isrc/
 Disallow: /iswc/
 Disallow: /login

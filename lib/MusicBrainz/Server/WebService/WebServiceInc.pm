@@ -52,7 +52,7 @@ sub BUILD
     {
         foreach my $rel (@{$args->{relations}})
         {
-            $rel =~ s/-/_/g;
+            $rel =~ tr/-/_/;
             $methods{$rel}->set_value($self, 1);
         }
     }
@@ -60,7 +60,7 @@ sub BUILD
     foreach my $arg (@{$args->{inc}})
     {
         $arg = lc($arg);
-        $arg =~ s/-/_/g;
+        $arg =~ tr/-/_/;
         $arg =~ s/mediums/media/;
 
         MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter->throw( parameter => $arg )

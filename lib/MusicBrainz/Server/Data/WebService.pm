@@ -12,11 +12,8 @@ use URI::Escape qw( uri_escape_utf8 );
 with 'MusicBrainz::Server::Data::Role::Context';
 
 # Escape special characters in a Lucene search query
-sub escape_query
-{
-    my $str = shift;
-    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
-    return $str;
+sub escape_query {
+    shift =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr
 }
 
 # construct a lucene search query based on the args given and then pass it to a search server.

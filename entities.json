@@ -207,9 +207,6 @@
         },
         "model": "EventType"
     },
-    "freedb": {
-        "model": "FreeDB"
-    },
     "gender": {
         "cache": {
             "id": 10

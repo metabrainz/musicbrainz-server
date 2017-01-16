@@ -306,6 +306,11 @@ msgstr ""
 msgid "arghul"
 msgstr ""
 
+#: DB:instrument/name:823
+msgctxt "bass viol with guitar frets and tuning"
+msgid "arpeggione"
+msgstr ""
+
 #: DB:instrument/name:812
 msgctxt "cone shaped west african frame-drum"
 msgid "ashiko"
@@ -508,6 +513,11 @@ msgstr ""
 msgid "bendir"
 msgstr ""
 
+#: DB:instrument/name:828
+msgctxt "largest member of the serbo-croatian tamburica orchestra"
+msgid "berda"
+msgstr ""
+
 #: DB:instrument/name:69
 msgid "berimbau"
 msgstr ""
@@ -523,6 +533,11 @@ msgstr ""
 #: DB:instrument/name:801
 msgctxt "wooden natural horn"
 msgid "birch lur"
+msgstr ""
+
+#: DB:instrument/name:824
+msgctxt "small serbo-croatian plucked stringinstrument"
+msgid "bisernica"
 msgstr ""
 
 #: DB:instrument/name:70
@@ -577,6 +592,11 @@ msgstr ""
 msgid "brass"
 msgstr ""
 
+#: DB:instrument/name:825
+msgctxt "serbo-croatian plucked stringinstrument"
+msgid "brač"
+msgstr ""
+
 #: DB:instrument/name:800
 msgctxt "bronze age natural horn"
 msgid "bronze lur"
@@ -584,6 +604,11 @@ msgstr ""
 
 #: DB:instrument/name:320
 msgid "brushes"
+msgstr ""
+
+#: DB:instrument/name:826
+msgctxt "serbo-croatian plucked stringinstrument"
+msgid "bugarija"
 msgstr ""
 
 #: DB:instrument/name:36
@@ -709,6 +734,16 @@ msgstr ""
 
 #: DB:instrument/name:618
 msgid "ching"
+msgstr ""
+
+#: DB:instrument/name:821
+msgctxt "oboe-like double-reed from South-America"
+msgid "chirimía"
+msgstr ""
+
+#: DB:instrument/name:822
+msgctxt "pair of double-reed and drum. from South America."
+msgid "chirimía and drum"
 msgstr ""
 
 #: DB:instrument/name:744
@@ -999,6 +1034,9 @@ msgid "drum machine"
 msgstr ""
 
 #: DB:instrument/name:100
+msgctxt ""
+"generic drums, for the set of drums typically used in modern music, use "
+"\"drumset\""
 msgid "drums"
 msgstr ""
 
@@ -1353,6 +1391,7 @@ msgid "guitarrón mexicano"
 msgstr ""
 
 #: DB:instrument/name:52
+msgctxt "DO NOT USE"
 msgid "guitars"
 msgstr ""
 
@@ -2691,6 +2730,7 @@ msgid "tambourine"
 msgstr ""
 
 #: DB:instrument/name:391
+msgctxt "macedonian/bulgarian long-necked lute"
 msgid "tambura"
 msgstr ""
 
@@ -2703,6 +2743,7 @@ msgid "tanbou ka"
 msgstr ""
 
 #: DB:instrument/name:477
+msgctxt "Persian/Turkish ancient long-necked lute"
 msgid "tanbur"
 msgstr ""
 
@@ -3060,6 +3101,7 @@ msgid "violino piccolo"
 msgstr ""
 
 #: DB:instrument/name:59
+msgctxt "violin family"
 msgid "violins"
 msgstr ""
 
@@ -3177,6 +3219,7 @@ msgid "yatga"
 msgstr ""
 
 #: DB:instrument/name:527
+msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr ""
 
@@ -3230,6 +3273,11 @@ msgstr ""
 
 #: DB:instrument/name:768
 msgid "ütőgardon"
+msgstr ""
+
+#: DB:instrument/name:827
+msgctxt "counter member of the serbo-croatian tamburica orchestra"
+msgid "čelo"
 msgstr ""
 
 #: DB:instrument/name:306

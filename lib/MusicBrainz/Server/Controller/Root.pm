@@ -7,8 +7,7 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
-use ModDefs;
-use MusicBrainz::Server::Constants qw( $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
@@ -239,7 +238,7 @@ sub begin : Private
     };
     if ($c->user_exists && $c->user->is_banner_editor) {
         # For banner editors, show a dismissed banner again after 20 hours (MBS-8940)
-        $alert_mtime = max($alert_mtime, time()-20*60*60);
+        $alert_mtime = max($alert_mtime // 0, time()-20*60*60);
     }
 
     # For displaying which git branch is active as well as last commit information
@@ -377,7 +376,7 @@ sub end : ActionClass('RenderView')
 
     $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 
-    $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
+    $c->stash->{various_artist_mbid} = $VARTIST_GID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 

@@ -150,7 +150,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-    t.plan(7);
+    t.plan(11);
 
     var tests = [
         {
@@ -187,6 +187,26 @@ test('Work', function (t) {
             input: "Bring It All To Me (f. 50 Cent)",
             expected: "Bring It All to Me (feat. 50 Cent)",
             mode: "English", roman: true, keepuppercase: false
+        },
+        {
+            input: "izarın gül gül olmuş",
+            expected: "İzarın Gül Gül Olmuş",
+            mode: "Turkish", roman: false, keepuppercase: false
+        },
+        {
+            input: "efendim hu nasibim Bu IECELLİ TAKSI\u0307RAT yahu",
+            expected: "Efendim Hu Nasibim Bu Iecelli Taksirat Yahu",
+            mode: "Turkish", roman: false, keepuppercase: false
+        },
+        {
+            input: "ben De YAZDIM",
+            expected: "Ben de YAZDIM",
+            mode: "Turkish", roman: false, keepuppercase: true
+        },
+        {
+            input: "ya devlet başa Ya Kuzgun Leşe",
+            expected: "Ya Devlet Başa ya Kuzgun Leşe",
+            mode: "Turkish", roman: false, keepuppercase: false
         }
     ];
 

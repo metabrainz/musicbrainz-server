@@ -45,7 +45,7 @@ if (isNodeJS) {
   };
 } else {
   pathTo = function (manifest) {
-    return _pathTo(manifest, require('./build/rev-manifest.json'));
+    return _pathTo(manifest, require('rev-manifest.json'));
   };
 }
 

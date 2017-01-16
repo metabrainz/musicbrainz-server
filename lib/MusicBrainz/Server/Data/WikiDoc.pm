@@ -99,8 +99,7 @@ sub _create_page
 {
     my ($self, $id, $version, $content, $index) = @_;
 
-    my $title = $id;
-    $title =~ s/_/ /g;
+    my $title = $id =~ tr/_/ /r;
     # Create hierarchy for displaying in the h1
     my @hierarchy = split('/',$title);
 
@@ -148,7 +147,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="(?:https?:)?\/\/.*?\/(.*?)"/) {
+    if ($content =~ m{<ul class="redirectText"><li><a href="(?:https?:)?(?://[^/]+)?/(.*?)"}) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 

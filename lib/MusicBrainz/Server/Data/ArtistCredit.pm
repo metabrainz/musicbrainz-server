@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
-use namespace::autoclean -also => [qw( _clean )];
+use namespace::autoclean;
 
 use Data::Compare;
 use Carp qw( cluck );
@@ -9,7 +9,7 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model );
+use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model sanitize );
 use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -155,7 +155,7 @@ sub find_or_insert
     my ($self, $artist_credit) = @_;
 
     for my $name (@{ $artist_credit->{names} }) {
-        $name->{join_phrase} = _clean($name->{join_phrase});
+        $name->{join_phrase} = sanitize($name->{join_phrase} // '');
     }
 
     my ($id, $name, $positions, $credits, $artists, $join_phrases) =
@@ -193,14 +193,6 @@ sub find_for_artist {
             )
         ]
     );
-}
-
-sub _clean {
-    my $text = shift;
-    return '' unless defined($text);
-    $text =~ s/[^[:print:]]//g;
-    $text =~ s/\s+/ /g;
-    return $text;
 }
 
 sub merge_artists
@@ -355,7 +347,6 @@ sub related_entities {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT

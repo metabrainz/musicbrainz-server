@@ -1,47 +1,15 @@
-package MusicBrainz::Server::Entity::FreeDB;
+package MusicBrainz::Server::Entity::URL::LinkedIn;
 
 use Moose;
-use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity';
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-has discid => (
-    is => 'ro',
-    isa => 'Str',
-);
+sub sidebar_name {
+    my $self = shift;
 
-has 'category' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has tracks => (
-    is => 'ro',
-);
-
-has title => (
-    isa => 'Str',
-    is => 'ro',
-);
-
-has artist => (
-    isa => 'Str',
-    is => 'ro',
-);
-
-has track_count => (
-    isa => 'Int',
-    is => 'ro',
-);
-
-has year => (
-    is => 'ro'
-);
-
-has looks_like_va => (
-    isa => 'Bool',
-    is => 'ro',
-);
+    return "LinkedIn";
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -49,7 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Robert Kaye
+Copyright (C) 2016 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

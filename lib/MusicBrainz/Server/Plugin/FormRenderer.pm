@@ -199,7 +199,7 @@ sub select
     {
         unshift @options, $self->h->option({
             selected => !defined $field->value ? "selected" : undef,
-        }, ' ')
+        }, '&#xA0;')
     }
 
     return $self->h->select({

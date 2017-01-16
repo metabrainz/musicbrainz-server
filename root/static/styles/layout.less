@@ -109,6 +109,11 @@ ul.inline {
     margin: 0;
 }
 
+li.separator {
+    border-top: 1px @hr-color solid;
+    margin-top: 1em;
+}
+
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
 pre code {
     overflow-x: auto;
@@ -193,9 +198,8 @@ pre code {
                         -webkit-appearance: none;
                         -moz-appearance: none;
                         border-radius: 0;
-                        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1…0px'><text x='0' y='15' fill='black' font-size='15'>&#x25BE;</text></svg>");
-                        background-position-x: 100px;
-                        background-position-y: 1px;
+                        background-image: data-uri('../images/icons/dropdown-arrow.svg');
+                        background-position: 100px 1px;
                         position: absolute;
                         left: 149px;
                     }
@@ -294,9 +298,6 @@ pre code {
                         }
                     }
                 }
-                .separator {
-                    border-top: 1px dotted #000;
-                }
             }
         }
     }
@@ -388,16 +389,6 @@ div.warning img.warning {
 #sidebar ul.links {
     margin: 0;
     padding-left: 1.5em;
-}
-
-#sidebar ul.links hr {
-    padding: 0;
-    margin: 3px;
-    height: 1px;
-    width: 75%;
-    border: 0;
-    color: @hr-color;
-    background-color: @hr-color;
 }
 
 #sidebar ul.external_links {
@@ -704,7 +695,7 @@ nav .pagination {
         display: table-cell;
 
         &.separator {
-            border-top-style: none;
+            border-top-style: none !important;
             border-bottom-style: none;
             width: 1em;
         }
