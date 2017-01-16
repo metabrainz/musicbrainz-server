@@ -108,7 +108,7 @@ url:        http://lodash.com/
 
 library:    Leaflet
 license:    2-clause BSD
-version:    0.7.3
+version:    1.0.1
 author:     Vladimir Agafonkin, CloudMade
 url:        http://leafletjs.com/
 

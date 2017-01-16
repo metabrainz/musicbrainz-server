@@ -1,0 +1,102 @@
+<div id="largemap"></div>
+<script type="text/javascript">//<![CDATA[
+
+(function () {
+    [%~ DEFAULT places=entities ~%]
+    var map,
+        coordinates = [],
+        places = [];
+
+    [%~ FOR place IN places ~%]
+        [%~ IF place.coordinates.defined ~%]
+            places.push({
+                uri: '[% link_entity(place) | js %]',
+                title: '[% place.name | js %]',
+                type: '[% place.l_type_name | js %]',
+                coordinates: [[% place.coordinates.latitude %],
+                              [% place.coordinates.longitude %]]
+            });
+        [%~ END ~%]
+    [%~ END ~%]
+
+    if (places.length) {
+        var zoom = 12;
+
+        map = L.map('largemap').setView(places[0].coordinates, zoom);
+
+        L.tileLayer('https://{s}.tiles.mapbox.com/v4/[%~ mapbox_map_id ~%]/{z}/{x}/{y}.png?access_token=[%~ mapbox_access_token ~%]', {
+            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
+            maxZoom: 18
+        }).addTo(map);
+
+        L.Icon.Default.imagePath = '/static/lib/leaflet/images';
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34]
+            }
+        });
+
+        var iconNames = {
+            'no type': 'marker',
+            Other: 'marker',
+            Studio: 'studio-marker',
+            Venue: 'venue-marker',
+            Stadium: 'stadium-marker',
+            'Indoor arena': 'arena-marker',
+            'Religious building': 'religious-marker'
+        };
+        var icons = _.mapValues(iconNames, function (name) {
+            return new LeafIcon(
+                { iconUrl: '/static/lib/leaflet/images/' + name + '-icon.png' }
+            );
+        });
+
+        var markers = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: function (cluster) {
+                return L.divIcon({
+                    html: '<img src="/static/lib/leaflet/images/cluster-marker-icon.png" />'
+                        + '<div class="cluster-div-text">'
+                        + '<b>' + cluster.getChildCount() + '</b></div>',
+                    className: 'cluster-div-icon',
+                    iconSize: L.point(25, 41)
+                });
+            }
+        });
+
+        markers.on('clustermouseover', function (evt) {
+            var markers = evt.layer.getAllChildMarkers(),
+                popupText = markers.slice(0, 10).map(function (marker) {
+                    return marker._popup._content;
+                }).join('<br />');
+            if (markers.length > 10) {
+                popupText += '<br /> and ' + (markers.length - 10) + ' others';
+            }
+            evt.layer.bindPopup(popupText).openPopup();
+        });
+
+        markers.on('clustermouseout', function (evt) {
+            map.closePopup();
+        });
+
+        places.forEach(function (place) {
+            var placeType = place.type || 'no type';
+            var marker = L.marker(
+                place.coordinates,
+                { icon: icons[placeType], title: place.title,
+                  draggable: false, clickable: true }
+            ).bindPopup(placeType + ': ' + place.uri);
+            coordinates.push(place.coordinates);
+            markers.addLayer(marker);
+        });
+        map.addLayer(markers);
+        map.fitBounds(coordinates);
+    }
+
+}());
+//]]></script>

@@ -2,6 +2,7 @@
     <h2>[% l('Places') %]</h2>
 
     [% IF places.size %]
+      [%~ INCLUDE 'components/area-map.tt' entity=area ~%]
       [% INCLUDE 'components/places-list.tt' checkboxes='' WRAPPER 'components/with-pager.tt' %]
     [% ELSE %]
       [% l('This area is not currently associated with any places.') %]
