@@ -57,7 +57,8 @@
 
     <div class="bubble" id="coordinates-bubble">
         <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
-        [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
+        <div id="largemap"></div>
+        [% script_manifest('place/map.js', { 'data-args' => map_data_args }) %]
     </div>
   </div>
 

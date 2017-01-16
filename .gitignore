@@ -7,6 +7,7 @@
 /admin/replication/hooks/post-process
 /docker/Dockerfile.*
 /root/robots.txt
+/root/static/images/leaflet
 /root/static/scripts/common/DBDefs.js
 /blib
 /lib/DBDefs.pm
