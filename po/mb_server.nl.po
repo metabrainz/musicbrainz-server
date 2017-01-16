@@ -12,7 +12,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2016
+# Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nathan Follens, 2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-12 20:44-0500\n"
-"PO-Revision-Date: 2016-11-28 14:26+0000\n"
+"PO-Revision-Date: 2017-01-13 10:31+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3604,7 +3604,7 @@ msgstr "Koppen:"
 #: ../root/layout/header/bottom.tt:207
 #: ../root/layout/components/BottomMenu.js:61
 msgid "Help Translate"
-msgstr "Help mee met vertalen"
+msgstr "Help mee vertalen"
 
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
@@ -10784,7 +10784,7 @@ msgstr "beëindigd"
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/tree.tt:12
 msgid "entity0 cardinality:"
-msgstr "kardinaliteit van object 0:"
+msgstr "Kardinaliteit van object 0:"
 
 #: ../root/doc/relationship_type.tt:35
 #: ../root/edit/details/add_relationship_type.tt:23
@@ -10792,7 +10792,7 @@ msgstr "kardinaliteit van object 0:"
 #: ../root/relationship/linktype/form.tt:31
 #: ../root/relationship/linktype/tree.tt:13
 msgid "entity1 cardinality:"
-msgstr "kardinaliteit van object 1:"
+msgstr "Kardinaliteit van object 1:"
 
 #: ../root/components/common-macros.tt:130
 msgid "events"
