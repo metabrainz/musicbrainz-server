@@ -36,6 +36,7 @@ Readonly our @QW_DEFS => qw(
 );
 
 Readonly our %CLIENT_DEFS => (
+    MB_LANGUAGES => 1,
     STATIC_RESOURCES_LOCATION => 1,
 );
 
