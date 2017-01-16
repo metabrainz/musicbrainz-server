@@ -583,24 +583,28 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'http://www.facebook.com/sininemusic',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/sininemusic',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'https://www.facebook.com/RomanzMusic?fref=ts',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/RomanzMusic',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'https://www.facebook.com/event.php?eid=129606980393356',
                      input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/129606980393356',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'https://www.facebook.com/events/779218695457920/?ref=2&ref_dashboard_filter=past&sid_reminder=1385056373762424832',
