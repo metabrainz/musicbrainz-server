@@ -941,7 +941,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
-      new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?musik-sammler\\.de/", "i"),
       new RegExp("^(https?://)?(www\\.)?discografia\\.dds\\.it/", "i"),
       new RegExp("^(https?://)?(www\\.)?ester\\.ee/", "i"),
@@ -1024,6 +1023,154 @@ const CLEANUPS = {
       return url;
     }
   },
+  a45cat: {
+    match: [new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, "http://www.45cat.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.45cat\.com\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'label';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'record';
+        }
+      }
+      return false;
+    }
+  },
+  a45worlds: {
+    match: [new RegExp("^(https?://)?(www\\.)?45worlds\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^\/?&#]+)(?:[\/?&#].*)?$/, "http://www.45worlds.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^\/?&#]+$/.exec(url);
+      if (m) {
+        var world = m[1];
+        var prefix = m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix);
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'listing';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'label';
+          case LINK_TYPES.otherdatabases.place:
+            return prefix === 'venue';
+          case LINK_TYPES.otherdatabases.release:
+            return /^(album|cd|media|music|record)$/.test(prefix);
+        }
+      }
+      return false;
+    }
+  },
+  baidubaike: {
+    match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?baike\.baidu\.com\/([^?#]+)(?:[?#].*)?$/, "http://baike.baidu.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/baike\.baidu\.com\/(.+)$/.exec(url);
+      if (m) {
+        var path = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.release_group:
+          case LINK_TYPES.otherdatabases.work:
+            return /^view\/[1-9][0-9]*\.htm$/.test(path)
+              || /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path)
+              || /^item\/[^\/]+\/[1-9][0-9]*$/.test(path);
+        }
+      }
+      return false;
+    }
+  },
+  bnfcatalogue: {
+    match: [
+      new RegExp("^(https?://)?(catalogue|data)\\.bnf\\.fr/", "i"),
+      new RegExp("^(https?://)?ark\\.bnf\\.fr/ark:/12148/cb", "i"),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[.\/?#].*)?$/.exec(url);
+      if (m) {
+        var frBnF = m[1];
+        var phbt = '0123456789bcdfghjkmnpqrstvwxz';
+        var controlChar = phbt[_.reduce(frBnF, function(sum, c, i) {
+          return sum + phbt.indexOf(c) * (i + 3);
+        }, 2) % 29];
+        url = 'http://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
+      } else {
+        m = /^(?:https?:\/\/)?(?:ark|catalogue|data)\.bnf\.fr\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[.\/?#].*)?$/.exec(url);
+        if (m) {
+          var persistentARK = m[1];
+          url = 'http://catalogue.bnf.fr/' + persistentARK;
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/catalogue\.bnf\.fr\/ark:\/12148\/cb([1-4])[0-9]{7}[0-9b-z]$/.exec(url);
+      if (m) {
+        var digit = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.work:
+            return digit === '1' || digit === '2';
+          case LINK_TYPES.otherdatabases.event:
+          case LINK_TYPES.otherdatabases.release:
+            return digit === '3' || digit === '4';
+          case LINK_TYPES.otherdatabases.series:
+            return true;
+        }
+      }
+      return false;
+    }
+  },
+  cancionerosmewiki: {
+    match: [new RegExp("^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cancioneros\.si\/([^#]+)(?:[#].*)?$/, "http://www.cancioneros.si/$1");
+    },
+    validate: function (url, id) {
+      return /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url)
+        && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.series
+            || id === LINK_TYPES.otherdatabases.work);
+    }
+  },
+  cbfiddlerx: {
+    match: [new RegExp("^(https?://)?(www\\.)?cbfiddle\\.com/rx/","i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cbfiddle\.com\/rx\/(rec\/r|tune\/t)(\d+\.html)(?:#.*$)?$/, "http://www.cbfiddle.com/rx/$1$2");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.cbfiddle\.com\/rx\/(rec\/r|tune\/t)\d+\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'rec/r';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'tune/t';
+        }
+      }
+      return false;
+    }
+  },
   generasia: {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1035,6 +1182,81 @@ const CLEANUPS = {
           || id === LINK_TYPES.otherdatabases.label
           || id === LINK_TYPES.otherdatabases.release_group
           || id === LINK_TYPES.otherdatabases.work;
+    }
+  },
+  hmikuwiki: {
+    match: [new RegExp("^(https?://)?(?:www5\\.)?atwiki\\.jp/hmiku/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, "https://www5.atwiki.jp/$1");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)
+        && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.release_group
+            || id === LINK_TYPES.otherdatabases.work);
+    }
+  },
+  irishtune: {
+    match: [new RegExp("^(https?://)?(www\\.)?irishtune\\.info","i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?irishtune\.info\/(album\/[A-Za-z+0-9]+|tune\/\d+)(?:[\/?#].*)?$/, "https://www.irishtune.info/$1/");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.irishtune\.info\/(?:(album)\/[A-Za-z+0-9]+|(tune)\/\d+)\/$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'album';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'tune';
+        }
+      }
+      return false;
+    }
+  },
+  musicapopularcl: {
+    match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?musicapopular\.cl((?:\/[^\/?#]+){2})\/?(?:#.*)?$/, "http://www.musicapopular.cl$1/");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.musicapopular\.cl\/(artista|disco|grupo)\/[^\/]+\/$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artista' || prefix === 'grupo';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'disco';
+        }
+      }
+      return false;
+    }
+  },
+  rockcomar: {
+    match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://www.rock.com.ar/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
+      if (m) {
+        var prefix = m[1] || m[2];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artistas' || prefix === 'bios';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'discos';
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'letras';
+        }
+      }
+      return false;
     }
   },
   soundtrackcollector: {
@@ -1079,6 +1301,38 @@ const CLEANUPS = {
             return prefix === 'recordings';
           case LINK_TYPES.otherdatabases.work:
             return prefix === 'tunes';
+        }
+      }
+      return false;
+    }
+  },
+  utaitedbvocadb: {
+    match: [new RegExp("^(https?://)?(www\\.)?(utaite|voca)db\\.net", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca)db\.net\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "http://$1db.net/$2");
+      url = url.replace(/Artist\/(Details|Edit|Versions)/, "Ar");
+      url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, "Al");
+      url = url.replace(/Event\/(Details|Edit|Versions)/, "E");
+      return url.replace(/Song\/(Details|Edit|Related|Versions)/, "S");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/(?:utaite|voca)db\.net\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'Ar';
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'E';
+          case LINK_TYPES.otherdatabases.recording:
+          case LINK_TYPES.otherdatabases.work:
+            return prefix === 'S';
+          case LINK_TYPES.otherdatabases.release_group:
+            return prefix === 'Al';
+          case LINK_TYPES.otherdatabases.series:
+            return prefix === 'Event/SeriesDetails';
         }
       }
       return false;
