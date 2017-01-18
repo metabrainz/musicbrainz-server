@@ -192,6 +192,9 @@
       [% form_row_date(r, 'period.end_date', l('End date:')) %]
       [% form_row_checkbox(r, 'period.ended', ended_label) %]
     </fieldset>
+    <script type="text/javascript">//<![CDATA[
+      MB.initializeToggleEnded('id-edit-[% type %]');
+    //]]></script>
 [%- END -%]
 
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]

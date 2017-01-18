@@ -142,7 +142,7 @@
     <tr>
       <td colspan="2">
         <label>
-          <input type="checkbox" data-bind="checked: relationship().period.ended" />
+          <input type="checkbox" data-bind="checked: relationship().period.ended, disable: relationship().disableEndedCheckBox" />
           [% l('This relationship has ended.') %]
         </label>
       </td>

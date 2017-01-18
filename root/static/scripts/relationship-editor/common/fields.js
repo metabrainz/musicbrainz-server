@@ -54,6 +54,11 @@ const mergeDates = require('./mergeDates');
                 endDate: setPartialDate({}, data.endDate || {}),
                 ended: ko.observable(!!data.ended)
             };
+            this.disableEndedCheckBox = ko.computed(function() {
+                var hasEndDate = dates.formatDate(this.period.endDate) != "";
+                this.period.ended(hasEndDate || data.ended);
+                return hasEndDate;
+            }, this);
 
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
