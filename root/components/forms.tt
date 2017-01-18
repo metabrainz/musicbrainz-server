@@ -182,6 +182,18 @@
     [% END %]
 [%- END -%]
 
+[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK -%]
+    <fieldset>
+      <legend>[% l('Date Period') %]</legend>
+      <p>
+        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
+      </p>
+      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'period.end_date', l('End date:')) %]
+      [% form_row_checkbox(r, 'period.ended', ended_label) %]
+    </fieldset>
+[%- END -%]
+
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]
     [% WRAPPER form_row %]
       <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
