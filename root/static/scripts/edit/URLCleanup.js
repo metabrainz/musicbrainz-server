@@ -734,7 +734,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-      url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
+      url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
       // Ensure the first parameter left uses ? not to break the URL
       url = url.replace(/([&?])&+/, "$1");
       url = url.replace(/[&?]$/, "");
@@ -745,6 +745,7 @@ const CLEANUPS = {
         url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
       }
       url = url.replace(/\/event\.php\?eid=/, "/events/");
+      url = url.replace(/\/(?:about|info|photos_stream|timeline)([?#].*)?$/, "$1");
       return url;
     },
     validate: function (url, id) {
