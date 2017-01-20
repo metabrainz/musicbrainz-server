@@ -710,7 +710,6 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?linkedin\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?foursquare\\.com/", "i"),
@@ -751,6 +750,20 @@ const CLEANUPS = {
         return /\/pages\/[^\/?#]+\/\d+/.test(url);
       }
       return true;
+    },
+  },
+  instagram: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      var m = url.match(/^(https?:\/\/)?((?:[^\/]+\.)?instagram\.com)\/([^?#]+)(?:[?#].*)?$/);
+      if (m) {
+        var scheme = m[1] || 'https://';
+        var host = m[2];
+        var path = m[3];
+        url = scheme + host + '/' + path;
+      }
+      return url;
     },
   },
   pinterest: {
