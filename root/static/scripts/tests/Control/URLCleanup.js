@@ -1088,9 +1088,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://instagram.com/deadmau5',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.instagram.com/deadmau5/',
         },
         {
-                             input_url: 'https://www.instagram.com/yorickvannorden/?ref=badge',
+                             input_url: 'https://i.instagram.com/yorickvannorden/?ref=badge',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.instagram.com/yorickvannorden/',
