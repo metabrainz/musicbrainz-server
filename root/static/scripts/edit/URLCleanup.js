@@ -756,14 +756,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      var m = url.match(/^(https?:\/\/)?((?:[^\/]+\.)?instagram\.com)\/([^?#]+)(?:[?#].*)?$/);
-      if (m) {
-        var scheme = m[1] || 'https://';
-        var host = m[2];
-        var path = m[3];
-        url = scheme + host + '/' + path;
-      }
-      return url;
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^?#]+[^\/?#])\/*(?:[?#].*)?$/, 'https://www.instagram.com/$1/');
     },
   },
   pinterest: {
