@@ -755,6 +755,14 @@ const CLEANUPS = {
       return true;
     },
   },
+  pinterest: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?pinterest\\.com/","i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]+)\/?(?:[?#].*)?$/, "https://www.pinterest.com/$1/");
+      return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, "/");
+    },
+  },
   soundcloud: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i")],
     type: LINK_TYPES.soundcloud,
