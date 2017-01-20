@@ -887,6 +887,18 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/779218695457920',
         },
+        {
+                             input_url: 'https://www.facebook.com/muse/photos_stream',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/muse',
+        },
+        {
+                             input_url: 'https://www.facebook.com/events/314549615570029/?acontext=%7B%22action_history%22%3A%22[%7B%5C%22surface%5C%22%3A%5C%22page%5C%22%2C%5C%22mechanism%5C%22%3A%5C%22main_list%5C%22%2C%5C%22extra_data%5C%22%3A%5C%22%7B%7D%5C%22%7D]%22%7D',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/314549615570029',
+        },
         // Finna.fi
         {
                              input_url: 'https://www.finna.fi/Record/viola.163990',
