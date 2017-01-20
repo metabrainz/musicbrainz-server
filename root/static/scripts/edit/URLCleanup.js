@@ -706,7 +706,6 @@ const CLEANUPS = {
   socialnetwork: {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
@@ -720,7 +719,6 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, "https://twitter.com/$1");
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
       url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://www.weibo.com/$1");
       url = url.replace(/^https?:\/\/(.+\.)?linkedin\.com/, "https://$1linkedin.com");
@@ -761,6 +759,18 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]+)\/?(?:[?#].*)?$/, "https://www.pinterest.com/$1/");
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, "/");
+    },
+  },
+  reverbnation: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/","i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
+      url = url.replace(/#.*$/,'');
+      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fg_og_[^=]+|kick|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
+      url = url.replace(/([?&])&+/, "$1");
+      url = url.replace(/[?&]$/, "");
+      return url;
     },
   },
   soundcloud: {
