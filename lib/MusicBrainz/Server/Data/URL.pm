@@ -26,6 +26,7 @@ my %URL_SPECIALIZATIONS = (
     'BBCMusic'            => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'BaiduBaike'          => qr{^https?://baike.baidu.com/}i,
     'Bandcamp'            => qr{^https?://([^/]+.)?bandcamp.com/}i,
+    'Bandinstown'         => qr{^https?://bandinstown.com/}i,
     'BnFCatalogue'        => qr{^https?://catalogue.bnf.fr/}i,
     'Canzone'             => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'Cancioneros'         => qr{^https?://(?:www.)?cancioneros.si/}i,

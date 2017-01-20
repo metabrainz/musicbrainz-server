@@ -101,6 +101,7 @@ use constant FAVICON_CLASSES => {
     'irishtune.info'            => 'irishtune',
     'cbfiddle.com/rx/'          => 'cbfiddlerx',
     '45worlds.com'              => 'fortyfiveworlds',
+    'bandsintown.com'           => 'bandsintown',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );
