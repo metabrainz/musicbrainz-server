@@ -1580,6 +1580,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://www.paypal.me/example?q=test',
                     expected_clean_url: 'https://www.paypal.me/example',
         },
+        // Pinterest
+        {
+                             input_url: 'uk.pinterest.com/tucenter/pins/#',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.pinterest.com/tucenter/',
+        },
         // PureVolume
         {
                              input_url: 'http://www.purevolume.com/withbloodcomescleansing',
