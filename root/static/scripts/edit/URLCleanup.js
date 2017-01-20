@@ -850,11 +850,11 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "https://www.youtube.com");
       // YouTube URL shortener
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?v=$1");
       // YouTube standard watch URL
-      url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?$1");
+      url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?$1");
       // YouTube embeds
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?v=$1");
       url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
       return url;
     },
