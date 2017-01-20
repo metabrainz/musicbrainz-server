@@ -1089,6 +1089,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
+        {
+                             input_url: 'https://www.instagram.com/yorickvannorden/?ref=badge',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.instagram.com/yorickvannorden/',
+        },
         // Irish Traditional Music Tune Index (Alan Ng's Tunography)
         {
                              input_url: 'https://www.irishtune.info/album/MCnnly/#',
