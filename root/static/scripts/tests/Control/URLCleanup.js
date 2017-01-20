@@ -2413,6 +2413,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
         },
+        {
+                             input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
+        },
     ];
 
     const relationship_types_by_uuid = _.reduce(LINK_TYPES, function(results, rel_uuid_by_entity_type, relationship_type) {
