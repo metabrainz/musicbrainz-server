@@ -1665,6 +1665,18 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/venue/602562',
         },
+        {
+                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+        },
+        {
+                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+        },
         // Rock.com.ar
         {
                              input_url: 'http://www.rock.com.ar/artistas/soda-stero#contenedor',
