@@ -8,6 +8,7 @@ require('leaflet.markercluster/dist/leaflet.markercluster-src');
 const _ = require('lodash');
 const ReactDOMServer = require('react-dom/server');
 
+const manifest = require('../../manifest');
 const EntityLink = require('../common/components/EntityLink');
 const {l, ln} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
@@ -39,7 +40,9 @@ if (places.length) {
     '6': 'religious-marker',
   };
   const icons = _.mapValues(iconNames, function (name) {
-    return new LeafIcon({iconUrl: '/static/images/leaflet/' + name + '-icon.png'});
+    return new LeafIcon({
+      iconUrl: manifest.pathTo('/images/leaflet/' + name + '-icon.png'),
+    });
   });
 
   const markers = L.markerClusterGroup({
@@ -48,8 +51,10 @@ if (places.length) {
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     iconCreateFunction: function (cluster) {
+      const iconURL = manifest.pathTo('/images/leaflet/cluster-marker-icon.png');
+
       return L.divIcon({
-        html: '<img src="/static/images/leaflet/cluster-marker-icon.png" />'
+        html: '<img src="' + _.escape(iconURL) + '" />'
             + '<div class="cluster-div-text">'
             + '<b>' + cluster.getChildCount() + '</b></div>',
         className: 'cluster-div-icon',
