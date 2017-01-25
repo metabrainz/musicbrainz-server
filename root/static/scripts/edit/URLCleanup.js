@@ -186,6 +186,11 @@ const LINK_TYPES = {
     artist: "c550166e-0548-4a18-b1d4-e2ae423a3e88",
     label: "c535de4c-a112-4974-b138-5e0daa56eab5"
   },
+  bandsintown: {
+    artist: "ea45ed3d-2d5e-456e-8c32-94b6f51426e2",
+    event: "81bc32b3-7039-486a-a92f-52486fb7e162",
+    place: "0e41b9de-20d8-4d1a-869d-7018e1045439",
+  },
   songkick: {
     artist: "aac9c4bc-a5b9-30b8-9839-e3ac314c6e58",
     event: "125afc57-4d33-3b63-ab41-848a3a18d3a6",
@@ -235,6 +240,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
   LINK_TYPES.bandcamp,
+  LINK_TYPES.bandsintown,
   LINK_TYPES.bbcmusic,
   LINK_TYPES.bookbrainz,
   LINK_TYPES.discogs,
@@ -700,12 +706,10 @@ const CLEANUPS = {
   socialnetwork: {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?linkedin\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?foursquare\\.com/", "i"),
@@ -714,7 +718,6 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, "https://twitter.com/$1");
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
       url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://www.weibo.com/$1");
       url = url.replace(/^https?:\/\/(.+\.)?linkedin\.com/, "https://$1linkedin.com");
@@ -728,7 +731,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-      url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
+      url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
       // Ensure the first parameter left uses ? not to break the URL
       url = url.replace(/([&?])&+/, "$1");
       url = url.replace(/[&?]$/, "");
@@ -739,6 +742,7 @@ const CLEANUPS = {
         url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
       }
       url = url.replace(/\/event\.php\?eid=/, "/events/");
+      url = url.replace(/\/(?:about|info|photos_stream|timeline)([?#].*)?$/, "$1");
       return url;
     },
     validate: function (url, id) {
@@ -746,6 +750,33 @@ const CLEANUPS = {
         return /\/pages\/[^\/?#]+\/\d+/.test(url);
       }
       return true;
+    },
+  },
+  instagram: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?instagram\.com\/([^?#]+[^\/?#])\/*(?:[?#].*)?$/, 'https://www.instagram.com/$1/');
+    },
+  },
+  pinterest: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?pinterest\\.com/","i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]+)\/?(?:[?#].*)?$/, "https://www.pinterest.com/$1/");
+      return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, "/");
+    },
+  },
+  reverbnation: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/","i")],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
+      url = url.replace(/#.*$/,'');
+      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fg_og_[^=]+|kick|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
+      url = url.replace(/([?&])&+/, "$1");
+      url = url.replace(/[?&]$/, "");
+      return url;
     },
   },
   soundcloud: {
@@ -812,11 +843,11 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "https://www.youtube.com");
       // YouTube URL shortener
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?v=$1");
       // YouTube standard watch URL
-      url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?$1");
+      url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?$1");
       // YouTube embeds
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "https://www.youtube.com/watch?v=$1");
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, "https://www.youtube.com/watch?v=$1");
       url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
       return url;
     },
@@ -869,6 +900,41 @@ const CLEANUPS = {
         case LINK_TYPES.bandcamp.artist:
         case LINK_TYPES.bandcamp.label:
           return /^http:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+      }
+      return false;
+    }
+  },
+  bandsintown: {
+    match: [new RegExp("^(https?://)?bandsintown\\.com","i")],
+    type: LINK_TYPES.bandsintown,
+    clean: function (url) {
+      var m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      if (m) {
+        var prefix = m[1];
+        var number = m[2];
+        url = "https://bandsintown.com/" + prefix + "/" + number;
+      } else {
+        m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
+        if (m) {
+          var name = m[1];
+          url = "https://bandsintown.com/" + name.toLowerCase();
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/bandsintown\.com\/(?:(event|venue)\/)?([^\/?#]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        var target = m[2];
+        switch (id) {
+          case LINK_TYPES.bandsintown.artist:
+            return prefix === undefined && target !== undefined;
+          case LINK_TYPES.bandsintown.event:
+            return prefix === 'event' && /^[1-9][0-9]*$/.test(target);
+          case LINK_TYPES.bandsintown.place:
+            return prefix === 'venue' && /^[1-9][0-9]*$/.test(target);
+        }
       }
       return false;
     }

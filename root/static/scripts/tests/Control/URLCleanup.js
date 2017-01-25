@@ -351,6 +351,35 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                input_relationship_type: 'downloadpurchase',
                only_valid_entity_types: ['recording', 'release']
         },
+        // Bandsintown
+        {
+                             input_url: "https://bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: "https://bandsintown.com/mattdobberteen's50thbirthday",
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://bandsintown.com/1%252F2Orchestra/past_events',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: 'https://bandsintown.com/1%252f2orchestra',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: 'https://bandsintown.com/event/13245613',
+               only_valid_entity_types: ['event']
+        },
+        {
+                             input_url: 'bandsintown.com/venue/846942-soho-restaurant-and-music-club-santa-barbara-ca-tickets-and-schedule',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: 'https://bandsintown.com/venue/846942',
+               only_valid_entity_types: ['place']
+        },
         // BBC Music
         {
                              input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
@@ -858,6 +887,18 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/779218695457920',
         },
+        {
+                             input_url: 'https://www.facebook.com/muse/photos_stream',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/muse',
+        },
+        {
+                             input_url: 'https://www.facebook.com/events/314549615570029/?acontext=%7B%22action_history%22%3A%22[%7B%5C%22surface%5C%22%3A%5C%22page%5C%22%2C%5C%22mechanism%5C%22%3A%5C%22main_list%5C%22%2C%5C%22extra_data%5C%22%3A%5C%22%7B%7D%5C%22%7D]%22%7D',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/314549615570029',
+        },
         // Finna.fi
         {
                              input_url: 'https://www.finna.fi/Record/viola.163990',
@@ -1047,6 +1088,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'http://instagram.com/deadmau5',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.instagram.com/deadmau5/',
+        },
+        {
+                             input_url: 'https://i.instagram.com/yorickvannorden/?ref=badge',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.instagram.com/yorickvannorden/',
         },
         // Irish Traditional Music Tune Index (Alan Ng's Tunography)
         {
@@ -1539,6 +1587,13 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://www.paypal.me/example?q=test',
                     expected_clean_url: 'https://www.paypal.me/example',
         },
+        // Pinterest
+        {
+                             input_url: 'uk.pinterest.com/tucenter/pins/#',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.pinterest.com/tucenter/',
+        },
         // PureVolume
         {
                              input_url: 'http://www.purevolume.com/withbloodcomescleansing',
@@ -1616,6 +1671,18 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/venue/602562',
+        },
+        {
+                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+        },
+        {
+                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
         },
         // Rock.com.ar
         {
@@ -2346,6 +2413,12 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
+        },
+        {
+                             input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
         },
     ];
 
