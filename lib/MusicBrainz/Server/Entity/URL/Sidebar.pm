@@ -101,6 +101,7 @@ use constant FAVICON_CLASSES => {
     'irishtune.info'            => 'irishtune',
     'cbfiddle.com/rx/'          => 'cbfiddlerx',
     '45worlds.com'              => 'fortyfiveworlds',
+    'cpdl.org'                  => 'cpdl',
     'bandsintown.com'           => 'bandsintown',
 };
 

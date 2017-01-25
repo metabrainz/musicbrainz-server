@@ -22,6 +22,7 @@ require("./edit/forms");
 require("./edit/validation");
 require("./edit/externalLinks");
 require("./edit/utility/guessFeat");
+require("./edit/utility/toggleEnded");
 require("./edit/MB/Control/Area");
 require("./edit/components/ArtistCreditEditor");
 require("./edit/components/forms");
