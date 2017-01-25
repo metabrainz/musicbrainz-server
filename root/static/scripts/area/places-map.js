@@ -84,10 +84,6 @@ if (places.length) {
     event.layer.bindPopup(popupText).openPopup();
   });
 
-  markers.on('clustermouseout', function () {
-    map.closePopup();
-  });
-
   const bounds = [];
   places.forEach(function (place) {
     const placeType = place.typeName || l('No type');
