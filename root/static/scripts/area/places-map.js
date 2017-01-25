@@ -9,9 +9,11 @@ const _ = require('lodash');
 const ReactDOMServer = require('react-dom/server');
 
 const EntityLink = require('../common/components/EntityLink');
-const {l} = require('../common/i18n');
+const {l, ln} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
 const {places} = require('../common/utility/getScriptArgs')();
+
+const CLUSTER_POPUP_LIMIT = 10;
 
 function placeLink(place) {
   return ReactDOMServer.renderToStaticMarkup(<EntityLink entity={place} />);
@@ -58,13 +60,22 @@ if (places.length) {
 
   markers.on('clustermouseover', function (event) {
     const markers = event.layer.getAllChildMarkers();
+
     let popupText = markers
-      .slice(0, 10)
+      .slice(0, CLUSTER_POPUP_LIMIT)
       .map(marker => marker._popup._content)
       .join('<br />');
-    if (markers.length > 10) {
-      popupText += '<br /> and ' + (markers.length - 10) + ' others';
+
+    if (markers.length > CLUSTER_POPUP_LIMIT) {
+      popupText += '<br /> ';
+      popupText += _.escape(ln(
+        '… and {place_count} other',
+        '… and {place_count} others',
+        CLUSTER_POPUP_LIMIT,
+        {place_count: markers.length - CLUSTER_POPUP_LIMIT}
+      ));
     }
+
     event.layer.bindPopup(popupText).openPopup();
   });
 
@@ -84,7 +95,12 @@ if (places.length) {
       draggable: false,
       icon: _.get(icons, place.typeID, icons['3']),
       title: place.name,
-    }).bindPopup(placeType + ': ' + placeLink(place));
+    }).bindPopup(
+      l('{place_type}: {place_link}', {
+        place_type: placeType,
+        place_link: placeLink(place),
+      })
+    );
     bounds.push(coordinates);
     markers.addLayer(marker);
   });
