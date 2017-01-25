@@ -21,16 +21,7 @@
       [% form_row_select(r, 'type_id', l('Type:')) %]
     </fieldset>
 
-    <fieldset>
-      <legend>[% l('Date Period') %]</legend>
-      <p>
-        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM
-               or just YYYY are OK, or you can omit the date entirely.') -%]
-      </p>
-      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
-      [% form_row_date(r, 'period.end_date', l('End date:')) %]
-      [% form_row_checkbox(r, 'period.ended', l('This alias is no longer current.')) %]
-    </fieldset>
+    [% date_range_fieldset(r, 'alias', l('This alias is no longer current.')) %]
 
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]
