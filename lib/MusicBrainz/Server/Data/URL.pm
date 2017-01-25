@@ -35,6 +35,7 @@ my %URL_SPECIALIZATIONS = (
     'ChangeTip'           => qr{^https?://(?:www.)?changetip.com/tipme/}i,
     'CiNii'               => qr{^https?://(?:www.)?ci.nii.ac.jp/}i,
     'Commons'             => qr{^https?://commons.wikimedia.org/wiki/File:}i,
+    'CPDL'                => qr{^https?://cpdl.org/wiki/}i,
     'DanceDB'             => qr{^https?://(?:www.)?tedcrane.com/DanceDB/}i,
     'DHHU'                => qr{^https?://(?:www.)?dhhu.dk/}i,
     'Discogs'             => qr{^https?://(?:www.)?discogs.com/}i,
