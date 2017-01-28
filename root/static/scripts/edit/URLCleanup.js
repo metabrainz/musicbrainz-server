@@ -822,6 +822,21 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "https://open.spotify.com/$1/$2");
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, "https://open.spotify.com/$1/$2");
       return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/open\.spotify\.com\/([a-z]+)\/(?:[a-zA-Z0-9_-]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingmusic.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'album';
+          case LINK_TYPES.streamingmusic.recording:
+            return prefix === 'track';
+        }
+      }
+      return false;
     }
   },
   viaf: {
