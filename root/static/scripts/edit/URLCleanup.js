@@ -813,9 +813,22 @@ const CLEANUPS = {
       return url;
     }
   },
+  spotifyuseraccount: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/user", "i")
+    ],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, "https://open.spotify.com/user/$1");
+      return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url);
+    }
+  },
   spotify: {
     match: [
-      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)", "i")
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
