@@ -1939,6 +1939,26 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'streamingmusic',
                only_valid_entity_types: []
         },
+        {
+                             input_url: 'http://play.spotify.com/user/scotchbonnetrecords',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://open.spotify.com/user/scotchbonnetrecords',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
+        },
+        {
+                             input_url: 'https://play.spotify.com/user/1254688529/playlist/0MRy5cv9ZktSjysDEIP72H',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'play.spotify.com/user/1254688529/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://open.spotify.com/user/1254688529',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
+        },
         // Ted Crane
         {
                              input_url: 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
