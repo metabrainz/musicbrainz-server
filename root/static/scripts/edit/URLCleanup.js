@@ -803,14 +803,22 @@ const CLEANUPS = {
       return url;
     }
   },
-  streaming: {
+  deezer: {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?(deezer\\.com)", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
+      return url;
+    }
+  },
+  spotify: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
+    ],
+    type: LINK_TYPES.streamingmusic,
+    clean: function (url) {
       url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
       return url;
     }
