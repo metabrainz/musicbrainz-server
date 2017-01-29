@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const L = require('../lib/leaflet/leaflet-src');
+const L = require('leaflet/dist/leaflet-src');
 const ko = require('knockout');
 const _ = require('lodash');
 
@@ -13,6 +13,7 @@ const initializeArea = require('./edit/MB/Control/Area').Area;
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {errorField} = require('./edit/validation');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+const {map, marker} = require('./place/map');
 
 initialize_guess_case('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');

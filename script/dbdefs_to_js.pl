@@ -28,6 +28,8 @@ Readonly our @NUMBER_DEFS => qw(
 );
 
 Readonly our @STRING_DEFS => qw(
+    MAPBOX_ACCESS_TOKEN
+    MAPBOX_MAP_ID
     STATIC_RESOURCES_LOCATION
 );
 
@@ -36,6 +38,9 @@ Readonly our @QW_DEFS => qw(
 );
 
 Readonly our %CLIENT_DEFS => (
+    DEVELOPMENT_SERVER => 1,
+    MAPBOX_ACCESS_TOKEN => 1,
+    MAPBOX_MAP_ID => 1,
     MB_LANGUAGES => 1,
     STATIC_RESOURCES_LOCATION => 1,
 );

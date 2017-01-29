@@ -30,15 +30,7 @@
         <ul class="errors coordinates-errors" style="display:none"><li>[% l('These coordinates could not be parsed.') %]</li></ul>
       </fieldset>
 
-      <fieldset>
-        <legend>[% l('Date Period') %]</legend>
-        <p>
-            [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
-        </p>
-        [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
-        [% form_row_date(r, 'period.end_date', l('End date:')) %]
-        [% form_row_checkbox(r, 'period.ended', l('This place has ended.')) %]
-      </fieldset>
+      [% date_range_fieldset(r, 'place', l('This place has ended.')) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
@@ -57,7 +49,8 @@
 
     <div class="bubble" id="coordinates-bubble">
         <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
-        [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
+        <div id="largemap"></div>
+        [% script_manifest('place/map.js', { 'data-args' => map_data_args }) %]
     </div>
   </div>
 

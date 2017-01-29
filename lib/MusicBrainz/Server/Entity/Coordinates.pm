@@ -38,6 +38,15 @@ sub osm_url
     return 'http://www.openstreetmap.org/?mlat=' . $self->latitude . '&mlon=' . $self->longitude . '#map=' . join('/', $zoom, $self->latitude, $self->longitude);
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        latitude => $self->latitude,
+        longitude => $self->longitude,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

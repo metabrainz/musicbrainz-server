@@ -121,7 +121,18 @@ Shows a map for a place.
 
 =cut
 
-sub map : Chained('load') { }
+sub map : Chained('load') {
+    my ($self, $c) = @_;
+
+    my $place = $c->stash->{place};
+    $c->stash->{map_data_args} = $c->json->encode({
+        draggable => \0,
+        place => {
+            coordinates => $place->coordinates,
+            name => $place->name,
+        },
+    });
+}
 
 after [qw( show collections details tags aliases events performances map )] => sub {
     my ($self, $c) = @_;
@@ -141,6 +152,20 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Place',
     edit_type      => $EDIT_PLACE_EDIT,
+};
+
+after edit => sub {
+    my ($self, $c) = @_;
+
+    my $place = $c->stash->{place};
+    $c->stash->{map_data_args} = $c->json->encode({
+        draggable => \1,
+        place => {
+            coordinates => $place->coordinates,
+            name => $place->name,
+        },
+        title => '',
+    });
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
