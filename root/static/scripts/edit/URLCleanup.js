@@ -1089,7 +1089,7 @@ const CLEANUPS = {
       return url;
     }
   },
-  a45cat: {
+  '45cat': {
     match: [new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
@@ -1111,7 +1111,7 @@ const CLEANUPS = {
       return false;
     }
   },
-  a45worlds: {
+  '45worlds': {
     match: [new RegExp("^(https?://)?(www\\.)?45worlds\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
