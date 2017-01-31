@@ -10913,7 +10913,7 @@ msgstr ""
 msgid "Groma"
 msgstr ""
 
-#. frequency:0 iso_code_3:gos 
+#. frequency:1 iso_code_3:gos 
 #: DB:language/name:2534
 msgid "Gronings"
 msgstr ""

@@ -5,6 +5,7 @@ use Moose;
 use JSON;
 use List::MoreUtils qw( any );
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( non_empty ref_to_type type_to_model );
 use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
@@ -14,51 +15,31 @@ sub fmt { 'json' }
 
 sub serialize
 {
-    my ($self, $type, @data) = @_;
+    my ($self, $type, $entity, $inc, $opts) = @_;
 
     $type =~ tr/-/_/;
 
     my $override = $self->meta->find_method_by_name($type);
-    return $override->execute($self, @data) if $override;
+    return $override->execute($self, $entity, $inc, $opts) if $override;
 
-    my ($entity, $inc, $opts) = @data;
+    if (substr($type, -5) eq '_list' && exists($entity->{items})) {
+        my $list_type = substr($type, 0, -5);
+        if (exists($ENTITIES{$list_type}) && exists($ENTITIES{$list_type}->{plural_url})) {
+            my $singular = $ENTITIES{$list_type}->{url};
+            my $plural   = $ENTITIES{$list_type}->{plural_url};
+            my $ret = {
+                $plural => [ map { serialize_entity($_, $inc, $opts, 1) } sort_by { $_->gid } @{ $entity->{items} } ],
+            };
+            if (defined($entity->{offset}) || defined($entity->{total})) {
+                $ret->{$singular . '-offset'} = number($entity->{offset});
+                $ret->{$singular . '-count' } = number($entity->{total});
+            }
+            return encode_json($ret);
+        }
+    }
 
     my $ret = serialize_entity($entity, $inc, $opts, 1);
     return encode_json($ret);
-}
-
-sub entity_list
-{
-    my ($self, $list, $inc, $opts, $type, $type_plural) = @_;
-
-    my %ret;
-
-    if (defined $list->{offset} || defined $list->{total})
-    {
-        $ret{$type."-offset"} = number($list->{offset});
-        $ret{$type."-count"} = number($list->{total});
-    }
-    $ret{$type_plural} = [
-        map { serialize_entity($_, $inc, $opts, 1) }
-        sort_by { $_->gid } @{ $list->{items} }];
-
-    return encode_json(\%ret);
-}
-
-sub artist_list        { shift->entity_list(@_, "artist", "artists") };
-sub label_list         { shift->entity_list(@_, "label", "labels") };
-sub recording_list     { shift->entity_list(@_, "recording", "recordings") };
-sub release_list       { shift->entity_list(@_, "release", "releases") };
-sub release_group_list { shift->entity_list(@_, "release-group", "release-groups") };
-sub work_list          { shift->entity_list(@_, "work", "works") };
-sub area_list          { shift->entity_list(@_, "area", "areas") };
-sub place_list         { shift->entity_list(@_, "place", "places") };
-sub event_list         { shift->entity_list(@_, "event", "events") };
-
-sub collection_list    {
-    my ($self, $list, $inc, $opts) = @_;
-
-    $self->entity_list($list, $inc, $opts, 'collection', 'collections');
 }
 
 sub serialize_internal {

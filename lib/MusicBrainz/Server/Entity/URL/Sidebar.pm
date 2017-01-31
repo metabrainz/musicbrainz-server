@@ -90,6 +90,19 @@ use constant FAVICON_CLASSES => {
     'songkick.com'              => 'songkick',
     'reverbnation.com'          => 'reverbnation',
     'linkedin.com'              => 'linkedin',
+    'www5.atwiki.jp/hmiku/'     => 'hmikuwiki',
+    'baidu.com'                 => 'baidu',
+    'cancioneros.si'            => 'cancioneros',
+    'rock.com.ar'               => 'rockcomar',
+    'musicapopular.cl'          => 'musicapopularcl',
+    'catalogue.bnf.fr'          => 'bnfcatalogue',
+    'utaitedb.net'              => 'utaitedb',
+    'vocadb.net'                => 'vocadb',
+    'irishtune.info'            => 'irishtune',
+    'cbfiddle.com/rx/'          => 'cbfiddlerx',
+    '45worlds.com'              => 'fortyfiveworlds',
+    'cpdl.org'                  => 'cpdl',
+    'bandsintown.com'           => 'bandsintown',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

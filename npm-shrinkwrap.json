@@ -2777,6 +2777,9 @@
     "canonical-json": {
       "version": "0.0.4",
       "from": "canonical-json@0.0.4"
+    },
+    "leaflet": {
+      "version": "1.0.2"
     }
   }
 }

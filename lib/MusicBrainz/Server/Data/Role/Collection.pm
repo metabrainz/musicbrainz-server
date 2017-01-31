@@ -7,6 +7,8 @@ sub find_by_collection {
     my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my ($order_by, $extra_join, $also_select) = $self->_order_by($order);
+    $extra_join //= '';
+
     my $table = $self->_table;
     my $type = $self->_type;
 
