@@ -34,5 +34,5 @@
     [% END %]
   </div>
 
-  [% script_manifest('edit-notes-received.js') %]
+  [% script_manifest('edit/notes-received.js') %]
 [% END %]
