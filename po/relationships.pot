@@ -1308,6 +1308,12 @@ msgid ""
 "happening on multiple venues over the course of a few days)."
 msgstr ""
 
+#: DB:link_type/description:916
+msgid ""
+"This indicates that an instrument is a hybrid of two or more other "
+"instruments."
+msgstr ""
+
 #: DB:link_type/description:2
 msgid ""
 "This indicates that one release is identical to another release, but that "
@@ -3502,6 +3508,10 @@ msgstr ""
 msgid "has derived instrument"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:916
+msgid "has hybrids"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr ""
@@ -3609,6 +3619,10 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
+#: DB:link_type/link_phrase:916
+msgid "hybrid of"
+msgstr ""
+
 #: DB:link_type/description:732
 msgid "image"
 msgstr ""
@@ -3668,6 +3682,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:916
+msgid "is a hybrid of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:17
