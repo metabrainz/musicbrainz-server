@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2016
+# Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-11-19 14:06+0000\n"
+"PO-Revision-Date: 2017-01-24 22:06+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgstr "Een klassieke gitaar met nylonsnaren."
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne"
-msgstr "een door Alexander Berne uitgevonden en bespeelde kruising tussen een saxofoon en een doedoek."
+msgstr "Een door Alexander Berne uitgevonden en bespeelde kruising tussen een saxofoon en een doedoek."
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
@@ -373,7 +373,7 @@ msgstr ""
 msgid ""
 "A smaller harpsichord, often with the strings at 30 degrees from the "
 "keyboard."
-msgstr "een kleinere variant van een klavecimbel, meestal staan de snaren in een hoek van 30 graden op het toetsenbord."
+msgstr "Een kleinere variant van een klavecimbel, meestal staan de snaren in een hoek van 30 graden op het toetsenbord."
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -513,7 +513,7 @@ msgstr "Een archtopgitaar is een akoestische of semiakoestische gitaar met stale
 msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
-msgstr "een effectapparaat dat op de brug van een gitaar wordt bevestigd en synthesizerachtige geluiden produceert."
+msgstr "Een effectapparaat dat op de brug van een gitaar wordt bevestigd en synthesizerachtige geluiden produceert."
 
 #. name:keytar
 #: DB:instrument/description:774
@@ -530,12 +530,12 @@ msgid ""
 "tuning forks."
 msgstr "Een elektrische piano is een elektromechanisch muziekinstrument. Afhankelijk van het soort elektrische piano kan het geluid worden geproduceerd door snaren, rieten of stemvorken."
 
-#. name:pianet
+#. name:Pianet
 #: DB:instrument/description:793
 msgid ""
 "An electromechanical piano (not to be confused with electronic piano) "
 "designed and produced by Hohner in the 1960 and 70s."
-msgstr "een elektromagnetische piano (niet te verwarren met een elektrische piano) die in de jaren 1960 en 1970 door Hohner werd ontwikkeld en geproduceerd."
+msgstr "Een elektromagnetische piano (niet te verwarren met een elektrische piano) die in de jaren 1960 en 1970 door Hohner werd ontwikkeld en geproduceerd."
 
 #. name:idiophone
 #: DB:instrument/description:674
@@ -589,6 +589,13 @@ msgid ""
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
 msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerdere instrumenten, vooral de basgitaar en de contrabas. Gebruik het correcte instrument als je weet welke bedoeld wordt."
+
+#. name:berda
+#: DB:instrument/description:828
+msgid ""
+"Bass member of the Balkan tamburica orchestra, it is contrabass like. it has"
+" four thick metal strings"
+msgstr "Een soort contrabas uit de Balkan met vier dikke metalen snaren. De berda maakt deel uit van het tamburica-orkest."
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -722,6 +729,13 @@ msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
 msgstr "Huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrumenten."
+
+#. name:arpeggione
+#: DB:instrument/description:823
+msgid ""
+"Invented in 1823, it had a body like a medieval fiddle, but had frets and "
+"tuning like the guitar."
+msgstr "De in 1823 uitgevonden arpeggione lijkt op een middeleeuwse vedel, maar met fretten. Het wordt net als een gitaar gestemd."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -952,11 +966,6 @@ msgstr "Aangeslagen idiofonen zijn idiofonen waarbij het geluid wordt veroorzaak
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr "Een type doedelzak uit Zweden met een enkelriet en een cilindrische boring."
 
-#. name:tambura
-#: DB:instrument/description:391
-msgid "Tambura, Tanbura or Tamboura"
-msgstr "De tanpura is een begeleidingsinstrument uit de Klassieke Indiase muziek, waarmee onveranderlijk een bourdon-akkoord gespeeld wordt als basisklank voor de andere musici. \n(<a href=\"http://nl.wikipedia.org/wiki/Tanpura\">Wikipedia</a>)"
-
 #. name:tanbou ka
 #: DB:instrument/description:333
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
@@ -980,11 +989,6 @@ msgstr "De Kretenzische lier (Grieks: κρητική λύρα) is een Grieks pee
 #: DB:instrument/description:574
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr "De Es-klarinet is een lid van de familie van klarinetten."
-
-#. name:Guitaret
-#: DB:instrument/description:751
-msgid "The Guitaret is an electric lamellophone made by Hohner."
-msgstr "Een Guitaret is een elektrische lamellofoon die werd gemaakt door Hohner."
 
 #. name:Lyricon
 #: DB:instrument/description:561
@@ -2027,7 +2031,7 @@ msgstr "Een lasso d’amore is een geribbelde plastic buis die wordt rondgezwaai
 msgid ""
 "The launeddas is a typical Sardinian woodwind instrument, consisting of "
 "three pipes."
-msgstr "De launeddas is een typisch Sardiniaans blaasinstrument bestaande uit drie pijpen."
+msgstr "De launeddas is een typisch Sardisch blaasinstrument bestaande uit drie pijpen."
 
 #. name:lavta
 #: DB:instrument/description:705
@@ -3114,7 +3118,14 @@ msgstr "Een soort schuiffluit. Lid van de hmông-fluiten."
 #. name:gittern
 #: DB:instrument/description:802
 msgid "a medieval round-backed string instrument ancestral to the guitar"
-msgstr "een middeleeuws snaarinstrument met een bolle kast en voorloper van de gitaar."
+msgstr "Een middeleeuws snaarinstrument met een bolle kast en voorloper van de gitaar."
+
+#. name:chirimía
+#: DB:instrument/description:821
+msgid ""
+"a relative of the shawm, it was introduced to central and south-america by "
+"the spanish in the sixteenth and seventeenth century."
+msgstr "De chirimía is gerelateerd aan de schalmei en werd in de 16e en 17e eeuw door de Spanjaarden in Centraal- en Zuid-Amerika geïntroduceerd."
 
 #. name:laúd
 #: DB:instrument/description:803
@@ -3127,7 +3138,7 @@ msgid ""
 "a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
 " buttons/keys receive their air though the user blowing into the instrument "
 "like an harmonica"
-msgstr "een accordina is een soort combinatie van een mondharmonica en een accordeon. Net als een accordeon heeft het toetsen of knoppen, maar de lucht wordt aangevoerd door de speler die als net als bij een mondharmonica op het instrument blaast."
+msgstr "Een accordina is een soort combinatie van een mondharmonica en een accordeon. Net als een accordeon heeft het toetsen of knoppen, maar de lucht wordt aangevoerd door de speler die als net als bij een mondharmonica op het instrument blaast."
 
 #. name:tràm plè
 #: DB:instrument/description:308
@@ -3139,13 +3150,20 @@ msgstr "Een tràm plè is een variant op de Hmông-fluit. De lippen van de fluit
 #. name:birch lur
 #: DB:instrument/description:801
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
-msgstr "een Scandinavische natuurhoorn van hout of berkenbast uit de (vroege) middeleeuwen."
+msgstr "Een Scandinavische natuurhoorn van hout of berkenbast uit de (vroege) middeleeuwen."
 
-#. name:cembalet
+#. name:clavioline
+#: DB:instrument/description:815
+msgid ""
+"an early analogue synthezier, it had a vacuum tube oscillator and high/low "
+"pass filtering to produce vibrato"
+msgstr "Een vroege analoge synthesizer, met een vacuümbuisoscillator en een hoog/laagdoorlaatfilter om vibrato te creëren."
+
+#. name:Cembalet
 #: DB:instrument/description:794
 msgid ""
 "an electromechanical piano with stainless steel reeds and amplified pick-up"
-msgstr "een elektromechanische piano met roestvaststalen tongetjes en een versterkte opnemer."
+msgstr "Een elektromechanische piano met roestvaststalen tongetjes en een versterkte opnemer."
 
 #. name:jug
 #: DB:instrument/description:505
@@ -3156,14 +3174,29 @@ msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met
 #. name:spinettone
 #: DB:instrument/description:799
 msgid ""
-"an exceptionally long spinet, with multiple stringschoirs, its bass-tones "
+"an exceptionally long spinet, with multiple strings choirs, its bass-tones "
 "where produced by long strings, not thicker strings."
-msgstr "Een buitengewoon lange spinet, meestal meerkorig. De lage tonen worden geproduceerd door langere in plaats van dikkere snaren."
+msgstr ""
+
+#. name:barbat
+#: DB:instrument/description:819
+msgid ""
+"ancient central asian/persian string instrument ancestor of the iranian oud."
+" it was an important instrument in pre-islamic iran and persia. the current "
+"\"Persian barbat\" is more similar to the oud"
+msgstr "Antiek snaarinstrument uit Centraal-Azië of Perzië en een voorloper van de Iraanse oed. De huidige ‘Perzische barbat’ lijkt meer op een oed."
+
+#. name:three-hole pipe
+#: DB:instrument/description:805
+msgid ""
+"ancient pipe originating in europe, with analogies all over the world, it is"
+" one half of Pipe & Tabor."
+msgstr "Middeleeuwse voorloper van de blokfluit. Het werd met één hand bespeeld, vaak in combinatie met een tabor."
 
 #. name:disk drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
-msgstr "het gebruik van schijfstations van computers om muziek te maken."
+msgstr "Het gebruik van schijfstations van computers om muziek te maken."
 
 #. name:bronze lur
 #: DB:instrument/description:800
@@ -3171,6 +3204,13 @@ msgid ""
 "chiefly scandinavian bronze horns ritualistically buried in pairs. from the "
 "bronze age."
 msgstr "Scandinavische natuurhoornen van brons die vaak in paren ritueel werden begraven."
+
+#. name:bugarija
+#: DB:instrument/description:826
+msgid ""
+"chord rhythm member of the Balkan tamburica orchestra, it is guitar like. it"
+" has one double string D and three single strings"
+msgstr "Het ritme-instrument van het Balkanese tamburica-orkest. De bugarija lijkt op een gitaar."
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3182,6 +3222,29 @@ msgstr "Een schelp van een weekdier waarop geblazen wordt."
 msgid "conical bore double-reed musical instrument from Brittany"
 msgstr "Conisch geboord dubbelrietinstrument uit Bretagne."
 
+#. name:ashiko
+#: DB:instrument/description:812
+msgid ""
+"conical goatskin frame-drum originating with the Yoruba people of West "
+"Africa, it is also found in Afro-Caribbean and Afro-Latin American cultures."
+msgstr "Een conische lijsttrommel met een vel van geitenhuid, afkomstig van de Yoruba in West-Afrika."
+
+#. name:telharmonium
+#: DB:instrument/description:125
+msgid ""
+"considered the first electromechanical musical instrument, an early "
+"electronic organ."
+msgstr "Het telharmonium wordt als het eerste elektromechanische muziekinstrument beschouwd. Het is een vroeg elektronisch orgel."
+
+#. name:čelo
+#: DB:instrument/description:827
+msgid ""
+"counterpoint member of the Balkan tamburica orchestra, it is guitar like the"
+" bugarija. it can either have two double strings and two single strings "
+"(čelović) or now four single strings are more common. (čelo/čelović/) the "
+"čelović is a different pitch than the čelo"
+msgstr "Het contrapunt-instrument van het Balkanese tamburica-orkst."
+
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
@@ -3192,10 +3255,26 @@ msgstr "Koeienhoorns zonder vingergaten. Met een mondstuk en vrij riet."
 msgid "dholak, classical North Indian hand drum"
 msgstr "De dholak (Punjabi: ਢੋਲਕ, Hindi: ढोलक) is een Zuid-Aziatische tweekoppige trommel."
 
+#. name:tambura
+#: DB:instrument/description:391
+msgid ""
+"do not confuse with: serb-croat \"tamburica\" ensemble. persian/turkish "
+"ancient things evolved/came from \"tanbur\". unrelated indian drone "
+"\"tanpura\" related indian \"pandour\""
+msgstr "Een luit met een lange hals uit Macedonië en Bulgarije. Niet verwarren met het Joegoslavische tamburica-orkest, verschillende antieke Perzische en Turkse instrumenten die van de tanbur zijn afgeleid en de Indiase tanpura en pandour."
+
 #. name:đing buốt
 #: DB:instrument/description:306
 msgid "edo village traditional flute, four finger holes, blowing reed"
 msgstr "Een đing buốt is een traditionele fluit uit de Edoperiode met vier vingergaten en een riet."
+
+#. name:trautonium
+#: DB:instrument/description:808
+msgid ""
+"electric instrument from the 1930's with a resistor wire and moving metal "
+"plate, invented by Friedrich Trautwein and championed by Oskar Sala and Paul"
+" Hindemith and then later Peter Pichler."
+msgstr "Door Friedrich Trautwein in de jaren 1930 uitgevonden elektrisch instrument met een weerstandsdraad die over een metalen plaat wordt bewogen."
 
 #. name:tubon
 #: DB:instrument/description:775
@@ -3214,24 +3293,103 @@ msgid ""
 "differenting length pipes which control the pitch"
 msgstr "Een claviola is een vrij rietinstrument dat lijkt op een melodica maar als een accordeon wordt gedragen. Pijpen van verschillende lengte zorgen voor de toonhoogte."
 
+#. name:pipe and tabor
+#: DB:instrument/description:807
+msgid ""
+"generally considered a very early european combination of a drum (tambourin)"
+" and pipe (duct flute) where pipe was played by one hand and drum beaten by "
+"the other. it was chiefly used for dancing music. there are analogies all "
+"over the world of this get up."
+msgstr "Een hele oude combinatie van een trommel (tabor) en een eenmansfluit, die samen door één persoon worden bespeeld."
+
+#. name:chirimía and drum
+#: DB:instrument/description:822
+msgid ""
+"much like the pipe and tabor, the chirimía and drum is a South American "
+"cousin."
+msgstr "Een combinatie van chirimía en trommel die door één speler bespeeld wordt."
+
+#. name:ondioline
+#: DB:instrument/description:814
+msgid ""
+"one of the first analogue synths, it had a filter bank with 15 sliders for "
+"different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
+"Martenot's."
+msgstr "Een van de eerste analoge synthesizers, met een filterbank met 15 schuifregelaars om geluid te produceren, en het toetsenbord kon een vibrato opwekken."
+
 #. name:saó ôi flute
 #: DB:instrument/description:310
 msgid "saó ôi (flute of the Muong)"
 msgstr "Fluit van de Muong uit Vietnam"
+
+#. name:brač
+#: DB:instrument/description:825
+msgid ""
+"second smallest member of the Balkan tamburica orchestra, there are often "
+"two, first and second bass. it can either have three double strings or two "
+"double strings and three single strings"
+msgstr "Het een na kleinste lid van het Balkanese tamburica-orkest."
+
+#. name:tabor
+#: DB:instrument/description:806
+msgid ""
+"side drum, often with one or more snares, worn by one person and beaten by "
+"one hand, it is one half of Pipe & Tabor"
+msgstr "Een grote trommel met twee vellen en een snaar die met één hand wordt bespeeld, vaak in combinatie met een eenmansfluit."
+
+#. name:whistle
+#: DB:instrument/description:274
+msgid ""
+"simple, often single-toned and round-bodied whistle often used for "
+"regulation (sport, traffic, ...)."
+msgstr "Een eenvoudig fluitje dat maar één toon kan voortbrengen en vaak wordt gebruikt voor handhaving (bij sport of in het verkeer, enz.)."
+
+#. name:härjedalspipa
+#: DB:instrument/description:818
+msgid ""
+"six holed fipple flute used traditionally in pastoral settings like its "
+"cousin the spilåpipa."
+msgstr ""
 
 #. name:piano spinet
 #: DB:instrument/description:798
 msgid ""
 "small piano with drop action stickers manufactured from around 1930 to the "
 "early 1990s."
-msgstr ""
+msgstr "Een kleine piano waarin het echappement via stokjes wordt aangedreven. Spinetpiano’s werden vanaf ongeveer 1930 tot de vroege jaren 1990 gefabriceerd."
 
-#. name:guitaret
+#. name:Guitaret
 #: DB:instrument/description:795
 msgid ""
 "small white electric thumb piano with metal tines and an electromagnetic "
 "pickup."
-msgstr "een kleine witte duimpiano met metalen tongetjes en een elektromagnetische opnemer."
+msgstr "Een kleine witte duimpiano met metalen tongetjes en een elektromagnetische opnemer."
+
+#. name:kamalen ngɔni
+#: DB:instrument/description:817
+msgid ""
+"smaller and higher-tuned ngoni made of calabash, it became an important "
+"instrument in the rise of the Wassoulou music in the 80's and 90's"
+msgstr ""
+
+#. name:bisernica
+#: DB:instrument/description:824
+msgid ""
+"smallest member of the Balkan tamburica orchestra, it is usually the lead "
+"instrument. it can either have one double string and three single strings "
+"(prim/bisernica) or two double strings and two single strings (bisernica)"
+msgstr "Het kleinste lid van het Balkanese tamburica-orkest."
+
+#. name:tanbur
+#: DB:instrument/description:477
+msgid "the ancient ancestor of many related lute like instruments."
+msgstr "De tanbur is een antieke voorloper van een aantal luitachtige instrumenten."
+
+#. name:aman khuur
+#: DB:instrument/description:809
+msgid ""
+"there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
+msgstr "Er zijn twee soorten aman khuur: temür/tömör khuur (staal) en khulsan khuur (bamboe)."
 
 #. name:ti bwa
 #: DB:instrument/description:332
@@ -3244,6 +3402,31 @@ msgstr "Een percussie-instrument gemaakt van een horizontaal stuk bamboe waarop 
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Trắng jâu, basvariant op de trắng lu"
+
+#. name:khulsan khuur
+#: DB:instrument/description:811
+msgid "used for folksongs, particularly by young girls."
+msgstr ""
+
+#. name:temür khuur
+#: DB:instrument/description:810
+msgid "used in folkmedisine and shamanistic rituals"
+msgstr ""
+
+#. name:sursingar
+#: DB:instrument/description:816
+msgid ""
+"used in the Hindustani style Dhrupad music, it has steel and bronze strings "
+"and is played with a metal pick."
+msgstr ""
+
+#. name:analog synthesizer
+#: DB:instrument/description:813
+msgid ""
+"using analogue circuits and techniques to produce sound electronically, the "
+"first types where created in the 1920's with thermionic valves and other "
+"electromechanical machineries."
+msgstr "Een analoge synthesizer gebruikt analoge circuits en technieken om elektronisch geluid te maken."
 
 #. name:fretless bass
 #: DB:instrument/description:435

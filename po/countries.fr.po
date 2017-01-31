@@ -1,4 +1,4 @@
-# 
+# Translators:
 # Translators:
 # French language coordinator <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012

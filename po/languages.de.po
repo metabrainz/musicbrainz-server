@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
+# Frank Matthiae <email address hidden>, 2017
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-01 01:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-01-19 07:48+0000\n"
+"Last-Translator: Frank Matthiae <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1095,7 +1096,7 @@ msgstr "Javanesisch"
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
-msgstr ""
+msgstr "Jüdisch-babylonisch Aramäisch (ca. 200-1200 CE)"
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
