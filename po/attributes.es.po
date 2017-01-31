@@ -1,4 +1,4 @@
-# 
+# Translators:
 # Translators:
 # Abby Zla <email address hidden>, 2017
 # adeluna <email address hidden>, 2012
@@ -27,8 +27,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-09 17:48+0000\n"
-"Last-Translator: Abby Zla <email address hidden>\n"
+"PO-Revision-Date: 2017-01-16 20:46+0000\n"
+"Last-Translator: Laurent Monin <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

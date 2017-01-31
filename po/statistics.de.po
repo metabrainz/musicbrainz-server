@@ -3,7 +3,7 @@
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
 # Ettore Atalan <email address hidden>, 2014
-# Frank <email address hidden>, 2015
+# Frank Matthiae <email address hidden>, 2015
 # Ian McEwen <email address hidden>, 2012
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011

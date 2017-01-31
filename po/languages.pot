@@ -863,6 +863,11 @@ msgstr ""
 msgid "Greenlandic"
 msgstr ""
 
+#. frequency:1 iso_code_3:gos 
+#: DB:language/name:2534
+msgid "Gronings"
+msgstr ""
+
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
 msgid "Guarani"

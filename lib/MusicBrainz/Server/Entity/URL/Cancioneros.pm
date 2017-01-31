@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::URL::Cancioneros;
 
 use Moose;
+use utf8;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
