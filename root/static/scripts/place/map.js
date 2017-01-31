@@ -10,7 +10,7 @@ let latitude = 0;
 let longitude = 0;
 let zoom = 2;
 
-if (place.coordinates) {
+if (place && place.coordinates) {
   ({latitude, longitude} = place.coordinates);
   zoom = 16;
 }
@@ -18,7 +18,7 @@ if (place.coordinates) {
 const map = createMap(latitude, longitude, zoom);
 const marker = L.marker(
   [latitude, longitude],
-  {draggable: false, title: title || place.name},
+  {draggable: false, title: title || (place ? place.name : '')},
 );
 marker.addTo(map);
 
