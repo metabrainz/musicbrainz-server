@@ -905,16 +905,16 @@ const CLEANUPS = {
     }
   },
   bandsintown: {
-    match: [new RegExp("^(https?://)?bandsintown\\.com","i")],
+    match: [new RegExp("^(https?://)?((m|www)\\.)?bandsintown\\.com","i")],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      var m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         var prefix = m[1];
         var number = m[2];
         url = "https://bandsintown.com/" + prefix + "/" + number;
       } else {
-        m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
+        m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
         if (m) {
           var name = m[1];
           url = "https://bandsintown.com/" + name.toLowerCase();
