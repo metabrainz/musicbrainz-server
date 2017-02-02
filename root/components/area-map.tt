@@ -13,6 +13,7 @@
                 uri: '[% link_entity(place) | js %]',
                 title: '[% place.name | js %]',
                 type: '[% place.l_type_name | js %]',
+                typeID: [% place.type_id || 'null' %],
                 coordinates: [[% place.coordinates.latitude %],
                               [% place.coordinates.longitude %]]
             });
@@ -39,13 +40,12 @@
         });
 
         var iconNames = {
-            'no type': 'marker',
-            Other: 'marker',
-            Studio: 'studio-marker',
-            Venue: 'venue-marker',
-            Stadium: 'stadium-marker',
-            'Indoor arena': 'arena-marker',
-            'Religious building': 'religious-marker'
+            '1': 'studio-marker',
+            '2': 'venue-marker',
+            '3': 'marker',
+            '4': 'stadium-marker',
+            '5': 'arena-marker',
+            '6': 'religious-marker',
         };
         var icons = _.mapValues(iconNames, function (name) {
             return new LeafIcon(
@@ -85,11 +85,15 @@
         });
 
         places.forEach(function (place) {
-            var placeType = place.type || 'no type';
+            var placeType = place.type || '[% l('No type') | js %]';
             var marker = L.marker(
                 place.coordinates,
-                { icon: icons[placeType], title: place.title,
-                  draggable: false, clickable: true }
+                {
+                    clickable: true,
+                    draggable: false,
+                    icon: _.get(icons, place.typeID, icons['3']),
+                    title: place.title,
+                }
             ).bindPopup(placeType + ': ' + place.uri);
             coordinates.push(place.coordinates);
             markers.addLayer(marker);
