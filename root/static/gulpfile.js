@@ -124,6 +124,16 @@ function runYarb(resourceName, vinyl, callback) {
 
   bundle.transform('babelify');
   bundle.transform('envify', {global: true});
+  bundle.transform('insert-module-globals', {
+    global: true,
+    vars: {
+      L: function (file) {
+        if (file.includes('leaflet.markercluster')) {
+          return "require('leaflet/dist/leaflet-src')";
+        }
+      },
+    },
+  });
 
   if (!DBDefs.DEVELOPMENT_SERVER) {
     bundle.transform('uglifyify', {
@@ -201,6 +211,10 @@ _(DBDefs.MB_LANGUAGES || '')
     });
   })
   .value();
+
+runYarb('area/places-map.js', function (b) {
+  b.external(commonBundle);
+});
 
 runYarb('debug.js', function (b) {
   b.external(commonBundle);

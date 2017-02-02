@@ -158,7 +158,20 @@ sub places : Chained('load')
         $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
     });
     $c->model('PlaceType')->load(@$places);
-    $c->stash( places => $places );
+    $c->stash(
+        places => $places,
+        map_data_args => $c->json->encode({
+            places => [
+                map {
+                    my $json = $_->TO_JSON;
+                    # These arguments aren't needed at all to render the map,
+                    # and only increase the page size.
+                    delete @{$json}{qw(annotation area unaccentedName)};
+                    $json;
+                } grep { $_->coordinates } @$places
+            ],
+        }),
+    );
 }
 
 after [qw( show collections details tags aliases artists labels releases places )] => sub {
