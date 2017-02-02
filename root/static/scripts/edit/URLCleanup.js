@@ -1003,7 +1003,7 @@ const CLEANUPS = {
   },
   otherdatabases: {
     match: [
-      new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|composer|work)/", "i"),
+      new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|artist|composer|ensemble|work)/", "i"),
       new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
@@ -1061,7 +1061,7 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       // Standardising ClassicalArchives.com
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|composer|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
       // Removing cruft from Worldcat URLs
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
       // Standardising IBDb not to use www
