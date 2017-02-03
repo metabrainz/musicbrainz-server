@@ -614,10 +614,22 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Classical Archives
         {
+                             input_url: 'http://www.classicalarchives.com/artist/27956.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.classicalarchives.com/artist/27956.html',
+        },
+        {
                              input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.classicalarchives.com/composer/2806.html',
+        },
+        {
+                             input_url: 'http://www.classicalarchives.com/ensemble/10.html',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.classicalarchives.com/ensemble/10.html',
         },
         {
                              input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
