@@ -1908,7 +1908,68 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                              input_url: 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+                    expected_clean_url: 'https://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'http://open.spotify.com/track/1SI5O5cu8AM19cninxf9RZ',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://open.spotify.com/track/1SI5O5cu8AM19cninxf9RZ',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'http://play.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr?play=true&utm_source=open.spotify.com&utm_medium=open',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://open.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://play.spotify.com/artist/5zS2OG2kKeGYFqX6lcuVOt?play=true&utm_source=google&utm_medium=growth_paid&utm_campaign=pla_US&gclid=CN-m_fOj3cMCFUJk7AodTBsA8g',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://open.spotify.com/artist/5zS2OG2kKeGYFqX6lcuVOt',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q/6yVKnHVFGkg4OQ8IrgQVpZ',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://open.spotify.com/album/0tabKG66W34Ms0SsovkP6Q',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://open.spotify.com/local/Electrolyze/Single/Belief/265',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'https://play.spotify.com/search/The%20Most%20Essential%20Bossa%20Nova',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://play.spotify.com/user/scotchbonnetrecords',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://open.spotify.com/user/scotchbonnetrecords',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
+        },
+        {
+                             input_url: 'https://play.spotify.com/user/1254688529/playlist/0MRy5cv9ZktSjysDEIP72H',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'play.spotify.com/user/1254688529/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://open.spotify.com/user/1254688529',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         // Ted Crane
         {

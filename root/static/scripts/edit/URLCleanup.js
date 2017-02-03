@@ -803,16 +803,53 @@ const CLEANUPS = {
       return url;
     }
   },
-  streaming: {
+  deezer: {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?(deezer\\.com)", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
-      url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
       return url;
+    }
+  },
+  spotifyuseraccount: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/user", "i")
+    ],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, "https://open.spotify.com/user/$1");
+      return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url);
+    }
+  },
+  spotify: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)", "i")
+    ],
+    type: LINK_TYPES.streamingmusic,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "https://open.spotify.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, "https://open.spotify.com/$1/$2");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/open\.spotify\.com\/([a-z]+)\/(?:[a-zA-Z0-9_-]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingmusic.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'album';
+          case LINK_TYPES.streamingmusic.recording:
+            return prefix === 'track';
+        }
+      }
+      return false;
     }
   },
   viaf: {
