@@ -35,6 +35,12 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateEvents') %]">[% l('Possibly duplicate events') %]</a></li>
         </ul>
 
+        <h2>[% l('Instruments') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'InstrumentsWithoutAnImage') %]">[% l('Instruments without an image') %]</a></li>
+        </ul>
+
         <h2>[% l('Labels') %]</h2>
 
         <ul>
