@@ -353,7 +353,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
         },
         // Bandsintown
         {
-                             input_url: "https://bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
+                             input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandsintown',
                     expected_clean_url: "https://bandsintown.com/mattdobberteen's50thbirthday",
@@ -367,7 +367,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'https://bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
+                             input_url: 'https://www.bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
                      input_entity_type: 'event',
             expected_relationship_type: 'bandsintown',
                     expected_clean_url: 'https://bandsintown.com/event/13245613',
