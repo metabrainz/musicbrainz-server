@@ -1,3 +1,7 @@
+if (typeof phantom === 'undefined') {
+  require("./common/raven");
+}
+
 const global = require('./global');
 
 global.aclass = require("aclass");
@@ -26,7 +30,3 @@ require("./common/tagger");
 require("./common/coverart");
 require("./common/banner");
 require("./common/components/TagEditor");
-
-if (typeof phantom === 'undefined') {
-    require("./common/errors");
-}

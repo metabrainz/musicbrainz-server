@@ -381,8 +381,10 @@ sub MB_LANGUAGES {qw()}
 # (note: will still only use languages in MB_LANGUAGES)
 sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
-# Set this to an email address and the server will email any bugs to you
-sub EMAIL_BUGS { undef }
+# Bugs can be sent to a Sentry instance (https://sentry.io) via these settings.
+# The DSNs can be found on the project configuration page.
+sub SENTRY_DSN { undef }
+sub SENTRY_DSN_PUBLIC { undef }
 
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See

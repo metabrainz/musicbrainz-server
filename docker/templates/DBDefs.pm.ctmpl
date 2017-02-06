@@ -202,7 +202,6 @@ sub GIT_SHA { {{template "QUOTED_STRING" (env "GIT_SHA")}} }
 {{template "STRING_DEF" "DISCOURSE_API_USERNAME"}}
 {{template "STRING_DEF" "DISCOURSE_SERVER"}}
 {{template "STRING_DEF" "DISCOURSE_SSO_SECRET"}}
-{{template "STRING_DEF" "EMAIL_BUGS"}}
 {{template "STRING_DEF" "GOOGLE_ANALYTICS_CODE"}}
 {{template "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
 {{template "STRING_DEF" "GPG_ENCRYPT_KEY"}}
@@ -214,6 +213,8 @@ sub GIT_SHA { {{template "QUOTED_STRING" (env "GIT_SHA")}} }
 {{template "STRING_DEF" "RENDERER_HOST"}}
 {{template "STRING_DEF" "RENDERER_PORT"}}
 {{template "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
+{{template "STRING_DEF" "SENTRY_DSN"}}
+{{template "STRING_DEF" "SENTRY_DSN_PUBLIC"}}
 {{template "STRING_DEF" "SESSION_COOKIE"}}
 {{template "STRING_DEF" "SMTP_SECRET_CHECKSUM"}}
 {{template "STRING_DEF" "STATIC_RESOURCES_LOCATION"}}

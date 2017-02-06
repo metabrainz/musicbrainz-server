@@ -10,7 +10,6 @@ requires 'Catalyst::Plugin::Authentication'           => '0.10023';
 requires 'Catalyst::Plugin::Cache'                    => '0.12';
 requires 'Catalyst::Plugin::Cache::HTTP'              => '0.001000';
 requires 'Catalyst::Plugin::Session::State::Cookie'   => '0.17';
-requires 'Catalyst::Plugin::StackTrace'               => '0.12';
 requires 'Catalyst::Runtime'                          => '5.90097';
 requires 'Catalyst::View::TT'                         => '0.41';
 requires 'CGI::Expand'                                => '2.05';
@@ -106,10 +105,10 @@ requires 'XML::XPath'                                 => '1.13';
 
 # Production server features
 feature production => sub {
-    requires 'Catalyst::Plugin::ErrorCatcher'   => '0.0.8.18';
     requires 'DateTime::Format::W3CDTF'         => '0.06';
     requires 'Locale::PO'                       => '0.27';
     requires 'Parallel::ForkManager'            => '0.7.6';
+    requires 'Sentry::Raven'                    => '1.09';
     requires 'Server::Starter'                  => '0.31';
     requires 'Starlet'                          => '0.25';
     requires 'WWW::Sitemap::XML'                => '2.02';

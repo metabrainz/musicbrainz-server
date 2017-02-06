@@ -2073,11 +2073,6 @@
       "from": "parse-json@>=2.2.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/parse-json/-/parse-json-2.2.0.tgz"
     },
-    "parse-stack": {
-      "version": "0.1.3",
-      "from": "parse-stack@0.1.3",
-      "resolved": "https://registry.npmjs.org/parse-stack/-/parse-stack-0.1.3.tgz"
-    },
     "path-browserify": {
       "version": "0.0.0",
       "from": "path-browserify@>=0.0.0 <0.0.1",
@@ -2794,6 +2789,14 @@
               "version": "1.0.0"
             }
           }
+        }
+      }
+    },
+    "raven-js": {
+      "version": "3.10.0",
+      "dependencies": {
+        "json-stringify-safe": {
+          "version": "5.0.1"
         }
       }
     }
