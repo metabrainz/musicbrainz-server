@@ -1606,6 +1606,10 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.pinterest.com/tucenter/',
         },
+        {
+                             input_url: 'http://pinterest.com/tucenter/',
+                    expected_clean_url: 'https://www.pinterest.com/tucenter/',
+        },
         // PureVolume
         {
                              input_url: 'http://www.purevolume.com/withbloodcomescleansing',
