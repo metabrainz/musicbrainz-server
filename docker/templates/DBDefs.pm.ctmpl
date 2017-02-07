@@ -108,9 +108,11 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- end}}
 );
 
-{{- if service "musicbrainz-smtp"}}
-{{- with index (service "musicbrainz-smtp") 0}}
+{{with $service_name := or (env "MBS_SMTP_SERVICE") "default.exim-relay"}}
+{{- if service $service_name}}
+{{- with index (service $service_name) 0}}
 sub SMTP_SERVER { '{{.Address}}:{{.Port}}' }
+{{- end}}
 {{- end}}
 {{- end}}
 
