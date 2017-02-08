@@ -2780,6 +2780,19 @@
     },
     "leaflet": {
       "version": "1.0.2"
+    },
+    "merge-stream": {
+      "version": "1.0.1",
+      "dependencies": {
+        "readable-stream": {
+          "version": "2.2.2",
+          "dependencies": {
+            "isarray": {
+              "version": "1.0.0"
+            }
+          }
+        }
+      }
     }
   }
 }
