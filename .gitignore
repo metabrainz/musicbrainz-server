@@ -7,7 +7,12 @@
 /admin/replication/hooks/post-process
 /docker/Dockerfile.*
 /root/robots.txt
-/root/static/images/leaflet
+# Symlinks to node_modules/leaflet/
+/root/static/images/leaflet/layers-2x.png
+/root/static/images/leaflet/layers.png
+/root/static/images/leaflet/marker-icon-2x.png
+/root/static/images/leaflet/marker-icon.png
+/root/static/images/leaflet/marker-shadow.png
 /root/static/scripts/common/DBDefs.js
 /blib
 /lib/DBDefs.pm

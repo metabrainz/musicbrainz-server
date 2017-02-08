@@ -2781,6 +2781,9 @@
     "leaflet": {
       "version": "1.0.2"
     },
+    "leaflet.markercluster": {
+      "version": "1.0.0"
+    },
     "merge-stream": {
       "version": "1.0.1",
       "dependencies": {
