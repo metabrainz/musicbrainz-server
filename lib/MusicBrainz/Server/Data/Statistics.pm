@@ -616,6 +616,28 @@ my %stats = (
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
     },
+    "count.label.type" => {
+        DESC => "Distribution of labels by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(label.id) AS count
+                 FROM label_type type
+                 FULL OUTER JOIN label ON label.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.label.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.discid" => {
         DESC => "Count of all disc IDs",
         SQL => "SELECT COUNT(*) FROM cdtoc",

@@ -763,7 +763,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?pinterest\\.com/","i")],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]+)\/?(?:[?#].*)?$/, "https://www.pinterest.com/$1/");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?pinterest\.com\/([^?#]*[^\/?#])\/*(?:[?#].*)?$/, "https://www.pinterest.com/$1/");
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, "/");
     },
   },
@@ -803,16 +803,53 @@ const CLEANUPS = {
       return url;
     }
   },
-  streaming: {
+  deezer: {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?(deezer\\.com)", "i"),
-      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
-      url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
       return url;
+    }
+  },
+  spotifyuseraccount: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/user", "i")
+    ],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/user\/([a-zA-Z0-9_-]+)\/?(?:[?#].*)?$/, "https://open.spotify.com/user/$1");
+      return url;
+    },
+    validate: function (url, id) {
+      return /^https:\/\/open\.spotify\.com\/user\/[a-zA-Z0-9_-]+$/.test(url);
+    }
+  },
+  spotify: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)", "i")
+    ],
+    type: LINK_TYPES.streamingmusic,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "https://open.spotify.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, "https://open.spotify.com/$1/$2");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/open\.spotify\.com\/([a-z]+)\/(?:[a-zA-Z0-9_-]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingmusic.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'album';
+          case LINK_TYPES.streamingmusic.recording:
+            return prefix === 'track';
+        }
+      }
+      return false;
     }
   },
   viaf: {
@@ -905,16 +942,16 @@ const CLEANUPS = {
     }
   },
   bandsintown: {
-    match: [new RegExp("^(https?://)?bandsintown\\.com","i")],
+    match: [new RegExp("^(https?://)?((m|www)\\.)?bandsintown\\.com","i")],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      var m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         var prefix = m[1];
         var number = m[2];
         url = "https://bandsintown.com/" + prefix + "/" + number;
       } else {
-        m = url.match(/^(?:https?:\/\/)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
+        m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
         if (m) {
           var name = m[1];
           url = "https://bandsintown.com/" + name.toLowerCase();
@@ -1003,7 +1040,7 @@ const CLEANUPS = {
   },
   otherdatabases: {
     match: [
-      new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|composer|work)/", "i"),
+      new RegExp("^(https?://)?(www\\.)?classicalarchives\\.com/(album|artist|composer|ensemble|work)/", "i"),
       new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
       new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
       new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
@@ -1061,7 +1098,7 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       // Standardising ClassicalArchives.com
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|composer|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
       // Removing cruft from Worldcat URLs
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
       // Standardising IBDb not to use www
