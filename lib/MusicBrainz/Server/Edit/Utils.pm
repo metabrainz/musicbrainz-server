@@ -58,6 +58,11 @@ sub verify_artist_credits
         for (@{ $ac->{names} })
         {
             push @artist_ids, $_->{artist}->{id};
+            if ($_->{name} eq '') {
+                MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+                    'The credited-as name in an artist credit cannot be empty'
+                );
+            }
         }
     }
 
