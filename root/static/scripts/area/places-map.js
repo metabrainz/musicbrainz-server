@@ -76,7 +76,7 @@ if (places.length) {
       popupText += _.escape(ln(
         '… and {place_count} other',
         '… and {place_count} others',
-        CLUSTER_POPUP_LIMIT,
+        markers.length - CLUSTER_POPUP_LIMIT,
         {place_count: markers.length - CLUSTER_POPUP_LIMIT}
       ));
     }
