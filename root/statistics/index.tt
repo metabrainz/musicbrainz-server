@@ -519,6 +519,34 @@
 </tbody>
 </table>
 
+<h2>[% l('Labels') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% add_colon(l('Labels')) %]</th>
+    <td>[% add_commas(stats.statistic('count.label')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH label_type IN label_types %]
+<tr>
+   <th></th>
+   <th>[% label_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.label.type.' _ label_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.label.type.' _ label_type.id, 'count.label')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.label.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.label.type.null', 'count.label')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
 <h2>[% l('Works') %]</h2>
 <table class="database-statistics">
 <tbody>
