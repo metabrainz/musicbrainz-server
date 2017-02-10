@@ -1320,6 +1320,32 @@ const CLEANUPS = {
       return false;
     }
   },
+  livefans: {
+    match: [new RegExp("^(https?://)?(www\\.)?livefans\\.jp", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/(venues)\/(?:past|future)\//, "$1/");
+      url = url.replace(/(venues)\/facility\?.*v_id=([0-9]+).*$/, "$1/$2");
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?livefans\.jp\/([^?#]+[^/?#])\/*(?:[?#].*)?$/, "http://www.livefans.jp/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.livefans\.jp\/([a-z]+)\/[0-9]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'artists';
+          case LINK_TYPES.otherdatabases.event:
+            return prefix === 'events';
+          case LINK_TYPES.otherdatabases.series:
+            return prefix === 'groups';
+          case LINK_TYPES.otherdatabases.place:
+            return prefix === 'venues';
+        }
+      }
+      return false;
+    }
+  },
   musicapopularcl: {
     match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
     type: LINK_TYPES.otherdatabases,
