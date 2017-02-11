@@ -2,13 +2,20 @@ package MusicBrainz::Server::Form::User::EditProfile;
 
 use HTML::FormHandler::Moose;
 use List::MoreUtils qw( any all );
-use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree validate_username );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_url );
 
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'profile' );
+
+has_field 'username' => (
+    type      => 'Text',
+    required  => 1,
+    maxlength => 64,
+    validate_method => \&validate_username,
+);
 
 has_field 'biography' => (
     type => 'Text',

@@ -10,6 +10,7 @@
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post" id="edit-profile-form">
+      [% r.hidden('username', value => user.name) %]
       [%- IF server_details.testing_features -%]
         [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
       [%- END -%]
