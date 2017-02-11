@@ -350,8 +350,12 @@ END -%]
     IF namevar AND action == 'show' AND content != ''
             AND (noescape ? html_unescape(content.remove('</?span\b[^>]*>')) : content) != entity.name;
         options.unshift('name_variation');
-        hover = hover != '' ? l('{name} – {additional_info}', { name => entity.name, additional_info => hover })
-                            : entity.name;
+        IF (entity.sort_name && entity.sort_name == entity.name);
+            hoverprint = hover;
+        ELSE;
+            hoverprint = l('{name} – {additional_info}', { name => entity.name, additional_info => hover });
+        END;
+        hover = hover != '' ? hoverprint : entity.name;
     END;
 
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';

@@ -178,7 +178,7 @@ test all => sub {
 
             '<span class="mp">' .
                 '<span class="name-variation">' .
-                    '<a href="/artist/070d193a-845c-479f-980e-bef15710653e" title="Prince – Prince">' .
+                    '<a href="/artist/070d193a-845c-479f-980e-bef15710653e" title="Prince">' .
                         '<bdi>The Artist Formerly Known as Prince</bdi>' .
                     '</a>' .
                 '</span>' .
@@ -358,7 +358,7 @@ test all => sub {
             '</span>' .
             ' by ' .
             '<span class="name-variation">' .
-                '<a href="/artist/91d882b6-5bf8-4d14-b261-15ea9b1d7eae" title="FooArtist – FooArtist">' .
+                '<a href="/artist/91d882b6-5bf8-4d14-b261-15ea9b1d7eae" title="FooArtist – ArtistFoo">' .
                     '<bdi>BarArtist</bdi>' .
                 '</a>' .
             '</span>' .
@@ -379,7 +379,7 @@ test all => sub {
                                 id => 1,
                                 gid => '91d882b6-5bf8-4d14-b261-15ea9b1d7eae',
                                 name => 'FooArtist',
-                                sort_name => 'FooArtist',
+                                sort_name => 'ArtistFoo',
                             ),
                             join_phrase => ' & ',
                         ),

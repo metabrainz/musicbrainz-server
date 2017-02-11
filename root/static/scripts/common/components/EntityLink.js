@@ -145,7 +145,9 @@ const EntityLink = (props = {}) => {
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {name: entity.name, additional_info: hover});
+        if (entity.name !== entity.sortName) {
+          hover = l('{name} – {additional_info}', {name: entity.name, additional_info: hover});	
+        }
       } else {
         hover = ko.unwrap(entity.name);
       }
