@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( :edit_status );
 
 requires '_load_paged';
 
-sub edits : Chained('load') PathPart RequireAuth
+sub edits : Chained('load') PathPart
 {
     my ($self, $c) = @_;
     $self->_list($c, sub {
@@ -26,11 +26,11 @@ sub edits : Chained('load') PathPart RequireAuth
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
               'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
-              'conditions.0.user_id' => $c->user->id },
+              $c->user_exists ? ('conditions.0.user_id' => $c->user->id) : () },
     );
 }
 
-sub open_edits : Chained('load') PathPart RequireAuth
+sub open_edits : Chained('load') PathPart
 {
     my ($self, $c) = @_;
     $self->_list($c, sub {
@@ -51,7 +51,7 @@ sub open_edits : Chained('load') PathPart RequireAuth
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
               'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
-              'conditions.0.user_id' => $c->user->id,
+              $c->user_exists ? ('conditions.0.user_id' => $c->user->id) : (),
               'conditions.1.field' => 'status',
               'conditions.1.operator' => '=',
               'conditions.1.args' => $STATUS_OPEN },

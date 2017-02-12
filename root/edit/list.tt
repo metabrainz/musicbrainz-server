@@ -66,17 +66,21 @@
                         [% END %]
                     </div>
 
-                    [% INCLUDE 'edit/notes.tt' verbose='not-verbose' hide=1 rows=1 index=loop.index %]
-
+                    [%~ IF c.user_exists ~%]
+                        [% INCLUDE 'edit/notes.tt' verbose='not-verbose' hide=1 rows=1 index=loop.index %]
+                    [%~ END ~%]
                     <div class="seperator">
                     </div>
                 </div>
             [%- END -%]
 
             <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <div class="align-right row no-label" >
-                [% form_submit(l('Submit votes &amp; edit notes')) %]
-            </div>
+
+            [%~ IF c.user_exists ~%]
+                <div class="align-right row no-label" >
+                    [% form_submit(l('Submit votes &amp; edit notes')) %]
+                </div>
+            [%~ END ~%]
         </form>
     [% END %]
     </div>
