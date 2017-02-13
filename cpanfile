@@ -116,7 +116,6 @@ feature production => sub {
 };
 
 author_requires 'Catalyst::Devel'               => '1.39';
-author_requires 'Plack::Middleware::Debug'      => '0.14';
 author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
 
