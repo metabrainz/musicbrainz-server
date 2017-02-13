@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-25 17:27+0000\n"
+"PO-Revision-Date: 2017-01-31 09:04+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1323,6 +1323,12 @@ msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
 msgstr "Dit geeft aan dat een evenement uit meerdere delen bestaat (bijvoorbeeld een festival dat op verschillende dagen of op verschillende locaties plaatsvindt)."
+
+#: DB:link_type/description:916
+msgid ""
+"This indicates that an instrument is a hybrid of two or more other "
+"instruments."
+msgstr "Deze relatie geeft aan dat een instrument een mengvorm van twee of meer instrumenten is."
 
 #: DB:link_type/description:2
 msgid ""
@@ -2904,7 +2910,7 @@ msgstr "co"
 
 #: DB:link_attribute_type/description:424
 msgid "co-[role]"
-msgstr "co-[rol]"
+msgstr "Deze eigenschap geeft aan dat een (meestal technische) relatie door meerdere personen samen is uitgevoerd."
 
 #: DB:link_type/long_link_phrase:102
 msgid "collaborated {minor:minorly} {additional:additionally} on"
@@ -3505,6 +3511,10 @@ msgstr "heeft afbeeldingen op"
 msgid "has derived instrument"
 msgstr "heeft afgeleid instrument"
 
+#: DB:link_type/reverse_link_phrase:916
+msgid "has hybrids"
+msgstr "hybride afgeleide"
+
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr "heeft het imprint"
@@ -3612,6 +3622,10 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
+#: DB:link_type/link_phrase:916
+msgid "hybrid of"
+msgstr "hybride afgeleide van"
+
 #: DB:link_type/description:732
 msgid "image"
 msgstr "afbeelding"
@@ -3672,6 +3686,10 @@ msgstr "is een dj-mix van"
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "is een compilatie van"
+
+#: DB:link_type/long_link_phrase:916
+msgid "is a hybrid of"
+msgstr "is een hybride afgeleide van"
 
 #: DB:link_type/long_link_phrase:17
 msgid "is a live performance of"
@@ -4447,11 +4465,11 @@ msgstr "bestel bladmuziek op"
 
 #: DB:link_attribute_type/name:952
 msgid "re"
-msgstr ""
+msgstr "re"
 
 #: DB:link_attribute_type/description:952
 msgid "re-[role]"
-msgstr ""
+msgstr "Deze eigenschap geeft aan dat een relatie opnieuw uitgevoerd is (zoals een remaster)."
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693

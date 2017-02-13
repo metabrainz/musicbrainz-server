@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 17:44+0100\n"
+"POT-Creation-Date: 2017-01-30 19:39-0600\n"
 "PO-Revision-Date: 2017-01-16 16:46+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -43,31 +43,31 @@ msgid ""
 "it} first and then reset your password. "
 msgstr "ユーザー名とメールアドレスを入力してください。パスワードのリセット用リンクを送信します。ユーザー名も忘れた場合、{link|それを調べて}からパスワードをリセットしてください。"
 
-#: ../root/components/forms.tt:279
+#: ../root/components/forms.tt:294
 msgid "\"C\" is a single check digit."
 msgstr "「C」は、1桁のチェックディジットです。"
 
-#: ../root/components/forms.tt:289
+#: ../root/components/forms.tt:304
 msgid "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr "「CC」は、登録者の適切な2文字の国コードです。"
 
-#: ../root/components/forms.tt:278
+#: ../root/components/forms.tt:293
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr "「DDD」は、9桁のワークIDです。"
 
-#: ../root/components/forms.tt:292
+#: ../root/components/forms.tt:307
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr "「NNNNN」は特定のレコーディングを識別する一意の5桁番号です。"
 
-#: ../root/components/forms.tt:290
+#: ../root/components/forms.tt:305
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr "「XXX」は登録した組織の一意な3文字の英数字コードです。"
 
-#: ../root/components/forms.tt:291
+#: ../root/components/forms.tt:306
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "「YY」は登録された年の最後の2桁です。"
 
@@ -390,7 +390,7 @@ msgid ""
 "MusicBrainz release"
 msgstr "提出したディスクIDはCDスタブとマッチしました。以下のトラックリストは正しそうであれば、新しいMusicBrainzリリースの起点として使えます。"
 
-#: ../root/place/map.tt:5
+#: ../root/place/map.tt:6
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "この場所には座標が割り当てられていないので地図が表示できません。"
 
@@ -710,7 +710,7 @@ msgstr "編集メモを追加"
 msgid "Add annotation"
 msgstr "注釈を追加"
 
-#: ../root/components/relationship-editor.tt:193
+#: ../root/components/relationship-editor.tt:194
 #: ../root/static/scripts/common/i18n.js:202
 msgid "Add another instrument"
 msgstr "別の楽器を追加"
@@ -1733,15 +1733,14 @@ msgstr "開始地域:"
 msgid "Begin date"
 msgstr "開始日"
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
-#: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:877
+#: ../root/area/layout.tt:19 ../root/artist/edit_form.tt:40
+#: ../root/components/common-macros.tt:877 ../root/components/forms.tt:191
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
 #: ../root/edit/details/add_label.tt:30 ../root/edit/details/add_place.tt:51
 #: ../root/edit/details/edit_area.tt:42 ../root/edit/details/edit_event.tt:27
 #: ../root/edit/details/edit_label.tt:33 ../root/edit/details/edit_place.tt:36
-#: ../root/entity/alias/edit_form.tt:30 ../root/event/edit_form.tt:34
-#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
+#: ../root/event/edit_form.tt:34
 msgid "Begin date:"
 msgstr "開始日:"
 
@@ -2035,11 +2034,11 @@ msgstr "この画像に一つまた複数のカバーアート種類を選択し
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "編集をクリックして、このディスクのレコーディング関連を編集。"
 
-#: ../root/components/relationship-editor.tt:205
+#: ../root/components/relationship-editor.tt:206
 msgid "Click here to choose a vocal"
 msgstr "ここにクリックしてヴォーカルを追加"
 
-#: ../root/components/relationship-editor.tt:204
+#: ../root/components/relationship-editor.tt:205
 msgid "Click here to choose an instrument"
 msgstr "ここにクリックして楽器を追加"
 
@@ -2180,7 +2179,7 @@ msgstr "全トラックのアーティストクレジットを対応するレコ
 msgid "Copy all track titles to associated recordings."
 msgstr "全トラックのタイトルを対応するレコーディングにコピーする"
 
-#: ../root/components/forms.tt:210
+#: ../root/components/forms.tt:225
 msgid "Copy name"
 msgstr "名前をコピー"
 
@@ -2330,9 +2329,8 @@ msgstr "データ:"
 msgid "Date"
 msgstr "日付"
 
-#: ../root/area/edit_form.tt:19 ../root/artist/edit_form.tt:36
-#: ../root/entity/alias/edit_form.tt:25 ../root/event/edit_form.tt:30
-#: ../root/label/edit_form.tt:38 ../root/place/edit_form.tt:34
+#: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:187
+#: ../root/event/edit_form.tt:30
 msgid "Date Period"
 msgstr "期間"
 
@@ -2345,9 +2343,8 @@ msgstr "日時表示形式:"
 msgid "Date:"
 msgstr "日付:"
 
-#: ../root/area/edit_form.tt:21 ../root/artist/edit_form.tt:38
-#: ../root/entity/alias/edit_form.tt:27 ../root/event/edit_form.tt:32
-#: ../root/label/edit_form.tt:40 ../root/place/edit_form.tt:36
+#: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:189
+#: ../root/event/edit_form.tt:32
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -2955,16 +2952,15 @@ msgstr "終了地域:"
 msgid "End date"
 msgstr "終了日"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
-#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
-#: ../root/components/common-macros.tt:885
+#: ../root/area/layout.tt:27 ../root/area/layout.tt:34
+#: ../root/artist/edit_form.tt:52 ../root/components/common-macros.tt:885
+#: ../root/components/forms.tt:192
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
 #: ../root/edit/details/add_label.tt:37 ../root/edit/details/add_place.tt:58
 #: ../root/edit/details/edit_area.tt:47 ../root/edit/details/edit_event.tt:32
 #: ../root/edit/details/edit_label.tt:38 ../root/edit/details/edit_place.tt:41
-#: ../root/entity/alias/edit_form.tt:31 ../root/event/edit_form.tt:35
-#: ../root/label/edit_form.tt:43 ../root/place/edit_form.tt:39
+#: ../root/event/edit_form.tt:35
 msgid "End date:"
 msgstr "終了日:"
 
@@ -2989,7 +2985,7 @@ msgstr "終了:"
 msgid "Endpoint:"
 msgstr "終端:"
 
-#: ../root/components/forms.tt:226 ../root/components/forms.tt:250
+#: ../root/components/forms.tt:241 ../root/components/forms.tt:265
 msgid "English"
 msgstr "英語"
 
@@ -2997,7 +2993,7 @@ msgstr "英語"
 msgid "Enter a tracklist below:"
 msgstr "以下でトラックリストをご入力ください:"
 
-#: ../root/place/edit_form.tt:59
+#: ../root/place/edit_form.tt:51
 msgid ""
 "Enter coordinates manually or drag the marker to get coordinates from the "
 "map."
@@ -3181,9 +3177,9 @@ msgid_plural ""
 "minutes</span>"
 msgstr[0] ""
 
-#: ../root/area/edit_form.tt:31 ../root/artist/edit_form.tt:70
+#: ../root/area/edit_form.tt:23 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:42 ../root/instrument/edit_form.tt:23
-#: ../root/label/edit_form.tt:50 ../root/place/edit_form.tt:46
+#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
 #: ../root/recording/edit_form.tt:38 ../root/release/edit/information.tt:259
 #: ../root/release_group/edit_form.tt:24 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:91
@@ -3400,7 +3396,7 @@ msgstr "FreeDB ID:"
 msgid "FreeDB:"
 msgstr "FreeDB:"
 
-#: ../root/components/forms.tt:228 ../root/components/forms.tt:252
+#: ../root/components/forms.tt:243 ../root/components/forms.tt:267
 msgid "French"
 msgstr "フランス語"
 
@@ -3523,16 +3519,16 @@ msgstr "一般情報"
 msgid "Generated on {date}"
 msgstr "{date} に生成された"
 
-#: ../root/components/forms.tt:196 ../root/release/edit/information.tt:14
+#: ../root/components/forms.tt:211 ../root/release/edit/information.tt:14
 msgid "Guess case"
 msgstr "大文字小文字を推測"
 
-#: ../root/components/forms.tt:222
+#: ../root/components/forms.tt:237
 msgctxt "button/menu"
 msgid "Guess case"
 msgstr "大文字小文字を推測"
 
-#: ../root/components/forms.tt:217
+#: ../root/components/forms.tt:232
 msgctxt "header"
 msgid "Guess case"
 msgstr "大文字小文字を推測"
@@ -3541,7 +3537,7 @@ msgstr "大文字小文字を推測"
 msgid "Guess case disc title"
 msgstr "ディスクタイトルの大文字小文字を推測"
 
-#: ../root/components/forms.tt:200 ../root/release/edit/information.tt:16
+#: ../root/components/forms.tt:215 ../root/release/edit/information.tt:16
 msgid "Guess case options"
 msgstr "大文字小文字の推測オプション"
 
@@ -3549,7 +3545,7 @@ msgstr "大文字小文字の推測オプション"
 msgid "Guess case track"
 msgstr "トラックの大文字小文字を推測"
 
-#: ../root/components/forms.tt:198 ../root/release/edit/information.tt:15
+#: ../root/components/forms.tt:213 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:201
 msgid "Guess feat. artists"
 msgstr "feat.がつくアーティストを推測"
@@ -3558,7 +3554,7 @@ msgstr "feat.がつくアーティストを推測"
 msgid "Guess feat. artists from track titles"
 msgstr "feat.がつくアーティストをトラックのタイトルから推測"
 
-#: ../root/components/forms.tt:209
+#: ../root/components/forms.tt:224
 msgid "Guess sort name"
 msgstr "ソート名を推測"
 
@@ -4023,7 +4019,7 @@ msgstr "ページを再読み込みしてみるのがいいかもしれません
 msgid "Javascript is required for this page to work properly."
 msgstr "このページを正しく動作させるにはJavascriptが必要です。"
 
-#: ../root/components/forms.tt:234 ../root/components/forms.tt:258
+#: ../root/components/forms.tt:249 ../root/components/forms.tt:273
 msgid "Keep all-uppercase words uppercased"
 msgstr "すべての大文字の単語を大文字のまま"
 
@@ -4827,7 +4823,7 @@ msgstr "名前"
 
 #: ../root/account/edit_application.tt:8
 #: ../root/account/register_application.tt:8 ../root/collection/edit_form.tt:5
-#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:194
+#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:209
 #: ../root/edit/details/add_area.tt:10 ../root/edit/details/add_artist.tt:10
 #: ../root/edit/details/add_event.tt:10
 #: ../root/edit/details/add_instrument.tt:10
@@ -6851,7 +6847,7 @@ msgstr "表記:"
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
 #: ../root/components/common-macros.tt:871
 #: ../root/components/relationship-editor.tt:65
-#: ../root/components/relationship-editor.tt:182
+#: ../root/components/relationship-editor.tt:183
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
 #: ../root/edit/search_macros.tt:229 ../root/edit/search_macros.tt:261
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
@@ -7084,7 +7080,7 @@ msgstr "自分のメールアドレスへも送信"
 msgid "Send me mails with edits to my subscriptions:"
 msgstr ""
 
-#: ../root/components/forms.tt:227 ../root/components/forms.tt:251
+#: ../root/components/forms.tt:242 ../root/components/forms.tt:266
 msgid "Sentence"
 msgstr ""
 
@@ -7491,7 +7487,7 @@ msgstr "ソート名"
 msgid "Sort name"
 msgstr "ソート名"
 
-#: ../root/artist/layout.tt:24 ../root/components/forms.tt:207
+#: ../root/artist/layout.tt:24 ../root/components/forms.tt:222
 #: ../root/edit/details/add_area.tt:16 ../root/edit/details/add_artist.tt:14
 #: ../root/edit/details/add_label.tt:16 ../root/edit/details/edit_area.tt:16
 #: ../root/edit/details/edit_artist.tt:16
@@ -8108,7 +8104,7 @@ msgid ""
 " a work, please {search_url|search for the work} and add it."
 msgstr "このISWCに関連した作品はありません。作品と関連付ける場合は、{search_url|作品を検索}して、追加してください。"
 
-#: ../root/entity/alias/edit_form.tt:32
+#: ../root/entity/alias/edit_form.tt:24
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -8123,7 +8119,7 @@ msgid ""
 "releases using it."
 msgstr "この地域には、アーティスト、レーベル、リリースがあるため、削除できません。"
 
-#: ../root/area/edit_form.tt:25
+#: ../root/area/edit_form.tt:18
 msgid "This area has ended."
 msgstr "この地域は消滅しました。"
 
@@ -8413,7 +8409,7 @@ msgstr "リリース、レコーディング、関係が存在するため、こ
 msgid "This label does not have any releases."
 msgstr "このレーベルはリリースがありません。"
 
-#: ../root/label/edit_form.tt:44
+#: ../root/label/edit_form.tt:37
 msgid "This label has ended."
 msgstr "このレーベルは解散しました。"
 
@@ -8459,7 +8455,7 @@ msgstr ""
 msgid "This page is {doc|transcluded} from {title}."
 msgstr ""
 
-#: ../root/place/edit_form.tt:40
+#: ../root/place/edit_form.tt:33
 msgid "This place has ended."
 msgstr ""
 
@@ -8499,7 +8495,7 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:146
+#: ../root/components/relationship-editor.tt:147
 msgid "This relationship has ended."
 msgstr "この関連は終了しました。"
 
@@ -9464,7 +9460,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
 
-#: ../root/components/forms.tt:229 ../root/components/forms.tt:253
+#: ../root/components/forms.tt:244 ../root/components/forms.tt:268
 msgid "Turkish"
 msgstr ""
 
@@ -9675,7 +9671,7 @@ msgstr ""
 msgid "Uploading image..."
 msgstr ""
 
-#: ../root/components/forms.tt:239 ../root/components/forms.tt:263
+#: ../root/components/forms.tt:254 ../root/components/forms.tt:278
 msgid "Uppercase roman numerals"
 msgstr "大文字のローマ数字"
 
@@ -10205,13 +10201,13 @@ msgstr "確認する"
 msgid "Yes, I'm sure"
 msgstr "確認"
 
-#: ../root/components/forms.tt:286
+#: ../root/components/forms.tt:301
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
 msgstr ""
 
-#: ../root/components/forms.tt:275
+#: ../root/components/forms.tt:290
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
@@ -10493,7 +10489,7 @@ msgstr ""
 msgid "You need to be logged in to view this page."
 msgstr "このページを見るため、ログインしてください。"
 
-#: ../root/components/forms.tt:300
+#: ../root/components/forms.tt:315
 msgid "You selected {area}."
 msgstr ""
 
@@ -10660,8 +10656,8 @@ msgstr ""
 msgid "cancelled"
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:185
-#: ../root/components/relationship-editor.tt:230
+#: ../root/components/relationship-editor.tt:186
+#: ../root/components/relationship-editor.tt:231
 msgid "credited as"
 msgstr ""
 
@@ -10686,7 +10682,7 @@ msgid "end date"
 msgstr ""
 
 #: ../root/components/common-macros.tt:708
-#: ../root/components/relationship-editor.tt:159
+#: ../root/components/relationship-editor.tt:160
 #: ../root/edit/details/macros.tt:38
 msgid "ended"
 msgstr "終了"
@@ -13198,7 +13194,7 @@ msgstr ""
 msgid "Entities in a relationship cannot be the same."
 msgstr "関係する二つのエンティティは異なっていなければなりません。"
 
-#: ../root/static/scripts/relationship-editor/common/fields.js:291
+#: ../root/static/scripts/relationship-editor/common/fields.js:296
 msgid "This attribute is required."
 msgstr "属性が必要です。"
 

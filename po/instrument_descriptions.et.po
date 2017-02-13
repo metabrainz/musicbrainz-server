@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-16 16:47+0000\n"
+"PO-Revision-Date: 2017-01-31 02:01+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -593,8 +593,8 @@ msgstr ""
 #. name:berda
 #: DB:instrument/description:828
 msgid ""
-"Bass member of the Balkan tamburica orchestra, it is contrabass like. it has"
-" four thick metal strings"
+"Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
+"like. it has four thick metal strings"
 msgstr ""
 
 #. name:bendir
@@ -3067,6 +3067,14 @@ msgstr ""
 msgid "Turkish pair of small, hemispherical drums"
 msgstr ""
 
+#. name:tanpura
+#: DB:instrument/description:829
+msgid ""
+"Usually accompanying sitar on ragas, the fretless instrument comes in "
+"different sizes: largest; male-voice, smaller; female-voice and smallest; "
+"the instrument-accompanying \"tanpuri\""
+msgstr ""
+
 #. name:valved brass instruments
 #: DB:instrument/description:201
 msgid ""
@@ -3152,6 +3160,14 @@ msgstr ""
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
 msgstr ""
 
+#. name:samica
+#: DB:instrument/description:830
+msgid ""
+"also known as dangubica or kuterevka, it is similar to the bisernica and the"
+" ancestor of the entire tamburica ensemble. this plucked long-necked lute "
+"has two double strings and is played solo."
+msgstr ""
+
 #. name:clavioline
 #: DB:instrument/description:815
 msgid ""
@@ -3208,8 +3224,8 @@ msgstr ""
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
-"chord rhythm member of the Balkan tamburica orchestra, it is guitar like. it"
-" has one double string D and three single strings"
+"chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
+"like. it has one double string D and three single strings"
 msgstr ""
 
 #. name:conch
@@ -3239,10 +3255,10 @@ msgstr ""
 #. name:čelo
 #: DB:instrument/description:827
 msgid ""
-"counterpoint member of the Balkan tamburica orchestra, it is guitar like the"
-" bugarija. it can either have two double strings and two single strings "
-"(čelović) or now four single strings are more common. (čelo/čelović/) the "
-"čelović is a different pitch than the čelo"
+"counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
+"like like the bugarija. it can either have two double strings and two single"
+" strings (čelović) or now four single strings are more common. "
+"(čelo/čelović/) the čelović is a different pitch than the čelo"
 msgstr ""
 
 #. name:ki pah
@@ -3258,9 +3274,9 @@ msgstr "klassikaline Põhja-India käsitrumm"
 #. name:tambura
 #: DB:instrument/description:391
 msgid ""
-"do not confuse with: serb-croat \"tamburica\" ensemble. persian/turkish "
-"ancient things evolved/came from \"tanbur\". unrelated indian drone "
-"\"tanpura\" related indian \"pandour\""
+"do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
+"\"tanpura\" related Indian \"pandour\""
 msgstr ""
 
 #. name:đing buốt
@@ -3309,6 +3325,13 @@ msgid ""
 "cousin."
 msgstr ""
 
+#. name:English horn
+#: DB:instrument/description:7
+msgid ""
+"neither a horn nor english, it is a transposing member of the oboe family, "
+"pitched at F"
+msgstr ""
+
 #. name:ondioline
 #: DB:instrument/description:814
 msgid ""
@@ -3325,9 +3348,9 @@ msgstr ""
 #. name:brač
 #: DB:instrument/description:825
 msgid ""
-"second smallest member of the Balkan tamburica orchestra, there are often "
-"two, first and second bass. it can either have three double strings or two "
-"double strings and three single strings"
+"second smallest member of the Serbo-Croatian tamburica orchestra, there are "
+"often two, first and second bass. it can either have three double strings or"
+" two double strings and three single strings"
 msgstr ""
 
 #. name:tabor
@@ -3375,9 +3398,10 @@ msgstr ""
 #. name:bisernica
 #: DB:instrument/description:824
 msgid ""
-"smallest member of the Balkan tamburica orchestra, it is usually the lead "
-"instrument. it can either have one double string and three single strings "
-"(prim/bisernica) or two double strings and two single strings (bisernica)"
+"smallest member of the Serbo-Croatian tamburica orchestra, it is usually the"
+" lead or \"prim\" instrument. it can either have one double string and three"
+" single strings (prim/bisernica) or two double strings and two single "
+"strings (bisernica)"
 msgstr ""
 
 #. name:tanbur

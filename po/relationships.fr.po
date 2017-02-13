@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-29 15:35+0000\n"
+"PO-Revision-Date: 2017-02-01 13:19+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1343,6 +1343,12 @@ msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
 msgstr "Ceci indique qu’un événement est formé de plusieurs parties (p. ex. un festival se déroulant dans plusieurs lieux durant quelques jours)."
+
+#: DB:link_type/description:916
+msgid ""
+"This indicates that an instrument is a hybrid of two or more other "
+"instruments."
+msgstr "Ceci indique qu’un instrument est un hybride de différents autres instruments."
 
 #: DB:link_type/description:2
 msgid ""
@@ -3525,6 +3531,10 @@ msgstr "a une illustration sur"
 msgid "has derived instrument"
 msgstr "a un instrument dérivé"
 
+#: DB:link_type/reverse_link_phrase:916
+msgid "has hybrids"
+msgstr "hybrides"
+
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr "a une marque"
@@ -3632,6 +3642,10 @@ msgstr "hôte à"
 msgid "hosts"
 msgstr "hôtes"
 
+#: DB:link_type/link_phrase:916
+msgid "hybrid of"
+msgstr "hybride de"
+
 #: DB:link_type/description:732
 msgid "image"
 msgstr "image"
@@ -3692,6 +3706,10 @@ msgstr "est un DJ-mix de"
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "est une compilation de"
+
+#: DB:link_type/long_link_phrase:916
+msgid "is a hybrid of"
+msgstr "est un hybride de"
 
 #: DB:link_type/long_link_phrase:17
 msgid "is a live performance of"

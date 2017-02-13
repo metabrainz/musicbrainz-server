@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-30 11:18+0000\n"
+"PO-Revision-Date: 2017-02-06 05:58+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,7 @@ msgid "EWI"
 msgstr "EWI instrument à vent électronique"
 
 #: DB:instrument/name:7
+msgctxt "also known as Cor anglais"
 msgid "English horn"
 msgstr "cor anglais"
 
@@ -532,7 +533,7 @@ msgid "bendir"
 msgstr "bendir"
 
 #: DB:instrument/name:828
-msgctxt "largest member of the serbo-croatian tamburica orchestra"
+msgctxt "begeš, large bass serbo-croatian plucked stringinstrument"
 msgid "berda"
 msgstr "berda"
 
@@ -554,7 +555,7 @@ msgid "birch lur"
 msgstr "lur en bouleau"
 
 #: DB:instrument/name:824
-msgctxt "small serbo-croatian plucked stringinstrument"
+msgctxt "prim, small serbo-croatian plucked stringinstrument"
 msgid "bisernica"
 msgstr "bisernica"
 
@@ -611,7 +612,7 @@ msgid "brass"
 msgstr "cuivres"
 
 #: DB:instrument/name:825
-msgctxt "serbo-croatian plucked stringinstrument"
+msgctxt "basprim, serbo-croatian plucked stringinstrument"
 msgid "brač"
 msgstr "brač"
 
@@ -625,7 +626,7 @@ msgid "brushes"
 msgstr "balais"
 
 #: DB:instrument/name:826
-msgctxt "serbo-croatian plucked stringinstrument"
+msgctxt "kontra, serbo-croatian plucked stringinstrument"
 msgid "bugarija"
 msgstr "bugarija"
 
@@ -2383,6 +2384,11 @@ msgstr "saduk"
 msgid "samba whistle"
 msgstr "apito de samba"
 
+#: DB:instrument/name:830
+msgctxt "solo serbo-croatian plucked lute"
+msgid "samica"
+msgstr "samica"
+
 #: DB:instrument/name:122
 msgid "sampler"
 msgstr "échantillonneur"
@@ -2748,13 +2754,9 @@ msgid "tambourine"
 msgstr "tambourin"
 
 #: DB:instrument/name:391
-msgctxt "macedonian/bulgarian long-necked lute"
+msgctxt "Macedonian/Bulgarian long-necked lute"
 msgid "tambura"
 msgstr "tambura"
-
-#: DB:instrument/name:392
-msgid "tamburitza"
-msgstr "tamburitza"
 
 #: DB:instrument/name:333
 msgid "tanbou ka"
@@ -2768,6 +2770,11 @@ msgstr "tanbur"
 #: DB:instrument/name:425
 msgid "tangent piano"
 msgstr "piano à tangentes"
+
+#: DB:instrument/name:829
+msgctxt "Indian drone long-necked lute"
+msgid "tanpura"
+msgstr "tanpura"
 
 #: DB:instrument/name:781
 msgctxt "Māori traditional instrument ensamble."
@@ -3294,7 +3301,7 @@ msgid "ütőgardon"
 msgstr "gardon"
 
 #: DB:instrument/name:827
-msgctxt "counter member of the serbo-croatian tamburica orchestra"
+msgctxt "čelović or csello, counter serbo-croatian plucked stringinstrument"
 msgid "čelo"
 msgstr "čelo"
 

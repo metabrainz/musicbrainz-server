@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-24 22:06+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2017-01-31 02:01+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -593,9 +593,9 @@ msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerder
 #. name:berda
 #: DB:instrument/description:828
 msgid ""
-"Bass member of the Balkan tamburica orchestra, it is contrabass like. it has"
-" four thick metal strings"
-msgstr "Een soort contrabas uit de Balkan met vier dikke metalen snaren. De berda maakt deel uit van het tamburica-orkest."
+"Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
+"like. it has four thick metal strings"
+msgstr ""
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -3067,6 +3067,14 @@ msgstr "Een Turkse doosvormige kemençhe die vooral gebruikt wordt voor volksmuz
 msgid "Turkish pair of small, hemispherical drums"
 msgstr "Kudüm zijn een paar kleine Turkse trommels in de vorm van een halve bol."
 
+#. name:tanpura
+#: DB:instrument/description:829
+msgid ""
+"Usually accompanying sitar on ragas, the fretless instrument comes in "
+"different sizes: largest; male-voice, smaller; female-voice and smallest; "
+"the instrument-accompanying \"tanpuri\""
+msgstr ""
+
 #. name:valved brass instruments
 #: DB:instrument/description:201
 msgid ""
@@ -3152,6 +3160,14 @@ msgstr "Een tràm plè is een variant op de Hmông-fluit. De lippen van de fluit
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
 msgstr "Een Scandinavische natuurhoorn van hout of berkenbast uit de (vroege) middeleeuwen."
 
+#. name:samica
+#: DB:instrument/description:830
+msgid ""
+"also known as dangubica or kuterevka, it is similar to the bisernica and the"
+" ancestor of the entire tamburica ensemble. this plucked long-necked lute "
+"has two double strings and is played solo."
+msgstr ""
+
 #. name:clavioline
 #: DB:instrument/description:815
 msgid ""
@@ -3208,9 +3224,9 @@ msgstr "Scandinavische natuurhoornen van brons die vaak in paren ritueel werden 
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
-"chord rhythm member of the Balkan tamburica orchestra, it is guitar like. it"
-" has one double string D and three single strings"
-msgstr "Het ritme-instrument van het Balkanese tamburica-orkest. De bugarija lijkt op een gitaar."
+"chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
+"like. it has one double string D and three single strings"
+msgstr ""
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3239,11 +3255,11 @@ msgstr "Het telharmonium wordt als het eerste elektromechanische muziekinstrumen
 #. name:čelo
 #: DB:instrument/description:827
 msgid ""
-"counterpoint member of the Balkan tamburica orchestra, it is guitar like the"
-" bugarija. it can either have two double strings and two single strings "
-"(čelović) or now four single strings are more common. (čelo/čelović/) the "
-"čelović is a different pitch than the čelo"
-msgstr "Het contrapunt-instrument van het Balkanese tamburica-orkst."
+"counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
+"like like the bugarija. it can either have two double strings and two single"
+" strings (čelović) or now four single strings are more common. "
+"(čelo/čelović/) the čelović is a different pitch than the čelo"
+msgstr ""
 
 #. name:ki pah
 #: DB:instrument/description:307
@@ -3258,10 +3274,10 @@ msgstr "De dholak (Punjabi: ਢੋਲਕ, Hindi: ढोलक) is een Zuid-Aziat
 #. name:tambura
 #: DB:instrument/description:391
 msgid ""
-"do not confuse with: serb-croat \"tamburica\" ensemble. persian/turkish "
-"ancient things evolved/came from \"tanbur\". unrelated indian drone "
-"\"tanpura\" related indian \"pandour\""
-msgstr "Een luit met een lange hals uit Macedonië en Bulgarije. Niet verwarren met het Joegoslavische tamburica-orkest, verschillende antieke Perzische en Turkse instrumenten die van de tanbur zijn afgeleid en de Indiase tanpura en pandour."
+"do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
+"\"tanpura\" related Indian \"pandour\""
+msgstr ""
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -3309,6 +3325,13 @@ msgid ""
 "cousin."
 msgstr "Een combinatie van chirimía en trommel die door één speler bespeeld wordt."
 
+#. name:English horn
+#: DB:instrument/description:7
+msgid ""
+"neither a horn nor english, it is a transposing member of the oboe family, "
+"pitched at F"
+msgstr ""
+
 #. name:ondioline
 #: DB:instrument/description:814
 msgid ""
@@ -3325,10 +3348,10 @@ msgstr "Fluit van de Muong uit Vietnam"
 #. name:brač
 #: DB:instrument/description:825
 msgid ""
-"second smallest member of the Balkan tamburica orchestra, there are often "
-"two, first and second bass. it can either have three double strings or two "
-"double strings and three single strings"
-msgstr "Het een na kleinste lid van het Balkanese tamburica-orkest."
+"second smallest member of the Serbo-Croatian tamburica orchestra, there are "
+"often two, first and second bass. it can either have three double strings or"
+" two double strings and three single strings"
+msgstr ""
 
 #. name:tabor
 #: DB:instrument/description:806
@@ -3375,10 +3398,11 @@ msgstr ""
 #. name:bisernica
 #: DB:instrument/description:824
 msgid ""
-"smallest member of the Balkan tamburica orchestra, it is usually the lead "
-"instrument. it can either have one double string and three single strings "
-"(prim/bisernica) or two double strings and two single strings (bisernica)"
-msgstr "Het kleinste lid van het Balkanese tamburica-orkest."
+"smallest member of the Serbo-Croatian tamburica orchestra, it is usually the"
+" lead or \"prim\" instrument. it can either have one double string and three"
+" single strings (prim/bisernica) or two double strings and two single "
+"strings (bisernica)"
+msgstr ""
 
 #. name:tanbur
 #: DB:instrument/description:477
