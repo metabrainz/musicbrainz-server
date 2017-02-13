@@ -3113,6 +3113,7 @@ msgid "violins"
 msgstr ""
 
 #: DB:instrument/name:693
+msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
 msgstr ""
 

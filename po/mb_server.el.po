@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 17:44+0100\n"
+"POT-Creation-Date: 2017-01-30 19:39-0600\n"
 "PO-Revision-Date: 2017-01-16 16:46+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
@@ -40,31 +40,31 @@ msgid ""
 "it} first and then reset your password. "
 msgstr "Πληκτρολογήστε το όνομα χρήστη και το email σας παρακάτω. Θα σας στείλουμε ένα email με ένα σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας. Αν έχετε ξεχάσει το όνομα χρήστη {link|ανακτήσετέ το} πρώτα και μετά επαναφέρετε τον κωδικό σας."
 
-#: ../root/components/forms.tt:279
+#: ../root/components/forms.tt:294
 msgid "\"C\" is a single check digit."
 msgstr "\"C\" είναι ένα ψηφίου απλού ελέγχου."
 
-#: ../root/components/forms.tt:289
+#: ../root/components/forms.tt:304
 msgid "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr ""
 
-#: ../root/components/forms.tt:278
+#: ../root/components/forms.tt:293
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr "\"DDD\" είναι το εννιαψήφιο αναγνωριστικό ενός έργου."
 
-#: ../root/components/forms.tt:292
+#: ../root/components/forms.tt:307
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr "\"NNNNN\" είναι ένας μοναδικός 5-ψήφιος αριθμός που ταυτοποιεί την συγκεκριμένη ηχογράφηση."
 
-#: ../root/components/forms.tt:290
+#: ../root/components/forms.tt:305
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
 
-#: ../root/components/forms.tt:291
+#: ../root/components/forms.tt:306
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του έτους εγγραφής."
 
@@ -388,7 +388,7 @@ msgid ""
 "MusicBrainz release"
 msgstr ""
 
-#: ../root/place/map.tt:5
+#: ../root/place/map.tt:6
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr ""
 
@@ -709,7 +709,7 @@ msgstr "Προσθήκη μιας σημείωσης επεξεργασίας"
 msgid "Add annotation"
 msgstr "Προσθήκη σχολίου"
 
-#: ../root/components/relationship-editor.tt:193
+#: ../root/components/relationship-editor.tt:194
 #: ../root/static/scripts/common/i18n.js:202
 msgid "Add another instrument"
 msgstr ""
@@ -1735,15 +1735,14 @@ msgstr ""
 msgid "Begin date"
 msgstr ""
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
-#: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:877
+#: ../root/area/layout.tt:19 ../root/artist/edit_form.tt:40
+#: ../root/components/common-macros.tt:877 ../root/components/forms.tt:191
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
 #: ../root/edit/details/add_label.tt:30 ../root/edit/details/add_place.tt:51
 #: ../root/edit/details/edit_area.tt:42 ../root/edit/details/edit_event.tt:27
 #: ../root/edit/details/edit_label.tt:33 ../root/edit/details/edit_place.tt:36
-#: ../root/entity/alias/edit_form.tt:30 ../root/event/edit_form.tt:34
-#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
+#: ../root/event/edit_form.tt:34
 msgid "Begin date:"
 msgstr "Ημερομηνία έναρξης:"
 
@@ -2037,11 +2036,11 @@ msgstr "Επιλέξτε έναν ή περισσότερους τύπου εξ�
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Κάντε κλικ στο Επεξεργασία για να επεξεργαστείτε του συσχετισμούς ηχογράφησης για αυτό το δίσκο."
 
-#: ../root/components/relationship-editor.tt:205
+#: ../root/components/relationship-editor.tt:206
 msgid "Click here to choose a vocal"
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:204
+#: ../root/components/relationship-editor.tt:205
 msgid "Click here to choose an instrument"
 msgstr ""
 
@@ -2182,7 +2181,7 @@ msgstr ""
 msgid "Copy all track titles to associated recordings."
 msgstr ""
 
-#: ../root/components/forms.tt:210
+#: ../root/components/forms.tt:225
 msgid "Copy name"
 msgstr ""
 
@@ -2332,9 +2331,8 @@ msgstr ""
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: ../root/area/edit_form.tt:19 ../root/artist/edit_form.tt:36
-#: ../root/entity/alias/edit_form.tt:25 ../root/event/edit_form.tt:30
-#: ../root/label/edit_form.tt:38 ../root/place/edit_form.tt:34
+#: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:187
+#: ../root/event/edit_form.tt:30
 msgid "Date Period"
 msgstr "Χρονική περίοδος"
 
@@ -2347,9 +2345,8 @@ msgstr "Μορφή ημερομηνίας/ώρας:"
 msgid "Date:"
 msgstr "Ημερομηνία:"
 
-#: ../root/area/edit_form.tt:21 ../root/artist/edit_form.tt:38
-#: ../root/entity/alias/edit_form.tt:27 ../root/event/edit_form.tt:32
-#: ../root/label/edit_form.tt:40 ../root/place/edit_form.tt:36
+#: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:189
+#: ../root/event/edit_form.tt:32
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -2957,16 +2954,15 @@ msgstr ""
 msgid "End date"
 msgstr "Ημερομηνία λήξης"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
-#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
-#: ../root/components/common-macros.tt:885
+#: ../root/area/layout.tt:27 ../root/area/layout.tt:34
+#: ../root/artist/edit_form.tt:52 ../root/components/common-macros.tt:885
+#: ../root/components/forms.tt:192
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
 #: ../root/edit/details/add_label.tt:37 ../root/edit/details/add_place.tt:58
 #: ../root/edit/details/edit_area.tt:47 ../root/edit/details/edit_event.tt:32
 #: ../root/edit/details/edit_label.tt:38 ../root/edit/details/edit_place.tt:41
-#: ../root/entity/alias/edit_form.tt:31 ../root/event/edit_form.tt:35
-#: ../root/label/edit_form.tt:43 ../root/place/edit_form.tt:39
+#: ../root/event/edit_form.tt:35
 msgid "End date:"
 msgstr "Ημερομηνία λήξης:"
 
@@ -2991,7 +2987,7 @@ msgstr "Έληξε:"
 msgid "Endpoint:"
 msgstr ""
 
-#: ../root/components/forms.tt:226 ../root/components/forms.tt:250
+#: ../root/components/forms.tt:241 ../root/components/forms.tt:265
 msgid "English"
 msgstr ""
 
@@ -2999,7 +2995,7 @@ msgstr ""
 msgid "Enter a tracklist below:"
 msgstr "Εισάγετε τη λίστα κομματιών παρακάτω:"
 
-#: ../root/place/edit_form.tt:59
+#: ../root/place/edit_form.tt:51
 msgid ""
 "Enter coordinates manually or drag the marker to get coordinates from the "
 "map."
@@ -3187,9 +3183,9 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/area/edit_form.tt:31 ../root/artist/edit_form.tt:70
+#: ../root/area/edit_form.tt:23 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:42 ../root/instrument/edit_form.tt:23
-#: ../root/label/edit_form.tt:50 ../root/place/edit_form.tt:46
+#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
 #: ../root/recording/edit_form.tt:38 ../root/release/edit/information.tt:259
 #: ../root/release_group/edit_form.tt:24 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:91
@@ -3412,7 +3408,7 @@ msgstr "FreeDB ID:"
 msgid "FreeDB:"
 msgstr "FreeDB:"
 
-#: ../root/components/forms.tt:228 ../root/components/forms.tt:252
+#: ../root/components/forms.tt:243 ../root/components/forms.tt:267
 msgid "French"
 msgstr ""
 
@@ -3535,16 +3531,16 @@ msgstr "Γενικές πληροφορίες"
 msgid "Generated on {date}"
 msgstr "Δημιουργήθηκε στις {date}"
 
-#: ../root/components/forms.tt:196 ../root/release/edit/information.tt:14
+#: ../root/components/forms.tt:211 ../root/release/edit/information.tt:14
 msgid "Guess case"
 msgstr ""
 
-#: ../root/components/forms.tt:222
+#: ../root/components/forms.tt:237
 msgctxt "button/menu"
 msgid "Guess case"
 msgstr ""
 
-#: ../root/components/forms.tt:217
+#: ../root/components/forms.tt:232
 msgctxt "header"
 msgid "Guess case"
 msgstr ""
@@ -3553,7 +3549,7 @@ msgstr ""
 msgid "Guess case disc title"
 msgstr ""
 
-#: ../root/components/forms.tt:200 ../root/release/edit/information.tt:16
+#: ../root/components/forms.tt:215 ../root/release/edit/information.tt:16
 msgid "Guess case options"
 msgstr ""
 
@@ -3561,7 +3557,7 @@ msgstr ""
 msgid "Guess case track"
 msgstr ""
 
-#: ../root/components/forms.tt:198 ../root/release/edit/information.tt:15
+#: ../root/components/forms.tt:213 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:201
 msgid "Guess feat. artists"
 msgstr ""
@@ -3570,7 +3566,7 @@ msgstr ""
 msgid "Guess feat. artists from track titles"
 msgstr ""
 
-#: ../root/components/forms.tt:209
+#: ../root/components/forms.tt:224
 msgid "Guess sort name"
 msgstr ""
 
@@ -4035,7 +4031,7 @@ msgstr ""
 msgid "Javascript is required for this page to work properly."
 msgstr ""
 
-#: ../root/components/forms.tt:234 ../root/components/forms.tt:258
+#: ../root/components/forms.tt:249 ../root/components/forms.tt:273
 msgid "Keep all-uppercase words uppercased"
 msgstr ""
 
@@ -4839,7 +4835,7 @@ msgstr "Όνομα"
 
 #: ../root/account/edit_application.tt:8
 #: ../root/account/register_application.tt:8 ../root/collection/edit_form.tt:5
-#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:194
+#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:209
 #: ../root/edit/details/add_area.tt:10 ../root/edit/details/add_artist.tt:10
 #: ../root/edit/details/add_event.tt:10
 #: ../root/edit/details/add_instrument.tt:10
@@ -6864,7 +6860,7 @@ msgstr "Γραφή:"
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
 #: ../root/components/common-macros.tt:871
 #: ../root/components/relationship-editor.tt:65
-#: ../root/components/relationship-editor.tt:182
+#: ../root/components/relationship-editor.tt:183
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
 #: ../root/edit/search_macros.tt:229 ../root/edit/search_macros.tt:261
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
@@ -7108,7 +7104,7 @@ msgstr "Στείλε ένα αντίγραφο και στη δική μου δ�
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "Να μου στέλνετε μηνύματα με τις τροποποιήσεις στα στοιχεία που παρακολουθώ:"
 
-#: ../root/components/forms.tt:227 ../root/components/forms.tt:251
+#: ../root/components/forms.tt:242 ../root/components/forms.tt:266
 msgid "Sentence"
 msgstr ""
 
@@ -7515,7 +7511,7 @@ msgstr "Όνομα ταξινόμησης"
 msgid "Sort name"
 msgstr "Όνομα ταξινόμησης"
 
-#: ../root/artist/layout.tt:24 ../root/components/forms.tt:207
+#: ../root/artist/layout.tt:24 ../root/components/forms.tt:222
 #: ../root/edit/details/add_area.tt:16 ../root/edit/details/add_artist.tt:14
 #: ../root/edit/details/add_label.tt:16 ../root/edit/details/edit_area.tt:16
 #: ../root/edit/details/edit_artist.tt:16
@@ -8139,7 +8135,7 @@ msgid ""
 " a work, please {search_url|search for the work} and add it."
 msgstr "Αυτό το ISWC δε σχετίζεται με κανένα έργο. Αν επιθυμείτε να το σχετίσετε με ένα έργο, παρακαλούμε {search_url|αναζητήστε το έργο} και προσθέστε το."
 
-#: ../root/entity/alias/edit_form.tt:32
+#: ../root/entity/alias/edit_form.tt:24
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -8154,7 +8150,7 @@ msgid ""
 "releases using it."
 msgstr ""
 
-#: ../root/area/edit_form.tt:25
+#: ../root/area/edit_form.tt:18
 msgid "This area has ended."
 msgstr ""
 
@@ -8445,7 +8441,7 @@ msgstr "Αυτή η δισκογραφική εταιρεία δεν μπορε�
 msgid "This label does not have any releases."
 msgstr "Αυτή η δισκογραφική εταιρεία δεν έχει κυκλοφορίες."
 
-#: ../root/label/edit_form.tt:44
+#: ../root/label/edit_form.tt:37
 msgid "This label has ended."
 msgstr "Αυτή η δισκογραφική εταιρεία έχει λήξει."
 
@@ -8491,7 +8487,7 @@ msgstr ""
 msgid "This page is {doc|transcluded} from {title}."
 msgstr ""
 
-#: ../root/place/edit_form.tt:40
+#: ../root/place/edit_form.tt:33
 msgid "This place has ended."
 msgstr ""
 
@@ -8531,7 +8527,7 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:146
+#: ../root/components/relationship-editor.tt:147
 msgid "This relationship has ended."
 msgstr "Αυτή η σχέση έληξε."
 
@@ -9496,7 +9492,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Μεταφρασμένες/Μεταγλωττισμένες Ψευδο-κυκλοφορίες που δεν έχουν συνδεθεί με την πρωτότυπη έκδοση"
 
-#: ../root/components/forms.tt:229 ../root/components/forms.tt:253
+#: ../root/components/forms.tt:244 ../root/components/forms.tt:268
 msgid "Turkish"
 msgstr ""
 
@@ -9707,7 +9703,7 @@ msgstr ""
 msgid "Uploading image..."
 msgstr ""
 
-#: ../root/components/forms.tt:239 ../root/components/forms.tt:263
+#: ../root/components/forms.tt:254 ../root/components/forms.tt:278
 msgid "Uppercase roman numerals"
 msgstr ""
 
@@ -10237,13 +10233,13 @@ msgstr "Ναι, είμαι σίγουρος"
 msgid "Yes, I'm sure"
 msgstr "Ναι, είμαι σίγουρος"
 
-#: ../root/components/forms.tt:286
+#: ../root/components/forms.tt:301
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
 msgstr ""
 
-#: ../root/components/forms.tt:275
+#: ../root/components/forms.tt:290
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
@@ -10526,7 +10522,7 @@ msgstr ""
 msgid "You need to be logged in to view this page."
 msgstr "Πρέπει να είστε συνδεδεμένοι για να δείτε αυτή τη σελίδα."
 
-#: ../root/components/forms.tt:300
+#: ../root/components/forms.tt:315
 msgid "You selected {area}."
 msgstr ""
 
@@ -10693,8 +10689,8 @@ msgstr "από {artist}"
 msgid "cancelled"
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:185
-#: ../root/components/relationship-editor.tt:230
+#: ../root/components/relationship-editor.tt:186
+#: ../root/components/relationship-editor.tt:231
 msgid "credited as"
 msgstr ""
 
@@ -10719,7 +10715,7 @@ msgid "end date"
 msgstr ""
 
 #: ../root/components/common-macros.tt:708
-#: ../root/components/relationship-editor.tt:159
+#: ../root/components/relationship-editor.tt:160
 #: ../root/edit/details/macros.tt:38
 msgid "ended"
 msgstr "έληξε"
@@ -13265,7 +13261,7 @@ msgstr "Παρακαλούμε επιλέξτε έναν επιμέρους τύ
 msgid "Entities in a relationship cannot be the same."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/fields.js:291
+#: ../root/static/scripts/relationship-editor/common/fields.js:296
 msgid "This attribute is required."
 msgstr "Αυτό το γνώρισμα απαιτείται."
 

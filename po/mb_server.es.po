@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 17:44+0100\n"
+"POT-Creation-Date: 2017-01-30 19:39-0600\n"
 "PO-Revision-Date: 2017-01-16 16:46+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
@@ -51,31 +51,31 @@ msgid ""
 "it} first and then reset your password. "
 msgstr " Introduce tu nombre de usuario y tu dirección de correo electrónico debajo. Te mandaremos un correo con un enlace para restablecer tu contraseña. Si has olvidado tu nombre de usuario, {link|recupéralo} primero y restablece tu contraseña después. "
 
-#: ../root/components/forms.tt:279
+#: ../root/components/forms.tt:294
 msgid "\"C\" is a single check digit."
 msgstr "\"C\" es un dígito de control"
 
-#: ../root/components/forms.tt:289
+#: ../root/components/forms.tt:304
 msgid "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr "\"CC\" es el código de país de dos caracteres que corresponde al registrador."
 
-#: ../root/components/forms.tt:278
+#: ../root/components/forms.tt:293
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr "\"DDD\" es un identificador de trabajo de nueve dígitos."
 
-#: ../root/components/forms.tt:292
+#: ../root/components/forms.tt:307
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr "\"NNNNN\" es un número de 5 dígitos que identifica una grabación sonora específica."
 
-#: ../root/components/forms.tt:290
+#: ../root/components/forms.tt:305
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr "\"XXX\" es un código alfanumérico de registrador de tres caracteres, que identifica a la organización que registró el código."
 
-#: ../root/components/forms.tt:291
+#: ../root/components/forms.tt:306
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "\"YY\" son los últimos dos dígitos del año de registro."
 
@@ -399,7 +399,7 @@ msgid ""
 "MusicBrainz release"
 msgstr "Hemos encontrado un esbozo de CD que coincide con la ID de disco que has suministrado. Si la lista de pistas parece correcta, puedes usarla como base para una nueva publicación de MusicBrainz"
 
-#: ../root/place/map.tt:5
+#: ../root/place/map.tt:6
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr "Un mapa no puede ser mostrado porque este lugar no tiene coordenadas."
 
@@ -720,7 +720,7 @@ msgstr "Añadir una nota"
 msgid "Add annotation"
 msgstr "Añadir anotación"
 
-#: ../root/components/relationship-editor.tt:193
+#: ../root/components/relationship-editor.tt:194
 #: ../root/static/scripts/common/i18n.js:202
 msgid "Add another instrument"
 msgstr "Agregar otro instrumento"
@@ -1746,15 +1746,14 @@ msgstr ""
 msgid "Begin date"
 msgstr ""
 
-#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:19
-#: ../root/artist/edit_form.tt:40 ../root/components/common-macros.tt:877
+#: ../root/area/layout.tt:19 ../root/artist/edit_form.tt:40
+#: ../root/components/common-macros.tt:877 ../root/components/forms.tt:191
 #: ../root/components/relationship-editor.tt:130
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
 #: ../root/edit/details/add_label.tt:30 ../root/edit/details/add_place.tt:51
 #: ../root/edit/details/edit_area.tt:42 ../root/edit/details/edit_event.tt:27
 #: ../root/edit/details/edit_label.tt:33 ../root/edit/details/edit_place.tt:36
-#: ../root/entity/alias/edit_form.tt:30 ../root/event/edit_form.tt:34
-#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
+#: ../root/event/edit_form.tt:34
 msgid "Begin date:"
 msgstr "Fecha de inicio:"
 
@@ -2048,11 +2047,11 @@ msgstr "Elige uno o más tipos para esta imagen"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Haz clic en Editar para cambiar las grabaciones a las que está asociado este disco."
 
-#: ../root/components/relationship-editor.tt:205
+#: ../root/components/relationship-editor.tt:206
 msgid "Click here to choose a vocal"
 msgstr "Haz clic aquí para elegir un tipo de voz"
 
-#: ../root/components/relationship-editor.tt:204
+#: ../root/components/relationship-editor.tt:205
 msgid "Click here to choose an instrument"
 msgstr "Haz clic aquí para elegir un instrumento"
 
@@ -2193,7 +2192,7 @@ msgstr ""
 msgid "Copy all track titles to associated recordings."
 msgstr ""
 
-#: ../root/components/forms.tt:210
+#: ../root/components/forms.tt:225
 msgid "Copy name"
 msgstr ""
 
@@ -2343,9 +2342,8 @@ msgstr ""
 msgid "Date"
 msgstr "Fecha"
 
-#: ../root/area/edit_form.tt:19 ../root/artist/edit_form.tt:36
-#: ../root/entity/alias/edit_form.tt:25 ../root/event/edit_form.tt:30
-#: ../root/label/edit_form.tt:38 ../root/place/edit_form.tt:34
+#: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:187
+#: ../root/event/edit_form.tt:30
 msgid "Date Period"
 msgstr "Período de tiempo"
 
@@ -2358,9 +2356,8 @@ msgstr "Formato de fecha y hora"
 msgid "Date:"
 msgstr "Fecha:"
 
-#: ../root/area/edit_form.tt:21 ../root/artist/edit_form.tt:38
-#: ../root/entity/alias/edit_form.tt:27 ../root/event/edit_form.tt:32
-#: ../root/label/edit_form.tt:40 ../root/place/edit_form.tt:36
+#: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:189
+#: ../root/event/edit_form.tt:32
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -2968,16 +2965,15 @@ msgstr ""
 msgid "End date"
 msgstr "Fecha de fin"
 
-#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:27
-#: ../root/area/layout.tt:34 ../root/artist/edit_form.tt:52
-#: ../root/components/common-macros.tt:885
+#: ../root/area/layout.tt:27 ../root/area/layout.tt:34
+#: ../root/artist/edit_form.tt:52 ../root/components/common-macros.tt:885
+#: ../root/components/forms.tt:192
 #: ../root/components/relationship-editor.tt:134
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
 #: ../root/edit/details/add_label.tt:37 ../root/edit/details/add_place.tt:58
 #: ../root/edit/details/edit_area.tt:47 ../root/edit/details/edit_event.tt:32
 #: ../root/edit/details/edit_label.tt:38 ../root/edit/details/edit_place.tt:41
-#: ../root/entity/alias/edit_form.tt:31 ../root/event/edit_form.tt:35
-#: ../root/label/edit_form.tt:43 ../root/place/edit_form.tt:39
+#: ../root/event/edit_form.tt:35
 msgid "End date:"
 msgstr "Fecha de fin:"
 
@@ -3002,7 +2998,7 @@ msgstr "Fin:"
 msgid "Endpoint:"
 msgstr ""
 
-#: ../root/components/forms.tt:226 ../root/components/forms.tt:250
+#: ../root/components/forms.tt:241 ../root/components/forms.tt:265
 msgid "English"
 msgstr ""
 
@@ -3010,7 +3006,7 @@ msgstr ""
 msgid "Enter a tracklist below:"
 msgstr "Introduce lista de pistas:"
 
-#: ../root/place/edit_form.tt:59
+#: ../root/place/edit_form.tt:51
 msgid ""
 "Enter coordinates manually or drag the marker to get coordinates from the "
 "map."
@@ -3198,9 +3194,9 @@ msgid_plural ""
 msgstr[0] "Expira en <span class=\"tooltip\" title=\"{exactdate}\">{num} minuto</span>"
 msgstr[1] "Expira en <span class=\"tooltip\" title=\"{exactdate}\">{num} minutos</span>"
 
-#: ../root/area/edit_form.tt:31 ../root/artist/edit_form.tt:70
+#: ../root/area/edit_form.tt:23 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:42 ../root/instrument/edit_form.tt:23
-#: ../root/label/edit_form.tt:50 ../root/place/edit_form.tt:46
+#: ../root/label/edit_form.tt:42 ../root/place/edit_form.tt:38
 #: ../root/recording/edit_form.tt:38 ../root/release/edit/information.tt:259
 #: ../root/release_group/edit_form.tt:24 ../root/series/edit_form.tt:23
 #: ../root/work/edit_form.tt:91
@@ -3423,7 +3419,7 @@ msgstr "ID de FreeDB:"
 msgid "FreeDB:"
 msgstr "FreeDB:"
 
-#: ../root/components/forms.tt:228 ../root/components/forms.tt:252
+#: ../root/components/forms.tt:243 ../root/components/forms.tt:267
 msgid "French"
 msgstr ""
 
@@ -3546,16 +3542,16 @@ msgstr "Información general:"
 msgid "Generated on {date}"
 msgstr "Generado el {date}"
 
-#: ../root/components/forms.tt:196 ../root/release/edit/information.tt:14
+#: ../root/components/forms.tt:211 ../root/release/edit/information.tt:14
 msgid "Guess case"
 msgstr ""
 
-#: ../root/components/forms.tt:222
+#: ../root/components/forms.tt:237
 msgctxt "button/menu"
 msgid "Guess case"
 msgstr "Retocar títulos"
 
-#: ../root/components/forms.tt:217
+#: ../root/components/forms.tt:232
 msgctxt "header"
 msgid "Guess case"
 msgstr "Retocar títulos"
@@ -3564,7 +3560,7 @@ msgstr "Retocar títulos"
 msgid "Guess case disc title"
 msgstr "Retocar título de disco"
 
-#: ../root/components/forms.tt:200 ../root/release/edit/information.tt:16
+#: ../root/components/forms.tt:215 ../root/release/edit/information.tt:16
 msgid "Guess case options"
 msgstr ""
 
@@ -3572,7 +3568,7 @@ msgstr ""
 msgid "Guess case track"
 msgstr "Retocar título de pista"
 
-#: ../root/components/forms.tt:198 ../root/release/edit/information.tt:15
+#: ../root/components/forms.tt:213 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:201
 msgid "Guess feat. artists"
 msgstr ""
@@ -3581,7 +3577,7 @@ msgstr ""
 msgid "Guess feat. artists from track titles"
 msgstr ""
 
-#: ../root/components/forms.tt:209
+#: ../root/components/forms.tt:224
 msgid "Guess sort name"
 msgstr ""
 
@@ -4046,7 +4042,7 @@ msgstr ""
 msgid "Javascript is required for this page to work properly."
 msgstr ""
 
-#: ../root/components/forms.tt:234 ../root/components/forms.tt:258
+#: ../root/components/forms.tt:249 ../root/components/forms.tt:273
 msgid "Keep all-uppercase words uppercased"
 msgstr ""
 
@@ -4850,7 +4846,7 @@ msgstr "Nombre"
 
 #: ../root/account/edit_application.tt:8
 #: ../root/account/register_application.tt:8 ../root/collection/edit_form.tt:5
-#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:194
+#: ../root/components/filter-form.tt:16 ../root/components/forms.tt:209
 #: ../root/edit/details/add_area.tt:10 ../root/edit/details/add_artist.tt:10
 #: ../root/edit/details/add_event.tt:10
 #: ../root/edit/details/add_instrument.tt:10
@@ -6875,7 +6871,7 @@ msgstr "Alfabeto:"
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
 #: ../root/components/common-macros.tt:871
 #: ../root/components/relationship-editor.tt:65
-#: ../root/components/relationship-editor.tt:182
+#: ../root/components/relationship-editor.tt:183
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
 #: ../root/edit/search_macros.tt:229 ../root/edit/search_macros.tt:261
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
@@ -7119,7 +7115,7 @@ msgstr "Enviar una copia a mi propia dirección de correo"
 msgid "Send me mails with edits to my subscriptions:"
 msgstr "Enviadme correos con las ediciones a mis suscripciones:"
 
-#: ../root/components/forms.tt:227 ../root/components/forms.tt:251
+#: ../root/components/forms.tt:242 ../root/components/forms.tt:266
 msgid "Sentence"
 msgstr ""
 
@@ -7526,7 +7522,7 @@ msgstr "Nombre de ordenación"
 msgid "Sort name"
 msgstr "Nombre de ordenación"
 
-#: ../root/artist/layout.tt:24 ../root/components/forms.tt:207
+#: ../root/artist/layout.tt:24 ../root/components/forms.tt:222
 #: ../root/edit/details/add_area.tt:16 ../root/edit/details/add_artist.tt:14
 #: ../root/edit/details/add_label.tt:16 ../root/edit/details/edit_area.tt:16
 #: ../root/edit/details/edit_artist.tt:16
@@ -8150,7 +8146,7 @@ msgid ""
 " a work, please {search_url|search for the work} and add it."
 msgstr "Este ISWC no está asociado con ninguna obra. Si quieres asociarlo a una obra, {search_url|busca la obra} y añádelo."
 
-#: ../root/entity/alias/edit_form.tt:32
+#: ../root/entity/alias/edit_form.tt:24
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -8165,7 +8161,7 @@ msgid ""
 "releases using it."
 msgstr ""
 
-#: ../root/area/edit_form.tt:25
+#: ../root/area/edit_form.tt:18
 msgid "This area has ended."
 msgstr ""
 
@@ -8456,7 +8452,7 @@ msgstr "Esta discográfica no puede ser eliminada porque aún hay publicaciones,
 msgid "This label does not have any releases."
 msgstr "Esta discográfica no tiene publicaciones."
 
-#: ../root/label/edit_form.tt:44
+#: ../root/label/edit_form.tt:37
 msgid "This label has ended."
 msgstr "Esta discográfica ha cerrado."
 
@@ -8502,7 +8498,7 @@ msgstr "Página {doc|transcluída} desde la revisión {version} de {title}."
 msgid "This page is {doc|transcluded} from {title}."
 msgstr "Página {doc|transcluída} desde {title}."
 
-#: ../root/place/edit_form.tt:40
+#: ../root/place/edit_form.tt:33
 msgid "This place has ended."
 msgstr ""
 
@@ -8542,7 +8538,7 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:146
+#: ../root/components/relationship-editor.tt:147
 msgid "This relationship has ended."
 msgstr "Esta relación ha finalizado."
 
@@ -9507,7 +9503,7 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Pseudo-lanzamientos traducidos/transliterados no enlazados con una versión original"
 
-#: ../root/components/forms.tt:229 ../root/components/forms.tt:253
+#: ../root/components/forms.tt:244 ../root/components/forms.tt:268
 msgid "Turkish"
 msgstr ""
 
@@ -9718,7 +9714,7 @@ msgstr ""
 msgid "Uploading image..."
 msgstr ""
 
-#: ../root/components/forms.tt:239 ../root/components/forms.tt:263
+#: ../root/components/forms.tt:254 ../root/components/forms.tt:278
 msgid "Uppercase roman numerals"
 msgstr "Poner en mayúsculas los números romanos"
 
@@ -10248,13 +10244,13 @@ msgstr "Sí, seguro."
 msgid "Yes, I'm sure"
 msgstr "Sí, seguro"
 
-#: ../root/components/forms.tt:286
+#: ../root/components/forms.tt:301
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
 msgstr ""
 
-#: ../root/components/forms.tt:275
+#: ../root/components/forms.tt:290
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
@@ -10537,7 +10533,7 @@ msgstr "Debes estar seguro de que esta ID de disco fue asociada a esta publicaci
 msgid "You need to be logged in to view this page."
 msgstr "Debes estar conectado para ver esta página."
 
-#: ../root/components/forms.tt:300
+#: ../root/components/forms.tt:315
 msgid "You selected {area}."
 msgstr ""
 
@@ -10704,8 +10700,8 @@ msgstr "de {artist}"
 msgid "cancelled"
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:185
-#: ../root/components/relationship-editor.tt:230
+#: ../root/components/relationship-editor.tt:186
+#: ../root/components/relationship-editor.tt:231
 msgid "credited as"
 msgstr ""
 
@@ -10730,7 +10726,7 @@ msgid "end date"
 msgstr ""
 
 #: ../root/components/common-macros.tt:708
-#: ../root/components/relationship-editor.tt:159
+#: ../root/components/relationship-editor.tt:160
 #: ../root/edit/details/macros.tt:38
 msgid "ended"
 msgstr "finalizada"
@@ -13276,7 +13272,7 @@ msgstr "Selecciona un subtipo del tipo seleccionado. Este tipo de relación solo
 msgid "Entities in a relationship cannot be the same."
 msgstr "Las entidades en una relación deben ser distintas."
 
-#: ../root/static/scripts/relationship-editor/common/fields.js:291
+#: ../root/static/scripts/relationship-editor/common/fields.js:296
 msgid "This attribute is required."
 msgstr "Este atributo es necesario."
 

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-29 23:07+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2017-01-31 02:01+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -867,6 +867,11 @@ msgstr "vanakreeka"
 #: DB:language/name:204
 msgid "Greenlandic"
 msgstr "grööni"
+
+#. frequency:1 iso_code_3:gos
+#: DB:language/name:2534
+msgid "Gronings"
+msgstr ""
 
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160

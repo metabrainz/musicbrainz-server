@@ -7,7 +7,7 @@
 # Frédéric Da Vitoria <email address hidden>, 2014
 # French language coordinator <email address hidden>, 2013,2015
 # Jack Ruertnevel, 2016
-# Jack Ruertnevel, 2016
+# Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
 # French language coordinator <email address hidden>, 2015
@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-30 11:19+0000\n"
+"PO-Revision-Date: 2017-02-06 06:13+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -606,9 +606,9 @@ msgstr "Une basse est un terme générique commun donné à plus d’un instrume
 #. name:berda
 #: DB:instrument/description:828
 msgid ""
-"Bass member of the Balkan tamburica orchestra, it is contrabass like. it has"
-" four thick metal strings"
-msgstr "proche de la contrebasse, dotée de quatre cordes en métal, elle fait généralement la partie basse des orchestres de tamburica des Balkans."
+"Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
+"like. it has four thick metal strings"
+msgstr "proche de la contrebasse, dotée de quatre cordes en métal, elle fait généralement la partie basse des orchestres de tamburica  serbo-croates."
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -3080,6 +3080,14 @@ msgstr "Kemençe turque oblongue, principalement utilisée en musique folkloriqu
 msgid "Turkish pair of small, hemispherical drums"
 msgstr "Paire de petits tambours hémisphériques."
 
+#. name:tanpura
+#: DB:instrument/description:829
+msgid ""
+"Usually accompanying sitar on ragas, the fretless instrument comes in "
+"different sizes: largest; male-voice, smaller; female-voice and smallest; "
+"the instrument-accompanying \"tanpuri\""
+msgstr "Accompagnant habituellement les ragas, ce luth indien se décline en deux tailles : la plus grande accompagnant le chant, la plus petite appelée « tanpuri » accompagnant le sitar."
+
 #. name:valved brass instruments
 #: DB:instrument/description:201
 msgid ""
@@ -3165,6 +3173,14 @@ msgstr "Une variante de la flûte hmông, les lèvres du souffleur entourent le 
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
 msgstr "Trompe en bois ou en écorce de bouleau, connue dès l’âge des Vikings."
 
+#. name:samica
+#: DB:instrument/description:830
+msgid ""
+"also known as dangubica or kuterevka, it is similar to the bisernica and the"
+" ancestor of the entire tamburica ensemble. this plucked long-necked lute "
+"has two double strings and is played solo."
+msgstr ""
+
 #. name:clavioline
 #: DB:instrument/description:815
 msgid ""
@@ -3221,9 +3237,9 @@ msgstr "Trompe en bronze principalement scandinave, rituellement enterrée par p
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
-"chord rhythm member of the Balkan tamburica orchestra, it is guitar like. it"
-" has one double string D and three single strings"
-msgstr "proche de la guitare, dotée d’une double corde en ré et de trois cordes simples, elle fait la partie rythmique des orchestres de tamburica des Balkans."
+"chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
+"like. it has one double string D and three single strings"
+msgstr "proche de la guitare, dotée d’une double corde en ré et de trois cordes simples, elle fait la partie rythmique des orchestres de tamburica serbo-croates."
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3252,11 +3268,11 @@ msgstr "Ancêtre de l’orgue électronique, considéré comme le premier instru
 #. name:čelo
 #: DB:instrument/description:827
 msgid ""
-"counterpoint member of the Balkan tamburica orchestra, it is guitar like the"
-" bugarija. it can either have two double strings and two single strings "
-"(čelović) or now four single strings are more common. (čelo/čelović/) the "
-"čelović is a different pitch than the čelo"
-msgstr "proche de la guitare comme la bugarija, dotée de soit deux cordes doubles et deux cordes simples (čelović) ou plus souvent aujourd’hui de quatre cordes simples, elle fait généralement la partie de contre chant des orchestres de tamburica des Balkans. (čelo/čelović/) La čelović est dans une tonalité différente de la čelo."
+"counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
+"like like the bugarija. it can either have two double strings and two single"
+" strings (čelović) or now four single strings are more common. "
+"(čelo/čelović/) the čelović is a different pitch than the čelo"
+msgstr "proche de la guitare comme la bugarija, dotée de soit deux cordes doubles et deux cordes simples (čelović) ou plus souvent aujourd’hui de quatre cordes simples, elle fait généralement la partie de contre chant des orchestres de tamburica serbo-croates. (čelo/čelović/) La čelović est dans une tonalité différente de la čelo."
 
 #. name:ki pah
 #: DB:instrument/description:307
@@ -3271,9 +3287,9 @@ msgstr "Le dholak est un tambour à main de l’Inde du Nord."
 #. name:tambura
 #: DB:instrument/description:391
 msgid ""
-"do not confuse with: serb-croat \"tamburica\" ensemble. persian/turkish "
-"ancient things evolved/came from \"tanbur\". unrelated indian drone "
-"\"tanpura\" related indian \"pandour\""
+"do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
+"ancient things evolved/came from \"tanbur\". unrelated Indian drone "
+"\"tanpura\" related Indian \"pandour\""
 msgstr "À ne pas confondre avec l’ensemble serbo-croate « tamburica » ou le drone indien « tanpura » ! Ancien instrument à cordes perse/turque descendant du « tanbur »."
 
 #. name:đing buốt
@@ -3322,6 +3338,13 @@ msgid ""
 "cousin."
 msgstr "cousin sud-américain du galoubet et tambour."
 
+#. name:English horn
+#: DB:instrument/description:7
+msgid ""
+"neither a horn nor english, it is a transposing member of the oboe family, "
+"pitched at F"
+msgstr "Ni cor, ni anglais, mais membre de la famille des hautbois, en fa."
+
 #. name:ondioline
 #: DB:instrument/description:814
 msgid ""
@@ -3338,10 +3361,10 @@ msgstr "flûte saó ôi, utilisée par les Muong"
 #. name:brač
 #: DB:instrument/description:825
 msgid ""
-"second smallest member of the Balkan tamburica orchestra, there are often "
-"two, first and second bass. it can either have three double strings or two "
-"double strings and three single strings"
-msgstr "second plus petit instrument des orchestres de tamburica des Balkans. Il y en a généralement deux, première et deuxième basse. Il peut être doté de trois cordes doubles ou deux cordes doubles et trois cordes simples."
+"second smallest member of the Serbo-Croatian tamburica orchestra, there are "
+"often two, first and second bass. it can either have three double strings or"
+" two double strings and three single strings"
+msgstr "second plus petit instrument des orchestres de tamburica serbo-croates. Il y en a généralement deux, première et deuxième basse. Il peut être doté de trois cordes doubles ou deux cordes doubles et trois cordes simples."
 
 #. name:tabor
 #: DB:instrument/description:806
@@ -3388,10 +3411,11 @@ msgstr "N’goni plus petit et/ou plus aigu, important avec la montée de la mus
 #. name:bisernica
 #: DB:instrument/description:824
 msgid ""
-"smallest member of the Balkan tamburica orchestra, it is usually the lead "
-"instrument. it can either have one double string and three single strings "
-"(prim/bisernica) or two double strings and two single strings (bisernica)"
-msgstr "plus petit instrument des orchestres de tamburica des Balkans. C’est généralement l’instrument principal. Il peut être doté d’une corde double et trois cordes simples (prim/bisernica) ou deux cordes doubles et deux cordes simples (bisernica)."
+"smallest member of the Serbo-Croatian tamburica orchestra, it is usually the"
+" lead or \"prim\" instrument. it can either have one double string and three"
+" single strings (prim/bisernica) or two double strings and two single "
+"strings (bisernica)"
+msgstr "plus petit instrument des orchestres de tamburica  serbo-croates. C’est généralement l’instrument principal. Il peut être doté d’une corde double et trois cordes simples (prim/bisernica) ou deux cordes doubles et deux cordes simples (bisernica)."
 
 #. name:tanbur
 #: DB:instrument/description:477

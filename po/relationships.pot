@@ -1162,6 +1162,12 @@ msgstr ""
 msgid "This indicates an artist cancelled their appearance at an event."
 msgstr ""
 
+#: DB:link_type/description:917
+msgid ""
+"This indicates an artist reconstructed a work (usually one where the score "
+"was lost) to make it ready for performance."
+msgstr ""
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -4466,6 +4472,14 @@ msgstr ""
 
 #: DB:link_attribute_type/description:952
 msgid "re-[role]"
+msgstr ""
+
+#: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
+msgid "reconstructed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:917
+msgid "reconstructed by"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-16 16:47+0000\n"
+"PO-Revision-Date: 2017-01-31 02:01+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1327,6 +1327,12 @@ msgstr ""
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
+msgstr ""
+
+#: DB:link_type/description:916
+msgid ""
+"This indicates that an instrument is a hybrid of two or more other "
+"instruments."
 msgstr ""
 
 #: DB:link_type/description:2
@@ -3510,6 +3516,10 @@ msgstr "hat Cover-Art unter"
 msgid "has derived instrument"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:916
+msgid "has hybrids"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr ""
@@ -3617,6 +3627,10 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
+#: DB:link_type/link_phrase:916
+msgid "hybrid of"
+msgstr ""
+
 #: DB:link_type/description:732
 msgid "image"
 msgstr "Bild"
@@ -3677,6 +3691,10 @@ msgstr "ist ein DJ-Mix von"
 #: DB:link_type/long_link_phrase:228
 msgid "is a compilation of"
 msgstr "ist eine Kompilation von"
+
+#: DB:link_type/long_link_phrase:916
+msgid "is a hybrid of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:17
 msgid "is a live performance of"
