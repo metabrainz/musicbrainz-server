@@ -2,13 +2,13 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2016
+# Luca Salini <email address hidden>, 2016-2017
 # Luca Salini <email address hidden>, 2013-2015
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-10-09 09:59+0000\n"
+"PO-Revision-Date: 2017-01-31 22:19+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -871,6 +871,11 @@ msgstr "Greco antico"
 #: DB:language/name:204
 msgid "Greenlandic"
 msgstr "Groenlandese"
+
+#. frequency:1 iso_code_3:gos
+#: DB:language/name:2534
+msgid "Gronings"
+msgstr "Gronings"
 
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160

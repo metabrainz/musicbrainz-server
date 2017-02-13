@@ -8,11 +8,11 @@
 # murdos <email address hidden>, 2011-2012
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2014-2015
-# yvanz, 2016
+# yvanz, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-11-29 12:55+0000\n"
+"PO-Revision-Date: 2017-02-01 13:11+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -875,6 +875,11 @@ msgstr "Grec ancien"
 #: DB:language/name:204
 msgid "Greenlandic"
 msgstr "Groenlandais"
+
+#. frequency:1 iso_code_3:gos
+#: DB:language/name:2534
+msgid "Gronings"
+msgstr "Groningois"
 
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
