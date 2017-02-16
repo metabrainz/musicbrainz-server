@@ -1342,6 +1342,42 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
                      input_entity_type: 'label',
             expected_relationship_type: 'blog',
         },
+        // LiveFans
+        {
+                             input_url: 'http://www.livefans.jp/artists/4486/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.livefans.jp/artists/4486',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://livefans.jp/events/760678?ref=headline',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.livefans.jp/events/760678',
+               only_valid_entity_types: ['event']
+        },
+        {
+                             input_url: 'https://www.livefans.jp/groups/102241#reviewPost',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.livefans.jp/groups/102241',
+               only_valid_entity_types: ['series']
+        },
+        {
+                             input_url: 'www.livefans.jp/venues/past/4853',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.livefans.jp/venues/4853',
+               only_valid_entity_types: ['place']
+        },
+        {
+                             input_url: 'http://www.livefans.jp/venues/facility?latitude=35.670302&longitude=139.718274&target=1&v_id=4853',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://www.livefans.jp/venues/4853',
+               only_valid_entity_types: ['place']
+        },
         // Loudr
         {
                              input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
