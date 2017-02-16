@@ -8,13 +8,14 @@
                 [% IF show_credits -%]<th>[% l('Credited As') %]</th>[%- END %]
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
+                <th>[% l('Length') %]</th>
             </tr>
         </thead>
         <tbody>
         [%- FOREACH relationship IN entity.appearances.pairs -%]
                 <tr class="subh">
                     <th></th>
-                    <th colspan="[% show_credits ? 4 : 3 %]">[% l(relationship.key) %]</th>
+                    <th colspan="[% show_credits ? 5 : 4 %]">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.parity %]">
@@ -41,6 +42,11 @@
                     </td>
                     <td>
                         [% artist_credit(rel.target.artist_credit) %]
+                    </td>
+                    <td>
+                        [%~ IF rel.target_type == "recording" ~%]
+                            [%- format_length(rel.target.length) -%]
+                        [%~ END ~%]
                     </td>
                 </tr>
                 [% END %]
