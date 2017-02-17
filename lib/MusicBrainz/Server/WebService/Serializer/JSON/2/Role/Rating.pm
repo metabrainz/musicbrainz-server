@@ -2,12 +2,15 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating;
 use Moose::Role;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number );
 
+# This allows overriding the "top-level entities only" restriction.
+our $forced = 0;
+
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    return $ret unless $toplevel && defined $inc &&
-        ($inc->ratings || $inc->user_ratings);
+    return $ret unless $toplevel || $forced;
+    return $ret unless defined($inc) && ($inc->ratings || $inc->user_ratings);
 
     my $opts = $stash->store($entity);
 
@@ -29,7 +32,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012,2017 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
