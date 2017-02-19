@@ -34,6 +34,10 @@
         </p>
 
     [% ELSE %]
+        [%~ IF model == "CollectionType" || model == "SeriesType" ~%]
+            [% form_row_select(r, 'entity_type', add_colon(l('Entity type'))) %]
+        [%~ END ~%]
+
         [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
 
         [% WRAPPER form_row %]
