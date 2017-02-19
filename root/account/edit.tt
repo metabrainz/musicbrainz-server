@@ -77,6 +77,8 @@
 
       <script>//<![CDATA[
       $(function () {
+          $(document.body).append( $('#add-language-template') );
+
           var languageCount = $('li.language').size();
 
           $('#edit-profile-form').on('click', 'button.remove', function (event) {
