@@ -65,8 +65,8 @@
             </span>
             [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
             <span id="add-language-template" style="display: none">
-              [% r.select(extra_field.field('language_id'), id => 'id-language-id-template', class => 'language_id', name => 'language-id-template') %]
-              [% r.select(extra_field.field('fluency'), id => 'id-fluency-template', class => 'fluency', name => 'fluency-template') %]
+              [% r.select(extra_field.field('language_id'), class => 'language_id') %]
+              [% r.select(extra_field.field('fluency'), class => 'fluency') %]
               <span class="buttons inline">
                 <button type="button" class="remove negative">[% l('Remove') %]</button>
               </span>
@@ -78,6 +78,7 @@
       <script>//<![CDATA[
       $(function () {
           $(document.body).append( $('#add-language-template') );
+          $('#add-language-template').children().removeAttr('id').removeAttr('name');
 
           var languageCount = $('li.language').size();
 
@@ -90,12 +91,8 @@
               event.preventDefault();
 
               var newLanguage = $('<li>').append($('#add-language-template').clone().contents());
-              newLanguage.find('select.language_id').attr('id',
-                                                          'id-profile.languages.' + languageCount + '.language_id');
               newLanguage.find('select.language_id').attr('name',
                                                           'profile.languages.' + languageCount + '.language_id');
-              newLanguage.find('select.fluency').attr('id',
-                                                      'id-profile.languages.' + languageCount + '.fluency');
               newLanguage.find('select.fluency').attr('name',
                                                       'profile.languages.' + languageCount + '.fluency');
 
