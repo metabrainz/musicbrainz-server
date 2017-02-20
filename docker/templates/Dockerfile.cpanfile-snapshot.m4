@@ -7,7 +7,6 @@ RUN apt_install(`sudo')
 
 setup_mbs_root()
 
-COPY carton-local/ /home/musicbrainz/carton-local/
 RUN chown_mb(`/home/musicbrainz/carton-local')
 
 COPY cpanfile ./
