@@ -328,6 +328,10 @@ role {
                 }
             }
 
+            # MBS-9258: Map "Accept: application/json" to "fmt=json"
+            $c->stash->{args}->{fmt} = $c->stash->{serializer}->fmt
+                unless exists($c->stash->{args}->{fmt});
+
             # MBS-8994. Adding this here so we don't have to change every
             # 'optional' search attribute in every Controller::WS::2 class,
             # and it's an undocumented hack anyway, so this'll be easier to
