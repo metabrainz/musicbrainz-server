@@ -72,6 +72,7 @@ my %URL_SPECIALIZATIONS = (
     'LastFM'              => qr{^https?://(?:www.)?last.fm/}i,
     'Lieder'              => qr{^https?://(?:www.)?lieder.net/}i,
     'LinkedIn'            => qr{^https?://([^/]+.)?linkedin.com/}i,
+    'LiveFans'            => qr{^https?://(?:www.)?livefans.jp/}i,
     'Loudr'               => qr{^https?://(?:www.)?loudr.fm/}i,
     'LyricWiki'           => qr{^https?://lyrics.wikia.com/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www.)?mainlynorfolk.info/}i,

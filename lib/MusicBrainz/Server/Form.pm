@@ -193,7 +193,9 @@ sub TO_JSON {
             html_name => $field->html_name,
             label => $field->label,
             value => $field->value,
-            ($field->can('error_fields') ? (error_fields => [$field->error_fields]) : ()),
+            ($field->can('error_fields') ? (
+                error_fields => [map +{ errors => $_->errors }, $field->error_fields]
+            ) : ()),
         };
     }
     $result;
