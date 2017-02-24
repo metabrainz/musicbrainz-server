@@ -289,9 +289,30 @@ sub edit : Local RequireAuth DenyWhenReadonly {
     $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
 
-    my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
+    my $form = $c->form( 
+        form => 'User::EditProfile', 
+        item => {
+            username          => $editor->name,
+            email             => $editor->email,
+            skip_verification => 0,
+            website           => $editor->website,
+            biography         => $editor->biography,
+            gender_id         => $editor->gender_id,
+            area_id           => $editor->area_id,
+            area              => $editor->area,
+            birth_date        => $editor->birth_date,
+            languages         => $editor->languages,
+        },
+    );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
+        my $old_username = $editor->name;
+        my $new_username = $form->field('username')->value;
+              
+        if (defined $new_username && $new_username ne $old_username) {
+            $c->detach('/error_403');            
+        }
+
         $c->model('Editor')->update_profile(
             $editor,
             $form->value

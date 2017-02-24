@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::User::Register;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( validate_username );
 use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
@@ -10,7 +11,8 @@ has '+name' => ( default => 'register' );
 has_field 'username' => (
     type      => 'Text',
     required  => 1,
-    maxlength => 64
+    maxlength => 64,
+    validate_method => \&validate_username,
 );
 
 has_field 'password' => (
@@ -34,22 +36,6 @@ has_field 'email' => (
     maxlength => 64,
     required => 1
 );
-
-sub validate_username
-{
-    my ($self, $field) = @_;
-
-    my $username = $field->value;
-    if (defined $username) {
-        if ($username =~ qr{^deleted editor \#\d+$}i) {
-            $field->add_error(l('This username is reserved for internal use'));
-        }
-        my $editor = $self->ctx->model('Editor')->get_by_name($username);
-        if (defined $editor) {
-            $field->add_error(l('Please choose another username, this one is already taken'));
-        }
-    }
-}
 
 1;
 
