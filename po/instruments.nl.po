@@ -1,14 +1,15 @@
 # 
 # Translators:
 # nikki, 2014
+# reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 02:01+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-02-19 15:47+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,11 +73,11 @@ msgstr "EWI"
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
 msgid "English horn"
-msgstr ""
+msgstr "althobo"
 
 #: DB:instrument/name:30
 msgid "French horn"
-msgstr "Hoorn"
+msgstr "hoorn"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -525,7 +526,7 @@ msgstr "bendir"
 #: DB:instrument/name:828
 msgctxt "begeš, large bass serbo-croatian plucked stringinstrument"
 msgid "berda"
-msgstr ""
+msgstr "berda"
 
 #: DB:instrument/name:69
 msgid "berimbau"
@@ -547,7 +548,7 @@ msgstr "näverlur"
 #: DB:instrument/name:824
 msgctxt "prim, small serbo-croatian plucked stringinstrument"
 msgid "bisernica"
-msgstr ""
+msgstr "bisernica"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -604,7 +605,7 @@ msgstr "koperblazers"
 #: DB:instrument/name:825
 msgctxt "basprim, serbo-croatian plucked stringinstrument"
 msgid "brač"
-msgstr ""
+msgstr "brač"
 
 #: DB:instrument/name:800
 msgctxt "bronze age natural horn"
@@ -618,7 +619,7 @@ msgstr "kwastjes"
 #: DB:instrument/name:826
 msgctxt "kontra, serbo-croatian plucked stringinstrument"
 msgid "bugarija"
-msgstr ""
+msgstr "bugarija"
 
 #: DB:instrument/name:36
 msgid "bugle"
@@ -1506,7 +1507,7 @@ msgstr "Hmông-fluiten"
 
 #: DB:instrument/name:26
 msgid "horn"
-msgstr "hoorn"
+msgstr "hoornfamilie"
 
 #: DB:instrument/name:709
 msgid "hotchiku"
@@ -1531,7 +1532,7 @@ msgstr "draailier"
 #: DB:instrument/name:818
 msgctxt "fipple flute from Härjedalen, sweden"
 msgid "härjedalspipa"
-msgstr ""
+msgstr "härjedalspipa"
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -1576,7 +1577,7 @@ msgstr "k’lông pút"
 #: DB:instrument/name:817
 msgctxt "smaller higher-tuned calabash ngoni"
 msgid "kamalen ngɔni"
-msgstr ""
+msgstr "kamalen ngoni"
 
 #: DB:instrument/name:503
 msgid "kamancheh"
@@ -1662,7 +1663,7 @@ msgstr "khong wong yai"
 #: DB:instrument/name:811
 msgctxt "bamboo mongolian jew's harp"
 msgid "khulsan khuur"
-msgstr ""
+msgstr "khulsan khuur"
 
 #: DB:instrument/name:318
 msgid "khèn Mèo"
@@ -1751,7 +1752,7 @@ msgstr "kös"
 #: DB:instrument/name:782
 msgctxt "Māori traditional small, ductless and notchless flute"
 msgid "kōauau"
-msgstr ""
+msgstr "kooauau"
 
 #: DB:instrument/name:632
 msgid "lamellophone"
@@ -1792,7 +1793,7 @@ msgstr "lavta"
 #: DB:instrument/name:803
 msgctxt "spanish plucked chordophone"
 msgid "laúd"
-msgstr ""
+msgstr "laúd"
 
 #: DB:instrument/name:573
 msgid "limbe"
@@ -1918,7 +1919,7 @@ msgstr "morin khuur"
 #: DB:instrument/name:533
 msgctxt "indian jew's harp"
 msgid "morsing"
-msgstr ""
+msgstr "morsing"
 
 #: DB:instrument/name:610
 msgid "mouth organ"
@@ -1931,7 +1932,7 @@ msgstr "mridangam"
 #: DB:instrument/name:710
 msgctxt "Ainu jew's harp"
 msgid "mukkuri"
-msgstr ""
+msgstr "mukkuri"
 
 #: DB:instrument/name:735
 msgid "musette de cour"
@@ -1988,7 +1989,7 @@ msgstr "ney"
 #: DB:instrument/name:783
 msgctxt "Māori traditional small vessel flute"
 msgid "nguru"
-msgstr ""
+msgstr "nguru"
 
 #: DB:instrument/name:729
 msgid "ngɔni"
@@ -2086,7 +2087,7 @@ msgstr "oed / oud"
 #: DB:instrument/name:790
 msgctxt "Māori traditional gong made of jade and bone"
 msgid "pahū pounamu"
-msgstr ""
+msgstr "pahuu pounamu"
 
 #: DB:instrument/name:502
 msgid "pakhavaj"
@@ -2181,7 +2182,7 @@ msgstr "pockettrompet"
 #: DB:instrument/name:792
 msgctxt "Māori traditional swung bird lure."
 msgid "poi awhiowhio"
-msgstr ""
+msgstr "poi aawhiowhio"
 
 #: DB:instrument/name:626
 msgid "post horn"
@@ -2209,37 +2210,37 @@ msgstr "pí thiu"
 
 #: DB:instrument/name:726
 msgid "pātē"
-msgstr "pātē"
+msgstr "paatee"
 
 #: DB:instrument/name:787
 msgctxt "Māori traditional hardwood flute"
 msgid "pōrutu"
-msgstr ""
+msgstr "poorutu"
 
 #: DB:instrument/name:788
 msgctxt "Māori traditional trumpet made of wood."
 msgid "pūkaea"
-msgstr ""
+msgstr "puukaaea"
 
 #: DB:instrument/name:785
 msgctxt "Māori traditional long flute"
 msgid "pūmotomoto"
-msgstr ""
+msgstr "puuotomoto"
 
 #: DB:instrument/name:791
 msgctxt "Māori traditional bullroarer like instrument."
 msgid "pūrerehua"
-msgstr ""
+msgstr "puurerehua"
 
 #: DB:instrument/name:789
 msgctxt "Māori traditional conch shell trumpet"
 msgid "pūtātara"
-msgstr ""
+msgstr "puutaatara"
 
 #: DB:instrument/name:786
 msgctxt "Māori traditional wide ranged flute."
 msgid "pūtōrino"
-msgstr ""
+msgstr "puutoorino"
 
 #: DB:instrument/name:613
 msgid "qilaut"
@@ -2320,7 +2321,7 @@ msgstr "rietblazers"
 #: DB:instrument/name:784
 msgctxt "Māori traditional long flute"
 msgid "rehu"
-msgstr ""
+msgstr "rehu"
 
 #: DB:instrument/name:722
 msgid "repinique"
@@ -2377,7 +2378,7 @@ msgstr "sambafluit"
 #: DB:instrument/name:830
 msgctxt "solo serbo-croatian plucked lute"
 msgid "samica"
-msgstr ""
+msgstr "samica"
 
 #: DB:instrument/name:122
 msgid "sampler"
@@ -2660,7 +2661,7 @@ msgstr "surdo"
 #: DB:instrument/name:816
 msgctxt "large lute-sarod from India"
 msgid "sursingar"
-msgstr ""
+msgstr "surshringar"
 
 #: DB:instrument/name:716
 msgid "swarmandal"
@@ -2746,7 +2747,7 @@ msgstr "tamboerijn"
 #: DB:instrument/name:391
 msgctxt "Macedonian/Bulgarian long-necked lute"
 msgid "tambura"
-msgstr ""
+msgstr "tambura"
 
 #: DB:instrument/name:333
 msgid "tanbou ka"
@@ -2764,12 +2765,12 @@ msgstr "tangentpiano"
 #: DB:instrument/name:829
 msgctxt "Indian drone long-necked lute"
 msgid "tanpura"
-msgstr ""
+msgstr "tanpura"
 
 #: DB:instrument/name:781
 msgctxt "Māori traditional instrument ensamble."
 msgid "taonga pūoro"
-msgstr ""
+msgstr "taonga puuoro"
 
 #: DB:instrument/name:559
 msgid "tap dancing"
@@ -2813,7 +2814,7 @@ msgstr "tempelblok"
 #: DB:instrument/name:810
 msgctxt "steel mongolian jew's harp"
 msgid "temür khuur"
-msgstr ""
+msgstr "tumur khuur"
 
 #: DB:instrument/name:657
 msgid "tenor banjo"
@@ -3121,6 +3122,7 @@ msgid "violins"
 msgstr "vioolfamilie"
 
 #: DB:instrument/name:693
+msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
 msgstr "violoncello piccolo"
 
@@ -3236,7 +3238,7 @@ msgstr "yatga"
 #: DB:instrument/name:527
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
-msgstr ""
+msgstr "yaylı tanbur"
 
 #: DB:instrument/name:222
 msgid "yehu"
@@ -3293,7 +3295,7 @@ msgstr "ütőgardon"
 #: DB:instrument/name:827
 msgctxt "čelović or csello, counter serbo-croatian plucked stringinstrument"
 msgid "čelo"
-msgstr ""
+msgstr "čelo"
 
 #: DB:instrument/name:306
 msgid "đing buốt"

@@ -2,17 +2,19 @@
 # Translators:
 # Alex DM <email address hidden>, 2016
 # Andrea Borio <email address hidden>, 2016
+# Daniele F <email address hidden>, 2017
 # Davide Bardelli <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# Luca Panfilo <email address hidden>, 2017
 # Monica <email address hidden>, 2014
 # Luca Salini <email address hidden>, 2012
 # Valentina Menale <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 02:01+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-02-23 10:45+0000\n"
+"Last-Translator: Daniele F <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +45,7 @@ msgstr "Tamburo Batá"
 #: DB:instrument/name:794
 msgctxt "an electric piano with reeds"
 msgid "Cembalet"
-msgstr ""
+msgstr "Cembalet"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -51,7 +53,7 @@ msgstr "Bastone Chapman"
 
 #: DB:instrument/name:175
 msgid "Clavinet"
-msgstr ""
+msgstr "Clavinet"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -76,7 +78,7 @@ msgstr "EWI"
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
 msgid "English horn"
-msgstr ""
+msgstr "Corno inglese"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -93,7 +95,7 @@ msgstr "Baglama greco"
 #: DB:instrument/name:795
 msgctxt "an electric lamellophone"
 msgid "Guitaret"
-msgstr ""
+msgstr "Guitaret"
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
@@ -109,7 +111,7 @@ msgstr "Flauto indiano di bamboo"
 
 #: DB:instrument/name:406
 msgid "Irish bouzouki"
-msgstr ""
+msgstr "Bouzouki irlandese"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
@@ -215,11 +217,11 @@ msgstr ""
 #: DB:instrument/name:778
 msgctxt "a type of harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "acordina"
 
 #: DB:instrument/name:41
 msgid "accordion"
-msgstr ""
+msgstr "fisarmonica"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
@@ -1119,11 +1121,11 @@ msgstr ""
 
 #: DB:instrument/name:55
 msgid "electric guitar"
-msgstr ""
+msgstr "chitarra elettrica"
 
 #: DB:instrument/name:352
 msgid "electric harp"
-msgstr ""
+msgstr "arpa elettrica"
 
 #: DB:instrument/name:389
 msgid "electric lap steel guitar"
@@ -1135,7 +1137,7 @@ msgstr ""
 
 #: DB:instrument/name:246
 msgid "electric sitar"
-msgstr ""
+msgstr "sitar elettrico"
 
 #: DB:instrument/name:49
 msgid "electric upright bass"
@@ -1159,7 +1161,7 @@ msgstr ""
 
 #: DB:instrument/name:447
 msgid "electronic organ"
-msgstr ""
+msgstr "organo elettrico"
 
 #: DB:instrument/name:560
 msgid "electronic wind instrument"
@@ -1406,7 +1408,7 @@ msgstr ""
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
 msgid "guitars"
-msgstr ""
+msgstr "chitarre"
 
 #: DB:instrument/name:325
 msgid "gumbri"
@@ -1482,7 +1484,7 @@ msgstr ""
 
 #: DB:instrument/name:131
 msgid "harpsichord"
-msgstr ""
+msgstr "clavicembalo"
 
 #: DB:instrument/name:191
 msgid "heckelphone"
@@ -1494,7 +1496,7 @@ msgstr ""
 
 #: DB:instrument/name:678
 msgid "helicon"
-msgstr ""
+msgstr "elicone"
 
 #: DB:instrument/name:454
 msgid "hi-hat"
@@ -1828,7 +1830,7 @@ msgstr ""
 
 #: DB:instrument/name:84
 msgid "lyre"
-msgstr ""
+msgstr "lira"
 
 #: DB:instrument/name:186
 msgid "madal"
@@ -2143,7 +2145,7 @@ msgstr ""
 
 #: DB:instrument/name:17
 msgid "piccolo"
-msgstr ""
+msgstr "ottavino"
 
 #: DB:instrument/name:733
 msgid "piccolo oboe"
@@ -2602,7 +2604,7 @@ msgstr ""
 #: DB:instrument/name:797
 msgctxt "A smaller harpsichord, strings at an angle"
 msgid "spinet"
-msgstr ""
+msgstr "spinetta"
 
 #: DB:instrument/name:799
 msgctxt "extralong spinet with deep bass register"
@@ -3125,8 +3127,9 @@ msgid "violins"
 msgstr ""
 
 #: DB:instrument/name:693
+msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
-msgstr "Violoncello piccolo"
+msgstr ""
 
 #: DB:instrument/name:420
 msgid "violone"

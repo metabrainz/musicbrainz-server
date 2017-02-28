@@ -29,8 +29,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-01 13:19+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2017-02-13 14:36+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1196,6 +1196,12 @@ msgstr "Cet attribut indique qu’un artiste était un membre fondateur d’un g
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
 msgstr "Cela indique qu’un artiste a annulé sa venue à un événement."
+
+#: DB:link_type/description:917
+msgid ""
+"This indicates an artist reconstructed a work (usually one where the score "
+"was lost) to make it ready for performance."
+msgstr ""
 
 #: DB:link_type/description:151
 msgid ""
@@ -4490,6 +4496,14 @@ msgstr "re"
 #: DB:link_attribute_type/description:952
 msgid "re-[role]"
 msgstr "re-[rôle]"
+
+#: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
+msgid "reconstructed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:917
+msgid "reconstructed by"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
