@@ -303,11 +303,11 @@ sub detach_with_error : Private {
 }
 
 sub critical_error : Private {
-    my ($self, $c, $error, $response_body, $status) = @_;
+    my ($self, $c, $error, $status) = @_;
 
     $c->stash->{error_body_in_stash} = 1;
-    $c->stash->{body} = $response_body;
-    $c->stash->{status} = $status;
+    $c->stash->{body} = encode_json({ error => $error });
+    $c->stash->{status} = $status // 400;
     die $error;
 }
 
