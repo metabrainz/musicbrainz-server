@@ -78,6 +78,7 @@ requires 'MooseX::Types::URI'                         => '0.05';
 requires 'MRO::Compat'                                => '0.12';
 requires 'Net::Amazon::AWSSign'                       => '0.12';
 requires 'Plack'                                      => '1.0030';
+requires 'Plack::Middleware::Debug'                   => '0.16';
 requires 'Readonly'                                   => '1.04';
 requires 'Redis'                                      => '1.967';
 requires 'REST::Utils'                                => '0.6';
@@ -115,7 +116,6 @@ feature production => sub {
 };
 
 author_requires 'Catalyst::Devel'               => '1.39';
-author_requires 'Plack::Middleware::Debug'      => '0.14';
 author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
 

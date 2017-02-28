@@ -37,7 +37,7 @@ const reduceArtistCredit = ac => ac.names.reduce(reduceName, '');
 const isComplexArtistCredit = function (ac) {
   const firstName = ac.names.get(0);
   if (firstName && hasArtist(firstName)) {
-     return firstName.artist.name !== reduceArtistCredit(ac);
+     return !nonEmpty(firstName.name) || firstName.artist.name !== reduceArtistCredit(ac);
   }
   return false;
 };

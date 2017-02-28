@@ -1,8 +1,7 @@
 [% WRAPPER 'layout.tt' title=l('Add Release Group') full_width=1 %]
-   [% INCLUDE 'artist/header.tt' artist=initial_artist IF initial_artist %]
-
-   <h1>[% l('Add Release Group') %]</h1>
-   [%~ javascript_required() ~%]
-
-   [% INCLUDE 'release_group/edit_form.tt' new=1 %]
+    <div id="content">
+        <h1>[%- lp('Add Release Group', 'header') -%]</h1>
+        [%~ javascript_required() ~%]
+        [% INCLUDE 'release_group/edit_form.tt' new=1 %]
+    </div>
 [% END %]

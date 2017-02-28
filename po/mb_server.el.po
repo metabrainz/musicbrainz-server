@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 19:39-0600\n"
-"PO-Revision-Date: 2017-01-16 16:46+0000\n"
+"POT-Creation-Date: 2017-02-13 08:34-0600\n"
+"PO-Revision-Date: 2017-02-13 14:36+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -986,7 +986,7 @@ msgstr "Εναλλακτικά, μπορείτε να {uri|προσθέσετε 
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "Amazon URLs Συνδεδεμένα με πολλαπλές κυκλοφορίες"
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:77
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Amazon URLs συνδεδεμένα με πολλαπλές κυκλοφορίες"
 
@@ -1901,7 +1901,7 @@ msgstr "Ακύρωση επεξεργασίας"
 msgid "Cancel the election"
 msgstr "Ακύρωση ψηφοφορίας"
 
-#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -2549,15 +2549,15 @@ msgstr "Discogs URLs συνδεδεμένα με πολλαπλές κυκλοφ
 msgid "Discogs URLs linked to multiple artists"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλούς καλλιτέχνες"
 
-#: ../root/report/index.tt:41
+#: ../root/report/index.tt:47
 msgid "Discogs URLs linked to multiple labels"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές δισκογραφικές εταιρείες"
 
-#: ../root/report/index.tt:53
+#: ../root/report/index.tt:59
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές ομάδες κυκλοφοριών"
 
-#: ../root/report/index.tt:72
+#: ../root/report/index.tt:78
 msgid "Discogs URLs linked to multiple releases"
 msgstr "Discogs URLs συνδεδεμένα με πολλαπλές κυκλοφορίες"
 
@@ -2565,7 +2565,7 @@ msgstr "Discogs URLs συνδεδεμένα με πολλαπλές κυκλοφ
 msgid "Discs as Separate Releases"
 msgstr "Δίσκοι ως ξεχωριστές κυκλοφορίες"
 
-#: ../root/report/index.tt:74
+#: ../root/report/index.tt:80
 msgid "Discs entered as separate releases"
 msgstr "Δίσκοι καταχωρημένοι ως ξεχωριστές κυκλοφορίες"
 
@@ -3033,7 +3033,7 @@ msgid "Entity types:"
 msgstr ""
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:277
 msgid "Error"
 msgstr "Σφάλμα"
 
@@ -3494,6 +3494,7 @@ msgstr "Γενικές πληροφορίες"
 #: ../root/report/featuring_recordings.tt:14
 #: ../root/report/featuring_release_groups.tt:13
 #: ../root/report/featuring_releases.tt:13
+#: ../root/report/instruments_without_an_image.tt:10
 #: ../root/report/isrc_with_many_recordings.tt:15
 #: ../root/report/iswc_with_many_works.tt:16
 #: ../root/report/labels_disambiguation_same_name.tt:9
@@ -3744,12 +3745,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:141
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:147
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRCs"
 
-#: ../root/report/index.tt:144 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:150 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRCs με πολλαπλές ηχογραφήσεις"
@@ -3782,11 +3783,11 @@ msgstr "ISWC “{iswc}”"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:147
+#: ../root/report/index.tt:153
 msgid "ISWCs"
 msgstr ""
 
-#: ../root/report/index.tt:150 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:156 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr ""
@@ -3946,6 +3947,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:594
 #: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
+#: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/layout/components/Search.js:24
@@ -3986,9 +3988,14 @@ msgstr ""
 msgid "Instrument:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:611 ../root/tag/header.tt:1
-#: ../root/tag/index.tt:8
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:38
+#: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Instruments"
+msgstr ""
+
+#: ../root/report/index.tt:41 ../root/report/instruments_without_an_image.tt:1
+#: ../root/report/instruments_without_an_image.tt:3
+msgid "Instruments without an image"
 msgstr ""
 
 #: ../root/main/info/environment.tt:13
@@ -4124,22 +4131,22 @@ msgstr "Δισκογαφική εταιρεία:"
 
 #: ../root/area/labels.tt:1 ../root/area/labels.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/release/layout.tt:73 ../root/report/index.tt:38
+#: ../root/release/layout.tt:73 ../root/report/index.tt:44
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Labels"
 msgstr "Δισκογραφικές εταιρείες"
 
-#: ../root/report/index.tt:44
+#: ../root/report/index.tt:50
 msgid "Labels with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
-#: ../root/report/index.tt:43
+#: ../root/report/index.tt:49
 msgid "Labels with deprecated relationships"
 msgstr ""
 
-#: ../root/report/index.tt:45
+#: ../root/report/index.tt:51
 #: ../root/report/labels_disambiguation_same_name.tt:1
 #: ../root/report/labels_disambiguation_same_name.tt:3
 msgid "Labels with disambiguation the same as the name"
@@ -4147,7 +4154,7 @@ msgstr ""
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
-#: ../root/report/index.tt:42
+#: ../root/report/index.tt:48
 msgid "Labels with possible duplicate relationships"
 msgstr ""
 
@@ -4213,6 +4220,10 @@ msgstr "Τελευταία τροποποίηση:"
 
 #: ../root/layout.tt:126 ../root/layout/components/Footer.js:50
 msgid "Last replication packet received at {datetime}"
+msgstr ""
+
+#: ../root/report/instruments_without_an_image.tt:21
+msgid "Last updated"
 msgstr ""
 
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:128
@@ -5171,7 +5182,7 @@ msgstr ""
 msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
-#: ../root/report/index.tt:91
+#: ../root/report/index.tt:97
 #: ../root/report/releases_with_download_relationships.tt:1
 #: ../root/report/releases_with_download_relationships.tt:3
 msgid "Non-digital releases with download relationships"
@@ -5347,7 +5358,7 @@ msgstr "Όπα! Φαίνεται ότι οι παράμετροι αναζήτη
 msgid "Oops, something went wrong!"
 msgstr "Ουπς, κάτι πήγε στραβά!"
 
-#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Open"
 msgstr ""
 
@@ -5556,17 +5567,17 @@ msgstr ""
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:113 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:119 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr ""
 
-#: ../root/report/index.tt:117
+#: ../root/report/index.tt:123
 msgid "Places with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:116
+#: ../root/report/index.tt:122
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -5697,7 +5708,7 @@ msgid "Possible duplicate events"
 msgstr ""
 
 #: ../root/report/duplicate_release_groups.tt:1
-#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:56
+#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:62
 msgid "Possible duplicate release groups"
 msgstr ""
 
@@ -5932,18 +5943,18 @@ msgstr "Ηχογράφηση:"
 #: ../root/artist/recordings.tt:1 ../root/artist/recordings.tt:4
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:99
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:105
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Ηχογραφήσεις"
 
-#: ../root/report/index.tt:110 ../root/report/recordings_without_va_link.tt:1
+#: ../root/report/index.tt:116 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:115
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
@@ -5959,32 +5970,32 @@ msgstr ""
 msgid "Recordings with Varying Track Lengths"
 msgstr ""
 
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:114
 msgid "Recordings with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:107
+#: ../root/report/index.tt:113
 msgid "Recordings with deprecated relationships"
 msgstr ""
 
-#: ../root/report/index.tt:102
+#: ../root/report/index.tt:108
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:105
+#: ../root/report/index.tt:111
 msgid "Recordings with possible duplicate relationships"
 msgstr ""
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:104
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:110
 msgid "Recordings with titles containing featuring artists"
 msgstr "Ηχογραφήσεις με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
-#: ../root/report/index.tt:106
+#: ../root/report/index.tt:112
 msgid "Recordings with varying track times"
 msgstr ""
 
@@ -6216,7 +6227,7 @@ msgstr "Ομάδες κυκλοφοριών"
 
 #: ../root/report/deprecated_relationship_release_groups.tt:1
 #: ../root/report/deprecated_relationship_release_groups.tt:3
-#: ../root/report/index.tt:55
+#: ../root/report/index.tt:61
 msgid "Release Groups with deprecated relationships"
 msgstr ""
 
@@ -6314,38 +6325,38 @@ msgstr "Ομάδα κυκλοφοριών “{name}” από {artist}"
 msgid "Release group:"
 msgstr "Ομάδα κυκλοφοριών:"
 
-#: ../root/report/index.tt:48
+#: ../root/report/index.tt:54
 msgid "Release groups"
 msgstr "Ομάδες κυκλοφοριών"
 
-#: ../root/report/index.tt:59
+#: ../root/report/index.tt:65
 #: ../root/report/release_groups_without_va_link.tt:1
 #: ../root/report/release_groups_without_va_link.tt:3
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:58
+#: ../root/report/index.tt:64
 #: ../root/report/release_groups_without_va_credit.tt:1
 #: ../root/report/release_groups_without_va_credit.tt:3
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:51
+#: ../root/report/index.tt:57
 msgid "Release groups that might need to be merged"
 msgstr "Ομάδες κυκλοφοριών που ίσως χρειάζονται συγχώνευση"
 
-#: ../root/report/index.tt:57
+#: ../root/report/index.tt:63
 msgid "Release groups with annotations"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
-#: ../root/report/index.tt:54
+#: ../root/report/index.tt:60
 msgid "Release groups with possible duplicate relationships"
 msgstr ""
 
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:52
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:58
 msgid "Release groups with titles containing featuring artists"
 msgstr "Ομάδες κυκλοφοριών με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
@@ -6386,7 +6397,7 @@ msgstr "Κυκλοφορία:"
 #: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
 #: ../root/label/index.tt:29 ../root/release_group/merge.tt:16
-#: ../root/report/index.tt:62 ../root/series/index.tt:15
+#: ../root/report/index.tt:68 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Releases"
 msgstr "Κυκλοφορίες"
@@ -6415,52 +6426,52 @@ msgstr "Κυκλοφορίες με πολλαπλούς συνδέσμους Di
 msgid "Releases With Some Formats Unset"
 msgstr "Κυκλοφορίες με κάποιες μορφές που δεν έχουν ρυθμιστεί"
 
-#: ../root/report/index.tt:96 ../root/report/releases_without_va_link.tt:1
+#: ../root/report/index.tt:102 ../root/report/releases_without_va_link.tt:1
 #: ../root/report/releases_without_va_link.tt:3
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:83
+#: ../root/report/index.tt:89
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Κυκλοφορίες στο Cover Art Archive που εξακκολουθούν να έχουν σχέσεις εξωφύλλου"
 
-#: ../root/report/index.tt:95 ../root/report/releases_without_va_credit.tt:1
+#: ../root/report/index.tt:101 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:85
+#: ../root/report/index.tt:91
 msgid "Releases of any sort that still have cover art relationships"
 msgstr ""
 
-#: ../root/report/index.tt:78 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:84 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr ""
 
-#: ../root/report/index.tt:79
+#: ../root/report/index.tt:85
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:75
 msgid "Releases which have multiple ASINs"
 msgstr "Κυκλοφορίες με πολλαπλά ASINs"
 
-#: ../root/report/index.tt:70
+#: ../root/report/index.tt:76
 msgid "Releases which have multiple Discogs links"
 msgstr "Κυκλοφορίες με πολλαπλούς συνδέσμους Discogs"
 
-#: ../root/report/index.tt:73
+#: ../root/report/index.tt:79
 msgid "Releases which have part of set relationships"
 msgstr ""
 
-#: ../root/report/index.tt:68
+#: ../root/report/index.tt:74
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Κυκλοφορίες με απροσδόκητα Amazon URLs"
 
-#: ../root/report/index.tt:65 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:71 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Κυκλοφορίες που ίσως πρέπει να μετατραπούν σε \"πολλαπλών καλλιτεχνών\""
@@ -6470,23 +6481,23 @@ msgstr "Κυκλοφορίες που ίσως πρέπει να μετατρα�
 msgid "Releases with Cover Art relationships"
 msgstr ""
 
-#: ../root/report/index.tt:90
+#: ../root/report/index.tt:96
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
 msgstr ""
 
-#: ../root/report/index.tt:93
+#: ../root/report/index.tt:99
 msgid "Releases with annotations"
 msgstr ""
 
-#: ../root/report/index.tt:80
+#: ../root/report/index.tt:86
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Κυκλοφορίες με αριθμούς καταλόγου που μοιάζουν με ASINs"
 
 #: ../root/report/deprecated_relationship_releases.tt:1
 #: ../root/report/deprecated_relationship_releases.tt:3
-#: ../root/report/index.tt:92
+#: ../root/report/index.tt:98
 msgid "Releases with deprecated relationships"
 msgstr ""
 
@@ -6495,31 +6506,31 @@ msgstr ""
 msgid "Releases with medium number issues"
 msgstr ""
 
-#: ../root/report/index.tt:94 ../root/report/releases_with_no_mediums.tt:1
+#: ../root/report/index.tt:100 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
 msgstr ""
 
-#: ../root/report/index.tt:86
+#: ../root/report/index.tt:92
 msgid "Releases with non-sequential mediums"
 msgstr ""
 
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:81
 msgid "Releases with non-sequential track numbers"
 msgstr "Κυκλοφορίες με μη συνεχείς αριθμούς κομματιών"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:89
+#: ../root/report/index.tt:95
 msgid "Releases with possible duplicate relationships"
 msgstr ""
 
-#: ../root/report/index.tt:76 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/index.tt:82 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "Κυκλοφορίες με περιττά κομμάτια δεδομένων"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:77
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:83
 msgid "Releases with titles containing featuring artists"
 msgstr "Κυκλοφορίες με τίτλους που περιέχουν τους καλλιτέχνες που συμμετέχουν"
 
@@ -6528,23 +6539,23 @@ msgstr "Κυκλοφορίες με τίτλους που περιέχουν τ�
 msgid "Releases with track number issues"
 msgstr "Κυκλοφορίες με θέματα στους αριθμούς κομματιών"
 
-#: ../root/report/index.tt:88 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:94 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr ""
 
-#: ../root/report/index.tt:87
+#: ../root/report/index.tt:93
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "Κυκλοφορίες με όχι πιθανά ζεύγη γλώσσας/γραφής"
 
-#: ../root/report/index.tt:66 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:72 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "Κυκλοφορίες χωρίς γλώσσα"
 
-#: ../root/report/index.tt:67 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:73 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "Κυκλοφορίες χωρίς γραφή"
@@ -7108,7 +7119,7 @@ msgstr "Να μου στέλνετε μηνύματα με τις τροποπο
 msgid "Sentence"
 msgstr ""
 
-#: ../root/report/index.tt:120 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:126 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr ""
@@ -7154,7 +7165,7 @@ msgstr ""
 msgid "Series information"
 msgstr ""
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:129
 msgid "Series with annotations"
 msgstr ""
 
@@ -8162,7 +8173,7 @@ msgstr ""
 msgid "This area is not currently associated with any labels."
 msgstr ""
 
-#: ../root/area/places.tt:7
+#: ../root/area/places.tt:9
 msgid "This area is not currently associated with any places."
 msgstr ""
 
@@ -8888,6 +8899,12 @@ msgid ""
 "Merge Releases})."
 msgstr "Αυτή η λίστα εμφανίζει τα Discogs URLs τα οποία έχουν συνδεθεί με πολλαπλές κυκλοφορίες. Στις περισσότερες περιπτώσεις τα Discogs URLs πρέπει να αντιστοιχούν στις κυκλοφορίες του MusicBrainz ένα προς ένα, οπότε μόνο ένας από τους συνδέσμους είναι σωστός. Απλώς ελέγξτε αν η κυκλοφορία του MusicBrainz ταιριάζει με την κυκλοφορία στο Discogs (ψάξτε για τη μορφή, λίστα κομματιών, χώρα κυκλοφορίας κτλ). Επίσης μπορεί να βρείτε κάποια Discogs URLs να συνδέονται με πολλούς δίσκους μίας κυκλοφορίας πολλών δίσκων: απλά συγχωνεύστε τες (δείτε {how_to_merge_releases|Πως να συγχωνεύετε κυκλοφορίες})."
 
+#: ../root/report/instruments_without_an_image.tt:6
+msgid ""
+"This report shows instruments without {image_rel} relationships or "
+"{wikidata_rel} relationships."
+msgstr ""
+
 #: ../root/report/recordings_without_va_credit.tt:6
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
@@ -9285,6 +9302,10 @@ msgstr "Σύνολο διπλοεγγεγραμμένων συγκροτημάτ
 msgid "Total events found: {count}"
 msgstr ""
 
+#: ../root/report/instruments_without_an_image.tt:9
+msgid "Total instruments found: {count}"
+msgstr ""
+
 #: ../root/report/annotations_labels.tt:8
 #: ../root/report/deprecated_relationship_labels.tt:8
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
@@ -9452,7 +9473,7 @@ msgstr "Λίστα κομματιών:"
 msgid "Tracks"
 msgstr "Κομμάτια"
 
-#: ../root/report/index.tt:103
+#: ../root/report/index.tt:109
 msgid "Tracks whose names include their sequence numbers"
 msgstr ""
 
@@ -9487,7 +9508,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr ""
 
-#: ../root/report/index.tt:81
+#: ../root/report/index.tt:87
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Μεταφρασμένες/Μεταγλωττισμένες Ψευδο-κυκλοφορίες που δεν έχουν συνδεθεί με την πρωτότυπη έκδοση"
@@ -9517,6 +9538,7 @@ msgstr "Twitter"
 #: ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27 ../root/report/event_list.tt:8
+#: ../root/report/instruments_without_an_image.tt:20
 #: ../root/report/iswc_with_many_works.tt:28
 #: ../root/report/release_group_list.tt:9
 #: ../root/search/lib/inline-results-artist.tt:9
@@ -9609,13 +9631,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr ""
 
 #: ../root/components/common-macros.tt:130
-#: ../root/components/common-macros.tt:611 ../root/report/index.tt:134
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:140
 msgid "URLs"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:137
+#: ../root/report/index.tt:143
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -9633,6 +9655,7 @@ msgid "Unauthorized Request"
 msgstr "Μη επιτρεπόμενο αίτημα"
 
 #: ../root/instrument/list.tt:21
+#: ../root/report/instruments_without_an_image.tt:32
 msgid "Unclassified instrument"
 msgstr ""
 
@@ -10147,24 +10170,24 @@ msgstr "Έργο:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:126 ../root/series/index.tt:15
+#: ../root/report/index.tt:132 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Έργα"
 
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:137
 msgid "Works with annotations"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:130
+#: ../root/report/index.tt:136
 msgid "Works with deprecated relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:129
+#: ../root/report/index.tt:135
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -12232,23 +12255,23 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Applied"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Failed vote"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:276
 msgid "Failed dependency"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 msgid "Failed prerequisite"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 msgid "No votes"
 msgstr ""
 
@@ -12885,6 +12908,20 @@ msgstr ""
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
+msgstr ""
+
+#: ../root/static/scripts/area/places-map.js:77
+msgid "… and {place_count} other"
+msgid_plural "… and {place_count} others"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/static/scripts/area/places-map.js:89
+msgid "No type"
+msgstr ""
+
+#: ../root/static/scripts/area/places-map.js:100
+msgid "{place_type}: {place_link}"
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:62

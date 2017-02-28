@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 19:39-0600\n"
-"PO-Revision-Date: 2017-01-16 16:46+0000\n"
+"POT-Creation-Date: 2017-02-13 08:34-0600\n"
+"PO-Revision-Date: 2017-02-13 14:36+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -993,7 +993,7 @@ msgstr "Vaihtoehtoisesti voit lisätä {uri|uuden teoksen}."
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "Amazon URL-osoitteet, jotka on linkitetty useisiin julkaisuihin"
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:77
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Amazon URL-osoitteet, jotka on linkitetty useisiin julkaisuihin"
 
@@ -1908,7 +1908,7 @@ msgstr "Peruuta muokkaus"
 msgid "Cancel the election"
 msgstr "Peruuta vaalit"
 
-#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Cancelled"
 msgstr "Peruutettu"
 
@@ -2556,15 +2556,15 @@ msgstr "Discogs-osoitteet, jotka on liitetty useisiin julkaisuihin"
 msgid "Discogs URLs linked to multiple artists"
 msgstr "Discogs-osoitteet, jotka on liitetty useisiin artisteihin"
 
-#: ../root/report/index.tt:41
+#: ../root/report/index.tt:47
 msgid "Discogs URLs linked to multiple labels"
 msgstr "Discogs-osoitteet, jotka on liitetty useisiin levymerkkeihin"
 
-#: ../root/report/index.tt:53
+#: ../root/report/index.tt:59
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "Discogs-linkit yhdistettyinä useisiin julkaisuryhmiin"
 
-#: ../root/report/index.tt:72
+#: ../root/report/index.tt:78
 msgid "Discogs URLs linked to multiple releases"
 msgstr "Discogs-osoitteet, jotka on liitetty useisiin julkaisuihin"
 
@@ -2572,7 +2572,7 @@ msgstr "Discogs-osoitteet, jotka on liitetty useisiin julkaisuihin"
 msgid "Discs as Separate Releases"
 msgstr "Levyt ovat erillisiä julkaisuja"
 
-#: ../root/report/index.tt:74
+#: ../root/report/index.tt:80
 msgid "Discs entered as separate releases"
 msgstr "Erillisinä julkaisuina syötetyt levyt"
 
@@ -3040,7 +3040,7 @@ msgid "Entity types:"
 msgstr "Entiteettityypit:"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:277
 msgid "Error"
 msgstr "Virhe"
 
@@ -3501,6 +3501,7 @@ msgstr "Yleistä tietoa"
 #: ../root/report/featuring_recordings.tt:14
 #: ../root/report/featuring_release_groups.tt:13
 #: ../root/report/featuring_releases.tt:13
+#: ../root/report/instruments_without_an_image.tt:10
 #: ../root/report/isrc_with_many_recordings.tt:15
 #: ../root/report/iswc_with_many_works.tt:16
 #: ../root/report/labels_disambiguation_same_name.tt:9
@@ -3751,12 +3752,12 @@ msgstr "ISRC-koodi \"{isrc}\""
 msgid "ISRC:"
 msgstr "ISRC-koodi:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:141
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:147
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC-koodit"
 
-#: ../root/report/index.tt:144 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:150 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC-koodeja, joista kukin liittyy useampaan äänitteeseen"
@@ -3789,11 +3790,11 @@ msgstr "ISWC \"{iswc}\""
 msgid "ISWC:"
 msgstr "ISWC-koodi:"
 
-#: ../root/report/index.tt:147
+#: ../root/report/index.tt:153
 msgid "ISWCs"
 msgstr "ISWC-koodit"
 
-#: ../root/report/index.tt:150 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:156 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr "ISWC-koodit, jotka viittaavat useaan teokseen"
@@ -3953,6 +3954,7 @@ msgstr "Asennetut sovellukset"
 #: ../root/components/common-macros.tt:594
 #: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
+#: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/layout/components/Search.js:24
@@ -3993,9 +3995,14 @@ msgstr "Tietoja soittimesta"
 msgid "Instrument:"
 msgstr "Soitin:"
 
-#: ../root/components/common-macros.tt:611 ../root/tag/header.tt:1
-#: ../root/tag/index.tt:8
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:38
+#: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Instruments"
+msgstr ""
+
+#: ../root/report/index.tt:41 ../root/report/instruments_without_an_image.tt:1
+#: ../root/report/instruments_without_an_image.tt:3
+msgid "Instruments without an image"
 msgstr ""
 
 #: ../root/main/info/environment.tt:13
@@ -4131,22 +4138,22 @@ msgstr "Levymerkki:"
 
 #: ../root/area/labels.tt:1 ../root/area/labels.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/release/layout.tt:73 ../root/report/index.tt:38
+#: ../root/release/layout.tt:73 ../root/report/index.tt:44
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Labels"
 msgstr "Levymerkit"
 
-#: ../root/report/index.tt:44
+#: ../root/report/index.tt:50
 msgid "Labels with annotations"
 msgstr "Levymerkit, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
-#: ../root/report/index.tt:43
+#: ../root/report/index.tt:49
 msgid "Labels with deprecated relationships"
 msgstr "Levymerkit, joilla vanhentuneita yhteyksiä"
 
-#: ../root/report/index.tt:45
+#: ../root/report/index.tt:51
 #: ../root/report/labels_disambiguation_same_name.tt:1
 #: ../root/report/labels_disambiguation_same_name.tt:3
 msgid "Labels with disambiguation the same as the name"
@@ -4154,7 +4161,7 @@ msgstr ""
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
-#: ../root/report/index.tt:42
+#: ../root/report/index.tt:48
 msgid "Labels with possible duplicate relationships"
 msgstr "Levymerkit, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -4221,6 +4228,10 @@ msgstr "Viimeksi muokattu:"
 #: ../root/layout.tt:126 ../root/layout/components/Footer.js:50
 msgid "Last replication packet received at {datetime}"
 msgstr "Viimeisin kopiointipaketti vastaanotettu {datetime}"
+
+#: ../root/report/instruments_without_an_image.tt:21
+msgid "Last updated"
+msgstr ""
 
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:128
 msgid "Last updated on {date}"
@@ -5178,7 +5189,7 @@ msgstr ""
 msgid "Nominate a candidate for auto-editor"
 msgstr "Nimeä ehdokas auto-editoriksi"
 
-#: ../root/report/index.tt:91
+#: ../root/report/index.tt:97
 #: ../root/report/releases_with_download_relationships.tt:1
 #: ../root/report/releases_with_download_relationships.tt:3
 msgid "Non-digital releases with download relationships"
@@ -5354,7 +5365,7 @@ msgstr "Hakuparametrisi vaikuttavat virheellisiltä. Tarkista syötteesi uudelle
 msgid "Oops, something went wrong!"
 msgstr "Jotakin taisi mennä pieleen!"
 
-#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Open"
 msgstr "Avoimet"
 
@@ -5563,17 +5574,17 @@ msgstr "Paikka:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:113 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:119 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Paikat"
 
-#: ../root/report/index.tt:117
+#: ../root/report/index.tt:123
 msgid "Places with annotations"
 msgstr "Paikat, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:116
+#: ../root/report/index.tt:122
 msgid "Places with deprecated relationships"
 msgstr "Paikat, joilla vanhentuneita yhteyksiä"
 
@@ -5704,7 +5715,7 @@ msgid "Possible duplicate events"
 msgstr ""
 
 #: ../root/report/duplicate_release_groups.tt:1
-#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:56
+#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:62
 msgid "Possible duplicate release groups"
 msgstr ""
 
@@ -5939,18 +5950,18 @@ msgstr "Äänite:"
 #: ../root/artist/recordings.tt:1 ../root/artist/recordings.tt:4
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:99
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:105
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Äänitteet"
 
-#: ../root/report/index.tt:110 ../root/report/recordings_without_va_link.tt:1
+#: ../root/report/index.tt:116 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:115
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
@@ -5966,32 +5977,32 @@ msgstr "Äänitteet, joissa aiempi julkaisu -yhteys"
 msgid "Recordings with Varying Track Lengths"
 msgstr "Äänitteitä, joissa eripituisia kappaleita"
 
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:114
 msgid "Recordings with annotations"
 msgstr "Äänitteet, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:107
+#: ../root/report/index.tt:113
 msgid "Recordings with deprecated relationships"
 msgstr "Äänitteet, joilla vanhentuneita yhteyksiä"
 
-#: ../root/report/index.tt:102
+#: ../root/report/index.tt:108
 msgid "Recordings with earliest release relationships"
 msgstr "Äänitteet, joissa aiempi julkaisu -yhteys"
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:105
+#: ../root/report/index.tt:111
 msgid "Recordings with possible duplicate relationships"
 msgstr "Äänitteet, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:104
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:110
 msgid "Recordings with titles containing featuring artists"
 msgstr "Äänitteet, joiden nimi sisältää vierailevan artistin "
 
-#: ../root/report/index.tt:106
+#: ../root/report/index.tt:112
 msgid "Recordings with varying track times"
 msgstr "Äänitteitä, joissa eripituisia kappaleita"
 
@@ -6223,7 +6234,7 @@ msgstr "Julkaisuryhmät"
 
 #: ../root/report/deprecated_relationship_release_groups.tt:1
 #: ../root/report/deprecated_relationship_release_groups.tt:3
-#: ../root/report/index.tt:55
+#: ../root/report/index.tt:61
 msgid "Release Groups with deprecated relationships"
 msgstr "Julkaisuryhmät, joilla vanhentuneita yhteyksiä"
 
@@ -6321,38 +6332,38 @@ msgstr "Julkaisuryhmä “{name}” artistilta {artist}"
 msgid "Release group:"
 msgstr "Julkaisuryhmä:"
 
-#: ../root/report/index.tt:48
+#: ../root/report/index.tt:54
 msgid "Release groups"
 msgstr "Julkaisuryhmät"
 
-#: ../root/report/index.tt:59
+#: ../root/report/index.tt:65
 #: ../root/report/release_groups_without_va_link.tt:1
 #: ../root/report/release_groups_without_va_link.tt:3
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:58
+#: ../root/report/index.tt:64
 #: ../root/report/release_groups_without_va_credit.tt:1
 #: ../root/report/release_groups_without_va_credit.tt:3
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:51
+#: ../root/report/index.tt:57
 msgid "Release groups that might need to be merged"
 msgstr "Julkaisuryhmät, jotka saattavat vaatia sulauttamisen"
 
-#: ../root/report/index.tt:57
+#: ../root/report/index.tt:63
 msgid "Release groups with annotations"
 msgstr "Julkaisuryhmät, joilla lisätietokenttä"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
-#: ../root/report/index.tt:54
+#: ../root/report/index.tt:60
 msgid "Release groups with possible duplicate relationships"
 msgstr "Julkaisuryhmät, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:52
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:58
 msgid "Release groups with titles containing featuring artists"
 msgstr "Julkaisuryhmät, joiden nimissä on vieraileva artisti"
 
@@ -6393,7 +6404,7 @@ msgstr "Julkaisu:"
 #: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
 #: ../root/label/index.tt:29 ../root/release_group/merge.tt:16
-#: ../root/report/index.tt:62 ../root/series/index.tt:15
+#: ../root/report/index.tt:68 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Releases"
 msgstr "Julkaisut"
@@ -6422,52 +6433,52 @@ msgstr "Julkaisut, joihin liittyy monia Discogs-linkkejä"
 msgid "Releases With Some Formats Unset"
 msgstr "Julkaisut, joissa jonkin tallenteen muoto asettamatta"
 
-#: ../root/report/index.tt:96 ../root/report/releases_without_va_link.tt:1
+#: ../root/report/index.tt:102 ../root/report/releases_without_va_link.tt:1
 #: ../root/report/releases_without_va_link.tt:3
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:83
+#: ../root/report/index.tt:89
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Julkaisut Cover Art Archivessa, joilla on yhä kansitaide-yhteyksiä"
 
-#: ../root/report/index.tt:95 ../root/report/releases_without_va_credit.tt:1
+#: ../root/report/index.tt:101 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
-#: ../root/report/index.tt:85
+#: ../root/report/index.tt:91
 msgid "Releases of any sort that still have cover art relationships"
 msgstr "Kaikenlaiset julkaisut, joilla on yhä kansitaide-yhteyksiä"
 
-#: ../root/report/index.tt:78 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:84 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr "Julkaisut, joiden julkaisuajankohta on liian aikainen"
 
-#: ../root/report/index.tt:79
+#: ../root/report/index.tt:85
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr "Julkaisut, joissa joidenkin (mutta ei kaikkien) tallenteiden muoto asettamatta"
 
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:75
 msgid "Releases which have multiple ASINs"
 msgstr "Julkaisut, joissa useita ASIN-koodeja"
 
-#: ../root/report/index.tt:70
+#: ../root/report/index.tt:76
 msgid "Releases which have multiple Discogs links"
 msgstr "Julkaisut, joissa useita Discogs-linkkejä"
 
-#: ../root/report/index.tt:73
+#: ../root/report/index.tt:79
 msgid "Releases which have part of set relationships"
 msgstr "Julkaisut, joissa osana joukkoa -yhteyksiä"
 
-#: ../root/report/index.tt:68
+#: ../root/report/index.tt:74
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Julkaisut, joissa yllätyksellisiä Amazon URL-osoitteita"
 
-#: ../root/report/index.tt:65 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:71 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Julkaisut, jotka saattavat vaatia muunnoksen usean artistin julkaisuksi"
@@ -6477,23 +6488,23 @@ msgstr "Julkaisut, jotka saattavat vaatia muunnoksen usean artistin julkaisuksi"
 msgid "Releases with Cover Art relationships"
 msgstr "Julkaisut, joissa kansitaide-yhteyksiä"
 
-#: ../root/report/index.tt:90
+#: ../root/report/index.tt:96
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
 msgstr "Julkaisut, joissa ainoalla tallenteella nimi"
 
-#: ../root/report/index.tt:93
+#: ../root/report/index.tt:99
 msgid "Releases with annotations"
 msgstr "Julkaisut, joilla lisätietokenttä"
 
-#: ../root/report/index.tt:80
+#: ../root/report/index.tt:86
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Julkaisut, joissa luettelonumero näyttää Amazon ASIN-tunnisteilta"
 
 #: ../root/report/deprecated_relationship_releases.tt:1
 #: ../root/report/deprecated_relationship_releases.tt:3
-#: ../root/report/index.tt:92
+#: ../root/report/index.tt:98
 msgid "Releases with deprecated relationships"
 msgstr "Julkaisut, joissa vanhentuneita yhteyksiä"
 
@@ -6502,31 +6513,31 @@ msgstr "Julkaisut, joissa vanhentuneita yhteyksiä"
 msgid "Releases with medium number issues"
 msgstr "Julkaisut, joissa epäselvyyksiä tallenteiden numeroinnissa"
 
-#: ../root/report/index.tt:94 ../root/report/releases_with_no_mediums.tt:1
+#: ../root/report/index.tt:100 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
 msgstr ""
 
-#: ../root/report/index.tt:86
+#: ../root/report/index.tt:92
 msgid "Releases with non-sequential mediums"
 msgstr "Julkaisut, joissa ei peräkkäisiä tallenteita"
 
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:81
 msgid "Releases with non-sequential track numbers"
 msgstr "Julkaisut, joissa ei peräkkäistä kappalenumerointia"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:89
+#: ../root/report/index.tt:95
 msgid "Releases with possible duplicate relationships"
 msgstr "Julkaisut, joissa mahdollisesti yhteyksien kaksoiskappaleita"
 
-#: ../root/report/index.tt:76 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/index.tt:82 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "Julkaisut, joissa tarpeettomia data-raitoja"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:77
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:83
 msgid "Releases with titles containing featuring artists"
 msgstr "Julkaisut, joiden nimi sisältää vierailevan artistin"
 
@@ -6535,23 +6546,23 @@ msgstr "Julkaisut, joiden nimi sisältää vierailevan artistin"
 msgid "Releases with track number issues"
 msgstr "Julkaisut, joissa epäselvyyksiä kappalenumeroinnissa"
 
-#: ../root/report/index.tt:88 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:94 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr "Julkaisut, joissa tuntemattomia kappaleiden kestoja"
 
-#: ../root/report/index.tt:87
+#: ../root/report/index.tt:93
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "Julkaisut, joissa epätodennäköisiä kieli- ja merkistöpareja"
 
-#: ../root/report/index.tt:66 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:72 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "Julkaisut ilman määritettyä kieltä"
 
-#: ../root/report/index.tt:67 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:73 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "Julkaisut ilman määritettyä merkistöä"
@@ -7115,7 +7126,7 @@ msgstr "Lähetä sähköpostia muokkauksista seuraamiini kohteisiin:"
 msgid "Sentence"
 msgstr "lause"
 
-#: ../root/report/index.tt:120 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:126 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Sarjat"
@@ -7161,7 +7172,7 @@ msgstr "Sarjojen lisätietokenttiä"
 msgid "Series information"
 msgstr "Tietoja sarjasta"
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:129
 msgid "Series with annotations"
 msgstr "Sarjat, joilla lisätietokenttä"
 
@@ -8169,7 +8180,7 @@ msgstr "Tätä aluetta ei ole liitetty yhteenkään artistiin."
 msgid "This area is not currently associated with any labels."
 msgstr "Tätä aluetta ei ole liitetty yhteenkään levymerkkiin."
 
-#: ../root/area/places.tt:7
+#: ../root/area/places.tt:9
 msgid "This area is not currently associated with any places."
 msgstr "Tätä aluetta ei ole liitetty yhteenkään paikkaan."
 
@@ -8895,6 +8906,12 @@ msgid ""
 "Merge Releases})."
 msgstr "Tämä raportti näyttää Discogs-linkit, jotka on yhdistetty useisiin julkaisuihin. Yleensä Discogsin julkaisun tulisi vastata yksi yhteen MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. Tarkista mikä MusicBrainzin julkaisu sopii Discogsin julkaisuun (julkaisumuoto, kappalelista, julkaisumaa jne). Jotkut Discogs-linkit saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
 
+#: ../root/report/instruments_without_an_image.tt:6
+msgid ""
+"This report shows instruments without {image_rel} relationships or "
+"{wikidata_rel} relationships."
+msgstr ""
+
 #: ../root/report/recordings_without_va_credit.tt:6
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
@@ -9292,6 +9309,10 @@ msgstr "Samannimisiä yhtyeitä yhteensä: {count}"
 msgid "Total events found: {count}"
 msgstr ""
 
+#: ../root/report/instruments_without_an_image.tt:9
+msgid "Total instruments found: {count}"
+msgstr ""
+
 #: ../root/report/annotations_labels.tt:8
 #: ../root/report/deprecated_relationship_labels.tt:8
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
@@ -9459,7 +9480,7 @@ msgstr "Kappalelista:"
 msgid "Tracks"
 msgstr "Kappaleet"
 
-#: ../root/report/index.tt:103
+#: ../root/report/index.tt:109
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Kappaleet, joiden nimet sisältävät niiden järjestysnumeroita"
 
@@ -9494,7 +9515,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr "Sisällyttäjä-editorit ovat käyttäjiä, jotka lisäävät ja ylläpitävät merkintöjä {uri|WikiDocsin} sisällyttämistaulukkoon."
 
-#: ../root/report/index.tt:81
+#: ../root/report/index.tt:87
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Käännetyt/translitteroidut valejulkaisut, joita ei ole linkitetty alkuperäiseen versioon"
@@ -9524,6 +9545,7 @@ msgstr "Twitter"
 #: ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27 ../root/report/event_list.tt:8
+#: ../root/report/instruments_without_an_image.tt:20
 #: ../root/report/iswc_with_many_works.tt:28
 #: ../root/report/release_group_list.tt:9
 #: ../root/search/lib/inline-results-artist.tt:9
@@ -9616,13 +9638,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|label]"
 
 #: ../root/components/common-macros.tt:130
-#: ../root/components/common-macros.tt:611 ../root/report/index.tt:134
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:140
 msgid "URLs"
 msgstr "URL-osoitteet"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:137
+#: ../root/report/index.tt:143
 msgid "URLs with deprecated relationships"
 msgstr "URL-osoitteet, joilla vanhentuneita yhteyksiä"
 
@@ -9640,6 +9662,7 @@ msgid "Unauthorized Request"
 msgstr "Valtuuttamaton pyyntö"
 
 #: ../root/instrument/list.tt:21
+#: ../root/report/instruments_without_an_image.tt:32
 msgid "Unclassified instrument"
 msgstr "Määrittelemätön soitin"
 
@@ -10154,24 +10177,24 @@ msgstr "Teos:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:126 ../root/series/index.tt:15
+#: ../root/report/index.tt:132 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Teokset"
 
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:137
 msgid "Works with annotations"
 msgstr "Teokset, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:130
+#: ../root/report/index.tt:136
 msgid "Works with deprecated relationships"
 msgstr "Teokset, joilla vanhentuneita yhteyksiä"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:129
+#: ../root/report/index.tt:135
 msgid "Works with possible duplicate relationships"
 msgstr "Teokset, joilla mahdollisesti yhteyksien kaksoiskappaleita"
 
@@ -12239,23 +12262,23 @@ msgstr "Muokkaa sarjan aliasta"
 msgid "Merge series"
 msgstr "Sulauta sarjat"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Applied"
 msgstr "Hyväksytty"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Failed vote"
 msgstr "Epäonnistunut äänestys"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:276
 msgid "Failed dependency"
 msgstr "Epäonnistunut riippuvuus"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 msgid "Failed prerequisite"
 msgstr "Epäonnistunut edellytys"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 msgid "No votes"
 msgstr "Ei-äänet"
 
@@ -12892,6 +12915,20 @@ msgstr ""
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
+msgstr ""
+
+#: ../root/static/scripts/area/places-map.js:77
+msgid "… and {place_count} other"
+msgid_plural "… and {place_count} others"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/static/scripts/area/places-map.js:89
+msgid "No type"
+msgstr ""
+
+#: ../root/static/scripts/area/places-map.js:100
+msgid "{place_type}: {place_link}"
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:62
