@@ -385,6 +385,10 @@ msgstr ""
 msgid "banjo"
 msgstr ""
 
+#: DB:instrument/name:831
+msgid "banjolin"
+msgstr ""
+
 #: DB:instrument/name:190
 msgid "bansuri"
 msgstr ""
@@ -907,6 +911,7 @@ msgid "cò ke"
 msgstr ""
 
 #: DB:instrument/name:410
+msgctxt "Turkish oud like"
 msgid "cümbüş"
 msgstr ""
 
