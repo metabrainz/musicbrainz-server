@@ -562,7 +562,9 @@ sub create_edits {
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::FailedDependency') {
                 $c->forward('/ws/js/detach_with_error', ["$_"]);
             } else {
-                $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
+                MusicBrainz::Server::Controller::WS::js->critical_error(
+                    $c, $_, { error => $_ }, 400
+                );
             }
         };
         $edit;

@@ -305,10 +305,10 @@ sub detach_with_error : Private {
 sub critical_error : Private {
     my ($self, $c, $error, $response_body, $status) = @_;
 
-    $c->error($error);
     $c->stash->{error_body_in_stash} = 1;
     $c->stash->{body} = $response_body;
     $c->stash->{status} = $status;
+    die $error;
 }
 
 sub get_json_request_body : Private {
