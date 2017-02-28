@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
+# reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -9,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 09:04+0000\n"
+"PO-Revision-Date: 2017-02-24 12:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1109,7 +1110,7 @@ msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
-msgstr "Dit geeft de technicus aan die verantwoordelijk was voor het zorgen dat de geluiden die de artiesten maken in de microfoon aangenaam klinken, zonder ongewenste resonantie of ruis. Dit wordt ook akoestische techniek genoemd."
+msgstr "Dit geeft de technicus aan die verantwoordelijk was voor een goede geluidsopname door de microfoons, zonder ongewenste resonantie of ruis. Dit wordt ook akoestische techniek genoemd."
 
 #: DB:link_type/description:143
 msgid ""
@@ -1176,6 +1177,12 @@ msgstr "Deze eigenschap geeft een artiest (meestal een persoon) aan die een groe
 #: DB:link_attribute_type/description:921
 msgid "This indicates an artist cancelled their appearance at an event."
 msgstr "Dit geeft aan dat een artiest een optreden op een evenement heeft afgezegd."
+
+#: DB:link_type/description:917
+msgid ""
+"This indicates an artist reconstructed a work (usually one where the score "
+"was lost) to make it ready for performance."
+msgstr "Deze relatie geeft aan dat een artiest een compositie heeft gereconstrueerd (vaak omdat de bladmuziek verloren is gegaan) zodat het kan worden uitgevoerd."
 
 #: DB:link_type/description:151
 msgid ""
@@ -3616,11 +3623,11 @@ msgstr "bezit het fonografisch auteursrecht op"
 
 #: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
 msgid "host at"
-msgstr ""
+msgstr "host van"
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
-msgstr ""
+msgstr "hosts"
 
 #: DB:link_type/link_phrase:916
 msgid "hybrid of"
@@ -3812,7 +3819,7 @@ msgstr "is/was de moedermaatschappij van"
 
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an|a} {additional} {original} member of"
-msgstr ""
+msgstr "is/was {additional:een} {original:oorpronkelijk} {additional:aanvullend} lid van"
 
 #: DB:link_type/long_link_phrase:305
 msgid ""
@@ -3879,7 +3886,7 @@ msgstr "gelicenseerd"
 
 #: DB:link_type/reverse_link_phrase:712
 msgid "licensed from"
-msgstr "gelicenseerd van"
+msgstr "onder licentie van"
 
 #: DB:link_type/reverse_link_phrase:833
 msgid "licensed to"
@@ -4256,7 +4263,7 @@ msgstr "speelde {additional:aanvullend} {guest:gast} {solo:solo} {instrument:%|i
 
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
-msgstr ""
+msgstr "verzorgde {additional:aanvullende} {solo}{guest:gast}{vocal:%|vocalen} op"
 
 #: DB:link_type/link_phrase:108 DB:link_type/long_link_phrase:108
 msgid "performs as"
@@ -4470,6 +4477,14 @@ msgstr "re"
 #: DB:link_attribute_type/description:952
 msgid "re-[role]"
 msgstr "Deze eigenschap geeft aan dat een relatie opnieuw uitgevoerd is (zoals een remaster)."
+
+#: DB:link_type/link_phrase:917 DB:link_type/long_link_phrase:917
+msgid "reconstructed"
+msgstr "reconstrueerde"
+
+#: DB:link_type/reverse_link_phrase:917
+msgid "reconstructed by"
+msgstr "gereconstrueerd door"
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
@@ -5282,7 +5297,7 @@ msgstr "{additional:aanvullend} {solo:solo-}{instrument:%|instrumenten} {guest:(
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
-msgstr ""
+msgstr "{additional:aanvullende} {solo}{guest:gast}{vocal:%|vocalen}"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41

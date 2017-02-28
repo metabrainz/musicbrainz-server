@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 19:39-0600\n"
-"PO-Revision-Date: 2017-02-09 08:46+0000\n"
+"POT-Creation-Date: 2017-02-13 08:34-0600\n"
+"PO-Revision-Date: 2017-02-25 11:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -991,7 +991,7 @@ msgstr "Je kan ook {uri|een nieuwe compositie toevoegen}."
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "URL’s van Amazon die aan meerdere uitgaves zijn gekoppeld"
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:77
 msgid "Amazon URLs linked to multiple releases"
 msgstr "URL’s van Amazon die aan meerdere uitgaves zijn gekoppeld"
 
@@ -1707,7 +1707,7 @@ msgid ""
 "review entered data to create the most accurate music database on the "
 "internet. If this appeals to you, please {reg|create an account} or "
 "{login_url|login}."
-msgstr "Neem deel aan MusicBrainz door een account aan te maken en {how|te lezen over de manier} waarop we informatie toevoegen aan MusicBrainz. Kom te weten hoe de gegevens die worden toegevoegd collegiaal getoetst worden om de meest nauwkeurige muziekencyclopedie op het internet te creëren. {reg|Registreer} of {login_url|meld je aan} als dit je aanspreekt."
+msgstr "Neem deel aan MusicBrainz door een account aan te maken en {how|te lezen hoe} je informatie aan MusicBrainz kan toevoegen. Kom te weten hoe de informatie wordt gecontroleerd zodat we de meest nauwkeurige muziekencyclopedie op het internet kunnen samenstellen. {reg|Registreer} of {login_url|meld je aan} als dit je aanspreekt."
 
 #: ../root/components/labels-list.tt:11 ../root/event/merge.tt:14
 #: ../root/label/merge.tt:16 ../root/place/merge.tt:15
@@ -1906,7 +1906,7 @@ msgstr "Bewerking annuleren"
 msgid "Cancel the election"
 msgstr "Annuleer de verkiezing"
 
-#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:183 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
@@ -2554,15 +2554,15 @@ msgstr "URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld"
 msgid "Discogs URLs linked to multiple artists"
 msgstr "URL’s van Discogs die aan meerdere artiesten zijn gekoppeld"
 
-#: ../root/report/index.tt:41
+#: ../root/report/index.tt:47
 msgid "Discogs URLs linked to multiple labels"
 msgstr "URL’s van Discogs die aan meerdere platenmaatschappijen zijn gekoppeld"
 
-#: ../root/report/index.tt:53
+#: ../root/report/index.tt:59
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "URL’s van Discogs die aan meerdere uitgavegroepen zijn gekoppeld"
 
-#: ../root/report/index.tt:72
+#: ../root/report/index.tt:78
 msgid "Discogs URLs linked to multiple releases"
 msgstr "URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld"
 
@@ -2570,7 +2570,7 @@ msgstr "URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld"
 msgid "Discs as Separate Releases"
 msgstr "Media als afzonderlijke uitgaves"
 
-#: ../root/report/index.tt:74
+#: ../root/report/index.tt:80
 msgid "Discs entered as separate releases"
 msgstr "Media die als afzonderlijke uitgaves zijn toegevoegd"
 
@@ -3038,7 +3038,7 @@ msgid "Entity types:"
 msgstr "Objecttypes:"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:277
 msgid "Error"
 msgstr "Fout"
 
@@ -3499,6 +3499,7 @@ msgstr "Algemene informatie"
 #: ../root/report/featuring_recordings.tt:14
 #: ../root/report/featuring_release_groups.tt:13
 #: ../root/report/featuring_releases.tt:13
+#: ../root/report/instruments_without_an_image.tt:10
 #: ../root/report/isrc_with_many_recordings.tt:15
 #: ../root/report/iswc_with_many_works.tt:16
 #: ../root/report/labels_disambiguation_same_name.tt:9
@@ -3749,12 +3750,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:141
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:147
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC’s"
 
-#: ../root/report/index.tt:144 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:150 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC’s met meerdere opnames"
@@ -3787,11 +3788,11 @@ msgstr "ISWC ‘{iswc}’"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:147
+#: ../root/report/index.tt:153
 msgid "ISWCs"
 msgstr "ISWC’s"
 
-#: ../root/report/index.tt:150 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:156 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr "ISWC’s met meerdere composities"
@@ -3951,6 +3952,7 @@ msgstr "Geïnstalleerde applicatie"
 #: ../root/components/common-macros.tt:594
 #: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
+#: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/layout/components/Search.js:24
@@ -3991,10 +3993,15 @@ msgstr "Informatie over het instrument"
 msgid "Instrument:"
 msgstr "Instrument:"
 
-#: ../root/components/common-macros.tt:611 ../root/tag/header.tt:1
-#: ../root/tag/index.tt:8
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:38
+#: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Instruments"
 msgstr "Instrumenten"
+
+#: ../root/report/index.tt:41 ../root/report/instruments_without_an_image.tt:1
+#: ../root/report/instruments_without_an_image.tt:3
+msgid "Instruments without an image"
+msgstr "Instrumenten zonder afbeelding"
 
 #: ../root/main/info/environment.tt:13
 msgid "Interface language:"
@@ -4129,22 +4136,22 @@ msgstr "Platenmaatschappij:"
 
 #: ../root/area/labels.tt:1 ../root/area/labels.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/release/layout.tt:73 ../root/report/index.tt:38
+#: ../root/release/layout.tt:73 ../root/report/index.tt:44
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Labels"
 msgstr "Platenmaatschappijen"
 
-#: ../root/report/index.tt:44
+#: ../root/report/index.tt:50
 msgid "Labels with annotations"
 msgstr "Platenmaatschappijen met aantekeningen"
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
-#: ../root/report/index.tt:43
+#: ../root/report/index.tt:49
 msgid "Labels with deprecated relationships"
 msgstr "Platenmaatschappijen met verouderde relaties"
 
-#: ../root/report/index.tt:45
+#: ../root/report/index.tt:51
 #: ../root/report/labels_disambiguation_same_name.tt:1
 #: ../root/report/labels_disambiguation_same_name.tt:3
 msgid "Labels with disambiguation the same as the name"
@@ -4152,7 +4159,7 @@ msgstr "Platenmaatschappijen met een verduidelijking die gelijk is aan de naam"
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
-#: ../root/report/index.tt:42
+#: ../root/report/index.tt:48
 msgid "Labels with possible duplicate relationships"
 msgstr "Platenmaatschappijen met mogelijk dubbele relaties"
 
@@ -4219,6 +4226,10 @@ msgstr "Laatste bewerking:"
 #: ../root/layout.tt:126 ../root/layout/components/Footer.js:50
 msgid "Last replication packet received at {datetime}"
 msgstr "Laatste replicatiepakket ontvangen op {datetime}"
+
+#: ../root/report/instruments_without_an_image.tt:21
+msgid "Last updated"
+msgstr "Laatste bewerking"
 
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:128
 msgid "Last updated on {date}"
@@ -4713,7 +4724,7 @@ msgstr "Weblog van MusicBrainz"
 #: ../root/layout/header/bottom.tt:75 ../root/main/index.tt:100
 #: ../root/layout/components/BottomMenu.js:132
 msgid "MusicBrainz Database"
-msgstr "Database van MusicBrainz"
+msgstr "Onze database"
 
 #: ../root/layout/header/bottom.tt:60 ../root/main/index.tt:70
 #: ../root/layout/components/BottomMenu.js:117
@@ -5176,7 +5187,7 @@ msgstr "Nog niemand heeft dit een etiket gegeven."
 msgid "Nominate a candidate for auto-editor"
 msgstr "Nomineer een kandidaat voor het autoredacteurschap"
 
-#: ../root/report/index.tt:91
+#: ../root/report/index.tt:97
 #: ../root/report/releases_with_download_relationships.tt:1
 #: ../root/report/releases_with_download_relationships.tt:3
 msgid "Non-digital releases with download relationships"
@@ -5352,7 +5363,7 @@ msgstr "Oeps! Het lijkt er op dat je zoekparameters niet correct waren, controle
 msgid "Oops, something went wrong!"
 msgstr "Oeps, er is iets foutgegaan!"
 
-#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:179 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Open"
 msgstr "Geopend"
 
@@ -5561,17 +5572,17 @@ msgstr "Plaats:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:113 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:119 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Plaatsen"
 
-#: ../root/report/index.tt:117
+#: ../root/report/index.tt:123
 msgid "Places with annotations"
 msgstr "Plaatsen met aantekeningen"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:116
+#: ../root/report/index.tt:122
 msgid "Places with deprecated relationships"
 msgstr "Plaatsen met verouderde relaties"
 
@@ -5702,7 +5713,7 @@ msgid "Possible duplicate events"
 msgstr "Mogelijke dubbele evenementen"
 
 #: ../root/report/duplicate_release_groups.tt:1
-#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:56
+#: ../root/report/duplicate_release_groups.tt:3 ../root/report/index.tt:62
 msgid "Possible duplicate release groups"
 msgstr "Mogelijk dubbele uitgavegroepen"
 
@@ -5937,18 +5948,18 @@ msgstr "Opname:"
 #: ../root/artist/recordings.tt:1 ../root/artist/recordings.tt:4
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:99
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:105
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Opnames"
 
-#: ../root/report/index.tt:110 ../root/report/recordings_without_va_link.tt:1
+#: ../root/report/index.tt:116 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr "Opnames waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die gekoppeld is aan een andere artiest."
 
-#: ../root/report/index.tt:109
+#: ../root/report/index.tt:115
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
@@ -5964,32 +5975,32 @@ msgstr "Opnames met eerste uitgave-relaties"
 msgid "Recordings with Varying Track Lengths"
 msgstr "Opnames met variërende nummerlengtes"
 
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:114
 msgid "Recordings with annotations"
 msgstr "Opnames met aantekeningen"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:107
+#: ../root/report/index.tt:113
 msgid "Recordings with deprecated relationships"
 msgstr "Opnames met verouderde relaties"
 
-#: ../root/report/index.tt:102
+#: ../root/report/index.tt:108
 msgid "Recordings with earliest release relationships"
 msgstr "Opnames met eerste uitgave-relaties"
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:105
+#: ../root/report/index.tt:111
 msgid "Recordings with possible duplicate relationships"
 msgstr "Opnames met mogelijk dubbele relaties"
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:104
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:110
 msgid "Recordings with titles containing featuring artists"
 msgstr "Opnames met de naam van een gastartiest in de titel"
 
-#: ../root/report/index.tt:106
+#: ../root/report/index.tt:112
 msgid "Recordings with varying track times"
 msgstr "Opnames met verschillende nummerlengtes"
 
@@ -6221,7 +6232,7 @@ msgstr "Uitgavegroepen"
 
 #: ../root/report/deprecated_relationship_release_groups.tt:1
 #: ../root/report/deprecated_relationship_release_groups.tt:3
-#: ../root/report/index.tt:55
+#: ../root/report/index.tt:61
 msgid "Release Groups with deprecated relationships"
 msgstr "Uitgavegroepen met verouderde relaties"
 
@@ -6319,38 +6330,38 @@ msgstr "Uitgavegroep ‘{name}’ van {artist}"
 msgid "Release group:"
 msgstr "Uitgavegroep:"
 
-#: ../root/report/index.tt:48
+#: ../root/report/index.tt:54
 msgid "Release groups"
 msgstr "Uitgavegroepen"
 
-#: ../root/report/index.tt:59
+#: ../root/report/index.tt:65
 #: ../root/report/release_groups_without_va_link.tt:1
 #: ../root/report/release_groups_without_va_link.tt:3
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr "Uitgavegroepen waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die gekoppeld is aan een andere artiest."
 
-#: ../root/report/index.tt:58
+#: ../root/report/index.tt:64
 #: ../root/report/release_groups_without_va_credit.tt:1
 #: ../root/report/release_groups_without_va_credit.tt:3
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr "Uitgavegroepen waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” gekoppeld zijn."
 
-#: ../root/report/index.tt:51
+#: ../root/report/index.tt:57
 msgid "Release groups that might need to be merged"
 msgstr "Uitgavegroepen die misschien samengevoegd moeten worden"
 
-#: ../root/report/index.tt:57
+#: ../root/report/index.tt:63
 msgid "Release groups with annotations"
 msgstr "Uitgavegroepen met aantekeningen"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
-#: ../root/report/index.tt:54
+#: ../root/report/index.tt:60
 msgid "Release groups with possible duplicate relationships"
 msgstr "Uitgavegroepen met mogelijk dubbele relaties"
 
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:52
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:58
 msgid "Release groups with titles containing featuring artists"
 msgstr "Uitgavegroepen met de naam van een gastartiest in de titel"
 
@@ -6391,7 +6402,7 @@ msgstr "Uitgave:"
 #: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
 #: ../root/label/index.tt:29 ../root/release_group/merge.tt:16
-#: ../root/report/index.tt:62 ../root/series/index.tt:15
+#: ../root/report/index.tt:68 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Releases"
 msgstr "Uitgaves"
@@ -6420,52 +6431,52 @@ msgstr "Uitgaves met meerdere Discogs-verwijzingen"
 msgid "Releases With Some Formats Unset"
 msgstr "Uitgaves waarbij sommige mediumtypes ontbreken."
 
-#: ../root/report/index.tt:96 ../root/report/releases_without_va_link.tt:1
+#: ../root/report/index.tt:102 ../root/report/releases_without_va_link.tt:1
 #: ../root/report/releases_without_va_link.tt:3
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr "Uitgaves waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die gekoppeld is aan een andere artiest."
 
-#: ../root/report/index.tt:83
+#: ../root/report/index.tt:89
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Uitgaves in het Cover Art Archive die nog steeds relaties hebben voor afbeeldingen."
 
-#: ../root/report/index.tt:95 ../root/report/releases_without_va_credit.tt:1
+#: ../root/report/index.tt:101 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr "Uitgaves waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” gekoppeld zijn."
 
-#: ../root/report/index.tt:85
+#: ../root/report/index.tt:91
 msgid "Releases of any sort that still have cover art relationships"
 msgstr "Uitgaves van elk type die nog relaties voor afbeeldingen hebben."
 
-#: ../root/report/index.tt:78 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:84 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr "Uitgaves die te vroeg zijn uitgegeven"
 
-#: ../root/report/index.tt:79
+#: ../root/report/index.tt:85
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr "Uitgaves waar bij sommige (maar niet alle) media geen type zijn ingesteld."
 
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:75
 msgid "Releases which have multiple ASINs"
 msgstr "Uitgaves met meerdere ASIN’s"
 
-#: ../root/report/index.tt:70
+#: ../root/report/index.tt:76
 msgid "Releases which have multiple Discogs links"
 msgstr "Uitgaves met meerdere Discogs-verwijzingen"
 
-#: ../root/report/index.tt:73
+#: ../root/report/index.tt:79
 msgid "Releases which have part of set relationships"
 msgstr "Uitgaves met deel-van-een-stel-relaties"
 
-#: ../root/report/index.tt:68
+#: ../root/report/index.tt:74
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Uitgaves met onverwachte Amazon-URL’s"
 
-#: ../root/report/index.tt:65 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:71 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Uitgaves die misschien moeten worden omgezet naar ‘diverse artiesten’"
@@ -6475,23 +6486,23 @@ msgstr "Uitgaves die misschien moeten worden omgezet naar ‘diverse artiesten�
 msgid "Releases with Cover Art relationships"
 msgstr "Uitgaves met relaties voor afbeeldingen."
 
-#: ../root/report/index.tt:90
+#: ../root/report/index.tt:96
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
 msgstr "Uitgaves met één medium met een naam"
 
-#: ../root/report/index.tt:93
+#: ../root/report/index.tt:99
 msgid "Releases with annotations"
 msgstr "Uitgaves met aantekeningen"
 
-#: ../root/report/index.tt:80
+#: ../root/report/index.tt:86
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Uitgaves met catalogusnummers die er uitzien als ASIN’s"
 
 #: ../root/report/deprecated_relationship_releases.tt:1
 #: ../root/report/deprecated_relationship_releases.tt:3
-#: ../root/report/index.tt:92
+#: ../root/report/index.tt:98
 msgid "Releases with deprecated relationships"
 msgstr "Uitgaves met verouderde relaties"
 
@@ -6500,31 +6511,31 @@ msgstr "Uitgaves met verouderde relaties"
 msgid "Releases with medium number issues"
 msgstr "Uitgaves met problemen bij de mediumposities"
 
-#: ../root/report/index.tt:94 ../root/report/releases_with_no_mediums.tt:1
+#: ../root/report/index.tt:100 ../root/report/releases_with_no_mediums.tt:1
 #: ../root/report/releases_with_no_mediums.tt:3
 msgid "Releases with no mediums"
 msgstr "Uitgaves zonder media."
 
-#: ../root/report/index.tt:86
+#: ../root/report/index.tt:92
 msgid "Releases with non-sequential mediums"
 msgstr "Uitgaves met media die niet op volgorde zijn"
 
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:81
 msgid "Releases with non-sequential track numbers"
 msgstr "Uitgaves met nummers die niet op volgorde zijn"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:89
+#: ../root/report/index.tt:95
 msgid "Releases with possible duplicate relationships"
 msgstr "Uitgaves met mogelijk dubbele relaties"
 
-#: ../root/report/index.tt:76 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/index.tt:82 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "Uitgaves met overbodige gegevensnummers"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:77
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:83
 msgid "Releases with titles containing featuring artists"
 msgstr "Uitgaves met de naam van een gastartiest in de titel"
 
@@ -6533,23 +6544,23 @@ msgstr "Uitgaves met de naam van een gastartiest in de titel"
 msgid "Releases with track number issues"
 msgstr "Uitgaves met problemen bij de nummerposities"
 
-#: ../root/report/index.tt:88 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:94 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr "Uitgaves met onbekende nummerduur"
 
-#: ../root/report/index.tt:87
+#: ../root/report/index.tt:93
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "Uitgaves met een onwaarschijnlijke combinatie van taal en schrift."
 
-#: ../root/report/index.tt:66 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:72 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "Uitgaves zonder taal"
 
-#: ../root/report/index.tt:67 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:73 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "Uitgaves zonder schrift"
@@ -7113,7 +7124,7 @@ msgstr "Stuur mij e-mails met bewerkingen in mijn abonnementen:"
 msgid "Sentence"
 msgstr "Zin"
 
-#: ../root/report/index.tt:120 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:126 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Series"
@@ -7159,7 +7170,7 @@ msgstr "Series met aantekeningen"
 msgid "Series information"
 msgstr "Informatie over de serie"
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:129
 msgid "Series with annotations"
 msgstr "Series met aantekeningen"
 
@@ -8167,7 +8178,7 @@ msgstr "Dit gebied is momenteel niet verbonden met artiesten."
 msgid "This area is not currently associated with any labels."
 msgstr "Dit gebied is momenteel niet verbonden met platenmaatschappijen."
 
-#: ../root/area/places.tt:7
+#: ../root/area/places.tt:9
 msgid "This area is not currently associated with any places."
 msgstr "Dit gebied is momenteel niet verbonden met plaatsen."
 
@@ -8893,6 +8904,12 @@ msgid ""
 "Merge Releases})."
 msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaves gekoppeld zijn. In de meeste gevallen zouden uitgaves in Discogs 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
 
+#: ../root/report/instruments_without_an_image.tt:6
+msgid ""
+"This report shows instruments without {image_rel} relationships or "
+"{wikidata_rel} relationships."
+msgstr "In dit rapport staan instrumenten zonder afbeelding via Wikidata of een andere externe website."
+
 #: ../root/report/recordings_without_va_credit.tt:6
 msgid ""
 "This report shows recordings linked to the Various Artists entity without "
@@ -9290,6 +9307,10 @@ msgstr "Totaal aantal dubbele groepen: {count}"
 msgid "Total events found: {count}"
 msgstr "Totaal aantal gevonden evenementen: {count}"
 
+#: ../root/report/instruments_without_an_image.tt:9
+msgid "Total instruments found: {count}"
+msgstr "Totaal aantal gevonden instrumenten: {count}"
+
 #: ../root/report/annotations_labels.tt:8
 #: ../root/report/deprecated_relationship_labels.tt:8
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
@@ -9457,7 +9478,7 @@ msgstr "Nummerlijst:"
 msgid "Tracks"
 msgstr "Nummers"
 
-#: ../root/report/index.tt:103
+#: ../root/report/index.tt:109
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Nummers met de positie in de titel"
 
@@ -9492,7 +9513,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr "Transclusieredacteurs zijn gebruikers die lemma’s in de transclusietabel van {uri|WikiDocs} toevoegen en onderhouden."
 
-#: ../root/report/index.tt:81
+#: ../root/report/index.tt:87
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Vertaalde of getranslitereerde pseudo-uitgaves die niet aan de originele uitgave zijn gekoppeld."
@@ -9522,6 +9543,7 @@ msgstr "Twitter"
 #: ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27 ../root/report/event_list.tt:8
+#: ../root/report/instruments_without_an_image.tt:20
 #: ../root/report/iswc_with_many_works.tt:28
 #: ../root/report/release_group_list.tt:9
 #: ../root/search/lib/inline-results-artist.tt:9
@@ -9614,13 +9636,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|platenmaatschappij]"
 
 #: ../root/components/common-macros.tt:130
-#: ../root/components/common-macros.tt:611 ../root/report/index.tt:134
+#: ../root/components/common-macros.tt:611 ../root/report/index.tt:140
 msgid "URLs"
 msgstr "URL’s"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:137
+#: ../root/report/index.tt:143
 msgid "URLs with deprecated relationships"
 msgstr "URL’s met verouderde relaties"
 
@@ -9638,6 +9660,7 @@ msgid "Unauthorized Request"
 msgstr "Ongeautoriseerde aanvraag"
 
 #: ../root/instrument/list.tt:21
+#: ../root/report/instruments_without_an_image.tt:32
 msgid "Unclassified instrument"
 msgstr "Ongeclassificeerd instrument"
 
@@ -10152,24 +10175,24 @@ msgstr "Compositie:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:611 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:126 ../root/series/index.tt:15
+#: ../root/report/index.tt:132 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Composities"
 
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:137
 msgid "Works with annotations"
 msgstr "Composities met aantekeningen."
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:130
+#: ../root/report/index.tt:136
 msgid "Works with deprecated relationships"
 msgstr "Composities met verouderde relaties"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:129
+#: ../root/report/index.tt:135
 msgid "Works with possible duplicate relationships"
 msgstr "Composities met mogelijk dubbele relaties"
 
@@ -11447,8 +11470,8 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
-msgstr[0] "Bedankt, je {num_edits} {edit_url|bewerking} ({edit_ids}) is toegevoegd aan de wachtrij voor collegiale toetsing."
-msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn toegevoegd aan de wachtrij voor collegiale toetsing."
+msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is toegevoegd aan de lijst met open bewerkingen, zodat er op gestemd kan worden."
+msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn toegevoegd aan de lijst met open bewerkingen, zodat er op gestemd kan worden."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:156
 #, perl-brace-format
@@ -11460,8 +11483,8 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
 " with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
-msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is ingevoerd, met {num_open_edits} in de wachtrij voor collegiale toetsing. De rest is automatisch geaccepteerd en doorgevoerd."
-msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn ingevoerd, met {num_open_edits} in de wachtrij voor collegiale toetsing. De rest is automatisch geaccepteerd en doorgevoerd."
+msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is ingevoerd. Op {num_open_edits} bewerking moet nog gestemd worden. De rest is automatisch geaccepteerd en doorgevoerd."
+msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn ingevoerd. Op {num_open_edits}  van deze bewerkingen moet nog gestemd worden. De rest is automatisch geaccepteerd en doorgevoerd."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."
@@ -12237,23 +12260,23 @@ msgstr "Alias van deze serie bewerken"
 msgid "Merge series"
 msgstr "Serie samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Applied"
 msgstr "Doorgevoerd"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Failed vote"
 msgstr "Stemming mislukt"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:276
 msgid "Failed dependency"
 msgstr "Mislukt door afhankelijkheid"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:278
 msgid "Failed prerequisite"
 msgstr "Mislukt door voorwaarde"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:279
 msgid "No votes"
 msgstr "Geen stemmen"
 
@@ -12891,6 +12914,20 @@ msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
 msgstr "Heb je een kapotte link op onze site gevonden? {report|Rapporteer hem alsjeblieft} en voeg elke foutmelding toe die hierboven wordt weergegeven."
+
+#: ../root/static/scripts/area/places-map.js:77
+msgid "… and {place_count} other"
+msgid_plural "… and {place_count} others"
+msgstr[0] "… en nog één andere plaats"
+msgstr[1] "… en nog {place_count} andere plaatsen"
+
+#: ../root/static/scripts/area/places-map.js:89
+msgid "No type"
+msgstr "Geen type"
+
+#: ../root/static/scripts/area/places-map.js:100
+msgid "{place_type}: {place_link}"
+msgstr "{place_type}: {place_link}"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:62
 msgid "An error occurred while searching. Click here to try again."

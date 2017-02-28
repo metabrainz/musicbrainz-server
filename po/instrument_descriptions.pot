@@ -3244,6 +3244,13 @@ msgstr ""
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgstr ""
 
+#. name:cümbüş 
+#: DB:instrument/description:410
+msgid ""
+"created by Zeynel Abidin who name himself after the instrument, it's a "
+"banjolin like modern Turkish instrument"
+msgstr ""
+
 #. name:dholak 
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"

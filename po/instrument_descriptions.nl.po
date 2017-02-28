@@ -1,13 +1,14 @@
 # 
 # Translators:
+# reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 02:01+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-02-20 08:01+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +85,7 @@ msgstr "Een fietsbel kan naast het waarschuwen van voetgangers en andere fietser
 msgid ""
 "A blade-like piece of bone, wood or stone, swung on a long cord producing a "
 "loud, deep whirling that can be heard from a distance."
-msgstr ""
+msgstr "Een puurerehua is een dunne lat van been, hout of steen die aan een touw wordt rondgeslingerd, waardoor er een luid zoevend geluid wordt geproduceerd."
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -176,7 +177,7 @@ msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht l
 msgid ""
 "A flute with a wide range, made of wood, tapered at each end. part of the "
 "traditional Māori instruments Taonga pūoro"
-msgstr ""
+msgstr "Een fluit met een groot bereik, gemaakt van hout en aan beide uiteinden taps toelopend. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
@@ -198,7 +199,7 @@ msgstr "Een grote gongtrom is een grote enkele trom die op een gong lijkt."
 msgid ""
 "A gong made of jade and pilot-whale bone with a striker made of a hardwood, "
 "akeake."
-msgstr ""
+msgstr "Een gong gemaakt van jade en griendbot. Het wordt bespeeld met een hardhouten klopper."
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
@@ -220,7 +221,7 @@ msgid ""
 "A hollowed out gourd with drilled holes, swung around creating a whistling, "
 "chattering sound that attracted birds. part of the traditional Māori "
 "instruments Taonga pūoro"
-msgstr ""
+msgstr "Een uitgeholde kalebas met geboorde gaten die wordt rondgeslingerd en een fluitend en kwetterend geluid produceert waarmee vogels worden gelokt. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:17-string koto
 #: DB:instrument/description:516
@@ -262,14 +263,14 @@ msgstr "Een lithofoon is een muziekinstrument bestaande uit één of meer stukke
 msgid ""
 "A long flute with a closed top and a transverse blowing hole and finger "
 "holes like the pōrutu."
-msgstr ""
+msgstr "Een lange fluit met een gesloten bovenkant en met de poorutu vergelijkbare vingergaten."
 
 #. name:pūmotomoto
 #: DB:instrument/description:785
 msgid ""
 "A long flute with a notched open top and a single finger hole near the end. "
 "part of the traditional Māori instruments Taonga pūoro"
-msgstr ""
+msgstr "Een lange fluit met een open bovenkant met inkepingen en een enkel vingergat aan het uiteinde. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -277,7 +278,7 @@ msgid ""
 "A longer version of the kōauau, made of hardwoods such as mānuka, mataī, or "
 "black maire. Like the pūtorino, it has 2 voices, the male (trumpet) and "
 "female (flute)."
-msgstr ""
+msgstr "Langer dan de kooauau en gemaakt van hardhout. Net als de kooauau is het tweestemmig: mannelijk (trompet) en vrouwelijk (fluit)."
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -359,14 +360,14 @@ msgid ""
 "A small vessel flute like the ocarina or xun. Made of wood, soapstone or "
 "bone and shaped like a whale's tooth. part of the traditional Māori "
 "instruments Taonga pūoro"
-msgstr ""
+msgstr "Een nguru is kleine vatfluit, gemaakt van hout, speksteen of bot en in de vorm van een walvistand. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:kōauau
 #: DB:instrument/description:782
 msgid ""
 "A small, ductless and notchless flute, made of wood or bone. part of the "
 "traditional Māori instruments Taonga pūoro"
-msgstr ""
+msgstr "Een kooauau is een fluitje zonder bek, gemaakt van hout of been. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -422,14 +423,14 @@ msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. St
 msgid ""
 "A traditional Maori trumpet made of wood. A war and announcement trumpet. "
 "part of the traditional Māori instruments Taonga pūoro"
-msgstr ""
+msgstr "Een puukaaea is een traditionele houten trompet van de Maori, die werd gebruikt voor waarschuwingen in oorlogstijd. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:pūtātara
 #: DB:instrument/description:789
 msgid ""
 "A traditional conch shell trumpet, used for signalling to ceremonial and "
 "ritual use. part of the traditional Māori instruments Taonga pūoro"
-msgstr ""
+msgstr "Een traditionele trompet gemaakt van een zeeschelp. Het wordt gebruikt voor het geven van signalen en bij rituelen. Het is een van de traditionele muziekinstrumenten van de Maori (taonga puuoro)."
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -595,7 +596,7 @@ msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerder
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. it has four thick metal strings"
-msgstr ""
+msgstr "Een soort contrabas uit de Balkan met vier dikke metalen snaren. De berda maakt deel uit van het tamburica-orkest."
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -2259,7 +2260,7 @@ msgstr "Een primero is een tenorgarifunatrommel."
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
-msgstr "Een pātē is een Polynesische spleettrommel die is gemaakt van een uitgeholde boomstam."
+msgstr "Een paatee is een Polynesische spleettrommel die is gemaakt van een uitgeholde boomstam."
 
 #. name:qilaut
 #: DB:instrument/description:613
@@ -3050,7 +3051,7 @@ msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte."
 msgid ""
 "Traditional musical instruments of the Māori people of New Zealand. Consists"
 " of flutes trumpets and percussion."
-msgstr ""
+msgstr "Traditionele muziekinstrumenten van de Maori uit Nieuw-Zeeland. Hieronder vallen fluiten, trompetten en percussie-instrumenten."
 
 #. name:classical kemençe
 #: DB:instrument/description:542
@@ -3073,7 +3074,7 @@ msgid ""
 "Usually accompanying sitar on ragas, the fretless instrument comes in "
 "different sizes: largest; male-voice, smaller; female-voice and smallest; "
 "the instrument-accompanying \"tanpuri\""
-msgstr ""
+msgstr "Deze fretloze langehalsluit wordt vaak gebruikt om een sitar te begeleiden."
 
 #. name:valved brass instruments
 #: DB:instrument/description:201
@@ -3102,7 +3103,7 @@ msgstr "Verschillende soorten strijkinstrumenten afkomstig uit het oosten van he
 #. name:violone
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family"
-msgstr "Voorloper van de cello. (<a href=\"http://en.wikipedia.org/wiki/Violone\">Wikipedia</a>)"
+msgstr "De violone is het grootste en laagste lid van de altvioolfamilie en een voorloper van de contrabas."
 
 #. name:wind chime
 #: DB:instrument/description:497
@@ -3138,7 +3139,7 @@ msgstr "De chirimía is gerelateerd aan de schalmei en werd in de 16e en 17e eeu
 #. name:laúd
 #: DB:instrument/description:803
 msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
-msgstr ""
+msgstr "De laúd is een Spaanse getokkelde cister die ook in het Spaanse diaspora wordt bespeeld."
 
 #. name:accordina
 #: DB:instrument/description:778
@@ -3166,7 +3167,7 @@ msgid ""
 "also known as dangubica or kuterevka, it is similar to the bisernica and the"
 " ancestor of the entire tamburica ensemble. this plucked long-necked lute "
 "has two double strings and is played solo."
-msgstr ""
+msgstr "De samica staat ook bekend als dangubica of kuterevka. Het lijkt op de bisernica en is een voorloper van alle instrumenten van het tamburica-orkest. Het is een langhalsluit met twee dubbele snaren en wordt getokkeld."
 
 #. name:clavioline
 #: DB:instrument/description:815
@@ -3192,7 +3193,7 @@ msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met
 msgid ""
 "an exceptionally long spinet, with multiple strings choirs, its bass-tones "
 "where produced by long strings, not thicker strings."
-msgstr ""
+msgstr "Een uitzonderlijk lange spinet, met meervoudige koren. De lage tonen worden geproduceerd door langere in plaats van dikkere snaren."
 
 #. name:barbat
 #: DB:instrument/description:819
@@ -3226,7 +3227,7 @@ msgstr "Scandinavische natuurhoornen van brons die vaak in paren ritueel werden 
 msgid ""
 "chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
 "like. it has one double string D and three single strings"
-msgstr ""
+msgstr "Het ritme-instrument van het Balkanese tamburica-orkest. De bugarija lijkt op een gitaar en heeft een dubbele D-snaar en drie enkele snaren."
 
 #. name:conch
 #: DB:instrument/description:156
@@ -3259,7 +3260,7 @@ msgid ""
 "like like the bugarija. it can either have two double strings and two single"
 " strings (čelović) or now four single strings are more common. "
 "(čelo/čelović/) the čelović is a different pitch than the čelo"
-msgstr ""
+msgstr "Het contrapunt-instrument van het Balkanese tamburica-orkst. Net als de bugarija lijkt het op een gitaar."
 
 #. name:ki pah
 #: DB:instrument/description:307
@@ -3277,7 +3278,7 @@ msgid ""
 "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
 "ancient things evolved/came from \"tanbur\". unrelated Indian drone "
 "\"tanpura\" related Indian \"pandour\""
-msgstr ""
+msgstr "Een luit met een lange hals uit Macedonië en Bulgarije. Niet verwarren met het Joegoslavische tamburica-orkest, verschillende antieke Perzische en Turkse instrumenten die van de tanbur zijn afgeleid en de Indiase tanpura en pandour."
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -3330,7 +3331,7 @@ msgstr "Een combinatie van chirimía en trommel die door één speler bespeeld w
 msgid ""
 "neither a horn nor english, it is a transposing member of the oboe family, "
 "pitched at F"
-msgstr ""
+msgstr "De althobo wordt ook wel een Engelse hoorn genoemd, maar is een hoorn noch Engels. Het is een in F gestemde hobo."
 
 #. name:ondioline
 #: DB:instrument/description:814
@@ -3351,7 +3352,7 @@ msgid ""
 "second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. it can either have three double strings or"
 " two double strings and three single strings"
-msgstr ""
+msgstr "Het een na kleinste lid van het Balkanese tamburica-orkest. Een brač kan drie dubbele snaren hebben of twee dubbele en drie enkele snaren."
 
 #. name:tabor
 #: DB:instrument/description:806
@@ -3372,7 +3373,7 @@ msgstr "Een eenvoudig fluitje dat maar één toon kan voortbrengen en vaak wordt
 msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
-msgstr ""
+msgstr "Een bekfluit met zes gaten die net als de gerelateerde spilåpipa traditioneel bij pastorale muziek wordt bespeeld."
 
 #. name:piano spinet
 #: DB:instrument/description:798
@@ -3393,7 +3394,7 @@ msgstr "Een kleine witte duimpiano met metalen tongetjes en een elektromagnetisc
 msgid ""
 "smaller and higher-tuned ngoni made of calabash, it became an important "
 "instrument in the rise of the Wassoulou music in the 80's and 90's"
-msgstr ""
+msgstr "Een kleinere en hoger gestemde ngoni gemaakt van een kalebas."
 
 #. name:bisernica
 #: DB:instrument/description:824
@@ -3402,7 +3403,7 @@ msgid ""
 " lead or \"prim\" instrument. it can either have one double string and three"
 " single strings (prim/bisernica) or two double strings and two single "
 "strings (bisernica)"
-msgstr ""
+msgstr "Het kleinste lid van het Balkanese tamburica-orkest. Er zijn varianten met één dubbele snaar en drie enkele (prim/bisernica) en met twee dubbele en twee enkele snaren (bisernica)."
 
 #. name:tanbur
 #: DB:instrument/description:477
@@ -3430,19 +3431,19 @@ msgstr "Trắng jâu, basvariant op de trắng lu"
 #. name:khulsan khuur
 #: DB:instrument/description:811
 msgid "used for folksongs, particularly by young girls."
-msgstr ""
+msgstr "Een Mongoolse mondharp, gemaakt van bamboe."
 
 #. name:temür khuur
 #: DB:instrument/description:810
 msgid "used in folkmedisine and shamanistic rituals"
-msgstr ""
+msgstr "Een Mongoolse mondharp, gemaakt van metaal."
 
 #. name:sursingar
 #: DB:instrument/description:816
 msgid ""
 "used in the Hindustani style Dhrupad music, it has steel and bronze strings "
 "and is played with a metal pick."
-msgstr ""
+msgstr "De surshringar wordt gebruikt in Hindoestaanse dhroepadmuziek. Het heeft stalen en bronzen snaren en wordt met een plectrum bespeeld."
 
 #. name:analog synthesizer
 #: DB:instrument/description:813
