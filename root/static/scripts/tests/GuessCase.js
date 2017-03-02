@@ -9,6 +9,10 @@ const test = require('tape');
 const setCookie = require('../common/utility/setCookie');
 const modes = require('../guess-case/modes');
 
+setCookie('guesscase_roman', 'false');
+gc.CFG_UC_UPPERCASED = 'false';
+gc.mode = modes.English;
+
 test('Sortname', function (t) {
     t.plan(6);
 

@@ -9,7 +9,6 @@ const _ = require('lodash');
 
 const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/URLCleanup');
 
-test('URL cleanup component: auto-select, clean-up, and validation', {}, function (t) {
     const test_data = [
         // 45cat
         {
@@ -2552,7 +2551,7 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
     }
 
     _.each(test_data, function (subtest, i) {
-        t.test('input URL [' + i + '] = ' + subtest.input_url, {}, function(st) {
+        test('input URL [' + i + '] = ' + subtest.input_url, {}, function(st) {
             var tested = false;
             if (!subtest.input_url) {
                 st.fail('Test is invalid: "input_url" is missing: ' + JSON.stringify(subtest));
@@ -2621,6 +2620,3 @@ test('URL cleanup component: auto-select, clean-up, and validation', {}, functio
             st.end();
         });
     });
-
-    t.end();
-});
