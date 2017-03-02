@@ -49,9 +49,9 @@ role {
         }
 
         $c->stash->{error} = 'Invalid format. Either set an Accept header'
-            . ' (recognized mime types are '. join (' and ', keys %accepted)
+            . ' (recognized mime types are '. join (' and ', sort keys %accepted)
             . '), or include a fmt= argument in the query string (valid values'
-            . ' for fmt are '. join (' and ', keys %formats) . ').';
+            . ' for fmt are '. join (' and ', sort keys %formats) . ').';
 
         my $ser = $role->serializers->[0];
 
