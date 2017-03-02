@@ -250,6 +250,9 @@ test 'Test normalise_strings' => sub {
     is(normalise_strings('–'), '-', 'U+2013 EN DASH');
     is(normalise_strings('−'), '-', 'U+2212 MINUS SIGN');
 
+    is(normalise_strings('…'), '...', 'U+2026 HORIZONTAL ELLIPSIS');
+    is(normalise_strings('⋯'), '...', 'U+22EF MIDLINE HORIZONTAL ELLIPSIS');
+
     is(normalise_strings('ı'), 'i', 'U+0131 LATIN SMALL LETTER DOTLESS I -> i');
 
     is(normalise_strings('ABCDE'), 'abcde', 'ASCII lc');
