@@ -828,15 +828,14 @@ END -%]
 [%- END -%]
 
 [%~ MACRO medium_description(medium) BLOCK;
-    args = {
+    format_position = l('{medium_format} {position}', {
         medium_format => medium_format_name(medium),
         position => medium.position,
-    };
+    });
     IF medium.name != '';
-        args.medium_name = isolate_text(medium.name);
-        l('{medium_format} {position}: {medium_name}', args);
+        '<span>' _ add_colon(format_position) _ '</span> <span class="medium-name">' _ isolate_text(medium.name) _ '</span>';
     ELSE;
-        l('{medium_format} {position}', args);
+        '<span>' _ format_position _ '</span>';
     END;
 END ~%]
 
