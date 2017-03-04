@@ -18,58 +18,65 @@
             <tr>
                 <th>[% l('Date') %]</th>
                 <th>[% l('Title') %]</th>
-                [% IF has.credit -%]<th>[% l('Credited As') %]</th>[%- END %]
-                [% IF has.attribute -%]<th>[% l('Attributes') %]</th>[%- END %]
-                [% IF has.artist -%]<th>[% l('Artist') %]</th>[%- END %]
-                [% IF has.length -%]<th>[% l('Length') %]</th>[%- END %]
+                [%- IF has.credit %]
+                <th>[% l('Credited As') %]</th>
+                [%- END %]
+                [%- IF has.attribute %]
+                <th>[% l('Attributes') %]</th>
+                [%- END %]
+                [%- IF has.artist %]
+                <th>[% l('Artist') %]</th>
+                [%- END %]
+                [%- IF has.length %]
+                <th>[% l('Length') %]</th>
+                [%- END %]
             </tr>
         </thead>
         <tbody>
-        [%- FOREACH relationship IN entity.appearances.pairs -%]
-                <tr class="subh">
-                    <th></th>
-                    <th colspan="[% columns_subcount %]">[% l(relationship.key) %]</th>
-                </tr>
-                [% FOR rel IN relationship.value %]
-                <tr class="[% loop.parity %]">
-                    <td>[% rel.link.formatted_date %]</td>
-                    <td>
-                        [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
-                        [% link_entity(rel.target, 'show', '', rel.target_credit) %]
-                        [%~ '</span>' IF rel.edits_pending ~%]
-                    </td>
-                    [%~ IF has.credit ~%]
-                    <td>
-                        [%~ rel.source_credit IF rel.source_credit != '' ~%]
-                    </td>
+        [%- FOREACH relationship IN entity.appearances.pairs %]
+            <tr class="subh">
+                <th></th>
+                <th colspan="[% columns_subcount %]">[% l(relationship.key) %]</th>
+            </tr>
+            [%- FOR rel IN relationship.value %]
+            <tr class="[% loop.parity %]">
+                <td>[% rel.link.formatted_date %]</td>
+                <td>
+                    [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
+                    [% link_entity(rel.target, 'show', '', rel.target_credit) %]
+                    [%~ '</span>' IF rel.edits_pending ~%]
+                </td>
+                [%- IF has.credit %]
+                <td>
+                    [%~ rel.source_credit IF rel.source_credit != '' ~%]
+                </td>
+                [%- END %]
+                [%- IF has.attribute %]
+                <td>
+                    [%~ IF rel.link.attributes.size ~%]
+                        [%~ attr_list = [];
+                            FOR attr=rel.link.attributes;
+                                attr_list.push(attr.html);
+                            END;
+                            comma_list(attr_list); ~%]
                     [%~ END ~%]
-                    [%~ IF has.attribute ~%]
-                    <td>
-                      [%~ IF rel.link.attributes.size ~%]
-                      [%~ attr_list = [];
-                          FOR attr=rel.link.attributes;
-                            attr_list.push(attr.html);
-                          END;
-                          comma_list(attr_list);
-                       ~%]
-                      [%~ END ~%]
-                    </td>
+                </td>
+                [%- END %]
+                [%- IF has.artist %]
+                <td>
+                    [%~ artist_credit(rel.target.artist_credit) ~%]
+                </td>
+                [%- END %]
+                [%- IF has.length %]
+                <td>
+                    [%~ IF rel.target_type == "recording" ~%]
+                        [%- format_length(rel.target.length) -%]
                     [%~ END ~%]
-                    [%~ IF has.artist ~%]
-                    <td>
-                        [% artist_credit(rel.target.artist_credit) %]
-                    </td>
-                    [%~ END ~%]
-                    [%~ IF has.length ~%]
-                    <td>
-                        [%~ IF rel.target_type == "recording" ~%]
-                            [%- format_length(rel.target.length) -%]
-                        [%~ END ~%]
-                    </td>
-                    [%~ END ~%]
-                </tr>
-                [% END %]
-        [%- END -%]
+                </td>
+                [%- END %]
+            </tr>
+            [%- END %]
+        [%- END %]
         </tbody>
     </table>
 [% END %]
