@@ -521,6 +521,8 @@ sub allow_auto_edit
 {
     my $self = shift;
 
+    return 1 if $self->can_amend;
+
     my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
                                                   $self->data->{new}{name});
 

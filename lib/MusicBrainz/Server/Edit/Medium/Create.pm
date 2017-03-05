@@ -64,6 +64,8 @@ around _build_related_entities => sub {
     return $related;
 };
 
+sub allow_auto_edit { shift->can_amend }
+
 sub alter_edit_pending
 {
     my $self = shift;
