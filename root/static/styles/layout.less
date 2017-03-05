@@ -590,6 +590,18 @@ table.tbl {
 
         a {
             color: @text-black;
+
+            > * {
+                display: table-cell;
+            }
+
+            > :not(:last-child) {
+                padding-right: 0.3em;
+            }
+
+            .medium-name {
+                white-space: normal;
+            }
         }
 
         &:first-child {
