@@ -123,7 +123,7 @@ around allow_auto_edit => sub {
     foreach my $prop (qw(time setlist)) {
         my ($old_prop, $new_prop) = normalise_strings(
             $self->data->{old}{$prop}, $self->data->{new}{$prop});
-        return 0 if $old_prop ne $new_prop;
+        return 0 if $old_prop ne '' && $old_prop ne $new_prop;
     }
 
     return $self->$orig(@args);
