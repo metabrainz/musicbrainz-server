@@ -1,5 +1,13 @@
-if (typeof phantom === 'undefined') {
-  require("./common/raven");
+let RUNNING_TESTS = false;
+
+try {
+  if (String(process.env.MUSICBRAINZ_RUNNING_TESTS) === '1') {
+    RUNNING_TESTS = true
+  }
+} catch (e) {}
+
+if (!RUNNING_TESTS) {
+  require('./common/raven');
 }
 
 const global = require('./global');
