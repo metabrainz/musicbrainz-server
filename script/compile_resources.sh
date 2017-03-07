@@ -16,6 +16,7 @@ ln -sf ../../../../node_modules/leaflet/dist/images/*.png .
 find . -type l ! -exec test -e '{}' \; -exec rm '{}' \;
 popd > /dev/null
 
+export GIT_BRANCH=$(./script/git_info branch)
 export GIT_SHA=$(./script/git_info sha)
 
 ./script/dbdefs_to_js.pl --client

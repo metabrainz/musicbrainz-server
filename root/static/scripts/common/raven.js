@@ -16,6 +16,7 @@ if (user && user.id) {
 }
 
 Raven.config(DBDefs.SENTRY_DSN_PUBLIC, {
+  environment: DBDefs.GIT_BRANCH,
   tags: {
     git_commit: DBDefs.GIT_SHA,
   },

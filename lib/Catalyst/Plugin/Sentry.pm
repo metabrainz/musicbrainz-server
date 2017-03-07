@@ -140,7 +140,13 @@ sub finalize_error {
         push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
     }
 
-    state $sentry = Sentry::Raven->new(sentry_dsn => DBDefs->SENTRY_DSN);
+    state $sentry = Sentry::Raven->new(
+        sentry_dsn => DBDefs->SENTRY_DSN,
+        environment => DBDefs->GIT_BRANCH,
+        tags => {
+            git_commit => DBDefs->GIT_SHA,
+        },
+    );
     $sentry->capture_exception($message, @context);
 }
 

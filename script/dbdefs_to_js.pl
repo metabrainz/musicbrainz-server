@@ -28,6 +28,7 @@ Readonly our @NUMBER_DEFS => qw(
 );
 
 Readonly our @STRING_DEFS => qw(
+    GIT_BRANCH
     GIT_SHA
     MAPBOX_ACCESS_TOKEN
     MAPBOX_MAP_ID
@@ -42,6 +43,7 @@ Readonly our @QW_DEFS => qw(
 
 Readonly our %CLIENT_DEFS => (
     DEVELOPMENT_SERVER => 1,
+    GIT_BRANCH => 1,
     GIT_SHA => 1,
     MAPBOX_ACCESS_TOKEN => 1,
     MAPBOX_MAP_ID => 1,
