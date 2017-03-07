@@ -49,8 +49,13 @@ if (isNodeJS) {
   };
 }
 
-function js(manifest) {
-  return <script src={pathTo('scripts/' + manifest + '.js')}></script>;
+function js(manifest, extraAttrs={}) {
+  return (
+    <script
+      src={pathTo('scripts/' + manifest + '.js')}
+      {...extraAttrs}>
+    </script>
+  );
 }
 
 function css(manifest) {

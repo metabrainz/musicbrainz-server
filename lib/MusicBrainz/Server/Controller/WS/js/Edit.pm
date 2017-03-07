@@ -502,7 +502,7 @@ sub process_edits {
             $processor->($c, $loader, $edit, $previewing) if $processor;
         }
     } catch {
-        $c->forward('/ws/js/detach_with_error', [$_]);
+        MusicBrainz::Server::Controller::WS::js->critical_error($c, $_);
     };
 
     my %loaded_entities = (
@@ -562,7 +562,7 @@ sub create_edits {
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::FailedDependency') {
                 $c->forward('/ws/js/detach_with_error', ["$_"]);
             } else {
-                $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
+                MusicBrainz::Server::Controller::WS::js->critical_error($c, $_);
             }
         };
         $edit;

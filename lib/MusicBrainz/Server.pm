@@ -21,8 +21,6 @@ use aliased 'MusicBrainz::Server::Translation';
 #   ConfigLoader: will load the configuration from a YAML file in the
 #                 application's home directory
 my @args = qw/
-StackTrace
-
 Session
 Session::State::Cookie
 
@@ -89,21 +87,8 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (DBDefs->EMAIL_BUGS) {
-    __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
-        enable => 1,
-        emit_module => 'MusicBrainz::ErrorCatcherEmailWrapper',
-        user_identified_by => 'identity_string'
-    };
-
-    __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
-        to => DBDefs->EMAIL_BUGS(),
-        from => 'bug-reporter@' . DBDefs->WEB_SERVER(),
-        use_tags => 1,
-        subject => '%h: Unhandled error in %f (line %l)'
-    };
-
-    push @args, "ErrorCatcher";
+if (DBDefs->SENTRY_DSN) {
+    push @args, 'Sentry';
 }
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
@@ -403,8 +388,8 @@ around 'finalize_error' => sub {
             if scalar @$errors == 1 && blessed $errors->[0]
                 && does_role($errors->[0], 'MusicBrainz::Server::Exceptions::Role::Timeout');
 
-        # don't send mail about timeouts (ErrorCatcher will log instead)
-        local $MusicBrainz::ErrorCatcherEmailWrapper::suppress = 1
+        # don't send timeouts to Sentry (log instead)
+        local $Catalyst::Plugin::Sentry::suppress = 1
             if $timed_out;
 
         $c->$orig(@args);
@@ -413,7 +398,6 @@ around 'finalize_error' => sub {
             $c->stash->{errors} = $errors;
             $c->stash->{template} = $timed_out ?
                 'main/timeout.tt' : 'main/500.tt';
-            $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
             if ($c->stash->{error_body_in_stash}) {

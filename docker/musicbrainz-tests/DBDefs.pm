@@ -54,7 +54,11 @@ sub DB_SCHEMA_SEQUENCE { 23 }
 
 sub DEVELOPMENT_SERVER { 0 }
 
-sub GIT_INFO { return }
+sub GIT_BRANCH { return }
+
+sub GIT_MSG { return }
+
+sub GIT_SHA { return }
 
 sub HTML_VALIDATOR { 'http://html5-validator:8888?out=json' }
 

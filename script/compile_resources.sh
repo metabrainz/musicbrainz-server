@@ -10,6 +10,8 @@ pushd root/static/images/leaflet/ > /dev/null
 ln -sf ../../../../node_modules/leaflet/dist/images/*.png .
 popd > /dev/null
 
+export GIT_SHA=$(./script/git_info sha)
+
 ./script/dbdefs_to_js.pl --client
 
 ./node_modules/.bin/gulp $@

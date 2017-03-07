@@ -36,9 +36,6 @@ my $ws_defs = Data::OptList::mkopt([
     "events" => {
         method => 'GET'
     },
-    "error" => {
-        method => 'POST'
-    }
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -296,16 +293,6 @@ sub events : Chained('root') PathPart('events') {
     $c->res->body(encode_json($events));
 }
 
-sub error : Chained('root') PathPart('error') {
-    my ($self, $c) = @_;
-
-    $self->check_login($c, 'not logged in');
-
-    my $body = $self->get_json_request_body($c);
-    $self->detach_with_error($c, 'missing parameters') unless $body->{error};
-    $self->critical_error($c, $body->{error}, encode_json({ message => "OK" }), 200);
-}
-
 sub detach_with_error : Private {
     my ($self, $c, $error, $status) = @_;
 
@@ -316,12 +303,12 @@ sub detach_with_error : Private {
 }
 
 sub critical_error : Private {
-    my ($self, $c, $error, $response_body, $status) = @_;
+    my ($self, $c, $error, $status) = @_;
 
-    $c->error($error);
     $c->stash->{error_body_in_stash} = 1;
-    $c->stash->{body} = $response_body;
-    $c->stash->{status} = $status;
+    $c->stash->{body} = encode_json({ error => $error });
+    $c->stash->{status} = $status // 400;
+    die $error;
 }
 
 sub get_json_request_body : Private {

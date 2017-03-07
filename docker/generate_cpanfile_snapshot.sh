@@ -2,8 +2,6 @@
 
 set -e
 
-SRC_IMG=${1:-master}
-
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
@@ -17,10 +15,6 @@ cd "$TMP_DIR"
 
 cp "$MB_SERVER_ROOT/cpanfile" "$TMP_DIR/"
 cp "$MB_SERVER_ROOT/docker/Dockerfile.cpanfile-snapshot" "$TMP_DIR/Dockerfile"
-
-CONTAINER_ID=$(docker create metabrainz/musicbrainz-website:$SRC_IMG)
-docker cp $CONTAINER_ID:/home/musicbrainz/carton-local .
-docker rm $CONTAINER_ID
 
 docker build -t $TMP_IMG .
 CONTAINER_ID=$(docker create $TMP_IMG)
