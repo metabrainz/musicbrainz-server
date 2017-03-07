@@ -355,6 +355,11 @@ sub normalise_strings
         # 05BE Hebrew maqaf, 2010 hyphen, 2012 figure dash, 2013 en-dash, 2212 minus
         $t =~ tr/\x{05BE}\x{2010}\x{2012}\x{2013}\x{2212}/-/;
 
+        # Horizontal three-dots ellipses
+        # 2026 horizontal ellipsis,
+        # 22EF midline horizontal ellipsis
+        $t =~ s/[\x{2026}\x{22EF}]/.../g;
+
         # Unaccent what's left
         decode("utf-16", unaccent_utf16(encode("utf-16", $t)));
     } @_;
