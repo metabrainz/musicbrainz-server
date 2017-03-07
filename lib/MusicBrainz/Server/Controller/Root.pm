@@ -243,7 +243,12 @@ sub begin : Private
 
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
-    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_INFO;
+    my %git_info;
+    if (DBDefs->DB_STAGING_SERVER) {
+        $git_info{branch} = DBDefs->GIT_BRANCH;
+        $git_info{sha} = DBDefs->GIT_SHA;
+        $git_info{msg} = DBDefs->GIT_MSG;
+    }
 
     $c->stash(
         wiki_server => DBDefs->WIKITRANS_SERVER,
@@ -255,11 +260,7 @@ sub begin : Private
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $alert,
             alert_mtime => $alert_mtime,
-            git => {
-                branch => $git_branch,
-                sha => $git_sha,
-                msg => $git_msg,
-            },
+            git => \%git_info,
         },
         favicon_css_classes => FAVICON_CLASSES,
         new_edit_notes => $new_edit_notes,

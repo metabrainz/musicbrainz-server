@@ -1,5 +1,7 @@
 const test = require('tape');
 
+process.env.MUSICBRAINZ_RUNNING_TESTS = 1;
+
 var hadError = false;
 
 function createRow(row) {

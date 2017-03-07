@@ -25,11 +25,12 @@
     </noscript>
     [%~ script_manifest('rev-manifest.js') ~%]
     [%~ script_manifest('jed-' _ current_language _ '.js') ~%]
-    [%~ script_manifest('common.js') ~%]
+    [%~ USE JSON.Escape;
+        user_json = { user => c.user_exists ? { id => c.user.id, name => c.user.name } : undef };
+        script_manifest('common.js', { 'data-args' => user_json.json }) ~%]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
     [%~ IF jsonld_data ~%]
-      [%~ USE JSON.Escape ~%]
       <script type="application/ld+json">[% jsonld_data.json %]</script>
     [%~ END ~%]
     [%- IF google_analytics_code -%]

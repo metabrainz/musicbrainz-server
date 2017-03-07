@@ -496,7 +496,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::js::cover_art_upload",
   "Controller::WS::js::default",
   "Controller::WS::js::entity",
-  "Controller::WS::js::error",
   "Controller::WS::js::events",
   "Controller::WS::js::medium",
   "Controller::WS::js::medium_search",

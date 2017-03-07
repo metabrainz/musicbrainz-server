@@ -268,6 +268,7 @@ sub update_profile
     my $row = hash_to_row(
         $update,
         {
+            name => 'username',
             bio => 'biography',
             area => 'area_id',
             gender => 'gender_id',

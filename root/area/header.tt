@@ -2,10 +2,14 @@
     <h1>[%- link_entity(area) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-             [% html_escape(area.l_type_name) or l('Area') %]
-             [%- IF area.parent_country || area.parent_subdivision || area.parent_city %],
-                 [% l('in {parent_areas}', parent_areas => link_area_containment(area)) -%]
-             [%- END -%]
+        [%= l_area_type_name = html_escape(area.l_type_name) or l('Area') -%]
+        [%- IF area.parent_country || area.parent_subdivision || area.parent_city -%]
+            [%- l('{area_type} in {parent_areas}',
+               area_type => l_area_type_name,
+               parent_areas => link_area_containment(area)) -%]
+        [%- ELSE -%]
+            [%- l_area_type_name -%]
+        [%- END %]
     </p>
 </div>
 

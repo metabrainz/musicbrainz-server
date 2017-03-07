@@ -167,8 +167,16 @@ sub COVER_ART_ARCHIVE_ACCESS_KEY { {{template "QUOTED_STRING" (key_or_default "d
 
 sub COVER_ART_ARCHIVE_SECRET_KEY { {{template "QUOTED_STRING" (key_or_default "docker-server-configs/constants.json/caa_secret_key" "")}} }
 
-{{- if env "GIT_INFO"}}
-sub GIT_INFO { split /:/, {{template "QUOTED_STRING" (env "GIT_INFO")}}, 3; }
+{{- if env "GIT_BRANCH"}}
+sub GIT_BRANCH { {{template "QUOTED_STRING" (env "GIT_BRANCH")}} }
+{{- end}}
+
+{{- if env "GIT_MSG"}}
+sub GIT_MSG { {{template "QUOTED_STRING" (env "GIT_MSG")}} }
+{{- end}}
+
+{{- if env "GIT_SHA"}}
+sub GIT_SHA { {{template "QUOTED_STRING" (env "GIT_SHA")}} }
 {{- end}}
 
 {{template "BOOLEAN_DEF" "CATALYST_DEBUG"}}
@@ -194,7 +202,6 @@ sub GIT_INFO { split /:/, {{template "QUOTED_STRING" (env "GIT_INFO")}}, 3; }
 {{template "STRING_DEF" "DISCOURSE_API_USERNAME"}}
 {{template "STRING_DEF" "DISCOURSE_SERVER"}}
 {{template "STRING_DEF" "DISCOURSE_SSO_SECRET"}}
-{{template "STRING_DEF" "EMAIL_BUGS"}}
 {{template "STRING_DEF" "GOOGLE_ANALYTICS_CODE"}}
 {{template "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
 {{template "STRING_DEF" "GPG_ENCRYPT_KEY"}}
@@ -206,6 +213,8 @@ sub GIT_INFO { split /:/, {{template "QUOTED_STRING" (env "GIT_INFO")}}, 3; }
 {{template "STRING_DEF" "RENDERER_HOST"}}
 {{template "STRING_DEF" "RENDERER_PORT"}}
 {{template "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
+{{template "STRING_DEF" "SENTRY_DSN"}}
+{{template "STRING_DEF" "SENTRY_DSN_PUBLIC"}}
 {{template "STRING_DEF" "SESSION_COOKIE"}}
 {{template "STRING_DEF" "SMTP_SECRET_CHECKSUM"}}
 {{template "STRING_DEF" "STATIC_RESOURCES_LOCATION"}}

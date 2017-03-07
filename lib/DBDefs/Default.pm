@@ -27,10 +27,11 @@ use warnings;
 
 package DBDefs::Default;
 
-use File::Spec::Functions qw( splitdir catdir );
+use File::Spec::Functions qw( splitdir catdir catfile );
 use Cwd qw( abs_path );
 use JSON qw( encode_json );
 use MusicBrainz::Server::Replication ':replication_type';
+use String::ShellQuote qw( shell_quote );
 
 ################################################################################
 # Directories
@@ -305,16 +306,10 @@ EOF
 # Development server feature.
 # Used to display which git branch is currently running along with information
 # about the last commit
-sub GIT_INFO {
-    my $self = shift;
-
-    if ($self->DB_STAGING_SERVER) {
-        my $branch = `git rev-parse --abbrev-ref HEAD 2> /dev/null`;
-        my $sha = `git log -1 --format=format:"%h"`;
-        my $msg = `git log -1 --format=format:"Last commit by %an on %ad: %s" --date=short`;
-        return $branch, $sha, $msg;
-    }
-}
+my $git_info = shell_quote(catfile(__PACKAGE__->MB_SERVER_ROOT, 'script/git_info'));
+sub GIT_BRANCH { qx( $git_info branch ) }
+sub GIT_MSG { qx( $git_info msg ) }
+sub GIT_SHA { qx( $git_info sha ) }
 
 # How long an annotation is considered as being locked.
 sub ANNOTATION_LOCK_TIME { 60*15 }
@@ -386,8 +381,10 @@ sub MB_LANGUAGES {qw()}
 # (note: will still only use languages in MB_LANGUAGES)
 sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
-# Set this to an email address and the server will email any bugs to you
-sub EMAIL_BUGS { undef }
+# Bugs can be sent to a Sentry instance (https://sentry.io) via these settings.
+# The DSNs can be found on the project configuration page.
+sub SENTRY_DSN { undef }
+sub SENTRY_DSN_PUBLIC { undef }
 
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
