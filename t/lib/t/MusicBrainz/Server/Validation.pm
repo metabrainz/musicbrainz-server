@@ -248,6 +248,8 @@ test 'Test normalise_strings' => sub {
     is(normalise_strings('‐'), '-', 'U+2010 HYPHEN');
     is(normalise_strings('‒'), '-', 'U+2012 FIGURE DASH');
     is(normalise_strings('–'), '-', 'U+2013 EN DASH');
+    is(normalise_strings('—'), '-', 'U+2014 EM DASH');
+    is(normalise_strings('―'), '-', 'U+2015 HORIZONTAL BAR');
     is(normalise_strings('−'), '-', 'U+2212 MINUS SIGN');
 
     is(normalise_strings('…'), '...', 'U+2026 HORIZONTAL ELLIPSIS');
