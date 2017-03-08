@@ -1,5 +1,10 @@
-severity = 1
-include = lib
+only=1
+severity=1
 
-[-Modules::RequireVersionVar]
-[-CodeLayout::RequireTidyCode]
+[CodeLayout::ProhibitHardTabs]
+[CodeLayout::RequireConsistentNewlines]
+
+[ControlStructures::ProhibitUnreachableCode]
+
+[TestingAndDebugging::ProhibitNoStrict]
+allow=refs
