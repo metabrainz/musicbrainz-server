@@ -6,5 +6,7 @@ severity=1
 
 [ControlStructures::ProhibitUnreachableCode]
 
+[Subroutines::ProhibitReturnSort]
+
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs

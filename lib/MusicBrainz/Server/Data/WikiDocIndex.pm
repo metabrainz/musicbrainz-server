@@ -143,7 +143,8 @@ sub get_wiki_versions
         }
     }
 
-    return sort { lc $a->{id} cmp lc $b->{id} } @wiki_pages;
+    @wiki_pages = sort { lc $a->{id} cmp lc $b->{id} } @wiki_pages;
+    return @wiki_pages;
 }
 
 __PACKAGE__->meta->make_immutable;
