@@ -104,7 +104,7 @@ sub run {
             printf "Processing subscriptions for '%s' (%s)\n", $editor->name, $period
                 if $self->verbose;
 
-            next if $period eq 'weekly' and !$self->weekly;
+            next if $period eq 'weekly' && !$self->weekly;
 
             unless ($period eq 'never') {
                 my @subscriptions = $self->c->model('EditorSubscriptions')

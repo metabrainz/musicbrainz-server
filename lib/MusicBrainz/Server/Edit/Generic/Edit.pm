@@ -120,16 +120,16 @@ override allow_auto_edit => sub {
     # Adding a date is automatic if there was no date yet.
     if ($props->{date_period}) {
         for my $field (qw( begin_date end_date )) {
-            return 0 if exists $self->data->{old}{$field}
-                and !PartialDate->new_from_row($self->data->{old}{$field})->is_empty;
+            return 0 if exists $self->data->{old}{$field} &&
+                !PartialDate->new_from_row($self->data->{old}{$field})->is_empty;
         }
-        return 0 if exists $self->data->{old}{ended}
-            and $self->data->{old}{ended};
+        return 0 if exists $self->data->{old}{ended} &&
+            $self->data->{old}{ended};
     }
 
     if ($props->{type}) {
-        return 0 if exists $self->data->{old}{type_id}
-            and ($self->data->{old}{type_id} // 0) != 0;
+        return 0 if exists $self->data->{old}{type_id} &&
+            ($self->data->{old}{type_id} // 0) != 0;
     }
 
     if ($props->{artist_credits}) {

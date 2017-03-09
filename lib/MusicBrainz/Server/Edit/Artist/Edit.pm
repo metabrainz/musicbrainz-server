@@ -163,17 +163,17 @@ sub _mapping
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 
-    return 0 if exists $self->data->{old}{gender_id}
-        and defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
+    return 0 if exists $self->data->{old}{gender_id} &&
+        defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
 
-    return 0 if exists $self->data->{old}{area_id}
-        and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
+    return 0 if exists $self->data->{old}{area_id} &&
+        defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
 
-    return 0 if exists $self->data->{old}{begin_area_id}
-        and defined($self->data->{old}{begin_area_id}) && $self->data->{old}{begin_area_id} != 0;
+    return 0 if exists $self->data->{old}{begin_area_id} &&
+        defined($self->data->{old}{begin_area_id}) && $self->data->{old}{begin_area_id} != 0;
 
-    return 0 if exists $self->data->{old}{end_area_id}
-        and defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
+    return 0 if exists $self->data->{old}{end_area_id} &&
+        defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
 
     return 0 if $self->data->{new}{ipi_codes};
 
