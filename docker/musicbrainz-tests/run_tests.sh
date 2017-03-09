@@ -27,6 +27,7 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     --source Perl \
     --source pgTAP \
     -I lib \
+    t/critic.t \
     t/js.t \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
