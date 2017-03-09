@@ -16,3 +16,4 @@ allow=refs
 [ValuesAndExpressions::ProhibitMixedBooleanOperators]
 
 [Variables::ProhibitUnusedVariables]
+[Variables::RequireLexicalLoopIterators]
