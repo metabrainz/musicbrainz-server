@@ -239,7 +239,7 @@ sub validate_username {
     my $previous_username = $self->init_value;
 
     if (defined $username) {
-        unless (defined $previous_username && $previous_username eq $username) { 
+        unless (defined $previous_username && $previous_username eq $username) {
             if ($username =~ qr{^deleted editor \#\d+$}i) {
                 $self->add_error(l('This username is reserved for internal use.'));
             }

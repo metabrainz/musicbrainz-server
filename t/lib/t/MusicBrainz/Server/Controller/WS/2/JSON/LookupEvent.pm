@@ -54,12 +54,12 @@ test 'basic event lookup, inc=aliases' => sub {
                 ended => JSON::false
             },
             aliases => [
-                { 
+                {
                     name => "El Festival Cool",
-                    "sort-name" => "Festival Cool, El", 
+                    "sort-name" => "Festival Cool, El",
                     locale => JSON::null,
-                    primary => JSON::null, 
-                    type => JSON::null, 
+                    primary => JSON::null,
+                    type => JSON::null,
                     "type-id" => JSON::null,
                     begin => JSON::null,
                     end => JSON::null,

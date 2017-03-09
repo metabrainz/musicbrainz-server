@@ -44,13 +44,13 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     );
 
     if ($c->form_posted) {
-        if ($form->submitted_and_valid($c->req->params) 
+        if ($form->submitted_and_valid($c->req->params)
             && $form2->submitted_and_valid($c->req->params )) {
             # When an admin views their own flags page the account admin checkbox will be disabled,
             # thus we need to manually insert a value here to keep the admin's privileges intact.
             $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
             $c->model('Editor')->update_privileges($user, $form->values);
-        
+
             $c->model('Editor')->update_profile(
                 $user,
                 $form2->value
@@ -61,7 +61,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
             my $new_email = $form2->field('email')->value || '';
             if ($old_email ne $new_email) {
                 if ($new_email) {
-                    if ($form2->field('skip_verification')->value) { 
+                    if ($form2->field('skip_verification')->value) {
                         $c->model('Editor')->update_email($user, $new_email);
                         $user->email($new_email);
                         $c->forward('/discourse/sync_sso', [$user]);
@@ -76,7 +76,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
                     $c->forward('/discourse/sync_sso', [$user]);
                 }
             }
-            
+
             $c->flash->{message} = l('User successfully edited.');
             $c->response->redirect($c->uri_for_action('/user/profile', [$form2->field('username')->value]));
             $c->detach;
