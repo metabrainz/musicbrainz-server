@@ -7,12 +7,12 @@ DISTRIBUTIONS
       Algorithm::Diff::_impl 1.1903
     requirements:
       ExtUtils::MakeMaker 0
-  Apache-LogFormat-Compiler-0.33
-    pathname: K/KA/KAZEBURO/Apache-LogFormat-Compiler-0.33.tar.gz
+  Apache-LogFormat-Compiler-0.35
+    pathname: K/KA/KAZEBURO/Apache-LogFormat-Compiler-0.35.tar.gz
     provides:
-      Apache::LogFormat::Compiler 0.33
+      Apache::LogFormat::Compiler 0.35
     requirements:
-      Module::Build 0.38
+      Module::Build::Tiny 0.035
       POSIX 0
       POSIX::strftime::Compiler 0.30
       Time::Local 0
@@ -118,6 +118,13 @@ DISTRIBUTIONS
       Test::More 0
       parent 0
       perl 5.008001
+  B-Keywords-1.15
+    pathname: R/RU/RURBAN/B-Keywords-1.15.tar.gz
+    provides:
+      B::Keywords 1.15
+    requirements:
+      B 0
+      ExtUtils::MakeMaker 0
   B-Utils-0.27
     pathname: E/ET/ETHER/B-Utils-0.27.tar.gz
     provides:
@@ -250,10 +257,10 @@ DISTRIBUTIONS
       HTML::Tiny 0.904
       LWP::UserAgent 0
       Test::More 0
-  Capture-Tiny-0.44
-    pathname: D/DA/DAGOLDEN/Capture-Tiny-0.44.tar.gz
+  Capture-Tiny-0.46
+    pathname: D/DA/DAGOLDEN/Capture-Tiny-0.46.tar.gz
     provides:
-      Capture::Tiny 0.44
+      Capture::Tiny 0.46
     requirements:
       Carp 0
       Exporter 0
@@ -755,10 +762,10 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
-  Config-Any-0.27
-    pathname: B/BR/BRICAS/Config-Any-0.27.tar.gz
+  Config-Any-0.29
+    pathname: H/HA/HAARG/Config-Any-0.29.tar.gz
     provides:
-      Config::Any 0.27
+      Config::Any 0.29
       Config::Any::Base undef
       Config::Any::General undef
       Config::Any::INI undef
@@ -767,10 +774,8 @@ DISTRIBUTIONS
       Config::Any::XML undef
       Config::Any::YAML undef
     requirements:
-      ExtUtils::MakeMaker 6.59
+      Config::General 2.47
       Module::Pluggable::Object 3.6
-      Test::More 0
-      perl 5.006
   Config-General-2.63
     pathname: T/TL/TLINDEN/Config-General-2.63.tar.gz
     provides:
@@ -783,6 +788,19 @@ DISTRIBUTIONS
       File::Spec::Functions 0
       FileHandle 0
       IO::File 0
+  Config-Tiny-2.23
+    pathname: R/RS/RSAVAGE/Config-Tiny-2.23.tgz
+    provides:
+      Config::Tiny 2.23
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Spec 3.3
+      File::Temp 0.22
+      Test::More 0.47
+      UNIVERSAL 0
+      perl v5.8.1
+      strict 0
+      utf8 0
   Cookie-Baker-0.07
     pathname: K/KA/KAZEBURO/Cookie-Baker-0.07.tar.gz
     provides:
@@ -792,10 +810,10 @@ DISTRIBUTIONS
       Module::Build 0.38
       URI::Escape 0
       perl 5.008001
-  Cpanel-JSON-XS-3.0227
-    pathname: R/RU/RURBAN/Cpanel-JSON-XS-3.0227.tar.gz
+  Cpanel-JSON-XS-3.0228
+    pathname: R/RU/RURBAN/Cpanel-JSON-XS-3.0228.tar.gz
     provides:
-      Cpanel::JSON::XS 3.0227
+      Cpanel::JSON::XS 3.0228
     requirements:
       ExtUtils::MakeMaker 0
       Pod::Text 2.08
@@ -1334,15 +1352,15 @@ DISTRIBUTIONS
       DateTime 0
       ExtUtils::MakeMaker 6.42
       Test::More 0.61
-  DateTime-Locale-1.12
-    pathname: D/DR/DROLSKY/DateTime-Locale-1.12.tar.gz
+  DateTime-Locale-1.14
+    pathname: D/DR/DROLSKY/DateTime-Locale-1.14.tar.gz
     provides:
-      DateTime::Locale 1.12
-      DateTime::Locale::Base 1.12
-      DateTime::Locale::Catalog 1.12
-      DateTime::Locale::Data 1.12
-      DateTime::Locale::FromData 1.12
-      DateTime::Locale::Util 1.12
+      DateTime::Locale 1.14
+      DateTime::Locale::Base 1.14
+      DateTime::Locale::Catalog 1.14
+      DateTime::Locale::Data 1.14
+      DateTime::Locale::FromData 1.14
+      DateTime::Locale::Util 1.14
     requirements:
       Carp 0
       Dist::CheckConflicts 0.02
@@ -1356,378 +1374,379 @@ DISTRIBUTIONS
       perl 5.008004
       strict 0
       warnings 0
-  DateTime-TimeZone-2.09
-    pathname: D/DR/DROLSKY/DateTime-TimeZone-2.09.tar.gz
+  DateTime-TimeZone-2.10
+    pathname: D/DR/DROLSKY/DateTime-TimeZone-2.10.tar.gz
     provides:
-      DateTime::TimeZone 2.09
-      DateTime::TimeZone::Africa::Abidjan 2.09
-      DateTime::TimeZone::Africa::Accra 2.09
-      DateTime::TimeZone::Africa::Algiers 2.09
-      DateTime::TimeZone::Africa::Bissau 2.09
-      DateTime::TimeZone::Africa::Cairo 2.09
-      DateTime::TimeZone::Africa::Casablanca 2.09
-      DateTime::TimeZone::Africa::Ceuta 2.09
-      DateTime::TimeZone::Africa::El_Aaiun 2.09
-      DateTime::TimeZone::Africa::Johannesburg 2.09
-      DateTime::TimeZone::Africa::Khartoum 2.09
-      DateTime::TimeZone::Africa::Lagos 2.09
-      DateTime::TimeZone::Africa::Maputo 2.09
-      DateTime::TimeZone::Africa::Monrovia 2.09
-      DateTime::TimeZone::Africa::Nairobi 2.09
-      DateTime::TimeZone::Africa::Ndjamena 2.09
-      DateTime::TimeZone::Africa::Tripoli 2.09
-      DateTime::TimeZone::Africa::Tunis 2.09
-      DateTime::TimeZone::Africa::Windhoek 2.09
-      DateTime::TimeZone::America::Adak 2.09
-      DateTime::TimeZone::America::Anchorage 2.09
-      DateTime::TimeZone::America::Araguaina 2.09
-      DateTime::TimeZone::America::Argentina::Buenos_Aires 2.09
-      DateTime::TimeZone::America::Argentina::Catamarca 2.09
-      DateTime::TimeZone::America::Argentina::Cordoba 2.09
-      DateTime::TimeZone::America::Argentina::Jujuy 2.09
-      DateTime::TimeZone::America::Argentina::La_Rioja 2.09
-      DateTime::TimeZone::America::Argentina::Mendoza 2.09
-      DateTime::TimeZone::America::Argentina::Rio_Gallegos 2.09
-      DateTime::TimeZone::America::Argentina::Salta 2.09
-      DateTime::TimeZone::America::Argentina::San_Juan 2.09
-      DateTime::TimeZone::America::Argentina::San_Luis 2.09
-      DateTime::TimeZone::America::Argentina::Tucuman 2.09
-      DateTime::TimeZone::America::Argentina::Ushuaia 2.09
-      DateTime::TimeZone::America::Asuncion 2.09
-      DateTime::TimeZone::America::Atikokan 2.09
-      DateTime::TimeZone::America::Bahia 2.09
-      DateTime::TimeZone::America::Bahia_Banderas 2.09
-      DateTime::TimeZone::America::Barbados 2.09
-      DateTime::TimeZone::America::Belem 2.09
-      DateTime::TimeZone::America::Belize 2.09
-      DateTime::TimeZone::America::Blanc_Sablon 2.09
-      DateTime::TimeZone::America::Boa_Vista 2.09
-      DateTime::TimeZone::America::Bogota 2.09
-      DateTime::TimeZone::America::Boise 2.09
-      DateTime::TimeZone::America::Cambridge_Bay 2.09
-      DateTime::TimeZone::America::Campo_Grande 2.09
-      DateTime::TimeZone::America::Cancun 2.09
-      DateTime::TimeZone::America::Caracas 2.09
-      DateTime::TimeZone::America::Cayenne 2.09
-      DateTime::TimeZone::America::Chicago 2.09
-      DateTime::TimeZone::America::Chihuahua 2.09
-      DateTime::TimeZone::America::Costa_Rica 2.09
-      DateTime::TimeZone::America::Creston 2.09
-      DateTime::TimeZone::America::Cuiaba 2.09
-      DateTime::TimeZone::America::Curacao 2.09
-      DateTime::TimeZone::America::Danmarkshavn 2.09
-      DateTime::TimeZone::America::Dawson 2.09
-      DateTime::TimeZone::America::Dawson_Creek 2.09
-      DateTime::TimeZone::America::Denver 2.09
-      DateTime::TimeZone::America::Detroit 2.09
-      DateTime::TimeZone::America::Edmonton 2.09
-      DateTime::TimeZone::America::Eirunepe 2.09
-      DateTime::TimeZone::America::El_Salvador 2.09
-      DateTime::TimeZone::America::Fort_Nelson 2.09
-      DateTime::TimeZone::America::Fortaleza 2.09
-      DateTime::TimeZone::America::Glace_Bay 2.09
-      DateTime::TimeZone::America::Godthab 2.09
-      DateTime::TimeZone::America::Goose_Bay 2.09
-      DateTime::TimeZone::America::Grand_Turk 2.09
-      DateTime::TimeZone::America::Guatemala 2.09
-      DateTime::TimeZone::America::Guayaquil 2.09
-      DateTime::TimeZone::America::Guyana 2.09
-      DateTime::TimeZone::America::Halifax 2.09
-      DateTime::TimeZone::America::Havana 2.09
-      DateTime::TimeZone::America::Hermosillo 2.09
-      DateTime::TimeZone::America::Indiana::Indianapolis 2.09
-      DateTime::TimeZone::America::Indiana::Knox 2.09
-      DateTime::TimeZone::America::Indiana::Marengo 2.09
-      DateTime::TimeZone::America::Indiana::Petersburg 2.09
-      DateTime::TimeZone::America::Indiana::Tell_City 2.09
-      DateTime::TimeZone::America::Indiana::Vevay 2.09
-      DateTime::TimeZone::America::Indiana::Vincennes 2.09
-      DateTime::TimeZone::America::Indiana::Winamac 2.09
-      DateTime::TimeZone::America::Inuvik 2.09
-      DateTime::TimeZone::America::Iqaluit 2.09
-      DateTime::TimeZone::America::Jamaica 2.09
-      DateTime::TimeZone::America::Juneau 2.09
-      DateTime::TimeZone::America::Kentucky::Louisville 2.09
-      DateTime::TimeZone::America::Kentucky::Monticello 2.09
-      DateTime::TimeZone::America::La_Paz 2.09
-      DateTime::TimeZone::America::Lima 2.09
-      DateTime::TimeZone::America::Los_Angeles 2.09
-      DateTime::TimeZone::America::Maceio 2.09
-      DateTime::TimeZone::America::Managua 2.09
-      DateTime::TimeZone::America::Manaus 2.09
-      DateTime::TimeZone::America::Martinique 2.09
-      DateTime::TimeZone::America::Matamoros 2.09
-      DateTime::TimeZone::America::Mazatlan 2.09
-      DateTime::TimeZone::America::Menominee 2.09
-      DateTime::TimeZone::America::Merida 2.09
-      DateTime::TimeZone::America::Metlakatla 2.09
-      DateTime::TimeZone::America::Mexico_City 2.09
-      DateTime::TimeZone::America::Miquelon 2.09
-      DateTime::TimeZone::America::Moncton 2.09
-      DateTime::TimeZone::America::Monterrey 2.09
-      DateTime::TimeZone::America::Montevideo 2.09
-      DateTime::TimeZone::America::Nassau 2.09
-      DateTime::TimeZone::America::New_York 2.09
-      DateTime::TimeZone::America::Nipigon 2.09
-      DateTime::TimeZone::America::Nome 2.09
-      DateTime::TimeZone::America::Noronha 2.09
-      DateTime::TimeZone::America::North_Dakota::Beulah 2.09
-      DateTime::TimeZone::America::North_Dakota::Center 2.09
-      DateTime::TimeZone::America::North_Dakota::New_Salem 2.09
-      DateTime::TimeZone::America::Ojinaga 2.09
-      DateTime::TimeZone::America::Panama 2.09
-      DateTime::TimeZone::America::Pangnirtung 2.09
-      DateTime::TimeZone::America::Paramaribo 2.09
-      DateTime::TimeZone::America::Phoenix 2.09
-      DateTime::TimeZone::America::Port_au_Prince 2.09
-      DateTime::TimeZone::America::Port_of_Spain 2.09
-      DateTime::TimeZone::America::Porto_Velho 2.09
-      DateTime::TimeZone::America::Puerto_Rico 2.09
-      DateTime::TimeZone::America::Rainy_River 2.09
-      DateTime::TimeZone::America::Rankin_Inlet 2.09
-      DateTime::TimeZone::America::Recife 2.09
-      DateTime::TimeZone::America::Regina 2.09
-      DateTime::TimeZone::America::Resolute 2.09
-      DateTime::TimeZone::America::Rio_Branco 2.09
-      DateTime::TimeZone::America::Santarem 2.09
-      DateTime::TimeZone::America::Santiago 2.09
-      DateTime::TimeZone::America::Santo_Domingo 2.09
-      DateTime::TimeZone::America::Sao_Paulo 2.09
-      DateTime::TimeZone::America::Scoresbysund 2.09
-      DateTime::TimeZone::America::Sitka 2.09
-      DateTime::TimeZone::America::St_Johns 2.09
-      DateTime::TimeZone::America::Swift_Current 2.09
-      DateTime::TimeZone::America::Tegucigalpa 2.09
-      DateTime::TimeZone::America::Thule 2.09
-      DateTime::TimeZone::America::Thunder_Bay 2.09
-      DateTime::TimeZone::America::Tijuana 2.09
-      DateTime::TimeZone::America::Toronto 2.09
-      DateTime::TimeZone::America::Vancouver 2.09
-      DateTime::TimeZone::America::Whitehorse 2.09
-      DateTime::TimeZone::America::Winnipeg 2.09
-      DateTime::TimeZone::America::Yakutat 2.09
-      DateTime::TimeZone::America::Yellowknife 2.09
-      DateTime::TimeZone::Antarctica::Casey 2.09
-      DateTime::TimeZone::Antarctica::Davis 2.09
-      DateTime::TimeZone::Antarctica::DumontDUrville 2.09
-      DateTime::TimeZone::Antarctica::Macquarie 2.09
-      DateTime::TimeZone::Antarctica::Mawson 2.09
-      DateTime::TimeZone::Antarctica::Palmer 2.09
-      DateTime::TimeZone::Antarctica::Rothera 2.09
-      DateTime::TimeZone::Antarctica::Syowa 2.09
-      DateTime::TimeZone::Antarctica::Troll 2.09
-      DateTime::TimeZone::Antarctica::Vostok 2.09
-      DateTime::TimeZone::Asia::Almaty 2.09
-      DateTime::TimeZone::Asia::Amman 2.09
-      DateTime::TimeZone::Asia::Anadyr 2.09
-      DateTime::TimeZone::Asia::Aqtau 2.09
-      DateTime::TimeZone::Asia::Aqtobe 2.09
-      DateTime::TimeZone::Asia::Ashgabat 2.09
-      DateTime::TimeZone::Asia::Atyrau 2.09
-      DateTime::TimeZone::Asia::Baghdad 2.09
-      DateTime::TimeZone::Asia::Baku 2.09
-      DateTime::TimeZone::Asia::Bangkok 2.09
-      DateTime::TimeZone::Asia::Barnaul 2.09
-      DateTime::TimeZone::Asia::Beirut 2.09
-      DateTime::TimeZone::Asia::Bishkek 2.09
-      DateTime::TimeZone::Asia::Brunei 2.09
-      DateTime::TimeZone::Asia::Chita 2.09
-      DateTime::TimeZone::Asia::Choibalsan 2.09
-      DateTime::TimeZone::Asia::Colombo 2.09
-      DateTime::TimeZone::Asia::Damascus 2.09
-      DateTime::TimeZone::Asia::Dhaka 2.09
-      DateTime::TimeZone::Asia::Dili 2.09
-      DateTime::TimeZone::Asia::Dubai 2.09
-      DateTime::TimeZone::Asia::Dushanbe 2.09
-      DateTime::TimeZone::Asia::Famagusta 2.09
-      DateTime::TimeZone::Asia::Gaza 2.09
-      DateTime::TimeZone::Asia::Hebron 2.09
-      DateTime::TimeZone::Asia::Ho_Chi_Minh 2.09
-      DateTime::TimeZone::Asia::Hong_Kong 2.09
-      DateTime::TimeZone::Asia::Hovd 2.09
-      DateTime::TimeZone::Asia::Irkutsk 2.09
-      DateTime::TimeZone::Asia::Jakarta 2.09
-      DateTime::TimeZone::Asia::Jayapura 2.09
-      DateTime::TimeZone::Asia::Jerusalem 2.09
-      DateTime::TimeZone::Asia::Kabul 2.09
-      DateTime::TimeZone::Asia::Kamchatka 2.09
-      DateTime::TimeZone::Asia::Karachi 2.09
-      DateTime::TimeZone::Asia::Kathmandu 2.09
-      DateTime::TimeZone::Asia::Khandyga 2.09
-      DateTime::TimeZone::Asia::Kolkata 2.09
-      DateTime::TimeZone::Asia::Krasnoyarsk 2.09
-      DateTime::TimeZone::Asia::Kuala_Lumpur 2.09
-      DateTime::TimeZone::Asia::Kuching 2.09
-      DateTime::TimeZone::Asia::Macau 2.09
-      DateTime::TimeZone::Asia::Magadan 2.09
-      DateTime::TimeZone::Asia::Makassar 2.09
-      DateTime::TimeZone::Asia::Manila 2.09
-      DateTime::TimeZone::Asia::Nicosia 2.09
-      DateTime::TimeZone::Asia::Novokuznetsk 2.09
-      DateTime::TimeZone::Asia::Novosibirsk 2.09
-      DateTime::TimeZone::Asia::Omsk 2.09
-      DateTime::TimeZone::Asia::Oral 2.09
-      DateTime::TimeZone::Asia::Pontianak 2.09
-      DateTime::TimeZone::Asia::Pyongyang 2.09
-      DateTime::TimeZone::Asia::Qatar 2.09
-      DateTime::TimeZone::Asia::Qyzylorda 2.09
-      DateTime::TimeZone::Asia::Riyadh 2.09
-      DateTime::TimeZone::Asia::Sakhalin 2.09
-      DateTime::TimeZone::Asia::Samarkand 2.09
-      DateTime::TimeZone::Asia::Seoul 2.09
-      DateTime::TimeZone::Asia::Shanghai 2.09
-      DateTime::TimeZone::Asia::Singapore 2.09
-      DateTime::TimeZone::Asia::Srednekolymsk 2.09
-      DateTime::TimeZone::Asia::Taipei 2.09
-      DateTime::TimeZone::Asia::Tashkent 2.09
-      DateTime::TimeZone::Asia::Tbilisi 2.09
-      DateTime::TimeZone::Asia::Tehran 2.09
-      DateTime::TimeZone::Asia::Thimphu 2.09
-      DateTime::TimeZone::Asia::Tokyo 2.09
-      DateTime::TimeZone::Asia::Tomsk 2.09
-      DateTime::TimeZone::Asia::Ulaanbaatar 2.09
-      DateTime::TimeZone::Asia::Urumqi 2.09
-      DateTime::TimeZone::Asia::Ust_Nera 2.09
-      DateTime::TimeZone::Asia::Vladivostok 2.09
-      DateTime::TimeZone::Asia::Yakutsk 2.09
-      DateTime::TimeZone::Asia::Yangon 2.09
-      DateTime::TimeZone::Asia::Yekaterinburg 2.09
-      DateTime::TimeZone::Asia::Yerevan 2.09
-      DateTime::TimeZone::Atlantic::Azores 2.09
-      DateTime::TimeZone::Atlantic::Bermuda 2.09
-      DateTime::TimeZone::Atlantic::Canary 2.09
-      DateTime::TimeZone::Atlantic::Cape_Verde 2.09
-      DateTime::TimeZone::Atlantic::Faroe 2.09
-      DateTime::TimeZone::Atlantic::Madeira 2.09
-      DateTime::TimeZone::Atlantic::Reykjavik 2.09
-      DateTime::TimeZone::Atlantic::South_Georgia 2.09
-      DateTime::TimeZone::Atlantic::Stanley 2.09
-      DateTime::TimeZone::Australia::Adelaide 2.09
-      DateTime::TimeZone::Australia::Brisbane 2.09
-      DateTime::TimeZone::Australia::Broken_Hill 2.09
-      DateTime::TimeZone::Australia::Currie 2.09
-      DateTime::TimeZone::Australia::Darwin 2.09
-      DateTime::TimeZone::Australia::Eucla 2.09
-      DateTime::TimeZone::Australia::Hobart 2.09
-      DateTime::TimeZone::Australia::Lindeman 2.09
-      DateTime::TimeZone::Australia::Lord_Howe 2.09
-      DateTime::TimeZone::Australia::Melbourne 2.09
-      DateTime::TimeZone::Australia::Perth 2.09
-      DateTime::TimeZone::Australia::Sydney 2.09
-      DateTime::TimeZone::CET 2.09
-      DateTime::TimeZone::CST6CDT 2.09
-      DateTime::TimeZone::Catalog 2.09
-      DateTime::TimeZone::EET 2.09
-      DateTime::TimeZone::EST 2.09
-      DateTime::TimeZone::EST5EDT 2.09
-      DateTime::TimeZone::Europe::Amsterdam 2.09
-      DateTime::TimeZone::Europe::Andorra 2.09
-      DateTime::TimeZone::Europe::Astrakhan 2.09
-      DateTime::TimeZone::Europe::Athens 2.09
-      DateTime::TimeZone::Europe::Belgrade 2.09
-      DateTime::TimeZone::Europe::Berlin 2.09
-      DateTime::TimeZone::Europe::Brussels 2.09
-      DateTime::TimeZone::Europe::Bucharest 2.09
-      DateTime::TimeZone::Europe::Budapest 2.09
-      DateTime::TimeZone::Europe::Chisinau 2.09
-      DateTime::TimeZone::Europe::Copenhagen 2.09
-      DateTime::TimeZone::Europe::Dublin 2.09
-      DateTime::TimeZone::Europe::Gibraltar 2.09
-      DateTime::TimeZone::Europe::Helsinki 2.09
-      DateTime::TimeZone::Europe::Istanbul 2.09
-      DateTime::TimeZone::Europe::Kaliningrad 2.09
-      DateTime::TimeZone::Europe::Kiev 2.09
-      DateTime::TimeZone::Europe::Kirov 2.09
-      DateTime::TimeZone::Europe::Lisbon 2.09
-      DateTime::TimeZone::Europe::London 2.09
-      DateTime::TimeZone::Europe::Luxembourg 2.09
-      DateTime::TimeZone::Europe::Madrid 2.09
-      DateTime::TimeZone::Europe::Malta 2.09
-      DateTime::TimeZone::Europe::Minsk 2.09
-      DateTime::TimeZone::Europe::Monaco 2.09
-      DateTime::TimeZone::Europe::Moscow 2.09
-      DateTime::TimeZone::Europe::Oslo 2.09
-      DateTime::TimeZone::Europe::Paris 2.09
-      DateTime::TimeZone::Europe::Prague 2.09
-      DateTime::TimeZone::Europe::Riga 2.09
-      DateTime::TimeZone::Europe::Rome 2.09
-      DateTime::TimeZone::Europe::Samara 2.09
-      DateTime::TimeZone::Europe::Saratov 2.09
-      DateTime::TimeZone::Europe::Simferopol 2.09
-      DateTime::TimeZone::Europe::Sofia 2.09
-      DateTime::TimeZone::Europe::Stockholm 2.09
-      DateTime::TimeZone::Europe::Tallinn 2.09
-      DateTime::TimeZone::Europe::Tirane 2.09
-      DateTime::TimeZone::Europe::Ulyanovsk 2.09
-      DateTime::TimeZone::Europe::Uzhgorod 2.09
-      DateTime::TimeZone::Europe::Vienna 2.09
-      DateTime::TimeZone::Europe::Vilnius 2.09
-      DateTime::TimeZone::Europe::Volgograd 2.09
-      DateTime::TimeZone::Europe::Warsaw 2.09
-      DateTime::TimeZone::Europe::Zaporozhye 2.09
-      DateTime::TimeZone::Europe::Zurich 2.09
-      DateTime::TimeZone::Floating 2.09
-      DateTime::TimeZone::HST 2.09
-      DateTime::TimeZone::Indian::Chagos 2.09
-      DateTime::TimeZone::Indian::Christmas 2.09
-      DateTime::TimeZone::Indian::Cocos 2.09
-      DateTime::TimeZone::Indian::Kerguelen 2.09
-      DateTime::TimeZone::Indian::Mahe 2.09
-      DateTime::TimeZone::Indian::Maldives 2.09
-      DateTime::TimeZone::Indian::Mauritius 2.09
-      DateTime::TimeZone::Indian::Reunion 2.09
-      DateTime::TimeZone::Local 2.09
-      DateTime::TimeZone::Local::Android 2.09
-      DateTime::TimeZone::Local::Unix 2.09
-      DateTime::TimeZone::Local::VMS 2.09
-      DateTime::TimeZone::MET 2.09
-      DateTime::TimeZone::MST 2.09
-      DateTime::TimeZone::MST7MDT 2.09
-      DateTime::TimeZone::OffsetOnly 2.09
-      DateTime::TimeZone::OlsonDB 2.09
-      DateTime::TimeZone::OlsonDB::Change 2.09
-      DateTime::TimeZone::OlsonDB::Observance 2.09
-      DateTime::TimeZone::OlsonDB::Rule 2.09
-      DateTime::TimeZone::OlsonDB::Zone 2.09
-      DateTime::TimeZone::PST8PDT 2.09
-      DateTime::TimeZone::Pacific::Apia 2.09
-      DateTime::TimeZone::Pacific::Auckland 2.09
-      DateTime::TimeZone::Pacific::Bougainville 2.09
-      DateTime::TimeZone::Pacific::Chatham 2.09
-      DateTime::TimeZone::Pacific::Chuuk 2.09
-      DateTime::TimeZone::Pacific::Easter 2.09
-      DateTime::TimeZone::Pacific::Efate 2.09
-      DateTime::TimeZone::Pacific::Enderbury 2.09
-      DateTime::TimeZone::Pacific::Fakaofo 2.09
-      DateTime::TimeZone::Pacific::Fiji 2.09
-      DateTime::TimeZone::Pacific::Funafuti 2.09
-      DateTime::TimeZone::Pacific::Galapagos 2.09
-      DateTime::TimeZone::Pacific::Gambier 2.09
-      DateTime::TimeZone::Pacific::Guadalcanal 2.09
-      DateTime::TimeZone::Pacific::Guam 2.09
-      DateTime::TimeZone::Pacific::Honolulu 2.09
-      DateTime::TimeZone::Pacific::Kiritimati 2.09
-      DateTime::TimeZone::Pacific::Kosrae 2.09
-      DateTime::TimeZone::Pacific::Kwajalein 2.09
-      DateTime::TimeZone::Pacific::Majuro 2.09
-      DateTime::TimeZone::Pacific::Marquesas 2.09
-      DateTime::TimeZone::Pacific::Nauru 2.09
-      DateTime::TimeZone::Pacific::Niue 2.09
-      DateTime::TimeZone::Pacific::Norfolk 2.09
-      DateTime::TimeZone::Pacific::Noumea 2.09
-      DateTime::TimeZone::Pacific::Pago_Pago 2.09
-      DateTime::TimeZone::Pacific::Palau 2.09
-      DateTime::TimeZone::Pacific::Pitcairn 2.09
-      DateTime::TimeZone::Pacific::Pohnpei 2.09
-      DateTime::TimeZone::Pacific::Port_Moresby 2.09
-      DateTime::TimeZone::Pacific::Rarotonga 2.09
-      DateTime::TimeZone::Pacific::Tahiti 2.09
-      DateTime::TimeZone::Pacific::Tarawa 2.09
-      DateTime::TimeZone::Pacific::Tongatapu 2.09
-      DateTime::TimeZone::Pacific::Wake 2.09
-      DateTime::TimeZone::Pacific::Wallis 2.09
-      DateTime::TimeZone::UTC 2.09
-      DateTime::TimeZone::WET 2.09
+      DateTime::TimeZone 2.10
+      DateTime::TimeZone::Africa::Abidjan 2.10
+      DateTime::TimeZone::Africa::Accra 2.10
+      DateTime::TimeZone::Africa::Algiers 2.10
+      DateTime::TimeZone::Africa::Bissau 2.10
+      DateTime::TimeZone::Africa::Cairo 2.10
+      DateTime::TimeZone::Africa::Casablanca 2.10
+      DateTime::TimeZone::Africa::Ceuta 2.10
+      DateTime::TimeZone::Africa::El_Aaiun 2.10
+      DateTime::TimeZone::Africa::Johannesburg 2.10
+      DateTime::TimeZone::Africa::Khartoum 2.10
+      DateTime::TimeZone::Africa::Lagos 2.10
+      DateTime::TimeZone::Africa::Maputo 2.10
+      DateTime::TimeZone::Africa::Monrovia 2.10
+      DateTime::TimeZone::Africa::Nairobi 2.10
+      DateTime::TimeZone::Africa::Ndjamena 2.10
+      DateTime::TimeZone::Africa::Tripoli 2.10
+      DateTime::TimeZone::Africa::Tunis 2.10
+      DateTime::TimeZone::Africa::Windhoek 2.10
+      DateTime::TimeZone::America::Adak 2.10
+      DateTime::TimeZone::America::Anchorage 2.10
+      DateTime::TimeZone::America::Araguaina 2.10
+      DateTime::TimeZone::America::Argentina::Buenos_Aires 2.10
+      DateTime::TimeZone::America::Argentina::Catamarca 2.10
+      DateTime::TimeZone::America::Argentina::Cordoba 2.10
+      DateTime::TimeZone::America::Argentina::Jujuy 2.10
+      DateTime::TimeZone::America::Argentina::La_Rioja 2.10
+      DateTime::TimeZone::America::Argentina::Mendoza 2.10
+      DateTime::TimeZone::America::Argentina::Rio_Gallegos 2.10
+      DateTime::TimeZone::America::Argentina::Salta 2.10
+      DateTime::TimeZone::America::Argentina::San_Juan 2.10
+      DateTime::TimeZone::America::Argentina::San_Luis 2.10
+      DateTime::TimeZone::America::Argentina::Tucuman 2.10
+      DateTime::TimeZone::America::Argentina::Ushuaia 2.10
+      DateTime::TimeZone::America::Asuncion 2.10
+      DateTime::TimeZone::America::Atikokan 2.10
+      DateTime::TimeZone::America::Bahia 2.10
+      DateTime::TimeZone::America::Bahia_Banderas 2.10
+      DateTime::TimeZone::America::Barbados 2.10
+      DateTime::TimeZone::America::Belem 2.10
+      DateTime::TimeZone::America::Belize 2.10
+      DateTime::TimeZone::America::Blanc_Sablon 2.10
+      DateTime::TimeZone::America::Boa_Vista 2.10
+      DateTime::TimeZone::America::Bogota 2.10
+      DateTime::TimeZone::America::Boise 2.10
+      DateTime::TimeZone::America::Cambridge_Bay 2.10
+      DateTime::TimeZone::America::Campo_Grande 2.10
+      DateTime::TimeZone::America::Cancun 2.10
+      DateTime::TimeZone::America::Caracas 2.10
+      DateTime::TimeZone::America::Cayenne 2.10
+      DateTime::TimeZone::America::Chicago 2.10
+      DateTime::TimeZone::America::Chihuahua 2.10
+      DateTime::TimeZone::America::Costa_Rica 2.10
+      DateTime::TimeZone::America::Creston 2.10
+      DateTime::TimeZone::America::Cuiaba 2.10
+      DateTime::TimeZone::America::Curacao 2.10
+      DateTime::TimeZone::America::Danmarkshavn 2.10
+      DateTime::TimeZone::America::Dawson 2.10
+      DateTime::TimeZone::America::Dawson_Creek 2.10
+      DateTime::TimeZone::America::Denver 2.10
+      DateTime::TimeZone::America::Detroit 2.10
+      DateTime::TimeZone::America::Edmonton 2.10
+      DateTime::TimeZone::America::Eirunepe 2.10
+      DateTime::TimeZone::America::El_Salvador 2.10
+      DateTime::TimeZone::America::Fort_Nelson 2.10
+      DateTime::TimeZone::America::Fortaleza 2.10
+      DateTime::TimeZone::America::Glace_Bay 2.10
+      DateTime::TimeZone::America::Godthab 2.10
+      DateTime::TimeZone::America::Goose_Bay 2.10
+      DateTime::TimeZone::America::Grand_Turk 2.10
+      DateTime::TimeZone::America::Guatemala 2.10
+      DateTime::TimeZone::America::Guayaquil 2.10
+      DateTime::TimeZone::America::Guyana 2.10
+      DateTime::TimeZone::America::Halifax 2.10
+      DateTime::TimeZone::America::Havana 2.10
+      DateTime::TimeZone::America::Hermosillo 2.10
+      DateTime::TimeZone::America::Indiana::Indianapolis 2.10
+      DateTime::TimeZone::America::Indiana::Knox 2.10
+      DateTime::TimeZone::America::Indiana::Marengo 2.10
+      DateTime::TimeZone::America::Indiana::Petersburg 2.10
+      DateTime::TimeZone::America::Indiana::Tell_City 2.10
+      DateTime::TimeZone::America::Indiana::Vevay 2.10
+      DateTime::TimeZone::America::Indiana::Vincennes 2.10
+      DateTime::TimeZone::America::Indiana::Winamac 2.10
+      DateTime::TimeZone::America::Inuvik 2.10
+      DateTime::TimeZone::America::Iqaluit 2.10
+      DateTime::TimeZone::America::Jamaica 2.10
+      DateTime::TimeZone::America::Juneau 2.10
+      DateTime::TimeZone::America::Kentucky::Louisville 2.10
+      DateTime::TimeZone::America::Kentucky::Monticello 2.10
+      DateTime::TimeZone::America::La_Paz 2.10
+      DateTime::TimeZone::America::Lima 2.10
+      DateTime::TimeZone::America::Los_Angeles 2.10
+      DateTime::TimeZone::America::Maceio 2.10
+      DateTime::TimeZone::America::Managua 2.10
+      DateTime::TimeZone::America::Manaus 2.10
+      DateTime::TimeZone::America::Martinique 2.10
+      DateTime::TimeZone::America::Matamoros 2.10
+      DateTime::TimeZone::America::Mazatlan 2.10
+      DateTime::TimeZone::America::Menominee 2.10
+      DateTime::TimeZone::America::Merida 2.10
+      DateTime::TimeZone::America::Metlakatla 2.10
+      DateTime::TimeZone::America::Mexico_City 2.10
+      DateTime::TimeZone::America::Miquelon 2.10
+      DateTime::TimeZone::America::Moncton 2.10
+      DateTime::TimeZone::America::Monterrey 2.10
+      DateTime::TimeZone::America::Montevideo 2.10
+      DateTime::TimeZone::America::Nassau 2.10
+      DateTime::TimeZone::America::New_York 2.10
+      DateTime::TimeZone::America::Nipigon 2.10
+      DateTime::TimeZone::America::Nome 2.10
+      DateTime::TimeZone::America::Noronha 2.10
+      DateTime::TimeZone::America::North_Dakota::Beulah 2.10
+      DateTime::TimeZone::America::North_Dakota::Center 2.10
+      DateTime::TimeZone::America::North_Dakota::New_Salem 2.10
+      DateTime::TimeZone::America::Ojinaga 2.10
+      DateTime::TimeZone::America::Panama 2.10
+      DateTime::TimeZone::America::Pangnirtung 2.10
+      DateTime::TimeZone::America::Paramaribo 2.10
+      DateTime::TimeZone::America::Phoenix 2.10
+      DateTime::TimeZone::America::Port_au_Prince 2.10
+      DateTime::TimeZone::America::Port_of_Spain 2.10
+      DateTime::TimeZone::America::Porto_Velho 2.10
+      DateTime::TimeZone::America::Puerto_Rico 2.10
+      DateTime::TimeZone::America::Punta_Arenas 2.10
+      DateTime::TimeZone::America::Rainy_River 2.10
+      DateTime::TimeZone::America::Rankin_Inlet 2.10
+      DateTime::TimeZone::America::Recife 2.10
+      DateTime::TimeZone::America::Regina 2.10
+      DateTime::TimeZone::America::Resolute 2.10
+      DateTime::TimeZone::America::Rio_Branco 2.10
+      DateTime::TimeZone::America::Santarem 2.10
+      DateTime::TimeZone::America::Santiago 2.10
+      DateTime::TimeZone::America::Santo_Domingo 2.10
+      DateTime::TimeZone::America::Sao_Paulo 2.10
+      DateTime::TimeZone::America::Scoresbysund 2.10
+      DateTime::TimeZone::America::Sitka 2.10
+      DateTime::TimeZone::America::St_Johns 2.10
+      DateTime::TimeZone::America::Swift_Current 2.10
+      DateTime::TimeZone::America::Tegucigalpa 2.10
+      DateTime::TimeZone::America::Thule 2.10
+      DateTime::TimeZone::America::Thunder_Bay 2.10
+      DateTime::TimeZone::America::Tijuana 2.10
+      DateTime::TimeZone::America::Toronto 2.10
+      DateTime::TimeZone::America::Vancouver 2.10
+      DateTime::TimeZone::America::Whitehorse 2.10
+      DateTime::TimeZone::America::Winnipeg 2.10
+      DateTime::TimeZone::America::Yakutat 2.10
+      DateTime::TimeZone::America::Yellowknife 2.10
+      DateTime::TimeZone::Antarctica::Casey 2.10
+      DateTime::TimeZone::Antarctica::Davis 2.10
+      DateTime::TimeZone::Antarctica::DumontDUrville 2.10
+      DateTime::TimeZone::Antarctica::Macquarie 2.10
+      DateTime::TimeZone::Antarctica::Mawson 2.10
+      DateTime::TimeZone::Antarctica::Palmer 2.10
+      DateTime::TimeZone::Antarctica::Rothera 2.10
+      DateTime::TimeZone::Antarctica::Syowa 2.10
+      DateTime::TimeZone::Antarctica::Troll 2.10
+      DateTime::TimeZone::Antarctica::Vostok 2.10
+      DateTime::TimeZone::Asia::Almaty 2.10
+      DateTime::TimeZone::Asia::Amman 2.10
+      DateTime::TimeZone::Asia::Anadyr 2.10
+      DateTime::TimeZone::Asia::Aqtau 2.10
+      DateTime::TimeZone::Asia::Aqtobe 2.10
+      DateTime::TimeZone::Asia::Ashgabat 2.10
+      DateTime::TimeZone::Asia::Atyrau 2.10
+      DateTime::TimeZone::Asia::Baghdad 2.10
+      DateTime::TimeZone::Asia::Baku 2.10
+      DateTime::TimeZone::Asia::Bangkok 2.10
+      DateTime::TimeZone::Asia::Barnaul 2.10
+      DateTime::TimeZone::Asia::Beirut 2.10
+      DateTime::TimeZone::Asia::Bishkek 2.10
+      DateTime::TimeZone::Asia::Brunei 2.10
+      DateTime::TimeZone::Asia::Chita 2.10
+      DateTime::TimeZone::Asia::Choibalsan 2.10
+      DateTime::TimeZone::Asia::Colombo 2.10
+      DateTime::TimeZone::Asia::Damascus 2.10
+      DateTime::TimeZone::Asia::Dhaka 2.10
+      DateTime::TimeZone::Asia::Dili 2.10
+      DateTime::TimeZone::Asia::Dubai 2.10
+      DateTime::TimeZone::Asia::Dushanbe 2.10
+      DateTime::TimeZone::Asia::Famagusta 2.10
+      DateTime::TimeZone::Asia::Gaza 2.10
+      DateTime::TimeZone::Asia::Hebron 2.10
+      DateTime::TimeZone::Asia::Ho_Chi_Minh 2.10
+      DateTime::TimeZone::Asia::Hong_Kong 2.10
+      DateTime::TimeZone::Asia::Hovd 2.10
+      DateTime::TimeZone::Asia::Irkutsk 2.10
+      DateTime::TimeZone::Asia::Jakarta 2.10
+      DateTime::TimeZone::Asia::Jayapura 2.10
+      DateTime::TimeZone::Asia::Jerusalem 2.10
+      DateTime::TimeZone::Asia::Kabul 2.10
+      DateTime::TimeZone::Asia::Kamchatka 2.10
+      DateTime::TimeZone::Asia::Karachi 2.10
+      DateTime::TimeZone::Asia::Kathmandu 2.10
+      DateTime::TimeZone::Asia::Khandyga 2.10
+      DateTime::TimeZone::Asia::Kolkata 2.10
+      DateTime::TimeZone::Asia::Krasnoyarsk 2.10
+      DateTime::TimeZone::Asia::Kuala_Lumpur 2.10
+      DateTime::TimeZone::Asia::Kuching 2.10
+      DateTime::TimeZone::Asia::Macau 2.10
+      DateTime::TimeZone::Asia::Magadan 2.10
+      DateTime::TimeZone::Asia::Makassar 2.10
+      DateTime::TimeZone::Asia::Manila 2.10
+      DateTime::TimeZone::Asia::Nicosia 2.10
+      DateTime::TimeZone::Asia::Novokuznetsk 2.10
+      DateTime::TimeZone::Asia::Novosibirsk 2.10
+      DateTime::TimeZone::Asia::Omsk 2.10
+      DateTime::TimeZone::Asia::Oral 2.10
+      DateTime::TimeZone::Asia::Pontianak 2.10
+      DateTime::TimeZone::Asia::Pyongyang 2.10
+      DateTime::TimeZone::Asia::Qatar 2.10
+      DateTime::TimeZone::Asia::Qyzylorda 2.10
+      DateTime::TimeZone::Asia::Riyadh 2.10
+      DateTime::TimeZone::Asia::Sakhalin 2.10
+      DateTime::TimeZone::Asia::Samarkand 2.10
+      DateTime::TimeZone::Asia::Seoul 2.10
+      DateTime::TimeZone::Asia::Shanghai 2.10
+      DateTime::TimeZone::Asia::Singapore 2.10
+      DateTime::TimeZone::Asia::Srednekolymsk 2.10
+      DateTime::TimeZone::Asia::Taipei 2.10
+      DateTime::TimeZone::Asia::Tashkent 2.10
+      DateTime::TimeZone::Asia::Tbilisi 2.10
+      DateTime::TimeZone::Asia::Tehran 2.10
+      DateTime::TimeZone::Asia::Thimphu 2.10
+      DateTime::TimeZone::Asia::Tokyo 2.10
+      DateTime::TimeZone::Asia::Tomsk 2.10
+      DateTime::TimeZone::Asia::Ulaanbaatar 2.10
+      DateTime::TimeZone::Asia::Urumqi 2.10
+      DateTime::TimeZone::Asia::Ust_Nera 2.10
+      DateTime::TimeZone::Asia::Vladivostok 2.10
+      DateTime::TimeZone::Asia::Yakutsk 2.10
+      DateTime::TimeZone::Asia::Yangon 2.10
+      DateTime::TimeZone::Asia::Yekaterinburg 2.10
+      DateTime::TimeZone::Asia::Yerevan 2.10
+      DateTime::TimeZone::Atlantic::Azores 2.10
+      DateTime::TimeZone::Atlantic::Bermuda 2.10
+      DateTime::TimeZone::Atlantic::Canary 2.10
+      DateTime::TimeZone::Atlantic::Cape_Verde 2.10
+      DateTime::TimeZone::Atlantic::Faroe 2.10
+      DateTime::TimeZone::Atlantic::Madeira 2.10
+      DateTime::TimeZone::Atlantic::Reykjavik 2.10
+      DateTime::TimeZone::Atlantic::South_Georgia 2.10
+      DateTime::TimeZone::Atlantic::Stanley 2.10
+      DateTime::TimeZone::Australia::Adelaide 2.10
+      DateTime::TimeZone::Australia::Brisbane 2.10
+      DateTime::TimeZone::Australia::Broken_Hill 2.10
+      DateTime::TimeZone::Australia::Currie 2.10
+      DateTime::TimeZone::Australia::Darwin 2.10
+      DateTime::TimeZone::Australia::Eucla 2.10
+      DateTime::TimeZone::Australia::Hobart 2.10
+      DateTime::TimeZone::Australia::Lindeman 2.10
+      DateTime::TimeZone::Australia::Lord_Howe 2.10
+      DateTime::TimeZone::Australia::Melbourne 2.10
+      DateTime::TimeZone::Australia::Perth 2.10
+      DateTime::TimeZone::Australia::Sydney 2.10
+      DateTime::TimeZone::CET 2.10
+      DateTime::TimeZone::CST6CDT 2.10
+      DateTime::TimeZone::Catalog 2.10
+      DateTime::TimeZone::EET 2.10
+      DateTime::TimeZone::EST 2.10
+      DateTime::TimeZone::EST5EDT 2.10
+      DateTime::TimeZone::Europe::Amsterdam 2.10
+      DateTime::TimeZone::Europe::Andorra 2.10
+      DateTime::TimeZone::Europe::Astrakhan 2.10
+      DateTime::TimeZone::Europe::Athens 2.10
+      DateTime::TimeZone::Europe::Belgrade 2.10
+      DateTime::TimeZone::Europe::Berlin 2.10
+      DateTime::TimeZone::Europe::Brussels 2.10
+      DateTime::TimeZone::Europe::Bucharest 2.10
+      DateTime::TimeZone::Europe::Budapest 2.10
+      DateTime::TimeZone::Europe::Chisinau 2.10
+      DateTime::TimeZone::Europe::Copenhagen 2.10
+      DateTime::TimeZone::Europe::Dublin 2.10
+      DateTime::TimeZone::Europe::Gibraltar 2.10
+      DateTime::TimeZone::Europe::Helsinki 2.10
+      DateTime::TimeZone::Europe::Istanbul 2.10
+      DateTime::TimeZone::Europe::Kaliningrad 2.10
+      DateTime::TimeZone::Europe::Kiev 2.10
+      DateTime::TimeZone::Europe::Kirov 2.10
+      DateTime::TimeZone::Europe::Lisbon 2.10
+      DateTime::TimeZone::Europe::London 2.10
+      DateTime::TimeZone::Europe::Luxembourg 2.10
+      DateTime::TimeZone::Europe::Madrid 2.10
+      DateTime::TimeZone::Europe::Malta 2.10
+      DateTime::TimeZone::Europe::Minsk 2.10
+      DateTime::TimeZone::Europe::Monaco 2.10
+      DateTime::TimeZone::Europe::Moscow 2.10
+      DateTime::TimeZone::Europe::Oslo 2.10
+      DateTime::TimeZone::Europe::Paris 2.10
+      DateTime::TimeZone::Europe::Prague 2.10
+      DateTime::TimeZone::Europe::Riga 2.10
+      DateTime::TimeZone::Europe::Rome 2.10
+      DateTime::TimeZone::Europe::Samara 2.10
+      DateTime::TimeZone::Europe::Saratov 2.10
+      DateTime::TimeZone::Europe::Simferopol 2.10
+      DateTime::TimeZone::Europe::Sofia 2.10
+      DateTime::TimeZone::Europe::Stockholm 2.10
+      DateTime::TimeZone::Europe::Tallinn 2.10
+      DateTime::TimeZone::Europe::Tirane 2.10
+      DateTime::TimeZone::Europe::Ulyanovsk 2.10
+      DateTime::TimeZone::Europe::Uzhgorod 2.10
+      DateTime::TimeZone::Europe::Vienna 2.10
+      DateTime::TimeZone::Europe::Vilnius 2.10
+      DateTime::TimeZone::Europe::Volgograd 2.10
+      DateTime::TimeZone::Europe::Warsaw 2.10
+      DateTime::TimeZone::Europe::Zaporozhye 2.10
+      DateTime::TimeZone::Europe::Zurich 2.10
+      DateTime::TimeZone::Floating 2.10
+      DateTime::TimeZone::HST 2.10
+      DateTime::TimeZone::Indian::Chagos 2.10
+      DateTime::TimeZone::Indian::Christmas 2.10
+      DateTime::TimeZone::Indian::Cocos 2.10
+      DateTime::TimeZone::Indian::Kerguelen 2.10
+      DateTime::TimeZone::Indian::Mahe 2.10
+      DateTime::TimeZone::Indian::Maldives 2.10
+      DateTime::TimeZone::Indian::Mauritius 2.10
+      DateTime::TimeZone::Indian::Reunion 2.10
+      DateTime::TimeZone::Local 2.10
+      DateTime::TimeZone::Local::Android 2.10
+      DateTime::TimeZone::Local::Unix 2.10
+      DateTime::TimeZone::Local::VMS 2.10
+      DateTime::TimeZone::MET 2.10
+      DateTime::TimeZone::MST 2.10
+      DateTime::TimeZone::MST7MDT 2.10
+      DateTime::TimeZone::OffsetOnly 2.10
+      DateTime::TimeZone::OlsonDB 2.10
+      DateTime::TimeZone::OlsonDB::Change 2.10
+      DateTime::TimeZone::OlsonDB::Observance 2.10
+      DateTime::TimeZone::OlsonDB::Rule 2.10
+      DateTime::TimeZone::OlsonDB::Zone 2.10
+      DateTime::TimeZone::PST8PDT 2.10
+      DateTime::TimeZone::Pacific::Apia 2.10
+      DateTime::TimeZone::Pacific::Auckland 2.10
+      DateTime::TimeZone::Pacific::Bougainville 2.10
+      DateTime::TimeZone::Pacific::Chatham 2.10
+      DateTime::TimeZone::Pacific::Chuuk 2.10
+      DateTime::TimeZone::Pacific::Easter 2.10
+      DateTime::TimeZone::Pacific::Efate 2.10
+      DateTime::TimeZone::Pacific::Enderbury 2.10
+      DateTime::TimeZone::Pacific::Fakaofo 2.10
+      DateTime::TimeZone::Pacific::Fiji 2.10
+      DateTime::TimeZone::Pacific::Funafuti 2.10
+      DateTime::TimeZone::Pacific::Galapagos 2.10
+      DateTime::TimeZone::Pacific::Gambier 2.10
+      DateTime::TimeZone::Pacific::Guadalcanal 2.10
+      DateTime::TimeZone::Pacific::Guam 2.10
+      DateTime::TimeZone::Pacific::Honolulu 2.10
+      DateTime::TimeZone::Pacific::Kiritimati 2.10
+      DateTime::TimeZone::Pacific::Kosrae 2.10
+      DateTime::TimeZone::Pacific::Kwajalein 2.10
+      DateTime::TimeZone::Pacific::Majuro 2.10
+      DateTime::TimeZone::Pacific::Marquesas 2.10
+      DateTime::TimeZone::Pacific::Nauru 2.10
+      DateTime::TimeZone::Pacific::Niue 2.10
+      DateTime::TimeZone::Pacific::Norfolk 2.10
+      DateTime::TimeZone::Pacific::Noumea 2.10
+      DateTime::TimeZone::Pacific::Pago_Pago 2.10
+      DateTime::TimeZone::Pacific::Palau 2.10
+      DateTime::TimeZone::Pacific::Pitcairn 2.10
+      DateTime::TimeZone::Pacific::Pohnpei 2.10
+      DateTime::TimeZone::Pacific::Port_Moresby 2.10
+      DateTime::TimeZone::Pacific::Rarotonga 2.10
+      DateTime::TimeZone::Pacific::Tahiti 2.10
+      DateTime::TimeZone::Pacific::Tarawa 2.10
+      DateTime::TimeZone::Pacific::Tongatapu 2.10
+      DateTime::TimeZone::Pacific::Wake 2.10
+      DateTime::TimeZone::Pacific::Wallis 2.10
+      DateTime::TimeZone::UTC 2.10
+      DateTime::TimeZone::WET 2.10
     requirements:
       Class::Singleton 1.03
       Cwd 3
@@ -2328,6 +2347,30 @@ DISTRIBUTIONS
       Number::Compare 0
       Test::More 0
       Text::Glob 0.07
+  File-HomeDir-1.00
+    pathname: A/AD/ADAMK/File-HomeDir-1.00.tar.gz
+    provides:
+      File::HomeDir 1.00
+      File::HomeDir::Darwin 1.00
+      File::HomeDir::Darwin::Carbon 1.00
+      File::HomeDir::Darwin::Cocoa 1.00
+      File::HomeDir::Driver 1.00
+      File::HomeDir::FreeDesktop 1.00
+      File::HomeDir::MacOS9 1.00
+      File::HomeDir::TIE 1.00
+      File::HomeDir::Test 1.00
+      File::HomeDir::Unix 1.00
+      File::HomeDir::Windows 1.00
+    requirements:
+      Carp 0
+      Cwd 3.12
+      ExtUtils::MakeMaker 6.36
+      File::Path 2.01
+      File::Spec 3.12
+      File::Temp 0.19
+      File::Which 0.05
+      Test::More 0.47
+      perl 5.00503
   File-Listing-6.04
     pathname: G/GA/GAAS/File-Listing-6.04.tar.gz
     provides:
@@ -2399,6 +2442,13 @@ DISTRIBUTIONS
       Fcntl 0
       POSIX 0
       perl 5.004
+  File-Which-1.21
+    pathname: P/PL/PLICEASE/File-Which-1.21.tar.gz
+    provides:
+      File::Which 1.21
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.006
   Filesys-Notify-Simple-0.12
     pathname: M/MI/MIYAGAWA/Filesys-Notify-Simple-0.12.tar.gz
     provides:
@@ -2957,15 +3007,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::Simple 0.45
-  Hook-LexWrap-0.25
-    pathname: E/ET/ETHER/Hook-LexWrap-0.25.tar.gz
+  Hook-LexWrap-0.26
+    pathname: E/ET/ETHER/Hook-LexWrap-0.26.tar.gz
     provides:
-      Hook::LexWrap 0.25
-      Hook::LexWrap::Cleanup 0.25
+      Hook::LexWrap 0.26
     requirements:
       Carp 0
       ExtUtils::MakeMaker 0
-      Module::Build::Tiny 0.039
       overload 0
       perl 5.006
       strict 0
@@ -3080,10 +3128,10 @@ DISTRIBUTIONS
       perl 5.008
       strict 0
       warnings 0
-  JSON-MaybeXS-1.003008
-    pathname: E/ET/ETHER/JSON-MaybeXS-1.003008.tar.gz
+  JSON-MaybeXS-1.003009
+    pathname: E/ET/ETHER/JSON-MaybeXS-1.003009.tar.gz
     provides:
-      JSON::MaybeXS 1.003008
+      JSON::MaybeXS 1.003009
     requirements:
       Carp 0
       Cpanel::JSON::XS 2.3310
@@ -3110,11 +3158,11 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006002
-  LWP-Protocol-https-6.06
-    pathname: M/MS/MSCHILLI/LWP-Protocol-https-6.06.tar.gz
+  LWP-Protocol-https-6.07
+    pathname: O/OA/OALDERS/LWP-Protocol-https-6.07.tar.gz
     provides:
-      LWP::Protocol::https 6.06
-      LWP::Protocol::https::Socket 6.06
+      LWP::Protocol::https 6.07
+      LWP::Protocol::https::Socket 6.07
     requirements:
       ExtUtils::MakeMaker 0
       IO::Socket::SSL 1.54
@@ -3138,6 +3186,13 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Lingua-EN-Inflect-1.901
+    pathname: D/DC/DCONWAY/Lingua-EN-Inflect-1.901.tar.gz
+    provides:
+      Lingua::EN::Inflect 1.901
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
   List-AllUtils-0.14
     pathname: D/DR/DROLSKY/List-AllUtils-0.14.tar.gz
     provides:
@@ -3209,27 +3264,27 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Slurp 0
       Test::More 0
-  Log-Dispatch-2.62
-    pathname: D/DR/DROLSKY/Log-Dispatch-2.62.tar.gz
+  Log-Dispatch-2.63
+    pathname: D/DR/DROLSKY/Log-Dispatch-2.63.tar.gz
     provides:
-      Log::Dispatch 2.62
-      Log::Dispatch::ApacheLog 2.62
-      Log::Dispatch::Base 2.62
-      Log::Dispatch::Code 2.62
-      Log::Dispatch::Email 2.62
-      Log::Dispatch::Email::MIMELite 2.62
-      Log::Dispatch::Email::MailSend 2.62
-      Log::Dispatch::Email::MailSender 2.62
-      Log::Dispatch::Email::MailSendmail 2.62
-      Log::Dispatch::File 2.62
-      Log::Dispatch::File::Locked 2.62
-      Log::Dispatch::Handle 2.62
-      Log::Dispatch::Null 2.62
-      Log::Dispatch::Output 2.62
-      Log::Dispatch::Screen 2.62
-      Log::Dispatch::Syslog 2.62
-      Log::Dispatch::Types 2.62
-      Log::Dispatch::Vars 2.62
+      Log::Dispatch 2.63
+      Log::Dispatch::ApacheLog 2.63
+      Log::Dispatch::Base 2.63
+      Log::Dispatch::Code 2.63
+      Log::Dispatch::Email 2.63
+      Log::Dispatch::Email::MIMELite 2.63
+      Log::Dispatch::Email::MailSend 2.63
+      Log::Dispatch::Email::MailSender 2.63
+      Log::Dispatch::Email::MailSendmail 2.63
+      Log::Dispatch::File 2.63
+      Log::Dispatch::File::Locked 2.63
+      Log::Dispatch::Handle 2.63
+      Log::Dispatch::Null 2.63
+      Log::Dispatch::Output 2.63
+      Log::Dispatch::Screen 2.63
+      Log::Dispatch::Syslog 2.63
+      Log::Dispatch::Types 2.63
+      Log::Dispatch::Vars 2.63
     requirements:
       Carp 0
       Devel::GlobalDestruction 0
@@ -3566,20 +3621,20 @@ DISTRIBUTIONS
       Module::Build 0.40
       Test::More 0
       perl v5.5.3
-  Moo-2.003000
-    pathname: H/HA/HAARG/Moo-2.003000.tar.gz
+  Moo-2.003001
+    pathname: H/HA/HAARG/Moo-2.003001.tar.gz
     provides:
       Method::Generate::Accessor undef
       Method::Generate::BuildAll undef
       Method::Generate::Constructor undef
       Method::Generate::DemolishAll undef
-      Moo 2.003000
+      Moo 2.003001
       Moo::HandleMoose undef
       Moo::HandleMoose::FakeConstructor undef
       Moo::HandleMoose::FakeMetaClass undef
       Moo::HandleMoose::_TypeMap undef
       Moo::Object undef
-      Moo::Role 2.003000
+      Moo::Role 2.003001
       Moo::_Utils undef
       Moo::_mro undef
       Moo::_strictures undef
@@ -4388,96 +4443,96 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       MIME::Base64 0
       URI::Escape 0
-  Net-DNS-1.07
-    pathname: N/NL/NLNETLABS/Net-DNS-1.07.tar.gz
+  Net-DNS-1.08
+    pathname: N/NL/NLNETLABS/Net-DNS-1.08.tar.gz
     provides:
-      Net::DNS 1.07
-      Net::DNS::Domain 1456
-      Net::DNS::DomainName 1456
-      Net::DNS::DomainName1035 1456
-      Net::DNS::DomainName2535 1456
-      Net::DNS::Header 1381
-      Net::DNS::Mailbox 1406
-      Net::DNS::Mailbox1035 1406
-      Net::DNS::Mailbox2535 1406
-      Net::DNS::Nameserver 1493
-      Net::DNS::Packet 1523
-      Net::DNS::Parameters 1521
-      Net::DNS::Question 1381
-      Net::DNS::RR 1519
-      Net::DNS::RR::A 1388
-      Net::DNS::RR::AAAA 1491
-      Net::DNS::RR::AFSDB 1406
-      Net::DNS::RR::APL 1390
-      Net::DNS::RR::APL::Item 1390
-      Net::DNS::RR::CAA 1406
-      Net::DNS::RR::CDNSKEY 1339
-      Net::DNS::RR::CDS 1517
-      Net::DNS::RR::CERT 1390
-      Net::DNS::RR::CNAME 1406
-      Net::DNS::RR::CSYNC 1390
-      Net::DNS::RR::DHCID 1390
-      Net::DNS::RR::DLV 1339
-      Net::DNS::RR::DNAME 1456
-      Net::DNS::RR::DNSKEY 1490
-      Net::DNS::RR::DS 1488
-      Net::DNS::RR::EUI48 1390
-      Net::DNS::RR::EUI64 1390
-      Net::DNS::RR::GPOS 1382
-      Net::DNS::RR::HINFO 1406
-      Net::DNS::RR::HIP 1512
-      Net::DNS::RR::IPSECKEY 1491
-      Net::DNS::RR::ISDN 1406
-      Net::DNS::RR::KEY 1381
-      Net::DNS::RR::KX 1406
-      Net::DNS::RR::L32 1408
-      Net::DNS::RR::L64 1408
-      Net::DNS::RR::LOC 1390
-      Net::DNS::RR::LP 1406
-      Net::DNS::RR::MB 1406
-      Net::DNS::RR::MG 1406
-      Net::DNS::RR::MINFO 1406
-      Net::DNS::RR::MR 1406
-      Net::DNS::RR::MX 1406
-      Net::DNS::RR::NAPTR 1406
-      Net::DNS::RR::NID 1408
-      Net::DNS::RR::NS 1406
-      Net::DNS::RR::NSEC 1406
-      Net::DNS::RR::NSEC3 1456
-      Net::DNS::RR::NSEC3PARAM 1390
-      Net::DNS::RR::NULL 1348
-      Net::DNS::RR::OPENPGPKEY 1499
-      Net::DNS::RR::OPT 1474
-      Net::DNS::RR::PTR 1406
-      Net::DNS::RR::PX 1406
-      Net::DNS::RR::RP 1406
-      Net::DNS::RR::RRSIG 1505
-      Net::DNS::RR::RT 1406
-      Net::DNS::RR::SIG 1505
-      Net::DNS::RR::SMIMEA 1488
-      Net::DNS::RR::SOA 1488
-      Net::DNS::RR::SPF 1382
-      Net::DNS::RR::SRV 1406
-      Net::DNS::RR::SSHFP 1488
-      Net::DNS::RR::TKEY 1406
-      Net::DNS::RR::TLSA 1488
-      Net::DNS::RR::TSIG 1508
-      Net::DNS::RR::TXT 1520
-      Net::DNS::RR::URI 1406
-      Net::DNS::RR::X25 1406
-      Net::DNS::Resolver 1508
-      Net::DNS::Resolver::Base 1512
-      Net::DNS::Resolver::MSWin32 1486
-      Net::DNS::Resolver::Recurse 1523
-      Net::DNS::Resolver::UNIX 1408
-      Net::DNS::Resolver::android 1406
-      Net::DNS::Resolver::cygwin 1406
-      Net::DNS::Resolver::os2 1406
-      Net::DNS::Text 1406
-      Net::DNS::Update 1455
-      Net::DNS::ZoneFile 1510
-      Net::DNS::ZoneFile::Generator 1510
-      Net::DNS::ZoneFile::Text 1510
+      Net::DNS 1.08
+      Net::DNS::Domain 1527
+      Net::DNS::DomainName 1527
+      Net::DNS::DomainName1035 1527
+      Net::DNS::DomainName2535 1527
+      Net::DNS::Header 1527
+      Net::DNS::Mailbox 1527
+      Net::DNS::Mailbox1035 1527
+      Net::DNS::Mailbox2535 1527
+      Net::DNS::Nameserver 1537
+      Net::DNS::Packet 1527
+      Net::DNS::Parameters 1527
+      Net::DNS::Question 1530
+      Net::DNS::RR 1530
+      Net::DNS::RR::A 1528
+      Net::DNS::RR::AAAA 1528
+      Net::DNS::RR::AFSDB 1528
+      Net::DNS::RR::APL 1528
+      Net::DNS::RR::APL::Item 1528
+      Net::DNS::RR::CAA 1528
+      Net::DNS::RR::CDNSKEY 1526
+      Net::DNS::RR::CDS 1526
+      Net::DNS::RR::CERT 1528
+      Net::DNS::RR::CNAME 1528
+      Net::DNS::RR::CSYNC 1528
+      Net::DNS::RR::DHCID 1528
+      Net::DNS::RR::DLV 1528
+      Net::DNS::RR::DNAME 1528
+      Net::DNS::RR::DNSKEY 1526
+      Net::DNS::RR::DS 1526
+      Net::DNS::RR::EUI48 1528
+      Net::DNS::RR::EUI64 1528
+      Net::DNS::RR::GPOS 1528
+      Net::DNS::RR::HINFO 1528
+      Net::DNS::RR::HIP 1528
+      Net::DNS::RR::IPSECKEY 1528
+      Net::DNS::RR::ISDN 1528
+      Net::DNS::RR::KEY 1528
+      Net::DNS::RR::KX 1528
+      Net::DNS::RR::L32 1528
+      Net::DNS::RR::L64 1528
+      Net::DNS::RR::LOC 1528
+      Net::DNS::RR::LP 1528
+      Net::DNS::RR::MB 1528
+      Net::DNS::RR::MG 1528
+      Net::DNS::RR::MINFO 1528
+      Net::DNS::RR::MR 1528
+      Net::DNS::RR::MX 1528
+      Net::DNS::RR::NAPTR 1528
+      Net::DNS::RR::NID 1528
+      Net::DNS::RR::NS 1528
+      Net::DNS::RR::NSEC 1528
+      Net::DNS::RR::NSEC3 1528
+      Net::DNS::RR::NSEC3PARAM 1528
+      Net::DNS::RR::NULL 1528
+      Net::DNS::RR::OPENPGPKEY 1528
+      Net::DNS::RR::OPT 1539
+      Net::DNS::RR::PTR 1528
+      Net::DNS::RR::PX 1528
+      Net::DNS::RR::RP 1528
+      Net::DNS::RR::RRSIG 1526
+      Net::DNS::RR::RT 1528
+      Net::DNS::RR::SIG 1526
+      Net::DNS::RR::SMIMEA 1528
+      Net::DNS::RR::SOA 1528
+      Net::DNS::RR::SPF 1528
+      Net::DNS::RR::SRV 1528
+      Net::DNS::RR::SSHFP 1528
+      Net::DNS::RR::TKEY 1528
+      Net::DNS::RR::TLSA 1528
+      Net::DNS::RR::TSIG 1528
+      Net::DNS::RR::TXT 1528
+      Net::DNS::RR::URI 1528
+      Net::DNS::RR::X25 1528
+      Net::DNS::Resolver 1527
+      Net::DNS::Resolver::Base 1533
+      Net::DNS::Resolver::MSWin32 1527
+      Net::DNS::Resolver::Recurse 1527
+      Net::DNS::Resolver::UNIX 1527
+      Net::DNS::Resolver::android 1527
+      Net::DNS::Resolver::cygwin 1527
+      Net::DNS::Resolver::os2 1527
+      Net::DNS::Text 1527
+      Net::DNS::Update 1527
+      Net::DNS::ZoneFile 1526
+      Net::DNS::ZoneFile::Generator 1526
+      Net::DNS::ZoneFile::Text 1526
     requirements:
       Digest::HMAC 1.03
       Digest::MD5 2.13
@@ -4488,14 +4543,14 @@ DISTRIBUTIONS
       MIME::Base64 2.11
       Test::More 0.52
       Time::Local 1.19
-      perl 5.00404
-  Net-HTTP-6.12
-    pathname: O/OA/OALDERS/Net-HTTP-6.12.tar.gz
+      perl 5.006
+  Net-HTTP-6.13
+    pathname: O/OA/OALDERS/Net-HTTP-6.13.tar.gz
     provides:
-      Net::HTTP 6.12
-      Net::HTTP::Methods 6.12
-      Net::HTTP::NB 6.12
-      Net::HTTPS 6.12
+      Net::HTTP 6.13
+      Net::HTTP::Methods 6.13
+      Net::HTTP::NB 6.13
+      Net::HTTPS 6.13
     requirements:
       Carp 0
       Compress::Raw::Zlib 0
@@ -4566,17 +4621,17 @@ DISTRIBUTIONS
       Carp 0
       ExtUtils::MakeMaker 0
       POSIX 0
-  Object-InsideOut-4.02
-    pathname: J/JD/JDHEDDEN/Object-InsideOut-4.02.tar.gz
+  Object-InsideOut-4.04
+    pathname: J/JD/JDHEDDEN/Object-InsideOut-4.04.tar.gz
     provides:
-      Bundle::Object::InsideOut 4.02
-      Object::InsideOut 4.02
-      Object::InsideOut::Exception 4.02
-      Object::InsideOut::Metadata 4.02
-      Object::InsideOut::Results 4.02
-      Object::InsideOut::Secure 4.02
-      Object::InsideOut::Util 4.02
-      Term::YAPI 4.02
+      Bundle::Object::InsideOut 4.04
+      Object::InsideOut 4.04
+      Object::InsideOut::Exception 4.04
+      Object::InsideOut::Metadata 4.04
+      Object::InsideOut::Results 4.04
+      Object::InsideOut::Secure 4.04
+      Object::InsideOut::Util 4.04
+      Term::YAPI 4.04
     requirements:
       B 0
       Config 0
@@ -4611,6 +4666,223 @@ DISTRIBUTIONS
       POSIX 0
       Time::Local 0
       perl 5.008001
+  PPI-1.220
+    pathname: M/MI/MITHALDU/PPI-1.220.tar.gz
+    provides:
+      PPI 1.220
+      PPI::Cache 1.220
+      PPI::Document 1.220
+      PPI::Document::File 1.220
+      PPI::Document::Fragment 1.220
+      PPI::Document::Normalized 1.220
+      PPI::Dumper 1.220
+      PPI::Element 1.220
+      PPI::Exception 1.220
+      PPI::Exception::ParserRejection 1.220
+      PPI::Exception::ParserTimeout 1.220
+      PPI::Find 1.220
+      PPI::Lexer 1.220
+      PPI::Node 1.220
+      PPI::Normal 1.220
+      PPI::Normal::Standard 1.220
+      PPI::Statement 1.220
+      PPI::Statement::Break 1.220
+      PPI::Statement::Compound 1.220
+      PPI::Statement::Data 1.220
+      PPI::Statement::End 1.220
+      PPI::Statement::Expression 1.220
+      PPI::Statement::Given 1.220
+      PPI::Statement::Include 1.220
+      PPI::Statement::Include::Perl6 1.220
+      PPI::Statement::Null 1.220
+      PPI::Statement::Package 1.220
+      PPI::Statement::Scheduled 1.220
+      PPI::Statement::Sub 1.220
+      PPI::Statement::Unknown 1.220
+      PPI::Statement::UnmatchedBrace 1.220
+      PPI::Statement::Variable 1.220
+      PPI::Statement::When 1.220
+      PPI::Structure 1.220
+      PPI::Structure::Block 1.220
+      PPI::Structure::Condition 1.220
+      PPI::Structure::Constructor 1.220
+      PPI::Structure::For 1.220
+      PPI::Structure::Given 1.220
+      PPI::Structure::List 1.220
+      PPI::Structure::Subscript 1.220
+      PPI::Structure::Unknown 1.220
+      PPI::Structure::When 1.220
+      PPI::Token 1.220
+      PPI::Token::ArrayIndex 1.220
+      PPI::Token::Attribute 1.220
+      PPI::Token::BOM 1.220
+      PPI::Token::Cast 1.220
+      PPI::Token::Comment 1.220
+      PPI::Token::DashedWord 1.220
+      PPI::Token::Data 1.220
+      PPI::Token::End 1.220
+      PPI::Token::HereDoc 1.220
+      PPI::Token::Label 1.220
+      PPI::Token::Magic 1.220
+      PPI::Token::Number 1.220
+      PPI::Token::Number::Binary 1.220
+      PPI::Token::Number::Exp 1.220
+      PPI::Token::Number::Float 1.220
+      PPI::Token::Number::Hex 1.220
+      PPI::Token::Number::Octal 1.220
+      PPI::Token::Number::Version 1.220
+      PPI::Token::Operator 1.220
+      PPI::Token::Pod 1.220
+      PPI::Token::Prototype 1.220
+      PPI::Token::Quote 1.220
+      PPI::Token::Quote::Double 1.220
+      PPI::Token::Quote::Interpolate 1.220
+      PPI::Token::Quote::Literal 1.220
+      PPI::Token::Quote::Single 1.220
+      PPI::Token::QuoteLike 1.220
+      PPI::Token::QuoteLike::Backtick 1.220
+      PPI::Token::QuoteLike::Command 1.220
+      PPI::Token::QuoteLike::Readline 1.220
+      PPI::Token::QuoteLike::Regexp 1.220
+      PPI::Token::QuoteLike::Words 1.220
+      PPI::Token::Regexp 1.220
+      PPI::Token::Regexp::Match 1.220
+      PPI::Token::Regexp::Substitute 1.220
+      PPI::Token::Regexp::Transliterate 1.220
+      PPI::Token::Separator 1.220
+      PPI::Token::Structure 1.220
+      PPI::Token::Symbol 1.220
+      PPI::Token::Unknown 1.220
+      PPI::Token::Whitespace 1.220
+      PPI::Token::Word 1.220
+      PPI::Token::_QuoteEngine 1.220
+      PPI::Token::_QuoteEngine::Full 1.220
+      PPI::Token::_QuoteEngine::Simple 1.220
+      PPI::Tokenizer 1.220
+      PPI::Transform 1.220
+      PPI::Transform::UpdateCopyright 1.220
+      PPI::Util 1.220
+      PPI::XSAccessor 1.220
+    requirements:
+      Class::Inspector 1.22
+      Clone 0.30
+      Digest::MD5 2.35
+      ExtUtils::MakeMaker 6.59
+      File::Remove 1.42
+      File::Spec 0.84
+      IO::String 1.07
+      List::MoreUtils 0.16
+      List::Util 1.20
+      Params::Util 1.00
+      Storable 2.17
+      Task::Weaken 0
+      Test::More 0.86
+      Test::NoWarnings 0.084
+      Test::Object 0.07
+      Test::SubCalls 1.07
+      perl 5.006
+  PPIx-Regexp-0.051
+    pathname: W/WY/WYANT/PPIx-Regexp-0.051.tar.gz
+    provides:
+      PPIx::Regexp 0.051
+      PPIx::Regexp::Constant 0.051
+      PPIx::Regexp::Dumper 0.051
+      PPIx::Regexp::Element 0.051
+      PPIx::Regexp::Lexer 0.051
+      PPIx::Regexp::Node 0.051
+      PPIx::Regexp::Node::Range 0.051
+      PPIx::Regexp::Node::Unknown 0.051
+      PPIx::Regexp::StringTokenizer 0.051
+      PPIx::Regexp::Structure 0.051
+      PPIx::Regexp::Structure::Assertion 0.051
+      PPIx::Regexp::Structure::BranchReset 0.051
+      PPIx::Regexp::Structure::Capture 0.051
+      PPIx::Regexp::Structure::CharClass 0.051
+      PPIx::Regexp::Structure::Code 0.051
+      PPIx::Regexp::Structure::Main 0.051
+      PPIx::Regexp::Structure::Modifier 0.051
+      PPIx::Regexp::Structure::NamedCapture 0.051
+      PPIx::Regexp::Structure::Quantifier 0.051
+      PPIx::Regexp::Structure::RegexSet 0.051
+      PPIx::Regexp::Structure::Regexp 0.051
+      PPIx::Regexp::Structure::Replacement 0.051
+      PPIx::Regexp::Structure::Subexpression 0.051
+      PPIx::Regexp::Structure::Switch 0.051
+      PPIx::Regexp::Structure::Unknown 0.051
+      PPIx::Regexp::Support 0.051
+      PPIx::Regexp::Token 0.051
+      PPIx::Regexp::Token::Assertion 0.051
+      PPIx::Regexp::Token::Backreference 0.051
+      PPIx::Regexp::Token::Backtrack 0.051
+      PPIx::Regexp::Token::CharClass 0.051
+      PPIx::Regexp::Token::CharClass::POSIX 0.051
+      PPIx::Regexp::Token::CharClass::POSIX::Unknown 0.051
+      PPIx::Regexp::Token::CharClass::Simple 0.051
+      PPIx::Regexp::Token::Code 0.051
+      PPIx::Regexp::Token::Comment 0.051
+      PPIx::Regexp::Token::Condition 0.051
+      PPIx::Regexp::Token::Control 0.051
+      PPIx::Regexp::Token::Delimiter 0.051
+      PPIx::Regexp::Token::Greediness 0.051
+      PPIx::Regexp::Token::GroupType 0.051
+      PPIx::Regexp::Token::GroupType::Assertion 0.051
+      PPIx::Regexp::Token::GroupType::BranchReset 0.051
+      PPIx::Regexp::Token::GroupType::Code 0.051
+      PPIx::Regexp::Token::GroupType::Modifier 0.051
+      PPIx::Regexp::Token::GroupType::NamedCapture 0.051
+      PPIx::Regexp::Token::GroupType::Subexpression 0.051
+      PPIx::Regexp::Token::GroupType::Switch 0.051
+      PPIx::Regexp::Token::Interpolation 0.051
+      PPIx::Regexp::Token::Literal 0.051
+      PPIx::Regexp::Token::Modifier 0.051
+      PPIx::Regexp::Token::NoOp 0.051
+      PPIx::Regexp::Token::Operator 0.051
+      PPIx::Regexp::Token::Quantifier 0.051
+      PPIx::Regexp::Token::Recursion 0.051
+      PPIx::Regexp::Token::Reference 0.051
+      PPIx::Regexp::Token::Structure 0.051
+      PPIx::Regexp::Token::Unknown 0.051
+      PPIx::Regexp::Token::Unmatched 0.051
+      PPIx::Regexp::Token::Whitespace 0.051
+      PPIx::Regexp::Tokenizer 0.051
+      PPIx::Regexp::Util 0.051
+    requirements:
+      Carp 0
+      Exporter 0
+      List::MoreUtils 0
+      List::Util 0
+      PPI::Document 1.117
+      Scalar::Util 0
+      Task::Weaken 0
+      Test::More 0.88
+      base 0
+      constant 0
+      perl 5.006
+      strict 0
+      warnings 0
+  PPIx-Utilities-1.001000
+    pathname: E/EL/ELLIOTJS/PPIx-Utilities-1.001000.tar.gz
+    provides:
+      PPIx::Utilities 1.001000
+      PPIx::Utilities::Exception::Bug 1.001000
+      PPIx::Utilities::Node 1.001000
+      PPIx::Utilities::Statement 1.001000
+    requirements:
+      Data::Dumper 0
+      Exception::Class 0
+      Exporter 0
+      PPI 1.208
+      PPI::Document 1.208
+      PPI::Document::Fragment 1.208
+      PPI::Dumper 1.208
+      Readonly 0
+      Scalar::Util 0
+      Task::Weaken 0
+      Test::Deep 0
+      Test::More 0
+      base 0
+      strict 0
+      warnings 0
   Package-DeprecationManager-0.17
     pathname: D/DR/DROLSKY/Package-DeprecationManager-0.17.tar.gz
     provides:
@@ -4804,6 +5076,281 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
+  Perl-Critic-1.126
+    pathname: T/TH/THALJEF/Perl-Critic-1.126.tar.gz
+    provides:
+      Perl::Critic 1.126
+      Perl::Critic::Annotation 1.126
+      Perl::Critic::Command 1.126
+      Perl::Critic::Config 1.126
+      Perl::Critic::Document 1.126
+      Perl::Critic::Exception 1.126
+      Perl::Critic::Exception::AggregateConfiguration 1.126
+      Perl::Critic::Exception::Configuration 1.126
+      Perl::Critic::Exception::Configuration::Generic 1.126
+      Perl::Critic::Exception::Configuration::NonExistentPolicy 1.126
+      Perl::Critic::Exception::Configuration::Option 1.126
+      Perl::Critic::Exception::Configuration::Option::Global 1.126
+      Perl::Critic::Exception::Configuration::Option::Global::ExtraParameter 1.126
+      Perl::Critic::Exception::Configuration::Option::Global::ParameterValue 1.126
+      Perl::Critic::Exception::Configuration::Option::Policy 1.126
+      Perl::Critic::Exception::Configuration::Option::Policy::ExtraParameter 1.126
+      Perl::Critic::Exception::Configuration::Option::Policy::ParameterValue 1.126
+      Perl::Critic::Exception::Fatal 1.126
+      Perl::Critic::Exception::Fatal::Generic 1.126
+      Perl::Critic::Exception::Fatal::Internal 1.126
+      Perl::Critic::Exception::Fatal::PolicyDefinition 1.126
+      Perl::Critic::Exception::IO 1.126
+      Perl::Critic::Exception::Parse 1.126
+      Perl::Critic::OptionsProcessor 1.126
+      Perl::Critic::Policy 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitBooleanGrep 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitComplexMappings 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitLvalueSubstr 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitReverseSortBlock 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitSleepViaSelect 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitStringyEval 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitStringySplit 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitUniversalCan 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitUniversalIsa 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitUselessTopic 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitVoidGrep 1.126
+      Perl::Critic::Policy::BuiltinFunctions::ProhibitVoidMap 1.126
+      Perl::Critic::Policy::BuiltinFunctions::RequireBlockGrep 1.126
+      Perl::Critic::Policy::BuiltinFunctions::RequireBlockMap 1.126
+      Perl::Critic::Policy::BuiltinFunctions::RequireGlobFunction 1.126
+      Perl::Critic::Policy::BuiltinFunctions::RequireSimpleSortBlock 1.126
+      Perl::Critic::Policy::ClassHierarchies::ProhibitAutoloading 1.126
+      Perl::Critic::Policy::ClassHierarchies::ProhibitExplicitISA 1.126
+      Perl::Critic::Policy::ClassHierarchies::ProhibitOneArgBless 1.126
+      Perl::Critic::Policy::CodeLayout::ProhibitHardTabs 1.126
+      Perl::Critic::Policy::CodeLayout::ProhibitParensWithBuiltins 1.126
+      Perl::Critic::Policy::CodeLayout::ProhibitQuotedWordLists 1.126
+      Perl::Critic::Policy::CodeLayout::ProhibitTrailingWhitespace 1.126
+      Perl::Critic::Policy::CodeLayout::RequireConsistentNewlines 1.126
+      Perl::Critic::Policy::CodeLayout::RequireTidyCode 1.126
+      Perl::Critic::Policy::CodeLayout::RequireTrailingCommas 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitCStyleForLoops 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitCascadingIfElse 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitDeepNests 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitLabelsWithSpecialBlockNames 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitMutatingListFunctions 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitPostfixControls 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitUnlessBlocks 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitUnreachableCode 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitUntilBlocks 1.126
+      Perl::Critic::Policy::ControlStructures::ProhibitYadaOperator 1.126
+      Perl::Critic::Policy::Documentation::PodSpelling 1.126
+      Perl::Critic::Policy::Documentation::RequirePackageMatchesPodName 1.126
+      Perl::Critic::Policy::Documentation::RequirePodAtEnd 1.126
+      Perl::Critic::Policy::Documentation::RequirePodLinksIncludeText 1.126
+      Perl::Critic::Policy::Documentation::RequirePodSections 1.126
+      Perl::Critic::Policy::ErrorHandling::RequireCarping 1.126
+      Perl::Critic::Policy::ErrorHandling::RequireCheckingReturnValueOfEval 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitBacktickOperators 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitBarewordFileHandles 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitExplicitStdin 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitInteractiveTest 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitJoinedReadline 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitOneArgSelect 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitReadlineInForLoop 1.126
+      Perl::Critic::Policy::InputOutput::ProhibitTwoArgOpen 1.126
+      Perl::Critic::Policy::InputOutput::RequireBracedFileHandleWithPrint 1.126
+      Perl::Critic::Policy::InputOutput::RequireBriefOpen 1.126
+      Perl::Critic::Policy::InputOutput::RequireCheckedClose 1.126
+      Perl::Critic::Policy::InputOutput::RequireCheckedOpen 1.126
+      Perl::Critic::Policy::InputOutput::RequireCheckedSyscalls 1.126
+      Perl::Critic::Policy::InputOutput::RequireEncodingWithUTF8Layer 1.126
+      Perl::Critic::Policy::Miscellanea::ProhibitFormats 1.126
+      Perl::Critic::Policy::Miscellanea::ProhibitTies 1.126
+      Perl::Critic::Policy::Miscellanea::ProhibitUnrestrictedNoCritic 1.126
+      Perl::Critic::Policy::Miscellanea::ProhibitUselessNoCritic 1.126
+      Perl::Critic::Policy::Modules::ProhibitAutomaticExportation 1.126
+      Perl::Critic::Policy::Modules::ProhibitConditionalUseStatements 1.126
+      Perl::Critic::Policy::Modules::ProhibitEvilModules 1.126
+      Perl::Critic::Policy::Modules::ProhibitExcessMainComplexity 1.126
+      Perl::Critic::Policy::Modules::ProhibitMultiplePackages 1.126
+      Perl::Critic::Policy::Modules::RequireBarewordIncludes 1.126
+      Perl::Critic::Policy::Modules::RequireEndWithOne 1.126
+      Perl::Critic::Policy::Modules::RequireExplicitPackage 1.126
+      Perl::Critic::Policy::Modules::RequireFilenameMatchesPackage 1.126
+      Perl::Critic::Policy::Modules::RequireNoMatchVarsWithUseEnglish 1.126
+      Perl::Critic::Policy::Modules::RequireVersionVar 1.126
+      Perl::Critic::Policy::NamingConventions::Capitalization 1.126
+      Perl::Critic::Policy::NamingConventions::ProhibitAmbiguousNames 1.126
+      Perl::Critic::Policy::Objects::ProhibitIndirectSyntax 1.126
+      Perl::Critic::Policy::References::ProhibitDoubleSigils 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitCaptureWithoutTest 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitComplexRegexes 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitEnumeratedClasses 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitEscapedMetacharacters 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitFixedStringMatches 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitSingleCharAlternation 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitUnusedCapture 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitUnusualDelimiters 1.126
+      Perl::Critic::Policy::RegularExpressions::ProhibitUselessTopic 1.126
+      Perl::Critic::Policy::RegularExpressions::RequireBracesForMultiline 1.126
+      Perl::Critic::Policy::RegularExpressions::RequireDotMatchAnything 1.126
+      Perl::Critic::Policy::RegularExpressions::RequireExtendedFormatting 1.126
+      Perl::Critic::Policy::RegularExpressions::RequireLineBoundaryMatching 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitAmpersandSigils 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitBuiltinHomonyms 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitExplicitReturnUndef 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitManyArgs 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitNestedSubs 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitReturnSort 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitSubroutinePrototypes 1.126
+      Perl::Critic::Policy::Subroutines::ProhibitUnusedPrivateSubroutines 1.126
+      Perl::Critic::Policy::Subroutines::ProtectPrivateSubs 1.126
+      Perl::Critic::Policy::Subroutines::RequireArgUnpacking 1.126
+      Perl::Critic::Policy::Subroutines::RequireFinalReturn 1.126
+      Perl::Critic::Policy::TestingAndDebugging::ProhibitNoStrict 1.126
+      Perl::Critic::Policy::TestingAndDebugging::ProhibitNoWarnings 1.126
+      Perl::Critic::Policy::TestingAndDebugging::ProhibitProlongedStrictureOverride 1.126
+      Perl::Critic::Policy::TestingAndDebugging::RequireTestLabels 1.126
+      Perl::Critic::Policy::TestingAndDebugging::RequireUseStrict 1.126
+      Perl::Critic::Policy::TestingAndDebugging::RequireUseWarnings 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitCommaSeparatedStatements 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitComplexVersion 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitConstantPragma 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyQuotes 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitEscapedCharacters 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitImplicitNewlines 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitInterpolationOfLiterals 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitLeadingZeros 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitLongChainsOfMethodCalls 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitMagicNumbers 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitMismatchedOperators 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitMixedBooleanOperators 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitNoisyQuotes 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitQuotesAsQuotelikeOperatorDelimiters 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitSpecialLiteralHeredocTerminator 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::ProhibitVersionStrings 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::RequireConstantVersion 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::RequireInterpolationOfMetachars 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::RequireNumberSeparators 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::RequireQuotedHeredocTerminator 1.126
+      Perl::Critic::Policy::ValuesAndExpressions::RequireUpperCaseHeredocTerminator 1.126
+      Perl::Critic::Policy::Variables::ProhibitAugmentedAssignmentInDeclaration 1.126
+      Perl::Critic::Policy::Variables::ProhibitConditionalDeclarations 1.126
+      Perl::Critic::Policy::Variables::ProhibitEvilVariables 1.126
+      Perl::Critic::Policy::Variables::ProhibitLocalVars 1.126
+      Perl::Critic::Policy::Variables::ProhibitMatchVars 1.126
+      Perl::Critic::Policy::Variables::ProhibitPackageVars 1.126
+      Perl::Critic::Policy::Variables::ProhibitPerl4PackageNames 1.126
+      Perl::Critic::Policy::Variables::ProhibitPunctuationVars 1.126
+      Perl::Critic::Policy::Variables::ProhibitReusedNames 1.126
+      Perl::Critic::Policy::Variables::ProhibitUnusedVariables 1.126
+      Perl::Critic::Policy::Variables::ProtectPrivateVars 1.126
+      Perl::Critic::Policy::Variables::RequireInitializationForLocalVars 1.126
+      Perl::Critic::Policy::Variables::RequireLexicalLoopIterators 1.126
+      Perl::Critic::Policy::Variables::RequireLocalizedPunctuationVars 1.126
+      Perl::Critic::Policy::Variables::RequireNegativeIndices 1.126
+      Perl::Critic::PolicyConfig 1.126
+      Perl::Critic::PolicyFactory 1.126
+      Perl::Critic::PolicyListing 1.126
+      Perl::Critic::PolicyParameter 1.126
+      Perl::Critic::PolicyParameter::Behavior 1.126
+      Perl::Critic::PolicyParameter::Behavior::Boolean 1.126
+      Perl::Critic::PolicyParameter::Behavior::Enumeration 1.126
+      Perl::Critic::PolicyParameter::Behavior::Integer 1.126
+      Perl::Critic::PolicyParameter::Behavior::String 1.126
+      Perl::Critic::PolicyParameter::Behavior::StringList 1.126
+      Perl::Critic::ProfilePrototype 1.126
+      Perl::Critic::Statistics 1.126
+      Perl::Critic::TestUtils 1.126
+      Perl::Critic::Theme 1.126
+      Perl::Critic::ThemeListing 1.126
+      Perl::Critic::UserProfile 1.126
+      Perl::Critic::Utils 1.126
+      Perl::Critic::Utils::Constants 1.126
+      Perl::Critic::Utils::DataConversion 1.126
+      Perl::Critic::Utils::McCabe 1.126
+      Perl::Critic::Utils::POD 1.126
+      Perl::Critic::Utils::POD::ParseInteriorSequence 1.126
+      Perl::Critic::Utils::PPI 1.126
+      Perl::Critic::Utils::Perl 1.126
+      Perl::Critic::Violation 1.126
+      Test::Perl::Critic::Policy 1.126
+    requirements:
+      B::Keywords 1.05
+      Carp 0
+      Config::Tiny 2
+      Email::Address 1.889
+      English 0
+      Exception::Class 1.23
+      Exporter 5.63
+      File::Basename 0
+      File::Find 0
+      File::HomeDir 0
+      File::Path 0
+      File::Spec 0
+      File::Spec::Unix 0
+      File::Temp 0
+      File::Which 0
+      Getopt::Long 0
+      IO::String 0
+      IPC::Open2 1
+      List::MoreUtils 0.19
+      List::Util 0
+      Module::Build 0.4024
+      Module::Pluggable 3.1
+      PPI 1.220
+      PPI::Document 1.220
+      PPI::Document::File 1.220
+      PPI::Node 1.220
+      PPI::Token::Quote::Single 1.220
+      PPI::Token::Whitespace 1.220
+      PPIx::Regexp 0.027
+      PPIx::Utilities::Node 1.001
+      PPIx::Utilities::Statement 1.001
+      Perl::Tidy 0
+      Pod::Parser 0
+      Pod::PlainText 0
+      Pod::Select 0
+      Pod::Spell 1
+      Pod::Usage 0
+      Readonly 2
+      Scalar::Util 0
+      String::Format 1.13
+      Task::Weaken 0
+      Term::ANSIColor 2.02
+      Test::Builder 0.92
+      Test::Deep 0
+      Test::More 0
+      Text::ParseWords 3
+      base 0
+      charnames 0
+      lib 0
+      overload 0
+      strict 0
+      version 0.77
+      warnings 0
+  Perl-Tidy-20160302
+    pathname: S/SH/SHANCOCK/Perl-Tidy-20160302.tar.gz
+    provides:
+      Perl::Tidy 20160302
+      Perl::Tidy::Debugger 20160302
+      Perl::Tidy::DevNull 20160302
+      Perl::Tidy::Diagnostics 20160302
+      Perl::Tidy::FileWriter 20160302
+      Perl::Tidy::Formatter 20160302
+      Perl::Tidy::HtmlWriter 20160302
+      Perl::Tidy::IOScalar 20160302
+      Perl::Tidy::IOScalarArray 20160302
+      Perl::Tidy::IndentationItem 20160302
+      Perl::Tidy::LineBuffer 20160302
+      Perl::Tidy::LineSink 20160302
+      Perl::Tidy::LineSource 20160302
+      Perl::Tidy::Logger 20160302
+      Perl::Tidy::Tokenizer 20160302
+      Perl::Tidy::VerticalAligner 20160302
+      Perl::Tidy::VerticalAligner::Alignment 20160302
+      Perl::Tidy::VerticalAligner::Line 20160302
+    requirements:
+      ExtUtils::MakeMaker 0
   PerlIO-via-Timeout-0.32
     pathname: D/DA/DAMS/PerlIO-via-Timeout-0.32.tar.gz
     provides:
@@ -4819,12 +5366,12 @@ DISTRIBUTIONS
       Test::More 0
       Test::TCP 0
       Time::HiRes 0
-  Plack-1.0042
-    pathname: M/MI/MIYAGAWA/Plack-1.0042.tar.gz
+  Plack-1.0043
+    pathname: M/MI/MIYAGAWA/Plack-1.0043.tar.gz
     provides:
       HTTP::Message::PSGI undef
       HTTP::Server::PSGI undef
-      Plack 1.0042
+      Plack 1.0043
       Plack::App::CGIBin undef
       Plack::App::Cascade undef
       Plack::App::Directory undef
@@ -4883,9 +5430,9 @@ DISTRIBUTIONS
       Plack::Middleware::XFramework undef
       Plack::Middleware::XSendfile undef
       Plack::Recursive::ForwardRequest undef
-      Plack::Request 1.0042
+      Plack::Request 1.0043
       Plack::Request::Upload undef
-      Plack::Response 1.0042
+      Plack::Response 1.0043
       Plack::Runner undef
       Plack::TempBuffer undef
       Plack::Test undef
@@ -5004,6 +5551,29 @@ DISTRIBUTIONS
       LWP::UserAgent 0
       URI 0
       perl 5.006
+      strict 0
+      warnings 0
+  Pod-Spell-1.20
+    pathname: D/DO/DOLMEN/Pod-Spell-1.20.tar.gz
+    provides:
+      Pod::Spell 1.20
+      Pod::Wordlist 1.20
+    requirements:
+      Carp 0
+      Class::Tiny 0
+      ExtUtils::MakeMaker 0
+      File::ShareDir 0
+      File::ShareDir::Install 0.06
+      Lingua::EN::Inflect 0
+      POSIX 0
+      Path::Tiny 0
+      Pod::Escapes 0
+      Pod::Parser 0
+      Text::Wrap 0
+      constant 0
+      locale 0
+      parent 0
+      perl 5.008
       strict 0
       warnings 0
   Proc-Wait3-0.05
@@ -5180,49 +5750,49 @@ DISTRIBUTIONS
       POSIX 0
       strict 0
       warnings 0
-  Specio-0.35
-    pathname: D/DR/DROLSKY/Specio-0.35.tar.gz
+  Specio-0.36
+    pathname: D/DR/DROLSKY/Specio-0.36.tar.gz
     provides:
-      Specio 0.35
-      Specio::Coercion 0.35
-      Specio::Constraint::AnyCan 0.35
-      Specio::Constraint::AnyDoes 0.35
-      Specio::Constraint::AnyIsa 0.35
-      Specio::Constraint::Enum 0.35
-      Specio::Constraint::Intersection 0.35
-      Specio::Constraint::ObjectCan 0.35
-      Specio::Constraint::ObjectDoes 0.35
-      Specio::Constraint::ObjectIsa 0.35
-      Specio::Constraint::Parameterizable 0.35
-      Specio::Constraint::Parameterized 0.35
-      Specio::Constraint::Role::CanType 0.35
-      Specio::Constraint::Role::DoesType 0.35
-      Specio::Constraint::Role::Interface 0.35
-      Specio::Constraint::Role::IsaType 0.35
-      Specio::Constraint::Simple 0.35
-      Specio::Constraint::Structurable 0.35
-      Specio::Constraint::Structured 0.35
-      Specio::Constraint::Union 0.35
-      Specio::Declare 0.35
-      Specio::DeclaredAt 0.35
-      Specio::Exception 0.35
-      Specio::Exporter 0.35
-      Specio::Helpers 0.35
-      Specio::Library::Builtins 0.35
-      Specio::Library::Numeric 0.35
-      Specio::Library::Perl 0.35
-      Specio::Library::String 0.35
-      Specio::Library::Structured 0.35
-      Specio::Library::Structured::Dict 0.35
-      Specio::Library::Structured::Map 0.35
-      Specio::Library::Structured::Tuple 0.35
-      Specio::OO 0.35
-      Specio::PartialDump 0.35
-      Specio::Registry 0.35
-      Specio::Role::Inlinable 0.35
-      Specio::Subs 0.35
-      Specio::TypeChecks 0.35
-      Test::Specio 0.35
+      Specio 0.36
+      Specio::Coercion 0.36
+      Specio::Constraint::AnyCan 0.36
+      Specio::Constraint::AnyDoes 0.36
+      Specio::Constraint::AnyIsa 0.36
+      Specio::Constraint::Enum 0.36
+      Specio::Constraint::Intersection 0.36
+      Specio::Constraint::ObjectCan 0.36
+      Specio::Constraint::ObjectDoes 0.36
+      Specio::Constraint::ObjectIsa 0.36
+      Specio::Constraint::Parameterizable 0.36
+      Specio::Constraint::Parameterized 0.36
+      Specio::Constraint::Role::CanType 0.36
+      Specio::Constraint::Role::DoesType 0.36
+      Specio::Constraint::Role::Interface 0.36
+      Specio::Constraint::Role::IsaType 0.36
+      Specio::Constraint::Simple 0.36
+      Specio::Constraint::Structurable 0.36
+      Specio::Constraint::Structured 0.36
+      Specio::Constraint::Union 0.36
+      Specio::Declare 0.36
+      Specio::DeclaredAt 0.36
+      Specio::Exception 0.36
+      Specio::Exporter 0.36
+      Specio::Helpers 0.36
+      Specio::Library::Builtins 0.36
+      Specio::Library::Numeric 0.36
+      Specio::Library::Perl 0.36
+      Specio::Library::String 0.36
+      Specio::Library::Structured 0.36
+      Specio::Library::Structured::Dict 0.36
+      Specio::Library::Structured::Map 0.36
+      Specio::Library::Structured::Tuple 0.36
+      Specio::OO 0.36
+      Specio::PartialDump 0.36
+      Specio::Registry 0.36
+      Specio::Role::Inlinable 0.36
+      Specio::Subs 0.36
+      Specio::TypeChecks 0.36
+      Test::Specio 0.36
     requirements:
       B 0
       Carp 0
@@ -5329,6 +5899,13 @@ DISTRIBUTIONS
     pathname: E/EV/EVO/String-Escape-2010.002.tar.gz
     provides:
       String::Escape 2010.002
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+  String-Format-1.17
+    pathname: D/DA/DARREN/String-Format-1.17.tar.gz
+    provides:
+      String::Format 1.17
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -5448,10 +6025,10 @@ DISTRIBUTIONS
       Symbol::Util 0.0203
     requirements:
       perl 5.006
-  TAP-Parser-SourceHandler-pgTAP-3.32
-    pathname: D/DW/DWHEELER/TAP-Parser-SourceHandler-pgTAP-3.32.tar.gz
+  TAP-Parser-SourceHandler-pgTAP-3.33
+    pathname: D/DW/DWHEELER/TAP-Parser-SourceHandler-pgTAP-3.33.tar.gz
     provides:
-      TAP::Parser::SourceHandler::pgTAP 3.32
+      TAP::Parser::SourceHandler::pgTAP 3.33
     requirements:
       Module::Build 0.30
       TAP::Parser::SourceHandler 0
@@ -5581,6 +6158,7 @@ DISTRIBUTIONS
       Test::Aggregate::Builder 0.375
       Test::Aggregate::Nested 0.375
     requirements:
+      ExtUtils::MakeMaker 0
       FindBin 1.47
       Test::Harness 3.09
       Test::Most 0.21
@@ -5888,6 +6466,21 @@ DISTRIBUTIONS
       Test::More 0.47
       Test::Tester 0.107
       perl 5.006
+  Test-Object-0.07
+    pathname: A/AD/ADAMK/Test-Object-0.07.tar.gz
+    provides:
+      Test::Object 0.07
+      Test::Object::Test 0.07
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      File::Spec 0.80
+      Scalar::Util 1.16
+      Test::Builder 0.33
+      Test::Builder::Tester 1.02
+      Test::More 0.42
+      overload 0
   Test-Requires-0.10
     pathname: T/TO/TOKUHIROM/Test-Requires-0.10.tar.gz
     provides:
@@ -5945,59 +6538,59 @@ DISTRIBUTIONS
       Test::Builder::Module 0
       Test::More 0.88
       perl 5.008_001
-  Test-Simple-1.302075
-    pathname: E/EX/EXODIST/Test-Simple-1.302075.tar.gz
+  Test-Simple-1.302078
+    pathname: E/EX/EXODIST/Test-Simple-1.302078.tar.gz
     provides:
-      Test2 1.302075
-      Test2::API 1.302075
-      Test2::API::Breakage 1.302075
-      Test2::API::Context 1.302075
-      Test2::API::Instance 1.302075
-      Test2::API::Stack 1.302075
-      Test2::Event 1.302075
-      Test2::Event::Bail 1.302075
-      Test2::Event::Diag 1.302075
-      Test2::Event::Encoding 1.302075
-      Test2::Event::Exception 1.302075
-      Test2::Event::Generic 1.302075
-      Test2::Event::Info 1.302075
-      Test2::Event::Note 1.302075
-      Test2::Event::Ok 1.302075
-      Test2::Event::Plan 1.302075
-      Test2::Event::Skip 1.302075
-      Test2::Event::Subtest 1.302075
-      Test2::Event::TAP::Version 1.302075
-      Test2::Event::Waiting 1.302075
-      Test2::Formatter 1.302075
-      Test2::Formatter::TAP 1.302075
-      Test2::Hub 1.302075
-      Test2::Hub::Interceptor 1.302075
-      Test2::Hub::Interceptor::Terminator 1.302075
-      Test2::Hub::Subtest 1.302075
-      Test2::IPC 1.302075
-      Test2::IPC::Driver 1.302075
-      Test2::IPC::Driver::Files 1.302075
-      Test2::Tools::Tiny 1.302075
-      Test2::Util 1.302075
-      Test2::Util::ExternalMeta 1.302075
+      Test2 1.302078
+      Test2::API 1.302078
+      Test2::API::Breakage 1.302078
+      Test2::API::Context 1.302078
+      Test2::API::Instance 1.302078
+      Test2::API::Stack 1.302078
+      Test2::Event 1.302078
+      Test2::Event::Bail 1.302078
+      Test2::Event::Diag 1.302078
+      Test2::Event::Encoding 1.302078
+      Test2::Event::Exception 1.302078
+      Test2::Event::Generic 1.302078
+      Test2::Event::Info 1.302078
+      Test2::Event::Note 1.302078
+      Test2::Event::Ok 1.302078
+      Test2::Event::Plan 1.302078
+      Test2::Event::Skip 1.302078
+      Test2::Event::Subtest 1.302078
+      Test2::Event::TAP::Version 1.302078
+      Test2::Event::Waiting 1.302078
+      Test2::Formatter 1.302078
+      Test2::Formatter::TAP 1.302078
+      Test2::Hub 1.302078
+      Test2::Hub::Interceptor 1.302078
+      Test2::Hub::Interceptor::Terminator 1.302078
+      Test2::Hub::Subtest 1.302078
+      Test2::IPC 1.302078
+      Test2::IPC::Driver 1.302078
+      Test2::IPC::Driver::Files 1.302078
+      Test2::Tools::Tiny 1.302078
+      Test2::Util 1.302078
+      Test2::Util::ExternalMeta 1.302078
       Test2::Util::HashBase 0.002
-      Test2::Util::Trace 1.302075
-      Test::Builder 1.302075
-      Test::Builder::Formatter 1.302075
+      Test2::Util::Trace 1.302078
+      Test::Builder 1.302078
+      Test::Builder::Formatter 1.302078
       Test::Builder::IO::Scalar 2.113
-      Test::Builder::Module 1.302075
-      Test::Builder::Tester 1.302075
-      Test::Builder::Tester::Color 1.302075
-      Test::Builder::Tester::Tie 1.302075
-      Test::Builder::TodoDiag 1.302075
-      Test::More 1.302075
-      Test::Simple 1.302075
-      Test::Tester 1.302075
-      Test::Tester::Capture 1.302075
-      Test::Tester::CaptureRunner 1.302075
-      Test::Tester::Delegate 1.302075
-      Test::use::ok 1.302075
-      ok 1.302075
+      Test::Builder::Module 1.302078
+      Test::Builder::Tester 1.302078
+      Test::Builder::Tester::Color 1.302078
+      Test::Builder::Tester::Tie 1.302078
+      Test::Builder::TodoDiag 1.302078
+      Test::More 1.302078
+      Test::Simple 1.302078
+      Test::Tester 1.302078
+      Test::Tester::Capture 1.302078
+      Test::Tester::CaptureRunner 1.302078
+      Test::Tester::Delegate 1.302078
+      Test::use::ok 1.302078
+      ok 1.302078
     requirements:
       ExtUtils::MakeMaker 0
       File::Spec 0
@@ -6007,6 +6600,16 @@ DISTRIBUTIONS
       Storable 0
       perl 5.008001
       utf8 0
+  Test-SubCalls-1.09
+    pathname: A/AD/ADAMK/Test-SubCalls-1.09.tar.gz
+    provides:
+      Test::SubCalls 1.09
+    requirements:
+      ExtUtils::MakeMaker 6.42
+      File::Spec 0.80
+      Hook::LexWrap 0.20
+      Test::Builder::Tester 1.02
+      Test::More 0.42
   Test-TCP-2.17
     pathname: S/SY/SYOHEX/Test-TCP-2.17.tar.gz
     provides:
@@ -6187,10 +6790,10 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::Base 0
-  Text-Glob-0.10
-    pathname: R/RC/RCLAMP/Text-Glob-0.10.tar.gz
+  Text-Glob-0.11
+    pathname: R/RC/RCLAMP/Text-Glob-0.11.tar.gz
     provides:
-      Text::Glob 0.10
+      Text::Glob 0.11
     requirements:
       Exporter 0
       ExtUtils::MakeMaker 0
@@ -6583,21 +7186,22 @@ DISTRIBUTIONS
       base 0
       lib 0
       perl 5.008
-  WWW-Form-UrlEncoded-0.23
-    pathname: K/KA/KAZEBURO/WWW-Form-UrlEncoded-0.23.tar.gz
+  WWW-Form-UrlEncoded-0.24
+    pathname: K/KA/KAZEBURO/WWW-Form-UrlEncoded-0.24.tar.gz
     provides:
-      WWW::Form::UrlEncoded 0.23
+      WWW::Form::UrlEncoded 0.24
       WWW::Form::UrlEncoded::PP undef
     requirements:
       Exporter 0
-      Module::Build 0.38
+      ExtUtils::CBuilder 0
+      Module::Build 0.4005
       perl 5.008001
-  WWW-Mechanize-1.83
-    pathname: O/OA/OALDERS/WWW-Mechanize-1.83.tar.gz
+  WWW-Mechanize-1.84
+    pathname: O/OA/OALDERS/WWW-Mechanize-1.84.tar.gz
     provides:
-      WWW::Mechanize 1.83
-      WWW::Mechanize::Image 1.83
-      WWW::Mechanize::Link 1.83
+      WWW::Mechanize 1.84
+      WWW::Mechanize::Image 1.84
+      WWW::Mechanize::Link 1.84
     requirements:
       Carp 0
       ExtUtils::MakeMaker 0
@@ -7121,34 +7725,37 @@ DISTRIBUTIONS
       utf8 0
       vars 0
       warnings 0
-  libwww-perl-6.19
-    pathname: O/OA/OALDERS/libwww-perl-6.19.tar.gz
+  libwww-perl-6.23
+    pathname: O/OA/OALDERS/libwww-perl-6.23.tar.gz
     provides:
-      LWP 6.19
-      LWP::Authen::Basic undef
-      LWP::Authen::Digest undef
-      LWP::Authen::Ntlm 6.19
-      LWP::ConnCache 6.19
-      LWP::Debug undef
-      LWP::DebugFile undef
-      LWP::MemberMixin undef
-      LWP::Protocol 6.19
-      LWP::Protocol::MyFTP undef
-      LWP::Protocol::cpan undef
-      LWP::Protocol::data undef
-      LWP::Protocol::file undef
-      LWP::Protocol::ftp undef
-      LWP::Protocol::gopher undef
-      LWP::Protocol::http undef
-      LWP::Protocol::http::Socket undef
-      LWP::Protocol::http::SocketMethods undef
-      LWP::Protocol::loopback undef
-      LWP::Protocol::mailto undef
-      LWP::Protocol::nntp undef
-      LWP::Protocol::nogo undef
-      LWP::RobotUA 6.19
-      LWP::Simple 6.19
-      LWP::UserAgent 6.19
+      LWP 6.23
+      LWP::Authen::Basic 6.23
+      LWP::Authen::Digest 6.23
+      LWP::Authen::Ntlm 6.23
+      LWP::ConnCache 6.23
+      LWP::Debug 6.23
+      LWP::Debug::TraceHTTP 6.23
+      LWP::Debug::TraceHTTP::Socket 6.23
+      LWP::DebugFile 6.23
+      LWP::MemberMixin 6.23
+      LWP::Protocol 6.23
+      LWP::Protocol::MyFTP 6.23
+      LWP::Protocol::cpan 6.23
+      LWP::Protocol::data 6.23
+      LWP::Protocol::file 6.23
+      LWP::Protocol::ftp 6.23
+      LWP::Protocol::gopher 6.23
+      LWP::Protocol::http 6.23
+      LWP::Protocol::http::Socket 6.23
+      LWP::Protocol::http::SocketMethods 6.23
+      LWP::Protocol::loopback 6.23
+      LWP::Protocol::mailto 6.23
+      LWP::Protocol::nntp 6.23
+      LWP::Protocol::nogo 6.23
+      LWP::RobotUA 6.23
+      LWP::Simple 6.23
+      LWP::UserAgent 6.23
+      libwww::perl undef
     requirements:
       Digest::MD5 0
       Encode 2.12
@@ -7178,7 +7785,10 @@ DISTRIBUTIONS
       URI 1.10
       URI::Escape 0
       WWW::RobotRules 6
+      base 0
       perl 5.008001
+      strict 0
+      warnings 0
   namespace-autoclean-0.28
     pathname: E/ET/ETHER/namespace-autoclean-0.28.tar.gz
     provides:
