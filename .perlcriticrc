@@ -11,3 +11,5 @@ severity=1
 
 [TestingAndDebugging::ProhibitNoStrict]
 allow=refs
+
+[ValuesAndExpressions::ProhibitMismatchedOperators]
