@@ -60,10 +60,13 @@ sub run {
     my ($self, $entity) = @_;
 
     my $info;
-    defined $entity && defined $ENTITIES{$entity} &&
-        defined $ENTITIES{$entity}->{removal} &&
-        ($info = $ENTITIES{$entity}->{removal}->{automatic})
-    or $self->usage, exit 1;
+    unless (defined $entity &&
+            defined $ENTITIES{$entity} &&
+            defined $ENTITIES{$entity}{removal} &&
+            ($info = $ENTITIES{$entity}{removal}{automatic})) {
+        $self->usage;
+        exit 1;
+    }
 
     print localtime() . " : Finding unused entities of type '$entity'\n";
 

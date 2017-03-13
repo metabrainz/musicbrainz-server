@@ -142,7 +142,6 @@ sub recording_browse : Private
     }
 
     my $recordings;
-    my $total;
     if ($resource eq 'artist')
     {
         my $artist = $c->model('Artist')->get_by_gid($id);
@@ -217,7 +216,6 @@ sub recording_submit : Private
 
     my %recordings_by_gid = %{ $c->model('Recording')->get_by_gids(keys %submit_isrc) };
 
-    my @submissions;
     for my $recording_gid (keys %submit_isrc) {
         $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};

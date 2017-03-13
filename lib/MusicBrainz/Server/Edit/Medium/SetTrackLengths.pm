@@ -74,7 +74,7 @@ sub build_display_data {
                                     Release->new( name => $_->{name} ) )
         } @{ $self->data->{affected_releases} };
     }
-                  
+
     return {
         cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
             || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),

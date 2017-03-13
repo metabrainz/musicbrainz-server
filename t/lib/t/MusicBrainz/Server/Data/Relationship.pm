@@ -317,7 +317,7 @@ is( $rel->entity1->name, 'Track 1' );
 is( $rel->edits_pending, 1 );
 is( $rel->direction, $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD );
 
-for $rel ($artist1->all_relationships) {
+for my $rel ($artist1->all_relationships) {
     if ($rel->link_id == 2) {
         isnt( $rel->link, undef );
         ok( $rel->link->has_attribute('additional') );

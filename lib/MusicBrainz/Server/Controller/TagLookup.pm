@@ -118,7 +118,6 @@ sub external : Private
 {
     my ($self, $c, $form) = @_;
 
-    my @terms;
     my $parsed = _parse_filename($form->field('filename')->value());
     my $term_to_field = {
         artist => 'artist',

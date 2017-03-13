@@ -156,6 +156,15 @@ done with the following command:
 
     $ prove -l t/js.t
 
+### Code standards
+
+We use `Perl::Critic` to enforce certain code standards. The list of
+policies we use can be found in
+[.perlcriticrc](.perlcriticrc).
+If you'd like to test them yourself before submitting a pull request, invoke
+`prove` as follows:
+
+    $ prove -lv t/critic.t
 
 Reports
 -------

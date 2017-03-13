@@ -89,7 +89,6 @@ sub work_browse : Private
     }
 
     my $works;
-    my $total;
     if ($resource eq 'artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless $artist;

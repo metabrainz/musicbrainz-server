@@ -45,8 +45,6 @@ sub serializer
 {
     my $entity = shift;
 
-    my $serializer;
-
     for my $class (keys %serializers) {
         if ($entity->isa($class)) {
             return $serializers{$class};
