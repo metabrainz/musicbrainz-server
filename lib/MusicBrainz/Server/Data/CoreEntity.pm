@@ -25,6 +25,7 @@ sub _gid_redirect_table {
 
     return $self->_main_table . '_gid_redirect'
         if $ENTITIES{$self->_type}{mbid}{multiple};
+    return;
 }
 
 around get_by_gids => sub
