@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-13 08:34-0600\n"
-"PO-Revision-Date: 2017-02-25 11:23+0000\n"
+"POT-Creation-Date: 2017-02-28 01:44-0600\n"
+"PO-Revision-Date: 2017-03-09 09:52+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,7 @@ msgstr "(nieuwe uitgavegroep)"
 msgid "(no changelog)"
 msgstr "(geen veranderingslogboek)"
 
-#: ../root/release/add_cover_art.tt:114
+#: ../root/release/add_cover_art.tt:116
 msgid "(no other cover art)"
 msgstr "(geen andere afbeeldingen)"
 
@@ -611,13 +611,18 @@ msgctxt "button/menu"
 msgid "Add Release Event"
 msgstr "Uitgavegebeurtenis toevoegen"
 
-#: ../root/release_group/create.tt:1 ../root/release_group/create.tt:4
+#: ../root/release_group/create.tt:1
 msgid "Add Release Group"
 msgstr "Uitgavegroep toevoegen"
 
 #: ../root/layout/header/bottom.tt:121
 #: ../root/layout/components/BottomMenu.js:182
 msgctxt "button/menu"
+msgid "Add Release Group"
+msgstr "Uitgavegroep toevoegen"
+
+#: ../root/release_group/create.tt:3
+msgctxt "header"
 msgid "Add Release Group"
 msgstr "Uitgavegroep toevoegen"
 
@@ -1698,7 +1703,7 @@ msgid ""
 "hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
 "have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the"
 " way you intended it to show."
-msgstr "Omdat vierkante haakjes [] worden gebruikt om links te creëren, moet je de html-equivalenten (<code>&amp;#91;</code> voor [) en (<code>&amp;#93;</code> voor ]) gebruiken, als je niet wil dat ze worden in links worden omgezet. Voorbeeld: als je [onbekend] wil gebruiken in de aantekening, moet je <code>&amp;#91;onbekend&amp;#93;</code> typen om de gewenste tekst te laten zien."
+msgstr "Omdat vierkante haakjes [] worden gebruikt om links te creëren, moet je de html-equivalenten (<code>&amp;#91;</code> voor [) en (<code>&amp;#93;</code> voor ]) gebruiken, als je niet wil dat ze in links worden omgezet. Voorbeeld: als je [onbekend] wil gebruiken in de aantekening, moet je <code>&amp;#91;onbekend&amp;#93;</code> typen om de gewenste tekst te laten zien."
 
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
@@ -2133,7 +2138,7 @@ msgstr "Opmerking"
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:25
 #: ../root/edit/details/edit_cover_art.tt:24
 #: ../root/edit/details/remove_cover_art.tt:28
-#: ../root/release/add_cover_art.tt:96 ../root/release/cover_art_fields.tt:10
+#: ../root/release/add_cover_art.tt:98 ../root/release/cover_art_fields.tt:10
 msgid "Comment:"
 msgstr "Opmerking:"
 
@@ -2320,7 +2325,7 @@ msgstr "Data:"
 
 #: ../root/annotation/history.tt:12 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:8
-#: ../root/components/events-list.tt:26
+#: ../root/components/events-list.tt:26 ../root/components/places-list.tt:8
 #: ../root/components/relationships-table.tt:6
 #: ../root/components/releases-list.tt:16
 #: ../root/edit/details/edit_release_events.tt:5
@@ -3006,7 +3011,7 @@ msgid ""
 "map."
 msgstr "Vul de coördinaten in of sleep met de aanwijzer om de coördinaten van de kaart over te nemen."
 
-#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:149
+#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:151
 #: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:103
 msgid "Enter edit"
 msgstr "Bewerking invoeren"
@@ -3891,7 +3896,7 @@ msgid ""
 "database looking for data that might require fixing, either to comply with "
 "the {style|style guidelines}, or in other cases where administrative \"clean"
 " up\" tasks are required."
-msgstr "Als je mee wilt helpen om MusicBrainz te verbeteren, maar niet weet waar je moet beginnen, kunnen deze rapporten je helpen. In deze rapporten staan gegevens die misschien verbeterd moeten worden, bijvoorbeeld om ze te laten voldoen aan onze {style|stijlgids} of vanwege een administratieve opruiming."
+msgstr "Als je mee wil helpen om MusicBrainz te verbeteren, maar niet weet waar je moet beginnen, kunnen deze rapporten je helpen. In deze rapporten staan gegevens die misschien verbeterd moeten worden, bijvoorbeeld om ze te laten voldoen aan onze {style|stijlgids} of vanwege een administratieve opruiming."
 
 #: ../root/user/report.tt:10
 msgid ""
@@ -4904,7 +4909,7 @@ msgstr "Nieuwe vermelding van een artiest"
 msgid "New Attribute"
 msgstr "Nieuwe eigenschap"
 
-#: ../root/release/add_cover_art.tt:127
+#: ../root/release/add_cover_art.tt:129
 msgid "New Image Goes Here"
 msgstr "Nieuwe afbeelding komt hier"
 
@@ -5670,7 +5675,7 @@ msgstr "Lees alsjeblieft de documentatie over {doc|aliassen} voordat je deze bew
 msgid "Please search for the artist you wish to create a new release for:"
 msgstr "Zoek naar de artiest waar je een nieuwe uitgave voor wil toevoegen:"
 
-#: ../root/release/add_cover_art.tt:93 ../root/release/cover_art_fields.tt:8
+#: ../root/release/add_cover_art.tt:95 ../root/release/cover_art_fields.tt:8
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
@@ -5700,7 +5705,7 @@ msgstr "Positie"
 
 #: ../root/edit/details/add_medium.tt:13
 #: ../root/edit/details/edit_cover_art.tt:20
-#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:110
+#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:112
 msgid "Position:"
 msgstr "Positie:"
 
@@ -6837,7 +6842,7 @@ msgstr "Rol"
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/account/edit.tt:105 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:108 ../root/account/preferences.tt:50
 #: ../root/admin/attributes/form.tt:69
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
@@ -8354,7 +8359,7 @@ msgstr "Dit object is verwijderd en kan niet correct worden weergegeven."
 #: ../root/components/common-macros.tt:265
 #: ../root/static/scripts/common/components/EntityLink.js:21
 msgid "This entity will be created when edits are entered."
-msgstr "Dit object zal worden toegevoegd als de bewerking wordt ingediend."
+msgstr "Dit object zal tegelijk met deze bewerking worden aangemaakt."
 
 #: ../root/event/index.tt:20
 msgid ""
@@ -13210,7 +13215,7 @@ msgstr "Gebruik geen verkorte URL’s."
 
 #: ../root/static/scripts/edit/externalLinks.js:167
 msgid "Please select a link type for the URL you’ve entered."
-msgstr "Selecteer een koppelingstype voor de URL die je hebt ingevoerd."
+msgstr "Selecteer links een passende relate voor deze URL."
 
 #: ../root/static/scripts/edit/externalLinks.js:171
 #: ../root/static/scripts/relationship-editor/common/dialog.js:453

@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-13 14:36+0000\n"
+"PO-Revision-Date: 2017-02-28 07:45+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -396,6 +396,10 @@ msgstr "6弦バンジョー/バンジター"
 #: DB:instrument/name:68
 msgid "banjo"
 msgstr "バンジョー"
+
+#: DB:instrument/name:831
+msgid "banjolin"
+msgstr ""
 
 #: DB:instrument/name:190
 msgid "bansuri"
@@ -919,8 +923,9 @@ msgid "cò ke"
 msgstr ""
 
 #: DB:instrument/name:410
+msgctxt "Turkish oud like"
 msgid "cümbüş"
-msgstr "ジュンブシュ"
+msgstr ""
 
 #: DB:instrument/name:492
 msgid "daegeum"
