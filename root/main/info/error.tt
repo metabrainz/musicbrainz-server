@@ -13,7 +13,7 @@
     <strong>[%- l('Stack trace:') -%]</strong><br />
     <ul>
     [% FOR frame=stack_trace %]
-      <li><code>line [% frame.line %]&#10;[% frame.pkg %]</code></li>
+      <li><code>line [% frame.lineno %]&#10;[% frame.module %]</code></li>
     [% END %]
     </ul>
 </p>

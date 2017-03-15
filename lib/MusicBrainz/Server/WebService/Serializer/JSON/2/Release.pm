@@ -7,7 +7,6 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
@@ -82,8 +81,15 @@ sub serialize
     $body{collections} = list_of($entity, $inc, $stash, "collections")
         if $inc && ($inc->collections || $inc->user_collections);
 
-    $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash)
-        if $inc && $inc->release_groups;
+    if ($inc && $inc->release_groups)
+    {
+        # MBS-9129: If ratings are requested (even though a release doesn't have
+        # any), those of the release group should be serialized (to match the
+        # behaviour of the XML serializer). So we override a package variable to
+        # force the ratings to be serialized despite not being top-level.
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating::forced = 1;
+        $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash);
+    }
 
     if ($toplevel)
     {
@@ -120,7 +126,7 @@ no Moose;
 
 # =head1 COPYRIGHT
 
-# Copyright (C) 2011,2012 MetaBrainz Foundation
+# Copyright (C) 2011,2012,2017 MetaBrainz Foundation
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

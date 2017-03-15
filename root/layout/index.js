@@ -117,7 +117,11 @@ const Layout = (props) => {
 
         {manifest.js('rev-manifest')}
         {manifest.js('jed-' + currentLanguage)}
-        {manifest.js('common')}
+        {manifest.js('common', {
+          'data-args': JSON.stringify({
+            user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
+          }),
+        })}
         {!!$c.stash.jsonld_data && <script type="application/ld+json">{$c.stash.jsonld_data}</script>}
         {!!process.env.GOOGLE_ANALYTICS_CODE &&
           <script type="text/javascript" dangerouslySetInnerHTML={{__html: `

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+case "$1" in
+    branch) git rev-parse --abbrev-ref HEAD 2> /dev/null ;;
+    msg) git log -1 --format=format:"Last commit by %an on %ad: %s" --date=short ;;
+    sha) git log -1 --format=format:"%h" ;;
+esac

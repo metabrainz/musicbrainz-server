@@ -8,6 +8,11 @@ use Readonly;
 my $ws_defs = Data::OptList::mkopt([
      url => {
                          method   => 'GET',
+                         required => [ qw(query) ],
+                         optional => [ qw(fmt limit offset) ],
+     },
+     url => {
+                         method   => 'GET',
                          linked   => [ qw(resource) ],
                          inc      => [ qw(_relations) ],
                          optional => [ qw(fmt) ],
@@ -83,6 +88,7 @@ sub url_search : Chained('root') PathPart('url') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('url_browse') if ($c->stash->{linked});
+    $self->_search($c, 'url');
 }
 
 

@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-06 06:13+0000\n"
+"PO-Revision-Date: 2017-03-04 17:56+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3278,6 +3278,13 @@ msgstr "proche de la guitare comme la bugarija, dotée de soit deux cordes doubl
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgstr "cornes de vache sans trou pour les doigts, avec embout et anche libre"
+
+#. name:cümbüş
+#: DB:instrument/description:410
+msgid ""
+"created by Zeynel Abidin who name himself after the instrument, it's a "
+"banjolin like modern Turkish instrument"
+msgstr "inventé par Zeynel Abidin qui fut surnommé par le nom de son instrument, c'est une sorte de banjoluth moderne turc."
 
 #. name:dholak
 #: DB:instrument/description:382

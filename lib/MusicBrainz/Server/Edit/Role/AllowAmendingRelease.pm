@@ -5,8 +5,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
 
 requires 'release_id';
 
-around allow_auto_edit => sub {
-    my ($orig, $self) = @_;
+sub can_amend {
+    my ($self) = @_;
 
     # Allow being an auto-edit if the release-add edit was opened by the same
     # editor less than an hour ago.
@@ -21,8 +21,7 @@ around allow_auto_edit => sub {
            AND (now() - edit.open_time) < interval '1 hour'
 EOSQL
 
-    return 1 if defined $add_release_edit;
-    return $self->$orig;
+    return defined $add_release_edit;
 };
 
 1;

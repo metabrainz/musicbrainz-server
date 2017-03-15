@@ -352,8 +352,13 @@ sub normalise_strings
         $t =~ tr/"\x{0060}\x{00B4}\x{00AB}\x{00BB}\x{02BB}\x{05F3}\x{05F4}\x{2018}-\x{201F}\x{2032}\x{2033}\x{2039}\x{203A}/'/;
 
         # Dashes
-        # 05BE Hebrew maqaf, 2010 hyphen, 2012 figure dash, 2013 en-dash, 2212 minus
-        $t =~ tr/\x{05BE}\x{2010}\x{2012}\x{2013}\x{2212}/-/;
+        # 05BE Hebrew maqaf, 2010 hyphen, 2012 figure dash, 2013 en-dash, 2014 em-dash, 2015 horizontal bar, 2212 minus
+        $t =~ tr/\x{05BE}\x{2010}\x{2012}\x{2013}\x{2014}\x{2015}\x{2212}/-/;
+
+        # Horizontal three-dots ellipses
+        # 2026 horizontal ellipsis,
+        # 22EF midline horizontal ellipsis
+        $t =~ s/[\x{2026}\x{22EF}]/.../g;
 
         # Unaccent what's left
         decode("utf-16", unaccent_utf16(encode("utf-16", $t)));

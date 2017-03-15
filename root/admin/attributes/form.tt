@@ -34,6 +34,20 @@
         </p>
 
     [% ELSE %]
+        [%~ IF model == "CollectionType" || model == "SeriesType" ~%]
+            [% form_row_select(r, 'entity_type', add_colon(l('Entity type'))) %]
+            [%~ IF c.action.name == "edit" ~%]
+                <script>//<![CDATA[
+                    $(function () {
+                        $('#id-attr\\.entity_type').prop('disabled', true);
+                        $('form[action="[% c.req.uri %]"]').bind('submit', function () {
+                            $('#id-attr\\.entity_type').prop('disabled', false);
+                        });
+                    });
+                //]]></script>
+            [%~ END ~%]
+        [%~ END ~%]
+
         [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
 
         [% WRAPPER form_row %]

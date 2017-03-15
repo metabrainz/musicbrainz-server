@@ -1,3 +1,15 @@
+let RUNNING_TESTS = false;
+
+try {
+  if (String(process.env.MUSICBRAINZ_RUNNING_TESTS) === '1') {
+    RUNNING_TESTS = true
+  }
+} catch (e) {}
+
+if (!RUNNING_TESTS) {
+  require('./common/raven');
+}
+
 const global = require('./global');
 
 global.aclass = require("aclass");
@@ -26,7 +38,3 @@ require("./common/tagger");
 require("./common/coverart");
 require("./common/banner");
 require("./common/components/TagEditor");
-
-if (typeof phantom === 'undefined') {
-    require("./common/errors");
-}

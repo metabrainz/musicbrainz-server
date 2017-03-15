@@ -98,7 +98,7 @@ sub get_wiki_versions
             return undef;
         }
 
-        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
+        my $doc_url = sprintf "https://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
 
         my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;

@@ -326,6 +326,8 @@ before accept => sub {
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 
+    return 1 if $self->can_amend;
+
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};
     return 0 if defined $self->data->{old}{barcode};

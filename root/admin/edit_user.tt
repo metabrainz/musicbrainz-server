@@ -32,6 +32,7 @@
         [% END %]
 
     <h2>[%- l('Edit profile') -%]</h2>
+    [% form_row_text(t, 'username', l('Username:')) %]
     [% form_row_email_long(t, 'email', l('Email:')) %]
     [% form_row_checkbox(t, 'skip_verification', l('Skip verification')) %]
     [% form_row_url_long(t, 'website', l('Website:')) %]
