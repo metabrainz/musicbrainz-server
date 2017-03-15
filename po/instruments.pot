@@ -385,7 +385,13 @@ msgstr ""
 msgid "banjo"
 msgstr ""
 
+#: DB:instrument/name:832
+msgctxt "banjo ukulele hybrid"
+msgid "banjo-ukelele"
+msgstr ""
+
 #: DB:instrument/name:831
+msgctxt "banjo and mandolin/violin hybrid"
 msgid "banjolin"
 msgstr ""
 
@@ -575,6 +581,11 @@ msgstr ""
 
 #: DB:instrument/name:103
 msgid "bongos"
+msgstr ""
+
+#: DB:instrument/name:833
+msgctxt "hybrid of bouzouki and guitar"
+msgid "bouzar / gouzouki"
 msgstr ""
 
 #: DB:instrument/name:71
