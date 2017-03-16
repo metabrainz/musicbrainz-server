@@ -30,6 +30,11 @@ sub get_error_message {
     # it in some "Caught exception in ..." text, so we'll need to munge
     # things appropriately.
     chomp $message;
+    $message =~ s/^Caught exception in [^"]+ "(.*)"$/$1/s;
+    # Remove lines added when errors are rethrown.
+    $message =~ s/^ at .+ line [0-9]+.*\.$//m;
+    # Chomp again, since blank lines can be left.
+    chomp $message;
     return $message;
 }
 
@@ -132,9 +137,6 @@ sub finalize_error {
     }
 
     my $message = get_error_message($c->error->[0]);
-    # Remove bits added by Catalyst.
-    $message =~ s/^Caught exception in [^"]+ "(.*)"$/$1/;
-
     my @stacktrace = reverse @{ $c->stash->{stack_trace}{$message} // [] };
     if (@stacktrace) {
         push @context, Sentry::Raven->stacktrace_context(\@stacktrace);
