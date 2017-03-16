@@ -87,7 +87,7 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (DBDefs->SENTRY_DSN) {
+if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS}) {
     push @args, 'Sentry';
 }
 
