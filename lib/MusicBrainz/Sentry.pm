@@ -13,8 +13,14 @@ use Sentry::Raven;
 
 our @EXPORT_OK = qw(
     send_error_to_sentry
+    sentry_enabled
     sig_die_handler
 );
+
+sub sentry_enabled () {
+    return 1 if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS});
+    return 0;
+}
 
 sub get_error_message {
     my $error = shift;
