@@ -7,7 +7,11 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use MooseX::Runnable::Run;
-run_application 'MusicBrainz::Server::Sitemap::Incremental', @ARGV;
+use MusicBrainz::Sentry qw( capture_exceptions );
+
+capture_exceptions(sub {
+    run_application 'MusicBrainz::Server::Sitemap::Incremental', @ARGV;
+});
 
 =head1 SYNOPSIS
 

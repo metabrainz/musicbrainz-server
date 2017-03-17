@@ -5,13 +5,16 @@ use strict;
 use warnings;
 
 use base 'Exporter';
+use Carp qw( croak );
 use DBDefs;
 use Devel::StackTrace;
 use IO::File;
 use Scalar::Util qw( blessed );
 use Sentry::Raven;
+use Try::Tiny;
 
 our @EXPORT_OK = qw(
+    capture_exceptions
     send_error_to_sentry
     sentry_enabled
     sig_die_handler
@@ -87,6 +90,9 @@ sub sig_die_handler {
     for my $frame (reverse $stacktrace->frames) {
         ++$i;
 
+        next if $frame->package =~ /^MusicBrainz::Sentry/;
+        next if $frame->package =~ /^Try::Tiny/;
+
         if (defined $frame_filter) {
             next unless $frame->package =~ $frame_filter;
         }
@@ -122,6 +128,32 @@ sub send_error_to_sentry {
         },
     );
     $sentry->capture_exception($message, @context);
+}
+
+sub capture_exceptions {
+    my ($try_code, $catch_code) = @_;
+
+    my $stack_traces = {};
+    try {
+        if (sentry_enabled) {
+            local $SIG{__DIE__} = sub {
+                sig_die_handler(shift, $stack_traces);
+            };
+            $try_code->();
+        } else {
+            $try_code->();
+        }
+    } catch {
+        my $error = $_;
+        if (sentry_enabled) {
+            send_error_to_sentry($error, $stack_traces);
+        }
+        if (defined $catch_code) {
+            $catch_code->($error);
+        } else {
+            croak $error;
+        }
+    };
 }
 
 # Based on Catalyst::Plugin::ErrorCatcher; modified to output context in the
