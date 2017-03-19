@@ -26,7 +26,7 @@ if it has been created by the same editor less than an hour ago.
             SELECT id FROM edit
               JOIN edit_$entity_type ON edit.id = edit_$entity_type.edit
              WHERE edit_$entity_type.$entity_type = $amended_entity_id
-               AND edit.editor = $self->editor_id
+               AND edit.editor = " . $self->editor_id . "
                AND edit.type = $create_edit_type
                AND (now() - edit.open_time) < interval '1 hour'
         ");
