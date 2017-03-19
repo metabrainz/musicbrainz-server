@@ -7,7 +7,10 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Barcode';
 use Clone 'clone';
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_CREATE
+    $EDIT_RELEASE_EDIT
+);
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
 );
@@ -35,7 +38,10 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
-with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASE_CREATE,
+    entity_type => 'release',
+};
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -326,7 +332,7 @@ before accept => sub {
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 
-    return 1 if $self->can_amend;
+    return 1 if $self->can_amend($self->release_id);
 
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};

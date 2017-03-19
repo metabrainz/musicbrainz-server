@@ -9,7 +9,10 @@ use Set::Scalar;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_MEDIUM_EDIT
+    $EDIT_RELEASE_CREATE
+);
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Medium::Util qw(
     display_tracklist
@@ -35,7 +38,10 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASE_CREATE,
+    entity_type => 'release',
+};
 
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -521,7 +527,7 @@ sub allow_auto_edit
 {
     my $self = shift;
 
-    return 1 if $self->can_amend;
+    return 1 if $self->can_amend($self->release_id);
 
     my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
                                                   $self->data->{new}{name});
