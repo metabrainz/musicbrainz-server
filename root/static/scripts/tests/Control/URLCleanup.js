@@ -2089,6 +2089,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
         },
+        // Twitch
+        {
+                             input_url: 'http://twitch.tv/who_knows/videos/all',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'videochannel',
+                    expected_clean_url: 'https://www.twitch.tv/who_knows',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
+        },
+        {
+                             input_url: 'https://www.twitch.tv/videos/1234567890?collection=Key_w',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.twitch.tv/videos/1234567890',
+               only_valid_entity_types: ['recording', 'release']
+        },
         // Twitter
         {
                              input_url: 'http://twitter.com/miguelgrimaldo',
