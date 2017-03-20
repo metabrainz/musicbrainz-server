@@ -863,6 +863,44 @@ const CLEANUPS = {
       return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
     }
   },
+  dailymotion: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(dailymotion\\.com/)", "i")],
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?(?:www\.)?dailymotion\.com\/((([^\/?#]+)(?:\/[^?#]*)?)(?:\?[^#]*)?(?:#(.+)?)?)$/.exec(url);
+      if (m) {
+        var afterSlash = m[1];
+        var path = m[2];
+        var root = m[3];
+        var fragment = m[4];
+        switch (root) {
+          case 'playlist':
+            afterSlash = /^video=/.test(fragment) ? fragment.replace('=', '/') : afterSlash;
+            break;
+          case 'video':
+            afterSlash = path.replace(/([^_]+).*/, "$1");
+            break;
+          default:
+            afterSlash = new RegExp('^' + root + '/*$').test(path) ? root : afterSlash;
+            break;
+        }
+        return 'http://www.dailymotion.com/' + afterSlash;
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        if (_.includes(LINK_TYPES.videochannel, id)) {
+          return prefix === undefined;
+        } else {
+          return prefix === 'video/';
+        }
+      }
+      return false;
+    }
+  },
   twitch: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(twitch\\.tv/)", "i")],
     type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
