@@ -261,7 +261,6 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   LINK_TYPES.wikipedia,
   LINK_TYPES.vgmdb,
   LINK_TYPES.viaf,
-  LINK_TYPES.videochannel,
   LINK_TYPES.youtube,
 ], function (result, linkType) {return result.concat(_.values(linkType));}, []);
 
