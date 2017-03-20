@@ -234,39 +234,39 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             if (!this.hasErrors()) {
                 inner && inner.apply(this, _.toArray(arguments).slice(1));
                 for (var role in this.changeOtherRelationshipCredits) {
-                if (this.changeOtherRelationshipCredits[role]()) {
-                    var vm = this.viewModel;
-                    var relationship = this.relationship();
-                    var target = role === 'source' ? this.source : relationship.target(this.source);
-                    var targetCredit = relationship.creditField(target)();
-                    var relationshipFilter = this.selectedRelationshipCredits[role]();
+                    if (this.changeOtherRelationshipCredits[role]()) {
+                        var vm = this.viewModel;
+                        var relationship = this.relationship();
+                        var target = role === 'source' ? this.source : relationship.target(this.source);
+                        var targetCredit = relationship.creditField(target)();
+                        var relationshipFilter = this.selectedRelationshipCredits[role]();
 
-                    // XXX HACK XXX
-                    // MB.entityCache isn't supposed to be exposed outside of
-                    // whatever module it's defined in, but there's no easier
-                    // way to iterate over all entities on the page.
+                        // XXX HACK XXX
+                        // MB.entityCache isn't supposed to be exposed outside of
+                        // whatever module it's defined in, but there's no easier
+                        // way to iterate over all entities on the page.
 
-                    _.each(MB.entityCache, function (entity, gid) {
-                        if (gid === target.gid) {
-                            _.each(entity.displayableRelationships(vm)(), function (r) {
-                                switch (relationshipFilter) {
-                                  case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
-                                  case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
-                                }
+                        _.each(MB.entityCache, function (entity, gid) {
+                            if (gid === target.gid) {
+                                _.each(entity.displayableRelationships(vm)(), function (r) {
+                                    switch (relationshipFilter) {
+                                      case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
+                                      case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
+                                    }
 
-                                var entities = r.entities();
+                                    var entities = r.entities();
 
-                                if (entities[0].gid === gid) {
-                                    r.entity0_credit(targetCredit);
-                                }
+                                    if (entities[0].gid === gid) {
+                                        r.entity0_credit(targetCredit);
+                                    }
 
-                                if (entities[1].gid === gid) {
-                                    r.entity1_credit(targetCredit);
-                                }
-                            });
-                        }
-                    });
-                }
+                                    if (entities[1].gid === gid) {
+                                        r.entity1_credit(targetCredit);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
 
                 this.close(false);
