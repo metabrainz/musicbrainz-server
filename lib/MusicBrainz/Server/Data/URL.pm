@@ -121,6 +121,7 @@ my %URL_SPECIALIZATIONS = (
     'TripleJUnearthed'    => qr{^https?://(?:www.)?triplejunearthed.com/}i,
     'Trove'               => qr{^https?://(?:www.)?(?:trove.)?nla.gov.au/}i,
     'Tunearch'            => qr{^https?://(?:www.)?tunearch.org/}i,
+    'Twitch'              => qr{^https?://(?:www.)?twitch.tv/}i,
     'Twitter'             => qr{^https?://(?:www.)?twitter.com/}i,
     'UtaiteDB'            => qr{^https?://(?:www.)?utaitedb.net/}i,
     'VGMdb'               => qr{^https?://(?:www.)?vgmdb.net/}i,
