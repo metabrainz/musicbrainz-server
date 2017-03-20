@@ -32,7 +32,7 @@
     <td class="section" data-bind="text: MB.i18n.addColon(MB.i18n.strings.entityName[source.entityType])"></td>
     <td>
       <span data-bind="html: source.html({ 'target': '_blank', creditedAs: relationship().creditField(source)() })"></span>
-      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: source, relationship: relationship()}} --><!-- /ko -->
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: source, relationship: relationship(), role: "source"}} --><!-- /ko -->
     </td>
   </tr>
 </script>
@@ -47,21 +47,21 @@
     </div>
     <div>
       <label>
-        <input type="checkbox" data-bind="checked: $parent.changeOtherRelationshipCredits" />
+        <input type="checkbox" data-bind="checked: $parent.changeOtherRelationshipCredits[role]" />
         <span data-bind="html: MB.i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()})">
         </span>
       </label>
     </div>
-    <div data-bind="visible: $parent.changeOtherRelationshipCredits">
+    <div data-bind="visible: $parent.changeOtherRelationshipCredits[role]">
       <div>
         <label>
-          <input type="radio" value="all" data-bind="checked: $parent.selectedRelationshipCredits" />
+          <input type="radio" value="all" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
           [% l('All of these relationships.'); %]
         </label>
       </div>
       <div>
         <label>
-          <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits" />
+          <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
           <span data-bind="html: MB.i18n.l('Only relationships to {entity_type} entities.',
                                            {entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
           </span>
@@ -69,7 +69,7 @@
       </div>
       <div>
         <label>
-          <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits" />
+          <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
           <span data-bind="html: MB.i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.',
                                            {relationship_type: $parent.linkTypeName(),
                                             entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
@@ -91,7 +91,7 @@
         <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
       </span>
       <div class="error" data-bind="text: targetEntityError()"></div>
-      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: relationship().target(source), relationship: relationship()}} --><!-- /ko -->
+      <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: relationship().target(source), relationship: relationship(), role: "target"}} --><!-- /ko -->
     </td>
   </tr>
 </script>

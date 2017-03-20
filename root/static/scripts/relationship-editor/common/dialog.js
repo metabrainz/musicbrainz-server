@@ -194,8 +194,8 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             this.targetType = ko.observable(target.entityType);
             this.targetType.subscribe(this.targetTypeChanged, this);
 
-            this.changeOtherRelationshipCredits = ko.observable(false);
-            this.selectedRelationshipCredits = ko.observable('all');
+            this.changeOtherRelationshipCredits = {source: ko.observable(false), target: ko.observable(false)};
+            this.selectedRelationshipCredits = {source: ko.observable('all'), target: ko.observable('all')};
             this.setupUI();
         },
 
@@ -233,13 +233,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         accept: function (inner) {
             if (!this.hasErrors()) {
                 inner && inner.apply(this, _.toArray(arguments).slice(1));
-
-                if (this.changeOtherRelationshipCredits()) {
+                for (var role in this.changeOtherRelationshipCredits) {
+                if (this.changeOtherRelationshipCredits[role]()) {
                     var vm = this.viewModel;
                     var relationship = this.relationship();
-                    var target = relationship.target(this.source);
+                    var target = role === 'source' ? this.source : relationship.target(this.source);
                     var targetCredit = relationship.creditField(target)();
-                    var relationshipFilter = this.selectedRelationshipCredits();
+                    var relationshipFilter = this.selectedRelationshipCredits[role]();
 
                     // XXX HACK XXX
                     // MB.entityCache isn't supposed to be exposed outside of
@@ -266,6 +266,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                             });
                         }
                     });
+                }
                 }
 
                 this.close(false);
