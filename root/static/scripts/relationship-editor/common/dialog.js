@@ -7,6 +7,7 @@ const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
 const URLCleanup = require('../../edit/URLCleanup');
 const dates = require('../../edit/utility/dates');
+const linkPhrase = require('../../edit/utility/linkPhrase');
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -193,7 +194,8 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             this.targetType = ko.observable(target.entityType);
             this.targetType.subscribe(this.targetTypeChanged, this);
 
-            this.changeAllRelationshipCredits = ko.observable(false);
+            this.changeOtherRelationshipCredits = ko.observable(false);
+            this.selectedRelationshipCredits = ko.observable('all');
             this.setupUI();
         },
 
@@ -232,11 +234,12 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             if (!this.hasErrors()) {
                 inner && inner.apply(this, _.toArray(arguments).slice(1));
 
-                if (this.changeAllRelationshipCredits()) {
+                if (this.changeOtherRelationshipCredits()) {
                     var vm = this.viewModel;
                     var relationship = this.relationship();
                     var target = relationship.target(this.source);
                     var targetCredit = relationship.creditField(target)();
+                    var relationshipFilter = this.selectedRelationshipCredits();
 
                     // XXX HACK XXX
                     // MB.entityCache isn't supposed to be exposed outside of
@@ -246,6 +249,11 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                     _.each(MB.entityCache, function (entity, gid) {
                         if (gid === target.gid) {
                             _.each(entity.displayableRelationships(vm)(), function (r) {
+                                switch (relationshipFilter) {
+                                  case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
+                                  case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
+                                }
+
                                 var entities = r.entities();
 
                                 if (entities[0].gid === gid) {
@@ -324,6 +332,11 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
+        },
+
+        linkTypeName: function () {
+            var linkTypeID = this.relationship().linkTypeID();
+            return linkTypeID ? linkPhrase.clean(linkTypeID, this.backward()) : "";
         },
 
         linkTypeDescription: function () {

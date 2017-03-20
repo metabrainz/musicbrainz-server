@@ -47,10 +47,35 @@
     </div>
     <div>
       <label>
-        <input type="checkbox" data-bind="checked: $parent.changeAllRelationshipCredits" />
-        <span data-bind="html: MB.i18n.l('Change all relationship credits for {entity} on the page.', {entity: entity.html({target: '_blank'})})">
+        <input type="checkbox" data-bind="checked: $parent.changeOtherRelationshipCredits" />
+        <span data-bind="html: MB.i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()})">
         </span>
       </label>
+    </div>
+    <div data-bind="visible: $parent.changeOtherRelationshipCredits">
+      <div>
+        <label>
+          <input type="radio" value="all" data-bind="checked: $parent.selectedRelationshipCredits" />
+          [% l('All of these relationships.'); %]
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits" />
+          <span data-bind="html: MB.i18n.l('Only relationships to {entity_type} entities.',
+                                           {entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
+          </span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits" />
+          <span data-bind="html: MB.i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.',
+                                           {relationship_type: $parent.linkTypeName(),
+                                            entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
+          </span>
+        </label>
+      </div>
     </div>
   <!-- /ko -->
 </script>
