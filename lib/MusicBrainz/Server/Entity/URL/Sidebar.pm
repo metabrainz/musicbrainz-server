@@ -105,6 +105,7 @@ use constant FAVICON_CLASSES => {
     'bandsintown.com'           => 'bandsintown',
     'livefans.jp'               => 'livefans',
     'twitch.tv'                 => 'twitch',
+    'dailymotion.com'           => 'dailymotion',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

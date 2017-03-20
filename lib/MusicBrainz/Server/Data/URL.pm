@@ -37,6 +37,7 @@ my %URL_SPECIALIZATIONS = (
     'CiNii'               => qr{^https?://(?:www.)?ci.nii.ac.jp/}i,
     'Commons'             => qr{^https?://commons.wikimedia.org/wiki/File:}i,
     'CPDL'                => qr{^https?://cpdl.org/wiki/}i,
+    'Dailymotion'         => qr{^https?://(?:www.)?dailymotion.com/}i,
     'DanceDB'             => qr{^https?://(?:www.)?tedcrane.com/DanceDB/}i,
     'DHHU'                => qr{^https?://(?:www.)?dhhu.dk/}i,
     'Discogs'             => qr{^https?://(?:www.)?discogs.com/}i,
