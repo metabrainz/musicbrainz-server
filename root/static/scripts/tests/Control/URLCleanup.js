@@ -703,6 +703,25 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'license',
                     expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
         },
+        // Dailymotion
+        {
+                             input_url: 'https://dailymotion.com/who-knows#uploads',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'videochannel',
+                    expected_clean_url: 'http://www.dailymotion.com/who-knows',
+               only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
+        },
+        {
+                             input_url: 'http://www.dailymotion.com/video/xyztuvw_useless-slug?start=42',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+               only_valid_entity_types: ['recording', 'release']
+        },
+        {
+                             input_url: 'http://www.dailymotion.com/playlist/xwvuts_who-knows_top/1#video=xyztuvw',
+                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+        },
         // Decoda
         {
                              input_url: 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
