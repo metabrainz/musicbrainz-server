@@ -863,6 +863,26 @@ const CLEANUPS = {
       return /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url);
     }
   },
+  twitch: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(twitch\\.tv/)", "i")],
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, "https://www.twitch.tv/$1");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.twitch\.tv\/(?:(videos\/)?[^\/?#]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        if (_.includes(LINK_TYPES.videochannel, id)) {
+          return prefix === undefined;
+        } else {
+          return prefix === 'videos/';
+        }
+      }
+      return false;
+    }
+  },
   vimeo: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i")],
     type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
