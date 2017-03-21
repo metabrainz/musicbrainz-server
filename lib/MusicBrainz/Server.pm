@@ -8,6 +8,7 @@ use DBDefs;
 use Encode;
 use JSON;
 use Moose::Util qw( does_role );
+use MusicBrainz::Sentry qw( sentry_enabled );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -87,7 +88,7 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (DBDefs->SENTRY_DSN) {
+if (sentry_enabled) {
     push @args, 'Sentry';
 }
 

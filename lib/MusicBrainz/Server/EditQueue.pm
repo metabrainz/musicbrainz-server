@@ -1,8 +1,8 @@
 package MusicBrainz::Server::EditQueue;
 
 use Moose;
-use Try::Tiny;
 use DBDefs;
+use MusicBrainz::Sentry qw( capture_exceptions );
 use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status :vote $REQUIRED_VOTES $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD );
 use DateTime::Format::Pg;
 
@@ -82,19 +82,18 @@ sub process_edits
     my %stats;
     my $errors = 0;
     foreach my $edit_id (@$edit_ids) {
-        try {
+        capture_exceptions(sub {
             my $action;
             Sql::run_in_transaction(sub {
                 $action = $self->_process_edit($edit_id) || "no change"
             }, $sql);
             $stats{$action} += 1;
-        }
-        catch {
-            my $err = $_;
+        }, sub {
+            my $err = shift;
             $errors += 1;
             $self->log->error("Error while processing edit #$edit_id: $err\n");
             return;
-        };
+        });
     }
 
     if ($self->summary) {
