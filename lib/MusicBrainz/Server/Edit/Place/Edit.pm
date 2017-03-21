@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Place::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_PLACE_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_PLACE_CREATE
+    $EDIT_PLACE_EDIT
+);
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -31,6 +34,10 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Place';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_PLACE_CREATE,
+    entity_type => 'place',
+};
 with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_name { N_l('Edit place') }
@@ -133,6 +140,8 @@ sub _mapping
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     return 0 if exists $self->data->{old}{coordinates};
 

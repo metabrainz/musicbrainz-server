@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Series::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_SERIES_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_SERIES_CREATE
+    $EDIT_SERIES_EDIT
+);
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
@@ -18,6 +21,10 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Series';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_SERIES_CREATE,
+    entity_type => 'series',
+};
 with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
 
 sub edit_type { $EDIT_SERIES_EDIT }
@@ -81,6 +88,8 @@ sub build_display_data {
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->series_id);
 
     my $series = $self->c->model('Series')->get_by_id($self->series_id);
     $self->c->model('SeriesType')->load($series);

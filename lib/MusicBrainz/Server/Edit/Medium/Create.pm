@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_CREATE
     $STATUS_OPEN
 );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
@@ -22,7 +23,10 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
-with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASE_CREATE,
+    entity_type => 'release',
+};
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -64,7 +68,10 @@ around _build_related_entities => sub {
     return $related;
 };
 
-sub allow_auto_edit { shift->can_amend }
+sub allow_auto_edit {
+    my $self = shift;
+    return $self->can_amend($self->release_id);
+}
 
 sub alter_edit_pending
 {
