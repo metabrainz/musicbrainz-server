@@ -8,6 +8,7 @@ use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
 use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
@@ -19,6 +20,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $WS_EDIT_RESPONSE_OK
+    $WS_EDIT_RESPONSE_NO_CHANGES
 );
 use MusicBrainz::Server::Test qw( capture_edits post_json );
 use Test::More;
@@ -130,7 +133,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     $response = from_json($mech->content);
 
-    is($response->{edits}->[0]->{message}, 'OK', 'ws response says OK');
+    is($response->{edits}->[0]->{response}, $WS_EDIT_RESPONSE_OK, 'ws response says OK');
 
     my $release_group_id = $response->{edits}->[0]->{entity}->{id};
     $release_edits->[0]->{release_group_id} = $release_group_id;
@@ -243,7 +246,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             ],
             editsPending => JSON::false,
         },
-        message => 'OK',
+        response => $WS_EDIT_RESPONSE_OK,
     }, 'ws response contains serialized release data');
 
     my $release_id = $response->{edits}->[0]->{entity}->{id};
@@ -393,7 +396,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 position => 1,
                 id => $medium2_id - 1
             },
-            message => 'OK',
+            response => $WS_EDIT_RESPONSE_OK,
         },
         {
             edit_type => $EDIT_MEDIUM_CREATE,
@@ -401,7 +404,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 position => 2,
                 id => $medium1_id + 1
             },
-            message => 'OK',
+            response => $WS_EDIT_RESPONSE_OK,
         }
     ], 'ws response contains new medium info');
 
@@ -430,6 +433,13 @@ test 'previewing/creating/editing a release group and release' => sub {
     $c->model('Recording')->load($medium2->all_tracks);
 
     $medium_edits = [
+        {
+            # No changes. Shouldn't cause an error, but should be indicated
+            # in the response.
+            edit_type   => $EDIT_RECORDING_EDIT,
+            name        => $medium2->tracks->[0]->recording->name,
+            to_edit     => $medium2->tracks->[0]->recording->gid,
+        },
         {
             edit_type   => $EDIT_MEDIUM_DELETE,
             medium      => $medium1_id,
@@ -477,6 +487,16 @@ test 'previewing/creating/editing a release group and release' => sub {
             makeVotable => 1,
         }));
     } $c;
+
+    $response = from_json($mech->content);
+
+    cmp_deeply($response, {
+        edits => [
+            {response => $WS_EDIT_RESPONSE_NO_CHANGES},
+            {edit_type => 53, response => $WS_EDIT_RESPONSE_OK},
+            {edit_type => 52, response => $WS_EDIT_RESPONSE_OK},
+        ],
+    });
 
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Medium::Delete', 'medium 1 edit');
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Medium::Edit', 'medium 2 edit');
@@ -1233,7 +1253,7 @@ test 'Releases can be added without any mediums' => sub {
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::ReleaseGroup::Create', 'release group created');
 
     $response = from_json($mech->content);
-    is($response->{edits}->[0]->{message}, 'OK', 'ws response says OK');
+    is($response->{edits}->[0]->{response}, $WS_EDIT_RESPONSE_OK, 'ws response says OK');
 
     my $release_group_id = $response->{edits}->[0]->{entity}->{id};
     $release_edits->[0]->{release_group_id} = $release_group_id;
