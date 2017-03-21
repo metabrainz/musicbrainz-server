@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-20 08:01+0000\n"
+"PO-Revision-Date: 2017-03-08 10:09+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -826,7 +826,7 @@ msgid ""
 "Mirliton is a generic term for membranophones played by a performer speaking"
 " or singing into them, and which alter the sound of the voice by means of a "
 "vibrating membrane."
-msgstr "Mirlitons zijn membranofonen waarbij het membraan in trilling gebracht wordt door zingen of blazen. (<a href=\"http://nl.wikipedia.org/wiki/Mirliton\">Wikipedia</a>)"
+msgstr "Miriliton is een algemene term voor membranofonen die worden bespeeld door in het instrument te spreken of te zingen. Dit brengt een membraan in trilling, waardoor het geluid van de stem verandert."
 
 #. name:nai
 #: DB:instrument/description:297
@@ -3266,6 +3266,13 @@ msgstr "Het contrapunt-instrument van het Balkanese tamburica-orkst. Net als de 
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgstr "Koeienhoorns zonder vingergaten. Met een mondstuk en vrij riet."
+
+#. name:cümbüş
+#: DB:instrument/description:410
+msgid ""
+"created by Zeynel Abidin who name himself after the instrument, it's a "
+"banjolin like modern Turkish instrument"
+msgstr "De cümbüş werd uitgevonden door Zeynel Abidin, die vervolgens de naam van het instrument als achternaam aannam. Het Turkse instrument lijkt op een banjoline."
 
 #. name:dholak
 #: DB:instrument/description:382

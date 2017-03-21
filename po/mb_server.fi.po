@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-13 08:34-0600\n"
-"PO-Revision-Date: 2017-02-13 14:36+0000\n"
+"POT-Creation-Date: 2017-02-28 01:44-0600\n"
+"PO-Revision-Date: 2017-02-28 07:45+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -164,7 +164,7 @@ msgstr "(uusi julkaisuryhmä)"
 msgid "(no changelog)"
 msgstr "(ei muutoslokia)"
 
-#: ../root/release/add_cover_art.tt:114
+#: ../root/release/add_cover_art.tt:116
 msgid "(no other cover art)"
 msgstr "(ei muuta kansitaidetta)"
 
@@ -613,7 +613,7 @@ msgctxt "button/menu"
 msgid "Add Release Event"
 msgstr ""
 
-#: ../root/release_group/create.tt:1 ../root/release_group/create.tt:4
+#: ../root/release_group/create.tt:1
 msgid "Add Release Group"
 msgstr "Lisää julkaisuryhmä"
 
@@ -622,6 +622,11 @@ msgstr "Lisää julkaisuryhmä"
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "Lisää julkaisuryhmä"
+
+#: ../root/release_group/create.tt:3
+msgctxt "header"
+msgid "Add Release Group"
+msgstr ""
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 msgid "Add Series"
@@ -2135,7 +2140,7 @@ msgstr "Kommentti"
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:25
 #: ../root/edit/details/edit_cover_art.tt:24
 #: ../root/edit/details/remove_cover_art.tt:28
-#: ../root/release/add_cover_art.tt:96 ../root/release/cover_art_fields.tt:10
+#: ../root/release/add_cover_art.tt:98 ../root/release/cover_art_fields.tt:10
 msgid "Comment:"
 msgstr "Kommentti:"
 
@@ -2322,7 +2327,7 @@ msgstr "Tiedot:"
 
 #: ../root/annotation/history.tt:12 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:8
-#: ../root/components/events-list.tt:26
+#: ../root/components/events-list.tt:26 ../root/components/places-list.tt:8
 #: ../root/components/relationships-table.tt:6
 #: ../root/components/releases-list.tt:16
 #: ../root/edit/details/edit_release_events.tt:5
@@ -3008,7 +3013,7 @@ msgid ""
 "map."
 msgstr ""
 
-#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:149
+#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:151
 #: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:103
 msgid "Enter edit"
 msgstr "Lisää muokkaus"
@@ -4906,7 +4911,7 @@ msgstr "Uusi tekijänimi"
 msgid "New Attribute"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:127
+#: ../root/release/add_cover_art.tt:129
 msgid "New Image Goes Here"
 msgstr "Uusi kuva tulee tähän"
 
@@ -5672,7 +5677,7 @@ msgstr "Kertaa {doc|dokumentaatio aliaksista} ennen tätä muokkausta."
 msgid "Please search for the artist you wish to create a new release for:"
 msgstr "Etsi artisti, jolle olet luomassa uutta julkaisua:"
 
-#: ../root/release/add_cover_art.tt:93 ../root/release/cover_art_fields.tt:8
+#: ../root/release/add_cover_art.tt:95 ../root/release/cover_art_fields.tt:8
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
@@ -5702,7 +5707,7 @@ msgstr "Sijainti"
 
 #: ../root/edit/details/add_medium.tt:13
 #: ../root/edit/details/edit_cover_art.tt:20
-#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:110
+#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:112
 msgid "Position:"
 msgstr "Sijainti:"
 
@@ -6839,7 +6844,7 @@ msgstr ""
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Ajossa: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/account/edit.tt:105 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:108 ../root/account/preferences.tt:50
 #: ../root/admin/attributes/form.tt:69
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200

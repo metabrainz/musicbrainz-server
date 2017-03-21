@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 02:01+0000\n"
+"PO-Revision-Date: 2017-02-28 07:45+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -3269,6 +3269,13 @@ msgstr ""
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
+msgstr ""
+
+#. name:cümbüş
+#: DB:instrument/description:410
+msgid ""
+"created by Zeynel Abidin who name himself after the instrument, it's a "
+"banjolin like modern Turkish instrument"
 msgstr ""
 
 #. name:dholak

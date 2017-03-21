@@ -42,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-13 08:34-0600\n"
-"PO-Revision-Date: 2017-02-20 09:25+0000\n"
+"POT-Creation-Date: 2017-02-28 01:44-0600\n"
+"PO-Revision-Date: 2017-03-04 17:39+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -181,7 +181,7 @@ msgstr "(nouveau groupe de parution)"
 msgid "(no changelog)"
 msgstr "(pas de journal des changements)"
 
-#: ../root/release/add_cover_art.tt:114
+#: ../root/release/add_cover_art.tt:116
 msgid "(no other cover art)"
 msgstr "(aucune autre Illustration)"
 
@@ -630,13 +630,18 @@ msgctxt "button/menu"
 msgid "Add Release Event"
 msgstr "Ajouter un événement de parution"
 
-#: ../root/release_group/create.tt:1 ../root/release_group/create.tt:4
+#: ../root/release_group/create.tt:1
 msgid "Add Release Group"
 msgstr "Ajouter un groupe de parution"
 
 #: ../root/layout/header/bottom.tt:121
 #: ../root/layout/components/BottomMenu.js:182
 msgctxt "button/menu"
+msgid "Add Release Group"
+msgstr "Ajouter un groupe de parution"
+
+#: ../root/release_group/create.tt:3
+msgctxt "header"
 msgid "Add Release Group"
 msgstr "Ajouter un groupe de parution"
 
@@ -748,7 +753,7 @@ msgstr "Ajouter un ID de disque à une parution existante"
 
 #: ../root/edit/add_note.tt:4
 msgid "Add edit note"
-msgstr "Ajouter une note d’édition"
+msgstr "Ajouter une note de modification"
 
 #: ../root/admin/attributes/index.tt:66
 #: ../root/admin/attributes/language.tt:33
@@ -2152,7 +2157,7 @@ msgstr "Commentaire"
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:25
 #: ../root/edit/details/edit_cover_art.tt:24
 #: ../root/edit/details/remove_cover_art.tt:28
-#: ../root/release/add_cover_art.tt:96 ../root/release/cover_art_fields.tt:10
+#: ../root/release/add_cover_art.tt:98 ../root/release/cover_art_fields.tt:10
 msgid "Comment:"
 msgstr "Commentaire :"
 
@@ -2339,7 +2344,7 @@ msgstr "Données :"
 
 #: ../root/annotation/history.tt:12 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:8
-#: ../root/components/events-list.tt:26
+#: ../root/components/events-list.tt:26 ../root/components/places-list.tt:8
 #: ../root/components/relationships-table.tt:6
 #: ../root/components/releases-list.tt:16
 #: ../root/edit/details/edit_release_events.tt:5
@@ -2735,7 +2740,7 @@ msgstr "Modification introuvable"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
 msgid "Edit Note"
-msgstr "Notes de modification"
+msgstr "Note de modification"
 
 #: ../root/edit/search_macros.tt:306
 msgid "Edit Note Author"
@@ -2799,11 +2804,11 @@ msgstr "Données de modification pour la modification no {id}"
 #: ../root/components/forms.tt:33 ../root/components/forms.tt:37
 #: ../root/edit/cancel.tt:19
 msgid "Edit note:"
-msgstr "Notes d’édition :"
+msgstr "Note de modification :"
 
 #: ../root/edit/index.tt:68
 msgid "Edit notes"
-msgstr "Modifier les notes : "
+msgstr "Notes de modification"
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -3025,7 +3030,7 @@ msgid ""
 "map."
 msgstr "Saisir les coordonnées manuellement ou glisser le marqueur pour obtenir les coordonnées à partir de la carte. "
 
-#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:149
+#: ../root/components/forms.tt:47 ../root/release/add_cover_art.tt:151
 #: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:103
 msgid "Enter edit"
 msgstr "Saisir une modification"
@@ -4923,7 +4928,7 @@ msgstr "Nouveau Crédit"
 msgid "New Attribute"
 msgstr "Nouvel attribut"
 
-#: ../root/release/add_cover_art.tt:127
+#: ../root/release/add_cover_art.tt:129
 msgid "New Image Goes Here"
 msgstr "La nouvelle image vient ici"
 
@@ -5689,7 +5694,7 @@ msgstr "Veuillez relire la {doc|documentation sur les alias} avant de saisir cet
 msgid "Please search for the artist you wish to create a new release for:"
 msgstr "Veuillez chercher l’artiste pour lequel vous souhaitez créer une nouvelle parution :"
 
-#: ../root/release/add_cover_art.tt:93 ../root/release/cover_art_fields.tt:8
+#: ../root/release/add_cover_art.tt:95 ../root/release/cover_art_fields.tt:8
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
@@ -5719,7 +5724,7 @@ msgstr "Position"
 
 #: ../root/edit/details/add_medium.tt:13
 #: ../root/edit/details/edit_cover_art.tt:20
-#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:110
+#: ../root/edit/details/edit_medium.tt:23 ../root/release/add_cover_art.tt:112
 msgid "Position:"
 msgstr "Position :"
 
@@ -6856,7 +6861,7 @@ msgstr "Rôle"
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/account/edit.tt:105 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:108 ../root/account/preferences.tt:50
 #: ../root/admin/attributes/form.tt:69
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
@@ -10538,7 +10543,7 @@ msgstr "Vous devez fournir une adresse courriel valide avant de pouvoir contribu
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
-msgstr "Vous devez fournir une note d’édition lors de l’ajout d’une parution."
+msgstr "Vous devez fournir une note de modification lors de l’ajout d’une parution."
 
 #: ../root/forms/relationship-editor.tt:13
 msgid ""
