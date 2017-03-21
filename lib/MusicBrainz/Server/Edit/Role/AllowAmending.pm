@@ -25,11 +25,11 @@ if it has been created by the same editor less than an hour ago.
         my $add_entity_edit = $self->c->sql->select_single_value("
             SELECT id FROM edit
               JOIN edit_$entity_type ON edit.id = edit_$entity_type.edit
-             WHERE edit_$entity_type.$entity_type = $amended_entity_id
-               AND edit.editor = " . $self->editor_id . "
+             WHERE edit_$entity_type.$entity_type = ?
+               AND edit.editor = ?
                AND edit.type = $create_edit_type
                AND (now() - edit.open_time) < interval '1 hour'
-        ");
+        ", $amended_entity_id, $self->editor_id);
 
         return defined $add_entity_edit;
     };
