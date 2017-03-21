@@ -70,8 +70,6 @@ sub serializer
 {
     my $entity = shift;
 
-    my $serializer;
-
     if (ref $entity eq 'ARRAY') {
         $entity = $entity->[0];
     }

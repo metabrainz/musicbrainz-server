@@ -871,8 +871,7 @@ sub insert_votes_and_notes {
         for my $note (@notes) {
             my $edit_id = $note->{edit_id};
             my $edit = $edits->{$edit_id};
-            defined $edit && $edit->editor_may_add_note($editor)
-                or next;
+            next unless defined $edit && $edit->editor_may_add_note($editor);
             $self->c->model('EditNote')->add_note(
                 $edit_id,
                 {

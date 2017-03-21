@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Work::AddISWCs;
 use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_WORK_ADD_ISWCS
+    $EDIT_WORK_CREATE
+);
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 

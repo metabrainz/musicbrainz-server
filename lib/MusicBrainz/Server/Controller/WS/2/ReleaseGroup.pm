@@ -106,7 +106,6 @@ sub release_group_browse : Private
     }
 
     my $rgs;
-    my $total;
     if ($resource eq 'artist')
     {
         my $artist = $c->model('Artist')->get_by_gid($id);

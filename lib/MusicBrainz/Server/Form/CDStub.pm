@@ -44,7 +44,7 @@ has_field 'tracks' => (
             my $count = 0;
             my %params = map { $count++ => $_ } @params;
             # hack
-            $params{0}++ if ($message == 'You must provide a title for track {0}');
+            $params{0}++ if ($message eq 'You must provide a title for track {0}');
             return l($message, \%params);
         }
     }

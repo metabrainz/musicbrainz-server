@@ -7,6 +7,7 @@ const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
 const URLCleanup = require('../../edit/URLCleanup');
 const dates = require('../../edit/utility/dates');
+const linkPhrase = require('../../edit/utility/linkPhrase');
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -193,7 +194,8 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             this.targetType = ko.observable(target.entityType);
             this.targetType.subscribe(this.targetTypeChanged, this);
 
-            this.changeAllRelationshipCredits = ko.observable(false);
+            this.changeOtherRelationshipCredits = {source: ko.observable(false), target: ko.observable(false)};
+            this.selectedRelationshipCredits = {source: ko.observable('all'), target: ko.observable('all')};
             this.setupUI();
         },
 
@@ -231,33 +233,40 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         accept: function (inner) {
             if (!this.hasErrors()) {
                 inner && inner.apply(this, _.toArray(arguments).slice(1));
+                for (var role in this.changeOtherRelationshipCredits) {
+                    if (this.changeOtherRelationshipCredits[role]()) {
+                        var vm = this.viewModel;
+                        var relationship = this.relationship();
+                        var target = role === 'source' ? this.source : relationship.target(this.source);
+                        var targetCredit = relationship.creditField(target)();
+                        var relationshipFilter = this.selectedRelationshipCredits[role]();
 
-                if (this.changeAllRelationshipCredits()) {
-                    var vm = this.viewModel;
-                    var relationship = this.relationship();
-                    var target = relationship.target(this.source);
-                    var targetCredit = relationship.creditField(target)();
+                        // XXX HACK XXX
+                        // MB.entityCache isn't supposed to be exposed outside of
+                        // whatever module it's defined in, but there's no easier
+                        // way to iterate over all entities on the page.
 
-                    // XXX HACK XXX
-                    // MB.entityCache isn't supposed to be exposed outside of
-                    // whatever module it's defined in, but there's no easier
-                    // way to iterate over all entities on the page.
+                        _.each(MB.entityCache, function (entity, gid) {
+                            if (gid === target.gid) {
+                                _.each(entity.displayableRelationships(vm)(), function (r) {
+                                    switch (relationshipFilter) {
+                                      case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
+                                      case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
+                                    }
 
-                    _.each(MB.entityCache, function (entity, gid) {
-                        if (gid === target.gid) {
-                            _.each(entity.displayableRelationships(vm)(), function (r) {
-                                var entities = r.entities();
+                                    var entities = r.entities();
 
-                                if (entities[0].gid === gid) {
-                                    r.entity0_credit(targetCredit);
-                                }
+                                    if (entities[0].gid === gid) {
+                                        r.entity0_credit(targetCredit);
+                                    }
 
-                                if (entities[1].gid === gid) {
-                                    r.entity1_credit(targetCredit);
-                                }
-                            });
-                        }
-                    });
+                                    if (entities[1].gid === gid) {
+                                        r.entity1_credit(targetCredit);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
 
                 this.close(false);
@@ -324,6 +333,11 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
+        },
+
+        linkTypeName: function () {
+            var linkTypeID = this.relationship().linkTypeID();
+            return linkTypeID ? linkPhrase.clean(linkTypeID, this.backward()) : "";
         },
 
         linkTypeDescription: function () {

@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Event::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_EVENT_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_EVENT_CREATE
+    $EDIT_EVENT_EDIT
+);
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -28,6 +31,10 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Event';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_EVENT_CREATE,
+    entity_type => 'event',
+};
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_l('Edit event') }
@@ -119,6 +126,8 @@ sub _mapping
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     foreach my $prop (qw(time setlist)) {
         my ($old_prop, $new_prop) = normalise_strings(

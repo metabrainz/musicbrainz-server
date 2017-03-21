@@ -13,6 +13,7 @@ const _ = require('lodash');
 const redis = require('redis');
 const reload = require('require-reload')(require);
 const path = require('path');
+const Raven = require('raven');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const sliced = require('sliced');
@@ -23,6 +24,10 @@ const gettext = require('./server/gettext');
 let DBDefs = reload('./static/scripts/common/DBDefs');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
+
+if (DBDefs.SENTRY_DSN) {
+  Raven.config(DBDefs.SENTRY_DSN).install();
+}
 
 function createRedisClient() {
   const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
@@ -39,7 +44,7 @@ function createRedisClient() {
 }
 
 // Reloaded on HUP.
-let redisClient = createRedisClient();
+let redisClient = Raven.context(createRedisClient);
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -72,6 +77,7 @@ function getResponse(req, requestBody) {
   try {
     requestBody = JSON.parse(requestBody);
   } catch (err) {
+    Raven.captureException(err);
     return badRequest(err);
   }
 
@@ -89,6 +95,17 @@ function getResponse(req, requestBody) {
 
   if (_.isEmpty(context.stash.server_details)) {
     return badRequest(new Error('context.stash.server_details is missing'));
+  }
+
+  Raven.setContext({
+    environment: DBDefs.GIT_BRANCH,
+    tags: {
+      git_commit: DBDefs.GIT_SHA,
+    },
+  });
+
+  if (context.user) {
+    Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
   }
 
   // Emulate perl context/request API.
@@ -115,9 +132,11 @@ function getResponse(req, requestBody) {
         Page = require(pathFromRoot('root/main/404'));
         status = 404;
       } catch (err) {
+        Raven.captureException(err);
         return badRequest(err);
       }
     } else {
+      Raven.captureException(err);
       return badRequest(err);
     }
   }
@@ -128,19 +147,21 @@ function getResponse(req, requestBody) {
       ReactDOMServer.renderToStaticMarkup(React.createElement(Page, requestBody.props))
     );
   } catch (err) {
+    Raven.captureException(err);
     return badRequest(err);
   }
 
   return {status: status, body: responseBuf, contentType: 'text/html'};
 }
 
-http.createServer(function (req, res) {
+http.createServer(Raven.wrap(function (req, res) {
   let contentType = 'text/html';
   let cacheKey = 'template-body:' + req.url;
 
-  redisClient.get(cacheKey, function (err, reply) {
+  redisClient.get(cacheKey, Raven.wrap(function (err, reply) {
     let resInfo;
     if (err) {
+      Raven.captureException(err);
       resInfo = badRequest(err);
     } else if (reply) {
       resInfo = getResponse(req, reply);
@@ -153,29 +174,29 @@ http.createServer(function (req, res) {
     // MBS-7061: Prevent network providers/proxies from stripping HTML comments.
     res.setHeader('Cache-Control', 'no-transform');
     res.end(resInfo.body, 'utf8');
-  });
-})
-.listen(DBDefs.RENDERER_PORT, '0.0.0.0', function (err) {
+  }));
+}))
+.listen(DBDefs.RENDERER_PORT, '0.0.0.0', Raven.wrap(function (err) {
   if (err) {
     throw err;
   }
 
-  function cleanup() {
+  const cleanup = Raven.wrap(function () {
     redisClient.quit();
     process.exit();
-  }
+  });
 
-  function hup() {
+  const hup = Raven.wrap(function () {
     clearRequireCache();
     gettext.clearHandles();
     DBDefs = reload('./static/scripts/common/DBDefs');
     redisClient.quit();
     redisClient = createRedisClient();
-  }
+  });
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
   process.on('SIGHUP', hup);
 
   console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
-});
+}));
