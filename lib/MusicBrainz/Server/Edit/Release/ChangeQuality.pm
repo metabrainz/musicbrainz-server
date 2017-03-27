@@ -3,14 +3,21 @@ use Moose;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY $QUALITY_HIGH );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_CHANGE_QUALITY
+    $EDIT_RELEASE_CREATE
+    $QUALITY_HIGH
+);
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::Role::AllowAmendingRelease';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASE_CREATE,
+    entity_type => 'release',
+};
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -92,7 +99,7 @@ method accept
 sub allow_auto_edit
 {
     my $self = shift;
-    return $self->data->{new}{quality} != $QUALITY_HIGH && $self->can_amend;
+    return $self->data->{new}{quality} != $QUALITY_HIGH && $self->can_amend($self->release_id);
 }
 
 no Moose;

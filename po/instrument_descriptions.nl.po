@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-08 10:09+0000\n"
+"PO-Revision-Date: 2017-03-15 08:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3326,6 +3326,14 @@ msgid ""
 "over the world of this get up."
 msgstr "Een hele oude combinatie van een trommel (tabor) en een eenmansfluit, die samen door één persoon worden bespeeld."
 
+#. name:bouzar / gouzouki
+#: DB:instrument/description:833
+msgid ""
+"guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
+"bouzouki, developed separately several different luthiers, among them Stefan"
+" Sobell (bouzar) and Davy Stuart (gouzouki)"
+msgstr "Een mengvorm van gitaar en bouzouki met de klankkast van een gitaar en vier dubbelkorige snaren zoals een bouzouki. Het werd door meerdere instrumentenmakers apart ontwikkeld, zoals Stefan Sobell (bouzar) en Davy Stuart (gouzouki)."
+
 #. name:chirimía and drum
 #: DB:instrument/description:822
 msgid ""
@@ -3347,6 +3355,13 @@ msgid ""
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
 msgstr "Een van de eerste analoge synthesizers, met een filterbank met 15 schuifregelaars om geluid te produceren, en het toetsenbord kon een vibrato opwekken."
+
+#. name:banjolin
+#: DB:instrument/description:831
+msgid ""
+"reinvented several times in different lands, it combines banjo body and neck"
+" of mandolin, it is tuned like it and the violin."
+msgstr "De banjoline is meerdere keren in verschillende landen uitgevonden. Het is een combinatie van de klankkast van een banjo en de hals van een mandoline, en is gestemd als een viool."
 
 #. name:saó ôi flute
 #: DB:instrument/description:310
@@ -3381,6 +3396,13 @@ msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
 msgstr "Een bekfluit met zes gaten die net als de gerelateerde spilåpipa traditioneel bij pastorale muziek wordt bespeeld."
+
+#. name:banjo-ukelele
+#: DB:instrument/description:832
+msgid ""
+"small fretted hybrid instrument with a banjo body and a ukulele neck, "
+"popular in the 1920-30"
+msgstr "Een in de jaren 1920 en 1930 populaire kruising tussen de klankkast van een banjo en de hals van een ukulele."
 
 #. name:piano spinet
 #: DB:instrument/description:798

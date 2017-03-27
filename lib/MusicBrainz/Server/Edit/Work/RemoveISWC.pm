@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Work::RemoveISWC;
 use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_WORK_CREATE
+    $EDIT_WORK_REMOVE_ISWC
+);
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -11,6 +14,10 @@ use aliased 'MusicBrainz::Server::Entity::ISWC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_WORK_CREATE,
+    entity_type => 'work',
+};
 
 sub edit_name { N_l('Remove ISWC') }
 sub edit_kind { 'remove' }
@@ -81,6 +88,14 @@ sub accept {
     my $self = shift;
     $self->c->model('ISWC')->delete( $self->data->{iswc}{id} );
 }
+
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->work_id);
+
+    return $self->$orig(@args);
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

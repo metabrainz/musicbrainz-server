@@ -46,6 +46,7 @@
     "po2json": "0.4.1",
     "q": "1.4.1",
     "querystring": "0.2.0",
+    "raven": "1.2.0",
     "raven-js": "3.10.0",
     "rcss": "0.1.5",
     "react": "https://github.com/mwiencek/react-packages/raw/master/react.tgz",

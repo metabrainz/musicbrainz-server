@@ -24,6 +24,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
     $UNTRUSTED_FLAG
+    $WS_EDIT_RESPONSE_OK
+    $WS_EDIT_RESPONSE_NO_CHANGES
 );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw(
@@ -51,7 +53,6 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
-Readonly our $ERROR_NO_CHANGES => 3;
 
 our $ALLOWED_EDIT_TYPES = [
     $EDIT_RELEASE_CREATE,
@@ -558,7 +559,10 @@ sub create_edits {
             if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
                 $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-                $c->forward('/ws/js/detach_with_error', [{errorCode => $ERROR_NO_CHANGES}]);
+                # The data submitted doesn't change anything. This happens
+                # occasionally when stale search indexes are used as a source
+                # for comparison. But, these exceptions shouldn't cause the
+                # request to fail, so pass.
             } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::FailedDependency') {
                 $c->forward('/ws/js/detach_with_error', ["$_"]);
             } else {
@@ -656,7 +660,7 @@ sub submit_edits {
         my $response;
 
         if (defined $edit) {
-            $response = { edit_type => $edit->edit_type, message => "OK" };
+            $response = { edit_type => $edit->edit_type, response => $WS_EDIT_RESPONSE_OK };
 
             if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create') &&
                 !$edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
@@ -683,7 +687,7 @@ sub submit_edits {
                 };
             }
         } else {
-            $response = { message => "no changes" };
+            $response = { response => $WS_EDIT_RESPONSE_NO_CHANGES };
         }
 
         $response

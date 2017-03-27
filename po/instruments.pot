@@ -287,6 +287,11 @@ msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr ""
 
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "angelo concertina"
+msgstr ""
+
 #: DB:instrument/name:373
 msgid "ankle rattlers"
 msgstr ""
@@ -1173,6 +1178,11 @@ msgstr ""
 msgid "end-blown flute"
 msgstr ""
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "english concertina"
+msgstr ""
+
 #: DB:instrument/name:215
 msgid "erhu"
 msgstr ""
@@ -1321,6 +1331,11 @@ msgstr ""
 msgid "geomungo"
 msgstr ""
 
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "german concertina"
+msgstr ""
+
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr ""
@@ -1410,6 +1425,11 @@ msgstr ""
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
 msgid "guitars"
+msgstr ""
+
+#: DB:instrument/name:835
+msgctxt "el guitar / el organ hybrid"
+msgid "guitorgan"
 msgstr ""
 
 #: DB:instrument/name:325
@@ -1844,6 +1864,11 @@ msgstr ""
 
 #: DB:instrument/name:600
 msgid "mandocello"
+msgstr ""
+
+#: DB:instrument/name:836
+msgctxt "mandolin / electric guitar hybrid"
+msgid "mandoguitar"
 msgstr ""
 
 #: DB:instrument/name:238
@@ -3126,6 +3151,11 @@ msgstr ""
 #: DB:instrument/name:59
 msgctxt "violin family"
 msgid "violins"
+msgstr ""
+
+#: DB:instrument/name:834
+msgctxt "cretan lyra / violin hybrid"
+msgid "viololyra"
 msgstr ""
 
 #: DB:instrument/name:693

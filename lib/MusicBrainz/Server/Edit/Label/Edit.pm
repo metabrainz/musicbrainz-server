@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::Label::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_LABEL_CREATE
+    $EDIT_LABEL_EDIT
+);
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -30,6 +33,10 @@ with 'MusicBrainz::Server::Edit::Role::IPI';
 with 'MusicBrainz::Server::Edit::Role::ISNI';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_LABEL_CREATE,
+    entity_type => 'label',
+};
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { N_l('Edit label') }
@@ -146,6 +153,8 @@ sub _mapping
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     my ($old_label_code, $new_label_code) = normalise_strings(
         $self->data->{old}{label_code}, $self->data->{new}{label_code});

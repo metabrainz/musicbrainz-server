@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
+use Scalar::Util qw( blessed );
 use Text::Trim;
 use Time::Piece;
 
@@ -297,7 +298,9 @@ sub detach_with_error : Private {
     my ($self, $c, $error, $status) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
-    $c->res->body(encode_json({ error => $error }));
+    $c->res->body(encode_json({
+        error => (blessed($error) ? "$error" : $error),
+    }));
     $c->res->status($status // 400);
     $c->detach;
 }
@@ -306,7 +309,9 @@ sub critical_error : Private {
     my ($self, $c, $error, $status) = @_;
 
     $c->stash->{error_body_in_stash} = 1;
-    $c->stash->{body} = encode_json({ error => $error });
+    $c->stash->{body} = encode_json({
+        error => (blessed($error) ? "$error" : $error),
+    });
     $c->stash->{status} = $status // 400;
     die $error;
 }

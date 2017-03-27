@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-28 07:45+0000\n"
+"PO-Revision-Date: 2017-03-15 04:13+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -3330,6 +3330,14 @@ msgid ""
 "over the world of this get up."
 msgstr ""
 
+#. name:bouzar / gouzouki
+#: DB:instrument/description:833
+msgid ""
+"guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
+"bouzouki, developed separately several different luthiers, among them Stefan"
+" Sobell (bouzar) and Davy Stuart (gouzouki)"
+msgstr ""
+
 #. name:chirimía and drum
 #: DB:instrument/description:822
 msgid ""
@@ -3350,6 +3358,13 @@ msgid ""
 "one of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
+msgstr ""
+
+#. name:banjolin
+#: DB:instrument/description:831
+msgid ""
+"reinvented several times in different lands, it combines banjo body and neck"
+" of mandolin, it is tuned like it and the violin."
 msgstr ""
 
 #. name:saó ôi flute
@@ -3384,6 +3399,13 @@ msgstr ""
 msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
+msgstr ""
+
+#. name:banjo-ukelele
+#: DB:instrument/description:832
+msgid ""
+"small fretted hybrid instrument with a banjo body and a ukulele neck, "
+"popular in the 1920-30"
 msgstr ""
 
 #. name:piano spinet

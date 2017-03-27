@@ -3,7 +3,7 @@ use Moose;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -12,6 +12,10 @@ use aliased 'MusicBrainz::Server::Entity::ISRC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RECORDING_CREATE,
+    entity_type => 'recording',
+};
 
 sub edit_name { N_l('Remove ISRC') }
 sub edit_kind { 'remove' }
@@ -82,6 +86,14 @@ method accept
 {
     $self->c->model('ISRC')->delete( $self->data->{isrc}{id} );
 }
+
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->recording_id);
+
+    return $self->$orig(@args);
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

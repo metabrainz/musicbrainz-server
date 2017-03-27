@@ -109,7 +109,7 @@ sub is_guid
 {
     my $t = $_[0];
     defined($t) and not ref($t) or return undef;
-    length($t) eq 36 or return undef;
+    length($t) == 36 or return undef;
 
     $t =~ /[^0-]/ or return undef;
 

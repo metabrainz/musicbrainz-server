@@ -66,6 +66,7 @@ our @EXPORT_OK = (
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
         @FULL_TABLE_LIST
         $CONTACT_URL
+        $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
         %ENTITIES entities_with
     ),
 );
@@ -359,6 +360,9 @@ Readonly our $MAX_POSTGRES_INT => 2147483647;
 Readonly our $MAX_POSTGRES_BIGINT => 9223372036854775807;
 
 Readonly our $CONTACT_URL => 'https://metabrainz.org/contact';
+
+Readonly our $WS_EDIT_RESPONSE_OK => 1;
+Readonly our $WS_EDIT_RESPONSE_NO_CHANGES => 2;
 
 Readonly our %ENTITIES => %{
     decode_json(read_file(File::Spec->catfile(dirname(__FILE__), '../../../entities.json')))

@@ -10,7 +10,7 @@ const debounce = require('../common/utility/debounce');
 const isPositiveInteger = require('../edit/utility/isPositiveInteger');
 const validation = require('../edit/validation');
 
-const ERROR_NO_CHANGES = 3;
+const WS_EDIT_RESPONSE_OK = 1;
 
 (function (releaseEditor) {
 
@@ -496,7 +496,12 @@ const ERROR_NO_CHANGES = 3;
 
             let submissionDone = function (data) {
                 if (data && current.callback) {
-                    current.callback(release, data.edits);
+                    current.callback(
+                        release,
+                        data.edits.filter(
+                            x => x.response === WS_EDIT_RESPONSE_OK
+                        ),
+                    );
                 }
 
                 _.defer(nextSubmission, index);
@@ -504,12 +509,7 @@ const ERROR_NO_CHANGES = 3;
 
             $.when(submitted)
                 .done(submissionDone)
-                .fail(function (data) {
-                    let errorOccurred = submissionErrorOccurred(data);
-                    if (!errorOccurred) {
-                        submissionDone(null);
-                    }
-                });
+                .fail(submissionErrorOccurred);
         }
         nextSubmission(0);
     }
@@ -522,9 +522,6 @@ const ERROR_NO_CHANGES = 3;
             error = JSON.parse(data.responseText).error;
 
             if (_.isObject(error)) {
-                if (error.errorCode === ERROR_NO_CHANGES) {
-                    return false;
-                }
                 if (error.message) {
                     error = error.message;
                 } else {
@@ -537,7 +534,6 @@ const ERROR_NO_CHANGES = 3;
 
         releaseEditor.submissionError(error);
         releaseEditor.submissionInProgress(false);
-        return true;
     }
 
 

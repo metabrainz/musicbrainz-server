@@ -4,7 +4,10 @@ use 5.10.0;
 
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_CREATE
+    $EDIT_RECORDING_EDIT
+);
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     boolean_to_json
@@ -27,6 +30,10 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RECORDING_CREATE,
+    entity_type => 'recording',
+};
 with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -201,6 +208,8 @@ around extract_property => sub {
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     return 0 if exists $self->data->{old}{video}
         and $self->data->{old}{video} != $self->data->{new}{video};

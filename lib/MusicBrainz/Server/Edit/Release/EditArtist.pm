@@ -6,7 +6,10 @@ use Data::Compare;
 use List::MoreUtils qw( all pairwise );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_ARTIST
+    $EDIT_RELEASE_CREATE
+);
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -19,6 +22,10 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASE_CREATE,
+    entity_type => 'release',
+};
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -39,6 +46,14 @@ has '+data' => (
         new_artist_credit => ArtistCreditDefinition
     ]
 );
+
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->release_id);
+
+    return $self->$orig(@args);
+};
 
 around _build_related_entities => sub {
     my ($orig, $self) = @_;

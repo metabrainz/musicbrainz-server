@@ -1,5 +1,19 @@
-severity = 1
-include = lib
+only=1
+severity=1
 
-[-Modules::RequireVersionVar]
-[-CodeLayout::RequireTidyCode]
+[CodeLayout::ProhibitHardTabs]
+[CodeLayout::ProhibitTrailingWhitespace]
+[CodeLayout::RequireConsistentNewlines]
+
+[ControlStructures::ProhibitUnreachableCode]
+
+[Subroutines::ProhibitReturnSort]
+
+[TestingAndDebugging::ProhibitNoStrict]
+allow=refs
+
+[ValuesAndExpressions::ProhibitMismatchedOperators]
+[ValuesAndExpressions::ProhibitMixedBooleanOperators]
+
+[Variables::ProhibitUnusedVariables]
+[Variables::RequireLexicalLoopIterators]

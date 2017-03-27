@@ -96,7 +96,8 @@ sub find_user_tags_for_entities
 
     $self->c->model('Tag')->load(@tags);
 
-    return sort { $a->tag->name cmp $b->tag->name } @tags;
+    @tags = sort { $a->tag->name cmp $b->tag->name } @tags;
+    return @tags;
 }
 
 sub _new_from_row
@@ -355,7 +356,8 @@ sub find_user_tags {
 
     $self->c->model('Tag')->load(@tags);
 
-    return sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
+    @tags = sort { $a->tag->name cmp $b->tag->name } grep { $_->tag } @tags;
+    return @tags;
 }
 
 sub find_entities

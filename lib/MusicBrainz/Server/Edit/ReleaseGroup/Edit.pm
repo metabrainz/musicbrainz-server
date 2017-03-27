@@ -2,7 +2,10 @@ package MusicBrainz::Server::Edit::ReleaseGroup::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASEGROUP_CREATE
+    $EDIT_RELEASEGROUP_EDIT
+);
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     partial_date_to_hash
@@ -31,6 +34,10 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_RELEASEGROUP_CREATE,
+    entity_type => 'release_group',
+};
 with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 
@@ -230,6 +237,8 @@ before accept => sub {
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     return 0 if $self->data->{old}{secondary_type_ids}
         && @{ $self->data->{old}{secondary_type_ids} };

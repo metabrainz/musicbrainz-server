@@ -2,7 +2,11 @@ package MusicBrainz::Server::Edit::Artist::Edit;
 use 5.10.0;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP $EDIT_ARTIST_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $ARTIST_TYPE_GROUP
+    $EDIT_ARTIST_CREATE
+    $EDIT_ARTIST_EDIT
+);
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -30,6 +34,10 @@ with 'MusicBrainz::Server::Edit::Role::IPI';
 with 'MusicBrainz::Server::Edit::Role::ISNI';
 with 'MusicBrainz::Server::Edit::Role::DatePeriod';
 with 'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_ARTIST_CREATE,
+    entity_type => 'artist',
+};
 
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
@@ -163,17 +171,19 @@ sub _mapping
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 
-    return 0 if exists $self->data->{old}{gender_id}
-        and defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
+    return 1 if $self->can_amend($self->entity_id);
 
-    return 0 if exists $self->data->{old}{area_id}
-        and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
+    return 0 if exists $self->data->{old}{gender_id} &&
+        defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
 
-    return 0 if exists $self->data->{old}{begin_area_id}
-        and defined($self->data->{old}{begin_area_id}) && $self->data->{old}{begin_area_id} != 0;
+    return 0 if exists $self->data->{old}{area_id} &&
+        defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
 
-    return 0 if exists $self->data->{old}{end_area_id}
-        and defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
+    return 0 if exists $self->data->{old}{begin_area_id} &&
+        defined($self->data->{old}{begin_area_id}) && $self->data->{old}{begin_area_id} != 0;
+
+    return 0 if exists $self->data->{old}{end_area_id} &&
+        defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
 
     return 0 if $self->data->{new}{ipi_codes};
 

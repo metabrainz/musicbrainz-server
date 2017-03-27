@@ -6,7 +6,10 @@ use Clone qw( clone );
 use JSON;
 use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_WORK_CREATE
+    $EDIT_WORK_EDIT
+);
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -22,6 +25,10 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::AllowAmending' => {
+    create_edit_type => $EDIT_WORK_CREATE,
+    entity_type => 'work',
+};
 with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
     prop_name => 'attributes',
     get_current => sub { shift->current_instance->attributes },
@@ -151,6 +158,8 @@ sub build_display_data
 
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
+
+    return 1 if $self->can_amend($self->entity_id);
 
     return 0 if defined $self->data->{old}{language_id};
     return 0 if defined $self->data->{old}{attributes};

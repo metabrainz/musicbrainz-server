@@ -18,8 +18,8 @@ sub merge { }
 around merge => sub {
     my ($orig, $self, $new_id, @old_ids) = @_;
 
-    $new_id && $new_id > 0
-        or croak("new_id must be a positive integer");
+    croak('new_id must be a positive integer')
+        unless $new_id && $new_id > 0;
 
     my @to_merge = grep { $_ != $new_id } @old_ids
         or croak("Attempted to merge empty list of IDs into target");
