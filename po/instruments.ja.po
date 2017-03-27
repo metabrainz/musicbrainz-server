@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-28 07:45+0000\n"
+"PO-Revision-Date: 2017-03-15 04:13+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -397,7 +397,13 @@ msgstr "6弦バンジョー/バンジター"
 msgid "banjo"
 msgstr "バンジョー"
 
+#: DB:instrument/name:832
+msgctxt "banjo ukulele hybrid"
+msgid "banjo-ukelele"
+msgstr ""
+
 #: DB:instrument/name:831
+msgctxt "banjo and mandolin/violin hybrid"
 msgid "banjolin"
 msgstr ""
 
@@ -588,6 +594,11 @@ msgstr "ボーンズ"
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "ボンゴ"
+
+#: DB:instrument/name:833
+msgctxt "hybrid of bouzouki and guitar"
+msgid "bouzar / gouzouki"
+msgstr ""
 
 #: DB:instrument/name:71
 msgid "bouzouki"

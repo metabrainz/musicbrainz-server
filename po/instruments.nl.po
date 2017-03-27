@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-01 14:35+0000\n"
+"PO-Revision-Date: 2017-03-15 08:34+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -394,7 +394,13 @@ msgstr "gitaarbanjo"
 msgid "banjo"
 msgstr "banjo"
 
+#: DB:instrument/name:832
+msgctxt "banjo ukulele hybrid"
+msgid "banjo-ukelele"
+msgstr "ukelelebanjo"
+
 #: DB:instrument/name:831
+msgctxt "banjo and mandolin/violin hybrid"
 msgid "banjolin"
 msgstr "banjoline"
 
@@ -585,6 +591,11 @@ msgstr "botten"
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "bongos"
+
+#: DB:instrument/name:833
+msgctxt "hybrid of bouzouki and guitar"
+msgid "bouzar / gouzouki"
+msgstr "bouzar / gouzouki"
 
 #: DB:instrument/name:71
 msgid "bouzouki"
