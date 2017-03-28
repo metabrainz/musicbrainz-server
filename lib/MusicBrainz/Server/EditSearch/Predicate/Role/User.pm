@@ -23,6 +23,8 @@ role {
         return (
             '=' => 1,
             '!=' => 1,
+            'me' => 0,
+            'not_me' => 0,
         );
     };
 
@@ -31,16 +33,21 @@ role {
 
         my $sql = $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 = ?/r;
 
-        if ($self->operator eq '!=') {
+        if ($self->operator eq '!=' || $self->operator eq 'not_me') {
             $sql = 'NOT ' . $sql;
         }
 
-        $query->add_where([ $sql, [ $self->arguments ] ]);
+        if ($self->operator eq 'me' || $self->operator eq 'not_me') {
+            $query->add_where([ $sql, [ $self->user->id ] ]);
+        } else {
+            $query->add_where([ $sql, [ $self->arguments ] ]);
+        }
     };
 
     method valid => sub {
         my ($self) = @_;
 
+        my $cardinality = $self->operator_cardinality($self->operator) or return 1;
         my @args = $self->arguments;
         return scalar(@args) == 1 && is_database_row_id($args[0]);
     }
