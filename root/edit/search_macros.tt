@@ -48,7 +48,7 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
                predicate_id(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditVoteCount';
-               predicate_int(field.field_name, field);
+               predicate_vote_count(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
@@ -253,6 +253,35 @@
   </select>
 [% END %]
 
+[% MACRO predicate_vote_count(field, field_contents) WRAPPER wfield predicate="vote_count" %]
+  <select name="args.0" class="arg">
+    [% FOR item=[ [  2,   lp('Approve', 'vote') ]
+                , [  1,   lp('Yes', 'vote') ]
+                , [  0,   lp('No', 'vote') ]
+                , [ -1,   lp('Abstain', 'vote') ]
+                ] %]
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            >[% html_escape(item.1) %]</option>
+    [% END %]
+  </select>
+
+  [% operators([ [ '=', l('is') ],
+                 [ '!=', l('is not') ],
+                 [ '>', l('is more than') ],
+                 [ '<', l('is less than') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input type="number" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &#x2013;
+    <input type="number" name="args.2" size="6" value="[% html_escape(field_contents.argument(2)) %]" />
+  </span>
+[% END %]
+
 [% MACRO predicate_subscription(field, field_contents) WRAPPER wfield predicate="subscription" %]
   [% operators([ [ '=', l('is') ]
                , [ '!=', l('is not') ]
@@ -325,8 +354,7 @@
                    [ 'close_time', l('Closed') ],
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
-                   [ 'no_votes', l('No vote count') ],
-                   [ 'yes_votes', l('Yes vote count') ],
+                   [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit Note Author') ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
@@ -364,8 +392,7 @@
     [% predicate_set('type', edit_types) %]
     [% predicate_set('status', status) %]
     [% predicate_set('release_quality', quality) %]
-    [% predicate_int('no_votes') %]
-    [% predicate_int('yes_votes') %]
+    [% predicate_vote_count('vote_count') %]
     [% predicate_user('edit_note_author') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];

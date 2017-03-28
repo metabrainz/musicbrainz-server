@@ -7,6 +7,9 @@ $(function () {
         'date': {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
         },
+        'vote_count': {
+            '=': 2, '!=': 2, '>': 2, '<': 2, 'BETWEEN': 3
+        },
         'set': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
         },
