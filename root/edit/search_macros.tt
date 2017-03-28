@@ -167,6 +167,10 @@
     &#x2013;
     <input type="text" name="args.1" size="12" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
+
+  <span>
+    (<a href="[% c.uri_for('/doc/How_to_Search_for_Edits#Date_format') %]" target="_blank">[% l('help') %]</a>)
+  </span>
 [% END %]
 
 [% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
