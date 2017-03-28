@@ -83,7 +83,7 @@
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
-           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity');
              predicate_link(field.field_name, field);
            END %]
       </span>

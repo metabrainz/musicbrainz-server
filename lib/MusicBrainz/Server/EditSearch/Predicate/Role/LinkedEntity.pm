@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
+package MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use Scalar::Util qw( looks_like_number );

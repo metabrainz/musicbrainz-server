@@ -19,8 +19,8 @@ EOF
     eval <<EOF;
 package MusicBrainz::Server::EditSearch::Predicate::$model;
 use Moose;
-use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
-with 'MusicBrainz::Server::EditSearch::Predicate::LinkedEntity' => { type => '$type' };
+use MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity;
+with 'MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity' => { type => '$type' };
 $subs_section
 with 'MusicBrainz::Server::EditSearch::Predicate';
 EOF
