@@ -263,7 +263,6 @@
       <input type="hidden" class="gid" />
       <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
   </span>
-  <input type="hidden" name="user_id" value="[% c.user.id %]"  />
 [% END %]
 
 [% MACRO predicate_country(field, field_contents) WRAPPER wfield predicate="set" %]

@@ -13,9 +13,10 @@ role {
     my $params = shift;
     my $type = $params->type;
 
-    has user_id => (
+    has user => (
         is => 'ro',
-        isa => 'Int'
+        isa => 'MusicBrainz::Server::Authentication::User',
+        required => 1
     );
 
     around operator_cardinality_map => sub {
@@ -39,7 +40,7 @@ role {
 
                 $query->add_where([
                     "EXISTS (SELECT 1 FROM $entity_table A JOIN $sub_table B USING ($column) WHERE A.edit = edit.id AND B.editor = ?)",
-                    [ $self->user_id ]
+                    [ $self->user->id ]
                 ]);
             }
 

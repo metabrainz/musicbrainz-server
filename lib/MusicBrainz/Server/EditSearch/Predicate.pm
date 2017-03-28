@@ -73,10 +73,6 @@ sub new_from_input {
     @args = splice(@args, 0, $cardinality)
         if defined $cardinality;
 
-    if (defined $input->{user_id}) {
-        $input->{user_id} == $user->id or croak "User tried to feign a different identity";
-    }
-
     return $class->new(
         %{ $input },
         field_name => $field_name,
