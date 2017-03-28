@@ -237,8 +237,21 @@
 
 [% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
   [% operators([ [ '=', l('is') ]
-                 [ '!=', l('is not') ] ], field_contents) %]
-  <input type="hidden" name="voter_id" value="[% c.user.id %]" />
+                 [ '!=', l('is not') ]
+                 [ 'me', l('is me') ]
+                 [ 'not_me', l('is not me') ] ], field_contents) %]
+
+  <span class="arg autocomplete editor">
+      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+      <input type="hidden" class="gid" />
+      <input type="hidden" class="id" name="voter_id" value="[% html_escape(field_contents.voter_id) %]" />
+  </span>
+
+  <span>
+    [% add_colon(l('and voted')) %]
+  </span>
+
   <select name="args" multiple="multiple">
     [% FOR item=[ [  2,   lp('Approve', 'vote') ]
                 , [  1,   lp('Yes', 'vote') ]
@@ -368,7 +381,7 @@
                    [ 'series', lp('Series', 'singular') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor') ],
-                   [ 'vote', l('My Vote') ]
+                   [ 'vote', l('Voter') ]
                    [ 'release_language', l('Release Language') ],
                    [ 'release_quality', l('Release Quality') ],
                    [ 'artist_area', l('Artist Area') ],

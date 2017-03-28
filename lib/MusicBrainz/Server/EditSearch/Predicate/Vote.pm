@@ -3,21 +3,37 @@ use Moose;
 use namespace::autoclean;
 use feature 'switch';
 use Scalar::Util qw( looks_like_number );
+
 use MusicBrainz::Server::Constants qw( :vote );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
+has name => (
+    is => 'ro',
+    isa => 'Str',
+    required => 1
+);
+
+has user => (
+    is => 'ro',
+    isa => 'MusicBrainz::Server::Authentication::User',
+    required => 1
+);
+
 has voter_id => (
     is => 'ro',
+    isa => 'Int',
     required => 1
 );
 
 sub operator_cardinality_map {
     return (
         '=' => undef,
-        '!=' => undef
+        '!=' => undef,
+        'me' => undef,
+        'not_me' => undef,
     );
 };
 
@@ -39,9 +55,10 @@ sub combine_with_query {
 
     my @votes = grep { looks_like_number($_) } @{ $self->sql_arguments };
     my $no_vote_option = grep { $_ eq 'no' } @{ $self->sql_arguments };
+    my $voter_id = $self->operator eq '=' || $self->operator eq '!=' ? $self->voter_id : $self->user->id;
 
     given ($self->operator) {
-        when ('=') {
+        when (/^(=|me)$/) {
             if (@votes && $no_vote_option) {
                 $query->add_where([
                     join(' OR ',
@@ -49,9 +66,9 @@ sub combine_with_query {
                          sprintf("NOT $sql", "TRUE")
                     ),
                     [
-                        $self->voter_id,
+                        $voter_id,
                         \@votes,
-                        $self->voter_id
+                        $voter_id
                     ]
                 ]);
             }
@@ -59,7 +76,7 @@ sub combine_with_query {
                 $query->add_where([
                     sprintf($sql, "vote.vote = any(?)"),
                     [
-                        $self->voter_id,
+                        $voter_id,
                         \@votes,
                     ]
                 ]);
@@ -68,19 +85,19 @@ sub combine_with_query {
                 $query->add_where([
                     sprintf("NOT $sql", "TRUE"),
                     [
-                        $self->voter_id,
+                        $voter_id,
                     ]
                 ]);
             }
         }
 
-        when ('!=') {
+        when (/^(!=|not_me)$/) {
             if (!@votes && $no_vote_option) {
                 my @query_votes = ($VOTE_ABSTAIN, $VOTE_NO, $VOTE_YES);
                 $query->add_where([
                     sprintf("$sql", "vote.vote = any(?)"),
                     [
-                        $self->voter_id,
+                        $voter_id,
                         \@query_votes,
                     ]
                 ]);
@@ -92,9 +109,9 @@ sub combine_with_query {
                          sprintf("NOT $sql", "TRUE")
                     ),
                     [
-                        $self->voter_id,
+                        $voter_id,
                         \@votes,
-                        $self->voter_id,
+                        $voter_id,
                     ]
                 ]);
             }
@@ -102,7 +119,7 @@ sub combine_with_query {
                 $query->add_where([
                     sprintf($sql, "vote.vote != all(?)"),
                     [
-                        $self->voter_id,
+                        $voter_id,
                         \@votes,
                     ]
                 ]);
@@ -112,3 +129,13 @@ sub combine_with_query {
 }
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2011-2017 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
