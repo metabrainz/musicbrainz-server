@@ -1,47 +1,24 @@
 package MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor;
-
 use Moose;
-use MusicBrainz::Server::Validation qw( is_database_row_id );
+use namespace::autoclean;
 
-with 'MusicBrainz::Server::EditSearch::Predicate';
-
-sub operator_cardinality_map {
-    return (
-        '=' => 1,
-        '!=' => 1,
-    );
-};
-
-sub valid {
-    my ($self) = @_;
-
-    my @args = $self->arguments;
-    return scalar(@args) == 1 && is_database_row_id($args[0]);
-}
-
-sub combine_with_query {
-    my ($self, $query) = @_;
-
-    my $sql = 'EXISTS (
+with 'MusicBrainz::Server::EditSearch::Predicate::Role::User' => {
+    template_clause => 'EXISTS (
         SELECT TRUE FROM edit_note
-         WHERE edit_note.editor = ?
+         WHERE ROLE_CLAUSE(edit_note.editor)
            AND edit_note.edit = edit.id
-    )';
-
-    if ($self->operator eq '!=') {
-        $sql = 'NOT ' . $sql;
-    }
-
-    $query->add_where([$sql, [$self->arguments]]);
-}
+    )'
+};
+with 'MusicBrainz::Server::EditSearch::Predicate';
 
 1;
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-This file is part of MusicBrainz, the open internet music database.
-Copyright (C) 2015 MetaBrainz Foundation
-Licensed under the GPL version 2, or (at your option) any later version:
-http://www.gnu.org/licenses/gpl-2.0.txt
+Copyright (C) 2015-2017 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 =cut

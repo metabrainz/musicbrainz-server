@@ -61,9 +61,9 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
-               predicate_link(field.field_name, field);
+               predicate_user(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor';
-               predicate_link(field.field_name, field, 'editor');
+               predicate_user(field.field_name, field, 'user');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
                predicate_vote(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
@@ -277,6 +277,18 @@
   </select>
 [% END %]
 
+[% MACRO predicate_user(field, field_contents) WRAPPER wfield predicate="user" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <span class="arg autocomplete editor">
+      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+      <input type="hidden" class="gid" />
+      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+[% END %]
+
 [% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -349,16 +361,17 @@
     [% predicate_set('release_quality', quality) %]
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
-    [% predicate_link('edit_note_author', undef, 'editor') %]
+    [% predicate_user('edit_note_author') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
        END %]
 
-    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work', 'editor' ];
+    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
          predicate_link(linked_type);
        END %]
 
+    [% predicate_user('editor') %]
     [% predicate_vote('vote') %]
     [% predicate_release_language('release_language') %]
     [% predicate_link('artist_area', undef, 'area') %]
