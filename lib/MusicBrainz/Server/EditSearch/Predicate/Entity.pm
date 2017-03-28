@@ -7,8 +7,8 @@ for my $type (entities_with(['mbid', 'relatable'])) {
 
     if ($has_subs) {
         $subs_section = <<EOF;
-use MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity;
-with 'MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity' => { type => '$type' };
+use MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed;
+with 'MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed' => { type => '$type' };
 EOF
     }
 

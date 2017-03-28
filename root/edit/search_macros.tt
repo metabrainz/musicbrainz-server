@@ -81,7 +81,7 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
                predicate_int(field.field_name, field);
            END %]
-        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed');
              predicate_subscription(field.field_name, field);
            ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity');
              predicate_link(field.field_name, field);

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity;
+package MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed;
 use 5.10.0;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
