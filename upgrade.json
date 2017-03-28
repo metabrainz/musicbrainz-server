@@ -45,5 +45,10 @@
                    "20160514-mbs-8287-a-fks.sql",
                    "20160514-mbs-8287-b-fks.sql"],
     "extensions": ["20141226-geodesic-extension.sql"]
+  },
+
+  "24": {
+    "slave": [],
+    "standalone": []
   }
 }
