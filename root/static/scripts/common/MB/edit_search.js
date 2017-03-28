@@ -13,7 +13,7 @@ $(function () {
         'set': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
         },
-        'vote': {
+        'voter': {
             '=': 1, '!=': 1, 'me': 0, 'not_me': 0 // Not directly true, but it here it means "show one argument control"
         },
         'subscription': {

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Predicate::Vote;
+package MusicBrainz::Server::EditSearch::Predicate::Voter;
 use Moose;
 use namespace::autoclean;
 use feature 'switch';

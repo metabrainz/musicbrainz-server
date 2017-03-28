@@ -14,7 +14,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::EditorFlag;
 use MusicBrainz::Server::EditSearch::Predicate::VoteCount;
 use MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
-use MusicBrainz::Server::EditSearch::Predicate::Vote;
+use MusicBrainz::Server::EditSearch::Predicate::Voter;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
@@ -34,7 +34,7 @@ my %field_map = (
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     vote_count => 'MusicBrainz::Server::EditSearch::Predicate::VoteCount',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
-    vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
+    voter => 'MusicBrainz::Server::EditSearch::Predicate::Voter',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',

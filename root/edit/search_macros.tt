@@ -60,8 +60,8 @@
                predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
-               predicate_vote(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Voter';
+               predicate_voter(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
                predicate_release_language(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea';
@@ -235,7 +235,7 @@
   </span>
 [% END %]
 
-[% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
+[% MACRO predicate_voter(field, field_contents) WRAPPER wfield predicate="voter" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ]
                  [ 'me', l('is me') ]
@@ -381,7 +381,7 @@
                    [ 'series', lp('Series', 'singular') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor') ],
-                   [ 'vote', l('Voter') ]
+                   [ 'voter', l('Voter') ]
                    [ 'release_language', l('Release Language') ],
                    [ 'release_quality', l('Release Quality') ],
                    [ 'artist_area', l('Artist Area') ],
@@ -417,7 +417,7 @@
        END %]
 
     [% predicate_user('editor') %]
-    [% predicate_vote('vote') %]
+    [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
