@@ -47,7 +47,7 @@
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
                predicate_id(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditVoteCount';
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::VoteCount';
                predicate_vote_count(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;

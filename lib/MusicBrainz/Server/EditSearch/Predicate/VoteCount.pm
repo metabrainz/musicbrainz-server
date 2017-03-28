@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Predicate::EditVoteCount;
+package MusicBrainz::Server::EditSearch::Predicate::VoteCount;
 use Moose;
 use namespace::autoclean;
 

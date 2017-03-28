@@ -12,7 +12,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::EditorFlag;
-use MusicBrainz::Server::EditSearch::Predicate::EditVoteCount;
+use MusicBrainz::Server::EditSearch::Predicate::VoteCount;
 use MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
@@ -32,7 +32,7 @@ my %field_map = (
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     type => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
-    vote_count => 'MusicBrainz::Server::EditSearch::Predicate::EditVoteCount',
+    vote_count => 'MusicBrainz::Server::EditSearch::Predicate::VoteCount',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
     vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
