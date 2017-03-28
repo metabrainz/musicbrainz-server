@@ -13,6 +13,12 @@ role {
     my $params = shift;
     my $template_clause = $params->template_clause;
 
+    with 'MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed' => {
+        type => 'editor',
+        template_clause => "$template_clause",
+        subscribed_column => 'subscribed_editor'
+    };
+
     has name => (
         is => 'ro',
         isa => 'Str',

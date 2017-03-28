@@ -60,10 +60,6 @@
                predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
-               predicate_user(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor';
-               predicate_user(field.field_name, field, 'user');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
                predicate_vote(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
@@ -81,7 +77,9 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
                predicate_int(field.field_name, field);
            END %]
-        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed');
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::User');
+             predicate_user(field.field_name, field);
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed');
              predicate_subscription(field.field_name, field);
            ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity');
              predicate_link(field.field_name, field);
@@ -281,7 +279,8 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ]
                  [ 'me', l('is me') ]
-                 [ 'not_me', l('is not me') ] ], field_contents) %]
+                 [ 'not_me', l('is not me') ]
+                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
 
   <span class="arg autocomplete editor">
       <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
