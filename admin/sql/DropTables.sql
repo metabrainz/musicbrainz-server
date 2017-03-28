@@ -210,6 +210,7 @@ DROP TABLE medium;
 DROP TABLE medium_cdtoc;
 DROP TABLE medium_format;
 DROP TABLE medium_index;
+DROP TABLE old_editor_name;
 DROP TABLE orderable_link_type;
 DROP TABLE place;
 DROP TABLE place_alias;

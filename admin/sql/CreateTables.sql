@@ -526,6 +526,10 @@ CREATE TABLE editor
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE old_editor_name (
+    name    VARCHAR(64) NOT NULL
+);
+
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
 
 CREATE TABLE editor_language (

@@ -331,6 +331,7 @@ my @group_private = qw(
     instrument_tag_raw
     label_rating_raw
     label_tag_raw
+    old_editor_name
     place_tag_raw
     recording_rating_raw
     recording_tag_raw

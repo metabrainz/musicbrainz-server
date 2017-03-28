@@ -314,6 +314,7 @@ DROP INDEX medium_cdtoc_idx_uniq;
 DROP INDEX medium_format_idx_gid;
 DROP INDEX medium_idx_track_count;
 DROP INDEX medium_index_idx;
+DROP INDEX old_editor_name_idx_name;
 DROP INDEX place_alias_idx_place;
 DROP INDEX place_alias_idx_primary;
 DROP INDEX place_alias_type_idx_gid;

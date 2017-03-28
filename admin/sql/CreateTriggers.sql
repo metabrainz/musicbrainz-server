@@ -67,6 +67,9 @@ CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor
 CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
     FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
 
+CREATE TRIGGER check_editor_name BEFORE UPDATE OR INSERT ON editor
+    FOR EACH ROW EXECUTE PROCEDURE check_editor_name();
+
 CREATE TRIGGER b_upd_event BEFORE UPDATE ON event
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

@@ -57,6 +57,7 @@ CREATE INDEX cdtoc_raw_track_offset ON cdtoc_raw (track_offset);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE UNIQUE INDEX old_editor_name_idx_name ON old_editor_name (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
 
 CREATE INDEX editor_oauth_token_idx_editor ON editor_oauth_token (editor);
