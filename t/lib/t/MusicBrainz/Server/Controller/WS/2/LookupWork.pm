@@ -21,6 +21,7 @@ my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+MusicBrainz::Server::Test->prepare_test_database($c, '+multi_language_work');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO iswc (work, iswc)
 VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
@@ -35,6 +36,9 @@ ws_test 'basic work lookup',
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
+    <language-list>
+      <language>jpn</language>
+    </language-list>
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
   </work>
@@ -58,6 +62,9 @@ ws_test 'work lookup via iswc',
     <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
       <title>サマーれげぇ!レインボー</title>
       <language>jpn</language>
+      <language-list>
+        <language>jpn</language>
+      </language-list>
       <iswc>T-000.000.002-0</iswc>
       <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     </work>
@@ -71,6 +78,9 @@ ws_test 'work lookup with recording relationships',
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
+    <language-list>
+      <language>jpn</language>
+    </language-list>
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     <relation-list target-type="recording">
@@ -104,6 +114,20 @@ ws_test 'work lookup with attributes',
       <attribute type="Key" type-id="345c079d-374e-4436-9448-da92dedef3ce">B major</attribute>
     </attribute-list>
   </work>
+</metadata>';
+
+ws_test 'work lookup with multiple languages',
+    '/work/8753a51f-dd84-492d-8c5a-a39283045118' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+<work type="Song" id="8753a51f-dd84-492d-8c5a-a39283045118" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
+  <title>Mon petit amoureux</title>
+  <language>eng</language>
+  <language-list>
+    <language>eng</language>
+    <language>fra</language>
+  </language-list>
+</work>
 </metadata>';
 
 };

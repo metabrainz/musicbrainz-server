@@ -28,12 +28,19 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Collection';
+with 'MusicBrainz::Server::Data::Role::ValueSet' => {
+    entity_type         => 'work',
+    plural_value_type   => 'languages',
+    value_attribute     => 'language_id',
+    value_class         => 'WorkLanguage',
+    value_type          => 'language',
+};
 
 sub _type { 'work' }
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type, work.language,
+    return 'work.id, work.gid, work.type,
             work.name, work.comment, work.edits_pending, work.last_updated';
 }
 
@@ -45,7 +52,6 @@ sub _column_mapping
         name => 'name',
         type_id => 'type',
         comment => 'comment',
-        language_id => 'language',
         last_updated => 'last_updated',
         edits_pending => 'edits_pending',
     };
@@ -144,6 +150,7 @@ sub delete {
     $self->c->model('Relationship')->delete_entities('work', $work_id);
     $self->annotation->delete($work_id);
     $self->alias->delete_entities($work_id);
+    $self->language->delete_entities($work_id);
     $self->tags->delete($work_id);
     $self->rating->delete($work_id);
     $self->c->model('ISWC')->delete_works($work_id);
@@ -159,6 +166,7 @@ sub _merge_impl
 
     $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->language->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
@@ -202,7 +210,6 @@ sub _hash_to_row
     my ($self, $work) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
-        language => 'language_id',
         map { $_ => $_ } qw( comment name )
     });
 

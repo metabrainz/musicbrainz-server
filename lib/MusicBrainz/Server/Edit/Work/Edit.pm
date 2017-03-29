@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -48,6 +48,15 @@ with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
         });
     }
 };
+with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
+    prop_name => 'languages',
+    get_current => sub {
+        my $self = shift;
+
+        $self->c->model('Work')->language->find_by_entity_id($self->entity_id);
+    },
+    extract_value => sub { shift->language_id },
+};
 
 sub _mapping {
     my $self = shift;
@@ -57,7 +66,10 @@ sub _mapping {
             return [
                 map { _work_attribute_to_edit($_) } $instance->all_attributes
             ];
-        }
+        },
+        languages => sub {
+            return [map { $_->language_id } shift->all_languages];
+        },
     );
 }
 
@@ -83,6 +95,7 @@ sub change_fields
         comment       => Nullable[Str],
         type_id       => Nullable[Str],
         language_id   => Nullable[Int],
+        languages     => Optional[ArrayRef[Int]],
         iswc          => Nullable[Str],
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
@@ -107,13 +120,19 @@ has '+data' => (
 sub foreign_keys
 {
     my $self = shift;
+    my $data = $self->data;
     my $relations = {};
-    changed_relations($self->data, $relations,
+    changed_relations($data, $relations,
         WorkType => 'type_id',
         Language => 'language_id',
     );
 
     $relations->{Work} = [ $self->entity_id ];
+
+    for my $side (qw( old new )) {
+        $relations->{Language}{$_} = []
+            for @{ $data->{$side}{languages} // [] };
+    }
 
     return $relations;
 }
@@ -130,16 +149,17 @@ sub build_display_data
         language  => [ qw( language_id Language ) ],
     );
 
-    my $data = changed_display_data($self->data, $loaded, %map);
+    my $data = $self->data;
+    my $display = changed_display_data($data, $loaded, %map);
 
-    $data->{work} = $loaded->{Work}{ $self->entity_id }
-        || Work->new( name => $self->data->{entity}{name} );
+    $display->{work} = $loaded->{Work}{ $self->entity_id }
+        || Work->new( name => $data->{entity}{name} );
 
-    if (exists $self->data->{new}{attributes}) {
-        $data->{attributes} = {};
+    if (exists $data->{new}{attributes}) {
+        $display->{attributes} = {};
 
-        my %new = $self->grouped_attributes_by_type($self->data->{new}{attributes});
-        my %old = $self->grouped_attributes_by_type($self->data->{old}{attributes});
+        my %new = $self->grouped_attributes_by_type($data->{new}{attributes});
+        my %old = $self->grouped_attributes_by_type($data->{old}{attributes});
 
         my $changed_types = Set::Scalar->new(keys %new, keys %old);
 
@@ -148,12 +168,23 @@ sub build_display_data
             my @old_values = map { $_->l_value } @{ $old{$type} //= [] };
 
             unless (Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
-                $data->{attributes}->{$type} = { new => \@new_values, old => \@old_values };
+                $display->{attributes}->{$type} = { new => \@new_values, old => \@old_values };
             }
         }
     }
 
-    return $data;
+    if (exists $data->{new}{languages}) {
+        for my $side (qw( old new )) {
+            $display->{languages}{$side} = [
+                map {
+                    my $language = $loaded->{Language}{$_};
+                    $language ? $language->name : l('[removed]');
+                } @{ $data->{$side}{languages} // [] }
+            ];
+        }
+    }
+
+    return $display;
 }
 
 around allow_auto_edit => sub {
@@ -162,6 +193,7 @@ around allow_auto_edit => sub {
     return 1 if $self->can_amend($self->entity_id);
 
     return 0 if defined $self->data->{old}{language_id};
+    return 0 if @{ $self->data->{old}{languages} // [] };
     return 0 if defined $self->data->{old}{attributes};
 
     return $self->$orig(@args);
@@ -171,6 +203,7 @@ sub current_instance {
     my $self = shift;
     my $work = $self->c->model('Work')->get_by_id($self->entity_id);
     $self->c->model('WorkAttribute')->load_for_works($work);
+    $self->c->model('Language')->load_for_works($work);
     return $work;
 }
 
@@ -216,6 +249,10 @@ after accept => sub {
 
     if (my $attributes = $self->_edit_hash->{attributes}) {
         $self->c->model('Work')->set_attributes($self->work_id, @$attributes);
+    }
+
+    if (my $languages = $self->_edit_hash->{languages}) {
+        $self->c->model('Work')->language->set($self->work_id, @$languages);
     }
 };
 

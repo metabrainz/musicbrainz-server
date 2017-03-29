@@ -859,6 +859,10 @@ CREATE TRIGGER "reptg_work_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "work_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_work_language"
+AFTER INSERT OR DELETE OR UPDATE ON "work_language"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_work_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "work_meta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

@@ -5,7 +5,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
@@ -25,6 +25,7 @@ has '+data' => (
         comment       => Nullable[Str],
         type_id       => Nullable[Int],
         language_id   => Nullable[Int],
+        languages     => Optional[ArrayRef[Int]],
         iswc          => Nullable[Str],
         attributes    => Optional[ArrayRef[Dict[
             attribute_text => Maybe[Str],
@@ -40,30 +41,52 @@ sub foreign_keys
     return {
         Work => [ $self->entity_id ],
         WorkType => [ $self->data->{type_id} ],
-        Language => [ $self->data->{language_id} ]
+        Language => [
+            $self->data->{language_id},
+            @{ $self->data->{languages} // [] },
+        ],
     };
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    return {
-        name          => $self->data->{name},
-        comment       => $self->data->{comment},
-        type          => $self->data->{type_id} && $loaded->{WorkType}->{ $self->data->{type_id} },
-        language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
-        iswc          => $self->data->{iswc},
-        work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $self->data->{name} ),
-        ($self->data->{attributes} && @{ $self->data->{attributes} } ?
-         ( attributes => { $self->grouped_attributes_by_type($self->data->{attributes}) } ) : ()
+
+    my $data = $self->data;
+    my $display = {
+        name          => $data->{name},
+        comment       => $data->{comment},
+        type          => $data->{type_id} && $loaded->{WorkType}->{ $data->{type_id} },
+        iswc          => $data->{iswc},
+        work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $data->{name} ),
+        ($data->{attributes} && @{ $data->{attributes} } ?
+         ( attributes => { $self->grouped_attributes_by_type($data->{attributes}) } ) : ()
         ),
     };
+
+    if (defined $data->{language_id}) {
+        $display->{language} = $loaded->{Language}->{$data->{language_id}};
+    }
+
+    if (defined $data->{languages}) {
+        $display->{languages} = [
+            map {
+                my $language = $loaded->{Language}{$_};
+                $language ? $language->name : l('[removed]')
+            } @{ $data->{languages} }
+        ];
+    }
+
+    return $display;
 }
 
 after insert => sub {
     my $self = shift;
     if (my $attributes = $self->data->{attributes}) {
         $self->c->model('Work')->set_attributes($self->entity_id, @$attributes);
+    }
+    if (my $languages = $self->data->{languages}) {
+        $self->c->model('Work')->language->set($self->entity_id, @$languages);
     }
 };
 

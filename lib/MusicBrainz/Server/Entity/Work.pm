@@ -17,14 +17,15 @@ with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkType' };
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
 
-has 'language_id' => (
-    is => 'rw',
-    isa => 'Int'
-    );
-
-has 'language' => (
-    is => 'rw',
-    isa => 'Language'
+has languages => (
+    traits => ['Array'],
+    is => 'ro',
+    isa => 'ArrayRef[WorkLanguage]',
+    default => sub { [] },
+    handles => {
+        add_language => 'push',
+        all_languages => 'elements',
+    },
 );
 
 has 'artists' => (
@@ -87,7 +88,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        language => $self->language ? $self->language->l_name : undef,
+        languages => [map { $_->language->l_name } $self->all_languages],
     };
 };
 

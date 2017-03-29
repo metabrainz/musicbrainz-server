@@ -496,7 +496,13 @@ sub _serialize_work
 
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->language($work->language->alpha_3_code) if $work->language;
+
+    if ($work->all_languages) {
+        my @languages = map { $_->language->alpha_3_code } $work->all_languages;
+        # Pre-MBS-5452 element.
+        push @list, $gen->language($languages[0]);
+        push @list, $gen->language_list(map { $gen->language($_) } @languages);
+    }
 
     if ($work->all_iswcs) {
         push @list, $gen->iswc($work->iswcs->[0]->iswc);

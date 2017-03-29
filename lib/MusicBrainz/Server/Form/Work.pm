@@ -16,8 +16,15 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'language_id' => (
+has_field 'languages' => (
+    type => 'Repeatable',
+    inflate_default_method => \&inflate_languages,
+);
+
+has_field 'languages.contains' => (
     type => 'Select',
+    required => 1,
+    options_method => \&options_languages,
 );
 
 has_field 'name' => (
@@ -143,9 +150,18 @@ sub inflate_attributes {
     ];
 }
 
-sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
+sub inflate_languages {
+    my ($self, $value) = @_;
+
+    return [map { $_->language_id } @$value];
+}
+
+sub edit_field_names { qw( type_id languages name comment artist_credit attributes ) }
 
 sub options_type_id           { select_options_tree(shift->ctx, 'WorkType') }
-sub options_language_id       { return language_options(shift->ctx, 'work'); }
+
+sub options_languages {
+    language_options(shift->form->ctx, 'work');
+}
 
 1;

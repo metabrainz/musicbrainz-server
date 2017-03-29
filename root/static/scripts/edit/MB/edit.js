@@ -262,7 +262,7 @@ const request = require('../../common/utility/request');
                 name:           string(work.name),
                 comment:        string(work.comment),
                 type_id:        number(work.typeID),
-                language_id:    number(work.languageID)
+                languages:      array(work.languages, number),
             };
         }
     };

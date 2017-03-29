@@ -229,6 +229,7 @@ my @group_core = qw(
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
+    work_language
     work_type
     );
 

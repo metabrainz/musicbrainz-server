@@ -28,6 +28,11 @@
                           html_escape(edit.display_data.language.old.name),
                           html_escape(edit.display_data.language.new.name)) -%]
 
+  [% display_diff(add_colon(l('Lyrics Languages')),
+                  comma_only_list(edit.display_data.languages.old),
+                  comma_only_list(edit.display_data.languages.new),
+                  ', ') %]
+
   [% IF edit.data.new.attributes ~%]
   [% FOR type=edit.display_data.attributes ~%]
   <tr>

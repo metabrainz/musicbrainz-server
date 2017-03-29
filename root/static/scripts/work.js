@@ -1,12 +1,45 @@
+const Immutable = require('immutable');
 const ko = require('knockout');
 const _ = require('lodash');
+const ReactDOM = require('react-dom');
+const {createStore} = require('redux');
 
+const {
+    createField,
+    formFromHash,
+    FormRowSelectList,
+  } = require('../../components/forms');
 const {l, lp} = require('./common/i18n');
 const {
     form,
+    work,
     workAttributeTypeTree,
     workAttributeValueTree,
+    workLanguageOptions,
   } = require('./common/utility/getScriptArgs')();
+
+const store = createStore(function (state = formFromHash(form), action) {
+  switch (action.type) {
+    case 'ADD_LANGUAGE':
+      return state.updateIn(
+        ['field', 'languages', 'field'],
+        x => x.push(createField(null))
+      );
+      break;
+
+    case 'EDIT_LANGUAGE':
+      return state.setIn(
+        ['field', 'languages', 'field', action.index, 'value'],
+        action.languageId
+      );
+
+    case 'REMOVE_LANGUAGE':
+      return state.deleteIn(['field', 'languages', 'field', action.index]);
+
+    default:
+      return state;
+  }
+});
 
 class WorkAttribute {
   constructor(data, parent) {
@@ -101,4 +134,48 @@ ko.applyBindings(
 );
 
 MB.Control.initialize_guess_case('work', 'id-edit-work');
+
+const workLanguagesNode = document.getElementById('work-languages-editor');
+
+function addLanguage() {
+  store.dispatch({type: 'ADD_LANGUAGE'});
+}
+
+function editLanguage(index, languageId) {
+  store.dispatch({
+    type: 'EDIT_LANGUAGE',
+    index: index,
+    languageId: languageId,
+  });
+}
+
+function removeLanguage(index) {
+  store.dispatch({
+    type: 'REMOVE_LANGUAGE',
+    index: index,
+  });
+}
+
+function renderWorkLanguages() {
+  const form = store.getState();
+  ReactDOM.render(
+    <FormRowSelectList
+      addLabel={l('Add Language')}
+      fieldName={null}
+      label={l('Lyrics Languages')}
+      name={form.name + '.languages'}
+      onAdd={addLanguage}
+      onEdit={editLanguage}
+      onRemove={removeLanguage}
+      options={workLanguageOptions}
+      removeLabel={l('Remove Language')}
+      repeatable={form.field.get('languages')}
+    />,
+    workLanguagesNode
+  );
+}
+
+store.subscribe(renderWorkLanguages);
+renderWorkLanguages();
+
 MB.Control.initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');

@@ -445,7 +445,13 @@ ws_test 'artist lookup with works (using l_artist_work)',
     <name>Distance</name><sort-name>Distance</sort-name>
     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     <work-list count="1">
-    <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8"><title>Asseswaving</title></work>
+      <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
+        <title>Asseswaving</title>
+        <language>jpn</language>
+        <language-list>
+          <language>jpn</language>
+        </language-list>
+      </work>
     </work-list>
   </artist>
 </metadata>';

@@ -48,7 +48,7 @@
   },
 
   "24": {
-    "slave": [],
-    "standalone": []
+    "slave": ["20170329-mbs-5452.sql"],
+    "standalone": ["20170329-mbs-5452-fks.sql"]
   }
 }

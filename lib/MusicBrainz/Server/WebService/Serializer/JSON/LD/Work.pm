@@ -7,7 +7,6 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Language';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
@@ -17,6 +16,12 @@ around serialize => sub {
 
     if ($entity->all_iswcs) {
        $ret->{'iswcCode'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
+    }
+
+    my @languages = $entity->all_languages;
+    if (@languages) {
+        $ret->{inLanguage} =
+            list_or_single(map { $_->language->bcp47 } @languages);
     }
 
     if ($toplevel) {

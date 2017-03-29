@@ -2845,11 +2845,6 @@ ALTER TABLE work
    FOREIGN KEY (type)
    REFERENCES work_type(id);
 
-ALTER TABLE work
-   ADD CONSTRAINT work_fk_language
-   FOREIGN KEY (language)
-   REFERENCES language(id);
-
 ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_work
    FOREIGN KEY (work)
@@ -2909,6 +2904,16 @@ ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES work(id);
+
+ALTER TABLE work_language
+   ADD CONSTRAINT work_language_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_language
+   ADD CONSTRAINT work_language_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
 
 ALTER TABLE work_meta
    ADD CONSTRAINT work_meta_fk_id

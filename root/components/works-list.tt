@@ -14,7 +14,7 @@
       <th>[% l('Artists') %]</th>
       <th>[% l('ISWC') %]</th>
       <th>[%~ sortable ? sortable_table_header('type', l('Type')) : l('Type') ~%]</th>
-      <th>[% l('Language') %]</th>
+      <th>[% l('Lyrics Languages') %]</th>
       <th>[% l('Attributes') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
@@ -66,7 +66,13 @@
         [% work.l_type_name %]
       </td>
       <td>
-        <abbr title="[% work.language.l_name %]">[% work.language.iso_code_3 %]</abbr>
+        <ul>
+        [%- FOR wl=work.languages %]
+          <li>
+            <abbr title="[% wl.language.l_name | html %]">[% wl.language.iso_code_3 %]</abbr>
+          </li>
+        [%- END %]
+        </ul>
       </td>
       <td>
         [% work_attributes_list(work) %]
