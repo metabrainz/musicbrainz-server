@@ -15,8 +15,7 @@ role {
 
     has name => (
         is => 'ro',
-        isa => Str,
-        required => 1
+        isa => 'Str'
     );
 
     method operator_cardinality_map => sub {

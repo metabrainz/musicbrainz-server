@@ -4,13 +4,13 @@ use namespace::autoclean;
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 has name => (
     is => 'ro',
-    isa => 'Str',
-    required => 1
+    isa => 'Str'
 );
 
 has user => (
@@ -20,9 +20,7 @@ has user => (
 );
 
 has voter_id => (
-    is => 'ro',
-    isa => 'Int',
-    required => 1
+    is => 'ro'
 );
 
 sub operator_cardinality_map {
@@ -36,7 +34,8 @@ sub operator_cardinality_map {
 
 sub valid {
     my ($self) = @_;
-    return $self->arguments > 0;
+    return unless $self->arguments > 0;
+    return $self->operator ne '=' && $self->operator ne '!=' || is_database_row_id($self->voter_id);
 }
 
 sub combine_with_query {
