@@ -4,15 +4,14 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Types qw( VoteOption );
-use MusicBrainz::Server::Validation qw( is_integer );
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::ID';
 
-around operator_cardinality_map => sub {
-    my ($orig, $self) = splice(@_, 0, 2);
-    my %orig_map = $self->$orig;
-    return map { $_ => 1 + $orig_map{$_} } keys %orig_map;
-};
+has vote => (
+    is => 'ro',
+    isa => 'Int',
+    required => 1
+);
 
 sub combine_with_query {
     my ($self, $query) = @_;
@@ -30,18 +29,13 @@ sub combine_with_query {
         $sql .= ' ' . $self->operator . ' ?';
     }
 
-    $query->add_where([ $sql, $self->sql_arguments ]);
+    $query->add_where([ $sql, [ $self->vote, @{ $self->sql_arguments } ] ]);
 }
 
-sub valid {
-    my $self = shift;
-    my $cardinality = $self->operator_cardinality($self->operator) or return;
-    return unless VoteOption->check($self->argument(0));
-    for my $arg_index (1..$cardinality-1) {
-        return unless is_integer($self->argument($arg_index));
-    }
-    return 1;
-}
+around valid => sub {
+    my ($orig, $self) = @_;
+    return VoteOption->check($self->vote) && $self->$orig;
+};
 
 1;
 

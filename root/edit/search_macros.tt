@@ -133,9 +133,9 @@
     &#x2013;
     <input type="number" name="args.1" size="10" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
-[% END %]
+[%- END %]
 
-[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+[% MACRO predicate_int_content(field, field_contents) BLOCK %]
   [% operators([ [ '=', l('is') ],
                  [ '!=', l('is not') ],
                  [ '>', l('is more than') ],
@@ -150,6 +150,10 @@
     &#x2013;
     <input type="number" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
+[% END %]
+
+[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+  [%- predicate_int_content(field, field_contents) %]
 [% END %]
 
 [% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
@@ -268,33 +272,20 @@
   </select>
 [% END %]
 
-[% MACRO predicate_vote_count(field, field_contents) WRAPPER wfield predicate="vote_count" %]
+[% MACRO predicate_vote_count(field, field_contents) WRAPPER wfield predicate="id" %]
 
-  <select name="args.0" class="arg">
+  <select name="vote">
     [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
                  , [  1,   lp('Yes', 'vote') ]
                  , [  0,   lp('No', 'vote') ]
                  , [ -1,   lp('Abstain', 'vote') ]
                  ] %]
     <option value="[% html_escape(item.0) %]"
-            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
+            [%~ ' selected="selected"' IF field_contents.vote == item.0 ~%]
             >[% html_escape(item.1) %]</option>
     [%- END %]
   </select>
-  [% operators([ [ '=', l('is') ],
-                 [ '!=', l('is not') ],
-                 [ '>', l('is more than') ],
-                 [ '<', l('is less than') ],
-                 ['BETWEEN', l('is between') ] ], field_contents) %]
-
-  <span style="display:none" class="arg">
-    <input type="number" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
-  </span>
-
-  <span style="display:none" class="arg">
-    &#x2013;
-    <input type="number" name="args.2" size="6" value="[% html_escape(field_contents.argument(2)) %]" />
-  </span>
+  [%- predicate_int_content(field, field_contents) %]
 [% END %]
 
 [% MACRO predicate_subscription(field, field_contents) WRAPPER wfield predicate="subscription" %]
