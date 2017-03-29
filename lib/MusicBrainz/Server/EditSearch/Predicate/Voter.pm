@@ -1,12 +1,9 @@
 package MusicBrainz::Server::EditSearch::Predicate::Voter;
 use Moose;
 use namespace::autoclean;
-use feature 'switch';
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Constants qw( :vote );
-
-no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
@@ -45,9 +42,10 @@ sub valid {
 sub combine_with_query {
     my ($self, $query) = @_;
 
+    my $sql_op = $self->operator =~ /!=|not_me/ ? '!=' : '=';
     my $sql = "EXISTS (
         SELECT TRUE FROM vote
-        WHERE vote.editor = ?
+        WHERE vote.editor $sql_op ?
         AND vote.superseded = FALSE
         AND %s
         AND vote.edit = edit.id
@@ -55,10 +53,8 @@ sub combine_with_query {
 
     my @votes = grep { looks_like_number($_) } @{ $self->sql_arguments };
     my $no_vote_option = grep { $_ eq 'no' } @{ $self->sql_arguments };
-    my $voter_id = $self->operator eq '=' || $self->operator eq '!=' ? $self->voter_id : $self->user->id;
+    my $voter_id = $self->operator =~ /=|!=/ ? $self->voter_id : $self->user->id;
 
-    given ($self->operator) {
-        when (/^(=|me)$/) {
             if (@votes && $no_vote_option) {
                 $query->add_where([
                     join(' OR ',
@@ -89,43 +85,6 @@ sub combine_with_query {
                     ]
                 ]);
             }
-        }
-
-        when (/^(!=|not_me)$/) {
-            if (!@votes && $no_vote_option) {
-                my @query_votes = ($VOTE_ABSTAIN, $VOTE_NO, $VOTE_YES);
-                $query->add_where([
-                    sprintf("$sql", "vote.vote = any(?)"),
-                    [
-                        $voter_id,
-                        \@query_votes,
-                    ]
-                ]);
-            }
-            elsif (@votes && !$no_vote_option) {
-                $query->add_where([
-                    join(' OR ',
-                         sprintf($sql, "vote.vote != all(?)"),
-                         sprintf("NOT $sql", "TRUE")
-                    ),
-                    [
-                        $voter_id,
-                        \@votes,
-                        $voter_id,
-                    ]
-                ]);
-            }
-            else {
-                $query->add_where([
-                    sprintf($sql, "vote.vote != all(?)"),
-                    [
-                        $voter_id,
-                        \@votes,
-                    ]
-                ]);
-            }
-        }
-    };
 }
 
 1;
