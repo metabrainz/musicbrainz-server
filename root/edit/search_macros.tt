@@ -1,6 +1,6 @@
 [% BLOCK wfield %]
 <span class="field field-[% field %] predicate-[% predicate %]" style="display: none">
-  [%- content -%]
+  [%- content %]
 </span>
 [% END %]
 
@@ -108,15 +108,15 @@
 <button type="button" class="remove-item icon" title="[% l('Delete') %]"></button>
 [% END %]
 
-[% MACRO operators(operators, field_contents) BLOCK %]
+[%- MACRO operators(operators, field_contents) BLOCK %]
   <select name="operator" class="operator">
-    [% FOR operator=operators %]
+    [%- FOR operator=operators %]
     <option
        [%~ ' selected="selected"' IF field_contents.operator == operator.0 =%]
        value="[% html_escape(operator.0) %]">[% html_escape(operator.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
-[% END %]
+[%- END %]
 
 [% MACRO predicate_id(field, field_contents) WRAPPER wfield predicate='id' %]
   [% operators([ [ '=', l('is') ],
@@ -176,46 +176,48 @@
 [% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [% FOR item=set_contents %]
+    [%- FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% l(html_escape(item.1)) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
 [% MACRO predicate_release_language(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [% FOR language=languages %]
+    [%- FOR language=languages %]
     <option value="[% language.id %]"
-            [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(language.id) ~%]
             >[% html_escape(language.l_name) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
-[% MACRO relationship_node(node, pad, field_contents) BLOCK; %]
-  [% FOR child=node.children %]
-    <option value="[% child.id %]"
-            [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
-      [%- pad _ child.name -%]</option>
-    [% relationship_node(child, pad _ '&#xa0;&#xa0;', field_contents) %]
-  [% END %]
-[% END %]
+[%- MACRO relationship_node(node, pad, field_contents) BLOCK; %]
+  [%- FOR child=node.children %]
+      <option value="[% child.id %]"
+          [%~ ' selected="selected"' IF field_contents.find_argument(child.id) ~%]>
+          [%- pad _ child.name -%]</option>
+      [%- relationship_node(child, pad _ '&#xa0;&#xa0;', field_contents) %]
+  [%- END %]
+[%- END %]
 
 [% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ] ], field_contents) %]
 
   <select name="args" multiple="multiple">
-    [% FOR type_group=relationship_type %]
-      <optgroup label="[% type_group.name %]">
-        [% relationship_node(top_level, '', field_contents)
+    [%- FOR type_group=relationship_type %]
+    <optgroup label="[% type_group.name %]">
+        [%- relationship_node(top_level, '', field_contents)
              FOR top_level=type_group %]
-      </optgroup>
-    [% END %]
+    </optgroup>
+    [%- END %]
   </select>
 
   <br />
@@ -223,15 +225,15 @@
 [% END %]
 
 [% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]
-  [%- autocomplete_name = autocomplete_name.defined ? autocomplete_name : field | replace('_', '-') -%]
+  [%- autocomplete_name = autocomplete_name.defined ? autocomplete_name : field | replace('_', '-') %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <span class="autocomplete [% autocomplete_name %]">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 [% END %]
 
@@ -242,10 +244,10 @@
                  [ 'not_me', l('is not me') ] ], field_contents) %]
 
   <span class="arg autocomplete editor">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="voter_id" value="[% html_escape(field_contents.voter_id) %]" />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="voter_id" value="[% html_escape(field_contents.voter_id) %]" />
   </span>
 
   <span>
@@ -253,32 +255,32 @@
   </span>
 
   <select name="args" multiple="multiple">
-    [% FOR item=[ [  2,   lp('Approve', 'vote') ]
+    [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
                 , [  1,   lp('Yes', 'vote') ]
                 , [  0,   lp('No', 'vote') ]
                 , [ -1,   lp('Abstain', 'vote') ]
                 , [ 'no', l('No vote') ]
                 ] %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% html_escape(item.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
 [% MACRO predicate_vote_count(field, field_contents) WRAPPER wfield predicate="vote_count" %]
-  <select name="args.0" class="arg">
-    [% FOR item=[ [  2,   lp('Approve', 'vote') ]
-                , [  1,   lp('Yes', 'vote') ]
-                , [  0,   lp('No', 'vote') ]
-                , [ -1,   lp('Abstain', 'vote') ]
-                ] %]
-    <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
-            >[% html_escape(item.1) %]</option>
-    [% END %]
-  </select>
 
+  <select name="args.0" class="arg">
+    [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
+                 , [  1,   lp('Yes', 'vote') ]
+                 , [  0,   lp('No', 'vote') ]
+                 , [ -1,   lp('Abstain', 'vote') ]
+                 ] %]
+    <option value="[% html_escape(item.0) %]"
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
+            >[% html_escape(item.1) %]</option>
+    [%- END %]
+  </select>
   [% operators([ [ '=', l('is') ],
                  [ '!=', l('is not') ],
                  [ '>', l('is more than') ],
@@ -302,22 +304,23 @@
                ], field_contents) %]
 
   <span class="arg autocomplete [% field | replace('_', '-') %]">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
   </span>
 [% END %]
 
 [% MACRO predicate_country(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [%- FOR country=countries -%]
+    [%- FOR country=countries %]
     <option value="[% country.id %]"
             [%- 'selected="selected"' IF field_contents.find_argument(country.id) %]>
         [%- html_escape(country.l_name) -%]</option>
-    [%- END -%]
+    [%- END %]
   </select>
 [% END %]
 
@@ -329,16 +332,17 @@
                  [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
 
   <span class="arg autocomplete editor">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 [% END %]
 
 [% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
     [%~ editor_flags = [[1, l('Auto-Editor')], [2, l('Bot')]];
         IF c.user.is_account_admin; editor_flags.push([4, l('Untrusted')]); END;
@@ -348,11 +352,11 @@
           [256, l('Location Editor')]
         )
     ~%]
-    [% FOR item=editor_flags %]
+    [%- FOR item=editor_flags %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% html_escape(item.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
