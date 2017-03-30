@@ -54,36 +54,34 @@ sub combine_with_query {
     my $no_vote_option = grep { $_ eq 'no' } @{ $self->sql_arguments };
     my $voter_id = $self->operator =~ /=|!=/ ? $self->voter_id : $self->user->id;
 
-            if (@votes && $no_vote_option) {
-                $query->add_where([
-                    join(' OR ',
-                         sprintf($sql, "vote.vote = any(?)"),
-                         sprintf("NOT $sql", "TRUE")
-                    ),
-                    [
-                        $voter_id,
-                        \@votes,
-                        $voter_id
-                    ]
-                ]);
-            }
-            elsif (@votes && !$no_vote_option) {
-                $query->add_where([
-                    sprintf($sql, "vote.vote = any(?)"),
-                    [
-                        $voter_id,
-                        \@votes,
-                    ]
-                ]);
-            }
-            elsif (!@votes && $no_vote_option) {
-                $query->add_where([
-                    sprintf("NOT $sql", "TRUE"),
-                    [
-                        $voter_id,
-                    ]
-                ]);
-            }
+    if (@votes && $no_vote_option) {
+        $query->add_where([
+            join(' OR ',
+                 sprintf($sql, "vote.vote = any(?)"),
+                 sprintf("NOT $sql", "TRUE")
+            ),
+            [
+                $voter_id,
+                \@votes,
+                $voter_id
+            ]
+        ]);
+    } elsif (@votes && !$no_vote_option) {
+        $query->add_where([
+            sprintf($sql, "vote.vote = any(?)"),
+            [
+                $voter_id,
+                \@votes,
+            ]
+        ]);
+    } elsif (!@votes && $no_vote_option) {
+        $query->add_where([
+            sprintf("NOT $sql", "TRUE"),
+            [
+                $voter_id,
+            ]
+        ]);
+    }
 }
 
 1;
