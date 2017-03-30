@@ -245,7 +245,8 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ]
                  [ 'me', l('is me') ]
-                 [ 'not_me', l('is not me') ] ], field_contents) %]
+                 [ 'not_me', l('is not me') ]
+                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
 
   <span class="arg autocomplete editor">
     <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />

@@ -29,6 +29,7 @@ sub operator_cardinality_map {
         '!=' => undef,
         'me' => undef,
         'not_me' => undef,
+        'subscribed' => undef,
     );
 };
 
@@ -38,13 +39,32 @@ sub valid {
     return $self->operator ne '=' && $self->operator ne '!=' || is_database_row_id($self->voter_id);
 }
 
+sub voter_clause {
+    my $self = shift;
+    my $sql = 'vote.editor ';
+
+    if ($self->operator eq 'subscribed') {
+        $sql .= "IN (
+             SELECT subscribed_editor
+               FROM editor_subscribe_editor
+              WHERE editor = ?
+        )";
+    } elsif ($self->operator eq '!=' || $self->operator eq 'not_me') {
+        $sql .= '!= ?';
+    } else {
+        $sql .= '= ?';
+    }
+
+    return $sql;
+}
+
 sub combine_with_query {
     my ($self, $query) = @_;
 
-    my $sql_op = $self->operator =~ /!=|not_me/ ? '!=' : '=';
+    my $voter_clause = $self->voter_clause;
     my $sql = "EXISTS (
         SELECT TRUE FROM vote
-        WHERE vote.editor $sql_op ?
+        WHERE $voter_clause
         AND vote.superseded = FALSE
         AND %s
         AND vote.edit = edit.id
