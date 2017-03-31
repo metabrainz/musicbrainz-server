@@ -4,61 +4,12 @@ use strict;
 use warnings;
 use base 'MusicBrainz::Server::View::Base';
 use DBDefs;
-use Encode;
-use HTML::Entities qw( decode_entities );
-use HTTP::Request;
-use JSON -convert_blessed_universally;
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json generate_token );
-use URI;
-use URI::QueryParam;
-
-use feature 'state';
+use MusicBrainz::Server::Renderer qw( get_renderer_uri get_renderer_response );
 
 sub process {
     my ($self, $c) = @_;
 
-    state $server_token = generate_token();
-    state $request_id = 0;
-
-    my $user;
-    if ($c->user_exists) {
-        $user = $c->user->TO_JSON;
-    }
-
-    my %stash = %{$c->stash};
-    # XXX contains code references which can't be encoded
-    delete $stash{sidebar_search};
-
-    # convert DateTime objects to iso8601-formatted strings
-    if (my $date = $stash{last_replication_date}) {
-        $date = $date->clone;
-        $date->set_time_zone('UTC');
-        $stash{last_replication_date} = $date->iso8601 . 'Z';
-    }
-
-    my $body = {
-        context => {
-            user => $user,
-            debug => boolean_to_json($c->debug),
-            stash => \%stash,
-            sessionid => scalar($c->sessionid),
-            session => $c->session,
-            flash => $c->flash,
-        },
-    };
-
-    my $uri = URI->new;
-    $uri->scheme('http');
-    $uri->host(DBDefs->RENDERER_HOST || '127.0.0.1');
-    $uri->port(DBDefs->RENDERER_PORT);
-    $uri->path($c->req->path);
-    $uri->query_param_append('token', $server_token);
-    $uri->query_param_append('request_id', ++$request_id);
-    $uri->query_param_append('user', $c->user->name) if $c->user_exists;
-
-    my $store_key = 'template-body:' . $uri->path_query;
-    my $store = $c->model('MB')->context->store;
-    $store->set($store_key, $body, 15);
+    my ($uri, $store_key) = get_renderer_uri($c, $c->req->path);
 
     if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
         my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
@@ -66,27 +17,9 @@ sub process {
         return;
     }
 
-    my $response;
-    my $tries = 0;
-
-    while ($tries < 5) {
-        $response = $c->model('MB')->context->lwp->request(
-            HTTP::Request->new('GET', $uri, $c->req->headers->clone)
-        );
-
-        # If the connection is refused, the service may be restarting.
-        if ($response->code == 500) {
-            sleep 2;
-            $tries++;
-        } else {
-            $store->delete($store_key);
-            last;
-        }
-    }
-
-    my $content = decode('utf-8', $response->content);
+    my $response = get_renderer_response($c, $uri, $store_key, $c->req->headers->clone);
     $c->res->status($response->code);
-    $c->res->body($content);
+    $c->res->body($response->decoded_content);
     $self->_post_process($c);
 }
 
