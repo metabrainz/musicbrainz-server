@@ -131,7 +131,6 @@ function getResponse(req, requestBody) {
 
   try {
     responseBuf = new Buffer(
-      '<!DOCTYPE html>' +
       ReactDOMServer.renderToStaticMarkup(React.createElement(Page, requestBody.props))
     );
   } catch (err) {

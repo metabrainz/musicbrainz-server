@@ -5,6 +5,9 @@ use warnings;
 use base 'MusicBrainz::Server::View::Base';
 use DBDefs;
 use MusicBrainz::Server::Renderer qw( get_renderer_uri get_renderer_response );
+use Readonly;
+
+Readonly our $DOCTYPE => '<!DOCTYPE html>';
 
 sub process {
     my ($self, $c) = @_;
@@ -20,7 +23,7 @@ sub process {
 
     my $response = get_renderer_response($c, $uri, $store_key, $c->req->headers->clone);
     $c->res->status($response->code);
-    $c->res->body($response->decoded_content);
+    $c->res->body($DOCTYPE . $response->decoded_content);
     $self->_post_process($c);
 }
 
