@@ -6,29 +6,11 @@
 const React = require('react');
 
 const Footer = require('./components/Footer');
+const Head = require('./components/Head');
 const Header = require('./components/Header');
 const MergeHelper = require('./components/MergeHelper');
-const manifest = require('../static/manifest');
 const {l} = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
-
-let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
-function canonicalize(url) {
-  return process.env.CANONICAL_SERVER ? url.replace(canonRegexp, process.env.CANONICAL_SERVER) : url;
-}
-
-const metaTags = [
-  <meta key={2} charSet="utf-8" />,
-  <meta key={3} httpEquiv="X-UA-Compatible" content="IE=edge" />,
-  <meta key={4} name="viewport" content="width=device-width, initial-scale=1" />,
-];
-
-const openSearchTags = [
-  <link key={1} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Artist")} href="/static/search_plugins/opensearch/musicbrainz_artist.xml" />,
-  <link key={2} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Label")} href="/static/search_plugins/opensearch/musicbrainz_label.xml" />,
-  <link key={3} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Release")} href="/static/search_plugins/opensearch/musicbrainz_release.xml" />,
-  <link key={4} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Track")} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />,
-];
 
 const DismissBannerButton = ({bannerName}) => (
   <button className="dismiss-banner remove-item icon"
@@ -75,68 +57,11 @@ const serverDetailsBanner = (server) => {
 };
 
 const Layout = (props) => {
-  let {title, pager} = props;
-  let canonURL = canonicalize(props.canonical_url || $c.req.uri);
-  let currentLanguage = $c.stash.current_language;
   let server = $c.stash.server_details;
-
-  if (props.homepage) {
-    let parts = [];
-
-    if (title) {
-      parts.push(title);
-    }
-
-    if (pager.current_page && pager.current_page > 1) {
-      parts.push(l('Page {n}', {n: pager.current_page}));
-    }
-
-    parts.push('MusicBrainz');
-    title = parts.join(' - ');
-  }
 
   return (
     <html lang={$c.stash.current_language_html}>
-      <head>
-        {metaTags}
-
-        <title>{title}</title>
-
-        {canonURL !== $c.req.uri && <link rel="canonical" href={canonURL} />}
-
-        {manifest.css('common')}
-        {!!props.noIcons || manifest.css('icons')}
-
-        {openSearchTags}
-
-        <noscript>
-          <style type="text/css">
-            {'.header > .right > .bottom > .menu > li:focus > ul { left: auto; }'}
-          </style>
-        </noscript>
-
-        {manifest.js('rev-manifest')}
-        {manifest.js('jed-' + currentLanguage)}
-        {manifest.js('common', {
-          'data-args': JSON.stringify({
-            user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
-          }),
-        })}
-        {!!$c.stash.jsonld_data && <script type="application/ld+json">{$c.stash.jsonld_data}</script>}
-        {!!process.env.GOOGLE_ANALYTICS_CODE &&
-          <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '${process.env.GOOGLE_ANALYTICS_CODE}']);
-            _gaq.push(['_setCustomVar', 1, 'User is logged in', '${$c.user ? "Yes" : "No"}', 2]);
-            _gaq.push(['_trackPageview']);
-
-            (function () {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-          `}}></script>}
-      </head>
+      <Head {...props} />
 
       <body>
         <Header {...props} />
