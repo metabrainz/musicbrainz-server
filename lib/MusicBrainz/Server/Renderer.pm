@@ -18,14 +18,17 @@ our @EXPORT_OK = qw(
 );
 
 sub get_renderer_uri {
-    my ($c, $path, $props) = @_;
+    my ($c, $path, $props, $opts) = @_;
 
     state $server_token = generate_token();
     state $request_id = 0;
 
-    my $body = {
-        context => $c,
+    my %body = (
         props => $props,
+    );
+
+    if (defined $opts && $opts->{context}) {
+        $body{context} = $c;
     };
 
     my $uri = URI->new;
@@ -38,7 +41,7 @@ sub get_renderer_uri {
     $uri->query_param_append('user', $c->user->name) if $c->user_exists;
 
     my $store_key = 'template-body:' . $uri->path_query;
-    $c->model('MB')->context->store->set($store_key, $body, 15);
+    $c->model('MB')->context->store->set($store_key, \%body, 15);
 
     return ($uri, $store_key);
 }

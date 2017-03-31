@@ -9,7 +9,8 @@ use MusicBrainz::Server::Renderer qw( get_renderer_uri get_renderer_response );
 sub process {
     my ($self, $c) = @_;
 
-    my ($uri, $store_key) = get_renderer_uri($c, $c->req->path);
+    my ($uri, $store_key) =
+        get_renderer_uri($c, $c->req->path, {}, {context => 1});
 
     if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
         my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;

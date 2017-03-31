@@ -85,18 +85,6 @@ function getResponse(req, requestBody) {
 
   let context = requestBody.context;
 
-  if (_.isEmpty(context)) {
-    return badRequest(new Error('context is missing'));
-  }
-
-  if (_.isEmpty(context.stash)) {
-    return badRequest(new Error('context.stash is missing'));
-  }
-
-  if (_.isEmpty(context.stash.server_details)) {
-    return badRequest(new Error('context.stash.server_details is missing'));
-  }
-
   Raven.setContext({
     environment: DBDefs.GIT_BRANCH,
     tags: {
