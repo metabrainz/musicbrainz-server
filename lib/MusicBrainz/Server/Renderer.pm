@@ -6,68 +6,53 @@ use warnings;
 use base 'Exporter';
 use DBDefs;
 use feature 'state';
-use HTTP::Request;
 use JSON -convert_blessed_universally;
-use MusicBrainz::Server::Data::Utils qw( generate_token );
-use URI::QueryParam;
-use URI;
 
 our @EXPORT_OK = qw(
-    get_renderer_uri
-    get_renderer_response
+    render_component
+    send_to_renderer
 );
 
-sub get_renderer_uri {
-    my ($c, $path, $props, $opts) = @_;
+sub send_to_renderer {
+    my ($c, $message, $expect_response) = @_;
 
-    state $server_token = generate_token();
-    state $request_id = 0;
+    require bytes;
 
-    my %body = (
-        props => $props,
-    );
+    state $body_json = JSON->new->utf8->allow_unknown->allow_blessed->convert_blessed;
+    my $encoded_body = $body_json->encode($message);
 
-    if (defined $opts && $opts->{context}) {
-        $body{context} = $c;
-    };
+    my $socket = $c->stash->{renderer_socket};
+    $socket->send(pack('V', bytes::length($encoded_body)));
+    $socket->send($encoded_body);
 
-    my $uri = URI->new;
-    $uri->scheme('http');
-    $uri->host(DBDefs->RENDERER_HOST || '127.0.0.1');
-    $uri->port(DBDefs->RENDERER_PORT);
-    $uri->path($path);
-    $uri->query_param_append('token', $server_token);
-    $uri->query_param_append('request_id', ++$request_id);
-    $uri->query_param_append('user', $c->user->name) if $c->user_exists;
+    if ($expect_response) {
+        my $buffer;
+        my $response = '';
 
-    my $store_key = 'template-body:' . $uri->path_query;
-    $c->model('MB')->context->store->set($store_key, \%body, 15);
+        $socket->recv($buffer, 4);
+        my ($length) = unpack('V', $buffer);
+        my $remaining = $length;
 
-    return ($uri, $store_key);
-}
-
-sub get_renderer_response {
-    my ($c, $uri, $store_key, $headers) = @_;
-
-    my $response;
-    my $tries = 0;
-
-    while ($tries < 5) {
-        $response = $c->model('MB')->context->lwp->request(
-            HTTP::Request->new('GET', $uri, $headers)
-        );
-
-        # If the connection is refused, the service may be restarting.
-        if ($response->code == 500) {
-            sleep 2;
-            $tries++;
-        } else {
-            $c->model('MB')->context->store->delete($store_key);
-            last;
+        while (bytes::length($response) < $length) {
+            $socket->recv($buffer, $remaining);
+            $response .= $buffer;
+            $remaining -= bytes::length($buffer);
         }
+
+        return $body_json->decode($response);
     }
 
-    return $response;
+    return;
+}
+
+sub render_component {
+    my ($c, $component, $props) = @_;
+
+    my %body = (
+        component => $component,
+        props => $props,
+    );
+    return send_to_renderer($c, \%body, 1);
 }
 
 1;

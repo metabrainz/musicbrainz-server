@@ -27,7 +27,7 @@ use warnings;
 
 package DBDefs::Default;
 
-use File::Spec::Functions qw( splitdir catdir catfile );
+use File::Spec::Functions qw( splitdir catdir catfile tmpdir );
 use Cwd qw( abs_path );
 use JSON qw( encode_json );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -392,15 +392,26 @@ sub SENTRY_DSN_PUBLIC { undef }
 sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-# We use a small HTTP server (root/server.js) to render React.js templates.
-# These configure the host/port it listens on. If RENDERER_HOST is '', then
-# musicbrainz-server will fork & exec root/server.js for us (convenient on
-# development servers). Otherwise, it'll assume the service is running
-# separately.
-sub RENDERER_HOST { '' }
-sub RENDERER_PORT { 9009 }
-# Whether to use X-Accel-Redirect for the requests mentioned above.
-sub RENDERER_X_ACCEL_REDIRECT { 0 }
+# We use a small Node.js server (root/server.js) to render React.js
+# templates. RENDERER_SOCKET configures the local (UNIX) socket path it
+# listens on.
+sub RENDERER_SOCKET {
+    catfile(tmpdir, 'musicbrainz-template-renderer.socket')
+}
+# If FORK_RENDERER is set to a true value, MusicBrainz Server will fork and
+# exec root/server.js automatically. TERM signals received by plackup will
+# also be passed along to the renderer. Otherwise, it is assumed that the
+# renderer was run manually and is already listening on RENDERER_SOCKET.
+#
+# This option is convenient for development servers.
+#
+# Note: FORK_RENDERER works fine when using plackup by itself, but does not
+# play nicely with superdaemons such as Starman or Server::Starter that
+# prefork worker processes. Signals are not passed through properly when
+# using those, leaving duplicate, orphan renderer processes. Set
+# FORK_RENDERER to '0' and start the renderer manually
+# (./script/start_renderer.pl) when using a superdaemon.
+sub FORK_RENDERER { 1 }
 
 # Base URL of external Discourse instance.
 sub DISCOURSE_SERVER { '' }

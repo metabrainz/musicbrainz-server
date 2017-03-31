@@ -4,26 +4,28 @@ use strict;
 use warnings;
 use base 'MusicBrainz::Server::View::Base';
 use DBDefs;
-use MusicBrainz::Server::Renderer qw( get_renderer_uri get_renderer_response );
+use MusicBrainz::Server::Renderer qw( render_component );
 use Readonly;
 
 Readonly our $DOCTYPE => '<!DOCTYPE html>';
 
 sub process {
-    my ($self, $c) = @_;
+    my $self = shift;
+    my $c = $_[0];
 
-    my ($uri, $store_key) =
-        get_renderer_uri($c, $c->req->path, {}, {context => 1});
+    $self->next::method(@_);
 
-    if (DBDefs->RENDERER_X_ACCEL_REDIRECT) {
-        my $redirect_uri = '/internal/renderer/' . $uri->host_port . $uri->path_query;
-        $c->res->headers->header('X-Accel-Redirect' => $redirect_uri);
-        return;
+    my $response = render_component($c, $c->req->path, {});
+    my ($content_type, $status, $body) =
+        @$response{qw(content_type status body)};
+
+    if ($content_type eq 'text/html') {
+        $body = $DOCTYPE . $body;
     }
 
-    my $response = get_renderer_response($c, $uri, $store_key, $c->req->headers->clone);
-    $c->res->status($response->code);
-    $c->res->body($DOCTYPE . $response->decoded_content);
+    $c->res->content_type($content_type . '; charset=utf-8');
+    $c->res->status($status);
+    $c->res->body($body);
     $self->_post_process($c);
 }
 

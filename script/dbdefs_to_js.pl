@@ -20,11 +20,9 @@ Readonly our @BOOLEAN_DEFS => qw(
 );
 
 Readonly our @HASH_DEFS => qw(
-    DATASTORE_REDIS_ARGS
 );
 
 Readonly our @NUMBER_DEFS => qw(
-    RENDERER_PORT
 );
 
 Readonly our @STRING_DEFS => qw(
@@ -32,6 +30,7 @@ Readonly our @STRING_DEFS => qw(
     GIT_SHA
     MAPBOX_ACCESS_TOKEN
     MAPBOX_MAP_ID
+    RENDERER_SOCKET
     SENTRY_DSN
     SENTRY_DSN_PUBLIC
     STATIC_RESOURCES_LOCATION

@@ -453,6 +453,12 @@ sub TO_JSON {
         $stash{$_} = $self->stash->{$_};
     }
 
+    if (my $entity = delete $stash{entity}) {
+        if (ref($entity) =~ /^MusicBrainz::Server::Entity::/) {
+            $stash{entity} = $entity->TO_JSON;
+        }
+    }
+
     # convert DateTime objects to iso8601-formatted strings
     if (my $date = $stash{last_replication_date}) {
         $date = $date->clone;

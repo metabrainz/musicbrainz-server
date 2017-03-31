@@ -8,8 +8,10 @@ use POSIX qw( setsid );
 use Getopt::Long;
 
 my $daemonize = 0;
+my $socket;
 GetOptions(
     'daemonize' => \$daemonize,
+    'socket=s' => \$socket,
 ) or exit 2;
 
 chomp (my $node_version = `node --version`);
@@ -42,5 +44,7 @@ if ($child) {
     };
     wait;
 } else {
-    exec 'node' => "$FindBin::Bin/../root/$server_js_file";
+    my @argv;
+    push @argv, ('--socket', $socket) if $socket;
+    exec 'node', qq($FindBin::Bin/../root/$server_js_file), @argv;
 }

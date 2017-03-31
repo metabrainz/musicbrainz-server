@@ -27,7 +27,11 @@ install_javascript(`$1')
 
 COPY gulpfile.js ./
 COPY root/ root/
-COPY script/compile_resources.sh script/dbdefs_to_js.pl script/
+COPY \
+    script/compile_resources.sh \
+    script/dbdefs_to_js.pl \
+    script/start_renderer.pl \
+    script/
 
 RUN chown_mb(`MBS_ROOT `/tmp/ttc'')')
 
@@ -118,6 +122,7 @@ COPY app.psgi entities.json ./
 COPY bin/ bin/
 COPY docker/scripts/mbs_constants.sh /etc/
 COPY lib/ lib/
+COPY script/`git_info' script/
 
 RUN chown_mb(`MBS_ROOT')')
 

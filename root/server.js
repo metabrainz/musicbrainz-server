@@ -8,16 +8,14 @@
 require('babel-core/register');
 
 const fs = require('fs');
-const http = require('http');
 const _ = require('lodash');
-const redis = require('redis');
 const reload = require('require-reload')(require);
+const net = require('net');
 const path = require('path');
 const Raven = require('raven');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const sliced = require('sliced');
-const URL = require('url');
 
 const gettext = require('./server/gettext');
 // Reloaded on HUP.
@@ -25,31 +23,28 @@ let DBDefs = reload('./static/scripts/common/DBDefs');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
+const yargs = require('yargs')
+  .option('socket', {
+    alias: 's',
+    default: DBDefs.RENDERER_SOCKET,
+    describe: 'UNIX socket path',
+  });
+
 Raven.config(DBDefs.SENTRY_DSN).install();
 
-function createRedisClient() {
-  const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
-  return redis.createClient({
-    url: 'redis://' + REDIS_ARGS.server,
-    prefix: REDIS_ARGS.namespace,
-    retry_strategy: function (options) {
-      const oneMinute = 60 * 1000; // ms
-      if (options.total_retry_time < oneMinute) {
-        return 1;
-      }
-    },
-  });
-}
-
-// Reloaded on HUP.
-let redisClient = Raven.context(createRedisClient);
+const REQUEST_TIMEOUT = 60000;
+const SOCKET_PATH = yargs.argv.socket;
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
 }
 
-function badRequest(err, status) {
-  return {status: status || 400, body: err.stack, contentType: 'text/plain'};
+function badRequest(err) {
+  return Buffer.from(JSON.stringify({
+    body: err.stack,
+    content_type: 'text/plain',
+    status: 400,
+  }));
 }
 
 // Common macros
@@ -65,23 +60,10 @@ function clearRequireCache() {
   Object.keys(require.cache).forEach(key => delete require.cache[key]);
 }
 
-function getResponse(req, requestBody) {
-  let url = URL.parse(req.url, true /* parseQueryString */);
+function getResponse(requestBody, context) {
   let status = 200;
   let Page;
-  let responseBuf;
-
-  // N.B. Exceptions will take down the entire process.
-  try {
-    requestBody = JSON.parse(requestBody);
-  } catch (err) {
-    Raven.captureException(err);
-    return badRequest(err);
-  }
-
-  _.defaults(requestBody, {props: {}, context: {}});
-
-  let context = requestBody.context;
+  let response;
 
   Raven.setContext({
     environment: DBDefs.GIT_BRANCH,
@@ -105,7 +87,7 @@ function getResponse(req, requestBody) {
   }
 
   try {
-    Page = require(pathFromRoot(url.pathname.replace(/^\//, '')));
+    Page = require(pathFromRoot(requestBody.component));
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
@@ -122,60 +104,113 @@ function getResponse(req, requestBody) {
   }
 
   try {
-    responseBuf = new Buffer(
-      ReactDOMServer.renderToStaticMarkup(React.createElement(Page, requestBody.props))
+    response = ReactDOMServer.renderToStaticMarkup(
+      React.createElement(Page, requestBody.props)
     );
   } catch (err) {
     Raven.captureException(err);
     return badRequest(err);
   }
 
-  return {status: status, body: responseBuf, contentType: 'text/html'};
+  return Buffer.from(JSON.stringify({
+    body: response,
+    content_type: 'text/html',
+    status,
+  }));
 }
 
-http.createServer(Raven.wrap(function (req, res) {
-  let contentType = 'text/html';
-  let cacheKey = 'template-body:' + req.url;
+const socketServer = net.createServer(
+    {allowHalfOpen: true},
+    Raven.wrap(function (socket) {
+      let expectedBytes = 0;
+      let recvBuffer = null;
+      let recvBytes = 0;
+      let context;
 
-  redisClient.get(cacheKey, Raven.wrap(function (err, reply) {
-    let resInfo;
-    if (err) {
-      Raven.captureException(err);
-      resInfo = badRequest(err);
-    } else if (reply) {
-      resInfo = getResponse(req, reply);
-    } else {
-      resInfo = badRequest(new Error('got null reply from redis'), 500);
-    }
-    res.statusCode = resInfo.status;
-    res.setHeader('Content-Type', resInfo.contentType);
-    res.setHeader('Content-Length', resInfo.body.length);
-    // MBS-7061: Prevent network providers/proxies from stripping HTML comments.
-    res.setHeader('Cache-Control', 'no-transform');
-    res.end(resInfo.body, 'utf8');
-  }));
-}))
-.listen(DBDefs.RENDERER_PORT, '0.0.0.0', Raven.wrap(function (err) {
-  if (err) {
-    throw err;
-  }
+      function clearRecv() {
+        expectedBytes = 0;
+        recvBuffer = null;
+        recvBytes = 0;
+      }
 
-  const cleanup = Raven.wrap(function () {
-    redisClient.quit();
+      function writeResponse(body) {
+        const lengthBuffer = Buffer.allocUnsafe(4);
+        lengthBuffer.writeUInt32LE(Buffer.byteLength(body), 0);
+        socket.write(lengthBuffer);
+        socket.write(body);
+      }
+
+      function receiveData(data) {
+        if (!recvBuffer) {
+          expectedBytes = data.readUInt32LE(0);
+          recvBuffer = Buffer.allocUnsafe(expectedBytes);
+          data = data.slice(4);
+        }
+
+        let overflow = null;
+        let remainder = expectedBytes - recvBytes;
+        if (data.length > remainder) {
+          overflow = data.slice(remainder);
+          data = data.slice(0, remainder);
+        }
+
+        data.copy(recvBuffer, recvBytes);
+        recvBytes += data.length;
+
+        if (recvBytes === expectedBytes) {
+          const _recvBuffer = recvBuffer;
+
+          clearRecv();
+
+          let requestBody;
+          try {
+            requestBody = JSON.parse(_recvBuffer);
+          } catch (err) {
+            Raven.captureException(err);
+            writeResponse(badRequest(err));
+            return;
+          }
+
+          if (requestBody.begin) {
+            context = requestBody.context;
+          } else if (requestBody.finish) {
+            socket.end();
+            socket.destroy();
+          } else {
+            writeResponse(getResponse(requestBody, context));
+          }
+
+          if (overflow) {
+            receiveData(overflow);
+          }
+        }
+      }
+
+      socket.on('close', clearRecv);
+      socket.on('error', clearRecv);
+      socket.on('timeout', clearRecv);
+      socket.on('data', receiveData);
+  }))
+  .listen(SOCKET_PATH, function () {
+    console.log(
+      'server.js listening on ' + SOCKET_PATH +
+      ' (pid ' + process.pid + ')'
+    );
+  });
+
+const cleanup = Raven.wrap(function () {
+  socketServer.close(function () {
+    fs.unlinkSync(SOCKET_PATH);
     process.exit();
   });
+});
 
-  const hup = Raven.wrap(function () {
-    clearRequireCache();
-    gettext.clearHandles();
-    DBDefs = reload('./static/scripts/common/DBDefs');
-    redisClient.quit();
-    redisClient = createRedisClient();
-  });
+const hup = Raven.wrap(function () {
+  clearRequireCache();
+  gettext.clearHandles();
+  DBDefs = reload('./static/scripts/common/DBDefs');
+});
 
-  process.on('SIGINT', cleanup);
-  process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', hup);
-
-  console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
-}));
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
+process.on('SIGHUP', hup);

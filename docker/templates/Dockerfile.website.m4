@@ -10,6 +10,12 @@ install_translations()
 
 copy_common_mbs_files
 
+COPY \
+    docker/musicbrainz-website/template-renderer.service \
+    /etc/service/template-renderer/run
+RUN chmod 755 /etc/service/template-renderer/run && \
+    touch /etc/service/template-renderer/down
+
 COPY docker/musicbrainz-website/consul-template.conf /etc/
 
 COPY \

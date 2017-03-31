@@ -4,23 +4,16 @@ use strict;
 use warnings;
 
 use base 'Template::Plugin';
-use MusicBrainz::Server::Renderer qw( get_renderer_uri get_renderer_response );
+use MusicBrainz::Server::Renderer qw( render_component );
 
 sub embed {
-    my ($self, $c, $component, $props, $opts) = @_;
+    my ($self, $c, $component, $props) = @_;
 
-    $opts = undef unless ref($opts) eq 'HASH';
-
-    my $response = get_renderer_response(
-        $c,
-        get_renderer_uri($c, $component, $props, $opts),
-    );
-
-    my $content = $response->decoded_content;
-    if ($response->code == 200) {
-        return $content;
+    my $response = render_component($c, $component, $props);
+    if ($response->{status} == 200) {
+        return $response->{body};
     } else {
-        die $content;
+        die $response->{body};
     }
 }
 
