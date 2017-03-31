@@ -113,7 +113,7 @@ function getResponse(req, requestBody) {
   }
 
   try {
-    Page = require(pathFromRoot(url.path.replace(/^\//, '')));
+    Page = require(pathFromRoot(url.pathname.replace(/^\//, '')));
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
