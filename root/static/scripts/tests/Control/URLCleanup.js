@@ -319,6 +319,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
+        {
+                             input_url: 'http://baike.baidu.com/item/王婷萱#1',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://baike.baidu.com/item/王婷萱',
+               only_valid_entity_types: ['artist', 'release_group', 'work']
+        },
         // Bandcamp
         {
                              input_url: 'https://davidrovics.bandcamp.com?test',
