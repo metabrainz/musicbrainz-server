@@ -1,16 +1,3 @@
-[% BLOCK layout_head %]
-    [%~ meta_desc = [] ~%]
-    [%~ meta_desc.push(html_escape(place.comment)) IF place.comment ~%]
-    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(place.type_name)) IF place.type ~%]
-    [%~ IF place.begin_date.format ~%]
-        [%~ meta_desc.push(l("Opened:") _ ' ' _ place.begin_date.format) ~%]
-    [%~ END ~%]
-    [%~ IF place.end_date.format ~%]
-        [%~ meta_desc.push(l("Closed:") _ ' ' _ place.end_date.format) ~%]
-    [%~ END ~%]
-    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
-[% END %]
-
 [%- WRAPPER "place/layout.tt" page='index' -%]
     [% IF eligible_for_cleanup %]
       <p class="cleanup">

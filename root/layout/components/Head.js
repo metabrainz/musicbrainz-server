@@ -53,7 +53,7 @@ const Head = (props) => (
 
     {manifest.css('common')}
 
-    <If condition={!props.noIcons}>
+    <If condition={!props.no_icons}>
       {manifest.css('icons')}
     </If>
 

@@ -8,7 +8,14 @@
       </script>
     </head>
   [% ELSE %]
-    [% INCLUDE 'layout/head.tt' %]
+    [%- React.embed(c, 'root/layout/components/Head', {
+            canonical_url => canonical_url,
+            homepage => homepage,
+            no_icons => no_icons,
+            pager => pager,
+            title => title,
+        })
+    -%]
     <style>
       body { background: #fff; margin: 0; padding: 0; }
       #page { background: none; margin: 0; padding: 1em; }
