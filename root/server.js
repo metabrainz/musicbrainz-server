@@ -82,10 +82,6 @@ function getResponse(requestBody, context) {
   // to be used for this request based on the given 'lang' cookie.
   i18n.setGettextHandle(gettext.getHandle(getCookie('lang')));
 
-  if (DBDefs.DEVELOPMENT_SERVER) {
-    clearRequireCache();
-  }
-
   try {
     Page = require(pathFromRoot(requestBody.component));
   } catch (err) {
@@ -173,6 +169,10 @@ const socketServer = net.createServer(
 
           if (requestBody.begin) {
             context = requestBody.context;
+
+            if (DBDefs.DEVELOPMENT_SERVER) {
+              clearRequireCache();
+            }
           } else if (requestBody.finish) {
             socket.end();
             socket.destroy();
