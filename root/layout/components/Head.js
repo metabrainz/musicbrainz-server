@@ -6,11 +6,12 @@
 const React = require('react');
 
 const manifest = require('../../static/manifest');
+const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
 
-let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
+let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
-  return process.env.CANONICAL_SERVER ? url.replace(canonRegexp, process.env.CANONICAL_SERVER) : url;
+  return DBDefs.CANONICAL_SERVER ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER) : url;
 }
 
 function getTitle(props) {
@@ -77,10 +78,10 @@ const Head = (props) => (
       <script type="application/ld+json">{$c.stash.jsonld_data}</script>
     </If>
 
-    <If condition={process.env.GOOGLE_ANALYTICS_CODE}>
+    <If condition={DBDefs.GOOGLE_ANALYTICS_CODE}>
       <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '${process.env.GOOGLE_ANALYTICS_CODE}']);
+        _gaq.push(['_setAccount', '${DBDefs.GOOGLE_ANALYTICS_CODE}']);
         _gaq.push(['_setCustomVar', 1, 'User is logged in', '${$c.user ? "Yes" : "No"}', 2]);
         _gaq.push(['_trackPageview']);
 

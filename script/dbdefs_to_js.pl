@@ -23,17 +23,22 @@ Readonly our @HASH_DEFS => qw(
 );
 
 Readonly our @NUMBER_DEFS => qw(
+    STAT_TTL
 );
 
 Readonly our @STRING_DEFS => qw(
+    CANONICAL_SERVER
     GIT_BRANCH
     GIT_SHA
+    GOOGLE_ANALYTICS_CODE
+    GOOGLE_CUSTOM_SEARCH
     MAPBOX_ACCESS_TOKEN
     MAPBOX_MAP_ID
     RENDERER_SOCKET
     SENTRY_DSN
     SENTRY_DSN_PUBLIC
     STATIC_RESOURCES_LOCATION
+    WEB_SERVER
 );
 
 Readonly our @QW_DEFS => qw(

@@ -31,7 +31,7 @@ if (isNodeJS) {
   pathTo = function (manifest) {
     let now = Date.now();
 
-    if ((now - MANIFEST_LAST_CHECKED) > (+process.env.STAT_TTL || 0)) {
+    if ((now - MANIFEST_LAST_CHECKED) > (DBDefs.STAT_TTL || 0)) {
       MANIFEST_LAST_CHECKED = now;
 
       let stats = fs.statSync(REV_MANIFEST_PATH);
