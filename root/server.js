@@ -94,13 +94,7 @@ function getResponse(req, requestBody) {
     Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
   }
 
-  // Emulate perl context/request API.
-  req.query_params = url.query;
-
-  global.$c = _.assign(context, {
-    req: req,
-    relative_uri: url.path,
-  });
+  global.$c = context;
 
   // We use a separate gettext handle for each language. Set the current handle
   // to be used for this request based on the given 'lang' cookie.

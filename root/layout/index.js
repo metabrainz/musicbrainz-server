@@ -76,7 +76,7 @@ const serverDetailsBanner = (server) => {
 
 const Layout = (props) => {
   let {title, pager} = props;
-  let canonURL = canonicalize(props.canonical_url || $c.req.url);
+  let canonURL = canonicalize(props.canonical_url || $c.req.uri);
   let currentLanguage = $c.stash.current_language;
   let server = $c.stash.server_details;
 
@@ -102,7 +102,7 @@ const Layout = (props) => {
 
         <title>{title}</title>
 
-        {canonURL !== $c.req.url && <link rel="canonical" href={canonURL} />}
+        {canonURL !== $c.req.uri && <link rel="canonical" href={canonURL} />}
 
         {manifest.css('common')}
         {!!props.noIcons || manifest.css('icons')}

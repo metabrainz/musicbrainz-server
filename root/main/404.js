@@ -30,7 +30,7 @@ const _404 = (props) => (
       <p>
         {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
            {__react: true,
-            report: bugtracker_url('Nonexistent page: ' + $c.req.url + '\n' +
+            report: bugtracker_url('Nonexistent page: ' + $c.req.uri + '\n' +
                                    'Referrer: ' + ($c.req.headers.referer || ''))
            })}
       </p>

@@ -460,9 +460,21 @@ sub TO_JSON {
         $stash{last_replication_date} = $date->iso8601 . 'Z';
     }
 
+    my $req = $self->req;
+    my %headers;
+    for my $name ($req->headers->header_field_names) {
+        $headers{$name} = $req->headers->header($name);
+    }
+
     return {
         user => ($self->user_exists ? $self->user : undef),
         debug => boolean_to_json($self->debug),
+        relative_uri => $self->relative_uri,
+        req => {
+            headers => \%headers,
+            query_params => $req->query_params,
+            uri => $req->uri,
+        },
         stash => \%stash,
         sessionid => scalar($self->sessionid),
         session => $self->session,
