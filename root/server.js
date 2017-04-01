@@ -25,9 +25,7 @@ let DBDefs = reload('./static/scripts/common/DBDefs');
 const i18n = require('./static/scripts/common/i18n');
 const getCookie = require('./static/scripts/common/utility/getCookie');
 
-if (DBDefs.SENTRY_DSN) {
-  Raven.config(DBDefs.SENTRY_DSN).install();
-}
+Raven.config(DBDefs.SENTRY_DSN).install();
 
 function createRedisClient() {
   const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
