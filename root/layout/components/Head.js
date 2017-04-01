@@ -75,7 +75,9 @@ const Head = (props) => (
     })}
 
     <If condition={$c.stash.jsonld_data}>
-      <script type="application/ld+json">{$c.stash.jsonld_data}</script>
+      <script type="application/ld+json">
+        {JSON.stringify($c.stash.jsonld_data)}
+      </script>
     </If>
 
     <If condition={DBDefs.GOOGLE_ANALYTICS_CODE}>
