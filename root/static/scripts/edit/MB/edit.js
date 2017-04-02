@@ -165,10 +165,10 @@ const request = require('../../common/utility/request');
             }
 
             if (relationship.hasDates()) {
-                data.beginDate = fields.partialDate(period.beginDate);
-                data.endDate = fields.partialDate(period.endDate);
+                data.begin_date = fields.partialDate(period.begin_date);
+                data.end_date = fields.partialDate(period.end_date);
 
-                if (data.endDate && _(data.endDate).values().any(nonEmpty)) {
+                if (data.end_date && _(data.end_date).values().any(nonEmpty)) {
                     data.ended = true;
                 } else {
                     data.ended = Boolean(value(period.ended));

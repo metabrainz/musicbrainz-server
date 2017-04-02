@@ -50,12 +50,12 @@ const mergeDates = require('./mergeDates');
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
             this.period = {
-                beginDate: setPartialDate({}, data.beginDate || {}),
-                endDate: setPartialDate({}, data.endDate || {}),
+                begin_date: setPartialDate({}, data.begin_date || {}),
+                end_date: setPartialDate({}, data.end_date || {}),
                 ended: ko.observable(!!data.ended)
             };
             this.disableEndedCheckBox = ko.computed(function() {
-                var hasEndDate = dates.formatDate(this.period.endDate) != "";
+                var hasEndDate = dates.formatDate(this.period.end_date) != "";
                 this.period.ended(hasEndDate || data.ended);
                 return hasEndDate;
             }, this);
@@ -123,8 +123,8 @@ const mergeDates = require('./mergeDates');
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
-            setPartialDate(this.period.beginDate, data.beginDate || {});
-            setPartialDate(this.period.endDate, data.endDate || {});
+            setPartialDate(this.period.begin_date, data.begin_date || {});
+            setPartialDate(this.period.end_date, data.end_date || {});
             this.period.ended(!!data.ended);
 
             this.setAttributes(data.attributes);
@@ -410,8 +410,8 @@ const mergeDates = require('./mergeDates');
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                mergeDates(this.period.beginDate, other.period.beginDate) &&
-                mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.period.begin_date, other.period.begin_date) &&
+                mergeDates(this.period.end_date, other.period.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },

@@ -152,11 +152,11 @@
   <!-- ko if: relationship().hasDates() -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().period.beginDate }
+              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().period.begin_date }
             } --><!-- /ko -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('End date:') | html | js %]", date: relationship().period.endDate }
+              data: { label: "[% l('End date:') | html | js %]", date: relationship().period.end_date }
             } --><!-- /ko -->
     <!-- ko with: datePeriodError() -->
     <tr>

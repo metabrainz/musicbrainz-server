@@ -167,8 +167,8 @@ const validation = require('../edit/validation');
                 }
             });
 
-            var beginDate = changeData.beginDate;
-            var endDate = changeData.endDate;
+            var beginDate = changeData.begin_date;
+            var endDate = changeData.end_date;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);

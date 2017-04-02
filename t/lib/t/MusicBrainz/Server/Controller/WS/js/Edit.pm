@@ -621,8 +621,8 @@ test 'adding a relationship' => sub {
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1999, month => 1, day => 1 },
-        endDate     => { year => 1999, month => 2, day => undef },
+        begin_date   => { year => 1999, month => 1, day => 1 },
+        end_date     => { year => 1999, month => 2, day => undef },
     } ];
 
     my @edits = capture_edits {
@@ -679,8 +679,8 @@ test 'adding a relationship with an invalid date' => sub {
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1994, month => 2, day => 29 },
-        endDate     => { year => 1999, month => 2, day => undef },
+        begin_date   => { year => 1994, month => 2, day => 29 },
+        end_date     => { year => 1999, month => 2, day => undef },
     } ];
 
     my @edits = capture_edits {
@@ -716,8 +716,8 @@ test 'editing a relationship' => sub {
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1999, month => 1, day => 1 },
-        endDate     => { year => 2009, month => 9, day => 9 },
+        begin_date   => { year => 1999, month => 1, day => 1 },
+        end_date     => { year => 2009, month => 9, day => 9 },
         ended       => 1,
     } ];
 
@@ -781,8 +781,8 @@ test 'editing a relationship with an unchanged attribute' => sub {
             { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1999, month => 1, day => 1 },
-        endDate     => { year => 2009, month => 9, day => 9 },
+        begin_date   => { year => 1999, month => 1, day => 1 },
+        end_date     => { year => 2009, month => 9, day => 9 },
         ended       => 1,
     } ];
 
@@ -845,8 +845,8 @@ test 'removing an attribute from a relationship' => sub {
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         attributes  => [{%$guitar_attribute, removed => 1}],
-        beginDate   => { year => undef, month => undef, day => undef },
-        endDate     => { year => undef, month => undef, day => undef },
+        begin_date   => { year => undef, month => undef, day => undef },
+        end_date     => { year => undef, month => undef, day => undef },
         ended       => 0,
     } ];
 
@@ -1025,8 +1025,8 @@ test 'Duplicate relationships are ignored' => sub {
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1999, month => 1, day => 1 },
-        endDate     => { year => 1999, month => 2, day => undef },
+        begin_date   => { year => 1999, month => 1, day => 1 },
+        end_date     => { year => 1999, month => 2, day => undef },
     } ];
 
     my @edits = capture_edits {
@@ -1043,7 +1043,7 @@ test 'Duplicate relationships are ignored' => sub {
     is(scalar(@edits), 0);
 };
 
-test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub {
+test 'undef relationship begin_date/end_date fields are ignored (MBS-8317)' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
 
@@ -1060,8 +1060,8 @@ test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub
             { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
             { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
-        beginDate   => { year => 1999, month => undef, day => undef },
-        endDate     => { year => 1999, month => undef, day => undef },
+        begin_date   => { year => 1999, month => undef, day => undef },
+        end_date     => { year => 1999, month => undef, day => undef },
     };
 
     my @edits = capture_edits {
@@ -1072,8 +1072,8 @@ test 'undef relationship beginDate/endDate fields are ignored (MBS-8317)' => sub
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => $edits[0]->entity_id,
         linkTypeID  => 148,
-        beginDate   => undef
-        # implied undef endDate
+        begin_date   => undef
+        # implied undef end_date
     };
 
     @edits = capture_edits {

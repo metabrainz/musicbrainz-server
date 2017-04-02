@@ -231,8 +231,8 @@ function addRelationshipsFromQueryString(source) {
         var data = {
             target: target,
             linkTypeID: typeInfo ? typeInfo.id : null,
-            beginDate: parseDateString(rel.begin_date || ''),
-            endDate: parseDateString(rel.end_date || ''),
+            begin_date: parseDateString(rel.begin_date || ''),
+            end_date: parseDateString(rel.end_date || ''),
             ended: !!Number(rel.ended),
             direction: rel.direction,
             linkOrder: Number(rel.link_order) || 0

@@ -51,8 +51,8 @@ test all => sub {
             typeID => 1,
         },
         editsPending => JSON::false,
-        endDate => undef,
-        beginDate => undef,
+        end_date => undef,
+        begin_date => undef,
         id => 6751,
         verbosePhrase => 'performed guest vocals on',
         attributes => [

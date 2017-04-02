@@ -145,8 +145,8 @@ function getDirection(relationship, source) {
                 if (rel !== other && rel.isDuplicate(other)) {
                     var obj = _.omit(rel.editData(), "id");
 
-                    obj.beginDate = mergeDates(rel.period.beginDate, other.period.beginDate);
-                    obj.endDate = mergeDates(rel.period.endDate, other.period.endDate);
+                    obj.begin_date = mergeDates(rel.period.begin_date, other.period.begin_date);
+                    obj.end_date = mergeDates(rel.period.end_date, other.period.end_date);
 
                     other.fromJS(obj);
                     rel.remove();

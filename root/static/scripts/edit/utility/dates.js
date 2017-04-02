@@ -80,8 +80,8 @@ exports.formatDate = function (date) {
 };
 
 exports.formatDatePeriod = function (period) {
-    var beginDate = exports.formatDate(period.beginDate);
-    var endDate = exports.formatDate(period.endDate);
+    var beginDate = exports.formatDate(period.begin_date);
+    var endDate = exports.formatDate(period.end_date);
     var ended = ko.unwrap(period.ended);
 
     if (!beginDate && !endDate) {
