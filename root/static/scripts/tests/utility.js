@@ -57,8 +57,10 @@ test('parseDate', function (t) {
 });
 
 test("formatDate", function (t) {
-    t.plan(11);
+    t.plan(13);
 
+    t.equal(formatDate(null), "");
+    t.equal(formatDate(undefined), "");
     t.equal(formatDate({}), "");
     t.equal(formatDate({ year: 0 }), "0000");
     t.equal(formatDate({ year: 1999 }), "1999");

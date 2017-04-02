@@ -9,6 +9,10 @@ const {padLeft} = require('lodash');
 const nonEmpty = require('./nonEmpty');
 
 function formatDate(date) {
+  if (date == null) {
+    return '';
+  }
+
   const y = ko.unwrap(date.year);
   const m = ko.unwrap(date.month);
   const d = ko.unwrap(date.day);
