@@ -143,8 +143,6 @@ const request = require('../../common/utility/request');
         },
 
         relationship: function (relationship) {
-            var period = relationship.period || {};
-
             var data = {
                 id:             number(relationship.id),
                 linkTypeID:     number(relationship.linkTypeID),
@@ -165,13 +163,13 @@ const request = require('../../common/utility/request');
             }
 
             if (relationship.hasDates()) {
-                data.begin_date = fields.partialDate(period.begin_date);
-                data.end_date = fields.partialDate(period.end_date);
+                data.begin_date = fields.partialDate(relationship.begin_date);
+                data.end_date = fields.partialDate(relationship.end_date);
 
                 if (data.end_date && _(data.end_date).values().any(nonEmpty)) {
                     data.ended = true;
                 } else {
-                    data.ended = Boolean(value(period.ended));
+                    data.ended = Boolean(value(relationship.ended));
                 }
             }
 

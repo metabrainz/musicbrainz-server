@@ -49,14 +49,13 @@ const mergeDates = require('./mergeDates');
             this.linkTypeID.isDifferent = linkTypeComparer;
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
-            this.period = {
-                begin_date: setPartialDate({}, data.begin_date || {}),
-                end_date: setPartialDate({}, data.end_date || {}),
-                ended: ko.observable(!!data.ended)
-            };
+            this.begin_date = setPartialDate({}, data.begin_date || {});
+            this.end_date = setPartialDate({}, data.end_date || {});
+            this.ended = ko.observable(!!data.ended);
+
             this.disableEndedCheckBox = ko.computed(function() {
-                var hasEndDate = dates.formatDate(this.period.end_date) != "";
-                this.period.ended(hasEndDate || data.ended);
+                var hasEndDate = dates.formatDate(this.end_date) != "";
+                this.ended(hasEndDate || data.ended);
                 return hasEndDate;
             }, this);
 
@@ -114,7 +113,7 @@ const mergeDates = require('./mergeDates');
         },
 
         formatDatePeriod: function () {
-            return dates.formatDatePeriod(this.period);
+            return dates.formatDatePeriod(this);
         },
 
         fromJS: function (data) {
@@ -123,9 +122,9 @@ const mergeDates = require('./mergeDates');
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
-            setPartialDate(this.period.begin_date, data.begin_date || {});
-            setPartialDate(this.period.end_date, data.end_date || {});
-            this.period.ended(!!data.ended);
+            setPartialDate(this.begin_date, data.begin_date || {});
+            setPartialDate(this.end_date, data.end_date || {});
+            this.ended(!!data.ended);
 
             this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
@@ -410,8 +409,8 @@ const mergeDates = require('./mergeDates');
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                mergeDates(this.period.begin_date, other.period.begin_date) &&
-                mergeDates(this.period.end_date, other.period.end_date) &&
+                mergeDates(this.begin_date, other.begin_date) &&
+                mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },

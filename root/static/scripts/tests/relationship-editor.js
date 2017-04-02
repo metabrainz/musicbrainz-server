@@ -236,7 +236,11 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     );
 
     t.deepEqual(
-        ko.toJS(relationship.period),
+        ko.toJS({
+            begin_date: relationship.begin_date,
+            end_date: relationship.end_date,
+            ended: relationship.ended,
+        }),
         {
             begin_date: { year: 2001, month: null, day: null },
             end_date: { year: 2002, month: null, day: null },
@@ -446,16 +450,16 @@ relationshipEditorTest("canceling an edit dialog reverts the changes", function 
 
     dialogRelationship.entities([newTarget, source]);
     dialogRelationship.setAttributes(ids2attrs([229]));
-    dialogRelationship.period.begin_date.year(1999);
-    dialogRelationship.period.end_date.year(2000);
+    dialogRelationship.begin_date.year(1999);
+    dialogRelationship.end_date.year(2000);
 
     // cancel should revert the change
     dialog.close(true /* cancel */);
 
     t.deepEqual(relationship.entities(), [target, source], "entities changed back");
     t.deepEqual(relationship.attributes(), [], "attributes changed back");
-    t.equal(relationship.period.begin_date.year(), null, "begin_date changed back");
-    t.equal(relationship.period.end_date.year(), null, "end_date changed back");
+    t.equal(relationship.begin_date.year(), null, "begin_date changed back");
+    t.equal(relationship.end_date.year(), null, "end_date changed back");
 });
 
 relationshipEditorTest("MBS-5389: added recording-recording relationship appears under both recordings", function (t) {
@@ -659,11 +663,11 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
     newRelationship.show();
 
     var relationships = vm.source.relationships();
-    relationships[0].period.begin_date.month(7);
-    relationships[0].period.begin_date.year(1957);
-    relationships[0].period.end_date.day(10);
-    relationships[0].period.end_date.month(4);
-    relationships[0].period.end_date.year(1970);
+    relationships[0].begin_date.month(7);
+    relationships[0].begin_date.year(1957);
+    relationships[0].end_date.day(10);
+    relationships[0].end_date.month(4);
+    relationships[0].end_date.year(1970);
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
@@ -957,7 +961,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
     });
 
     var relationship = vm.getRelationship(compositionData, vm.source);
-    relationship.period.begin_date.year(null);
+    relationship.begin_date.year(null);
 
     var editData = MB.edit.relationshipEdit(relationship.editData(), relationship.original, relationship);
     t.deepEqual(editData.begin_date, {year: null, month: null, day: null});
@@ -988,8 +992,8 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
     });
 
     var relationship = vm.getRelationship(relData, vm.source);
-    relationship.period.begin_date.year(null);
-    relationship.period.ended(false);
+    relationship.begin_date.year(null);
+    relationship.ended(false);
 
     MB.relationshipEditor.prepareSubmission('edit-artist');
 
