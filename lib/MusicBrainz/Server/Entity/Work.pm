@@ -85,9 +85,13 @@ sub sorted_attributes {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my @iswcs = $self->all_iswcs;
+    my @writers = $self->all_writers;
     return {
         %{ $self->$orig },
         language => $self->language ? $self->language->l_name : undef,
+        @iswcs ? (iswcs => [map { $_->TO_JSON } @iswcs]) : (),
+        @writers ? (writers => \@writers) : (),
     };
 };
 
