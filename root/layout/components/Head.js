@@ -8,6 +8,7 @@ const React = require('react');
 const manifest = require('../../static/manifest');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
+const MetaDescription = require('./MetaDescription');
 
 let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
@@ -42,6 +43,7 @@ const Head = (props) => (
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <MetaDescription entity={$c.stash.entity} />
 
     <title>{getTitle(props)}</title>
 
