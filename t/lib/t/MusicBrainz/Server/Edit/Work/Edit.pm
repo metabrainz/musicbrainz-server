@@ -161,6 +161,153 @@ test 'Changing work language is not an auto-edit for non-auto-editors' => sub {
     accept_edit($c, $edit);
 };
 
+test 'Adding first work attributes is an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    $c->model('WorkAttribute')->load_for_works($work);
+
+    my $edit = create_edit(
+        $c,
+        $work,
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 10,
+                attribute_text => undef,
+            },
+            {
+                attribute_type_id => 2,
+                attribute_text => 'Attr value',
+                attribute_value_id => undef
+            }
+        ]
+    );
+
+    ok(!$edit->is_open);
+};
+
+test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    $c->model('WorkAttribute')->load_for_works($work);
+
+    create_edit(
+        $c, $c->model('Work')->get_by_id(1),
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 10,
+                attribute_text => undef,
+            }
+        ]
+    );
+
+    my $edit = create_edit(
+        $c,
+        $work,
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 10,
+                attribute_text => undef,
+            },
+            {
+                attribute_type_id => 2,
+                attribute_text => 'Attr value',
+                attribute_value_id => undef
+            }
+        ]
+    );
+
+    ok(!$edit->is_open);
+};
+
+test 'Adding work attribute of existing kind is not an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    $c->model('WorkAttribute')->load_for_works($work);
+
+    my $edit = create_edit(
+        $c,
+        $work,
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 10,
+                attribute_text => undef,
+            },
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 2,
+                attribute_text => undef,
+            }
+        ]
+    );
+
+    ok($edit->is_open);
+    accept_edit($c, $edit);
+};
+
+test 'Changing work attribute is not an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    $c->model('WorkAttribute')->load_for_works($work);
+
+    my $edit = create_edit(
+        $c,
+        $work,
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 2,
+                attribute_text => undef,
+            }
+        ]
+    );
+
+    ok($edit->is_open);
+    accept_edit($c, $edit);
+};
+
+test 'Deleting work attribute is not an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+
+    my $work = $c->model('Work')->get_by_id(1);
+    $c->model('WorkAttribute')->load_for_works($work);
+
+    my $edit = create_edit(
+        $c,
+        $work,
+        attributes => []
+    );
+
+    ok($edit->is_open);
+    accept_edit($c, $edit);
+};
+
 test 'Check conflicts (non-conflicting edits)' => sub {
     my $test = shift;
     my $c = $test->c;
