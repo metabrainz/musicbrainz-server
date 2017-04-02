@@ -1,4 +1,3 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
 [%- MACRO entry(entity) BLOCK -%]
 <tr class="[% loop.parity %]">
     <td class="t">[% loop.count %]</td>
@@ -14,6 +13,7 @@
 [% round1 = format('%.2f') %]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 

@@ -9,13 +9,11 @@
     </head>
   [% ELSE %]
     [% INCLUDE 'layout/head.tt' %]
-    [% BLOCK layout_head %]
-      <style>
-        body { background: #fff; margin: 0; padding: 0; }
-        #page { background: none; margin: 0; padding: 1em; }
-        div.half-width { margin: 0; }
-      </style>
-    [% END %]
+    <style>
+      body { background: #fff; margin: 0; padding: 0; }
+      #page { background: none; margin: 0; padding: 1em; }
+      div.half-width { margin: 0; }
+    </style>
     <body>
       <div id="page">
         [% INCLUDE "$dialog_template" %]

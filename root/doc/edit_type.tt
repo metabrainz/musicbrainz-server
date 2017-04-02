@@ -11,16 +11,6 @@
                END %]
 [%- END -%]
 
-[% BLOCK layout_head %]
-<style>
-  table.tbl { width: auto; }
-  tbody td {
-    border-left: 1px solid #999999;
-    text-align: center
-  }
-</style>
-[% END %]
-
 [% WRAPPER 'layout.tt' full_width=1 title=class.l_edit_name no_icons=1 %]
    <h1>[% class.l_edit_name %]</h1>
 
@@ -36,7 +26,7 @@
 
 
    <h2>[% l('Details') %]</h2>
-   <table class="tbl">
+   <table class="tbl edit-type">
      <tbody>
        <tr>
          [% edit_type_property(l('Voting period (days)'), 'duration') %]

@@ -1,5 +1,5 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
 [% WRAPPER 'statistics/layout.tt' title=l('Edits') full_width=1 page='edits' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 [% USE format %]
 [% round2 = format('%.2f') %]
