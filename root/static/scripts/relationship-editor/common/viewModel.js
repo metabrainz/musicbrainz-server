@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
 
 (function (RE) {
@@ -231,8 +232,8 @@ function addRelationshipsFromQueryString(source) {
         var data = {
             target: target,
             linkTypeID: typeInfo ? typeInfo.id : null,
-            begin_date: parseDateString(rel.begin_date || ''),
-            end_date: parseDateString(rel.end_date || ''),
+            begin_date: parseDate(rel.begin_date || ''),
+            end_date: parseDate(rel.end_date || ''),
             ended: !!Number(rel.ended),
             direction: rel.direction,
             linkOrder: Number(rel.link_order) || 0
@@ -274,8 +275,6 @@ function addRelationshipsFromQueryString(source) {
 
 var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
-var dateRegex = /(?:-|([0-9]{4}))(?:-(?:-|(0[1-9]|1[0-2]))(?:-(?:-|([0-2][1-9]|3[0-1])))?)?/;
-
 function parseQueryString(queryString) {
     var queryStringRegex = /(?:\\?|&)([A-z0-9\-_.]+)=([^&]+)/g;
     var fields = {};
@@ -295,18 +294,6 @@ function parseQueryString(queryString) {
     }
 
     return fields;
-}
-
-function parseDateString(string) {
-    var match = string.match(dateRegex);
-    if (match) {
-        return {
-            year: match[1] || null,
-            month: match[2] || null,
-            day: match[3] || null
-        };
-    }
-    return null;
 }
 
 function editorMayEditTypes(type0, type1) {

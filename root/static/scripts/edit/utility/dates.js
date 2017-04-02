@@ -6,8 +6,7 @@
 const _ = require('lodash');
 
 const nonEmpty = require('../../common/utility/nonEmpty');
-const parseInteger = require('./parseInteger');
-const parseIntegerOrNull = require('./parseIntegerOrNull');
+const parseInteger = require('../../common/utility/parseInteger');
 
 var daysInMonth = {
     "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -53,15 +52,4 @@ exports.isDatePeriodValid = function (a, b) {
     if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
 
     return true;
-};
-
-var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
-
-exports.parseDate = function (str) {
-    var match = str.match(dateRegex) || [];
-    return {
-        year: parseIntegerOrNull(match[1]),
-        month: parseIntegerOrNull(match[2]),
-        day: parseIntegerOrNull(match[3])
-    };
 };

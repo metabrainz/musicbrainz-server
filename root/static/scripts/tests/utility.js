@@ -8,6 +8,7 @@ const test = require('tape');
 const formatDate = require('../common/utility/formatDate');
 const formatDatePeriod = require('../common/utility/formatDatePeriod');
 const formatTrackLength = require('../common/utility/formatTrackLength');
+const parseDate = require('../common/utility/parseDate');
 const dates = require('../edit/utility/dates');
 
 test('formatTrackLength', function (t) {
@@ -26,7 +27,7 @@ test('formatTrackLength', function (t) {
 });
 
 test('parseDate', function (t) {
-    t.plan(8);
+    t.plan(16);
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
@@ -36,11 +37,21 @@ test('parseDate', function (t) {
         { date: "1999", expected: { year: 1999, month: null, day: null } },
         { date: "????-01-02", expected: { year: null, month: 1, day: 2 } },
         { date: "????-??-02", expected: { year: null, month: null, day: 2 } },
-        { date: "1999-??-02", expected: { year: 1999, month: null, day: 2 } }
+        { date: "1999-??-02", expected: { year: 1999, month: null, day: 2 } },
+
+        // Relationship editor seeding format (via URL query params).
+        { date: '-----', expected: { year: null, month: null, day: null} },
+        { date: '----02', expected: { year: null, month: null, day: 2 } },
+        { date: '--01--', expected: { year: null, month: 1, day: null } },
+        { date: '--01-02', expected: { year: null, month: 1, day: 2 } },
+        { date: '1999--', expected: { year: 1999, month: null, day: null } },
+        { date: '1999----', expected: { year: 1999, month: null, day: null } },
+        { date: '1999---02', expected: { year: 1999, month: null, day: 2 } },
+        { date: '1999-01--', expected: { year: 1999, month: 1, day: null } },
     ];
 
     $.each(parseDateTests, function (i, test) {
-        var result = dates.parseDate(test.date);
+        var result = parseDate(test.date);
         t.deepEqual(result, test.expected, test.date);
     });
 });
