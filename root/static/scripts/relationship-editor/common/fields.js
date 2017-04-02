@@ -11,8 +11,9 @@ const {
 } = require('../../common/constants');
 const i18n = require('../../common/i18n');
 const clean = require('../../common/utility/clean');
+const formatDate = require('../../common/utility/formatDate');
+const formatDatePeriod = require('../../common/utility/formatDatePeriod');
 const request = require('../../common/utility/request');
-const dates = require('../../edit/utility/dates');
 const linkPhrase = require('../../edit/utility/linkPhrase');
 const mergeDates = require('./mergeDates');
 
@@ -54,7 +55,7 @@ const mergeDates = require('./mergeDates');
             this.ended = ko.observable(!!data.ended);
 
             this.disableEndedCheckBox = ko.computed(function() {
-                var hasEndDate = dates.formatDate(this.end_date) != "";
+                var hasEndDate = !!formatDate(this.end_date);
                 this.ended(hasEndDate || data.ended);
                 return hasEndDate;
             }, this);
@@ -113,7 +114,7 @@ const mergeDates = require('./mergeDates');
         },
 
         formatDatePeriod: function () {
-            return dates.formatDatePeriod(this);
+            return formatDatePeriod(this);
         },
 
         fromJS: function (data) {

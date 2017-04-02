@@ -65,32 +65,3 @@ exports.parseDate = function (str) {
         day: parseIntegerOrNull(match[3])
     };
 };
-
-exports.formatDate = function (date) {
-    var y = ko.unwrap(date.year);
-    var m = ko.unwrap(date.month);
-    var d = ko.unwrap(date.day);
-
-    return (
-        (nonEmpty(y) ? (y < 0 ? "-" + _.padLeft(-y, 3, "0") : _.padLeft(y, 4, "0"))
-                     : (m || d ? "????" : "")) +
-        (m ? "-" + _.padLeft(m, 2, "0") : (d ? "-??" : "")) +
-        (d ? "-" + _.padLeft(d, 2, "0") : "")
-    );
-};
-
-exports.formatDatePeriod = function (period) {
-    var beginDate = exports.formatDate(period.begin_date);
-    var endDate = exports.formatDate(period.end_date);
-    var ended = ko.unwrap(period.ended);
-
-    if (!beginDate && !endDate) {
-        return "";
-    }
-
-    if (beginDate === endDate) {
-        return beginDate;
-    }
-
-    return beginDate + " \u2013 " + (endDate || (ended ? "????" : ""));
-};

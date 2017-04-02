@@ -5,6 +5,8 @@
 
 const test = require('tape');
 
+const formatDate = require('../common/utility/formatDate');
+const formatDatePeriod = require('../common/utility/formatDatePeriod');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const dates = require('../edit/utility/dates');
 
@@ -46,17 +48,17 @@ test('parseDate', function (t) {
 test("formatDate", function (t) {
     t.plan(11);
 
-    t.equal(dates.formatDate({}), "");
-    t.equal(dates.formatDate({ year: 0 }), "0000");
-    t.equal(dates.formatDate({ year: 1999 }), "1999");
-    t.equal(dates.formatDate({ year: 1999, month: 1 }), "1999-01");
-    t.equal(dates.formatDate({ year: 1999, month: 1, day: 1 }), "1999-01-01");
-    t.equal(dates.formatDate({ year: 1999, day: 1 }), "1999-??-01");
-    t.equal(dates.formatDate({ month: 1 }), "????-01");
-    t.equal(dates.formatDate({ month: 1, day: 1 }), "????-01-01");
-    t.equal(dates.formatDate({ day: 1 }), "????-??-01");
-    t.equal(dates.formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
-    t.equal(dates.formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
+    t.equal(formatDate({}), "");
+    t.equal(formatDate({ year: 0 }), "0000");
+    t.equal(formatDate({ year: 1999 }), "1999");
+    t.equal(formatDate({ year: 1999, month: 1 }), "1999-01");
+    t.equal(formatDate({ year: 1999, month: 1, day: 1 }), "1999-01-01");
+    t.equal(formatDate({ year: 1999, day: 1 }), "1999-??-01");
+    t.equal(formatDate({ month: 1 }), "????-01");
+    t.equal(formatDate({ month: 1, day: 1 }), "????-01-01");
+    t.equal(formatDate({ day: 1 }), "????-??-01");
+    t.equal(formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
+    t.equal(formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
 });
 
 test("formatDatePeriod", function (t) {
@@ -65,17 +67,17 @@ test("formatDatePeriod", function (t) {
     var a = { year: 1999 };
     var b = { year: 2000 };
 
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: a, ended: false }), "1999");
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: a, ended: true }), "1999");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: a, ended: false }), "1999");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: a, ended: true }), "1999");
 
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: b, ended: false }), "1999 \u2013 2000");
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: b, ended: true }), "1999 \u2013 2000");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: b, ended: false }), "1999 \u2013 2000");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: b, ended: true }), "1999 \u2013 2000");
 
-    t.equal(dates.formatDatePeriod({ begin_date: {}, end_date: b, ended: false }), " \u2013 2000");
-    t.equal(dates.formatDatePeriod({ begin_date: {}, end_date: b, ended: true }), " \u2013 2000");
+    t.equal(formatDatePeriod({ begin_date: {}, end_date: b, ended: false }), "\u2013 2000");
+    t.equal(formatDatePeriod({ begin_date: {}, end_date: b, ended: true }), "\u2013 2000");
 
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: {}, ended: false }), "1999 \u2013 ");
-    t.equal(dates.formatDatePeriod({ begin_date: a, end_date: {}, ended: true }), "1999 \u2013 ????");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: {}, ended: false }), "1999 \u2013");
+    t.equal(formatDatePeriod({ begin_date: a, end_date: {}, ended: true }), "1999 \u2013 ????");
 });
 
 test("validDate", function (t) {

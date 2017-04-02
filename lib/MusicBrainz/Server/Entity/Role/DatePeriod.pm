@@ -74,8 +74,8 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        begin_date  => $self->begin_date->format,
-        end_date    => $self->end_date->format,
+        begin_date  => $self->begin_date->is_empty ? undef : $self->begin_date->TO_JSON,
+        end_date    => $self->end_date->is_empty ? undef : $self->end_date->TO_JSON,
         ended       => boolean_to_json($self->ended),
     };
 };

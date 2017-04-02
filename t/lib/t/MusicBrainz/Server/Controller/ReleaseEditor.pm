@@ -153,12 +153,12 @@ test 'returning an error when a space appears before an MBID' => sub {
 
 our $japan = {
     'annotation' => '',
-    'begin_date' => '',
+    'begin_date' => undef,
     'code' => 'JP',
     'comment' => '',
     'containment' => [],
     'editsPending' => \0,
-    'end_date' => '',
+    'end_date' => undef,
     'ended' => \0,
     'entityType' => 'area',
     'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
