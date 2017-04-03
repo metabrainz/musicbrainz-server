@@ -1,6 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::ID;
 use Moose;
-use MusicBrainz::Server::Validation qw( is_database_row_id );
+use MusicBrainz::Server::Validation qw( is_database_row_id is_integer );
 use namespace::autoclean;
 use feature 'switch';
 
@@ -37,7 +37,7 @@ sub valid {
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
         my $arg = $self->argument($arg_index - 1);
-        return unless is_database_row_id($arg) || $arg == 0;
+        return unless is_database_row_id($arg) || (is_integer($arg) && $arg == 0);
     }
 
     return 1;
