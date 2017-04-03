@@ -16,7 +16,6 @@ const {
     } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
-const parseDate = require('../common/utility/parseDate');
 const request = require('../common/utility/request');
 const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
 const dates = require('../edit/utility/dates');
@@ -553,12 +552,12 @@ const validation = require('../edit/validation');
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = parseDate(data.date || "");
+            var date = data.date || {};
 
             this.date = {
-                year:   ko.observable(date.year),
-                month:  ko.observable(date.month),
-                day:    ko.observable(date.day)
+                year:   ko.observable(date.year == null ? null : date.year),
+                month:  ko.observable(date.month == null ? null : date.month),
+                day:    ko.observable(date.day == null ? null : date.day)
             };
 
             this.countryID = ko.observable(data.country ? data.country.id : null);

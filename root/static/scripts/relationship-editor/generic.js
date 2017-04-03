@@ -5,6 +5,7 @@
 
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
 const clean = require('../common/utility/clean');
+const formatDate = require('../common/utility/formatDate');
 const validation = require('../edit/validation');
 
 (function (RE) {
@@ -97,7 +98,7 @@ const validation = require('../edit/validation');
     };
 
     function getDate(x) {
-        return x.date || '';
+        return formatDate(x.date);
     }
 
     function getCatalogNumber(x) {

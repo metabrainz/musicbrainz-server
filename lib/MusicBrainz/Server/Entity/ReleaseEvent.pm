@@ -22,7 +22,7 @@ sub TO_JSON {
     my ($self) = @_;
 
     return {
-        date    => $self->date->format,
+        date    => $self->date ? $self->date->TO_JSON : undef,
         country => defined($self->country) ? $self->country->TO_JSON : undef,
     };
 }

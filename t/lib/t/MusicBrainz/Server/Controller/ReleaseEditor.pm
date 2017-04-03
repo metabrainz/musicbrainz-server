@@ -214,7 +214,14 @@ test 'seeding a release with no tracklist' => sub {
             'editNote' => 'http://www.helloproject.com/discography/berryz/s_036.html',
             'comment' => "通常盤B",
             'events' => [
-                { 'date' => '2014-02-19', 'country' => $japan }
+                {
+                    'date' => {
+                        'day' => '19',
+                        'month' => '2',
+                        'year' => '2014',
+                    },
+                    'country' => $japan,
+                },
             ],
             'makeVotable' => '1',
             'artistCredit' => [
@@ -380,7 +387,7 @@ test 'MBS-7250: seeding empty date parts gives an ISE' => sub {
         errors => [],
         seed => {
             events => [
-                { date => "2000" },
+                { date => { year => 2000 } },
             ]
         },
     });

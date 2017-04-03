@@ -241,7 +241,11 @@ test 'previewing/creating/editing a release group and release' => sub {
                         typeID => 1,
                         iso_3166_1_codes => ['JP'],
                     },
-                    date => '1999-10-27'
+                    date => {
+                        day => 27,
+                        month => 10,
+                        year => 1999,
+                    },
                 }
             ],
             editsPending => JSON::false,
