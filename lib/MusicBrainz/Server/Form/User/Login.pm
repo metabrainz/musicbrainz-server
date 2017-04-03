@@ -3,6 +3,8 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 extends 'HTML::FormHandler';
 
+with 'MusicBrainz::Server::Form::Role::ToJSON';
+
 has_field 'username' => (
     type => 'Text',
     required => 1,
