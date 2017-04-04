@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::Set';
-with 'MusicBrainz::Server::EditSearch::Role::AreaSearch' => { type => 'artist' };
+with 'MusicBrainz::Server::EditSearch::Predicate::Role::EntityArea' => { type => 'artist' };
 
 has name => (
     is => 'rw',
