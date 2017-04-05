@@ -9,6 +9,7 @@ use Encode;
 use JSON;
 use Moose::Util qw( does_role );
 use MusicBrainz::Sentry qw( sentry_enabled );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -426,6 +427,30 @@ has json => (
         return JSON->new->allow_blessed->convert_blessed;
     }
 );
+
+sub TO_JSON {
+    my $self = shift;
+
+    my %stash = %{$self->stash};
+    # XXX contains code references which can't be encoded
+    delete $stash{sidebar_search};
+
+    # convert DateTime objects to iso8601-formatted strings
+    if (my $date = $stash{last_replication_date}) {
+        $date = $date->clone;
+        $date->set_time_zone('UTC');
+        $stash{last_replication_date} = $date->iso8601 . 'Z';
+    }
+
+    return {
+        user => ($self->user_exists ? $self->user : undef),
+        debug => boolean_to_json($self->debug),
+        stash => \%stash,
+        sessionid => scalar($self->sessionid),
+        session => $self->session,
+        flash => $self->flash,
+    };
+}
 
 =head1 NAME
 

@@ -8,7 +8,7 @@ use DBDefs;
 use feature 'state';
 use HTTP::Request;
 use JSON -convert_blessed_universally;
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json generate_token );
+use MusicBrainz::Server::Data::Utils qw( generate_token );
 use URI::QueryParam;
 use URI;
 
@@ -23,31 +23,8 @@ sub get_renderer_uri {
     state $server_token = generate_token();
     state $request_id = 0;
 
-    my $user;
-    if ($c->user_exists) {
-        $user = $c->user->TO_JSON;
-    }
-
-    my %stash = %{$c->stash};
-    # XXX contains code references which can't be encoded
-    delete $stash{sidebar_search};
-
-    # convert DateTime objects to iso8601-formatted strings
-    if (my $date = $stash{last_replication_date}) {
-        $date = $date->clone;
-        $date->set_time_zone('UTC');
-        $stash{last_replication_date} = $date->iso8601 . 'Z';
-    }
-
     my $body = {
-        context => {
-            user => $user,
-            debug => boolean_to_json($c->debug),
-            stash => \%stash,
-            sessionid => scalar($c->sessionid),
-            session => $c->session,
-            flash => $c->flash,
-        },
+        context => $c,
         props => $props,
     };
 
