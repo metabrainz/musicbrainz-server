@@ -152,11 +152,11 @@
   <!-- ko if: relationship().hasDates() -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().period.beginDate }
+              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().begin_date }
             } --><!-- /ko -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('End date:') | html | js %]", date: relationship().period.endDate }
+              data: { label: "[% l('End date:') | html | js %]", date: relationship().end_date }
             } --><!-- /ko -->
     <!-- ko with: datePeriodError() -->
     <tr>
@@ -168,7 +168,7 @@
       <td></td>
       <td>
         <label>
-          <input type="checkbox" data-bind="checked: relationship().period.ended, disable: relationship().disableEndedCheckBox" />
+          <input type="checkbox" data-bind="checked: relationship().ended, disable: relationship().disableEndedCheckBox" />
           [% l('This relationship has ended.') %]
         </label>
       </td>
@@ -181,7 +181,7 @@
     <!-- ko with: relationship.formatDatePeriod() -->
       (<!-- ko text: $data --><!-- /ko -->)
     <!-- /ko -->
-    <!-- ko if: relationship.period.ended() && !relationship.formatDatePeriod() -->
+    <!-- ko if: relationship.ended() && !relationship.formatDatePeriod() -->
       [% bracketed(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->

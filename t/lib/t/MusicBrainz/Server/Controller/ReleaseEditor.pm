@@ -153,12 +153,12 @@ test 'returning an error when a space appears before an MBID' => sub {
 
 our $japan = {
     'annotation' => '',
-    'begin_date' => '',
+    'begin_date' => undef,
     'code' => 'JP',
     'comment' => '',
     'containment' => [],
     'editsPending' => \0,
-    'end_date' => '',
+    'end_date' => undef,
     'ended' => \0,
     'entityType' => 'area',
     'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
@@ -214,7 +214,14 @@ test 'seeding a release with no tracklist' => sub {
             'editNote' => 'http://www.helloproject.com/discography/berryz/s_036.html',
             'comment' => "通常盤B",
             'events' => [
-                { 'date' => '2014-02-19', 'country' => $japan }
+                {
+                    'date' => {
+                        'day' => '19',
+                        'month' => '2',
+                        'year' => '2014',
+                    },
+                    'country' => $japan,
+                },
             ],
             'makeVotable' => '1',
             'artistCredit' => [
@@ -380,7 +387,7 @@ test 'MBS-7250: seeding empty date parts gives an ISE' => sub {
         errors => [],
         seed => {
             events => [
-                { date => "2000" },
+                { date => { year => 2000 } },
             ]
         },
     });

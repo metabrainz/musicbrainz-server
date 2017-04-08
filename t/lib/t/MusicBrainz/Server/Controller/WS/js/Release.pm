@@ -37,10 +37,14 @@ test all => sub {
         target => {
             annotation => '',
             area => undef,
-            begin_date => '1986-11-05',
+            begin_date => {
+                day => 5,
+                month => 11,
+                year => 1986,
+            },
             comment => '',
             editsPending => JSON::false,
-            end_date => '',
+            end_date => undef,
             ended => JSON::false,
             entityType => 'artist',
             gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
@@ -51,8 +55,8 @@ test all => sub {
             typeID => 1,
         },
         editsPending => JSON::false,
-        endDate => undef,
-        beginDate => undef,
+        end_date => undef,
+        begin_date => undef,
         id => 6751,
         verbosePhrase => 'performed guest vocals on',
         attributes => [

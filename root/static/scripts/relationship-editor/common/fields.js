@@ -11,8 +11,9 @@ const {
 } = require('../../common/constants');
 const i18n = require('../../common/i18n');
 const clean = require('../../common/utility/clean');
+const formatDate = require('../../common/utility/formatDate');
+const formatDatePeriod = require('../../common/utility/formatDatePeriod');
 const request = require('../../common/utility/request');
-const dates = require('../../edit/utility/dates');
 const linkPhrase = require('../../edit/utility/linkPhrase');
 const mergeDates = require('./mergeDates');
 
@@ -49,14 +50,13 @@ const mergeDates = require('./mergeDates');
             this.linkTypeID.isDifferent = linkTypeComparer;
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
-            this.period = {
-                beginDate: setPartialDate({}, data.beginDate || {}),
-                endDate: setPartialDate({}, data.endDate || {}),
-                ended: ko.observable(!!data.ended)
-            };
+            this.begin_date = setPartialDate({}, data.begin_date || {});
+            this.end_date = setPartialDate({}, data.end_date || {});
+            this.ended = ko.observable(!!data.ended);
+
             this.disableEndedCheckBox = ko.computed(function() {
-                var hasEndDate = dates.formatDate(this.period.endDate) != "";
-                this.period.ended(hasEndDate || data.ended);
+                var hasEndDate = !!formatDate(this.end_date);
+                this.ended(hasEndDate || data.ended);
                 return hasEndDate;
             }, this);
 
@@ -114,7 +114,7 @@ const mergeDates = require('./mergeDates');
         },
 
         formatDatePeriod: function () {
-            return dates.formatDatePeriod(this.period);
+            return formatDatePeriod(this);
         },
 
         fromJS: function (data) {
@@ -123,9 +123,9 @@ const mergeDates = require('./mergeDates');
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
-            setPartialDate(this.period.beginDate, data.beginDate || {});
-            setPartialDate(this.period.endDate, data.endDate || {});
-            this.period.ended(!!data.ended);
+            setPartialDate(this.begin_date, data.begin_date || {});
+            setPartialDate(this.end_date, data.end_date || {});
+            this.ended(!!data.ended);
 
             this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
@@ -410,8 +410,8 @@ const mergeDates = require('./mergeDates');
                 this.linkTypeID() == other.linkTypeID() &&
                 this.linkOrder() == other.linkOrder() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                mergeDates(this.period.beginDate, other.period.beginDate) &&
-                mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.begin_date, other.begin_date) &&
+                mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },

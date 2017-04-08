@@ -80,8 +80,8 @@ sub submit_edits {
         $rel->{linkTypeID} = delete $rel->{link_type};
 
         if (my $period = delete $rel->{period}) {
-            $rel->{beginDate} = $period->{begin_date} if $period->{begin_date};
-            $rel->{endDate} = $period->{end_date} if $period->{end_date};
+            $rel->{begin_date} = $period->{begin_date} if $period->{begin_date};
+            $rel->{end_date} = $period->{end_date} if $period->{end_date};
             $rel->{ended} = $period->{ended} if $period->{ended};
         }
 

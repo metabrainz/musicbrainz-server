@@ -347,7 +347,7 @@ sub _seeded_event
             }
         }
 
-        $result->{date} = PartialDate->new(%$date)->format if %$date;
+        $result->{date} = $date if %$date;
     }
 
     if (my $iso = uc($params->{country} // '')) {
