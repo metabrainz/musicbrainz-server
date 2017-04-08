@@ -87,13 +87,15 @@ function writeResponse(socket, body) {
   socket.write(body);
 }
 
+function listenCallback() {
+  console.log(`server.js worker started (pid ${process.pid})`);
+}
+
 function createServer(socketPath) {
   return (
     net
       .createServer({allowHalfOpen: true}, connectionListener)
-      .listen(socketPath, function () {
-        console.log(`server.js listening on ${socketPath} (pid ${process.pid})`);
-      })
+      .listen(socketPath, listenCallback)
   );
 }
 

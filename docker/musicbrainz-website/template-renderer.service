@@ -6,4 +6,5 @@ source /etc/mbs_constants.sh
 
 cd "$MBS_ROOT"
 
+export RENDERER_WORKERS=${RENDERER_WORKERS:-10}
 exec node "$MBS_ROOT/root/server.js"

@@ -9,9 +9,11 @@ use Getopt::Long;
 
 my $daemonize = 0;
 my $socket;
+my $workers;
 GetOptions(
     'daemonize' => \$daemonize,
     'socket=s' => \$socket,
+    'workers=i' => \$workers,
 ) or exit 2;
 
 chomp (my $node_version = `node --version`);
@@ -46,5 +48,6 @@ if ($child) {
 } else {
     my @argv;
     push @argv, ('--socket', $socket) if $socket;
+    push @argv, ('--workers', $workers) if $workers;
     exec 'node', qq($FindBin::Bin/../root/$server_js_file), @argv;
 }
