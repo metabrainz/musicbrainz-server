@@ -466,6 +466,19 @@ sub TO_JSON {
         $stash{last_replication_date} = $date->iso8601 . 'Z';
     }
 
+    # Limit server_languages data to what's needed, since the complete output
+    # is very large.
+    if (my $server_languages = $stash{server_languages}) {
+        my @langs;
+        for my $lang (@{$server_languages}) {
+            push @langs,
+                [ $lang->[0],
+                  { map { $_ => $lang->[1]->{$_} }
+                    qw( id native_language native_territory ) } ];
+        }
+        $stash{server_languages} = \@langs;
+    }
+
     my $req = $self->req;
     my %headers;
     for my $name ($req->headers->header_field_names) {
