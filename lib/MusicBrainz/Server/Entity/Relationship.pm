@@ -294,6 +294,8 @@ around TO_JSON => sub {
     $json->{end_date} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
     $json->{direction} = 'backward' if $self->direction == $DIRECTION_BACKWARD;
 
+    $self->add_linked_entity('link_type', $link->type_id, $link->type);
+
     return $json;
 };
 

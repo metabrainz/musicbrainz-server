@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'Template::Plugin';
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Renderer qw( render_component );
 
 sub embed {
@@ -15,6 +16,11 @@ sub embed {
     } else {
         die $response->{body};
     }
+}
+
+sub bool {
+    my ($self, $bool) = @_;
+    boolean_to_json($bool);
 }
 
 1;

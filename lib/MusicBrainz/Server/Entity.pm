@@ -3,6 +3,8 @@ package MusicBrainz::Server::Entity;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 
+with 'MusicBrainz::Server::Entity::Role::LinkedEntities';
+
 has 'id' => (
     is => 'rw',
     isa => 'Int'

@@ -319,8 +319,4 @@
 
 [%- MACRO external_links_editor BLOCK -%]
   <div id="external-links-editor-container"></div>
-  <script>
-    [%- USE JSON.Escape -%]
-    MB.faviconClasses = [% favicon_css_classes.json %];
-  </script>
 [%- END -%]

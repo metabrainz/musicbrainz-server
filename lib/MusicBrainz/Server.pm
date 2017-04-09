@@ -455,7 +455,7 @@ sub TO_JSON {
 
     if (my $entity = delete $stash{entity}) {
         if (ref($entity) =~ /^MusicBrainz::Server::Entity::/) {
-            $stash{entity} = $entity->TO_JSON;
+            $entity->serialize_with_linked_entities(\%stash);
         }
     }
 

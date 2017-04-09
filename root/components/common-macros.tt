@@ -750,17 +750,6 @@ END -%]
     END; -%]
 [%- END -%]
 
-[%~ MACRO favicon_class(url) BLOCK -%]
-    [%- matching_class = '' -%]
-    [%- FOREACH icon IN favicon_css_classes -%]
-      [%- IF (icon.key.search('/') AND url.url.as_string.search(icon.key)) OR url.url.host.search(icon.key) -%]
-        [%- matching_class = icon.value -%]
-        [%- LAST -%]
-      [%- END -%]
-    [%- END -%]
-    [%- (matching_class OR 'no') _ '-favicon' -%]
-[%- END -%]
-
 [%~ MACRO license_class(url)
        IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
     ELSIF url.url.as_string.search('creativecommons.org/licenses/publicdomain/'); 'CCPD';
