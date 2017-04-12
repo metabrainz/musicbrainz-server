@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-15 04:13+0000\n"
+"PO-Revision-Date: 2017-03-27 17:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -304,6 +304,11 @@ msgstr "aman khuur"
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr "synthétiseur analogique"
+
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "angelo concertina"
+msgstr ""
 
 #: DB:instrument/name:373
 msgid "ankle rattlers"
@@ -1191,6 +1196,11 @@ msgstr "instrument à vent électronique"
 msgid "end-blown flute"
 msgstr "flûte à embouchure"
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "english concertina"
+msgstr ""
+
 #: DB:instrument/name:215
 msgid "erhu"
 msgstr "erhu"
@@ -1339,6 +1349,11 @@ msgstr "gehu"
 msgid "geomungo"
 msgstr "geomungo"
 
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "german concertina"
+msgstr ""
+
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
@@ -1429,6 +1444,11 @@ msgstr "guitarrón méxicain"
 msgctxt "DO NOT USE"
 msgid "guitars"
 msgstr "guitares"
+
+#: DB:instrument/name:835
+msgctxt "el guitar / el organ hybrid"
+msgid "guitorgan"
+msgstr ""
 
 #: DB:instrument/name:325
 msgid "gumbri"
@@ -1863,6 +1883,11 @@ msgstr "maddale"
 #: DB:instrument/name:600
 msgid "mandocello"
 msgstr "mandoloncelle"
+
+#: DB:instrument/name:836
+msgctxt "mandolin / electric guitar hybrid"
+msgid "mandoguitar"
+msgstr ""
 
 #: DB:instrument/name:238
 msgid "mandola"
@@ -3145,6 +3170,11 @@ msgstr "violino piccolo"
 msgctxt "violin family"
 msgid "violins"
 msgstr "violons"
+
+#: DB:instrument/name:834
+msgctxt "cretan lyra / violin hybrid"
+msgid "viololyra"
+msgstr ""
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""

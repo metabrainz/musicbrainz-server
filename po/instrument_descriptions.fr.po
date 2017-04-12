@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-15 04:13+0000\n"
+"PO-Revision-Date: 2017-03-27 17:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -743,12 +743,26 @@ msgstr "Disque dur configuré pour produire des tonalités organisées."
 msgid "Huqin is a Chinese family of bowed string instruments."
 msgstr "Les Huqins sont une famille d’instruments à cordes frottées chinois."
 
+#. name:viololyra
+#: DB:instrument/description:834
+msgid ""
+"Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
+"Cretan lyra with the violin."
+msgstr ""
+
 #. name:arpeggione
 #: DB:instrument/description:823
 msgid ""
 "Invented in 1823, it had a body like a medieval fiddle, but had frets and "
 "tuning like the guitar."
 msgstr "Inventé en 1823, il ressemble à un violoncelle, mais avec des frettes et un accordage de guitare."
+
+#. name:guitorgan
+#: DB:instrument/description:835
+msgid ""
+"Invented in 1966 by vox, and in 1969 by Bob Murrell, it is an electric "
+"guitar with electronic organ wiring and knobs added."
+msgstr ""
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -3227,6 +3241,14 @@ msgstr "Flûte à trois trous originaire d’Europe, comparable à d’autres in
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "comme utiliser des lecteurs pour faire de la musique, disques durs, lecteurs de disquettes, CD ou autres."
 
+#. name:angelo concertina
+#: DB:instrument/description:839
+msgid ""
+"bisonoric and button layout like the german and reeds and hexagonal ends "
+"like the english, this concertina was created to rival the popular german "
+"variant imported into england."
+msgstr ""
+
 #. name:bronze lur
 #: DB:instrument/description:800
 msgid ""
@@ -3344,6 +3366,11 @@ msgid ""
 "guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
+msgstr ""
+
+#. name:german concertina
+#: DB:instrument/description:838
+msgid "more usually square than hexagonal, with long plate reeds"
 msgstr ""
 
 #. name:chirimía and drum
@@ -3468,6 +3495,19 @@ msgstr "le ti bwa, instrument de percussion fait d’un morceau de bambou horizo
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu est la basse du trắng lu"
+
+#. name:mandoguitar
+#: DB:instrument/description:836
+msgid ""
+"unison course tuned 12 stringed electric guitar body with mandolin neck, it "
+"is tuned an octave higher than a conventional guitar, thus having the tonal "
+"range of the mandolin."
+msgstr ""
+
+#. name:english concertina
+#: DB:instrument/description:837
+msgid "unisonoric concertina with hexagonal sides and concertina reeds."
+msgstr ""
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
