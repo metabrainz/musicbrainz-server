@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-15 08:36+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2017-03-27 17:08+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -731,12 +731,26 @@ msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 msgid "Huqin is a Chinese family of bowed string instruments."
 msgstr "Huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrumenten."
 
+#. name:viololyra
+#: DB:instrument/description:834
+msgid ""
+"Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
+"Cretan lyra with the violin."
+msgstr ""
+
 #. name:arpeggione
 #: DB:instrument/description:823
 msgid ""
 "Invented in 1823, it had a body like a medieval fiddle, but had frets and "
 "tuning like the guitar."
 msgstr "De in 1823 uitgevonden arpeggione lijkt op een middeleeuwse vedel, maar met fretten. Het wordt net als een gitaar gestemd."
+
+#. name:guitorgan
+#: DB:instrument/description:835
+msgid ""
+"Invented in 1966 by vox, and in 1969 by Bob Murrell, it is an electric "
+"guitar with electronic organ wiring and knobs added."
+msgstr ""
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -3215,6 +3229,14 @@ msgstr "Middeleeuwse voorloper van de blokfluit. Het werd met één hand bespeel
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "Het gebruik van schijfstations van computers om muziek te maken."
 
+#. name:angelo concertina
+#: DB:instrument/description:839
+msgid ""
+"bisonoric and button layout like the german and reeds and hexagonal ends "
+"like the english, this concertina was created to rival the popular german "
+"variant imported into england."
+msgstr ""
+
 #. name:bronze lur
 #: DB:instrument/description:800
 msgid ""
@@ -3333,6 +3355,11 @@ msgid ""
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
 msgstr "Een mengvorm van gitaar en bouzouki met de klankkast van een gitaar en vier dubbelkorige snaren zoals een bouzouki. Het werd door meerdere instrumentenmakers apart ontwikkeld, zoals Stefan Sobell (bouzar) en Davy Stuart (gouzouki)."
+
+#. name:german concertina
+#: DB:instrument/description:838
+msgid "more usually square than hexagonal, with long plate reeds"
+msgstr ""
 
 #. name:chirimía and drum
 #: DB:instrument/description:822
@@ -3456,6 +3483,19 @@ msgstr "Een percussie-instrument gemaakt van een horizontaal stuk bamboe waarop 
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Trắng jâu, basvariant op de trắng lu"
+
+#. name:mandoguitar
+#: DB:instrument/description:836
+msgid ""
+"unison course tuned 12 stringed electric guitar body with mandolin neck, it "
+"is tuned an octave higher than a conventional guitar, thus having the tonal "
+"range of the mandolin."
+msgstr ""
+
+#. name:english concertina
+#: DB:instrument/description:837
+msgid "unisonoric concertina with hexagonal sides and concertina reeds."
+msgstr ""
 
 #. name:khulsan khuur
 #: DB:instrument/description:811

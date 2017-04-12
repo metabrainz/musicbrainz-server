@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-15 08:34+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2017-03-27 17:07+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -295,6 +295,11 @@ msgstr "aman khuur"
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr "analoge synthesizer"
+
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "angelo concertina"
+msgstr ""
 
 #: DB:instrument/name:373
 msgid "ankle rattlers"
@@ -1182,6 +1187,11 @@ msgstr "elektronisch blaasinstrument"
 msgid "end-blown flute"
 msgstr "verticale fluit"
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "english concertina"
+msgstr ""
+
 #: DB:instrument/name:215
 msgid "erhu"
 msgstr "erhu"
@@ -1330,6 +1340,11 @@ msgstr "gehu"
 msgid "geomungo"
 msgstr "geomungo"
 
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "german concertina"
+msgstr ""
+
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
@@ -1420,6 +1435,11 @@ msgstr "guitarrón mexicano"
 msgctxt "DO NOT USE"
 msgid "guitars"
 msgstr "gitaarfamilie"
+
+#: DB:instrument/name:835
+msgctxt "el guitar / el organ hybrid"
+msgid "guitorgan"
+msgstr ""
 
 #: DB:instrument/name:325
 msgid "gumbri"
@@ -1854,6 +1874,11 @@ msgstr "maddale"
 #: DB:instrument/name:600
 msgid "mandocello"
 msgstr "mandoloncello"
+
+#: DB:instrument/name:836
+msgctxt "mandolin / electric guitar hybrid"
+msgid "mandoguitar"
+msgstr ""
 
 #: DB:instrument/name:238
 msgid "mandola"
@@ -3136,6 +3161,11 @@ msgstr "violino piccolo"
 msgctxt "violin family"
 msgid "violins"
 msgstr "vioolfamilie"
+
+#: DB:instrument/name:834
+msgctxt "cretan lyra / violin hybrid"
+msgid "viololyra"
+msgstr ""
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
