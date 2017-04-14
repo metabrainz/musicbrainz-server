@@ -191,6 +191,9 @@ const LINK_TYPES = {
     event: "81bc32b3-7039-486a-a92f-52486fb7e162",
     place: "0e41b9de-20d8-4d1a-869d-7018e1045439",
   },
+  cdbaby: {
+    artist: "4c21e5f5-2960-4abc-88a1-62ce491bb96e"
+  },
   songkick: {
     artist: "aac9c4bc-a5b9-30b8-9839-e3ac314c6e58",
     event: "125afc57-4d33-3b63-ab41-848a3a18d3a6",
@@ -488,8 +491,18 @@ const CLEANUPS = {
       return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
     }
   },
+  cdbaby_artist: {
+    match: [new RegExp("^(https?://)?(www\\.)?cdbaby\\.(com|name)/Artist/","i")],
+    type: LINK_TYPES.cdbaby,
+    clean: function (url) {
+      return url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.(?:com|name)\/Artist\/([a-z0-9]+).*$/i, "http://www.cdbaby.com/Artist/$1");
+    },
+    validate: function (url, id) {
+      return /^http:\/\/www.cdbaby\.com\/Artist\/[a-z0-9]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+    }
+  },
   cdbaby: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)/(?!Artist/)","i")],
     clean: function (url) {
       var m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/);
       if (m) {
