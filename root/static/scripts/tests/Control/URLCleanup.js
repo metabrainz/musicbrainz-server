@@ -577,6 +577,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
         },
+        // CD Baby
+        {
+                             input_url: 'www.cdbaby.name/artist/JohnDoe1#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'cdbaby',
+                    expected_clean_url: 'http://www.cdbaby.com/Artist/JohnDoe1',
+        },
+        {
+                             input_url: 'https://cdbaby.com/cd/John003',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'http://www.cdbaby.com/cd/john003',
+        },
         // CB (Cape Breton) Fiddle Recordings
         {
                              input_url: 'http://cbfiddle.com/rx/rec/r55.html',
