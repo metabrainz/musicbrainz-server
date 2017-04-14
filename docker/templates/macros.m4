@@ -11,13 +11,18 @@ m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
+m4_define(`NODEJS_DEB', `nodejs_7.9.0-1nodesource1~xenial1_amd64.deb')
+
 m4_define(
     `install_javascript',
     `m4_dnl
 COPY package.json npm-shrinkwrap.json ./
-RUN apt_install(``git nodejs nodejs-legacy npm'') && \
-    sudo_mb(``npm install$1'') && \
-    apt_purge(``git npm'')
+RUN apt_install(``git'') && \
+    cd /tmp && \
+    curl -sLO https://deb.nodesource.com/node_7.x/pool/main/n/nodejs/NODEJS_DEB && \
+    dpkg -i NODEJS_DEB && \
+    cd - && \
+    sudo_mb(``npm install$1'')
 COPY .babelrc ./')
 
 m4_define(
