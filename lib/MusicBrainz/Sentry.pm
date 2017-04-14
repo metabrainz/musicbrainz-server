@@ -10,7 +10,6 @@ use DBDefs;
 use Devel::StackTrace;
 use IO::File;
 use Scalar::Util qw( blessed );
-use Sentry::Raven;
 use Try::Tiny;
 
 our @EXPORT_OK = qw(
@@ -21,8 +20,18 @@ our @EXPORT_OK = qw(
 );
 
 sub sentry_enabled () {
-    return 1 if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS});
-    return 0;
+    state $enabled;
+    return $enabled if defined $enabled;
+    if (DBDefs->SENTRY_DSN && !$ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+        eval {
+            require Sentry::Raven;
+            Sentry::Raven->import;
+        };
+        $enabled = $@ ? 0 : 1;
+    } else {
+        $enabled = 0;
+    }
+    return $enabled;
 }
 
 sub get_error_message {

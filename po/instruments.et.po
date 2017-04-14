@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-28 07:45+0000\n"
+"PO-Revision-Date: 2017-03-27 17:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -294,6 +294,11 @@ msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr ""
 
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "angelo concertina"
+msgstr ""
+
 #: DB:instrument/name:373
 msgid "ankle rattlers"
 msgstr ""
@@ -392,7 +397,13 @@ msgstr ""
 msgid "banjo"
 msgstr "bandžo"
 
+#: DB:instrument/name:832
+msgctxt "banjo ukulele hybrid"
+msgid "banjo-ukelele"
+msgstr ""
+
 #: DB:instrument/name:831
+msgctxt "banjo and mandolin/violin hybrid"
 msgid "banjolin"
 msgstr ""
 
@@ -583,6 +594,11 @@ msgstr "luud-kondid"
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "bongod"
+
+#: DB:instrument/name:833
+msgctxt "hybrid of bouzouki and guitar"
+msgid "bouzar / gouzouki"
+msgstr ""
 
 #: DB:instrument/name:71
 msgid "bouzouki"
@@ -1169,6 +1185,11 @@ msgstr "elektrooniline õhkpill"
 msgid "end-blown flute"
 msgstr "otseflööt"
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "english concertina"
+msgstr ""
+
 #: DB:instrument/name:215
 msgid "erhu"
 msgstr "èrhú"
@@ -1317,6 +1338,11 @@ msgstr "géhú"
 msgid "geomungo"
 msgstr "geomungo"
 
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "german concertina"
+msgstr ""
+
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
@@ -1406,6 +1432,11 @@ msgstr ""
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
 msgid "guitars"
+msgstr ""
+
+#: DB:instrument/name:835
+msgctxt "el guitar / el organ hybrid"
+msgid "guitorgan"
 msgstr ""
 
 #: DB:instrument/name:325
@@ -1841,6 +1872,11 @@ msgstr "maddale"
 #: DB:instrument/name:600
 msgid "mandocello"
 msgstr "mandotšello"
+
+#: DB:instrument/name:836
+msgctxt "mandolin / electric guitar hybrid"
+msgid "mandoguitar"
+msgstr ""
 
 #: DB:instrument/name:238
 msgid "mandola"
@@ -3122,6 +3158,11 @@ msgstr ""
 #: DB:instrument/name:59
 msgctxt "violin family"
 msgid "violins"
+msgstr ""
+
+#: DB:instrument/name:834
+msgctxt "cretan lyra / violin hybrid"
+msgid "viololyra"
 msgstr ""
 
 #: DB:instrument/name:693
