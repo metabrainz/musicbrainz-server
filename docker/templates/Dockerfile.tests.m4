@@ -13,6 +13,8 @@ ENV MMDSCHEMA /home/musicbrainz/mmd-schema
 
 copy_common_mbs_files
 
+git_info
+
 COPY docker/musicbrainz-tests/DBDefs.pm lib/
 
 # Depends on DBDefs.pm.
