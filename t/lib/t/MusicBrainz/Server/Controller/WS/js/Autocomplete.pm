@@ -35,7 +35,7 @@ test all => sub {
                 "primaryAlias" => undef,
                 "sort_name" => "David Bowie",
                 "typeID" => undef,
-                "unaccentedName" => undef,
+                "unaccented_name" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
     ws_test 'label autocomplete response',
@@ -53,7 +53,7 @@ test all => sub {
                 "id" => 2,
                 "label_code" => 2070,
                 "name" => 'Warp Records',
-                "unaccentedName" => undef,
+                "unaccented_name" => undef,
                 "primaryAlias" => undef,
                 "typeID" => 4,
               }, { "current" => 1, "pages" => 1 } ];

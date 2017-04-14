@@ -54,7 +54,7 @@ test all => sub {
             id => 9496,
             name => 'BoA',
             sort_name => 'BoA',
-            unaccentedName => undef,
+            unaccented_name => undef,
             typeID => 1,
         },
         editsPending => JSON::false,

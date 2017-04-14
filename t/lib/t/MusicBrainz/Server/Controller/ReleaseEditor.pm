@@ -164,7 +164,7 @@ our $japan = {
     'gid' => '2db42837-c832-3c27-b4a3-08198f75693c',
     'id' => 107,
     'name' => 'Japan',
-    'unaccentedName' => undef,
+    'unaccented_name' => undef,
     'typeID' => 1,
     'iso_3166_1_codes' => ['JP'],
 };
