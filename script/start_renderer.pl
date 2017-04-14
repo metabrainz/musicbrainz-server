@@ -19,7 +19,7 @@ GetOptions(
 chomp (my $node_version = `node --version`);
 my $server_js_file = 'server.js';
 
-if ($node_version lt 'v4.0.0') {
+if ($node_version lt 'v6.0.0') {
     $server_js_file = 'server-compat.js';
 }
 
