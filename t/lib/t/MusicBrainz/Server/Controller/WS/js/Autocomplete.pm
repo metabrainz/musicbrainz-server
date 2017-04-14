@@ -18,7 +18,6 @@ test all => sub {
     ws_test 'artist autocomplete response',
         '/artist?q=David&direct=true' =>
             [ {
-                "annotation" => '',
                 "area" => undef,
                 "begin_area_id" => undef,
                 "begin_date" => undef,
@@ -41,7 +40,6 @@ test all => sub {
     ws_test 'label autocomplete response',
         '/label?q=Warp&direct=true' =>
             [ {
-                "annotation" => '',
                 "area" => undef,
                 "begin_date" => undef,
                 "comment" => 'Sheffield based electronica label',
@@ -53,9 +51,9 @@ test all => sub {
                 "id" => 2,
                 "label_code" => 2070,
                 "name" => 'Warp Records',
-                "unaccented_name" => undef,
                 "primaryAlias" => undef,
                 "typeID" => 4,
+                "unaccented_name" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
 };

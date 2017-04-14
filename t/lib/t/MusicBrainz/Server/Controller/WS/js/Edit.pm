@@ -179,13 +179,11 @@ test 'previewing/creating/editing a release group and release' => sub {
             languageID => 486,
             length => 0,
             gid => ignore(),
-            annotation => '',
             artist => 'Boredoms plus a fake artist and a trailing join phrase',
             artistCredit => [
                 {
                     joinPhrase => ' plus ',
                     artist => {
-                        annotation => '',
                         area => undef,
                         begin_area_id => undef,
                         begin_date => undef,
@@ -208,7 +206,6 @@ test 'previewing/creating/editing a release group and release' => sub {
                 {
                     joinPhrase => ' and a trailing join phrase',
                     artist => {
-                        annotation => '',
                         area => undef,
                         begin_area_id => undef,
                         begin_date => undef,
@@ -232,7 +229,6 @@ test 'previewing/creating/editing a release group and release' => sub {
             events => [
                 {
                     country => {
-                        annotation => '',
                         begin_date => undef,
                         code => 'JP',
                         comment => '',

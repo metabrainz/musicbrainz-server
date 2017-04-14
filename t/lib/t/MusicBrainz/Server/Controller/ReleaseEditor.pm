@@ -152,7 +152,6 @@ test 'returning an error when a space appears before an MBID' => sub {
 };
 
 our $japan = {
-    'annotation' => '',
     'begin_date' => undef,
     'code' => 'JP',
     'comment' => '',

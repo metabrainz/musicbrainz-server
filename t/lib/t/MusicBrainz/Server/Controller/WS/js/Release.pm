@@ -35,7 +35,6 @@ test all => sub {
         direction => 'backward',
         ended => JSON::false,
         target => {
-            annotation => '',
             area => undef,
             begin_area_id => undef,
             begin_date => {

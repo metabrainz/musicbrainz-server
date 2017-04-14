@@ -11,10 +11,14 @@ has 'latest_annotation' => (
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    return {
-        %{ $self->$orig },
-        annotation => defined $self->latest_annotation ? $self->latest_annotation->text : '',
-    };
+    my $json = $self->$orig;
+    my $annotation = $self->latest_annotation;
+
+    if (defined $annotation) {
+        $json->{annotation} = $annotation->text;
+    }
+
+    return $json;
 };
 
 no Moose::Role;
