@@ -9,6 +9,8 @@ const Footer = require('./components/Footer');
 const Head = require('./components/Head');
 const Header = require('./components/Header');
 const MergeHelper = require('./components/MergeHelper');
+const {RT_SLAVE} = require('../static/scripts/common/constants');
+const DBDefs = require('../static/scripts/common/DBDefs');
 const {l} = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
 
@@ -19,15 +21,15 @@ const DismissBannerButton = ({bannerName}) => (
   </button>
 );
 
-const serverDetailsBanner = (server) => {
-  if (server.staging_server) {
-    let description;
-    if (server.staging_server_description) {
-      description = server.staging_server_description;
-    } else if (server.is_beta) {
-      description = l('This beta test server allows testing of new features with the live database.');
-    } else {
-      description = l('This is a MusicBrainz development server.');
+const ServerDetailsBanner = () => {
+  if (DBDefs.DB_STAGING_SERVER) {
+    let description = DBDefs.DB_STAGING_SERVER_DESCRIPTION;
+    if (!description) {
+      if (DBDefs.IS_BETA) {
+        description = l('This beta test server allows testing of new features with the live database.');
+      } else {
+        description = l('This is a MusicBrainz development server.');
+      }
     }
     return (
       <div className="banner server-details">
@@ -36,14 +38,14 @@ const serverDetailsBanner = (server) => {
           {' '}
           {l('{uri|Return to musicbrainz.org}.',
              {__react: true,
-              uri: '//musicbrainz.org' + (server.beta_redirect === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
+              uri: '//musicbrainz.org' + (DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
     );
   }
 
-  if (server.is_slave_db) {
+  if (DBDefs.REPLICATION_TYPE === RT_SLAVE) {
     return (
       <div className="banner server-details">
         <p>
@@ -56,63 +58,59 @@ const serverDetailsBanner = (server) => {
   }
 };
 
-const Layout = (props) => {
-  let server = $c.stash.server_details;
+const Layout = (props) => (
+  <html lang={$c.stash.current_language_html}>
+    <Head {...props} />
 
-  return (
-    <html lang={$c.stash.current_language_html}>
-      <Head {...props} />
+    <body>
+      <Header {...props} />
 
-      <body>
-        <Header {...props} />
+      {!getCookie('server_details_dismissed_mtime') && <ServerDetailsBanner />}
 
-        {!getCookie('server_details_dismissed_mtime') && serverDetailsBanner(server)}
+      {!!($c.stash.alert && $c.stash.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
+        <div className="banner warning-header">
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}}></p>
+          <DismissBannerButton bannerName="alert" />
+        </div>}
 
-        {!!(server.alert && server.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
-          <div className="banner warning-header">
-            <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
-            <DismissBannerButton bannerName="alert" />
-          </div>}
+      {!!DBDefs.DB_READ_ONLY &&
+        <div className="banner server-details">
+          <p>
+            {l('The server is temporarily in read-only mode for database maintenance.')}
+          </p>
+        </div>}
 
-        {!!server.read_only &&
-          <div className="banner server-details">
-            <p>
-              {l('The server is temporarily in read-only mode for database maintenance.')}
-            </p>
-          </div>}
+      {!!($c.stash.new_edit_notes &&
+          $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
+          ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
+        <div className="banner new-edit-notes">
+          <p>
+            {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
+               {__react: true, link: '/edit/notes-received'})}
+          </p>
+          <DismissBannerButton bannerName="new_edit_notes" />
+        </div>}
 
-        {!!($c.stash.new_edit_notes &&
-            $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
-            ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
-          <div className="banner new-edit-notes">
-            <p>
-              {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
-                 {__react: true, link: '/edit/notes-received'})}
-            </p>
-            <DismissBannerButton bannerName="new_edit_notes" />
-          </div>}
+      {!!$c.stash.makes_no_changes &&
+        <div className="banner warning-header">
+          <p>{l('The data you have submitted does not make any changes to the data already present.')}</p>
+        </div>}
 
-        {!!$c.stash.makes_no_changes &&
-          <div className="banner warning-header">
-            <p>{l('The data you have submitted does not make any changes to the data already present.')}</p>
-          </div>}
+      {!!($c.sessionid && $c.flash.message) &&
+        <div className="banner flash">
+          <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
+        </div>}
 
-        {!!($c.sessionid && $c.flash.message) &&
-          <div className="banner flash">
-            <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
-          </div>}
+      <div id="page" className={(props.fullWidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
+        {props.children}
+        <div style={{clear: 'both'}}></div>
+      </div>
 
-        <div id="page" className={(props.fullWidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
-          {props.children}
-          <div style={{clear: 'both'}}></div>
-        </div>
+      {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
 
-        {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
-
-        <Footer {...props} />
-      </body>
-    </html>
-  );
-};
+      <Footer {...props} />
+    </body>
+  </html>
+);
 
 module.exports = Layout;

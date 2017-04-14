@@ -479,6 +479,11 @@ sub TO_JSON {
         $stash{server_languages} = \@langs;
     }
 
+    if (my $server_details = delete $stash{server_details}) {
+        $stash{alert} = $server_details->{alert};
+        $stash{alert_mtime} = $server_details->{alert_mtime};
+    }
+
     my $req = $self->req;
     my %headers;
     for my $name ($req->headers->header_field_names) {

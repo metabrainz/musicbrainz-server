@@ -16,19 +16,26 @@ GetOptions(
 my ($output_path) = @ARGV;
 
 Readonly our @BOOLEAN_DEFS => qw(
+    DB_READ_ONLY
+    DB_STAGING_SERVER
     DEVELOPMENT_SERVER
+    IS_BETA
 );
 
 Readonly our @HASH_DEFS => qw(
 );
 
 Readonly our @NUMBER_DEFS => qw(
+    REPLICATION_TYPE
     STAT_TTL
 );
 
 Readonly our @STRING_DEFS => qw(
+    BETA_REDIRECT_HOSTNAME
     CANONICAL_SERVER
+    DB_STAGING_SERVER_DESCRIPTION
     GIT_BRANCH
+    GIT_MSG
     GIT_SHA
     GOOGLE_ANALYTICS_CODE
     GOOGLE_CUSTOM_SEARCH

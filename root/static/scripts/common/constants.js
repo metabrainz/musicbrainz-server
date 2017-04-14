@@ -117,6 +117,8 @@ exports.PART_OF_SERIES_LINK_TYPES = {
 // orchestrator, orchestra performed, conductor, concertmaster
 exports.PROBABLY_CLASSICAL_LINK_TYPES = [40, 45, 46, 150, 151, 300, 759, 760];
 
+exports.RT_SLAVE = 2;
+
 exports.SERIES_ORDERING_ATTRIBUTE = 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
 exports.SERIES_ORDERING_TYPE_AUTOMATIC = 1;
