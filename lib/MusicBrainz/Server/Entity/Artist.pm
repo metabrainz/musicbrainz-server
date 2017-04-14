@@ -85,7 +85,7 @@ around TO_JSON => sub {
         begin_area_id => $self->begin_area_id,
         end_area_id => $self->end_area_id,
         gender_id => $self->gender_id,
-        sortName => $self->sort_name,
+        sort_name => $self->sort_name,
     };
 };
 

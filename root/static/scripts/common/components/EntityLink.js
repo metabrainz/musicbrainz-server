@@ -108,7 +108,7 @@ const EntityLink = (props = {}) => {
   }
 
   if (entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sortName + bracketed(comment);
+    hover = entity.sort_name + bracketed(comment);
   }
 
   if (entityType === 'artist' || entityType === 'instrument') {

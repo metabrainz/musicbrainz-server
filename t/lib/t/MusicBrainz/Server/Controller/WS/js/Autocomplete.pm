@@ -33,7 +33,7 @@ test all => sub {
                 "id" => 5,
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
-                "sortName" => "David Bowie",
+                "sort_name" => "David Bowie",
                 "typeID" => undef,
                 "unaccentedName" => undef,
               }, { "current" => 1, "pages" => 1 } ];

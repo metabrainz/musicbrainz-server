@@ -53,7 +53,7 @@ test all => sub {
             gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
             id => 9496,
             name => 'BoA',
-            sortName => 'BoA',
+            sort_name => 'BoA',
             unaccentedName => undef,
             typeID => 1,
         },
