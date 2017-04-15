@@ -431,9 +431,27 @@ has json => (
 sub TO_JSON {
     my $self = shift;
 
-    my %stash = %{$self->stash};
-    # XXX contains code references which can't be encoded
-    delete $stash{sidebar_search};
+    # Whitelist of keys that we use in the templates.
+    my @stash_keys = qw(
+        current_language
+        current_language_html
+        entity
+        hide_merge_helper
+        jsonld_data
+        last_replication_date
+        linked_entities
+        makes_no_changes
+        merge_link
+        new_edit_notes
+        server_details
+        server_languages
+        to_merge
+    );
+
+    my %stash;
+    for (@stash_keys) {
+        $stash{$_} = $self->stash->{$_};
+    }
 
     # convert DateTime objects to iso8601-formatted strings
     if (my $date = $stash{last_replication_date}) {
