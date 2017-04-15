@@ -10,6 +10,7 @@ require('babel-core/register');
 const cluster = require('cluster');
 const fs = require('fs');
 const Raven = require('raven');
+const spawnSync = require('child_process').spawnSync;
 
 const createServer = require('./server/createServer');
 const DBDefs = require('./server/DBDefs');
@@ -31,6 +32,15 @@ const yargs = require('yargs')
 Raven.config(DBDefs.SENTRY_DSN).install();
 
 const SOCKET_PATH = yargs.argv.socket;
+
+if (fs.existsSync(SOCKET_PATH)) {
+  if (spawnSync('lsof', [SOCKET_PATH]).status) {
+    fs.unlinkSync(SOCKET_PATH);
+  } else {
+    console.error('socket ' + SOCKET_PATH + ' exists and is in use');
+    process.exit(1);
+  }
+}
 
 if (cluster.isMaster) {
   const workers = yargs.argv.workers;
