@@ -58,6 +58,16 @@ our %extra_inc = (
     'works' => [ qw( artist-credits ) ],
 );
 
+# inc subqueries that limited to a maximum of 25 items. These are only
+# supported for single-entity lookups, i.e. not browse requests or lookups
+# that specify multiple IDs.
+our %limited_subqueries = (
+    artist          => { map { $_ => 1 } qw( recordings releases release-groups works ) },
+    label           => { map { $_ => 1 } qw( releases ) },
+    recording       => { map { $_ => 1 } qw( releases ) },
+    release         => { map { $_ => 1 } qw( collections ) },
+    'release-group' => { map { $_ => 1 } qw( releases ) },
+);
 
 sub load_type_and_status
 {
@@ -188,7 +198,7 @@ sub validate_required
 
 sub validate_inc
 {
-    my ($c, $version, $resource, $inc, $def) = @_;
+    my ($c, $version, $resource, $basename, $inc, $def) = @_;
 
     if (ref($inc)) {
         $c->stash->{error} = 'Inc arguments must be combined with a space, but you provided multiple parameters';
@@ -274,6 +284,12 @@ sub validate_inc
 
             return;
         }
+        if (exists $limited_subqueries{$resource}{$i} &&
+                defined $basename && $basename =~ /\+/) {
+            $c->stash->{error} = "$i is not an allowed inc parameter when " .
+                'multiple IDs are requested.';
+            return;
+        }
         push @filtered, $i;
     }
 
@@ -299,9 +315,9 @@ role {
 
         $c->stash->{serializer} = $self->get_serialization($c);
 
-        my $resource = $c->req->path;
         my $version = quotemeta($r->version);
-        $resource =~ s,ws/$version/([\w-]+?)(/.*)?$,$1,;
+        my ($resource, $basename) = $c->req->path =~
+            qr{ws/$version/([\w-]+?)(?:/(.*))?$};
 
         foreach my $def (@{ $r->defs })
         {
@@ -350,7 +366,7 @@ role {
 
             if ($def->[1]->{inc})
             {
-                $inc = validate_inc($c, $r->version, $resource,
+                $inc = validate_inc($c, $r->version, $resource, $basename,
                                     $c->req->params->{inc}, $def->[1]->{inc});
                 return 0 unless ($inc);
             }

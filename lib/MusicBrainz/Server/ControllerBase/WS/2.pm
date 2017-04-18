@@ -103,6 +103,13 @@ sub method_not_allowed : Private {
     ));
 }
 
+sub too_many_ids : Private
+{
+    my ($self, $c) = @_;
+    $c->stash->{error} = "Too many IDs.";
+    $c->detach('bad_req');
+}
+
 sub begin : Private { }
 sub end : Private { }
 

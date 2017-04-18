@@ -10,6 +10,12 @@ parameter model => (
     required => 1,
 );
 
+sub allow_multiple {
+    my ($c) = @_;
+
+    return $c->stash->{serializer}->fmt eq 'json';
+}
+
 role {
     my ($params, %extra) = @_;
 
@@ -17,13 +23,12 @@ role {
     my $toplevel_routine = $entity_type . '_toplevel';
     my $consumer = $extra{consumer};
 
-    requires "$toplevel_routine";
-
     apply_all_roles(
         $consumer,
         'MusicBrainz::Server::Controller::Role::Load' => {
             model => $params->model,
             allow_integer_ids => 0,
+            allow_multiple => \&allow_multiple,
         },
     );
 
@@ -38,12 +43,23 @@ role {
 
         my $stash = WebServiceStash->new;
 
-        $self->$toplevel_routine($c, $stash, $entity);
+        my $serialization_routine = $entity_type;
+
+        if (ref $entity eq 'ARRAY') {
+            if ($self->can($toplevel_routine)) {
+                $self->$toplevel_routine($c, $stash, $entity);
+            }
+            $entity = {items => $entity};
+            $serialization_routine .= '_list';
+
+        } elsif ($self->can($toplevel_routine)) {
+            $self->$toplevel_routine($c, $stash, [$entity]);
+        }
 
         $c->res->content_type(
             $c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->serialize(
-            $entity_type, $entity, $c->stash->{inc}, $stash));
+            $serialization_routine, $entity, $c->stash->{inc}, $stash));
     };
 };
 
