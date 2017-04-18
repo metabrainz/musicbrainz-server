@@ -32,8 +32,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Work'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Work',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -59,22 +59,6 @@ sub work_toplevel
 }
 
 sub base : Chained('root') PathPart('work') CaptureArgs(0) { }
-
-sub work : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $work = $c->stash->{entity};
-
-    return unless defined $work;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($work);
-
-    $self->work_toplevel($c, $stash, [$work]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $stash));
-}
 
 sub work_browse : Private
 {

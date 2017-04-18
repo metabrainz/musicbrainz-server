@@ -44,8 +44,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Recording'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Recording',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -122,21 +122,6 @@ sub recording_toplevel
             );
         }
     }
-}
-
-sub recording: Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $recording = $c->stash->{entity};
-
-    return unless defined $recording;
-
-    my $stash = WebServiceStash->new;
-
-    $self->recording_toplevel($c, $stash, [$recording]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $stash));
 }
 
 sub recording_browse : Private

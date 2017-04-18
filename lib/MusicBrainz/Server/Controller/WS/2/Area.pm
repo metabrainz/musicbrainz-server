@@ -38,8 +38,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Area'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Area',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -63,22 +63,6 @@ sub area_toplevel
         if $inc->annotation;
 
     $self->load_relationships($c, $stash, @areas);
-}
-
-sub area : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $area = $c->stash->{entity};
-
-    return unless defined $area;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($area);
-
-    $self->area_toplevel($c, $stash, [$area]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('area', $area, $c->stash->{inc}, $stash));
 }
 
 sub area_browse : Private

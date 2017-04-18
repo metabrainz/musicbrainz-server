@@ -32,8 +32,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Label'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Label',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -71,22 +71,6 @@ sub label_toplevel {
         }
         $self->linked_releases($c, $stash, \@releases) if @releases;
     }
-}
-
-sub label : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $label = $c->stash->{entity};
-
-    return unless defined $label;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($label);
-
-    $self->label_toplevel($c, $stash, [$label]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $stash));
 }
 
 sub label_browse : Private

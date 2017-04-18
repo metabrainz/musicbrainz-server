@@ -33,6 +33,12 @@ parameter 'allow_multiple' => (
     default => sub { sub { 0 } },
 );
 
+parameter 'allow_integer_ids' => (
+    isa => 'Bool',
+    required => 0,
+    default => sub { 1 },
+);
+
 role
 {
     my $params = shift;
@@ -43,6 +49,7 @@ role
     # defaulting to something non-undef silences a warning
     my $entity_properties = $ENTITIES{ $entity_type // 0 };
     my $entity_name = $params->entity_name || $entity_type;
+    my $allows_integer_ids = $params->allow_integer_ids;
 
     requires 'not_found', 'invalid_mbid';
 
@@ -112,7 +119,7 @@ role
         for my $uid (@unknown_ids) {
             if ($can_get_by_gid && is_guid($uid)) {
                 push @gids, $uid;
-            } elsif (is_positive_integer($uid)) {
+            } elsif ($allows_integer_ids && is_positive_integer($uid)) {
                 push @ids, $uid;
             } else {
                 $self->invalid_mbid($c, $uid);

@@ -31,8 +31,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Event'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Event',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -62,21 +62,6 @@ sub event_toplevel {
     }
 
     $self->load_relationships($c, $stash, @events);
-}
-
-sub event : Chained('load') PathPart('') {
-    my ($self, $c) = @_;
-    my $event = $c->stash->{entity};
-
-    return unless defined $event;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($event);
-
-    $self->event_toplevel($c, $stash, [$event]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('event', $event, $c->stash->{inc}, $stash));
 }
 
 sub event_browse : Private {

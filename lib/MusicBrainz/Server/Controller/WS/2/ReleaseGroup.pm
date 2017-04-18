@@ -32,8 +32,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'ReleaseGroup'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'ReleaseGroup',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -82,21 +82,6 @@ sub release_group_toplevel {
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }
-
-sub release_group : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $rg = $c->stash->{entity};
-
-    return unless defined $rg;
-
-    my $stash = WebServiceStash->new;
-
-    $self->release_group_toplevel($c, $stash, [$rg]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $stash));
-}
 
 sub release_group_browse : Private
 {
