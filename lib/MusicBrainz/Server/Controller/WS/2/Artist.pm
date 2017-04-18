@@ -53,7 +53,7 @@ sub artist : Chained('load') PathPart('')
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($artist);
 
-    $self->artist_toplevel($c, $stash, $artist);
+    $self->artist_toplevel($c, $stash, [$artist]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $stash));
@@ -61,67 +61,76 @@ sub artist : Chained('load') PathPart('')
 
 sub artist_toplevel
 {
-    my ($self, $c, $stash, $artist) = @_;
+    my ($self, $c, $stash, $artists) = @_;
 
-    my $opts = $stash->store($artist);
+    my $inc = $c->stash->{inc};
+    my @artists = @{$artists};
 
-    $self->linked_artists($c, $stash, [ $artist ]);
+    $self->linked_artists($c, $stash, $artists);
 
-    $c->model('ArtistType')->load($artist);
-    $c->model('Gender')->load($artist);
-    $c->model('Area')->load($artist);
-    $c->model('Artist')->ipi->load_for($artist);
-    $c->model('Artist')->isni->load_for($artist);
+    $c->model('ArtistType')->load(@artists);
+    $c->model('Gender')->load(@artists);
+    $c->model('Area')->load(@artists);
+    $c->model('Artist')->ipi->load_for(@artists);
+    $c->model('Artist')->isni->load_for(@artists);
 
-    $c->model('Artist')->annotation->load_latest($artist)
-        if $c->stash->{inc}->annotation;
+    $c->model('Artist')->annotation->load_latest(@artists)
+        if $inc->annotation;
 
-    if ($c->stash->{inc}->recordings)
-    {
-        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
-        $opts->{recordings} = $self->make_list(@results);
+    $self->load_relationships($c, $stash, @artists);
 
-        $self->linked_recordings($c, $stash, $opts->{recordings}->{items});
+    if ($inc->recordings) {
+        my @recordings;
+        for my $artist (@artists) {
+            my $opts = $stash->store($artist);
+            my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
+            $opts->{recordings} = $self->make_list(@results);
+            push @recordings, @{ $opts->{recordings}{items} };
+        }
+        $self->linked_recordings($c, $stash, \@recordings) if @recordings;
     }
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results;
-        if ($c->stash->{inc}->various_artists)
-        {
-            @results = $c->model('Release')->find_for_various_artists(
-                $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
+    if ($inc->releases) {
+        my @releases;
+        for my $artist (@artists) {
+            my $opts = $stash->store($artist);
+            my @results;
+            if ($inc->various_artists) {
+                @results = $c->model('Release')->find_for_various_artists(
+                    $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
+            } else {
+                @results = $c->model('Release')->find_by_artist(
+                    $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
+            }
+            $opts->{releases} = $self->make_list(@results);
+            push @releases, @{ $opts->{releases}{items} };
         }
-        else
-        {
-            @results = $c->model('Release')->find_by_artist(
-                $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
-        }
-
-        $opts->{releases} = $self->make_list(@results);
-
-        $self->linked_releases($c, $stash, $opts->{releases}->{items});
+        $self->linked_releases($c, $stash, \@releases) if @releases;
     }
 
-    if ($c->stash->{inc}->release_groups)
-    {
+    if ($inc->release_groups) {
+        my @release_groups;
         my $show_all = 1;
-        my @results = $c->model('ReleaseGroup')->find_by_artist(
-            $artist->id, $show_all, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
-        $opts->{release_groups} = $self->make_list(@results);
-
-        $self->linked_release_groups($c, $stash, $opts->{release_groups}->{items});
+        for my $artist (@artists) {
+            my $opts = $stash->store($artist);
+            my @results = $c->model('ReleaseGroup')->find_by_artist(
+                $artist->id, $show_all, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
+            $opts->{release_groups} = $self->make_list(@results);
+            push @release_groups, @{ $opts->{release_groups}{items} };
+        }
+        $self->linked_release_groups($c, $stash, \@release_groups) if @release_groups;
     }
 
-    if ($c->stash->{inc}->works)
-    {
-        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
-        $opts->{works} = $self->make_list(@results);
-
-        $self->linked_works($c, $stash, $opts->{works}->{items});
+    if ($inc->works) {
+        my @works;
+        for my $artist (@artists) {
+            my $opts = $stash->store($artist);
+            my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
+            $opts->{works} = $self->make_list(@results);
+            push @works, @{ $opts->{works}{items} };
+        }
+        $self->linked_works($c, $stash, \@works) if @works;
     }
-
-    $self->load_relationships($c, $stash, $artist);
 }
 
 sub artist_browse : Private
@@ -180,10 +189,7 @@ sub artist_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $artists->{items} })
-    {
-        $self->artist_toplevel($c, $stash, $_);
-    }
+    $self->artist_toplevel($c, $stash, $artists->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist-list', $artists, $c->stash->{inc}, $stash));

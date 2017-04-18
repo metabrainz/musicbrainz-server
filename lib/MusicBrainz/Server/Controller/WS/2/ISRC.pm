@@ -40,10 +40,7 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
     my @recordings = $c->model('Recording')->load(@isrcs);
     my $recordings = $self->make_list(\@recordings);
 
-    for (@recordings)
-    {
-        $c->controller('WS::2::Recording')->recording_toplevel($c, $stash, $_);
-    }
+    $c->controller('WS::2::Recording')->recording_toplevel($c, $stash, \@recordings);
 
     for (@isrcs)
     {

@@ -56,61 +56,72 @@ sub base : Chained('root') PathPart('recording') CaptureArgs(0) { }
 
 sub recording_toplevel
 {
-    my ($self, $c, $stash, $recording) = @_;
+    my ($self, $c, $stash, $recordings) = @_;
 
-    my $opts = $stash->store($recording);
+    my $inc = $c->stash->{inc};
+    my @recordings = @{$recordings};
+    my @load_acs;
 
-    $self->linked_recordings($c, $stash, [ $recording ]);
+    $self->linked_recordings($c, $stash, $recordings);
 
-    $c->model('Recording')->annotation->load_latest($recording)
-        if $c->stash->{inc}->annotation;
+    $c->model('Recording')->annotation->load_latest(@recordings)
+        if $inc->annotation;
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results;
-        if ($c->stash->{inc}->media)
-        {
-            @results = $c->model('Release')->load_with_medium_for_recording(
-                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        }
-        else
-        {
-            @results = $c->model('Release')->find_by_recording(
-                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        }
+    $self->load_relationships($c, $stash, @recordings);
 
-        my @releases = @{$results[0]};
+    if ($inc->releases) {
+        for my $recording (@recordings) {
+            my $opts = $stash->store($recording);
+            my @results;
 
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases)
-            if ($c->stash->{inc}->artist_credits);
+            if ($inc->media) {
+                @results = $c->model('Release')->load_with_medium_for_recording(
+                    $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
+            } else {
+                @results = $c->model('Release')->find_by_recording(
+                    $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
+            }
 
-        $self->linked_releases($c, $stash, $results[0]);
+            my @releases = @{$results[0]};
 
-        $opts->{releases} = $self->make_list(@results);
+            $opts->{releases} = $self->make_list(@results);
 
-        if ($c->stash->{inc}->release_groups) {
-            $c->model('ReleaseGroup')->load(@releases);
-            $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @releases);
-            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+            $self->linked_releases($c, $stash, \@releases);
 
-            if ($c->stash->{inc}->artist_credits) {
-                $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
-                $c->model('Artist')->load(
-                    map { @{ $_->release_group->artist_credit->names } } @releases);
+            push @load_acs,
+                map { $_->all_tracks }
+                map { $_->all_mediums } @releases
+                if $inc->artist_credits;
+
+            if ($inc->release_groups) {
+                $c->model('ReleaseGroup')->load(@releases);
+
+                my @release_groups = map { $_->release_group } @releases;
+                $c->model('ReleaseGroup')->load_meta(@release_groups);
+                $c->model('ReleaseGroupType')->load(@release_groups);
+
+                push @load_acs, @release_groups
+                    if $inc->artist_credits;
             }
         }
     }
 
-    if ($c->stash->{inc}->artists)
-    {
-        $c->model('ArtistCredit')->load($recording);
-
-        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $recording->artist_credit->names };
-
-        $self->linked_artists($c, $stash, \@artists);
+    if ($inc->artists) {
+        push @load_acs, @recordings;
     }
 
-    $self->load_relationships($c, $stash, $recording);
+    if (@load_acs) {
+        $c->model('ArtistCredit')->load(@load_acs);
+        $c->model('Artist')->load(map { $_->artist_credit->all_names } @load_acs);
+
+        if ($inc->artists) {
+            $self->linked_artists(
+                $c, $stash,
+                [ map { $_->artist }
+                  map { $_->artist_credit->all_names } @recordings ]
+            );
+        }
+    }
 }
 
 sub recording: Chained('load') PathPart('')
@@ -122,7 +133,7 @@ sub recording: Chained('load') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    $self->recording_toplevel($c, $stash, $recording);
+    $self->recording_toplevel($c, $stash, [$recording]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $stash));
@@ -164,10 +175,7 @@ sub recording_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $recordings->{items} })
-    {
-        $self->recording_toplevel($c, $stash, $_);
-    }
+    $self->recording_toplevel($c, $stash, $recordings->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('recording-list', $recordings, $c->stash->{inc}, $stash));
