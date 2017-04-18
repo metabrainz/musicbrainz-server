@@ -58,9 +58,7 @@ sub discid : Chained('root') PathPart('discid') {
 
             $opts->{releases} = $self->make_list(\@releases);
 
-            for (@releases) {
-                $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
-            }
+            $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
 
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
             $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
@@ -100,8 +98,7 @@ sub discid : Chained('root') PathPart('discid') {
         $c->model('Release')->load(@mediums);
 
         my @releases = map { $_->release } @mediums;
-        $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_)
-            for @releases;
+        $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->serialize(

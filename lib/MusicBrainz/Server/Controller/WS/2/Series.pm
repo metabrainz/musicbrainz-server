@@ -42,17 +42,15 @@ sub base : Chained('root') PathPart('series') CaptureArgs(0) { }
 sub series_toplevel {
     my ($self, $c, $stash, $series) = @_;
 
-    my $opts = $stash->store($series);
+    $self->linked_series($c, $stash, $series);
 
-    $self->linked_series($c, $stash, [$series]);
+    $c->model('SeriesType')->load(@$series);
+    $c->model('SeriesOrderingType')->load(@$series);
 
-    $c->model('SeriesType')->load($series);
-    $c->model('SeriesOrderingType')->load($series);
-
-    $c->model('Series')->annotation->load_latest($series)
+    $c->model('Series')->annotation->load_latest(@$series)
         if $c->stash->{inc}->annotation;
 
-    $self->load_relationships($c, $stash, $series);
+    $self->load_relationships($c, $stash, @$series);
 }
 
 sub series : Chained('load') PathPart('') {
@@ -64,7 +62,7 @@ sub series : Chained('load') PathPart('') {
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($series);
 
-    $self->series_toplevel($c, $stash, $series);
+    $self->series_toplevel($c, $stash, [$series]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('series', $series, $c->stash->{inc}, $stash));
@@ -88,9 +86,8 @@ sub series_browse : Private
     }
 
     my $stash = WebServiceStash->new;
-    for (@{ $series->{items} }) {
-        $self->series_toplevel($c, $stash, $_);
-    }
+
+    $self->series_toplevel($c, $stash, $series->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('series-list', $series, $c->stash->{inc}, $stash));

@@ -40,39 +40,45 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
-sub release_group_toplevel
-{
-    my ($self, $c, $stash, $rg) = @_;
+sub release_group_toplevel {
+    my ($self, $c, $stash, $rgs) = @_;
 
-    $c->model('ReleaseGroup')->load_meta($rg);
+    my $inc = $c->stash->{inc};
+    my @rgs = @{$rgs};
 
-    my $opts = $stash->store($rg);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
 
-    $self->linked_release_groups($c, $stash, [ $rg ]);
+    $self->linked_release_groups($c, $stash, $rgs);
 
-    $c->model('ReleaseGroup')->annotation->load_latest($rg)
-        if $c->stash->{inc}->annotation;
+    $c->model('ReleaseGroup')->annotation->load_latest(@rgs)
+        if $inc->annotation;
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results = $c->model('Release')->find_by_release_group(
-            $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
-        $c->model('Release')->load_release_events(@{$results[0]});
-        $opts->{releases} = $self->make_list(@results);
+    $self->load_relationships($c, $stash, @rgs);
 
-        $self->linked_releases($c, $stash, $opts->{releases}->{items});
-    }
+    if ($inc->artists) {
+        $c->model('ArtistCredit')->load(@rgs);
 
-    if ($c->stash->{inc}->artists)
-    {
-        $c->model('ArtistCredit')->load($rg);
+        my @acns = map { $_->artist_credit->all_names } @rgs;
+        $c->model('Artist')->load(@acns);
 
-        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $rg->artist_credit->names };
-
+        my @artists = map { $_->artist } @acns;
         $self->linked_artists($c, $stash, \@artists);
     }
 
-    $self->load_relationships($c, $stash, $rg);
+    if ($inc->releases) {
+        my @releases;
+        for my $rg (@rgs) {
+            my $opts = $stash->store($rg);
+            my @results = $c->model('Release')->find_by_release_group(
+                $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
+            $opts->{releases} = $self->make_list(@results);
+            push @releases, @{$results[0]};
+        }
+        if (@releases) {
+            $c->model('Release')->load_release_events(@releases);
+            $self->linked_releases($c, $stash, \@releases);
+        }
+    }
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }
@@ -86,7 +92,7 @@ sub release_group : Chained('load') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    $self->release_group_toplevel($c, $stash, $rg);
+    $self->release_group_toplevel($c, $stash, [$rg]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $stash));
@@ -130,10 +136,7 @@ sub release_group_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $rgs->{items} })
-    {
-        $self->release_group_toplevel($c, $stash, $_);
-    }
+    $self->release_group_toplevel($c, $stash, $rgs->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group-list', $rgs, $c->stash->{inc}, $stash));

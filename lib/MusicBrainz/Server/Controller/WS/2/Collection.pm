@@ -70,12 +70,20 @@ sub collection : Chained('load') PathPart('') {
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($collection);
 
-    $c->model('Collection')->load_entity_count($collection);
-    $c->model('CollectionType')->load($collection);
-    $c->model('Editor')->load($collection);
+    $self->collection_toplevel($c, $stash, [$collection]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
+}
+
+sub collection_toplevel {
+    my ($self, $c, $stash, $collections) = @_;
+
+    my @collections = @{$collections};
+
+    $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
+    $c->model('Editor')->load(@collections);
 }
 
 map {
@@ -250,9 +258,7 @@ sub collection_browse : Private {
 
     $collections = $self->make_list(@result, $offset);
     my @collections = @{ $result[0] };
-    $c->model('Editor')->load(@collections);
-    $c->model('Collection')->load_entity_count(@collections);
-    $c->model('CollectionType')->load(@collections);
+    $self->collection_toplevel($c, $stash, \@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection-list', $collections, $c->stash->{inc}, $stash));

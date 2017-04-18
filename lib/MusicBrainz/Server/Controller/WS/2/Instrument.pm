@@ -43,18 +43,16 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 sub base : Chained('root') PathPart('instrument') CaptureArgs(0) { }
 
 sub instrument_toplevel {
-    my ($self, $c, $stash, $instrument) = @_;
+    my ($self, $c, $stash, $instruments) = @_;
 
-    my $opts = $stash->store($instrument);
+    $self->linked_instruments($c, $stash, $instruments);
 
-    $self->linked_instruments($c, $stash, [ $instrument ]);
+    $c->model('InstrumentType')->load(@$instruments);
 
-    $c->model('InstrumentType')->load($instrument);
-
-    $c->model('Instrument')->annotation->load_latest($instrument)
+    $c->model('Instrument')->annotation->load_latest(@$instruments)
         if $c->stash->{inc}->annotation;
 
-    $self->load_relationships($c, $stash, $instrument);
+    $self->load_relationships($c, $stash, @$instruments);
 }
 
 sub instrument : Chained('load') PathPart('') {
@@ -66,7 +64,7 @@ sub instrument : Chained('load') PathPart('') {
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($instrument);
 
-    $self->instrument_toplevel($c, $stash, $instrument);
+    $self->instrument_toplevel($c, $stash, [$instrument]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('instrument', $instrument, $c->stash->{inc}, $stash));
@@ -92,9 +90,7 @@ sub instrument_browse : Private {
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $instruments->{items} }) {
-        $self->instrument_toplevel($c, $stash, $_);
-    }
+    $self->instrument_toplevel($c, $stash, $instruments->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('instrument-list', $instruments, $c->stash->{inc}, $stash));

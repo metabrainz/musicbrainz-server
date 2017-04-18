@@ -50,19 +50,19 @@ sub base : Chained('root') PathPart('area') CaptureArgs(0) { }
 
 sub area_toplevel
 {
-    my ($self, $c, $stash, $area) = @_;
+    my ($self, $c, $stash, $areas) = @_;
 
-    my $opts = $stash->store($area);
+    my $inc = $c->stash->{inc};
+    my @areas = @{$areas};
 
-    $self->linked_areas($c, $stash, [ $area ]);
+    $self->linked_areas($c, $stash, $areas);
 
+    $c->model('AreaType')->load(@areas);
 
-    $c->model('AreaType')->load($area);
+    $c->model('Area')->annotation->load_latest(@areas)
+        if $inc->annotation;
 
-    $c->model('Area')->annotation->load_latest($area)
-        if $c->stash->{inc}->annotation;
-
-    $self->load_relationships($c, $stash, $area);
+    $self->load_relationships($c, $stash, @areas);
 }
 
 sub area : Chained('load') PathPart('')
@@ -75,7 +75,7 @@ sub area : Chained('load') PathPart('')
     my $stash = WebServiceStash->new;
     my $opts = $stash->store($area);
 
-    $self->area_toplevel($c, $stash, $area);
+    $self->area_toplevel($c, $stash, [$area]);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('area', $area, $c->stash->{inc}, $stash));
@@ -101,10 +101,7 @@ sub area_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $areas->{items} })
-    {
-        $self->label_toplevel($c, $stash, $_);
-    }
+    $self->area_toplevel($c, $stash, $areas->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('area-list', $areas, $c->stash->{inc}, $stash));
