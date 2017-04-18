@@ -1,0 +1,173 @@
+sudo: required
+dist: trusty
+
+env:
+  global:
+    - CATALYST_DEBUG=0
+    # no cpan questions
+    - PERL_MM_USE_DEFAULT=1
+    - PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
+
+services:
+  - memcached
+  - redis-server
+
+before_install:
+  - sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main\n" > /etc/apt/sources.list.d/pgdg.list'
+  - sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg 9.1" >> /etc/apt/sources.list.d/pgdg.list'
+  - wget --no-check-certificate --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  - sudo add-apt-repository ppa:metabrainz/musicbrainz-server -y
+  - sudo apt-get update -q
+  - >
+    sudo apt-get install -y --force-yes \
+      cpanminus \
+      libalgorithm-diff-perl \
+      libauthen-passphrase-perl \
+      libcache-memcached-fast-perl \
+      libcache-memcached-perl \
+      libcache-perl \
+      libcaptcha-recaptcha-perl \
+      libcatalyst-authentication-credential-http-perl \
+      libcatalyst-modules-perl \
+      libcatalyst-perl \
+      libcatalyst-plugin-cache-http-perl \
+      libcatalyst-plugin-session-store-memcached-perl \
+      libcatalyst-view-tt-perl \
+      libcgi-expand-perl \
+      libclone-perl \
+      libdata-compare-perl \
+      libdata-dumper-concise-perl \
+      libdata-optlist-perl \
+      libdata-page-perl \
+      libdata-uuid-mt-perl \
+      libdate-calc-perl \
+      libdatetime-format-duration-perl \
+      libdatetime-format-iso8601-perl \
+      libdatetime-format-natural-perl \
+      libdatetime-format-pg-perl \
+      libdatetime-format-w3cdtf-perl \
+      libdatetime-timezone-perl \
+      libdb-dev \
+      libdbd-pg-perl \
+      libdbi-perl \
+      libdbix-connector-perl \
+      libdigest-hmac-perl \
+      libdigest-md5-file-perl \
+      libdigest-sha-perl \
+      libemail-address-perl \
+      libemail-mime-creator-perl \
+      libemail-mime-perl \
+      libemail-sender-perl \
+      libemail-valid-perl \
+      libencode-detect-perl \
+      libexception-class-perl \
+      libexpat1-dev \
+      libgnupg-perl \
+      libhtml-formhandler-perl \
+      libhtml-tiny-perl \
+      libhtml-treebuilder-xpath-perl \
+      libhttp-date-perl \
+      libicu-dev \
+      libicu-dev \
+      libintl-perl \
+      libio-all-perl \
+      libjson-perl \
+      libjson-xs-perl \
+      liblist-allutils-perl \
+      liblist-moreutils-perl \
+      liblist-utilsby-perl \
+      liblog-dispatch-perl \
+      libmath-random-secure-perl \
+      libmethod-signatures-simple-perl \
+      libmodule-pluggable-perl \
+      libmoose-perl \
+      libmoosex-abc-perl \
+      libmoosex-clone-perl \
+      libmoosex-getopt-perl \
+      libmoosex-methodattributes-perl \
+      libmoosex-role-parameterized-perl \
+      libmoosex-runnable-perl \
+      libmoosex-singleton-perl \
+      libmoosex-types-perl \
+      libmoosex-types-structured-perl \
+      libmoosex-types-uri-perl \
+      libmro-compat-perl \
+      libnet-amazon-awssign-perl \
+      libnet-coverartarchive-perl \
+      libpackage-stash-perl \
+      libpq-dev=9.1.20-1.pgdg14.04+1 \
+      libpq5=9.1.20-1.pgdg14.04+1 \
+      libreadonly-perl \
+      libredis-perl \
+      librest-utils-perl \
+      libset-scalar-perl \
+      libsoap-lite-perl \
+      libstatistics-basic-perl \
+      libstring-camelcase-perl \
+      libstring-shellquote-perl \
+      libstring-tt-perl \
+      libtemplate-plugin-class-perl \
+      libtemplate-plugin-javascript-perl \
+      libtemplate-plugin-json-escape-perl \
+      libtext-diff3-perl \
+      libtext-markdown-perl \
+      libtext-trim-perl \
+      libtext-unaccent-perl \
+      libtext-wikiformat-perl \
+      libthrowable-perl \
+      libtime-duration-perl \
+      libtrycatch-perl \
+      libunicode-icu-collator-perl \
+      liburi-perl \
+      libxml-generator-perl \
+      libxml-parser-perl \
+      libxml-rss-parser-lite-perl \
+      libxml-semanticdiff-perl \
+      libxml-simple-perl \
+      libxml-xpath-perl \
+      libxml2-dev \
+      perl \
+      postgresql-9.1 \
+      postgresql-9.1-pgtap \
+      postgresql-plperl-9.1 \
+      postgresql-server-dev-9.1
+
+  # test requirements
+
+  # source: https://gist.github.com/vifo/2718520
+  - echo 'perl -MCPAN -e '"'"'foreach (@ARGV) { CPAN::Shell->rematein("notest", "install", $_) }'"'"' $@' > $HOME/cpannti.sh
+  - chmod +x $HOME/cpannti.sh
+
+  - >
+    sudo -E $HOME/cpannti.sh \
+      Coro \
+      HTML::HTML5::Parser \
+      HTML::HTML5::Sanity \
+      HTML::Selector::XPath \
+      JSON::XS \
+      LWP::UserAgent::Mockable \
+      TAP::Parser::SourceHandler::pgTAP \
+      Test::Aggregate \
+      Test::Differences \
+      Test::Fatal \
+      Test::JSON \
+      Test::LongString \
+      Test::Magpie \
+      Test::Memory::Cycle \
+      Test::Mock::Class \
+      Test::Routine \
+      Test::WWW::Mechanize::Catalyst \
+      Test::XPath \
+      XML::Parser
+
+install:
+  - pushd postgresql-musicbrainz-unaccent && make && sudo make install && popd
+  - pushd postgresql-musicbrainz-collate && make && sudo make install && popd
+  - cp lib/DBDefs.pm.sample lib/DBDefs.pm
+  - ./admin/InitDb.pl --createdb --clean
+  - ./script/create_test_db.sh
+  - npm install
+  - ./script/compile_resources.sh
+
+script:
+  - prove -Ilib --source pgTAP --source Perl --pgtap-option dbname=musicbrainz_test --pgtap-option username=musicbrainz --pgtap-option password=musicbrainz t/js.t t/tests.t t/script/*.t t/pgtap/* t/pgtap/unused-tags/* -v
