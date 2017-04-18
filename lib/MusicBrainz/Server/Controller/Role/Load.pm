@@ -27,6 +27,12 @@ parameter 'relationships' => (
     default => sub { {} }
 );
 
+parameter 'allow_integer_ids' => (
+    isa => 'Bool',
+    required => 0,
+    default => sub { 1 },
+);
+
 role
 {
     my $params = shift;
@@ -37,6 +43,7 @@ role
     # defaulting to something non-undef silences a warning
     my $entity_properties = $ENTITIES{ $entity_type // 0 };
     my $entity_name = $params->entity_name || $entity_type;
+    my $allows_integer_ids = $params->allow_integer_ids;
 
     requires 'not_found', 'invalid_mbid';
 
@@ -92,18 +99,16 @@ role
 
         if ($id_is_guid) {
             $entity = $c->model($model)->get_by_gid($id);
-        } elsif (is_positive_integer($id)) {
+        } elsif ($allows_integer_ids && is_positive_integer($id)) {
             $entity = $c->model($model)->get_by_id($id);
+        } else {
+            # This will detach for us
+            $self->invalid_mbid($c, $id);
         }
 
         if ($entity) {
             $c->model($model)->load_gid_redirects($entity) if exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
             return $entity;
-        }
-
-        if (!$id_is_guid) {
-            # This will detach for us
-            $self->invalid_mbid($c, $id);
         }
 
         return undef;

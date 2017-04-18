@@ -33,8 +33,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Artist'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Artist',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -42,22 +42,6 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('artist') CaptureArgs(0) { }
-
-sub artist : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{entity};
-
-    return unless defined $artist;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($artist);
-
-    $self->artist_toplevel($c, $stash, [$artist]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $stash));
-}
 
 sub artist_toplevel
 {

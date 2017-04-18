@@ -48,7 +48,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'Release',
 };
 
@@ -188,29 +188,6 @@ sub release_toplevel {
     }
 
     $self->load_relationships($c, $stash, @rels_entities);
-}
-
-sub release: Chained('root') PathPart('release') Args(1)
-{
-    my ($self, $c, $gid) = @_;
-
-    if (!is_guid($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
-    }
-
-    my $release = $c->model('Release')->get_by_gid($gid);
-    unless ($release) {
-        $c->detach('not_found');
-    }
-
-    my $stash = WebServiceStash->new;
-
-    $self->release_toplevel($c, $stash, [$release]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $stash));
 }
 
 sub release_browse : Private

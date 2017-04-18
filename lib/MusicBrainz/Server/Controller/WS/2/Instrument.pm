@@ -34,8 +34,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
     defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Instrument'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Instrument',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -54,22 +54,6 @@ sub instrument_toplevel {
 
     $self->load_relationships($c, $stash, @$instruments);
 }
-
-sub instrument : Chained('load') PathPart('') {
-    my ($self, $c) = @_;
-    my $instrument = $c->stash->{entity};
-
-    return unless defined $instrument;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($instrument);
-
-    $self->instrument_toplevel($c, $stash, [$instrument]);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('instrument', $instrument, $c->stash->{inc}, $stash));
-}
-
 
 sub instrument_browse : Private {
     my ($self, $c) = @_;
