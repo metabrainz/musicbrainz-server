@@ -27,6 +27,12 @@ parameter 'relationships' => (
     default => sub { {} }
 );
 
+parameter 'allow_multiple' => (
+    isa => 'CodeRef',
+    required => 0,
+    default => sub { sub { 0 } },
+);
+
 role
 {
     my $params = shift;
@@ -52,26 +58,28 @@ role
     {
         my ($self, $c, @args) = @_;
 
-        my $entity = $self->_load($c, @args);
+        my @entities = $self->_load($c, @args);
 
-        $c->detach('not_found') unless defined $entity;
+        $c->detach('not_found') unless @entities;
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
             my $relationships = $params->relationships;
 
             if ($action ~~ $relationships->{all}) {
-                $c->model('Relationship')->load($entity);
+                $c->model('Relationship')->load(@entities);
             } elsif ($action ~~ $relationships->{cardinal}) {
-                $c->model('Relationship')->load_cardinal($entity);
+                $c->model('Relationship')->load_cardinal(@entities);
             } else {
                 my $types = $relationships->{subset}->{$action} // $relationships->{default};
 
                 if ($types) {
-                    $c->model('Relationship')->load_subset($types, $entity);
+                    $c->model('Relationship')->load_subset($types, @entities);
                 }
             }
         }
+
+        my $entity = @entities == 1 ? $entities[0] : \@entities;
 
         # First stash is more convenient for the actual controller
         $c->stash( $entity_name => $entity )
@@ -87,26 +95,48 @@ role
     {
         my ($self, $c, $id) = @_;
 
-        my $entity;
-        my $id_is_guid = is_guid($id) && $c->model($model)->can('get_by_gid');
+        my (@gids, @ids, @unknown_ids);
 
-        if ($id_is_guid) {
-            $entity = $c->model($model)->get_by_gid($id);
-        } elsif (is_positive_integer($id)) {
-            $entity = $c->model($model)->get_by_id($id);
+        @unknown_ids = $id;
+        if ($params->allow_multiple->($c)) {
+            @unknown_ids = split /\+/, $id;
         }
 
-        if ($entity) {
-            $c->model($model)->load_gid_redirects($entity) if exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
-            return $entity;
+        $self->too_many_ids($c)
+            if @unknown_ids > 100;
+
+        my @entities;
+        my $entity_model = $c->model($model);
+        my $can_get_by_gid = $entity_model->can('get_by_gid');
+
+        for my $uid (@unknown_ids) {
+            if ($can_get_by_gid && is_guid($uid)) {
+                push @gids, $uid;
+            } elsif (is_positive_integer($uid)) {
+                push @ids, $uid;
+            } else {
+                $self->invalid_mbid($c, $uid);
+            }
         }
 
-        if (!$id_is_guid) {
-            # This will detach for us
+        if (@gids && @ids) {
             $self->invalid_mbid($c, $id);
         }
 
-        return undef;
+        if (@gids) {
+            push @entities, values %{ $entity_model->get_by_gids(@gids) };
+        } elsif (@ids) {
+            push @entities, values %{ $entity_model->get_by_ids(@ids) };
+        }
+
+        if (@entities) {
+            $entity_model->load_gid_redirects(@entities)
+                if exists $entity_properties->{mbid} &&
+                          $entity_properties->{mbid}{multiple};
+            return @entities;
+        }
+
+        return;
     };
 };
 
