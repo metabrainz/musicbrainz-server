@@ -25,7 +25,7 @@ my $ws_defs = Data::OptList::mkopt([
     },
     instrument => {
         method   => 'GET',
-        inc      => [ qw(releases aliases annotation _relations tags user-tags) ],
+        inc      => [ qw(aliases annotation _relations tags user-tags) ],
         optional => [ qw(fmt) ],
     }
 ]);
