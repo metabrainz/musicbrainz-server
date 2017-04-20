@@ -47,6 +47,15 @@ sub get_batch_info {
     return \@batches unless @{$raw_batches};
 
     # Exclude the last batch, which should always be its own sitemap.
+    #
+    # Since sitemaps do a bit of a bundling thing to reach as close to 50,000
+    # URLs as possible, it'd be possible that right after a rollover past
+    # 50,000 IDs, the new one would be folded into the otherwise-most-recent
+    # batch. Since the goal is that each URL only ever starts in its actual
+    # batch number and then moves down over time, this ensures that the last
+    # batch is always its own sitemap, even if it's few enough it could
+    # theoretically be part of the previous one.
+
     if (scalar @$raw_batches > 1) {
         my $batch = {batches => [], count => 0};
         for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
