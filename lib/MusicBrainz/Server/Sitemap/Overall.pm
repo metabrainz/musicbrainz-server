@@ -18,6 +18,7 @@ use MusicBrainz::Server::Sitemap::Constants qw(
 use MusicBrainz::Server::Sitemap::Utils qw( log );
 use POSIX;
 use Sql;
+use aliased 'MusicBrainz::Script::BatchMaker';
 
 extends 'MusicBrainz::Server::Sitemap::Builder';
 
@@ -236,41 +237,14 @@ and what to build for each batch, then calls out to do it.
 sub build_one_entity {
     my ($self, $c, $entity_type) = @_;
 
-    my $sql = $c->sql;
-
-    # Find the counts in each potential batch of 50,000
-    my $raw_batches = $sql->select_list_of_hashes(
-        "SELECT batch, count(id) from (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
-        $MAX_SITEMAP_SIZE
+    my $batch_maker = BatchMaker->new(
+        batch_size => $MAX_SITEMAP_SIZE,
+        c => $c,
+        entity_table => $entity_type,
     );
 
-    return unless @{$raw_batches};
-    my @batches;
-
-    # Exclude the last batch, which should always be its own sitemap.
-    if (scalar @$raw_batches > 1) {
-        my $batch = {count => 0, batches => []};
-        for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
-            # Add this potential batch to the previous one if the sum will come out less than 50,000
-            # Otherwise create a new batch and push the previous one onto the list.
-            if ($batch->{count} + $raw_batch->{count} <= $MAX_SITEMAP_SIZE) {
-                $batch->{count} = $batch->{count} + $raw_batch->{count};
-                push @{$batch->{batches}}, $raw_batch->{batch};
-            } else {
-                push @batches, $batch;
-                $batch = {count => $raw_batch->{count}, batches => [$raw_batch->{batch}]};
-            }
-        }
-        push @batches, $batch;
-    }
-
-    # Add last batch.
-    my $last_batch = $raw_batches->[scalar @$raw_batches - 1];
-    push @batches, {count => $last_batch->{count},
-                    batches => [$last_batch->{batch}]};
-
-    for my $batch_info (@batches) {
-        $self->build_one_batch($c, $entity_type, $batch_info);
+    for my $batch_info (@{ $batch_maker->get_batch_info }) {
+        $self->build_one_batch($c, $entity_type, $batch_maker, $batch_info);
     }
 }
 
@@ -317,14 +291,17 @@ and then builds the main sitemaps and any suffix sitemaps.
 =cut
 
 sub build_one_batch {
-    my ($self, $c, $entity_type, $batch_info) = @_;
+    my ($self, $c, $entity_type, $batch_maker, $batch_info) = @_;
 
     my $entity_suffix_info = $SITEMAP_SUFFIX_INFO{$entity_type};
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
     my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
 
     # Merge the extra joins/columns needed for particular suffixes
-    my %extra_sql = (join => '', columns => []);
+    my %extra_sql = (
+        columns => ["$entity_id AS main_id"],
+        join => '',
+    );
     for my $suffix (keys %{$entity_suffix_info}) {
         my %extra = %{$entity_suffix_info->{$suffix}{extra_sql} // {}};
         if ($extra{columns}) {
@@ -334,10 +311,8 @@ sub build_one_batch {
             $extra_sql{join} .= " JOIN $extra{join}";
         }
     }
-    my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
-    my $tables = $entity_type . $extra_sql{join};
-    my $query = "SELECT $columns FROM $tables WHERE ceil($entity_type.id / ?::float) = any(?)";
-    my $ids = $c->sql->select_list_of_hashes($query, $MAX_SITEMAP_SIZE, $batch_info->{batches});
+
+    my $ids = $batch_maker->get_batch($batch_info, \%extra_sql);
 
     for my $suffix (sort keys %{$entity_suffix_info}) {
         my %suffix_info = %{$entity_suffix_info->{$suffix}};
