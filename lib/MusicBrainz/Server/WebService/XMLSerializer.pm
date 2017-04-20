@@ -1111,6 +1111,8 @@ sub _serialize_series
 
     if ($toplevel) {
         $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);
+        push @list, $gen->ordering_type({id => $series->ordering_type->gid}, $series->ordering_type->name)
+            if ($series->ordering_type);
     }
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)

@@ -38,6 +38,7 @@ ws_test 'basic series lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <series type="Catalogue" type-id="49482ff0-fc9e-3b8c-a2d0-30e84d9df002" id="d977f7fd-96c9-4e3e-83b5-eb484a9e6582">
         <name>Bach-Werke-Verzeichnis</name>
+        <ordering-type id="ec5fa247-c37a-39b3-b31d-bdac6207344e">Automatic</ordering-type>
     </series>
 </metadata>';
 
@@ -47,6 +48,7 @@ ws_test 'series lookup, inc=aliases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <series type="Catalogue" type-id="49482ff0-fc9e-3b8c-a2d0-30e84d9df002" id="d977f7fd-96c9-4e3e-83b5-eb484a9e6582">
         <name>Bach-Werke-Verzeichnis</name>
+        <ordering-type id="ec5fa247-c37a-39b3-b31d-bdac6207344e">Automatic</ordering-type>
         <alias-list count="1">
             <alias sort-name="BWV">BWV</alias>
         </alias-list>

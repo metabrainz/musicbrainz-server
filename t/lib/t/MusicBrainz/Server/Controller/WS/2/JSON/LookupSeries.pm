@@ -20,6 +20,8 @@ test 'basic series lookup' => sub {
             name => 'Bach-Werke-Verzeichnis',
             type => 'Catalogue',
             "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
+            'ordering-type' => 'Automatic',
+            'ordering-type-id' => 'ec5fa247-c37a-39b3-b31d-bdac6207344e',
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
         };
 
@@ -31,6 +33,8 @@ test 'basic series lookup' => sub {
             type => 'Catalogue',
             "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
+            'ordering-type' => 'Automatic',
+            'ordering-type-id' => 'ec5fa247-c37a-39b3-b31d-bdac6207344e',
             aliases => [
                 {
                     primary => JSON::null,
@@ -54,6 +58,8 @@ test 'basic series lookup' => sub {
             type => 'Catalogue',
             "type-id" => "49482ff0-fc9e-3b8c-a2d0-30e84d9df002",
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
+            'ordering-type' => 'Automatic',
+            'ordering-type-id' => 'ec5fa247-c37a-39b3-b31d-bdac6207344e',
             relations => [
                 {
                     'attribute-values' => {number => 'BWV 1'},
