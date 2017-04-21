@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 
 use Date::Calc;
-use List::AllUtils qw( any first_index );
 use MusicBrainz::Server::Data::Utils qw( take_while );
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -57,25 +56,26 @@ sub format
 {
     my ($self) = @_;
 
-    # Take as many values as possible, but drop any trailing undefined values
-    my @comp = ($self->day, $self->month, $self->year);
-    return '' unless any { defined } @comp;
+    return '' if $self->is_empty;
 
-    splice(@comp, 0, first_index { defined } @comp);
-    my @significant_components = reverse(@comp);
+    my ($year, $month, $day, $result) =
+        ($self->year, $self->month, $self->day, '');
 
-    # Attempt to display each significant date component, but if it's undefined
-    # replace by an appropriate number of '?' characters
-    my @len = (4, 2, 2);
-    my @res;
-    for my $i (0..$#significant_components) {
-        my $len = $len[$i];
-        my $val = $significant_components[$i];
-
-        push @res, defined($val) ? sprintf "%0${len}d", $val : '?' x $len;
+    if (defined $year) {
+        $result .= (sprintf '%04d', $year);
+    } elsif ($month || $day) {
+        $result .= '????';
     }
 
-    return join('-', @res);
+    if ($month) {
+        $result .= '-' . (sprintf '%02d', $month);
+    } elsif ($day) {
+        $result .= '-??';
+    }
+
+    $result .= '-' . (sprintf '%02d', $day) if $day;
+
+    return $result;
 }
 
 =method defined_run
