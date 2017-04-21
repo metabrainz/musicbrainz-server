@@ -43,11 +43,10 @@ use File::Path qw( make_path );
 use File::Spec::Functions qw( tmpdir catdir catfile );
 use Getopt::Long;
 use JSON::XS;
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 use MusicBrainz::Server::Context;
 
-my @rel_incs = map { ($_ =~ s/_/-/gr) . '-rels' }
-    entities_with(['mbid', 'relatable']);
+my @rel_incs = map { ($_ =~ s/_/-/gr) . '-rels' } @RELATABLE_ENTITIES;
 
 my %exported_entities = (
     area => {

@@ -67,7 +67,7 @@ our @EXPORT_OK = (
         @FULL_TABLE_LIST
         $CONTACT_URL
         $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
-        %ENTITIES entities_with
+        %ENTITIES entities_with @RELATABLE_ENTITIES
     ),
 );
 
@@ -368,6 +368,19 @@ Readonly our %ENTITIES => %{
     decode_json(read_file(File::Spec->catfile(dirname(__FILE__), '../../../entities.json')))
 };
 
+sub extract_path {
+    my ($entity, $path) = @_;
+    my $final = $entity;
+    for my $prop (@$path) {
+        if (exists $final->{$prop}) {
+            $final = $final->{$prop};
+        } else {
+            return;
+        }
+    }
+    return $final;
+}
+
 sub entities_with {
     my ($props, %opts) = @_;
     if (ref($props) ne 'ARRAY') {
@@ -376,23 +389,11 @@ sub entities_with {
     if (ref($props->[0]) ne 'ARRAY') {
         $props = [$props];
     }
-    my $extract_path = sub {
-        my ($entity, $path) = @_;
-        my $final = $entity;
-        for my $prop (@$path) {
-            if (exists $final->{$prop}) {
-                $final = $final->{$prop};
-            } else {
-                return;
-            }
-        }
-        return $final;
-    };
 
     my @entity_types;
     ENTITY: for my $entity_type (keys %ENTITIES) {
         for my $prop (@$props) {
-            $extract_path->($ENTITIES{$entity_type}, $prop) or next ENTITY;
+            extract_path($ENTITIES{$entity_type}, $prop) or next ENTITY;
         }
         push @entity_types, $entity_type;
     }
@@ -405,11 +406,14 @@ sub entities_with {
         if (ref($take) ne 'ARRAY') {
             $take = [$take];
         }
-        return map { $extract_path->($ENTITIES{$_}, $take) } @entity_types;
+        return map { extract_path($ENTITIES{$_}, $take) } @entity_types;
     } else {
         return @entity_types;
     }
 }
+
+Readonly our @RELATABLE_ENTITIES =>
+    sort { $a cmp $b } entities_with(['mbid', 'relatable']);
 
 Readonly our @FULL_TABLE_LIST => qw(
     alternative_medium
