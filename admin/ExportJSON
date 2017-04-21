@@ -1,0 +1,190 @@
+#!/usr/bin/env perl
+
+=head1 DESCRIPTION
+
+This script will dump the majority of possible webservice lookups to JSON
+files. Since it makes actual webservice calls to do this, it's intended to be
+run against a static copy of the database, otherwise the data won't be
+consistent with itself across files.
+
+Files are written to `output-dir` in the hierarchy of
+`$entity_type/a/b/c/$mbid.json`, where 'a', 'b', and 'c' are the first three
+characters of `$mbid` (in order to avoid too many files in a single
+directory).
+
+When making the requests, all inc parameters are included except:
+
+ * Those that perform subqueries and return 25 linked entities:
+   https://wiki.musicbrainz.org/Development/XML_Web_Service/Version_2#Subqueries
+
+ * 'work-level-rels' on recording and release lookups.
+
+All entity types are exported with the exception of URLs, since those are
+outputted via relationships. In addition, since recordings are outputted in
+release lookups, the script only dumps standalone recordings directly.
+
+Caveats:
+
+Releases with more than 500 recordings ignore 'recording-level-rels', and
+since those recordings aren't dumped separately, their relationships won't be
+included in the dump. As of 2017-04, this affects ~200 releases.
+
+=cut
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use aliased 'MusicBrainz::Script::BatchMaker';
+use DBDefs;
+use File::Path qw( make_path );
+use File::Spec::Functions qw( tmpdir catdir catfile );
+use Getopt::Long;
+use JSON::XS;
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Context;
+
+my @rel_incs = map { ($_ =~ s/_/-/gr) . '-rels' }
+    entities_with(['mbid', 'relatable']);
+
+my %exported_entities = (
+    area => {
+        inc => [],
+    },
+    artist => {
+        inc => [],
+    },
+    event => {
+        inc => [],
+    },
+    instrument => {
+        inc => [],
+    },
+    label => {
+        inc => [],
+    },
+    place => {
+        inc => [],
+    },
+    recording => {
+        inc => [qw( isrcs )],
+        extra_sql => {
+            join => 'LEFT JOIN track ON track.recording = recording.id',
+            conditions => 'track.id IS NULL',
+        },
+    },
+    release => {
+        inc => [qw(
+            discids
+            labels
+            media
+            recording-level-rels
+            recordings
+            release-groups
+        )],
+    },
+    release_group => {
+        inc => [],
+    },
+    series => {
+        inc => [],
+    },
+    work => {
+        inc => [],
+    },
+);
+
+my $opt_output_dir = '.';
+my $opt_tmp_dir = tmpdir();
+my $opt_webservice = 'http://' . DBDefs->WEB_SERVER . '/ws/2';
+my @opt_entity_list;
+
+GetOptions(
+    'entity=s'          => \@opt_entity_list,
+    'output-dir|d=s'    => \$opt_output_dir,
+    'tmp-dir|t=s'       => \$opt_tmp_dir,
+    'webservice=s'      => \$opt_webservice,
+);
+
+@opt_entity_list = keys %exported_entities unless @opt_entity_list;
+@opt_entity_list = sort @opt_entity_list;
+
+my $json = JSON::XS->new->utf8->canonical;
+
+for my $entity_type (@opt_entity_list) {
+    fork and next;
+
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => 'READWRITE',
+    );
+    $c->lwp->timeout(60);
+
+    my $props = $ENTITIES{$entity_type};
+    my $info = $exported_entities{$entity_type};
+    my $incs = $info->{incs};
+
+    push @$incs, @rel_incs;
+    push @$incs, qw( aliases ) if $props->{aliases};
+    push @$incs, qw( annotation ) if $props->{annotations};
+    push @$incs, qw( artists artist-credits ) if $props->{artist_credits};
+    push @$incs, qw( ratings ) if $props->{ratings};
+    push @$incs, qw( tags ) if $props->{tags};
+
+    my $base_url = "$opt_webservice/$entity_type";
+    my $inc_string = join '+', @$incs;
+
+    my $batch_maker = BatchMaker->new(
+        batch_size => 100,
+        c => $c,
+        entity_table => $entity_type,
+    );
+
+    my @all_batch_info = @{ $batch_maker->get_batch_info };
+    for my $batch_info (@all_batch_info) {
+        my $sql = {
+            columns => ["$entity_type.id", "$entity_type.gid"],
+            %{ $info->{extra_sql} // {} },
+        };
+        my $ids = $batch_maker->get_batch($batch_info, $sql);
+        my $gid_string = join '+', map { $_->{gid} } @$ids;
+        my $url = "$base_url/$gid_string?fmt=json&inc=$inc_string";
+
+        my $response;
+        my $tries = 0;
+        while (1) {
+            $response = $c->lwp->get($url);
+            if ($response->code == 200) {
+                last;
+            } else {
+                sleep 10;
+                $tries++;
+                if ($tries >= 3) {
+                    last;
+                    print "Error fetching $url\n";
+                }
+            }
+        }
+        next unless $response->code == 200;
+
+        my @ids = sort { $a <=> $b } map { $_->{id} } @$ids;
+        my $last_id = $ids[scalar(@ids) - 1];
+
+        my $content = $json->decode($response->content);
+        for my $entity (@{ $content->{$props->{plural_url}} }) {
+            # To distribute the files evenly across ~16^3 directories, create
+            # a hierarchy based on the first three characters of the GID.
+            my $gid = $entity->{id};
+            my $fdir = catdir($opt_output_dir, $entity_type,
+                split '', (substr $gid, 0, 3));
+            make_path($fdir);
+
+            open (my $fh, '>', catfile($fdir, "$gid.json")) or die $!;
+            print $fh $json->encode($entity);
+            close $fh;
+        }
+    }
+}
+
+wait;

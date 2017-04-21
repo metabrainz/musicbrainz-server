@@ -94,11 +94,15 @@ sub get_batch {
 
     my $entity_table = $self->entity_table;
     my $columns = join q(, ), @columns;
-    my $tables = $entity_table . ($sql->{join} // '');
+    my $tables = $entity_table . ($sql->{join} ? ' ' . $sql->{join} : '');
+    my $conditions =
+        "ceil($entity_table.id / ?::float) = any(?)" .
+        ($sql->{conditions} ? ' AND (' . $sql->{conditions} . ')' : '');
+
     my $query =
         qq{SELECT $columns
              FROM $tables
-            WHERE ceil($entity_table.id / ?::float) = any(?)};
+            WHERE $conditions};
 
     return $self->sql->select_list_of_hashes(
         $query,
