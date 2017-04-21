@@ -7,18 +7,18 @@ use MusicBrainz::Server::Data::Utils qw( take_while );
 use overload '<=>' => \&_cmp, fallback => 1;
 
 has 'year' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]',
     predicate => 'has_year',
 );
 
 has 'month' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]'
 );
 
 has 'day' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]'
 );
 
@@ -45,15 +45,26 @@ around BUILDARGS => sub {
     return $class->$orig( %info );
 };
 
+has is_empty => (
+    is => 'ro',
+    isa => 'Bool',
+    lazy => 1,
+    builder => '_build_is_empty',
+);
 
-sub is_empty
-{
+sub _build_is_empty {
     my ($self) = @_;
     return !(defined $self->year || $self->month || $self->day);
 }
 
-sub format
-{
+has format => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_format',
+);
+
+sub _build_format {
     my ($self) = @_;
 
     return '' if $self->is_empty;
@@ -78,17 +89,25 @@ sub format
     return $result;
 }
 
-=method defined_run
+=attribute defined_run
 
-Return all parts of the date that are defined, returning at the first undefined
-value.
+Return all parts of the date that are defined, returning at the first
+undefined value.
 
 =cut
 
-sub defined_run {
+has defined_run => (
+    isa => 'ArrayRef[Int]',
+    lazy => 1,
+    builder => '_build_defined_run',
+    traits => ['Array'],
+    handles => {defined_run => 'elements'},
+);
+
+sub _build_defined_run {
     my $self = shift;
     my @components = ($self->year, $self->month, $self->day);
-    return take_while { defined } @components;
+    return [take_while { defined } @components];
 }
 
 sub _cmp
@@ -132,6 +151,16 @@ sub new_from_row {
     $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
     $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
     return $class->new(%info);
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        year => $self->year,
+        month => $self->month,
+        day => $self->day,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
