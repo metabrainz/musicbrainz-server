@@ -15,11 +15,6 @@ sub serialize {
     $body{name} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
 
-    if ($toplevel) {
-        $body{type} = $entity->type ? $entity->type_name : JSON::null;
-        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
-    }
-
     return \%body;
 };
 

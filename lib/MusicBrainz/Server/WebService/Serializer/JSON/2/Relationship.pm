@@ -6,6 +6,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     number
     serialize_date_period
     serialize_entity
+    serialize_type
 );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -15,11 +16,11 @@ sub element { 'relation'; }
 sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
-    my $body;
+    my $body = {};
     my @attributes = $entity->link->all_attributes;
 
-    $body->{type} = $entity->link->type->name;
-    $body->{"type-id"} = $entity->link->type->gid;
+    serialize_type($body, $entity->link, $inc, $opts, 1);
+
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
     $body->{'ordering-key'} = number($entity->link_order) if $entity->link_order;
 
