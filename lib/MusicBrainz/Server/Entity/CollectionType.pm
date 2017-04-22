@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'CollectionType',
 };
 
-has entity_type => (
+has item_entity_type => (
     is => 'rw',
     isa => 'Str',
 );

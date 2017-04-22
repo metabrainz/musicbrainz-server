@@ -12,28 +12,28 @@
     [%- show_wikipedia_extract() -%]
 
     [%-
-      IF series.type.entity_type == 'event';
+      IF series.type.item_entity_type == 'event';
         '<h2>' _ l('Event') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/events-list.tt'
                   events=entities checkboxes='' no_type=1
           WRAPPER 'components/with-pager.tt';
         END;
-      ELSIF series.type.entity_type == 'recording';
+      ELSIF series.type.item_entity_type == 'recording';
         '<h2>' _ l('Recordings') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/recordings-list.tt'
                   recordings=entities checkboxes='' show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
-      ELSIF series.type.entity_type == 'release';
+      ELSIF series.type.item_entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/releases-list.tt'
                   releases=entities checkboxes='' show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
-      ELSIF series.type.entity_type == 'release_group';
+      ELSIF series.type.item_entity_type == 'release_group';
         '<h2>' _ l('Release Groups') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/release_groups-list.tt'
@@ -41,7 +41,7 @@
                   show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
-      ELSIF series.type.entity_type == 'work';
+      ELSIF series.type.item_entity_type == 'work';
         '<h2>' _ l('Works') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/works-list.tt'

@@ -46,7 +46,7 @@ sub _do_add_or_remove {
     my ($self, $c, $func_name) = @_;
 
     my $collection = $c->stash->{collection};
-    my $entity_type = $collection->type->entity_type;
+    my $entity_type = $collection->type->item_entity_type;
     my $entity_id = $c->request->params->{$entity_type};
 
     if ($entity_id) {
@@ -75,7 +75,7 @@ sub show : Chained('load') PathPart('') RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-    my $entity_type = $collection->type->entity_type;
+    my $entity_type = $collection->type->item_entity_type;
 
     if ($c->form_posted && $c->stash->{my_collection}) {
         my $remove_params = $c->req->params->{remove};
@@ -209,7 +209,7 @@ sub create : Local RequireAuth {
             } else {
                 $initial_entity_id = $initial_entity_param;
             }
-            $initial_entity_type = (first { $_->{entity_type} eq $entity_type } @collection_types);
+            $initial_entity_type = (first { $_->{item_entity_type} eq $entity_type } @collection_types);
             last;  # can create a collection with only one type of entity
         }
     }
@@ -226,7 +226,7 @@ sub create : Local RequireAuth {
         my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
         if ($initial_entity_id) {
             $c->model('Collection')->add_entities_to_collection(
-                $initial_entity_type->entity_type, $collection->{id}, $initial_entity_id
+                $initial_entity_type->item_entity_type, $collection->{id}, $initial_entity_id
             );
         }
 

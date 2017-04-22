@@ -9,6 +9,8 @@ use namespace::autoclean;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
+sub entity_type { 'annotation' }
+
 has 'parent' => (
     does => 'MusicBrainz::Server::Entity::Role::Annotation',
     is => 'rw'

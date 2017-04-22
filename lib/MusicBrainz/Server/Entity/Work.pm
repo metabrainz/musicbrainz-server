@@ -17,6 +17,8 @@ with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkType' };
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
 
+sub entity_type { 'work' }
+
 has languages => (
     traits => ['Array'],
     is => 'ro',

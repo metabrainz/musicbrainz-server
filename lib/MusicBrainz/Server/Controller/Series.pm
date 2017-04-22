@@ -68,32 +68,32 @@ sub show : PathPart('') Chained('load') {
         $item_numbers->{$_->{entity}->id} = $_->{ordering_key};
     }
 
-    if ($series->type->entity_type eq 'event') {
+    if ($series->type->item_entity_type eq 'event') {
         $c->model('Event')->load_related_info(@entities);
         $c->model('Event')->load_areas(@entities);
         $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->entity_type eq 'recording') {
+    if ($series->type->item_entity_type eq 'recording') {
         $c->model('ISRC')->load_for_recordings(@entities);
         $c->model('ArtistCredit')->load(@entities);
         $c->model('Recording')->load_meta(@entities);
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->entity_type eq 'release') {
+    if ($series->type->item_entity_type eq 'release') {
         $c->model('Release')->load_related_info(@entities);
         $c->model('ArtistCredit')->load(@entities);
     }
 
-    if ($series->type->entity_type eq 'release_group') {
+    if ($series->type->item_entity_type eq 'release_group') {
         $c->model('ArtistCredit')->load(@entities);
         $c->model('ReleaseGroupType')->load(@entities);
         $c->model('ReleaseGroup')->load_meta(@entities);
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->entity_type eq 'work') {
+    if ($series->type->item_entity_type eq 'work') {
         $c->model('Work')->load_related_info(@entities);
         $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
@@ -125,7 +125,7 @@ sub _merge_load_entities {
 around _merge_submit => sub {
     my ($orig, $self, $c, $form, $entities) = @_;
 
-    my %entity_types = map { $_->type->entity_type => 1 } @$entities;
+    my %entity_types = map { $_->type->item_entity_type => 1 } @$entities;
 
     if (scalar(keys %entity_types) == 1) {
         $self->$orig($c, $form, $entities);
