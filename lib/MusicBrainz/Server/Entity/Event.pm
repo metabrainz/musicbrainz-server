@@ -20,6 +20,8 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Types qw( Time );
 use List::UtilsBy qw( uniq_by );
 
+sub entity_type { 'event' }
+
 has 'setlist' => (
     is => 'rw',
     isa => 'Str'

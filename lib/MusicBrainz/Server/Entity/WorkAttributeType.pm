@@ -12,6 +12,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'WorkAttributeType',
 };
 
+sub entity_type { 'work_attribute_type' }
+
 has free_text => (
     is => 'rw',
     isa => 'Bool',

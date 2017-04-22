@@ -6,6 +6,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'cdtoc' }
+
 has 'discid' => (
     is => 'rw',
     isa => 'Str'

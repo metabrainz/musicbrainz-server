@@ -7,6 +7,8 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
+sub entity_type { 'medium' }
+
 has 'position' => (
     is => 'rw',
     isa => 'Int'

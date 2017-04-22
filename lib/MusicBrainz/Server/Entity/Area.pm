@@ -17,6 +17,8 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AreaType' };
 
+sub entity_type { 'area' }
+
 sub l_name {
     my $self = shift;
     my $type = defined $self->type ? $self->type->id : $self->type_id;

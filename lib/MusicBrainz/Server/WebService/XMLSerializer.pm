@@ -219,13 +219,13 @@ sub _serialize_collection
     my %attrs;
     $attrs{id} = $collection->gid;
     $attrs{type} = $collection->type->name if ($collection->type);
-    $attrs{"entity-type"} = $collection->type->entity_type if ($collection->type);
+    $attrs{"entity-type"} = $collection->type->item_entity_type if ($collection->type);
 
     my @collection;
     push @collection, $gen->name($collection->name);
     push @collection, $gen->editor($collection->editor->name);
 
-    my $entity_type = $collection->type->entity_type;
+    my $entity_type = $collection->type->item_entity_type;
     my $plural = $ENTITIES{$entity_type}{plural};
 
     my $ser = "_serialize_${entity_type}_list";

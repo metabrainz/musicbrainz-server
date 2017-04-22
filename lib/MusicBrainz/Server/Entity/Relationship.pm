@@ -17,6 +17,8 @@ extends 'MusicBrainz::Server::Entity';
 with  'MusicBrainz::Server::Entity::Role::Editable';
 with  'MusicBrainz::Server::Entity::Role::LastUpdate';
 
+sub entity_type { 'relationship' }
+
 has 'link_id' => (
     is => 'rw',
     isa => 'Int',

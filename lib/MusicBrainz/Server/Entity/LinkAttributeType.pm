@@ -14,6 +14,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'LinkAttributeType',
 };
 
+sub entity_type { 'link_attribute_type' }
+
 has 'root_id' => (
     is => 'rw',
     isa => 'Int',

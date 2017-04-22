@@ -565,7 +565,7 @@ sub _check_series_type {
     my $series = $self->c->model('Series')->get_by_id($series_id);
     $self->c->model('SeriesType')->load($series);
 
-    if ($series->type->entity_type ne $entity_type) {
+    if ($series->type->item_entity_type ne $entity_type) {
         die "Incorrect entity type for part of series relationship";
     }
 }

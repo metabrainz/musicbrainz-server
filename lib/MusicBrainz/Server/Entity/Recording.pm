@@ -14,6 +14,8 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
+sub entity_type { 'recording' }
+
 has 'track_id' => (
     is => 'rw',
     isa => 'Int'

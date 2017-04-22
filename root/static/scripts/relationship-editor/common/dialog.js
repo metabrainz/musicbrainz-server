@@ -69,7 +69,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                             if (dialog.autocomplete.entity === "series" &&
                                     dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
                                 return _.filter(items, function (item) {
-                                    return item.type.series_entity_type === dialog.source.entityType;
+                                    return item.type.item_entity_type === dialog.source.entityType;
                                 });
                             } else {
                                 return items;
@@ -353,7 +353,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             );
 
             if (this.source.entityType === "series") {
-                var itemType = MB.seriesTypesByID[this.source.typeID()].series_entity_type;
+                var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
                 options = _.reject(options, function (opt) {
                     var info = MB.typeInfoByID[opt.value];

@@ -11,6 +11,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     sort_criterion => 'l_value',
 };
 
+sub entity_type { 'work_attribute_type_allowed_value' }
+
 has work_attribute_type_id => (
     is => 'rw',
     isa => 'Int',

@@ -7,6 +7,8 @@ use MusicBrainz::Server::Entity::Types;
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
+sub entity_type { 'isrc' }
+
 has 'isrc' => (
     is => 'rw',
     isa => 'Str'

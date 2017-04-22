@@ -39,7 +39,7 @@ sub options_type_id {
     my $collection = $self->init_object;
 
     if ($collection && blessed $collection) {
-        my $entity_type = $collection->type->entity_type;
+        my $entity_type = $collection->type->item_entity_type;
         my %valid_types =
             map { $_->id => 1 }
             $self->ctx->model('CollectionType')->find_by_entity_type($entity_type);
@@ -55,12 +55,12 @@ sub validate_type_id {
     my $collection = $self->init_object;
     return unless $collection && blessed $collection;
 
-    my $entity_type = $collection->type->entity_type;
+    my $entity_type = $collection->type->item_entity_type;
     if (!$self->ctx->model('Collection')->is_empty($entity_type, $collection->id)) {
         my $new_type = $self->ctx->model('CollectionType')->get_by_id(
             $self->field('type_id')->value
         );
-        if ($entity_type ne $new_type->entity_type) {
+        if ($entity_type ne $new_type->item_entity_type) {
             return $self->field('type_id')->add_error(
                 l('The collection type must match the type of entities it contains.')
             );
