@@ -12,9 +12,9 @@ our @EXPORT_OK = qw(
     count_of
     list_of
     number
-    date_period
-    serializer
+    serialize_date_period
     serialize_entity
+    serializer
 );
 
 my %serializers =
@@ -51,19 +51,13 @@ sub number {
     return defined $value ? $value + 0 : JSON::null;
 }
 
-sub date_period {
-    my $entity = shift;
+sub serialize_date_period {
+    my ($into, $entity) = @_;
 
-    my %lifespan = (
-        begin => JSON::null,
-        end => JSON::null,
-        ended => boolean($entity->ended),
-        );
-
-    $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
-    $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
-
-    return \%lifespan;
+    $into->{begin} = $entity->begin_date->format || JSON::null;
+    $into->{end} = $entity->end_date->format || JSON::null;
+    $into->{ended} = boolean($entity->ended);
+    return;
 }
 
 sub serializer
