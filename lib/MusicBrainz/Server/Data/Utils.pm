@@ -14,7 +14,7 @@ use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
-use List::MoreUtils qw( natatime zip );
+use List::MoreUtils qw( natatime uniq zip );
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
@@ -119,7 +119,7 @@ sub artist_credit_to_ref
 
 sub load_subobjects
 {
-    my ($data_access, $attr_obj, @objs) = @_;
+    my ($data_access, $attr_objs, @objs) = @_;
 
     @objs = grep { defined } @objs;
     return unless @objs;
@@ -127,35 +127,41 @@ sub load_subobjects
     my @ids;
     my %attr_ids;
     my %objs;
-    if (ref($attr_obj) ne 'ARRAY') {
-        $attr_obj = [ $attr_obj ];
+    if (ref($attr_objs) ne 'ARRAY') {
+        $attr_objs = [ $attr_objs ];
     }
 
-    for my $obj_type (@$attr_obj) {
-        my $attr_id = $obj_type . "_id";
-        $attr_ids{$attr_id} = $obj_type;
-
-        $objs{$attr_id} = [ grep { $_->meta->find_attribute_by_name($attr_id) } @objs ];
-        my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @{ $objs{$attr_id} };
-
-        @ids = grep { !($ids{$_}) } @ids if scalar @ids;
-        push @ids, grep { $_ } keys %ids;
+    for my $attr_obj (@$attr_objs) {
+        my $attr_id = $attr_obj . '_id';
+        my @objs_with_id;
+        for my $obj (@objs) {
+            next unless $obj->meta->find_attribute_by_name($attr_id);
+            my $id = $obj->$attr_id;
+            if (defined $id) {
+                push @ids, $id;
+                push @objs_with_id, $obj;
+            }
+        }
+        $objs{$attr_obj} = \@objs_with_id;
     }
 
     my $data;
     if (@ids) {
         $data = $data_access->get_by_ids(@ids);
-        for my $attr_id (keys %attr_ids) {
-            my $attr_obj = $attr_ids{$attr_id};
-            for my $obj (@{ $objs{$attr_id} }) {
-                my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
-                if (defined $id && exists $data->{$id}) {
-                    $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
+        for my $attr_obj (@$attr_objs) {
+            my $attr_id = $attr_obj . '_id';
+            for my $obj (@{ $objs{$attr_obj} }) {
+                my $entity = $data->{$obj->$attr_id};
+                if (defined $entity) {
+                    $obj->$attr_obj($entity);
                 }
             }
         }
     }
-    return defined $data ? values %{$data} : ();
+    if (defined $data) {
+        return wantarray ? values %{$data} : $data;
+    }
+    return;
 }
 
 sub load_meta
