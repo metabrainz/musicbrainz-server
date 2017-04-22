@@ -20,8 +20,10 @@ our @EXPORT_OK = qw(
 my %serializers =
     map {
         my $class = "MusicBrainz::Server::WebService::Serializer::JSON::2::$_";
+        my $entity_class = "MusicBrainz::Server::Entity::$_";
         load_class($class);
-        "MusicBrainz::Server::Entity::$_" => $class->new
+        load_class($entity_class);
+        $entity_class->entity_type => $class->new
     } qw(
         Area
         Artist
@@ -68,11 +70,8 @@ sub serializer
         $entity = $entity->[0];
     }
 
-    for my $class (keys %serializers) {
-        if ($entity->isa($class)) {
-            return $serializers{$class};
-        }
-    }
+    my $serializer = $serializers{$entity->entity_type};
+    return $serializer if $serializer;
 
     die 'No serializer found for ' . ref($entity);
 }
