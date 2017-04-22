@@ -325,7 +325,7 @@ sub collections : Chained('load') PathPart('collections')
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
-        push @{ $c->stash->{collections}{$collection->type->entity_type} }, $collection;
+        push @{ $c->stash->{collections}{$collection->type->item_entity_type} }, $collection;
     }
 
     $c->stash(user => $user, no_collections => $no_collections);

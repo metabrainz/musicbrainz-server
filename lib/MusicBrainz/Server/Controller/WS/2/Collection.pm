@@ -101,7 +101,7 @@ map {
         $c->model('CollectionType')->load($collection);
 
         $self->_error($c, "This is not a collection for entity type $url."),
-            unless ($collection->type->entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $type);
 
         $c->model('Editor')->load($collection);
 
@@ -132,7 +132,7 @@ map {
             unless ($c->user->id == $collection->editor_id);
 
         $self->_error($c, "This is not a collection for entity type $url.")
-            unless ($collection->type->entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $type);
 
         my $client = $c->req->query_params->{client}
             or $self->_error($c, 'You must provide information about your client, by the client query parameter');

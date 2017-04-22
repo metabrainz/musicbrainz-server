@@ -14,6 +14,8 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'SeriesType' };
 
+sub entity_type { 'series' }
+
 has ordering_type_id => (
     is => 'rw',
     isa => 'Int'

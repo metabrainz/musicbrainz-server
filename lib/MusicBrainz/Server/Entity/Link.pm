@@ -7,6 +7,8 @@ extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LinkType' };
 
+sub entity_type { 'link' }
+
 has 'attributes' => (
     is => 'rw',
     isa => 'ArrayRef[LinkAttribute]',

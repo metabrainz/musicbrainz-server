@@ -17,6 +17,8 @@ with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Area';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'LabelType' };
 
+sub entity_type { 'label' }
+
 has 'label_code' => (
     is => 'rw',
     isa => 'Int'

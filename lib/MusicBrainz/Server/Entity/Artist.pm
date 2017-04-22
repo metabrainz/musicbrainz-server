@@ -18,6 +18,8 @@ with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Area';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'ArtistType' };
 
+sub entity_type { 'artist' }
+
 has 'sort_name' => (
     is => 'rw',
     isa => 'Str'

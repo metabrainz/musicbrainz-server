@@ -11,6 +11,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     sort_criterion => 'name',
 };
 
+sub entity_type { 'link_type' }
+
 has 'entity0_type' => (
     is => 'rw',
     isa => 'Str',

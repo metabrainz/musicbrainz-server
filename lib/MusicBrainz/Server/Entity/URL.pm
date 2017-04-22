@@ -6,6 +6,8 @@ use MooseX::Types::URI qw( Uri );
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 
+sub entity_type { 'url' }
+
 has 'url' => (
     is => 'ro',
     isa => Uri,

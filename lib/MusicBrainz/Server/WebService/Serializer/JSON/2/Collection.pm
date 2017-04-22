@@ -15,7 +15,7 @@ sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
 
     my %body;
-    my $entity_type = $entity->type->entity_type;
+    my $entity_type = $entity->type->item_entity_type;
 
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;

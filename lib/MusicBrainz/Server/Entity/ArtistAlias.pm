@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Alias';
 
+sub entity_type { 'artist_alias' }
+
 has 'artist_id' => (
     is => 'rw',
     isa => 'Int'
