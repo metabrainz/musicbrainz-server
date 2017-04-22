@@ -19,8 +19,6 @@ sub serialize {
 
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;
-    $body{type} = $entity->type->name;
-    $body{'type-id'} = $entity->type->gid;
     $body{"entity-type"} = $entity_type;
 
     my $entity_properties = $ENTITIES{$entity_type};

@@ -21,11 +21,6 @@ sub serialize
     $body{'iso-3166-2-codes'} = [$entity->iso_3166_2_codes] if $entity->iso_3166_2_codes;
     $body{'iso-3166-3-codes'} = [$entity->iso_3166_3_codes] if $entity->iso_3166_3_codes;
 
-    if ($toplevel) {
-        $body{type} = $entity->type ? $entity->type_name : JSON::null;
-        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
-    }
-
     return \%body;
 };
 

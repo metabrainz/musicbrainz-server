@@ -6,6 +6,7 @@ use strict;
 use base 'Exporter';
 use Class::Load qw( load_class );
 use List::UtilsBy qw( sort_by );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 our @EXPORT_OK = qw(
     boolean
@@ -14,6 +15,7 @@ our @EXPORT_OK = qw(
     number
     serialize_date_period
     serialize_entity
+    serialize_type
     serializer
 );
 
@@ -76,8 +78,17 @@ sub serializer
 
 sub serialize_entity
 {
-    return unless defined $_[0];
-    return serializer($_[0])->serialize(@_);
+    my ($entity) = @_;
+
+    return unless defined $entity;
+
+    my $output = serializer($entity)->serialize(@_);
+    my $props = $ENTITIES{$entity->entity_type};
+
+    serialize_type($output, @_)
+        if $props->{type} && $props->{type}{simple};
+
+    return $output;
 }
 
 sub list_of
@@ -102,6 +113,25 @@ sub count_of
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return number(scalar @$items);
+}
+
+sub serialize_type {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    my $entity_type = $entity->entity_type;
+    return unless
+        ($toplevel ||
+         # For some reason, these four entities were implemented to always
+         # output types in the XML and JSON, regardless of `$toplevel`.
+         $entity_type eq 'collection' ||
+         $entity_type eq 'event' ||
+         $entity_type eq 'place' ||
+         $entity_type eq 'work');
+
+    my $type = $entity->type;
+    $into->{type} = defined $type ? $type->name : JSON::null;
+    $into->{'type-id'} = defined $type ? $type->gid : JSON::null;
+    return;
 }
 
 1;

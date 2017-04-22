@@ -138,6 +138,9 @@
             "entity": true
         },
         "table": "editor_collection",
+        "type": {
+            "simple": true
+        },
         "url": "collection"
     },
     "collection_type": {
