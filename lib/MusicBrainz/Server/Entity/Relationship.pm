@@ -18,7 +18,7 @@ with  'MusicBrainz::Server::Entity::Role::Editable';
 with  'MusicBrainz::Server::Entity::Role::LastUpdate';
 
 has 'link_id' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Int',
 );
 
@@ -28,13 +28,13 @@ has 'link' => (
 );
 
 has 'direction' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Int',
     default => $DIRECTION_FORWARD
 );
 
 has 'entity0_id' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Int',
 );
 
@@ -49,7 +49,7 @@ has 'entity0_credit' => (
 );
 
 has 'entity1_id' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Int',
 );
 
@@ -64,7 +64,7 @@ has 'entity1_credit' => (
 );
 
 has 'link_order' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Int',
 );
 
@@ -95,34 +95,50 @@ sub entity_is_orderable {
 
 sub _source_target_prop {
     my ($self, %opts) = @_;
-    my $is_target = $opts{is_target};
-    my $prop_base = $opts{prop_base} // $self;
+
+    my $prop_base = exists $opts{prop_base} ? $opts{prop_base} : $self;
     my $prop_suffix = $opts{prop_suffix};
     my $prop;
-    if (not $is_target) {
-        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity0' : 'entity1';
-    } else {
+    if ($opts{is_target}) {
         $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity1' : 'entity0';
+    } else {
+        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity0' : 'entity1';
     }
     $prop = $prop . '_' . $prop_suffix if $prop_suffix;
     return $prop_base->$prop;
 }
 
-sub source {
+has source => (
+    is => 'ro',
+    isa => 'Linkable',
+    lazy => 1,
+    builder => '_build_source',
+);
+
+sub _build_source {
     return shift->_source_target_prop();
 }
 
-sub source_type {
+has source_type => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_source_type',
+);
+
+sub _build_source_type {
     my ($self) = @_;
     return $self->_source_target_prop(prop_suffix => 'type', prop_base => $self->link->type);
 }
 
-sub source_cardinality {
-    my ($self) = @_;
-    return $self->_source_target_prop(prop_suffix => 'cardinality', prop_base => $self->link->type);
-}
+has source_credit => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_source_credit',
+);
 
-sub source_credit {
+sub _build_source_credit {
     my ($self) = @_;
     return $self->_source_target_prop(prop_suffix => 'credit');
 }
@@ -134,22 +150,38 @@ sub source_key {
         : $self->source->gid;
 }
 
-sub target {
+has target => (
+    is => 'ro',
+    isa => 'Linkable',
+    lazy => 1,
+    builder => '_build_target',
+);
+
+sub _build_target {
     my ($self) = @_;
     return $self->_source_target_prop(is_target => 1);
 }
 
-sub target_type {
+has target_type => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_target_type',
+);
+
+sub _build_target_type {
     my ($self) = @_;
     return $self->_source_target_prop(is_target => 1, prop_suffix => 'type', prop_base => $self->link->type);
 }
 
-sub target_cardinality {
-    my ($self) = @_;
-    return $self->_source_target_prop(is_target => 1, prop_suffix => 'cardinality', prop_base => $self->link->type);
-}
+has target_credit => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_target_credit',
+);
 
-sub target_credit {
+sub _build_target_credit {
     my ($self) = @_;
     return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit');
 }
