@@ -97,6 +97,9 @@ sub serialize_entity
     serialize_ipis($output, @_)
         if $props->{ipis};
 
+    serialize_isnis($output, @_)
+        if $props->{isnis};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -176,6 +179,15 @@ sub serialize_ipis {
     return unless $toplevel;
 
     $into->{ipis} = [map { $_->ipi } $entity->all_ipi_codes];
+    return;
+}
+
+sub serialize_isnis {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    return unless $toplevel;
+
+    $into->{isnis} = [map { $_->isni } $entity->all_isni_codes];
     return;
 }
 
