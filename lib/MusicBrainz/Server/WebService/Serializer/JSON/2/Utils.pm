@@ -85,6 +85,9 @@ sub serialize_entity
     my $output = serializer($entity)->serialize(@_);
     my $props = $ENTITIES{$entity->entity_type};
 
+    serialize_aliases($output, @_)
+        if $props->{aliases};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -113,6 +116,31 @@ sub count_of
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return number(scalar @$items);
+}
+
+sub serialize_aliases {
+    my ($into, $entity, $inc, $stash) = @_;
+
+    return unless defined $inc && $inc->aliases;
+
+    my $opts = $stash->store($entity);
+
+    $into->{aliases} = [map {
+        my %item;
+
+        $item{name} = $_->name;
+        $item{'sort-name'} = $_->sort_name;
+        $item{locale} = $_->locale // JSON::null;
+        $item{primary} = $_->locale ?
+            boolean($_->primary_for_locale) : JSON::null;
+
+        serialize_type(\%item, $_, $inc, $stash, 1);
+        serialize_date_period(\%item, $_);
+
+        \%item;
+    } sort_by { $_->name } @{ $opts->{aliases} }];
+
+    return;
 }
 
 sub serialize_type {
