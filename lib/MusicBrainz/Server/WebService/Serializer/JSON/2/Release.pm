@@ -1,7 +1,12 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Release;
 use Moose;
 use MusicBrainz::Server::Constants qw( :quality );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity boolean );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    boolean
+    list_of
+    serialize_entity
+    serialize_rating
+);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
@@ -82,10 +87,11 @@ sub serialize
     {
         # MBS-9129: If ratings are requested (even though a release doesn't have
         # any), those of the release group should be serialized (to match the
-        # behaviour of the XML serializer). So we override a package variable to
-        # force the ratings to be serialized despite not being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating::forced = 1;
-        $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash);
+        # behaviour of the XML serializer). So we call `serialize_rating`
+        # directly on the release group, setting `$toplevel` to 1.
+        my $output = serialize_entity($entity->release_group, $inc, $stash);
+        serialize_rating($output, $entity->release_group, $inc, $stash, 1);
+        $body{"release-group"} = $output;
     }
 
     if ($toplevel)
