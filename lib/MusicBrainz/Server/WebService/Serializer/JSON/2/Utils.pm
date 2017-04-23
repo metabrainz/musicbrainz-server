@@ -66,10 +66,6 @@ sub serializer
 {
     my $entity = shift;
 
-    if (ref $entity eq 'ARRAY') {
-        $entity = $entity->[0];
-    }
-
     my $serializer = $serializers{$entity->entity_type};
     return $serializer if $serializer;
 

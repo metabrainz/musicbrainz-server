@@ -59,6 +59,8 @@ sub load_for_recordings
     return unless @ids; # nothing to do
     my @isrcs = $self->find_by_recordings(@ids);
 
+    $_->clear_isrcs for @recordings;
+
     foreach my $isrc (@isrcs) {
         foreach my $recording (@{ $id_to_recordings{$isrc->recording_id} }) {
             $recording->add_isrc($isrc);
