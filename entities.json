@@ -127,6 +127,12 @@
     "cdstub": {
         "model": "CDStub"
     },
+    "cdstubtoc": {
+        "model": "CDStubTOC"
+    },
+    "cdtoc": {
+        "model": "CDTOC"
+    },
     "collection": {
         "mbid": {
             "relatable": false
