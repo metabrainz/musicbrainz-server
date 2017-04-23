@@ -15,6 +15,7 @@ our @EXPORT_OK = qw(
     number
     serialize_date_period
     serialize_entity
+    serialize_rating
     serialize_type
     serializer
 );
@@ -100,6 +101,9 @@ sub serialize_entity
 
     serialize_life_span($output, @_)
         if $props->{date_period};
+
+    serialize_rating($output, @_)
+        if $props->{ratings};
 
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
@@ -200,6 +204,30 @@ sub serialize_life_span {
     my $life_span = {};
     serialize_date_period($life_span, $entity);
     $into->{'life-span'} = $life_span;
+    return;
+}
+
+sub serialize_rating {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    return unless
+        ($toplevel &&
+         (defined $inc && ($inc->ratings || $inc->user_ratings)));
+
+    my $opts = $stash->store($entity);
+
+    if ($inc->ratings) {
+        my $ratings = $opts->{ratings};
+        $into->{rating} = {
+            value => number($ratings->{rating}),
+            'votes-count' => defined $ratings->{count} ?
+                number($ratings->{count}) : 0,
+        };
+    }
+
+    $into->{'user-rating'} = {value => number($opts->{user_ratings})}
+        if $inc->user_ratings;
+
     return;
 }
 
