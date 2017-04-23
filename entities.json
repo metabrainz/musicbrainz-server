@@ -69,6 +69,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "ipis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
@@ -288,6 +289,7 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "ipis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {

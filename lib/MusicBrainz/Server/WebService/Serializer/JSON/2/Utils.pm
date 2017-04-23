@@ -92,6 +92,9 @@ sub serialize_entity
     serialize_id($output, @_)
         if $props->{mbid};
 
+    serialize_ipis($output, @_)
+        if $props->{ipis};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -162,6 +165,15 @@ sub serialize_id {
     my ($into, $entity) = @_;
 
     $into->{id} = $entity->gid;
+    return;
+}
+
+sub serialize_ipis {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    return unless $toplevel;
+
+    $into->{ipis} = [map { $_->ipi } $entity->all_ipi_codes];
     return;
 }
 
