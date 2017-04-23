@@ -3,7 +3,6 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs';

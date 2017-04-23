@@ -86,6 +86,9 @@ sub serialize_entity
     serialize_aliases($output, @_)
         if $props->{aliases};
 
+    serialize_annotation($output, @_)
+        if $props->{annotations};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -138,6 +141,17 @@ sub serialize_aliases {
         \%item;
     } sort_by { $_->name } @{ $opts->{aliases} }];
 
+    return;
+}
+
+sub serialize_annotation {
+    my ($into, $entity, $inc) = @_;
+
+    return unless defined $inc && $inc->annotation;
+
+    my $annotation = $entity->latest_annotation;
+    $into->{annotation} = defined $annotation ?
+        $annotation->text : JSON::null;
     return;
 }
 
