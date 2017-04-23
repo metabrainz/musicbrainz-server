@@ -4,7 +4,6 @@ use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
