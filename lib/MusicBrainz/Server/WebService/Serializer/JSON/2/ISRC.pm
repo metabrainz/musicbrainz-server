@@ -6,11 +6,14 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_en
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
 sub serialize {
-    my ($self, $isrcs, $inc, $stash) = @_;
+    my ($self, $isrc, $inc, $stash) = @_;
+
+    my $opts = $stash->store($isrc);
+    my @recordings = @{ $opts->{recordings}{items} };
 
     return {
-        isrc => $isrcs->[0]->name,
-        recordings => [map { serialize_entity($_->recording, $inc, $stash) } @$isrcs],
+        isrc => $isrc->name,
+        recordings => [map { serialize_entity($_, $inc, $stash) } @recordings],
     };
 };
 
