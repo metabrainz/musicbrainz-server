@@ -6,7 +6,6 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
 );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
