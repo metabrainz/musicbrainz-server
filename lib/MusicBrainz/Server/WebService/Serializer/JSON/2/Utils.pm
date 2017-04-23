@@ -107,6 +107,9 @@ sub serialize_entity
     serialize_rating($output, @_)
         if $props->{ratings};
 
+    serialize_relationships($output, @_)
+        if $props->{mbid} && $props->{mbid}{relatable};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -230,6 +233,27 @@ sub serialize_rating {
     $into->{'user-rating'} = {value => number($opts->{user_ratings})}
         if $inc->user_ratings;
 
+    return;
+}
+
+sub serialize_relationships {
+    my ($into, $entity, $inc, $stash) = @_;
+
+    return unless
+        (defined $inc &&
+         $inc->has_rels &&
+         $entity->has_loaded_relationships);
+
+    my @relationships =
+        map { serialize_entity($_, $inc, $stash) }
+        sort_by {
+            join("\t",
+                 $_->link->type->name,
+                 (sprintf "%09d", $_->link_order // 0),
+                 $_->target_key)
+        } $entity->all_relationships;
+
+    $into->{relations} = \@relationships;
     return;
 }
 
