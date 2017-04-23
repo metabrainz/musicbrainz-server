@@ -9,7 +9,6 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 
 sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;

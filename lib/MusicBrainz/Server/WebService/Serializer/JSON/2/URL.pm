@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::URL;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 
 sub serialize

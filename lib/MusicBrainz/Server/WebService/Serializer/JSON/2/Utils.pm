@@ -89,6 +89,9 @@ sub serialize_entity
     serialize_annotation($output, @_)
         if $props->{annotations};
 
+    serialize_id($output, @_)
+        if $props->{mbid};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -152,6 +155,13 @@ sub serialize_annotation {
     my $annotation = $entity->latest_annotation;
     $into->{annotation} = defined $annotation ?
         $annotation->text : JSON::null;
+    return;
+}
+
+sub serialize_id {
+    my ($into, $entity) = @_;
+
+    $into->{id} = $entity->gid;
     return;
 }
 

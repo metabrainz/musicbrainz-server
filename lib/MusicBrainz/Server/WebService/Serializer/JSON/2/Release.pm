@@ -4,7 +4,6 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity boolean );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
