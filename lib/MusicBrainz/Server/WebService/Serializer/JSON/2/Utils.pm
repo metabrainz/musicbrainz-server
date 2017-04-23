@@ -98,6 +98,9 @@ sub serialize_entity
     serialize_isnis($output, @_)
         if $props->{isnis};
 
+    serialize_life_span($output, @_)
+        if $props->{date_period};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -186,6 +189,17 @@ sub serialize_isnis {
     return unless $toplevel;
 
     $into->{isnis} = [map { $_->isni } $entity->all_isni_codes];
+    return;
+}
+
+sub serialize_life_span {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    return unless $toplevel;
+
+    my $life_span = {};
+    serialize_date_period($life_span, $entity);
+    $into->{'life-span'} = $life_span;
     return;
 }
 
