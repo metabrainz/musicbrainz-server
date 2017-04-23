@@ -9,7 +9,6 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
 );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub _quality
 {

@@ -108,6 +108,9 @@ sub serialize_entity
     serialize_relationships($output, @_)
         if $props->{mbid} && $props->{mbid}{relatable};
 
+    serialize_tags($output, @_)
+        if $props->{tags};
+
     serialize_type($output, @_)
         if $props->{type} && $props->{type}{simple};
 
@@ -252,6 +255,34 @@ sub serialize_relationships {
         } $entity->all_relationships;
 
     $into->{relations} = \@relationships;
+    return;
+}
+
+sub serialize_tags {
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
+
+    return unless
+        ($toplevel &&
+         defined $inc &&
+         ($inc->tags || $inc->user_tags));
+
+    my $opts = $stash->store($entity);
+
+    if ($inc->tags) {
+        $into->{tags} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ count => $_->count, name => $_->tag->name },
+                @{ $opts->{tags} }
+        ];
+    }
+
+    if ($inc->user_tags) {
+        $into->{'user-tags'} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ name => $_->tag->name }, @{ $opts->{user_tags} }
+        ];
+    }
+
     return;
 }
 
