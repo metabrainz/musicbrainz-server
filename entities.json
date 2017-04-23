@@ -70,6 +70,7 @@
         "disambiguation": true,
         "edit_table": true,
         "ipis": true,
+        "isnis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
@@ -290,6 +291,7 @@
         "disambiguation": true,
         "edit_table": true,
         "ipis": true,
+        "isnis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
