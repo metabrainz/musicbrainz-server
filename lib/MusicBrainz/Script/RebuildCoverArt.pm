@@ -3,6 +3,7 @@ use Moose;
 
 use DBDefs;
 use DateTime::Duration;
+use DateTime::Format::Pg;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
 
@@ -67,8 +68,8 @@ sub run
         next if $seen{$release->id};
 
         $seen++;
-        $first //= $release->cover_art->last_updated;
-        $last = $release->cover_art->last_updated;
+        $last = DateTime::Format::Pg->parse_datetime($release->cover_art->last_updated);
+        $first //= $last;
 
         $self->sql->begin;
         my $art = $self->c->model('CoverArt')->cache_cover_art($release);
