@@ -14,7 +14,7 @@
         </tr>
         <tr>
             <th>[%~ l('Last updated:') ~%]</th>
-            <td>[%~ UserDate.format(entity.last_updated) || l('(unknown)') ~%]</td>
+            <td>[%~ UserDate.format_pg_string(entity.last_updated) || l('(unknown)') ~%]</td>
         </tr>
         <tr>
             <th>[%~ l('Permanent link:') ~%]</th>
