@@ -105,9 +105,10 @@ sub serialize
 
     $body{"label-info"} = [
         map {
+            my $label = serialize_entity($_->label, $inc, $stash);
             {
                 "catalog-number" => $_->catalog_number,
-                label => serialize_entity($_->label, $inc, $stash)
+                label => $label ? $label : JSON::null,
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;
 
