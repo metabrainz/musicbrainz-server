@@ -48,7 +48,7 @@
   },
 
   "24": {
-    "slave": [],
-    "standalone": []
+    "slave": ["20170401-mbs-8393-entity-attributes.sql"],
+    "standalone": ["20170401-mbs-8393-entity-attributes-fks.sql"]
   }
 }
