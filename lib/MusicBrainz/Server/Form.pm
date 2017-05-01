@@ -183,22 +183,30 @@ sub clear_errors {
 sub TO_JSON {
     my ($self) = @_;
 
-    my $result = {
-        name => $self->name,
+    my $json = {
+        has_errors => boolean_to_json($self->has_errors),
     };
-    for my $field ($self->fields) {
-        $result->{field}{$field->name} = {
-            errors => $field->errors,
-            has_errors => boolean_to_json($field->has_errors),
-            html_name => $field->html_name,
-            label => $field->label,
-            value => $field->value,
-            ($field->can('error_fields') ? (
-                error_fields => [map +{ errors => $_->errors }, $field->error_fields]
-            ) : ()),
-        };
+
+    if ($self->isa('HTML::FormHandler')) {
+        $json->{name} = $self->name;
     }
-    $result;
+
+    if ($self->isa('HTML::FormHandler::Field')) {
+        # On the form, `errors` is a list.
+        $json->{errors} = $self->errors;
+    }
+
+    if ($self->can('fields')) {
+        if ($self->isa('HTML::FormHandler::Field::Repeatable')) {
+            $json->{field}[$_->name] = TO_JSON($_) for $self->fields;
+        } else {
+            $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
+        }
+    } else {
+        $json->{value} = $self->value;
+    }
+
+    return $json;
 }
 
 sub to_encoded_json {
