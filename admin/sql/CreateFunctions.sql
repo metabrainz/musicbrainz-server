@@ -116,6 +116,29 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- area triggers
+-----------------------------------------------------------------------
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_area_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.area_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM area_attribute_type
+             WHERE area_attribute_type.id = NEW.area_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
 -- artist triggers
 -----------------------------------------------------------------------
 
@@ -124,6 +147,25 @@ BEGIN
     -- add a new entry to the artist_meta table
     INSERT INTO artist_meta (id) VALUES (NEW.id);
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_artist_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.artist_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM artist_attribute_type
+             WHERE artist_attribute_type.id = NEW.artist_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -143,6 +185,29 @@ BEGIN
         VALUES (NEW.id, 1);
 
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- event triggers
+-----------------------------------------------------------------------
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_event_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.event_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM event_attribute_type
+             WHERE event_attribute_type.id = NEW.event_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -183,6 +248,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_instrument_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.instrument_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM instrument_attribute_type
+             WHERE instrument_attribute_type.id = NEW.instrument_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
@@ -191,6 +275,71 @@ CREATE OR REPLACE FUNCTION a_ins_label() RETURNS trigger AS $$
 BEGIN
     INSERT INTO label_meta (id) VALUES (NEW.id);
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_label_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.label_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM label_attribute_type
+             WHERE label_attribute_type.id = NEW.label_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- medium triggers
+-----------------------------------------------------------------------
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_medium_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.medium_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM medium_attribute_type
+             WHERE medium_attribute_type.id = NEW.medium_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- place triggers
+-----------------------------------------------------------------------
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_place_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.place_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM place_attribute_type
+             WHERE place_attribute_type.id = NEW.place_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -242,6 +391,25 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_recording_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.recording_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM recording_attribute_type
+             WHERE recording_attribute_type.id = NEW.recording_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -----------------------------------------------------------------------
 -- release triggers
 -----------------------------------------------------------------------
@@ -286,6 +454,25 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_release_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.release_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM release_attribute_type
+             WHERE release_attribute_type.id = NEW.release_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
 -----------------------------------------------------------------------
 -- release_group triggers
 -----------------------------------------------------------------------
@@ -312,6 +499,46 @@ CREATE OR REPLACE FUNCTION a_del_release_group() RETURNS trigger AS $$
 BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_release_group_attribute_type_allows_text()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.release_group_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+           SELECT TRUE FROM release_group_attribute_type
+        WHERE release_group_attribute_type.id = NEW.release_group_attribute_type
+        AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE RETURN NEW;
+    END IF;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
+-- series triggers
+-----------------------------------------------------------------------
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_series_attribute_type_allows_text()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.series_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+            SELECT TRUE
+              FROM series_attribute_type
+             WHERE series_attribute_type.id = NEW.series_attribute_type
+               AND free_text
+    )
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 
