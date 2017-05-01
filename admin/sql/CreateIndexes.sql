@@ -166,9 +166,6 @@ CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 CREATE INDEX iswc_idx_work ON iswc (work);
 CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
 
-CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_allowed_value (work_attribute_type);
-CREATE INDEX work_attribute_idx_work ON work_attribute (work);
-
 CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_event_idx_uniq ON l_area_event (entity0, entity1, link, link_order);
@@ -527,15 +524,18 @@ CREATE UNIQUE INDEX work_alias_type_idx_gid ON work_alias_type (gid);
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
+CREATE INDEX work_attribute_idx_work ON work_attribute (work);
+
+CREATE UNIQUE INDEX work_attribute_type_idx_gid ON work_attribute_type (gid);
+
+CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_allowed_value (work_attribute_type);
+CREATE UNIQUE INDEX work_attribute_type_allowed_value_idx_gid ON work_attribute_type_allowed_value (gid);
+
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 
 CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
 
 CREATE UNIQUE INDEX work_type_idx_gid ON work_type (gid);
-
-CREATE UNIQUE INDEX work_attribute_type_idx_gid ON work_attribute_type (gid);
-
-CREATE UNIQUE INDEX work_attribute_type_allowed_value_idx_gid ON work_attribute_type_allowed_value (gid);
 
 -- lowercase indexes for javascript autocomplete
 CREATE INDEX artist_idx_lower_name ON artist (lower(name));

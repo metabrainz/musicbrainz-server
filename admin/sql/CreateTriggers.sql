@@ -551,9 +551,6 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
 CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
     FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
-CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
-    FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
-
 CREATE TRIGGER a_ins_instrument AFTER INSERT ON musicbrainz.instrument
     FOR EACH ROW EXECUTE PROCEDURE a_ins_instrument();
 
@@ -592,6 +589,9 @@ CREATE TRIGGER a_upd_alternative_medium_track AFTER UPDATE ON alternative_medium
 
 CREATE TRIGGER a_del_alternative_medium_track AFTER DELETE ON alternative_medium_track
     FOR EACH ROW EXECUTE PROCEDURE a_del_alternative_medium_track();
+
+CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
 
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links
