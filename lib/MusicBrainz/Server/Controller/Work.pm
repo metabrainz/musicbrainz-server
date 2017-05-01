@@ -112,10 +112,15 @@ before 'edit' => sub
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('WorkAttribute')->load_for_works($work);
-    stash_work_attribute_json($c);
 };
 
-sub stash_work_attribute_json {
+after edit => sub {
+    my ($self, $c) = @_;
+
+    stash_work_form_json($c);
+};
+
+sub stash_work_form_json {
     my ($c) = @_;
 
     my $build_json;
@@ -133,14 +138,16 @@ sub stash_work_attribute_json {
         return $out;
     };
 
-    $c->stash(
-        workAttributeTypesJson => $c->json->encode(
-            $build_json->($c->model('WorkAttributeType')->get_tree)
-        ),
-        workAttributeValuesJson => $c->json->encode(
-            $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree)
-        )
-    );
+    my $json = {};
+    $json->{form} = $c->stash->{form}->TO_JSON;
+
+    $json->{workAttributeTypeTree} =
+        $build_json->($c->model('WorkAttributeType')->get_tree);
+
+    $json->{workAttributeValueTree} =
+        $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree);
+
+    $c->stash(work_form_json => $json);
 }
 
 sub _merge_load_entities
@@ -171,9 +178,10 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     dialog_template => 'work/edit_form.tt',
 };
 
-before 'create' => sub {
+after create => sub {
     my ($self, $c) = @_;
-    stash_work_attribute_json($c);
+
+    stash_work_form_json($c);
 };
 
 1;

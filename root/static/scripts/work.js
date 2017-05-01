@@ -1,15 +1,20 @@
 const ko = require('knockout');
 const _ = require('lodash');
 
-const {lp} = require('../common/i18n');
+const {l, lp} = require('./common/i18n');
+const {
+    form,
+    workAttributeTypeTree,
+    workAttributeValueTree,
+  } = require('./common/utility/getScriptArgs')();
 
 class WorkAttribute {
   constructor(data, parent) {
-    this.attributeValue = ko.observable(data.value || undefined);
+    this.attributeValue = ko.observable(_.get(data, ['field', 'value', 'value']));
     this.errors = ko.observableArray(data.errors);
     this.parent = parent;
     this.typeHasFocus = ko.observable(false);
-    this.typeID = ko.observable(data.typeID);
+    this.typeID = ko.observable(_.get(data, ['field', 'type_id', 'value']));
 
     this.allowedValues = ko.computed(() => {
       let typeID = this.typeID();
@@ -67,7 +72,7 @@ class ViewModel {
     this.attributeTypesByID = _.transform(attributeTypes.children, byID, {});
     this.allowedValues = allowedValues;
 
-    if (!attributes || !attributes.length) {
+    if (_.isEmpty(attributes)) {
       attributes = [{}];
     }
 
@@ -81,10 +86,6 @@ class ViewModel {
   }
 }
 
-function getScriptParameter(name) {
-  return JSON.parse(document.getElementById('work-bundle').getAttribute(name));
-}
-
 function byID(result, parent) {
   result[parent.id] = parent;
   _.transform(parent.children, byID, result);
@@ -92,9 +93,9 @@ function byID(result, parent) {
 
 ko.applyBindings(
   new ViewModel(
-    getScriptParameter('data-attribute-types'),
-    getScriptParameter('data-allowed-values'),
-    getScriptParameter('data-attributes')
+    workAttributeTypeTree,
+    workAttributeValueTree,
+    _.get(form, ['field', 'attributes', 'field']),
   ),
   $('#work-attributes')[0]
 );
