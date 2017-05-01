@@ -198,7 +198,9 @@ my @group_core = qw(
     medium
     medium_attribute
     medium_attribute_type
+    medium_attribute_type_allowed_format
     medium_attribute_type_allowed_value
+    medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
     orderable_link_type

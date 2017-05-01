@@ -2376,6 +2376,11 @@ CREATE TABLE medium_attribute_type ( -- replicate (verbose)
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE medium_attribute_type_allowed_format ( -- replicate (verbose)
+    medium_format INTEGER NOT NULL, -- PK, references medium_format.id,
+    medium_attribute_type INTEGER NOT NULL -- PK, references medium_attribute_type.id
+);
+
 CREATE TABLE medium_attribute_type_allowed_value ( -- replicate (verbose)
     id                          SERIAL,  -- PK
     medium_attribute_type       INTEGER NOT NULL, -- references medium_attribute_type.id
@@ -2384,6 +2389,11 @@ CREATE TABLE medium_attribute_type_allowed_value ( -- replicate (verbose)
     child_order                 INTEGER NOT NULL DEFAULT 0,
     description                 TEXT,
     gid                         uuid NOT NULL
+);
+
+CREATE TABLE medium_attribute_type_allowed_value_allowed_format ( -- replicate (verbose)
+    medium_format INTEGER NOT NULL, -- PK, references medium_format.id,
+    medium_attribute_type_allowed_value INTEGER NOT NULL -- PK, references medium_attribute_type_allowed_value.id
 );
 
 CREATE TABLE medium_attribute ( -- replicate (verbose)
