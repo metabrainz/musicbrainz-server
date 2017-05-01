@@ -224,7 +224,9 @@ ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pke
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_attribute ADD CONSTRAINT medium_attribute_pkey PRIMARY KEY (id);
 ALTER TABLE medium_attribute_type ADD CONSTRAINT medium_attribute_type_pkey PRIMARY KEY (id);
+ALTER TABLE medium_attribute_type_allowed_format ADD CONSTRAINT medium_attribute_type_allowed_format_pkey PRIMARY KEY (medium_format, medium_attribute_type);
 ALTER TABLE medium_attribute_type_allowed_value ADD CONSTRAINT medium_attribute_type_allowed_value_pkey PRIMARY KEY (id);
+ALTER TABLE medium_attribute_type_allowed_value_allowed_format ADD CONSTRAINT medium_attribute_type_allowed_value_allowed_format_pkey PRIMARY KEY (medium_format, medium_attribute_type_allowed_value);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
 ALTER TABLE medium_index ADD CONSTRAINT medium_index_pkey PRIMARY KEY (medium);

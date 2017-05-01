@@ -2475,6 +2475,16 @@ ALTER TABLE medium_attribute_type
    FOREIGN KEY (parent)
    REFERENCES medium_attribute_type(id);
 
+ALTER TABLE medium_attribute_type_allowed_format
+   ADD CONSTRAINT medium_attribute_type_allowed_format_fk_medium_format
+   FOREIGN KEY (medium_format)
+   REFERENCES medium_format(id);
+
+ALTER TABLE medium_attribute_type_allowed_format
+   ADD CONSTRAINT medium_attribute_type_allowed_format_fk_medium_attribute_type
+   FOREIGN KEY (medium_attribute_type)
+   REFERENCES medium_attribute_type(id);
+
 ALTER TABLE medium_attribute_type_allowed_value
    ADD CONSTRAINT medium_attribute_type_allowed_value_fk_medium_attribute_type
    FOREIGN KEY (medium_attribute_type)
@@ -2483,6 +2493,16 @@ ALTER TABLE medium_attribute_type_allowed_value
 ALTER TABLE medium_attribute_type_allowed_value
    ADD CONSTRAINT medium_attribute_type_allowed_value_fk_parent
    FOREIGN KEY (parent)
+   REFERENCES medium_attribute_type_allowed_value(id);
+
+ALTER TABLE medium_attribute_type_allowed_value_allowed_format
+   ADD CONSTRAINT medium_attribute_type_allowed_value_allowed_format_fk_medium_format
+   FOREIGN KEY (medium_format)
+   REFERENCES medium_format(id);
+
+ALTER TABLE medium_attribute_type_allowed_value_allowed_format
+   ADD CONSTRAINT medium_attribute_type_allowed_value_allowed_format_fk_medium_attribute_type_allowed_value
+   FOREIGN KEY (medium_attribute_type_allowed_value)
    REFERENCES medium_attribute_type_allowed_value(id);
 
 ALTER TABLE medium_cdtoc

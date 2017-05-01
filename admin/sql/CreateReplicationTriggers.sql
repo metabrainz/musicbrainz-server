@@ -667,8 +667,16 @@ CREATE TRIGGER "reptg_medium_attribute_type"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_medium_attribute_type_allowed_format"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_format"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_medium_attribute_type_allowed_value"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_medium_attribute_type_allowed_value_allowed_format"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_value_allowed_format"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_medium_cdtoc"
