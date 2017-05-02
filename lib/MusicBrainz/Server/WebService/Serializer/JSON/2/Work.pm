@@ -32,7 +32,7 @@ sub serialize
     ];
 
     $body{language} = $entity->language
-        ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
+        ? $entity->language->alpha_3_code
         : JSON::null;
 
     return \%body;
