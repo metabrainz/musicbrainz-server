@@ -4,6 +4,7 @@ use List::AllUtils qw( uniq );
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use namespace::autoclean;
+use Time::HiRes qw( time );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -64,7 +65,7 @@ sub find_by_entity_id {
         SELECT $columns
           FROM $table
          WHERE $entity_type = any(?)
-         ORDER BY $value_type
+         ORDER BY created, $value_type
     };
     return [$self->query_to_list($query, [\@ids])];
 }
@@ -152,9 +153,14 @@ sub set {
     @values = uniq @values;
 
     $self->sql->do(
-        qq{INSERT INTO $table ($entity_type, $value_type) VALUES } .
-            join(q(, ), ('(?, ?)') x @values),
-        map { $entity_id, $_ } @values,
+        qq{INSERT INTO $table ($entity_type, $value_type, created) VALUES } .
+            join(q(, ), ('(?, ?, ?)') x @values),
+        map { ($entity_id, $_,
+               # Preserve the order of @values by giving each row a larger
+               # `created` timestamp. This shouldn't matter for IPIs or
+               # ISNIs, but may for work languages.
+               DateTime::Format::Pg->format_datetime(
+                   DateTime->from_epoch(epoch => time))) } @values,
     );
 }
 
