@@ -229,14 +229,6 @@ sub read_file
     <$fh>;
 }
 
-sub write_file
-{
-    my ($file, $contents, $base) = @_;
-    open(my $fh, ">$base/$file") or die $!;
-    print $fh $contents or die $!;
-    close $fh or die $!;
-}
-
 sub extract_tar
 {
     my ($localfile, $dir) = @_;

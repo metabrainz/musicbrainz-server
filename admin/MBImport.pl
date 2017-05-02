@@ -44,11 +44,13 @@ my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
 my $update_replication_control = 1;
 my $delete_first = 0;
+my $database = 'MAINTENANCE';
 
 GetOptions(
     "help|h"                    => \$fHelp,
     "ignore-errors|i!"  => \$fIgnoreErrors,
     "tmp-dir|t=s"               => \$tmpdir,
+    "database=s" => \$database,
     "fix-broken-utf8"   => \$fFixUTF8,
     "skip-editor!" => \$skip_ensure_editor,
     "update-replication-control!" => \$update_replication_control,
@@ -65,6 +67,7 @@ Usage: MBImport.pl [options] FILE ...
                           special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+        --database        database to import into (default: MAINTENANCE)
         --skip-editor     do not guarantee editor rows are present (useful when
                           importing single tables).
         --update-replication-control whether or not this import should
@@ -107,7 +110,7 @@ EOF
 $fHelp and usage();
 @ARGV or usage();
 
-my $mb = Databases->get_connection('MAINTENANCE');
+my $mb = Databases->get_connection($database);
 my $sql = Sql->new($mb->conn);
 
 

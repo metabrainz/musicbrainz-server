@@ -12,6 +12,7 @@ use List::AllUtils qw( any );
 use List::MoreUtils qw( natatime );
 use List::UtilsBy qw( sort_by );
 use Moose;
+use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw(
     %ENTITIES
     entities_with
@@ -21,7 +22,6 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
 use MusicBrainz::Server::Sitemap::Utils qw(
-    log
     serialize_sitemap
     serialize_sitemap_index
 );

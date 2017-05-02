@@ -9,13 +9,13 @@ use lib "$FindBin::Bin/../lib";
 use DBDefs;
 use List::Util qw( min );
 use Moose;
+use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Sitemap::Constants qw(
     $MAX_SITEMAP_SIZE
     %SITEMAP_SUFFIX_INFO
 );
-use MusicBrainz::Server::Sitemap::Utils qw( log );
 use POSIX;
 use Sql;
 
