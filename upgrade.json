@@ -48,7 +48,7 @@
   },
 
   "24": {
-    "slave": [],
-    "standalone": []
+    "slave": ["20170503-mbs-9329-event-meta.sql"],
+    "standalone": ["20170503-mbs-9329-event-meta-standalone.sql"]
   }
 }
