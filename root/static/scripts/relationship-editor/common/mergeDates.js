@@ -7,7 +7,7 @@ const ko = require('knockout');
 const _ = require('lodash');
 
 const nonEmpty = require('../../common/utility/nonEmpty');
-const parseIntegerOrNull = require('../../edit/utility/parseIntegerOrNull');
+const parseIntegerOrNull = require('../../common/utility/parseIntegerOrNull');
 
 function conflict(a, b, prop) {
     return nonEmpty(a[prop]) && nonEmpty(b[prop]) && a[prop] !== b[prop];

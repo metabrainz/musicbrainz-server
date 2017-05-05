@@ -65,9 +65,21 @@ our @EXPORT_OK = (
         $MAX_INITIAL_MEDIUMS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
         @FULL_TABLE_LIST
+        @CORE_TABLE_LIST
+        @DERIVED_TABLE_LIST
+        @STATS_TABLE_LIST
+        @EDITOR_TABLE_LIST
+        @EDIT_TABLE_LIST
+        @PRIVATE_TABLE_LIST
+        @CDSTUBS_TABLE_LIST
+        @CAA_TABLE_LIST
+        @WIKIDOCS_TABLE_LIST
+        @DOCUMENTATION_TABLE_LIST
+        @SITEMAPS_TABLE_LIST
         $CONTACT_URL
         $WS_EDIT_RESPONSE_OK $WS_EDIT_RESPONSE_NO_CHANGES
         %ENTITIES entities_with
+        $EDITOR_SANITISED_COLUMNS
     ),
 );
 
@@ -411,29 +423,23 @@ sub entities_with {
     }
 }
 
-Readonly our @FULL_TABLE_LIST => qw(
+Readonly our @CORE_TABLE_LIST => qw(
     alternative_medium
     alternative_medium_track
     alternative_release
     alternative_release_type
     alternative_track
-    annotation
-    application
     area
     area_alias
     area_alias_type
-    area_annotation
     area_attribute
     area_attribute_type
     area_attribute_type_allowed_value
     area_gid_redirect
-    area_tag
-    area_tag_raw
     area_type
     artist
     artist_alias
     artist_alias_type
-    artist_annotation
     artist_attribute
     artist_attribute_type
     artist_attribute_type_allowed_value
@@ -442,83 +448,26 @@ Readonly our @FULL_TABLE_LIST => qw(
     artist_gid_redirect
     artist_ipi
     artist_isni
-    artist_meta
-    artist_rating_raw
-    artist_tag
-    artist_tag_raw
     artist_type
-    autoeditor_election
-    autoeditor_election_vote
     cdtoc
-    cdtoc_raw
     country_area
-    edit
-    edit_area
-    edit_artist
-    edit_data
-    edit_event
-    edit_instrument
-    edit_label
-    edit_note
-    edit_note_recipient
-    edit_place
-    edit_recording
-    edit_release
-    edit_release_group
-    edit_series
-    edit_url
-    edit_work
-    editor
-    editor_collection
-    editor_collection_area
-    editor_collection_artist
-    editor_collection_event
-    editor_collection_instrument
-    editor_collection_label
-    editor_collection_place
-    editor_collection_recording
-    editor_collection_release
-    editor_collection_release_group
-    editor_collection_series
     editor_collection_type
-    editor_collection_work
-    editor_language
-    editor_oauth_token
-    editor_preference
-    editor_sanitised
-    editor_subscribe_artist
-    editor_subscribe_collection
-    editor_subscribe_editor
-    editor_subscribe_label
-    editor_subscribe_series
-    editor_watch_artist
-    editor_watch_preferences
-    editor_watch_release_group_type
-    editor_watch_release_status
     event
     event_alias
     event_alias_type
-    event_annotation
     event_attribute
     event_attribute_type
     event_attribute_type_allowed_value
     event_gid_redirect
-    event_meta
-    event_rating_raw
-    event_tag
-    event_tag_raw
     event_type
     gender
     instrument
     instrument_alias
     instrument_alias_type
-    instrument_annotation
     instrument_attribute
     instrument_attribute_type
     instrument_attribute_type_allowed_value
     instrument_gid_redirect
-    instrument_tag
-    instrument_tag_raw
     instrument_type
     iso_3166_1
     iso_3166_2
@@ -606,17 +555,12 @@ Readonly our @FULL_TABLE_LIST => qw(
     label
     label_alias
     label_alias_type
-    label_annotation
     label_attribute
     label_attribute_type
     label_attribute_type_allowed_value
     label_gid_redirect
     label_ipi
     label_isni
-    label_meta
-    label_rating_raw
-    label_tag
-    label_tag_raw
     label_type
     language
     link
@@ -636,108 +580,204 @@ Readonly our @FULL_TABLE_LIST => qw(
     medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
-    medium_index
-    old_editor_name
     orderable_link_type
     place
     place_alias
     place_alias_type
-    place_annotation
     place_attribute
     place_attribute_type
     place_attribute_type_allowed_value
     place_gid_redirect
-    place_tag
-    place_tag_raw
     place_type
     recording
     recording_alias
     recording_alias_type
-    recording_annotation
     recording_attribute
     recording_attribute_type
     recording_attribute_type_allowed_value
     recording_gid_redirect
-    recording_meta
-    recording_rating_raw
-    recording_tag
-    recording_tag_raw
     release
     release_alias
     release_alias_type
-    release_annotation
     release_attribute
     release_attribute_type
     release_attribute_type_allowed_value
     release_country
-    release_coverart
     release_gid_redirect
     release_group
     release_group_alias
     release_group_alias_type
-    release_group_annotation
     release_group_attribute
     release_group_attribute_type
     release_group_attribute_type_allowed_value
     release_group_gid_redirect
-    release_group_meta
     release_group_primary_type
-    release_group_rating_raw
     release_group_secondary_type
     release_group_secondary_type_join
-    release_group_tag
-    release_group_tag_raw
     release_label
-    release_meta
     release_packaging
-    release_raw
     release_status
-    release_tag
-    release_tag_raw
     release_unknown_country
     replication_control
     script
     series
     series_alias
     series_alias_type
-    series_annotation
     series_attribute
     series_attribute_type
     series_attribute_type_allowed_value
     series_gid_redirect
     series_ordering_type
-    series_tag
-    series_tag_raw
     series_type
-    tag
-    tag_relation
     track
     track_gid_redirect
-    track_raw
     url
     url_gid_redirect
-    vote
     work
     work_alias
     work_alias_type
-    work_annotation
     work_attribute
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
     work_language
-    work_meta
-    work_rating_raw
-    work_tag
-    work_tag_raw
     work_type
+);
 
+Readonly our @DERIVED_TABLE_LIST => qw(
+    annotation
+    area_annotation
+    area_tag
+    artist_annotation
+    artist_meta
+    artist_tag
+    event_annotation
+    event_meta
+    event_tag
+    instrument_annotation
+    instrument_tag
+    label_annotation
+    label_meta
+    label_tag
+    medium_index
+    place_annotation
+    place_tag
+    recording_annotation
+    recording_meta
+    recording_tag
+    release_annotation
+    release_group_annotation
+    release_group_meta
+    release_group_tag
+    release_meta
+    release_tag
+    series_annotation
+    series_tag
+    tag
+    tag_relation
+    work_annotation
+    work_meta
+    work_tag
+);
+
+Readonly our @STATS_TABLE_LIST => qw(
+    statistics.statistic
+    statistics.statistic_event
+);
+
+Readonly our @EDIT_TABLE_LIST => qw(
+    edit
+    edit_area
+    edit_artist
+    edit_data
+    edit_event
+    edit_instrument
+    edit_label
+    edit_note
+    edit_note_recipient
+    edit_place
+    edit_recording
+    edit_release
+    edit_release_group
+    edit_series
+    edit_url
+    edit_work
+    vote
+);
+
+Readonly our @EDITOR_TABLE_LIST => qw(
+    editor_sanitised
+);
+
+Readonly our @PRIVATE_TABLE_LIST => qw(
+    application
+    area_tag_raw
+    artist_rating_raw
+    artist_tag_raw
+    autoeditor_election
+    autoeditor_election_vote
+    editor
+    editor_collection
+    editor_collection_area
+    editor_collection_artist
+    editor_collection_event
+    editor_collection_instrument
+    editor_collection_label
+    editor_collection_place
+    editor_collection_recording
+    editor_collection_release
+    editor_collection_release_group
+    editor_collection_series
+    editor_collection_work
+    editor_language
+    editor_oauth_token
+    editor_preference
+    editor_subscribe_artist
+    editor_subscribe_collection
+    editor_subscribe_editor
+    editor_subscribe_label
+    editor_subscribe_series
+    editor_watch_artist
+    editor_watch_preferences
+    editor_watch_release_group_type
+    editor_watch_release_status
+    event_rating_raw
+    event_tag_raw
+    instrument_tag_raw
+    label_rating_raw
+    label_tag_raw
+    old_editor_name
+    place_tag_raw
+    recording_rating_raw
+    recording_tag_raw
+    release_coverart
+    release_group_rating_raw
+    release_group_tag_raw
+    release_tag_raw
+    series_tag_raw
+    work_rating_raw
+    work_tag_raw
+);
+
+Readonly our @CDSTUBS_TABLE_LIST => qw(
+    cdtoc_raw
+    release_raw
+    track_raw
+);
+
+Readonly our @CAA_TABLE_LIST => qw(
     cover_art_archive.art_type
-    cover_art_archive.image_type
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
+    cover_art_archive.image_type
     cover_art_archive.release_group_cover_art
+);
 
+Readonly our @WIKIDOCS_TABLE_LIST => qw(
+    wikidocs.wikidocs_index
+);
+
+Readonly our @DOCUMENTATION_TABLE_LIST => qw(
     documentation.l_area_area_example
     documentation.l_area_artist_example
     documentation.l_area_event_example
@@ -754,10 +794,10 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_artist_event_example
     documentation.l_artist_instrument_example
     documentation.l_artist_label_example
+    documentation.l_artist_place_example
     documentation.l_artist_recording_example
     documentation.l_artist_release_example
     documentation.l_artist_release_group_example
-    documentation.l_artist_place_example
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
@@ -781,10 +821,10 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_instrument_url_example
     documentation.l_instrument_work_example
     documentation.l_label_label_example
+    documentation.l_label_place_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
     documentation.l_label_release_group_example
-    documentation.l_label_place_example
     documentation.l_label_series_example
     documentation.l_label_url_example
     documentation.l_label_work_example
@@ -817,7 +857,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     documentation.l_url_work_example
     documentation.l_work_work_example
     documentation.link_type_documentation
+);
 
+Readonly our @SITEMAPS_TABLE_LIST => qw(
     sitemaps.artist_lastmod
     sitemaps.control
     sitemaps.label_lastmod
@@ -826,11 +868,39 @@ Readonly our @FULL_TABLE_LIST => qw(
     sitemaps.release_group_lastmod
     sitemaps.release_lastmod
     sitemaps.work_lastmod
+);
 
-    statistics.statistic
-    statistics.statistic_event
+Readonly our @FULL_TABLE_LIST => (
+    @CORE_TABLE_LIST,
+    @DERIVED_TABLE_LIST,
+    @STATS_TABLE_LIST,
+    @EDITOR_TABLE_LIST,
+    @EDIT_TABLE_LIST,
+    @PRIVATE_TABLE_LIST,
+    @CDSTUBS_TABLE_LIST,
+    @CAA_TABLE_LIST,
+    @WIKIDOCS_TABLE_LIST,
+    @DOCUMENTATION_TABLE_LIST,
+    @SITEMAPS_TABLE_LIST,
+);
 
-    wikidocs.wikidocs_index
+Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
+    'editor.id',
+    'editor.name',
+    '0 AS privs',
+    "'' AS email",
+    'NULL AS website',
+    'NULL AS bio',
+    'editor.member_since',
+    'editor.email_confirm_date',
+    'now() AS last_login_date',
+    'editor.last_updated',
+    'NULL AS birth_date',
+    'NULL AS gender',
+    'NULL as area',
+    "'{CLEARTEXT}mb' AS password",
+    "md5(editor.name || ':musicbrainz.org:mb') AS ha1",
+    'editor.deleted',
 );
 
 =head1 NAME

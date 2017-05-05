@@ -32,12 +32,37 @@ use strict;
 use DBDefs;
 use integer;
 
-use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
+use MusicBrainz::Script::MBDump qw(
+    begin_dump
+    copy_readme
+    dump_table
+    end_dump
+    gpg_sign
+    make_tar
+    write_file
+);
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_SANITISED_COLUMNS
+    @FULL_TABLE_LIST
+    @CORE_TABLE_LIST
+    @DERIVED_TABLE_LIST
+    @STATS_TABLE_LIST
+    @EDITOR_TABLE_LIST
+    @EDIT_TABLE_LIST
+    @PRIVATE_TABLE_LIST
+    @CDSTUBS_TABLE_LIST
+    @CAA_TABLE_LIST
+    @WIKIDOCS_TABLE_LIST
+    @DOCUMENTATION_TABLE_LIST
+);
 
 use Getopt::Long;
-use Encode qw( encode );
+
+BEGIN { *MBDump:: = *MusicBrainz::Script::MBDump:: }
 
 ################################################################################
+
+my $database = 'READWRITE';
 
 my @tables = @FULL_TABLE_LIST;
 
@@ -46,373 +71,26 @@ my @replication_tables = qw(
     dbmirror_pendingdata
 );
 
-my @group_core = qw(
-    alternative_medium
-    alternative_medium_track
-    alternative_release
-    alternative_release_type
-    alternative_track
-    area
-    area_type
-    area_alias
-    country_area
-    area_alias_type
-    area_attribute
-    area_attribute_type
-    area_attribute_type_allowed_value
-    area_gid_redirect
-    iso_3166_1
-    iso_3166_2
-    iso_3166_3
-    artist
-    artist_alias
-    artist_alias_type
-    artist_attribute
-    artist_attribute_type
-    artist_attribute_type_allowed_value
-    artist_credit
-    artist_credit_name
-    artist_gid_redirect
-    artist_ipi
-    artist_isni
-    artist_type
-    cdtoc
-    editor_collection_type
-    event
-    event_alias
-    event_alias_type
-    event_attribute
-    event_attribute_type
-    event_attribute_type_allowed_value
-    event_gid_redirect
-    event_type
-    gender
-    instrument
-    instrument_alias
-    instrument_alias_type
-    instrument_attribute
-    instrument_attribute_type
-    instrument_attribute_type_allowed_value
-    instrument_gid_redirect
-    instrument_type
-    isrc
-    iswc
-    l_area_area
-    l_area_artist
-    l_area_event
-    l_area_instrument
-    l_area_label
-    l_area_place
-    l_area_recording
-    l_area_release
-    l_area_release_group
-    l_area_series
-    l_area_url
-    l_area_work
-    l_artist_artist
-    l_artist_event
-    l_artist_instrument
-    l_artist_label
-    l_artist_place
-    l_artist_recording
-    l_artist_release
-    l_artist_release_group
-    l_artist_series
-    l_artist_url
-    l_artist_work
-    l_event_event
-    l_event_instrument
-    l_event_label
-    l_event_place
-    l_event_recording
-    l_event_release
-    l_event_release_group
-    l_event_series
-    l_event_url
-    l_event_work
-    l_instrument_instrument
-    l_instrument_label
-    l_instrument_place
-    l_instrument_recording
-    l_instrument_release
-    l_instrument_release_group
-    l_instrument_series
-    l_instrument_url
-    l_instrument_work
-    l_label_label
-    l_label_place
-    l_label_recording
-    l_label_release
-    l_label_release_group
-    l_label_series
-    l_label_url
-    l_label_work
-    l_place_place
-    l_place_recording
-    l_place_release
-    l_place_release_group
-    l_place_series
-    l_place_url
-    l_place_work
-    l_recording_recording
-    l_recording_release
-    l_recording_release_group
-    l_recording_series
-    l_recording_url
-    l_recording_work
-    l_release_group_release_group
-    l_release_group_series
-    l_release_group_url
-    l_release_group_work
-    l_release_release
-    l_release_release_group
-    l_release_series
-    l_release_url
-    l_release_work
-    l_series_series
-    l_series_url
-    l_series_work
-    l_url_url
-    l_url_work
-    l_work_work
-    label
-    label_alias
-    label_alias_type
-    label_attribute
-    label_attribute_type
-    label_attribute_type_allowed_value
-    label_gid_redirect
-    label_ipi
-    label_isni
-    label_type
-    language
-    link
-    link_attribute
-    link_attribute_credit
-    link_attribute_text_value
-    link_attribute_type
-    link_creditable_attribute_type
-    link_text_attribute_type
-    link_type
-    link_type_attribute_type
-    medium
-    medium_attribute
-    medium_attribute_type
-    medium_attribute_type_allowed_format
-    medium_attribute_type_allowed_value
-    medium_attribute_type_allowed_value_allowed_format
-    medium_cdtoc
-    medium_format
-    orderable_link_type
-    place
-    place_alias
-    place_alias_type
-    place_attribute
-    place_attribute_type
-    place_attribute_type_allowed_value
-    place_gid_redirect
-    place_type
-    recording
-    recording_alias
-    recording_alias_type
-    recording_attribute
-    recording_attribute_type
-    recording_attribute_type_allowed_value
-    recording_gid_redirect
-    release
-    release_alias
-    release_alias_type
-    release_attribute
-    release_attribute_type
-    release_attribute_type_allowed_value
-    release_country
-    release_gid_redirect
-    release_group
-    release_group_alias
-    release_group_alias_type
-    release_group_attribute
-    release_group_attribute_type
-    release_group_attribute_type_allowed_value
-    release_group_gid_redirect
-    release_group_primary_type
-    release_group_secondary_type
-    release_group_secondary_type_join
-    release_label
-    release_packaging
-    release_status
-    release_unknown_country
-    replication_control
-    series
-    series_alias
-    series_alias_type
-    series_attribute
-    series_attribute_type
-    series_attribute_type_allowed_value
-    series_gid_redirect
-    series_ordering_type
-    series_type
-    script
-    track
-    track_gid_redirect
-    tracklist
-    url
-    url_gid_redirect
-    work
-    work_alias
-    work_alias_type
-    work_attribute
-    work_attribute_type
-    work_attribute_type_allowed_value
-    work_gid_redirect
-    work_language
-    work_type
-    );
-
-my @group_derived = qw(
-    annotation
-    area_annotation
-    area_tag
-    artist_annotation
-    artist_meta
-    artist_tag
-    event_annotation
-    event_meta
-    event_tag
-    instrument_annotation
-    instrument_tag
-    label_annotation
-    label_meta
-    label_tag
-    place_annotation
-    place_tag
-    recording_annotation
-    recording_meta
-    recording_tag
-    release_annotation
-    release_meta
-    release_group_annotation
-    release_group_meta
-    release_group_tag
-    release_tag
-    series_annotation
-    series_tag
-    tag
-    tag_relation
-    medium_index
-    work_annotation
-    work_meta
-    work_tag
-    );
-
-my @group_stats = grep { $_ =~ /^statistics\./ } @FULL_TABLE_LIST;
-
-my @group_editor = qw(
-    editor_sanitised
-    );
-
-my @group_edit = qw(
-    edit
-    edit_area
-    edit_artist
-    edit_data
-    edit_event
-    edit_instrument
-    edit_label
-    edit_note
-    edit_note_recipient
-    edit_place
-    edit_recording
-    edit_release
-    edit_release_group
-    edit_series
-    edit_url
-    edit_work
-    vote
-    );
-
-my @group_private = qw(
-    application
-    area_tag_raw
-    artist_rating_raw
-    artist_tag_raw
-    autoeditor_election
-    autoeditor_election_vote
-    editor
-    editor_collection
-    editor_collection_area
-    editor_collection_artist
-    editor_collection_event
-    editor_collection_instrument
-    editor_collection_label
-    editor_collection_place
-    editor_collection_recording
-    editor_collection_release
-    editor_collection_release_group
-    editor_collection_series
-    editor_collection_work
-    editor_language
-    editor_oauth_token
-    editor_preference
-    editor_subscribe_artist
-    editor_subscribe_collection
-    editor_subscribe_editor
-    editor_subscribe_label
-    editor_subscribe_series
-    editor_watch_artist
-    editor_watch_preferences
-    editor_watch_release_group_type
-    editor_watch_release_status
-    event_tag_raw
-    event_rating_raw
-    instrument_tag_raw
-    label_rating_raw
-    label_tag_raw
-    old_editor_name
-    place_tag_raw
-    recording_rating_raw
-    recording_tag_raw
-    release_coverart
-    release_group_rating_raw
-    release_group_tag_raw
-    release_tag_raw
-    series_tag_raw
-    work_rating_raw
-    work_tag_raw
-);
-
-my @group_cdstubs = qw(
-    cdtoc_raw
-    release_raw
-    track_raw
-);
-
-my @group_cover_art_archive = grep { $_ =~ /^cover_art_archive\./ } @FULL_TABLE_LIST;
-
-my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @FULL_TABLE_LIST;
-
-my @group_documentation = grep { $_ =~ /^documentation\./ } @FULL_TABLE_LIST;
-
 my @groups = (
-    \@group_core,
-    \@group_derived,
-    \@group_stats,
-    \@group_editor,
-    \@group_edit,
-    \@group_private,
-    \@group_cdstubs,
-    \@group_cover_art_archive,
-    \@group_wikidocs,
-    \@group_documentation,
+    \@CORE_TABLE_LIST,
+    \@DERIVED_TABLE_LIST,
+    \@STATS_TABLE_LIST,
+    \@EDITOR_TABLE_LIST,
+    \@EDIT_TABLE_LIST,
+    \@PRIVATE_TABLE_LIST,
+    \@CDSTUBS_TABLE_LIST,
+    \@CAA_TABLE_LIST,
+    \@WIKIDOCS_TABLE_LIST,
+    \@DOCUMENTATION_TABLE_LIST,
 );
 
 ################################################################################
 
 my $fHelp;
 my $OutputDir = ".";
-my $dir = "/tmp";
+my $tmp_dir = "/tmp";
 my $fCompress = 1;
 my $fKeepFiles = 0;
-my $fProgress = -t STDOUT;
 my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
@@ -420,10 +98,11 @@ my $fCallback;
 my @tablelist;
 
 GetOptions(
-    "output-dir|d=s"    => \$OutputDir,
-    "tmp-dir|t=s"               => \$dir,
+    "output-dir|d=s"            => \$OutputDir,
+    "tmp-dir|t=s"               => \$tmp_dir,
     "compress|c!"               => \$fCompress,
     "keep-files|k!"             => \$fKeepFiles,
+    "database=s"                => \$database,
     "table=s"                   => \@tablelist,
     "replication-callback=s"    => \$fCallback,
     "with-replication"          => sub { $fDoReplication = 1 },
@@ -431,11 +110,12 @@ GetOptions(
     "with-full-export"          => sub { $fDoFullExport = 1 },
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
-    "help"                              => \$fHelp,
+    "help"                      => \$fHelp,
 );
 
-my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY || undef;
-my $sign_with = DBDefs->GPG_SIGN_KEY || undef;
+$MBDump::keep_files = $fKeepFiles;
+$MBDump::tmp_dir = $tmp_dir;
+$MBDump::output_dir = $OutputDir;
 
 sub usage
 {
@@ -447,6 +127,7 @@ Usage: ExportAllTables [options]
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
     -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
     -k, --keep-files      don't delete the exported files from the tmp directory
+        --database        database to connect to (default: READWRITE)
         --table TABLE     process only these tables
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
@@ -477,188 +158,39 @@ usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
 usage(), exit 1 if not $fDoFullExport and @tablelist;
 check_tables_completeness(), exit if $fCheckCompleteness;
 
-my $erase_tmpdir_on_exit = 0;
-END
-{
-    if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
-    {
-        print localtime() . " : Disk space just before erasing tmp dir:\n";
-        system "/bin/df -m";
-        print localtime() . " : Erasing $dir\n";
-        system "/bin/rm", "-rf", $dir;
-    }
-}
-
-use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
-$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
-$erase_tmpdir_on_exit = 1;
-mkdir "$dir/mbdump" or die $!;
-print localtime() . " : Exporting to $dir\n";
 
 use MusicBrainz::Server::Context;
-use Sql;
 
 # Log in to the main DB
-my $c = MusicBrainz::Server::Context->create_script_context;
-my $sql = Sql->new($c->conn);
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
+my $sql = $c->sql;
 my $dbh = $c->dbh;
 
 @tables = @tablelist if @tablelist;
 @tables = () if not $fDoFullExport;
 
-use Time::HiRes qw( gettimeofday tv_interval );
-my $t0 = [gettimeofday];
-my $totalrows = 0;
-my $tables = 0;
-
-# A quick discussion of the "Can't serialize access due to concurrent update"
-# problem.  See "transaction-iso.html" in the Postgres documentation.
-# Basically the problem is this: export "A" starts; export "B" starts; export
-# "B" updates replication_control; export "A" then can't update
-# replication_control, failing with the above error.
-# The solution is to get a lock (outside of the database) before we start the
-# serializable transaction.
-open(my $lockfh, ">>/tmp/.mb-export-lock") or die $!;
-use Fcntl qw( LOCK_EX );
-flock($lockfh, LOCK_EX) or die $!;
-
-$sql->auto_commit;
-$sql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$sql->begin;
-
-my $now = $sql->select_single_value("SELECT NOW()");
-
-# Write the TIMESTAMP file
-# This used to be free text; now it's parseable.  It contains a PostgreSQL
-# TIMESTAMP WITH TIME ZONE expression.
-writefile("TIMESTAMP", "$now\n");
-
-# Get the replication control data
-
-my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
-    my $row = $sql->select_single_row_hash("SELECT * FROM replication_control");
-    $row ||= {};
-    @$row{qw(
-        current_schema_sequence
-        current_replication_sequence
-        last_replication_date
-    )};
-};
-
-$iSchemaSequence or die "Don't know what schema sequence number we're using";
-$iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE
-    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs->DB_SCHEMA_SEQUENCE (".DBDefs->DB_SCHEMA_SEQUENCE.")";
-
-# Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
-# integer.
-writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
+# Obtain locks and write the TIMESTAMP and SCHEMA_SEQUENCE files.
+begin_dump($c);
 
 # Sanitise various things for public consumption
-
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
-    $sql->do("SELECT id,
-                name,
-                0 AS privs,
-                '' AS email,
-                NULL AS website,
-                NULL AS bio,
-                member_since,
-                email_confirm_date,
-                now() AS last_login_date,
-                last_updated,
-                NULL AS birth_date,
-                NULL AS gender,
-                NULL as area,
-                '{CLEARTEXT}mb' AS password,
-                md5(name || ':musicbrainz.org:mb') AS ha1,
-                deleted
+    $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
               INTO TEMPORARY editor_sanitised
               FROM editor");
 }
 
-$| = 1;
-
-printf "%-30.30s %9s %4s %9s\n",
-    "Table", "Rows", "est%", "rows/sec",
-    ;
-
-my %rowcounts;
-
 for my $table (@tables)
 {
-    dumptable($table);
+    dump_table($c, $table);
 }
 
-sub table_rowcount
-{
-    my $table = shift;
-    $table =~ s/_sanitised$//;
+# Get the replication control data
 
-    $table =~ s/.*\.//;
-
-    $sql->select_single_value(
-        "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
-        $table,
-    );
-}
-
-sub dumptable
-{
-    my $table = shift;
-
-    open(DUMP, ">$dir/mbdump/$table")
-        or die $!;
-
-    my $estrows = table_rowcount($table) || 1;
-
-    $sql->do("COPY $table TO stdout");
-    my $buffer;
-    my $rows = 0;
-
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre."%-30.30s %9d %3d%% %9d".$post,
-                $table, $rows, int(100 * $rows / $estrows),
-                $rows / ($interval||1);
-    };
-
-    $p->("", "") if $fProgress;
-
-    my $longest = 0;
-
-    while ($dbh->pg_getcopydata($buffer) >= 0)
-    {
-        $longest = length($buffer) if length($buffer) > $longest;
-        print DUMP encode('utf-8', $buffer)
-                or die $!;
-
-        ++$rows;
-        unless ($rows & 0xFFF)
-        {
-                $interval = tv_interval($t1);
-                $p->("\r", "") if $fProgress;
-        }
-    }
-
-    close DUMP
-        or die $!;
-
-    $interval = tv_interval($t1);
-    $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
-    print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
-
-    ++$tables;
-    $totalrows += $rows;
-    $rowcounts{$table} = $rows;
-
-    $rows;
-}
+my $iReplicationSequence = $sql->select_single_value(
+    'SELECT current_replication_sequence FROM replication_control'
+);
 
 if ($fDoReplication)
 {
@@ -703,35 +235,28 @@ if ($fDoReplication)
         print localtime() . " : Producing replication packet #$iReplicationSequence\n";
 
         # Dump 'em
-        dumptable($_) for @replication_tables;
+        dump_table($c, $_) for @replication_tables;
 
         # Remove the rows we just dumped
         empty_replication_tables();
 
-        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
         print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-        writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } else {
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
-        writefile("REPLICATION_SEQUENCE", "");
+        write_file("REPLICATION_SEQUENCE", "");
     }
 } else {
-    writefile("REPLICATION_SEQUENCE", "");
+    write_file("REPLICATION_SEQUENCE", "");
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-dumptable("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
+dump_table($c, "replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
-# Make sure our replication data is safe before we commit its removal from the database
-system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
-$sql->commit;
-
-my $dumptime = tv_interval($t0);
-printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
-    scalar localtime,
-    $tables, $totalrows, $dumptime;
+end_dump($c);
 
 optimise_replication_tables() if $fDoReplication;
 
@@ -740,20 +265,17 @@ optimise_replication_tables() if $fDoReplication;
 undef $sql;
 undef $c;
 
-# We can release the lock, allowing other exports to run if they wish.
-close $lockfh;
-
 use File::Copy qw( copy );
 
 if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (grep { $rowcounts{$_} } @replication_tables)
+    if (grep { $MBDump::row_counts->{$_} } @replication_tables)
     {
         copy_readme() or die $!;
         # Go for the "most restrictive" license
-        copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+        copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
         make_tar($tarfile, @replication_tables);
     }
     if ($fCallback) {
@@ -764,24 +286,25 @@ if ($fCompress and $fDoReplication)
 if ($fCompress and $fDoFullExport)
 {
     copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
-    make_tar("mbdump.tar.bz2", @group_core);
+    copy("$FindBin::Bin/COPYING-PublicDomain", "$MBDump::export_dir/COPYING") or die $!;
+    make_tar("mbdump.tar.bz2", @CORE_TABLE_LIST);
 
     copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-    make_tar("mbdump-derived.tar.bz2", @group_derived);
-    make_tar("mbdump-editor.tar.bz2",  @group_editor);
-    make_tar("mbdump-edit.tar.bz2",  @group_edit);
-    make_tar("mbdump-stats.tar.bz2",  @group_stats);
-    make_tar("mbdump-private.tar.bz2", @group_private);
-    make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
-    make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
-    make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
-    make_tar("mbdump-documentation.tar.bz2", @group_documentation);
+    copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
+    make_tar("mbdump-derived.tar.bz2", @DERIVED_TABLE_LIST);
+    make_tar("mbdump-editor.tar.bz2", @EDITOR_TABLE_LIST);
+    make_tar("mbdump-edit.tar.bz2", @EDIT_TABLE_LIST);
+    make_tar("mbdump-stats.tar.bz2", @STATS_TABLE_LIST);
+    make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
+    make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
+    make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
+    make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
+    make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
-        system "cd $OutputDir && /usr/bin/$hash_program --binary *.tar.bz2" .
+        chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
+        system "cd $OutputDir && $hash_bin --binary *.tar.bz2" .
                " | grep -v mbdump-private > $hash_output_file";
 
         $? == 0 or die "$hash_program returned $?";
@@ -789,6 +312,7 @@ if ($fCompress and $fDoFullExport)
         gpg_sign("$OutputDir/$hash_output_file");
     }
 
+    my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY;
     if ($encrypt_for) {
         system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
@@ -797,51 +321,11 @@ if ($fCompress and $fDoFullExport)
 
 # Tar files all created safely... we can erase the tmpdir on exit
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
-$erase_tmpdir_on_exit = 1;
+$MBDump::erase_files_on_exit = 1;
 
 exit;
 
 ################################################################################
-
-sub make_tar
-{
-    my ($tarfile, @files) = @_;
-
-    @files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
-
-    # These ones go first, so MBImport can quickly find them
-    unshift @files, qw(
-        TIMESTAMP
-        COPYING
-        README
-        REPLICATION_SEQUENCE
-        SCHEMA_SEQUENCE
-    );
-
-    my $t0 = [gettimeofday];
-    print localtime() . " : Creating $tarfile\n";
-    system { "/bin/tar" } "tar",
-        "-C", $dir,
-        "--bzip2",
-        "--create",
-        "--verbose",
-        "--file", "$OutputDir/$tarfile",
-        "--",
-        @files,
-        ;
-    $? == 0 or die "Tar returned $?";
-    printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
-
-    gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
-}
-
-sub writefile
-{
-    my ($file, $contents) = @_;
-    open(my $fh, ">$dir/$file") or die $!;
-    print $fh $contents or die $!;
-    close $fh or die $!;
-}
 
 sub empty_replication_tables
 {
@@ -849,7 +333,7 @@ sub empty_replication_tables
     $sql->do("DELETE FROM dbmirror_pending");
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
-    $erase_tmpdir_on_exit = 0;
+    $MBDump::erase_files_on_exit = 0;
 }
 
 sub optimise_replication_tables
@@ -859,16 +343,6 @@ sub optimise_replication_tables
     $sql->do("VACUUM ANALYZE dbmirror_pendingdata");
     $sql->auto_commit;
     $sql->do("VACUUM ANALYZE dbmirror_pending");
-}
-
-sub copy_readme
-{
-    my $text = <<END;
-The files in this directory are snapshots of the MusicBrainz database,
-in a format suitable for import into a PostgreSQL database. To import
-them, you need a compatible version of the MusicBrainz server software.
-END
-    writefile("README", $text);
 }
 
 sub parse_create_tables
@@ -911,27 +385,6 @@ sub check_tables_completeness
     }
     printf "Table exported but not included in any tar: %s\n", $_
         for sort @no_group_tables;
-}
-
-sub gpg_sign
-{
-    my ($file_to_be_signed) = @_;
-
-    # Skip GPG signing of a file if no "sign with" key is given
-    return unless $sign_with;
-
-    # Sign requested file
-    system "gpg",
-        "--default-key", "$sign_with",
-        "--detach-sign",
-        "--armor",
-        $file_to_be_signed;
-
-    # Inform user about a failed signature process
-    if ( $? != 0 ) {
-        printf STDERR "Failed to sign $file_to_be_signed \n"
-            . "GPG returned $?";
-    }
 }
 
 # eof ExportAllTables

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Role::AreaSearch;
+package MusicBrainz::Server::EditSearch::Predicate::Role::EntityArea;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 

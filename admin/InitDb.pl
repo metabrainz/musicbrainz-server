@@ -288,6 +288,7 @@ sub CreateRelations
         my @opts = "--ignore-errors";
         push @opts, "--fix-broken-utf8" if ($fFixUTF8);
         push @opts, "--tmp-dir=$tmp_dir" if ($tmp_dir);
+        push @opts, '--database', $databaseName;
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {

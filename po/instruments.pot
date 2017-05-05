@@ -16,6 +16,11 @@ msgstr ""
 msgid "17-string koto"
 msgstr ""
 
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "Anglo concertina"
+msgstr ""
+
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
 msgstr ""
@@ -61,6 +66,16 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "English concertina"
+msgstr ""
+
+#: DB:instrument/name:844
+msgctxt "english \"improved\" flageolet"
+msgid "English flageolet"
+msgstr ""
+
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
 msgid "English horn"
@@ -68,6 +83,11 @@ msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
+msgstr ""
+
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "German concertina"
 msgstr ""
 
 #: DB:instrument/name:356
@@ -170,6 +190,11 @@ msgstr ""
 
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
+msgstr ""
+
+#: DB:instrument/name:846
+msgctxt "plastic fipple flute"
+msgid "Tonette"
 msgstr ""
 
 #: DB:instrument/name:235
@@ -285,11 +310,6 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
-
-#: DB:instrument/name:839
-msgctxt "historical hybrid between English and German style concertinas"
-msgid "angelo concertina"
 msgstr ""
 
 #: DB:instrument/name:373
@@ -1007,6 +1027,11 @@ msgstr ""
 msgid "djembe"
 msgstr ""
 
+#: DB:instrument/name:850
+msgctxt "ancient Iraqi bowed string instrument"
+msgid "djoza"
+msgstr ""
+
 #: DB:instrument/name:184
 msgid "dobro"
 msgstr ""
@@ -1074,12 +1099,22 @@ msgstr ""
 msgid "duduk"
 msgstr ""
 
+#: DB:instrument/name:851
+msgctxt "indian clay kettle drum"
+msgid "duggi"
+msgstr ""
+
 #: DB:instrument/name:773
 msgid "dulce melos"
 msgstr ""
 
 #: DB:instrument/name:496
 msgid "dulcian"
+msgstr ""
+
+#: DB:instrument/name:841
+msgctxt "idiophone keyboard instrument with tuning forks"
+msgid "dulcitone"
 msgstr ""
 
 #: DB:instrument/name:770
@@ -1174,13 +1209,13 @@ msgstr ""
 msgid "electronic wind instrument"
 msgstr ""
 
-#: DB:instrument/name:14
-msgid "end-blown flute"
+#: DB:instrument/name:848
+msgctxt "electronic keyboard accordion"
+msgid "elektronium"
 msgstr ""
 
-#: DB:instrument/name:837
-msgctxt "unisonoric concertina"
-msgid "english concertina"
+#: DB:instrument/name:14
+msgid "end-blown flute"
 msgstr ""
 
 #: DB:instrument/name:215
@@ -1221,6 +1256,16 @@ msgstr ""
 
 #: DB:instrument/name:523
 msgid "five-string banjo"
+msgstr ""
+
+#: DB:instrument/name:845
+msgctxt "small catalan fipple flute"
+msgid "flabiol"
+msgstr ""
+
+#: DB:instrument/name:843
+msgctxt "french 16th century fipple flute"
+msgid "flageolet"
 msgstr ""
 
 #: DB:instrument/name:604
@@ -1329,11 +1374,6 @@ msgstr ""
 
 #: DB:instrument/name:76
 msgid "geomungo"
-msgstr ""
-
-#: DB:instrument/name:838
-msgctxt "bisonoric concertina"
-msgid "german concertina"
 msgstr ""
 
 #: DB:instrument/name:331
@@ -1601,6 +1641,11 @@ msgstr ""
 msgid "k'lông pút"
 msgstr ""
 
+#: DB:instrument/name:849
+msgctxt "bamboo transverse flute"
+msgid "kagurabue"
+msgstr ""
+
 #: DB:instrument/name:817
 msgctxt "smaller higher-tuned calabash ngoni"
 msgid "kamalen ngɔni"
@@ -1644,6 +1689,10 @@ msgstr ""
 
 #: DB:instrument/name:541
 msgid "kemençe of the Black Sea"
+msgstr ""
+
+#: DB:instrument/name:367
+msgid "kettle drum"
 msgstr ""
 
 #: DB:instrument/name:178
@@ -2106,6 +2155,11 @@ msgstr ""
 
 #: DB:instrument/name:519
 msgid "orpharion"
+msgstr ""
+
+#: DB:instrument/name:842
+msgctxt "late 18th century portable piano with shoulder strap"
+msgid "orphica"
 msgstr ""
 
 #: DB:instrument/name:141
@@ -2978,6 +3032,11 @@ msgstr ""
 msgid "triangle"
 msgstr ""
 
+#: DB:instrument/name:847
+msgctxt "Basque button accordion"
+msgid "trikiti"
+msgstr ""
+
 #: DB:instrument/name:698
 msgid "tromba marina"
 msgstr ""
@@ -3091,12 +3150,13 @@ msgstr ""
 msgid "venu"
 msgstr ""
 
-#: DB:instrument/name:367
-msgid "vessel drum"
-msgstr ""
-
 #: DB:instrument/name:650
 msgid "vessel flute"
+msgstr ""
+
+#: DB:instrument/name:840
+msgctxt "accordina with piano keys"
+msgid "vibrandoneon"
 msgstr ""
 
 #: DB:instrument/name:169

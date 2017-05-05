@@ -1248,7 +1248,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.work:
             return /^view\/[1-9][0-9]*\.htm$/.test(path)
               || /^subview(\/[1-9][0-9]*){2}\.htm$/.test(path)
-              || /^item\/[^\/]+\/[1-9][0-9]*$/.test(path);
+              || /^item\/[^\/]+(?:\/[1-9][0-9]*)?$/.test(path);
         }
       }
       return false;

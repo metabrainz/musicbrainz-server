@@ -36,11 +36,13 @@ use Sql;
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
+my $database = 'READWRITE';
 
 GetOptions(
-    "help|h"                    => \$fHelp,
+    "help|h"            => \$fHelp,
+    "database=s"        => \$database,
     "ignore-errors|i!"  => \$fIgnoreErrors,
-    "tmp-dir|t=s"               => \$tmpdir,
+    "tmp-dir|t=s"       => \$tmpdir,
 );
 
 sub usage
@@ -49,6 +51,7 @@ sub usage
 Usage: ImportReplicationChanges [options] FILE ...
 
         --help            show this help
+        --database        database to import into (default: READWRITE)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
 
@@ -70,7 +73,7 @@ $fHelp and usage();
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
 my $sql = Sql->new($c->conn);
 
 for my $arg (@ARGV)

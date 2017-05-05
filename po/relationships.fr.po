@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-13 14:36+0000\n"
+"PO-Revision-Date: 2017-03-27 17:08+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2359,6 +2359,12 @@ msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr "Cette relation relie une tournée de concerts à/aux l’artiste(s) de la tournée"
 
+#: DB:link_type/description:918
+msgid ""
+"This relationship links an instrument to the company that invented or "
+"designed it."
+msgstr ""
+
 #: DB:link_type/description:896
 msgid ""
 "This relationship links an instrument to the person(s) who invented or "
@@ -3693,11 +3699,12 @@ msgstr "entrevue avec"
 msgid "interviews"
 msgstr "entrevues"
 
-#: DB:link_type/link_phrase:896 DB:link_type/long_link_phrase:896
+#: DB:link_type/link_phrase:896 DB:link_type/reverse_link_phrase:918
+#: DB:link_type/long_link_phrase:896
 msgid "invented"
 msgstr "inventa"
 
-#: DB:link_type/reverse_link_phrase:896
+#: DB:link_type/link_phrase:918 DB:link_type/reverse_link_phrase:896
 msgid "invented by"
 msgstr "inventé par"
 
@@ -5415,6 +5422,10 @@ msgstr "{entity1} a des paroles disponibles à {entity0}"
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr "{entity1} a une photographie {additional:supplémentaire} par {entity0}"
+
+#: DB:link_type/long_link_phrase:918
+msgid "{entity1} invented {entity0}"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:915
 msgid "{entity1} is a feed for podcast {entity0}"

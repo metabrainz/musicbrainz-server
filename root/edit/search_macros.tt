@@ -1,6 +1,6 @@
 [% BLOCK wfield %]
 <span class="field field-[% field %] predicate-[% predicate %]" style="display: none">
-  [%- content -%]
+  [%- content %]
 </span>
 [% END %]
 
@@ -47,8 +47,8 @@
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
                predicate_id(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditVoteCount';
-               predicate_int(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::VoteCount';
+               predicate_vote_count(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
@@ -60,12 +60,8 @@
                predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
-               predicate_link(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteAuthor';
-               predicate_link(field.field_name, field, 'editor');
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
-               predicate_vote(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Voter';
+               predicate_voter(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
                predicate_release_language(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea';
@@ -81,9 +77,11 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
                predicate_int(field.field_name, field);
            END %]
-        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::User');
+             predicate_user(field.field_name, field);
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::Subscribed');
              predicate_subscription(field.field_name, field);
-           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::Role::LinkedEntity');
              predicate_link(field.field_name, field);
            END %]
       </span>
@@ -110,15 +108,15 @@
 <button type="button" class="remove-item icon" title="[% l('Delete') %]"></button>
 [% END %]
 
-[% MACRO operators(operators, field_contents) BLOCK %]
+[%- MACRO operators(operators, field_contents) BLOCK %]
   <select name="operator" class="operator">
-    [% FOR operator=operators %]
+    [%- FOR operator=operators %]
     <option
        [%~ ' selected="selected"' IF field_contents.operator == operator.0 =%]
        value="[% html_escape(operator.0) %]">[% html_escape(operator.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
-[% END %]
+[%- END %]
 
 [% MACRO predicate_id(field, field_contents) WRAPPER wfield predicate='id' %]
   [% operators([ [ '=', l('is') ],
@@ -135,9 +133,9 @@
     &#x2013;
     <input type="number" name="args.1" size="10" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
-[% END %]
+[%- END %]
 
-[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+[% MACRO predicate_int_content(field, field_contents) BLOCK %]
   [% operators([ [ '=', l('is') ],
                  [ '!=', l('is not') ],
                  [ '>', l('is more than') ],
@@ -152,6 +150,10 @@
     &#x2013;
     <input type="number" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
+[% END %]
+
+[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+  [%- predicate_int_content(field, field_contents) %]
 [% END %]
 
 [% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
@@ -169,51 +171,57 @@
     &#x2013;
     <input type="text" name="args.1" size="12" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
+
+  <span>
+    (<a href="[% c.uri_for('/doc/How_to_Search_for_Edits#Date_format') %]" target="_blank">[% l('help') %]</a>)
+  </span>
 [% END %]
 
 [% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [% FOR item=set_contents %]
+    [%- FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% l(html_escape(item.1)) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
 [% MACRO predicate_release_language(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [% FOR language=languages %]
+    [%- FOR language=languages %]
     <option value="[% language.id %]"
-            [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(language.id) ~%]
             >[% html_escape(language.l_name) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
-[% MACRO relationship_node(node, pad, field_contents) BLOCK; %]
-  [% FOR child=node.children %]
-    <option value="[% child.id %]"
-            [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
-      [%- pad _ child.name -%]</option>
-    [% relationship_node(child, pad _ '&#xa0;&#xa0;', field_contents) %]
-  [% END %]
-[% END %]
+[%- MACRO relationship_node(node, pad, field_contents) BLOCK; %]
+  [%- FOR child=node.children %]
+      <option value="[% child.id %]"
+          [%~ ' selected="selected"' IF field_contents.find_argument(child.id) ~%]>
+          [%- pad _ child.name -%]</option>
+      [%- relationship_node(child, pad _ '&#xa0;&#xa0;', field_contents) %]
+  [%- END %]
+[%- END %]
 
 [% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ] ], field_contents) %]
 
   <select name="args" multiple="multiple">
-    [% FOR type_group=relationship_type %]
-      <optgroup label="[% type_group.name %]">
-        [% relationship_node(top_level, '', field_contents)
+    [%- FOR type_group=relationship_type %]
+    <optgroup label="[% type_group.name %]">
+        [%- relationship_node(top_level, '', field_contents)
              FOR top_level=type_group %]
-      </optgroup>
-    [% END %]
+    </optgroup>
+    [%- END %]
   </select>
 
   <br />
@@ -221,34 +229,64 @@
 [% END %]
 
 [% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]
-  [%- autocomplete_name = autocomplete_name.defined ? autocomplete_name : field | replace('_', '-') -%]
+  [%- autocomplete_name = autocomplete_name.defined ? autocomplete_name : field | replace('_', '-') %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <span class="autocomplete [% autocomplete_name %]">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 [% END %]
 
-[% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
+[% MACRO predicate_voter(field, field_contents) WRAPPER wfield predicate="voter" %]
   [% operators([ [ '=', l('is') ]
-                 [ '!=', l('is not') ] ], field_contents) %]
-  <input type="hidden" name="voter_id" value="[% c.user.id %]" />
+                 [ '!=', l('is not') ]
+                 [ 'me', l('is me') ]
+                 [ 'not_me', l('is not me') ]
+                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
+
+  <span class="arg autocomplete editor">
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="voter_id" value="[% html_escape(field_contents.voter_id) %]" />
+  </span>
+
+  <span>
+    [% add_colon(l('and voted')) %]
+  </span>
+
   <select name="args" multiple="multiple">
-    [% FOR item=[ [  2,   lp('Approve', 'vote') ]
+    [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
                 , [  1,   lp('Yes', 'vote') ]
                 , [  0,   lp('No', 'vote') ]
                 , [ -1,   lp('Abstain', 'vote') ]
                 , [ 'no', l('No vote') ]
                 ] %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% html_escape(item.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
+[% END %]
+
+[% MACRO predicate_vote_count(field, field_contents) WRAPPER wfield predicate="id" %]
+
+  <select name="vote">
+    [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
+                 , [  1,   lp('Yes', 'vote') ]
+                 , [  0,   lp('No', 'vote') ]
+                 , [ -1,   lp('Abstain', 'vote') ]
+                 ] %]
+    <option value="[% html_escape(item.0) %]"
+            [%~ ' selected="selected"' IF field_contents.vote == item.0 ~%]
+            >[% html_escape(item.1) %]</option>
+    [%- END %]
+  </select>
+  [%- predicate_int_content(field, field_contents) %]
 [% END %]
 
 [% MACRO predicate_subscription(field, field_contents) WRAPPER wfield predicate="subscription" %]
@@ -258,29 +296,45 @@
                ], field_contents) %]
 
   <span class="arg autocomplete [% field | replace('_', '-') %]">
-      <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
-      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
-      <input type="hidden" class="gid" />
-      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
   </span>
-  <input type="hidden" name="user_id" value="[% c.user.id %]"  />
 [% END %]
 
 [% MACRO predicate_country(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
-    [%- FOR country=countries -%]
+    [%- FOR country=countries %]
     <option value="[% country.id %]"
             [%- 'selected="selected"' IF field_contents.find_argument(country.id) %]>
         [%- html_escape(country.l_name) -%]</option>
-    [%- END -%]
+    [%- END %]
   </select>
+[% END %]
+
+[% MACRO predicate_user(field, field_contents) WRAPPER wfield predicate="user" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ]
+                 [ 'me', l('is me') ]
+                 [ 'not_me', l('is not me') ]
+                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
+
+  <span class="arg autocomplete editor">
+    <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+    <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+    <input type="hidden" class="gid" />
+    <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
 [% END %]
 
 [% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
+
   <select name="args" multiple="multiple">
     [%~ editor_flags = [[1, l('Auto-Editor')], [2, l('Bot')]];
         IF c.user.is_account_admin; editor_flags.push([4, l('Untrusted')]); END;
@@ -290,11 +344,11 @@
           [256, l('Location Editor')]
         )
     ~%]
-    [% FOR item=editor_flags %]
+    [%- FOR item=editor_flags %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% html_escape(item.1) %]</option>
-    [% END %]
+    [%- END %]
   </select>
 [% END %]
 
@@ -309,8 +363,7 @@
                    [ 'close_time', l('Closed') ],
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
-                   [ 'no_votes', l('No vote count') ],
-                   [ 'yes_votes', l('Yes vote count') ],
+                   [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit Note Author') ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
@@ -324,7 +377,7 @@
                    [ 'series', lp('Series', 'singular') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor') ],
-                   [ 'vote', l('My Vote') ]
+                   [ 'voter', l('Voter') ]
                    [ 'release_language', l('Release Language') ],
                    [ 'release_quality', l('Release Quality') ],
                    [ 'artist_area', l('Artist Area') ],
@@ -348,19 +401,19 @@
     [% predicate_set('type', edit_types) %]
     [% predicate_set('status', status) %]
     [% predicate_set('release_quality', quality) %]
-    [% predicate_int('no_votes') %]
-    [% predicate_int('yes_votes') %]
-    [% predicate_link('edit_note_author', undef, 'editor') %]
+    [% predicate_vote_count('vote_count') %]
+    [% predicate_user('edit_note_author') %]
 
     [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
        END %]
 
-    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work', 'editor' ];
+    [% FOR linked_type=[ 'area', 'event', 'instrument', 'place', 'recording', 'release_group', 'release', 'work' ];
          predicate_link(linked_type);
        END %]
 
-    [% predicate_vote('vote') %]
+    [% predicate_user('editor') %]
+    [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]

@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-14 23:12-0500\n"
-"PO-Revision-Date: 2017-03-15 08:21+0000\n"
+"POT-Creation-Date: 2017-03-27 11:33-0500\n"
+"PO-Revision-Date: 2017-03-28 10:33+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -719,7 +719,7 @@ msgstr "Bewerkingsnotitie toevoegen"
 msgid "Add annotation"
 msgstr "Aantekening toevoegen"
 
-#: ../root/components/relationship-editor.tt:194
+#: ../root/components/relationship-editor.tt:219
 #: ../root/static/scripts/common/i18n.js:202
 msgid "Add another instrument"
 msgstr "Nog een instrument toevoegen"
@@ -902,6 +902,10 @@ msgstr "Aliassen"
 #: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
 msgid "All My Edits"
 msgstr "Al mijn bewerkingen"
+
+#: ../root/components/relationship-editor.tt:59
+msgid "All of these relationships."
+msgstr "Al deze relaties."
 
 #: ../root/edit/details/merge_releases.tt:127
 msgid "All recordings for these releases are already merged."
@@ -1526,7 +1530,7 @@ msgstr "Opkomst"
 msgid "Attributes"
 msgstr "Eigenschappen"
 
-#: ../root/components/relationship-editor.tt:115
+#: ../root/components/relationship-editor.tt:140
 #: ../root/edit/details/add_relationship_type.tt:37
 #: ../root/edit/details/edit_relationship_type.tt:68
 #: ../root/relationship/linktype/form.tt:52
@@ -1747,7 +1751,7 @@ msgstr "Begindatum"
 
 #: ../root/area/layout.tt:19 ../root/artist/edit_form.tt:40
 #: ../root/components/common-macros.tt:876 ../root/components/forms.tt:191
-#: ../root/components/relationship-editor.tt:130
+#: ../root/components/relationship-editor.tt:155
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_event.tt:35
 #: ../root/edit/details/add_label.tt:30 ../root/edit/details/add_place.tt:51
 #: ../root/edit/details/edit_area.tt:42 ../root/edit/details/edit_event.tt:27
@@ -1993,7 +1997,7 @@ msgstr "Catalogus#"
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
 
-#: ../root/components/relationship-editor.tt:87
+#: ../root/components/relationship-editor.tt:112
 msgid "Change direction"
 msgstr "Richting omkeren"
 
@@ -2003,7 +2007,7 @@ msgstr "Gegevenskwaliteitsscore van de uitgave veranderen"
 
 #: ../root/release/layout.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:12
-#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:24
 msgid "Change release quality"
 msgstr "Gegevenskwaliteitsscore van de uitgave veranderen"
 
@@ -2046,11 +2050,11 @@ msgstr "Kies één of meer types voor deze afbeelding"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Klik bewerken om de gekoppelde opnames voor dit medium te wijzigen."
 
-#: ../root/components/relationship-editor.tt:206
+#: ../root/components/relationship-editor.tt:231
 msgid "Click here to choose a vocal"
 msgstr "Klik hier om een vocaal te kiezen"
 
-#: ../root/components/relationship-editor.tt:205
+#: ../root/components/relationship-editor.tt:230
 msgid "Click here to choose an instrument"
 msgstr "Klik hier om een instrument te kiezen"
 
@@ -2295,7 +2299,7 @@ msgstr "Recensies op CritiqueBrainz"
 msgid "Current version:"
 msgstr "Huidige versie:"
 
-#: ../root/components/relationship-editor.tt:105
+#: ../root/components/relationship-editor.tt:130
 #: ../root/release/edit/information.tt:140
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 msgid "DD"
@@ -2967,7 +2971,7 @@ msgstr "Einddatum"
 #: ../root/area/layout.tt:27 ../root/area/layout.tt:34
 #: ../root/artist/edit_form.tt:52 ../root/components/common-macros.tt:884
 #: ../root/components/forms.tt:192
-#: ../root/components/relationship-editor.tt:134
+#: ../root/components/relationship-editor.tt:159
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_event.tt:42
 #: ../root/edit/details/add_label.tt:37 ../root/edit/details/add_place.tt:58
 #: ../root/edit/details/edit_area.tt:47 ../root/edit/details/edit_event.tt:32
@@ -4455,7 +4459,7 @@ msgstr "Taal van de tekst:"
 msgid "MBID:"
 msgstr "MBID:"
 
-#: ../root/components/relationship-editor.tt:104
+#: ../root/components/relationship-editor.tt:129
 #: ../root/release/edit/information.tt:133
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 msgid "MM"
@@ -6881,8 +6885,8 @@ msgstr "Schrift:"
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
 #: ../root/components/common-macros.tt:870
-#: ../root/components/relationship-editor.tt:65
-#: ../root/components/relationship-editor.tt:183
+#: ../root/components/relationship-editor.tt:90
+#: ../root/components/relationship-editor.tt:208
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
 #: ../root/edit/search_macros.tt:229 ../root/edit/search_macros.tt:261
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
@@ -7883,7 +7887,7 @@ msgid "The database has no tags."
 msgstr "De database heeft geen etiketten."
 
 #: ../root/release/edit/information.tt:155
-#: ../root/static/scripts/relationship-editor/common/dialog.js:482
+#: ../root/static/scripts/relationship-editor/common/dialog.js:496
 msgid "The date you've entered is not valid."
 msgstr "De datum die je hebt ingevoerd, is niet geldig."
 
@@ -8549,7 +8553,7 @@ msgid ""
 "which no longer exist."
 msgstr "Deze relatiebewerking bevatte ook veranderingen aan relatie-eigenschappen die niet meer bestaan."
 
-#: ../root/components/relationship-editor.tt:147
+#: ../root/components/relationship-editor.tt:172
 msgid "This relationship has ended."
 msgstr "Deze relatie is beëindigd."
 
@@ -8567,7 +8571,7 @@ msgstr "Dit relatietype kan geen eigenschappen hebben."
 
 #: ../root/doc/relationship_type.tt:11
 #: ../root/static/scripts/edit/externalLinks.js:169
-#: ../root/static/scripts/relationship-editor/common/dialog.js:448
+#: ../root/static/scripts/relationship-editor/common/dialog.js:462
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Dit relatietype is verouderd en moet niet meer worden gebruikt."
 
@@ -9537,7 +9541,7 @@ msgstr "Twitter"
 #: ../root/components/events-list.tt:15
 #: ../root/components/instruments-list.tt:6
 #: ../root/components/labels-list.tt:6 ../root/components/places-list.tt:6
-#: ../root/components/relationship-editor.tt:76
+#: ../root/components/relationship-editor.tt:101
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_remove_alias.tt:33
@@ -10222,7 +10226,7 @@ msgstr "XML-webdienst"
 msgid "XML:"
 msgstr "XML:"
 
-#: ../root/components/relationship-editor.tt:103
+#: ../root/components/relationship-editor.tt:128
 #: ../root/release/edit/information.tt:125
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:250
 msgid "YYYY"
@@ -10723,8 +10727,8 @@ msgstr "van {artist}"
 msgid "cancelled"
 msgstr "afgelast"
 
-#: ../root/components/relationship-editor.tt:186
-#: ../root/components/relationship-editor.tt:231
+#: ../root/components/relationship-editor.tt:211
+#: ../root/components/relationship-editor.tt:256
 msgid "credited as"
 msgstr "vermeld als"
 
@@ -10749,7 +10753,7 @@ msgid "end date"
 msgstr "einddatum"
 
 #: ../root/components/common-macros.tt:708
-#: ../root/components/relationship-editor.tt:160
+#: ../root/components/relationship-editor.tt:185
 #: ../root/edit/details/macros.tt:38
 msgid "ended"
 msgstr "beëindigd"
@@ -10790,8 +10794,8 @@ msgstr "vanaf {date} tot nu"
 msgid "fully loaded"
 msgstr "volledig geladen"
 
-#: ../root/components/relationship-editor.tt:90
-#: ../root/components/relationship-editor.tt:116
+#: ../root/components/relationship-editor.tt:115
+#: ../root/components/relationship-editor.tt:141
 #: ../root/release/edit/tracklist.tt:288
 msgid "help"
 msgstr "help"
@@ -11701,7 +11705,7 @@ msgstr "Je rapport is verstuurd."
 msgid "Invalid TOC"
 msgstr "Ongeldige TOC"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:583
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:587
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -11827,7 +11831,7 @@ msgstr "Artiest verwijderen"
 msgid "Remove artist alias"
 msgstr "Alias van de artiest verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:34
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
 msgid "Edit artist"
 msgstr "Artiest bewerken"
 
@@ -11863,7 +11867,7 @@ msgstr "Evenement verwijderen"
 msgid "Remove event alias"
 msgstr "Alias van evenement verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:33
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
 msgid "Edit event"
 msgstr "Evenement bewerken"
 
@@ -11904,8 +11908,8 @@ msgstr "Gegevenskwaliteit van de artiest veranderen (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:17
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:43
-#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:49
+#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:32
 msgid "Edit release"
 msgstr "Uitgave bewerken"
 
@@ -11926,7 +11930,7 @@ msgstr "Uitgavegebeurtenissen bewerken (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:20
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:37
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:44
 msgid "Edit recording"
 msgstr "Opname bewerken"
 
@@ -12030,7 +12034,7 @@ msgstr "Platenmaatschappij toevoegen"
 msgid "Remove label"
 msgstr "Platenmaatschappij verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:35
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
 msgid "Edit label"
 msgstr "Platenmaatschappij bewerken"
 
@@ -12042,7 +12046,7 @@ msgstr "Alias van deze platenmaatschappij bewerken"
 msgid "Merge labels"
 msgstr "Platenmaatschappijen samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 msgid "Add medium"
 msgstr "Medium toevoegen"
 
@@ -12050,7 +12054,7 @@ msgstr "Medium toevoegen"
 msgid "Remove medium"
 msgstr "Medium verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:44
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:50
 msgid "Edit medium"
 msgstr "Medium bewerken"
 
@@ -12078,7 +12082,7 @@ msgstr "Plaats verwijderen"
 msgid "Remove place alias"
 msgstr "Alias van deze plaats verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:36
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
 msgid "Edit place"
 msgstr "Plaats bewerken"
 
@@ -12126,7 +12130,7 @@ msgstr "Alias van de opname bewerken"
 msgid "Merge recordings"
 msgstr "Opnames samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:16
+#: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:20
 msgid "Remove ISRC"
 msgstr "ISRC verwijderen"
 
@@ -12222,7 +12226,7 @@ msgstr "Uitgavegroep verwijderen"
 msgid "Remove release group alias"
 msgstr "Alias van de uitgavegroep verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:38
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 msgid "Edit release group"
 msgstr "Uitgavegroep bewerken"
 
@@ -12250,7 +12254,7 @@ msgstr "Serie verwijderen"
 msgid "Remove series alias"
 msgstr "Alias van de serie verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:31
 msgid "Edit series"
 msgstr "Serie bewerken"
 
@@ -12298,7 +12302,7 @@ msgstr "Alias aan deze compositie toevoegen"
 msgid "Add work annotation"
 msgstr "Aantekening aan de compositie toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:23
 msgid "Add ISWCs"
 msgstr "ISWC’s toevoegen"
 
@@ -12310,7 +12314,7 @@ msgstr "Compositie verwijderen"
 msgid "Remove work alias"
 msgstr "Alias van de compositie verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:68
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:75
 msgid "Edit work"
 msgstr "Compositie bewerken"
 
@@ -12322,7 +12326,7 @@ msgstr "Alias van deze compositie bewerken"
 msgid "Merge works"
 msgstr "Composities samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:22
 msgid "Remove ISWC"
 msgstr "ISWC verwijderen"
 
@@ -12544,7 +12548,7 @@ msgid "These coordinates could not be parsed"
 msgstr "Deze coördinaten konden niet worden ingevoerd"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-#: ../root/static/scripts/relationship-editor/common/dialog.js:493
+#: ../root/static/scripts/relationship-editor/common/dialog.js:507
 msgid "The end date cannot precede the begin date."
 msgstr "De einddatum kan niet voor de begindatum zijn."
 
@@ -13144,7 +13148,7 @@ msgstr "Deze groep is opgeheven."
 
 #: ../root/static/scripts/edit/check-duplicates.js:137
 #: ../root/static/scripts/edit/externalLinks.js:161
-#: ../root/static/scripts/relationship-editor/common/dialog.js:466
+#: ../root/static/scripts/relationship-editor/common/dialog.js:480
 msgid "Required field."
 msgstr "Vereist veld."
 
@@ -13215,7 +13219,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "Selecteer links een passende relate voor deze URL."
 
 #: ../root/static/scripts/edit/externalLinks.js:171
-#: ../root/static/scripts/relationship-editor/common/dialog.js:453
+#: ../root/static/scripts/relationship-editor/common/dialog.js:467
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
@@ -13226,7 +13230,7 @@ msgid "This relationship already exists."
 msgstr "De relatie bestaat al."
 
 #: ../root/static/scripts/edit/externalLinks.js:239
-#: ../root/static/scripts/relationship-editor/common/dialog.js:334
+#: ../root/static/scripts/relationship-editor/common/dialog.js:348
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|meer documentatie})"
 
@@ -13275,33 +13279,33 @@ msgid ""
 "language guidelines}. "
 msgstr "Deze methode regelt de hoofdletters voor de Turkse ‘i’ (‘İ’) en ‘ı’ (‘I’). Sommige woorden moeten misschien handmatig worden ingesteld aan de hand van de {url|richtlijn Turks}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:19
+#: ../root/static/scripts/relationship-editor/common/dialog.js:20
 msgid "The series you’ve selected is for recordings."
 msgstr "De serie die je hebt geselecteerd, is voor opnames."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:20
+#: ../root/static/scripts/relationship-editor/common/dialog.js:21
 msgid "The series you’ve selected is for releases."
 msgstr "De serie die je hebt geselecteerd, is voor uitgaves."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:21
+#: ../root/static/scripts/relationship-editor/common/dialog.js:22
 msgid "The series you’ve selected is for release groups."
 msgstr "De serie die je hebt geselecteerd, is voor uitgavegroepen."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:22
+#: ../root/static/scripts/relationship-editor/common/dialog.js:23
 msgid "The series you’ve selected is for works."
 msgstr "De serie die je hebt geselecteerd, is voor composities."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:444
+#: ../root/static/scripts/relationship-editor/common/dialog.js:458
 msgid "Please select a relationship type."
 msgstr "Selecteer een relatietype"
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:446
+#: ../root/static/scripts/relationship-editor/common/dialog.js:460
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Selecteer een subtype van het nu gebruikte relatietype. Het geselecteerde relatietype wordt alleen gebruikt om subtypes te groeperen."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:468
+#: ../root/static/scripts/relationship-editor/common/dialog.js:482
 msgid "Entities in a relationship cannot be the same."
 msgstr "Objecten in een relatie kunnen niet hetzelfde zijn."
 
