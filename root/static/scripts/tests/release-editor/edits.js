@@ -518,8 +518,6 @@ editReleaseTest("relationshipCreate edit for external link is generated for exis
 editReleaseTest("relationshipEdit edit for external link is generated for existing release", function (t, release) {
     t.plan(1);
 
-    MB.faviconClasses = {};
-
     var component = releaseEditor.createExternalLinksEditor(
         _.assign({}, common.testRelease, { relationships: [testURLRelationship] }),
         document.createElement('div')

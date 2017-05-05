@@ -2,10 +2,10 @@ package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-use JSON;
 use List::UtilsBy qw( sort_by );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l );
+
+with 'MusicBrainz::Server::Form::Role::ToJSON';
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -178,31 +178,6 @@ sub clear_errors {
     {
         map { $self->clear_errors($_) } $field->fields;
     }
-}
-
-sub TO_JSON {
-    my ($self) = @_;
-
-    my $result = {
-        name => $self->name,
-    };
-    for my $field ($self->fields) {
-        $result->{field}{$field->name} = {
-            errors => $field->errors,
-            has_errors => boolean_to_json($field->has_errors),
-            html_name => $field->html_name,
-            label => $field->label,
-            value => $field->value,
-            ($field->can('error_fields') ? (
-                error_fields => [map +{ errors => $_->errors }, $field->error_fields]
-            ) : ()),
-        };
-    }
-    $result;
-}
-
-sub to_encoded_json {
-    JSON->new->utf8(0)->encode(shift->TO_JSON);
 }
 
 1;

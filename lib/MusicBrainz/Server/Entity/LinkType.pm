@@ -117,6 +117,15 @@ has 'orderable_direction' => (
     isa => 'Int',
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{link_phrase} = $self->link_phrase;
+
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

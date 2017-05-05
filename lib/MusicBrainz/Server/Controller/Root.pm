@@ -10,7 +10,6 @@ use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
-use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -262,7 +261,6 @@ sub begin : Private
             alert_mtime => $alert_mtime,
             git => \%git_info,
         },
-        favicon_css_classes => FAVICON_CLASSES,
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
         contact_url => $CONTACT_URL,

@@ -40,6 +40,15 @@ sub source
     return defined $self->source_id ? $SOURCES{$self->source_id} : undef;
 }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{iswc} = $self->iswc;
+
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

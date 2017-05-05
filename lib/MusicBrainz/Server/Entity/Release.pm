@@ -281,6 +281,11 @@ around TO_JSON => sub {
         $data->{formats} = $self->combined_format_name;
     }
 
+    my $length = $self->length;
+    if (defined $length) {
+        $data->{length} = $length;
+    }
+
     return $data;
 };
 

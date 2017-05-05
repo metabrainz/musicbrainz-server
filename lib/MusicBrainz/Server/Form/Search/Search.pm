@@ -4,6 +4,8 @@ extends 'HTML::FormHandler';
 
 use MusicBrainz::Server::Translation qw( l lp );
 
+with 'MusicBrainz::Server::Form::Role::ToJSON';
+
 has_field 'query' => (
     type => 'Text',
     required => 1,

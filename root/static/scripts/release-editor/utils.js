@@ -116,7 +116,7 @@ const similarity = require('../edit/utility/similarity');
 
         if (data.length) clean.length = data.length;
 
-        if (data["sort-name"]) clean.sortName = data["sort-name"];
+        if (data["sort-name"]) clean.sort_name = data["sort-name"];
 
         if (data["artist-credit"]) {
             clean.artistCredit = _.map(data["artist-credit"], cleanArtistCreditName);
@@ -134,7 +134,7 @@ const similarity = require('../edit/utility/similarity');
             artist: {
                 gid: data.artist.id,
                 name: data.artist.name,
-                sortName: data.artist["sort-name"],
+                sort_name: data.artist["sort-name"],
                 entityType: 'artist',
             },
             name: data.name || data.artist.name,

@@ -1,5 +1,3 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
-
 [%- MACRO print_type(type, indent, base, parent) BLOCK -%]
 <tr>
     <th style="padding-left: [%- indent - 1 -%]em">[%- html_escape(type.l_long_link_phrase) -%]</th>
@@ -13,6 +11,7 @@
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Relationships') full_width=1 page='relationships' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 [% USE format %]
 [% round1 = format('%.1f') %]

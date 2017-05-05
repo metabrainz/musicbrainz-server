@@ -8,7 +8,11 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
 
-const {VIDEO_ATTRIBUTE_ID, VIDEO_ATTRIBUTE_GID} = require('../common/constants');
+const {
+    FAVICON_CLASSES,
+    VIDEO_ATTRIBUTE_ID,
+    VIDEO_ATTRIBUTE_GID,
+  } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
 const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
@@ -249,7 +253,7 @@ class ExternalLink extends React.Component {
 
     var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
     if (!showTypeSelection && props.urlMatchesType) {
-      faviconClass = _.find(MB.faviconClasses, (value, key) => props.url.indexOf(key) > 0);
+      faviconClass = _.find(FAVICON_CLASSES, (value, key) => props.url.indexOf(key) > 0);
     }
 
     return (
