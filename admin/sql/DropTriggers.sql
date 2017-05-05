@@ -24,6 +24,7 @@ DROP TRIGGER b_upd_artist_tag ON artist_tag;
 DROP TRIGGER b_upd_editor ON editor;
 DROP TRIGGER a_ins_editor ON editor;
 DROP TRIGGER check_editor_name ON editor;
+DROP TRIGGER a_ins_event ON event;
 DROP TRIGGER b_upd_event ON event;
 DROP TRIGGER end_date_implies_ended ON event;
 DROP TRIGGER b_upd_event_alias ON event_alias;

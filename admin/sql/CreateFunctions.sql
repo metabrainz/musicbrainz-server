@@ -222,6 +222,18 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- event triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_event() RETURNS trigger AS $$
+BEGIN
+    -- add a new entry to the event_meta table
+    INSERT INTO event_meta (id) VALUES (NEW.id);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-----------------------------------------------------------------------
 -- instrument triggers
 -----------------------------------------------------------------------
 
