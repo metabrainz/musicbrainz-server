@@ -122,7 +122,7 @@ ws_test 'work lookup with multiple languages',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
 <work type="Song" id="8753a51f-dd84-492d-8c5a-a39283045118" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6">
   <title>Mon petit amoureux</title>
-  <language>eng</language>
+  <language>mul</language>
   <language-list>
     <language>eng</language>
     <language>fra</language>

@@ -500,7 +500,7 @@ sub _serialize_work
     if ($work->all_languages) {
         my @languages = map { $_->language->alpha_3_code } $work->all_languages;
         # Pre-MBS-5452 element.
-        push @list, $gen->language($languages[0]);
+        push @list, $gen->language(@languages > 1 ? 'mul' : $languages[0]);
         push @list, $gen->language_list(map { $gen->language($_) } @languages);
     }
 

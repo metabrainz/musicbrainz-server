@@ -35,7 +35,8 @@ sub serialize
     my @languages = map { $_->language->alpha_3_code } $entity->all_languages;
     $body{languages} = \@languages;
     # Pre-MBS-5452 property.
-    $body{language} = @languages ? $languages[0] : JSON::null;
+    $body{language} = @languages ?
+        (@languages > 1 ? 'mul' : $languages[0]) : JSON::null;
 
     return \%body;
 };
