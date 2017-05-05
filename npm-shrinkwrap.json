@@ -2974,6 +2974,20 @@
           "version": "0.0.9"
         }
       }
+    },
+    "redux": {
+      "version": "3.6.0",
+      "dependencies": {
+        "lodash-es": {
+          "version": "4.17.4"
+        },
+        "lodash": {
+          "version": "4.17.4"
+        },
+        "symbol-observable": {
+          "version": "1.0.4"
+        }
+      }
     }
   }
 }

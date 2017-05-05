@@ -317,6 +317,7 @@ ALTER TABLE work_attribute ADD CONSTRAINT work_attribute_pkey PRIMARY KEY (id);
 ALTER TABLE work_attribute_type ADD CONSTRAINT work_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE work_attribute_type_allowed_value ADD CONSTRAINT work_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE work_gid_redirect ADD CONSTRAINT work_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE work_language ADD CONSTRAINT work_language_pkey PRIMARY KEY (work, language);
 ALTER TABLE work_meta ADD CONSTRAINT work_meta_pkey PRIMARY KEY (id);
 ALTER TABLE work_rating_raw ADD CONSTRAINT work_rating_raw_pkey PRIMARY KEY (work, editor);
 ALTER TABLE work_tag ADD CONSTRAINT work_tag_pkey PRIMARY KEY (work, tag);

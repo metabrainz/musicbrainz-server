@@ -75,9 +75,11 @@ form div.row.no-label label {
     float: none;
 }
 
-/* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
-div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
-div.form-row-text-list button > img { vertical-align: middle; }
+div.form-row-text-list, div.form-row-select-list {
+    margin-left: @form-label-width + @form-margin;
+
+    button > img { vertical-align: middle; }
+}
 
 div.form-row-add {
     text-align: right;
@@ -148,6 +150,10 @@ form div.no-label,
 form p.no-label,
 form ul.errors {
     margin-left: @form-label-width + @form-margin;
+}
+
+.select-list-row ul.errors {
+    margin-left: 0;
 }
 
 ul.errors {
@@ -311,7 +317,8 @@ span.autocomplete-video {
     color: @dark-text;
 }
 
-span.autocomplete-length {
+span.autocomplete-length,
+span.autocomplete-language {
     color: @very-dark-text;
     float: right;
     margin-left: 2em;

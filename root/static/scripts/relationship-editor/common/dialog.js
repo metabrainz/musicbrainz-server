@@ -658,7 +658,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 var editData = MB.edit.fields.work({
                     name: source.name,
                     typeID: workType,
-                    languageID: workLang
+                    languages: [workLang],
                 });
 
                 return MB.edit.workCreate(editData);

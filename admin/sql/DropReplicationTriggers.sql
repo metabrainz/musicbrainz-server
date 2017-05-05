@@ -250,6 +250,7 @@ DROP TRIGGER reptg_work_attribute ON work_attribute;
 DROP TRIGGER reptg_work_attribute_type ON work_attribute_type;
 DROP TRIGGER reptg_work_attribute_type_allowed_value ON work_attribute_type_allowed_value;
 DROP TRIGGER reptg_work_gid_redirect ON work_gid_redirect;
+DROP TRIGGER reptg_work_language ON work_language;
 DROP TRIGGER reptg_work_meta ON work_meta;
 DROP TRIGGER reptg_work_tag ON work_tag;
 DROP TRIGGER reptg_work_type ON work_type;

@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Controller::Work::Edit;
 use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_deeply ignore re );
-use MusicBrainz::Server::Test qw( capture_edits html_ok );
+use MusicBrainz::Server::Test qw( accept_edit capture_edits html_ok );
 use HTTP::Request::Common;
 use List::UtilsBy qw( sort_by );
 
@@ -169,7 +169,7 @@ EOSQL
             'edit-work.comment' => '',
             'edit-work.edit_note' => '',
             'edit-work.iswcs.0' => '',
-            'edit-work.language_id' => '486',
+            'edit-work.languages.0' => '486',
             'edit-work.name' => 'Concerto and Fugue in C minor, BWV 909',
             'edit-work.rel.0.attributes.0.text_value' => 'BWV 909',
             'edit-work.rel.0.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
@@ -222,6 +222,59 @@ EOSQL
             link_order => 1,
           },
     ]);
+};
+
+test 'Editing works with multiple languages' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+    $c->sql->do(<<'EOSQL');
+-- We aren't interested in ISWC editing
+DELETE FROM iswc;
+EOSQL
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+        my $request = POST $mech->uri, [
+            'edit-work.name' => 'Dancing Queen',
+            'edit-work.languages.0' => '120',
+            'edit-work.languages.1' => '145',
+            'edit-work.languages.2' => '198',
+        ];
+        my $response = $mech->request($request);
+    } $c;
+
+    is(@edits, 1, 'An edit was created');
+    accept_edit($c, $edits[0]);
+
+    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce', 'Fetch the work page');
+    my ($languages) = $mech->scrape_text_by_attr('class', 'lyrics-language');
+    like($languages, qr/English/, '..has English');
+    like($languages, qr/German/, '..has German');
+    like($languages, qr/Japanese/, '..has Japanese');
+
+    @edits = capture_edits {
+        $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+        my $request = POST $mech->uri, [
+            'edit-work.name' => 'Dancing Queen',
+            'edit-work.languages.0' => '145',
+        ];
+        my $response = $mech->request($request);
+    } $c;
+
+    is(@edits, 1, 'An edit was created');
+    accept_edit($c, $edits[0]);
+
+    $mech->get_ok('/work/745c079d-374e-4436-9448-da92dedef3ce', 'Fetch the work page');
+    ($languages) = $mech->scrape_text_by_attr('class', 'lyrics-language');
+    unlike($languages, qr/English/, '..does not have English');
+    like($languages, qr/German/, '..has German');
+    unlike($languages, qr/Japanese/, '..does not have Japanese');
 };
 
 1;

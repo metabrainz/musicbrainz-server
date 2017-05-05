@@ -79,7 +79,7 @@ sub _serialize_text_representation
     if ($entity->language || $entity->script)
     {
         my @tr;
-        push @tr, $gen->language($entity->language->iso_code_3 // $entity->language->iso_code_2t)
+        push @tr, $gen->language($entity->language->alpha_3_code)
             if $entity->language;
         push @tr, $gen->script($entity->script->iso_code) if $entity->script;
         push @$data, $gen->text_representation(@tr);
@@ -496,7 +496,13 @@ sub _serialize_work
 
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->language($work->language->iso_code_3 // $work->language->iso_code_2t) if $work->language;
+
+    if ($work->all_languages) {
+        my @languages = map { $_->language->alpha_3_code } $work->all_languages;
+        # Pre-MBS-5452 element.
+        push @list, $gen->language($languages[0]);
+        push @list, $gen->language_list(map { $gen->language($_) } @languages);
+    }
 
     if ($work->all_iswcs) {
         push @list, $gen->iswc($work->iswcs->[0]->iswc);

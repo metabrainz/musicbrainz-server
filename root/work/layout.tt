@@ -12,16 +12,22 @@
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=work ~%]
             [%~ show_image() ~%]
 
-            [%~ IF work.type || work.iswcs.size || work.language || work.attributes.size ~%]
+            [%~ IF work.type || work.iswcs.size || work.languages.size || work.attributes.size ~%]
                 <h2 class="work-information">[%~ l('Work information') ~%]</h2>
                 [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
                     [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                          content=html_escape(work.type.l_name) class="type"
                              IF work.type ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
-                         content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
-                         class="lyrics-language"
-                             IF work.language ~%]
+                    [%~ wl_links = [];
+                        FOR wl=work.languages;
+                            wl_links.push(link_searchable_property('lang', wl.language.iso_code_3, 'work', wl.language.l_name));
+                        END;
+                        IF wl_links.size;
+                            INCLUDE 'layout/sidebar/property.tt'
+                                    label=add_colon(l('Lyrics Languages'))
+                                    content=comma_only_list(wl_links)
+                                    class="lyrics-language";
+                        END ~%]
                     [%~ FOR iswc IN work.iswcs ~%]
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" ~%]
                             [%~ link_iswc(iswc) ~%]

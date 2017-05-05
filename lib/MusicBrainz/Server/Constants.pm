@@ -725,6 +725,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
+    work_language
     work_meta
     work_rating_raw
     work_tag

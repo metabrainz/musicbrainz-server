@@ -51,8 +51,10 @@
     "slave": ["20160602-mbs-8963.sql",
               "20160604-mbs-8951.sql",
               "20170327-mbs-9271.sql",
-              "20170401-mbs-8393-entity-attributes.sql"],
+              "20170401-mbs-8393-entity-attributes.sql",
+              "20170329-mbs-5452.sql"],
     "standalone": ["20170327-mbs-9271-standalone.sql",
-                   "20170401-mbs-8393-entity-attributes-fks.sql"]
+                   "20170401-mbs-8393-entity-attributes-fks.sql",
+                   "20170329-mbs-5452-fks.sql"]
   }
 }

@@ -443,6 +443,7 @@ sub linked_works
     my ($self, $c, $stash, $works) = @_;
 
     $c->model('ISWC')->load_for_works(@$works);
+    $c->model('Language')->load_for_works(@$works);
 
     $self->_tags_and_ratings($c, 'Work', $works, $stash);
     $self->_aliases($c, 'Work', $works, $stash);

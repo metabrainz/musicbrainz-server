@@ -3304,8 +3304,14 @@ CREATE TABLE work ( -- replicate (verbose)
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    language            INTEGER  -- references language.id
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE work_language ( -- replicate (verbose)
+    work                INTEGER NOT NULL, -- PK, references work.id
+    language            INTEGER NOT NULL, -- PK, references language.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_rating_raw

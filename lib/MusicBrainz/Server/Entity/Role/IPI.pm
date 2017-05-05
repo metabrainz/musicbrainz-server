@@ -7,7 +7,7 @@ has ipi_codes => (
     default => sub { [] },
     traits => [ 'Array' ],
     handles => {
-        add_ipi_code => 'push',
+        add_ipi => 'push',
         all_ipi_codes => 'elements',
     }
 );

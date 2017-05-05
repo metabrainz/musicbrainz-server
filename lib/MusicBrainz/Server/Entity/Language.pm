@@ -46,6 +46,18 @@ sub bcp47 {
     return $self->iso_code_3;
 }
 
+=attribute alpha_3_code
+
+Three-letter code returned in the web service. Uses ISO 639-3, or falls back
+to ISO 639-2/T (mostly for collective languages).
+
+=cut
+
+sub alpha_3_code {
+    my ($self) = @_;
+    return $self->iso_code_3 // $self->iso_code_2t;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

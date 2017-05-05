@@ -1,49 +1,24 @@
 package MusicBrainz::Server::Data::Role::IPI;
 use MooseX::Role::Parameterized;
-
-use MusicBrainz::Server::Data::IPI;
-use Moose::Util qw( ensure_all_roles );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 parameter 'type' => (
     isa => 'Str',
     required => 1,
 );
 
-parameter 'table' => (
-    isa => 'Str',
-    default => sub { shift->type . "_ipi" },
-    lazy => 1
-);
-
 role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class';
+    my $entity_type = $params->type;
 
-    has 'ipi' => (
-        is => 'ro',
-        builder => '_build_ipi',
-        lazy => 1
-    );
-
-    method '_build_ipi' => sub
-    {
-        my $self = shift;
-        my $ipi = MusicBrainz::Server::Data::IPI->new(
-            c      => $self->c,
-            type => $params->type,
-            table => $params->table,
-            entity => $self->_entity_class . 'IPI',
-            parent => $self
-        );
-        ensure_all_roles($ipi, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
-    };
-
-    after update => sub {
-        my ($self, $entity_id, $update) = @_;
-        $self->ipi->set_ipis($entity_id, @{ $update->{ipi_codes} })
-            if $update->{ipi_codes};
+    with 'MusicBrainz::Server::Data::Role::ValueSet' => {
+        entity_type         => $entity_type,
+        plural_value_type   => 'ipi_codes',
+        value_attribute     => 'ipi',
+        value_class         => type_to_model($entity_type) . 'IPI',
+        value_type          => 'ipi',
     };
 
 };
@@ -53,7 +28,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012-2017 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -147,7 +147,7 @@
             </td>
           </tr>
           <tr>
-            <td class="section">[% l('Lyrics Language:') %]</td>
+            <td class="section">[% add_colon(l('Lyrics Languages')) %]</td>
             <td>
               <select data-bind="value: workLanguage, disable: loading">
                 <option selected="selected">&#xA0;</option>

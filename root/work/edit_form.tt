@@ -13,7 +13,7 @@
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
-      [%- form_row_select(r, 'language_id', l('Lyrics Language:')) -%]
+      <div id="work-languages-editor"></div>
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
@@ -105,9 +105,6 @@
 
 [%- guesscase_options() -%]
 
-[%- script_manifest('work.js', {
-  'id' => 'work-bundle',
-  'data-attribute-types' => workAttributeTypesJson,
-  'data-allowed-values' => workAttributeValuesJson,
-  'data-attributes' => form.attributes_json
-}) -%]
+[%- USE JSON.Escape;
+    script_manifest('work.js', {'data-args' => work_form_json.json})
+-%]

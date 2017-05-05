@@ -1608,10 +1608,15 @@ INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALU
 INSERT INTO series_alias (id, series, name, sort_name) VALUES
     (7, 25, 'BWV', 'BWV');
 
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES
-    ('', 0, '13bb5d97-00db-4fd8-920c-14da7c11bdd4', 12488154, 145, '2014-07-09 15:10:16.494155-05', 'Kantate, BWV 1 "Wie schön leuchtet der Morgenstern"', 3),
-    ('', 0, 'fa97639c-ea29-47d6-9461-16b411322bac', 12488155, 145, '2014-07-09 14:59:14.107699-05', 'Kantate, BWV 2 "Ach Gott, vom Himmel sieh darein"', 3),
-    ('', 0, '3edf4a3f-2b11-4a61-a5cf-e193363ef55c', 12488156, 145, '2014-07-03 15:29:22.181908-05', 'Kantate, BWV 3 "Ach Gott, wie manches Herzeleid"', 3);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES
+    ('', 0, '13bb5d97-00db-4fd8-920c-14da7c11bdd4', 12488154, '2014-07-09 15:10:16.494155-05', 'Kantate, BWV 1 "Wie schön leuchtet der Morgenstern"', 3),
+    ('', 0, 'fa97639c-ea29-47d6-9461-16b411322bac', 12488155, '2014-07-09 14:59:14.107699-05', 'Kantate, BWV 2 "Ach Gott, vom Himmel sieh darein"', 3),
+    ('', 0, '3edf4a3f-2b11-4a61-a5cf-e193363ef55c', 12488156, '2014-07-03 15:29:22.181908-05', 'Kantate, BWV 3 "Ach Gott, wie manches Herzeleid"', 3);
+
+INSERT INTO work_language (work, language) VALUES
+    (12488154, 145),
+    (12488155, 145),
+    (12488156, 145);
 
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
     (1, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180865, 743),
@@ -1635,62 +1640,64 @@ INSERT INTO l_series_work (edits_pending, entity0, entity0_credit, entity1, enti
 
 -- Works
 
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8', 7905446, 198, NULL, 'Asseswaving', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '3c37b9fa-a6c1-37d2-9e90-657a116d337c', 4223059, 198, NULL, 'サマーれげぇ!レインボー', 17);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '25c7c80f-a624-3b3e-b643-4204b05cb447', 1542682, NULL, NULL, 'On My Bus', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '482530c1-a2ab-32e8-be43-ea5240aa7913', 1542684, NULL, NULL, 'Plock', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'b26203e5-73cb-3579-b575-a12d8b3f8209', 7905443, NULL, NULL, 'Maggie&Heidi', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'b07e71c7-1cc7-3c6f-8c31-22be30a472dd', 7905441, NULL, NULL, 'Black Sundress', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'cc0f543a-b1e2-3822-9361-cd1ba60dc9bd', 162926, NULL, NULL, 'No Quarter', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '2734cd31-4bab-3bf6-a758-c5d94ad957bb', 1542685, NULL, NULL, 'Marbles', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '53d1fbac-e60a-38cb-85ff-e5a9224c9749', 3622825, NULL, NULL, 'Be the one', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '7981d409-8e76-33df-be27-ef625d81c501', 1307406, NULL, NULL, 'Shine We Are!', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '303f9bd2-152f-3145-9e09-afa34edb6a57', 3451975, NULL, NULL, 'DOUBLE', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f23ae726-0300-3830-b1ca-634f4362f78c', 3622823, NULL, NULL, 'LOVE & HONESTY', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'e67f54be-a68b-351d-9fbf-57468e61fd95', 1542691, NULL, NULL, 'Summer Plays Out', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '6013d0b4-25d4-333c-bc25-27328a7eaae4', 162924, NULL, NULL, 'Dancing Days', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '37814c05-f7ff-308d-a339-21570bc56003', 1542690, NULL, NULL, 'Be Rude to Your School', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'e8d55116-1ea6-339a-a059-228d71c2f27d', 7905439, NULL, NULL, 'Reverend Charisma', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '9c38c012-9b30-30a2-a2fb-4b44afdc3973', 7905445, NULL, NULL, 'Still Unsatisfied', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '93836f17-7646-374e-a679-455429162c20', 1542688, NULL, NULL, 'Press a Key', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '46724ef1-241e-3d7f-9f3b-e51ba34e2aa1', 4525123, NULL, NULL, 'the Love Bug', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '79945eb6-f0c2-351a-a00b-3ef3b775f9da', 2726271, NULL, NULL, 'Music: Response', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'd2386420-3363-3eb4-95db-62cae43ed2bc', 162922, NULL, NULL, 'Over the Hills and Far Away', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'cd86f9e2-83ce-3192-a817-fe6c98079303', 3622831, NULL, NULL, 'Song With No Name～名前のない歌～', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f2892986-c106-3705-9cf2-4fe599154dc2', 1353887, NULL, NULL, 'Power Move', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '61ab56f0-e803-3aef-a91b-63564b7a8043', 3451976, NULL, NULL, 'Rock With You', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'c4a1c334-ccd3-37df-b248-40653cefb181', 7905442, NULL, NULL, 'Allegiance?WTF?', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '2d967c29-63dc-309d-bbc1-a2d38639aaa1', 3622828, NULL, NULL, '心の手紙', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '5466408d-ad87-3663-8bce-937c5d3e0159', 1353886, NULL, NULL, 'Out of Control', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '6f08d5a8-1811-3e5e-848b-35ffa77babe5', 3584195, NULL, NULL, 'Midnight Parade', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'ba0182aa-27b4-3e39-b4e5-2c7583696dab', 2726278, NULL, NULL, 'Got Glint?', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '835c06f2-b015-3715-a649-d92b3c1adf62', 2726280, NULL, NULL, 'Surrender', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '294f16fe-e123-3634-a0f4-03953e111321', 1542686, NULL, NULL, 'Busy Working', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '55f63d35-d941-3988-a9b0-16150c4acdb7', 2726276, NULL, NULL, 'The Sunshine Underground', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'b8f69869-f01d-384c-bd65-b67caed6d9ac', 203492, NULL, NULL, 'Hey Boy Hey Girl', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '4290c4aa-f538-31d8-b502-cb01fc7fc5af', 1542683, NULL, NULL, 'Top & Low Rent', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '7e78f281-52b4-315b-9d7b-6d215732f3d7', 3622826, NULL, NULL, 'EXPECT', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'a82877c0-dac9-3fd0-b9ff-46275e4fc84e', 162923, NULL, NULL, 'The Crunge', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '5809ee86-2b4a-3dcb-ac6a-cfcf0d17e525', 162920, NULL, NULL, 'The Song Remains the Same', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '75053bee-0f97-330d-98ce-6a454d52feb1', 162925, NULL, NULL, 'D''yer Mak''er', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '2cd04f80-fbd7-343f-8499-bf0028f0f530', 7905440, NULL, NULL, 'Dear Diary', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '8b943176-4f67-3925-a26a-33f66649c438', 2726272, NULL, NULL, 'Under the Influence', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b', 3622830, NULL, NULL, 'Easy To Be Hard', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'd2f1ea1f-de2e-3d0c-b534-e96377912478', 3622827, NULL, NULL, 'OVER～across the time～', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f4f581d8-50e0-3886-bcd3-610187821bcd', 1542687, NULL, NULL, 'The Greek Alphabet', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '61a259e3-8d3f-3982-a9f4-41e16488fecc', 2726281, NULL, NULL, 'Dream On', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '3a62a9f7-1365-32aa-9da8-3e0ef1f2b0ca', 1542689, NULL, NULL, 'Bibi Plone', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '03c1ac6c-4eff-3df1-a3e7-ac9db55a45fa', 203493, NULL, NULL, 'Flashback', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '0fd9dd5e-a5a4-3498-b68c-9f4c86fe674d', 4223060, NULL, NULL, 'HELLO! また会おうね (7人祭 version)', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'f64b38ee-4451-3b29-8551-05146764b5b9', 2726274, NULL, NULL, 'Orange Wedge', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '20146cdd-1179-3c25-897a-b30d76b2c980', 1353888, NULL, NULL, 'Out of Control (Sasha remix)', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '4b6a46c2-a904-3471-9bff-3942d4549f47', 3622822, NULL, NULL, 'SOME DAY ONE DAY )', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '4a665e41-2598-346b-940c-417b9750321b', 162927, NULL, NULL, 'The Ocean', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '50c07b24-7ee2-31ac-ab87-f0d399011c71', 3584196, NULL, NULL, 'Milky Way 〜君の歌〜', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '511f5124-c0ae-3386-bb76-4b6521498a68', 3622832, NULL, NULL, 'Milky Way-君の歌-', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, '63d9b409-0d18-3917-9daf-ef1dec0992f0', 162921, NULL, NULL, 'The Rain Song', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'd132b1b7-3432-38e1-9e2d-5e5fa319fe8a', 211564, NULL, NULL, 'Let Forever Be', NULL);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES ('', 0, 'c473ece7-4858-3f4f-9d7a-a1e026400887', 2726277, NULL, NULL, 'Asleep From Day', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8', 7905446, NULL, 'Asseswaving', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '3c37b9fa-a6c1-37d2-9e90-657a116d337c', 4223059, NULL, 'サマーれげぇ!レインボー', 17);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '25c7c80f-a624-3b3e-b643-4204b05cb447', 1542682, NULL, 'On My Bus', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '482530c1-a2ab-32e8-be43-ea5240aa7913', 1542684, NULL, 'Plock', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'b26203e5-73cb-3579-b575-a12d8b3f8209', 7905443, NULL, 'Maggie&Heidi', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'b07e71c7-1cc7-3c6f-8c31-22be30a472dd', 7905441, NULL, 'Black Sundress', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'cc0f543a-b1e2-3822-9361-cd1ba60dc9bd', 162926, NULL, 'No Quarter', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '2734cd31-4bab-3bf6-a758-c5d94ad957bb', 1542685, NULL, 'Marbles', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '53d1fbac-e60a-38cb-85ff-e5a9224c9749', 3622825, NULL, 'Be the one', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '7981d409-8e76-33df-be27-ef625d81c501', 1307406, NULL, 'Shine We Are!', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '303f9bd2-152f-3145-9e09-afa34edb6a57', 3451975, NULL, 'DOUBLE', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'f23ae726-0300-3830-b1ca-634f4362f78c', 3622823, NULL, 'LOVE & HONESTY', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'e67f54be-a68b-351d-9fbf-57468e61fd95', 1542691, NULL, 'Summer Plays Out', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '6013d0b4-25d4-333c-bc25-27328a7eaae4', 162924, NULL, 'Dancing Days', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '37814c05-f7ff-308d-a339-21570bc56003', 1542690, NULL, 'Be Rude to Your School', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'e8d55116-1ea6-339a-a059-228d71c2f27d', 7905439, NULL, 'Reverend Charisma', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '9c38c012-9b30-30a2-a2fb-4b44afdc3973', 7905445, NULL, 'Still Unsatisfied', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '93836f17-7646-374e-a679-455429162c20', 1542688, NULL, 'Press a Key', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '46724ef1-241e-3d7f-9f3b-e51ba34e2aa1', 4525123, NULL, 'the Love Bug', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '79945eb6-f0c2-351a-a00b-3ef3b775f9da', 2726271, NULL, 'Music: Response', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'd2386420-3363-3eb4-95db-62cae43ed2bc', 162922, NULL, 'Over the Hills and Far Away', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'cd86f9e2-83ce-3192-a817-fe6c98079303', 3622831, NULL, 'Song With No Name～名前のない歌～', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'f2892986-c106-3705-9cf2-4fe599154dc2', 1353887, NULL, 'Power Move', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '61ab56f0-e803-3aef-a91b-63564b7a8043', 3451976, NULL, 'Rock With You', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'c4a1c334-ccd3-37df-b248-40653cefb181', 7905442, NULL, 'Allegiance?WTF?', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '2d967c29-63dc-309d-bbc1-a2d38639aaa1', 3622828, NULL, '心の手紙', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '5466408d-ad87-3663-8bce-937c5d3e0159', 1353886, NULL, 'Out of Control', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '6f08d5a8-1811-3e5e-848b-35ffa77babe5', 3584195, NULL, 'Midnight Parade', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'ba0182aa-27b4-3e39-b4e5-2c7583696dab', 2726278, NULL, 'Got Glint?', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '835c06f2-b015-3715-a649-d92b3c1adf62', 2726280, NULL, 'Surrender', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '294f16fe-e123-3634-a0f4-03953e111321', 1542686, NULL, 'Busy Working', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '55f63d35-d941-3988-a9b0-16150c4acdb7', 2726276, NULL, 'The Sunshine Underground', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'b8f69869-f01d-384c-bd65-b67caed6d9ac', 203492, NULL, 'Hey Boy Hey Girl', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '4290c4aa-f538-31d8-b502-cb01fc7fc5af', 1542683, NULL, 'Top & Low Rent', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '7e78f281-52b4-315b-9d7b-6d215732f3d7', 3622826, NULL, 'EXPECT', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'a82877c0-dac9-3fd0-b9ff-46275e4fc84e', 162923, NULL, 'The Crunge', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '5809ee86-2b4a-3dcb-ac6a-cfcf0d17e525', 162920, NULL, 'The Song Remains the Same', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '75053bee-0f97-330d-98ce-6a454d52feb1', 162925, NULL, 'D''yer Mak''er', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '2cd04f80-fbd7-343f-8499-bf0028f0f530', 7905440, NULL, 'Dear Diary', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '8b943176-4f67-3925-a26a-33f66649c438', 2726272, NULL, 'Under the Influence', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b', 3622830, NULL, 'Easy To Be Hard', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'd2f1ea1f-de2e-3d0c-b534-e96377912478', 3622827, NULL, 'OVER～across the time～', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'f4f581d8-50e0-3886-bcd3-610187821bcd', 1542687, NULL, 'The Greek Alphabet', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '61a259e3-8d3f-3982-a9f4-41e16488fecc', 2726281, NULL, 'Dream On', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '3a62a9f7-1365-32aa-9da8-3e0ef1f2b0ca', 1542689, NULL, 'Bibi Plone', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '03c1ac6c-4eff-3df1-a3e7-ac9db55a45fa', 203493, NULL, 'Flashback', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '0fd9dd5e-a5a4-3498-b68c-9f4c86fe674d', 4223060, NULL, 'HELLO! また会おうね (7人祭 version)', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'f64b38ee-4451-3b29-8551-05146764b5b9', 2726274, NULL, 'Orange Wedge', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '20146cdd-1179-3c25-897a-b30d76b2c980', 1353888, NULL, 'Out of Control (Sasha remix)', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '4b6a46c2-a904-3471-9bff-3942d4549f47', 3622822, NULL, 'SOME DAY ONE DAY )', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '4a665e41-2598-346b-940c-417b9750321b', 162927, NULL, 'The Ocean', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '50c07b24-7ee2-31ac-ab87-f0d399011c71', 3584196, NULL, 'Milky Way 〜君の歌〜', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '511f5124-c0ae-3386-bb76-4b6521498a68', 3622832, NULL, 'Milky Way-君の歌-', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, '63d9b409-0d18-3917-9daf-ef1dec0992f0', 162921, NULL, 'The Rain Song', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'd132b1b7-3432-38e1-9e2d-5e5fa319fe8a', 211564, NULL, 'Let Forever Be', NULL);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES ('', 0, 'c473ece7-4858-3f4f-9d7a-a1e026400887', 2726277, NULL, 'Asleep From Day', NULL);
+
+INSERT INTO work_language (work, language) VALUES (7905446, 198), (4223059, 198);
 
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 7905446;
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;

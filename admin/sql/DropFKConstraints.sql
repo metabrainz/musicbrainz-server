@@ -634,7 +634,6 @@ ALTER TABLE url_gid_redirect DROP CONSTRAINT IF EXISTS url_gid_redirect_fk_new_i
 ALTER TABLE vote DROP CONSTRAINT IF EXISTS vote_fk_editor;
 ALTER TABLE vote DROP CONSTRAINT IF EXISTS vote_fk_edit;
 ALTER TABLE work DROP CONSTRAINT IF EXISTS work_fk_type;
-ALTER TABLE work DROP CONSTRAINT IF EXISTS work_fk_language;
 ALTER TABLE work_alias DROP CONSTRAINT IF EXISTS work_alias_fk_work;
 ALTER TABLE work_alias DROP CONSTRAINT IF EXISTS work_alias_fk_type;
 ALTER TABLE work_alias_type DROP CONSTRAINT IF EXISTS work_alias_type_fk_parent;
@@ -647,6 +646,8 @@ ALTER TABLE work_attribute_type DROP CONSTRAINT IF EXISTS work_attribute_type_fk
 ALTER TABLE work_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS work_attribute_type_allowed_value_fk_work_attribute_type;
 ALTER TABLE work_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS work_attribute_type_allowed_value_fk_parent;
 ALTER TABLE work_gid_redirect DROP CONSTRAINT IF EXISTS work_gid_redirect_fk_new_id;
+ALTER TABLE work_language DROP CONSTRAINT IF EXISTS work_language_fk_work;
+ALTER TABLE work_language DROP CONSTRAINT IF EXISTS work_language_fk_language;
 ALTER TABLE work_meta DROP CONSTRAINT IF EXISTS work_meta_fk_id;
 ALTER TABLE work_rating_raw DROP CONSTRAINT IF EXISTS work_rating_raw_fk_work;
 ALTER TABLE work_rating_raw DROP CONSTRAINT IF EXISTS work_rating_raw_fk_editor;

@@ -734,9 +734,10 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text(item.name);
         var comment = [];
 
-        if (item.language)
-        {
-            a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
+        if (item.languages && item.languages.length) {
+            a.prepend('<span class="autocomplete-language">' +
+                      _.escape(commaOnlyList(item.languages)) +
+                      '</span>');
         }
 
         if (item.primaryAlias && item.primaryAlias != item.name)
