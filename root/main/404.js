@@ -7,6 +7,7 @@ const React = require('react');
 
 const Layout = require('../layout');
 const {l} = require('../static/scripts/common/i18n');
+const bugTrackerURL = require('../static/scripts/common/utility/bugTrackerURL');
 
 // Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
 // looking similar to how this template looks.
@@ -30,8 +31,10 @@ const _404 = (props) => (
       <p>
         {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
            {__react: true,
-            report: bugtracker_url('Nonexistent page: ' + $c.req.url + '\n' +
-                                   'Referrer: ' + ($c.req.headers.referer || ''))
+            report: bugTrackerURL(
+              'Nonexistent page: ' + $c.req.uri + '\n' +
+              'Referrer: ' + ($c.req.headers.referer || '')
+            )
            })}
       </p>
     </div>

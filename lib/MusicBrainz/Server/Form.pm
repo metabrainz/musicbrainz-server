@@ -2,10 +2,10 @@ package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-use JSON;
 use List::UtilsBy qw( sort_by );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l );
+
+with 'MusicBrainz::Server::Form::Role::ToJSON';
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -178,39 +178,6 @@ sub clear_errors {
     {
         map { $self->clear_errors($_) } $field->fields;
     }
-}
-
-sub TO_JSON {
-    my ($self) = @_;
-
-    my $json = {
-        has_errors => boolean_to_json($self->has_errors),
-    };
-
-    if ($self->isa('HTML::FormHandler')) {
-        $json->{name} = $self->name;
-    }
-
-    if ($self->isa('HTML::FormHandler::Field')) {
-        # On the form, `errors` is a list.
-        $json->{errors} = $self->errors;
-    }
-
-    if ($self->can('fields')) {
-        if ($self->isa('HTML::FormHandler::Field::Repeatable')) {
-            $json->{field}[$_->name] = TO_JSON($_) for $self->fields;
-        } else {
-            $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
-        }
-    } else {
-        $json->{value} = $self->value;
-    }
-
-    return $json;
-}
-
-sub to_encoded_json {
-    JSON->new->utf8(0)->encode(shift->TO_JSON);
 }
 
 1;

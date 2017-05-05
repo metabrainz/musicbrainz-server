@@ -108,7 +108,7 @@ const EntityLink = (props = {}) => {
   }
 
   if (entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sortName + bracketed(comment);
+    hover = entity.sort_name + bracketed(comment);
   }
 
   if (entityType === 'artist' || entityType === 'instrument') {
@@ -134,7 +134,7 @@ const EntityLink = (props = {}) => {
   if (entityType === 'url' && !hasCustomContent) {
     content = entity.pretty_name;
     infoLink = href;
-    href = entity.href;
+    href = entity.href_url;
   }
 
   // TODO: support name variations for all entity types?

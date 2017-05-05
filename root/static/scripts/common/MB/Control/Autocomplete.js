@@ -571,9 +571,9 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !isLatin(item.name) && item.sortName != item.name && !item.primaryAlias)
+        if (item.sort_name && !isLatin(item.name) && item.sort_name != item.name && !item.primaryAlias)
         {
-            comment.push(item.sortName);
+            comment.push(item.sort_name);
         }
 
         if (item.comment)

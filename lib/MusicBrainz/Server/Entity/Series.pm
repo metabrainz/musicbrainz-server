@@ -44,11 +44,14 @@ sub display_relationships {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    return {
-        %{ $self->$orig },
-        orderingTypeID  => $self->ordering_type_id,
-        type            => $self->type->TO_JSON,
-    };
+    my $json = $self->$orig;
+    $json->{orderingTypeID} = $self->ordering_type_id;
+
+    if ($self->type) {
+        $json->{type} = $self->type->TO_JSON;
+    }
+
+    return $json;
 };
 
 __PACKAGE__->meta->make_immutable;

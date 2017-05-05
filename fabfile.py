@@ -68,7 +68,6 @@ def deploy(deploy_env="prod"):
     Update the *musicbrainz.org servers.
     """
     services = " ".join((
-        "musicbrainz-template-renderer-" + deploy_env,
         "musicbrainz-website-" + deploy_env,
         "musicbrainz-webservice-" + deploy_env,
     ))

@@ -9,6 +9,7 @@ use Encode;
 use JSON;
 use Moose::Util qw( does_role );
 use MusicBrainz::Sentry qw( sentry_enabled );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -426,6 +427,84 @@ has json => (
         return JSON->new->allow_blessed->convert_blessed;
     }
 );
+
+sub TO_JSON {
+    my $self = shift;
+
+    # Whitelist of keys that we use in the templates.
+    my @stash_keys = qw(
+        current_language
+        current_language_html
+        entity
+        hide_merge_helper
+        jsonld_data
+        last_replication_date
+        linked_entities
+        makes_no_changes
+        merge_link
+        new_edit_notes
+        server_details
+        server_languages
+        to_merge
+    );
+
+    my %stash;
+    for (@stash_keys) {
+        $stash{$_} = $self->stash->{$_};
+    }
+
+    if (my $entity = delete $stash{entity}) {
+        if (ref($entity) =~ /^MusicBrainz::Server::Entity::/) {
+            $entity->serialize_with_linked_entities(\%stash);
+        }
+    }
+
+    # convert DateTime objects to iso8601-formatted strings
+    if (my $date = $stash{last_replication_date}) {
+        $date = $date->clone;
+        $date->set_time_zone('UTC');
+        $stash{last_replication_date} = $date->iso8601 . 'Z';
+    }
+
+    # Limit server_languages data to what's needed, since the complete output
+    # is very large.
+    if (my $server_languages = $stash{server_languages}) {
+        my @langs;
+        for my $lang (@{$server_languages}) {
+            push @langs,
+                [ $lang->[0],
+                  { map { $_ => $lang->[1]->{$_} }
+                    qw( id native_language native_territory ) } ];
+        }
+        $stash{server_languages} = \@langs;
+    }
+
+    if (my $server_details = delete $stash{server_details}) {
+        $stash{alert} = $server_details->{alert};
+        $stash{alert_mtime} = $server_details->{alert_mtime};
+    }
+
+    my $req = $self->req;
+    my %headers;
+    for my $name ($req->headers->header_field_names) {
+        $headers{$name} = $req->headers->header($name);
+    }
+
+    return {
+        user => ($self->user_exists ? $self->user : undef),
+        debug => boolean_to_json($self->debug),
+        relative_uri => $self->relative_uri,
+        req => {
+            headers => \%headers,
+            query_params => $req->query_params,
+            uri => $req->uri,
+        },
+        stash => \%stash,
+        sessionid => scalar($self->sessionid),
+        session => $self->session,
+        flash => $self->flash,
+    };
+}
 
 =head1 NAME
 

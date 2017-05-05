@@ -17,7 +17,7 @@ var testRelease = {
         {
             artist: {
                 entityType: "artist",
-                sortName: "Beatles, The",
+                sort_name: "Beatles, The",
                 name: "The Beatles",
                 id: 303,
                 gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
@@ -614,7 +614,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                     ended: true,
                     target: {
                         entityType: "artist",
-                        sortName: "McCartney, Paul",
+                        sort_name: "McCartney, Paul",
                         comment: "",
                         name: "Paul McCartney",
                         id: 2122,
@@ -630,7 +630,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                     ended: true,
                     target: {
                         entityType: "artist",
-                        sortName: "Sutcliffe, Stuart",
+                        sort_name: "Sutcliffe, Stuart",
                         comment: "",
                         name: "Stuart Sutcliffe",
                         id: 321117,
@@ -650,7 +650,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         ended: true,
         target: {
             entityType: "artist",
-            sortName: "Harrison, George",
+            sort_name: "Harrison, George",
             comment: "The Beatles",
             name: "George Harrison",
             id: 2863,
@@ -927,7 +927,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
         id: 1021,
         gid: "1f9df192-a621-4f54-8850-2c5373b7eac9",
         name: "Ludwig van Beethoven",
-        sortName: "Beethoven, Ludwig van",
+        sort_name: "Beethoven, Ludwig van",
         comment: ""
     };
 

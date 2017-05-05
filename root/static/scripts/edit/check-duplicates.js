@@ -121,7 +121,7 @@ function isCommentRequired(type, name, duplicates) {
   }
 
   return duplicates.some(function (duplicate) {
-    return name.toUpperCase() === duplicate.unaccentedName.toUpperCase();
+    return name.toUpperCase() === duplicate.unaccented_name.toUpperCase();
   });
 }
 

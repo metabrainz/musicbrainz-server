@@ -6,13 +6,14 @@ RUN apt_install(`libexpat1 libexpat1-dev libxml2 libxml2-dev') && \
     cpanm TAP::Harness::JUnit && \
     apt_purge(`libexpat1-dev libxml2-dev')
 
-RUN apt_install(`git') && \
-    cd /home/musicbrainz && \
+RUN cd /home/musicbrainz && \
     git clone --branch schema-change-2017-q2 https://github.com/metabrainz/mmd-schema
 
 ENV MMDSCHEMA /home/musicbrainz/mmd-schema
 
 copy_common_mbs_files
+
+git_info
 
 COPY docker/musicbrainz-tests/DBDefs.pm lib/
 

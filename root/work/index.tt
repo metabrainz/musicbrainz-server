@@ -1,31 +1,3 @@
-[% BLOCK layout_head %]
-    [%~ meta_desc = [] ~%]
-    [%~ meta_desc.push(html_escape(work.comment)) IF work.comment ~%]
-    [%~ IF work.languages.size;
-            languages = [];
-            FOR wl=work.languages;
-                languages.push(wl.language.name);
-            END;
-            meta_desc.push(add_colon(l('Lyrics Languages')) _ ' ' _ html_escape(comma_only_list(languages)));
-        END
-    ~%]
-    [%~ IF work.writers ~%]
-        [%~ writers = [] ~%]
-        [%~ FOR rel_artist=work.writers ~%]
-            [%~ writers.push(rel_artist.entity.name) ~%]
-        [%~ END ~%]
-        [%~ meta_desc.push(l('Writers:') _ ' ' _ html_escape(comma_only_list(writers))) ~%]
-    [%~ END ~%]
-    [%~ IF work.iswcs ~%]
-        [%~ iswcs = [] ~%]
-        [%~ FOR iswc = work.iswcs ~%]
-            [%~ iswcs.push(iswc.iswc) ~%]
-        [%~ END ~%]
-        [%~ meta_desc.push(l('ISWCs:') _ ' ' _ html_escape(comma_only_list(iswcs))) ~%]
-    [%~ END ~%]
-    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
-[% END %]
-
 [%- WRAPPER "work/layout.tt" page='index' -%]
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
