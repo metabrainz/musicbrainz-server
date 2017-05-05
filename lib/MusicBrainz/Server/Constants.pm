@@ -617,6 +617,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     medium_cdtoc
     medium_format
     medium_index
+    old_editor_name
     orderable_link_type
     place
     place_alias
