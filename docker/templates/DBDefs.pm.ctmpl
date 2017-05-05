@@ -45,7 +45,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- if service $service_name}}
     {{- with index (service $service_name) 0}}
     MAINTENANCE => {
-        database    => 'musicbrainz_db',
+        database    => '{{or (env "MBS_MAINTENANCE_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
         username    => 'musicbrainz',
         host        => '{{.Address}}',
@@ -58,7 +58,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- if service $service_name}}
     {{- with index (service $service_name) 0}}
     SYSTEM => {
-        database    => 'template1',
+        database    => '{{or (env "MBS_SYSTEM_DB_NAME") "template1"}}',
         schema      => '',
         username    => 'postgres',
         host        => '{{.Address}}',
@@ -71,7 +71,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- if service $service_name}}
     {{- with index (service $service_name) 0}}
     TEST => {
-        database    => 'musicbrainz_test',
+        database    => '{{or (env "MBS_TEST_DB_NAME") "musicbrainz_test"}}',
         schema      => 'musicbrainz',
         username    => 'musicbrainz',
         host        => '{{.Address}}',
@@ -84,7 +84,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- if service $service_name}}
     {{- with index (service $service_name) 0}}
     READWRITE => {
-        database    => 'musicbrainz_db',
+        database    => '{{or (env "MBS_READWRITE_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
         username    => 'musicbrainz',
         host        => '{{.Address}}',
@@ -97,7 +97,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     {{- if service $service_name}}
     {{- with index (service $service_name) 0}}
     READONLY => {
-        database    => 'musicbrainz_db',
+        database    => '{{or (env "MBS_READONLY_DB_NAME") "musicbrainz_db"}}',
         schema      => 'musicbrainz',
         username    => 'musicbrainz',
         host        => '{{.Address}}',
