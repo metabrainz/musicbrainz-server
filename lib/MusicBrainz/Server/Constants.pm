@@ -423,6 +423,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     area_alias
     area_alias_type
     area_annotation
+    area_attribute
+    area_attribute_type
+    area_attribute_type_allowed_value
     area_gid_redirect
     area_tag
     area_tag_raw
@@ -431,6 +434,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     artist_alias
     artist_alias_type
     artist_annotation
+    artist_attribute
+    artist_attribute_type
+    artist_attribute_type_allowed_value
     artist_credit
     artist_credit_name
     artist_gid_redirect
@@ -493,6 +499,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     event_alias
     event_alias_type
     event_annotation
+    event_attribute
+    event_attribute_type
+    event_attribute_type_allowed_value
     event_gid_redirect
     event_meta
     event_rating_raw
@@ -504,6 +513,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     instrument_alias
     instrument_alias_type
     instrument_annotation
+    instrument_attribute
+    instrument_attribute_type
+    instrument_attribute_type_allowed_value
     instrument_gid_redirect
     instrument_tag
     instrument_tag_raw
@@ -595,6 +607,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     label_alias
     label_alias_type
     label_annotation
+    label_attribute
+    label_attribute_type
+    label_attribute_type_allowed_value
     label_gid_redirect
     label_ipi
     label_isni
@@ -614,6 +629,11 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     medium
+    medium_attribute
+    medium_attribute_type
+    medium_attribute_type_allowed_format
+    medium_attribute_type_allowed_value
+    medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
     medium_index
@@ -623,6 +643,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     place_alias
     place_alias_type
     place_annotation
+    place_attribute
+    place_attribute_type
+    place_attribute_type_allowed_value
     place_gid_redirect
     place_tag
     place_tag_raw
@@ -631,6 +654,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     recording_alias
     recording_alias_type
     recording_annotation
+    recording_attribute
+    recording_attribute_type
+    recording_attribute_type_allowed_value
     recording_gid_redirect
     recording_meta
     recording_rating_raw
@@ -640,6 +666,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     release_alias
     release_alias_type
     release_annotation
+    release_attribute
+    release_attribute_type
+    release_attribute_type_allowed_value
     release_country
     release_coverart
     release_gid_redirect
@@ -647,6 +676,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     release_group_alias
     release_group_alias_type
     release_group_annotation
+    release_group_attribute
+    release_group_attribute_type
+    release_group_attribute_type_allowed_value
     release_group_gid_redirect
     release_group_meta
     release_group_primary_type
@@ -669,6 +701,9 @@ Readonly our @FULL_TABLE_LIST => qw(
     series_alias
     series_alias_type
     series_annotation
+    series_attribute
+    series_attribute_type
+    series_attribute_type_allowed_value
     series_gid_redirect
     series_ordering_type
     series_tag
