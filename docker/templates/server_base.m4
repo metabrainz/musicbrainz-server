@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM metabrainz/consul-template-base
+FROM metabrainz/consul-template-base:0.18.2
 
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -14,6 +14,7 @@
 /root/static/images/leaflet/marker-icon.png
 /root/static/images/leaflet/marker-shadow.png
 /root/static/scripts/common/DBDefs.js
+/root/static/scripts/common/DBDefs-client.js
 /blib
 /lib/DBDefs.pm
 /lib/DBDefs.pm.bak

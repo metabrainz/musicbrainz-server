@@ -5,14 +5,9 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
-use Getopt::Long;
 use JSON;
 use Readonly;
 
-my $client = '';
-GetOptions(
-    'client' => \$client,
-);
 my ($output_path) = @ARGV;
 
 Readonly our @BOOLEAN_DEFS => qw(
@@ -70,11 +65,10 @@ sub get_value {
     $ENV{$def} // DBDefs->$def;
 }
 
-my $code = '';
+my $server_code = '';
+my $client_code = '';
 
 for my $def (@BOOLEAN_DEFS) {
-    next if $client && !$CLIENT_DEFS{$def};
-
     my $value = get_value($def);
 
     if (defined $value && $value eq '1') {
@@ -83,27 +77,36 @@ for my $def (@BOOLEAN_DEFS) {
         $value = 'false';
     }
 
-    $code .= "exports.$def = $value;\n";
+    my $line = "exports.$def = $value;\n";
+    $server_code .= $line;
+    $client_code .= $line if $CLIENT_DEFS{$def};
 }
 
 my $json = JSON->new->allow_nonref->ascii->canonical;
 
 for my $def (@HASH_DEFS, @NUMBER_DEFS, @STRING_DEFS) {
-    next if $client && !$CLIENT_DEFS{$def};
-
     my $value = get_value($def);
     $value = $json->encode($value);
-    $code .= "exports.$def = $value;\n";
+    my $line = "exports.$def = $value;\n";
+    $server_code .= $line;
+    $client_code .= $line if $CLIENT_DEFS{$def};
 }
 
 for my $def (@QW_DEFS) {
-    next if $client && !$CLIENT_DEFS{$def};
-
     my @words = get_value($def);
     my $value = $json->encode(join ' ', @words);
-    $code .= "exports.$def = $value;\n";
+    my $line = "exports.$def = $value;\n";
+    $server_code .= $line;
+    $client_code .= $line if $CLIENT_DEFS{$def};
 }
 
-my $js_path = "$FindBin::Bin/../root/static/scripts/common/DBDefs.js";
-open(my $fh, '>', $js_path);
-print $fh $code;
+my $server_js_path = "$FindBin::Bin/../root/static/scripts/common/DBDefs.js";
+my $client_js_path = ($server_js_path =~ s/\.js$/-client.js/r);
+
+open(my $fh, '>', $server_js_path);
+print $fh $server_code;
+close $fh;
+
+open($fh, '>', $client_js_path);
+print $fh $client_code;
+close $fh;

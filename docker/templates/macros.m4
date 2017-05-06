@@ -126,6 +126,7 @@ COPY admin/ admin/
 COPY app.psgi entities.json ./
 COPY bin/ bin/
 COPY docker/scripts/mbs_constants.sh /etc/
+COPY docker/scripts/consul-template-dedup-prefix /usr/local/bin/
 COPY lib/ lib/
 COPY script/`git_info' script/
 

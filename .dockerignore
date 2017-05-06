@@ -10,3 +10,4 @@ postgresql-musicbrainz-collate/
 postgresql-musicbrainz-unaccent/
 root/static/build/
 root/static/scripts/common/DBDefs.js
+root/static/scripts/common/DBDefs-client.js

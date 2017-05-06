@@ -7,7 +7,9 @@ RUN chown_mb(`/home/musicbrainz/backup') && \
 
 copy_common_mbs_files
 
-COPY docker/musicbrainz-production-cron/consul-template.conf /etc/
+COPY \
+    docker/musicbrainz-production-cron/consul-template-production-cron.conf \
+    /etc/
 
 COPY \
     docker/musicbrainz-production-cron/crontab \

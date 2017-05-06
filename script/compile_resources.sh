@@ -24,8 +24,6 @@ if [ -z "$GIT_SHA" ]; then
     export GIT_SHA=$(./script/git_info sha)
 fi
 
-./script/dbdefs_to_js.pl --client
+./script/dbdefs_to_js.pl
 
 ./node_modules/.bin/gulp $@
-
-./script/dbdefs_to_js.pl
