@@ -48,12 +48,27 @@ if (cluster.isMaster) {
     cluster.fork();
   }
   console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
+
+  function killWorkers(signal) {
+    for (const id in cluster.workers) {
+      cluster.workers[id].kill(signal);
+    }
+  }
+
+  const cleanup = function (signal) {
+    killWorkers(signal);
+    fs.unlinkSync(SOCKET_PATH);
+    process.exit();
+  };
+
+  process.on('SIGINT', () => cleanup('SIGINT'));
+  process.on('SIGTERM', () => cleanup('SIGTERM'));
+  process.on('SIGHUP', () => killWorkers('SIGHUP'));
 } else {
   const socketServer = createServer(SOCKET_PATH);
 
   const cleanup = Raven.wrap(function () {
     socketServer.close(function () {
-      fs.unlinkSync(SOCKET_PATH);
       process.exit();
     });
   });
