@@ -122,7 +122,7 @@ function releaseDescription(release) {
   if (release.labels && release.labels.length) {
     const labels = release.labels.map(function (rl) {
       return (
-        (rl.label.name ? rl.label.name : '[unknown]') +
+        (rl.label ? rl.label.name : '[unknown]') +
         (rl.catalogNumber ? (' (' + rl.catalogNumber + ')') : '')
       );
     });
