@@ -43,15 +43,20 @@ if (fs.existsSync(SOCKET_PATH)) {
 }
 
 if (cluster.isMaster) {
-  const workers = yargs.argv.workers;
-  for (let i = 0; i < workers; i++) {
+  const workerCount = yargs.argv.workers;
+  for (let i = 0; i < workerCount; i++) {
     cluster.fork();
   }
+
   console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
   function killWorkers(signal) {
-    for (const id in cluster.workers) {
-      cluster.workers[id].process.kill(signal);
+    const workers = cluster.workers;
+
+    for (const id in workers) {
+      const proc = workers[id].process;
+      console.info('Sending ' + signal + ' to worker ' + proc.pid);
+      proc.kill(signal);
     }
   }
 
