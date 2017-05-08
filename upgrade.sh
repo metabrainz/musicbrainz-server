@@ -11,6 +11,10 @@ REPLICATION_TYPE=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')
 NEW_SCHEMA_SEQUENCE=24
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
+RT_MASTER=1
+RT_SLAVE=2
+RT_STANDALONE=3
+
 ################################################################################
 # Assert pre-conditions
 
