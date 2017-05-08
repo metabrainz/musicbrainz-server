@@ -51,7 +51,7 @@ if (cluster.isMaster) {
 
   function killWorkers(signal) {
     for (const id in cluster.workers) {
-      cluster.workers[id].kill(signal);
+      cluster.workers[id].process.kill(signal);
     }
   }
 
