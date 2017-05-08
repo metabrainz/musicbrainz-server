@@ -13,7 +13,7 @@ const Raven = require('raven');
 const spawnSync = require('child_process').spawnSync;
 
 const createServer = require('./server/createServer');
-const DBDefs = require('./server/DBDefs');
+const DBDefs = require('./static/scripts/common/DBDefs');
 const gettext = require('./server/gettext');
 const {clearRequireCache} = require('./server/utils');
 
@@ -32,43 +32,78 @@ const yargs = require('yargs')
 Raven.config(DBDefs.SENTRY_DSN).install();
 
 const SOCKET_PATH = yargs.argv.socket;
-
-if (fs.existsSync(SOCKET_PATH)) {
-  if (spawnSync('lsof', [SOCKET_PATH]).status) {
-    fs.unlinkSync(SOCKET_PATH);
-  } else {
-    console.error('socket ' + SOCKET_PATH + ' exists and is in use');
-    process.exit(1);
-  }
-}
+const WORKER_COUNT = yargs.argv.workers;
 
 if (cluster.isMaster) {
-  const workerCount = yargs.argv.workers;
-  for (let i = 0; i < workerCount; i++) {
-    cluster.fork();
+  if (fs.existsSync(SOCKET_PATH)) {
+    if (spawnSync('lsof', [SOCKET_PATH]).status) {
+      fs.unlinkSync(SOCKET_PATH);
+    } else {
+      console.error('socket ' + SOCKET_PATH + ' exists and is in use');
+      process.exit(1);
+    }
+  }
+
+  function forkWorker(listening) {
+    const worker = cluster.fork();
+
+    if (listening) {
+      worker.once('listening', listening);
+    }
+
+    worker.on('exit', function (code, signal) {
+      if (signal) {
+        console.info(`worker was killed by signal: ${signal}`);
+      } else if (code !== 0) {
+        console.info(`worker exited with error code: ${code}`);
+      }
+      if (!worker.noRespawn &&
+          Object.keys(cluster.workers).length < WORKER_COUNT) {
+        forkWorker();
+      }
+    });
+  }
+
+  for (let i = 0; i < WORKER_COUNT; i++) {
+    forkWorker();
   }
 
   console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
-  function killWorkers(signal) {
-    const workers = cluster.workers;
-
-    for (const id in workers) {
-      const proc = workers[id].process;
-      console.info('Sending ' + signal + ' to worker ' + proc.pid);
-      proc.kill(signal);
-    }
+  function killWorker(worker, signal) {
+    worker.noRespawn = true;
+    const proc = worker.process;
+    console.info('sending ' + signal + ' to worker ' + proc.pid);
+    proc.kill(signal);
   }
 
   const cleanup = function (signal) {
-    killWorkers(signal);
+    for (const id in cluster.workers) {
+      killWorker(cluster.workers[id], signal);
+    }
     fs.unlinkSync(SOCKET_PATH);
     process.exit();
   };
 
+  const hup = Raven.wrap(function () {
+    console.info('master received SIGHUP; restarting workers');
+
+    const oldWorkers = Object.values(cluster.workers);
+    function killNext() {
+      const oldWorker = oldWorkers.pop();
+      if (oldWorker) {
+        forkWorker(function () {
+          killWorker(oldWorker, 'SIGTERM');
+          setTimeout(killNext, 1000);
+        });
+      }
+    }
+    killNext();
+  });
+
   process.on('SIGINT', () => cleanup('SIGINT'));
   process.on('SIGTERM', () => cleanup('SIGTERM'));
-  process.on('SIGHUP', () => killWorkers('SIGHUP'));
+  process.on('SIGHUP', hup);
 } else {
   const socketServer = createServer(SOCKET_PATH);
 
@@ -78,13 +113,6 @@ if (cluster.isMaster) {
     });
   });
 
-  const hup = Raven.wrap(function () {
-    clearRequireCache();
-    gettext.clearHandles();
-    DBDefs.reload();
-  });
-
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', hup);
 }

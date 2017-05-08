@@ -9,9 +9,9 @@ const Raven = require('raven');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
+const DBDefs = require('../static/scripts/common/DBDefs');
 const i18n = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
-const DBDefs = require('./DBDefs');
 const gettext = require('./gettext');
 
 function pathFromRoot(fpath) {
