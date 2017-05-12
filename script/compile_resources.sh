@@ -6,6 +6,8 @@ shopt -s failglob
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
+source script/functions.sh
+
 BUILD_DIR=${MBS_STATIC_BUILD_DIR:-root/static/build/}
 mkdir -p "$BUILD_DIR"
 
@@ -26,4 +28,5 @@ fi
 
 ./script/dbdefs_to_js.pl
 
-./node_modules/.bin/gulp $@
+./node_modules/.bin/gulp &
+trap_jobs
