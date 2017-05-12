@@ -8,14 +8,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-INSERT INTO event_meta (id, rating, rating_count)
-    (SELECT event AS id,
-            trunc((sum(rating) / count(rating)) + 0.5) AS rating,
-            count(rating) AS rating_count
-       FROM event_rating_raw
-      GROUP BY event)
-    ON CONFLICT (id)
-    DO UPDATE SET rating = EXCLUDED.rating,
-                  rating_count = EXCLUDED.rating_count;
+TRUNCATE event_meta;
+
+INSERT INTO event_meta (id) (SELECT id FROM event);
+
+UPDATE event_meta
+   SET rating = ratings.rating,
+       rating_count = ratings.rating_count
+  FROM (SELECT event,
+               trunc((sum(rating) / count(rating)) + 0.5) AS rating,
+               count(rating) AS rating_count
+          FROM event_rating_raw
+         GROUP BY event) ratings
+ WHERE event_meta.id = ratings.event;
 
 COMMIT;
