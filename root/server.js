@@ -45,6 +45,11 @@ if (cluster.isMaster) {
   }
 
   function forkWorker(listening) {
+    // Allow spawning one additional worker during HUP.
+    if (Object.keys(cluster.workers).length > WORKER_COUNT) {
+      return false;
+    }
+
     const worker = cluster.fork();
 
     if (listening) {
@@ -57,11 +62,12 @@ if (cluster.isMaster) {
       } else if (code !== 0) {
         console.info(`worker exited with error code: ${code}`);
       }
-      if (!worker.noRespawn &&
-          Object.keys(cluster.workers).length < WORKER_COUNT) {
+      if (!worker.noRespawn) {
         forkWorker();
       }
     });
+
+    return true;
   }
 
   for (let i = 0; i < WORKER_COUNT; i++) {
@@ -72,9 +78,11 @@ if (cluster.isMaster) {
 
   function killWorker(worker, signal) {
     worker.noRespawn = true;
-    const proc = worker.process;
-    console.info('sending ' + signal + ' to worker ' + proc.pid);
-    proc.kill(signal);
+    if (!worker.isDead()) {
+      const proc = worker.process;
+      console.info('sending ' + signal + ' to worker ' + proc.pid);
+      proc.kill(signal);
+    }
   }
 
   const cleanup = function (signal) {
@@ -85,20 +93,37 @@ if (cluster.isMaster) {
     process.exit();
   };
 
+  let hupAction = null;
   const hup = Raven.wrap(function () {
     console.info('master received SIGHUP; restarting workers');
 
-    const oldWorkers = Object.values(cluster.workers);
+    let oldWorkers;
+    let initialTimeout = 0;
+
+    if (hupAction) {
+      clearTimeout(hupAction);
+      initialTimeout = 2000;
+    }
+
     function killNext() {
+      if (!oldWorkers) {
+        oldWorkers = Object.values(cluster.workers);
+      }
       const oldWorker = oldWorkers.pop();
       if (oldWorker) {
-        forkWorker(function () {
+        const doKill = function () {
           killWorker(oldWorker, 'SIGTERM');
-          setTimeout(killNext, 1000);
-        });
+          hupAction = setTimeout(killNext, 1000);
+        };
+        if (!forkWorker(doKill)) {
+          doKill();
+        }
+      } else {
+        hupAction = null;
       }
     }
-    killNext();
+
+    hupAction = setTimeout(killNext, initialTimeout);
   });
 
   process.on('SIGINT', () => cleanup('SIGINT'));
