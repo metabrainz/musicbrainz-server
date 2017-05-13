@@ -7,7 +7,7 @@ RUN apt_install(`libexpat1 libexpat1-dev libxml2 libxml2-dev') && \
     apt_purge(`libexpat1-dev libxml2-dev')
 
 RUN cd /home/musicbrainz && \
-    git clone --branch schema-change-2017-q2 https://github.com/metabrainz/mmd-schema
+    git clone https://github.com/metabrainz/mmd-schema
 
 ENV MMDSCHEMA /home/musicbrainz/mmd-schema
 
