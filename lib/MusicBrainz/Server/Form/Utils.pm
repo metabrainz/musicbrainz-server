@@ -243,8 +243,7 @@ sub validate_username {
             if ($username =~ qr{^deleted editor \#\d+$}i) {
                 $self->add_error(l('This username is reserved for internal use.'));
             }
-            my $editor = $self->form->ctx->model('Editor')->get_by_name($username);
-            if (defined $editor) {
+            if ($self->form->ctx->model('Editor')->is_name_used($username)) {
                 $self->add_error(l('Please choose another username, this one is already taken.'));
             }
         }

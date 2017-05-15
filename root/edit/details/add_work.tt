@@ -39,6 +39,13 @@
   </tr>
   [% END %]
 
+  [% IF edit.display_data.languages %]
+  <tr>
+    <th>[% add_colon(l('Lyrics Languages')) %]</th>
+    <td>[% comma_only_list(edit.display_data.languages) %]</td>
+  </tr>
+  [% END %]
+
   [% FOREACH type IN edit.display_data.attributes.pairs ~%]
   <tr>
     <th>[% add_colon(type.key) %]</th>

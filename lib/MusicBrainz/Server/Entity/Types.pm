@@ -24,7 +24,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Release ReleaseAlias ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
                 Script Tag Track UserTag
                 Series SeriesOrderingType SeriesType
-                Work WorkAlias WorkType
+                Work WorkAlias WorkType WorkLanguage
                 WorkAttribute WorkAttributeType WorkAttributeTypeAllowedValue)) {
     subtype $cls => as class_type "MusicBrainz::Server::Entity::$cls";
 }

@@ -28,11 +28,12 @@ my ($edits, $hits) = $c->model('Edit')->find({ work => $edit->work_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $work = $c->model('Work')->get_by_id($edit->work_id);
+$c->model('Language')->load_for_works($work);
 ok(defined $work);
 is($work->name, 'Mrs. Bongo');
 is($work->comment => 'Work comment');
 is($work->type_id, 1);
-is($work->language_id, 145);
+is($work->languages->[0]->language_id, 145);
 
 is($work->edits_pending, 0);
 is($edit->status, $STATUS_APPLIED, 'add work edits should be autoedits');
@@ -48,7 +49,7 @@ sub create_edit
         name => 'Mrs. Bongo',
         comment => 'Work comment',
         type_id => 1,
-        language_id => 145,
+        languages => [145],
     );
 }
 

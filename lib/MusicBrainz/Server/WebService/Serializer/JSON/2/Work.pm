@@ -1,4 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Work;
+use List::UtilsBy qw( sort_by );
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -31,9 +32,11 @@ sub serialize
         }, $entity->all_attributes
     ];
 
-    $body{language} = $entity->language
-        ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
-        : JSON::null;
+    my @languages = map { $_->language->alpha_3_code } $entity->all_languages;
+    $body{languages} = \@languages;
+    # Pre-MBS-5452 property.
+    $body{language} = @languages ?
+        (@languages > 1 ? 'mul' : $languages[0]) : JSON::null;
 
     return \%body;
 };

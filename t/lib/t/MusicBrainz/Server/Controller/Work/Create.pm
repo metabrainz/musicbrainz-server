@@ -28,6 +28,8 @@ my @edits = capture_edits {
         'edit-work.name' => 'Enchanted',
         'edit-work.iswcs.0' => 'T-000.000.003-0',
         'edit-work.iswcs.1' => 'T-000.000.004-0',
+        'edit-work.languages.0' => '120',
+        'edit-work.languages.1' => '134',
     ];
 
     my $response = $mech->request($request);
@@ -43,15 +45,17 @@ is_deeply($edit->data, {
     name          => 'Enchanted',
     comment       => 'A comment!',
     type_id       => 26,
-    language_id   => undef,
-    attributes    => []
+    attributes    => [],
+    languages     => [120, 134],
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content);
-$mech->content_contains('Enchanted', '..has work name');
-$mech->content_contains('A comment!', '..has comment');
-$mech->content_contains('Beijing opera', '..has type');
+my ($details) = $mech->scrape_text_by_attr('class', 'details add-work');
+like($details, qr/Enchanted/, '..has work name');
+like($details, qr/A comment!/, '..has comment');
+like($details, qr/Beijing opera/, '..has type');
+like($details, qr/English, French/, '..has languages');
 
 $edit = $edits[1];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddISWCs');
@@ -76,8 +80,9 @@ is_deeply($edit->data, {
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content);
-$mech->content_contains('T-000.000.003-0', '..has ISWC 1');
-$mech->content_contains('T-000.000.004-0', '..has ISWC 2');
+($details) = $mech->scrape_text_by_attr('class', 'details add-iswcs');
+like($details, qr/T-000\.000\.003-0/, '..has ISWC 1');
+like($details, qr/T-000\.000\.004-0/, '..has ISWC 2');
 
 };
 

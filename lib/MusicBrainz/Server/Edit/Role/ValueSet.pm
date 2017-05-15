@@ -3,6 +3,8 @@ use 5.10.0;
 use MooseX::Role::Parameterized;
 
 use Clone 'clone';
+use List::MoreUtils qw( uniq );
+use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::Edit::Utils qw( merge_set );
 
 parameter prop_name => ( isa => 'Str', required => 1 );
@@ -12,7 +14,8 @@ parameter hash => ( isa => 'CodeRef', default => sub { sub { shift } } );
 
 sub hashed {
     my ($f, @xs) = @_;
-    return map { $f->($_) => $_ } @xs;
+    my $i = 0;
+    return map { $f->($_) => [$_, $i++] } @xs;
 }
 
 role {
@@ -59,14 +62,26 @@ role {
                 $params->hash, @{ $self->data->{new}->{$prop_name} }
             );
 
+            my @old_keys = nsort_by { $old{$_}->[1] } keys %old;
+            my @current_keys = nsort_by { $current{$_}->[1] } keys %current;
+            my @new_keys = nsort_by { $new{$_}->[1] } keys %new;
+
             my @keys = merge_set(
-                [ keys %old ],
-                [ keys %current ],
-                [ keys %new ],
+                \@old_keys,
+                \@current_keys,
+                \@new_keys,
             );
 
             my %all_values = (%old, %current, %new);
-            $merged->{$prop_name} = [ map { $all_values{$_} } @keys ];
+            my @all_keys = uniq @new_keys, @current_keys, @old_keys;
+            my $index = 0;
+            my %key_indices = map { $_ => ($index++) } @all_keys;
+
+            $merged->{$prop_name} = [
+                map { $all_values{$_}->[0] }
+                nsort_by { $key_indices{$_} }
+                @keys
+            ];
         }
 
         return $merged;

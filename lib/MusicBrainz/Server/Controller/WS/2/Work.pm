@@ -54,7 +54,6 @@ sub work_toplevel
     $self->load_relationships($c, $stash, $work);
 
     $c->model('WorkType')->load($work);
-    $c->model('Language')->load_for_works($work);
 }
 
 sub base : Chained('root') PathPart('work') CaptureArgs(0) { }

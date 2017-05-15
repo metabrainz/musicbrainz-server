@@ -51,7 +51,7 @@
     "rcss": "0.1.5",
     "react": "https://github.com/mwiencek/react-packages/raw/master/react.tgz",
     "react-dom": "https://github.com/mwiencek/react-packages/raw/master/react-dom.tgz",
-    "require-reload": "0.2.2",
+    "redux": "3.6.0",
     "shell-quote": "1.4.3",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",

@@ -43,6 +43,18 @@ CREATE TRIGGER "reptg_area_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "area_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_area_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "area_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_area_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "area_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_area_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "area_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_area_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "area_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -69,6 +81,18 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_artist_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_credit"
@@ -135,6 +159,18 @@ CREATE TRIGGER "reptg_event_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "event_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_event_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "event_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_event_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "event_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_event_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "event_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_event_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "event_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -169,6 +205,18 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_instrument_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "instrument_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_instrument_gid_redirect"
@@ -531,6 +579,18 @@ CREATE TRIGGER "reptg_label_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "label_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_label_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "label_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_label_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "label_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_label_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "label_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_label_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "label_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -599,6 +659,26 @@ CREATE TRIGGER "reptg_medium"
 AFTER INSERT OR DELETE OR UPDATE ON "medium"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_medium_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_medium_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_medium_attribute_type_allowed_format"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_format"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_medium_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_medium_attribute_type_allowed_value_allowed_format"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_attribute_type_allowed_value_allowed_format"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_medium_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_cdtoc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -631,6 +711,18 @@ CREATE TRIGGER "reptg_place_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "place_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_place_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "place_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "place_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "place_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_place_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "place_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -657,6 +749,18 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_recording_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_recording_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_recording_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_recording_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_gid_redirect"
@@ -687,6 +791,18 @@ CREATE TRIGGER "reptg_release_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_release_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "release_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "release_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_release_country"
 AFTER INSERT OR DELETE OR UPDATE ON "release_country"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -709,6 +825,18 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_group_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_group_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_group_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_group_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_group_gid_redirect"
@@ -787,6 +915,18 @@ CREATE TRIGGER "reptg_series_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "series_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_series_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "series_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "series_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "series_attribute_type_allowed_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_series_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "series_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -857,6 +997,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "work_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_language"
+AFTER INSERT OR DELETE OR UPDATE ON "work_language"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_meta"

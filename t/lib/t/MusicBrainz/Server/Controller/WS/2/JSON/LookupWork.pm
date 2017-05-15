@@ -27,6 +27,7 @@ test 'basic work lookup' => sub {
             disambiguation => "",
             iswcs => [ "T-000.000.002-0" ],
             language => 'jpn',
+            languages => ['jpn'],
             type => 'Song',
             "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
         };
@@ -48,6 +49,7 @@ test 'basic work lookup, inc=annotation' => sub {
             annotation => "this is a work annotation",
             iswcs => [ ],
             language => JSON::null,
+            languages => [],
             type => JSON::null,
             "type-id" => JSON::null,
         };
@@ -76,6 +78,7 @@ test 'work lookup via iswc' => sub {
                     disambiguation => "",
                     iswcs => [ "T-000.000.002-0" ],
                     language => 'jpn',
+                    languages => ['jpn'],
                     type => "Song",
                     "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
                 }]
@@ -137,8 +140,27 @@ test 'work lookup with recording relationships' => sub {
             ],
             iswcs => [],
             language => 'jpn',
+            languages => ['jpn'],
             type => "Song",
             "type-id" => "f061270a-2fd6-32f1-a641-f0f8676d14e6",
+        };
+};
+
+test 'work lookup with multiple languages' => sub {
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+multi_language_work');
+
+    ws_test_json 'work lookup with recording relationships',
+    '/work/8753a51f-dd84-492d-8c5a-a39283045118' =>
+        {
+            attributes => [],
+            id => '8753a51f-dd84-492d-8c5a-a39283045118',
+            title => 'Mon petit amoureux',
+            disambiguation => '',
+            iswcs => [],
+            language => 'mul',
+            languages => ['eng', 'fra'],
+            type => 'Song',
+            'type-id' => 'f061270a-2fd6-32f1-a641-f0f8676d14e6',
         };
 };
 

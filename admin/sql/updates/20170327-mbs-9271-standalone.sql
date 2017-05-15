@@ -1,0 +1,7 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+CREATE TRIGGER check_editor_name BEFORE UPDATE OR INSERT ON editor
+    FOR EACH ROW EXECUTE PROCEDURE check_editor_name();
+
+COMMIT;

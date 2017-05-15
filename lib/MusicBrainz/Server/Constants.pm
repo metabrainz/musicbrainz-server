@@ -432,11 +432,17 @@ Readonly our @CORE_TABLE_LIST => qw(
     area
     area_alias
     area_alias_type
+    area_attribute
+    area_attribute_type
+    area_attribute_type_allowed_value
     area_gid_redirect
     area_type
     artist
     artist_alias
     artist_alias_type
+    artist_attribute
+    artist_attribute_type
+    artist_attribute_type_allowed_value
     artist_credit
     artist_credit_name
     artist_gid_redirect
@@ -449,12 +455,18 @@ Readonly our @CORE_TABLE_LIST => qw(
     event
     event_alias
     event_alias_type
+    event_attribute
+    event_attribute_type
+    event_attribute_type_allowed_value
     event_gid_redirect
     event_type
     gender
     instrument
     instrument_alias
     instrument_alias_type
+    instrument_attribute
+    instrument_attribute_type
+    instrument_attribute_type_allowed_value
     instrument_gid_redirect
     instrument_type
     iso_3166_1
@@ -543,6 +555,9 @@ Readonly our @CORE_TABLE_LIST => qw(
     label
     label_alias
     label_alias_type
+    label_attribute
+    label_attribute_type
+    label_attribute_type_allowed_value
     label_gid_redirect
     label_ipi
     label_isni
@@ -558,26 +573,43 @@ Readonly our @CORE_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     medium
+    medium_attribute
+    medium_attribute_type
+    medium_attribute_type_allowed_format
+    medium_attribute_type_allowed_value
+    medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
     orderable_link_type
     place
     place_alias
     place_alias_type
+    place_attribute
+    place_attribute_type
+    place_attribute_type_allowed_value
     place_gid_redirect
     place_type
     recording
     recording_alias
     recording_alias_type
+    recording_attribute
+    recording_attribute_type
+    recording_attribute_type_allowed_value
     recording_gid_redirect
     release
     release_alias
     release_alias_type
+    release_attribute
+    release_attribute_type
+    release_attribute_type_allowed_value
     release_country
     release_gid_redirect
     release_group
     release_group_alias
     release_group_alias_type
+    release_group_attribute
+    release_group_attribute_type
+    release_group_attribute_type_allowed_value
     release_group_gid_redirect
     release_group_primary_type
     release_group_secondary_type
@@ -591,6 +623,9 @@ Readonly our @CORE_TABLE_LIST => qw(
     series
     series_alias
     series_alias_type
+    series_attribute
+    series_attribute_type
+    series_attribute_type_allowed_value
     series_gid_redirect
     series_ordering_type
     series_type
@@ -605,6 +640,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
+    work_language
     work_type
 );
 
@@ -710,6 +746,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     instrument_tag_raw
     label_rating_raw
     label_tag_raw
+    old_editor_name
     place_tag_raw
     recording_rating_raw
     recording_tag_raw

@@ -173,6 +173,16 @@ function langToPosix(lang) {
 
 const commonBundle = runYarb('common.js', function (b) {
   b.external(revManifestBundle);
+
+  // Map DBDefs.js to DBDefs-client.js on disk. (The actual requires have to
+  // remain constant for the node renderer.)
+  b.require(
+    new File({
+      path: path.resolve(SCRIPTS_DIR, 'common', 'DBDefs.js'),
+      contents: fs.readFileSync(
+        path.resolve(SCRIPTS_DIR, 'common', 'DBDefs-client.js')),
+    })
+  );
 });
 
 _(DBDefs.MB_LANGUAGES || '')

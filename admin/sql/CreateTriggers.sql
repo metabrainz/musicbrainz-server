@@ -67,6 +67,12 @@ CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor
 CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
     FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
 
+CREATE TRIGGER check_editor_name BEFORE UPDATE OR INSERT ON editor
+    FOR EACH ROW EXECUTE PROCEDURE check_editor_name();
+
+CREATE TRIGGER a_ins_event AFTER INSERT ON event
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_event();
+
 CREATE TRIGGER b_upd_event BEFORE UPDATE ON event
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -551,9 +557,6 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
 CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
     FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
-CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
-    FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
-
 CREATE TRIGGER a_ins_instrument AFTER INSERT ON musicbrainz.instrument
     FOR EACH ROW EXECUTE PROCEDURE a_ins_instrument();
 
@@ -592,6 +595,42 @@ CREATE TRIGGER a_upd_alternative_medium_track AFTER UPDATE ON alternative_medium
 
 CREATE TRIGGER a_del_alternative_medium_track AFTER DELETE ON alternative_medium_track
     FOR EACH ROW EXECUTE PROCEDURE a_del_alternative_medium_track();
+
+CREATE TRIGGER ensure_area_attribute_type_allows_text BEFORE INSERT OR UPDATE ON area_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_area_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_artist_attribute_type_allows_text BEFORE INSERT OR UPDATE ON artist_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_artist_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_event_attribute_type_allows_text BEFORE INSERT OR UPDATE ON event_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_event_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_instrument_attribute_type_allows_text BEFORE INSERT OR UPDATE ON instrument_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_instrument_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_label_attribute_type_allows_text BEFORE INSERT OR UPDATE ON label_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_label_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_medium_attribute_type_allows_text BEFORE INSERT OR UPDATE ON medium_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_medium_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_place_attribute_type_allows_text BEFORE INSERT OR UPDATE ON place_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_place_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_recording_attribute_type_allows_text BEFORE INSERT OR UPDATE ON recording_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_recording_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_release_attribute_type_allows_text BEFORE INSERT OR UPDATE ON release_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_release_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_release_group_attribute_type_allows_text BEFORE INSERT OR UPDATE ON release_group_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_release_group_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_series_attribute_type_allows_text BEFORE INSERT OR UPDATE ON series_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_series_attribute_type_allows_text();
+
+CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
 
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links

@@ -25,6 +25,4 @@ COPY script/ script/
 COPY t/ t/
 COPY .perlcriticrc ./
 
-RUN touch /etc/service/consul-template/down
-
 ENTRYPOINT ["run_tests.sh"]

@@ -7,7 +7,7 @@ const _ = require('lodash');
 const React = require('react');
 
 const {artistBeginLabel, artistEndLabel} = require('../../artist/utils');
-const {l} = require('../../static/scripts/common/i18n');
+const {addColon, l} = require('../../static/scripts/common/i18n');
 const commaOnlyList = require('../../static/scripts/common/i18n/commaOnlyList');
 const formatBarcode = require('../../static/scripts/common/utility/formatBarcode');
 const formatDate = require('../../static/scripts/common/utility/formatDate');
@@ -122,7 +122,7 @@ function releaseDescription(release) {
   if (release.labels && release.labels.length) {
     const labels = release.labels.map(function (rl) {
       return (
-        (rl.label.name ? rl.label.name : '[unknown]') +
+        (rl.label ? rl.label.name : '[unknown]') +
         (rl.catalogNumber ? (' (' + rl.catalogNumber + ')') : '')
       );
     });
@@ -142,8 +142,11 @@ function releaseDescription(release) {
 
 function workDescription(work) {
   const desc = entityDescription(work);
-  if (work.language) {
-    desc.push(l('Lyrics Language:') + ' ' + work.language);
+  if (work.languages.length) {
+    desc.push(
+      addColon(l('Lyrics Languages')) + ' ' +
+      commaOnlyList(work.languages)
+    );
   }
   if (work.writers) {
     desc.push(

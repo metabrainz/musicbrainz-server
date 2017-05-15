@@ -50,13 +50,20 @@ sub load
 
 sub load_for_works {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'language', @objs);
+
+    $self->c->model('Work')->language->load_for(@objs);
+
+    load_subobjects($self, 'language', map { $_->all_languages } @objs);
 
     for my $work (@objs) {
-        if ($work->language && $work->language->iso_code_3 eq "zxx") {
-            $work->language->name(l("[No lyrics]"));
+        for my $wl ($work->all_languages) {
+            if ($wl->language && $wl->language->iso_code_3 eq "zxx") {
+                $wl->language->name(l("[No lyrics]"));
+            }
         }
     }
+
+    return;
 }
 
 sub find_by_code

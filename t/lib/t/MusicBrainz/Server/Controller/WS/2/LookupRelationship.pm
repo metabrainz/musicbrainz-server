@@ -377,6 +377,9 @@ ws_test 'release lookup with recording-level relationships',
                                     <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                                         <title>Asseswaving</title>
                                         <language>jpn</language>
+                                        <language-list>
+                                            <language>jpn</language>
+                                        </language-list>
                                         <relation-list target-type="artist">
                                             <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                                                 <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
@@ -422,6 +425,9 @@ ws_test 'recording lookup with work-level relationships',
                 <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                     <title>Asseswaving</title>
                     <language>jpn</language>
+                    <language-list>
+                        <language>jpn</language>
+                    </language-list>
                     <relation-list target-type="artist">
                         <relation type-id="d59d99ea-23d4-4a80-b066-edca32ee158f" type="composer">
                             <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>

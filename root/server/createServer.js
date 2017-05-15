@@ -6,7 +6,7 @@
 const net = require('net');
 const Raven = require('raven');
 
-const DBDefs = require('./DBDefs');
+const DBDefs = require('../static/scripts/common/DBDefs');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
 
