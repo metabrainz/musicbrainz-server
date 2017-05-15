@@ -5,6 +5,8 @@ set -o errexit
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd "$MB_SERVER_ROOT"
 
+source admin/config.sh
+
 DB_SCHEMA_SEQUENCE=$(perl -Ilib -e 'use DBDefs; print DBDefs->DB_SCHEMA_SEQUENCE;')
 REPLICATION_TYPE=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')
 
@@ -35,11 +37,6 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Export pending db changes
     ./admin/RunExport
-
-    echo `date`" : Bundling replication packets, daily"
-    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
-    echo `date`" : + weekly"
-    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql MAINTENANCE < ./admin/sql/DropReplicationTriggers.sql

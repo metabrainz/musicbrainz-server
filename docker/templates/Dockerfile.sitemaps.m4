@@ -6,6 +6,11 @@ copy_common_mbs_files
 
 COPY docker/musicbrainz-sitemaps/consul-template-sitemaps.conf /etc/
 
+COPY \
+    docker/musicbrainz-sitemaps/sitemaps.service \
+    /etc/service/sitemaps/run
+RUN chmod 755 /etc/service/sitemaps/run
+
 COPY docker/musicbrainz-sitemaps/crontab /var/spool/cron/crontabs/musicbrainz
 
 RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
