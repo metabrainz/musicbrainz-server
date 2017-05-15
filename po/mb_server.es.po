@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-27 11:33-0500\n"
-"PO-Revision-Date: 2017-03-27 17:07+0000\n"
+"POT-Creation-Date: 2017-04-12 15:05-0500\n"
+"PO-Revision-Date: 2017-04-12 20:06+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -437,8 +437,8 @@ msgstr "Sobre nosotros"
 msgid "Abstain"
 msgstr "Abstención"
 
-#: ../root/edit/search_macros.tt:241 ../root/edit/vote.tt:20
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
+#: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
+#: ../root/edit/vote.tt:20 ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgctxt "vote"
 msgid "Abstain"
 msgstr "Abstenerse"
@@ -1118,11 +1118,11 @@ msgstr "Aplicación"
 msgid "Applications"
 msgstr "Aplicaciones"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Applied Edit Count of Editor"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:241
+#: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:177
 msgctxt "vote"
 msgid "Approve"
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: ../root/area/header.tt:5 ../root/components/areas-list.tt:5
 #: ../root/components/common-macros.tt:594 ../root/components/labels-list.tt:9
-#: ../root/edit/search_macros.tt:306 ../root/label/merge.tt:15
+#: ../root/edit/search_macros.tt:360 ../root/label/merge.tt:15
 #: ../root/place/merge.tt:14 ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -1282,7 +1282,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/edit_track.tt:13
-#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:360
 #: ../root/isrc/index.tt:17 ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:345
 #: ../root/release/lookup.tt:10 ../root/release/merge.tt:14
@@ -1307,7 +1307,7 @@ msgstr ""
 msgid "Artist"
 msgstr "Artista"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Artist Area"
 msgstr ""
 
@@ -1551,7 +1551,7 @@ msgstr "Autorización"
 msgid "Authorized Applications"
 msgstr "Aplicaciones autorizadas"
 
-#: ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:339
 msgid "Auto-Editor"
 msgstr ""
 
@@ -1805,7 +1805,7 @@ msgstr ""
 msgid "Born:"
 msgstr "Nacido:"
 
-#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:285
+#: ../root/admin/edit_user.tt:15 ../root/edit/search_macros.tt:339
 msgid "Bot"
 msgstr "Bot"
 
@@ -2073,7 +2073,7 @@ msgstr "Cliente:"
 msgid "Close"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Closed"
 msgstr "Cerrada"
 
@@ -2277,7 +2277,7 @@ msgstr "Crear cuenta"
 msgid "Create collection"
 msgstr "Crear colección"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Created"
 msgstr "Creada"
 
@@ -2377,7 +2377,7 @@ msgstr "El formato de fecha es AAAA-MM-DD. Puedes usar fechas parciales, como AA
 msgid "Defunct:"
 msgstr "Desaparecida:"
 
-#: ../root/edit/search_macros.tt:110
+#: ../root/edit/search_macros.tt:108
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -2733,7 +2733,7 @@ msgstr "Edición no encontrada"
 msgid "Edit Note"
 msgstr "Nota"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Edit Note Author"
 msgstr ""
 
@@ -2841,13 +2841,13 @@ msgstr "Introducción a las ediciones"
 msgid "Editing/voting disabled"
 msgstr ""
 
-#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:306
+#: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:360
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 #: ../root/layout/components/Search.js:22
 msgid "Editor"
 msgstr "Editor"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Editor Flag"
 msgstr ""
 
@@ -3101,7 +3101,7 @@ msgid "Even just providing a URL or two is helpful!"
 msgstr "¡Incluso un enlace o dos son de gran ayuda!"
 
 #: ../root/components/common-macros.tt:594
-#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:306
+#: ../root/components/events-list.tt:13 ../root/edit/search_macros.tt:360
 #: ../root/event/header.tt:4 ../root/event/merge.tt:11
 #: ../root/report/event_list.tt:7 ../root/series/index.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
@@ -3177,7 +3177,7 @@ msgstr ""
 msgid "Expire action"
 msgstr "Al expirar"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Expired"
 msgstr "Expirada"
 
@@ -3656,7 +3656,7 @@ msgid "I just donated! Why am I seeing this?"
 msgstr "¡Acabo de donar! ¿Por qué veo esto?"
 
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
-#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:306
+#: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:360
 msgid "ID"
 msgstr "ID"
 
@@ -3965,7 +3965,7 @@ msgid "Installed Application"
 msgstr "Aplicación instalada"
 
 #: ../root/components/common-macros.tt:594
-#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:306
+#: ../root/components/instruments-list.tt:5 ../root/edit/search_macros.tt:360
 #: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
 #: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
@@ -4072,7 +4072,7 @@ msgstr "Mantenedme conectado"
 #: ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:360
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
@@ -4086,7 +4086,7 @@ msgstr "Mantenedme conectado"
 msgid "Label"
 msgstr "Discográfica"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Label Area"
 msgstr ""
 
@@ -4371,7 +4371,7 @@ msgstr "Idioma:"
 msgid "Location"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:339
 msgid "Location Editor"
 msgstr ""
 
@@ -4827,10 +4827,6 @@ msgstr "Mis valoraciones"
 msgid "My Tags"
 msgstr "Mis etiquetas"
 
-#: ../root/edit/search_macros.tt:306
-msgid "My Vote"
-msgstr "Mi voto"
-
 #: ../root/edit/index.tt:26
 msgid "My vote:"
 msgstr "Mi voto:"
@@ -5014,8 +5010,8 @@ msgstr "Siguiente »"
 msgid "No"
 msgstr "No"
 
-#: ../root/edit/search_macros.tt:241 ../root/edit/vote.tt:17
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:175
+#: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
+#: ../root/edit/vote.tt:17 ../lib/MusicBrainz/Server/Data/Vote.pm:175
 msgctxt "vote"
 msgid "No"
 msgstr "No"
@@ -5174,13 +5170,9 @@ msgstr "No, gracias"
 msgid "No users found"
 msgstr "No se encontraron usuarios."
 
-#: ../root/edit/search_macros.tt:241
+#: ../root/edit/search_macros.tt:263
 msgid "No vote"
 msgstr "ninguno"
-
-#: ../root/edit/search_macros.tt:306
-msgid "No vote count"
-msgstr "Sin recuento de votos"
 
 #: ../root/tag/work.tt:1
 msgid "No works with this tag were found."
@@ -5247,7 +5239,7 @@ msgstr "¡Aviso! Si no sabes el mes o el día de publicación, deja los campos v
 msgid "Note:"
 msgstr "Nota:"
 
-#: ../root/edit/search_macros.tt:220
+#: ../root/edit/search_macros.tt:228
 msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
@@ -5369,7 +5361,7 @@ msgstr ""
 msgid "Only {doc|auto-editors} can approve an edit."
 msgstr "Sólo los {doc|autoeditores} pueden aprobar una edición."
 
-#: ../root/edit/search_macros.tt:91
+#: ../root/edit/search_macros.tt:89
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
@@ -5551,7 +5543,7 @@ msgid "Phrase:"
 msgstr "Frase:"
 
 #: ../root/components/common-macros.tt:594 ../root/components/places-list.tt:5
-#: ../root/edit/search_macros.tt:306 ../root/place/header.tt:5
+#: ../root/edit/search_macros.tt:360 ../root/place/header.tt:5
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -5617,7 +5609,7 @@ msgid ""
 "see {blog|the recent blog post}."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:304
+#: ../root/edit/search_macros.tt:358
 msgid "Please choose a condition"
 msgstr "Por favor, escoge una condición"
 
@@ -5905,7 +5897,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:594
 #: ../root/edit/details/merge_releases.tt:100
-#: ../root/edit/search_macros.tt:306 ../root/release/edit_relationships.tt:50
+#: ../root/edit/search_macros.tt:360 ../root/release/edit_relationships.tt:50
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -6088,11 +6080,11 @@ msgstr "Relación"
 msgid "Relationship Attributes"
 msgstr "Atributos de relación"
 
-#: ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:339
 msgid "Relationship Editor"
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:306
+#: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:360
 #: ../root/report/deprecated_relationship_artists.tt:13
 #: ../root/report/deprecated_relationship_labels.tt:13
 #: ../root/report/deprecated_relationship_places.tt:13
@@ -6171,7 +6163,7 @@ msgstr "Relaciones:"
 #: ../root/components/common-macros.tt:594
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
-#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:360
 #: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:71
 #: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
@@ -6193,7 +6185,7 @@ msgstr "Artista de la publicación"
 msgid "Release Collections"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Release Country"
 msgstr "País de publicación"
 
@@ -6205,7 +6197,7 @@ msgstr "Duplicados del lanzamiento"
 msgid "Release Events:"
 msgstr "Eventos de lanzamiento:"
 
-#: ../root/components/common-macros.tt:594 ../root/edit/search_macros.tt:306
+#: ../root/components/common-macros.tt:594 ../root/edit/search_macros.tt:360
 #: ../root/release/index.tt:78 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:34
@@ -6256,7 +6248,7 @@ msgstr ""
 msgid "Release Information"
 msgstr "Información de la publicación"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Release Language"
 msgstr "Idioma de la publicación"
 
@@ -6264,7 +6256,7 @@ msgstr "Idioma de la publicación"
 msgid "Release Not Found"
 msgstr "Publicación no encontrada"
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgid "Release Quality"
 msgstr "Calidad de publicación"
 
@@ -6893,8 +6885,9 @@ msgstr "Alfabeto:"
 #: ../root/components/common-macros.tt:870
 #: ../root/components/relationship-editor.tt:90
 #: ../root/components/relationship-editor.tt:208
-#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:104
-#: ../root/edit/search_macros.tt:229 ../root/edit/search_macros.tt:261
+#: ../root/components/search.tt:11 ../root/edit/search_macros.tt:102
+#: ../root/edit/search_macros.tt:237 ../root/edit/search_macros.tt:252
+#: ../root/edit/search_macros.tt:299 ../root/edit/search_macros.tt:327
 #: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
 #: ../root/layout/header/top.tt:95 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
@@ -7151,7 +7144,7 @@ msgid "Series"
 msgstr "Series"
 
 #: ../root/components/common-macros.tt:594 ../root/components/series-list.tt:5
-#: ../root/edit/search_macros.tt:306 ../root/series/header.tt:4
+#: ../root/edit/search_macros.tt:360 ../root/series/header.tt:4
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 #: ../root/layout/components/Search.js:25
@@ -7598,7 +7591,7 @@ msgstr "Estadísticas"
 msgid "Status"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:306
+#: ../root/edit/search_macros.tt:360
 msgctxt "edit status"
 msgid "Status"
 msgstr "Estatus"
@@ -9551,7 +9544,7 @@ msgstr "Twitter"
 #: ../root/components/release_groups-list.tt:14
 #: ../root/components/series-list.tt:6 ../root/components/works-list.tt:16
 #: ../root/edit/details/add_remove_alias.tt:33
-#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:306
+#: ../root/edit/details/edit_alias.tt:50 ../root/edit/search_macros.tt:360
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
@@ -9709,7 +9702,7 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr "Desuscribirse"
 
-#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:285
+#: ../root/admin/edit_user.tt:16 ../root/edit/search_macros.tt:339
 msgid "Untrusted"
 msgstr "No confiable"
 
@@ -9916,6 +9909,10 @@ msgstr "Votar SÍ"
 msgid "Vote on Edits"
 msgstr "Votar ediciones"
 
+#: ../root/edit/search_macros.tt:360
+msgid "Vote tally"
+msgstr ""
+
 #: ../root/edit/index.tt:21
 msgid "Vote tally:"
 msgstr "Lista de votos:"
@@ -9924,7 +9921,7 @@ msgstr "Lista de votos:"
 msgid "Voted down"
 msgstr "Rechazadas"
 
-#: ../root/elections/show.tt:116
+#: ../root/edit/search_macros.tt:360 ../root/elections/show.tt:116
 msgid "Voter"
 msgstr "Votante"
 
@@ -10116,7 +10113,7 @@ msgstr "Cuando estés listo para unir éstos elementos haz click en el botón de
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:285
+#: ../root/edit/search_macros.tt:339
 msgid "Wiki Transcluder"
 msgstr ""
 
@@ -10139,7 +10136,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:594 ../root/components/works-list.tt:12
-#: ../root/edit/search_macros.tt:306 ../root/report/iswc_with_many_works.tt:25
+#: ../root/edit/search_macros.tt:360 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/work/header.tt:5
 #: ../root/work/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
@@ -10257,15 +10254,11 @@ msgstr ""
 msgid "Yes"
 msgstr "Sí"
 
-#: ../root/edit/search_macros.tt:241 ../root/edit/vote.tt:14
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:176
+#: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
+#: ../root/edit/vote.tt:14 ../lib/MusicBrainz/Server/Data/Vote.pm:176
 msgctxt "vote"
 msgid "Yes"
 msgstr "Sí"
-
-#: ../root/edit/search_macros.tt:306
-msgid "Yes vote count"
-msgstr "Nº votos Sí"
 
 #: ../root/account/remove_application.tt:10
 #: ../root/account/revoke_application_access.tt:10
@@ -10668,7 +10661,7 @@ msgstr "[eliminado]"
 msgid "[unknown]"
 msgstr "[desconocido]"
 
-#: ../root/edit/search_macros.tt:158
+#: ../root/edit/search_macros.tt:160
 msgid "after"
 msgstr "después de"
 
@@ -10683,6 +10676,10 @@ msgstr ""
 #: ../root/edit/search_macros.tt:28
 msgid "all"
 msgstr "todas"
+
+#: ../root/edit/search_macros.tt:259
+msgid "and voted"
+msgstr ""
 
 #: ../root/edit/search_macros.tt:28
 msgid "any"
@@ -10708,11 +10705,11 @@ msgstr "autoediciones"
 msgid "automatically applied"
 msgstr "aplicada automáticamente"
 
-#: ../root/edit/search_macros.tt:158
+#: ../root/edit/search_macros.tt:160
 msgid "before"
 msgstr "antes de"
 
-#: ../root/edit/search_macros.tt:158
+#: ../root/edit/search_macros.tt:160
 msgid "between"
 msgstr "entre"
 
@@ -10802,7 +10799,7 @@ msgstr ""
 
 #: ../root/components/relationship-editor.tt:115
 #: ../root/components/relationship-editor.tt:141
-#: ../root/release/edit/tracklist.tt:288
+#: ../root/edit/search_macros.tt:176 ../root/release/edit/tracklist.tt:288
 msgid "help"
 msgstr "ayuda"
 
@@ -10840,45 +10837,56 @@ msgstr "info"
 msgid "instruments"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:124 ../root/edit/search_macros.tt:141
-#: ../root/edit/search_macros.tt:175 ../root/edit/search_macros.tt:187
-#: ../root/edit/search_macros.tt:208 ../root/edit/search_macros.tt:225
-#: ../root/edit/search_macros.tt:237 ../root/edit/search_macros.tt:255
-#: ../root/edit/search_macros.tt:270 ../root/edit/search_macros.tt:282
+#: ../root/edit/search_macros.tt:122 ../root/edit/search_macros.tt:139
+#: ../root/edit/search_macros.tt:181 ../root/edit/search_macros.tt:194
+#: ../root/edit/search_macros.tt:216 ../root/edit/search_macros.tt:233
+#: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:293
+#: ../root/edit/search_macros.tt:307 ../root/edit/search_macros.tt:320
+#: ../root/edit/search_macros.tt:335
 msgid "is"
 msgstr "es"
 
-#: ../root/edit/search_macros.tt:124
+#: ../root/edit/search_macros.tt:122
 msgid "is after"
 msgstr "mayor que"
 
-#: ../root/edit/search_macros.tt:124
+#: ../root/edit/search_macros.tt:122
 msgid "is before"
 msgstr "menor que"
 
-#: ../root/edit/search_macros.tt:124 ../root/edit/search_macros.tt:141
+#: ../root/edit/search_macros.tt:122 ../root/edit/search_macros.tt:139
 msgid "is between"
 msgstr "entre"
 
-#: ../root/edit/search_macros.tt:255
+#: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:293
+#: ../root/edit/search_macros.tt:320
 msgid "is in my subscriptions"
 msgstr "está en mis suscripciones"
 
-#: ../root/edit/search_macros.tt:141
+#: ../root/edit/search_macros.tt:139
 msgid "is less than"
 msgstr "menor que"
 
-#: ../root/edit/search_macros.tt:141
+#: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:320
+msgid "is me"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:139
 msgid "is more than"
 msgstr "mayor que"
 
-#: ../root/edit/search_macros.tt:124 ../root/edit/search_macros.tt:141
-#: ../root/edit/search_macros.tt:158 ../root/edit/search_macros.tt:175
-#: ../root/edit/search_macros.tt:187 ../root/edit/search_macros.tt:225
-#: ../root/edit/search_macros.tt:237 ../root/edit/search_macros.tt:255
-#: ../root/edit/search_macros.tt:270 ../root/edit/search_macros.tt:282
+#: ../root/edit/search_macros.tt:122 ../root/edit/search_macros.tt:139
+#: ../root/edit/search_macros.tt:160 ../root/edit/search_macros.tt:181
+#: ../root/edit/search_macros.tt:194 ../root/edit/search_macros.tt:233
+#: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:293
+#: ../root/edit/search_macros.tt:307 ../root/edit/search_macros.tt:320
+#: ../root/edit/search_macros.tt:335
 msgid "is not"
 msgstr "no es"
+
+#: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:320
+msgid "is not me"
+msgstr ""
 
 #: ../root/components/common-macros.tt:130
 msgid "labels"
@@ -10933,7 +10941,7 @@ msgstr "ninguno"
 msgid "oldest first"
 msgstr "antiguas primero"
 
-#: ../root/edit/search_macros.tt:158
+#: ../root/edit/search_macros.tt:160
 msgid "on"
 msgstr "el"
 

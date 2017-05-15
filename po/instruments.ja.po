@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:07+0000\n"
+"PO-Revision-Date: 2017-04-12 20:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,11 @@ msgstr "12弦ギター"
 #: DB:instrument/name:516
 msgid "17-string koto"
 msgstr "十七絃"
+
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "Anglo concertina"
+msgstr ""
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
@@ -73,6 +78,16 @@ msgstr "E♭クラリネット"
 msgid "EWI"
 msgstr "ＥＷＩ"
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "English concertina"
+msgstr ""
+
+#: DB:instrument/name:844
+msgctxt "english \"improved\" flageolet"
+msgid "English flageolet"
+msgstr ""
+
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
 msgid "English horn"
@@ -81,6 +96,11 @@ msgstr ""
 #: DB:instrument/name:30
 msgid "French horn"
 msgstr "フレンチホルン"
+
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "German concertina"
+msgstr ""
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -183,6 +203,11 @@ msgstr "スコティッシュバグパイプ"
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
 msgstr "チベット・ウォーター・ドラム"
+
+#: DB:instrument/name:846
+msgctxt "plastic fipple flute"
+msgid "Tonette"
+msgstr ""
 
 #: DB:instrument/name:235
 msgid "Turkish baglama"
@@ -297,11 +322,6 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
-
-#: DB:instrument/name:839
-msgctxt "historical hybrid between English and German style concertinas"
-msgid "angelo concertina"
 msgstr ""
 
 #: DB:instrument/name:373
@@ -1019,6 +1039,11 @@ msgstr "笛子（ディーズ）"
 msgid "djembe"
 msgstr "ジャンベ"
 
+#: DB:instrument/name:850
+msgctxt "ancient Iraqi bowed string instrument"
+msgid "djoza"
+msgstr ""
+
 #: DB:instrument/name:184
 msgid "dobro"
 msgstr "ドブロ"
@@ -1086,6 +1111,11 @@ msgstr ""
 msgid "duduk"
 msgstr "ドゥドゥク"
 
+#: DB:instrument/name:851
+msgctxt "indian clay kettle drum"
+msgid "duggi"
+msgstr ""
+
 #: DB:instrument/name:773
 msgid "dulce melos"
 msgstr ""
@@ -1093,6 +1123,11 @@ msgstr ""
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "ダルシアン"
+
+#: DB:instrument/name:841
+msgctxt "idiophone keyboard instrument with tuning forks"
+msgid "dulcitone"
+msgstr ""
 
 #: DB:instrument/name:770
 msgid "dulzaina"
@@ -1186,14 +1221,14 @@ msgstr "電子オルガン"
 msgid "electronic wind instrument"
 msgstr "電子管楽器"
 
+#: DB:instrument/name:848
+msgctxt "electronic keyboard accordion"
+msgid "elektronium"
+msgstr ""
+
 #: DB:instrument/name:14
 msgid "end-blown flute"
 msgstr "縦笛"
-
-#: DB:instrument/name:837
-msgctxt "unisonoric concertina"
-msgid "english concertina"
-msgstr ""
 
 #: DB:instrument/name:215
 msgid "erhu"
@@ -1234,6 +1269,16 @@ msgstr ""
 #: DB:instrument/name:523
 msgid "five-string banjo"
 msgstr "5弦バンジョー"
+
+#: DB:instrument/name:845
+msgctxt "small catalan fipple flute"
+msgid "flabiol"
+msgstr ""
+
+#: DB:instrument/name:843
+msgctxt "french 16th century fipple flute"
+msgid "flageolet"
+msgstr ""
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
@@ -1342,11 +1387,6 @@ msgstr "革胡（ゲイフー）"
 #: DB:instrument/name:76
 msgid "geomungo"
 msgstr "コムンゴ"
-
-#: DB:instrument/name:838
-msgctxt "bisonoric concertina"
-msgid "german concertina"
-msgstr ""
 
 #: DB:instrument/name:331
 msgid "ghatam"
@@ -1613,6 +1653,11 @@ msgstr "ジャグ"
 msgid "k'lông pút"
 msgstr "クロン・プット"
 
+#: DB:instrument/name:849
+msgctxt "bamboo transverse flute"
+msgid "kagurabue"
+msgstr ""
+
 #: DB:instrument/name:817
 msgctxt "smaller higher-tuned calabash ngoni"
 msgid "kamalen ngɔni"
@@ -1657,6 +1702,10 @@ msgstr "ケメンチェ"
 #: DB:instrument/name:541
 msgid "kemençe of the Black Sea"
 msgstr "黒海ケメンチェ"
+
+#: DB:instrument/name:367
+msgid "kettle drum"
+msgstr ""
 
 #: DB:instrument/name:178
 msgctxt "electronic or digital keyboard"
@@ -2119,6 +2168,11 @@ msgstr "オルガン"
 #: DB:instrument/name:519
 msgid "orpharion"
 msgstr "オルファリオン"
+
+#: DB:instrument/name:842
+msgctxt "late 18th century portable piano with shoulder strap"
+msgid "orphica"
+msgstr ""
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2990,6 +3044,11 @@ msgstr "トレス"
 msgid "triangle"
 msgstr "バウロン"
 
+#: DB:instrument/name:847
+msgctxt "Basque button accordion"
+msgid "trikiti"
+msgstr ""
+
 #: DB:instrument/name:698
 msgid "tromba marina"
 msgstr "トロンバ・マリーナ"
@@ -3103,13 +3162,14 @@ msgstr "バルブ式金管楽器"
 msgid "venu"
 msgstr ""
 
-#: DB:instrument/name:367
-msgid "vessel drum"
-msgstr "鍋形太鼓"
-
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "容器形笛"
+
+#: DB:instrument/name:840
+msgctxt "accordina with piano keys"
+msgid "vibrandoneon"
+msgstr ""
 
 #: DB:instrument/name:169
 msgid "vibraphone"

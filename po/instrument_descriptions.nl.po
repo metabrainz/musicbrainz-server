@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:08+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-04-18 12:33+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -736,7 +736,7 @@ msgstr "Huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrum
 msgid ""
 "Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
 "Cretan lyra with the violin."
-msgstr ""
+msgstr "De vioollier (Grieks: βιολολύρα, viololyra) is een in de jaren 1920 door Griekse luitmakers ontwikkelde hybride van de viool en de Kretenzische lier."
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -750,7 +750,7 @@ msgstr "De in 1823 uitgevonden arpeggione lijkt op een middeleeuwse vedel, maar 
 msgid ""
 "Invented in 1966 by vox, and in 1969 by Bob Murrell, it is an electric "
 "guitar with electronic organ wiring and knobs added."
-msgstr ""
+msgstr "De gitorgel is een elektrische gitaar met onderdelen van een elektrisch orgel."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -2483,7 +2483,7 @@ msgstr "Een shamisen of samisen (Japans: 三味線), ook wel sangen genoemd (Jap
 msgid ""
 "The shehnai is a double reed conical oboe, common in North India, West India"
 " and Pakistan, made out of wood, with a metal flare bell at the end."
-msgstr "De shehnai, shanai shenai of mangal vadya is een conische dubbelriet hobo die veel voorkomt in Noord-India, West-India en Pakistan en is gemaakt van hout, met een metalen belvormig stuk aan het einde."
+msgstr "De shehnai is een soort hobo die veel voorkomt in Noord-India, West-India en Pakistan. Het wordt gemaakt van hout, met een metalen uiteinde in de vorm van een bel."
 
 #. name:shekere
 #: DB:instrument/description:381
@@ -3058,7 +3058,7 @@ msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme fil
 #. name:timpani
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
-msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte."
+msgstr "Een pauk is een keteltrom van kunststof of koper. Het is de meest gebruikte trommel in het symfonieorkest."
 
 #. name:taonga pūoro
 #: DB:instrument/description:781
@@ -3229,13 +3229,13 @@ msgstr "Middeleeuwse voorloper van de blokfluit. Het werd met één hand bespeel
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "Het gebruik van schijfstations van computers om muziek te maken."
 
-#. name:angelo concertina
+#. name:Anglo concertina
 #: DB:instrument/description:839
 msgid ""
 "bisonoric and button layout like the german and reeds and hexagonal ends "
 "like the english, this concertina was created to rival the popular german "
 "variant imported into england."
-msgstr ""
+msgstr "De Engels-Duitse concertina is een wisseltonige concertina met de knoppen van de Duitse en de rieten en uiteinden van de Engelse concertina."
 
 #. name:bronze lur
 #: DB:instrument/description:800
@@ -3301,6 +3301,11 @@ msgstr "De cümbüş werd uitgevonden door Zeynel Abidin, die vervolgens de naam
 msgid "dholak, classical North Indian hand drum"
 msgstr "De dholak (Punjabi: ਢੋਲਕ, Hindi: ढोलक) is een Zuid-Aziatische tweekoppige trommel."
 
+#. name:trikiti
+#: DB:instrument/description:847
+msgid "diatonic button accordion used in traditional basque ensemble"
+msgstr "De trikiti is een traditionele Baskische diatonische knopaccordeon."
+
 #. name:tambura
 #: DB:instrument/description:391
 msgid ""
@@ -3356,10 +3361,47 @@ msgid ""
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
 msgstr "Een mengvorm van gitaar en bouzouki met de klankkast van een gitaar en vier dubbelkorige snaren zoals een bouzouki. Het werd door meerdere instrumentenmakers apart ontwikkeld, zoals Stefan Sobell (bouzar) en Davy Stuart (gouzouki)."
 
-#. name:german concertina
+#. name:elektronium
+#: DB:instrument/description:848
+msgid ""
+"in the form of a piano accordion, the keys control the output, pitch and "
+"sound, bellows control only volume. Sold by Hohner since 1952, it has gone "
+"through many modernisations through the years."
+msgstr "Het elektronium is een klavieraccordeon met knoppen voor de ‘klankkleur’ in plaats van registerknoppen. Aan de linkerkant zitten een ‘octaafhendel’ en drie extra knoppen waar klankkleuren op kunnen worden geprogrammeerd, zodat die tijdens het spelen makkelijk te gebruiken zijn."
+
+#. name:Tonette
+#: DB:instrument/description:846
+msgid "introduced in 1938, it was a popular American educational instrument."
+msgstr "De in 1938 geïntroduceerde tonette is een populair Amerikaans instrument voor het muziekonderwijs."
+
+#. name:djoza
+#: DB:instrument/description:850
+msgid ""
+"its origins can be sourced almost 5000 years ago, this Iraqi string "
+"instrument is the forefather of several instruments around the world. Its "
+"name means coconut or acorn, while originally made of walnut, it is today of"
+" coconut and fish-skin or heart-membrane."
+msgstr "De djozeh is een Irakees snaarinstrument dat bijna 5000 jaar geleden is ontstaan. De klankkast is gemaakt van een kokosnoot en het instrument heeft vier snaren."
+
+#. name:dulcitone
+#: DB:instrument/description:841
+msgid ""
+"keyboard instrument where keyed hammers hit tuning forks - making this tuned"
+" percussion"
+msgstr "De dulcitone is een toetsinstrument waarin stemvorken door vilten hamertjes worden aangeslagen."
+
+#. name:duggi
+#: DB:instrument/description:851
+msgid ""
+"made of clay with two layers of goat skin, it is used as a rhythmic "
+"accompaniment to shehnai players and is one of the instruments of the Baul "
+"community."
+msgstr "De dugdugi is een keteltrom van klei met twee vellen van geitenhuid. Het wordt gebruikt voor de ritmische begeleiding van shehnai-spelers."
+
+#. name:German concertina
 #: DB:instrument/description:838
 msgid "more usually square than hexagonal, with long plate reeds"
-msgstr ""
+msgstr "De Duitse concertina heeft vaak vierkante uiteinden en lange metalen rieten."
 
 #. name:chirimía and drum
 #: DB:instrument/description:822
@@ -3382,6 +3424,13 @@ msgid ""
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
 msgstr "Een van de eerste analoge synthesizers, met een filterbank met 15 schuifregelaars om geluid te produceren, en het toetsenbord kon een vibrato opwekken."
+
+#. name:orphica
+#: DB:instrument/description:842
+msgid ""
+"portable piano with shoulder strap invented in 1795, it is a descendant of "
+"the Baroque Bauchladenspinett and a sort of early precursor of the keytar"
+msgstr "De orphica is een in 1795 uitgevonden draagbare piano. Het is afgeleid van de bauchladenspinett uit de barok en een voorloper van de keytar."
 
 #. name:banjolin
 #: DB:instrument/description:831
@@ -3423,6 +3472,13 @@ msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
 msgstr "Een bekfluit met zes gaten die net als de gerelateerde spilåpipa traditioneel bij pastorale muziek wordt bespeeld."
+
+#. name:flabiol
+#: DB:instrument/description:845
+msgid ""
+"small catalan flageolet used in the cobla ensemble, unlike other tabor-pipe "
+"likes it can also be played with two hands."
+msgstr "De flabiol is een kleine Catalaanse flageolet die wordt bespeeld in het cobla-ensemble. Het wordt vaak eenhandig in combinatie met een tabor bespeeld, maar kan ook met twee handen worden bespeeld."
 
 #. name:banjo-ukelele
 #: DB:instrument/description:832
@@ -3479,6 +3535,11 @@ msgid ""
 "and beaten with sticks"
 msgstr "Een percussie-instrument gemaakt van een horizontaal stuk bamboe waarop wordt geslagen met stokken."
 
+#. name:kagurabue
+#: DB:instrument/description:849
+msgid "traditional six holed bamboo flute used in Gagaku no Kagaku"
+msgstr "De kagurabue is een traditionele Japanse dwarsfluit van bamboe met zes vingergaten."
+
 #. name:trắng jâu
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
@@ -3490,12 +3551,12 @@ msgid ""
 "unison course tuned 12 stringed electric guitar body with mandolin neck, it "
 "is tuned an octave higher than a conventional guitar, thus having the tonal "
 "range of the mandolin."
-msgstr ""
+msgstr "De mandogitaar is een twaalfsnarige gitaar met de klankkast van een gitaar en de hals van een mandoline."
 
-#. name:english concertina
+#. name:English concertina
 #: DB:instrument/description:837
 msgid "unisonoric concertina with hexagonal sides and concertina reeds."
-msgstr ""
+msgstr "De Engelse concertina is een gelijktonige concertina met zeshoekige uiteinden en de rieten van een concertina."
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
@@ -3531,3 +3592,22 @@ msgstr "Verschillende basgitaren zonder fretten."
 #: DB:instrument/description:100
 msgid "variously sized drums"
 msgstr "Verschillende formaten trommels."
+
+#. name:flageolet
+#: DB:instrument/description:843
+msgid ""
+"while today it is obscure, it was developed and improved for 400 years, the "
+"French flageolet has 4 holes in front and two thumb holes in the back"
+msgstr "De Franse flageolet heeft vier vingergaten aan de voorkant en twee voor de duim aan de achterkant."
+
+#. name:vibrandoneon
+#: DB:instrument/description:840
+msgid "wood accordina with piano keys invented in Italy"
+msgstr "De vibrandoneon is een in Italië ontwikkelde accordina met pianotoetsen."
+
+#. name:English flageolet
+#: DB:instrument/description:844
+msgid ""
+"working to improve on its design, the english flageolet had 6 finger holes "
+"in front and one thumb hole in the back."
+msgstr "De Engelse flageolet is een ontwikkeling van de flageolet met zes vingergaten aan de voorkant en een vingergat voor de duim aan de achterkant."

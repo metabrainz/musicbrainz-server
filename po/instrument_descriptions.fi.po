@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:08+0000\n"
+"PO-Revision-Date: 2017-04-12 20:07+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -3233,7 +3233,7 @@ msgstr ""
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "Levyasemat joita käytetään tuottamaan musiikkia, kuten kiintolevyt, levykeasemat, cd-asemat ja muut. "
 
-#. name:angelo concertina
+#. name:Anglo concertina
 #: DB:instrument/description:839
 msgid ""
 "bisonoric and button layout like the german and reeds and hexagonal ends "
@@ -3305,6 +3305,11 @@ msgstr ""
 msgid "dholak, classical North Indian hand drum"
 msgstr ""
 
+#. name:trikiti
+#: DB:instrument/description:847
+msgid "diatonic button accordion used in traditional basque ensemble"
+msgstr ""
+
 #. name:tambura
 #: DB:instrument/description:391
 msgid ""
@@ -3360,7 +3365,44 @@ msgid ""
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
 msgstr ""
 
-#. name:german concertina
+#. name:elektronium
+#: DB:instrument/description:848
+msgid ""
+"in the form of a piano accordion, the keys control the output, pitch and "
+"sound, bellows control only volume. Sold by Hohner since 1952, it has gone "
+"through many modernisations through the years."
+msgstr ""
+
+#. name:Tonette
+#: DB:instrument/description:846
+msgid "introduced in 1938, it was a popular American educational instrument."
+msgstr ""
+
+#. name:djoza
+#: DB:instrument/description:850
+msgid ""
+"its origins can be sourced almost 5000 years ago, this Iraqi string "
+"instrument is the forefather of several instruments around the world. Its "
+"name means coconut or acorn, while originally made of walnut, it is today of"
+" coconut and fish-skin or heart-membrane."
+msgstr ""
+
+#. name:dulcitone
+#: DB:instrument/description:841
+msgid ""
+"keyboard instrument where keyed hammers hit tuning forks - making this tuned"
+" percussion"
+msgstr ""
+
+#. name:duggi
+#: DB:instrument/description:851
+msgid ""
+"made of clay with two layers of goat skin, it is used as a rhythmic "
+"accompaniment to shehnai players and is one of the instruments of the Baul "
+"community."
+msgstr ""
+
+#. name:German concertina
 #: DB:instrument/description:838
 msgid "more usually square than hexagonal, with long plate reeds"
 msgstr ""
@@ -3385,6 +3427,13 @@ msgid ""
 "one of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
+msgstr ""
+
+#. name:orphica
+#: DB:instrument/description:842
+msgid ""
+"portable piano with shoulder strap invented in 1795, it is a descendant of "
+"the Baroque Bauchladenspinett and a sort of early precursor of the keytar"
 msgstr ""
 
 #. name:banjolin
@@ -3426,6 +3475,13 @@ msgstr ""
 msgid ""
 "six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
+msgstr ""
+
+#. name:flabiol
+#: DB:instrument/description:845
+msgid ""
+"small catalan flageolet used in the cobla ensemble, unlike other tabor-pipe "
+"likes it can also be played with two hands."
 msgstr ""
 
 #. name:banjo-ukelele
@@ -3483,6 +3539,11 @@ msgid ""
 "and beaten with sticks"
 msgstr ""
 
+#. name:kagurabue
+#: DB:instrument/description:849
+msgid "traditional six holed bamboo flute used in Gagaku no Kagaku"
+msgstr ""
+
 #. name:trắng jâu
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
@@ -3496,7 +3557,7 @@ msgid ""
 "range of the mandolin."
 msgstr ""
 
-#. name:english concertina
+#. name:English concertina
 #: DB:instrument/description:837
 msgid "unisonoric concertina with hexagonal sides and concertina reeds."
 msgstr ""
@@ -3534,4 +3595,23 @@ msgstr ""
 #. name:drums
 #: DB:instrument/description:100
 msgid "variously sized drums"
+msgstr ""
+
+#. name:flageolet
+#: DB:instrument/description:843
+msgid ""
+"while today it is obscure, it was developed and improved for 400 years, the "
+"French flageolet has 4 holes in front and two thumb holes in the back"
+msgstr ""
+
+#. name:vibrandoneon
+#: DB:instrument/description:840
+msgid "wood accordina with piano keys invented in Italy"
+msgstr ""
+
+#. name:English flageolet
+#: DB:instrument/description:844
+msgid ""
+"working to improve on its design, the english flageolet had 6 finger holes "
+"in front and one thumb hole in the back."
 msgstr ""
