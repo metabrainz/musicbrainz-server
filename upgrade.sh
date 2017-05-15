@@ -38,11 +38,6 @@ then
     echo `date` : Export pending db changes
     ./admin/RunExport
 
-    echo `date`" : Bundling replication packets, daily"
-    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
-    echo `date`" : + weekly"
-    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
-
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql MAINTENANCE < ./admin/sql/DropReplicationTriggers.sql
 
