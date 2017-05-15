@@ -74,6 +74,9 @@ OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateTables.sql 2>&1` || (
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
+echo `date` : Creating replication setup
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/ReplicationSetup.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
 echo `date` : Set up pgtap extension
 OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
 

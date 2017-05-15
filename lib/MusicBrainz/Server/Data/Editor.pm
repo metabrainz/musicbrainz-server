@@ -434,10 +434,15 @@ sub editors_with_subscriptions {
 }
 
 sub delete {
-    my ($self, $editor_id) = @_;
+    my ($self, $editor_id, $allow_reuse) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
 
     $self->sql->begin;
+    $self->sql->do(
+        'INSERT INTO old_editor_name (name)
+         (SELECT name FROM editor WHERE id = ?)',
+        $editor_id,
+    ) unless $allow_reuse;
     $self->sql->do(
         "UPDATE editor SET name = 'Deleted Editor #' || id,
                            password = ?,
@@ -623,6 +628,17 @@ sub allocate_remember_me_token {
     else {
         return undef;
     }
+}
+
+sub is_name_used {
+    my ($self, $name) = @_;
+
+    $name = lc $name;
+    return 1 if $self->sql->select_single_value(
+        'SELECT 1 FROM editor WHERE lower(name) = ?', $name);
+    return 1 if $self->sql->select_single_value(
+        'SELECT 1 FROM old_editor_name WHERE lower(name) = ?', $name);
+    return 0;
 }
 
 no Moose;

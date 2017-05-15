@@ -13,7 +13,19 @@
         -%]
     [%~ END ~%]
 
-    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity UNLESS entity_type == 'url' ~%]
+    [%- IF entity_type != 'url';
+            React.embed(c, 'root/layout/components/ExternalLinks', {
+                empty => React.bool(1),
+            });
+        END;
+        IF entity.isa('MusicBrainz::Server::Entity::Release');
+            React.embed(c, 'root/layout/components/ExternalLinks', {
+                entity => entity.release_group,
+                empty => React.bool(0),
+                heading => l('Release group external links'),
+            });
+        END
+    -%]
 
     <h2 class="editing">[%~ l('Editing') ~%]</h2>
     <ul class="links">

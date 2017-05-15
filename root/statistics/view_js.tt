@@ -1,5 +1,5 @@
 [% USE JavaScript %]
-[%- PROCESS "statistics/macros-header.tt" -%]
+[% USE Translation('statistics') %]
 /* Copyright (C) 2011 Ian McEwen
    Copyright (C) 2011 MetaBrainz Foundation
 

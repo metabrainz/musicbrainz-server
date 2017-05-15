@@ -5,6 +5,12 @@
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
         { e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post" id="delete-account-form">
+      <p>
+        <label>
+          <input type="checkbox" name="allow_reuse" value="1" checked="checked" />
+          [%= l('Allow the name “{editor_name}” to be reused.', { editor_name => user.name }) ~%]
+        </label>
+      </p>
       <span class="buttons">
         <button class="negative" type="submit">[% l('Delete {e}', { e => user.name } ) %]</button>
       </span>

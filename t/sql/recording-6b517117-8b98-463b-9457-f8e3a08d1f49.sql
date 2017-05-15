@@ -165,8 +165,10 @@ INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_
 	(0, NULL, NULL, NULL, '2011-05-16 15:03:23.368437+00', NULL, NULL, NULL, '0', 26980, 206);
 INSERT INTO l_label_recording (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
 	(0, 50885, '', 9042322, '', 5809, '2012-12-02 15:29:08.249644+00', 26980, 0);
-INSERT INTO work (comment, edits_pending, gid, id, language, last_updated, name, type) VALUES
-	('', 0, '2025da95-23f1-31ae-b991-088834e6ce2f', 1231902, 120, '2013-02-08 15:00:27.344797+00', 'The World''s Greatest', 17);
+INSERT INTO work (comment, edits_pending, gid, id, last_updated, name, type) VALUES
+	('', 0, '2025da95-23f1-31ae-b991-088834e6ce2f', 1231902, '2013-02-08 15:00:27.344797+00', 'The World''s Greatest', 17);
+INSERT INTO work_language (language, work) VALUES
+	(120, 1231902);
 INSERT INTO tag (id, name, ref_count) VALUES
 	(69142, 'positive affirmations', 0);
 INSERT INTO work_tag (count, last_updated, tag, work) VALUES

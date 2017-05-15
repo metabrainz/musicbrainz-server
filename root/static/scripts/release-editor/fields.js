@@ -552,12 +552,12 @@ const validation = require('../edit/validation');
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = dates.parseDate(data.date || "");
+            var date = data.date || {};
 
             this.date = {
-                year:   ko.observable(date.year),
-                month:  ko.observable(date.month),
-                day:    ko.observable(date.day)
+                year:   ko.observable(date.year == null ? null : date.year),
+                month:  ko.observable(date.month == null ? null : date.month),
+                day:    ko.observable(date.day == null ? null : date.day)
             };
 
             this.countryID = ko.observable(data.country ? data.country.id : null);

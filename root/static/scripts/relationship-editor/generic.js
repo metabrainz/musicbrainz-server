@@ -5,6 +5,7 @@
 
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
 const clean = require('../common/utility/clean');
+const formatDate = require('../common/utility/formatDate');
 const validation = require('../edit/validation');
 
 (function (RE) {
@@ -97,7 +98,7 @@ const validation = require('../edit/validation');
     };
 
     function getDate(x) {
-        return x.date || '';
+        return formatDate(x.date);
     }
 
     function getCatalogNumber(x) {
@@ -167,8 +168,8 @@ const validation = require('../edit/validation');
                 }
             });
 
-            var beginDate = changeData.beginDate;
-            var endDate = changeData.endDate;
+            var beginDate = changeData.begin_date;
+            var endDate = changeData.end_date;
 
             if (beginDate) {
                 pushInput(prefix, "period.begin_date.year", beginDate.year);

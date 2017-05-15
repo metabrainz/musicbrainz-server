@@ -34,6 +34,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     },
 );
 
-sub DB_SCHEMA_SEQUENCE { 23 }
+sub DB_SCHEMA_SEQUENCE { 24 }
 
 1;

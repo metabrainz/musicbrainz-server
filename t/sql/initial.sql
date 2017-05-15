@@ -100,6 +100,7 @@ INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL, '78ab2758-780
 INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL, 'b6285b2a-3514-3d43-80df-fcf528824ded');
 
 INSERT INTO language VALUES (120, 'eng', 'eng', 'en', 'English', 2, 'eng');
+INSERT INTO language VALUES (134, 'fra', 'fre', 'fr', 'French', 2, 'fra');
 INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
 INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
 INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');

@@ -16,9 +16,12 @@ function getCurrentScript() {
 }
 
 function getScriptArgs() {
-  const args = getCurrentScript().getAttribute('data-args');
-  if (args) {
-    return JSON.parse(args);
+  const currentScript = getCurrentScript();
+  if (currentScript) {
+    const args = currentScript.getAttribute('data-args');
+    if (args) {
+      return JSON.parse(args);
+    }
   }
   return {};
 }

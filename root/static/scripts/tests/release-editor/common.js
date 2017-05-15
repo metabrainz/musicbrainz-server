@@ -57,7 +57,7 @@ exports.createMediums = function (release) {
 exports.testArtistCredit = [
   {
     artist: {
-      sortName: "Boredoms",
+      sort_name: "Boredoms",
       comment: "",
       name: "Boredoms",
       id: 39282,

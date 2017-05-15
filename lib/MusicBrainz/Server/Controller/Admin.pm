@@ -107,7 +107,12 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     $c->stash( user => $editor );
 
     if ($c->form_posted) {
-        $c->model('Editor')->delete($id);
+        my $allow_reuse = 0;
+        if ($id != $c->user->id && $c->user->is_account_admin) {
+            $allow_reuse = 1 if ($c->req->params->{allow_reuse} // '') eq '1';
+        }
+
+        $c->model('Editor')->delete($id, $allow_reuse);
         if ($id == $c->user->id) { # don't log out an admin deleting a different user
             MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
             $c->logout;

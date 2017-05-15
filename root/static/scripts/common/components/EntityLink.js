@@ -55,8 +55,6 @@ class EventDisambiguation extends React.Component {
   }
 }
 
-const leadingInt = /^([0-9]+)/;
-
 class AreaDisambiguation extends React.Component {
   render() {
     let area = this.props.area;
@@ -66,8 +64,8 @@ class AreaDisambiguation extends React.Component {
     }
 
     let comment;
-    let beginYear = area.begin_date.replace(leadingInt, '$1');
-    let endYear = area.end_date.replace(leadingInt, '$1');
+    let beginYear = area.begin_date ? area.begin_date.year : null;
+    let endYear = area.end_date ? area.end_date.year : null;
 
     if (beginYear && endYear) {
       comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
@@ -110,7 +108,7 @@ const EntityLink = (props = {}) => {
   }
 
   if (entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sortName + bracketed(comment);
+    hover = entity.sort_name + bracketed(comment);
   }
 
   if (entityType === 'artist' || entityType === 'instrument') {
@@ -136,7 +134,7 @@ const EntityLink = (props = {}) => {
   if (entityType === 'url' && !hasCustomContent) {
     content = entity.pretty_name;
     infoLink = href;
-    href = entity.href;
+    href = entity.href_url;
   }
 
   // TODO: support name variations for all entity types?

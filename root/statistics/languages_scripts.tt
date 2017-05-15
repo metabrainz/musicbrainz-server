@@ -1,5 +1,3 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
-
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr class="[% loop.parity %]">
   <td class="t">[% loop.count %]</td>
@@ -19,6 +17,7 @@
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => date_collected }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>

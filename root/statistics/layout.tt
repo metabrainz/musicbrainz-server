@@ -1,4 +1,3 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
 [%- MACRO link_statistics_tab(link, title) BLOCK -%]
 <span class="mp"><a href="[% link %]">[% title %]</a></span>
 [%- END -%]

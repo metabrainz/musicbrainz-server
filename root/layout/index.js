@@ -6,29 +6,13 @@
 const React = require('react');
 
 const Footer = require('./components/Footer');
+const Head = require('./components/Head');
 const Header = require('./components/Header');
 const MergeHelper = require('./components/MergeHelper');
-const manifest = require('../static/manifest');
+const {RT_SLAVE} = require('../static/scripts/common/constants');
+const DBDefs = require('../static/scripts/common/DBDefs');
 const {l} = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
-
-let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
-function canonicalize(url) {
-  return process.env.CANONICAL_SERVER ? url.replace(canonRegexp, process.env.CANONICAL_SERVER) : url;
-}
-
-const metaTags = [
-  <meta key={2} charSet="utf-8" />,
-  <meta key={3} httpEquiv="X-UA-Compatible" content="IE=edge" />,
-  <meta key={4} name="viewport" content="width=device-width, initial-scale=1" />,
-];
-
-const openSearchTags = [
-  <link key={1} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Artist")} href="/static/search_plugins/opensearch/musicbrainz_artist.xml" />,
-  <link key={2} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Label")} href="/static/search_plugins/opensearch/musicbrainz_label.xml" />,
-  <link key={3} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Release")} href="/static/search_plugins/opensearch/musicbrainz_release.xml" />,
-  <link key={4} rel="search" type="application/opensearchdescription+xml" title={l("MusicBrainz: Track")} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />,
-];
 
 const DismissBannerButton = ({bannerName}) => (
   <button className="dismiss-banner remove-item icon"
@@ -37,15 +21,15 @@ const DismissBannerButton = ({bannerName}) => (
   </button>
 );
 
-const serverDetailsBanner = (server) => {
-  if (server.staging_server) {
-    let description;
-    if (server.staging_server_description) {
-      description = server.staging_server_description;
-    } else if (server.is_beta) {
-      description = l('This beta test server allows testing of new features with the live database.');
-    } else {
-      description = l('This is a MusicBrainz development server.');
+const ServerDetailsBanner = () => {
+  if (DBDefs.DB_STAGING_SERVER) {
+    let description = DBDefs.DB_STAGING_SERVER_DESCRIPTION;
+    if (!description) {
+      if (DBDefs.IS_BETA) {
+        description = l('This beta test server allows testing of new features with the live database.');
+      } else {
+        description = l('This is a MusicBrainz development server.');
+      }
     }
     return (
       <div className="banner server-details">
@@ -54,14 +38,14 @@ const serverDetailsBanner = (server) => {
           {' '}
           {l('{uri|Return to musicbrainz.org}.',
              {__react: true,
-              uri: '//musicbrainz.org' + (server.beta_redirect === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
+              uri: '//musicbrainz.org' + (DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org' ? '?unset_beta=1' : '' )})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
     );
   }
 
-  if (server.is_slave_db) {
+  if (DBDefs.REPLICATION_TYPE === RT_SLAVE) {
     return (
       <div className="banner server-details">
         <p>
@@ -74,120 +58,59 @@ const serverDetailsBanner = (server) => {
   }
 };
 
-const Layout = (props) => {
-  let {title, pager} = props;
-  let canonURL = canonicalize(props.canonical_url || $c.req.url);
-  let currentLanguage = $c.stash.current_language;
-  let server = $c.stash.server_details;
+const Layout = (props) => (
+  <html lang={$c.stash.current_language_html}>
+    <Head {...props} />
 
-  if (props.homepage) {
-    let parts = [];
+    <body>
+      <Header {...props} />
 
-    if (title) {
-      parts.push(title);
-    }
+      {!getCookie('server_details_dismissed_mtime') && <ServerDetailsBanner />}
 
-    if (pager.current_page && pager.current_page > 1) {
-      parts.push(l('Page {n}', {n: pager.current_page}));
-    }
+      {!!($c.stash.alert && $c.stash.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
+        <div className="banner warning-header">
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}}></p>
+          <DismissBannerButton bannerName="alert" />
+        </div>}
 
-    parts.push('MusicBrainz');
-    title = parts.join(' - ');
-  }
+      {!!DBDefs.DB_READ_ONLY &&
+        <div className="banner server-details">
+          <p>
+            {l('The server is temporarily in read-only mode for database maintenance.')}
+          </p>
+        </div>}
 
-  return (
-    <html lang={$c.stash.current_language_html}>
-      <head>
-        {metaTags}
+      {!!($c.stash.new_edit_notes &&
+          $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
+          ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
+        <div className="banner new-edit-notes">
+          <p>
+            {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
+               {__react: true, link: '/edit/notes-received'})}
+          </p>
+          <DismissBannerButton bannerName="new_edit_notes" />
+        </div>}
 
-        <title>{title}</title>
+      {!!$c.stash.makes_no_changes &&
+        <div className="banner warning-header">
+          <p>{l('The data you have submitted does not make any changes to the data already present.')}</p>
+        </div>}
 
-        {canonURL !== $c.req.url && <link rel="canonical" href={canonURL} />}
+      {!!($c.sessionid && $c.flash.message) &&
+        <div className="banner flash">
+          <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
+        </div>}
 
-        {manifest.css('common')}
-        {!!props.noIcons || manifest.css('icons')}
+      <div id="page" className={(props.fullWidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
+        {props.children}
+        <div style={{clear: 'both'}}></div>
+      </div>
 
-        {openSearchTags}
+      {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
 
-        <noscript>
-          <style type="text/css">
-            {'.header > .right > .bottom > .menu > li:focus > ul { left: auto; }'}
-          </style>
-        </noscript>
-
-        {manifest.js('rev-manifest')}
-        {manifest.js('jed-' + currentLanguage)}
-        {manifest.js('common', {
-          'data-args': JSON.stringify({
-            user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
-          }),
-        })}
-        {!!$c.stash.jsonld_data && <script type="application/ld+json">{$c.stash.jsonld_data}</script>}
-        {!!process.env.GOOGLE_ANALYTICS_CODE &&
-          <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '${process.env.GOOGLE_ANALYTICS_CODE}']);
-            _gaq.push(['_setCustomVar', 1, 'User is logged in', '${$c.user ? "Yes" : "No"}', 2]);
-            _gaq.push(['_trackPageview']);
-
-            (function () {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-          `}}></script>}
-      </head>
-
-      <body>
-        <Header {...props} />
-
-        {!getCookie('server_details_dismissed_mtime') && serverDetailsBanner(server)}
-
-        {!!(server.alert && server.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
-          <div className="banner warning-header">
-            <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
-            <DismissBannerButton bannerName="alert" />
-          </div>}
-
-        {!!server.read_only &&
-          <div className="banner server-details">
-            <p>
-              {l('The server is temporarily in read-only mode for database maintenance.')}
-            </p>
-          </div>}
-
-        {!!($c.stash.new_edit_notes &&
-            $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
-            ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
-          <div className="banner new-edit-notes">
-            <p>
-              {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
-                 {__react: true, link: '/edit/notes-received'})}
-            </p>
-            <DismissBannerButton bannerName="new_edit_notes" />
-          </div>}
-
-        {!!$c.stash.makes_no_changes &&
-          <div className="banner warning-header">
-            <p>{l('The data you have submitted does not make any changes to the data already present.')}</p>
-          </div>}
-
-        {!!($c.sessionid && $c.flash.message) &&
-          <div className="banner flash">
-            <p dangerouslySetInnerHTML={{__html: $c.flash.message}}></p>
-          </div>}
-
-        <div id="page" className={(props.fullWidth ? 'fullwidth ' : '') + (props.homepage ? 'homepage' : '')}>
-          {props.children}
-          <div style={{clear: 'both'}}></div>
-        </div>
-
-        {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
-
-        <Footer {...props} />
-      </body>
-    </html>
-  );
-};
+      <Footer {...props} />
+    </body>
+  </html>
+);
 
 module.exports = Layout;

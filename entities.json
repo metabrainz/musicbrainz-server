@@ -69,6 +69,8 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "ipis": true,
+        "isnis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
@@ -77,6 +79,7 @@
             "relatable": "dedicated"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Artist",
         "plural": "artists",
         "plural_url": "artists",
@@ -181,6 +184,7 @@
             "relatable": "overview"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Event",
         "plural": "events",
         "plural_url": "events",
@@ -285,6 +289,8 @@
         "date_period": true,
         "disambiguation": true,
         "edit_table": true,
+        "ipis": true,
+        "isnis": true,
         "last_updated_column": true,
         "materialized_edit_status": true,
         "mbid": {
@@ -293,6 +299,7 @@
             "relatable": "dedicated"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Label",
         "plural": "labels",
         "plural_url": "labels",
@@ -438,6 +445,7 @@
             "relatable": "overview"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Recording",
         "plural": "recordings",
         "plural_url": "recordings",
@@ -482,6 +490,7 @@
             "relatable": "overview"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Release",
         "plural": "releases",
         "plural_url": "releases",
@@ -524,6 +533,7 @@
             "relatable": "overview"
         },
         "merging": true,
+        "meta_table": true,
         "model": "ReleaseGroup",
         "plural": "release_groups",
         "plural_url": "release-groups",
@@ -692,6 +702,7 @@
             "relatable": "overview"
         },
         "merging": true,
+        "meta_table": true,
         "model": "Work",
         "plural": "works",
         "plural_url": "works",

@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:07+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-04-18 12:26+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,6 +24,11 @@ msgstr "twaalfsnarige gitaar"
 #: DB:instrument/name:516
 msgid "17-string koto"
 msgstr "zeventiensnarige koto"
+
+#: DB:instrument/name:839
+msgctxt "historical hybrid between English and German style concertinas"
+msgid "Anglo concertina"
+msgstr "Engels-Duitse concertina"
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
@@ -70,6 +75,16 @@ msgstr "Es-klarinet"
 msgid "EWI"
 msgstr "EWI"
 
+#: DB:instrument/name:837
+msgctxt "unisonoric concertina"
+msgid "English concertina"
+msgstr "Engelse concertina"
+
+#: DB:instrument/name:844
+msgctxt "english \"improved\" flageolet"
+msgid "English flageolet"
+msgstr "Engelse flageolet"
+
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
 msgid "English horn"
@@ -78,6 +93,11 @@ msgstr "althobo"
 #: DB:instrument/name:30
 msgid "French horn"
 msgstr "hoorn"
+
+#: DB:instrument/name:838
+msgctxt "bisonoric concertina"
+msgid "German concertina"
+msgstr "Duitse concertina"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -180,6 +200,11 @@ msgstr "Zweedse doedelzak"
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
 msgstr "Tibetaanse watertrommel"
+
+#: DB:instrument/name:846
+msgctxt "plastic fipple flute"
+msgid "Tonette"
+msgstr "tonette"
 
 #: DB:instrument/name:235
 msgid "Turkish baglama"
@@ -295,11 +320,6 @@ msgstr "aman khuur"
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr "analoge synthesizer"
-
-#: DB:instrument/name:839
-msgctxt "historical hybrid between English and German style concertinas"
-msgid "angelo concertina"
-msgstr ""
 
 #: DB:instrument/name:373
 msgid "ankle rattlers"
@@ -1016,6 +1036,11 @@ msgstr "dizi"
 msgid "djembe"
 msgstr "djembé"
 
+#: DB:instrument/name:850
+msgctxt "ancient Iraqi bowed string instrument"
+msgid "djoza"
+msgstr "djozeh"
+
 #: DB:instrument/name:184
 msgid "dobro"
 msgstr "dobro"
@@ -1083,6 +1108,11 @@ msgstr "eendenlokfluitje"
 msgid "duduk"
 msgstr "doedoek"
 
+#: DB:instrument/name:851
+msgctxt "indian clay kettle drum"
+msgid "duggi"
+msgstr "dugdugi"
+
 #: DB:instrument/name:773
 msgid "dulce melos"
 msgstr "dulce melos"
@@ -1090,6 +1120,11 @@ msgstr "dulce melos"
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "dulciaan"
+
+#: DB:instrument/name:841
+msgctxt "idiophone keyboard instrument with tuning forks"
+msgid "dulcitone"
+msgstr "dulcitone"
 
 #: DB:instrument/name:770
 msgid "dulzaina"
@@ -1183,14 +1218,14 @@ msgstr "elektronisch orgel"
 msgid "electronic wind instrument"
 msgstr "elektronisch blaasinstrument"
 
+#: DB:instrument/name:848
+msgctxt "electronic keyboard accordion"
+msgid "elektronium"
+msgstr "elektronium"
+
 #: DB:instrument/name:14
 msgid "end-blown flute"
 msgstr "verticale fluit"
-
-#: DB:instrument/name:837
-msgctxt "unisonoric concertina"
-msgid "english concertina"
-msgstr ""
 
 #: DB:instrument/name:215
 msgid "erhu"
@@ -1231,6 +1266,16 @@ msgstr "bekfluiten"
 #: DB:instrument/name:523
 msgid "five-string banjo"
 msgstr "vijfsnarige banjo"
+
+#: DB:instrument/name:845
+msgctxt "small catalan fipple flute"
+msgid "flabiol"
+msgstr "flabiol"
+
+#: DB:instrument/name:843
+msgctxt "french 16th century fipple flute"
+msgid "flageolet"
+msgstr "flageolet"
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
@@ -1340,11 +1385,6 @@ msgstr "gehu"
 msgid "geomungo"
 msgstr "geomungo"
 
-#: DB:instrument/name:838
-msgctxt "bisonoric concertina"
-msgid "german concertina"
-msgstr ""
-
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
@@ -1439,7 +1479,7 @@ msgstr "gitaarfamilie"
 #: DB:instrument/name:835
 msgctxt "el guitar / el organ hybrid"
 msgid "guitorgan"
-msgstr ""
+msgstr "gitorgel"
 
 #: DB:instrument/name:325
 msgid "gumbri"
@@ -1610,6 +1650,11 @@ msgstr "jug"
 msgid "k'lông pút"
 msgstr "k’lông pút"
 
+#: DB:instrument/name:849
+msgctxt "bamboo transverse flute"
+msgid "kagurabue"
+msgstr "kagurabue"
+
 #: DB:instrument/name:817
 msgctxt "smaller higher-tuned calabash ngoni"
 msgid "kamalen ngɔni"
@@ -1654,6 +1699,10 @@ msgstr "kemençhe"
 #: DB:instrument/name:541
 msgid "kemençe of the Black Sea"
 msgstr "kemençe van de Zwarte Zee"
+
+#: DB:instrument/name:367
+msgid "kettle drum"
+msgstr "keteltrom"
 
 #: DB:instrument/name:178
 msgctxt "electronic or digital keyboard"
@@ -1878,7 +1927,7 @@ msgstr "mandoloncello"
 #: DB:instrument/name:836
 msgctxt "mandolin / electric guitar hybrid"
 msgid "mandoguitar"
-msgstr ""
+msgstr "mandogitaar"
 
 #: DB:instrument/name:238
 msgid "mandola"
@@ -2116,6 +2165,11 @@ msgstr "orgel"
 #: DB:instrument/name:519
 msgid "orpharion"
 msgstr "orpharion"
+
+#: DB:instrument/name:842
+msgctxt "late 18th century portable piano with shoulder strap"
+msgid "orphica"
+msgstr "orphica"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2987,6 +3041,11 @@ msgstr "tres"
 msgid "triangle"
 msgstr "triangel"
 
+#: DB:instrument/name:847
+msgctxt "Basque button accordion"
+msgid "trikiti"
+msgstr "trikiti"
+
 #: DB:instrument/name:698
 msgid "tromba marina"
 msgstr "tromba marina"
@@ -3100,13 +3159,14 @@ msgstr "koperblazers met ventiel"
 msgid "venu"
 msgstr "venu"
 
-#: DB:instrument/name:367
-msgid "vessel drum"
-msgstr "Vaastrommel"
-
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "vatfluit"
+
+#: DB:instrument/name:840
+msgctxt "accordina with piano keys"
+msgid "vibrandoneon"
+msgstr "vibrandoneon"
 
 #: DB:instrument/name:169
 msgid "vibraphone"
@@ -3165,7 +3225,7 @@ msgstr "vioolfamilie"
 #: DB:instrument/name:834
 msgctxt "cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr ""
+msgstr "vioollier"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""

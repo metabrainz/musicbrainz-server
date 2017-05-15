@@ -47,10 +47,10 @@ validationTest("duplicate release countries are rejected, including null ones (M
 
     releaseEditor.releaseLoaded({
         events: [
-            { countryID: 123, date: "1999" },
-            { countryID: 123, date: "2000" },
-            { countryID: null, date: "1999" },
-            { countryID: null, date: "2000" },
+            { countryID: 123, date: { year: 1999 } },
+            { countryID: 123, date: { year: 2000 } },
+            { countryID: null, date: { year: 1999 } },
+            { countryID: null, date: { year: 2000 } },
         ]
     });
 

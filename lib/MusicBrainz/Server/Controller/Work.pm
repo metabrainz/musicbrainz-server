@@ -11,6 +11,10 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_ADD_ISWCS
     $EDIT_WORK_REMOVE_ISWC
 );
+use MusicBrainz::Server::Form::Utils qw(
+    build_grouped_options
+    language_options
+);
 use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -66,14 +70,6 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-before qw( show aliases tags details ) => sub {
-    my ($self, $c) = @_;
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('Language')->load_for_works($work);
-    $c->model('WorkAttribute')->load_for_works($work);
-};
-
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( show collections details tags )] => sub {
     my ($self, $c) = @_;
@@ -106,16 +102,21 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
 };
 
-before 'edit' => sub
-{
+before qw( show aliases tags details edit ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+    $c->model('Language')->load_for_works($work);
     $c->model('WorkAttribute')->load_for_works($work);
-    stash_work_attribute_json($c);
 };
 
-sub stash_work_attribute_json {
+after edit => sub {
+    my ($self, $c) = @_;
+
+    stash_work_form_json($c);
+};
+
+sub stash_work_form_json {
     my ($c) = @_;
 
     my $build_json;
@@ -133,14 +134,22 @@ sub stash_work_attribute_json {
         return $out;
     };
 
-    $c->stash(
-        workAttributeTypesJson => $c->json->encode(
-            $build_json->($c->model('WorkAttributeType')->get_tree)
-        ),
-        workAttributeValuesJson => $c->json->encode(
-            $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree)
-        )
-    );
+    my $json = {};
+    $json->{form} = $c->stash->{form}->TO_JSON;
+
+    my $work = $c->stash->{work};
+    $json->{work} = $work ? $work->TO_JSON : {name => ''};
+
+    $json->{workAttributeTypeTree} =
+        $build_json->($c->model('WorkAttributeType')->get_tree);
+
+    $json->{workAttributeValueTree} =
+        $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree);
+
+    $json->{workLanguageOptions} =
+        build_grouped_options($c, language_options($c, 'work'));
+
+    $c->stash(work_form_json => $json);
 }
 
 sub _merge_load_entities
@@ -171,9 +180,10 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     dialog_template => 'work/edit_form.tt',
 };
 
-before 'create' => sub {
+after create => sub {
     my ($self, $c) = @_;
-    stash_work_attribute_json($c);
+
+    stash_work_form_json($c);
 };
 
 1;

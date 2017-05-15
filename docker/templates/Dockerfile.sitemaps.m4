@@ -4,7 +4,7 @@ RUN apt_install(`libxml2 rsync')
 
 copy_common_mbs_files
 
-COPY docker/musicbrainz-sitemaps/consul-template.conf /etc/
+COPY docker/musicbrainz-sitemaps/consul-template-sitemaps.conf /etc/
 
 COPY docker/musicbrainz-sitemaps/crontab /var/spool/cron/crontabs/musicbrainz
 

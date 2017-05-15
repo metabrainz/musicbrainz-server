@@ -94,6 +94,16 @@ test 'Trying to register with an existing name' => sub {
 
     like($mech->uri, qr{/register}, 'stays on registration page');
     $mech->content_contains('already taken', 'form has error message');
+
+    # Try with a previously-used name (MBS-9271).
+    $mech->submit_form( with_fields => {
+        'register.username' => 'im_gone',
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('already taken', 'form has error message');
 };
 
 1;
