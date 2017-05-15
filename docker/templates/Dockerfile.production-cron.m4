@@ -12,6 +12,11 @@ COPY \
     /etc/
 
 COPY \
+    docker/musicbrainz-production-cron/consul-template.service \
+    /etc/service/consul-template/run
+RUN chmod 755 /etc/service/consul-template/run
+
+COPY \
     docker/musicbrainz-production-cron/crontab \
     /var/spool/cron/crontabs/musicbrainz
 
