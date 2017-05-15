@@ -290,9 +290,11 @@ around TO_JSON => sub {
         verbosePhrase   => $self->verbose_phrase,
     };
 
-    $json->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
-    $json->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
+    $json->{begin_date} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
+    $json->{end_date} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
     $json->{direction} = 'backward' if $self->direction == $DIRECTION_BACKWARD;
+
+    $self->add_linked_entity('link_type', $link->type_id, $link->type);
 
     return $json;
 };

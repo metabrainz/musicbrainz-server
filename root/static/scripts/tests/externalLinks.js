@@ -9,8 +9,6 @@ const ReactTestUtils = require('react-addons-test-utils');
 const externalLinks = require('../edit/externalLinks');
 const {triggerChange, triggerClick, addURL} = require('./external-links-editor/utils');
 
-MB.faviconClasses = { "wikipedia.org": "wikipedia" };
-
 function externalLinksTest(name, callback, initialLinks) {
     test(name, function (t) {
         var mountPoint = document.createElement('div');

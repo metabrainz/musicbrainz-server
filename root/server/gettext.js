@@ -79,15 +79,6 @@ function getHandle(lang) {
   return handle;
 }
 
-function clearHandles() {
-  for (let key in GETTEXT_HANDLES) {
-    if (GETTEXT_HANDLES.hasOwnProperty(key)) {
-      delete GETTEXT_HANDLES[key];
-    }
-  }
-}
-
 exports.findObjectFile = findObjectFile;
 exports.loadMoFiles = loadMoFiles;
 exports.getHandle = getHandle;
-exports.clearHandles = clearHandles;

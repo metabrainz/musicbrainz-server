@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-28 10:32+0000\n"
+"PO-Revision-Date: 2017-04-17 09:10+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -523,7 +523,7 @@ msgstr "Koppelt de opname aan het gebied waar de techniek voor de opname werd ve
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt de opname aan het gebied waarin hij werd gemixt. Gebruik dit alleen als de plaats onbekend is!"
+msgstr ""
 
 #: DB:link_type/description:827
 msgid ""
@@ -605,13 +605,13 @@ msgstr "Koppelt de uitgave aan het gebied waarin hij werd gefabriceerd."
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt de uitgave aan het gebied waarin hij werd gemasterd. Gebruik dit alleen als de plaats onbekend is!"
+msgstr ""
 
 #: DB:link_type/description:757
 msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr "Koppelt de uitgave aan het gebied waarin hij werd gemixt. Gebruik dit alleen als de plaats onbekend is!"
+msgstr ""
 
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
@@ -1608,7 +1608,7 @@ msgstr "Deze relatie koppelt een uitgave aan zijn SecondHandSongs-pagina."
 
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
-msgstr "Deze relatie koppelt een uitgave aan zijn Allmusic-pagina."
+msgstr ""
 
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -2344,7 +2344,7 @@ msgstr "Deze relatie koppelt een tournee aan een of meer artiesten."
 msgid ""
 "This relationship links an instrument to the company that invented or "
 "designed it."
-msgstr ""
+msgstr "Deze relatie koppelt een instrument aan het bedrijf waar het instrument werd uitgevonden of ontworpen."
 
 #: DB:link_type/description:896
 msgid ""
@@ -4065,7 +4065,7 @@ msgstr "gemixt bij"
 
 #: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
 msgid "mixed in"
-msgstr "gemixt in"
+msgstr ""
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
@@ -5107,7 +5107,7 @@ msgstr "is {additional:aanvullend} {assistant:assisterend} {associate:geassociee
 
 #: DB:link_type/long_link_phrase:42
 msgid "{additional:additionally} {assistant} {associate} {co:co-}{re}mastered"
-msgstr "{co:co-}{re}masterde {additional:(aanvullend) {assistant:(als assistent)} {associate:(als partner)}"
+msgstr "{co:co-}{re}masterde {additional:(aanvullend)} {assistant:(als assistent)} {associate:(als partner)}"
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
@@ -5285,7 +5285,7 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd}
 
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{re}mastering"
-msgstr "{additional:aanvullend} {assistant:als assistent} ge{co:co-}{re}mastered door"
+msgstr "{additional:aanvullend} {assistant:als assistent} {associate:geassocieerd} ge{co:co-}{re}masterd door"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132

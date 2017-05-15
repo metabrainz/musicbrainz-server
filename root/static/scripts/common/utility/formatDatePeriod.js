@@ -3,15 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-/* There's also a formatDatePeriod function in
- * root/static/scripts/edit/utility/dates.js, which expects date objects
- * containing separate fields for the year, month, and day. Which is useful
- * for the parts of our UI where those fields are individually editable. This
- * function, on the other hand, expects an entity containing prerendered date
- * fields, i.e. our canonical JSON representation.
- */
+const ko = require('knockout');
+
+const {l} = require('../i18n');
+const formatDate = require('./formatDate');
+
 function formatDatePeriod(entity) {
   let {begin_date, end_date, ended} = entity;
+
+  begin_date = formatDate(begin_date);
+  end_date = formatDate(end_date);
+  ended = ko.unwrap(ended);
 
   if (!begin_date && !end_date) {
     return ended ? l(' \u2013 ????') : '';

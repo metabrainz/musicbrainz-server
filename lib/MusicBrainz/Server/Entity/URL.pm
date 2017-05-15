@@ -119,7 +119,11 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        href => $self->href_url,
+        $self->can('show_in_sidebar') ?
+            (show_in_sidebar => $self->show_in_sidebar) : (),
+        $self->can('sidebar_name') ?
+            (sidebar_name => $self->sidebar_name) : (),
+        href_url => $self->href_url,
         pretty_name => $self->pretty_name,
     };
 };

@@ -45,6 +45,7 @@ use MusicBrainz::Server::Entity::Series;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;
 use MusicBrainz::Server::Entity::SearchResult;
+use MusicBrainz::Server::Entity::WorkLanguage;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
@@ -206,7 +207,6 @@ sub search
         }
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.language,' if $type eq 'work';
         $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
@@ -658,10 +658,19 @@ sub schema_fixup
             ];
         }
 
-        if (defined $data->{language}) {
-            $data->{language} = MusicBrainz::Server::Entity::Language->new({
-                iso_code_3 => $data->{language}
-            });
+        my @languages = @{ $data->{languages} // [] };
+        if (!@languages && defined $data->{language}) {
+            push @languages, $data->{language};
+        }
+
+        if (@languages) {
+            $data->{languages} = [map {
+                MusicBrainz::Server::Entity::WorkLanguage->new({
+                    language => MusicBrainz::Server::Entity::Language->new({
+                        iso_code_3 => $_,
+                    }),
+                })
+            } @languages];
         }
 
         if (defined $data->{'iswcs'}) {

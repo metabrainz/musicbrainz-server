@@ -422,10 +422,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             // hidden/ignored anyway, but if the user changes the target type
             // or link type again (to something that does support them), we
             // want to preserve what they previously entered.
-            var period = currentRelationship.period;
-            data.beginDate = MB.edit.fields.partialDate(period.beginDate);
-            data.endDate = MB.edit.fields.partialDate(period.endDate);
-            data.ended = !!period.ended();
+            data.begin_date = MB.edit.fields.partialDate(currentRelationship.begin_date);
+            data.end_date = MB.edit.fields.partialDate(currentRelationship.end_date);
+            data.ended = !!currentRelationship.ended();
 
             delete data.entities;
 
@@ -497,10 +496,10 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         },
 
         datePeriodError: function () {
-            var period = this.relationship().period;
+            var relationship = this.relationship();
 
-            var a = period.beginDate;
-            var b = period.endDate;
+            var a = relationship.begin_date;
+            var b = relationship.end_date;
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
@@ -518,8 +517,8 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                    this.targetEntityError() ||
                    _(relationship.linkTypeInfo().attributes)
                      .values().map(_.bind(relationship.attributeError, relationship)).any() ||
-                   this.dateError(relationship.period.beginDate) ||
-                   this.dateError(relationship.period.endDate) ||
+                   this.dateError(relationship.begin_date) ||
+                   this.dateError(relationship.end_date) ||
                    this.datePeriodError();
         }
     });
@@ -658,7 +657,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 var editData = MB.edit.fields.work({
                     name: source.name,
                     typeID: workType,
-                    languageID: workLang
+                    languages: [workLang],
                 });
 
                 return MB.edit.workCreate(editData);

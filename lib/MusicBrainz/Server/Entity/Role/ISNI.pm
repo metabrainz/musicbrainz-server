@@ -7,7 +7,7 @@ has isni_codes => (
     default => sub { [] },
     traits => [ 'Array' ],
     handles => {
-        add_isni_code => 'push',
+        add_isni => 'push',
         all_isni_codes => 'elements',
     }
 );

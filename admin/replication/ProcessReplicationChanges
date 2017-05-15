@@ -55,6 +55,7 @@ my $short_sql = 0;
 my $debug_xact = 0;
 my $skip_seqid;
 my $limit = 10000;
+my $database = 'READWRITE';
 
 my $help = <<EOF;
 Usage: ProcessReplicationChanges [OPTIONS]
@@ -68,6 +69,7 @@ Options are:
                         This option is useful if you have a system with a small
                         amount of memory - a setting of 10,000 works well for
                         machines with 64MB RAM. The default is $limit.
+        --database      Database to connect to (default: READWRITE)
     -h, --help          Show this help
 
 EOF
@@ -78,6 +80,7 @@ GetOptions(
     "debug-xact"        => \$debug_xact,
     "skip-seqid|s=i"=> \$skip_seqid,
     "limit=i"           => \$limit,
+    "database=s"        => \$database,
     "help|h"            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
@@ -89,7 +92,7 @@ $SIG{'INT'} = sub { die "SIGINT\n" };
 my ($ins, $del, $upd) = (0, 0, 0);
 my %bytable;
 
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
 
 my $sql = Sql->new($c->conn);
 my $sql2 = Sql->new($c->conn);

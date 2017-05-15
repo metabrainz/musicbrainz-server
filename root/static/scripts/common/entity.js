@@ -131,7 +131,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
             "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
-            "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
+            "<% if (data.sort_name) { %> title=\"<%- data.sort_name %>\"" +
             "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
             "<% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +

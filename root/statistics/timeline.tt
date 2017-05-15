@@ -1,5 +1,3 @@
-[%~ PROCESS "statistics/macros-header.tt" ~%]
-
 [%~ sidebar = BLOCK ~%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
@@ -25,6 +23,8 @@
 [%~ END ~%]
 
 [%~ WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' ~%]
+[%~ PROCESS "statistics/macros-header.tt" ~%]
+
 <h2>[% l('Exact Values (items vs. day)') %]</h2>
 <div id="graph-container" data-bind="flot: 'main'"></div>
 <h2 data-bind="visible: options.rate">[% l('Rate of Change (average items/day vs. day)') %]</h2>

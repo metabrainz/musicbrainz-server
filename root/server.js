@@ -7,196 +7,137 @@
 
 require('babel-core/register');
 
+const cluster = require('cluster');
 const fs = require('fs');
-const http = require('http');
-const _ = require('lodash');
-const redis = require('redis');
-const reload = require('require-reload')(require);
-const path = require('path');
 const Raven = require('raven');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const sliced = require('sliced');
-const URL = require('url');
+const spawnSync = require('child_process').spawnSync;
 
+const createServer = require('./server/createServer');
+const DBDefs = require('./static/scripts/common/DBDefs');
 const gettext = require('./server/gettext');
-// Reloaded on HUP.
-let DBDefs = reload('./static/scripts/common/DBDefs');
-const i18n = require('./static/scripts/common/i18n');
-const getCookie = require('./static/scripts/common/utility/getCookie');
+const {clearRequireCache} = require('./server/utils');
 
-if (DBDefs.SENTRY_DSN) {
-  Raven.config(DBDefs.SENTRY_DSN).install();
-}
-
-function createRedisClient() {
-  const REDIS_ARGS = DBDefs.DATASTORE_REDIS_ARGS;
-  return redis.createClient({
-    url: 'redis://' + REDIS_ARGS.server,
-    prefix: REDIS_ARGS.namespace,
-    retry_strategy: function (options) {
-      const oneMinute = 60 * 1000; // ms
-      if (options.total_retry_time < oneMinute) {
-        return 1;
-      }
-    },
-  });
-}
-
-// Reloaded on HUP.
-let redisClient = Raven.context(createRedisClient);
-
-function pathFromRoot(fpath) {
-  return path.resolve(__dirname, '../', fpath);
-}
-
-function badRequest(err, status) {
-  return {status: status || 400, body: err.stack, contentType: 'text/plain'};
-}
-
-// Common macros
-_.assign(global, {
-  bugtracker_url: function (description) {
-    return 'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' +
-           'pid=10000&issuetype=1' +
-           (!description ? '' : '&description=' + encodeURIComponent(description));
-  }
-});
-
-function clearRequireCache() {
-  Object.keys(require.cache).forEach(key => delete require.cache[key]);
-}
-
-function getResponse(req, requestBody) {
-  let url = URL.parse(req.url, true /* parseQueryString */);
-  let status = 200;
-  let Page;
-  let responseBuf;
-
-  // N.B. Exceptions will take down the entire process.
-  try {
-    requestBody = JSON.parse(requestBody);
-  } catch (err) {
-    Raven.captureException(err);
-    return badRequest(err);
-  }
-
-  _.defaults(requestBody, {props: {}, context: {}});
-
-  let context = requestBody.context;
-
-  if (_.isEmpty(context)) {
-    return badRequest(new Error('context is missing'));
-  }
-
-  if (_.isEmpty(context.stash)) {
-    return badRequest(new Error('context.stash is missing'));
-  }
-
-  if (_.isEmpty(context.stash.server_details)) {
-    return badRequest(new Error('context.stash.server_details is missing'));
-  }
-
-  Raven.setContext({
-    environment: DBDefs.GIT_BRANCH,
-    tags: {
-      git_commit: DBDefs.GIT_SHA,
-    },
+const yargs = require('yargs')
+  .option('socket', {
+    alias: 's',
+    default: DBDefs.RENDERER_SOCKET,
+    describe: 'UNIX socket path',
+  })
+  .option('workers', {
+    alias: 'w',
+    default: process.env.RENDERER_WORKERS || 1,
+    describe: 'Number of workers to spawn',
   });
 
-  if (context.user) {
-    Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
-  }
+Raven.config(DBDefs.SENTRY_DSN).install();
 
-  // Emulate perl context/request API.
-  req.query_params = url.query;
+const SOCKET_PATH = yargs.argv.socket;
+const WORKER_COUNT = yargs.argv.workers;
 
-  global.$c = _.assign(context, {
-    req: req,
-    relative_uri: url.path,
-  });
-
-  // We use a separate gettext handle for each language. Set the current handle
-  // to be used for this request based on the given 'lang' cookie.
-  i18n.setGettextHandle(gettext.getHandle(getCookie('lang')));
-
-  if (DBDefs.DEVELOPMENT_SERVER) {
-    clearRequireCache();
-  }
-
-  try {
-    Page = require(pathFromRoot(url.path.replace(/^\//, '')));
-  } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
-      try {
-        Page = require(pathFromRoot('root/main/404'));
-        status = 404;
-      } catch (err) {
-        Raven.captureException(err);
-        return badRequest(err);
-      }
+if (cluster.isMaster) {
+  if (fs.existsSync(SOCKET_PATH)) {
+    if (spawnSync('lsof', [SOCKET_PATH]).status) {
+      fs.unlinkSync(SOCKET_PATH);
     } else {
-      Raven.captureException(err);
-      return badRequest(err);
+      console.error('socket ' + SOCKET_PATH + ' exists and is in use');
+      process.exit(1);
     }
   }
 
-  try {
-    responseBuf = new Buffer(
-      '<!DOCTYPE html>' +
-      ReactDOMServer.renderToStaticMarkup(React.createElement(Page, requestBody.props))
-    );
-  } catch (err) {
-    Raven.captureException(err);
-    return badRequest(err);
-  }
-
-  return {status: status, body: responseBuf, contentType: 'text/html'};
-}
-
-http.createServer(Raven.wrap(function (req, res) {
-  let contentType = 'text/html';
-  let cacheKey = 'template-body:' + req.url;
-
-  redisClient.get(cacheKey, Raven.wrap(function (err, reply) {
-    let resInfo;
-    if (err) {
-      Raven.captureException(err);
-      resInfo = badRequest(err);
-    } else if (reply) {
-      resInfo = getResponse(req, reply);
-    } else {
-      resInfo = badRequest(new Error('got null reply from redis'), 500);
+  function forkWorker(listening) {
+    // Allow spawning one additional worker during HUP.
+    if (Object.keys(cluster.workers).length > WORKER_COUNT) {
+      return false;
     }
-    res.statusCode = resInfo.status;
-    res.setHeader('Content-Type', resInfo.contentType);
-    res.setHeader('Content-Length', resInfo.body.length);
-    // MBS-7061: Prevent network providers/proxies from stripping HTML comments.
-    res.setHeader('Cache-Control', 'no-transform');
-    res.end(resInfo.body, 'utf8');
-  }));
-}))
-.listen(DBDefs.RENDERER_PORT, '0.0.0.0', Raven.wrap(function (err) {
-  if (err) {
-    throw err;
+
+    const worker = cluster.fork();
+
+    if (listening) {
+      worker.once('listening', listening);
+    }
+
+    worker.on('exit', function (code, signal) {
+      if (signal) {
+        console.info(`worker was killed by signal: ${signal}`);
+      } else if (code !== 0) {
+        console.info(`worker exited with error code: ${code}`);
+      }
+      if (!worker.noRespawn) {
+        forkWorker();
+      }
+    });
+
+    return true;
   }
+
+  for (let i = 0; i < WORKER_COUNT; i++) {
+    forkWorker();
+  }
+
+  console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
+
+  function killWorker(worker, signal) {
+    worker.noRespawn = true;
+    if (!worker.isDead()) {
+      const proc = worker.process;
+      console.info('sending ' + signal + ' to worker ' + proc.pid);
+      proc.kill(signal);
+    }
+  }
+
+  const cleanup = function (signal) {
+    for (const id in cluster.workers) {
+      killWorker(cluster.workers[id], signal);
+    }
+    fs.unlinkSync(SOCKET_PATH);
+    process.exit();
+  };
+
+  let hupAction = null;
+  const hup = Raven.wrap(function () {
+    console.info('master received SIGHUP; restarting workers');
+
+    let oldWorkers;
+    let initialTimeout = 0;
+
+    if (hupAction) {
+      clearTimeout(hupAction);
+      initialTimeout = 2000;
+    }
+
+    function killNext() {
+      if (!oldWorkers) {
+        oldWorkers = Object.values(cluster.workers);
+      }
+      const oldWorker = oldWorkers.pop();
+      if (oldWorker) {
+        const doKill = function () {
+          killWorker(oldWorker, 'SIGTERM');
+          hupAction = setTimeout(killNext, 1000);
+        };
+        if (!forkWorker(doKill)) {
+          doKill();
+        }
+      } else {
+        hupAction = null;
+      }
+    }
+
+    hupAction = setTimeout(killNext, initialTimeout);
+  });
+
+  process.on('SIGINT', () => cleanup('SIGINT'));
+  process.on('SIGTERM', () => cleanup('SIGTERM'));
+  process.on('SIGHUP', hup);
+} else {
+  const socketServer = createServer(SOCKET_PATH);
 
   const cleanup = Raven.wrap(function () {
-    redisClient.quit();
-    process.exit();
-  });
-
-  const hup = Raven.wrap(function () {
-    clearRequireCache();
-    gettext.clearHandles();
-    DBDefs = reload('./static/scripts/common/DBDefs');
-    redisClient.quit();
-    redisClient = createRedisClient();
+    socketServer.close(function () {
+      process.exit();
+    });
   });
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-  process.on('SIGHUP', hup);
-
-  console.log('server.js listening on 0.0.0.0:' + DBDefs.RENDERER_PORT + ' (pid ' + process.pid + ')');
-}));
+}

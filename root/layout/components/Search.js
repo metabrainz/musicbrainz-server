@@ -6,6 +6,7 @@
 const React = require('react');
 
 const manifest = require('../../static/manifest');
+const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l, lp} = require('../../static/scripts/common/i18n');
 
 let TYPE_OPTIONS = {
@@ -26,7 +27,7 @@ let TYPE_OPTIONS = {
   event:          l('Event')
 };
 
-if (process.env.GOOGLE_CUSTOM_SEARCH) {
+if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
   TYPE_OPTIONS.doc = l('Documentation');
 }
 

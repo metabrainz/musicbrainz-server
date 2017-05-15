@@ -5,6 +5,7 @@
 # Ettore Atalan <email address hidden>, 2014
 # Frank Matthiae <email address hidden>, 2015
 # Ian McEwen <email address hidden>, 2012
+# happykraut, 2017
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # S.Brandt <email address hidden>, 2014
@@ -17,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-07 05:19+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-04-15 13:43+0000\n"
+"Last-Translator: happykraut\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,7 +221,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
-msgstr ""
+msgstr "Ehemaliger GSoC Student Roman Tsukanov tritt Teilzeitstelle bei MetaBrainz an."
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
@@ -384,7 +385,7 @@ msgstr "MusicBrainz bekommt seinen ersten dedizierten Datenbankserver."
 msgid ""
 "MusicBrainz itself gets a new design to better match the rest of the *Brainz"
 " family."
-msgstr ""
+msgstr "MusicBrainz selbst bekommt ein neues Design, um sich besser der restlichen *Brainz Familie anzupassen."
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -419,7 +420,7 @@ msgstr "NGS, eine komplette Überarbeitung von MusicBrainz, wird veröffentlicht
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "Neues MusicBrainz Design"
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -465,7 +466,7 @@ msgstr "Veröffentlichungsgruppen, ISRC Unterstützung, CD-Stub-Suche und verbes
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr ""
+msgstr "Roman Tsukanov tritt dem MetaBrainz Team bei"
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
@@ -477,7 +478,7 @@ msgstr "Suchverbesserungen"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
-msgstr ""
+msgstr "Verschiedene neue auto-edit Typen und Übersetzungen"
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -504,7 +505,7 @@ msgstr "Tags"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
-msgstr ""
+msgstr "Das AcousticBrainz Projekt geht auf Sendung"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
@@ -521,11 +522,11 @@ msgstr "Das Cover-Art-Archiv wurde offiziell veröffentlicht"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
-msgstr ""
+msgstr "Das CritiqueBrainz Projekt geht auf Sendung"
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
-msgstr ""
+msgstr "Das ListenBrainz Projekt geht auf Sendung"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
@@ -541,11 +542,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
-msgstr ""
+msgstr "Die Betaversion von CritiqueBrainz wird gestartet"
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
-msgstr ""
+msgstr "Das neue MetaBrainz Webseite geht auf Sendung"
 
 #: DB:statistics.statistic_event/description:2015-05-18
 msgid ""

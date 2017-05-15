@@ -283,17 +283,27 @@ EOF
         lastmod => '2015-10-03T20:03:56.069908Z',
     }]);
 
-    # Insert a work, make sure it's picked up as a change.
-    $dbmirror_pending = qq(1\t"musicbrainz"."work"\ti\t1);
+    # Insert some works, and make sure they're picked up as changes.
+    chomp ($dbmirror_pending = <<"EOF");
+1\t"musicbrainz"."work"\ti\t1
+2\t"musicbrainz"."work"\ti\t1
+3\t"musicbrainz"."work"\ti\t1
+EOF
 
     chomp ($dbmirror_pendingdata = <<"EOF");
 1\tt\t"id"='1'\x{20}
 1\tf\t"id"='1' "name"='A' "gid"='daf4327f-19a0-450b-9448-e0ea1c707136' "last_updated"='2015-10-04 02:03:04.070000+00'\x{20}
+2\tt\t"id"='2'\x{20}
+2\tf\t"id"='2' "name"='B' "gid"='b6c76104-d64c-4883-b395-c74f782b751c' "last_updated"='2015-10-04 01:02:03.060000+00'\x{20}
+3\tt\t"id"='3'\x{20}
+3\tf\t"id"='3' "name"='C' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "last_updated"='2015-10-04 00:01:02.050000+00'\x{20}
 EOF
 
     $exec_sql->(<<EOSQL);
 INSERT INTO work (id, gid, name)
-VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A');
+VALUES (1, 'daf4327f-19a0-450b-9448-e0ea1c707136', 'A'),
+       (2, 'b6c76104-d64c-4883-b395-c74f782b751c', 'B'),
+       (3, '79e0f9b8-db97-4bfb-9995-217478dd6c3e', 'C');
 EOSQL
     $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
 
@@ -325,46 +335,113 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time3},
     ]);
 
-    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [{
-        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
-        priority => '0.1',
-        lastmod => '2015-10-04T02:03:04.070000Z',
-    }]);
+    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [
+        {
+            loc => 'https://musicbrainz.org/work/79e0f9b8-db97-4bfb-9995-217478dd6c3e/aliases',
+            priority => '0.1',
+            lastmod => '2015-10-04T00:01:02.050000Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/b6c76104-d64c-4883-b395-c74f782b751c/aliases',
+            priority => '0.1',
+            lastmod => '2015-10-04T01:02:03.060000Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
+            priority => '0.1',
+            lastmod => '2015-10-04T02:03:04.070000Z',
+        },
+    ]);
 
-    $test_sitemap->('sitemap-work-1-incremental.xml', [{
-        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
-        priority => undef,
-        lastmod => '2015-10-04T02:03:04.070000Z',
-    }]);
+    $test_sitemap->('sitemap-work-1-incremental.xml', [
+        {
+            loc => 'https://musicbrainz.org/work/79e0f9b8-db97-4bfb-9995-217478dd6c3e',
+            priority => undef,
+            lastmod => '2015-10-04T00:01:02.050000Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/b6c76104-d64c-4883-b395-c74f782b751c',
+            priority => undef,
+            lastmod => '2015-10-04T01:02:03.060000Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
+            priority => undef,
+            lastmod => '2015-10-04T02:03:04.070000Z',
+        },
+    ]);
 
-    # Insert an ISWC for the added work, make sure it updates the work's lastmod.
-    $dbmirror_pending = qq(1\t"musicbrainz"."iswc"\ti\t1);
+    # Insert an ISWC for the first work, a composer relationship for the
+    # second, and change the name of the third. Make sure it updates the
+    # works' lastmod dates.
+    $dbmirror_pending = qq();
+    chomp ($dbmirror_pending = <<"EOF");
+1\t"musicbrainz"."iswc"\ti\t1
+2\t"musicbrainz"."link"\ti\t2
+3\t"musicbrainz"."l_artist_work"\ti\t2
+4\t"musicbrainz"."work"\tu\t3
+EOF
 
     chomp ($dbmirror_pendingdata = <<"EOF");
 1\tt\t"id"='1'\x{20}
 1\tf\t"id"='1' "work"='1' "iswc"='T-100.000.000-1' "created"='2015-10-05 06:54:32.101234-05'\x{20}
+2\tt\t"id"='1'\x{20}
+2\tf\t"id"='1' "id"='1' "link_type"='168' "begin_date_year"= "begin_date_month"= "begin_date_day"= "end_date_year"= "end_date_month"= "end_date_day"= "attribute_count"='0' "created"='2017-04-05 01:07:52.449236+00' "ended"='f'\x{20}
+3\tt\t"id"='1'\x{20}
+3\tf\t"id"='1' "id"='1' "link"='1' "entity0"='1' "entity1"='2' "edits_pending"='0' "last_updated"='2017-04-05 00:59:46.503449+00' "link_order"='0' "entity0_credit"='' "entity1_credit"=''\x{20}
+4\tt\t"id"='3' "type"= "language"=\x{20}
+4\tf\t"id"='3' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "name"='C?' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-04-05 01:12:36.172561+00' "language"=\x{20}
 EOF
 
     $exec_sql->(<<EOSQL);
 INSERT INTO iswc (id, work, iswc, created)
 VALUES (1, 1, 'T-100.000.000-1', '2015-10-05 06:54:32.101234-05');
+INSERT INTO link (id, link_type, attribute_count, ended, created)
+VALUES (1, 168, 0, 'f', '2017-04-05 01:07:52.449236+00');
+INSERT INTO l_artist_work (id, link, entity0, entity1, last_updated)
+VALUES (1, 1, 1, 2, '2017-04-05 00:59:46.503449+00');
+UPDATE work SET name = 'C?' WHERE id = 3;
 EOSQL
     $build_packet->(3, $dbmirror_pending, $dbmirror_pendingdata);
 
     my $build_time4 = '2015-10-05T13:59:59.000123Z';
     $build_incremental->($build_time4);
 
-    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [{
-        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
-        priority => '0.1',
-        lastmod => '2015-10-05T11:54:32.101234Z',
-    }]);
+    $test_sitemap->('sitemap-work-1-aliases-incremental.xml', [
+        {
+            loc => 'https://musicbrainz.org/work/79e0f9b8-db97-4bfb-9995-217478dd6c3e/aliases',
+            priority => '0.1',
+            lastmod => '2017-04-05T01:12:36.172561Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/b6c76104-d64c-4883-b395-c74f782b751c/aliases',
+            priority => '0.1',
+            lastmod => '2015-10-04T01:02:03.060000Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136/aliases',
+            priority => '0.1',
+            lastmod => '2015-10-05T11:54:32.101234Z',
+        },
+    ]);
 
-    $test_sitemap->('sitemap-work-1-incremental.xml', [{
-        loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
-        priority => undef,
-        lastmod => '2015-10-05T11:54:32.101234Z',
-    }]);
+    $test_sitemap->('sitemap-work-1-incremental.xml', [
+        {
+            loc => 'https://musicbrainz.org/work/79e0f9b8-db97-4bfb-9995-217478dd6c3e',
+            priority => undef,
+            lastmod => '2017-04-05T01:12:36.172561Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/b6c76104-d64c-4883-b395-c74f782b751c',
+            priority => undef,
+            lastmod => '2017-04-05T00:59:46.503449Z',
+        },
+        {
+            loc => 'https://musicbrainz.org/work/daf4327f-19a0-450b-9448-e0ea1c707136',
+            priority => undef,
+            lastmod => '2015-10-05T11:54:32.101234Z',
+        },
+    ]);
 
     $test_sitemap_index->([
         {loc => 'https://musicbrainz.org/sitemap-artist-1-aliases.xml', lastmod => $build_time1},
@@ -402,7 +479,11 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-artist-1.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
+        {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         # -----
 
         {loc => 'https://musicbrainz.org/sitemap-artist-1-all.xml', lastmod => $build_time1},
@@ -412,16 +493,12 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-artist-1-releases.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va-all.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va.xml', lastmod => $build_time1},
-        {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-aliases-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-standalone-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-recordings-video-incremental.xml', lastmod => $build_time2},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-relationships-incremental.xml', lastmod => $build_time2},
-        {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
-        {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
-        {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases-incremental.xml', lastmod => $build_time4},
         {loc => 'https://musicbrainz.org/sitemap-work-1-incremental.xml', lastmod => $build_time4},
     ]);
@@ -448,7 +525,7 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-artist-1-releases.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va-all.xml', lastmod => $build_time1},
         {loc => 'https://musicbrainz.org/sitemap-artist-1-va.xml', lastmod => $build_time1},
-        {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time1},
+        {loc => 'https://musicbrainz.org/sitemap-artist-1-works.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-aliases.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},

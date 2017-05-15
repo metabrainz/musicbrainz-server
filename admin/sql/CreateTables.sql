@@ -157,6 +157,40 @@ CREATE TABLE area_annotation ( -- replicate (verbose)
     annotation  INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE area_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references area_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE area_attribute_type_allowed_value ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    area_attribute_type INTEGER NOT NULL, -- references area_attribute_type.id
+    value               TEXT,
+    parent              INTEGER, -- references area_attribute_type_allowed_value.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE area_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    area                                INTEGER NOT NULL, -- references area.id
+    area_attribute_type                 INTEGER NOT NULL, -- references area_attribute_type.id
+    area_attribute_type_allowed_value   INTEGER, -- references area_attribute_type_allowed_value.id
+    area_attribute_text                 TEXT
+    CHECK (
+        (area_attribute_type_allowed_value IS NULL AND area_attribute_text IS NOT NULL)
+        OR
+        (area_attribute_type_allowed_value IS NOT NULL AND area_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE area_tag ( -- replicate (verbose)
     area                INTEGER NOT NULL, -- PK, references area.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
@@ -262,6 +296,40 @@ CREATE TABLE artist_alias ( -- replicate (verbose)
 CREATE TABLE artist_annotation ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE artist_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references artist_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE artist_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    artist_attribute_type       INTEGER NOT NULL, -- references artist_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references artist_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE artist_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    artist                              INTEGER NOT NULL, -- references artist.id
+    artist_attribute_type               INTEGER NOT NULL, -- references artist_attribute_type.id
+    artist_attribute_type_allowed_value INTEGER, -- references artist_attribute_type_allowed_value.id
+    artist_attribute_text               TEXT
+    CHECK (
+        (artist_attribute_type_allowed_value IS NULL AND artist_attribute_text IS NOT NULL)
+        OR
+        (artist_attribute_type_allowed_value IS NOT NULL AND artist_attribute_text IS NULL)
+    )
 );
 
 CREATE TABLE artist_ipi ( -- replicate (verbose)
@@ -526,6 +594,10 @@ CREATE TABLE editor
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE old_editor_name (
+    name    VARCHAR(64) NOT NULL
+);
+
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
 
 CREATE TABLE editor_language (
@@ -715,6 +787,40 @@ CREATE TABLE event_annotation ( -- replicate (verbose)
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE event_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references event_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE event_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    event_attribute_type        INTEGER NOT NULL, -- references event_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references event_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE event_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    event                               INTEGER NOT NULL, -- references event.id
+    event_attribute_type                INTEGER NOT NULL, -- references event_attribute_type.id
+    event_attribute_type_allowed_value  INTEGER, -- references event_attribute_type_allowed_value.id
+    event_attribute_text                TEXT
+    CHECK (
+        (event_attribute_type_allowed_value IS NULL AND event_attribute_text IS NOT NULL)
+        OR
+        (event_attribute_type_allowed_value IS NOT NULL AND event_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE event_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references event.id
@@ -827,6 +933,40 @@ CREATE TABLE instrument_alias ( -- replicate (verbose)
 CREATE TABLE instrument_annotation ( -- replicate (verbose)
     instrument  INTEGER NOT NULL, -- PK, references instrument.id
     annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE instrument_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references instrument_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE instrument_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    instrument_attribute_type   INTEGER NOT NULL, -- references instrument_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references instrument_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE instrument_attribute ( -- replicate (verbose)
+    id                                          SERIAL,  -- PK
+    instrument                                  INTEGER NOT NULL, -- references instrument.id
+    instrument_attribute_type                   INTEGER NOT NULL, -- references instrument_attribute_type.id
+    instrument_attribute_type_allowed_value     INTEGER, -- references instrument_attribute_type_allowed_value.id
+    instrument_attribute_text                   TEXT
+    CHECK (
+        (instrument_attribute_type_allowed_value IS NULL AND instrument_attribute_text IS NOT NULL)
+        OR
+        (instrument_attribute_type_allowed_value IS NOT NULL AND instrument_attribute_text IS NULL)
+    )
 );
 
 CREATE TABLE instrument_tag ( -- replicate (verbose)
@@ -1915,6 +2055,40 @@ CREATE TABLE label_annotation ( -- replicate (verbose)
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE label_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references label_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE label_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    label_attribute_type        INTEGER NOT NULL, -- references label_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references label_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE label_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    label                               INTEGER NOT NULL, -- references label.id
+    label_attribute_type                INTEGER NOT NULL, -- references label_attribute_type.id
+    label_attribute_type_allowed_value  INTEGER, -- references label_attribute_type_allowed_value.id
+    label_attribute_text                TEXT
+    CHECK (
+        (label_attribute_type_allowed_value IS NULL AND label_attribute_text IS NOT NULL)
+        OR
+        (label_attribute_type_allowed_value IS NOT NULL AND label_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE label_ipi ( -- replicate (verbose)
     label               INTEGER NOT NULL, -- PK, references label.id
     ipi                 CHAR(11) NOT NULL CHECK (ipi ~ E'^\\d{11}$'), -- PK
@@ -2195,6 +2369,50 @@ CREATE TABLE medium ( -- replicate (verbose)
     track_count         INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE medium_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references medium_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE medium_attribute_type_allowed_format ( -- replicate (verbose)
+    medium_format INTEGER NOT NULL, -- PK, references medium_format.id,
+    medium_attribute_type INTEGER NOT NULL -- PK, references medium_attribute_type.id
+);
+
+CREATE TABLE medium_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    medium_attribute_type       INTEGER NOT NULL, -- references medium_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references medium_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE medium_attribute_type_allowed_value_allowed_format ( -- replicate (verbose)
+    medium_format INTEGER NOT NULL, -- PK, references medium_format.id,
+    medium_attribute_type_allowed_value INTEGER NOT NULL -- PK, references medium_attribute_type_allowed_value.id
+);
+
+CREATE TABLE medium_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    medium                              INTEGER NOT NULL, -- references medium.id
+    medium_attribute_type               INTEGER NOT NULL, -- references medium_attribute_type.id
+    medium_attribute_type_allowed_value INTEGER, -- references medium_attribute_type_allowed_value.id
+    medium_attribute_text               TEXT
+    CHECK (
+        (medium_attribute_type_allowed_value IS NULL AND medium_attribute_text IS NOT NULL)
+        OR
+        (medium_attribute_type_allowed_value IS NOT NULL AND medium_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE medium_cdtoc ( -- replicate (verbose)
     id                  SERIAL,
     medium              INTEGER NOT NULL, -- references medium.id
@@ -2310,6 +2528,40 @@ CREATE TABLE place_annotation ( -- replicate (verbose)
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE place_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references place_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE place_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    place_attribute_type        INTEGER NOT NULL, -- references place_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references place_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE place_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    place                               INTEGER NOT NULL, -- references place.id
+    place_attribute_type                INTEGER NOT NULL, -- references place_attribute_type.id
+    place_attribute_type_allowed_value  INTEGER, -- references place_attribute_type_allowed_value.id
+    place_attribute_text                TEXT
+    CHECK (
+        (place_attribute_type_allowed_value IS NULL AND place_attribute_text IS NOT NULL)
+        OR
+        (place_attribute_type_allowed_value IS NOT NULL AND place_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE place_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references place.id
@@ -2420,6 +2672,40 @@ CREATE TABLE recording_tag_raw
 CREATE TABLE recording_annotation ( -- replicate (verbose)
     recording           INTEGER NOT NULL, -- PK, references recording.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE recording_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references recording_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE recording_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    recording_attribute_type    INTEGER NOT NULL, -- references recording_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references recording_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE recording_attribute ( -- replicate (verbose)
+    id                                          SERIAL,  -- PK
+    recording                                   INTEGER NOT NULL, -- references recording.id
+    recording_attribute_type                    INTEGER NOT NULL, -- references recording_attribute_type.id
+    recording_attribute_type_allowed_value      INTEGER, -- references recording_attribute_type_allowed_value.id
+    recording_attribute_text                    TEXT
+    CHECK (
+        (recording_attribute_type_allowed_value IS NULL AND recording_attribute_text IS NOT NULL)
+        OR
+        (recording_attribute_type_allowed_value IS NOT NULL AND recording_attribute_text IS NULL)
+    )
 );
 
 CREATE TABLE recording_meta ( -- replicate
@@ -2540,6 +2826,40 @@ CREATE TABLE release_tag_raw
 CREATE TABLE release_annotation ( -- replicate (verbose)
     release             INTEGER NOT NULL, -- PK, references release.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE release_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references release_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE release_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    release_attribute_type      INTEGER NOT NULL, -- references release_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references release_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE release_attribute ( -- replicate (verbose)
+    id                                          SERIAL,  -- PK
+    release                                     INTEGER NOT NULL, -- references release.id
+    release_attribute_type                      INTEGER NOT NULL, -- references release_attribute_type.id
+    release_attribute_type_allowed_value        INTEGER, -- references release_attribute_type_allowed_value.id
+    release_attribute_text                      TEXT
+    CHECK (
+        (release_attribute_type_allowed_value IS NULL AND release_attribute_text IS NOT NULL)
+        OR
+        (release_attribute_type_allowed_value IS NOT NULL AND release_attribute_text IS NULL)
+    )
 );
 
 CREATE TABLE release_gid_redirect ( -- replicate (verbose)
@@ -2671,6 +2991,40 @@ CREATE TABLE release_group_tag_raw
 CREATE TABLE release_group_annotation ( -- replicate (verbose)
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE release_group_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references release_group_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE release_group_attribute_type_allowed_value ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    release_group_attribute_type        INTEGER NOT NULL, -- references release_group_attribute_type.id
+    value                               TEXT,
+    parent                              INTEGER, -- references release_group_attribute_type_allowed_value.id
+    child_order                         INTEGER NOT NULL DEFAULT 0,
+    description                         TEXT,
+    gid                                 uuid NOT NULL
+);
+
+CREATE TABLE release_group_attribute ( -- replicate (verbose)
+    id                                          SERIAL,  -- PK
+    release_group                               INTEGER NOT NULL, -- references release_group.id
+    release_group_attribute_type                INTEGER NOT NULL, -- references release_group_attribute_type.id
+    release_group_attribute_type_allowed_value  INTEGER, -- references release_group_attribute_type_allowed_value.id
+    release_group_attribute_text                TEXT
+    CHECK (
+        (release_group_attribute_type_allowed_value IS NULL AND release_group_attribute_text IS NOT NULL)
+        OR
+        (release_group_attribute_type_allowed_value IS NOT NULL AND release_group_attribute_text IS NULL)
+    )
 );
 
 CREATE TABLE release_group_gid_redirect ( -- replicate (verbose)
@@ -2822,6 +3176,40 @@ CREATE TABLE series_annotation ( -- replicate (verbose)
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE series_attribute_type ( -- replicate (verbose)
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references series_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT,
+    gid                 uuid NOT NULL
+);
+
+CREATE TABLE series_attribute_type_allowed_value ( -- replicate (verbose)
+    id                          SERIAL,  -- PK
+    series_attribute_type       INTEGER NOT NULL, -- references series_attribute_type.id
+    value                       TEXT,
+    parent                      INTEGER, -- references series_attribute_type_allowed_value.id
+    child_order                 INTEGER NOT NULL DEFAULT 0,
+    description                 TEXT,
+    gid                         uuid NOT NULL
+);
+
+CREATE TABLE series_attribute ( -- replicate (verbose)
+    id                                  SERIAL,  -- PK
+    series                              INTEGER NOT NULL, -- references series.id
+    series_attribute_type               INTEGER NOT NULL, -- references series_attribute_type.id
+    series_attribute_type_allowed_value INTEGER, -- references series_attribute_type_allowed_value.id
+    series_attribute_text               TEXT
+    CHECK (
+        (series_attribute_type_allowed_value IS NULL AND series_attribute_text IS NOT NULL)
+        OR
+        (series_attribute_type_allowed_value IS NOT NULL AND series_attribute_text IS NULL)
+    )
+);
+
 CREATE TABLE series_tag ( -- replicate (verbose)
     series              INTEGER NOT NULL, -- PK, references series.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
@@ -2916,8 +3304,14 @@ CREATE TABLE work ( -- replicate (verbose)
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    language            INTEGER  -- references language.id
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE work_language ( -- replicate (verbose)
+    work                INTEGER NOT NULL, -- PK, references work.id
+    language            INTEGER NOT NULL, -- PK, references language.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE work_rating_raw

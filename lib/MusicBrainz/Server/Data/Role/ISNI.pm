@@ -1,49 +1,24 @@
 package MusicBrainz::Server::Data::Role::ISNI;
 use MooseX::Role::Parameterized;
-
-use MusicBrainz::Server::Data::ISNI;
-use Moose::Util qw( ensure_all_roles );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 parameter 'type' => (
     isa => 'Str',
     required => 1,
 );
 
-parameter 'table' => (
-    isa => 'Str',
-    default => sub { shift->type . "_isni" },
-    lazy => 1
-);
-
 role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class';
+    my $entity_type = $params->type;
 
-    has 'isni' => (
-        is => 'ro',
-        builder => '_build_isni',
-        lazy => 1
-    );
-
-    method '_build_isni' => sub
-    {
-        my $self = shift;
-        my $isni = MusicBrainz::Server::Data::ISNI->new(
-            c      => $self->c,
-            type => $params->type,
-            table => $params->table,
-            entity => $self->_entity_class . 'ISNI',
-            parent => $self
-        );
-        ensure_all_roles($isni, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
-    };
-
-    after update => sub {
-        my ($self, $entity_id, $update) = @_;
-        $self->isni->set_isnis($entity_id, @{ $update->{isni_codes} })
-            if $update->{isni_codes};
+    with 'MusicBrainz::Server::Data::Role::ValueSet' => {
+        entity_type         => $entity_type,
+        plural_value_type   => 'isni_codes',
+        value_attribute     => 'isni',
+        value_class         => type_to_model($entity_type) . 'ISNI',
+        value_type          => 'isni',
     };
 
 };
@@ -53,7 +28,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012-2017 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

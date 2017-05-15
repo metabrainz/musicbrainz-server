@@ -13,6 +13,7 @@ const commaOnlyList = require('../../i18n/commaOnlyList');
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
+const formatDate = require('../../utility/formatDate');
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
 
@@ -570,9 +571,9 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !isLatin(item.name) && item.sortName != item.name && !item.primaryAlias)
+        if (item.sort_name && !isLatin(item.name) && item.sort_name != item.name && !item.primaryAlias)
         {
-            comment.push(item.sortName);
+            comment.push(item.sort_name);
         }
 
         if (item.comment)
@@ -659,10 +660,11 @@ MB.Control.autocomplete_formatters = {
                 countryHTML = `<span class="flag flag-${country.code}"><abbr title="${country.name}">${country.code}</abbr></span>`;
             }
 
+            const date = formatDate(event.date);
             appendComment(
                 $a,
-                (event.date ? _.escape(event.date) : '') +
-                (countryHTML ? maybeParentheses(countryHTML, event.date) : '')
+                date +
+                (countryHTML ? maybeParentheses(countryHTML, date) : '')
             );
         });
 
@@ -734,9 +736,10 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text(item.name);
         var comment = [];
 
-        if (item.language)
-        {
-            a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
+        if (item.languages && item.languages.length) {
+            a.prepend('<span class="autocomplete-language">' +
+                      _.escape(commaOnlyList(item.languages)) +
+                      '</span>');
         }
 
         if (item.primaryAlias && item.primaryAlias != item.name)

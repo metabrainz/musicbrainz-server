@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM postgres:9.5.4
+FROM postgres:9.5.6
 
 ARG DEBIAN_FRONTEND=noninteractive
 

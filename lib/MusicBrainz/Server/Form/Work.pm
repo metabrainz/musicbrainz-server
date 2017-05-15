@@ -16,8 +16,15 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'language_id' => (
+has_field 'languages' => (
+    type => 'Repeatable',
+    inflate_default_method => \&inflate_languages,
+);
+
+has_field 'languages.contains' => (
     type => 'Select',
+    required => 1,
+    options_method => \&options_languages,
 );
 
 has_field 'name' => (
@@ -97,18 +104,28 @@ after 'validate' => sub {
             next;
         }
 
-        if ($attribute_type->allows_value($value)) {
+        unless ($attribute_type->allows_value($value)) {
+            $attribute_field->field('value')->add_error(
+                l('This value is not allowed for this work attribute type.')
+            );
+        }
+    }
+
+    unless ($self->has_errors) {
+        for my $attribute_field ($attributes->fields) {
+            next if is_empty_attribute($attribute_field);
+
+            my $v = $attribute_field->value;
+            my $value = $v->{value};
+            my $type_id = $v->{type_id};
+            my $attribute_type = $attribute_types->{$type_id};
+
             # Convert the value to a format supported by Edit::Work::Edit
             $attribute_field->value({
                 attribute_text => $attribute_type->free_text ? $value : undef,
                 attribute_value_id => $attribute_type->free_text ? undef : $value,
                 attribute_type_id => $type_id
             });
-        }
-        else {
-            $attribute_field->field('value')->add_error(
-                l('This value is not allowed for this work attribute type.')
-            );
         }
     }
 
@@ -133,26 +150,18 @@ sub inflate_attributes {
     ];
 }
 
-sub attributes_json {
-    my ($self) = @_;
+sub inflate_languages {
+    my ($self, $value) = @_;
 
-    my @fields = $self->field('attributes')->fields;
-
-    return JSON->new->encode([
-        map +{
-            typeID => $_->field('type_id')->value,
-            value => $_->field('value')->value,
-            errors => [
-                @{ $_->field('type_id')->errors },
-                @{ $_->field('value')->errors }
-            ]
-        }, @fields
-    ]);
+    return [map { $_->language_id } @$value];
 }
 
-sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
+sub edit_field_names { qw( type_id languages name comment artist_credit attributes ) }
 
 sub options_type_id           { select_options_tree(shift->ctx, 'WorkType') }
-sub options_language_id       { return language_options(shift->ctx, 'work'); }
+
+sub options_languages {
+    language_options(shift->form->ctx, 'work');
+}
 
 1;

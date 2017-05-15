@@ -1,6 +1,13 @@
 [% set_header() %]
     [%- DEFAULT no_icons = homepage -%]
-    [%- INCLUDE 'layout/head.tt' no_icons=no_icons -%]
+    [%- React.embed(c, 'root/layout/components/Head', {
+            canonical_url => canonical_url,
+            homepage => homepage,
+            no_icons => no_icons,
+            pager => pager,
+            title => title,
+        })
+    -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 

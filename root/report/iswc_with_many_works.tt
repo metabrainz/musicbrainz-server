@@ -1,9 +1,3 @@
-[%- BLOCK layout_head -%]
-  <style>
-    table.tbl td {padding: 10px;}
-  </style>
-[% END %]
-
 [%- WRAPPER 'layout.tt' title=l('ISWCs with multiple works') full_width=1 -%]
 
 <h1>[% l('ISWCs with multiple works') %]</h1>

@@ -6,6 +6,7 @@ DESTINATION="$3"
 RSYNC_OPTIONS="$4"
 
 source /etc/mbs_constants.sh
+source "$MBS_ROOT/script/functions.sh"
 
 for server in $STATICBRAINZ_SERVERS; do
     host=$(echo $server | cut -d ':' -f 1)
@@ -15,5 +16,7 @@ for server in $STATICBRAINZ_SERVERS; do
         --rsh "ssh -i $MBS_HOME/.ssh/$KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $port" \
         --verbose \
         "$SOURCE" \
-        brainz@"$host":"$DESTINATION"
+        brainz@"$host":"$DESTINATION" \
+        &
+    trap_jobs
 done
