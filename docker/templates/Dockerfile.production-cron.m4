@@ -24,3 +24,5 @@ RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
     chmod 600 /var/spool/cron/crontabs/musicbrainz
 
 COPY docker/templates/DBDefs.pm.ctmpl lib/
+
+git_info

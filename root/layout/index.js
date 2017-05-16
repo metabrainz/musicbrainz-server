@@ -56,6 +56,8 @@ const ServerDetailsBanner = () => {
       </div>
     );
   }
+
+  return null;
 };
 
 const Layout = (props) => (

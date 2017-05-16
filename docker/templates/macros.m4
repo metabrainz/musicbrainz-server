@@ -135,8 +135,10 @@ RUN chown_mb(`MBS_ROOT')')
 m4_define(
     `git_info',
     `m4_dnl
+m4_pushdef(`git_info', ``git_info'')
 ENV `GIT_BRANCH' GIT_BRANCH
 ENV `GIT_MSG' GIT_MSG
-ENV `GIT_SHA' GIT_SHA')
+ENV `GIT_SHA' GIT_SHA
+m4_popdef(`git_info')')
 
 m4_divert`'m4_dnl

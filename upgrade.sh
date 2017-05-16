@@ -111,7 +111,7 @@ echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUE
 
 # ignore superuser-only vacuum tables
 echo `date` : Vacuuming DB.
-echo "VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
+echo "SET statement_timeout = 0; VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
 
 ################################################################################
 # Prompt for final manual intervention

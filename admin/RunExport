@@ -57,6 +57,7 @@ echo `date`" : Making database snapshot"
     --output-dir "$TEMP_DIR" \
     --compress \
     --replication-callback "$MB_SERVER_ROOT/admin/CopyReplication $TEMP_DIR" \
+    --database MAINTENANCE \
     || exit $?
 
 if [ "$WITH_FULL_EXPORT" ]
