@@ -7,13 +7,15 @@
 
 require('babel-core/register');
 
+const Raven = require('raven');
+const DBDefs = require('./static/scripts/common/DBDefs');
+Raven.config(DBDefs.SENTRY_DSN).install();
+
 const cluster = require('cluster');
 const fs = require('fs');
-const Raven = require('raven');
 const spawnSync = require('child_process').spawnSync;
 
 const createServer = require('./server/createServer');
-const DBDefs = require('./static/scripts/common/DBDefs');
 const gettext = require('./server/gettext');
 const {clearRequireCache} = require('./server/utils');
 
@@ -28,8 +30,6 @@ const yargs = require('yargs')
     default: process.env.RENDERER_WORKERS || 1,
     describe: 'Number of workers to spawn',
   });
-
-Raven.config(DBDefs.SENTRY_DSN).install();
 
 const SOCKET_PATH = yargs.argv.socket;
 const WORKER_COUNT = yargs.argv.workers;

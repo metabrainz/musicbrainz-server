@@ -2982,7 +2982,7 @@
       }
     },
     "raven": {
-      "version": "1.2.0",
+      "version": "2.0.0",
       "dependencies": {
         "json-stringify-safe": {
           "version": "5.0.1"
@@ -2998,6 +2998,9 @@
         },
         "stack-trace": {
           "version": "0.0.9"
+        },
+        "timed-out": {
+          "version": "4.0.1"
         }
       }
     },
