@@ -8,6 +8,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
+SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20160602-mbs-8963.sql';
 

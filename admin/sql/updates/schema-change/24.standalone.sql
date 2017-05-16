@@ -6,6 +6,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
+SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20170327-mbs-9271-standalone.sql';
 
