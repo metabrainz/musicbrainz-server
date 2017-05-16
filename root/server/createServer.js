@@ -7,6 +7,7 @@ const net = require('net');
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
+const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
 
@@ -27,7 +28,7 @@ const connectionListener = Raven.wrap(function (socket) {
   function receiveData(data) {
     if (!recvBuffer) {
       expectedBytes = data.readUInt32LE(0);
-      recvBuffer = Buffer.allocUnsafe(expectedBytes);
+      recvBuffer = allocBuffer(expectedBytes);
       data = data.slice(4);
     }
 
@@ -81,7 +82,7 @@ const connectionListener = Raven.wrap(function (socket) {
 });
 
 function writeResponse(socket, body) {
-  const lengthBuffer = Buffer.allocUnsafe(4);
+  const lengthBuffer = allocBuffer(4);
   lengthBuffer.writeUInt32LE(Buffer.byteLength(body), 0);
   socket.write(lengthBuffer);
   socket.write(body);
