@@ -25,6 +25,7 @@ for my $script_name (keys %{ $upgrade_data->{$schema_version} }) {
 \\set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
+SET LOCAL statement_timeout = 0;
 EOSQL
     for my $script (@$scripts) {
         my @script_data = read_file("$FindBin::Bin/sql/updates/$script");
