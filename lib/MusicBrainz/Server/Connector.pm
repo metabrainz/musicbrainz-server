@@ -37,7 +37,6 @@ sub _build_conn
 
     my $db = $self->database;
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
-        pg_enable_utf8    => 1,
         # Prepared statements are not shared across database connections,
         # meaning they won't work alongside pgbouncer.
         pg_server_prepare => 0,
