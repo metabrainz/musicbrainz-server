@@ -14,6 +14,7 @@ Raven.config(DBDefs.SENTRY_DSN).install();
 const cluster = require('cluster');
 const fs = require('fs');
 const spawnSync = require('child_process').spawnSync;
+const _ = require('lodash');
 
 const createServer = require('./server/createServer');
 const gettext = require('./server/gettext');
@@ -46,7 +47,7 @@ if (cluster.isMaster) {
 
   function forkWorker(listening) {
     // Allow spawning one additional worker during HUP.
-    if (Object.keys(cluster.workers).length > WORKER_COUNT) {
+    if (_.keys(cluster.workers).length > WORKER_COUNT) {
       return false;
     }
 
@@ -107,7 +108,7 @@ if (cluster.isMaster) {
 
     const killNext = Raven.wrap(function () {
       if (!oldWorkers) {
-        oldWorkers = Object.values(cluster.workers);
+        oldWorkers = _.values(cluster.workers);
       }
       const oldWorker = oldWorkers.pop();
       if (oldWorker) {
