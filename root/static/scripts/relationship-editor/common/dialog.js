@@ -8,6 +8,7 @@ const i18n = require('../../common/i18n');
 const URLCleanup = require('../../edit/URLCleanup');
 const dates = require('../../edit/utility/dates');
 const linkPhrase = require('../../edit/utility/linkPhrase');
+const isBlank = require('../../common/utility/isBlank');
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -657,7 +658,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 var editData = MB.edit.fields.work({
                     name: source.name,
                     typeID: workType,
-                    languages: [workLang],
+                    languages: isBlank(workLang) ? [] : [workLang],
                 });
 
                 return MB.edit.workCreate(editData);

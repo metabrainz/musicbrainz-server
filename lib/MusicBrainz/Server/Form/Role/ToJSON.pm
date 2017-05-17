@@ -22,8 +22,10 @@ sub TO_JSON {
 
     if ($self->can('fields')) {
         if ($self->isa('HTML::FormHandler::Field::Repeatable')) {
+            $json->{field} = [];
             $json->{field}[$_->name] = TO_JSON($_) for $self->fields;
         } else {
+            $json->{field} = {};
             $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
         }
     } else {
