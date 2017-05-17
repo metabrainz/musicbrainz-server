@@ -25,7 +25,7 @@ const connectionListener = Raven.wrap(function (socket) {
     recvBytes = 0;
   }
 
-  function receiveData(data) {
+  const receiveData = Raven.wrap(function (data) {
     if (!recvBuffer) {
       expectedBytes = data.readUInt32LE(0);
       recvBuffer = allocBuffer(expectedBytes);
@@ -73,7 +73,7 @@ const connectionListener = Raven.wrap(function (socket) {
         receiveData(overflow);
       }
     }
-  }
+  });
 
   socket.on('close', clearRecv);
   socket.on('error', clearRecv);

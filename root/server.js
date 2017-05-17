@@ -85,13 +85,13 @@ if (cluster.isMaster) {
     }
   }
 
-  const cleanup = function (signal) {
+  const cleanup = Raven.wrap(function (signal) {
     for (const id in cluster.workers) {
       killWorker(cluster.workers[id], signal);
     }
     fs.unlinkSync(SOCKET_PATH);
     process.exit();
-  };
+  });
 
   let hupAction = null;
   const hup = Raven.wrap(function () {
@@ -105,7 +105,7 @@ if (cluster.isMaster) {
       initialTimeout = 2000;
     }
 
-    function killNext() {
+    const killNext = Raven.wrap(function () {
       if (!oldWorkers) {
         oldWorkers = Object.values(cluster.workers);
       }
@@ -121,7 +121,7 @@ if (cluster.isMaster) {
       } else {
         hupAction = null;
       }
-    }
+    });
 
     hupAction = setTimeout(killNext, initialTimeout);
   });
