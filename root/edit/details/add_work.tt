@@ -39,7 +39,7 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.languages %]
+  [% IF edit.display_data.languages.size %]
   <tr>
     <th>[% add_colon(l('Lyrics Languages')) %]</th>
     <td>[% comma_only_list(edit.display_data.languages) %]</td>

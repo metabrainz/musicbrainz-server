@@ -18,27 +18,36 @@ const {
     workLanguageOptions,
   } = require('./common/utility/getScriptArgs')();
 
+function addLanguageAction(state) {
+  return state.updateIn(
+    ['field', 'languages', 'field'],
+    x => x.push(createField(null))
+  );
+}
+
 const store = createStore(function (state = formFromHash(form), action) {
   switch (action.type) {
     case 'ADD_LANGUAGE':
-      return state.updateIn(
-        ['field', 'languages', 'field'],
-        x => x.push(createField(null))
-      );
+      state = addLanguageAction(state);
       break;
 
     case 'EDIT_LANGUAGE':
-      return state.setIn(
+      state = state.setIn(
         ['field', 'languages', 'field', action.index, 'value'],
         action.languageId
       );
+      break;
 
     case 'REMOVE_LANGUAGE':
-      return state.deleteIn(['field', 'languages', 'field', action.index]);
-
-    default:
-      return state;
+      state = state.deleteIn(['field', 'languages', 'field', action.index]);
+      break;
   }
+
+  if (!state.getIn(['field', 'languages', 'field']).size) {
+    state = addLanguageAction(state);
+  }
+
+  return state;
 });
 
 class WorkAttribute {

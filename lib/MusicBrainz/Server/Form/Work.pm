@@ -23,7 +23,6 @@ has_field 'languages' => (
 
 has_field 'languages.contains' => (
     type => 'Select',
-    required => 1,
     options_method => \&options_languages,
 );
 
